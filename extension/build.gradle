@@ -293,6 +293,12 @@ tasks.register('shadowAuthorityFallbackTest', JavaExec) {
     mainClass = 'com.ghostnote.extension.ShadowAuthorityFallbackTest'
 }
 
+tasks.register('shadowTopologyControlTest', JavaExec) {
+    dependsOn shadowCacheTestClasses
+    classpath = sourceSets.shadowCacheTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.ShadowTopologyControlTest'
+}
+
 tasks.register('shadowSceneControlTest', JavaExec) {
     dependsOn shadowCacheTestClasses
     classpath = sourceSets.shadowCacheTest.runtimeClasspath
@@ -300,5 +306,5 @@ tasks.register('shadowSceneControlTest', JavaExec) {
 }
 
 tasks.named('check') {
-    dependsOn 'shadowCacheTest', 'shadowCacheProbeTest', 'shadowInventoryRebuildTest', 'shadowObserverBudgetTest', 'shadowHandlePoolTest', 'shadowAuthorityFallbackTest', 'shadowSceneControlTest'
+    dependsOn 'shadowCacheTest', 'shadowCacheProbeTest', 'shadowInventoryRebuildTest', 'shadowObserverBudgetTest', 'shadowHandlePoolTest', 'shadowAuthorityFallbackTest', 'shadowSceneControlTest', 'shadowTopologyControlTest'
 }

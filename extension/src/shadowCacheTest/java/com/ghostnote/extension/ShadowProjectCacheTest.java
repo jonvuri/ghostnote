@@ -49,6 +49,7 @@ public final class ShadowProjectCacheTest {
         run("replay prerequisites and timeout", ShadowProjectCacheTest::replay);
         run("scene and track repair", ShadowProjectCacheTest::repair);
         run("move identity and ambiguity", ShadowProjectCacheTest::move);
+        run("8g4: equal-content move needs every ordered predicate", ShadowProjectCacheTest::moveProof);
         run("replacement, save, project switch", ShadowProjectCacheTest::identity);
         run("reload separates snapshots, callbacks, and rebuild staging", ShadowProjectCacheTest::reloadDomain);
         run("identity guards reuse records and advance on domain changes", ShadowProjectCacheTest::identityQueries);
@@ -181,6 +182,20 @@ public final class ShadowProjectCacheTest {
         Fixture ambiguous = populated();
         check(!ambiguous.cache.exactMove(ambiguous.ref, new Address("track-b", 2), false, true, true, "same"), "unproved move rejected");
         check(ambiguous.cache.diagnostics().health() == Health.AMBIGUOUS, "ambiguity explicit");
+    }
+    private static void moveProof() {
+        for (int missing = 0; missing < 6; missing++) {
+            Fixture f = populated(); Snapshot held = f.snapshot().snapshot();
+            Address destination = new Address("track-b", 2);
+            if (missing == 3) f.cache.create(destination, FULL);
+            if (missing == 5) f.cache.callback(f.ref, f.cache.bindingToken(f.ref), CELL);
+            check(!f.cache.exactMove(f.ref, destination, missing != 0, missing != 1, missing != 2,
+                missing == 4 ? "equal-content-label" : held.fingerprint()), "each missing move predicate refuses");
+            check(!f.cache.isCurrent(held) && f.cache.bindingToken(f.ref) == null, "ambiguous equality retires old current output");
+            RebuildToken token = f.cache.beginRebuild();
+            String rebuilt = f.cache.stage(token, destination, FULL, held.notes(), true, true, false, null);
+            check(!rebuilt.equals(f.ref) && f.cache.publishRebuild(token, true, 1), "incomplete event window rebuilds under a new identity");
+        }
     }
     private static void identity() {
         Fixture f = populated(); CallbackToken token = f.cache.bindingToken(f.ref);

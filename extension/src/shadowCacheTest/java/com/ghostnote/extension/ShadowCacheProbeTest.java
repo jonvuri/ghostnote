@@ -97,7 +97,43 @@ public final class ShadowCacheProbeTest {
         run("8g3: enrichment runs bounded batches across polls", ShadowCacheProbeTest::enrichmentBatches);
         run("8g3: retirement and step changes release a partial candidate", ShadowCacheProbeTest::enrichmentInterrupted);
         run("8g3: one resource accounting boundary", ShadowCacheProbeTest::resourceAccounting);
+        run("8g4: unknown topology retires pending and retained output", ShadowCacheProbeTest::topologyRefusal);
+        run("8g4: progress reads never advance acquisition", ShadowCacheProbeTest::progressRead);
         System.out.println("Shadow cache adapter: " + passed + " test groups passed.");
+    }
+
+    private static void topologyRefusal() throws Exception {
+        for (boolean retained : List.of(false, true)) {
+            Fixture f = new Fixture(); final boolean[] complete = {true}; final int[] reads = {0};
+            ShadowTopologyControl control = new ShadowTopologyControl(() -> {
+                reads[0]++; if (!complete[0]) throw new IllegalStateException("unknown descendant");
+                return ShadowTopologyControlTest.plain();
+            });
+            f.probe.attachTopologyControl(control); f.probe.observeTopology(); f.readyA();
+            if (retained) f.compare(); else f.probe.compareStart(0);
+            int prior = reads[0]; long commands = f.host.bindingCommands;
+            complete[0] = false; control.changed();
+            check(reads[0] == prior && f.host.bindingCommands == commands, "topology callback reads no provider and sends no host command");
+            f.probe.observeTopology();
+            JsonObject result = f.probe.compareStatus();
+            check(!result.has("diagnosticSnapshot") && !result.has("authorityNotes") && !result.has("scanId"), "retirement exposes no scan or current payload");
+            check(!f.probe.status(0).has("historicalSnapshot"), "retained output is discarded");
+            check(f.probe.point(0, f.a, 0, f.c, 0).get("reason").getAsString().equals("group-topology-unproved"), "incomplete topology cannot rebind");
+            complete[0] = true; f.probe.observeTopology(); f.rebind("A", 0);
+            check(f.compare().get("comparison").getAsString().equals("match"), "complete topology recovers with new binding and fresh authority");
+        }
+    }
+    private static void progressRead() throws Exception {
+        Fixture f = new Fixture(); f.readyA();
+        JsonObject active = f.probe.compareStart(0); long id = active.get("scanId").getAsLong();
+        for (int n = 0; n < 3; n++) {
+            JsonObject status = f.probe.compareStatus();
+            check(status.get("scanId").getAsLong() == id && status.get("scanProgressCoordinates").getAsInt() == 0,
+                "read-only progress holds the same active acquisition");
+            check(!status.has("authorityNotes") && !status.has("diagnosticSnapshot"), "progress exposes no current payload");
+        }
+        f.probe.retire(0); check(!f.probe.compareStatus().has("scanId"), "retired acquisition has no active ID");
+        f.rebind("A", 0); check(f.probe.compareStart(0).get("scanId").getAsLong() > id, "a new scan has a distinct ID");
     }
 
     /** Thirty notes and 4 ms per coordinate need several 40 ms enrichment batches. */

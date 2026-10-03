@@ -4,50 +4,46 @@ kind: status
 state: active
 updated: 2026-10-03
 phase: phase-8-agent-native-live-engine
-session: 8g3-snapshot-and-global-budgets-complete
+session: 8g4-native-topology-and-ordering-complete
 ---
 
 # Now
 
-Next session: [8g4 — Native topology and ordering](plan/phase-8/8g4-native-topology-and-ordering.md).
+Next session: [8g5 — Final shadow acceptance](plan/phase-8/8g5-final-shadow-acceptance.md).
 
-[8g3](plan/phase-8/8g3-snapshot-and-global-budgets.md) is complete. See
-[E219](evidence/experiments/e219-snapshot-budgets-and-combined-storage.md):
+[8g4](plan/phase-8/8g4-native-topology-and-ordering.md) is complete. See
+[E220](evidence/experiments/e220-native-topology-and-ordering.md):
 
-- Snapshot enrichment uses a private candidate in bounded batches (40 ms
-  adapter target, 50 ms hard limit, 5 s deadline). Each batch and the
-  publication recheck the guard. Excess, deadline, cancellation, and guard
-  change retire it and release its estimate.
-- One resource ledger (`resourceAccounting`) reports the recorder, snapshot,
-  authority, registry, and identity domains. Each domain applies its limit. No
-  combined limit is selected. Heap is unmeasured.
-- Live: the 16 MiB snapshot estimate passes equality at 16,777,216 bytes and
-  refuses two bytes over. Two residents refuse each overlap and recover after
-  eviction. Retirement during enrichment releases the candidate. Ping p95 under
-  load is 25.06 ms. A TypeScript oracle agrees with the Java estimate.
-- Recorder, authority staging, pending, width, and observer boundaries stay
-  model-only or earlier evidence. Live inventory still refuses. All results stay
-  `complete:false` and `eligible:false`. Do not enter 8h.
+- Six native ordering trials pass: five publication boundaries and one separate
+  return acquisition. Each command is inside active acquisition. One late
+  command remains diagnostic. Earlier denominators stay separate.
+- Native group membership refuses because the child bank includes its wrapper.
+  Cache status retires with no payload. Expanded/collapsed/nested and child-order
+  live arms stop. Native Ungroup restores the exact fixture. Group paths stay
+  unsupported. No API deletes the wrapper.
+- All 13 new reports pass integrity and semantic checks. Brain check passes
+  1,735 tests. Java check, all four archives, all five prior artifact verifiers,
+  active wire goldens, context links, and diff checks pass.
+- Session completion does not close the cache gate. All cache results remain
+  `complete:false` and `eligible:false`. D26/E217 host knowledge remains
+  unproved. Do not enter 8h.
 
-8g4 can use the shadow product: comparisons take 2–3 s, and each enrichment
-poll runs one batch. `compareStart` accepts `maxEnrichmentCoordinates` as a
-research control.
+The live API state equals the pinned entry capture. Normal hello passes with
+85 methods, hash `bba7383dce25c0f0`, and init `2026-10-03T03:59:29.016Z`.
+Exact config bytes are restored (SHA-256 `256bbf07…43b0`). The research archive
+is removed. Both disposable projects are closed without saving. Original
+`New 1` stays open and unsaved. Never save or close it. Its engine is active,
+transport is stopped at `1.1.1.00`, and viewport is bars 17–25. No identical
+viewport claim is made.
 
-The staged diff contains only 8g3. Entry HEAD is `051a96b`. No commit is made.
-Build markers: shadow `8g3-shadow-budgets-v2`, definition `e219-2`. Deploy the
-8g controls product with `./gradlew copyShadowProbeExtension`.
-
-The live state is at baseline. Hello passes on the normal profile with 85
-methods, hash `bba7383dce25c0f0`, and init `2026-10-03T02:23:49.735Z`. Config
-SHA-256 is `256bbf07…43b0`. The `New 1` API state equals the entry capture.
-Fixture `New 10` was closed without saving. Original `New 1` remains open and
-unsaved. Never save or close it. The 8g controls archive is removed.
+Entry HEAD is `716ffea`. The staged diff contains 8g4 and its controller reload
+policy follow-up. No commit is made.
+Research marker: `8g4-shadow-topology-v1`; definition: `8g4-1`. Deploy research
+with `./gradlew copyShadowProbeExtension`; normal uses `copyExtension`.
 
 ## Retrospective
 
-The first run used one 40 ms time budget per enrichment poll. A warm JIT
-finished enrichment in one batch, so no partial work could be interrupted. For
-interruption tests, use a deterministic count cap, not a timing budget. A run
-must also clear owned clips at its start; the second attempt failed calibration
-on notes left by the first. In this shell, `ruby context/check.rb` needs
-`LANG=en_US.UTF-8`. No repository instruction change is needed.
+Allow for native UI round trips inside sampling. Save topology before reader
+preparation; flat and child cursor positions can differ. The controller selector
+can lose keyboard focus even for the operator. `AGENTS.md` now requires an
+operator handoff for every controller replacement. Do not retry UI automation.

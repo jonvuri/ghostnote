@@ -2,7 +2,7 @@
 title: Phase 8g4 — Native topology and ordering coverage
 kind: plan
 state: active
-status: Ready. 8g3 is complete; live acquisitions use the step-delta window and bounded enrichment.
+status: Complete. Native ordering passes. Group membership stays unsupported. Exact API cleanup and normal reload pass.
 updated: 2026-10-03
 parent: 8g-shadow-project-cache.md
 prev: 8g3-snapshot-and-global-budgets.md
@@ -10,6 +10,9 @@ next: 8g5-final-shadow-acceptance.md
 ---
 
 # Phase 8g4 — Native topology and ordering coverage
+
+Progress: [E220](../../evidence/experiments/e220-native-topology-and-ordering.md).
+The session is complete. Hand off to 8g5. Native group paths stay unsupported.
 
 ## Entry and scope
 

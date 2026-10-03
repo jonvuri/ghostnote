@@ -7,26 +7,22 @@ Do not start an unrelated rewrite.
 
 ## Reload the Bitwig controller extension
 
-Use this sequence to deploy and reload a new `.bwextension` file:
+Always defer controller replacement in Bitwig Settings to the operator. Do not
+try to remove or add controllers through computer use. Mouse and keyboard focus
+in this view are unreliable, including for the operator. Do not retry selectors
+or search for keyboard workarounds.
 
-1. Run `./gradlew copyExtension` from `extension/`. For the Phase 8g probe
-   profile, run `./gradlew copyShadowProbeExtension` instead. It deploys the
-   separate `ghostnote 8g controls` product. `copyExtension` deploys only the
-   normal `ghostnote` product.
-2. Open Bitwig Settings and select Controllers.
-3. Fully remove the current `ghostnote bridge` controller. Do not only disable
-   it. A power toggle can restart an instance with cached Java classes.
-4. Expand Add Controller and select `ghostnote` as the hardware vendor.
-5. Scroll the Product list to its absolute bottom. The list can extend below
-   the visible area. The last visible row is not necessarily the last row. If
-   you select an earlier duplicate, Bitwig can load an older cached extension.
-6. Select the final entry of the required product in the full list and click
-   Add.
-7. Run `npm run probe:hello` from `brain/`. Confirm that all checks pass. If the
-   build has a deliberate identity marker, confirm that the marker changed.
+Prepare and deploy the archive from `extension/`: use `./gradlew copyExtension`
+for normal `ghostnote`, or `./gradlew copyShadowProbeExtension` for research
+`ghostnote 8g controls`. Then ask the operator to replace the controller with
+the required product. State that full removal and the final matching product
+in the complete list are needed. A power toggle or an earlier duplicate can
+load cached Java classes. The orange circular-arrow button adds detected
+controllers; it does not reload the extension.
 
-Do not use the orange circular-arrow button for this procedure. It adds
-detected controllers automatically. It does not reload the extension.
+Wait for the operator to confirm replacement. Then run `npm run probe:hello`
+from `brain/`. Check the profile, method count/hash, fresh initialization time,
+and deliberate build markers before live work.
 
 ## Implementation sessions
 

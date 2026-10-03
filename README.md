@@ -44,13 +44,14 @@ cd extension
 ./gradlew copyProbeExtension    # Deploy phase-8-probe-v1 for named regressions
 ```
 
-Then enable it in Bitwig under **Settings → Controllers → Add → ghostnote**. It
-declares zero MIDI ports; all communication is over TCP.
+The operator installs it in Bitwig under **Settings → Controllers → Add →
+ghostnote**. It declares zero MIDI ports; all communication is over TCP.
 
-The deploy tasks replace the configured archive with an atomic rename. Reload
-the controller in Bitwig after each deploy. Run `npm run probe:hello` to verify
-the active profile and method hash. A file timestamp change alone does not load
-new code.
+The deploy tasks replace the configured archive with an atomic rename. Ask the
+operator to replace the controller after each deploy. Agents must defer this UI
+work to the operator; see [AGENTS.md](AGENTS.md). After confirmation, run
+`npm run probe:hello` to verify the active profile and method hash. A file
+timestamp change alone does not load new code.
 
 ## Connect Codex
 

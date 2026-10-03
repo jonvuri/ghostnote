@@ -2,8 +2,8 @@
 title: Phase 8g5 — Final shadow acceptance and consumer workflows
 kind: plan
 state: active
-status: Pending 8g1–8g4. Decide the 8g gate without starting 8h.
-updated: 2026-10-02
+status: Pending. 8g1–8g4 session outcomes are ready. Decide the 8g gate without starting 8h.
+updated: 2026-10-03
 parent: 8g-shadow-project-cache.md
 prev: 8g4-native-topology-and-ordering.md
 next: 8h-cache-promotion-and-interface-simplification.md
@@ -72,8 +72,10 @@ publication candidate change belongs here. E131 remains the stable authority.
 
 Run brain and extension `check`, all five artifact verifiers plus new retained
 roles, active wire check, context check, and staged/unstaged diff checks. Verify
-all four archive registrations. Use the repository full reload sequence and
-marker before live controls; finish with fresh normal hello.
+all four archive registrations. Deploy the required archive, then defer
+controller replacement to the operator under `AGENTS.md`. Wait for confirmation
+and verify the fresh runtime and marker before live controls. Finish with an
+operator replacement of the normal controller and fresh normal hello.
 
 Restore original ordered tracks, eight scenes, all empty baseline slots,
 selection, cursors, pins, config bytes, and engine/transport state. Close only

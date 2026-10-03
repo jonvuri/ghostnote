@@ -1,0 +1,112 @@
+{
+  "schema": "phase8g4-native-evidence-v1",
+  "marker": "8g4-shadow-topology-v1",
+  "researchOnly": true,
+  "complete": false,
+  "eligible": false,
+  "wholeSessionComplete": true,
+  "priorFollowupManifestSha256": "fb2049be891a3cc810450f27b37b528a3b5b7bbedf403d6362b9c64d81af8b83",
+  "reusedDenominators": {
+    "structuralFences": 14,
+    "inventoryInterruptions": 3,
+    "nativeGroupUngroupCases": 1,
+    "isolatedAddSceneCases": 1,
+    "compoundAddMoveCases": 1,
+    "nativeVelocityEdits": 1,
+    "priorBOverlapTrials": 1
+  },
+  "pending": [],
+  "files": {
+    "ordering-membership": {
+      "file": "ordering-membership.json.gz",
+      "compressedBytes": 2495496,
+      "uncompressedBytes": 35061527,
+      "compressedSha256": "fb4582cc923babdcac72851254ed1f675f0b037b09ac22939cdc56d07aa6b775",
+      "uncompressedSha256": "e0914aa4eedb49072677f04fa12558bf46a4ef105ab48c7dd18167d90e3c1f97"
+    },
+    "ordering-membership-diagnostic": {
+      "file": "ordering-membership-diagnostic.json.gz",
+      "compressedBytes": 1968529,
+      "uncompressedBytes": 27307620,
+      "compressedSha256": "83805bd572eff413f3eacc3290c29f0664aa51153fc4aa99ae35007594a57ba5",
+      "uncompressedSha256": "bab370a988a124c87ccac4d8d1c4fd903fe7d2facef4a705ed087b647e919654"
+    },
+    "ordering-authority": {
+      "file": "ordering-authority.json.gz",
+      "compressedBytes": 2491998,
+      "uncompressedBytes": 34942434,
+      "compressedSha256": "289392a62efd837b6ecb6cc870ed01d21aeae4eccdc9f0e8a76dfedbcabef838",
+      "uncompressedSha256": "f188cacf79ef0e9091255d8dc44b8e4d016081c1337950f014d33f74de9097b7"
+    },
+    "ordering-settlement": {
+      "file": "ordering-settlement.json.gz",
+      "compressedBytes": 2442940,
+      "uncompressedBytes": 34287857,
+      "compressedSha256": "3d724fb2b69246e2754168990e403af59eb2f0821c6dc4ad82939889c07fcf9e",
+      "uncompressedSha256": "5442716f3face983d3039b77c7c3374dbb7f48a81acff8678643ba12745cfaca"
+    },
+    "ordering-enrichment": {
+      "file": "ordering-enrichment.json.gz",
+      "compressedBytes": 2453437,
+      "uncompressedBytes": 34412640,
+      "compressedSha256": "8564d784b7630cd743f62a6332d5891253497540301c998664a65514bc2cc8ed",
+      "uncompressedSha256": "ca880c9f1806a337e5a8237ea76d9400eac444f8d4bb7e0b25f24aad87d944a9"
+    },
+    "ordering-result": {
+      "file": "ordering-result.json.gz",
+      "compressedBytes": 2458883,
+      "uncompressedBytes": 34420924,
+      "compressedSha256": "8b481147ead416c56344fb606b147a9b076a5a8619f359d0d51d1be927ad7dce",
+      "uncompressedSha256": "64385c10c0b17799d4f4adca79f3dbfc2e67f2f4a85d70fe12936bcf19073b75"
+    },
+    "ordering-return": {
+      "file": "ordering-return.json.gz",
+      "compressedBytes": 2446049,
+      "uncompressedBytes": 34294543,
+      "compressedSha256": "912a6fed082589a07fcaa558a3c4d98eab063774c6aaa71e71636370ea8eb9ec",
+      "uncompressedSha256": "686e1e566a46b2e8d7cb587e07aef7fa029ef5957e63a2da13ce639903458090"
+    },
+    "native-group-membership": {
+      "file": "native-group-membership.json.gz",
+      "compressedBytes": 27651,
+      "uncompressedBytes": 553803,
+      "compressedSha256": "18c0a543e3c15fe62d03c3f8237108b9e816e69186c2a47af23b22df99cb114d",
+      "uncompressedSha256": "17307bf9359ddf733f7997b758cd806ade300483ca8d87a022ebbd021c1d88d3"
+    },
+    "topology-reader-diagnostic": {
+      "file": "topology-reader-diagnostic.json.gz",
+      "compressedBytes": 5287,
+      "uncompressedBytes": 72968,
+      "compressedSha256": "e10d32854aaaa5678925aee14dac9c0372bb81e057c636f3ed477502134ce0d0",
+      "uncompressedSha256": "50af42e5f0e15f303136bc448fabbe451252ed80184f5fb040dd6d411aa97fac"
+    },
+    "research-reload": {
+      "file": "research-reload.json.gz",
+      "compressedBytes": 2455,
+      "uncompressedBytes": 8155,
+      "compressedSha256": "6e225f40955e2472b3672ad2f41224a9d8cfc4c29a2782517e175d59e42da358",
+      "uncompressedSha256": "8c29c139be7bc8a062a50c1efa7ef3c3545a3e44a79e4bfcf6e51de78bd79a53"
+    },
+    "fixture-p-cleanup": {
+      "file": "fixture-p-cleanup.json.gz",
+      "compressedBytes": 2561,
+      "uncompressedBytes": 54322,
+      "compressedSha256": "47ae15738160af480e620769ce32bebb667c3c83381b8940d5da1476daf86ae9",
+      "uncompressedSha256": "0d21db4f073d88d14ad359172172c14716e4da7781c47376b60666258030291c"
+    },
+    "fixture-q-cleanup": {
+      "file": "fixture-q-cleanup.json.gz",
+      "compressedBytes": 2555,
+      "uncompressedBytes": 54322,
+      "compressedSha256": "dbb3d75523952289e005f81f0455209b259bc3ce800fd64632f1a3c87c0ac1e0",
+      "uncompressedSha256": "a1928ebeec3d140a6b603ff0e3fae63c4449a682a063deb1dbfd7ad0fd404eca"
+    },
+    "final-live-baseline": {
+      "file": "final-live-baseline.json.gz",
+      "compressedBytes": 3190,
+      "uncompressedBytes": 19830,
+      "compressedSha256": "9b06d62497600bb4b40c718dbee782c70cfad646b87c047bed8bc23dea689200",
+      "uncompressedSha256": "632ec2c484477e0f5f4f71a3248e81e27e2610665d070fc884c2b155ad334017"
+    }
+  }
+}

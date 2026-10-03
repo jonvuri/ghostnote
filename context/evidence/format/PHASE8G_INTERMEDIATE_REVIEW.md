@@ -272,7 +272,7 @@ depend on areas 1, 3, 4, and 6. The inventory assigns each report and manifest.
 | One native velocity edit and separate warm observation | Pass | Actual report matches edited velocity and unchanged fields; explicit recovery and cleanup pass. | 8g5 |
 | Malformed warm note comparison must fail retained verification | Pass | 8g1 closes R2 with direct and rehashed retained mutants despite recovery. | 8g1 complete |
 | Accepted native command overlaps active acquisition | Pass | One B command overlaps; A follows retirement. 193 samples, 66 B brackets, no current output, errors, violations, or trace drops. | 8g4 |
-| Broader ordering, group membership, and ambiguous move proof | Unverified | Flat census and Group/Ungroup fences do not prove descendants. One command overlap does not prove all ordering. | 8g2, 8g4 |
+| Broader ordering, group membership, and ambiguous move proof | Pass (bounded ordering) / unsupported (groups) | E220 adds five publication-boundary commands and one separate return acquisition. Each overlaps active acquisition and retires without payload. Native child banks include their wrapper; membership refuses. Expanded/collapsed/nested and child-order live arms stop. Missing move predicates retire identity in model checks. Host input order and missing-event continuity remain unproved. | 8g4 |
 | Selected 16 MiB snapshot and combined resource boundaries | Pass (snapshot) | E219: 16,777,216-byte match, +2-byte refusal, two-resident overlap refusals and recoveries. Heap memory is unmeasured. | 8g3 complete |
 | Compressed/raw integrity and semantic verification | Pass | All 46 reports decode. Every existing manifest size/hash passes. V5/followup check both forms; older manifests pin raw bytes only. Inventory now records both forms without rewriting history. | 8g1, 8g5 |
 | Exact final API baseline and config restoration | Pass | Four ordered tracks, eight scenes, 32 empty slots, selection, cursors, pins, config bytes, and fresh normal runtime are retained. | Every live follow-up |
@@ -332,7 +332,7 @@ Do not add these denominators into one acceptance total.
 1. [8g1 — Review fixes](../../plan/phase-8/8g1-review-fixes.md): complete; R1 and R2 are closed offline.
 2. [8g2 — Project continuity](../../plan/phase-8/8g2-project-continuity.md): complete with conservative refusal. Live continuity remains unverified.
 3. [8g3 — Snapshot and global budgets](../../plan/phase-8/8g3-snapshot-and-global-budgets.md): complete. See the budget section below.
-4. [8g4 — Native topology and ordering](../../plan/phase-8/8g4-native-topology-and-ordering.md): extend native transitions and prove group membership or keep the unsupported state explicit.
+4. [8g4 — Native topology and ordering](../../plan/phase-8/8g4-native-topology-and-ordering.md): complete; native ordering passes, group membership stays unsupported, and exact API cleanup/normal reload pass. See [E220](../experiments/e220-native-topology-and-ordering.md).
 5. [8g5 — Final shadow acceptance](../../plan/phase-8/8g5-final-shadow-acceptance.md): verify consumers and the whole 8g gate; decide 8h entry separately.
 
 8g3 can start offline. The 8g2 decision refuses its intended live acquisitions.

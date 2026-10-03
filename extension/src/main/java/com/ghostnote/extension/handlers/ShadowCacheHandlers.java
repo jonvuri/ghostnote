@@ -18,6 +18,10 @@ public final class ShadowCacheHandlers extends HandlerGroup {
 
     private JsonElement dispatch(JsonObject params) {
         String operation = params.get("operation").getAsString();
+        if (operation.equals("trackTopology")) {
+            if (rig.shadowTopologyControl == null) throw new IllegalStateException("topology resources are not allocated");
+            return rig.shadowTopologyControl.snapshot();
+        }
         if (operation.equals("trackGroups")) return ShadowGroupControl.snapshot(rig);
         if (operation.equals("sceneSnapshot") || operation.equals("setSceneName")) {
             var scenes = rig.shadowSceneControl;
@@ -103,6 +107,7 @@ public final class ShadowCacheHandlers extends HandlerGroup {
             case "compareStart" -> params.has("maxEnrichmentCoordinates")
                 ? probe.compareStart(index, params.get("maxEnrichmentCoordinates").getAsInt()) : probe.compareStart(index);
             case "comparePoll" -> probe.comparePoll();
+            case "compareStatus" -> probe.compareStatus();
             case "read" -> probe.readSnapshot(index);
             case "retire" -> probe.retire(index);
             case "invalidate" -> probe.invalidate(params.get("reason").getAsString());

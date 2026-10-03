@@ -55,6 +55,9 @@ public final class ShadowCacheProbe {
     private boolean inventoryEnumerated;
     private long inventoryEntries;
     private RootIdentityProbe identityProbe;
+    private ShadowTopologyControl topologyControl;
+    private boolean topologyUsable = true;
+    private long scanSequence;
     private RootIdentityProbe.IdentityGuard activeIdentityGuard;
     private boolean identityPoisoned;
     private long automaticIdentityInvalidations;
@@ -343,6 +346,13 @@ public final class ShadowCacheProbe {
         poisonIdentity("identity-probe-attached");
     }
 
+    /** Retire from topology callbacks without a host read. */
+    public void attachTopologyControl(ShadowTopologyControl control) {
+        if (topologyControl != null) throw new IllegalStateException("topology control already attached");
+        topologyControl = java.util.Objects.requireNonNull(control); topologyUsable = false;
+        control.addInvalidationListener(() -> { topologyUsable = false; poisonIdentity("group-topology-changed"); });
+    }
+
     public void setTotalExperimentalStepDataObservers(int count) {
         if (count < views.length + (authority == null ? 0 : 1))
             throw new IllegalArgumentException("total observer count is below shadow count");
@@ -409,11 +419,11 @@ public final class ShadowCacheProbe {
     }
 
     private boolean acquisitionAllowed(RootIdentityProbe.IdentityGuard guard) {
-        return identityProbe == null ? hostModel : guard != null && guard.acquisitionAllowed();
+        return topologyUsable && (identityProbe == null ? hostModel : guard != null && guard.acquisitionAllowed());
     }
 
     private String guardRefusal(RootIdentityProbe.IdentityGuard guard) {
-        return guard == null ? "identity-probe-unavailable" : guard.refusalReason();
+        return !topologyUsable ? "group-topology-unproved" : guard == null ? "identity-probe-unavailable" : guard.refusalReason();
     }
 
     private boolean guardCurrent(RootIdentityProbe.IdentityGuard guard) {
@@ -464,6 +474,8 @@ public final class ShadowCacheProbe {
     /** Reject unknown structural order. New residence must replay after reset. */
     public void observeRig(Rig rig) {
         currentRig = rig;
+        String membership = observeTopology();
+        if (!topologyUsable) return;
         RootIdentityProbe.IdentityGuard guard = freshIdentityGuard();
         if (!acquisitionAllowed(guard)) return;
         applyPhysicalOverload();
@@ -474,7 +486,7 @@ public final class ShadowCacheProbe {
             if (track.exists().get()) ids.append(track.channelId().get()).append(';');
         }
         if (!guardCurrent(guard)) return;
-        String currentTopology = ids.toString();
+        String currentTopology = ids.append(membership).toString();
         if (topology != null && (!topology.equals(currentTopology)
             || contentEpoch != rig.launcherContentEpoch || sceneEpoch != rig.sceneCountChanges)) {
             invalidate("structural-event-requires-rebind");
@@ -485,6 +497,15 @@ public final class ShadowCacheProbe {
         topology = currentTopology;
         contentEpoch = rig.launcherContentEpoch;
         sceneEpoch = rig.sceneCountChanges;
+    }
+
+    /** Check the independent topology source before a handler admits work. */
+    String observeTopology() {
+        if (topologyControl == null) return "";
+        JsonObject read = topologyControl.snapshot();
+        topologyUsable = read.get("membershipComplete").getAsBoolean();
+        if (!topologyUsable) { poisonIdentity("group-topology-unproved"); return ""; }
+        return read.get("tree").toString();
     }
 
     /** Enumerate a private registry. Partial configured banks cannot publish it. */
@@ -695,7 +716,9 @@ public final class ShadowCacheProbe {
         result.addProperty("projectScopeComplete", false);
         result.addProperty("lifecycleFallback", "project-lifecycle-fence-unproved");
         result.addProperty("optionalLifecycleWitnessSupported", identityProbe != null);
-        result.addProperty("instrumentationRevision", "8g3-shadow-budgets-v2");
+        result.addProperty("instrumentationRevision", "8g4-shadow-topology-v1");
+        result.addProperty("topologyUsable", topologyUsable);
+        result.addProperty("topologyControlRevision", topologyControl == null ? "unattached" : ShadowTopologyControl.REVISION);
         result.addProperty("observerKind", "addStepDataObserver");
         result.addProperty("rebindPolicy", "preserve-current-or-forced-canary-transition");
         result.addProperty("callbackSourceIdentityKnown", false);
@@ -1006,10 +1029,10 @@ public final class ShadowCacheProbe {
         AuthorityControl control = view.canaryTarget == null || view.canaryAddress == null ? null : new AuthorityControl(view.canaryTarget, view.canaryAddress);
         if (control != null) {
             try { requireAddress(control.target(), control.address().row()); }
-            catch (RuntimeException error) { scan = new Scan(view); return finishWindowChange("authority-control-unavailable"); }
+            catch (RuntimeException error) { scan = new Scan(view, ++scanSequence); return finishWindowChange("authority-control-unavailable"); }
         }
         if (!stepWindow.unchanged(membership)) return stepWindowChanged(index, view);
-        scan = new Scan(view);
+        scan = new Scan(view, ++scanSequence);
         scan.enrichmentBatchCoordinates = maximumEnrichmentCoordinates;
         scan.membershipRead = membership;
         stepWindow.confirmLater(membership, () -> view.hints.isEmpty() && !view.physicalHintOverflow);
@@ -1413,13 +1436,32 @@ public final class ShadowCacheProbe {
         return result;
     }
 
+    /** Read guarded progress without advancing acquisition or publishing its payload. */
+    public JsonObject compareStatus() {
+        if (scan != null) {
+            Scan work = scan;
+            if (!guardCurrent(work.identityGuard)) return finishWindowChange("window-changed");
+            StepDeltaWindow.Read read = "membership".equals(work.stage) ? work.membershipRead
+                : "result".equals(work.stage) || "enrichment".equals(work.stage) ? work.resultRead : work.authorityRead;
+            if (read != null && !stepWindow.unchanged(read)) return finishStepWindowChange(work);
+            if (!valid(work.view) || work.callbacks != work.view.callbacks || !work.metadata.equals(metadata(work.view.clip)))
+                return finishWindowChange("window-changed");
+            if (elapsed(work.started) > 40_000) return finishWindowChange("authority-scan-budget");
+            if (work.candidate != null && elapsed(work.started) - work.phases.get("enrichment") > ENRICHMENT_DEADLINE_MS)
+                return finishWindowChange("enrichment-deadline");
+        }
+        return scanStatus();
+    }
+
     private JsonObject scanStatus() {
         JsonObject result = info();
         result.addProperty("complete", false);
         result.addProperty("readMode", "refuse");
         result.addProperty("authorityAvailable", false);
         result.addProperty("fallbackPerformed", false);
+        result.addProperty("scanActive", scan != null);
         if (scan != null) {
+            result.addProperty("scanId", scan.id);
             result.addProperty("scanProgressCoordinates", scan.next);
             result.addProperty("scanTotalCoordinates", coverage.width() * KEYS);
             result.addProperty("authorityScanMs", elapsed(scan.started));
@@ -1469,6 +1511,7 @@ public final class ShadowCacheProbe {
         result.addProperty("comparison", reason);
         result.addProperty("reason", reason);
         result.addProperty("terminal", true);
+        result.addProperty("scanActive", false);
         boolean ended = scan != null;
         endScan(reason);
         if (ended) result.add("scanPhaseTimesMs", lastScanPhaseTimes.deepCopy());
@@ -1682,6 +1725,7 @@ public final class ShadowCacheProbe {
 
     private static final class Scan {
         final View view;
+        final long id;
         final long callbacks, started = System.nanoTime();
         final Map<String, Object> metadata;
         final RootIdentityProbe.IdentityGuard identityGuard;
@@ -1700,8 +1744,8 @@ public final class ShadowCacheProbe {
         int enrichmentBatchCoordinates = Integer.MAX_VALUE;
         /** Elapsed wall time at each stage start, measured from the scan start. */
         final LinkedHashMap<String, Double> phases = new LinkedHashMap<>();
-        Scan(View view) {
-            this.view = view; callbacks = view.callbacks; identityGuard = view.identityGuard; metadata = metadata(view.clip);
+        Scan(View view, long id) {
+            this.id = id; this.view = view; callbacks = view.callbacks; identityGuard = view.identityGuard; metadata = metadata(view.clip);
             phases.put("membership", 0.0);
         }
         void phase(String name) { phases.putIfAbsent(name, elapsed(started)); }
