@@ -1,15 +1,27 @@
 ---
 title: Phase 8g2b — Step-delta read window
 kind: plan
-state: active
-status: Ready. D26 accepts complete step-data delivery as a named assumption.
-updated: 2026-10-02
+state: complete
+status: Complete. E217 passes the ordering rule; E218 passes live acceptance.
+updated: 2026-10-03
 parent: 8g-shadow-project-cache.md
 prev: 8g2-project-continuity.md
 next: 8g3-snapshot-and-global-budgets.md
 ---
 
 # Phase 8g2b — Step-delta read window
+
+## Outcome
+
+Complete. [E217](../../evidence/experiments/e217-later-callback-ordering-rule.md)
+passes the later-callback ordering rule: 94 mid-batch confirmations, from ticks
+and RPCs, all ran after their batch. The
+[step-delta window](../../evidence/format/PHASE8G_PROJECT_CONTINUITY.md#8g2b-step-delta-read-window)
+is implemented. [E218](../../evidence/experiments/e218-step-delta-read-window-live-acceptance.md)
+passes 147 live trials with zero foreign or differing outputs. Live slot
+inventory still refuses because it is outside step coverage. The public root
+probe now uses the step-delta provider in shadow research builds. All results
+stay `complete:false` and `eligible:false`.
 
 ## Entry and scope
 

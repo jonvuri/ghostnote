@@ -14,6 +14,12 @@ public final class ShadowAuthorityFallback {
         void advance();
         boolean bound(Address address);
         long callbacks();
+        /** Capture a step-delta window before target confirmation. Null refuses. */
+        Object openReadWindow();
+        boolean readWindowUnchanged(Object window);
+        /** Schedule the later-callback confirmation from the final read callback. */
+        void confirmReadWindow(Object window);
+        StepDeltaWindow.State readWindowState(Object window);
         Object guard();
         long windowVersion();
         Map<String, Object> metadata();
@@ -28,7 +34,7 @@ public final class ShadowAuthorityFallback {
     private final LongSupplier time;
     private Address address;
     private Coverage coverage;
-    private Object guard;
+    private Object guard, window;
     private String phase = "idle", reason = "not-started";
     private long started, boundAt, pollAt, callbacks, quietCallbacks, bytes, next, total, ended, guardVersion;
     private int quietPolls;
@@ -45,7 +51,7 @@ public final class ShadowAuthorityFallback {
         Objects.requireNonNull(target); Objects.requireNonNull(request);
         if (active()) return result("authority-busy");
         if (request.width() > MAX_WIDTH || !request.allChannels()) throw new IllegalArgumentException("fallback coverage unavailable");
-        address = target; coverage = request; guard = null;
+        address = target; coverage = request; guard = null; window = null;
         started = time.getAsLong(); ended = boundAt = pollAt = next = bytes = 0;
         total = (long) request.width() * 128; quietPolls = 0; lastBatchMs = 0;
         metadata = null; notes = new ArrayList<>(); phase = "binding"; reason = "authority-binding";
@@ -65,6 +71,7 @@ public final class ShadowAuthorityFallback {
         try {
             if (!current()) return refuse("authority-window-changed");
             if (elapsed(started) > 40_000) return refuse("authority-scan-budget");
+            if ("confirming".equals(phase)) return confirm();
             source.advance();
             if (!current()) return refuse("authority-window-changed");
             if (!source.bound(address)) {
@@ -84,8 +91,11 @@ public final class ShadowAuthorityFallback {
                 }
                 if (elapsed(boundAt) > 5_000) return refuse("authority-settlement-budget");
                 if (elapsed(boundAt) < 1_500 || quietPolls < 10) return status();
+                window = source.openReadWindow();
+                if (window == null) return refuse("authority-step-window-unavailable");
                 callbacks = source.callbacks(); metadata = Map.copyOf(source.metadata());
                 if (!current() || source.callbacks() != callbacks) return refuse("authority-window-changed");
+                if (!source.readWindowUnchanged(window)) return refuse("authority-step-window-changed");
                 phase = "scanning"; reason = "authority-scan";
             }
             while (next < total && elapsed(batch) < 40) {
@@ -93,6 +103,7 @@ public final class ShadowAuthorityFallback {
                 Coordinate coordinate = new Coordinate(coverage.startCell() + next / 128, (int) (next % 128));
                 List<Note> values = source.read(coordinate);
                 if (!scanCurrent()) return refuse("authority-window-changed");
+                if (!source.readWindowUnchanged(window)) return refuse("authority-step-window-changed");
                 for (Note note : values) {
                     if (!coordinate.equals(note.coordinate())) return refuse("authority-address-mismatch");
                     long estimate = 160L + note.fields().size() * 64L;
@@ -110,12 +121,23 @@ public final class ShadowAuthorityFallback {
                 if (!metadata.equals(source.metadata()) || !scanCurrent() || !current()) return refuse("authority-window-changed");
                 lastBatchMs = elapsed(batch);
                 if (lastBatchMs > 45) return refuse("authority-host-work-budget");
-                notes = List.copyOf(notes); phase = "acquired"; reason = "independent-authority"; ended = time.getAsLong();
+                if (!source.readWindowUnchanged(window)) return refuse("authority-step-window-changed");
+                // The final read callback schedules the confirmation. A later poll publishes.
+                notes = List.copyOf(notes); phase = "confirming"; reason = "authority-step-window-confirmation";
+                source.confirmReadWindow(window);
             }
         } catch (RuntimeException error) { return refuse("authority-unavailable"); }
-        return "acquired".equals(phase) ? result(reason) : status();
+        return status();
     }
-    public boolean active() { return List.of("binding", "settling", "scanning").contains(phase); }
+    private Result confirm() {
+        StepDeltaWindow.State state = source.readWindowState(window);
+        if (state == StepDeltaWindow.State.PENDING) return status();
+        if (state != StepDeltaWindow.State.CONFIRMED || !source.readWindowUnchanged(window)) return refuse("authority-step-window-changed");
+        if (!scanCurrent() || !metadata.equals(source.metadata()) || !current()) return refuse("authority-window-changed");
+        phase = "acquired"; reason = "independent-authority"; ended = time.getAsLong();
+        return result(reason);
+    }
+    public boolean active() { return List.of("binding", "settling", "scanning", "confirming").contains(phase); }
     public Result cancel(String cause) {
         if (cause == null || cause.isEmpty()) throw new IllegalArgumentException("invalid authority cancellation");
         return active() || "acquired".equals(phase) ? refuse(cause) : status();
@@ -125,6 +147,7 @@ public final class ShadowAuthorityFallback {
             long checkedAt = time.getAsLong();
             try {
                 if (!current() || !scanCurrent() || !metadata.equals(source.metadata()) || !current()) return refuse("authority-window-changed");
+                if (!source.readWindowUnchanged(window)) return refuse("authority-step-window-changed");
                 if (elapsed(checkedAt) > 45) return refuse("authority-host-work-budget");
             } catch (RuntimeException error) { return refuse("authority-unavailable"); }
         }

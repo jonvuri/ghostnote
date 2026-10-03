@@ -25,6 +25,10 @@ import java.util.List;
  */
 public final class DeliveryCoherenceProbe {
     public static final String MARKER = "e216-delivery-coherence-v1";
+    /** 8g2b ordering mode: each tick schedules zero-delay confirmations of its step count. */
+    public static final String ORDERING_MARKER = "e217-callback-ordering-v2";
+    /** Confirmation chain depth per tick. Depth 1 is the rule under test. */
+    static final int CONFIRM_DEPTH = 2;
     /** Witness window: keys 60..75 and steps 0..15 at 1/16. */
     static final int WINDOW_STEPS = 16, WINDOW_KEYS = 16, BASE_KEY = 60;
     /** P witness at key 60, steps 0..3. Q witness at key 72, steps 8..11. */
@@ -43,7 +47,7 @@ public final class DeliveryCoherenceProbe {
     private final ArrayDeque<JsonObject> events = new ArrayDeque<>(), ticks = new ArrayDeque<>(), commands = new ArrayDeque<>();
     private long sequence, eventsDropped, ticksDropped, commandsDropped;
     private long tickCount, tickCallbacks, inTickChanges, stepCallbacks;
-    private boolean tickerActive;
+    private boolean tickerActive, ordering;
     private long tickerGeneration;
     private String lastTickSignature = "";
     private long runGeneration;
@@ -144,17 +148,52 @@ public final class DeliveryCoherenceProbe {
         tickCount++;
         boolean changedInside = !start.equals(end);
         if (changedInside) inTickChanges++;
-        if (changedInside || !start.equals(lastTickSignature) || seqBefore != sequence) {
+        if (ordering || changedInside || !start.equals(lastTickSignature) || seqBefore != sequence) {
             JsonObject tick = event("tick");
             tick.addProperty("start", start);
+            tick.addProperty("steps", stepCallbacks);
             if (changedInside) tick.addProperty("end", end);
             push(ticks, tick, TICK_CAPACITY, false);
+            if (ordering) {
+                long tickSeq = tick.get("seq").getAsLong(), steps = stepCallbacks;
+                host.scheduleTask(() -> confirm(generation, tickSeq, steps, 1), 0);
+            }
         }
         lastTickSignature = end;
         host.scheduleTask(() -> tick(generation), 0);
     }
 
-    public JsonObject start() {
+    /** Record the step count that a task scheduled from a tick sees. */
+    private void confirm(long generation, long tickSeq, long tickSteps, int depth) {
+        // tickSeq names the scheduling callback: a tick or an RPC record.
+        if (!tickerActive || generation != tickerGeneration) return;
+        JsonObject record = event("confirm");
+        record.addProperty("tickSeq", tickSeq);
+        record.addProperty("depth", depth);
+        record.addProperty("tickSteps", tickSteps);
+        record.addProperty("steps", stepCallbacks);
+        push(ticks, record, TICK_CAPACITY, false);
+        if (depth < CONFIRM_DEPTH) host.scheduleTask(() -> confirm(generation, tickSeq, tickSteps, depth + 1), 0);
+    }
+
+    /** Record one bridge request callback. In ordering mode it also schedules confirmations. */
+    public JsonObject ping() {
+        JsonObject record = event("rpc");
+        record.addProperty("steps", stepCallbacks);
+        push(ticks, record, TICK_CAPACITY, false);
+        if (ordering && tickerActive) {
+            long generation = tickerGeneration, rpcSeq = record.get("seq").getAsLong(), steps = stepCallbacks;
+            host.scheduleTask(() -> confirm(generation, rpcSeq, steps, 1), 0);
+        }
+        JsonObject result = new JsonObject();
+        result.addProperty("seq", record.get("seq").getAsLong());
+        return result;
+    }
+
+    public JsonObject start() { return start(false); }
+
+    public JsonObject start(boolean orderingMode) {
+        ordering = orderingMode;
         tickerActive = true;
         long generation = ++tickerGeneration;
         lastTickSignature = "";
@@ -181,6 +220,8 @@ public final class DeliveryCoherenceProbe {
     public JsonObject status() {
         JsonObject result = new JsonObject();
         result.addProperty("marker", MARKER);
+        result.addProperty("orderingMarker", ORDERING_MARKER);
+        result.addProperty("ordering", ordering);
         result.addProperty("researchOnly", true);
         result.addProperty("complete", false);
         result.addProperty("eligible", false);

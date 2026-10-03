@@ -44,3 +44,11 @@ covered step content under the 8g2b guard.
 
 Revoke this decision if a measurement shows a covered cell change without a
 callback, or a published foreign read with an unchanged step count.
+
+## Later evidence
+
+[E217](../evidence/experiments/e217-later-callback-ordering-rule.md) measured the
+ordering rule: 94 of 94 mid-batch confirmations ran after their batch. It is a
+second named assumption, not part of this decision.
+[E218](../evidence/experiments/e218-step-delta-read-window-live-acceptance.md)
+found no revocation condition in 147 live trials.

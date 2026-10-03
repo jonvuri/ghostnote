@@ -16,6 +16,8 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E218 | Step-delta read window passes 147 live detour trials with zero foreign outputs [K] (2026-10-03) | [open](experiments/e218-step-delta-read-window-live-acceptance.md) |
+| E217 | A task scheduled from a mid-batch callback runs after the batch [K] (2026-10-03) | [open](experiments/e217-later-callback-ordering-rule.md) |
 | E216 | Same-callback project detours coalesce identity values; step deltas still arrive [K] (2026-10-02) | [open](experiments/e216-delivery-coalescing-and-callback-coherence.md) |
 | E215 | Root identity and observer reuse research [K] (2026-10-01) | [open](experiments/e215-root-identity-and-observer-reuse.md) |
 | E214 | Shadow cache content matches; lifecycle and binding gates remain [K] (2026-10-01) | [open](experiments/e214-shadow-cache-content-and-lifecycle-gates.md) |

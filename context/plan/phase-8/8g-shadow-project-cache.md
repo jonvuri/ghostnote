@@ -2,12 +2,12 @@
 title: Phase 8g — Shadow project cache
 kind: plan
 state: active
-status: Active. D26 accepts step-data completeness. Run 8g2b next; 8g3 stays offline until it passes.
-updated: 2026-10-02
+status: Active. 8g2b is complete. Run 8g3 next; its live work can use the step-delta window.
+updated: 2026-10-03
 parent: README.md
 prev: 8f3-ghostnote-bindings-and-cache-contracts.md
 next: 8h-cache-promotion-and-interface-simplification.md
-evidence: E130-E134; E138-E139; E214-E216; D23; D26
+evidence: E130-E134; E138-E139; E214-E218; D23; D26
 ---
 
 # Phase 8g — Shadow project cache
@@ -34,14 +34,17 @@ foreign notes in the middle of a delivery batch. Step-data deltas arrive in ever
 measured detour. [D26](../../decisions/d26-step-data-delivery-is-a-named-assumption.md)
 accepts complete step-data delivery as a named assumption.
 
-Run [8g2b](8g2b-step-delta-read-window.md) next. It measures the later-callback
-ordering rule, then adds a confirmed step-delta read window. Then run
-[8g3](8g3-snapshot-and-global-budgets.md), [8g4](8g4-native-topology-and-ordering.md),
-and [8g5](8g5-final-shadow-acceptance.md). 8g3 can start offline at any time.
-Its live work waits for 8g2b. Do not enter 8h.
+[8g2b](8g2b-step-delta-read-window.md) is complete.
+[E217](../../evidence/experiments/e217-later-callback-ordering-rule.md) passes
+the later-callback ordering rule. The adapter admits covered reads only through
+confirmed step-delta windows.
+[E218](../../evidence/experiments/e218-step-delta-read-window-live-acceptance.md)
+passes 147 live detour trials with zero foreign outputs. Live slot inventory
+still refuses. Nothing is eligible.
 
-The 8g2 and E216 changes are staged. Entry HEAD `1a0f9c6` already contains
-prior work. No commit is made.
+Run [8g3](8g3-snapshot-and-global-budgets.md) next. Its live budget work can use
+the step-delta window. Then run [8g4](8g4-native-topology-and-ordering.md) and
+[8g5](8g5-final-shadow-acceptance.md). Do not enter 8h.
 
 ## Current result
 

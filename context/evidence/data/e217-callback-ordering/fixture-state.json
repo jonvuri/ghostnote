@@ -1,0 +1,84 @@
+{
+ "Q": {
+  "name": "New 9",
+  "root": "8074dc30-00f2-4ae3-b060-49893f2b5f73",
+  "cursor": "83eccfa7-1be7-41b4-967b-bc270b647727"
+ },
+ "QSetup": {
+  "createdClip": true,
+  "trackName": "Inst 1",
+  "tracks": [
+   {
+    "index": 0,
+    "name": "Inst 1",
+    "position": 0,
+    "type": "Instrument",
+    "channelId": "83eccfa7-1be7-41b4-967b-bc270b647727"
+   },
+   {
+    "index": 1,
+    "name": "Audio 2",
+    "position": 1,
+    "type": "Audio",
+    "channelId": "22b42e11-654f-4368-b61e-04cd65fdf028"
+   },
+   {
+    "index": 2,
+    "name": "FX 1",
+    "position": 2,
+    "type": "Effect",
+    "channelId": "8b7ab38d-1ca7-484d-8715-d2a4487e1949"
+   },
+   {
+    "index": 3,
+    "name": "Master",
+    "position": 3,
+    "type": "Master",
+    "channelId": "8074dc30-00f2-4ae3-b060-49893f2b5f73"
+   }
+  ],
+  "signature": "New 9|8074dc30-00f2-4ae3-b060-49893f2b5f73|83eccfa7-1be7-41b4-967b-bc270b647727|C|....|NNNN|-|.",
+  "at": "2026-10-02T14:48:39.076Z"
+ },
+ "P": {
+  "name": "New 8",
+  "root": "8a781a69-bf80-4ab7-943b-a07b7dd705a3",
+  "cursor": "13461ca1-0072-4e85-bc4f-fe48afc216c0"
+ },
+ "PSetup": {
+  "createdClip": true,
+  "trackName": "Inst 1",
+  "tracks": [
+   {
+    "index": 0,
+    "name": "Inst 1",
+    "position": 0,
+    "type": "Instrument",
+    "channelId": "13461ca1-0072-4e85-bc4f-fe48afc216c0"
+   },
+   {
+    "index": 1,
+    "name": "Audio 2",
+    "position": 1,
+    "type": "Audio",
+    "channelId": "e651ec68-4487-41e6-871d-d8028c043167"
+   },
+   {
+    "index": 2,
+    "name": "FX 1",
+    "position": 2,
+    "type": "Effect",
+    "channelId": "2cadcac6-0ca0-4a62-aa7b-b0676259c66d"
+   },
+   {
+    "index": 3,
+    "name": "Master",
+    "position": 3,
+    "type": "Master",
+    "channelId": "8a781a69-bf80-4ab7-943b-a07b7dd705a3"
+   }
+  ],
+  "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+  "at": "2026-10-02T14:49:51.153Z"
+ }
+}

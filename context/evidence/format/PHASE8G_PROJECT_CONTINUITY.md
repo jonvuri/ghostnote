@@ -2,11 +2,16 @@
 title: Phase 8g2 project continuity protocol
 kind: evidence
 state: active
-updated: 2026-10-02
+updated: 2026-10-03
 owner: phase-8g2-project-continuity
 ---
 
 # Project continuity protocol
+
+> **Superseded for covered step reads by 8g2b.** The
+> [step-delta read window](#8g2b-step-delta-read-window) now admits covered reads
+> under D26 and the E217 ordering rule. The 8g2 refusal below still applies to
+> slot inventory, uncovered coordinates, unsubscribed observers, and absent probes.
 
 ## Decision and scope
 
@@ -175,6 +180,60 @@ of identity-only admission. They do not enable acquisition.
 complete step-data delivery as a named assumption.
 [8g2b](../../plan/phase-8/8g2b-step-delta-read-window.md) designs and tests a
 step-delta read window under it.
+
+## 8g2b step-delta read window
+
+[8g2b](../../plan/phase-8/8g2b-step-delta-read-window.md) replaces the missing
+independent input window for covered step reads. It relies on two named
+assumptions: [D26](../../decisions/d26-step-data-delivery-is-a-named-assumption.md)
+and the [E217 ordering rule](../experiments/e217-later-callback-ordering-rule.md).
+It proves no host input fence. No result becomes eligible.
+
+[`StepDeltaWindow`](../../../extension/src/main/java/com/ghostnote/extension/StepDeltaWindow.java)
+holds the window value: the adapter init nonce, the delivered identity epoch,
+the observer binding revision, and the step-callback count across all shadow
+observers. Every shadow observer callback increments the count before any
+filter, and it makes no host read. Target commands, pins, stage changes, and
+retirement advance the binding revision. Thus an observer's own rebinding starts
+a new window and cannot confirm an old one.
+
+| Read | Window opens | Confirmation admits |
+|---|---|---|
+| Canary membership | Before the canary target check | Canary verification and the move to the target |
+| Comparison membership | Before reconciliation confirms the target | The start of the authority binding |
+| Authority scan | When authority settles, before its target check | Replay settlement |
+| Snapshot enrichment | After settlement, with the same value | Comparison output and the retained snapshot |
+| Exact authority | When authority settles, before the scan | Exact output |
+
+Each read checks the value inside its callback. That check is necessary but
+never sufficient. The final read callback schedules a zero-delay confirmation.
+The confirmation passes only if the value is unchanged and the resident has no
+pending hint. A later poll publishes only if the confirmation passed and the
+value is still unchanged. A changed value gives `step-window-changed`. It
+retires the binding, deletes the reference, and discards pending and output
+state. Recovery needs an explicit new attempt and a new reference. A late
+confirmation cannot revive a cancelled or retired read.
+
+Retained output stays visible only while its confirmed window is unchanged.
+Any later step or rebind discards it. Retained exact output refuses in the same
+way. The resident callback count stays continuous across the authority
+rebinding gap. Under D26, a detour with no resident callback leaves the covered
+cells unchanged.
+
+The live root probe now supplies the protocol token `step-delta-read-window-v1`.
+Admission needs a coherent root, an existing project, and the token. Chain IDs,
+identity equality, and endpoints only invalidate; they never admit. Without a
+provider, and without a probe, all routes still refuse. Slot inventory reads are
+outside every step observer's coverage, so live inventory keeps the 8g2 refusal
+(`inventory-outside-step-coverage`). Exact requests outside observer coverage and
+unsubscribed observers refuse.
+
+Model tests add ten groups for batch interleaving: a mid-batch read with the
+remainder before confirmation, seen and equal-content detours, the D26 boundary,
+late hints, cancellation at each stage, rebinding, identity and init changes,
+uncovered reads, and exact confirmation. The fallback test adds five groups.
+[E218](../experiments/e218-step-delta-read-window-live-acceptance.md) records
+live acceptance: 147 trials with zero foreign or differing outputs.
 
 ## Retrospective
 

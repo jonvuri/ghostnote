@@ -42,7 +42,8 @@ public final class ShadowCacheHandlers extends HandlerGroup {
             if (delivery == null) throw new IllegalStateException("delivery research resources are not allocated");
             return switch (operation) {
                 case "deliveryStatus" -> delivery.status();
-                case "deliveryStart" -> delivery.start();
+                case "deliveryStart" -> delivery.start(params.has("ordering") && params.get("ordering").getAsBoolean());
+                case "deliveryPing" -> delivery.ping();
                 case "deliveryStop" -> delivery.stop();
                 case "deliveryClear" -> delivery.clear();
                 case "deliveryTrace" -> delivery.trace();

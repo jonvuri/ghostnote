@@ -104,6 +104,7 @@ const markerChecks = [
   ['--authority-marker', 'info', 'authorityBindingRevision'],
   ['--scene-marker', 'sceneSnapshot', 'sceneControlRevision'],
   ['--group-marker', 'trackGroups', 'groupControlRevision'],
+  ['--delivery-marker', 'deliveryStatus', 'orderingMarker'],
 ] as const;
 for (const [argument, operation, field] of markerChecks) {
   const markerArgument = process.argv.indexOf(argument);

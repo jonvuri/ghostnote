@@ -69,6 +69,9 @@ public final class ShadowCacheProbe {
     private Track exactTarget;
     private Coverage exactCoverage;
     private long authorityWindowVersion;
+    /** 8g2b: one step counter and later-callback confirmation for all shadow observers. */
+    private final StepDeltaWindow stepWindow;
+    private long stepWindowRefusals, retainedStepWindowDiscards;
 
     /** Reserve and retire a fixed physical slot before the next binding starts. */
     public JsonObject acquire(Track target, int row) { return acquire(target, row, null, -1); }
@@ -292,6 +295,17 @@ public final class ShadowCacheProbe {
             public void advance() { advanceAuthorityBinding(); }
             public boolean bound(Address address) { return "target".equals(authority.stage) && address.equals(authority.expected) && bindingReady(authority); }
             public long callbacks() { return authority.callbacks; }
+            public Object openReadWindow() { return subscribed(authority) ? stepWindow.open() : null; }
+            public boolean readWindowUnchanged(Object window) {
+                return window instanceof StepDeltaWindow.Read read && stepWindow.unchanged(read);
+            }
+            public void confirmReadWindow(Object window) {
+                if (window instanceof StepDeltaWindow.Read read) stepWindow.confirmLater(read, () -> true);
+            }
+            public StepDeltaWindow.State readWindowState(Object window) {
+                if (!(window instanceof StepDeltaWindow.Read read)) return StepDeltaWindow.State.CHANGED;
+                return read.state() == StepDeltaWindow.State.CONFIRMED && !stepWindow.admitted(read) ? StepDeltaWindow.State.CHANGED : read.state();
+            }
             public Object guard() {
                 RootIdentityProbe.IdentityGuard witness = freshIdentityGuard();
                 if (!acquisitionAllowed(witness)) return null;
@@ -355,6 +369,8 @@ public final class ShadowCacheProbe {
     }
 
     private void retireWithoutHost(View view) {
+        stepWindow.onRebind();
+        stepWindow.discard(view.canaryRead); view.canaryRead = null; view.resultRead = null;
         releasePool(view);
         if (view.ref != null && cache.hasClip(view.ref) && !"retired".equals(view.phase)) cache.evict(view.ref);
         view.phase = "retired";
@@ -424,6 +440,8 @@ public final class ShadowCacheProbe {
             throw new IllegalArgumentException("shadow cache configuration exceeds selected limits");
         scenes = config.scenes;
         coverage = new Coverage(0, config.cacheShadowSteps, true, FIELDS, UNKNOWN, "1/512-beat");
+        stepWindow = new StepDeltaWindow(java.util.UUID.randomUUID().toString(),
+            () -> identityProbe == null ? 0 : identityProbe.identityEpoch(), task -> host.scheduleTask(task, 0));
         long started = System.nanoTime();
         handlePool = new ShadowHandlePool(config.cacheShadowObservers);
         views = new View[config.cacheShadowObservers];
@@ -465,6 +483,7 @@ public final class ShadowCacheProbe {
 
     /** Enumerate a private registry. Partial configured banks cannot publish it. */
     public JsonObject inventory(Rig rig) {
+        if (!inventoryCovered()) return inventoryRefusal();
         observeRig(rig);
         RootIdentityProbe.IdentityGuard guard = freshIdentityGuard();
         if (!acquisitionAllowed(guard)) return info();
@@ -489,6 +508,7 @@ public final class ShadowCacheProbe {
     }
 
     private boolean prepareInventoryRebuild(Rig rig) {
+        if (!inventoryCovered()) { inventoryRefusal(); return false; }
         RootIdentityProbe.IdentityGuard guard = freshIdentityGuard();
         if (!acquisitionAllowed(guard)) return false;
         invalidate("explicit-inventory-rebuild");
@@ -502,6 +522,7 @@ public final class ShadowCacheProbe {
     }
 
     public JsonObject pollInventoryRebuild(Rig rig) {
+        if (!inventoryCovered()) return inventoryRefusal();
         observeRig(rig);
         return inventoryRebuild == null ? info() : finishInventoryStep();
     }
@@ -509,6 +530,7 @@ public final class ShadowCacheProbe {
     public JsonObject pollInventoryRebuild(Rig rig, int maximumBatchCells) {
         if (maximumBatchCells < 1 || maximumBatchCells > ShadowInventoryRebuild.MAX_CONTROL_BATCH_CELLS)
             throw new IllegalArgumentException("inventory control batch must contain 1 through 64 cells");
+        if (!inventoryCovered()) return inventoryRefusal();
         observeRig(rig);
         return finishInventoryStep(maximumBatchCells);
     }
@@ -516,6 +538,22 @@ public final class ShadowCacheProbe {
     public JsonObject cancelInventoryRebuild(String reason) {
         if (inventoryRebuild != null) inventoryRebuild.cancel(reason);
         return info();
+    }
+
+    /**
+     * Slot inventory reads are outside every step observer's coverage. D26 does not
+     * cover them, so live inventory publication keeps the 8g2 refusal. Only the fixed
+     * host model without an identity probe can publish.
+     */
+    private boolean inventoryCovered() { return hostModel && identityProbe == null; }
+
+    private JsonObject inventoryRefusal() {
+        detachInventoryCoordinator("inventory-outside-step-coverage");
+        fallbackReason = "inventory-outside-step-coverage";
+        JsonObject result = info();
+        result.addProperty("reason", "inventory-outside-step-coverage");
+        result.addProperty("terminal", true);
+        return result;
     }
 
     private ShadowInventoryRebuild inventoryCoordinator(Rig rig) {
@@ -617,7 +655,17 @@ public final class ShadowCacheProbe {
         result.addProperty("automaticIdentityReason", automaticIdentityReason);
         result.addProperty("identityWitnessAvailable", activeIdentityGuard != null && activeIdentityGuard.witnessAvailable());
         result.addProperty("identityContinuityProved", false);
-        result.addProperty("continuityProtocol", "refuse-without-independent-input-window");
+        result.addProperty("continuityProtocol", StepDeltaWindow.PROTOCOL);
+        result.addProperty("stepDataDeliveryAssumption", "D26");
+        result.addProperty("callbackOrderingRule", "E217-later-callback-after-batch");
+        result.addProperty("stepWindowCallbacks", stepWindow.steps());
+        result.addProperty("stepWindowBindingRevision", stepWindow.bindingRevision());
+        result.addProperty("stepWindowReadsOpened", stepWindow.readsOpened());
+        result.addProperty("stepWindowConfirmations", stepWindow.confirmations());
+        result.addProperty("stepWindowChanges", stepWindow.changes());
+        result.addProperty("stepWindowRefusals", stepWindowRefusals);
+        result.addProperty("retainedStepWindowDiscards", retainedStepWindowDiscards);
+        result.addProperty("inventoryPublicationSupported", inventoryCovered());
         result.addProperty("liveAcquisitionSupported", false);
         result.addProperty("hostModel", hostModel);
         result.addProperty("hostInputFenceProved", false);
@@ -641,7 +689,7 @@ public final class ShadowCacheProbe {
         result.addProperty("projectScopeComplete", false);
         result.addProperty("lifecycleFallback", "project-lifecycle-fence-unproved");
         result.addProperty("optionalLifecycleWitnessSupported", identityProbe != null);
-        result.addProperty("instrumentationRevision", "8g2-shadow-continuity-refusal-v1");
+        result.addProperty("instrumentationRevision", "8g2b-shadow-step-delta-v1");
         result.addProperty("observerKind", "addStepDataObserver");
         result.addProperty("rebindPolicy", "preserve-current-or-forced-canary-transition");
         result.addProperty("callbackSourceIdentityKnown", false);
@@ -764,6 +812,8 @@ public final class ShadowCacheProbe {
     }
 
     private void beginStage(View view, String stage, Track target, Address address) {
+        stepWindow.onRebind();
+        view.canaryRead = null;
         view.physicalBindingRevision++;
         view.hints.clear();
         view.physicalHintOverflow = false;
@@ -828,7 +878,10 @@ public final class ShadowCacheProbe {
         if ("settled".equals(view.phase) && !"target".equals(view.stage)) {
             if ("escape".equals(view.stage)) {
                 beginStage(view, "canary", view.canaryTarget, view.canaryAddress);
-            } else {
+            } else if (view.canaryRead == null) {
+                // Capture the window before target confirmation. The read stays pending until a later task confirms it.
+                StepDeltaWindow.Read read = stepWindow.open();
+                if (!subscribed(view)) { retire(index); return fallback(view, "observer-unsubscribed"); }
                 boolean populated = false;
                 long started = System.nanoTime();
                 try {
@@ -842,6 +895,14 @@ public final class ShadowCacheProbe {
                     retire(index);
                     return fallback(view, "populated-canary-replay-unavailable");
                 }
+                if (!stepWindow.unchanged(read)) return stepWindowChanged(index, view);
+                view.canaryRead = read;
+                // Canary hints only locate replayed notes. The step count covers any new hint.
+                stepWindow.confirmLater(read, () -> true);
+            } else {
+                StepDeltaWindow.State state = view.canaryRead.state();
+                if (state == StepDeltaWindow.State.PENDING) return status(index);
+                if (!stepWindow.admitted(view.canaryRead) || !bindingReady(view)) return stepWindowChanged(index, view);
                 view.canaryVerified = true;
                 beginStage(view, "target", view.finalTarget, view.finalAddress);
             }
@@ -891,29 +952,58 @@ public final class ShadowCacheProbe {
         authorityWindowVersion = Math.incrementExact(authorityWindowVersion);
         if (!valid(view) || !("settled".equals(view.phase) || "complete".equals(view.phase)))
             return fallback(view, "binding-or-replay-incomplete");
+        // The membership window opens before reconciliation confirms the target.
+        StepDeltaWindow.Read membership = stepWindow.open();
+        if (!subscribed(view) || !subscribed(authority)) return fallback(view, "observer-unsubscribed");
         reconcile(index);
         if (!valid(view)) return fallback(view, "reconciliation-invalidated-binding");
         if (!"target".equals(view.stage) || !view.hints.isEmpty() || view.physicalHintOverflow)
             return fallback(view, "physical-hints-pending");
         if (!guardCurrent(view.identityGuard)) return fallback(view, "identity-window-changed");
-        scan = new Scan(view);
-        authority.identityGuard = view.identityGuard;
         AuthorityControl control = view.canaryTarget == null || view.canaryAddress == null ? null : new AuthorityControl(view.canaryTarget, view.canaryAddress);
-        try { startAuthorityBinding(view.target, view.expected, control); }
-        catch (RuntimeException error) { return finishWindowChange("authority-control-unavailable"); }
+        if (control != null) {
+            try { requireAddress(control.target(), control.address().row()); }
+            catch (RuntimeException error) { scan = new Scan(view); return finishWindowChange("authority-control-unavailable"); }
+        }
+        if (!stepWindow.unchanged(membership)) return stepWindowChanged(index, view);
+        scan = new Scan(view);
+        scan.membershipRead = membership;
+        stepWindow.confirmLater(membership, () -> view.hints.isEmpty() && !view.physicalHintOverflow);
         comparison = "pending";
         return comparePoll();
     }
 
-    /** Scan authority without using callback coordinates or cached membership. */
+    /**
+     * Scan authority without using callback coordinates or cached membership.
+     * Membership, authority reads, and the result each need a confirmed step-delta
+     * window. The authority binding starts a new window. The resident callback
+     * count must stay unchanged across that transition.
+     */
     public JsonObject comparePoll() {
         if (scan == null) return info();
         Scan work = scan;
         View view = work.view;
         if (!guardCurrent(work.identityGuard)) return finishWindowChange("window-changed");
+        // A known change ends the scan before any later stage can use its reads.
+        StepDeltaWindow.Read open = "membership".equals(work.stage) ? work.membershipRead
+            : "result".equals(work.stage) ? work.resultRead : work.authorityRead;
+        if (open != null && (open.state() == StepDeltaWindow.State.CHANGED || !stepWindow.unchanged(open)))
+            return finishStepWindowChange(work);
         if (!valid(view) || view.callbacks != work.callbacks || !work.metadata.equals(metadata(view.clip)))
             return finishWindowChange("window-changed");
         if (elapsed(work.started) > 40_000) return finishWindowChange("authority-scan-budget");
+        if ("membership".equals(work.stage)) {
+            if (work.membershipRead.state() == StepDeltaWindow.State.PENDING) return scanStatus();
+            if (!stepWindow.admitted(work.membershipRead)) return finishStepWindowChange(work);
+            AuthorityControl control = view.canaryTarget == null || view.canaryAddress == null ? null : new AuthorityControl(view.canaryTarget, view.canaryAddress);
+            authority.identityGuard = view.identityGuard;
+            try { startAuthorityBinding(view.target, view.expected, control); }
+            catch (RuntimeException error) { return finishWindowChange("authority-control-unavailable"); }
+            work.stage = "authority";
+            return scanStatus();
+        }
+        if ("settlement".equals(work.stage)) return settleConfirmed(work);
+        if ("result".equals(work.stage)) return publishConfirmed(work);
         try { advanceAuthorityBinding(); }
         catch (RuntimeException error) { return finishWindowChange("authority-binding-unavailable"); }
         if (!"target".equals(authority.stage) || !"settling".equals(authority.phase)) {
@@ -929,9 +1019,12 @@ public final class ShadowCacheProbe {
         if (!work.authorityReady) {
             work.authorityReady = true;
             work.authorityCallbacks = authority.callbacks;
+            // The read window opens before the authority target is confirmed.
+            work.authorityRead = stepWindow.open();
         }
         if (authority.callbacks != work.authorityCallbacks) return finishWindowChange("window-changed");
         if (!bindingReady(authority)) return finishWindowChange("authority-binding-changed");
+        if (!stepWindow.unchanged(work.authorityRead)) return finishStepWindowChange(work);
         long batchStarted = System.nanoTime();
         int end = coverage.width() * KEYS;
         try {
@@ -940,6 +1033,7 @@ public final class ShadowCacheProbe {
                 requireIdentityEpoch(work.identityGuard);
                 List<Note> notes = read(authority.clip, coordinate, true);
                 requireIdentityEpoch(work.identityGuard);
+                if (!stepWindow.unchanged(work.authorityRead)) return finishStepWindowChange(work);
                 work.notes.addAll(notes);
                 work.estimatedBytes += notes.size() * (160L + FIELDS.size() * 64L);
                 work.next++;
@@ -953,38 +1047,83 @@ public final class ShadowCacheProbe {
         work.hostWorkMs += batchMs;
         if (batchMs > HOST_WORK_LIMIT_MS) return finishWindowChange("authority-host-work-budget");
         if (work.next < end) return scanStatus();
-        if (!valid(view) || view.callbacks != work.callbacks || authority.callbacks != work.authorityCallbacks
-            || !view.hints.isEmpty() || view.physicalHintOverflow
-            || !work.metadata.equals(metadata(view.clip)) || !work.metadata.equals(metadata(authority.clip))) return finishWindowChange("window-changed");
-        if (!guardCurrent(work.identityGuard)) return finishWindowChange("window-changed");
+        if (!finalReadsCurrent(work)) return finishWindowChange("window-changed");
+        if (!stepWindow.unchanged(work.authorityRead)) return finishStepWindowChange(work);
+        // Settlement waits for a later callback that sees the same window.
+        work.stage = "settlement";
+        stepWindow.confirmLater(work.authorityRead, () -> view.hints.isEmpty() && !view.physicalHintOverflow);
+        return scanStatus();
+    }
+
+    private boolean finalReadsCurrent(Scan work) { return finalReadsCurrent(work, true); }
+
+    /** Publication omits metadata. The result already compared metadata inside its confirmed window. */
+    private boolean finalReadsCurrent(Scan work, boolean metadata) {
+        View view = work.view;
+        return valid(view) && view.callbacks == work.callbacks && authority.callbacks == work.authorityCallbacks
+            && view.hints.isEmpty() && !view.physicalHintOverflow && bindingReady(authority)
+            && (!metadata || (work.metadata.equals(metadata(view.clip)) && work.metadata.equals(metadata(authority.clip))))
+            && guardCurrent(work.identityGuard);
+    }
+
+    /** Apply settlement only after confirmation. Enrichment reads then use the same window value. */
+    private JsonObject settleConfirmed(Scan work) {
+        if (work.authorityRead.state() == StepDeltaWindow.State.PENDING) return scanStatus();
+        if (!stepWindow.admitted(work.authorityRead)) return finishStepWindowChange(work);
+        if (!finalReadsCurrent(work)) return finishWindowChange("window-changed");
+        View view = work.view;
         boolean populated = view.onsetCallbacks > 0 && !work.notes.isEmpty();
         boolean canary = view.canaryVerified || (!view.usedForRebind && populated);
+        work.pendingPopulated = populated;
         boolean settled = cache.settleReplay(view.ref, new ReplayWitness(canary, true, true,
             view.replayElapsedMs, view.unchanged, 50));
         if (!settled && cache.clipHealth(view.ref) != Health.COMPLETE) {
-            comparison = canary ? "replay-incomplete" : "populated-canary-unavailable";
-        } else {
-            Result result = cache.snapshot(view.ref, coverage, work.metadata,
-                coordinate -> guardedEnrichment(view, coordinate), true, "settled-independent-1/512-authority");
-            if (!guardCurrent(work.identityGuard)) return finishWindowChange("window-changed");
-            if (result.snapshot() == null) comparison = result.reason();
-            else {
-                comparison = cache.compare(result.snapshot(), coverage, metadata(authority.clip), work.notes);
-                if (view.callbacks != work.callbacks || authority.callbacks != work.authorityCallbacks
-                    || !bindingReady(authority)) comparison = "window-changed";
-                if ("match".equals(comparison)) {
-                    canaryPassed |= populated;
-                    view.phase = "complete";
-                    view.lastResult = result;
-                } else if (!"window-changed".equals(comparison)) {
-                    cache.evict(view.ref); releasePool(view); view.phase = "retired";
-                    view.lastResult = null;
-                }
+            // No cache content is read. The confirmed authority read supports this refusal.
+            work.pendingComparison = canary ? "replay-incomplete" : "populated-canary-unavailable";
+            work.resultRead = work.authorityRead;
+            return publish(work);
+        }
+        StepDeltaWindow.Read result = stepWindow.open();
+        if (!result.value().equals(work.authorityRead.value())) return finishStepWindowChange(work);
+        Result candidate = cache.snapshot(view.ref, coverage, work.metadata,
+            coordinate -> guardedEnrichment(view, coordinate), true, "settled-independent-1/512-authority");
+        if (!guardCurrent(work.identityGuard)) return finishWindowChange("window-changed");
+        String outcome = candidate.snapshot() == null ? candidate.reason()
+            : cache.compare(candidate.snapshot(), coverage, metadata(authority.clip), work.notes);
+        if (view.callbacks != work.callbacks || authority.callbacks != work.authorityCallbacks || !bindingReady(authority))
+            outcome = "window-changed";
+        if ("window-changed".equals(outcome)) return finishWindowChange("window-changed");
+        if (!stepWindow.unchanged(result)) return finishStepWindowChange(work);
+        work.pendingComparison = outcome;
+        work.pendingResult = candidate;
+        work.resultRead = result;
+        work.stage = "result";
+        stepWindow.confirmLater(result, () -> view.hints.isEmpty() && !view.physicalHintOverflow);
+        return scanStatus();
+    }
+
+    private JsonObject publishConfirmed(Scan work) {
+        if (work.resultRead.state() == StepDeltaWindow.State.PENDING) return scanStatus();
+        if (!stepWindow.admitted(work.resultRead)) return finishStepWindowChange(work);
+        if (!finalReadsCurrent(work, false)) return finishWindowChange("window-changed");
+        return publish(work);
+    }
+
+    /** Publish one confirmed comparison. */
+    private JsonObject publish(Scan work) {
+        View view = work.view;
+        comparison = work.pendingComparison;
+        if (work.pendingResult != null && work.pendingResult.snapshot() != null) {
+            if ("match".equals(comparison)) {
+                canaryPassed |= work.pendingPopulated;
+                view.phase = "complete";
+                view.lastResult = work.pendingResult;
+                view.resultRead = work.resultRead;
+            } else {
+                cache.evict(view.ref); releasePool(view); view.phase = "retired";
+                view.lastResult = null; view.resultRead = null;
             }
         }
-        // A changed window invalidates the authority scan as well as the cache candidate.
-        if ("window-changed".equals(comparison)) return finishWindowChange("window-changed");
-        if (!guardCurrent(work.identityGuard)) return finishWindowChange("window-changed");
         scans++;
         if ("match".equals(comparison)) matches++;
         else if (Set.of("mismatch", "coverage-mismatch", "metadata-mismatch", "membership-mismatch", "field-mismatch").contains(comparison)) {
@@ -1000,6 +1139,7 @@ public final class ShadowCacheProbe {
         result.addProperty("reason", "lifecycle-unverified");
         result.addProperty("authorityAvailable", true);
         result.addProperty("fallbackPerformed", true);
+        result.addProperty("stepWindowConfirmed", true);
         result.addProperty("authorityNoteCount", work.notes.size());
         result.add("authorityNotes", JSON.toJsonTree(work.notes));
         result.add("authorityMetadata", JSON.toJsonTree(work.metadata));
@@ -1011,9 +1151,23 @@ public final class ShadowCacheProbe {
             result.add("diagnosticSnapshot", JSON.toJsonTree(view.lastResult.snapshot()));
             lastSnapshotSerializedBytes = JSON.toJson(view.lastResult.snapshot()).getBytes(StandardCharsets.UTF_8).length;
             result.addProperty("lastSnapshotSerializedBytes", lastSnapshotSerializedBytes);
-
         }
         scan = null;
+        return result;
+    }
+
+    /** A changed or unconfirmed window ends the scan and retires the resident binding. */
+    private JsonObject finishStepWindowChange(Scan work) {
+        if (scan != work) {
+            // Retirement already cancelled this scan and counted its changed window.
+            JsonObject result = scanStatus();
+            result.addProperty("comparison", comparison); result.addProperty("reason", comparison); result.addProperty("terminal", true);
+            return result;
+        }
+        stepWindowRefusals++;
+        stepWindow.discard(work.membershipRead); stepWindow.discard(work.authorityRead); stepWindow.discard(work.resultRead);
+        JsonObject result = finishWindowChange("step-window-changed");
+        retireStepWindow(viewIndex(work.view));
         return result;
     }
 
@@ -1022,6 +1176,10 @@ public final class ShadowCacheProbe {
 
     public JsonObject status(int index) {
         View view = view(index);
+        // Retained output needs its confirmed window to be unchanged. A later step or rebind discards it.
+        if (view.lastResult != null && !stepWindow.admitted(view.resultRead)) {
+            view.lastResult = null; view.resultRead = null; retainedStepWindowDiscards++;
+        }
         if (view.lastResult != null) guardCurrent(view.identityGuard);
         JsonObject result = info();
         result.addProperty("index", index);
@@ -1063,6 +1221,8 @@ public final class ShadowCacheProbe {
         View view = view(index);
         if (reservationBeingBound == null || reservationBeingBound.index() != index) releasePool(view);
         if (view.ref != null && cache.hasClip(view.ref) && !"retired".equals(view.phase)) cache.evict(view.ref);
+        stepWindow.onRebind();
+        stepWindow.discard(view.canaryRead); view.canaryRead = null; view.resultRead = null;
         view.phase = "retired";
         view.physicalBindingRevision++;
         view.hints.clear();
@@ -1133,17 +1293,20 @@ public final class ShadowCacheProbe {
         if (expected != view.expected || !identityEpochCurrent(guard)) return;
         if (!expected.trackId().equals(targetId)) { view.phase = "retired"; return; }
         if ("track".equals(view.phase) && trackExists && expected.trackId().equals(trackId)) {
+            stepWindow.onRebind();
             view.track.isPinned().set(true);
             if (expected == view.expected && identityEpochCurrent(guard)) view.phase = "track-pin";
             return;
         }
         if ("track-pin".equals(view.phase) && trackPinned && expected.trackId().equals(trackId)) {
+            stepWindow.onRebind();
             target.selectSlot(expected.row());
             if (expected == view.expected && identityEpochCurrent(guard)) view.phase = "slot";
             return;
         }
         if ("slot".equals(view.phase) && trackPinned && expected.trackId().equals(trackId)
             && clipExists && row == expected.row()) {
+            stepWindow.onRebind();
             view.clip.isPinned().set(true);
             if (expected == view.expected && identityEpochCurrent(guard)) view.phase = "clip-pin";
             return;
@@ -1241,6 +1404,25 @@ public final class ShadowCacheProbe {
         result.addProperty("terminal", true);
         scan = null;
         return result;
+    }
+
+    /** A changed step window retires the binding and discards pending and output state. */
+    private JsonObject stepWindowChanged(int index, View view) {
+        stepWindowRefusals++;
+        retireStepWindow(index);
+        return fallback(view, "step-window-changed");
+    }
+
+    /** Delete the reference, so recovery needs a new reference and fresh values. */
+    private void retireStepWindow(int index) {
+        View view = views[index];
+        retire(index);
+        if (view.ref != null && cache.hasClip(view.ref)) cache.delete(view.ref);
+    }
+
+    private static boolean subscribed(View view) {
+        try { return view.clip.isSubscribed() && view.track.isSubscribed(); }
+        catch (RuntimeException | LinkageError error) { return false; }
     }
 
     private View view(int index) {
@@ -1378,6 +1560,7 @@ public final class ShadowCacheProbe {
         int unchanged;
         double replayElapsedMs;
         Result lastResult;
+        StepDeltaWindow.Read canaryRead, resultRead;
 
         View(ControllerHost host, String id) {
             track = host.createCursorTrack("GN_SHADOW_" + id, "ghostnote shadow " + id, 0, scenes, false);
@@ -1398,6 +1581,7 @@ public final class ShadowCacheProbe {
             clip.getLoopLength().markInterested();
             clip.color().markInterested();
             clip.addStepDataObserver((x, y, state) -> {
+                stepWindow.onStep();
                 if (x < 0 || x >= coverage.width() || y < 0 || y >= KEYS
                     || expected == null || "retired".equals(phase)) { rejected++; return; }
                 callbacks++;
@@ -1424,6 +1608,12 @@ public final class ShadowCacheProbe {
         final List<Note> notes = new ArrayList<>();
         long authorityBoundAt, authorityCallbacks, estimatedBytes;
         boolean authorityReady;
+        /** membership -> authority -> settlement -> result. Each later stage needs a confirmed window. */
+        String stage = "membership";
+        StepDeltaWindow.Read membershipRead, authorityRead, resultRead;
+        String pendingComparison;
+        Result pendingResult;
+        boolean pendingPopulated;
         int next;
         double hostWorkMs;
         Scan(View view) { this.view = view; callbacks = view.callbacks; identityGuard = view.identityGuard; metadata = metadata(view.clip); }

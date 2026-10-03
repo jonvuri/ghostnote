@@ -13,6 +13,10 @@ public final class ShadowAuthorityFallbackTest {
         Source source = new Source(); ShadowAuthorityFallback reader = source.reader();
         reader.start(ADDRESS, COVERAGE); settle(source, reader);
         var result = reader.poll();
+        check(result.phase().equals("confirming") && !result.authorityAvailable() && result.authorityNotes() == null,
+            "the final read callback cannot publish its own window");
+        check(reader.poll().phase().equals("confirming"), "a poll before the scheduled task stays pending");
+        source.runTasks(); result = reader.poll();
         check(result.authorityAvailable() && result.fallbackPerformed() && result.scannedCoordinates() == 256, "full scan acquires authority");
         check(result.authorityNotes().size() == 1 && result.authorityNotes().get(0).channel() == 15, "full scan sees channel 15 without callback coordinates");
         check(!result.complete() && !result.eligible(), "fallback never admits a cache candidate");
@@ -33,7 +37,7 @@ public final class ShadowAuthorityFallbackTest {
 
         source = new Source(); reader = source.reader(); reader.start(ADDRESS, COVERAGE);
         check(reader.cancel("cancelled").terminal() && reader.poll().authorityNotes() == null, "cancellation exposes no authority");
-        reader.start(ADDRESS, COVERAGE); settle(source, reader); check(reader.poll().authorityAvailable(), "explicit retry recovers");
+        reader.start(ADDRESS, COVERAGE); settle(source, reader); check(acquire(source, reader).authorityAvailable(), "explicit retry recovers");
 
         source = new Source(); source.bound = false; reader = source.reader(); reader.start(ADDRESS, COVERAGE);
         source.clock += 5_000_000_001L;
@@ -52,7 +56,7 @@ public final class ShadowAuthorityFallbackTest {
         check(reader.poll().reason().equals("authority-window-changed"), "fresh guard after final metadata catches an undelivered change");
 
         source = new Source(); reader = source.reader(); reader.start(ADDRESS, COVERAGE); settle(source, reader);
-        check(reader.poll().authorityAvailable(), "stable acquisition precedes retained status test");
+        check(acquire(source, reader).authorityAvailable(), "stable acquisition precedes retained status test");
         final Source retainedMetadataSource = source;
         source.metadataHook = () -> retainedMetadataSource.silentGuardChange++;
         check(!reader.status().authorityAvailable() && reader.status().authorityNotes() == null,
@@ -61,7 +65,36 @@ public final class ShadowAuthorityFallbackTest {
         final Source costlyMetadataSource = source;
         source.metadataHook = () -> { if (costlyMetadataSource.metadataReads >= 2) costlyMetadataSource.clock += 45_000_001L; };
         check(reader.poll().reason().equals("authority-host-work-budget"), "final metadata and guards remain in the batch budget");
-        System.out.println("Shadow authority fallback: 10 test groups passed.");
+
+        // A batch remainder after the final read changes the count before the confirmation task.
+        source = new Source(); reader = source.reader(); reader.start(ADDRESS, COVERAGE); settle(source, reader);
+        check(reader.poll().phase().equals("confirming"), "mid-batch final read is pending");
+        source.window.onStep(); source.runTasks();
+        result = reader.poll();
+        check(result.reason().equals("authority-step-window-changed") && result.authorityNotes() == null, "batch remainder refuses the read");
+        check(reader.poll().reason().equals("authority-step-window-changed"), "step refusal stays terminal");
+        // A step that lands inside the read callback is caught at once.
+        source = new Source(); reader = source.reader(); reader.start(ADDRESS, COVERAGE); settle(source, reader);
+        final Source stepSource = source; source.readHook = () -> stepSource.window.onStep();
+        check(reader.poll().reason().equals("authority-step-window-changed"), "a step during reads refuses");
+        // Retained output needs the confirmed window to stay unchanged.
+        source = new Source(); reader = source.reader(); reader.start(ADDRESS, COVERAGE); settle(source, reader);
+        check(acquire(source, reader).authorityAvailable(), "stable acquisition precedes a later step");
+        source.window.onStep();
+        check(!reader.status().authorityAvailable() && reader.status().authorityNotes() == null, "a later step retires retained authority");
+        // A rebind starts a new window, so its callbacks cannot confirm the old read.
+        source = new Source(); reader = source.reader(); reader.start(ADDRESS, COVERAGE); settle(source, reader);
+        reader.poll(); source.window.onRebind(); source.runTasks();
+        check(reader.poll().reason().equals("authority-step-window-changed"), "a rebind cannot confirm the old window");
+        // Cancellation during confirmation is terminal. The late task cannot revive it.
+        source = new Source(); reader = source.reader(); reader.start(ADDRESS, COVERAGE); settle(source, reader);
+        reader.poll(); reader.cancel("cancel-during-confirmation"); source.runTasks();
+        check(reader.poll().reason().equals("cancel-during-confirmation") && reader.poll().authorityNotes() == null,
+            "cancellation stays terminal across the confirmation task");
+        System.out.println("Shadow authority fallback: 15 test groups passed.");
+    }
+    private static ShadowAuthorityFallback.Result acquire(Source source, ShadowAuthorityFallback reader) {
+        reader.poll(); source.runTasks(); return reader.poll();
     }
     private static void settle(Source source, ShadowAuthorityFallback reader) {
         reader.poll();
@@ -74,7 +107,14 @@ public final class ShadowAuthorityFallbackTest {
         int metadataReads;
         boolean bound = true;
         Runnable readHook, metadataHook;
+        final java.util.ArrayDeque<Runnable> tasks = new java.util.ArrayDeque<>();
+        final StepDeltaWindow window = new StepDeltaWindow("model-init", () -> 0, tasks::add);
         ShadowAuthorityFallback reader() { return new ShadowAuthorityFallback(this, () -> clock); }
+        void runTasks() { while (!tasks.isEmpty()) tasks.removeFirst().run(); }
+        public Object openReadWindow() { return window.open(); }
+        public boolean readWindowUnchanged(Object value) { return window.unchanged((StepDeltaWindow.Read) value); }
+        public void confirmReadWindow(Object value) { window.confirmLater((StepDeltaWindow.Read) value, () -> true); }
+        public StepDeltaWindow.State readWindowState(Object value) { return ((StepDeltaWindow.Read) value).state(); }
         public void point(Address address) {}
         public void advance() {}
         public boolean bound(Address address) { return bound; }

@@ -9,7 +9,10 @@ Do not start an unrelated rewrite.
 
 Use this sequence to deploy and reload a new `.bwextension` file:
 
-1. Run `./gradlew copyExtension` from `extension/`.
+1. Run `./gradlew copyExtension` from `extension/`. For the Phase 8g probe
+   profile, run `./gradlew copyShadowProbeExtension` instead. It deploys the
+   separate `ghostnote 8g controls` product. `copyExtension` deploys only the
+   normal `ghostnote` product.
 2. Open Bitwig Settings and select Controllers.
 3. Fully remove the current `ghostnote bridge` controller. Do not only disable
    it. A power toggle can restart an instance with cached Java classes.
@@ -17,7 +20,8 @@ Use this sequence to deploy and reload a new `.bwextension` file:
 5. Scroll the Product list to its absolute bottom. The list can extend below
    the visible area. The last visible row is not necessarily the last row. If
    you select an earlier duplicate, Bitwig can load an older cached extension.
-6. Select the final `ghostnote` product in the full list and click Add.
+6. Select the final entry of the required product in the full list and click
+   Add.
 7. Run `npm run probe:hello` from `brain/`. Confirm that all checks pass. If the
    build has a deliberate identity marker, confirm that the marker changed.
 

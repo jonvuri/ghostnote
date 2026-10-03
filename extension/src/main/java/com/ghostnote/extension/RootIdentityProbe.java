@@ -39,6 +39,7 @@ public final class RootIdentityProbe {
     private static final String WITNESS_PREFIX = "chainWitness.";
     private final String extensionInitNonce;
     private final Supplier<String> independentWindow;
+    private final boolean stepDeltaProtocol;
     private final String probeInstanceNonce = UUID.randomUUID().toString();
     private final long probeInitAtMs = System.currentTimeMillis();
     private final long probeInitAtNanos = System.nanoTime();
@@ -58,33 +59,50 @@ public final class RootIdentityProbe {
     private String identityChangeReason = "initializing", lastGuardFailure = "";
     private Consumer<String> identityListener;
 
-    /** This guard describes delivered observations. It does not prove a host input fence. */
+    /**
+     * This guard describes delivered observations. It does not prove a host input fence.
+     * Under the step-delta protocol, admission needs a coherent root. Chain IDs only
+     * invalidate; they never admit. Each read still needs a confirmed step-delta window.
+     */
     public record IdentityGuard(long epoch, String extensionInitNonce, boolean coherent,
         boolean witnessAvailable, String reason, String sourceFingerprint, List<String> chainIds,
-        String continuityWindow) {
+        String continuityWindow, boolean rootAvailable, boolean stepDeltaProtocol) {
         public IdentityGuard { chainIds = List.copyOf(chainIds); }
         public boolean acquisitionAllowed() {
-            return coherent && witnessAvailable && continuityWindow != null && !continuityWindow.isEmpty();
+            return coherent && (stepDeltaProtocol ? rootAvailable : witnessAvailable)
+                && continuityWindow != null && !continuityWindow.isEmpty();
         }
         public String refusalReason() {
-            return !coherent ? reason : !witnessAvailable ? "identity-witness-unavailable" : "project-continuity-unproved";
+            if (!coherent) return reason;
+            if (stepDeltaProtocol) return !rootAvailable ? "identity-root-unavailable" : "project-continuity-unproved";
+            return !witnessAvailable ? "identity-witness-unavailable" : "project-continuity-unproved";
         }
     }
 
-    /** The caller allocates this probe only during experimental controller initialization. */
+    /**
+     * The caller allocates this probe only during experimental controller initialization.
+     * E217 passed the ordering rule, so the live probe uses the step-delta protocol.
+     */
     public RootIdentityProbe(ControllerHost host, Rig rig) {
-        this(host, rig.epochGeneration, rig.project, rig.application);
+        this(host, rig.epochGeneration, rig.project, rig.application, () -> StepDeltaWindow.PROTOCOL, true);
     }
 
     RootIdentityProbe(ControllerHost host, String initNonce, Project project, Application application) {
-        this(host, initNonce, project, application, () -> null);
+        this(host, initNonce, project, application, () -> null, false);
     }
 
     /** Model seam. The provider must fence native input and target updates through publication. */
     RootIdentityProbe(ControllerHost host, String initNonce, Project project, Application application,
                       Supplier<String> independentWindow) {
+        this(host, initNonce, project, application, independentWindow, false);
+    }
+
+    /** The step-delta protocol token states that each read uses a confirmed step-delta window. */
+    RootIdentityProbe(ControllerHost host, String initNonce, Project project, Application application,
+                      Supplier<String> independentWindow, boolean stepDeltaProtocol) {
         extensionInitNonce = initNonce;
         this.independentWindow = Objects.requireNonNull(independentWindow);
+        this.stepDeltaProtocol = stepDeltaProtocol;
         booleanSignal("projectExists", project::exists);
         stringSignal("projectName", application::projectName);
         booleanSignal("hasActiveEngine", application::hasActiveEngine);
@@ -221,8 +239,9 @@ public final class RootIdentityProbe {
             String text = String.valueOf(value.getValue());
             canonical.append(value.getKey().length()).append(':').append(value.getKey()).append(text.length()).append(':').append(text);
         }
+        if (stepDeltaProtocol && coherent && rootAvailable) reason = "step-delta-read-window-required";
         return new IdentityGuard(identityEpoch, extensionInitNonce, coherent, coherent && rootAvailable && !ids.isEmpty(),
-            reason, digest(canonical.toString()), ids, windowAfter);
+            reason, digest(canonical.toString()), ids, windowAfter, coherent && rootAvailable, stepDeltaProtocol);
     }
 
     /** Child values are required only when their parent and bank position exist. */
@@ -551,12 +570,13 @@ public final class RootIdentityProbe {
     private JsonObject state() {
         JsonObject result = new JsonObject();
         result.addProperty("purpose", "root-identity-research");
-        result.addProperty("instrumentationRevision", "8g2-root-continuity-refusal-v1");
+        result.addProperty("instrumentationRevision", "8g2b-root-step-delta-v1");
         result.addProperty("identityDetectionProved", false);
         result.addProperty("automaticIdentityEpoch", identityEpoch);
         result.addProperty("automaticIdentityChangeReason", identityChangeReason);
         result.addProperty("hostInputFenceProved", false);
-        result.addProperty("continuityProtocol", "refuse-without-independent-input-window");
+        result.addProperty("continuityProtocol", stepDeltaProtocol ? StepDeltaWindow.PROTOCOL : "refuse-without-independent-input-window");
+        result.addProperty("stepDataDeliveryAssumption", stepDeltaProtocol ? "D26" : "none");
         result.addProperty("extensionInitNonce", extensionInitNonce);
         result.addProperty("probeInstanceNonce", probeInstanceNonce);
         result.addProperty("probeInitAtMs", probeInitAtMs);

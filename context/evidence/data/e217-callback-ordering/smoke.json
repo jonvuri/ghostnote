@@ -1,0 +1,8708 @@
+{
+ "marker": "e217-callback-ordering-v1",
+ "researchOnly": true,
+ "complete": false,
+ "eligible": false,
+ "hostFenceProved": false,
+ "started": "2026-10-02T14:49:55.627Z",
+ "identities": {
+  "P": {
+   "name": "New 8",
+   "root": "8a781a69-bf80-4ab7-943b-a07b7dd705a3",
+   "cursor": "13461ca1-0072-4e85-bc4f-fe48afc216c0"
+  },
+  "Q": {
+   "name": "New 9",
+   "root": "8074dc30-00f2-4ae3-b060-49893f2b5f73",
+   "cursor": "83eccfa7-1be7-41b4-967b-bc270b647727"
+  }
+ },
+ "actions": {
+  "next": "Select Next Project",
+  "prev": "Select Previous Project"
+ },
+ "reps": 4,
+ "separateReps": 20,
+ "floodMs": 400,
+ "floodConcurrency": 4,
+ "initialSignature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+ "runs": [
+  {
+   "kind": "same-callback",
+   "rep": 0,
+   "flood": true,
+   "pings": 68,
+   "finalProject": "P",
+   "finalCoherent": true,
+   "summary": {
+    "batches": 1,
+    "batchSteps": [
+     16
+    ],
+    "midBatchTicks": 1,
+    "afterBatch": 1,
+    "insideBatch": 0,
+    "missingConfirmation": 0,
+    "unchangedInside": 0,
+    "rpcInsideBatch": 4,
+    "rpcs": 4,
+    "ticks": 1,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "hostFenceProved": false
+   },
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "orderingMarker": "e217-callback-ordering-v1",
+    "ordering": true,
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 295,
+    "nowUs": 138898620,
+    "tickerActive": false,
+    "tickCount": 205,
+    "tickCallbacks": 50,
+    "inTickChanges": 0,
+    "stepCallbacks": 16,
+    "eventsRetained": 16,
+    "ticksRetained": 215,
+    "commandsRetained": 3,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 4,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+    "compacted": true,
+    "contextUs": 3000,
+    "events": [
+     {
+      "seq": 90,
+      "us": 137876875,
+      "tick": 163,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 91,
+      "us": 137876888,
+      "tick": 163,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 92,
+      "us": 137876891,
+      "tick": 163,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 93,
+      "us": 137876893,
+      "tick": 163,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 94,
+      "us": 137876900,
+      "tick": 163,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 95,
+      "us": 137876901,
+      "tick": 163,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 96,
+      "us": 137876903,
+      "tick": 163,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 97,
+      "us": 137876904,
+      "tick": 163,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 105,
+      "us": 137877235,
+      "tick": 164,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 106,
+      "us": 137877238,
+      "tick": 164,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 107,
+      "us": 137877240,
+      "tick": 164,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 108,
+      "us": 137877242,
+      "tick": 164,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 109,
+      "us": 137877290,
+      "tick": 164,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 110,
+      "us": 137877292,
+      "tick": 164,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 111,
+      "us": 137877294,
+      "tick": 164,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 112,
+      "us": 137877295,
+      "tick": 164,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "commands": [
+     {
+      "seq": 83,
+      "us": 137852831,
+      "tick": 163,
+      "kind": "command",
+      "op": "mark",
+      "step": {
+       "op": "mark",
+       "label": "same-callback rep=0"
+      }
+     },
+     {
+      "seq": 84,
+      "us": 137852898,
+      "tick": 163,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project",
+       "delayMs": -1
+      },
+      "returnedUs": 137852914
+     },
+     {
+      "seq": 85,
+      "us": 137852941,
+      "tick": 163,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project",
+       "delayMs": -1
+      },
+      "returnedUs": 137852948
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 100,
+      "us": 137876965,
+      "tick": 164,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|....|NNNN|-|.",
+      "steps": 8
+     },
+     {
+      "seq": 101,
+      "us": 137877011,
+      "tick": 164,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 102,
+      "us": 137877157,
+      "tick": 164,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 103,
+      "us": 137877196,
+      "tick": 164,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 104,
+      "us": 137877214,
+      "tick": 164,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 114,
+      "us": 137902375,
+      "tick": 164,
+      "kind": "confirm",
+      "tickSeq": 100,
+      "depth": 1,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 120,
+      "us": 137926792,
+      "tick": 165,
+      "kind": "confirm",
+      "tickSeq": 100,
+      "depth": 2,
+      "tickSteps": 8,
+      "steps": 16
+     }
+    ]
+   }
+  },
+  {
+   "kind": "same-callback",
+   "rep": 1,
+   "flood": false,
+   "pings": 0,
+   "finalProject": "P",
+   "finalCoherent": true,
+   "summary": {
+    "batches": 2,
+    "batchSteps": [
+     8,
+     8
+    ],
+    "midBatchTicks": 0,
+    "afterBatch": 0,
+    "insideBatch": 0,
+    "missingConfirmation": 0,
+    "unchangedInside": 0,
+    "rpcInsideBatch": 0,
+    "rpcs": 0,
+    "ticks": 1,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "hostFenceProved": false
+   },
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "orderingMarker": "e217-callback-ordering-v1",
+    "ordering": true,
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 410,
+    "nowUs": 139771827,
+    "tickerActive": false,
+    "tickCount": 238,
+    "tickCallbacks": 33,
+    "inTickChanges": 0,
+    "stepCallbacks": 16,
+    "eventsRetained": 16,
+    "ticksRetained": 96,
+    "commandsRetained": 3,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 5,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+    "compacted": true,
+    "contextUs": 3000,
+    "events": [
+     {
+      "seq": 320,
+      "us": 139167311,
+      "tick": 213,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 321,
+      "us": 139167317,
+      "tick": 213,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 322,
+      "us": 139167319,
+      "tick": 213,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 323,
+      "us": 139167321,
+      "tick": 213,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 324,
+      "us": 139167327,
+      "tick": 213,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 325,
+      "us": 139167329,
+      "tick": 213,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 326,
+      "us": 139167330,
+      "tick": 213,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 327,
+      "us": 139167331,
+      "tick": 213,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 331,
+      "us": 139169693,
+      "tick": 214,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 332,
+      "us": 139169698,
+      "tick": 214,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 333,
+      "us": 139169995,
+      "tick": 214,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 334,
+      "us": 139170000,
+      "tick": 214,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 335,
+      "us": 139170033,
+      "tick": 214,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 336,
+      "us": 139170035,
+      "tick": 214,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 337,
+      "us": 139170036,
+      "tick": 214,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 338,
+      "us": 139170037,
+      "tick": 214,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "commands": [
+     {
+      "seq": 317,
+      "us": 139143432,
+      "tick": 213,
+      "kind": "command",
+      "op": "mark",
+      "step": {
+       "op": "mark",
+       "label": "same-callback rep=1"
+      }
+     },
+     {
+      "seq": 318,
+      "us": 139143520,
+      "tick": 213,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project",
+       "delayMs": -1
+      },
+      "returnedUs": 139143532
+     },
+     {
+      "seq": 319,
+      "us": 139143554,
+      "tick": 213,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project",
+       "delayMs": -1
+      },
+      "returnedUs": 139143559
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 330,
+      "us": 139167363,
+      "tick": 214,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|....|NNNN|-|.",
+      "steps": 8
+     },
+     {
+      "seq": 340,
+      "us": 139188416,
+      "tick": 214,
+      "kind": "confirm",
+      "tickSeq": 330,
+      "depth": 1,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 342,
+      "us": 139211629,
+      "tick": 215,
+      "kind": "confirm",
+      "tickSeq": 330,
+      "depth": 2,
+      "tickSteps": 8,
+      "steps": 16
+     }
+    ]
+   }
+  },
+  {
+   "kind": "same-callback",
+   "rep": 2,
+   "flood": true,
+   "pings": 68,
+   "finalProject": "P",
+   "finalCoherent": true,
+   "summary": {
+    "batches": 1,
+    "batchSteps": [
+     16
+    ],
+    "midBatchTicks": 0,
+    "afterBatch": 0,
+    "insideBatch": 0,
+    "missingConfirmation": 0,
+    "unchangedInside": 0,
+    "rpcInsideBatch": 0,
+    "rpcs": 4,
+    "ticks": 1,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "hostFenceProved": false
+   },
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "orderingMarker": "e217-callback-ordering-v1",
+    "ordering": true,
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 644,
+    "nowUs": 141058086,
+    "tickerActive": false,
+    "tickCount": 288,
+    "tickCallbacks": 50,
+    "inTickChanges": 0,
+    "stepCallbacks": 16,
+    "eventsRetained": 16,
+    "ticksRetained": 215,
+    "commandsRetained": 3,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 6,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+    "compacted": true,
+    "contextUs": 3000,
+    "events": [
+     {
+      "seq": 439,
+      "us": 140036905,
+      "tick": 246,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 440,
+      "us": 140036907,
+      "tick": 246,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 441,
+      "us": 140036908,
+      "tick": 246,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 442,
+      "us": 140036909,
+      "tick": 246,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 443,
+      "us": 140036911,
+      "tick": 246,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 444,
+      "us": 140036913,
+      "tick": 246,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 445,
+      "us": 140036913,
+      "tick": 246,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 446,
+      "us": 140036914,
+      "tick": 246,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 447,
+      "us": 140036917,
+      "tick": 246,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 448,
+      "us": 140036917,
+      "tick": 246,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 449,
+      "us": 140036918,
+      "tick": 246,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 450,
+      "us": 140036919,
+      "tick": 246,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 451,
+      "us": 140036934,
+      "tick": 246,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 452,
+      "us": 140036940,
+      "tick": 246,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 453,
+      "us": 140036940,
+      "tick": 246,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 454,
+      "us": 140036941,
+      "tick": 246,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "commands": [
+     {
+      "seq": 432,
+      "us": 140013159,
+      "tick": 246,
+      "kind": "command",
+      "op": "mark",
+      "step": {
+       "op": "mark",
+       "label": "same-callback rep=2"
+      }
+     },
+     {
+      "seq": 433,
+      "us": 140013221,
+      "tick": 246,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project",
+       "delayMs": -1
+      },
+      "returnedUs": 140013229
+     },
+     {
+      "seq": 434,
+      "us": 140013231,
+      "tick": 246,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project",
+       "delayMs": -1
+      },
+      "returnedUs": 140013233
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 457,
+      "us": 140036958,
+      "tick": 247,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 16
+     },
+     {
+      "seq": 458,
+      "us": 140036971,
+      "tick": 247,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 459,
+      "us": 140037009,
+      "tick": 247,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 460,
+      "us": 140037013,
+      "tick": 247,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 461,
+      "us": 140037016,
+      "tick": 247,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 463,
+      "us": 140061905,
+      "tick": 247,
+      "kind": "confirm",
+      "tickSeq": 457,
+      "depth": 1,
+      "tickSteps": 16,
+      "steps": 16
+     },
+     {
+      "seq": 469,
+      "us": 140084402,
+      "tick": 248,
+      "kind": "confirm",
+      "tickSeq": 457,
+      "depth": 2,
+      "tickSteps": 16,
+      "steps": 16
+     }
+    ]
+   }
+  },
+  {
+   "kind": "same-callback",
+   "rep": 3,
+   "flood": false,
+   "pings": 0,
+   "finalProject": "P",
+   "finalCoherent": true,
+   "summary": {
+    "batches": 2,
+    "batchSteps": [
+     8,
+     8
+    ],
+    "midBatchTicks": 0,
+    "afterBatch": 0,
+    "insideBatch": 0,
+    "missingConfirmation": 0,
+    "unchangedInside": 0,
+    "rpcInsideBatch": 0,
+    "rpcs": 0,
+    "ticks": 2,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "hostFenceProved": false
+   },
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "orderingMarker": "e217-callback-ordering-v1",
+    "ordering": true,
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 765,
+    "nowUs": 141929456,
+    "tickerActive": false,
+    "tickCount": 321,
+    "tickCallbacks": 33,
+    "inTickChanges": 0,
+    "stepCallbacks": 16,
+    "eventsRetained": 22,
+    "ticksRetained": 96,
+    "commandsRetained": 3,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 7,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+    "compacted": true,
+    "contextUs": 3000,
+    "events": [
+     {
+      "seq": 672,
+      "us": 141326902,
+      "tick": 297,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 673,
+      "us": 141326905,
+      "tick": 297,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 674,
+      "us": 141326906,
+      "tick": 297,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 675,
+      "us": 141326907,
+      "tick": 297,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 676,
+      "us": 141326944,
+      "tick": 297,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 9"
+     },
+     {
+      "seq": 677,
+      "us": 141326997,
+      "tick": 297,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8074dc30-00f2-4ae3-b060-49893f2b5f73"
+     },
+     {
+      "seq": 678,
+      "us": 141326999,
+      "tick": 297,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "83eccfa7-1be7-41b4-967b-bc270b647727"
+     },
+     {
+      "seq": 679,
+      "us": 141327002,
+      "tick": 297,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 680,
+      "us": 141327004,
+      "tick": 297,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 681,
+      "us": 141327005,
+      "tick": 297,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 682,
+      "us": 141327006,
+      "tick": 297,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 683,
+      "us": 141352023,
+      "tick": 297,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 684,
+      "us": 141352025,
+      "tick": 297,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 685,
+      "us": 141352025,
+      "tick": 297,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 686,
+      "us": 141352026,
+      "tick": 297,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 687,
+      "us": 141352030,
+      "tick": 297,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 8"
+     },
+     {
+      "seq": 688,
+      "us": 141352043,
+      "tick": 297,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8a781a69-bf80-4ab7-943b-a07b7dd705a3"
+     },
+     {
+      "seq": 689,
+      "us": 141352043,
+      "tick": 297,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "13461ca1-0072-4e85-bc4f-fe48afc216c0"
+     },
+     {
+      "seq": 690,
+      "us": 141352044,
+      "tick": 297,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 691,
+      "us": 141352045,
+      "tick": 297,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 692,
+      "us": 141352045,
+      "tick": 297,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 693,
+      "us": 141352045,
+      "tick": 297,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "commands": [
+     {
+      "seq": 666,
+      "us": 141303218,
+      "tick": 296,
+      "kind": "command",
+      "op": "mark",
+      "step": {
+       "op": "mark",
+       "label": "same-callback rep=3"
+      }
+     },
+     {
+      "seq": 667,
+      "us": 141303316,
+      "tick": 296,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project",
+       "delayMs": -1
+      },
+      "returnedUs": 141303346
+     },
+     {
+      "seq": 668,
+      "us": 141303357,
+      "tick": 296,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project",
+       "delayMs": -1
+      },
+      "returnedUs": 141303364
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 671,
+      "us": 141326869,
+      "tick": 297,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 0
+     },
+     {
+      "seq": 695,
+      "us": 141352048,
+      "tick": 297,
+      "kind": "confirm",
+      "tickSeq": 671,
+      "depth": 1,
+      "tickSteps": 0,
+      "steps": 16
+     },
+     {
+      "seq": 696,
+      "us": 141352057,
+      "tick": 298,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 16
+     },
+     {
+      "seq": 697,
+      "us": 141375921,
+      "tick": 298,
+      "kind": "confirm",
+      "tickSeq": 671,
+      "depth": 2,
+      "tickSteps": 0,
+      "steps": 16
+     },
+     {
+      "seq": 698,
+      "us": 141375924,
+      "tick": 298,
+      "kind": "confirm",
+      "tickSeq": 696,
+      "depth": 1,
+      "tickSteps": 16,
+      "steps": 16
+     },
+     {
+      "seq": 700,
+      "us": 141400982,
+      "tick": 299,
+      "kind": "confirm",
+      "tickSeq": 696,
+      "depth": 2,
+      "tickSteps": 16,
+      "steps": 16
+     }
+    ]
+   }
+  },
+  {
+   "kind": "separate-callback",
+   "rep": 0,
+   "flood": true,
+   "pings": 68,
+   "finalProject": "P",
+   "finalCoherent": true,
+   "summary": {
+    "batches": 2,
+    "batchSteps": [
+     8,
+     8
+    ],
+    "midBatchTicks": 0,
+    "afterBatch": 0,
+    "insideBatch": 0,
+    "missingConfirmation": 0,
+    "unchangedInside": 0,
+    "rpcInsideBatch": 0,
+    "rpcs": 8,
+    "ticks": 2,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "hostFenceProved": false
+   },
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "orderingMarker": "e217-callback-ordering-v1",
+    "ordering": true,
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 1008,
+    "nowUs": 143231475,
+    "tickerActive": false,
+    "tickCount": 372,
+    "tickCallbacks": 51,
+    "inTickChanges": 0,
+    "stepCallbacks": 16,
+    "eventsRetained": 22,
+    "ticksRetained": 218,
+    "commandsRetained": 3,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 8,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+    "compacted": true,
+    "contextUs": 3000,
+    "events": [
+     {
+      "seq": 793,
+      "us": 142197706,
+      "tick": 329,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 794,
+      "us": 142197712,
+      "tick": 329,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 795,
+      "us": 142197714,
+      "tick": 329,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 796,
+      "us": 142197720,
+      "tick": 329,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 797,
+      "us": 142197728,
+      "tick": 329,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 9"
+     },
+     {
+      "seq": 798,
+      "us": 142197779,
+      "tick": 329,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8074dc30-00f2-4ae3-b060-49893f2b5f73"
+     },
+     {
+      "seq": 799,
+      "us": 142197779,
+      "tick": 329,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "83eccfa7-1be7-41b4-967b-bc270b647727"
+     },
+     {
+      "seq": 800,
+      "us": 142197781,
+      "tick": 329,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 801,
+      "us": 142197781,
+      "tick": 329,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 802,
+      "us": 142197782,
+      "tick": 329,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 803,
+      "us": 142197782,
+      "tick": 329,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 812,
+      "us": 142221220,
+      "tick": 330,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 813,
+      "us": 142221222,
+      "tick": 330,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 814,
+      "us": 142221222,
+      "tick": 330,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 815,
+      "us": 142221223,
+      "tick": 330,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 816,
+      "us": 142221226,
+      "tick": 330,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 8"
+     },
+     {
+      "seq": 817,
+      "us": 142221255,
+      "tick": 330,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8a781a69-bf80-4ab7-943b-a07b7dd705a3"
+     },
+     {
+      "seq": 818,
+      "us": 142221256,
+      "tick": 330,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "13461ca1-0072-4e85-bc4f-fe48afc216c0"
+     },
+     {
+      "seq": 819,
+      "us": 142221257,
+      "tick": 330,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 820,
+      "us": 142221258,
+      "tick": 330,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 821,
+      "us": 142221258,
+      "tick": 330,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 822,
+      "us": 142221259,
+      "tick": 330,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "commands": [
+     {
+      "seq": 787,
+      "us": 142172573,
+      "tick": 329,
+      "kind": "command",
+      "op": "mark",
+      "step": {
+       "op": "mark",
+       "label": "separate-callback rep=0"
+      }
+     },
+     {
+      "seq": 788,
+      "us": 142172594,
+      "tick": 329,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project",
+       "delayMs": -1
+      },
+      "returnedUs": 142172601
+     },
+     {
+      "seq": 807,
+      "us": 142197815,
+      "tick": 330,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project",
+       "delayMs": 0
+      },
+      "returnedUs": 142197827
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 806,
+      "us": 142197800,
+      "tick": 330,
+      "kind": "tick",
+      "start": "New 9|8074dc30-00f2-4ae3-b060-49893f2b5f73|83eccfa7-1be7-41b4-967b-bc270b647727|C|....|NNNN|-|.",
+      "steps": 8
+     },
+     {
+      "seq": 808,
+      "us": 142197839,
+      "tick": 330,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 809,
+      "us": 142197884,
+      "tick": 330,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 810,
+      "us": 142197889,
+      "tick": 330,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 811,
+      "us": 142197891,
+      "tick": 330,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 824,
+      "us": 142221263,
+      "tick": 330,
+      "kind": "confirm",
+      "tickSeq": 806,
+      "depth": 1,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 825,
+      "us": 142221272,
+      "tick": 331,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 16
+     },
+     {
+      "seq": 826,
+      "us": 142221284,
+      "tick": 331,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 827,
+      "us": 142221318,
+      "tick": 331,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 828,
+      "us": 142221322,
+      "tick": 331,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 829,
+      "us": 142221324,
+      "tick": 331,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 830,
+      "us": 142244335,
+      "tick": 331,
+      "kind": "confirm",
+      "tickSeq": 806,
+      "depth": 2,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 831,
+      "us": 142244339,
+      "tick": 331,
+      "kind": "confirm",
+      "tickSeq": 825,
+      "depth": 1,
+      "tickSteps": 16,
+      "steps": 16
+     },
+     {
+      "seq": 837,
+      "us": 142269444,
+      "tick": 332,
+      "kind": "confirm",
+      "tickSeq": 825,
+      "depth": 2,
+      "tickSteps": 16,
+      "steps": 16
+     }
+    ]
+   }
+  },
+  {
+   "kind": "separate-callback",
+   "rep": 1,
+   "flood": false,
+   "pings": 0,
+   "finalProject": "P",
+   "finalCoherent": true,
+   "summary": {
+    "batches": 2,
+    "batchSteps": [
+     8,
+     8
+    ],
+    "midBatchTicks": 0,
+    "afterBatch": 0,
+    "insideBatch": 0,
+    "missingConfirmation": 0,
+    "unchangedInside": 0,
+    "rpcInsideBatch": 0,
+    "rpcs": 0,
+    "ticks": 2,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "hostFenceProved": false
+   },
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "orderingMarker": "e217-callback-ordering-v1",
+    "ordering": true,
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 1132,
+    "nowUs": 144126586,
+    "tickerActive": false,
+    "tickCount": 406,
+    "tickCallbacks": 34,
+    "inTickChanges": 0,
+    "stepCallbacks": 16,
+    "eventsRetained": 22,
+    "ticksRetained": 99,
+    "commandsRetained": 3,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 9,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+    "compacted": true,
+    "contextUs": 3000,
+    "events": [
+     {
+      "seq": 1036,
+      "us": 143499137,
+      "tick": 381,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 1037,
+      "us": 143499141,
+      "tick": 381,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 1038,
+      "us": 143499142,
+      "tick": 381,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 1039,
+      "us": 143499143,
+      "tick": 381,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 1040,
+      "us": 143499154,
+      "tick": 381,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 9"
+     },
+     {
+      "seq": 1041,
+      "us": 143499214,
+      "tick": 381,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8074dc30-00f2-4ae3-b060-49893f2b5f73"
+     },
+     {
+      "seq": 1042,
+      "us": 143499215,
+      "tick": 381,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "83eccfa7-1be7-41b4-967b-bc270b647727"
+     },
+     {
+      "seq": 1043,
+      "us": 143499218,
+      "tick": 381,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 1044,
+      "us": 143499218,
+      "tick": 381,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 1045,
+      "us": 143499219,
+      "tick": 381,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 1046,
+      "us": 143499220,
+      "tick": 381,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 1047,
+      "us": 143522749,
+      "tick": 381,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 1048,
+      "us": 143522751,
+      "tick": 381,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 1049,
+      "us": 143522752,
+      "tick": 381,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 1050,
+      "us": 143522752,
+      "tick": 381,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 1051,
+      "us": 143522755,
+      "tick": 381,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 8"
+     },
+     {
+      "seq": 1052,
+      "us": 143522773,
+      "tick": 381,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8a781a69-bf80-4ab7-943b-a07b7dd705a3"
+     },
+     {
+      "seq": 1053,
+      "us": 143522773,
+      "tick": 381,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "13461ca1-0072-4e85-bc4f-fe48afc216c0"
+     },
+     {
+      "seq": 1054,
+      "us": 143522774,
+      "tick": 381,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 1055,
+      "us": 143522774,
+      "tick": 381,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 1056,
+      "us": 143522774,
+      "tick": 381,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 1057,
+      "us": 143522775,
+      "tick": 381,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "commands": [
+     {
+      "seq": 1030,
+      "us": 143474548,
+      "tick": 380,
+      "kind": "command",
+      "op": "mark",
+      "step": {
+       "op": "mark",
+       "label": "separate-callback rep=1"
+      }
+     },
+     {
+      "seq": 1031,
+      "us": 143474613,
+      "tick": 380,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project",
+       "delayMs": -1
+      },
+      "returnedUs": 143474649
+     },
+     {
+      "seq": 1035,
+      "us": 143499075,
+      "tick": 381,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project",
+       "delayMs": 0
+      },
+      "returnedUs": 143499111
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 1034,
+      "us": 143499021,
+      "tick": 381,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 0
+     },
+     {
+      "seq": 1059,
+      "us": 143522778,
+      "tick": 381,
+      "kind": "confirm",
+      "tickSeq": 1034,
+      "depth": 1,
+      "tickSteps": 0,
+      "steps": 16
+     },
+     {
+      "seq": 1060,
+      "us": 143522785,
+      "tick": 382,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 16
+     },
+     {
+      "seq": 1061,
+      "us": 143547557,
+      "tick": 382,
+      "kind": "confirm",
+      "tickSeq": 1034,
+      "depth": 2,
+      "tickSteps": 0,
+      "steps": 16
+     },
+     {
+      "seq": 1062,
+      "us": 143547560,
+      "tick": 382,
+      "kind": "confirm",
+      "tickSeq": 1060,
+      "depth": 1,
+      "tickSteps": 16,
+      "steps": 16
+     },
+     {
+      "seq": 1064,
+      "us": 143572611,
+      "tick": 383,
+      "kind": "confirm",
+      "tickSeq": 1060,
+      "depth": 2,
+      "tickSteps": 16,
+      "steps": 16
+     }
+    ]
+   }
+  },
+  {
+   "kind": "separate-callback",
+   "rep": 2,
+   "flood": true,
+   "pings": 68,
+   "finalProject": "P",
+   "finalCoherent": true,
+   "summary": {
+    "batches": 2,
+    "batchSteps": [
+     8,
+     8
+    ],
+    "midBatchTicks": 0,
+    "afterBatch": 0,
+    "insideBatch": 0,
+    "missingConfirmation": 0,
+    "unchangedInside": 0,
+    "rpcInsideBatch": 0,
+    "rpcs": 8,
+    "ticks": 2,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "hostFenceProved": false
+   },
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "orderingMarker": "e217-callback-ordering-v1",
+    "ordering": true,
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 1375,
+    "nowUs": 145425837,
+    "tickerActive": false,
+    "tickCount": 457,
+    "tickCallbacks": 51,
+    "inTickChanges": 0,
+    "stepCallbacks": 16,
+    "eventsRetained": 22,
+    "ticksRetained": 218,
+    "commandsRetained": 3,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 10,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+    "compacted": true,
+    "contextUs": 3000,
+    "events": [
+     {
+      "seq": 1160,
+      "us": 144391809,
+      "tick": 414,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 1161,
+      "us": 144391827,
+      "tick": 414,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 1162,
+      "us": 144391829,
+      "tick": 414,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 1163,
+      "us": 144391830,
+      "tick": 414,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 1164,
+      "us": 144391839,
+      "tick": 414,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 9"
+     },
+     {
+      "seq": 1165,
+      "us": 144391873,
+      "tick": 414,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8074dc30-00f2-4ae3-b060-49893f2b5f73"
+     },
+     {
+      "seq": 1166,
+      "us": 144391875,
+      "tick": 414,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "83eccfa7-1be7-41b4-967b-bc270b647727"
+     },
+     {
+      "seq": 1167,
+      "us": 144391877,
+      "tick": 414,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 1168,
+      "us": 144391878,
+      "tick": 414,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 1169,
+      "us": 144391878,
+      "tick": 414,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 1170,
+      "us": 144391878,
+      "tick": 414,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 1179,
+      "us": 144415011,
+      "tick": 415,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 1180,
+      "us": 144415014,
+      "tick": 415,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 1181,
+      "us": 144415016,
+      "tick": 415,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 1182,
+      "us": 144415017,
+      "tick": 415,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 1183,
+      "us": 144415019,
+      "tick": 415,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 8"
+     },
+     {
+      "seq": 1184,
+      "us": 144415031,
+      "tick": 415,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8a781a69-bf80-4ab7-943b-a07b7dd705a3"
+     },
+     {
+      "seq": 1185,
+      "us": 144415031,
+      "tick": 415,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "13461ca1-0072-4e85-bc4f-fe48afc216c0"
+     },
+     {
+      "seq": 1186,
+      "us": 144415032,
+      "tick": 415,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 1187,
+      "us": 144415033,
+      "tick": 415,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 1188,
+      "us": 144415033,
+      "tick": 415,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 1189,
+      "us": 144415033,
+      "tick": 415,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "commands": [
+     {
+      "seq": 1154,
+      "us": 144366893,
+      "tick": 414,
+      "kind": "command",
+      "op": "mark",
+      "step": {
+       "op": "mark",
+       "label": "separate-callback rep=2"
+      }
+     },
+     {
+      "seq": 1155,
+      "us": 144366907,
+      "tick": 414,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project",
+       "delayMs": -1
+      },
+      "returnedUs": 144366911
+     },
+     {
+      "seq": 1174,
+      "us": 144391904,
+      "tick": 415,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project",
+       "delayMs": 0
+      },
+      "returnedUs": 144391923
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 1173,
+      "us": 144391892,
+      "tick": 415,
+      "kind": "tick",
+      "start": "New 9|8074dc30-00f2-4ae3-b060-49893f2b5f73|83eccfa7-1be7-41b4-967b-bc270b647727|C|....|NNNN|-|.",
+      "steps": 8
+     },
+     {
+      "seq": 1175,
+      "us": 144391930,
+      "tick": 415,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 1176,
+      "us": 144391977,
+      "tick": 415,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 1177,
+      "us": 144391981,
+      "tick": 415,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 1178,
+      "us": 144391984,
+      "tick": 415,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 1191,
+      "us": 144415037,
+      "tick": 415,
+      "kind": "confirm",
+      "tickSeq": 1173,
+      "depth": 1,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 1192,
+      "us": 144415044,
+      "tick": 416,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 16
+     },
+     {
+      "seq": 1193,
+      "us": 144415052,
+      "tick": 416,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 1194,
+      "us": 144415087,
+      "tick": 416,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 1195,
+      "us": 144415091,
+      "tick": 416,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 1196,
+      "us": 144415094,
+      "tick": 416,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 1197,
+      "us": 144440134,
+      "tick": 416,
+      "kind": "confirm",
+      "tickSeq": 1173,
+      "depth": 2,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 1198,
+      "us": 144440136,
+      "tick": 416,
+      "kind": "confirm",
+      "tickSeq": 1192,
+      "depth": 1,
+      "tickSteps": 16,
+      "steps": 16
+     },
+     {
+      "seq": 1204,
+      "us": 144465291,
+      "tick": 417,
+      "kind": "confirm",
+      "tickSeq": 1192,
+      "depth": 2,
+      "tickSteps": 16,
+      "steps": 16
+     }
+    ]
+   }
+  },
+  {
+   "kind": "separate-callback",
+   "rep": 3,
+   "flood": false,
+   "pings": 0,
+   "finalProject": "P",
+   "finalCoherent": true,
+   "summary": {
+    "batches": 2,
+    "batchSteps": [
+     8,
+     8
+    ],
+    "midBatchTicks": 0,
+    "afterBatch": 0,
+    "insideBatch": 0,
+    "missingConfirmation": 0,
+    "unchangedInside": 0,
+    "rpcInsideBatch": 0,
+    "rpcs": 0,
+    "ticks": 2,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "hostFenceProved": false
+   },
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "orderingMarker": "e217-callback-ordering-v1",
+    "ordering": true,
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 1499,
+    "nowUs": 146322535,
+    "tickerActive": false,
+    "tickCount": 491,
+    "tickCallbacks": 34,
+    "inTickChanges": 0,
+    "stepCallbacks": 16,
+    "eventsRetained": 22,
+    "ticksRetained": 99,
+    "commandsRetained": 3,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 11,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+    "compacted": true,
+    "contextUs": 3000,
+    "events": [
+     {
+      "seq": 1399,
+      "us": 145690778,
+      "tick": 465,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 1400,
+      "us": 145690808,
+      "tick": 465,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 1401,
+      "us": 145690810,
+      "tick": 465,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 1402,
+      "us": 145690816,
+      "tick": 465,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 1403,
+      "us": 145690828,
+      "tick": 465,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 9"
+     },
+     {
+      "seq": 1404,
+      "us": 145690878,
+      "tick": 465,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8074dc30-00f2-4ae3-b060-49893f2b5f73"
+     },
+     {
+      "seq": 1405,
+      "us": 145690880,
+      "tick": 465,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "83eccfa7-1be7-41b4-967b-bc270b647727"
+     },
+     {
+      "seq": 1406,
+      "us": 145690882,
+      "tick": 465,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 1407,
+      "us": 145690883,
+      "tick": 465,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 1408,
+      "us": 145690883,
+      "tick": 465,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 1409,
+      "us": 145690884,
+      "tick": 465,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 1414,
+      "us": 145716202,
+      "tick": 466,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 1415,
+      "us": 145716204,
+      "tick": 466,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 1416,
+      "us": 145716208,
+      "tick": 466,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 1417,
+      "us": 145716208,
+      "tick": 466,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 1418,
+      "us": 145716211,
+      "tick": 466,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 8"
+     },
+     {
+      "seq": 1419,
+      "us": 145716223,
+      "tick": 466,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8a781a69-bf80-4ab7-943b-a07b7dd705a3"
+     },
+     {
+      "seq": 1420,
+      "us": 145716224,
+      "tick": 466,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "13461ca1-0072-4e85-bc4f-fe48afc216c0"
+     },
+     {
+      "seq": 1421,
+      "us": 145716224,
+      "tick": 466,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 1422,
+      "us": 145716225,
+      "tick": 466,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 1423,
+      "us": 145716225,
+      "tick": 466,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 1424,
+      "us": 145716226,
+      "tick": 466,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "commands": [
+     {
+      "seq": 1397,
+      "us": 145666575,
+      "tick": 465,
+      "kind": "command",
+      "op": "mark",
+      "step": {
+       "op": "mark",
+       "label": "separate-callback rep=3"
+      }
+     },
+     {
+      "seq": 1398,
+      "us": 145666645,
+      "tick": 465,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project",
+       "delayMs": -1
+      },
+      "returnedUs": 145666661
+     },
+     {
+      "seq": 1413,
+      "us": 145690980,
+      "tick": 466,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project",
+       "delayMs": 0
+      },
+      "returnedUs": 145691012
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 1412,
+      "us": 145690934,
+      "tick": 466,
+      "kind": "tick",
+      "start": "New 9|8074dc30-00f2-4ae3-b060-49893f2b5f73|83eccfa7-1be7-41b4-967b-bc270b647727|C|....|NNNN|-|.",
+      "steps": 8
+     },
+     {
+      "seq": 1426,
+      "us": 145716229,
+      "tick": 466,
+      "kind": "confirm",
+      "tickSeq": 1412,
+      "depth": 1,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 1427,
+      "us": 145716237,
+      "tick": 467,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 16
+     },
+     {
+      "seq": 1428,
+      "us": 145741126,
+      "tick": 467,
+      "kind": "confirm",
+      "tickSeq": 1412,
+      "depth": 2,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 1429,
+      "us": 145741129,
+      "tick": 467,
+      "kind": "confirm",
+      "tickSeq": 1427,
+      "depth": 1,
+      "tickSteps": 16,
+      "steps": 16
+     },
+     {
+      "seq": 1431,
+      "us": 145765890,
+      "tick": 468,
+      "kind": "confirm",
+      "tickSeq": 1427,
+      "depth": 2,
+      "tickSteps": 16,
+      "steps": 16
+     }
+    ]
+   }
+  },
+  {
+   "kind": "separate-callback",
+   "rep": 4,
+   "flood": true,
+   "pings": 68,
+   "finalProject": "P",
+   "finalCoherent": true,
+   "summary": {
+    "batches": 2,
+    "batchSteps": [
+     8,
+     8
+    ],
+    "midBatchTicks": 0,
+    "afterBatch": 0,
+    "insideBatch": 0,
+    "missingConfirmation": 0,
+    "unchangedInside": 0,
+    "rpcInsideBatch": 0,
+    "rpcs": 8,
+    "ticks": 2,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "hostFenceProved": false
+   },
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "orderingMarker": "e217-callback-ordering-v1",
+    "ordering": true,
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 1739,
+    "nowUs": 147599647,
+    "tickerActive": false,
+    "tickCount": 541,
+    "tickCallbacks": 50,
+    "inTickChanges": 0,
+    "stepCallbacks": 16,
+    "eventsRetained": 22,
+    "ticksRetained": 215,
+    "commandsRetained": 3,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 12,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+    "compacted": true,
+    "contextUs": 3000,
+    "events": [
+     {
+      "seq": 1527,
+      "us": 146587166,
+      "tick": 499,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 1528,
+      "us": 146587168,
+      "tick": 499,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 1529,
+      "us": 146587169,
+      "tick": 499,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 1530,
+      "us": 146587170,
+      "tick": 499,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 1531,
+      "us": 146587180,
+      "tick": 499,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 9"
+     },
+     {
+      "seq": 1532,
+      "us": 146587191,
+      "tick": 499,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8074dc30-00f2-4ae3-b060-49893f2b5f73"
+     },
+     {
+      "seq": 1533,
+      "us": 146587191,
+      "tick": 499,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "83eccfa7-1be7-41b4-967b-bc270b647727"
+     },
+     {
+      "seq": 1534,
+      "us": 146587192,
+      "tick": 499,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 1535,
+      "us": 146587192,
+      "tick": 499,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 1536,
+      "us": 146587193,
+      "tick": 499,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 1537,
+      "us": 146587193,
+      "tick": 499,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 1546,
+      "us": 146610725,
+      "tick": 500,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 1547,
+      "us": 146610728,
+      "tick": 500,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 1548,
+      "us": 146610729,
+      "tick": 500,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 1549,
+      "us": 146610730,
+      "tick": 500,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 1550,
+      "us": 146610735,
+      "tick": 500,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 8"
+     },
+     {
+      "seq": 1551,
+      "us": 146610760,
+      "tick": 500,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8a781a69-bf80-4ab7-943b-a07b7dd705a3"
+     },
+     {
+      "seq": 1552,
+      "us": 146610761,
+      "tick": 500,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "13461ca1-0072-4e85-bc4f-fe48afc216c0"
+     },
+     {
+      "seq": 1553,
+      "us": 146610761,
+      "tick": 500,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 1554,
+      "us": 146610762,
+      "tick": 500,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 1555,
+      "us": 146610762,
+      "tick": 500,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 1556,
+      "us": 146610762,
+      "tick": 500,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "commands": [
+     {
+      "seq": 1521,
+      "us": 146562030,
+      "tick": 499,
+      "kind": "command",
+      "op": "mark",
+      "step": {
+       "op": "mark",
+       "label": "separate-callback rep=4"
+      }
+     },
+     {
+      "seq": 1522,
+      "us": 146562057,
+      "tick": 499,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project",
+       "delayMs": -1
+      },
+      "returnedUs": 146562068
+     },
+     {
+      "seq": 1541,
+      "us": 146587214,
+      "tick": 500,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project",
+       "delayMs": 0
+      },
+      "returnedUs": 146587222
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 1540,
+      "us": 146587204,
+      "tick": 500,
+      "kind": "tick",
+      "start": "New 9|8074dc30-00f2-4ae3-b060-49893f2b5f73|83eccfa7-1be7-41b4-967b-bc270b647727|C|....|NNNN|-|.",
+      "steps": 8
+     },
+     {
+      "seq": 1542,
+      "us": 146587229,
+      "tick": 500,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 1543,
+      "us": 146587267,
+      "tick": 500,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 1544,
+      "us": 146587272,
+      "tick": 500,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 1545,
+      "us": 146587274,
+      "tick": 500,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 1558,
+      "us": 146610768,
+      "tick": 500,
+      "kind": "confirm",
+      "tickSeq": 1540,
+      "depth": 1,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 1559,
+      "us": 146610775,
+      "tick": 501,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 16
+     },
+     {
+      "seq": 1560,
+      "us": 146610783,
+      "tick": 501,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 1561,
+      "us": 146610824,
+      "tick": 501,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 1562,
+      "us": 146610830,
+      "tick": 501,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 1563,
+      "us": 146610832,
+      "tick": 501,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 1564,
+      "us": 146633905,
+      "tick": 501,
+      "kind": "confirm",
+      "tickSeq": 1540,
+      "depth": 2,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 1565,
+      "us": 146633907,
+      "tick": 501,
+      "kind": "confirm",
+      "tickSeq": 1559,
+      "depth": 1,
+      "tickSteps": 16,
+      "steps": 16
+     },
+     {
+      "seq": 1571,
+      "us": 146659037,
+      "tick": 502,
+      "kind": "confirm",
+      "tickSeq": 1559,
+      "depth": 2,
+      "tickSteps": 16,
+      "steps": 16
+     }
+    ]
+   }
+  },
+  {
+   "kind": "separate-callback",
+   "rep": 5,
+   "flood": false,
+   "pings": 0,
+   "finalProject": "P",
+   "finalCoherent": true,
+   "summary": {
+    "batches": 2,
+    "batchSteps": [
+     8,
+     8
+    ],
+    "midBatchTicks": 0,
+    "afterBatch": 0,
+    "insideBatch": 0,
+    "missingConfirmation": 0,
+    "unchangedInside": 0,
+    "rpcInsideBatch": 0,
+    "rpcs": 0,
+    "ticks": 2,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "hostFenceProved": false
+   },
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "orderingMarker": "e217-callback-ordering-v1",
+    "ordering": true,
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 1863,
+    "nowUs": 148499196,
+    "tickerActive": false,
+    "tickCount": 575,
+    "tickCallbacks": 34,
+    "inTickChanges": 0,
+    "stepCallbacks": 16,
+    "eventsRetained": 22,
+    "ticksRetained": 99,
+    "commandsRetained": 3,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 13,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+    "compacted": true,
+    "contextUs": 3000,
+    "events": [
+     {
+      "seq": 1767,
+      "us": 147868198,
+      "tick": 550,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 1768,
+      "us": 147868204,
+      "tick": 550,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 1769,
+      "us": 147868235,
+      "tick": 550,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 1770,
+      "us": 147868237,
+      "tick": 550,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 1771,
+      "us": 147868249,
+      "tick": 550,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 9"
+     },
+     {
+      "seq": 1772,
+      "us": 147868557,
+      "tick": 550,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8074dc30-00f2-4ae3-b060-49893f2b5f73"
+     },
+     {
+      "seq": 1773,
+      "us": 147868561,
+      "tick": 550,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "83eccfa7-1be7-41b4-967b-bc270b647727"
+     },
+     {
+      "seq": 1774,
+      "us": 147868565,
+      "tick": 550,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 1775,
+      "us": 147868566,
+      "tick": 550,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 1776,
+      "us": 147868567,
+      "tick": 550,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 1777,
+      "us": 147868568,
+      "tick": 550,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 1781,
+      "us": 147892215,
+      "tick": 551,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 1782,
+      "us": 147892217,
+      "tick": 551,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 1783,
+      "us": 147892218,
+      "tick": 551,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 1784,
+      "us": 147892219,
+      "tick": 551,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 1785,
+      "us": 147892222,
+      "tick": 551,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 8"
+     },
+     {
+      "seq": 1786,
+      "us": 147892240,
+      "tick": 551,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8a781a69-bf80-4ab7-943b-a07b7dd705a3"
+     },
+     {
+      "seq": 1787,
+      "us": 147892241,
+      "tick": 551,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "13461ca1-0072-4e85-bc4f-fe48afc216c0"
+     },
+     {
+      "seq": 1788,
+      "us": 147892243,
+      "tick": 551,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 1789,
+      "us": 147892243,
+      "tick": 551,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 1790,
+      "us": 147892244,
+      "tick": 551,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 1791,
+      "us": 147892245,
+      "tick": 551,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "commands": [
+     {
+      "seq": 1761,
+      "us": 147843084,
+      "tick": 549,
+      "kind": "command",
+      "op": "mark",
+      "step": {
+       "op": "mark",
+       "label": "separate-callback rep=5"
+      }
+     },
+     {
+      "seq": 1762,
+      "us": 147843141,
+      "tick": 549,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project",
+       "delayMs": -1
+      },
+      "returnedUs": 147843161
+     },
+     {
+      "seq": 1766,
+      "us": 147868048,
+      "tick": 550,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project",
+       "delayMs": 0
+      },
+      "returnedUs": 147868083
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 1765,
+      "us": 147867992,
+      "tick": 550,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 0
+     },
+     {
+      "seq": 1779,
+      "us": 147892190,
+      "tick": 550,
+      "kind": "confirm",
+      "tickSeq": 1765,
+      "depth": 1,
+      "tickSteps": 0,
+      "steps": 8
+     },
+     {
+      "seq": 1780,
+      "us": 147892203,
+      "tick": 551,
+      "kind": "tick",
+      "start": "New 9|8074dc30-00f2-4ae3-b060-49893f2b5f73|83eccfa7-1be7-41b4-967b-bc270b647727|C|....|NNNN|-|.",
+      "steps": 8
+     },
+     {
+      "seq": 1792,
+      "us": 147916971,
+      "tick": 551,
+      "kind": "confirm",
+      "tickSeq": 1765,
+      "depth": 2,
+      "tickSteps": 0,
+      "steps": 16
+     },
+     {
+      "seq": 1793,
+      "us": 147916973,
+      "tick": 551,
+      "kind": "confirm",
+      "tickSeq": 1780,
+      "depth": 1,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 1795,
+      "us": 147942022,
+      "tick": 552,
+      "kind": "confirm",
+      "tickSeq": 1780,
+      "depth": 2,
+      "tickSteps": 8,
+      "steps": 16
+     }
+    ]
+   }
+  },
+  {
+   "kind": "separate-callback",
+   "rep": 6,
+   "flood": true,
+   "pings": 68,
+   "finalProject": "P",
+   "finalCoherent": true,
+   "summary": {
+    "batches": 2,
+    "batchSteps": [
+     8,
+     8
+    ],
+    "midBatchTicks": 0,
+    "afterBatch": 0,
+    "insideBatch": 0,
+    "missingConfirmation": 0,
+    "unchangedInside": 0,
+    "rpcInsideBatch": 0,
+    "rpcs": 8,
+    "ticks": 2,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "hostFenceProved": false
+   },
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "orderingMarker": "e217-callback-ordering-v1",
+    "ordering": true,
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 2103,
+    "nowUs": 149773221,
+    "tickerActive": false,
+    "tickCount": 625,
+    "tickCallbacks": 50,
+    "inTickChanges": 0,
+    "stepCallbacks": 16,
+    "eventsRetained": 22,
+    "ticksRetained": 215,
+    "commandsRetained": 3,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 14,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+    "compacted": true,
+    "contextUs": 3000,
+    "events": [
+     {
+      "seq": 1891,
+      "us": 148764547,
+      "tick": 583,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 1892,
+      "us": 148764555,
+      "tick": 583,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 1893,
+      "us": 148764557,
+      "tick": 583,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 1894,
+      "us": 148764558,
+      "tick": 583,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 1895,
+      "us": 148764568,
+      "tick": 583,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 9"
+     },
+     {
+      "seq": 1896,
+      "us": 148764606,
+      "tick": 583,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8074dc30-00f2-4ae3-b060-49893f2b5f73"
+     },
+     {
+      "seq": 1897,
+      "us": 148764607,
+      "tick": 583,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "83eccfa7-1be7-41b4-967b-bc270b647727"
+     },
+     {
+      "seq": 1898,
+      "us": 148764614,
+      "tick": 583,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 1899,
+      "us": 148764614,
+      "tick": 583,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 1900,
+      "us": 148764615,
+      "tick": 583,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 1901,
+      "us": 148764615,
+      "tick": 583,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 1910,
+      "us": 148788286,
+      "tick": 584,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 1911,
+      "us": 148788290,
+      "tick": 584,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 1912,
+      "us": 148788290,
+      "tick": 584,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 1913,
+      "us": 148788291,
+      "tick": 584,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 1914,
+      "us": 148788295,
+      "tick": 584,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 8"
+     },
+     {
+      "seq": 1915,
+      "us": 148788314,
+      "tick": 584,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8a781a69-bf80-4ab7-943b-a07b7dd705a3"
+     },
+     {
+      "seq": 1916,
+      "us": 148788315,
+      "tick": 584,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "13461ca1-0072-4e85-bc4f-fe48afc216c0"
+     },
+     {
+      "seq": 1917,
+      "us": 148788316,
+      "tick": 584,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 1918,
+      "us": 148788318,
+      "tick": 584,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 1919,
+      "us": 148788322,
+      "tick": 584,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 1920,
+      "us": 148788322,
+      "tick": 584,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "commands": [
+     {
+      "seq": 1885,
+      "us": 148741246,
+      "tick": 583,
+      "kind": "command",
+      "op": "mark",
+      "step": {
+       "op": "mark",
+       "label": "separate-callback rep=6"
+      }
+     },
+     {
+      "seq": 1886,
+      "us": 148741268,
+      "tick": 583,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project",
+       "delayMs": -1
+      },
+      "returnedUs": 148741275
+     },
+     {
+      "seq": 1905,
+      "us": 148764639,
+      "tick": 584,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project",
+       "delayMs": 0
+      },
+      "returnedUs": 148764650
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 1904,
+      "us": 148764626,
+      "tick": 584,
+      "kind": "tick",
+      "start": "New 9|8074dc30-00f2-4ae3-b060-49893f2b5f73|83eccfa7-1be7-41b4-967b-bc270b647727|C|....|NNNN|-|.",
+      "steps": 8
+     },
+     {
+      "seq": 1906,
+      "us": 148764658,
+      "tick": 584,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 1907,
+      "us": 148764701,
+      "tick": 584,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 1908,
+      "us": 148764707,
+      "tick": 584,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 1909,
+      "us": 148764710,
+      "tick": 584,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 1922,
+      "us": 148788327,
+      "tick": 584,
+      "kind": "confirm",
+      "tickSeq": 1904,
+      "depth": 1,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 1923,
+      "us": 148788337,
+      "tick": 585,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 16
+     },
+     {
+      "seq": 1924,
+      "us": 148788348,
+      "tick": 585,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 1925,
+      "us": 148788383,
+      "tick": 585,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 1926,
+      "us": 148788388,
+      "tick": 585,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 1927,
+      "us": 148788390,
+      "tick": 585,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 1928,
+      "us": 148812550,
+      "tick": 585,
+      "kind": "confirm",
+      "tickSeq": 1904,
+      "depth": 2,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 1929,
+      "us": 148812554,
+      "tick": 585,
+      "kind": "confirm",
+      "tickSeq": 1923,
+      "depth": 1,
+      "tickSteps": 16,
+      "steps": 16
+     },
+     {
+      "seq": 1935,
+      "us": 148837544,
+      "tick": 586,
+      "kind": "confirm",
+      "tickSeq": 1923,
+      "depth": 2,
+      "tickSteps": 16,
+      "steps": 16
+     }
+    ]
+   }
+  },
+  {
+   "kind": "separate-callback",
+   "rep": 7,
+   "flood": false,
+   "pings": 0,
+   "finalProject": "P",
+   "finalCoherent": true,
+   "summary": {
+    "batches": 2,
+    "batchSteps": [
+     8,
+     8
+    ],
+    "midBatchTicks": 0,
+    "afterBatch": 0,
+    "insideBatch": 0,
+    "missingConfirmation": 0,
+    "unchangedInside": 0,
+    "rpcInsideBatch": 0,
+    "rpcs": 0,
+    "ticks": 2,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "hostFenceProved": false
+   },
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "orderingMarker": "e217-callback-ordering-v1",
+    "ordering": true,
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 2227,
+    "nowUs": 150667882,
+    "tickerActive": false,
+    "tickCount": 659,
+    "tickCallbacks": 34,
+    "inTickChanges": 0,
+    "stepCallbacks": 16,
+    "eventsRetained": 22,
+    "ticksRetained": 99,
+    "commandsRetained": 3,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 15,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+    "compacted": true,
+    "contextUs": 3000,
+    "events": [
+     {
+      "seq": 2131,
+      "us": 150038091,
+      "tick": 634,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 2132,
+      "us": 150038095,
+      "tick": 634,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 2133,
+      "us": 150038097,
+      "tick": 634,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 2134,
+      "us": 150038097,
+      "tick": 634,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 2135,
+      "us": 150038108,
+      "tick": 634,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 9"
+     },
+     {
+      "seq": 2136,
+      "us": 150038156,
+      "tick": 634,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8074dc30-00f2-4ae3-b060-49893f2b5f73"
+     },
+     {
+      "seq": 2137,
+      "us": 150038158,
+      "tick": 634,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "83eccfa7-1be7-41b4-967b-bc270b647727"
+     },
+     {
+      "seq": 2138,
+      "us": 150038160,
+      "tick": 634,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 2139,
+      "us": 150038162,
+      "tick": 634,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 2140,
+      "us": 150038163,
+      "tick": 634,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 2141,
+      "us": 150038164,
+      "tick": 634,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 2145,
+      "us": 150062399,
+      "tick": 635,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 2146,
+      "us": 150062400,
+      "tick": 635,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 2147,
+      "us": 150062406,
+      "tick": 635,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 2148,
+      "us": 150062407,
+      "tick": 635,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 2149,
+      "us": 150062410,
+      "tick": 635,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 8"
+     },
+     {
+      "seq": 2150,
+      "us": 150062424,
+      "tick": 635,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8a781a69-bf80-4ab7-943b-a07b7dd705a3"
+     },
+     {
+      "seq": 2151,
+      "us": 150062424,
+      "tick": 635,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "13461ca1-0072-4e85-bc4f-fe48afc216c0"
+     },
+     {
+      "seq": 2152,
+      "us": 150062425,
+      "tick": 635,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 2153,
+      "us": 150062426,
+      "tick": 635,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 2154,
+      "us": 150062426,
+      "tick": 635,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 2155,
+      "us": 150062427,
+      "tick": 635,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "commands": [
+     {
+      "seq": 2125,
+      "us": 150013492,
+      "tick": 633,
+      "kind": "command",
+      "op": "mark",
+      "step": {
+       "op": "mark",
+       "label": "separate-callback rep=7"
+      }
+     },
+     {
+      "seq": 2126,
+      "us": 150013561,
+      "tick": 633,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project",
+       "delayMs": -1
+      },
+      "returnedUs": 150013583
+     },
+     {
+      "seq": 2130,
+      "us": 150038018,
+      "tick": 634,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project",
+       "delayMs": 0
+      },
+      "returnedUs": 150038061
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 2129,
+      "us": 150037964,
+      "tick": 634,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 0
+     },
+     {
+      "seq": 2143,
+      "us": 150062373,
+      "tick": 634,
+      "kind": "confirm",
+      "tickSeq": 2129,
+      "depth": 1,
+      "tickSteps": 0,
+      "steps": 8
+     },
+     {
+      "seq": 2144,
+      "us": 150062386,
+      "tick": 635,
+      "kind": "tick",
+      "start": "New 9|8074dc30-00f2-4ae3-b060-49893f2b5f73|83eccfa7-1be7-41b4-967b-bc270b647727|C|....|NNNN|-|.",
+      "steps": 8
+     },
+     {
+      "seq": 2156,
+      "us": 150086086,
+      "tick": 635,
+      "kind": "confirm",
+      "tickSeq": 2129,
+      "depth": 2,
+      "tickSteps": 0,
+      "steps": 16
+     },
+     {
+      "seq": 2157,
+      "us": 150086090,
+      "tick": 635,
+      "kind": "confirm",
+      "tickSeq": 2144,
+      "depth": 1,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 2159,
+      "us": 150108694,
+      "tick": 636,
+      "kind": "confirm",
+      "tickSeq": 2144,
+      "depth": 2,
+      "tickSteps": 8,
+      "steps": 16
+     }
+    ]
+   }
+  },
+  {
+   "kind": "separate-callback",
+   "rep": 8,
+   "flood": true,
+   "pings": 68,
+   "finalProject": "P",
+   "finalCoherent": true,
+   "summary": {
+    "batches": 2,
+    "batchSteps": [
+     8,
+     8
+    ],
+    "midBatchTicks": 0,
+    "afterBatch": 0,
+    "insideBatch": 0,
+    "missingConfirmation": 0,
+    "unchangedInside": 0,
+    "rpcInsideBatch": 0,
+    "rpcs": 8,
+    "ticks": 2,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "hostFenceProved": false
+   },
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "orderingMarker": "e217-callback-ordering-v1",
+    "ordering": true,
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 2467,
+    "nowUs": 151945889,
+    "tickerActive": false,
+    "tickCount": 709,
+    "tickCallbacks": 50,
+    "inTickChanges": 0,
+    "stepCallbacks": 16,
+    "eventsRetained": 22,
+    "ticksRetained": 215,
+    "commandsRetained": 3,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 16,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+    "compacted": true,
+    "contextUs": 3000,
+    "events": [
+     {
+      "seq": 2255,
+      "us": 150929696,
+      "tick": 667,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 2256,
+      "us": 150929699,
+      "tick": 667,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 2257,
+      "us": 150929700,
+      "tick": 667,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 2258,
+      "us": 150929701,
+      "tick": 667,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 2259,
+      "us": 150929704,
+      "tick": 667,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 9"
+     },
+     {
+      "seq": 2260,
+      "us": 150929719,
+      "tick": 667,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8074dc30-00f2-4ae3-b060-49893f2b5f73"
+     },
+     {
+      "seq": 2261,
+      "us": 150929725,
+      "tick": 667,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "83eccfa7-1be7-41b4-967b-bc270b647727"
+     },
+     {
+      "seq": 2262,
+      "us": 150929725,
+      "tick": 667,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 2263,
+      "us": 150929726,
+      "tick": 667,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 2264,
+      "us": 150929726,
+      "tick": 667,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 2265,
+      "us": 150929726,
+      "tick": 667,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 2274,
+      "us": 150954895,
+      "tick": 668,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 2275,
+      "us": 150954897,
+      "tick": 668,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 2276,
+      "us": 150954898,
+      "tick": 668,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 2277,
+      "us": 150954898,
+      "tick": 668,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 2278,
+      "us": 150954903,
+      "tick": 668,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 8"
+     },
+     {
+      "seq": 2279,
+      "us": 150954925,
+      "tick": 668,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8a781a69-bf80-4ab7-943b-a07b7dd705a3"
+     },
+     {
+      "seq": 2280,
+      "us": 150954926,
+      "tick": 668,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "13461ca1-0072-4e85-bc4f-fe48afc216c0"
+     },
+     {
+      "seq": 2281,
+      "us": 150954930,
+      "tick": 668,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 2282,
+      "us": 150954933,
+      "tick": 668,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 2283,
+      "us": 150954934,
+      "tick": 668,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 2284,
+      "us": 150954935,
+      "tick": 668,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "commands": [
+     {
+      "seq": 2249,
+      "us": 150904550,
+      "tick": 667,
+      "kind": "command",
+      "op": "mark",
+      "step": {
+       "op": "mark",
+       "label": "separate-callback rep=8"
+      }
+     },
+     {
+      "seq": 2250,
+      "us": 150904565,
+      "tick": 667,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project",
+       "delayMs": -1
+      },
+      "returnedUs": 150904583
+     },
+     {
+      "seq": 2269,
+      "us": 150929760,
+      "tick": 668,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project",
+       "delayMs": 0
+      },
+      "returnedUs": 150929770
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 2268,
+      "us": 150929739,
+      "tick": 668,
+      "kind": "tick",
+      "start": "New 9|8074dc30-00f2-4ae3-b060-49893f2b5f73|83eccfa7-1be7-41b4-967b-bc270b647727|C|....|NNNN|-|.",
+      "steps": 8
+     },
+     {
+      "seq": 2270,
+      "us": 150929778,
+      "tick": 668,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 2271,
+      "us": 150929820,
+      "tick": 668,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 2272,
+      "us": 150929824,
+      "tick": 668,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 2273,
+      "us": 150929827,
+      "tick": 668,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 2286,
+      "us": 150954938,
+      "tick": 668,
+      "kind": "confirm",
+      "tickSeq": 2268,
+      "depth": 1,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 2287,
+      "us": 150954944,
+      "tick": 669,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 16
+     },
+     {
+      "seq": 2288,
+      "us": 150954951,
+      "tick": 669,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 2289,
+      "us": 150954979,
+      "tick": 669,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 2290,
+      "us": 150954982,
+      "tick": 669,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 2291,
+      "us": 150954986,
+      "tick": 669,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 2292,
+      "us": 150978573,
+      "tick": 669,
+      "kind": "confirm",
+      "tickSeq": 2268,
+      "depth": 2,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 2293,
+      "us": 150978576,
+      "tick": 669,
+      "kind": "confirm",
+      "tickSeq": 2287,
+      "depth": 1,
+      "tickSteps": 16,
+      "steps": 16
+     },
+     {
+      "seq": 2299,
+      "us": 151002940,
+      "tick": 670,
+      "kind": "confirm",
+      "tickSeq": 2287,
+      "depth": 2,
+      "tickSteps": 16,
+      "steps": 16
+     }
+    ]
+   }
+  },
+  {
+   "kind": "separate-callback",
+   "rep": 9,
+   "flood": false,
+   "pings": 0,
+   "finalProject": "P",
+   "finalCoherent": true,
+   "summary": {
+    "batches": 2,
+    "batchSteps": [
+     8,
+     8
+    ],
+    "midBatchTicks": 0,
+    "afterBatch": 0,
+    "insideBatch": 0,
+    "missingConfirmation": 0,
+    "unchangedInside": 0,
+    "rpcInsideBatch": 0,
+    "rpcs": 0,
+    "ticks": 2,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "hostFenceProved": false
+   },
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "orderingMarker": "e217-callback-ordering-v1",
+    "ordering": true,
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 2594,
+    "nowUs": 152864924,
+    "tickerActive": false,
+    "tickCount": 744,
+    "tickCallbacks": 35,
+    "inTickChanges": 0,
+    "stepCallbacks": 16,
+    "eventsRetained": 22,
+    "ticksRetained": 102,
+    "commandsRetained": 3,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 17,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+    "compacted": true,
+    "contextUs": 3000,
+    "events": [
+     {
+      "seq": 2495,
+      "us": 152209467,
+      "tick": 718,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 2496,
+      "us": 152209470,
+      "tick": 718,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 2497,
+      "us": 152209472,
+      "tick": 718,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 2498,
+      "us": 152209486,
+      "tick": 718,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 2499,
+      "us": 152209496,
+      "tick": 718,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 9"
+     },
+     {
+      "seq": 2500,
+      "us": 152209544,
+      "tick": 718,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8074dc30-00f2-4ae3-b060-49893f2b5f73"
+     },
+     {
+      "seq": 2501,
+      "us": 152209546,
+      "tick": 718,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "83eccfa7-1be7-41b4-967b-bc270b647727"
+     },
+     {
+      "seq": 2502,
+      "us": 152209548,
+      "tick": 718,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 2503,
+      "us": 152209549,
+      "tick": 718,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 2504,
+      "us": 152209550,
+      "tick": 718,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 2505,
+      "us": 152209551,
+      "tick": 718,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 2509,
+      "us": 152233290,
+      "tick": 719,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 2510,
+      "us": 152233292,
+      "tick": 719,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 2511,
+      "us": 152233292,
+      "tick": 719,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 2512,
+      "us": 152233293,
+      "tick": 719,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 2513,
+      "us": 152233296,
+      "tick": 719,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 8"
+     },
+     {
+      "seq": 2514,
+      "us": 152233308,
+      "tick": 719,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8a781a69-bf80-4ab7-943b-a07b7dd705a3"
+     },
+     {
+      "seq": 2515,
+      "us": 152233308,
+      "tick": 719,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "13461ca1-0072-4e85-bc4f-fe48afc216c0"
+     },
+     {
+      "seq": 2516,
+      "us": 152233309,
+      "tick": 719,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 2517,
+      "us": 152233310,
+      "tick": 719,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 2518,
+      "us": 152233310,
+      "tick": 719,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 2519,
+      "us": 152233310,
+      "tick": 719,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "commands": [
+     {
+      "seq": 2489,
+      "us": 152189681,
+      "tick": 717,
+      "kind": "command",
+      "op": "mark",
+      "step": {
+       "op": "mark",
+       "label": "separate-callback rep=9"
+      }
+     },
+     {
+      "seq": 2490,
+      "us": 152189758,
+      "tick": 717,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project",
+       "delayMs": -1
+      },
+      "returnedUs": 152189821
+     },
+     {
+      "seq": 2494,
+      "us": 152209394,
+      "tick": 718,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project",
+       "delayMs": 0
+      },
+      "returnedUs": 152209439
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 2493,
+      "us": 152209311,
+      "tick": 718,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 0
+     },
+     {
+      "seq": 2507,
+      "us": 152233216,
+      "tick": 718,
+      "kind": "confirm",
+      "tickSeq": 2493,
+      "depth": 1,
+      "tickSteps": 0,
+      "steps": 8
+     },
+     {
+      "seq": 2508,
+      "us": 152233230,
+      "tick": 719,
+      "kind": "tick",
+      "start": "New 9|8074dc30-00f2-4ae3-b060-49893f2b5f73|83eccfa7-1be7-41b4-967b-bc270b647727|C|....|NNNN|-|.",
+      "steps": 8
+     },
+     {
+      "seq": 2520,
+      "us": 152258157,
+      "tick": 719,
+      "kind": "confirm",
+      "tickSeq": 2493,
+      "depth": 2,
+      "tickSteps": 0,
+      "steps": 16
+     },
+     {
+      "seq": 2521,
+      "us": 152258161,
+      "tick": 719,
+      "kind": "confirm",
+      "tickSeq": 2508,
+      "depth": 1,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 2523,
+      "us": 152283216,
+      "tick": 720,
+      "kind": "confirm",
+      "tickSeq": 2508,
+      "depth": 2,
+      "tickSteps": 8,
+      "steps": 16
+     }
+    ]
+   }
+  },
+  {
+   "kind": "separate-callback",
+   "rep": 10,
+   "flood": true,
+   "pings": 68,
+   "finalProject": "P",
+   "finalCoherent": true,
+   "summary": {
+    "batches": 2,
+    "batchSteps": [
+     8,
+     8
+    ],
+    "midBatchTicks": 0,
+    "afterBatch": 0,
+    "insideBatch": 0,
+    "missingConfirmation": 0,
+    "unchangedInside": 0,
+    "rpcInsideBatch": 0,
+    "rpcs": 8,
+    "ticks": 2,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "hostFenceProved": false
+   },
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "orderingMarker": "e217-callback-ordering-v1",
+    "ordering": true,
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 2834,
+    "nowUs": 154153596,
+    "tickerActive": false,
+    "tickCount": 794,
+    "tickCallbacks": 50,
+    "inTickChanges": 0,
+    "stepCallbacks": 16,
+    "eventsRetained": 22,
+    "ticksRetained": 215,
+    "commandsRetained": 3,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 18,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+    "compacted": true,
+    "contextUs": 3000,
+    "events": [
+     {
+      "seq": 2622,
+      "us": 153127368,
+      "tick": 752,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 2623,
+      "us": 153127375,
+      "tick": 752,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 2624,
+      "us": 153127377,
+      "tick": 752,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 2625,
+      "us": 153127378,
+      "tick": 752,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 2626,
+      "us": 153127386,
+      "tick": 752,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 9"
+     },
+     {
+      "seq": 2627,
+      "us": 153127433,
+      "tick": 752,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8074dc30-00f2-4ae3-b060-49893f2b5f73"
+     },
+     {
+      "seq": 2628,
+      "us": 153127434,
+      "tick": 752,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "83eccfa7-1be7-41b4-967b-bc270b647727"
+     },
+     {
+      "seq": 2629,
+      "us": 153127436,
+      "tick": 752,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 2630,
+      "us": 153127436,
+      "tick": 752,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 2631,
+      "us": 153127437,
+      "tick": 752,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 2632,
+      "us": 153127437,
+      "tick": 752,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 2641,
+      "us": 153152589,
+      "tick": 753,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 2642,
+      "us": 153152592,
+      "tick": 753,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 2643,
+      "us": 153152592,
+      "tick": 753,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 2644,
+      "us": 153152593,
+      "tick": 753,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 2645,
+      "us": 153152597,
+      "tick": 753,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 8"
+     },
+     {
+      "seq": 2646,
+      "us": 153152612,
+      "tick": 753,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8a781a69-bf80-4ab7-943b-a07b7dd705a3"
+     },
+     {
+      "seq": 2647,
+      "us": 153152613,
+      "tick": 753,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "13461ca1-0072-4e85-bc4f-fe48afc216c0"
+     },
+     {
+      "seq": 2648,
+      "us": 153152622,
+      "tick": 753,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 2649,
+      "us": 153152623,
+      "tick": 753,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 2650,
+      "us": 153152623,
+      "tick": 753,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 2651,
+      "us": 153152624,
+      "tick": 753,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "commands": [
+     {
+      "seq": 2616,
+      "us": 153103784,
+      "tick": 752,
+      "kind": "command",
+      "op": "mark",
+      "step": {
+       "op": "mark",
+       "label": "separate-callback rep=10"
+      }
+     },
+     {
+      "seq": 2617,
+      "us": 153103810,
+      "tick": 752,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project",
+       "delayMs": -1
+      },
+      "returnedUs": 153103815
+     },
+     {
+      "seq": 2636,
+      "us": 153127472,
+      "tick": 753,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project",
+       "delayMs": 0
+      },
+      "returnedUs": 153127481
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 2635,
+      "us": 153127454,
+      "tick": 753,
+      "kind": "tick",
+      "start": "New 9|8074dc30-00f2-4ae3-b060-49893f2b5f73|83eccfa7-1be7-41b4-967b-bc270b647727|C|....|NNNN|-|.",
+      "steps": 8
+     },
+     {
+      "seq": 2637,
+      "us": 153127489,
+      "tick": 753,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 2638,
+      "us": 153127524,
+      "tick": 753,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 2639,
+      "us": 153127526,
+      "tick": 753,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 2640,
+      "us": 153127528,
+      "tick": 753,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 2653,
+      "us": 153152631,
+      "tick": 753,
+      "kind": "confirm",
+      "tickSeq": 2635,
+      "depth": 1,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 2654,
+      "us": 153152638,
+      "tick": 754,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 16
+     },
+     {
+      "seq": 2655,
+      "us": 153152647,
+      "tick": 754,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 2656,
+      "us": 153152675,
+      "tick": 754,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 2657,
+      "us": 153152678,
+      "tick": 754,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 2658,
+      "us": 153152680,
+      "tick": 754,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 2659,
+      "us": 153177253,
+      "tick": 754,
+      "kind": "confirm",
+      "tickSeq": 2635,
+      "depth": 2,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 2660,
+      "us": 153177264,
+      "tick": 754,
+      "kind": "confirm",
+      "tickSeq": 2654,
+      "depth": 1,
+      "tickSteps": 16,
+      "steps": 16
+     },
+     {
+      "seq": 2666,
+      "us": 153201988,
+      "tick": 755,
+      "kind": "confirm",
+      "tickSeq": 2654,
+      "depth": 2,
+      "tickSteps": 16,
+      "steps": 16
+     }
+    ]
+   }
+  },
+  {
+   "kind": "separate-callback",
+   "rep": 11,
+   "flood": false,
+   "pings": 0,
+   "finalProject": "P",
+   "finalCoherent": true,
+   "summary": {
+    "batches": 2,
+    "batchSteps": [
+     8,
+     8
+    ],
+    "midBatchTicks": 0,
+    "afterBatch": 0,
+    "insideBatch": 0,
+    "missingConfirmation": 0,
+    "unchangedInside": 0,
+    "rpcInsideBatch": 0,
+    "rpcs": 0,
+    "ticks": 2,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "hostFenceProved": false
+   },
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "orderingMarker": "e217-callback-ordering-v1",
+    "ordering": true,
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 2958,
+    "nowUs": 155048624,
+    "tickerActive": false,
+    "tickCount": 828,
+    "tickCallbacks": 34,
+    "inTickChanges": 0,
+    "stepCallbacks": 16,
+    "eventsRetained": 22,
+    "ticksRetained": 99,
+    "commandsRetained": 3,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 19,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+    "compacted": true,
+    "contextUs": 3000,
+    "events": [
+     {
+      "seq": 2858,
+      "us": 154417899,
+      "tick": 802,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 2859,
+      "us": 154417909,
+      "tick": 802,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 2860,
+      "us": 154417910,
+      "tick": 802,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 2861,
+      "us": 154417936,
+      "tick": 802,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 2862,
+      "us": 154417949,
+      "tick": 802,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 9"
+     },
+     {
+      "seq": 2863,
+      "us": 154417999,
+      "tick": 802,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8074dc30-00f2-4ae3-b060-49893f2b5f73"
+     },
+     {
+      "seq": 2864,
+      "us": 154418001,
+      "tick": 802,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "83eccfa7-1be7-41b4-967b-bc270b647727"
+     },
+     {
+      "seq": 2865,
+      "us": 154418009,
+      "tick": 802,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 2866,
+      "us": 154418010,
+      "tick": 802,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 2867,
+      "us": 154418011,
+      "tick": 802,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 2868,
+      "us": 154418011,
+      "tick": 802,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 2873,
+      "us": 154444012,
+      "tick": 803,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 2874,
+      "us": 154444023,
+      "tick": 803,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 2875,
+      "us": 154444023,
+      "tick": 803,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 2876,
+      "us": 154444024,
+      "tick": 803,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 2877,
+      "us": 154444031,
+      "tick": 803,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 8"
+     },
+     {
+      "seq": 2878,
+      "us": 154444043,
+      "tick": 803,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8a781a69-bf80-4ab7-943b-a07b7dd705a3"
+     },
+     {
+      "seq": 2879,
+      "us": 154444044,
+      "tick": 803,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "13461ca1-0072-4e85-bc4f-fe48afc216c0"
+     },
+     {
+      "seq": 2880,
+      "us": 154444047,
+      "tick": 803,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 2881,
+      "us": 154444047,
+      "tick": 803,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 2882,
+      "us": 154444048,
+      "tick": 803,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 2883,
+      "us": 154444048,
+      "tick": 803,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "commands": [
+     {
+      "seq": 2856,
+      "us": 154392484,
+      "tick": 802,
+      "kind": "command",
+      "op": "mark",
+      "step": {
+       "op": "mark",
+       "label": "separate-callback rep=11"
+      }
+     },
+     {
+      "seq": 2857,
+      "us": 154392534,
+      "tick": 802,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project",
+       "delayMs": -1
+      },
+      "returnedUs": 154392552
+     },
+     {
+      "seq": 2872,
+      "us": 154418106,
+      "tick": 803,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project",
+       "delayMs": 0
+      },
+      "returnedUs": 154418152
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 2871,
+      "us": 154418058,
+      "tick": 803,
+      "kind": "tick",
+      "start": "New 9|8074dc30-00f2-4ae3-b060-49893f2b5f73|83eccfa7-1be7-41b4-967b-bc270b647727|C|....|NNNN|-|.",
+      "steps": 8
+     },
+     {
+      "seq": 2885,
+      "us": 154444051,
+      "tick": 803,
+      "kind": "confirm",
+      "tickSeq": 2871,
+      "depth": 1,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 2886,
+      "us": 154444059,
+      "tick": 804,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 16
+     },
+     {
+      "seq": 2887,
+      "us": 154467879,
+      "tick": 804,
+      "kind": "confirm",
+      "tickSeq": 2871,
+      "depth": 2,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 2888,
+      "us": 154467882,
+      "tick": 804,
+      "kind": "confirm",
+      "tickSeq": 2886,
+      "depth": 1,
+      "tickSteps": 16,
+      "steps": 16
+     },
+     {
+      "seq": 2890,
+      "us": 154492488,
+      "tick": 805,
+      "kind": "confirm",
+      "tickSeq": 2886,
+      "depth": 2,
+      "tickSteps": 16,
+      "steps": 16
+     }
+    ]
+   }
+  },
+  {
+   "kind": "separate-callback",
+   "rep": 12,
+   "flood": true,
+   "pings": 68,
+   "finalProject": "P",
+   "finalCoherent": true,
+   "summary": {
+    "batches": 2,
+    "batchSteps": [
+     8,
+     8
+    ],
+    "midBatchTicks": 0,
+    "afterBatch": 0,
+    "insideBatch": 0,
+    "missingConfirmation": 0,
+    "unchangedInside": 0,
+    "rpcInsideBatch": 0,
+    "rpcs": 8,
+    "ticks": 2,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "hostFenceProved": false
+   },
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "orderingMarker": "e217-callback-ordering-v1",
+    "ordering": true,
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 3198,
+    "nowUs": 156328537,
+    "tickerActive": false,
+    "tickCount": 878,
+    "tickCallbacks": 50,
+    "inTickChanges": 0,
+    "stepCallbacks": 16,
+    "eventsRetained": 22,
+    "ticksRetained": 215,
+    "commandsRetained": 3,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 20,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+    "compacted": true,
+    "contextUs": 3000,
+    "events": [
+     {
+      "seq": 2986,
+      "us": 155318819,
+      "tick": 836,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 2987,
+      "us": 155318821,
+      "tick": 836,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 2988,
+      "us": 155318822,
+      "tick": 836,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 2989,
+      "us": 155318822,
+      "tick": 836,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 2990,
+      "us": 155318832,
+      "tick": 836,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 9"
+     },
+     {
+      "seq": 2991,
+      "us": 155318857,
+      "tick": 836,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8074dc30-00f2-4ae3-b060-49893f2b5f73"
+     },
+     {
+      "seq": 2992,
+      "us": 155318857,
+      "tick": 836,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "83eccfa7-1be7-41b4-967b-bc270b647727"
+     },
+     {
+      "seq": 2993,
+      "us": 155318858,
+      "tick": 836,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 2994,
+      "us": 155318858,
+      "tick": 836,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 2995,
+      "us": 155318858,
+      "tick": 836,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 2996,
+      "us": 155318859,
+      "tick": 836,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 3005,
+      "us": 155344144,
+      "tick": 837,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 3006,
+      "us": 155344159,
+      "tick": 837,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 3007,
+      "us": 155344160,
+      "tick": 837,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 3008,
+      "us": 155344160,
+      "tick": 837,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 3009,
+      "us": 155344174,
+      "tick": 837,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 8"
+     },
+     {
+      "seq": 3010,
+      "us": 155344205,
+      "tick": 837,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8a781a69-bf80-4ab7-943b-a07b7dd705a3"
+     },
+     {
+      "seq": 3011,
+      "us": 155344206,
+      "tick": 837,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "13461ca1-0072-4e85-bc4f-fe48afc216c0"
+     },
+     {
+      "seq": 3012,
+      "us": 155344207,
+      "tick": 837,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 3013,
+      "us": 155344207,
+      "tick": 837,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 3014,
+      "us": 155344208,
+      "tick": 837,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 3015,
+      "us": 155344208,
+      "tick": 837,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "commands": [
+     {
+      "seq": 2980,
+      "us": 155293612,
+      "tick": 836,
+      "kind": "command",
+      "op": "mark",
+      "step": {
+       "op": "mark",
+       "label": "separate-callback rep=12"
+      }
+     },
+     {
+      "seq": 2981,
+      "us": 155293661,
+      "tick": 836,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project",
+       "delayMs": -1
+      },
+      "returnedUs": 155293669
+     },
+     {
+      "seq": 3000,
+      "us": 155318891,
+      "tick": 837,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project",
+       "delayMs": 0
+      },
+      "returnedUs": 155318898
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 2999,
+      "us": 155318876,
+      "tick": 837,
+      "kind": "tick",
+      "start": "New 9|8074dc30-00f2-4ae3-b060-49893f2b5f73|83eccfa7-1be7-41b4-967b-bc270b647727|C|....|NNNN|-|.",
+      "steps": 8
+     },
+     {
+      "seq": 3001,
+      "us": 155318904,
+      "tick": 837,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 3002,
+      "us": 155318937,
+      "tick": 837,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 3003,
+      "us": 155318939,
+      "tick": 837,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 3004,
+      "us": 155318941,
+      "tick": 837,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 3017,
+      "us": 155344220,
+      "tick": 837,
+      "kind": "confirm",
+      "tickSeq": 2999,
+      "depth": 1,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 3018,
+      "us": 155344310,
+      "tick": 838,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 16
+     },
+     {
+      "seq": 3019,
+      "us": 155344389,
+      "tick": 838,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 3020,
+      "us": 155344530,
+      "tick": 838,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 3021,
+      "us": 155344534,
+      "tick": 838,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 3022,
+      "us": 155344537,
+      "tick": 838,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 3023,
+      "us": 155369600,
+      "tick": 838,
+      "kind": "confirm",
+      "tickSeq": 2999,
+      "depth": 2,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 3024,
+      "us": 155369602,
+      "tick": 838,
+      "kind": "confirm",
+      "tickSeq": 3018,
+      "depth": 1,
+      "tickSteps": 16,
+      "steps": 16
+     },
+     {
+      "seq": 3030,
+      "us": 155394709,
+      "tick": 839,
+      "kind": "confirm",
+      "tickSeq": 3018,
+      "depth": 2,
+      "tickSteps": 16,
+      "steps": 16
+     }
+    ]
+   }
+  },
+  {
+   "kind": "separate-callback",
+   "rep": 13,
+   "flood": false,
+   "pings": 0,
+   "finalProject": "P",
+   "finalCoherent": true,
+   "summary": {
+    "batches": 2,
+    "batchSteps": [
+     8,
+     8
+    ],
+    "midBatchTicks": 0,
+    "afterBatch": 0,
+    "insideBatch": 0,
+    "missingConfirmation": 0,
+    "unchangedInside": 0,
+    "rpcInsideBatch": 0,
+    "rpcs": 0,
+    "ticks": 2,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "hostFenceProved": false
+   },
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "orderingMarker": "e217-callback-ordering-v1",
+    "ordering": true,
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 3322,
+    "nowUs": 157226457,
+    "tickerActive": false,
+    "tickCount": 912,
+    "tickCallbacks": 34,
+    "inTickChanges": 0,
+    "stepCallbacks": 16,
+    "eventsRetained": 22,
+    "ticksRetained": 99,
+    "commandsRetained": 3,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 21,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+    "compacted": true,
+    "contextUs": 3000,
+    "events": [
+     {
+      "seq": 3226,
+      "us": 156594311,
+      "tick": 887,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 3227,
+      "us": 156594315,
+      "tick": 887,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 3228,
+      "us": 156594316,
+      "tick": 887,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 3229,
+      "us": 156594316,
+      "tick": 887,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 3230,
+      "us": 156594326,
+      "tick": 887,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 9"
+     },
+     {
+      "seq": 3231,
+      "us": 156594363,
+      "tick": 887,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8074dc30-00f2-4ae3-b060-49893f2b5f73"
+     },
+     {
+      "seq": 3232,
+      "us": 156594364,
+      "tick": 887,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "83eccfa7-1be7-41b4-967b-bc270b647727"
+     },
+     {
+      "seq": 3233,
+      "us": 156594367,
+      "tick": 887,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 3234,
+      "us": 156594368,
+      "tick": 887,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 3235,
+      "us": 156594369,
+      "tick": 887,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 3236,
+      "us": 156594369,
+      "tick": 887,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 3240,
+      "us": 156618582,
+      "tick": 888,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 3241,
+      "us": 156618584,
+      "tick": 888,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 3242,
+      "us": 156618584,
+      "tick": 888,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 3243,
+      "us": 156618585,
+      "tick": 888,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 3244,
+      "us": 156618594,
+      "tick": 888,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 8"
+     },
+     {
+      "seq": 3245,
+      "us": 156618612,
+      "tick": 888,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8a781a69-bf80-4ab7-943b-a07b7dd705a3"
+     },
+     {
+      "seq": 3246,
+      "us": 156618613,
+      "tick": 888,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "13461ca1-0072-4e85-bc4f-fe48afc216c0"
+     },
+     {
+      "seq": 3247,
+      "us": 156618614,
+      "tick": 888,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 3248,
+      "us": 156618615,
+      "tick": 888,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 3249,
+      "us": 156618615,
+      "tick": 888,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 3250,
+      "us": 156618616,
+      "tick": 888,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "commands": [
+     {
+      "seq": 3220,
+      "us": 156570321,
+      "tick": 886,
+      "kind": "command",
+      "op": "mark",
+      "step": {
+       "op": "mark",
+       "label": "separate-callback rep=13"
+      }
+     },
+     {
+      "seq": 3221,
+      "us": 156570485,
+      "tick": 886,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project",
+       "delayMs": -1
+      },
+      "returnedUs": 156570523
+     },
+     {
+      "seq": 3225,
+      "us": 156594265,
+      "tick": 887,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project",
+       "delayMs": 0
+      },
+      "returnedUs": 156594295
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 3224,
+      "us": 156594210,
+      "tick": 887,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 0
+     },
+     {
+      "seq": 3238,
+      "us": 156618557,
+      "tick": 887,
+      "kind": "confirm",
+      "tickSeq": 3224,
+      "depth": 1,
+      "tickSteps": 0,
+      "steps": 8
+     },
+     {
+      "seq": 3239,
+      "us": 156618573,
+      "tick": 888,
+      "kind": "tick",
+      "start": "New 9|8074dc30-00f2-4ae3-b060-49893f2b5f73|83eccfa7-1be7-41b4-967b-bc270b647727|C|....|NNNN|-|.",
+      "steps": 8
+     },
+     {
+      "seq": 3251,
+      "us": 156641480,
+      "tick": 888,
+      "kind": "confirm",
+      "tickSeq": 3224,
+      "depth": 2,
+      "tickSteps": 0,
+      "steps": 16
+     },
+     {
+      "seq": 3252,
+      "us": 156641483,
+      "tick": 888,
+      "kind": "confirm",
+      "tickSeq": 3239,
+      "depth": 1,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 3254,
+      "us": 156665276,
+      "tick": 889,
+      "kind": "confirm",
+      "tickSeq": 3239,
+      "depth": 2,
+      "tickSteps": 8,
+      "steps": 16
+     }
+    ]
+   }
+  },
+  {
+   "kind": "separate-callback",
+   "rep": 14,
+   "flood": true,
+   "pings": 68,
+   "finalProject": "P",
+   "finalCoherent": true,
+   "summary": {
+    "batches": 2,
+    "batchSteps": [
+     8,
+     8
+    ],
+    "midBatchTicks": 0,
+    "afterBatch": 0,
+    "insideBatch": 0,
+    "missingConfirmation": 0,
+    "unchangedInside": 0,
+    "rpcInsideBatch": 0,
+    "rpcs": 8,
+    "ticks": 2,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "hostFenceProved": false
+   },
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "orderingMarker": "e217-callback-ordering-v1",
+    "ordering": true,
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 3562,
+    "nowUs": 158508642,
+    "tickerActive": false,
+    "tickCount": 962,
+    "tickCallbacks": 50,
+    "inTickChanges": 0,
+    "stepCallbacks": 16,
+    "eventsRetained": 22,
+    "ticksRetained": 215,
+    "commandsRetained": 3,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 22,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+    "compacted": true,
+    "contextUs": 3000,
+    "events": [
+     {
+      "seq": 3350,
+      "us": 157494227,
+      "tick": 920,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 3351,
+      "us": 157494233,
+      "tick": 920,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 3352,
+      "us": 157494235,
+      "tick": 920,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 3353,
+      "us": 157494236,
+      "tick": 920,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 3354,
+      "us": 157494247,
+      "tick": 920,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 9"
+     },
+     {
+      "seq": 3355,
+      "us": 157494286,
+      "tick": 920,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8074dc30-00f2-4ae3-b060-49893f2b5f73"
+     },
+     {
+      "seq": 3356,
+      "us": 157494288,
+      "tick": 920,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "83eccfa7-1be7-41b4-967b-bc270b647727"
+     },
+     {
+      "seq": 3357,
+      "us": 157494290,
+      "tick": 920,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 3358,
+      "us": 157494290,
+      "tick": 920,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 3359,
+      "us": 157494290,
+      "tick": 920,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 3360,
+      "us": 157494290,
+      "tick": 920,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 3369,
+      "us": 157519145,
+      "tick": 921,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 3370,
+      "us": 157519147,
+      "tick": 921,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 3371,
+      "us": 157519147,
+      "tick": 921,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 3372,
+      "us": 157519148,
+      "tick": 921,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 3373,
+      "us": 157519151,
+      "tick": 921,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 8"
+     },
+     {
+      "seq": 3374,
+      "us": 157519164,
+      "tick": 921,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8a781a69-bf80-4ab7-943b-a07b7dd705a3"
+     },
+     {
+      "seq": 3375,
+      "us": 157519164,
+      "tick": 921,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "13461ca1-0072-4e85-bc4f-fe48afc216c0"
+     },
+     {
+      "seq": 3376,
+      "us": 157519165,
+      "tick": 921,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 3377,
+      "us": 157519165,
+      "tick": 921,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 3378,
+      "us": 157519165,
+      "tick": 921,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 3379,
+      "us": 157519165,
+      "tick": 921,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "commands": [
+     {
+      "seq": 3344,
+      "us": 157470931,
+      "tick": 920,
+      "kind": "command",
+      "op": "mark",
+      "step": {
+       "op": "mark",
+       "label": "separate-callback rep=14"
+      }
+     },
+     {
+      "seq": 3345,
+      "us": 157470958,
+      "tick": 920,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project",
+       "delayMs": -1
+      },
+      "returnedUs": 157470967
+     },
+     {
+      "seq": 3364,
+      "us": 157494324,
+      "tick": 921,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project",
+       "delayMs": 0
+      },
+      "returnedUs": 157494333
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 3363,
+      "us": 157494308,
+      "tick": 921,
+      "kind": "tick",
+      "start": "New 9|8074dc30-00f2-4ae3-b060-49893f2b5f73|83eccfa7-1be7-41b4-967b-bc270b647727|C|....|NNNN|-|.",
+      "steps": 8
+     },
+     {
+      "seq": 3365,
+      "us": 157494340,
+      "tick": 921,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 3366,
+      "us": 157494386,
+      "tick": 921,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 3367,
+      "us": 157494389,
+      "tick": 921,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 3368,
+      "us": 157494391,
+      "tick": 921,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 3381,
+      "us": 157519168,
+      "tick": 921,
+      "kind": "confirm",
+      "tickSeq": 3363,
+      "depth": 1,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 3382,
+      "us": 157519175,
+      "tick": 922,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 16
+     },
+     {
+      "seq": 3383,
+      "us": 157519183,
+      "tick": 922,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 3384,
+      "us": 157519215,
+      "tick": 922,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 3385,
+      "us": 157519218,
+      "tick": 922,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 3386,
+      "us": 157519220,
+      "tick": 922,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 3387,
+      "us": 157544260,
+      "tick": 922,
+      "kind": "confirm",
+      "tickSeq": 3363,
+      "depth": 2,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 3388,
+      "us": 157544262,
+      "tick": 922,
+      "kind": "confirm",
+      "tickSeq": 3382,
+      "depth": 1,
+      "tickSteps": 16,
+      "steps": 16
+     },
+     {
+      "seq": 3394,
+      "us": 157568337,
+      "tick": 923,
+      "kind": "confirm",
+      "tickSeq": 3382,
+      "depth": 2,
+      "tickSteps": 16,
+      "steps": 16
+     }
+    ]
+   }
+  },
+  {
+   "kind": "separate-callback",
+   "rep": 15,
+   "flood": false,
+   "pings": 0,
+   "finalProject": "P",
+   "finalCoherent": true,
+   "summary": {
+    "batches": 2,
+    "batchSteps": [
+     8,
+     8
+    ],
+    "midBatchTicks": 0,
+    "afterBatch": 0,
+    "insideBatch": 0,
+    "missingConfirmation": 0,
+    "unchangedInside": 0,
+    "rpcInsideBatch": 0,
+    "rpcs": 0,
+    "ticks": 2,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "hostFenceProved": false
+   },
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "orderingMarker": "e217-callback-ordering-v1",
+    "ordering": true,
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 3689,
+    "nowUs": 159418795,
+    "tickerActive": false,
+    "tickCount": 997,
+    "tickCallbacks": 35,
+    "inTickChanges": 0,
+    "stepCallbacks": 16,
+    "eventsRetained": 22,
+    "ticksRetained": 102,
+    "commandsRetained": 3,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 23,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+    "compacted": true,
+    "contextUs": 3000,
+    "events": [
+     {
+      "seq": 3586,
+      "us": 158773768,
+      "tick": 970,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 3587,
+      "us": 158773777,
+      "tick": 970,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 3588,
+      "us": 158773778,
+      "tick": 970,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 3589,
+      "us": 158773779,
+      "tick": 970,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 3590,
+      "us": 158773797,
+      "tick": 970,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 9"
+     },
+     {
+      "seq": 3591,
+      "us": 158773857,
+      "tick": 970,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8074dc30-00f2-4ae3-b060-49893f2b5f73"
+     },
+     {
+      "seq": 3592,
+      "us": 158773860,
+      "tick": 970,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "83eccfa7-1be7-41b4-967b-bc270b647727"
+     },
+     {
+      "seq": 3593,
+      "us": 158773863,
+      "tick": 970,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 3594,
+      "us": 158773864,
+      "tick": 970,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 3595,
+      "us": 158773865,
+      "tick": 970,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 3596,
+      "us": 158773865,
+      "tick": 970,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 3604,
+      "us": 158798640,
+      "tick": 972,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 3605,
+      "us": 158798641,
+      "tick": 972,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 3606,
+      "us": 158798641,
+      "tick": 972,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 3607,
+      "us": 158798642,
+      "tick": 972,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 3608,
+      "us": 158798646,
+      "tick": 972,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 8"
+     },
+     {
+      "seq": 3609,
+      "us": 158798658,
+      "tick": 972,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8a781a69-bf80-4ab7-943b-a07b7dd705a3"
+     },
+     {
+      "seq": 3610,
+      "us": 158798658,
+      "tick": 972,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "13461ca1-0072-4e85-bc4f-fe48afc216c0"
+     },
+     {
+      "seq": 3611,
+      "us": 158798658,
+      "tick": 972,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 3612,
+      "us": 158798659,
+      "tick": 972,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 3613,
+      "us": 158798659,
+      "tick": 972,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 3614,
+      "us": 158798659,
+      "tick": 972,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "commands": [
+     {
+      "seq": 3584,
+      "us": 158750612,
+      "tick": 970,
+      "kind": "command",
+      "op": "mark",
+      "step": {
+       "op": "mark",
+       "label": "separate-callback rep=15"
+      }
+     },
+     {
+      "seq": 3585,
+      "us": 158750667,
+      "tick": 970,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project",
+       "delayMs": -1
+      },
+      "returnedUs": 158750683
+     },
+     {
+      "seq": 3600,
+      "us": 158773998,
+      "tick": 971,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project",
+       "delayMs": 0
+      },
+      "returnedUs": 158774027
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 3599,
+      "us": 158773912,
+      "tick": 971,
+      "kind": "tick",
+      "start": "New 9|8074dc30-00f2-4ae3-b060-49893f2b5f73|83eccfa7-1be7-41b4-967b-bc270b647727|C|....|NNNN|-|.",
+      "steps": 8
+     },
+     {
+      "seq": 3602,
+      "us": 158798624,
+      "tick": 971,
+      "kind": "confirm",
+      "tickSeq": 3599,
+      "depth": 1,
+      "tickSteps": 8,
+      "steps": 8
+     },
+     {
+      "seq": 3603,
+      "us": 158798635,
+      "tick": 972,
+      "kind": "tick",
+      "start": "New 9|8074dc30-00f2-4ae3-b060-49893f2b5f73|83eccfa7-1be7-41b4-967b-bc270b647727|C|....|NNNN|-|.",
+      "steps": 8
+     },
+     {
+      "seq": 3615,
+      "us": 158822489,
+      "tick": 972,
+      "kind": "confirm",
+      "tickSeq": 3599,
+      "depth": 2,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 3616,
+      "us": 158822491,
+      "tick": 972,
+      "kind": "confirm",
+      "tickSeq": 3603,
+      "depth": 1,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 3618,
+      "us": 158847555,
+      "tick": 973,
+      "kind": "confirm",
+      "tickSeq": 3603,
+      "depth": 2,
+      "tickSteps": 8,
+      "steps": 16
+     }
+    ]
+   }
+  },
+  {
+   "kind": "separate-callback",
+   "rep": 16,
+   "flood": true,
+   "pings": 68,
+   "finalProject": "P",
+   "finalCoherent": true,
+   "summary": {
+    "batches": 2,
+    "batchSteps": [
+     8,
+     8
+    ],
+    "midBatchTicks": 0,
+    "afterBatch": 0,
+    "insideBatch": 0,
+    "missingConfirmation": 0,
+    "unchangedInside": 0,
+    "rpcInsideBatch": 0,
+    "rpcs": 8,
+    "ticks": 2,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "hostFenceProved": false
+   },
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "orderingMarker": "e217-callback-ordering-v1",
+    "ordering": true,
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 3929,
+    "nowUs": 160700493,
+    "tickerActive": false,
+    "tickCount": 1047,
+    "tickCallbacks": 50,
+    "inTickChanges": 0,
+    "stepCallbacks": 16,
+    "eventsRetained": 22,
+    "ticksRetained": 215,
+    "commandsRetained": 3,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 24,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+    "compacted": true,
+    "contextUs": 3000,
+    "events": [
+     {
+      "seq": 3717,
+      "us": 159688305,
+      "tick": 1005,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 3718,
+      "us": 159688308,
+      "tick": 1005,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 3719,
+      "us": 159688309,
+      "tick": 1005,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 3720,
+      "us": 159688309,
+      "tick": 1005,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 3721,
+      "us": 159688317,
+      "tick": 1005,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 9"
+     },
+     {
+      "seq": 3722,
+      "us": 159688349,
+      "tick": 1005,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8074dc30-00f2-4ae3-b060-49893f2b5f73"
+     },
+     {
+      "seq": 3723,
+      "us": 159688349,
+      "tick": 1005,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "83eccfa7-1be7-41b4-967b-bc270b647727"
+     },
+     {
+      "seq": 3724,
+      "us": 159688350,
+      "tick": 1005,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 3725,
+      "us": 159688350,
+      "tick": 1005,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 3726,
+      "us": 159688350,
+      "tick": 1005,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 3727,
+      "us": 159688350,
+      "tick": 1005,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 3736,
+      "us": 159712697,
+      "tick": 1006,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 3737,
+      "us": 159712702,
+      "tick": 1006,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 3738,
+      "us": 159712702,
+      "tick": 1006,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 3739,
+      "us": 159712702,
+      "tick": 1006,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 3740,
+      "us": 159712706,
+      "tick": 1006,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 8"
+     },
+     {
+      "seq": 3741,
+      "us": 159712718,
+      "tick": 1006,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8a781a69-bf80-4ab7-943b-a07b7dd705a3"
+     },
+     {
+      "seq": 3742,
+      "us": 159712718,
+      "tick": 1006,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "13461ca1-0072-4e85-bc4f-fe48afc216c0"
+     },
+     {
+      "seq": 3743,
+      "us": 159712719,
+      "tick": 1006,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 3744,
+      "us": 159712719,
+      "tick": 1006,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 3745,
+      "us": 159712719,
+      "tick": 1006,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 3746,
+      "us": 159712719,
+      "tick": 1006,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "commands": [
+     {
+      "seq": 3711,
+      "us": 159664574,
+      "tick": 1005,
+      "kind": "command",
+      "op": "mark",
+      "step": {
+       "op": "mark",
+       "label": "separate-callback rep=16"
+      }
+     },
+     {
+      "seq": 3712,
+      "us": 159664591,
+      "tick": 1005,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project",
+       "delayMs": -1
+      },
+      "returnedUs": 159664601
+     },
+     {
+      "seq": 3731,
+      "us": 159688388,
+      "tick": 1006,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project",
+       "delayMs": 0
+      },
+      "returnedUs": 159688398
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 3730,
+      "us": 159688374,
+      "tick": 1006,
+      "kind": "tick",
+      "start": "New 9|8074dc30-00f2-4ae3-b060-49893f2b5f73|83eccfa7-1be7-41b4-967b-bc270b647727|C|....|NNNN|-|.",
+      "steps": 8
+     },
+     {
+      "seq": 3732,
+      "us": 159688407,
+      "tick": 1006,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 3733,
+      "us": 159688445,
+      "tick": 1006,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 3734,
+      "us": 159688449,
+      "tick": 1006,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 3735,
+      "us": 159688452,
+      "tick": 1006,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 3748,
+      "us": 159712722,
+      "tick": 1006,
+      "kind": "confirm",
+      "tickSeq": 3730,
+      "depth": 1,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 3749,
+      "us": 159712732,
+      "tick": 1007,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 16
+     },
+     {
+      "seq": 3750,
+      "us": 159712738,
+      "tick": 1007,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 3751,
+      "us": 159712768,
+      "tick": 1007,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 3752,
+      "us": 159712771,
+      "tick": 1007,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 3753,
+      "us": 159712773,
+      "tick": 1007,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 3754,
+      "us": 159736414,
+      "tick": 1007,
+      "kind": "confirm",
+      "tickSeq": 3730,
+      "depth": 2,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 3755,
+      "us": 159736417,
+      "tick": 1007,
+      "kind": "confirm",
+      "tickSeq": 3749,
+      "depth": 1,
+      "tickSteps": 16,
+      "steps": 16
+     },
+     {
+      "seq": 3761,
+      "us": 159759547,
+      "tick": 1008,
+      "kind": "confirm",
+      "tickSeq": 3749,
+      "depth": 2,
+      "tickSteps": 16,
+      "steps": 16
+     }
+    ]
+   }
+  },
+  {
+   "kind": "separate-callback",
+   "rep": 17,
+   "flood": false,
+   "pings": 0,
+   "finalProject": "P",
+   "finalCoherent": true,
+   "summary": {
+    "batches": 2,
+    "batchSteps": [
+     8,
+     8
+    ],
+    "midBatchTicks": 0,
+    "afterBatch": 0,
+    "insideBatch": 0,
+    "missingConfirmation": 0,
+    "unchangedInside": 0,
+    "rpcInsideBatch": 0,
+    "rpcs": 0,
+    "ticks": 2,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "hostFenceProved": false
+   },
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "orderingMarker": "e217-callback-ordering-v1",
+    "ordering": true,
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 4056,
+    "nowUs": 161613230,
+    "tickerActive": false,
+    "tickCount": 1082,
+    "tickCallbacks": 35,
+    "inTickChanges": 0,
+    "stepCallbacks": 16,
+    "eventsRetained": 22,
+    "ticksRetained": 102,
+    "commandsRetained": 3,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 25,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+    "compacted": true,
+    "contextUs": 3000,
+    "events": [
+     {
+      "seq": 3957,
+      "us": 160967455,
+      "tick": 1056,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 3958,
+      "us": 160967458,
+      "tick": 1056,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 3959,
+      "us": 160967459,
+      "tick": 1056,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 3960,
+      "us": 160967460,
+      "tick": 1056,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 3961,
+      "us": 160967471,
+      "tick": 1056,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 9"
+     },
+     {
+      "seq": 3962,
+      "us": 160967518,
+      "tick": 1056,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8074dc30-00f2-4ae3-b060-49893f2b5f73"
+     },
+     {
+      "seq": 3963,
+      "us": 160967519,
+      "tick": 1056,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "83eccfa7-1be7-41b4-967b-bc270b647727"
+     },
+     {
+      "seq": 3964,
+      "us": 160967521,
+      "tick": 1056,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 3965,
+      "us": 160967522,
+      "tick": 1056,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 3966,
+      "us": 160967522,
+      "tick": 1056,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 3967,
+      "us": 160967528,
+      "tick": 1056,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 3968,
+      "us": 160991724,
+      "tick": 1056,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 3969,
+      "us": 160991726,
+      "tick": 1056,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 3970,
+      "us": 160991727,
+      "tick": 1056,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 3971,
+      "us": 160991727,
+      "tick": 1056,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 3972,
+      "us": 160991732,
+      "tick": 1056,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 8"
+     },
+     {
+      "seq": 3973,
+      "us": 160991750,
+      "tick": 1056,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8a781a69-bf80-4ab7-943b-a07b7dd705a3"
+     },
+     {
+      "seq": 3974,
+      "us": 160991751,
+      "tick": 1056,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "13461ca1-0072-4e85-bc4f-fe48afc216c0"
+     },
+     {
+      "seq": 3975,
+      "us": 160991752,
+      "tick": 1056,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 3976,
+      "us": 160991752,
+      "tick": 1056,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 3977,
+      "us": 160991753,
+      "tick": 1056,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 3978,
+      "us": 160991753,
+      "tick": 1056,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "commands": [
+     {
+      "seq": 3951,
+      "us": 160942603,
+      "tick": 1055,
+      "kind": "command",
+      "op": "mark",
+      "step": {
+       "op": "mark",
+       "label": "separate-callback rep=17"
+      }
+     },
+     {
+      "seq": 3952,
+      "us": 160942662,
+      "tick": 1055,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project",
+       "delayMs": -1
+      },
+      "returnedUs": 160942679
+     },
+     {
+      "seq": 3956,
+      "us": 160967409,
+      "tick": 1056,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project",
+       "delayMs": 0
+      },
+      "returnedUs": 160967440
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 3955,
+      "us": 160967350,
+      "tick": 1056,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 0
+     },
+     {
+      "seq": 3980,
+      "us": 160991756,
+      "tick": 1056,
+      "kind": "confirm",
+      "tickSeq": 3955,
+      "depth": 1,
+      "tickSteps": 0,
+      "steps": 16
+     },
+     {
+      "seq": 3981,
+      "us": 160991765,
+      "tick": 1057,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 16
+     },
+     {
+      "seq": 3982,
+      "us": 161016572,
+      "tick": 1057,
+      "kind": "confirm",
+      "tickSeq": 3955,
+      "depth": 2,
+      "tickSteps": 0,
+      "steps": 16
+     },
+     {
+      "seq": 3983,
+      "us": 161016574,
+      "tick": 1057,
+      "kind": "confirm",
+      "tickSeq": 3981,
+      "depth": 1,
+      "tickSteps": 16,
+      "steps": 16
+     },
+     {
+      "seq": 3985,
+      "us": 161039171,
+      "tick": 1058,
+      "kind": "confirm",
+      "tickSeq": 3981,
+      "depth": 2,
+      "tickSteps": 16,
+      "steps": 16
+     }
+    ]
+   }
+  },
+  {
+   "kind": "separate-callback",
+   "rep": 18,
+   "flood": true,
+   "pings": 68,
+   "finalProject": "P",
+   "finalCoherent": true,
+   "summary": {
+    "batches": 2,
+    "batchSteps": [
+     8,
+     8
+    ],
+    "midBatchTicks": 0,
+    "afterBatch": 0,
+    "insideBatch": 0,
+    "missingConfirmation": 0,
+    "unchangedInside": 0,
+    "rpcInsideBatch": 0,
+    "rpcs": 8,
+    "ticks": 2,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "hostFenceProved": false
+   },
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "orderingMarker": "e217-callback-ordering-v1",
+    "ordering": true,
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 4299,
+    "nowUs": 162902035,
+    "tickerActive": false,
+    "tickCount": 1133,
+    "tickCallbacks": 51,
+    "inTickChanges": 0,
+    "stepCallbacks": 16,
+    "eventsRetained": 22,
+    "ticksRetained": 218,
+    "commandsRetained": 3,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 26,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+    "compacted": true,
+    "contextUs": 3000,
+    "events": [
+     {
+      "seq": 4084,
+      "us": 161878258,
+      "tick": 1090,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 4085,
+      "us": 161878263,
+      "tick": 1090,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 4086,
+      "us": 161878264,
+      "tick": 1090,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 4087,
+      "us": 161878265,
+      "tick": 1090,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 4088,
+      "us": 161878277,
+      "tick": 1090,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 9"
+     },
+     {
+      "seq": 4089,
+      "us": 161878312,
+      "tick": 1090,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8074dc30-00f2-4ae3-b060-49893f2b5f73"
+     },
+     {
+      "seq": 4090,
+      "us": 161878314,
+      "tick": 1090,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "83eccfa7-1be7-41b4-967b-bc270b647727"
+     },
+     {
+      "seq": 4091,
+      "us": 161878316,
+      "tick": 1090,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 4092,
+      "us": 161878317,
+      "tick": 1090,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 4093,
+      "us": 161878317,
+      "tick": 1090,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 4094,
+      "us": 161878318,
+      "tick": 1090,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 4103,
+      "us": 161903134,
+      "tick": 1091,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 4104,
+      "us": 161903136,
+      "tick": 1091,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 4105,
+      "us": 161903136,
+      "tick": 1091,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 4106,
+      "us": 161903137,
+      "tick": 1091,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 4107,
+      "us": 161903140,
+      "tick": 1091,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 8"
+     },
+     {
+      "seq": 4108,
+      "us": 161903153,
+      "tick": 1091,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8a781a69-bf80-4ab7-943b-a07b7dd705a3"
+     },
+     {
+      "seq": 4109,
+      "us": 161903154,
+      "tick": 1091,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "13461ca1-0072-4e85-bc4f-fe48afc216c0"
+     },
+     {
+      "seq": 4110,
+      "us": 161903154,
+      "tick": 1091,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 4111,
+      "us": 161903154,
+      "tick": 1091,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 4112,
+      "us": 161903155,
+      "tick": 1091,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 4113,
+      "us": 161903155,
+      "tick": 1091,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "commands": [
+     {
+      "seq": 4078,
+      "us": 161853968,
+      "tick": 1090,
+      "kind": "command",
+      "op": "mark",
+      "step": {
+       "op": "mark",
+       "label": "separate-callback rep=18"
+      }
+     },
+     {
+      "seq": 4079,
+      "us": 161853999,
+      "tick": 1090,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project",
+       "delayMs": -1
+      },
+      "returnedUs": 161854010
+     },
+     {
+      "seq": 4098,
+      "us": 161878356,
+      "tick": 1091,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project",
+       "delayMs": 0
+      },
+      "returnedUs": 161878365
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 4097,
+      "us": 161878342,
+      "tick": 1091,
+      "kind": "tick",
+      "start": "New 9|8074dc30-00f2-4ae3-b060-49893f2b5f73|83eccfa7-1be7-41b4-967b-bc270b647727|C|....|NNNN|-|.",
+      "steps": 8
+     },
+     {
+      "seq": 4099,
+      "us": 161878373,
+      "tick": 1091,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 4100,
+      "us": 161878409,
+      "tick": 1091,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 4101,
+      "us": 161878414,
+      "tick": 1091,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 4102,
+      "us": 161878416,
+      "tick": 1091,
+      "kind": "rpc",
+      "steps": 8
+     },
+     {
+      "seq": 4115,
+      "us": 161903158,
+      "tick": 1091,
+      "kind": "confirm",
+      "tickSeq": 4097,
+      "depth": 1,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 4116,
+      "us": 161903166,
+      "tick": 1092,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 16
+     },
+     {
+      "seq": 4117,
+      "us": 161903173,
+      "tick": 1092,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 4118,
+      "us": 161903201,
+      "tick": 1092,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 4119,
+      "us": 161903204,
+      "tick": 1092,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 4120,
+      "us": 161903205,
+      "tick": 1092,
+      "kind": "rpc",
+      "steps": 16
+     },
+     {
+      "seq": 4121,
+      "us": 161926790,
+      "tick": 1092,
+      "kind": "confirm",
+      "tickSeq": 4097,
+      "depth": 2,
+      "tickSteps": 8,
+      "steps": 16
+     },
+     {
+      "seq": 4122,
+      "us": 161926793,
+      "tick": 1092,
+      "kind": "confirm",
+      "tickSeq": 4116,
+      "depth": 1,
+      "tickSteps": 16,
+      "steps": 16
+     },
+     {
+      "seq": 4128,
+      "us": 161950511,
+      "tick": 1093,
+      "kind": "confirm",
+      "tickSeq": 4116,
+      "depth": 2,
+      "tickSteps": 16,
+      "steps": 16
+     }
+    ]
+   }
+  },
+  {
+   "kind": "separate-callback",
+   "rep": 19,
+   "flood": false,
+   "pings": 0,
+   "finalProject": "P",
+   "finalCoherent": true,
+   "summary": {
+    "batches": 2,
+    "batchSteps": [
+     8,
+     8
+    ],
+    "midBatchTicks": 0,
+    "afterBatch": 0,
+    "insideBatch": 0,
+    "missingConfirmation": 0,
+    "unchangedInside": 0,
+    "rpcInsideBatch": 0,
+    "rpcs": 0,
+    "ticks": 2,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "hostFenceProved": false
+   },
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "orderingMarker": "e217-callback-ordering-v1",
+    "ordering": true,
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 4423,
+    "nowUs": 163796638,
+    "tickerActive": false,
+    "tickCount": 1167,
+    "tickCallbacks": 34,
+    "inTickChanges": 0,
+    "stepCallbacks": 16,
+    "eventsRetained": 22,
+    "ticksRetained": 99,
+    "commandsRetained": 3,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 27,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+    "compacted": true,
+    "contextUs": 3000,
+    "events": [
+     {
+      "seq": 4327,
+      "us": 163169479,
+      "tick": 1142,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 4328,
+      "us": 163169483,
+      "tick": 1142,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 4329,
+      "us": 163169483,
+      "tick": 1142,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 4330,
+      "us": 163169483,
+      "tick": 1142,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 4331,
+      "us": 163169494,
+      "tick": 1142,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 9"
+     },
+     {
+      "seq": 4332,
+      "us": 163169578,
+      "tick": 1142,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8074dc30-00f2-4ae3-b060-49893f2b5f73"
+     },
+     {
+      "seq": 4333,
+      "us": 163169580,
+      "tick": 1142,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "83eccfa7-1be7-41b4-967b-bc270b647727"
+     },
+     {
+      "seq": 4334,
+      "us": 163169581,
+      "tick": 1142,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 4335,
+      "us": 163169582,
+      "tick": 1142,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 4336,
+      "us": 163169583,
+      "tick": 1142,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 4337,
+      "us": 163169583,
+      "tick": 1142,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 4338,
+      "us": 163194231,
+      "tick": 1142,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 4339,
+      "us": 163194236,
+      "tick": 1142,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 4340,
+      "us": 163194237,
+      "tick": 1142,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 4341,
+      "us": 163194238,
+      "tick": 1142,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 4342,
+      "us": 163194248,
+      "tick": 1142,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 8"
+     },
+     {
+      "seq": 4343,
+      "us": 163194291,
+      "tick": 1142,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "8a781a69-bf80-4ab7-943b-a07b7dd705a3"
+     },
+     {
+      "seq": 4344,
+      "us": 163194293,
+      "tick": 1142,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "13461ca1-0072-4e85-bc4f-fe48afc216c0"
+     },
+     {
+      "seq": 4345,
+      "us": 163194295,
+      "tick": 1142,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 4346,
+      "us": 163194295,
+      "tick": 1142,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 4347,
+      "us": 163194295,
+      "tick": 1142,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 4348,
+      "us": 163194296,
+      "tick": 1142,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "commands": [
+     {
+      "seq": 4321,
+      "us": 163144553,
+      "tick": 1141,
+      "kind": "command",
+      "op": "mark",
+      "step": {
+       "op": "mark",
+       "label": "separate-callback rep=19"
+      }
+     },
+     {
+      "seq": 4322,
+      "us": 163144608,
+      "tick": 1141,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project",
+       "delayMs": -1
+      },
+      "returnedUs": 163144626
+     },
+     {
+      "seq": 4326,
+      "us": 163169438,
+      "tick": 1142,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project",
+       "delayMs": 0
+      },
+      "returnedUs": 163169466
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 4325,
+      "us": 163169382,
+      "tick": 1142,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 0
+     },
+     {
+      "seq": 4350,
+      "us": 163194303,
+      "tick": 1142,
+      "kind": "confirm",
+      "tickSeq": 4325,
+      "depth": 1,
+      "tickSteps": 0,
+      "steps": 16
+     },
+     {
+      "seq": 4351,
+      "us": 163194323,
+      "tick": 1143,
+      "kind": "tick",
+      "start": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+      "steps": 16
+     },
+     {
+      "seq": 4352,
+      "us": 163219376,
+      "tick": 1143,
+      "kind": "confirm",
+      "tickSeq": 4325,
+      "depth": 2,
+      "tickSteps": 0,
+      "steps": 16
+     },
+     {
+      "seq": 4353,
+      "us": 163219379,
+      "tick": 1143,
+      "kind": "confirm",
+      "tickSeq": 4351,
+      "depth": 1,
+      "tickSteps": 16,
+      "steps": 16
+     },
+     {
+      "seq": 4355,
+      "us": 163243743,
+      "tick": 1144,
+      "kind": "confirm",
+      "tickSeq": 4351,
+      "depth": 2,
+      "tickSteps": 16,
+      "steps": 16
+     }
+    ]
+   }
+  }
+ ],
+ "limitations": [
+  "batches are inferred from step-callback time gaps; the host does not expose a batch boundary",
+  "commands and observers share one controller process; neither is a host input fence",
+  "one witness clip per project and controller-issued project actions only"
+ ],
+ "aggregate": {
+  "runs": 4,
+  "batches": 6,
+  "midBatchTicks": 1,
+  "afterBatch": 1,
+  "insideBatch": 0,
+  "missingConfirmation": 0,
+  "unchangedInside": 0,
+  "rpcInsideBatch": 4,
+  "rpcs": 8,
+  "runsWithMidBatchTick": 1,
+  "verdict": "pass",
+  "hostFenceProved": false
+ },
+ "separateAggregate": {
+  "runs": 20,
+  "batches": 40,
+  "midBatchTicks": 0,
+  "afterBatch": 0,
+  "insideBatch": 0,
+  "missingConfirmation": 0,
+  "unchangedInside": 0,
+  "rpcInsideBatch": 0,
+  "rpcs": 80,
+  "runsWithMidBatchTick": 0,
+  "verdict": "no-mid-batch-evidence",
+  "hostFenceProved": false
+ },
+ "finalSignature": "New 8|8a781a69-bf80-4ab7-943b-a07b7dd705a3|13461ca1-0072-4e85-bc4f-fe48afc216c0|C|NNNN|....|-|.",
+ "ended": "2026-10-02T14:50:21.837Z"
+}

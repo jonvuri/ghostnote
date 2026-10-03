@@ -84,6 +84,16 @@ public final class ShadowCacheProbeTest {
         run("private inventory controls retain terminal cancellation", ShadowCacheProbeTest::inventoryControls);
         run("authority confirms a distinct control after a clip moves", ShadowCacheProbeTest::authorityMovedClip);
         run("missing authority controls refuse and diagnostic errors are nonfatal", ShadowCacheProbeTest::authorityControlFailure);
+        run("step window: mid-batch read refuses after the batch remainder", ShadowCacheProbeTest::stepMidBatch);
+        run("step window: seen detour deltas discard retained output", ShadowCacheProbeTest::stepSeenDetour);
+        run("step window: equal-content detour without deltas", ShadowCacheProbeTest::stepEqualContent);
+        run("step window: covered change without a callback is accepted (D26 boundary)", ShadowCacheProbeTest::stepD26Boundary);
+        run("step window: late hint races refuse publication", ShadowCacheProbeTest::stepLateHint);
+        run("step window: cancellation is terminal and recovery is explicit", ShadowCacheProbeTest::stepCancellation);
+        run("step window: rebinding and canary steps cannot confirm", ShadowCacheProbeTest::stepRebind);
+        run("step window: identity equality and init changes", ShadowCacheProbeTest::stepIdentity);
+        run("step window: uncovered reads refuse", ShadowCacheProbeTest::stepUncovered);
+        run("step window: exact authority waits for confirmation", ShadowCacheProbeTest::stepExact);
         System.out.println("Shadow cache adapter: " + passed + " test groups passed.");
     }
 
@@ -100,7 +110,7 @@ public final class ShadowCacheProbeTest {
             "an unsupported diagnostic read remains an explicit observation");
         JsonObject result = pending;
         for (int attempt = 0; attempt < 80 && result.get("comparison").getAsString().equals("pending"); attempt++) {
-            fastClock(f.probe); result = f.probe.comparePoll();
+            fastClock(f.probe); f.host.runTasks(); result = f.probe.comparePoll();
         }
         check(result.get("comparison").getAsString().equals("match"), "a diagnostic failure cannot replace binding or content guards");
     }
@@ -112,14 +122,14 @@ public final class ShadowCacheProbeTest {
         f.probe.invalidate("moved-clip-control"); f.rebind("A", 1);
         reader.holdClipPinRead = true;
         JsonObject result = f.probe.compareStart(0);
-        for (int attempt = 0; attempt < 8; attempt++) { fastClock(f.probe); result = f.probe.comparePoll(); }
+        for (int attempt = 0; attempt < 8; attempt++) { fastClock(f.probe); f.host.runTasks(); result = f.probe.comparePoll(); }
         JsonObject pending = result.getAsJsonObject("authorityBinding");
         check(pending.get("stage").getAsString().equals("canary") && !pending.get("clipPinned").getAsBoolean()
             && !pending.get("distinctControlConfirmed").getAsBoolean(), "a pin request cannot replace confirmed distinct binding");
         check(!pending.get("cacheMembershipUsed").getAsBoolean(), "the authority control does not use sparse membership");
         reader.holdClipPinRead = false;
         for (int attempt = 0; attempt < 80 && result.get("comparison").getAsString().equals("pending"); attempt++) {
-            fastClock(f.probe); result = f.probe.comparePoll();
+            fastClock(f.probe); f.host.runTasks(); result = f.probe.comparePoll();
         }
         check(result.get("comparison").getAsString().equals("match") && result.get("authorityDistinctControlConfirmed").getAsBoolean(),
             "a distinct control releases the held scene index and the moved target matches");
@@ -128,6 +138,7 @@ public final class ShadowCacheProbeTest {
         check(result.get("authorityBindingRevision").getAsString().equals("8g-authority-transition-v1"), "authority transition has its own revision");
 
         reader.holdClipPinRead = true; f.probe.compareStart(0);
+        f.host.runTasks(); f.probe.comparePoll(); // The confirmed membership window starts the authority binding.
         Object scan = field(f.probe, "scan"); setIfPresent(scan, "started", System.nanoTime() - 5_000_001_000L);
         JsonObject expired = f.probe.comparePoll();
         check(expired.get("reason").getAsString().equals("authority-binding-budget") && expired.get("terminal").getAsBoolean()
@@ -289,6 +300,206 @@ public final class ShadowCacheProbeTest {
         check(!result.get("complete").getAsBoolean() && !result.get("eligible").getAsBoolean(), "all live gates remain closed");
         for (String field : List.of("authorityNotes", "authorityMetadata", "authorityCoverage", "diagnosticSnapshot", "historicalSnapshot"))
             check(!result.has(field), "refused output cannot retain " + field);
+    }
+
+    // 8g2b step-delta read window. Tasks model the E217 rule: a scheduled task runs after the batch remainder.
+    private static IdentityFixture stepFixture() { return stepFixture(new IdentityHost()); }
+    private static IdentityFixture stepFixture(IdentityHost h) {
+        Fixture f = new Fixture(); RootIdentityProbe root = h.stepProbe();
+        check(root.identityGuard().acquisitionAllowed(), "a coherent root admits the step-delta protocol: " + root.identityGuard());
+        f.probe.attachIdentityProbe(root);
+        return new IdentityFixture(f, h, root);
+    }
+    private static final Map<Cell, Map<String, Object>> Q_CONTENT = Map.of(new Cell(0, 8, 72), fields(.5));
+    private static long info(Fixture f, String field) { return f.probe.info().get(field).getAsLong(); }
+    private static boolean holdsForeign(Fixture f) {
+        for (Object view : (Object[]) field(f.probe, "views")) {
+            Result retained = (Result) field(view, "lastResult");
+            if (retained != null && retained.snapshot().notes().stream().anyMatch(n -> n.cell() == 8 && n.pitch() == 72)) return true;
+        }
+        String ref = f.ref("A", 0);
+        return ref != null && f.cache().hasClip(ref) && f.cache().occupiedCoordinates(ref) > 1;
+    }
+    /** Drive a comparison until the given stage has scheduled its confirmation. Do not run that task. */
+    private static void driveTo(Fixture f, String stage) throws Exception {
+        f.probe.compareStart(0);
+        for (int attempt = 0; attempt < 80; attempt++) {
+            Object scan = field(f.probe, "scan");
+            check(scan != null, "comparison is still active before " + stage);
+            if (stage.equals(field(scan, "stage"))) return;
+            fastClock(f.probe); f.host.runTasks(); f.probe.comparePoll();
+        }
+        throw new AssertionError("comparison did not reach " + stage);
+    }
+
+    private static void stepMidBatch() throws Exception {
+        IdentityFixture i = stepFixture(); Fixture f = i.f; f.readyA();
+        String old = f.ref("A", 0); long refusals = info(f, "stepWindowRefusals");
+        JsonObject[] started = new JsonObject[1];
+        f.host.detour("A", 0, Q_CONTENT, () -> started[0] = f.probe.compareStart(0));
+        check(started[0].get("comparison").getAsString().equals("pending") && !started[0].has("authorityNotes"),
+            "a same-callback start/end check sees no change and admits nothing");
+        f.host.runTasks();
+        JsonObject result = f.probe.comparePoll();
+        check(result.get("comparison").getAsString().equals("step-window-changed") && result.get("terminal").getAsBoolean(),
+            "the batch remainder changes the window before its confirmation: " + result.get("comparison"));
+        noOutput(result); noOutput(f.probe.status(0));
+        check(!f.cache().hasClip(old) && !holdsForeign(f) && info(f, "stepWindowRefusals") == refusals + 1,
+            "the binding retires and no foreign membership remains");
+        for (int poll = 0; poll < 2; poll++) check(f.probe.comparePoll().get("comparison").getAsString().equals("step-window-changed"),
+            "step refusal stays terminal across polls");
+        f.rebind("A", 0); JsonObject recovered = f.compare();
+        check(recovered.get("comparison").getAsString().equals("match") && !old.equals(f.ref("A", 0)),
+            "explicit recovery needs a new reference and fresh values");
+        check(f.snapshot(recovered).notes().size() == 1 && f.snapshot(recovered).notes().get(0).pitch() == 60, "recovery reads P content");
+    }
+
+    private static void stepSeenDetour() throws Exception {
+        IdentityFixture i = stepFixture(); Fixture f = i.f; f.readyA();
+        check(f.probe.status(0).has("historicalSnapshot"), "a confirmed match retains output");
+        RootIdentityProbe.IdentityGuard before = i.root.identityGuard();
+        f.host.detour("A", 0, Q_CONTENT, () -> { });
+        check(before.equals(i.root.identityGuard()), "identity values stay equal across the detour");
+        check(!f.probe.status(0).has("historicalSnapshot") && info(f, "retainedStepWindowDiscards") == 1,
+            "step deltas discard retained output despite equal identity");
+        JsonObject result = f.compare();
+        check(result.get("comparison").getAsString().equals("match") && !holdsForeign(f),
+            "hints re-read the P endpoint and the new comparison has no foreign content");
+    }
+
+    private static void stepEqualContent() throws Exception {
+        IdentityFixture i = stepFixture(); Fixture f = i.f; f.readyA();
+        long changes = info(f, "stepWindowChanges");
+        // Q shows equal covered content, so the host sends no step callback.
+        check(f.probe.status(0).has("historicalSnapshot") && info(f, "stepWindowChanges") == changes,
+            "an equal-content detour without deltas cannot expose different content");
+        check(f.compare().get("comparison").getAsString().equals("match"), "equal content still matches");
+    }
+
+    private static void stepD26Boundary() throws Exception {
+        IdentityFixture i = stepFixture(); Fixture f = i.f; f.readyA();
+        long refusals = info(f, "stepWindowRefusals");
+        // A covered change without a callback violates D26. The window accepts it by design.
+        f.host.clips.get("A:0").notes.put(new Cell(3, 9, 64), fields(.625));
+        check(f.probe.status(0).has("historicalSnapshot"), "D26 boundary: retained output stays exposed without a callback");
+        JsonObject result = f.compare();
+        check(info(f, "stepWindowRefusals") == refusals && result.get("comparison").getAsString().equals("membership-mismatch"),
+            "D26 boundary: windows confirm; only the independent authority shows the silent change");
+    }
+
+    private static void stepLateHint() throws Exception {
+        for (boolean afterConfirmation : new boolean[] {false, true}) {
+            IdentityFixture i = stepFixture(); Fixture f = i.f; f.readyA();
+            driveTo(f, "result");
+            if (afterConfirmation) f.host.runTasks();
+            f.host.resident(0).emit(0, 60, 2);
+            f.host.runTasks();
+            JsonObject result = f.probe.comparePoll();
+            check(result.get("comparison").getAsString().equals("step-window-changed"),
+                "a late hint " + (afterConfirmation ? "after" : "before") + " confirmation refuses publication");
+            noOutput(result);
+            check(f.probe.status(0).get("phase").getAsString().equals("retired"), "the late hint retires the binding");
+        }
+    }
+
+    private static void stepCancellation() throws Exception {
+        for (String stage : List.of("membership", "settlement", "result")) {
+            IdentityFixture i = stepFixture(); Fixture f = i.f; f.readyA();
+            CallbackToken old = f.cache().bindingToken(f.ref("A", 0)); driveTo(f, stage);
+            f.probe.retire(0); f.host.runTasks();
+            for (int poll = 0; poll < 2; poll++) {
+                JsonObject result = f.probe.comparePoll();
+                check(result.get("comparison").getAsString().equals("window-changed"), "cancellation at " + stage + " stays terminal");
+                noOutput(result);
+            }
+            f.rebind("A", 0);
+            // Explicit retirement evicts the reference. Recovery replays under a fresh binding token.
+            check(f.compare().get("comparison").getAsString().equals("match") && !old.equals(f.cache().bindingToken(f.ref("A", 0))),
+                "recovery after cancellation at " + stage + " uses a fresh binding and values");
+        }
+        IdentityFixture i = stepFixture(); Fixture f = i.f; f.readyA();
+        f.probe.point(0, f.b, 0, f.c, 0);
+        for (int attempt = 0; attempt < 20 && field(((Object[]) field(f.probe, "views"))[0], "canaryRead") == null; attempt++) {
+            fastClock(f.probe); f.host.runTasks(); f.probe.poll(0);
+        }
+        check(field(((Object[]) field(f.probe, "views"))[0], "canaryRead") != null, "the canary read is pending");
+        f.probe.retire(0); f.host.runTasks();
+        check(f.probe.poll(0).get("phase").getAsString().equals("retired") && !f.probe.status(0).get("canaryVerifiedForBinding").getAsBoolean(),
+            "a late canary confirmation cannot revive a retired binding");
+    }
+
+    private static void stepRebind() throws Exception {
+        IdentityFixture i = stepFixture(); Fixture f = i.f; f.readyA();
+        driveTo(f, "membership");
+        f.probe.point(1, f.b, 0); f.host.runTasks();
+        JsonObject result = f.probe.comparePoll();
+        check(result.get("comparison").getAsString().equals("step-window-changed"), "another observer's rebind cannot confirm the window");
+        noOutput(result);
+        f = stepFixture().f; f.readyA(); f.probe.point(0, f.b, 0, f.c, 0);
+        Object view = ((Object[]) field(f.probe, "views"))[0];
+        for (int attempt = 0; attempt < 20 && field(view, "canaryRead") == null; attempt++) { fastClock(f.probe); f.host.runTasks(); f.probe.poll(0); }
+        f.host.resident(0).emit(5, 72, 2); f.host.runTasks();
+        JsonObject canary = f.probe.poll(0);
+        check(canary.get("reason").getAsString().equals("step-window-changed") && canary.get("phase").getAsString().equals("retired"),
+            "a step during canary confirmation refuses the canary");
+    }
+
+    private static void stepIdentity() throws Exception {
+        IdentityHost h = new IdentityHost(); h.value(CHAIN_EXISTS).current = false;
+        IdentityFixture i = stepFixture(h); Fixture f = i.f;
+        check(i.root.identityGuard().chainIds().isEmpty(), "the step-delta protocol does not need chain IDs");
+        f.probe.point(0, f.a, 0); f.settle();
+        f.probe.compareStart(0);
+        for (int poll = 0; poll < 5; poll++) { fastClock(f.probe); JsonObject pending = f.probe.comparePoll(); noOutput(pending);
+            check(!pending.has("authorityNotes"), "equal identity without a confirmed window admits nothing"); }
+        f.host.runTasks();
+        JsonObject result = f.compare();
+        check(result.get("comparison").getAsString().equals("match") && result.get("stepWindowConfirmed").getAsBoolean(),
+            "confirmed windows admit the comparison");
+        IdentityHost other = new IdentityHost();
+        RootIdentityProbe a = other.stepProbe();
+        RootIdentityProbe b = new RootIdentityProbe(other.node(ControllerHost.class, "host"), "different-init",
+            other.node(Project.class, "project"), other.node(Application.class, "application"), () -> StepDeltaWindow.PROTOCOL, true);
+        check(!b.identityEpochCurrent(a.identityGuard()), "a changed init nonce rejects equal step-delta guards");
+        Object first = field(f.probe, "stepWindow"), second = field(stepFixture().f.probe, "stepWindow");
+        check(!((StepDeltaWindow) first).value().initNonce().equals(((StepDeltaWindow) second).value().initNonce()),
+            "each adapter instance has its own window domain");
+        check(!new IdentityHost().probe(false).identityGuard().acquisitionAllowed(), "no provider still refuses");
+    }
+
+    private static void stepUncovered() throws Exception {
+        IdentityFixture i = stepFixture(); Fixture f = i.f;
+        for (JsonObject result : List.of(f.probe.inventory(null), f.probe.beginInventoryRebuild(null), f.probe.pollInventoryRebuild(null))) {
+            noOutput(result);
+            check(!f.probe.info().get("registryPublished").getAsBoolean()
+                && f.probe.info().get("fallbackReason").getAsString().equals("inventory-outside-step-coverage"), "slot inventory stays refused");
+        }
+        Coverage outside = new Coverage(0, WIDTH + 1, true, java.util.Set.of("velocity"), java.util.Set.of(), "1/512-beat");
+        check(f.probe.exactStart(f.a, 0, outside).get("reason").getAsString().equals("authority-coverage-unavailable"),
+            "an exact read outside observer coverage refuses");
+        f.host.resident(0).subscribed = false;
+        f.probe.point(0, f.a, 0); f.settle();
+        JsonObject unsubscribed = f.probe.compareStart(0);
+        check(unsubscribed.get("reason").getAsString().equals("observer-unsubscribed"), "an unsubscribed observer cannot open a window");
+    }
+
+    private static void stepExact() throws Exception {
+        IdentityFixture i = stepFixture(); Fixture f = i.f;
+        JsonObject result = f.probe.exactStart(f.b, 0);
+        Object exact = field(f.probe, "exactFallback");
+        for (int attempt = 0; attempt < 120 && !"confirming".equals(field(exact, "phase")); attempt++) {
+            fastClock(f.probe); long now = System.nanoTime();
+            if ((long) field(exact, "boundAt") != 0) {
+                setIfPresent(exact, "boundAt", now - 1_600_000_000L); setIfPresent(exact, "pollAt", now - 60_000_000L); setIfPresent(exact, "quietPolls", 10);
+            }
+            f.host.runTasks(); result = f.probe.exactPoll();
+        }
+        check("confirming".equals(field(exact, "phase")) && !result.has("authorityNotes"), "the final exact read waits for confirmation");
+        f.host.authority().emit(0, 60, 2); f.host.runTasks();
+        result = f.probe.exactPoll();
+        check(result.get("reason").getAsString().equals("authority-step-window-changed") && !result.has("authorityNotes"),
+            "a batch remainder refuses exact output");
+        check(f.exact(f.b, null).get("authorityAvailable").getAsBoolean(), "an explicit new exact attempt recovers");
     }
 
     private static final String CHAIN = "tracks.0.devices.0.layers.0.channelId";
@@ -672,6 +883,10 @@ public final class ShadowCacheProbeTest {
         RootIdentityProbe probe() {
             return probe(true);
         }
+        RootIdentityProbe stepProbe() {
+            return new RootIdentityProbe(node(ControllerHost.class, "host"), "init-identity-test", node(Project.class, "project"),
+                node(Application.class, "application"), () -> StepDeltaWindow.PROTOCOL, true);
+        }
         RootIdentityProbe probe(boolean fenced) {
             if (!fenced) return new RootIdentityProbe(node(ControllerHost.class, "host"), "init-identity-test",
                 node(Project.class, "project"), node(Application.class, "application"));
@@ -977,9 +1192,13 @@ public final class ShadowCacheProbeTest {
         void settle(int index) throws Exception {
             for (int attempt = 0; attempt < 60; attempt++) {
                 fastClock(probe);
+                host.runTasks();
                 JsonObject status = probe.poll(index);
                 String phase = status.get("phase").getAsString();
-                if (phase.equals("settled") || phase.equals("complete")) { probe.reconcile(index); return; }
+                // A settled canary stays pending until its step window is confirmed.
+                if ((phase.equals("settled") || phase.equals("complete")) && status.get("canaryPhase").getAsString().equals("target")) {
+                    probe.reconcile(index); return;
+                }
                 check(!phase.equals("retired"), "binding remains live: " + status);
             }
             throw new AssertionError("binding did not settle");
@@ -990,6 +1209,7 @@ public final class ShadowCacheProbeTest {
             JsonObject result = probe.compareStart(index);
             for (int attempt = 0; attempt < 80 && result.get("comparison").getAsString().equals("pending"); attempt++) {
                 fastClock(probe);
+                host.runTasks();
                 result = probe.comparePoll();
             }
             check(!result.get("comparison").getAsString().equals("pending"), "comparison terminates");
@@ -1006,6 +1226,7 @@ public final class ShadowCacheProbeTest {
                     setIfPresent(exact, "pollAt", now - 60_000_000L);
                     setIfPresent(exact, "quietPolls", 10);
                 }
+                host.runTasks();
                 result = probe.exactPoll();
             }
             check(result.has("terminal") && result.get("terminal").getAsBoolean(), "explicit authority request terminates: " + result);
@@ -1037,6 +1258,9 @@ public final class ShadowCacheProbeTest {
         final List<Cursor> cursors = new ArrayList<>();
         int stepObservers, noteObservers;
         long bindingCommands;
+        /** Scheduled tasks run only when a test runs a later host callback. */
+        final java.util.ArrayDeque<Runnable> tasks = new java.util.ArrayDeque<>();
+        void runTasks() { for (int n = tasks.size(); n > 0 && !tasks.isEmpty(); n--) tasks.removeFirst().run(); }
 
         ClipData clip(String track, int row) {
             return clips.computeIfAbsent(track + ":" + row, key -> new ClipData(track, row));
@@ -1046,6 +1270,7 @@ public final class ShadowCacheProbeTest {
         Cursor authority() { return cursors.stream().filter(c -> c.id.contains("AUTHORITY")).findFirst().orElseThrow(); }
         ControllerHost host() {
             return proxy(ControllerHost.class, (object, method, args) -> {
+                if (method.getName().equals("scheduleTask")) { tasks.add((Runnable) args[0]); return null; }
                 if (method.getName().equals("createCursorTrack")) {
                     Cursor cursor = new Cursor(this, (String)args[0], true);
                     cursors.add(cursor);
@@ -1060,6 +1285,17 @@ public final class ShadowCacheProbeTest {
             for (Cursor cursor : cursors) {
                 if (track.equals(cursor.track) && !cursor.clipPinned) cursor.bind(clips.get(track + ":" + row));
             }
+        }
+        /** P->Q->P in one batch. The action runs between the two halves, like a mid-batch callback. */
+        void detour(String track, int row, Map<Cell, Map<String, Object>> q, Runnable midBatch) {
+            ClipData clip = clips.get(track + ":" + row);
+            Map<Cell, Map<String, Object>> p = new LinkedHashMap<>(clip.notes);
+            List<Cursor> bound = cursors.stream().filter(c -> c.target == clip).toList();
+            clip.notes.clear(); clip.notes.putAll(q);
+            for (Cursor c : bound) { p.keySet().forEach(cell -> c.emit(cell.x, cell.y, 0)); q.keySet().forEach(cell -> c.emit(cell.x, cell.y, 2)); }
+            midBatch.run();
+            clip.notes.clear(); clip.notes.putAll(p);
+            for (Cursor c : bound) { q.keySet().forEach(cell -> c.emit(cell.x, cell.y, 0)); p.keySet().forEach(cell -> c.emit(cell.x, cell.y, 2)); }
         }
         void shiftRows(int at) {
             List<ClipData> values = new ArrayList<>(clips.values()); clips.clear();
