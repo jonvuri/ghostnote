@@ -1,0 +1,112 @@
+{
+ "schema": "phase8g5a-created-track-v1",
+ "project": "New 5",
+ "complete": false,
+ "eligible": false,
+ "before": {
+  "tracks": [
+   {
+    "index": 0,
+    "name": "Group 1",
+    "position": 0,
+    "type": "Group",
+    "channelId": "fb6896a3-7d41-437d-b47a-93b7d3ffc67a"
+   },
+   {
+    "index": 1,
+    "name": "Inst 1",
+    "position": 1,
+    "type": "Instrument",
+    "channelId": "a255e52c-7452-4255-9bb4-212fe3ab386d"
+   },
+   {
+    "index": 2,
+    "name": "Group 2",
+    "position": 2,
+    "type": "Group",
+    "channelId": "bbb72098-c845-4ce4-81d2-162ca122bdf8"
+   },
+   {
+    "index": 3,
+    "name": "Audio 1",
+    "position": 3,
+    "type": "Audio",
+    "channelId": "be7e1cd3-9448-4874-a21a-97d9ba3e53be"
+   },
+   {
+    "index": 4,
+    "name": "FX 1",
+    "position": 4,
+    "type": "Effect",
+    "channelId": "75b91fed-f01c-46c0-aec6-fb84640e4c9b"
+   },
+   {
+    "index": 5,
+    "name": "Master",
+    "position": 5,
+    "type": "Master",
+    "channelId": "52e49c41-e005-4230-bffd-967a49e8f0fb"
+   }
+  ],
+  "count": 6,
+  "itemCount": 6,
+  "bankSize": 256
+ },
+ "after": {
+  "tracks": [
+   {
+    "index": 0,
+    "name": "Group 1",
+    "position": 0,
+    "type": "Group",
+    "channelId": "fb6896a3-7d41-437d-b47a-93b7d3ffc67a"
+   },
+   {
+    "index": 1,
+    "name": "Inst 1",
+    "position": 1,
+    "type": "Instrument",
+    "channelId": "a255e52c-7452-4255-9bb4-212fe3ab386d"
+   },
+   {
+    "index": 2,
+    "name": "Group 2",
+    "position": 2,
+    "type": "Group",
+    "channelId": "bbb72098-c845-4ce4-81d2-162ca122bdf8"
+   },
+   {
+    "index": 3,
+    "name": "Audio 1",
+    "position": 3,
+    "type": "Audio",
+    "channelId": "be7e1cd3-9448-4874-a21a-97d9ba3e53be"
+   },
+   {
+    "index": 4,
+    "name": "Inst 2",
+    "position": 4,
+    "type": "Instrument",
+    "channelId": "e8cb90be-30ff-4c12-a147-d6e62f8452ed"
+   },
+   {
+    "index": 5,
+    "name": "FX 1",
+    "position": 5,
+    "type": "Effect",
+    "channelId": "75b91fed-f01c-46c0-aec6-fb84640e4c9b"
+   },
+   {
+    "index": 6,
+    "name": "Master",
+    "position": 6,
+    "type": "Master",
+    "channelId": "52e49c41-e005-4230-bffd-967a49e8f0fb"
+   }
+  ],
+  "count": 7,
+  "itemCount": 7,
+  "bankSize": 256
+ },
+ "ownedId": "e8cb90be-30ff-4c12-a147-d6e62f8452ed"
+}

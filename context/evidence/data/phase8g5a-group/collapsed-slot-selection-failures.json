@@ -1,0 +1,30 @@
+{
+ "schema": "phase8g5a-selector-diagnostics-v1",
+ "complete": false,
+ "eligible": false,
+ "source": "retained assistant tool transcript",
+ "project": "New 5",
+ "groupId": "fb6896a3-7d41-437d-b47a-93b7d3ffc67a",
+ "targetId": "a255e52c-7452-4255-9bb4-212fe3ab386d",
+ "requestedRow": 1,
+ "pollLimitMs": 30000,
+ "mechanisms": [
+  "track",
+  "slot"
+ ],
+ "resultForBoth": {
+  "exists": true,
+  "loopLength": 4,
+  "trackExists": true,
+  "trackName": "Inst 1",
+  "trackPosition": 0,
+  "slotExists": true,
+  "sceneIndex": 0,
+  "slotName": "gn-8g4-60",
+  "isPinned": false,
+  "cursorTrackPosition": 0,
+  "cursorTrackPinned": false
+ },
+ "retainedBindingCapture": "collapsed-rebind-diagnostic.json",
+ "scope": "one collapsed parent, one child, canary row 1"
+}

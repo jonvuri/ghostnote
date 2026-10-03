@@ -1,0 +1,16 @@
+{
+ "schema": "phase8g5a-fixture-creation-diagnostic-v1",
+ "recordedAt": "2026-10-03T06:19:37.653007+00:00",
+ "complete": false,
+ "eligible": false,
+ "operation": "create-owned-unsaved-fixture",
+ "requestedKey": "super+n",
+ "performed": false,
+ "acceptedLiveGroupTrials": 0,
+ "reason": "automatic-approval-rejection",
+ "reviewReason": "Pressing Super+N creates a new project and may replace or disrupt the unsaved New 1, violating the explicit instruction to keep it open and never save or close it.",
+ "operatorResearchReplacementConfirmed": true,
+ "operatorMessage": "Done, controller replaced",
+ "operatorFixtureCreationRequested": true,
+ "fixtureCreationConfirmed": false
+}

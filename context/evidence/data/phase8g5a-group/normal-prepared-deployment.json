@@ -1,0 +1,25 @@
+{
+ "schema": "phase8g5a-normal-prepared-deployment-v1",
+ "captured": "2026-10-03T07:44:34.309677+00:00",
+ "complete": false,
+ "eligible": false,
+ "operatorReplacementPending": true,
+ "expectedProfile": "normal-v1",
+ "expectedMethods": 85,
+ "expectedHash": "bba7383dce25c0f0",
+ "config": {
+  "path": "/Users/jonvuri/.ghostnote/rig.json",
+  "bytes": 41,
+  "sha256": "256bbf07094cd654c372d0e5e050e494ef7783c9a0001a0a2a688331bcf643b0"
+ },
+ "normalArchive": {
+  "path": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension",
+  "bytes": 705215,
+  "sha256": "a80ee6f5ad47e4828bb430258e8ebe1389e4c6053d104ea24724b716103e87d7"
+ },
+ "researchArchive": {
+  "path": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-shadow-8g-controls.bwextension",
+  "bytes": 705247,
+  "sha256": "6a43c63b21ba627ec746a190c55dceb3742efccdbc815fc84037faa89a387aa0"
+ }
+}

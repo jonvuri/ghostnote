@@ -4,43 +4,50 @@ kind: status
 state: active
 updated: 2026-10-03
 phase: phase-8-agent-native-live-engine
-session: 8g5-planning-pass-complete
+session: 8g5a-complete
 ---
 
 # Now
 
-Next session: [8g5a — Group topology support](plan/phase-8/8g5a-group-topology-support.md).
+Next session: [8g5b — Slot inventory delivery](plan/phase-8/8g5b-slot-inventory-delivery.md).
 
-The 8g5 planning pass is complete. It replanned the gate and did no live
-acceptance work:
+[8g5a](plan/phase-8/8g5a-group-topology-support.md) is complete.
+[E221](evidence/experiments/e221-group-topology-candidates.md) records five
+fixture shapes, fourteen tree checks, three note comparisons, and seven native
+changes that retire active acquisitions. Admission uses UUID-validated child
+banks. Parent handles are diagnostic; they can retain an old parent after a move.
 
-- The user selected **project-wide occupancy** as the 8g gate scope. Covered
-  clip content alone is not sufficient.
-- [D27](decisions/d27-later-callback-ordering-is-a-named-assumption.md) accepts
-  the E217 later-callback ordering rule as a named assumption. With D26, it
-  closes covered step-content continuity. It does not cover slots or topology.
-- Three required predicates are open. Each has a focused session:
-  [8g5a](plan/phase-8/8g5a-group-topology-support.md) group topology (most
-  important; group projects refuse today),
-  [8g5b](plan/phase-8/8g5b-slot-inventory-delivery.md) slot inventory delivery
-  through `hasContent` observers, and
-  [8g5c](plan/phase-8/8g5c-combined-storage-limit.md) combined storage limit
-  plus heap measurement.
-- [8g5](plan/phase-8/8g5-final-shadow-acceptance.md) runs after them. All cache
-  results remain `complete:false` and `eligible:false`. Do not enter 8h.
+The limit is 16 flat tracks. Added cost is 17 banks, 272 bank track handles,
+16 diagnostic parent handles, and zero StepData observers. Heap is unmeasured.
+The operator now requires at least 256 instrument/audio tracks plus group, FX,
+and Master capacity. 8g5c measures allocation cost and raises the limit; it
+tests 512 total channels as a candidate. The 16-track bound cannot pass 8g5.
+Collapsed membership passes, but collapsed child canary rebinding refuses with
+`binding-budget`. Carry this limit into the final supported-state matrix.
 
-8g5a starting points: E220 shows the group's direct child bank includes the
-group itself. Measure that self entry by UUID, `createParentTrack` on a flat
-`ALL_CHANNELS` bank, and flat order with `isGroup`/`isGroupExpanded`.
+Only protected `New 3 *` remains open. Never save or close it. Its
+[adopted baseline](evidence/data/phase8g5a-group/new3-baseline.json) supersedes
+lost New 1. Track UUIDs, slots, ten cursors, selection indices, the existing
+empty clip, metadata, launch settings, and two empty-note reads match.
+Scan durations and selection event counters are excluded. The audio engine is
+active; transport is stopped at zero. New 5 was discarded without saving.
+Its sole remaining slot-selection flag difference is recorded in
+[final restoration](evidence/data/phase8g5a-group/final-restoration.json).
 
-Live state is unchanged since 8g4. Normal hello last passed with 85 methods,
-hash `bba7383dce25c0f0`, and init `2026-10-03T03:59:29.016Z`. Config SHA-256 is
-`256bbf07…43b0`. Original `New 1` stays open and unsaved. Never save or close it.
+Normal hello passes: 85 methods, hash `bba7383dce25c0f0`, fresh init
+`2026-10-03T07:45:08.426Z`. Exact config SHA-256 is `256bbf07…43b0`.
+The research archive is removed. Brain typecheck and 1,742 tests pass.
+Extension, archive, artifact, wire, context, and diff checks pass.
 
-Entry HEAD is `9580cee`. Only the planning changes are staged. No commit is made.
+The final gate scope remains project-wide occupancy. Run 8g5b and 8g5c, then
+8g5. All cache results remain `complete:false` and `eligible:false`.
+Do not enter 8h. Entry HEAD is `e76f8bf`. Session changes are staged; no commit
+is made.
 
 ## Retrospective
 
-Check the declared gate scope against open ledger predicates before you start
-live acceptance. The scope question changed the session from acceptance to
-replanning. Future final-gate plans should state the intended supported scope.
+Keep a visible dirty change before New Project. Wait for each live control to
+exit before starting another on the same cache view. Exclude scan durations
+from state equality, and report selection exceptions explicitly.
+State the required project size in final-gate plans. A bounded topology proof
+does not establish practical project capacity.

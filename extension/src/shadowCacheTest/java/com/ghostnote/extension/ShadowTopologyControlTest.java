@@ -2,6 +2,7 @@ package com.ghostnote.extension;
 
 import java.util.List;
 import java.util.Map;
+import com.google.gson.JsonObject;
 import static com.ghostnote.extension.ShadowTopologyControl.*;
 
 /** Check independent membership closure and refusal without a running host. */
@@ -18,6 +19,19 @@ public final class ShadowTopologyControlTest {
     }
     public static void main(String[] args) {
         validate(plain()); validate(nested(true)); validate(nested(false));
+        Row owner = row(0, "G", true, true);
+        check(directChildren(bank("A", "G"), List.of(row(0, "A", false, false), row(1, "G", false, false)), owner)
+            .equals(bank("A")), "measured group master UUID is removed");
+        check(directChildren(bank("G", "A"), List.of(row(0, "G", false, false), row(1, "A", false, false)), owner)
+            .equals(bank("A")), "UUID rule does not depend on self position");
+        check(directChildren(bank("G"), List.of(row(0, "G", false, false)), owner).equals(bank()), "empty group");
+        masterRefuses(bank("A"), List.of(row(0, "A", false, false)), owner);
+        masterRefuses(bank("G", "G"), List.of(row(0, "G", false, false), row(1, "G", false, false)), owner);
+        masterRefuses(bank("G"), List.of(row(0, "G", true, false)), owner);
+        masterRefuses(bank("G"), List.of(row(0, "G", false, true)), owner);
+        masterRefuses(bank("G"), List.of(row(0, "wrong", false, false)), owner);
+        refuses(new Tree(List.of(row(0, "G", true, true), row(1, "B", false, false), row(2, "A", false, false)),
+            bank("G"), Map.of("G", bank("A", "B"))));
         Tree n = nested(true);
         refuses(new Tree(n.flat(), bank("G"), n.children()));
         refuses(new Tree(n.flat(), n.roots(), Map.of("G", bank("H"))));
@@ -40,7 +54,34 @@ public final class ShadowTopologyControlTest {
         var good = new ShadowTopologyControl(() -> n).snapshot();
         check(good.get("membershipComplete").getAsBoolean() && !good.get("complete").getAsBoolean()
             && !good.get("eligible").getAsBoolean() && !good.get("wrapperDeletionAllowed").getAsBoolean(), "bounded membership grants no write authority");
-        System.out.println("Shadow topology controls: 10 test groups passed.");
+        JsonObject raw = new JsonObject(); raw.addProperty("parent", "G");
+        final int[] candidateReads = {0};
+        ShadowTopologyControl diagnostic = new ShadowTopologyControl(() -> n, () -> { candidateReads[0]++; return raw.deepCopy(); });
+        diagnostic.snapshot(); check(candidateReads[0] == 0, "normal membership checks do not measure candidates");
+        var measured = diagnostic.measurementSnapshot().getAsJsonObject("candidates");
+        check(measured.get("coherent").getAsBoolean() && !measured.get("routeProved").getAsBoolean(), "equal candidate reads prove no route");
+        check(measured.getAsJsonObject("resources").get("bankTrackHandles").getAsInt() == 272
+            && measured.getAsJsonObject("resources").get("parentTrackHandles").getAsInt() == 16, "candidate handle counts");
+        reads[0] = 0;
+        ShadowTopologyControl divergent = new ShadowTopologyControl(() -> n, () -> {
+            JsonObject value = raw.deepCopy(); value.addProperty("parent", ++reads[0]); return value;
+        });
+        check(!divergent.measurementSnapshot().getAsJsonObject("candidates").get("coherent").getAsBoolean(), "changed parent read refuses");
+        holder[0] = new ShadowTopologyControl(() -> n, () -> { holder[0].changed(); return raw.deepCopy(); });
+        var interrupted = holder[0].measurementSnapshot();
+        check(!interrupted.getAsJsonObject("candidates").get("coherent").getAsBoolean()
+            && !interrupted.get("membershipComplete").getAsBoolean(), "callback inside candidate read refuses both results");
+        ShadowTopologyControl failed = new ShadowTopologyControl(() -> n, () -> { throw new IllegalStateException("parent-unavailable"); });
+        check(!failed.measurementSnapshot().getAsJsonObject("candidates").get("coherent").getAsBoolean(), "parent errors remain diagnostics");
+        Tree self = new Tree(n.flat(), n.roots(), Map.of("G", bank("G", "H"), "H", bank("A")));
+        var unproved = new ShadowTopologyControl(() -> self, () -> raw.deepCopy()).measurementSnapshot();
+        check(!unproved.get("membershipComplete").getAsBoolean()
+            && unproved.getAsJsonObject("candidates").get("coherent").getAsBoolean(), "candidate reads cannot drop a self entry to admit a group");
+        System.out.println("Shadow topology controls: 25 test groups passed.");
+    }
+    private static void masterRefuses(Bank raw, List<Row> rows, Row owner) {
+        try { directChildren(raw, rows, owner); } catch (IllegalStateException expected) { return; }
+        throw new AssertionError("expected group master refusal");
     }
     private static void refuses(Tree tree) { try { validate(tree); } catch (IllegalStateException expected) { return; }
         throw new AssertionError("expected incomplete topology refusal"); }

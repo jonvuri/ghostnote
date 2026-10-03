@@ -20,7 +20,7 @@ public final class ShadowCacheHandlers extends HandlerGroup {
         String operation = params.get("operation").getAsString();
         if (operation.equals("trackTopology")) {
             if (rig.shadowTopologyControl == null) throw new IllegalStateException("topology resources are not allocated");
-            return rig.shadowTopologyControl.snapshot();
+            return rig.shadowTopologyControl.measurementSnapshot();
         }
         if (operation.equals("trackGroups")) return ShadowGroupControl.snapshot(rig);
         if (operation.equals("sceneSnapshot") || operation.equals("setSceneName")) {

@@ -25,7 +25,11 @@ No 8g session measured these observers as a continuity rule.
 
 Read E16s, E216, D26, D27, the inventory coordinator, and the
 [continuity protocol](../../evidence/format/PHASE8G_PROJECT_CONTINUITY.md).
-Use the topology route that 8g5a selects. Do not enter 8h.
+Use the child-bank route proved in [E221](../../evidence/experiments/e221-group-topology-candidates.md).
+Its limit is 16 flat tracks. Parent handles remain diagnostic. Collapsed child
+clip rebinding refuses, although membership passes. Read occupancy independently
+of that clip-binding limit. New 3 is the protected baseline; keep its empty
+clip and dirty marker. Never save or close it. Do not enter 8h.
 
 ## Known risk
 

@@ -58,6 +58,17 @@ limit.
 
 ## Accounting boundary
 
+The active 8g5a candidate probe adds a `topologyControl` section to this
+ledger. At the selected 16-track scope it reports 17 banks, 272 bank track
+handles, and 16 parent-track handles. It adds zero StepData observers.
+These counts exclude the existing flat bank. They are not byte estimates or
+heap measurements. The prepared route uses root and direct child banks with
+UUID group-master exclusion, bounded to 16 flat tracks. Parent handles are
+diagnostic only. Live fixture topology and seven native retirement trials pass.
+Normal reload and protected restoration pass. The owned fixture is discarded.
+Parent handles can retain an old parent after a move and remain outside admission. See
+[E221](e221-group-topology-candidates.md).
+
 One ledger reports every cache-owned estimate. Each domain has its selected
 limit; equality passes. No combined limit is selected.
 

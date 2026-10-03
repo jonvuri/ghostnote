@@ -273,6 +273,8 @@ depend on areas 1, 3, 4, and 6. The inventory assigns each report and manifest.
 | Malformed warm note comparison must fail retained verification | Pass | 8g1 closes R2 with direct and rehashed retained mutants despite recovery. | 8g1 complete |
 | Accepted native command overlaps active acquisition | Pass | One B command overlaps; A follows retirement. 193 samples, 66 B brackets, no current output, errors, violations, or trace drops. | 8g4 |
 | Broader ordering, group membership, and ambiguous move proof | Pass (bounded ordering) / unsupported (groups) | E220 adds five publication-boundary commands and one separate return acquisition. Each overlaps active acquisition and retires without payload. Native child banks include their wrapper; membership refuses. Expanded/collapsed/nested and child-order live arms stop. Missing move predicates retire identity in model checks. Host input order and missing-event continuity remain unproved. | 8g4 |
+| Bounded group topology and native topology retirement | Pass | E221: five fixture shapes, fourteen external tree checks, direct and nested child notes, and seven active native retirements. UUID master exclusion is validated; parent handles are diagnostic and can retain an old parent. Limit: 16 flat tracks. Collapsed child canary rebinding still refuses. | 8g5a complete |
+| 8g5a protected restoration and fixture disposal | Pass with stated fixture exception | New 3 state values, existing empty clip, metadata, launch settings, ten cursors, exact config, and fresh normal hello pass. Scan durations and event counters are excluded. New 5 has zero content and original UUIDs/cursors before discard; slot 0 remains selected versus entry no-slot state. It is closed without saving. | 8g5a complete |
 | Selected 16 MiB snapshot and combined resource boundaries | Pass (snapshot) | E219: 16,777,216-byte match, +2-byte refusal, two-resident overlap refusals and recoveries. Heap memory is unmeasured. | 8g3 complete |
 | Compressed/raw integrity and semantic verification | Pass | All 46 reports decode. Every existing manifest size/hash passes. V5/followup check both forms; older manifests pin raw bytes only. Inventory now records both forms without rewriting history. | 8g1, 8g5 |
 | Exact final API baseline and config restoration | Pass | Four ordered tracks, eight scenes, 32 empty slots, selection, cursors, pins, config bytes, and fresh normal runtime are retained. | Every live follow-up |
@@ -280,8 +282,8 @@ depend on areas 1, 3, 4, and 6. The inventory assigns each report and manifest.
 
 Disposition: accepted bounded controls remain reusable evidence. 8g1 closes
 R2 in the retained note verifier. The memory and late-command trials are
-diagnostics. Group membership, broader native transitions, global budgets, and
-final consumers remain open. User-declared action counts remain declarations.
+diagnostics. E221 closes bounded group topology. Broader native transitions,
+global budgets, and final consumers remain open. User-declared action counts remain declarations.
 Historical manifests' pending lists retain their checkpoint meaning; later E214
 results and this ledger supply the current status.
 
@@ -333,7 +335,7 @@ Do not add these denominators into one acceptance total.
 2. [8g2 — Project continuity](../../plan/phase-8/8g2-project-continuity.md): complete with conservative refusal. Live continuity remains unverified.
 3. [8g3 — Snapshot and global budgets](../../plan/phase-8/8g3-snapshot-and-global-budgets.md): complete. See the budget section below.
 4. [8g4 — Native topology and ordering](../../plan/phase-8/8g4-native-topology-and-ordering.md): complete; native ordering passes, group membership stays unsupported, and exact API cleanup/normal reload pass. See [E220](../experiments/e220-native-topology-and-ordering.md).
-5. [8g5a](../../plan/phase-8/8g5a-group-topology-support.md), [8g5b](../../plan/phase-8/8g5b-slot-inventory-delivery.md), and [8g5c](../../plan/phase-8/8g5c-combined-storage-limit.md): group topology, slot inventory delivery, and combined storage limit. The 8g5 planning pass selects project-wide occupancy as the gate scope; these three predicates are open.
+5. [8g5a](../../plan/phase-8/8g5a-group-topology-support.md), [8g5b](../../plan/phase-8/8g5b-slot-inventory-delivery.md), and [8g5c](../../plan/phase-8/8g5c-combined-storage-limit.md): group topology, slot inventory delivery, and combined storage limit. The 8g5 planning pass selects project-wide occupancy as the gate scope; 8g5a now passes bounded group topology in [E221](../experiments/e221-group-topology-candidates.md). Slot inventory and combined storage remain open. Collapsed-child clip rebinding still refuses; carry that limit into final supported-state acceptance.
 6. [8g5 — Final shadow acceptance](../../plan/phase-8/8g5-final-shadow-acceptance.md): verify consumers and the whole 8g gate; decide 8h entry separately.
 
 8g3 can start offline. The 8g2 decision refuses its intended live acquisitions.
@@ -365,9 +367,10 @@ reruns passed. Gradle reports a future-JDK warning for reflective final-field
 mutation in the existing adapter test clock. Current checks pass; this review
 does not claim compatibility with a future JDK that blocks that mechanism.
 
-No live host commands, deployments, project saves, or fixture writes occurred.
-Live state evidence is retained from the final restoration. Original `New 1`
-must remain open and unsaved. Vendor questions remain unsent.
+No live host commands, deployments, project saves, or fixture writes occurred
+in this review. Its restoration evidence referred to original `New 1`.
+E221 later adopts protected `New 3` after New 1 was lost. New 3 must remain
+open and unsaved. Vendor questions remain unsent.
 
 ## Retrospective
 

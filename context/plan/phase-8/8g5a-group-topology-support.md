@@ -2,7 +2,7 @@
 title: Phase 8g5a — Group topology support
 kind: plan
 state: active
-status: Pending. Run first. Projects with group tracks must be supported before the 8g gate.
+status: Complete. Bounded group topology and seven native retirements pass. Collapsed clip binding limit and fixture selection exception are recorded.
 updated: 2026-10-03
 parent: 8g-shadow-project-cache.md
 prev: 8g4-native-topology-and-ordering.md
@@ -10,6 +10,11 @@ next: 8g5b-slot-inventory-delivery.md
 ---
 
 # Phase 8g5a — Group topology support
+
+Result: [E221](../../evidence/experiments/e221-group-topology-candidates.md).
+The restart lost the prior unsaved `New 1`. Operator New Project later replaced
+the untouched replacement project. `New 3` is now the protected baseline.
+Preserve its existing empty clip and dirty marker. Keep it open and unsaved.
 
 ## Why
 
@@ -69,7 +74,7 @@ agree on. Record the handle and bank cost in the 8g3 resource ledger.
 - Content in grouped and nested tracks matches independent authority.
 - Handle and bank cost is in the resource ledger with its selected limit.
 - Live baseline restoration, config bytes, normal reload, and hello follow
-  `AGENTS.md` and the 8g4 cleanup rules. Original `New 1` is not saved or closed.
+  `AGENTS.md` and the 8g4 cleanup rules. Protected `New 3` stays open and unsaved, with its existing empty clip.
 - Full brain and extension checks, artifact verifiers, wire, context, and diff
   checks pass.
 
@@ -77,3 +82,19 @@ agree on. Record the handle and bank cost in the 8g3 resource ledger.
 
 If no route is proved, keep group refusal, record the measured host behavior,
 and hold the 8g gate. Do not widen the topology check.
+
+## Result
+
+E221 closes the group-topology predicate at 16 flat tracks. Five fixture shapes,
+fourteen live trees, grouped content, and all seven native change types pass.
+Collapsed child canary rebinding still refuses with `binding-budget`. Parent
+handles can retain an old parent after a move; admission does not use them.
+Keep these limits in the 8g5 supported-state matrix.
+
+New 5 has no owned content or wrappers and is discarded without saving. Its
+content, cursors, and selection indices matched before discard; one slot
+selection flag differed from the entry's no-slot state. New 3 remains open
+and unsaved. Its state values, empty clip, metadata, launch settings, and reader
+state match the adopted baseline. Scan duration and event counters are excluded.
+Exact config bytes and fresh normal hello pass. Brain and extension checks,
+artifact verifiers, wire, context, and diff checks pass. Next: 8g5b.

@@ -1,0 +1,1927 @@
+{
+ "schema": "phase8g5a-candidates-v1",
+ "captured": "2026-10-03T07:14:41.797Z",
+ "project": "New 5",
+ "complete": false,
+ "eligible": false,
+ "researchOnly": true,
+ "hello": {
+  "contractVersion": 0,
+  "extensionVersion": "0.0.1",
+  "runtimeProfile": "phase-8-probe-v1",
+  "hostApiVersion": 25,
+  "methodCount": 97,
+  "methodsHash": "f03f19414f40e3d3"
+ },
+ "stats": {
+  "runtimeProfile": "phase-8-probe-v1",
+  "config": {
+   "tracks": 256,
+   "scenes": 128,
+   "gridSteps": 64,
+   "gridKeys": 128,
+   "cursorPool": 8,
+   "sends": 4,
+   "deviceBank": 16,
+   "fineSteps": 2048,
+   "noteReadSteps": 2048,
+   "paramHandles": 64,
+   "remotePages": 16,
+   "cacheScaleObservers": 0,
+   "cacheScaleSteps": 131072,
+   "cacheScaleWidthSteps": 0,
+   "cacheShadowObservers": 2,
+   "cacheShadowSteps": 2048,
+   "cacheLifecycleResearch": true,
+   "contentFilter": "ALL_CHANNELS",
+   "directObservers": true,
+   "stamp": "8g5a-topology-candidates",
+   "fromFile": true
+  },
+  "rigConstructMicros": 67665,
+  "initMicros": 82410,
+  "initEpochMs": 1791010294225,
+  "upMs": 1387620,
+  "slotObjects": 32768,
+  "markedValues": 198400,
+  "resources": {
+   "cursorDeviceBanks": 8,
+   "siblingDeviceBanks": 1,
+   "layerDeviceBanks": 8,
+   "slotDeviceBanks": 15,
+   "namedSlotDeviceBanks": 0,
+   "drumPadDeviceBanks": 16,
+   "deviceBanks": 48,
+   "cursorDeviceSlots": 128,
+   "cursorDeviceEnabledValues": 128,
+   "layerDeviceSlots": 32,
+   "slotDeviceSlots": 60,
+   "drumPadDeviceSlots": 256,
+   "namedSlotDeviceSlots": 0,
+   "deviceSlots": 492,
+   "cursorDevices": 1,
+   "specificDeviceViews": 4,
+   "typedParameterHandles": 75,
+   "remotePageCursors": 16,
+   "remoteParameterHandles": 128,
+   "directParameterObservers": 4,
+   "noteObserverCursors": 1,
+   "noteStepObservers": 1,
+   "stepDataObservers": 1,
+   "cacheScaleCursorTracks": 0,
+   "cacheScaleClipProxies": 0,
+   "cacheScaleStepDataObservers": 0,
+   "trackSendBanks": 0,
+   "trackSendHandles": 0,
+   "trackVuObservers": 0,
+   "historicalActionHandles": 0,
+   "historicalSelectionObservers": 0,
+   "equalsProxies": 32,
+   "transportProxies": 1,
+   "masterRecorderProxies": 0,
+   "cursorTracks": 10,
+   "cursorClips": 12,
+   "layerBanks": 4,
+   "layerHandles": 23,
+   "layerSendBanks": 0,
+   "layerSendHandles": 0,
+   "explicitHostObjects": 33893,
+   "observerCallbacks": 839
+  },
+  "heapUsedMb": 304,
+  "heapMaxMb": 3072
+ },
+ "info": {
+  "health": "partial",
+  "reason": "lifecycle-unverified",
+  "initDomain": "8c0713b7-a5ae-4249-8325-0ad629ca3944",
+  "projectGeneration": 6,
+  "structuralEpoch": 7,
+  "rebuildGeneration": 7,
+  "entries": 1,
+  "resident": 1,
+  "warming": 0,
+  "dirty": 0,
+  "occupiedCoordinates": 4,
+  "pendingCoordinates": 0,
+  "rejectedCallbacks": 0,
+  "recorderEstimatedBytes": 480,
+  "retainedSnapshotEstimatedBytes": 133000,
+  "retainedNoteRecords": 64,
+  "constructionMs": 1.096583,
+  "replayMs": 1544.15125,
+  "rebuildMs": 0,
+  "pingP95Ms": 0,
+  "hits": 6,
+  "misses": 0,
+  "evictions": 5,
+  "invalidations": 192,
+  "domainObjects": {
+   "clipEntryRecords": 1,
+   "bindingTokenRecords": 1,
+   "occupiedCoordinateEntries": 4,
+   "dirtyCoordinateEntries": 0,
+   "membershipNoteRecords": 64,
+   "occupiedNoteLists": 4,
+   "retainedSnapshotRecords": 1,
+   "retainedNoteRecords": 64,
+   "retainedFieldEntries": 1664,
+   "retainedMetadataEntries": 10,
+   "witnessReferences": 2,
+   "identityAndWitnessEstimatedBytes": 990
+  },
+  "resources": {
+   "residentRecorderEstimatedBytes": 480,
+   "stagingRecorderEstimatedBytes": 0,
+   "externalRecorderEstimatedBytes": 0,
+   "recorderDomainEstimatedBytes": 480,
+   "recorderLimitBytes": 16777216,
+   "retainedSnapshotEstimatedBytes": 133000,
+   "candidateSnapshotEstimatedBytes": 0,
+   "snapshotDomainEstimatedBytes": 133000,
+   "snapshotLimitBytes": 16777216,
+   "identityAndWitnessEstimatedBytes": 990,
+   "candidatePhase": "none",
+   "candidateReason": "none",
+   "heapMeasured": false
+  },
+  "inventoryControlRevision": "8g-inventory-preparation-v1",
+  "inventoryControlMaximumBatchCells": 64,
+  "authorityBindingRevision": "8g-authority-transition-v1",
+  "authorityControlSearchCells": 0,
+  "authorityControlSearchMs": 0,
+  "authorityControlSearchReason": "not-started",
+  "authorityDistinctControlConfirmed": true,
+  "residentHandles": 2,
+  "handlePool": [
+   {
+    "index": 0,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 1,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   }
+  ],
+  "exactFallbackActive": false,
+  "unusedBindingHandles": 1,
+  "inventoryEnumerated": false,
+  "inventoryClipEntries": 0,
+  "rebuildTerminal": false,
+  "registryPublished": false,
+  "authorityHandles": 1,
+  "stepDataObservers": 3,
+  "shadowStepDataObservers": 3,
+  "totalExperimentalStepDataObservers": 7,
+  "combinedObserverBudgetAdmitted": true,
+  "constructionMeasurementAvailable": true,
+  "pingMeasurementAvailable": false,
+  "requestedReplayMeasurementAvailable": true,
+  "cacheBudgetMeasurementsComplete": false,
+  "automaticIdentityProbeAttached": true,
+  "automaticIdentityEpoch": 451,
+  "automaticIdentityInvalidations": 5,
+  "automaticIdentityPoisoned": false,
+  "automaticIdentityReason": "step-delta-read-window-required",
+  "identityWitnessAvailable": false,
+  "identityContinuityProved": false,
+  "continuityProtocol": "step-delta-read-window-v1",
+  "stepDataDeliveryAssumption": "D26",
+  "callbackOrderingRule": "E217-later-callback-after-batch",
+  "stepWindowCallbacks": 27648,
+  "stepWindowBindingRevision": 121,
+  "stepWindowReadsOpened": 28,
+  "stepWindowConfirmations": 28,
+  "stepWindowChanges": 0,
+  "stepWindowRefusals": 0,
+  "retainedStepWindowDiscards": 0,
+  "inventoryPublicationSupported": false,
+  "liveAcquisitionSupported": false,
+  "hostModel": false,
+  "hostInputFenceProved": false,
+  "identityGuardHostWorkMs": 278.047845,
+  "authoritySettlementObservers": 1,
+  "steps": 2048,
+  "grid": 0.001953125,
+  "cacheBankConstructionMs": 1.096583,
+  "canaryPassed": true,
+  "cacheModelHealth": "partial",
+  "cacheModelReason": "inventory-incomplete",
+  "complete": false,
+  "eligible": false,
+  "readMode": "refuse",
+  "authorityAvailable": false,
+  "fallbackPerformed": false,
+  "lifecycleSignalsSupported": false,
+  "projectScopeComplete": false,
+  "lifecycleFallback": "project-lifecycle-fence-unproved",
+  "optionalLifecycleWitnessSupported": true,
+  "instrumentationRevision": "8g5a-group-topology-v2",
+  "topologyUsable": true,
+  "topologyControlRevision": "8g5a-uuid-group-master-v1",
+  "observerKind": "addStepDataObserver",
+  "rebindPolicy": "preserve-current-or-forced-canary-transition",
+  "callbackSourceIdentityKnown": false,
+  "physicalPendingHints": 0,
+  "physicalHintDrops": 0,
+  "physicalHintOverflow": false,
+  "physicalHintRecorderEstimatedBytes": 512,
+  "pendingWorkItemsIncludingPhysicalHints": 0,
+  "comparison": "pending",
+  "fallbackReason": "group-topology-changed",
+  "authorityScans": 6,
+  "matches": 6,
+  "mismatches": 0,
+  "mismatchesByCause": {},
+  "comparisonRefusalsByCause": {},
+  "windowChanges": 3,
+  "membershipGetStepCalls": 3248,
+  "authorityGetStepCalls": 25165824,
+  "enrichmentGetStepCalls": 384,
+  "membershipHostWorkMs": 8.225378,
+  "authorityHostWorkMs": 796.4826959867752,
+  "enrichmentHostWorkMs": 1.0102890000000002,
+  "acquisitionNoteObjectsAllocated": 1248,
+  "acquisitionMutableFieldMapObjectsAllocated": 768,
+  "allocationCountsScope": "explicit adapter allocations; excludes host and domain copies",
+  "acquisitionListObjectsAllocated": 78,
+  "lastSnapshotSerializedBytes": 37379,
+  "lastAuthoritySerializedBytes": 36334,
+  "serializedBytesAreMemoryMeasurement": false,
+  "durationTimingBasis": "R07-nearest-1/512-ties-up-minimum-one-cell",
+  "gainDomain": "host-amplitude-ratio-portable-amplitude-ratio",
+  "scanStagingNoteObjects": 0,
+  "scanStagingPayloadEstimatedBytes": 0,
+  "resourceAccounting": {
+   "residentRecorderEstimatedBytes": 480,
+   "stagingRecorderEstimatedBytes": 0,
+   "externalRecorderEstimatedBytes": 0,
+   "recorderDomainEstimatedBytes": 480,
+   "recorderLimitBytes": 16777216,
+   "retainedSnapshotEstimatedBytes": 133000,
+   "candidateSnapshotEstimatedBytes": 0,
+   "snapshotDomainEstimatedBytes": 133000,
+   "snapshotLimitBytes": 16777216,
+   "identityAndWitnessEstimatedBytes": 990,
+   "candidatePhase": "none",
+   "candidateReason": "none",
+   "heapMeasured": false,
+   "physicalHintQueueEstimatedBytes": 0,
+   "comparisonAuthorityStagingEstimatedBytes": 0,
+   "exactAuthorityStagingEstimatedBytes": 0,
+   "authorityDomainEstimatedBytes": 0,
+   "authorityLimitBytes": 16777216,
+   "registryAttemptEstimatedBytes": 0,
+   "registryAttemptLimitBytes": 16777216,
+   "totalEstimatedBytes": 134470,
+   "combinedLimitSelected": false,
+   "hostMemoryMeasured": false,
+   "serializedBytesAreMemoryMeasurement": false,
+   "accountingRevision": "8g3-resource-accounting-v1",
+   "topologyControl": {
+    "maximumTracks": 16,
+    "banks": 17,
+    "bankTrackHandles": 272,
+    "parentTrackHandles": 16,
+    "stepDataObservers": 0,
+    "heapMeasured": false,
+    "hostMemoryMeasured": false,
+    "selectedRoute": "direct-child-banks-with-uuid-group-master",
+    "parentHandlesDiagnosticOnly": true
+   }
+  },
+  "enrichmentBatches": 6,
+  "lastScanPhaseTimesMs": {
+   "membership": 0,
+   "authority-binding": 19.819,
+   "authority-reads": 2155.136417,
+   "settlement-confirmation": 2471.93075,
+   "enrichment": 2530.451792,
+   "result-confirmation": 2531.663667,
+   "ended": 2601.963292,
+   "authorityHostWorkMs": 143.306458,
+   "enrichmentHostWorkMs": 0.648417,
+   "scope": "elapsed wall time from scan start at each stage start; host work is separate"
+  },
+  "lastSnapshotCandidate": {
+   "phase": "published",
+   "reason": "within-budget",
+   "coordinatesDone": 4,
+   "coordinatesTotal": 4,
+   "notes": 0,
+   "estimatedBytes": 133000,
+   "peakEstimatedBytes": 133000,
+   "batches": 1,
+   "lastBatchMs": 0.648417,
+   "hostWorkMs": 0.648417,
+   "elapsedMs": 1.0825,
+   "deadlineMs": 5000
+  }
+ },
+ "tracks": {
+  "tracks": [
+   {
+    "index": 0,
+    "name": "Group 1",
+    "position": 0,
+    "type": "Group",
+    "channelId": "fb6896a3-7d41-437d-b47a-93b7d3ffc67a"
+   },
+   {
+    "index": 1,
+    "name": "Inst 1",
+    "position": 1,
+    "type": "Instrument",
+    "channelId": "a255e52c-7452-4255-9bb4-212fe3ab386d"
+   },
+   {
+    "index": 2,
+    "name": "Group 2",
+    "position": 2,
+    "type": "Group",
+    "channelId": "bbb72098-c845-4ce4-81d2-162ca122bdf8"
+   },
+   {
+    "index": 3,
+    "name": "Audio 1",
+    "position": 3,
+    "type": "Audio",
+    "channelId": "be7e1cd3-9448-4874-a21a-97d9ba3e53be"
+   },
+   {
+    "index": 4,
+    "name": "Group 2",
+    "position": 4,
+    "type": "Group",
+    "channelId": "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343"
+   },
+   {
+    "index": 5,
+    "name": "FX 1",
+    "position": 5,
+    "type": "Effect",
+    "channelId": "75b91fed-f01c-46c0-aec6-fb84640e4c9b"
+   },
+   {
+    "index": 6,
+    "name": "Master",
+    "position": 6,
+    "type": "Master",
+    "channelId": "52e49c41-e005-4230-bffd-967a49e8f0fb"
+   }
+  ],
+  "count": 7,
+  "itemCount": 7,
+  "bankSize": 256
+ },
+ "groups": {
+  "groupControlRevision": "8g-group-controls-v1",
+  "researchOnly": true,
+  "groupMembershipProved": false,
+  "hostInputOrderingProved": false,
+  "windowStart": 0,
+  "totalCount": 7,
+  "bankSize": 256,
+  "tracks": [
+   {
+    "index": 0,
+    "channelId": "fb6896a3-7d41-437d-b47a-93b7d3ffc67a",
+    "name": "Group 1",
+    "isGroup": true,
+    "isGroupExpanded": true
+   },
+   {
+    "index": 1,
+    "channelId": "a255e52c-7452-4255-9bb4-212fe3ab386d",
+    "name": "Inst 1",
+    "isGroup": false,
+    "isGroupExpanded": false
+   },
+   {
+    "index": 2,
+    "channelId": "bbb72098-c845-4ce4-81d2-162ca122bdf8",
+    "name": "Group 2",
+    "isGroup": true,
+    "isGroupExpanded": true
+   },
+   {
+    "index": 3,
+    "channelId": "be7e1cd3-9448-4874-a21a-97d9ba3e53be",
+    "name": "Audio 1",
+    "isGroup": false,
+    "isGroupExpanded": false
+   },
+   {
+    "index": 4,
+    "channelId": "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343",
+    "name": "Group 2",
+    "isGroup": true,
+    "isGroupExpanded": true
+   },
+   {
+    "index": 5,
+    "channelId": "75b91fed-f01c-46c0-aec6-fb84640e4c9b",
+    "name": "FX 1",
+    "isGroup": false,
+    "isGroupExpanded": false
+   },
+   {
+    "index": 6,
+    "channelId": "52e49c41-e005-4230-bffd-967a49e8f0fb",
+    "name": "Master",
+    "isGroup": false,
+    "isGroupExpanded": false
+   }
+  ],
+  "coherent": true,
+  "fullWindow": true
+ },
+ "topology": {
+  "topologyControlRevision": "8g5a-uuid-group-master-v1",
+  "researchOnly": true,
+  "complete": false,
+  "eligible": false,
+  "hostInputOrderingProved": false,
+  "maximumTracks": 16,
+  "oracle": "direct-child-banks-with-uuid-group-master",
+  "sequenceBeforeRead": 1895,
+  "tree": {
+   "flat": [
+    {
+     "index": 0,
+     "channelId": "fb6896a3-7d41-437d-b47a-93b7d3ffc67a",
+     "name": "Group 1",
+     "position": 0,
+     "isGroup": true,
+     "expanded": true
+    },
+    {
+     "index": 1,
+     "channelId": "a255e52c-7452-4255-9bb4-212fe3ab386d",
+     "name": "Inst 1",
+     "position": 1,
+     "isGroup": false,
+     "expanded": false
+    },
+    {
+     "index": 2,
+     "channelId": "bbb72098-c845-4ce4-81d2-162ca122bdf8",
+     "name": "Group 2",
+     "position": 2,
+     "isGroup": true,
+     "expanded": true
+    },
+    {
+     "index": 3,
+     "channelId": "be7e1cd3-9448-4874-a21a-97d9ba3e53be",
+     "name": "Audio 1",
+     "position": 3,
+     "isGroup": false,
+     "expanded": false
+    },
+    {
+     "index": 4,
+     "channelId": "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343",
+     "name": "Group 2",
+     "position": 4,
+     "isGroup": true,
+     "expanded": true
+    },
+    {
+     "index": 5,
+     "channelId": "75b91fed-f01c-46c0-aec6-fb84640e4c9b",
+     "name": "FX 1",
+     "position": 5,
+     "isGroup": false,
+     "expanded": false
+    },
+    {
+     "index": 6,
+     "channelId": "52e49c41-e005-4230-bffd-967a49e8f0fb",
+     "name": "Master",
+     "position": 6,
+     "isGroup": false,
+     "expanded": false
+    }
+   ],
+   "roots": {
+    "count": 4,
+    "offset": 0,
+    "ids": [
+     "fb6896a3-7d41-437d-b47a-93b7d3ffc67a",
+     "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343",
+     "75b91fed-f01c-46c0-aec6-fb84640e4c9b",
+     "52e49c41-e005-4230-bffd-967a49e8f0fb"
+    ]
+   },
+   "children": {
+    "fb6896a3-7d41-437d-b47a-93b7d3ffc67a": {
+     "count": 2,
+     "offset": 0,
+     "ids": [
+      "a255e52c-7452-4255-9bb4-212fe3ab386d",
+      "bbb72098-c845-4ce4-81d2-162ca122bdf8"
+     ]
+    },
+    "bbb72098-c845-4ce4-81d2-162ca122bdf8": {
+     "count": 1,
+     "offset": 0,
+     "ids": [
+      "be7e1cd3-9448-4874-a21a-97d9ba3e53be"
+     ]
+    },
+    "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343": {
+     "count": 0,
+     "offset": 0,
+     "ids": []
+    }
+   }
+  },
+  "sequenceAfterRead": 1895,
+  "callbacksChangedDuringRead": false,
+  "membershipComplete": true,
+  "coherent": true,
+  "groupMembershipProved": true,
+  "wrapperDeletionAllowed": false,
+  "reason": "bounded-uuid-group-master-membership",
+  "candidates": {
+   "revision": "8g5a-topology-candidates-v1",
+   "complete": false,
+   "eligible": false,
+   "routeProved": false,
+   "sequenceBeforeRead": 1895,
+   "resources": {
+    "maximumTracks": 16,
+    "banks": 17,
+    "bankTrackHandles": 272,
+    "parentTrackHandles": 16,
+    "stepDataObservers": 0,
+    "heapMeasured": false,
+    "hostMemoryMeasured": false,
+    "selectedRoute": "direct-child-banks-with-uuid-group-master",
+    "parentHandlesDiagnosticOnly": true
+   },
+   "first": {
+    "flat": {
+     "count": 7,
+     "offset": 0,
+     "ids": [
+      "fb6896a3-7d41-437d-b47a-93b7d3ffc67a",
+      "a255e52c-7452-4255-9bb4-212fe3ab386d",
+      "bbb72098-c845-4ce4-81d2-162ca122bdf8",
+      "be7e1cd3-9448-4874-a21a-97d9ba3e53be",
+      "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343",
+      "75b91fed-f01c-46c0-aec6-fb84640e4c9b",
+      "52e49c41-e005-4230-bffd-967a49e8f0fb"
+     ],
+     "rows": [
+      {
+       "index": 0,
+       "channelId": "fb6896a3-7d41-437d-b47a-93b7d3ffc67a",
+       "name": "Group 1",
+       "position": 0,
+       "isGroup": true,
+       "expanded": true
+      },
+      {
+       "index": 1,
+       "channelId": "a255e52c-7452-4255-9bb4-212fe3ab386d",
+       "name": "Inst 1",
+       "position": 1,
+       "isGroup": false,
+       "expanded": false
+      },
+      {
+       "index": 2,
+       "channelId": "bbb72098-c845-4ce4-81d2-162ca122bdf8",
+       "name": "Group 2",
+       "position": 2,
+       "isGroup": true,
+       "expanded": true
+      },
+      {
+       "index": 3,
+       "channelId": "be7e1cd3-9448-4874-a21a-97d9ba3e53be",
+       "name": "Audio 1",
+       "position": 3,
+       "isGroup": false,
+       "expanded": false
+      },
+      {
+       "index": 4,
+       "channelId": "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343",
+       "name": "Group 2",
+       "position": 4,
+       "isGroup": true,
+       "expanded": true
+      },
+      {
+       "index": 5,
+       "channelId": "75b91fed-f01c-46c0-aec6-fb84640e4c9b",
+       "name": "FX 1",
+       "position": 5,
+       "isGroup": false,
+       "expanded": false
+      },
+      {
+       "index": 6,
+       "channelId": "52e49c41-e005-4230-bffd-967a49e8f0fb",
+       "name": "Master",
+       "position": 6,
+       "isGroup": false,
+       "expanded": false
+      }
+     ]
+    },
+    "roots": {
+     "count": 4,
+     "offset": 0,
+     "ids": [
+      "fb6896a3-7d41-437d-b47a-93b7d3ffc67a",
+      "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343",
+      "75b91fed-f01c-46c0-aec6-fb84640e4c9b",
+      "52e49c41-e005-4230-bffd-967a49e8f0fb"
+     ],
+     "rows": [
+      {
+       "index": 0,
+       "channelId": "fb6896a3-7d41-437d-b47a-93b7d3ffc67a",
+       "name": "Group 1",
+       "position": 0,
+       "isGroup": true,
+       "expanded": true
+      },
+      {
+       "index": 1,
+       "channelId": "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343",
+       "name": "Group 2",
+       "position": 1,
+       "isGroup": true,
+       "expanded": true
+      },
+      {
+       "index": 2,
+       "channelId": "75b91fed-f01c-46c0-aec6-fb84640e4c9b",
+       "name": "FX 1",
+       "position": 2,
+       "isGroup": false,
+       "expanded": false
+      },
+      {
+       "index": 3,
+       "channelId": "52e49c41-e005-4230-bffd-967a49e8f0fb",
+       "name": "Master",
+       "position": 3,
+       "isGroup": false,
+       "expanded": false
+      }
+     ]
+    },
+    "parents": {
+     "fb6896a3-7d41-437d-b47a-93b7d3ffc67a": {
+      "exists": true,
+      "row": {
+       "index": 0,
+       "channelId": "fb6896a3-7d41-437d-b47a-93b7d3ffc67a",
+       "name": "Group 1 Master",
+       "position": 2,
+       "isGroup": false,
+       "expanded": false
+      }
+     },
+     "a255e52c-7452-4255-9bb4-212fe3ab386d": {
+      "exists": true,
+      "row": {
+       "index": 1,
+       "channelId": "fb6896a3-7d41-437d-b47a-93b7d3ffc67a",
+       "name": "Group 1",
+       "position": 0,
+       "isGroup": true,
+       "expanded": true
+      }
+     },
+     "bbb72098-c845-4ce4-81d2-162ca122bdf8": {
+      "exists": true,
+      "row": {
+       "index": 2,
+       "channelId": "bbb72098-c845-4ce4-81d2-162ca122bdf8",
+       "name": "Group 2 Master",
+       "position": 1,
+       "isGroup": false,
+       "expanded": false
+      }
+     },
+     "be7e1cd3-9448-4874-a21a-97d9ba3e53be": {
+      "exists": true,
+      "row": {
+       "index": 3,
+       "channelId": "bbb72098-c845-4ce4-81d2-162ca122bdf8",
+       "name": "Group 2",
+       "position": 1,
+       "isGroup": true,
+       "expanded": true
+      }
+     },
+     "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343": {
+      "exists": true,
+      "row": {
+       "index": 4,
+       "channelId": "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343",
+       "name": "Group 2 Master",
+       "position": 0,
+       "isGroup": false,
+       "expanded": false
+      }
+     },
+     "75b91fed-f01c-46c0-aec6-fb84640e4c9b": {
+      "exists": true,
+      "row": {
+       "index": 5,
+       "channelId": "52e49c41-e005-4230-bffd-967a49e8f0fb",
+       "name": "Project",
+       "position": -1,
+       "isGroup": true,
+       "expanded": false
+      }
+     },
+     "52e49c41-e005-4230-bffd-967a49e8f0fb": {
+      "exists": true,
+      "row": {
+       "index": 6,
+       "channelId": "52e49c41-e005-4230-bffd-967a49e8f0fb",
+       "name": "Project",
+       "position": -1,
+       "isGroup": true,
+       "expanded": false
+      }
+     }
+    },
+    "children": {
+     "fb6896a3-7d41-437d-b47a-93b7d3ffc67a": {
+      "count": 3,
+      "offset": 0,
+      "ids": [
+       "a255e52c-7452-4255-9bb4-212fe3ab386d",
+       "bbb72098-c845-4ce4-81d2-162ca122bdf8",
+       "fb6896a3-7d41-437d-b47a-93b7d3ffc67a"
+      ],
+      "rows": [
+       {
+        "index": 0,
+        "channelId": "a255e52c-7452-4255-9bb4-212fe3ab386d",
+        "name": "Inst 1",
+        "position": 0,
+        "isGroup": false,
+        "expanded": false
+       },
+       {
+        "index": 1,
+        "channelId": "bbb72098-c845-4ce4-81d2-162ca122bdf8",
+        "name": "Group 2",
+        "position": 1,
+        "isGroup": true,
+        "expanded": true
+       },
+       {
+        "index": 2,
+        "channelId": "fb6896a3-7d41-437d-b47a-93b7d3ffc67a",
+        "name": "Group 1 Master",
+        "position": 2,
+        "isGroup": false,
+        "expanded": false
+       }
+      ]
+     },
+     "bbb72098-c845-4ce4-81d2-162ca122bdf8": {
+      "count": 2,
+      "offset": 0,
+      "ids": [
+       "be7e1cd3-9448-4874-a21a-97d9ba3e53be",
+       "bbb72098-c845-4ce4-81d2-162ca122bdf8"
+      ],
+      "rows": [
+       {
+        "index": 0,
+        "channelId": "be7e1cd3-9448-4874-a21a-97d9ba3e53be",
+        "name": "Audio 1",
+        "position": 0,
+        "isGroup": false,
+        "expanded": false
+       },
+       {
+        "index": 1,
+        "channelId": "bbb72098-c845-4ce4-81d2-162ca122bdf8",
+        "name": "Group 2 Master",
+        "position": 1,
+        "isGroup": false,
+        "expanded": false
+       }
+      ]
+     },
+     "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343": {
+      "count": 1,
+      "offset": 0,
+      "ids": [
+       "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343"
+      ],
+      "rows": [
+       {
+        "index": 0,
+        "channelId": "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343",
+        "name": "Group 2 Master",
+        "position": 0,
+        "isGroup": false,
+        "expanded": false
+       }
+      ]
+     }
+    }
+   },
+   "second": {
+    "flat": {
+     "count": 7,
+     "offset": 0,
+     "ids": [
+      "fb6896a3-7d41-437d-b47a-93b7d3ffc67a",
+      "a255e52c-7452-4255-9bb4-212fe3ab386d",
+      "bbb72098-c845-4ce4-81d2-162ca122bdf8",
+      "be7e1cd3-9448-4874-a21a-97d9ba3e53be",
+      "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343",
+      "75b91fed-f01c-46c0-aec6-fb84640e4c9b",
+      "52e49c41-e005-4230-bffd-967a49e8f0fb"
+     ],
+     "rows": [
+      {
+       "index": 0,
+       "channelId": "fb6896a3-7d41-437d-b47a-93b7d3ffc67a",
+       "name": "Group 1",
+       "position": 0,
+       "isGroup": true,
+       "expanded": true
+      },
+      {
+       "index": 1,
+       "channelId": "a255e52c-7452-4255-9bb4-212fe3ab386d",
+       "name": "Inst 1",
+       "position": 1,
+       "isGroup": false,
+       "expanded": false
+      },
+      {
+       "index": 2,
+       "channelId": "bbb72098-c845-4ce4-81d2-162ca122bdf8",
+       "name": "Group 2",
+       "position": 2,
+       "isGroup": true,
+       "expanded": true
+      },
+      {
+       "index": 3,
+       "channelId": "be7e1cd3-9448-4874-a21a-97d9ba3e53be",
+       "name": "Audio 1",
+       "position": 3,
+       "isGroup": false,
+       "expanded": false
+      },
+      {
+       "index": 4,
+       "channelId": "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343",
+       "name": "Group 2",
+       "position": 4,
+       "isGroup": true,
+       "expanded": true
+      },
+      {
+       "index": 5,
+       "channelId": "75b91fed-f01c-46c0-aec6-fb84640e4c9b",
+       "name": "FX 1",
+       "position": 5,
+       "isGroup": false,
+       "expanded": false
+      },
+      {
+       "index": 6,
+       "channelId": "52e49c41-e005-4230-bffd-967a49e8f0fb",
+       "name": "Master",
+       "position": 6,
+       "isGroup": false,
+       "expanded": false
+      }
+     ]
+    },
+    "roots": {
+     "count": 4,
+     "offset": 0,
+     "ids": [
+      "fb6896a3-7d41-437d-b47a-93b7d3ffc67a",
+      "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343",
+      "75b91fed-f01c-46c0-aec6-fb84640e4c9b",
+      "52e49c41-e005-4230-bffd-967a49e8f0fb"
+     ],
+     "rows": [
+      {
+       "index": 0,
+       "channelId": "fb6896a3-7d41-437d-b47a-93b7d3ffc67a",
+       "name": "Group 1",
+       "position": 0,
+       "isGroup": true,
+       "expanded": true
+      },
+      {
+       "index": 1,
+       "channelId": "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343",
+       "name": "Group 2",
+       "position": 1,
+       "isGroup": true,
+       "expanded": true
+      },
+      {
+       "index": 2,
+       "channelId": "75b91fed-f01c-46c0-aec6-fb84640e4c9b",
+       "name": "FX 1",
+       "position": 2,
+       "isGroup": false,
+       "expanded": false
+      },
+      {
+       "index": 3,
+       "channelId": "52e49c41-e005-4230-bffd-967a49e8f0fb",
+       "name": "Master",
+       "position": 3,
+       "isGroup": false,
+       "expanded": false
+      }
+     ]
+    },
+    "parents": {
+     "fb6896a3-7d41-437d-b47a-93b7d3ffc67a": {
+      "exists": true,
+      "row": {
+       "index": 0,
+       "channelId": "fb6896a3-7d41-437d-b47a-93b7d3ffc67a",
+       "name": "Group 1 Master",
+       "position": 2,
+       "isGroup": false,
+       "expanded": false
+      }
+     },
+     "a255e52c-7452-4255-9bb4-212fe3ab386d": {
+      "exists": true,
+      "row": {
+       "index": 1,
+       "channelId": "fb6896a3-7d41-437d-b47a-93b7d3ffc67a",
+       "name": "Group 1",
+       "position": 0,
+       "isGroup": true,
+       "expanded": true
+      }
+     },
+     "bbb72098-c845-4ce4-81d2-162ca122bdf8": {
+      "exists": true,
+      "row": {
+       "index": 2,
+       "channelId": "bbb72098-c845-4ce4-81d2-162ca122bdf8",
+       "name": "Group 2 Master",
+       "position": 1,
+       "isGroup": false,
+       "expanded": false
+      }
+     },
+     "be7e1cd3-9448-4874-a21a-97d9ba3e53be": {
+      "exists": true,
+      "row": {
+       "index": 3,
+       "channelId": "bbb72098-c845-4ce4-81d2-162ca122bdf8",
+       "name": "Group 2",
+       "position": 1,
+       "isGroup": true,
+       "expanded": true
+      }
+     },
+     "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343": {
+      "exists": true,
+      "row": {
+       "index": 4,
+       "channelId": "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343",
+       "name": "Group 2 Master",
+       "position": 0,
+       "isGroup": false,
+       "expanded": false
+      }
+     },
+     "75b91fed-f01c-46c0-aec6-fb84640e4c9b": {
+      "exists": true,
+      "row": {
+       "index": 5,
+       "channelId": "52e49c41-e005-4230-bffd-967a49e8f0fb",
+       "name": "Project",
+       "position": -1,
+       "isGroup": true,
+       "expanded": false
+      }
+     },
+     "52e49c41-e005-4230-bffd-967a49e8f0fb": {
+      "exists": true,
+      "row": {
+       "index": 6,
+       "channelId": "52e49c41-e005-4230-bffd-967a49e8f0fb",
+       "name": "Project",
+       "position": -1,
+       "isGroup": true,
+       "expanded": false
+      }
+     }
+    },
+    "children": {
+     "fb6896a3-7d41-437d-b47a-93b7d3ffc67a": {
+      "count": 3,
+      "offset": 0,
+      "ids": [
+       "a255e52c-7452-4255-9bb4-212fe3ab386d",
+       "bbb72098-c845-4ce4-81d2-162ca122bdf8",
+       "fb6896a3-7d41-437d-b47a-93b7d3ffc67a"
+      ],
+      "rows": [
+       {
+        "index": 0,
+        "channelId": "a255e52c-7452-4255-9bb4-212fe3ab386d",
+        "name": "Inst 1",
+        "position": 0,
+        "isGroup": false,
+        "expanded": false
+       },
+       {
+        "index": 1,
+        "channelId": "bbb72098-c845-4ce4-81d2-162ca122bdf8",
+        "name": "Group 2",
+        "position": 1,
+        "isGroup": true,
+        "expanded": true
+       },
+       {
+        "index": 2,
+        "channelId": "fb6896a3-7d41-437d-b47a-93b7d3ffc67a",
+        "name": "Group 1 Master",
+        "position": 2,
+        "isGroup": false,
+        "expanded": false
+       }
+      ]
+     },
+     "bbb72098-c845-4ce4-81d2-162ca122bdf8": {
+      "count": 2,
+      "offset": 0,
+      "ids": [
+       "be7e1cd3-9448-4874-a21a-97d9ba3e53be",
+       "bbb72098-c845-4ce4-81d2-162ca122bdf8"
+      ],
+      "rows": [
+       {
+        "index": 0,
+        "channelId": "be7e1cd3-9448-4874-a21a-97d9ba3e53be",
+        "name": "Audio 1",
+        "position": 0,
+        "isGroup": false,
+        "expanded": false
+       },
+       {
+        "index": 1,
+        "channelId": "bbb72098-c845-4ce4-81d2-162ca122bdf8",
+        "name": "Group 2 Master",
+        "position": 1,
+        "isGroup": false,
+        "expanded": false
+       }
+      ]
+     },
+     "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343": {
+      "count": 1,
+      "offset": 0,
+      "ids": [
+       "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343"
+      ],
+      "rows": [
+       {
+        "index": 0,
+        "channelId": "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343",
+        "name": "Group 2 Master",
+        "position": 0,
+        "isGroup": false,
+        "expanded": false
+       }
+      ]
+     }
+    }
+   },
+   "coherent": true,
+   "sequenceAfterRead": 1895
+  }
+ },
+ "scenes": {
+  "sceneControlRevision": "8g-scene-controls-v1",
+  "researchOnly": true,
+  "sceneIdentityProved": false,
+  "hostInputOrderingProved": false,
+  "namesAreMutable": true,
+  "bankSize": 128,
+  "sequenceBeforeRead": 531,
+  "totalCount": 8,
+  "windowStart": 0,
+  "fullWindow": true,
+  "scenes": [
+   {
+    "index": 0,
+    "exists": true,
+    "name": "Scene 1",
+    "position": 0
+   },
+   {
+    "index": 1,
+    "exists": true,
+    "name": "Scene 2",
+    "position": 1
+   },
+   {
+    "index": 2,
+    "exists": true,
+    "name": "Scene 3",
+    "position": 2
+   },
+   {
+    "index": 3,
+    "exists": true,
+    "name": "Scene 4",
+    "position": 3
+   },
+   {
+    "index": 4,
+    "exists": true,
+    "name": "Scene 5",
+    "position": 4
+   },
+   {
+    "index": 5,
+    "exists": true,
+    "name": "Scene 6",
+    "position": 5
+   },
+   {
+    "index": 6,
+    "exists": true,
+    "name": "Scene 7",
+    "position": 6
+   },
+   {
+    "index": 7,
+    "exists": true,
+    "name": "Scene 8",
+    "position": 7
+   },
+   {
+    "index": 8,
+    "exists": false
+   },
+   {
+    "index": 9,
+    "exists": false
+   },
+   {
+    "index": 10,
+    "exists": false
+   },
+   {
+    "index": 11,
+    "exists": false
+   },
+   {
+    "index": 12,
+    "exists": false
+   },
+   {
+    "index": 13,
+    "exists": false
+   },
+   {
+    "index": 14,
+    "exists": false
+   },
+   {
+    "index": 15,
+    "exists": false
+   },
+   {
+    "index": 16,
+    "exists": false
+   },
+   {
+    "index": 17,
+    "exists": false
+   },
+   {
+    "index": 18,
+    "exists": false
+   },
+   {
+    "index": 19,
+    "exists": false
+   },
+   {
+    "index": 20,
+    "exists": false
+   },
+   {
+    "index": 21,
+    "exists": false
+   },
+   {
+    "index": 22,
+    "exists": false
+   },
+   {
+    "index": 23,
+    "exists": false
+   },
+   {
+    "index": 24,
+    "exists": false
+   },
+   {
+    "index": 25,
+    "exists": false
+   },
+   {
+    "index": 26,
+    "exists": false
+   },
+   {
+    "index": 27,
+    "exists": false
+   },
+   {
+    "index": 28,
+    "exists": false
+   },
+   {
+    "index": 29,
+    "exists": false
+   },
+   {
+    "index": 30,
+    "exists": false
+   },
+   {
+    "index": 31,
+    "exists": false
+   },
+   {
+    "index": 32,
+    "exists": false
+   },
+   {
+    "index": 33,
+    "exists": false
+   },
+   {
+    "index": 34,
+    "exists": false
+   },
+   {
+    "index": 35,
+    "exists": false
+   },
+   {
+    "index": 36,
+    "exists": false
+   },
+   {
+    "index": 37,
+    "exists": false
+   },
+   {
+    "index": 38,
+    "exists": false
+   },
+   {
+    "index": 39,
+    "exists": false
+   },
+   {
+    "index": 40,
+    "exists": false
+   },
+   {
+    "index": 41,
+    "exists": false
+   },
+   {
+    "index": 42,
+    "exists": false
+   },
+   {
+    "index": 43,
+    "exists": false
+   },
+   {
+    "index": 44,
+    "exists": false
+   },
+   {
+    "index": 45,
+    "exists": false
+   },
+   {
+    "index": 46,
+    "exists": false
+   },
+   {
+    "index": 47,
+    "exists": false
+   },
+   {
+    "index": 48,
+    "exists": false
+   },
+   {
+    "index": 49,
+    "exists": false
+   },
+   {
+    "index": 50,
+    "exists": false
+   },
+   {
+    "index": 51,
+    "exists": false
+   },
+   {
+    "index": 52,
+    "exists": false
+   },
+   {
+    "index": 53,
+    "exists": false
+   },
+   {
+    "index": 54,
+    "exists": false
+   },
+   {
+    "index": 55,
+    "exists": false
+   },
+   {
+    "index": 56,
+    "exists": false
+   },
+   {
+    "index": 57,
+    "exists": false
+   },
+   {
+    "index": 58,
+    "exists": false
+   },
+   {
+    "index": 59,
+    "exists": false
+   },
+   {
+    "index": 60,
+    "exists": false
+   },
+   {
+    "index": 61,
+    "exists": false
+   },
+   {
+    "index": 62,
+    "exists": false
+   },
+   {
+    "index": 63,
+    "exists": false
+   },
+   {
+    "index": 64,
+    "exists": false
+   },
+   {
+    "index": 65,
+    "exists": false
+   },
+   {
+    "index": 66,
+    "exists": false
+   },
+   {
+    "index": 67,
+    "exists": false
+   },
+   {
+    "index": 68,
+    "exists": false
+   },
+   {
+    "index": 69,
+    "exists": false
+   },
+   {
+    "index": 70,
+    "exists": false
+   },
+   {
+    "index": 71,
+    "exists": false
+   },
+   {
+    "index": 72,
+    "exists": false
+   },
+   {
+    "index": 73,
+    "exists": false
+   },
+   {
+    "index": 74,
+    "exists": false
+   },
+   {
+    "index": 75,
+    "exists": false
+   },
+   {
+    "index": 76,
+    "exists": false
+   },
+   {
+    "index": 77,
+    "exists": false
+   },
+   {
+    "index": 78,
+    "exists": false
+   },
+   {
+    "index": 79,
+    "exists": false
+   },
+   {
+    "index": 80,
+    "exists": false
+   },
+   {
+    "index": 81,
+    "exists": false
+   },
+   {
+    "index": 82,
+    "exists": false
+   },
+   {
+    "index": 83,
+    "exists": false
+   },
+   {
+    "index": 84,
+    "exists": false
+   },
+   {
+    "index": 85,
+    "exists": false
+   },
+   {
+    "index": 86,
+    "exists": false
+   },
+   {
+    "index": 87,
+    "exists": false
+   },
+   {
+    "index": 88,
+    "exists": false
+   },
+   {
+    "index": 89,
+    "exists": false
+   },
+   {
+    "index": 90,
+    "exists": false
+   },
+   {
+    "index": 91,
+    "exists": false
+   },
+   {
+    "index": 92,
+    "exists": false
+   },
+   {
+    "index": 93,
+    "exists": false
+   },
+   {
+    "index": 94,
+    "exists": false
+   },
+   {
+    "index": 95,
+    "exists": false
+   },
+   {
+    "index": 96,
+    "exists": false
+   },
+   {
+    "index": 97,
+    "exists": false
+   },
+   {
+    "index": 98,
+    "exists": false
+   },
+   {
+    "index": 99,
+    "exists": false
+   },
+   {
+    "index": 100,
+    "exists": false
+   },
+   {
+    "index": 101,
+    "exists": false
+   },
+   {
+    "index": 102,
+    "exists": false
+   },
+   {
+    "index": 103,
+    "exists": false
+   },
+   {
+    "index": 104,
+    "exists": false
+   },
+   {
+    "index": 105,
+    "exists": false
+   },
+   {
+    "index": 106,
+    "exists": false
+   },
+   {
+    "index": 107,
+    "exists": false
+   },
+   {
+    "index": 108,
+    "exists": false
+   },
+   {
+    "index": 109,
+    "exists": false
+   },
+   {
+    "index": 110,
+    "exists": false
+   },
+   {
+    "index": 111,
+    "exists": false
+   },
+   {
+    "index": 112,
+    "exists": false
+   },
+   {
+    "index": 113,
+    "exists": false
+   },
+   {
+    "index": 114,
+    "exists": false
+   },
+   {
+    "index": 115,
+    "exists": false
+   },
+   {
+    "index": 116,
+    "exists": false
+   },
+   {
+    "index": 117,
+    "exists": false
+   },
+   {
+    "index": 118,
+    "exists": false
+   },
+   {
+    "index": 119,
+    "exists": false
+   },
+   {
+    "index": 120,
+    "exists": false
+   },
+   {
+    "index": 121,
+    "exists": false
+   },
+   {
+    "index": 122,
+    "exists": false
+   },
+   {
+    "index": 123,
+    "exists": false
+   },
+   {
+    "index": 124,
+    "exists": false
+   },
+   {
+    "index": 125,
+    "exists": false
+   },
+   {
+    "index": 126,
+    "exists": false
+   },
+   {
+    "index": 127,
+    "exists": false
+   }
+  ],
+  "sequenceAfterRead": 531,
+  "callbacksChangedDuringRead": false,
+  "coherent": true
+ },
+ "status": {
+  "health": "partial",
+  "reason": "lifecycle-unverified",
+  "initDomain": "8c0713b7-a5ae-4249-8325-0ad629ca3944",
+  "projectGeneration": 6,
+  "structuralEpoch": 7,
+  "rebuildGeneration": 7,
+  "entries": 1,
+  "resident": 1,
+  "warming": 0,
+  "dirty": 0,
+  "occupiedCoordinates": 4,
+  "pendingCoordinates": 0,
+  "rejectedCallbacks": 0,
+  "recorderEstimatedBytes": 480,
+  "retainedSnapshotEstimatedBytes": 133000,
+  "retainedNoteRecords": 64,
+  "constructionMs": 1.096583,
+  "replayMs": 1544.15125,
+  "rebuildMs": 0,
+  "pingP95Ms": 0,
+  "hits": 6,
+  "misses": 0,
+  "evictions": 5,
+  "invalidations": 192,
+  "domainObjects": {
+   "clipEntryRecords": 1,
+   "bindingTokenRecords": 1,
+   "occupiedCoordinateEntries": 4,
+   "dirtyCoordinateEntries": 0,
+   "membershipNoteRecords": 64,
+   "occupiedNoteLists": 4,
+   "retainedSnapshotRecords": 1,
+   "retainedNoteRecords": 64,
+   "retainedFieldEntries": 1664,
+   "retainedMetadataEntries": 10,
+   "witnessReferences": 2,
+   "identityAndWitnessEstimatedBytes": 990
+  },
+  "resources": {
+   "residentRecorderEstimatedBytes": 480,
+   "stagingRecorderEstimatedBytes": 0,
+   "externalRecorderEstimatedBytes": 0,
+   "recorderDomainEstimatedBytes": 480,
+   "recorderLimitBytes": 16777216,
+   "retainedSnapshotEstimatedBytes": 133000,
+   "candidateSnapshotEstimatedBytes": 0,
+   "snapshotDomainEstimatedBytes": 133000,
+   "snapshotLimitBytes": 16777216,
+   "identityAndWitnessEstimatedBytes": 990,
+   "candidatePhase": "none",
+   "candidateReason": "none",
+   "heapMeasured": false
+  },
+  "inventoryControlRevision": "8g-inventory-preparation-v1",
+  "inventoryControlMaximumBatchCells": 64,
+  "authorityBindingRevision": "8g-authority-transition-v1",
+  "authorityControlSearchCells": 0,
+  "authorityControlSearchMs": 0,
+  "authorityControlSearchReason": "not-started",
+  "authorityDistinctControlConfirmed": true,
+  "residentHandles": 2,
+  "handlePool": [
+   {
+    "index": 0,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 1,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   }
+  ],
+  "exactFallbackActive": false,
+  "unusedBindingHandles": 1,
+  "inventoryEnumerated": false,
+  "inventoryClipEntries": 0,
+  "rebuildTerminal": false,
+  "registryPublished": false,
+  "authorityHandles": 1,
+  "stepDataObservers": 3,
+  "shadowStepDataObservers": 3,
+  "totalExperimentalStepDataObservers": 7,
+  "combinedObserverBudgetAdmitted": true,
+  "constructionMeasurementAvailable": true,
+  "pingMeasurementAvailable": false,
+  "requestedReplayMeasurementAvailable": true,
+  "cacheBudgetMeasurementsComplete": false,
+  "automaticIdentityProbeAttached": true,
+  "automaticIdentityEpoch": 451,
+  "automaticIdentityInvalidations": 5,
+  "automaticIdentityPoisoned": false,
+  "automaticIdentityReason": "step-delta-read-window-required",
+  "identityWitnessAvailable": false,
+  "identityContinuityProved": false,
+  "continuityProtocol": "step-delta-read-window-v1",
+  "stepDataDeliveryAssumption": "D26",
+  "callbackOrderingRule": "E217-later-callback-after-batch",
+  "stepWindowCallbacks": 27648,
+  "stepWindowBindingRevision": 121,
+  "stepWindowReadsOpened": 28,
+  "stepWindowConfirmations": 28,
+  "stepWindowChanges": 0,
+  "stepWindowRefusals": 0,
+  "retainedStepWindowDiscards": 0,
+  "inventoryPublicationSupported": false,
+  "liveAcquisitionSupported": false,
+  "hostModel": false,
+  "hostInputFenceProved": false,
+  "identityGuardHostWorkMs": 278.229553,
+  "authoritySettlementObservers": 1,
+  "steps": 2048,
+  "grid": 0.001953125,
+  "cacheBankConstructionMs": 1.096583,
+  "canaryPassed": true,
+  "cacheModelHealth": "complete",
+  "cacheModelReason": "inventory-incomplete",
+  "complete": false,
+  "eligible": false,
+  "readMode": "refuse",
+  "authorityAvailable": false,
+  "fallbackPerformed": false,
+  "lifecycleSignalsSupported": false,
+  "projectScopeComplete": false,
+  "lifecycleFallback": "project-lifecycle-fence-unproved",
+  "optionalLifecycleWitnessSupported": true,
+  "instrumentationRevision": "8g5a-group-topology-v2",
+  "topologyUsable": true,
+  "topologyControlRevision": "8g5a-uuid-group-master-v1",
+  "observerKind": "addStepDataObserver",
+  "rebindPolicy": "preserve-current-or-forced-canary-transition",
+  "callbackSourceIdentityKnown": false,
+  "physicalPendingHints": 0,
+  "physicalHintDrops": 0,
+  "physicalHintOverflow": false,
+  "physicalHintRecorderEstimatedBytes": 512,
+  "pendingWorkItemsIncludingPhysicalHints": 0,
+  "comparison": "pending",
+  "fallbackReason": "group-topology-changed",
+  "authorityScans": 6,
+  "matches": 6,
+  "mismatches": 0,
+  "mismatchesByCause": {},
+  "comparisonRefusalsByCause": {},
+  "windowChanges": 3,
+  "membershipGetStepCalls": 3248,
+  "authorityGetStepCalls": 25165824,
+  "enrichmentGetStepCalls": 384,
+  "membershipHostWorkMs": 8.225378,
+  "authorityHostWorkMs": 796.4826959867752,
+  "enrichmentHostWorkMs": 1.0102890000000002,
+  "acquisitionNoteObjectsAllocated": 1248,
+  "acquisitionMutableFieldMapObjectsAllocated": 768,
+  "allocationCountsScope": "explicit adapter allocations; excludes host and domain copies",
+  "acquisitionListObjectsAllocated": 78,
+  "lastSnapshotSerializedBytes": 37379,
+  "lastAuthoritySerializedBytes": 36334,
+  "serializedBytesAreMemoryMeasurement": false,
+  "durationTimingBasis": "R07-nearest-1/512-ties-up-minimum-one-cell",
+  "gainDomain": "host-amplitude-ratio-portable-amplitude-ratio",
+  "scanStagingNoteObjects": 0,
+  "scanStagingPayloadEstimatedBytes": 0,
+  "resourceAccounting": {
+   "residentRecorderEstimatedBytes": 480,
+   "stagingRecorderEstimatedBytes": 0,
+   "externalRecorderEstimatedBytes": 0,
+   "recorderDomainEstimatedBytes": 480,
+   "recorderLimitBytes": 16777216,
+   "retainedSnapshotEstimatedBytes": 133000,
+   "candidateSnapshotEstimatedBytes": 0,
+   "snapshotDomainEstimatedBytes": 133000,
+   "snapshotLimitBytes": 16777216,
+   "identityAndWitnessEstimatedBytes": 990,
+   "candidatePhase": "none",
+   "candidateReason": "none",
+   "heapMeasured": false,
+   "physicalHintQueueEstimatedBytes": 0,
+   "comparisonAuthorityStagingEstimatedBytes": 0,
+   "exactAuthorityStagingEstimatedBytes": 0,
+   "authorityDomainEstimatedBytes": 0,
+   "authorityLimitBytes": 16777216,
+   "registryAttemptEstimatedBytes": 0,
+   "registryAttemptLimitBytes": 16777216,
+   "totalEstimatedBytes": 134470,
+   "combinedLimitSelected": false,
+   "hostMemoryMeasured": false,
+   "serializedBytesAreMemoryMeasurement": false,
+   "accountingRevision": "8g3-resource-accounting-v1",
+   "topologyControl": {
+    "maximumTracks": 16,
+    "banks": 17,
+    "bankTrackHandles": 272,
+    "parentTrackHandles": 16,
+    "stepDataObservers": 0,
+    "heapMeasured": false,
+    "hostMemoryMeasured": false,
+    "selectedRoute": "direct-child-banks-with-uuid-group-master",
+    "parentHandlesDiagnosticOnly": true
+   }
+  },
+  "enrichmentBatches": 6,
+  "lastScanPhaseTimesMs": {
+   "membership": 0,
+   "authority-binding": 19.819,
+   "authority-reads": 2155.136417,
+   "settlement-confirmation": 2471.93075,
+   "enrichment": 2530.451792,
+   "result-confirmation": 2531.663667,
+   "ended": 2601.963292,
+   "authorityHostWorkMs": 143.306458,
+   "enrichmentHostWorkMs": 0.648417,
+   "scope": "elapsed wall time from scan start at each stage start; host work is separate"
+  },
+  "lastSnapshotCandidate": {
+   "phase": "published",
+   "reason": "within-budget",
+   "coordinatesDone": 4,
+   "coordinatesTotal": 4,
+   "notes": 0,
+   "estimatedBytes": 133000,
+   "peakEstimatedBytes": 133000,
+   "batches": 1,
+   "lastBatchMs": 0.648417,
+   "hostWorkMs": 0.648417,
+   "elapsedMs": 1.0825,
+   "deadlineMs": 5000
+  },
+  "index": 0,
+  "phase": "complete",
+  "clipRef": "8c0713b7-a5ae-4249-8325-0ad629ca3944-p6-clip-00000000000000000005",
+  "callbacks": 14848,
+  "onsetCallbacks": 64,
+  "rejectedHostCallbacks": 0,
+  "quietPolls": 23,
+  "bindingReady": true,
+  "clipExists": true,
+  "physicalViewPendingHints": 0,
+  "physicalBindingRevision": 25,
+  "physicalViewHintDrops": 0,
+  "canaryPhase": "target",
+  "canaryVerifiedForBinding": true,
+  "recorderPreserved": false,
+  "sameTargetPreserves": 0,
+  "tokens": {
+   "initDomain": "8c0713b7-a5ae-4249-8325-0ad629ca3944",
+   "project": 6,
+   "structure": 7,
+   "binding": 17,
+   "rebuild": 7
+  },
+  "address": {
+   "trackId": "a255e52c-7452-4255-9bb4-212fe3ab386d",
+   "row": 0
+  }
+ }
+}

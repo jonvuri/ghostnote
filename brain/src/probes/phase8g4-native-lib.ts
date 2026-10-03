@@ -82,8 +82,8 @@ export function verifySeed(state: Wire): void {
     assert(Math.abs(Number(fields.velocity) - (80 + channel) / 127) < 1e-6); assert.equal(fields.rawDuration, 8 / 512);
   }
 }
-export function verifyComparison(value: Wire, state: Wire): void {
-  closed(value); assert.equal(value.instrumentationRevision, NATIVE_MARKER); assert.equal(value.comparison, 'match');
+export function verifyComparison(value: Wire, state: Wire, marker = NATIVE_MARKER): void {
+  closed(value); assert.equal(value.instrumentationRevision, marker); assert.equal(value.comparison, 'match');
   assert.equal(value.authorityAvailable, true); assert.equal(value.stepWindowConfirmed, true); assert.equal(value.contentComparisonComplete, true);
   verifySeed(state); const expected = independentNotes(state.notes as Wire), snapshot = value.diagnosticSnapshot as Wire;
   assert(snapshot); assert.deepEqual(snapshot.address, { trackId: state.trackId, row: 0 });

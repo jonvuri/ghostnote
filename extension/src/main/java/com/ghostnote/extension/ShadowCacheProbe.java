@@ -716,7 +716,7 @@ public final class ShadowCacheProbe {
         result.addProperty("projectScopeComplete", false);
         result.addProperty("lifecycleFallback", "project-lifecycle-fence-unproved");
         result.addProperty("optionalLifecycleWitnessSupported", identityProbe != null);
-        result.addProperty("instrumentationRevision", "8g4-shadow-topology-v1");
+        result.addProperty("instrumentationRevision", "8g5a-group-topology-v2");
         result.addProperty("topologyUsable", topologyUsable);
         result.addProperty("topologyControlRevision", topologyControl == null ? "unattached" : ShadowTopologyControl.REVISION);
         result.addProperty("observerKind", "addStepDataObserver");
@@ -783,6 +783,7 @@ public final class ShadowCacheProbe {
         result.addProperty("hostMemoryMeasured", false);
         result.addProperty("serializedBytesAreMemoryMeasurement", false);
         result.addProperty("accountingRevision", "8g3-resource-accounting-v1");
+        if (topologyControl != null) result.add("topologyControl", topologyControl.resources());
         return result;
     }
 

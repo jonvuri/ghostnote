@@ -2,12 +2,12 @@
 title: Phase 8g — Shadow project cache
 kind: plan
 state: active
-status: Active. 8g4 is complete. Run 8g5a, 8g5b, and 8g5c, then 8g5.
+status: Active. 8g5a is complete. Run 8g5b and 8g5c, then 8g5.
 updated: 2026-10-03
 parent: README.md
 prev: 8f3-ghostnote-bindings-and-cache-contracts.md
 next: 8h-cache-promotion-and-interface-simplification.md
-evidence: E130-E134; E138-E139; E214-E220; D23; D26; D27
+evidence: E130-E134; E138-E139; E214-E221; D23; D26; D27
 ---
 
 # Phase 8g — Shadow project cache
@@ -19,7 +19,8 @@ the [intermediate review ledger](../../evidence/format/PHASE8G_INTERMEDIATE_REVI
 are closed with offline regression tests. No P0 or P1 finding was found.
 The bounded pure model, pool, coordinator, replay, and packaging rules pass
 within their stated assumptions. Live continuity, selected global budgets,
-group membership, broader ordering, and final consumer acceptance remain open.
+broader ordering and final consumer acceptance remain open. E221 below closes
+bounded group topology.
 
 [8g2](8g2-project-continuity.md) is complete with
 [conservative refusal](../../evidence/format/PHASE8G_PROJECT_CONTINUITY.md).
@@ -54,11 +55,18 @@ Native ordering passes; group membership refuses.
 
 The 8g5 planning pass selects project-wide occupancy as the gate scope.
 [D27](../../decisions/d27-later-callback-ordering-is-a-named-assumption.md)
-accepts the E217 ordering rule. Three required predicates remain open. Run
-[8g5a](8g5a-group-topology-support.md) (group topology),
-[8g5b](8g5b-slot-inventory-delivery.md) (slot inventory delivery), and
+accepts the E217 ordering rule. [8g5a](8g5a-group-topology-support.md) now
+passes bounded group topology. [E221](../../evidence/experiments/e221-group-topology-candidates.md)
+records seven native retirements and a collapsed-child clip binding limit.
+Two required predicates remain open. Run [8g5b](8g5b-slot-inventory-delivery.md)
+(slot inventory delivery) and
 [8g5c](8g5c-combined-storage-limit.md) (combined storage limit). Then run
 [8g5](8g5-final-shadow-acceptance.md). Do not enter 8h.
+
+The operator requires at least 256 instrument/audio tracks plus capacity for
+groups, FX, and Master. 8g5c measures allocation and topology change cost and
+raises the selected limit. It tests 512 total channels as a candidate.
+The current 16-track research bound cannot satisfy final acceptance.
 
 ## Current result
 

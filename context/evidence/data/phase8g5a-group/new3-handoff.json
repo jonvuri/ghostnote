@@ -1,0 +1,21 @@
+{
+ "schema": "phase8g5a-baseline-handoff-v1",
+ "recordedAt": "2026-10-03T06:31:43.254355+00:00",
+ "project": "New 3",
+ "baselineFile": "new3-baseline.json",
+ "baselineSha256": "8b82607cc61880d604379c2ac17dfbdbc3754bed22e866e7d6b6d3192a228343",
+ "supersedesProject": "New 1",
+ "dirtyMarkerObserved": true,
+ "dirtyChange": "existing-empty-launcher-clip",
+ "dirtyChangeCreatedBy": "operator",
+ "clipDisplayLabel": "S1",
+ "clipRawName": "",
+ "projectContentMutatedByAgent": false,
+ "savedOrClosedByAgent": false,
+ "engineActiveObserved": true,
+ "transportStoppedObserved": true,
+ "positionObserved": "1.1.1.00",
+ "operatorNewProjectPending": true,
+ "complete": false,
+ "eligible": false
+}

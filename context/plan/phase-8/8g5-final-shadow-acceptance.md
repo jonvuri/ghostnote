@@ -17,12 +17,16 @@ The 8g5 planning pass on 2026-10-03 selected project-wide occupancy as the gate
 scope. Covered clip content alone is not sufficient. The pass found three open
 required predicates and moved them to focused sessions:
 
-1. [8g5a — Group topology support](8g5a-group-topology-support.md): projects
-   with group tracks refuse today.
+1. [8g5a — Group topology support](8g5a-group-topology-support.md): E221
+   proves the bounded group route. Collapsed child canary rebinding
+   still refuses; state that limit in the supported-state matrix.
 2. [8g5b — Slot inventory delivery](8g5b-slot-inventory-delivery.md): live slot
    inventory refuses today.
 3. [8g5c — Combined storage limit](8g5c-combined-storage-limit.md): no total
-   limit is selected, and heap memory is not measured.
+   limit is selected, and heap memory is not measured. It must also measure
+   topology allocation and implement support for at least 256 instrument/audio
+   tracks plus group, FX, and Master capacity. The 16-track research limit does
+   not satisfy this gate.
 
 [D27](../../decisions/d27-later-callback-ordering-is-a-named-assumption.md)
 accepts the E217 ordering rule. With D26, it closes covered step-content
@@ -97,7 +101,7 @@ operator replacement of the normal controller and fresh normal hello.
 Restore original ordered tracks, eight scenes, all empty baseline slots,
 selection, cursors, pins, config bytes, and engine/transport state. Close only
 owned tabs and remove only proven owned package files. Never save or close
-original `New 1`. State the viewport restoration scope separately.
+protected `New 3`, whose adopted baseline is in E221. State the viewport restoration scope separately.
 
 Persist a terminal mismatch/refusal before an oracle assertion. Stop acceptance
 on a required open predicate or in-contract discrepancy, restore safely, and

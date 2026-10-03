@@ -1,0 +1,100 @@
+{
+ "schema": "phase8g5a-live-artifacts-v1",
+ "complete": false,
+ "eligible": false,
+ "wholeSessionComplete": false,
+ "oracleSha256": "13604236bed4d464eb09330c31275da58e19b35248659c535dd851e452f239ba",
+ "reports": [
+  {
+   "file": "route-reload.json",
+   "kind": "topology",
+   "bytes": 42221,
+   "sha256": "9c686df1c53efde9eefeec8b0e114e0a6ec06f7660ababedb360c242d8ac6382"
+  },
+  {
+   "file": "child-comparison.json",
+   "kind": "comparison",
+   "bytes": 283213,
+   "sha256": "d3f4e5b491943843c58da489d1e0c4f7504deb60c84462987bf80e37edb450ef"
+  },
+  {
+   "file": "collapse-result.json",
+   "kind": "change",
+   "bytes": 315402,
+   "sha256": "1bd360f20e7797da6b587032cf3baae35c6f3cfdd083dfc8f6e09725cbdb6c10",
+   "beforeOracle": "route-reload.json"
+  },
+  {
+   "file": "collapsed-rebind-diagnostic.json",
+   "kind": "topology",
+   "bytes": 43684,
+   "sha256": "b4bb12d7a4a6a04aa77658261a13a2b1d78ee8fd7663b938a778741731e95292"
+  },
+  {
+   "file": "expanded-recovery-topology.json",
+   "kind": "topology",
+   "bytes": 43598,
+   "sha256": "bb013c4f3526f5b0be8f5af335b6958a0613a7ae2e51bd7c8dbc24b0ffea91b9"
+  },
+  {
+   "file": "nested-group-result.json",
+   "kind": "change",
+   "bytes": 318088,
+   "sha256": "b946d16452dfff6d6a278ec8dbc7d19b375dc059cdaea3145df5fc06ea01458f",
+   "beforeOracle": "route-reload.json"
+  },
+  {
+   "file": "nested-comparison.json",
+   "kind": "comparison",
+   "bytes": 286503,
+   "sha256": "7ce4f43a4c3bd2a09550d5a0a11f65ec8fb147b21cf065b13df6a18d1d4610fc"
+  },
+  {
+   "file": "ungroup-result.json",
+   "kind": "change",
+   "bytes": 318417,
+   "sha256": "9668299b93bf0fa8154ee2dad6f562f0370e813bfd7138b864010c2a9ff2b559",
+   "beforeOracle": "nested-group-result.json"
+  },
+  {
+   "file": "move-out-result.json",
+   "kind": "change",
+   "bytes": 315102,
+   "sha256": "27c1b46825bb3ed4c9ebd56a8aa1b23a8c82dc31f1c54497f85a6cdf3dbdc981",
+   "beforeOracle": "route-reload.json"
+  },
+  {
+   "file": "move-out-comparison.json",
+   "kind": "comparison",
+   "bytes": 283672,
+   "sha256": "1982facb687c61890567588403ecced3c04faaa8dfad7ee55a3635b8febae2d4"
+  },
+  {
+   "file": "move-in-result.json",
+   "kind": "change",
+   "bytes": 315429,
+   "sha256": "e4098b8c78d007f09733e84557f5fda0d820350be2547e9eea8f1f31c259cb0c",
+   "beforeOracle": "move-out-result.json"
+  },
+  {
+   "file": "reorder-result.json",
+   "kind": "change",
+   "bytes": 315195,
+   "sha256": "eed686977bc3c50687eea0bba30a3ae45061f711fb08a4859ab26ed4f77af8d9",
+   "beforeOracle": "move-in-result.json"
+  },
+  {
+   "file": "empty-collapsed-topology.json",
+   "kind": "topology",
+   "bytes": 43628,
+   "sha256": "625767c9f9ce66b6c4af3785351d1ebe5479d832df900789a7a24de2da2f1d2b"
+  },
+  {
+   "file": "empty-expand-result.json",
+   "kind": "change",
+   "bytes": 315327,
+   "sha256": "4525e024b76a7f0da0fbad012c2f700de1b1a18629053caaeca7c61ecb34b41a",
+   "beforeOracle": "empty-collapsed-topology.json"
+  }
+ ]
+}

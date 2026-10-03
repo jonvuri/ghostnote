@@ -1,0 +1,11 @@
+{
+ "schema": "phase8g5a-prepared-deployment-v1",
+ "complete": false,
+ "eligible": false,
+ "marker": "8g5a-topology-candidates-v1",
+ "extensionVersion": "0.0.1-8g-controls-8g5a-1",
+ "archiveSha256": "4834097d47213053563fad83379ce926300e690294e8805771fa2245aa61f13f",
+ "entrySha256": "8a57e77ef3c630340e6e70a66a3140c7340059b422a5a0bd76b1835d299234ff",
+ "researchConfigSha256": "fa4bf8f6abc3b63bd06b6dc0674584d144affc7d9f0b7fb6a9fa623b2f043eb9",
+ "operatorReplacementConfirmed": false
+}

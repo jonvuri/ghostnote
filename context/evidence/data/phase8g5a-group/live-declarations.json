@@ -1,0 +1,49 @@
+{
+ "schema": "phase8g5a-live-declarations-v1",
+ "complete": false,
+ "eligible": false,
+ "initialOracle": {
+  "project": "New 5",
+  "masterId": "52e49c41-e005-4230-bffd-967a49e8f0fb",
+  "roots": [
+   "fb6896a3-7d41-437d-b47a-93b7d3ffc67a",
+   "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343",
+   "75b91fed-f01c-46c0-aec6-fb84640e4c9b",
+   "52e49c41-e005-4230-bffd-967a49e8f0fb"
+  ],
+  "children": {
+   "fb6896a3-7d41-437d-b47a-93b7d3ffc67a": [
+    "a255e52c-7452-4255-9bb4-212fe3ab386d",
+    "bbb72098-c845-4ce4-81d2-162ca122bdf8"
+   ],
+   "bbb72098-c845-4ce4-81d2-162ca122bdf8": [
+    "be7e1cd3-9448-4874-a21a-97d9ba3e53be"
+   ],
+   "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343": []
+  },
+  "flatOrder": [
+   "fb6896a3-7d41-437d-b47a-93b7d3ffc67a",
+   "a255e52c-7452-4255-9bb4-212fe3ab386d",
+   "bbb72098-c845-4ce4-81d2-162ca122bdf8",
+   "be7e1cd3-9448-4874-a21a-97d9ba3e53be",
+   "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343",
+   "75b91fed-f01c-46c0-aec6-fb84640e4c9b",
+   "52e49c41-e005-4230-bffd-967a49e8f0fb"
+  ],
+  "expanded": {
+   "fb6896a3-7d41-437d-b47a-93b7d3ffc67a": true,
+   "bbb72098-c845-4ce4-81d2-162ca122bdf8": true,
+   "8b67c827-c4f9-4c2e-8223-cf2c0f9c6343": true
+  }
+ },
+ "plannedCommands": [
+  "collapse Group 1; membership unchanged; expanded false",
+  "expand Group 1; membership unchanged; expanded true",
+  "group Inst 1 in place; new wrapper at its former child position",
+  "ungroup that new wrapper; restore previous child order",
+  "move Inst 1 outside Group 1 to root after Group 1",
+  "move Inst 1 back into Group 1",
+  "reorder Group 1 direct children",
+  "restore the original direct child order"
+ ]
+}

@@ -1,0 +1,15 @@
+{
+ "schema": "phase8g5a-route-deployment-v1",
+ "prepared": "2026-10-03T06:48:14.740944+00:00",
+ "product": "ghostnote 8g controls",
+ "definitionVersion": "0.0.1-8g-controls-8g5a-2",
+ "instrumentationRevision": "8g5a-group-topology-v2",
+ "topologyControlRevision": "8g5a-uuid-group-master-v1",
+ "archive": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-shadow-8g-controls.bwextension",
+ "archiveSha256": "6a43c63b21ba627ec746a190c55dceb3742efccdbc815fc84037faa89a387aa0",
+ "complete": false,
+ "eligible": false,
+ "operatorReplacementConfirmed": false,
+ "fixtureProject": "New 5",
+ "protectedProject": "New 3"
+}

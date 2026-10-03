@@ -1,0 +1,65 @@
+{
+ "schema": "phase8g5a-final-restoration-v1",
+ "captured": "2026-10-03T07:52:29.013317+00:00",
+ "complete": false,
+ "eligible": false,
+ "sessionWorkComplete": true,
+ "protectedStateValuesRestored": true,
+ "fixtureClosedWithoutSaving": true,
+ "fixtureInitialNoSlotSelectionRestored": false,
+ "fixtureContentAndCursorValuesRestored": true,
+ "fixtureSolePreDiscardDifference": "slot-0-selected-instead-of-no-slot",
+ "uiObservationSource": "computer tool screenshot after normal protected-state checks",
+ "openTabs": [
+  "New 3 *"
+ ],
+ "protectedProjectSaved": false,
+ "protectedProjectClosed": false,
+ "audioEngineActive": true,
+ "transportPlaying": false,
+ "transportPosition": "1.1.1.00 / 0:00.000",
+ "identicalViewportClaimed": false,
+ "removedResearchArchive": {
+  "path": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-shadow-8g-controls.bwextension",
+  "sha256": "6a43c63b21ba627ec746a190c55dceb3742efccdbc815fc84037faa89a387aa0",
+  "absent": true
+ },
+ "reports": {
+  "new3-baseline.json": {
+   "bytes": 40232,
+   "sha256": "8b82607cc61880d604379c2ac17dfbdbc3754bed22e866e7d6b6d3192a228343"
+  },
+  "new3-final-baseline.json": {
+   "bytes": 22531,
+   "sha256": "fab1a52fbda2e4f0fee7559ac53a230fc09d0c567591a7879c2473fefbc555bd"
+  },
+  "new5-fixture-entry.json": {
+   "bytes": 50410,
+   "sha256": "4815c5c1eed5dd05c20098121dcefa5315ca507b0963e48e29d6431caddf5386"
+  },
+  "new5-content-cleanup.json": {
+   "bytes": 216079,
+   "sha256": "8edc3ada1ff43021761e2b0d20d5c0441369cbf0a701b2218596559717d3edac"
+  },
+  "new5-normal-baseline.json": {
+   "bytes": 20464,
+   "sha256": "4f93998da4c31bc846b05dca36cf704bb07278a901e33bf2462e50e989b0f0a0"
+  },
+  "new5-normal-restored.json": {
+   "bytes": 20465,
+   "sha256": "ac2640077fb8af86f137e3fc65e28d5473c992e5875fa71d69992a02b5ac5ec2"
+  },
+  "new5-before-discard.json": {
+   "bytes": 17528,
+   "sha256": "8eb65f7095b6f4b003eca195992a40a02abb3ed25aa21cd70b022bd0f656e757"
+  },
+  "normal-prepared-deployment.json": {
+   "bytes": 877,
+   "sha256": "b6adf35a77ef03400b5bbd94354f6fe9c94a158e9ef5d141a9b938cecbd876bf"
+  },
+  "live-artifacts.json": {
+   "bytes": 2890,
+   "sha256": "4690e262bd300fa03bb1d895981dab4ce49c4f22367596574331a1be3d797cee"
+  }
+ }
+}
