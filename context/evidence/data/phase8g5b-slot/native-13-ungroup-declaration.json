@@ -1,0 +1,2 @@
+{ "schema": "phase8g5b-declaration-v1", "trial": "native-ungroup", "expectedProject": "New 6",
+  "instruction": "Ungroup Group 1 so that Inst 1 returns to the root level.", "operations": [] }

@@ -43,3 +43,9 @@ clip content. It cannot use this decision for slot occupancy or topology.
 Revoke this decision if a confirmation runs before the last step callback of
 its batch, or if a published read contains foreign content while the window
 confirms.
+
+## Later evidence
+
+[D28](d28-slot-occupancy-delivery-is-a-named-assumption.md) accepts slot-occupancy
+delivery as a separate named assumption. With this decision, it closes covered
+occupancy continuity through the 8g5b slot-delta window.

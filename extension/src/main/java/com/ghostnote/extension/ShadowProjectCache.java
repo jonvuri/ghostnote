@@ -226,6 +226,8 @@ public final class ShadowProjectCache {
     }
     public String replace(Address address, Coverage coverage) { deleteAt(address); return create(address, coverage); }
     public String clipAt(Address address) { return slots.get(address); }
+    /** Copy the current address map. A reference is minted per rebuild; it is not a clip identity witness. */
+    public Map<Address, String> slotRefs() { return new java.util.LinkedHashMap<>(slots); }
     public boolean hasClip(String ref) { return entries.containsKey(ref); }
     public void delete(String ref) {
         if (staging != null) requireRebuild("inventory-changed-during-rebuild");

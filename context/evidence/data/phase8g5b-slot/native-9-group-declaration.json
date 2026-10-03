@@ -1,0 +1,3 @@
+{ "schema": "phase8g5b-declaration-v1", "trial": "native-group", "expectedProject": "New 6",
+  "instruction": "Select only Inst 1 and press Cmd+G. The group stays expanded.",
+  "operations": [] }

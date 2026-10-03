@@ -1,0 +1,3 @@
+{ "schema": "phase8g5b-declaration-v1", "trial": "native-create", "expectedProject": "New 6",
+  "instruction": "Double-click the empty slot in scene 4 (row 3) of Inst 1 in New 6.",
+  "operations": [{ "op": "create", "trackId": "625fd6bd-07be-4331-8e47-fe3646b5f88e", "row": 3 }] }

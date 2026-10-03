@@ -1,0 +1,19 @@
+{
+ "schema": "phase8g5b-declaration-v1",
+ "trial": "native-project-switch-to-P",
+ "expectedProject": "New 6",
+ "instruction": "Click the New 6 project tab.",
+ "baseline": "replace",
+ "priorSource": "native-6-delete-scene.json",
+ "operations": [
+  {
+   "op": "replace",
+   "occupancy": [
+    "625fd6bd-07be-4331-8e47-fe3646b5f88e:0",
+    "625fd6bd-07be-4331-8e47-fe3646b5f88e:1",
+    "625fd6bd-07be-4331-8e47-fe3646b5f88e:2",
+    "625fd6bd-07be-4331-8e47-fe3646b5f88e:5"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,3 @@
+{ "schema": "phase8g5b-declaration-v1", "trial": "native-drag-move", "expectedProject": "New 6",
+  "instruction": "Drag the clip in scene 4 of Inst 1 to the empty slot in scene 6 of Inst 1.",
+  "operations": [{ "op": "move", "from_trackId": "625fd6bd-07be-4331-8e47-fe3646b5f88e", "from_row": 3, "to_trackId": "625fd6bd-07be-4331-8e47-fe3646b5f88e", "to_row": 5 }] }

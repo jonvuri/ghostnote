@@ -915,7 +915,11 @@ public class Rig {
             shadowSceneControl = config.cacheLifecycleResearch ? new ShadowSceneControl(sceneBank, config.scenes) : null;
             shadowTopologyControl = config.cacheLifecycleResearch && config.cacheShadowObservers > 0
                 ? new ShadowTopologyControl(host, this) : null;
-            if (shadowTopologyControl != null) shadowCacheProbe.attachTopologyControl(shadowTopologyControl);
+            if (shadowTopologyControl != null) {
+                shadowCacheProbe.attachTopologyControl(shadowTopologyControl);
+                // 8g5b: occupancy uses the existing flat-bank hasContent observers. It adds no host handles.
+                shadowCacheProbe.attachSlotSource(ShadowCacheProbe.rigSlots(this, shadowTopologyControl));
+            }
             if (config.cacheLifecycleResearch) trackBank.scrollPosition().markInterested();
             arrangerClip = host.createArrangerCursorClip(config.gridSteps, config.gridKeys);
             markClip(arrangerClip);

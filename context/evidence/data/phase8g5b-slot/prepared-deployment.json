@@ -1,0 +1,18 @@
+{
+ "schema": "phase8g5b-prepared-deployment-v1",
+ "prepared": "2026-10-03T16:56:00+00:00",
+ "product": "ghostnote 8g controls",
+ "definitionVersion": "0.0.1-8g-controls-8g5b-1",
+ "instrumentationRevision": "8g5b-slot-window-v1",
+ "slotWindowProtocol": "slot-delta-read-window-v1",
+ "deliverySlotMarker": "e222-slot-delivery-v1",
+ "archive": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-shadow-8g-controls.bwextension",
+ "archiveSha256": "444d3a2e8010c957f0d4c65ce99f1435a4450bd71bb99e8cbdf8605cbd51bd45",
+ "researchConfigSha256": "9d8350a917e71dd81971582e6d5e69fcfb84798744b3d3c8bf846b5109ed0cc5",
+ "originalConfigSha256": "256bbf07094cd654c372d0e5e050e494ef7783c9a0001a0a2a688331bcf643b0",
+ "entryBaselineSha256": "35703f93a3da71918ff1122011b0c246a9b590b6460cb0a5c7369ce957b69de9",
+ "protectedProject": "New 3",
+ "complete": false,
+ "eligible": false,
+ "operatorReplacementConfirmed": false
+}

@@ -2,7 +2,7 @@
 title: Phase 8g — Shadow project cache
 kind: plan
 state: active
-status: Active. 8g5a is complete. Run 8g5b and 8g5c, then 8g5.
+status: Active. 8g5a and 8g5b are complete. Run 8g5c, then 8g5.
 updated: 2026-10-03
 parent: README.md
 prev: 8f3-ghostnote-bindings-and-cache-contracts.md
@@ -58,10 +58,13 @@ The 8g5 planning pass selects project-wide occupancy as the gate scope.
 accepts the E217 ordering rule. [8g5a](8g5a-group-topology-support.md) now
 passes bounded group topology. [E221](../../evidence/experiments/e221-group-topology-candidates.md)
 records seven native retirements and a collapsed-child clip binding limit.
-Two required predicates remain open. Run [8g5b](8g5b-slot-inventory-delivery.md)
-(slot inventory delivery) and
-[8g5c](8g5c-combined-storage-limit.md) (combined storage limit). Then run
-[8g5](8g5-final-shadow-acceptance.md). Do not enter 8h.
+[8g5b](8g5b-slot-inventory-delivery.md) passes live occupancy through a
+confirmed slot-delta window. [E222](../../evidence/experiments/e222-slot-delivery-and-occupancy-window.md)
+records the measurements, and [D28](../../decisions/d28-slot-occupancy-delivery-is-a-named-assumption.md)
+accepts occupancy delivery. Identity is never inferred from occupancy.
+One required predicate remains open. Run [8g5c](8g5c-combined-storage-limit.md)
+(combined storage limit), then [8g5](8g5-final-shadow-acceptance.md).
+Do not enter 8h.
 
 The operator requires at least 256 instrument/audio tracks plus capacity for
 groups, FX, and Master. 8g5c measures allocation and topology change cost and

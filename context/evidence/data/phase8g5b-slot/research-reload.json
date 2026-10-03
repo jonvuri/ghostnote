@@ -1,0 +1,751 @@
+{
+ "schema": "phase8g5b-research-reload-v1",
+ "complete": false,
+ "eligible": false,
+ "operatorConfirmation": "Done, P tab focused",
+ "captured": "2026-10-03T08:58:36.051Z",
+ "hello": {
+  "contractVersion": 0,
+  "extensionVersion": "0.0.1",
+  "runtimeProfile": "phase-8-probe-v1",
+  "hostApiVersion": 25,
+  "methodCount": 97,
+  "methodsHash": "f03f19414f40e3d3"
+ },
+ "stats": {
+  "runtimeProfile": "phase-8-probe-v1",
+  "config": {
+   "tracks": 256,
+   "scenes": 128,
+   "gridSteps": 64,
+   "gridKeys": 128,
+   "cursorPool": 8,
+   "sends": 4,
+   "deviceBank": 16,
+   "fineSteps": 2048,
+   "noteReadSteps": 2048,
+   "paramHandles": 64,
+   "remotePages": 16,
+   "cacheScaleObservers": 0,
+   "cacheScaleSteps": 131072,
+   "cacheScaleWidthSteps": 0,
+   "cacheShadowObservers": 2,
+   "cacheShadowSteps": 2048,
+   "cacheLifecycleResearch": true,
+   "contentFilter": "ALL_CHANNELS",
+   "directObservers": true,
+   "stamp": "8g5b-slot-window",
+   "fromFile": true
+  },
+  "rigConstructMicros": 37627,
+  "initMicros": 48583,
+  "initEpochMs": 1791017887362,
+  "upMs": 28717,
+  "slotObjects": 32768,
+  "markedValues": 198400,
+  "resources": {
+   "cursorDeviceBanks": 8,
+   "siblingDeviceBanks": 1,
+   "layerDeviceBanks": 8,
+   "slotDeviceBanks": 15,
+   "namedSlotDeviceBanks": 0,
+   "drumPadDeviceBanks": 16,
+   "deviceBanks": 48,
+   "cursorDeviceSlots": 128,
+   "cursorDeviceEnabledValues": 128,
+   "layerDeviceSlots": 32,
+   "slotDeviceSlots": 60,
+   "drumPadDeviceSlots": 256,
+   "namedSlotDeviceSlots": 0,
+   "deviceSlots": 492,
+   "cursorDevices": 1,
+   "specificDeviceViews": 4,
+   "typedParameterHandles": 75,
+   "remotePageCursors": 16,
+   "remoteParameterHandles": 128,
+   "directParameterObservers": 4,
+   "noteObserverCursors": 1,
+   "noteStepObservers": 1,
+   "stepDataObservers": 1,
+   "cacheScaleCursorTracks": 0,
+   "cacheScaleClipProxies": 0,
+   "cacheScaleStepDataObservers": 0,
+   "trackSendBanks": 0,
+   "trackSendHandles": 0,
+   "trackVuObservers": 0,
+   "historicalActionHandles": 0,
+   "historicalSelectionObservers": 0,
+   "equalsProxies": 32,
+   "transportProxies": 1,
+   "masterRecorderProxies": 0,
+   "cursorTracks": 10,
+   "cursorClips": 12,
+   "layerBanks": 4,
+   "layerHandles": 23,
+   "layerSendBanks": 0,
+   "layerSendHandles": 0,
+   "explicitHostObjects": 33893,
+   "observerCallbacks": 839
+  },
+  "heapUsedMb": 346,
+  "heapMaxMb": 3072
+ },
+ "info": {
+  "health": "invalid",
+  "reason": "lifecycle-unverified",
+  "initDomain": "5287eafa-d2e2-4c7b-814d-7a65d57e43f9",
+  "projectGeneration": 2,
+  "structuralEpoch": 1,
+  "rebuildGeneration": 1,
+  "entries": 0,
+  "resident": 0,
+  "warming": 0,
+  "dirty": 0,
+  "occupiedCoordinates": 0,
+  "pendingCoordinates": 0,
+  "rejectedCallbacks": 0,
+  "recorderEstimatedBytes": 0,
+  "retainedSnapshotEstimatedBytes": 0,
+  "retainedNoteRecords": 0,
+  "constructionMs": 1.064708,
+  "replayMs": 0,
+  "rebuildMs": 0,
+  "pingP95Ms": 0,
+  "hits": 0,
+  "misses": 0,
+  "evictions": 0,
+  "invalidations": 0,
+  "domainObjects": {
+   "clipEntryRecords": 0,
+   "bindingTokenRecords": 0,
+   "occupiedCoordinateEntries": 0,
+   "dirtyCoordinateEntries": 0,
+   "membershipNoteRecords": 0,
+   "occupiedNoteLists": 0,
+   "retainedSnapshotRecords": 0,
+   "retainedNoteRecords": 0,
+   "retainedFieldEntries": 0,
+   "retainedMetadataEntries": 0,
+   "witnessReferences": 0,
+   "identityAndWitnessEstimatedBytes": 112
+  },
+  "resources": {
+   "residentRecorderEstimatedBytes": 0,
+   "stagingRecorderEstimatedBytes": 0,
+   "externalRecorderEstimatedBytes": 0,
+   "recorderDomainEstimatedBytes": 0,
+   "recorderLimitBytes": 16777216,
+   "retainedSnapshotEstimatedBytes": 0,
+   "candidateSnapshotEstimatedBytes": 0,
+   "snapshotDomainEstimatedBytes": 0,
+   "snapshotLimitBytes": 16777216,
+   "identityAndWitnessEstimatedBytes": 112,
+   "candidatePhase": "none",
+   "candidateReason": "none",
+   "heapMeasured": false
+  },
+  "inventoryControlRevision": "8g-inventory-preparation-v1",
+  "inventoryControlMaximumBatchCells": 64,
+  "authorityBindingRevision": "8g-authority-transition-v1",
+  "authorityControlSearchCells": 0,
+  "authorityControlSearchMs": 0,
+  "authorityControlSearchReason": "not-started",
+  "authorityDistinctControlConfirmed": false,
+  "residentHandles": 2,
+  "handlePool": [
+   {
+    "index": 0,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 1,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   }
+  ],
+  "exactFallbackActive": false,
+  "unusedBindingHandles": 2,
+  "inventoryEnumerated": false,
+  "inventoryClipEntries": 0,
+  "rebuildTerminal": false,
+  "registryPublished": false,
+  "registryPendingSlotConfirmation": false,
+  "authorityHandles": 1,
+  "stepDataObservers": 3,
+  "shadowStepDataObservers": 3,
+  "totalExperimentalStepDataObservers": 7,
+  "combinedObserverBudgetAdmitted": true,
+  "constructionMeasurementAvailable": true,
+  "pingMeasurementAvailable": false,
+  "requestedReplayMeasurementAvailable": false,
+  "cacheBudgetMeasurementsComplete": false,
+  "automaticIdentityProbeAttached": true,
+  "automaticIdentityEpoch": 409,
+  "automaticIdentityInvalidations": 1,
+  "automaticIdentityPoisoned": false,
+  "automaticIdentityReason": "step-delta-read-window-required",
+  "identityWitnessAvailable": false,
+  "identityContinuityProved": false,
+  "continuityProtocol": "step-delta-read-window-v1",
+  "stepDataDeliveryAssumption": "D26",
+  "callbackOrderingRule": "E217-later-callback-after-batch",
+  "stepWindowCallbacks": 0,
+  "stepWindowBindingRevision": 3,
+  "stepWindowReadsOpened": 0,
+  "stepWindowConfirmations": 0,
+  "stepWindowChanges": 0,
+  "stepWindowRefusals": 0,
+  "retainedStepWindowDiscards": 0,
+  "inventoryPublicationSupported": true,
+  "slotWindowProtocol": "slot-delta-read-window-v1",
+  "slotDeliveryAssumption": "unaccepted",
+  "clipIdentityFromOccupancy": false,
+  "slotWindowValue": {
+   "initNonce": "1a7c988f-0894-430e-8721-3c5668429731",
+   "identityEpoch": 409,
+   "structure": 1632,
+   "slots": 32770
+  },
+  "slotWindowState": "none",
+  "slotWindowReadsOpened": 0,
+  "slotWindowConfirmations": 0,
+  "slotWindowChanges": 0,
+  "slotWindowRefusals": 0,
+  "lastSlotWindowRefusal": {},
+  "slotSourceResources": {
+   "slotObserverKind": "ClipLauncherSlotBank.addHasContentObserver",
+   "slotObservers": 256,
+   "observedSlotHandles": 32768,
+   "admittedTracks": 16,
+   "admittedScenes": 128,
+   "newHostHandles": 0,
+   "stepDataObservers": 0,
+   "heapMeasured": false
+  },
+  "liveAcquisitionSupported": false,
+  "hostModel": false,
+  "hostInputFenceProved": false,
+  "identityGuardHostWorkMs": 5.110042,
+  "authoritySettlementObservers": 1,
+  "steps": 2048,
+  "grid": 0.001953125,
+  "cacheBankConstructionMs": 1.064708,
+  "canaryPassed": false,
+  "cacheModelHealth": "invalid",
+  "cacheModelReason": "project-generation-changed",
+  "complete": false,
+  "eligible": false,
+  "readMode": "refuse",
+  "authorityAvailable": false,
+  "fallbackPerformed": false,
+  "lifecycleSignalsSupported": false,
+  "projectScopeComplete": false,
+  "lifecycleFallback": "project-lifecycle-fence-unproved",
+  "optionalLifecycleWitnessSupported": true,
+  "instrumentationRevision": "8g5b-slot-window-v1",
+  "topologyUsable": true,
+  "topologyControlRevision": "8g5a-uuid-group-master-v1",
+  "observerKind": "addStepDataObserver",
+  "rebindPolicy": "preserve-current-or-forced-canary-transition",
+  "callbackSourceIdentityKnown": false,
+  "physicalPendingHints": 0,
+  "physicalHintDrops": 0,
+  "physicalHintOverflow": false,
+  "physicalHintRecorderEstimatedBytes": 512,
+  "pendingWorkItemsIncludingPhysicalHints": 0,
+  "comparison": "not-run",
+  "fallbackReason": "callback:masterChannelId",
+  "authorityScans": 0,
+  "matches": 0,
+  "mismatches": 0,
+  "mismatchesByCause": {},
+  "comparisonRefusalsByCause": {},
+  "windowChanges": 0,
+  "membershipGetStepCalls": 0,
+  "authorityGetStepCalls": 0,
+  "enrichmentGetStepCalls": 0,
+  "membershipHostWorkMs": 0,
+  "authorityHostWorkMs": 0,
+  "enrichmentHostWorkMs": 0,
+  "acquisitionNoteObjectsAllocated": 0,
+  "acquisitionMutableFieldMapObjectsAllocated": 0,
+  "allocationCountsScope": "explicit adapter allocations; excludes host and domain copies",
+  "acquisitionListObjectsAllocated": 0,
+  "lastSnapshotSerializedBytes": 0,
+  "lastAuthoritySerializedBytes": 0,
+  "serializedBytesAreMemoryMeasurement": false,
+  "durationTimingBasis": "R07-nearest-1/512-ties-up-minimum-one-cell",
+  "gainDomain": "host-amplitude-ratio-portable-amplitude-ratio",
+  "scanStagingNoteObjects": 0,
+  "scanStagingPayloadEstimatedBytes": 0,
+  "resourceAccounting": {
+   "residentRecorderEstimatedBytes": 0,
+   "stagingRecorderEstimatedBytes": 0,
+   "externalRecorderEstimatedBytes": 0,
+   "recorderDomainEstimatedBytes": 0,
+   "recorderLimitBytes": 16777216,
+   "retainedSnapshotEstimatedBytes": 0,
+   "candidateSnapshotEstimatedBytes": 0,
+   "snapshotDomainEstimatedBytes": 0,
+   "snapshotLimitBytes": 16777216,
+   "identityAndWitnessEstimatedBytes": 112,
+   "candidatePhase": "none",
+   "candidateReason": "none",
+   "heapMeasured": false,
+   "physicalHintQueueEstimatedBytes": 0,
+   "comparisonAuthorityStagingEstimatedBytes": 0,
+   "exactAuthorityStagingEstimatedBytes": 0,
+   "authorityDomainEstimatedBytes": 0,
+   "authorityLimitBytes": 16777216,
+   "registryAttemptEstimatedBytes": 0,
+   "registryAttemptLimitBytes": 16777216,
+   "totalEstimatedBytes": 112,
+   "combinedLimitSelected": false,
+   "hostMemoryMeasured": false,
+   "serializedBytesAreMemoryMeasurement": false,
+   "accountingRevision": "8g3-resource-accounting-v1",
+   "topologyControl": {
+    "maximumTracks": 16,
+    "banks": 17,
+    "bankTrackHandles": 272,
+    "parentTrackHandles": 16,
+    "stepDataObservers": 0,
+    "heapMeasured": false,
+    "hostMemoryMeasured": false,
+    "selectedRoute": "direct-child-banks-with-uuid-group-master",
+    "parentHandlesDiagnosticOnly": true
+   }
+  },
+  "enrichmentBatches": 0,
+  "lastScanPhaseTimesMs": {},
+  "lastSnapshotCandidate": {}
+ },
+ "delivery": {
+  "marker": "e216-delivery-coherence-v1",
+  "orderingMarker": "e217-callback-ordering-v2",
+  "slotMarker": "e222-slot-delivery-v1",
+  "slotCallbacks": 34,
+  "slotSignature": "........,........,........,........",
+  "slotWindowTracks": 4,
+  "slotWindowRows": 8,
+  "slotObservers": 4,
+  "slotHandles": 32,
+  "ordering": false,
+  "researchOnly": true,
+  "complete": false,
+  "eligible": false,
+  "sequence": 52,
+  "nowUs": 28777461,
+  "tickerActive": false,
+  "tickCount": 0,
+  "tickCallbacks": 0,
+  "inTickChanges": 0,
+  "stepCallbacks": 0,
+  "eventsRetained": 52,
+  "ticksRetained": 0,
+  "commandsRetained": 0,
+  "eventsDropped": 0,
+  "ticksDropped": 0,
+  "commandsDropped": 0,
+  "runGeneration": 0,
+  "runRemaining": 0,
+  "runError": "",
+  "signature": "New 6|4c8ad9e5-bca4-48e2-b0de-97016ca9b43a|625fd6bd-07be-4331-8e47-fe3646b5f88e|-|....|....|-|."
+ },
+ "topology": {
+  "topologyControlRevision": "8g5a-uuid-group-master-v1",
+  "researchOnly": true,
+  "complete": false,
+  "eligible": false,
+  "hostInputOrderingProved": false,
+  "maximumTracks": 16,
+  "oracle": "direct-child-banks-with-uuid-group-master",
+  "sequenceBeforeRead": 1630,
+  "tree": {
+   "flat": [
+    {
+     "index": 0,
+     "channelId": "625fd6bd-07be-4331-8e47-fe3646b5f88e",
+     "name": "Inst 1",
+     "position": 0,
+     "isGroup": false,
+     "expanded": false
+    },
+    {
+     "index": 1,
+     "channelId": "1d38c71f-17ee-44f3-8ad7-40b826485efc",
+     "name": "Audio 2",
+     "position": 1,
+     "isGroup": false,
+     "expanded": false
+    },
+    {
+     "index": 2,
+     "channelId": "880f11b0-4c7d-4962-9a08-e3a720495a18",
+     "name": "FX 1",
+     "position": 2,
+     "isGroup": false,
+     "expanded": false
+    },
+    {
+     "index": 3,
+     "channelId": "4c8ad9e5-bca4-48e2-b0de-97016ca9b43a",
+     "name": "Master",
+     "position": 3,
+     "isGroup": false,
+     "expanded": false
+    }
+   ],
+   "roots": {
+    "count": 4,
+    "offset": 0,
+    "ids": [
+     "625fd6bd-07be-4331-8e47-fe3646b5f88e",
+     "1d38c71f-17ee-44f3-8ad7-40b826485efc",
+     "880f11b0-4c7d-4962-9a08-e3a720495a18",
+     "4c8ad9e5-bca4-48e2-b0de-97016ca9b43a"
+    ]
+   },
+   "children": {}
+  },
+  "sequenceAfterRead": 1630,
+  "callbacksChangedDuringRead": false,
+  "membershipComplete": true,
+  "coherent": true,
+  "groupMembershipProved": true,
+  "wrapperDeletionAllowed": false,
+  "reason": "bounded-uuid-group-master-membership",
+  "candidates": {
+   "revision": "8g5a-topology-candidates-v1",
+   "complete": false,
+   "eligible": false,
+   "routeProved": false,
+   "sequenceBeforeRead": 1630,
+   "resources": {
+    "maximumTracks": 16,
+    "banks": 17,
+    "bankTrackHandles": 272,
+    "parentTrackHandles": 16,
+    "stepDataObservers": 0,
+    "heapMeasured": false,
+    "hostMemoryMeasured": false,
+    "selectedRoute": "direct-child-banks-with-uuid-group-master",
+    "parentHandlesDiagnosticOnly": true
+   },
+   "first": {
+    "flat": {
+     "count": 4,
+     "offset": 0,
+     "ids": [
+      "625fd6bd-07be-4331-8e47-fe3646b5f88e",
+      "1d38c71f-17ee-44f3-8ad7-40b826485efc",
+      "880f11b0-4c7d-4962-9a08-e3a720495a18",
+      "4c8ad9e5-bca4-48e2-b0de-97016ca9b43a"
+     ],
+     "rows": [
+      {
+       "index": 0,
+       "channelId": "625fd6bd-07be-4331-8e47-fe3646b5f88e",
+       "name": "Inst 1",
+       "position": 0,
+       "isGroup": false,
+       "expanded": false
+      },
+      {
+       "index": 1,
+       "channelId": "1d38c71f-17ee-44f3-8ad7-40b826485efc",
+       "name": "Audio 2",
+       "position": 1,
+       "isGroup": false,
+       "expanded": false
+      },
+      {
+       "index": 2,
+       "channelId": "880f11b0-4c7d-4962-9a08-e3a720495a18",
+       "name": "FX 1",
+       "position": 2,
+       "isGroup": false,
+       "expanded": false
+      },
+      {
+       "index": 3,
+       "channelId": "4c8ad9e5-bca4-48e2-b0de-97016ca9b43a",
+       "name": "Master",
+       "position": 3,
+       "isGroup": false,
+       "expanded": false
+      }
+     ]
+    },
+    "roots": {
+     "count": 4,
+     "offset": 0,
+     "ids": [
+      "625fd6bd-07be-4331-8e47-fe3646b5f88e",
+      "1d38c71f-17ee-44f3-8ad7-40b826485efc",
+      "880f11b0-4c7d-4962-9a08-e3a720495a18",
+      "4c8ad9e5-bca4-48e2-b0de-97016ca9b43a"
+     ],
+     "rows": [
+      {
+       "index": 0,
+       "channelId": "625fd6bd-07be-4331-8e47-fe3646b5f88e",
+       "name": "Inst 1",
+       "position": 0,
+       "isGroup": false,
+       "expanded": false
+      },
+      {
+       "index": 1,
+       "channelId": "1d38c71f-17ee-44f3-8ad7-40b826485efc",
+       "name": "Audio 2",
+       "position": 1,
+       "isGroup": false,
+       "expanded": false
+      },
+      {
+       "index": 2,
+       "channelId": "880f11b0-4c7d-4962-9a08-e3a720495a18",
+       "name": "FX 1",
+       "position": 2,
+       "isGroup": false,
+       "expanded": false
+      },
+      {
+       "index": 3,
+       "channelId": "4c8ad9e5-bca4-48e2-b0de-97016ca9b43a",
+       "name": "Master",
+       "position": 3,
+       "isGroup": false,
+       "expanded": false
+      }
+     ]
+    },
+    "parents": {
+     "625fd6bd-07be-4331-8e47-fe3646b5f88e": {
+      "exists": true,
+      "row": {
+       "index": 0,
+       "channelId": "4c8ad9e5-bca4-48e2-b0de-97016ca9b43a",
+       "name": "Project",
+       "position": -1,
+       "isGroup": true,
+       "expanded": false
+      }
+     },
+     "1d38c71f-17ee-44f3-8ad7-40b826485efc": {
+      "exists": true,
+      "row": {
+       "index": 1,
+       "channelId": "4c8ad9e5-bca4-48e2-b0de-97016ca9b43a",
+       "name": "Project",
+       "position": -1,
+       "isGroup": true,
+       "expanded": false
+      }
+     },
+     "880f11b0-4c7d-4962-9a08-e3a720495a18": {
+      "exists": true,
+      "row": {
+       "index": 2,
+       "channelId": "4c8ad9e5-bca4-48e2-b0de-97016ca9b43a",
+       "name": "Project",
+       "position": -1,
+       "isGroup": true,
+       "expanded": false
+      }
+     },
+     "4c8ad9e5-bca4-48e2-b0de-97016ca9b43a": {
+      "exists": true,
+      "row": {
+       "index": 3,
+       "channelId": "4c8ad9e5-bca4-48e2-b0de-97016ca9b43a",
+       "name": "Project",
+       "position": -1,
+       "isGroup": true,
+       "expanded": false
+      }
+     }
+    },
+    "children": {}
+   },
+   "second": {
+    "flat": {
+     "count": 4,
+     "offset": 0,
+     "ids": [
+      "625fd6bd-07be-4331-8e47-fe3646b5f88e",
+      "1d38c71f-17ee-44f3-8ad7-40b826485efc",
+      "880f11b0-4c7d-4962-9a08-e3a720495a18",
+      "4c8ad9e5-bca4-48e2-b0de-97016ca9b43a"
+     ],
+     "rows": [
+      {
+       "index": 0,
+       "channelId": "625fd6bd-07be-4331-8e47-fe3646b5f88e",
+       "name": "Inst 1",
+       "position": 0,
+       "isGroup": false,
+       "expanded": false
+      },
+      {
+       "index": 1,
+       "channelId": "1d38c71f-17ee-44f3-8ad7-40b826485efc",
+       "name": "Audio 2",
+       "position": 1,
+       "isGroup": false,
+       "expanded": false
+      },
+      {
+       "index": 2,
+       "channelId": "880f11b0-4c7d-4962-9a08-e3a720495a18",
+       "name": "FX 1",
+       "position": 2,
+       "isGroup": false,
+       "expanded": false
+      },
+      {
+       "index": 3,
+       "channelId": "4c8ad9e5-bca4-48e2-b0de-97016ca9b43a",
+       "name": "Master",
+       "position": 3,
+       "isGroup": false,
+       "expanded": false
+      }
+     ]
+    },
+    "roots": {
+     "count": 4,
+     "offset": 0,
+     "ids": [
+      "625fd6bd-07be-4331-8e47-fe3646b5f88e",
+      "1d38c71f-17ee-44f3-8ad7-40b826485efc",
+      "880f11b0-4c7d-4962-9a08-e3a720495a18",
+      "4c8ad9e5-bca4-48e2-b0de-97016ca9b43a"
+     ],
+     "rows": [
+      {
+       "index": 0,
+       "channelId": "625fd6bd-07be-4331-8e47-fe3646b5f88e",
+       "name": "Inst 1",
+       "position": 0,
+       "isGroup": false,
+       "expanded": false
+      },
+      {
+       "index": 1,
+       "channelId": "1d38c71f-17ee-44f3-8ad7-40b826485efc",
+       "name": "Audio 2",
+       "position": 1,
+       "isGroup": false,
+       "expanded": false
+      },
+      {
+       "index": 2,
+       "channelId": "880f11b0-4c7d-4962-9a08-e3a720495a18",
+       "name": "FX 1",
+       "position": 2,
+       "isGroup": false,
+       "expanded": false
+      },
+      {
+       "index": 3,
+       "channelId": "4c8ad9e5-bca4-48e2-b0de-97016ca9b43a",
+       "name": "Master",
+       "position": 3,
+       "isGroup": false,
+       "expanded": false
+      }
+     ]
+    },
+    "parents": {
+     "625fd6bd-07be-4331-8e47-fe3646b5f88e": {
+      "exists": true,
+      "row": {
+       "index": 0,
+       "channelId": "4c8ad9e5-bca4-48e2-b0de-97016ca9b43a",
+       "name": "Project",
+       "position": -1,
+       "isGroup": true,
+       "expanded": false
+      }
+     },
+     "1d38c71f-17ee-44f3-8ad7-40b826485efc": {
+      "exists": true,
+      "row": {
+       "index": 1,
+       "channelId": "4c8ad9e5-bca4-48e2-b0de-97016ca9b43a",
+       "name": "Project",
+       "position": -1,
+       "isGroup": true,
+       "expanded": false
+      }
+     },
+     "880f11b0-4c7d-4962-9a08-e3a720495a18": {
+      "exists": true,
+      "row": {
+       "index": 2,
+       "channelId": "4c8ad9e5-bca4-48e2-b0de-97016ca9b43a",
+       "name": "Project",
+       "position": -1,
+       "isGroup": true,
+       "expanded": false
+      }
+     },
+     "4c8ad9e5-bca4-48e2-b0de-97016ca9b43a": {
+      "exists": true,
+      "row": {
+       "index": 3,
+       "channelId": "4c8ad9e5-bca4-48e2-b0de-97016ca9b43a",
+       "name": "Project",
+       "position": -1,
+       "isGroup": true,
+       "expanded": false
+      }
+     }
+    },
+    "children": {}
+   },
+   "coherent": true,
+   "sequenceAfterRead": 1630
+  }
+ },
+ "tracks": {
+  "tracks": [
+   {
+    "index": 0,
+    "name": "Inst 1",
+    "position": 0,
+    "type": "Instrument",
+    "channelId": "625fd6bd-07be-4331-8e47-fe3646b5f88e"
+   },
+   {
+    "index": 1,
+    "name": "Audio 2",
+    "position": 1,
+    "type": "Audio",
+    "channelId": "1d38c71f-17ee-44f3-8ad7-40b826485efc"
+   },
+   {
+    "index": 2,
+    "name": "FX 1",
+    "position": 2,
+    "type": "Effect",
+    "channelId": "880f11b0-4c7d-4962-9a08-e3a720495a18"
+   },
+   {
+    "index": 3,
+    "name": "Master",
+    "position": 3,
+    "type": "Master",
+    "channelId": "4c8ad9e5-bca4-48e2-b0de-97016ca9b43a"
+   }
+  ],
+  "count": 4,
+  "itemCount": 4,
+  "bankSize": 256
+ }
+}

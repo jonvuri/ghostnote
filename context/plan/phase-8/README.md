@@ -345,9 +345,10 @@ owns the migration details.
    topology/ordering in 8g3–8g4. Gate scope is project-wide occupancy: run
    [8g5a](8g5a-group-topology-support.md) now passes bounded group topology.
    [E221](../../evidence/experiments/e221-group-topology-candidates.md) records
-   the 16-track limit and collapsed child clip binding refusal. Run slot
-   inventory in [8g5b](8g5b-slot-inventory-delivery.md) and combined storage in
-   [8g5c](8g5c-combined-storage-limit.md),
+   the 16-track limit and collapsed child clip binding refusal.
+   [8g5b](8g5b-slot-inventory-delivery.md) passes covered occupancy in
+   [E222](../../evidence/experiments/e222-slot-delivery-and-occupancy-window.md)
+   under D28. Run combined storage in [8g5c](8g5c-combined-storage-limit.md),
    then final shadow acceptance in [8g5](8g5-final-shadow-acceptance.md).
    E131 remains authoritative.
 28. [8h — Cache promotion and interface simplification](8h-cache-promotion-and-interface-simplification.md).

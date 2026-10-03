@@ -81,6 +81,7 @@ public final class ShadowCacheHandlers extends HandlerGroup {
         return switch (operation) {
             case "info" -> probe.info();
             case "inventory" -> probe.inventory(rig);
+            case "inventoryList" -> probe.inventoryList(rig);
             case "rebuild" -> probe.rebuildInventory(rig);
             case "rebuildBegin" -> probe.beginInventoryRebuild(rig);
             case "rebuildPoll" -> params.has("maxCells")

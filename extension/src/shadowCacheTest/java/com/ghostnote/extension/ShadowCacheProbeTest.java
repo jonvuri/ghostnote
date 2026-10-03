@@ -99,6 +99,13 @@ public final class ShadowCacheProbeTest {
         run("8g3: one resource accounting boundary", ShadowCacheProbeTest::resourceAccounting);
         run("8g4: unknown topology retires pending and retained output", ShadowCacheProbeTest::topologyRefusal);
         run("8g4: progress reads never advance acquisition", ShadowCacheProbeTest::progressRead);
+        run("8g5b slot window: confirmation admits occupancy without identity", ShadowCacheProbeTest::slotAdmits);
+        run("8g5b slot window: a slot callback during enumeration refuses", ShadowCacheProbeTest::slotDuringEnumeration);
+        run("8g5b slot window: a mid-batch read refuses after the batch remainder", ShadowCacheProbeTest::slotMidBatch);
+        run("8g5b slot window: structure callbacks refuse", ShadowCacheProbeTest::slotStructure);
+        run("8g5b slot window: later callbacks discard retained occupancy", ShadowCacheProbeTest::slotRetained);
+        run("8g5b slot window: delete and recreate without a callback mints no identity", ShadowCacheProbeTest::slotRecreateBoundary);
+        run("8g5b slot window: coverage and identity refusals", ShadowCacheProbeTest::slotRefusals);
         System.out.println("Shadow cache adapter: " + passed + " test groups passed.");
     }
 
@@ -649,6 +656,173 @@ public final class ShadowCacheProbeTest {
 
     private static final String CHAIN = "tracks.0.devices.0.layers.0.channelId";
     private static final String CHAIN_EXISTS = "tracks.0.devices.0.layers.0.exists";
+
+    // 8g5b slot-delta window. Scheduled tasks model D27: a task runs after the batch remainder.
+    private static final class FakeSlots implements ShadowCacheProbe.SlotSource {
+        final List<String> tracks = List.of("A", "B", "C");
+        final int rows = 8;
+        final java.util.Set<Address> occupied = new java.util.LinkedHashSet<>();
+        long slotCallbacks, structureCallbacks, reads;
+        String refusal;
+        /** One delivered hasContent callback. A coalesced change calls set() only. */
+        void callback(Address address, boolean has) { set(address, has); slotCallbacks++; }
+        void set(Address address, boolean has) { if (has) occupied.add(address); else occupied.remove(address); }
+        public long slotCallbacks() { return slotCallbacks; }
+        public long structureCallbacks() { return structureCallbacks; }
+        public String coverageRefusal() { return refusal; }
+        public long maximumCells() { return (long) tracks.size() * rows; }
+        public JsonObject resources() { return new JsonObject(); }
+        public ShadowInventoryRebuild.InventoryProvider inventory(Coverage coverage) {
+            return new ShadowInventoryRebuild.InventoryProvider() {
+                public long cellCount() { return (long) tracks.size() * rows; }
+                public boolean fullInventory() { return refusal == null; }
+                public ShadowInventoryRebuild.Slot read(long index) {
+                    reads++;
+                    Address address = new Address(tracks.get((int) (index / rows)), (int) (index % rows));
+                    return occupied.contains(address) ? new ShadowInventoryRebuild.Slot(address, coverage) : null;
+                }
+            };
+        }
+    }
+    private record SlotFixture(Fixture f, FakeSlots slots) {}
+    private static SlotFixture slotFixture() {
+        IdentityFixture i = stepFixture(); FakeSlots slots = new FakeSlots();
+        slots.set(new Address("A", 0), true); slots.set(new Address("C", 5), true);
+        i.f.probe.attachSlotSource(slots);
+        return new SlotFixture(i.f, slots);
+    }
+    private static java.util.Map<Address, String> listed(JsonObject result) {
+        java.util.Map<Address, String> rows = new java.util.LinkedHashMap<>();
+        for (var value : result.getAsJsonArray("occupancy")) {
+            JsonObject row = value.getAsJsonObject();
+            rows.put(new Address(row.get("trackId").getAsString(), row.get("row").getAsInt()), row.get("ref").getAsString());
+        }
+        return rows;
+    }
+    private static void noOccupancy(JsonObject result, String reason) {
+        noOutput(result);
+        check(!result.get("occupancyAdmitted").getAsBoolean() && !result.has("occupancy"), "refused occupancy has no rows: " + result.get("reason"));
+        check(result.get("reason").getAsString().equals(reason), "occupancy refusal is " + reason + ", not " + result.get("reason"));
+    }
+
+    private static void slotAdmits() throws Exception {
+        SlotFixture s = slotFixture(); Fixture f = s.f();
+        JsonObject published = f.probe.inventory(null);
+        check(!published.get("registryPublished").getAsBoolean() && published.get("registryPendingSlotConfirmation").getAsBoolean()
+            && !published.get("inventoryEnumerated").getAsBoolean(), "a complete scan stays pending inside its read callback");
+        noOccupancy(f.probe.inventoryList(null), "slot-window-pending");
+        f.host.runTasks();
+        JsonObject list = f.probe.inventoryList(null);
+        check(list.get("occupancyAdmitted").getAsBoolean() && list.get("registryPublished").getAsBoolean(), "a later confirmation admits occupancy");
+        check(listed(list).keySet().equals(s.slots().occupied), "published occupancy equals the source");
+        check(!list.get("clipIdentityClaimed").getAsBoolean() && !list.get("clipIdentityFromOccupancy").getAsBoolean()
+            && !list.get("complete").getAsBoolean() && !list.get("eligible").getAsBoolean(), "occupancy claims no identity or eligibility");
+        check(list.get("slotWindowConfirmations").getAsLong() == 1, "one confirmation admits one read");
+    }
+
+    private static void slotDuringEnumeration() throws Exception {
+        SlotFixture s = slotFixture(); Fixture f = s.f();
+        f.probe.beginInventoryRebuild(null);
+        f.probe.pollInventoryRebuild(null, 4);
+        s.slots().callback(new Address("B", 7), true);
+        JsonObject result = f.probe.pollInventoryRebuild(null, 64);
+        check(!result.get("registryPublished").getAsBoolean() && result.get("fallbackReason").getAsString().equals("slot-window-changed"),
+            "a slot callback during enumeration refuses");
+        f.host.runTasks();
+        noOccupancy(f.probe.inventoryList(null), "slot-window-changed");
+        long reads = s.slots().reads;
+        f.probe.pollInventoryRebuild(null);
+        check(s.slots().reads == reads, "a refused attempt cannot resume or retry");
+        f.probe.rebuildInventory(null); f.host.runTasks();
+        JsonObject recovered = f.probe.inventoryList(null);
+        check(recovered.get("occupancyAdmitted").getAsBoolean() && listed(recovered).containsKey(new Address("B", 7)),
+            "an explicit new attempt reads the new occupancy");
+    }
+
+    private static void slotMidBatch() throws Exception {
+        SlotFixture s = slotFixture(); Fixture f = s.f();
+        // The read runs between the two halves of one batch: Q occupancy appears, then P returns.
+        Address foreign = new Address("B", 3);
+        s.slots().set(foreign, true); s.slots().set(new Address("A", 0), false);
+        JsonObject read = f.probe.inventory(null);
+        check(read.get("registryPendingSlotConfirmation").getAsBoolean(), "the foreign read is still pending");
+        s.slots().callback(new Address("A", 0), false); s.slots().callback(foreign, true);
+        s.slots().callback(foreign, false); s.slots().callback(new Address("A", 0), true);
+        f.host.runTasks();
+        noOccupancy(f.probe.inventoryList(null), "slot-window-changed");
+        check(f.probe.info().get("slotWindowRefusals").getAsLong() == 1, "the refusal is counted once");
+    }
+
+    private static void slotStructure() throws Exception {
+        SlotFixture s = slotFixture(); Fixture f = s.f();
+        f.probe.inventory(null);
+        s.slots().structureCallbacks++;
+        f.host.runTasks();
+        noOccupancy(f.probe.inventoryList(null), "slot-window-changed");
+        f.probe.rebuildInventory(null);
+        f.host.runTasks();
+        check(f.probe.inventoryList(null).get("occupancyAdmitted").getAsBoolean(), "explicit recovery confirms a new window");
+        s.slots().structureCallbacks++;
+        noOccupancy(f.probe.inventoryList(null), "slot-window-changed");
+    }
+
+    private static void slotRetained() throws Exception {
+        SlotFixture s = slotFixture(); Fixture f = s.f();
+        f.probe.inventory(null); f.host.runTasks();
+        java.util.Map<Address, String> first = listed(f.probe.inventoryList(null));
+        s.slots().callback(new Address("A", 0), false);
+        noOccupancy(f.probe.inventoryList(null), "slot-window-changed");
+        check(!f.probe.info().get("registryPublished").getAsBoolean(), "retained occupancy is discarded");
+        // A late confirmation from the old read cannot revive the publication.
+        f.host.runTasks();
+        noOccupancy(f.probe.inventoryList(null), "slot-window-changed");
+        s.slots().callback(new Address("A", 0), true);
+        f.probe.rebuildInventory(null); f.host.runTasks();
+        java.util.Map<Address, String> second = listed(f.probe.inventoryList(null));
+        check(second.keySet().equals(first.keySet()), "equal occupancy returns");
+        for (Address address : first.keySet())
+            check(!first.get(address).equals(second.get(address)), "each rebuild mints new references at equal occupancy");
+    }
+
+    private static void slotRecreateBoundary() throws Exception {
+        SlotFixture s = slotFixture(); Fixture f = s.f();
+        f.probe.inventory(null); f.host.runTasks();
+        java.util.Map<Address, String> first = listed(f.probe.inventoryList(null));
+        // A coalesced delete and recreate leaves equal occupancy and no callback. Occupancy stays correct.
+        s.slots().set(new Address("A", 0), false); s.slots().set(new Address("A", 0), true);
+        JsonObject same = f.probe.inventoryList(null);
+        check(same.get("occupancyAdmitted").getAsBoolean() && listed(same).equals(first),
+            "equal occupancy without a callback is still correct occupancy");
+        check(!same.get("clipIdentityClaimed").getAsBoolean(), "the publication claims no identity across the recreate");
+        f.probe.rebuildInventory(null); f.host.runTasks();
+        check(!listed(f.probe.inventoryList(null)).get(new Address("A", 0)).equals(first.get(new Address("A", 0))),
+            "a new rebuild mints a new reference; it is never inferred from equal occupancy");
+        // A changed occupancy without a callback is the documented assumption boundary, not a defect.
+        s.slots().set(new Address("C", 6), true);
+        JsonObject boundary = f.probe.inventoryList(null);
+        check(boundary.get("occupancyAdmitted").getAsBoolean() && !listed(boundary).containsKey(new Address("C", 6)),
+            "an occupancy change without a callback is outside the window guarantee");
+    }
+
+    private static void slotRefusals() throws Exception {
+        SlotFixture s = slotFixture(); Fixture f = s.f();
+        s.slots().refusal = "slot-coverage-track-limit";
+        JsonObject refused = f.probe.inventory(null);
+        check(refused.get("reason").getAsString().equals("slot-coverage-track-limit") && !refused.get("registryPublished").getAsBoolean(),
+            "incomplete slot coverage refuses");
+        check(!f.probe.inventoryList(null).has("occupancy"), "incomplete coverage lists nothing");
+        s.slots().refusal = null;
+        f.probe.inventory(null); f.host.runTasks();
+        check(f.probe.inventoryList(null).get("occupancyAdmitted").getAsBoolean(), "complete coverage admits again");
+        f.probe.lifecycle("switch");
+        noOccupancy(f.probe.inventoryList(null), f.probe.info().get("fallbackReason").getAsString());
+        check(f.cache().diagnostics().entries() == 0, "a lifecycle change removes occupancy");
+        Fixture plain = new Fixture();
+        ShadowCacheProbe live = new ShadowCacheProbe(plain.host.host(), plain.config);
+        live.attachSlotSource(new FakeSlots());
+        noOutput(live.inventory(null));
+        check(!live.info().get("registryPublished").getAsBoolean(), "a slot source without an identity probe still refuses");
+    }
 
     private static IdentityFixture identityFixture() {
         Fixture f = new Fixture();

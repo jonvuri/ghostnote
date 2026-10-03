@@ -2,7 +2,7 @@
 title: Phase 8g5c — Combined storage limit
 kind: plan
 state: active
-status: Pending. Run after 8g5b. Measure topology scale, support at least 256 base tracks, and select one total cache storage limit.
+status: Pending. Run next; 8g5b is complete. Measure topology scale, support at least 256 base tracks, and select one total cache storage limit.
 updated: 2026-10-03
 parent: 8g-shadow-project-cache.md
 prev: 8g5b-slot-inventory-delivery.md
@@ -16,7 +16,10 @@ next: 8g5-final-shadow-acceptance.md
 [E219](../../evidence/experiments/e219-snapshot-budgets-and-combined-storage.md)
 sums every cache-owned estimate in one ledger, but each domain applies only its
 own limit. No total limit is selected. Java heap and host memory are not
-measured. 8g5a topology handles and 8g5b slot observers add new costs.
+measured. 8g5a topology handles add new costs. The 8g5b occupancy source adds
+no host handles; it reuses the rig's 256 `hasContent` observers over 32,768
+slots ([E222](../../evidence/experiments/e222-slot-delivery-and-occupancy-window.md)).
+Its admission limit (16 tracks, 128 scenes) must rise with the topology limit.
 
 The operator requires support for at least 256 instrument/audio tracks.
 Group wrappers, FX tracks, and Master need additional capacity. The current

@@ -1,0 +1,3 @@
+{ "schema": "phase8g5b-declaration-v1", "trial": "api-delete-in-collapsed-child", "expectedProject": "New 6",
+  "instruction": "Controller slot.delete on Inst 1 row 5 while Group 1 is collapsed. A native gesture cannot reach a hidden child.",
+  "operations": [{ "op": "delete", "trackId": "625fd6bd-07be-4331-8e47-fe3646b5f88e", "row": 5 }] }

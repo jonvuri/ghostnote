@@ -101,6 +101,8 @@ public final class ShadowTopologyControl {
     }
     public void addInvalidationListener(Runnable listener) { this.listener = java.util.Objects.requireNonNull(listener); }
     void changed() { sequence = Math.incrementExact(sequence); listener.run(); }
+    /** Count of delivered topology callbacks. It makes no host read. */
+    public long sequence() { return sequence; }
     private void mark(TrackBank bank, int size) {
         bank.itemCount().markInterested(); bank.scrollPosition().markInterested();
         bank.itemCount().addValueObserver(v -> changed()); bank.scrollPosition().addValueObserver(v -> changed());

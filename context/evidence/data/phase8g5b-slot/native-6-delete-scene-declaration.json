@@ -1,0 +1,3 @@
+{ "schema": "phase8g5b-declaration-v1", "trial": "native-delete-scene", "expectedProject": "New 6",
+  "instruction": "Delete the empty scene 3 that trial 5 inserted.",
+  "operations": [{ "op": "deleteScene", "row": 2 }] }

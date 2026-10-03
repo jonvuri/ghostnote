@@ -20,8 +20,9 @@ required predicates and moved them to focused sessions:
 1. [8g5a — Group topology support](8g5a-group-topology-support.md): E221
    proves the bounded group route. Collapsed child canary rebinding
    still refuses; state that limit in the supported-state matrix.
-2. [8g5b — Slot inventory delivery](8g5b-slot-inventory-delivery.md): live slot
-   inventory refuses today.
+2. [8g5b — Slot inventory delivery](8g5b-slot-inventory-delivery.md): E222
+   passes covered occupancy under D28. Equal occupancy is never an identity
+   witness; state that limit in the supported-state matrix.
 3. [8g5c — Combined storage limit](8g5c-combined-storage-limit.md): no total
    limit is selected, and heap memory is not measured. It must also measure
    topology allocation and implement support for at least 256 instrument/audio

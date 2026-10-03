@@ -2,12 +2,14 @@ package com.ghostnote.extension;
 
 import com.bitwig.extension.controller.api.Action;
 import com.bitwig.extension.controller.api.Application;
+import com.bitwig.extension.controller.api.ClipLauncherSlotBank;
 import com.bitwig.extension.controller.api.ControllerHost;
 import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.NoteStep;
 import com.bitwig.extension.controller.api.PinnableCursorClip;
 import com.bitwig.extension.controller.api.Project;
 import com.bitwig.extension.controller.api.Track;
+import com.bitwig.extension.controller.api.TrackBank;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -27,6 +29,9 @@ public final class DeliveryCoherenceProbe {
     public static final String MARKER = "e216-delivery-coherence-v1";
     /** 8g2b ordering mode: each tick schedules zero-delay confirmations of its step count. */
     public static final String ORDERING_MARKER = "e217-callback-ordering-v2";
+    /** 8g5b slot mode: launcher occupancy in a fixed flat window, with slot callbacks in the same record. */
+    public static final String SLOT_MARKER = "e222-slot-delivery-v1";
+    static final int SLOT_TRACKS = 4, SLOT_ROWS = 8, SLOT_CLIP_BEATS = 4;
     /** Confirmation chain depth per tick. Depth 1 is the rule under test. */
     static final int CONFIRM_DEPTH = 2;
     /** Witness window: keys 60..75 and steps 0..15 at 1/16. */
@@ -43,10 +48,12 @@ public final class DeliveryCoherenceProbe {
     private final Track root;
     private final CursorTrack cursorTrack;
     private final PinnableCursorClip clip;
+    private final TrackBank slotBank;
     private final long originNanos = System.nanoTime();
     private final ArrayDeque<JsonObject> events = new ArrayDeque<>(), ticks = new ArrayDeque<>(), commands = new ArrayDeque<>();
     private long sequence, eventsDropped, ticksDropped, commandsDropped;
-    private long tickCount, tickCallbacks, inTickChanges, stepCallbacks;
+    private long tickCount, tickCallbacks, inTickChanges, stepCallbacks, slotCallbacks;
+    private String lastSlotSignature = "";
     private boolean tickerActive, ordering;
     private long tickerGeneration;
     private String lastTickSignature = "";
@@ -79,6 +86,23 @@ public final class DeliveryCoherenceProbe {
             event.addProperty("state", state);
             push(events, event, EVENT_CAPACITY, true);
         });
+        slotBank = host.createTrackBank(SLOT_TRACKS, 0, SLOT_ROWS, true);
+        for (int t = 0; t < SLOT_TRACKS; t++) {
+            Track track = slotBank.getItemAt(t);
+            track.exists().markInterested();
+            track.channelId().markInterested();
+            ClipLauncherSlotBank slots = track.clipLauncherSlotBank();
+            for (int r = 0; r < SLOT_ROWS; r++) slots.getItemAt(r).hasContent().markInterested();
+            final int trackIndex = t;
+            slots.addHasContentObserver((row, has) -> {
+                slotCallbacks++;
+                JsonObject event = event("slot");
+                event.addProperty("t", trackIndex);
+                event.addProperty("s", row);
+                event.addProperty("has", has);
+                push(events, event, EVENT_CAPACITY, true);
+            });
+        }
     }
 
     private void observe(String name, com.bitwig.extension.controller.api.Value<?> value) {
@@ -129,6 +153,19 @@ public final class DeliveryCoherenceProbe {
         return value.toString();
     }
 
+    /** Occupancy of the fixed slot window. `X` has content, `.` is empty, and `-` is an absent track. */
+    String slotSignature() {
+        StringBuilder value = new StringBuilder(SLOT_TRACKS * (SLOT_ROWS + 1));
+        for (int t = 0; t < SLOT_TRACKS; t++) {
+            if (t > 0) value.append(',');
+            Track track = slotBank.getItemAt(t);
+            boolean exists = track.exists().get();
+            for (int r = 0; r < SLOT_ROWS; r++)
+                value.append(!exists ? '-' : track.clipLauncherSlotBank().getItemAt(r).hasContent().get() ? 'X' : '.');
+        }
+        return value.toString();
+    }
+
     private String witness(int x0, int y) {
         StringBuilder bits = new StringBuilder(WITNESS_WIDTH);
         for (int x = x0; x < x0 + WITNESS_WIDTH; x++) bits.append(stepState(x, y));
@@ -144,27 +181,30 @@ public final class DeliveryCoherenceProbe {
         if (!tickerActive || generation != tickerGeneration) return;
         tickCallbacks++;
         long seqBefore = sequence;
-        String start = signature(), end = signature();
+        String start = signature(), slots = slotSignature(), end = signature(), slotsEnd = slotSignature();
         tickCount++;
-        boolean changedInside = !start.equals(end);
+        boolean changedInside = !start.equals(end) || !slots.equals(slotsEnd);
         if (changedInside) inTickChanges++;
-        if (ordering || changedInside || !start.equals(lastTickSignature) || seqBefore != sequence) {
+        if (ordering || changedInside || !start.equals(lastTickSignature) || !slots.equals(lastSlotSignature) || seqBefore != sequence) {
             JsonObject tick = event("tick");
             tick.addProperty("start", start);
             tick.addProperty("steps", stepCallbacks);
-            if (changedInside) tick.addProperty("end", end);
+            tick.addProperty("slots", slots);
+            tick.addProperty("slotCallbacks", slotCallbacks);
+            if (changedInside) { tick.addProperty("end", end); tick.addProperty("slotsEnd", slotsEnd); }
             push(ticks, tick, TICK_CAPACITY, false);
             if (ordering) {
-                long tickSeq = tick.get("seq").getAsLong(), steps = stepCallbacks;
-                host.scheduleTask(() -> confirm(generation, tickSeq, steps, 1), 0);
+                long tickSeq = tick.get("seq").getAsLong(), steps = stepCallbacks, slotCount = slotCallbacks;
+                host.scheduleTask(() -> confirm(generation, tickSeq, steps, slotCount, 1), 0);
             }
         }
         lastTickSignature = end;
+        lastSlotSignature = slotsEnd;
         host.scheduleTask(() -> tick(generation), 0);
     }
 
     /** Record the step count that a task scheduled from a tick sees. */
-    private void confirm(long generation, long tickSeq, long tickSteps, int depth) {
+    private void confirm(long generation, long tickSeq, long tickSteps, long tickSlots, int depth) {
         // tickSeq names the scheduling callback: a tick or an RPC record.
         if (!tickerActive || generation != tickerGeneration) return;
         JsonObject record = event("confirm");
@@ -172,18 +212,21 @@ public final class DeliveryCoherenceProbe {
         record.addProperty("depth", depth);
         record.addProperty("tickSteps", tickSteps);
         record.addProperty("steps", stepCallbacks);
+        record.addProperty("tickSlotCallbacks", tickSlots);
+        record.addProperty("slotCallbacks", slotCallbacks);
         push(ticks, record, TICK_CAPACITY, false);
-        if (depth < CONFIRM_DEPTH) host.scheduleTask(() -> confirm(generation, tickSeq, tickSteps, depth + 1), 0);
+        if (depth < CONFIRM_DEPTH) host.scheduleTask(() -> confirm(generation, tickSeq, tickSteps, tickSlots, depth + 1), 0);
     }
 
     /** Record one bridge request callback. In ordering mode it also schedules confirmations. */
     public JsonObject ping() {
         JsonObject record = event("rpc");
         record.addProperty("steps", stepCallbacks);
+        record.addProperty("slotCallbacks", slotCallbacks);
         push(ticks, record, TICK_CAPACITY, false);
         if (ordering && tickerActive) {
-            long generation = tickerGeneration, rpcSeq = record.get("seq").getAsLong(), steps = stepCallbacks;
-            host.scheduleTask(() -> confirm(generation, rpcSeq, steps, 1), 0);
+            long generation = tickerGeneration, rpcSeq = record.get("seq").getAsLong(), steps = stepCallbacks, slotCount = slotCallbacks;
+            host.scheduleTask(() -> confirm(generation, rpcSeq, steps, slotCount, 1), 0);
         }
         JsonObject result = new JsonObject();
         result.addProperty("seq", record.get("seq").getAsLong());
@@ -196,7 +239,7 @@ public final class DeliveryCoherenceProbe {
         ordering = orderingMode;
         tickerActive = true;
         long generation = ++tickerGeneration;
-        lastTickSignature = "";
+        lastTickSignature = lastSlotSignature = "";
         host.scheduleTask(() -> tick(generation), 0);
         return status();
     }
@@ -212,8 +255,8 @@ public final class DeliveryCoherenceProbe {
         ticks.clear();
         commands.clear();
         eventsDropped = ticksDropped = commandsDropped = 0;
-        tickCallbacks = inTickChanges = stepCallbacks = 0;
-        lastTickSignature = "";
+        tickCallbacks = inTickChanges = stepCallbacks = slotCallbacks = 0;
+        lastTickSignature = lastSlotSignature = "";
         return status();
     }
 
@@ -221,6 +264,13 @@ public final class DeliveryCoherenceProbe {
         JsonObject result = new JsonObject();
         result.addProperty("marker", MARKER);
         result.addProperty("orderingMarker", ORDERING_MARKER);
+        result.addProperty("slotMarker", SLOT_MARKER);
+        result.addProperty("slotCallbacks", slotCallbacks);
+        result.addProperty("slotSignature", slotSignature());
+        result.addProperty("slotWindowTracks", SLOT_TRACKS);
+        result.addProperty("slotWindowRows", SLOT_ROWS);
+        result.addProperty("slotObservers", SLOT_TRACKS);
+        result.addProperty("slotHandles", SLOT_TRACKS * SLOT_ROWS);
         result.addProperty("ordering", ordering);
         result.addProperty("researchOnly", true);
         result.addProperty("complete", false);
@@ -325,6 +375,13 @@ public final class DeliveryCoherenceProbe {
                 step.get("expectedCursorChannelId").getAsString();
             }
             case "mark" -> step.get("label").getAsString();
+            case "slotCreate", "slotDelete", "slotRecreate" -> {
+                int track = step.get("track").getAsInt(), row = step.get("row").getAsInt();
+                if (track < 0 || track >= SLOT_TRACKS || row < 0 || row >= SLOT_ROWS)
+                    throw new IllegalArgumentException("slot outside the delivery window");
+                step.get("expectedProject").getAsString();
+                step.get("expectedTrackChannelId").getAsString();
+            }
             default -> throw new IllegalArgumentException("unknown delivery step: " + op);
         }
     }
@@ -373,8 +430,31 @@ public final class DeliveryCoherenceProbe {
                 }
             }
             case "mark" -> command(step, "mark");
+            case "slotCreate", "slotDelete", "slotRecreate" -> {
+                Track track = slotGuard(step);
+                int row = step.get("row").getAsInt();
+                var slot = track.clipLauncherSlotBank().getItemAt(row);
+                boolean had = slot.hasContent().get();
+                JsonObject record = command(step, op);
+                record.addProperty("hadContent", had);
+                if (op.equals("slotCreate") == had) throw new IllegalStateException("slot guard refused: hasContent=" + had);
+                // slotRecreate deletes and creates in one callback. Delivered state stays confined until it returns.
+                if (!op.equals("slotCreate")) slot.deleteObject();
+                if (!op.equals("slotDelete")) track.createNewLauncherClip(row, SLOT_CLIP_BEATS);
+            }
             default -> throw new IllegalArgumentException("unknown delivery step: " + op);
         }
+    }
+
+    /** Refuse unless the delivered project name and the window track UUID equal the owned values. */
+    private Track slotGuard(JsonObject step) {
+        String project = application.projectName().get();
+        Track track = slotBank.getItemAt(step.get("track").getAsInt());
+        String channel = track.exists().get() ? track.channelId().get() : "";
+        if (!step.get("expectedProject").getAsString().equals(project)
+            || !step.get("expectedTrackChannelId").getAsString().equals(channel))
+            throw new IllegalStateException("slot guard refused: project=" + project + " track=" + channel);
+        return track;
     }
 
     private void guard(JsonObject step) {

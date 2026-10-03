@@ -1,0 +1,3 @@
+{ "schema": "phase8g5b-declaration-v1", "trial": "native-insert-scene", "expectedProject": "New 6",
+  "instruction": "Insert one new empty scene at position 2. Old scenes 2 and later move down one.",
+  "operations": [{ "op": "insertScene", "row": 1 }] }

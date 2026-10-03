@@ -19,6 +19,8 @@ import static com.ghostnote.extension.ShadowProjectCache.*;
 /** Read-only host adapter. Physical hints do not carry logical callback identity. */
 public final class ShadowCacheProbe {
     private static final Gson JSON = new Gson();
+    /** Deliberate build marker for live reload checks. */
+    public static final String INSTRUMENTATION_REVISION = "8g5b-slot-window-v1";
     private static final int KEYS = 128;
     private static final double BATCH_MS = 40;
     private static final double HOST_WORK_LIMIT_MS = 45;
@@ -77,6 +79,12 @@ public final class ShadowCacheProbe {
     /** 8g2b: one step counter and later-callback confirmation for all shadow observers. */
     private final StepDeltaWindow stepWindow;
     private long stepWindowRefusals, retainedStepWindowDiscards;
+    /** 8g5b: launcher occupancy source and its slot-delta window. Without a source, live inventory keeps the 8g2 refusal. */
+    private SlotSource slotSource;
+    private final SlotDeltaWindow slotWindow;
+    private SlotDeltaWindow.Read slotRead;
+    private long slotWindowRefusals;
+    private JsonObject lastSlotWindowRefusal = new JsonObject();
     /** 8g3: the last ended scan's phase times and candidate status stay as diagnostics only. */
     private JsonObject lastScanPhaseTimes = new JsonObject(), lastCandidate = new JsonObject();
     private long enrichmentBatches;
@@ -455,8 +463,12 @@ public final class ShadowCacheProbe {
             throw new IllegalArgumentException("shadow cache configuration exceeds selected limits");
         scenes = config.scenes;
         coverage = new Coverage(0, config.cacheShadowSteps, true, FIELDS, UNKNOWN, "1/512-beat");
-        stepWindow = new StepDeltaWindow(java.util.UUID.randomUUID().toString(),
+        String windowNonce = java.util.UUID.randomUUID().toString();
+        stepWindow = new StepDeltaWindow(windowNonce,
             () -> identityProbe == null ? 0 : identityProbe.identityEpoch(), task -> host.scheduleTask(task, 0));
+        slotWindow = new SlotDeltaWindow(windowNonce, () -> identityProbe == null ? 0 : identityProbe.identityEpoch(),
+            () -> slotSource == null ? 0 : slotSource.structureCallbacks(),
+            () -> slotSource == null ? 0 : slotSource.slotCallbacks(), task -> host.scheduleTask(task, 0));
         long started = System.nanoTime();
         handlePool = new ShadowHandlePool(config.cacheShadowObservers);
         views = new View[config.cacheShadowObservers];
@@ -474,10 +486,13 @@ public final class ShadowCacheProbe {
     /** Reject unknown structural order. New residence must replay after reset. */
     public void observeRig(Rig rig) {
         currentRig = rig;
+        // A slot or structure callback refuses the inventory window before the structural reset below.
+        slotWindowCurrent();
         String membership = observeTopology();
         if (!topologyUsable) return;
         RootIdentityProbe.IdentityGuard guard = freshIdentityGuard();
         if (!acquisitionAllowed(guard)) return;
+        if (rig == null) return;
         applyPhysicalOverload();
         StringBuilder ids = new StringBuilder();
         ids.append(rig.trackBank.itemCount().get()).append(':');
@@ -517,8 +532,7 @@ public final class ShadowCacheProbe {
         if (inventoryEnumerated) return info();
         if (inventoryRebuild == null || !"enumerating".equals(inventoryRebuild.status().phase())) {
             invalidate("private-inventory-start");
-            inventoryRebuild = inventoryCoordinator(rig);
-            inventoryRebuild.start();
+            startInventoryCoordinator(rig);
         }
         return finishInventoryStep();
     }
@@ -543,9 +557,16 @@ public final class ShadowCacheProbe {
         inventoryEntries = 0;
         physicalOverload = physicalOverloadApplied = false;
         observeRig(rig);
-        inventoryRebuild = inventoryCoordinator(rig);
-        inventoryRebuild.start();
+        startInventoryCoordinator(rig);
         return true;
+    }
+
+    /** Open the slot window before the first slot read. The fixed host model without a source has no window. */
+    private void startInventoryCoordinator(Rig rig) {
+        slotWindow.discard(slotRead);
+        inventoryRebuild = inventoryCoordinator(rig);
+        slotRead = slotSource == null ? null : slotWindow.open();
+        inventoryRebuild.start();
     }
 
     public JsonObject pollInventoryRebuild(Rig rig) {
@@ -568,22 +589,155 @@ public final class ShadowCacheProbe {
     }
 
     /**
-     * Slot inventory reads are outside every step observer's coverage. D26 does not
-     * cover them, so live inventory publication keeps the 8g2 refusal. Only the fixed
-     * host model without an identity probe can publish.
+     * Occupancy source for live inventory. The counters increase on every delivered
+     * callback and make no host reads. Slot reads use the same bank as the slot observers.
      */
-    private boolean inventoryCovered() { return hostModel && identityProbe == null; }
+    public interface SlotSource {
+        long slotCallbacks();
+        long structureCallbacks();
+        /** Null when the full slot space of the current project is inside observer coverage. */
+        String coverageRefusal();
+        ShadowInventoryRebuild.InventoryProvider inventory(Coverage coverage);
+        long maximumCells();
+        /** Observer and handle counts. These are not heap measurements. */
+        JsonObject resources();
+    }
+
+    /** Attach the 8g5b occupancy source. It starts a new inventory domain. */
+    public void attachSlotSource(SlotSource source) {
+        if (slotSource != null) throw new IllegalStateException("slot source already attached");
+        slotSource = java.util.Objects.requireNonNull(source);
+        detachInventoryCoordinator("slot-source-attached");
+    }
+
+    /**
+     * Step observers do not cover slot occupancy. Without a slot source, live inventory
+     * keeps the 8g2 refusal. With a source, occupancy needs a confirmed slot-delta window.
+     * The fixed host model without an identity probe can publish without a window.
+     */
+    private boolean inventoryCovered() { return inventoryCoverageRefusal() == null; }
+
+    private String inventoryCoverageRefusal() {
+        if (slotSource == null) return hostModel && identityProbe == null ? null : "inventory-outside-step-coverage";
+        try { return slotSource.coverageRefusal(); }
+        catch (RuntimeException error) { return "slot-coverage-unavailable"; }
+    }
 
     private JsonObject inventoryRefusal() {
-        detachInventoryCoordinator("inventory-outside-step-coverage");
-        fallbackReason = "inventory-outside-step-coverage";
+        String reason = inventoryCoverageRefusal();
+        if (reason == null) reason = "slot-coverage-unavailable";
+        detachInventoryCoordinator(reason);
+        fallbackReason = reason;
         JsonObject result = info();
-        result.addProperty("reason", "inventory-outside-step-coverage");
+        result.addProperty("reason", reason);
         result.addProperty("terminal", true);
         return result;
     }
 
+    /** Refuse once when a slot or structure callback changed the window. Returns true while the window can still admit. */
+    private boolean slotWindowCurrent() {
+        if (slotRead == null) return true;
+        boolean changed = slotRead.state() == SlotDeltaWindow.State.CHANGED || !slotWindow.unchanged(slotRead);
+        if (!changed) return true;
+        slotWindowRefusals++;
+        lastSlotWindowRefusal = new JsonObject();
+        lastSlotWindowRefusal.add("opened", JSON.toJsonTree(slotRead.value()));
+        lastSlotWindowRefusal.add("current", JSON.toJsonTree(slotWindow.value()));
+        lastSlotWindowRefusal.addProperty("stateBeforeRefusal", slotRead.state().name().toLowerCase());
+        detachInventoryCoordinator("slot-window-changed");
+        fallbackReason = "slot-window-changed";
+        return false;
+    }
+
+    private boolean slotAdmitted() { return slotRead == null ? slotSource == null : slotWindow.admitted(slotRead); }
+
+    private boolean inventoryAdmitted() {
+        return inventoryRebuild != null && inventoryRebuild.status().registryPublished() && slotAdmitted();
+    }
+
+    /**
+     * Return confirmed occupancy. References are minted for each rebuild. They never
+     * claim that a clip is the same clip as in an earlier rebuild.
+     */
+    public JsonObject inventoryList(Rig rig) {
+        if (!inventoryCovered()) return inventoryRefusal();
+        observeRig(rig);
+        boolean admitted = slotWindowCurrent() && inventoryAdmitted();
+        JsonObject result = info();
+        result.addProperty("occupancyAdmitted", admitted);
+        result.addProperty("clipIdentityClaimed", false);
+        if (admitted) {
+            com.google.gson.JsonArray rows = new com.google.gson.JsonArray();
+            for (Map.Entry<Address, String> entry : cache.slotRefs().entrySet()) {
+                JsonObject row = new JsonObject();
+                row.addProperty("trackId", entry.getKey().trackId()); row.addProperty("row", entry.getKey().row());
+                row.addProperty("ref", entry.getValue()); rows.add(row);
+            }
+            result.add("occupancy", rows);
+            result.addProperty("occupancyCount", rows.size());
+        } else {
+            result.addProperty("reason", inventoryRebuild == null ? fallbackReason
+                : slotRead != null && slotRead.state() == SlotDeltaWindow.State.PENDING ? "slot-window-pending" : "inventory-not-published");
+        }
+        return result;
+    }
+
+    /** The 8g5b live provider. Group tracks hold no clip of their own; their slot state is a diagnostic. */
+    public static SlotSource rigSlots(Rig rig, ShadowTopologyControl topology) {
+        java.util.Objects.requireNonNull(rig); java.util.Objects.requireNonNull(topology);
+        int tracks = Math.min(rig.config.tracks, ShadowTopologyControl.MAX_TRACKS);
+        return new SlotSource() {
+            public long slotCallbacks() { return rig.launcherContentEpoch; }
+            public long structureCallbacks() { return Math.addExact(topology.sequence(), rig.sceneCountChanges); }
+            public String coverageRefusal() {
+                if (!"ALL_CHANNELS".equals(rig.contentFilterApplied)) return "slot-coverage-filter-unproved";
+                if (rig.trackBank.scrollPosition().get() != 0) return "slot-coverage-window-scrolled";
+                if (rig.trackBank.itemCount().get() > tracks) return "slot-coverage-track-limit";
+                if (rig.sceneBank.itemCount().get() > rig.config.scenes) return "slot-coverage-scene-limit";
+                return null;
+            }
+            public long maximumCells() { return (long) tracks * rig.config.scenes; }
+            public ShadowInventoryRebuild.InventoryProvider inventory(Coverage coverage) {
+                return new ShadowInventoryRebuild.InventoryProvider() {
+                    public long cellCount() { return (long) rig.trackBank.itemCount().get() * rig.sceneBank.itemCount().get(); }
+                    public boolean fullInventory() { return coverageRefusal() == null; }
+                    public ShadowInventoryRebuild.Slot read(long index) {
+                        int rows = rig.sceneBank.itemCount().get();
+                        Track track = rig.trackBank.getItemAt((int) (index / rows));
+                        String id = track.channelId().get();
+                        if (!track.exists().get() || id == null || id.isEmpty()) throw new IllegalStateException("inventory track unavailable");
+                        int row = (int) (index % rows);
+                        if (track.isGroup().get()) return null;
+                        return track.clipLauncherSlotBank().getItemAt(row).hasContent().get()
+                            ? new ShadowInventoryRebuild.Slot(new Address(id, row), coverage) : null;
+                    }
+                };
+            }
+            public JsonObject resources() {
+                JsonObject result = new JsonObject();
+                result.addProperty("slotObserverKind", "ClipLauncherSlotBank.addHasContentObserver");
+                result.addProperty("slotObservers", rig.config.tracks);
+                result.addProperty("observedSlotHandles", (long) rig.config.tracks * rig.config.scenes);
+                result.addProperty("admittedTracks", tracks);
+                result.addProperty("admittedScenes", rig.config.scenes);
+                result.addProperty("newHostHandles", 0);
+                result.addProperty("stepDataObservers", 0);
+                result.addProperty("heapMeasured", false);
+                return result;
+            }
+        };
+    }
+
     private ShadowInventoryRebuild inventoryCoordinator(Rig rig) {
+        if (slotSource != null) {
+            return new ShadowInventoryRebuild(cache, slotSource.inventory(coverage), () -> {
+                RootIdentityProbe.IdentityGuard guard = freshIdentityGuard();
+                if (!acquisitionAllowed(guard)) return null;
+                String source = guard == null ? null : guard.extensionInitNonce() + ":" + guard.continuityWindow() + ":" + guard.sourceFingerprint() + ":" + guard.chainIds();
+                return new ShadowInventoryRebuild.Guard(source, topology + ":" + slotWindow.value(),
+                    guard == null ? 0 : guard.epoch(), false, true);
+            }, slotSource.maximumCells());
+        }
         return new ShadowInventoryRebuild(cache, new ShadowInventoryRebuild.InventoryProvider() {
             public long cellCount() {
                 return (long) rig.trackBank.itemCount().get() * rig.sceneBank.itemCount().get();
@@ -615,10 +769,13 @@ public final class ShadowCacheProbe {
     }
 
     private JsonObject finishInventoryStep(Integer maximumBatchCells) {
-        if (inventoryRebuild == null) return info();
+        if (inventoryRebuild == null || !slotWindowCurrent()) return info();
         ShadowInventoryRebuild.Status state = maximumBatchCells == null ? inventoryRebuild.step() : inventoryRebuild.step(maximumBatchCells);
-        inventoryEnumerated = state.registryPublished();
-        inventoryEntries = state.registryPublished() ? state.presentClips() : 0;
+        if (!slotWindowCurrent()) return info();
+        // The read callback schedules the confirmation after its last slot read. A later poll admits it.
+        if (state.registryPublished() && slotRead != null) slotWindow.confirmLater(slotRead);
+        inventoryEnumerated = state.registryPublished() && slotAdmitted();
+        inventoryEntries = inventoryEnumerated ? state.presentClips() : 0;
         if (state.terminal() && !state.registryPublished()) fallbackReason = state.reason();
         return info();
     }
@@ -637,8 +794,11 @@ public final class ShadowCacheProbe {
             lastRetiredInventoryRebuild.addProperty("current", false);
             lastRetiredInventoryRebuild.addProperty("retired", true);
             lastRetiredInventoryRebuild.addProperty("retirementReason", cause);
+            if (slotRead != null) lastRetiredInventoryRebuild.addProperty("slotWindowState", slotRead.state().name().toLowerCase());
             inventoryRebuild = null;
         }
+        slotWindow.discard(slotRead);
+        slotRead = null;
         inventoryEnumerated = false;
         inventoryEntries = 0;
     }
@@ -659,7 +819,9 @@ public final class ShadowCacheProbe {
         result.addProperty("inventoryEnumerated", inventoryEnumerated);
         result.addProperty("inventoryClipEntries", inventoryEntries);
         result.addProperty("rebuildTerminal", inventoryRebuild != null ? inventoryRebuild.status().terminal() : lastRetiredInventoryRebuild != null);
-        result.addProperty("registryPublished", inventoryRebuild != null && inventoryRebuild.status().registryPublished());
+        result.addProperty("registryPublished", inventoryAdmitted());
+        result.addProperty("registryPendingSlotConfirmation", inventoryRebuild != null && inventoryRebuild.status().registryPublished()
+            && slotRead != null && slotRead.state() == SlotDeltaWindow.State.PENDING);
         if (inventoryRebuild != null) result.add("inventoryRebuild", JSON.toJsonTree(inventoryRebuild.status()));
         else if (lastRetiredInventoryRebuild != null) result.add("inventoryRebuild", lastRetiredInventoryRebuild.deepCopy());
         if (lastRetiredInventoryRebuild != null) result.add("lastRetiredInventoryRebuild", lastRetiredInventoryRebuild.deepCopy());
@@ -693,6 +855,20 @@ public final class ShadowCacheProbe {
         result.addProperty("stepWindowRefusals", stepWindowRefusals);
         result.addProperty("retainedStepWindowDiscards", retainedStepWindowDiscards);
         result.addProperty("inventoryPublicationSupported", inventoryCovered());
+        result.addProperty("slotWindowProtocol", slotSource == null ? "unattached" : SlotDeltaWindow.PROTOCOL);
+        result.addProperty("slotDeliveryAssumption", "D28");
+        result.addProperty("clipIdentityFromOccupancy", false);
+        result.add("slotWindowValue", JSON.toJsonTree(slotWindow.value()));
+        result.addProperty("slotWindowState", slotRead == null ? "none" : slotRead.state().name().toLowerCase());
+        result.addProperty("slotWindowReadsOpened", slotWindow.readsOpened());
+        result.addProperty("slotWindowConfirmations", slotWindow.confirmations());
+        result.addProperty("slotWindowChanges", slotWindow.changes());
+        result.addProperty("slotWindowRefusals", slotWindowRefusals);
+        result.add("lastSlotWindowRefusal", lastSlotWindowRefusal.deepCopy());
+        if (slotSource != null) {
+            try { result.add("slotSourceResources", slotSource.resources()); }
+            catch (RuntimeException error) { result.addProperty("slotSourceResourcesError", error.toString()); }
+        }
         result.addProperty("liveAcquisitionSupported", false);
         result.addProperty("hostModel", hostModel);
         result.addProperty("hostInputFenceProved", false);
@@ -716,7 +892,7 @@ public final class ShadowCacheProbe {
         result.addProperty("projectScopeComplete", false);
         result.addProperty("lifecycleFallback", "project-lifecycle-fence-unproved");
         result.addProperty("optionalLifecycleWitnessSupported", identityProbe != null);
-        result.addProperty("instrumentationRevision", "8g5a-group-topology-v2");
+        result.addProperty("instrumentationRevision", INSTRUMENTATION_REVISION);
         result.addProperty("topologyUsable", topologyUsable);
         result.addProperty("topologyControlRevision", topologyControl == null ? "unattached" : ShadowTopologyControl.REVISION);
         result.addProperty("observerKind", "addStepDataObserver");

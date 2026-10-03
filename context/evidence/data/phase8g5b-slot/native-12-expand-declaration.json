@@ -1,0 +1,2 @@
+{ "schema": "phase8g5b-declaration-v1", "trial": "native-expand", "expectedProject": "New 6",
+  "instruction": "Expand Group 1 so that Inst 1 is visible.", "operations": [] }

@@ -1,0 +1,6 @@
+{ "schema": "phase8g5b-declaration-v1", "trial": "native-insert-scene", "expectedProject": "New 6",
+  "instruction": "Insert Scene with scene 2 selected.",
+  "supersedes": "native-5-insert-scene-declaration-superseded.json",
+  "operatorReport": "I did the Insert Scene command with scene 2 selected and it inserted after scene 2; the new empty scene is scene 3.",
+  "writtenBeforeStateRead": true,
+  "operations": [{ "op": "insertScene", "row": 2 }] }

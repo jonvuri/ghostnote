@@ -2,7 +2,7 @@
 title: Phase 8g5b — Slot inventory delivery
 kind: plan
 state: active
-status: Pending. Run after 8g5a. Live slot inventory must be cached, not refused.
+status: Complete. E222 passes the slot-delta window. D28 is accepted. Identity is never inferred from occupancy.
 updated: 2026-10-03
 parent: 8g-shadow-project-cache.md
 prev: 8g5a-group-topology-support.md
@@ -10,6 +10,9 @@ next: 8g5c-combined-storage-limit.md
 ---
 
 # Phase 8g5b — Slot inventory delivery
+
+Result: [E222](../../evidence/experiments/e222-slot-delivery-and-occupancy-window.md)
+and [D28](../../decisions/d28-slot-occupancy-delivery-is-a-named-assumption.md).
 
 ## Why
 
@@ -68,3 +71,18 @@ occupancy claims separate from identity claims.
 
 If a measured occupancy change arrives with no callback, keep the refusal and
 record the case. Do not use a periodic poll as a hidden substitute for delivery.
+
+## Result
+
+No occupancy change arrived without a callback. Live occupancy now publishes
+through a confirmed slot-delta window; any slot or structure callback refuses.
+Same-callback detours and recreates coalesce to no callback. Occupancy stays
+correct, but identity changes silently, so each rebuild mints new references.
+Fourteen native and API controls, including a collapsed child, match the scan
+and the declaration. Group tracks' own slots mirror their children and are not
+clips. The user accepted D28 after the measurements.
+
+The scope is 16 flat tracks and 128 scenes. The source adds no host handles; it
+uses the rig's 256 existing `hasContent` observers. Heap is unmeasured. 8g5c
+must raise the track limit and add this domain to the resource ledger. New 3
+is restored, and the fixtures were discarded. Next: 8g5c.

@@ -1,0 +1,90 @@
+{
+ "P": {
+  "name": "New 6",
+  "trackId": "625fd6bd-07be-4331-8e47-fe3646b5f88e",
+  "occupancy": "XXX.....,........,........,........"
+ },
+ "PSetup": {
+  "tracks": [
+   {
+    "index": 0,
+    "name": "Inst 1",
+    "position": 0,
+    "type": "Instrument",
+    "channelId": "625fd6bd-07be-4331-8e47-fe3646b5f88e"
+   },
+   {
+    "index": 1,
+    "name": "Audio 2",
+    "position": 1,
+    "type": "Audio",
+    "channelId": "1d38c71f-17ee-44f3-8ad7-40b826485efc"
+   },
+   {
+    "index": 2,
+    "name": "FX 1",
+    "position": 2,
+    "type": "Effect",
+    "channelId": "880f11b0-4c7d-4962-9a08-e3a720495a18"
+   },
+   {
+    "index": 3,
+    "name": "Master",
+    "position": 3,
+    "type": "Master",
+    "channelId": "4c8ad9e5-bca4-48e2-b0de-97016ca9b43a"
+   }
+  ],
+  "emptyOccupancy": "........,........,........,........",
+  "rows": [
+   0,
+   1,
+   2
+  ],
+  "at": "2026-10-03T08:58:36.386Z"
+ },
+ "Q": {
+  "name": "New 7",
+  "trackId": "901f88ba-5855-4631-b26e-70f24706be05",
+  "occupancy": "X...XX..,........,........,........"
+ },
+ "QSetup": {
+  "tracks": [
+   {
+    "index": 0,
+    "name": "Inst 1",
+    "position": 0,
+    "type": "Instrument",
+    "channelId": "901f88ba-5855-4631-b26e-70f24706be05"
+   },
+   {
+    "index": 1,
+    "name": "Audio 2",
+    "position": 1,
+    "type": "Audio",
+    "channelId": "ab595734-0af7-4be6-b314-4a5369750231"
+   },
+   {
+    "index": 2,
+    "name": "FX 1",
+    "position": 2,
+    "type": "Effect",
+    "channelId": "32ea4efa-bfe8-46b0-bfd3-33b8aea1d691"
+   },
+   {
+    "index": 3,
+    "name": "Master",
+    "position": 3,
+    "type": "Master",
+    "channelId": "52ab02f4-0dc2-41b8-8dd6-84ef62c3a89a"
+   }
+  ],
+  "emptyOccupancy": "........,........,........,........",
+  "rows": [
+   0,
+   4,
+   5
+  ],
+  "at": "2026-10-03T08:59:07.073Z"
+ }
+}

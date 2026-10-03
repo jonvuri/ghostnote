@@ -1,0 +1,35 @@
+{
+ "schema": "phase8g5b-final-restoration-v1",
+ "complete": false,
+ "eligible": false,
+ "operatorConfirmation": "Done",
+ "fixturesDiscardedWithoutSaving": [
+  "New 6",
+  "New 7"
+ ],
+ "protectedProject": "New 3",
+ "protectedProjectOpenUnsaved": true,
+ "normalHello": {
+  "contractVersion": 0,
+  "extensionVersion": "0.0.1",
+  "runtimeProfile": "normal-v1",
+  "hostApiVersion": 25,
+  "methodCount": 85,
+  "methodsHash": "bba7383dce25c0f0"
+ },
+ "configSha256": "256bbf07094cd654c372d0e5e050e494ef7783c9a0001a0a2a688331bcf643b0",
+ "restorationReport": "new3-final-baseline.json",
+ "restorationReportSha256": "a7a5b0f574c4f64bfafdf12274d91a48aef9dac0567f854d896c8d9f6b2774ea",
+ "stateValuesRestored": true,
+ "excludedStateFields": [
+  "scan.scanMicros",
+  "selection.changes",
+  "selection.revision",
+  "notes.scanMicros",
+  "confirmationNotes.scanMicros"
+ ],
+ "researchArchiveRemoved": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-shadow-8g-controls.bwextension",
+ "researchArchiveSha256BeforeRemoval": "444d3a2e8010c957f0d4c65ce99f1435a4450bd71bb99e8cbdf8605cbd51bd45",
+ "normalArchiveSha256": "347d9e9ebcdf3e1c0412dbf3850abb1e683f0057c38d567d2cd03113f939c571",
+ "normalArchiveBuiltBeforeD28LabelChange": true
+}

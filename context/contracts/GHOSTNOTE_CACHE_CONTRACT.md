@@ -215,8 +215,12 @@ be confirmed in a later callback.
 that rule, [D27](../decisions/d27-later-callback-ordering-is-a-named-assumption.md)
 accepts it as a named assumption, and
 [8g2b](../plan/phase-8/8g2b-step-delta-read-window.md) implements the window.
-Slot inventory is outside step coverage and keeps the refusal. No measured
-result proves that the host silently loses callbacks.
+Slot occupancy is outside step coverage. It publishes only through a confirmed
+[slot-delta window](../evidence/format/PHASE8G_PROJECT_CONTINUITY.md#8g5b-slot-delta-read-window)
+under [D28](../decisions/d28-slot-occupancy-delivery-is-a-named-assumption.md).
+Equal occupancy is never a clip identity witness: E222 measured silent delete
+and recreate. Each rebuild mints new references. No measured result proves that
+the host silently loses callbacks.
 
 An immutable snapshot remains a historical observation after invalidation.
 Do not mutate it or present it as current. Consumers must recheck its tokens

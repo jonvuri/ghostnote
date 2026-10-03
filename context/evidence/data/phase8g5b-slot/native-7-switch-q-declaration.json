@@ -1,0 +1,4 @@
+{ "schema": "phase8g5b-declaration-v1", "trial": "native-project-switch-to-Q", "expectedProject": "New 7",
+  "instruction": "Click the New 7 project tab.",
+  "baseline": "replace",
+  "operations": [{ "op": "replace", "occupancy": ["901f88ba-5855-4631-b26e-70f24706be05:0", "901f88ba-5855-4631-b26e-70f24706be05:4", "901f88ba-5855-4631-b26e-70f24706be05:5"] }] }

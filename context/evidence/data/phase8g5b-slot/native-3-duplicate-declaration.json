@@ -1,0 +1,3 @@
+{ "schema": "phase8g5b-declaration-v1", "trial": "native-duplicate", "expectedProject": "New 6",
+  "instruction": "Click the clip in scene 3 of Inst 1 and press Cmd+D. The copy is expected in scene 4.",
+  "operations": [{ "op": "create", "trackId": "625fd6bd-07be-4331-8e47-fe3646b5f88e", "row": 3 }] }

@@ -10,8 +10,10 @@ owner: phase-8g2-project-continuity
 
 > **Superseded for covered step reads by 8g2b.** The
 > [step-delta read window](#8g2b-step-delta-read-window) now admits covered reads
-> under D26 and the E217 ordering rule. The 8g2 refusal below still applies to
-> slot inventory, uncovered coordinates, unsubscribed observers, and absent probes.
+> under D26 and the E217 ordering rule. The 8g5b
+> [slot-delta read window](#8g5b-slot-delta-read-window) admits covered occupancy
+> under D28. The 8g2 refusal below still applies to uncovered coordinates and
+> slots, unsubscribed observers, and absent probes.
 
 ## Decision and scope
 
@@ -234,6 +236,31 @@ late hints, cancellation at each stage, rebinding, identity and init changes,
 uncovered reads, and exact confirmation. The fallback test adds five groups.
 [E218](../experiments/e218-step-delta-read-window-live-acceptance.md) records
 live acceptance: 147 trials with zero foreign or differing outputs.
+
+## 8g5b slot-delta read window
+
+[8g5b](../../plan/phase-8/8g5b-slot-inventory-delivery.md) admits live slot
+occupancy under [D28](../../decisions/d28-slot-occupancy-delivery-is-a-named-assumption.md)
+and D27. It proves no host input fence. No result becomes eligible.
+
+[`SlotDeltaWindow`](../../../extension/src/main/java/com/ghostnote/extension/SlotDeltaWindow.java)
+holds the init nonce, the delivered identity epoch, the structure-callback count,
+and the slot-callback count. Slot callbacks come from the rig's indexed
+`hasContent` observers on the flat `ALL_CHANNELS` bank. Structure callbacks are
+the topology sequence and scene count changes. The rebuild opens the window
+before its first slot read. The read callback schedules a zero-delay
+confirmation after the last read. A later poll admits occupancy only if the read
+is confirmed and the value is unchanged. Any slot or structure callback refuses
+with `slot-window-changed`, also after publication. Recovery is an explicit new
+rebuild.
+
+The window admits occupancy only. [E222](../experiments/e222-slot-delivery-and-occupancy-window.md)
+measured silent delete and recreate at one slot and silent project switches at
+equal occupancy. Each rebuild therefore mints new references, and published
+rows carry `clipIdentityClaimed:false`. Group tracks' own slots mirror their
+children and are excluded. Coverage refuses outside 16 flat tracks, 128 scenes,
+an unscrolled bank, and the `ALL_CHANNELS` filter. Without a slot source, the
+8g2 refusal `inventory-outside-step-coverage` remains.
 
 ## Retrospective
 
