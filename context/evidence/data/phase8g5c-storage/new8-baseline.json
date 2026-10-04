@@ -1,0 +1,470 @@
+{
+ "schema": "phase8g5c-fixture-entry-v1",
+ "project": "New 8",
+ "samplePath": "../context/evidence/data/phase8g5c-storage/empty-0-2.json",
+ "captured": "2026-10-03T10:49:07.823Z",
+ "first": {
+  "tracks": {
+   "tracks": [
+    {
+     "index": 0,
+     "name": "Inst 1",
+     "position": 0,
+     "type": "Instrument",
+     "channelId": "c3e4e143-cce2-4d65-8394-31c756c4ca02"
+    },
+    {
+     "index": 1,
+     "name": "Audio 2",
+     "position": 1,
+     "type": "Audio",
+     "channelId": "546078ce-c28c-4350-bc0d-0554d69b29f6"
+    },
+    {
+     "index": 2,
+     "name": "FX 1",
+     "position": 2,
+     "type": "Effect",
+     "channelId": "07244e95-99e0-4ede-a820-3e220c0e636f"
+    },
+    {
+     "index": 3,
+     "name": "Master",
+     "position": 3,
+     "type": "Master",
+     "channelId": "47615275-b60a-4793-a8b3-63c8194f98f5"
+    }
+   ],
+   "count": 4,
+   "itemCount": 4,
+   "bankSize": 512
+  },
+  "scenes": {
+   "sceneCount": 8
+  },
+  "scan": {
+   "scanMicros": 1748,
+   "existing": 4,
+   "withChannelId": 4,
+   "slotsWithContent": 0,
+   "sceneCount": 8,
+   "itemCount": 4,
+   "bankSize": 512
+  },
+  "selection": {
+   "trackIndex": -1,
+   "slotIndex": -1,
+   "mixerTrackIndex": 0,
+   "changes": 0,
+   "revision": 1
+  },
+  "cursors": {
+   "0": {
+    "exists": false,
+    "loopLength": 0,
+    "trackExists": false,
+    "trackName": "",
+    "trackPosition": -1,
+    "slotExists": false,
+    "sceneIndex": 0,
+    "slotName": "",
+    "isPinned": false,
+    "cursorTrackPosition": -1,
+    "cursorTrackPinned": false
+   },
+   "1": {
+    "exists": false,
+    "loopLength": 0,
+    "trackExists": false,
+    "trackName": "",
+    "trackPosition": -1,
+    "slotExists": false,
+    "sceneIndex": 0,
+    "slotName": "",
+    "isPinned": false,
+    "cursorTrackPosition": -1,
+    "cursorTrackPinned": false
+   },
+   "2": {
+    "exists": false,
+    "loopLength": 0,
+    "trackExists": false,
+    "trackName": "",
+    "trackPosition": -1,
+    "slotExists": false,
+    "sceneIndex": 0,
+    "slotName": "",
+    "isPinned": false,
+    "cursorTrackPosition": -1,
+    "cursorTrackPinned": false
+   },
+   "3": {
+    "exists": false,
+    "loopLength": 0,
+    "trackExists": false,
+    "trackName": "",
+    "trackPosition": -1,
+    "slotExists": false,
+    "sceneIndex": 0,
+    "slotName": "",
+    "isPinned": false,
+    "cursorTrackPosition": -1,
+    "cursorTrackPinned": false
+   },
+   "4": {
+    "exists": false,
+    "loopLength": 0,
+    "trackExists": false,
+    "trackName": "",
+    "trackPosition": -1,
+    "slotExists": false,
+    "sceneIndex": 0,
+    "slotName": "",
+    "isPinned": false,
+    "cursorTrackPosition": -1,
+    "cursorTrackPinned": false
+   },
+   "5": {
+    "exists": false,
+    "loopLength": 0,
+    "trackExists": false,
+    "trackName": "",
+    "trackPosition": -1,
+    "slotExists": false,
+    "sceneIndex": 0,
+    "slotName": "",
+    "isPinned": false,
+    "cursorTrackPosition": -1,
+    "cursorTrackPinned": false
+   },
+   "6": {
+    "exists": false,
+    "loopLength": 0,
+    "trackExists": false,
+    "trackName": "",
+    "trackPosition": -1,
+    "slotExists": false,
+    "sceneIndex": 0,
+    "slotName": "",
+    "isPinned": false,
+    "cursorTrackPosition": -1,
+    "cursorTrackPinned": false
+   },
+   "7": {
+    "exists": false,
+    "loopLength": 0,
+    "trackExists": false,
+    "trackName": "",
+    "trackPosition": -1,
+    "slotExists": false,
+    "sceneIndex": 0,
+    "slotName": "",
+    "isPinned": false,
+    "cursorTrackPosition": -1,
+    "cursorTrackPinned": false
+   },
+   "fine": {
+    "exists": false,
+    "loopLength": 0,
+    "trackExists": false,
+    "trackName": "",
+    "trackPosition": -1,
+    "slotExists": false,
+    "sceneIndex": 0,
+    "slotName": "",
+    "isPinned": false,
+    "cursorTrackPosition": -1,
+    "cursorTrackPinned": false
+   },
+   "observer": {
+    "exists": false,
+    "loopLength": 0,
+    "trackExists": false,
+    "trackName": "",
+    "trackPosition": -1,
+    "slotExists": false,
+    "sceneIndex": 0,
+    "slotName": "",
+    "isPinned": false,
+    "cursorTrackPosition": -1,
+    "cursorTrackPinned": false
+   }
+  }
+ },
+ "second": {
+  "tracks": {
+   "tracks": [
+    {
+     "index": 0,
+     "name": "Inst 1",
+     "position": 0,
+     "type": "Instrument",
+     "channelId": "c3e4e143-cce2-4d65-8394-31c756c4ca02"
+    },
+    {
+     "index": 1,
+     "name": "Audio 2",
+     "position": 1,
+     "type": "Audio",
+     "channelId": "546078ce-c28c-4350-bc0d-0554d69b29f6"
+    },
+    {
+     "index": 2,
+     "name": "FX 1",
+     "position": 2,
+     "type": "Effect",
+     "channelId": "07244e95-99e0-4ede-a820-3e220c0e636f"
+    },
+    {
+     "index": 3,
+     "name": "Master",
+     "position": 3,
+     "type": "Master",
+     "channelId": "47615275-b60a-4793-a8b3-63c8194f98f5"
+    }
+   ],
+   "count": 4,
+   "itemCount": 4,
+   "bankSize": 512
+  },
+  "scenes": {
+   "sceneCount": 8
+  },
+  "scan": {
+   "scanMicros": 1389,
+   "existing": 4,
+   "withChannelId": 4,
+   "slotsWithContent": 0,
+   "sceneCount": 8,
+   "itemCount": 4,
+   "bankSize": 512
+  },
+  "selection": {
+   "trackIndex": -1,
+   "slotIndex": -1,
+   "mixerTrackIndex": 0,
+   "changes": 0,
+   "revision": 1
+  },
+  "cursors": {
+   "0": {
+    "exists": false,
+    "loopLength": 0,
+    "trackExists": false,
+    "trackName": "",
+    "trackPosition": -1,
+    "slotExists": false,
+    "sceneIndex": 0,
+    "slotName": "",
+    "isPinned": false,
+    "cursorTrackPosition": -1,
+    "cursorTrackPinned": false
+   },
+   "1": {
+    "exists": false,
+    "loopLength": 0,
+    "trackExists": false,
+    "trackName": "",
+    "trackPosition": -1,
+    "slotExists": false,
+    "sceneIndex": 0,
+    "slotName": "",
+    "isPinned": false,
+    "cursorTrackPosition": -1,
+    "cursorTrackPinned": false
+   },
+   "2": {
+    "exists": false,
+    "loopLength": 0,
+    "trackExists": false,
+    "trackName": "",
+    "trackPosition": -1,
+    "slotExists": false,
+    "sceneIndex": 0,
+    "slotName": "",
+    "isPinned": false,
+    "cursorTrackPosition": -1,
+    "cursorTrackPinned": false
+   },
+   "3": {
+    "exists": false,
+    "loopLength": 0,
+    "trackExists": false,
+    "trackName": "",
+    "trackPosition": -1,
+    "slotExists": false,
+    "sceneIndex": 0,
+    "slotName": "",
+    "isPinned": false,
+    "cursorTrackPosition": -1,
+    "cursorTrackPinned": false
+   },
+   "4": {
+    "exists": false,
+    "loopLength": 0,
+    "trackExists": false,
+    "trackName": "",
+    "trackPosition": -1,
+    "slotExists": false,
+    "sceneIndex": 0,
+    "slotName": "",
+    "isPinned": false,
+    "cursorTrackPosition": -1,
+    "cursorTrackPinned": false
+   },
+   "5": {
+    "exists": false,
+    "loopLength": 0,
+    "trackExists": false,
+    "trackName": "",
+    "trackPosition": -1,
+    "slotExists": false,
+    "sceneIndex": 0,
+    "slotName": "",
+    "isPinned": false,
+    "cursorTrackPosition": -1,
+    "cursorTrackPinned": false
+   },
+   "6": {
+    "exists": false,
+    "loopLength": 0,
+    "trackExists": false,
+    "trackName": "",
+    "trackPosition": -1,
+    "slotExists": false,
+    "sceneIndex": 0,
+    "slotName": "",
+    "isPinned": false,
+    "cursorTrackPosition": -1,
+    "cursorTrackPinned": false
+   },
+   "7": {
+    "exists": false,
+    "loopLength": 0,
+    "trackExists": false,
+    "trackName": "",
+    "trackPosition": -1,
+    "slotExists": false,
+    "sceneIndex": 0,
+    "slotName": "",
+    "isPinned": false,
+    "cursorTrackPosition": -1,
+    "cursorTrackPinned": false
+   },
+   "fine": {
+    "exists": false,
+    "loopLength": 0,
+    "trackExists": false,
+    "trackName": "",
+    "trackPosition": -1,
+    "slotExists": false,
+    "sceneIndex": 0,
+    "slotName": "",
+    "isPinned": false,
+    "cursorTrackPosition": -1,
+    "cursorTrackPinned": false
+   },
+   "observer": {
+    "exists": false,
+    "loopLength": 0,
+    "trackExists": false,
+    "trackName": "",
+    "trackPosition": -1,
+    "slotExists": false,
+    "sceneIndex": 0,
+    "slotName": "",
+    "isPinned": false,
+    "cursorTrackPosition": -1,
+    "cursorTrackPinned": false
+   }
+  }
+ },
+ "stats": {
+  "runtimeProfile": "phase-8-probe-v1",
+  "config": {
+   "tracks": 512,
+   "scenes": 128,
+   "gridSteps": 64,
+   "gridKeys": 128,
+   "cursorPool": 8,
+   "sends": 4,
+   "deviceBank": 16,
+   "fineSteps": 2048,
+   "noteReadSteps": 2048,
+   "paramHandles": 64,
+   "remotePages": 16,
+   "cacheScaleObservers": 0,
+   "cacheScaleSteps": 131072,
+   "cacheScaleWidthSteps": 0,
+   "cacheShadowObservers": 2,
+   "cacheShadowSteps": 2048,
+   "cacheTopologyTracks": 0,
+   "cacheLifecycleResearch": true,
+   "deliveryResearch": true,
+   "contentFilter": "ALL_CHANNELS",
+   "directObservers": true,
+   "stamp": "8g5c-allocation-0",
+   "fromFile": true
+  },
+  "rigConstructMicros": 52254,
+  "initMicros": 53527,
+  "initEpochMs": 1791024436254,
+  "upMs": 111589,
+  "slotObjects": 65536,
+  "markedValues": 396800,
+  "resources": {
+   "cursorDeviceBanks": 8,
+   "siblingDeviceBanks": 1,
+   "layerDeviceBanks": 8,
+   "slotDeviceBanks": 15,
+   "namedSlotDeviceBanks": 0,
+   "drumPadDeviceBanks": 16,
+   "deviceBanks": 48,
+   "cursorDeviceSlots": 128,
+   "cursorDeviceEnabledValues": 128,
+   "layerDeviceSlots": 32,
+   "slotDeviceSlots": 60,
+   "drumPadDeviceSlots": 256,
+   "namedSlotDeviceSlots": 0,
+   "deviceSlots": 492,
+   "cursorDevices": 1,
+   "specificDeviceViews": 4,
+   "typedParameterHandles": 75,
+   "remotePageCursors": 16,
+   "remoteParameterHandles": 128,
+   "directParameterObservers": 4,
+   "noteObserverCursors": 1,
+   "noteStepObservers": 1,
+   "stepDataObservers": 1,
+   "cacheScaleCursorTracks": 0,
+   "cacheScaleClipProxies": 0,
+   "cacheScaleStepDataObservers": 0,
+   "trackSendBanks": 0,
+   "trackSendHandles": 0,
+   "trackVuObservers": 0,
+   "historicalActionHandles": 0,
+   "historicalSelectionObservers": 0,
+   "equalsProxies": 32,
+   "transportProxies": 1,
+   "masterRecorderProxies": 0,
+   "cursorTracks": 10,
+   "cursorClips": 12,
+   "layerBanks": 4,
+   "layerHandles": 23,
+   "layerSendBanks": 0,
+   "layerSendHandles": 0,
+   "explicitHostObjects": 66917,
+   "observerCallbacks": 1607
+  },
+  "heapUsedMb": 612,
+  "heapMaxMb": 3072
+ },
+ "complete": false,
+ "eligible": false,
+ "emptySlotsVerified": true,
+ "excludedStateFields": [
+  "scan.scanMicros",
+  "selection.changes",
+  "selection.revision"
+ ]
+}

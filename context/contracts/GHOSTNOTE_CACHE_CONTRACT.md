@@ -2,7 +2,7 @@
 title: Ghostnote internal cache contract
 kind: reference
 state: active
-updated: 2026-10-02
+updated: 2026-10-04
 parent: ../plan/phase-8/8f3-ghostnote-bindings-and-cache-contracts.md
 evidence: E131, E134, E138-E139; D23
 ---
@@ -266,6 +266,11 @@ requested coverage.
 | Occupied coordinates per clip | 2,048 | Overflow for that clip; exact fallback. |
 | Pending dirty coordinates, total | 2,048 | Stop callbacks, retire tokens, rebuild; exact fallback. |
 | Sparse recorder estimate | 16 MiB | Drop affected cache state and reduce residence; exact fallback. |
+| Snapshot estimate, retained plus candidate | 16 MiB | Retire the candidate; exact fallback. |
+| Authority staging estimate | 16 MiB | Release the staging buffer; refuse without partial notes. |
+| Registry bookkeeping estimate | 16 MiB | Abort private staging; refuse partial inventory. |
+| Combined extension-owned estimate | 24 MiB | Drop all enriched payloads in reference order; preserve confirmed authority and require explicit retry. |
+| Research topology and occupancy | 512 total channels, 128 scenes | Refuse the whole project above the configured capacity. |
 | Incremental cache-bank construction | 50 ms | Invalidate and shed cache load; exact fallback. |
 | One binding replay | 5 seconds | Keep warming, abort the attempt, then bounded retry or rebuild; exact fallback. |
 | Working-set rebuild | 40 seconds | Abort staging, invalidate its token, then bounded retry; exact fallback. |
@@ -283,11 +288,31 @@ One accounting boundary reports every cache-owned estimate by domain. The
 recorder domain holds resident and staged recorders and physical hint queues.
 The snapshot domain holds retained snapshots and the private candidate, with a
 selected 16 MiB estimate. Authority staging and registry bookkeeping are
-separate domains. Each domain applies its limit; equality passes. No combined
-limit is selected. Snapshot enrichment uses a private candidate in batches of
-at most 50 ms host work, with the 5 s replay limit as its deadline. Each batch
+separate domains. Topology bookkeeping and retained witness text form the
+topology domain. Slot-source bookkeeping and the confirmed window form the slot
+domain. Identity and witness records are also charged. The selected combined
+estimate limit is 24 MiB. Each domain still applies its own limit; equality
+passes. Before growth, admission includes the new allocation and all other
+retained domains. A confirmed comparison that exceeds the combined limit drops
+all enriched payloads and returns its existing exact authority. An authority
+buffer that exceeds a limit refuses without partial notes. Explicit retry can
+restore residence and payloads. Snapshot enrichment uses a private candidate in
+batches of at most 50 ms host work, with the 5 s replay limit as its deadline. Each batch
 and the final publication recheck the guard. Excess, deadline, cancellation,
 and guard change retire the candidate and retain no snapshot.
+
+The 8g5c research route selects counted allocation at 512 total channels. FX,
+Master, and group wrappers use the same capacity as instrument/audio tracks.
+The flat live boundary has 510 instrument/audio tracks, FX, and Master. Group
+controls have 256 instrument/audio tracks, FX, Master, and up to two wrappers.
+Normal rig defaults stay unchanged. Active research defaults select counted
+512-channel topology, a matching flat bank, and `ALL_CHANNELS` when these
+settings are not explicit. E223 has the measured costs. The versioned fingerprint
+witness is reserved before first publication. C4 live combined equality, two-byte excess, independent exact fallback,
+recovery, and eviction pass. Shared JVM samples cover the configured two-resident
+working set. Final normal reload and fixture cleanup pass. No cache result is eligible;
+8g5 must decide the final supported-state gate. The ledger excludes host handles, host objects, transient diagnostic
+copies, and JVM memory. JVM values are a separate shared-process measurement.
 
 Exact fallback obtains fresh settled authority for the requested normalized
 view. Retain E131 for the existing product path and exact diagnostics. If its

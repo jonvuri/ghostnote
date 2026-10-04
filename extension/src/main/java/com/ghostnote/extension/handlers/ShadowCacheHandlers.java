@@ -4,6 +4,7 @@ import com.bitwig.extension.controller.api.ControllerHost;
 import com.ghostnote.extension.Rig;
 import com.ghostnote.extension.ShadowCacheProbe;
 import com.ghostnote.extension.ShadowGroupControl;
+import com.ghostnote.extension.ShadowTopologyControl;
 import com.ghostnote.extension.ShadowProjectCache.Coverage;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -18,6 +19,18 @@ public final class ShadowCacheHandlers extends HandlerGroup {
 
     private JsonElement dispatch(JsonObject params) {
         String operation = params.get("operation").getAsString();
+        if (operation.equals("allocationStats")) {
+            JsonObject result = new JsonObject();
+            result.addProperty("revision", "8g5c-allocation-v1");
+            result.addProperty("complete", false); result.addProperty("eligible", false);
+            result.add("jvmMemory", ShadowTopologyControl.jvmMemory());
+            result.addProperty("topologyAllocated", rig.shadowTopologyControl != null);
+            if (rig.shadowTopologyControl != null) result.add("topology", rig.shadowTopologyControl.resources());
+            result.addProperty("flatBankTracks", rig.config.tracks);
+            result.addProperty("slotObservers", rig.config.tracks);
+            result.addProperty("slotHandles", (long) rig.config.tracks * rig.config.scenes);
+            return result;
+        }
         if (operation.equals("trackTopology")) {
             if (rig.shadowTopologyControl == null) throw new IllegalStateException("topology resources are not allocated");
             return rig.shadowTopologyControl.measurementSnapshot();

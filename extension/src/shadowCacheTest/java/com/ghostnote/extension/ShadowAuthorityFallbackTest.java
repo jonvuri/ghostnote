@@ -91,7 +91,14 @@ public final class ShadowAuthorityFallbackTest {
         reader.poll(); reader.cancel("cancel-during-confirmation"); source.runTasks();
         check(reader.poll().reason().equals("cancel-during-confirmation") && reader.poll().authorityNotes() == null,
             "cancellation stays terminal across the confirmation task");
-        System.out.println("Shadow authority fallback: 15 test groups passed.");
+        Source storage = new Source(); ShadowAuthorityFallback limited = storage.reader();
+        limited.attachStorageAdmission(bytes -> false); limited.start(new Address("A", 0), COVERAGE);
+        settle(storage, limited); ShadowAuthorityFallback.Result refused = acquire(storage, limited);
+        check(refused.reason().equals("combined-storage-budget") && refused.payloadEstimatedBytes() == 0
+            && refused.authorityNotes() == null, "combined refusal releases exact staging without partial authority");
+        limited.attachStorageAdmission(bytes -> true); limited.start(new Address("A", 0), COVERAGE);
+        settle(storage, limited); check(acquire(storage, limited).authorityAvailable(), "explicit exact recovery");
+        System.out.println("Shadow authority fallback: 17 test groups passed.");
     }
     private static ShadowAuthorityFallback.Result acquire(Source source, ShadowAuthorityFallback reader) {
         reader.poll(); source.runTasks(); return reader.poll();

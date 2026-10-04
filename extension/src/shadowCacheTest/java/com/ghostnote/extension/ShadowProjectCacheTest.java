@@ -35,6 +35,8 @@ public final class ShadowProjectCacheTest {
         }
     }
     public static void main(String[] args) {
+        run("combined equality, excess, deterministic payload shedding, and recovery", ShadowProjectCacheTest::combinedStorage);
+        run("first snapshot reserves the full fingerprint before publication", ShadowProjectCacheTest::combinedColdWitness);
         run("empty clip and empty inventory", ShadowProjectCacheTest::empty);
         run("warm membership and all MIDI channels", ShadowProjectCacheTest::channels);
         run("dirty coalescing and zero-dirty eligibility", ShadowProjectCacheTest::dirty);
@@ -74,6 +76,55 @@ public final class ShadowProjectCacheTest {
         run("duration normalization boundaries", ShadowProjectCacheTest::duration);
         run("invalid counters and finite measurements", ShadowProjectCacheTest::invalid);
         System.out.println("Shadow cache: " + passed + " test groups passed.");
+    }
+    private static void combinedStorage() {
+        Fixture f = new Fixture(); f.notes(CELL, List.of(new Note(0, 0, 60, Map.of("velocity", .5)))); f.ready();
+        Result initial = f.snapshot(); check(initial.snapshot() != null, "initial payload exists");
+        long[] external = {MAX_COMBINED_BYTES - f.cache.combinedEstimatedBytes()}; int[] sheds = {0};
+        f.cache.attachExternalStorageEstimate(() -> external[0]); f.cache.onSnapshotsShed(() -> sheds[0]++);
+        Result equal = f.snapshot(); check(equal.snapshot() != null && f.cache.combinedEstimatedBytes() == MAX_COMBINED_BYTES,
+            "all estimates admit equality");
+        external[0]++;
+        Result excess = f.snapshot(); check(excess.snapshot() == null && excess.reason().equals("combined-storage-budget")
+            && excess.mode().equals("exact-fallback"), "one estimated byte refuses with authority fallback");
+        check(f.cache.resources().snapshotDomainEstimatedBytes() == 0 && sheds[0] == 1
+            && f.cache.resources().lastCombinedRejectedEstimatedBytes() == MAX_COMBINED_BYTES + 1,
+            "refusal records the rejected sum and releases all enriched payloads");
+        check(f.cache.bindingToken(f.ref) != null, "confirmed recorder remains available to authority");
+        external[0] = 0; check(f.snapshot().snapshot() != null, "explicit recovery publishes again");
+        ShadowProjectCache cache = new ShadowProjectCache("combined-model");
+        String ref = cache.create(new Address("A", 0), FULL);
+        long[] other = {MAX_COMBINED_BYTES - cache.combinedEstimatedBytes() - 256};
+        cache.attachExternalStorageEstimate(() -> other[0]);
+        check(cache.admit(ref) && cache.combinedEstimatedBytes() == MAX_COMBINED_BYTES, "recorder equality includes external domains");
+        check(!cache.callback(ref, cache.bindingToken(ref), CELL) && cache.resources().recorderDomainEstimatedBytes() == 0,
+            "dirty growth at excess sheds residence before it grows");
+        other[0] = -1;
+        try { cache.combinedEstimatedBytes(); throw new AssertionError("negative estimate accepted"); }
+        catch (IllegalStateException expected) { }
+    }
+    private static void combinedColdWitness() {
+        Fixture reference = new Fixture(); reference.ready();
+        Snapshot snapshot = reference.snapshot().snapshot();
+        long witness = 40L + 2L * snapshot.fingerprint().length();
+        check(witness == 210 && snapshot.fingerprint().startsWith(FINGERPRINT_VERSION + ":"), "witness includes version and separator");
+        for (int extra = 0; extra <= 1; extra++) {
+            Fixture cold = new Fixture(); cold.ready();
+            long external = MAX_COMBINED_BYTES - cold.cache.combinedEstimatedBytes() - snapshot.payloadEstimatedBytes() - witness + extra;
+            cold.cache.attachExternalStorageEstimate(() -> external);
+            Candidate work = cold.cache.beginSnapshot(cold.ref, FULL, Map.of("name", "clip"), "cold-authority", ENRICHMENT_DEADLINE_MS);
+            if (extra == 0) {
+                check(cold.cache.resources().candidateWitnessEstimatedBytes() == witness && cold.cache.combinedEstimatedBytes() == MAX_COMBINED_BYTES,
+                    "cold candidate reserves every fingerprint character at equality");
+                while ("enriching".equals(work.phase())) cold.cache.enrich(work, c -> List.of(), ENRICHMENT_BATCH_MS);
+                check(cold.cache.finishSnapshot(work, true).snapshot() != null && cold.cache.combinedEstimatedBytes() == MAX_COMBINED_BYTES,
+                    "publication converts the witness reservation without hidden growth");
+            } else {
+                check(work.reason().equals("combined-storage-budget") && cold.cache.finishSnapshot(work, true).snapshot() == null,
+                    "cold witness excess refuses before publication");
+                check(cold.cache.resources().snapshotDomainEstimatedBytes() == 0, "cold refusal has no retained payload");
+            }
+        }
     }
     private static void empty() {
         ShadowProjectCache cache = new ShadowProjectCache();

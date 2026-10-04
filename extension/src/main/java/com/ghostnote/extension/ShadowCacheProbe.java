@@ -20,7 +20,7 @@ import static com.ghostnote.extension.ShadowProjectCache.*;
 public final class ShadowCacheProbe {
     private static final Gson JSON = new Gson();
     /** Deliberate build marker for live reload checks. */
-    public static final String INSTRUMENTATION_REVISION = "8g5b-slot-window-v1";
+    public static final String INSTRUMENTATION_REVISION = "8g5c-combined-storage-v4";
     private static final int KEYS = 128;
     private static final double BATCH_MS = 40;
     private static final double HOST_WORK_LIMIT_MS = 45;
@@ -42,6 +42,7 @@ public final class ShadowCacheProbe {
     private final int scenes;
     private final double constructionMs;
     private boolean canaryPassed, physicalOverload, physicalOverloadApplied;
+    private boolean storageOverload;
     private Scan scan;
     private String comparison = "not-run";
     private String fallbackReason = "warming";
@@ -182,6 +183,7 @@ public final class ShadowCacheProbe {
         if (exactFallback == null) return exactRefusal("authority-unavailable", address, request);
         if (scan != null || exactFallback.active()) return exactRefusal("authority-busy", address, request);
         exactFallback.cancel("superseded-authority-request");
+        cache.shedSnapshots();
         requireAddress(target, row);
         if (!request.allChannels() || request.startCell() < 0 || request.startCell() + request.width() > coverage.width()
             || !FIELDS.containsAll(request.fields())) return exactRefusal("authority-coverage-unavailable", address, request);
@@ -479,6 +481,11 @@ public final class ShadowCacheProbe {
         exactFallback = authority == null ? null : new ShadowAuthorityFallback(fallbackSource());
         constructionMs = elapsed(started);
         cache.attachExternalRecorderEstimate(() -> PHYSICAL_HINT_BYTES * physicalPending());
+        cache.attachExternalStorageEstimate(this::externalStorageEstimatedBytes);
+        cache.onSnapshotsShed(() -> {
+            for (View view : views) if (view != null) { view.lastResult = null; view.resultRead = null; }
+        });
+        if (exactFallback != null) exactFallback.attachStorageAdmission(cache::allowCombinedGrowth);
         cache.measureConstruction(constructionMs);
         totalExperimentalStepDataObservers = views.length + (authority == null ? 0 : 1);
     }
@@ -508,6 +515,12 @@ public final class ShadowCacheProbe {
             cache.resetInventoryForUnknownStructure("structural-event-requires-rebind");
             inventoryEnumerated = false;
             inventoryEntries = 0;
+        }
+        long witnessGrowth = Math.max(0, 40L + 2L * currentTopology.length() - topologyWitnessEstimatedBytes());
+        if (!cache.allowCombinedGrowth(witnessGrowth)) {
+            poisonIdentity("combined-storage-budget");
+            topologyUsable = false;
+            return;
         }
         topology = currentTopology;
         contentEpoch = rig.launcherContentEpoch;
@@ -555,7 +568,7 @@ public final class ShadowCacheProbe {
         invalidate("explicit-inventory-rebuild");
         inventoryEnumerated = false;
         inventoryEntries = 0;
-        physicalOverload = physicalOverloadApplied = false;
+        physicalOverload = physicalOverloadApplied = storageOverload = false;
         observeRig(rig);
         startInventoryCoordinator(rig);
         return true;
@@ -685,7 +698,7 @@ public final class ShadowCacheProbe {
     /** The 8g5b live provider. Group tracks hold no clip of their own; their slot state is a diagnostic. */
     public static SlotSource rigSlots(Rig rig, ShadowTopologyControl topology) {
         java.util.Objects.requireNonNull(rig); java.util.Objects.requireNonNull(topology);
-        int tracks = Math.min(rig.config.tracks, ShadowTopologyControl.MAX_TRACKS);
+        int tracks = topology.capacity();
         return new SlotSource() {
             public long slotCallbacks() { return rig.launcherContentEpoch; }
             public long structureCallbacks() { return Math.addExact(topology.sequence(), rig.sceneCountChanges); }
@@ -938,7 +951,7 @@ public final class ShadowCacheProbe {
     /**
      * One accounting boundary for extension-owned shadow estimates. Each domain has its selected limit.
      * Authority staging is the independent oracle or exact-fallback buffer; only one can be active.
-     * No combined limit is selected. Estimates are not heap, host, or serialized-byte measurements.
+     * The selected combined limit is 24 MiB. Estimates are not heap or host memory measurements.
      */
     private JsonObject resourceAccounting() {
         ShadowProjectCache.ResourceAccounting core = cache.resources();
@@ -950,17 +963,39 @@ public final class ShadowCacheProbe {
         result.addProperty("exactAuthorityStagingEstimatedBytes", exact);
         result.addProperty("authorityDomainEstimatedBytes", comparison + exact);
         result.addProperty("authorityLimitBytes", MAX_SNAPSHOT_BYTES);
-        long registry = inventoryRebuild == null ? 0 : inventoryRebuild.status().registryMetadataEstimatedBytes();
+        long registry = registryEstimatedBytes();
         result.addProperty("registryAttemptEstimatedBytes", registry);
         result.addProperty("registryAttemptLimitBytes", ShadowInventoryRebuild.DEFAULT_REGISTRY_METADATA_BUDGET_BYTES);
-        result.addProperty("totalEstimatedBytes", core.recorderDomainEstimatedBytes() + core.snapshotDomainEstimatedBytes()
-            + comparison + exact + registry + core.identityAndWitnessEstimatedBytes());
-        result.addProperty("combinedLimitSelected", false);
+        result.addProperty("registryGuardEstimatedBytes", inventoryRebuild == null ? 0 : inventoryRebuild.guardEstimatedBytes());
+        result.addProperty("topologyBookkeepingEstimatedBytes", topologyControl == null ? 0 : topologyControl.bookkeepingEstimatedBytes());
+        result.addProperty("topologyWitnessCharacters", topology == null ? 0 : topology.length());
+        result.addProperty("topologyWitnessEstimatedBytes", topologyWitnessEstimatedBytes());
+        result.addProperty("topologyDomainEstimatedBytes", topologyEstimatedBytes());
+        result.addProperty("slotSourceBookkeepingEstimatedBytes", slotSource == null ? 0 : 96);
+        result.addProperty("slotWindowEstimatedBytes", slotSource == null ? 0 : slotWindow.estimatedBytes(slotRead));
+        result.addProperty("slotReadRetained", slotRead != null);
+        result.addProperty("slotDomainEstimatedBytes", slotEstimatedBytes());
+        result.addProperty("totalEstimatedBytes", cache.combinedEstimatedBytes());
+        result.addProperty("combinedLimitSelected", true);
+        result.addProperty("combinedSheddingPolicy", "drop-all-enriched-payloads-in-reference-order; preserve-confirmed-authority; explicit-retry");
         result.addProperty("hostMemoryMeasured", false);
         result.addProperty("serializedBytesAreMemoryMeasurement", false);
-        result.addProperty("accountingRevision", "8g3-resource-accounting-v1");
+        result.addProperty("accountingRevision", "8g5c-resource-accounting-v3");
         if (topologyControl != null) result.add("topologyControl", topologyControl.resources());
         return result;
+    }
+    private long registryEstimatedBytes() {
+        return inventoryRebuild == null ? 0 : inventoryRebuild.bookkeepingEstimatedBytes() + inventoryRebuild.guardEstimatedBytes();
+    }
+    private long topologyWitnessEstimatedBytes() { return topology == null ? 0 : 40L + 2L * topology.length(); }
+    private long topologyEstimatedBytes() {
+        return (topologyControl == null ? 0 : topologyControl.bookkeepingEstimatedBytes()) + topologyWitnessEstimatedBytes();
+    }
+    private long slotEstimatedBytes() { return slotSource == null ? 0 : 96L + slotWindow.estimatedBytes(slotRead); }
+    /** Read controller-side retained estimates only. Admission must not call the host. */
+    private long externalStorageEstimatedBytes() {
+        return (scan == null ? 0 : scan.estimatedBytes) + (exactFallback == null ? 0 : exactFallback.stagedEstimatedBytes())
+            + registryEstimatedBytes() + topologyEstimatedBytes() + slotEstimatedBytes();
     }
 
     public JsonObject point(int index, Track target, int row) {
@@ -1074,8 +1109,8 @@ public final class ShadowCacheProbe {
     private void applyPhysicalOverload() {
         if (physicalOverload && !physicalOverloadApplied) {
             physicalOverloadApplied = true;
-            invalidate("physical-hint-backpressure");
-            cache.requireRebuild("physical-hint-backpressure");
+            String cause = storageOverload ? "combined-storage-budget" : "physical-hint-backpressure";
+            invalidate(cause); cache.requireRebuild(cause);
         }
     }
 
@@ -1190,7 +1225,7 @@ public final class ShadowCacheProbe {
         if (!acquisitionAllowed(identity)) return fallback(view, guardRefusal(identity));
         if (scan != null || (exactFallback != null && exactFallback.active())) return fallback(view, "authority-scan-busy");
         if (exactFallback != null) exactFallback.cancel("authority-reused-for-comparison");
-        // A fresh read supersedes retained output. The core also drops the retained snapshot before enrichment.
+        // A fresh read supersedes retained output. Release its payload before authority staging.
         view.lastResult = null; view.resultRead = null;
         authorityWindowVersion = Math.incrementExact(authorityWindowVersion);
         if (!valid(view) || !("settled".equals(view.phase) || "complete".equals(view.phase)))
@@ -1203,6 +1238,7 @@ public final class ShadowCacheProbe {
         if (!"target".equals(view.stage) || !view.hints.isEmpty() || view.physicalHintOverflow)
             return fallback(view, "physical-hints-pending");
         if (!guardCurrent(view.identityGuard)) return fallback(view, "identity-window-changed");
+        cache.releaseSnapshot(view.ref);
         AuthorityControl control = view.canaryTarget == null || view.canaryAddress == null ? null : new AuthorityControl(view.canaryTarget, view.canaryAddress);
         if (control != null) {
             try { requireAddress(control.target(), control.address().row()); }
@@ -1279,8 +1315,12 @@ public final class ShadowCacheProbe {
                 List<Note> notes = read(authority.clip, coordinate, true);
                 requireIdentityEpoch(work.identityGuard);
                 if (!stepWindow.unchanged(work.authorityRead)) return finishStepWindowChange(work);
-                work.notes.addAll(notes);
-                work.estimatedBytes += notes.size() * (160L + FIELDS.size() * 64L);
+                long added = notes.size() * (160L + FIELDS.size() * 64L);
+                if (added > MAX_SNAPSHOT_BYTES - work.estimatedBytes) return finishWindowChange("authority-staging-memory-budget");
+                if (!cache.allowCombinedGrowth(added)) {
+                    cache.shedSnapshots(); return finishWindowChange("combined-storage-budget");
+                }
+                work.notes.addAll(notes); work.estimatedBytes += added;
                 work.next++;
                 if (work.estimatedBytes > MAX_SNAPSHOT_BYTES) return finishWindowChange("authority-staging-memory-budget");
             }
@@ -1414,6 +1454,7 @@ public final class ShadowCacheProbe {
             lastSnapshotSerializedBytes = JSON.toJson(view.lastResult.snapshot()).getBytes(StandardCharsets.UTF_8).length;
             result.addProperty("lastSnapshotSerializedBytes", lastSnapshotSerializedBytes);
         }
+        result.add("publicationResourceAccounting", resourceAccounting());
         endScan("published");
         result.add("scanPhaseTimesMs", lastScanPhaseTimes.deepCopy());
         result.add("resourceAccounting", resourceAccounting());
@@ -1894,6 +1935,9 @@ public final class ShadowCacheProbe {
                     physicalHintOverflow = true;
                     physicalHintDrops++;
                     return;
+                }
+                if (!hints.containsKey(coordinate) && !cache.allowCombinedGrowth(PHYSICAL_HINT_BYTES)) {
+                    storageOverload = physicalOverload = physicalHintOverflow = true; physicalHintDrops++; return;
                 }
                 hints.put(coordinate, ++hintSequence);
             });

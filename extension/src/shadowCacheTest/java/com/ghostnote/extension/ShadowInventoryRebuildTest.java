@@ -55,6 +55,7 @@ public final class ShadowInventoryRebuildTest {
         run("guard and provider failures are terminal", ShadowInventoryRebuildTest::failures);
         run("final publication guard rejects a changed window", ShadowInventoryRebuildTest::publicationGuard);
         run("bookkeeping memory equality and excess", ShadowInventoryRebuildTest::memory);
+        run("combined registry equality, atomic excess, and recovery", ShadowInventoryRebuildTest::combined);
         run("batch and total deadline boundaries", ShadowInventoryRebuildTest::time);
         run("cancel, supersede, and explicit recovery use fresh tokens", ShadowInventoryRebuildTest::recovery);
         run("published registry retires with its core domain", ShadowInventoryRebuildTest::publishedRetirement);
@@ -63,6 +64,22 @@ public final class ShadowInventoryRebuildTest {
         run("selected cell batches keep staging private and need explicit retry", ShadowInventoryRebuildTest::controlledBatches);
         run("selected cell batches retain time and range limits", ShadowInventoryRebuildTest::controlledLimits);
         System.out.println("Shadow inventory rebuild: " + passed + " test groups passed.");
+    }
+
+    private static void combined() {
+        Fixture f = new Fixture(); f.provider.readMs = 0;
+        f.cache.attachExternalStorageEstimate(() -> f.coordinator.bookkeepingEstimatedBytes() + f.coordinator.guardEstimatedBytes());
+        check(f.finish().registryPublished(), "reference registry publishes");
+        long[] extra = {MAX_COMBINED_BYTES - f.cache.combinedEstimatedBytes()};
+        f.cache.attachExternalStorageEstimate(() -> extra[0] + f.coordinator.bookkeepingEstimatedBytes() + f.coordinator.guardEstimatedBytes());
+        f.cache.resetInventoryForUnknownStructure("combined-model-rebuild");
+        check(f.finish().registryPublished() && f.cache.combinedEstimatedBytes() == MAX_COMBINED_BYTES, "registry equality publishes all entries");
+        extra[0]++;
+        f.cache.resetInventoryForUnknownStructure("combined-model-excess");
+        Status excess = f.finish();
+        check(excess.terminal() && !excess.registryPublished() && excess.reason().equals("combined-storage-budget"), "registry excess aborts atomically");
+        check(f.coordinator.bookkeepingEstimatedBytes() == 0 && f.cache.diagnostics().entries() == 0, "refused registry retains no partial entries");
+        extra[0] = 0; check(f.finish().registryPublished(), "explicit registry recovery publishes fresh references");
     }
 
     private static void preparation() {

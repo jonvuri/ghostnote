@@ -97,6 +97,7 @@ public final class ShadowCacheProbeTest {
         run("8g3: enrichment runs bounded batches across polls", ShadowCacheProbeTest::enrichmentBatches);
         run("8g3: retirement and step changes release a partial candidate", ShadowCacheProbeTest::enrichmentInterrupted);
         run("8g3: one resource accounting boundary", ShadowCacheProbeTest::resourceAccounting);
+        run("8g5c: combined equality, confirmed fallback, payload release, and recovery", ShadowCacheProbeTest::combinedStorage);
         run("8g4: unknown topology retires pending and retained output", ShadowCacheProbeTest::topologyRefusal);
         run("8g4: progress reads never advance acquisition", ShadowCacheProbeTest::progressRead);
         run("8g5b slot window: confirmation admits occupancy without identity", ShadowCacheProbeTest::slotAdmits);
@@ -219,6 +220,30 @@ public final class ShadowCacheProbeTest {
         check(f.compare().get("comparison").getAsString().equals("match"), "an explicit new attempt recovers with fresh values");
     }
 
+    private static void combinedStorage() throws Exception {
+        Fixture f = new Fixture(); f.readyA(); f.probe.point(1, f.b, 0); f.settle(1); f.compare(1);
+        JsonObject calibration = f.compare();
+        long peak = calibration.getAsJsonObject("publicationResourceAccounting").get("totalEstimatedBytes").getAsLong();
+        long[] external = {MAX_COMBINED_BYTES - peak};
+        var original = (java.util.function.LongSupplier)field(f.cache(), "externalStorageBytes");
+        f.cache().attachExternalStorageEstimate(() -> external[0] + original.getAsLong());
+        JsonObject equal = f.compare();
+        check(equal.get("comparison").getAsString().equals("match")
+            && equal.getAsJsonObject("publicationResourceAccounting").get("totalEstimatedBytes").getAsLong() == MAX_COMBINED_BYTES,
+            "adapter publishes equality with two resident payloads and authority staging");
+        external[0]++;
+        JsonObject excess = f.compare();
+        check(excess.get("comparison").getAsString().equals("combined-storage-budget")
+            && excess.get("authorityAvailable").getAsBoolean() && excess.get("fallbackPerformed").getAsBoolean()
+            && excess.get("stepWindowConfirmed").getAsBoolean() && !excess.has("diagnosticSnapshot"),
+            "one estimated byte of excess returns confirmed exact authority without a snapshot");
+        check(f.cache().resources().snapshotDomainEstimatedBytes() == 0
+            && !f.probe.status(0).has("historicalSnapshot") && !f.probe.status(1).has("historicalSnapshot"),
+            "shedding releases both core and adapter payload references");
+        external[0] = 0;
+        check(f.compare().get("comparison").getAsString().equals("match"), "explicit cache recovery");
+        check(f.exact(f.a, null).get("authorityAvailable").getAsBoolean(), "explicit exact request remains available");
+    }
     private static void resourceAccounting() throws Exception {
         Fixture f = new Fixture(); f.readyA();
         Cursor resident = f.host.resident(0);
@@ -231,9 +256,11 @@ public final class ShadowCacheProbeTest {
             + accounting.get("stagingRecorderEstimatedBytes").getAsLong() + 56 * hints, "the recorder domain sums its parts");
         long total = accounting.get("recorderDomainEstimatedBytes").getAsLong() + accounting.get("snapshotDomainEstimatedBytes").getAsLong()
             + accounting.get("authorityDomainEstimatedBytes").getAsLong() + accounting.get("registryAttemptEstimatedBytes").getAsLong()
-            + accounting.get("identityAndWitnessEstimatedBytes").getAsLong();
+            + accounting.get("identityAndWitnessEstimatedBytes").getAsLong()
+            + accounting.get("topologyDomainEstimatedBytes").getAsLong() + accounting.get("slotDomainEstimatedBytes").getAsLong();
         check(accounting.get("totalEstimatedBytes").getAsLong() == total, "the total adds every domain once");
-        check(!accounting.get("combinedLimitSelected").getAsBoolean() && !accounting.get("heapMeasured").getAsBoolean()
+        check(accounting.get("combinedLimitSelected").getAsBoolean() && accounting.get("combinedLimitBytes").getAsLong() == MAX_COMBINED_BYTES
+            && !accounting.get("heapMeasured").getAsBoolean()
             && !accounting.get("hostMemoryMeasured").getAsBoolean() && !accounting.get("serializedBytesAreMemoryMeasurement").getAsBoolean()
             && accounting.get("recorderLimitBytes").getAsLong() == MAX_RECORDER_BYTES && accounting.get("snapshotLimitBytes").getAsLong() == MAX_SNAPSHOT_BYTES,
             "limits and unmeasured quantities are explicit");

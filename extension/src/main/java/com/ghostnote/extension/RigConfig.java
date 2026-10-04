@@ -51,6 +51,30 @@ public class RigConfig {
     public int cacheScaleWidthSteps = 0;
     /** Experimental shadow observer pool. Zero disables the pool. */
     public int cacheShadowObservers = 0;
+    /** Research topology capacity. Zero disables topology allocation for the control arm. */
+    public int cacheTopologyTracks = 16;
+    /** Research route with one master witness handle per flat track. */
+    public boolean cacheTopologyCounted = false;
+    private boolean tracksExplicit, topologyExplicit, countedExplicit, filterExplicit;
+
+    /** Use the measured scope for active shadow research. Normal scaffold defaults stay at D7. */
+    public void configureResearchTopology(RuntimeProfile profile) {
+        if (!profile.hasProbeResources() || !cacheLifecycleResearch || cacheShadowObservers <= 0) return;
+        if (!topologyExplicit) cacheTopologyTracks = ShadowTopologyControl.MAX_TRACKS;
+        if (!countedExplicit) cacheTopologyCounted = true;
+        if (!tracksExplicit) tracks = Math.max(tracks, cacheTopologyTracks);
+        if (!filterExplicit) contentFilter = "ALL_CHANNELS";
+        topologyTracks();
+    }
+
+    /** Validate the research capacity before host allocation. */
+    public int topologyTracks() {
+        if (cacheTopologyTracks < 0 || cacheTopologyTracks > 512)
+            throw new IllegalArgumentException("topology capacity must be 0 through 512");
+        if (cacheTopologyTracks > tracks)
+            throw new IllegalArgumentException("topology capacity exceeds the flat bank");
+        return cacheTopologyTracks;
+    }
 
     /** Count all step-data observers allocated by the experimental profile. */
     public int experimentalStepDataObservers() {
@@ -104,6 +128,8 @@ public class RigConfig {
             if (obj == null) {
                 return config;
             }
+            config.tracksExplicit = obj.has("tracks"); config.topologyExplicit = obj.has("cacheTopologyTracks");
+            config.countedExplicit = obj.has("cacheTopologyCounted"); config.filterExplicit = obj.has("contentFilter");
             config.tracks = intOr(obj, "tracks", config.tracks);
             config.scenes = intOr(obj, "scenes", config.scenes);
             config.gridSteps = intOr(obj, "gridSteps", config.gridSteps);
@@ -123,6 +149,10 @@ public class RigConfig {
                 0, intOr(obj, "cacheScaleWidthSteps", config.cacheScaleWidthSteps));
             config.cacheShadowObservers = intOr(obj, "cacheShadowObservers", config.cacheShadowObservers);
             config.cacheShadowSteps = intOr(obj, "cacheShadowSteps", config.cacheShadowSteps);
+            config.cacheTopologyTracks = intOr(obj, "cacheTopologyTracks", config.cacheTopologyTracks);
+            if (obj.has("cacheTopologyCounted")) {
+                config.cacheTopologyCounted = obj.get("cacheTopologyCounted").getAsBoolean();
+            }
             if (obj.has("cacheLifecycleResearch")) {
                 config.cacheLifecycleResearch = obj.get("cacheLifecycleResearch").getAsBoolean();
             }
@@ -168,7 +198,10 @@ public class RigConfig {
         obj.addProperty("cacheScaleWidthSteps", cacheScaleWidthSteps);
         obj.addProperty("cacheShadowObservers", cacheShadowObservers);
         obj.addProperty("cacheShadowSteps", cacheShadowSteps);
+        obj.addProperty("cacheTopologyTracks", cacheTopologyTracks);
+        obj.addProperty("cacheTopologyCounted", cacheTopologyCounted);
         obj.addProperty("cacheLifecycleResearch", cacheLifecycleResearch);
+        obj.addProperty("deliveryResearch", deliveryResearch);
         obj.addProperty("contentFilter", contentFilter);
         obj.addProperty("directObservers", directObservers);
         obj.addProperty("stamp", stamp);

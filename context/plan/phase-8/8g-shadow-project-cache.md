@@ -2,8 +2,8 @@
 title: Phase 8g — Shadow project cache
 kind: plan
 state: active
-status: Active. 8g5a and 8g5b are complete. Run 8g5c, then 8g5.
-updated: 2026-10-03
+status: Active. 8g5a, 8g5b, and 8g5c are complete. Run 8g5. Do not enter 8h.
+updated: 2026-10-04
 parent: README.md
 prev: 8f3-ghostnote-bindings-and-cache-contracts.md
 next: 8h-cache-promotion-and-interface-simplification.md
@@ -62,14 +62,16 @@ records seven native retirements and a collapsed-child clip binding limit.
 confirmed slot-delta window. [E222](../../evidence/experiments/e222-slot-delivery-and-occupancy-window.md)
 records the measurements, and [D28](../../decisions/d28-slot-occupancy-delivery-is-a-named-assumption.md)
 accepts occupancy delivery. Identity is never inferred from occupancy.
-One required predicate remains open. Run [8g5c](8g5c-combined-storage-limit.md)
-(combined storage limit), then [8g5](8g5-final-shadow-acceptance.md).
-Do not enter 8h.
-
-The operator requires at least 256 instrument/audio tracks plus capacity for
-groups, FX, and Master. 8g5c measures allocation and topology change cost and
-raises the selected limit. It tests 512 total channels as a candidate.
-The current 16-track research bound cannot satisfy final acceptance.
+[8g5c](8g5c-combined-storage-limit.md) passes the selected 24 MiB combined
+estimate and counted 512-channel topology and occupancy limits.
+[E223](../../evidence/experiments/e223-combined-storage-scale.md) records live
+equality, excess, independent exact fallback, recovery, allocation costs, JVM
+samples, and final restoration. The flat boundary has 510 instrument/audio
+tracks, FX, and Master. Group controls have 256 base tracks plus FX, Master,
+and up to two wrappers. Shared memory samples do not attribute cache-owned heap.
+Run [8g5](8g5-final-shadow-acceptance.md) to decide the final supported-state
+gate. Carry D28, E222 identity limits, and collapsed-child binding refusal into
+that matrix. Do not enter 8h.
 
 ## Current result
 

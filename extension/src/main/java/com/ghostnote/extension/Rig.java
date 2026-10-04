@@ -651,6 +651,7 @@ public class Rig {
 
     public Rig(ControllerHost host, RigConfig config, RuntimeProfile profile) {
         long start = System.nanoTime();
+        config.configureResearchTopology(profile);
         this.config = config;
         this.profile = profile;
 
@@ -913,7 +914,7 @@ public class Rig {
             observerReuseProbe = config.cacheLifecycleResearch ? new ObserverReuseProbe(host, config) : null;
             deliveryProbe = config.deliveryResearch ? new DeliveryCoherenceProbe(host, application, project) : null;
             shadowSceneControl = config.cacheLifecycleResearch ? new ShadowSceneControl(sceneBank, config.scenes) : null;
-            shadowTopologyControl = config.cacheLifecycleResearch && config.cacheShadowObservers > 0
+            shadowTopologyControl = config.cacheLifecycleResearch && config.cacheShadowObservers > 0 && config.topologyTracks() > 0
                 ? new ShadowTopologyControl(host, this) : null;
             if (shadowTopologyControl != null) {
                 shadowCacheProbe.attachTopologyControl(shadowTopologyControl);

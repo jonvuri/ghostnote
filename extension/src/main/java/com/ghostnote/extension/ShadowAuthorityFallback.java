@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.LongSupplier;
+import java.util.function.LongPredicate;
 import static com.ghostnote.extension.ShadowProjectCache.*;
 
 /** Acquire independent authority without admitting a cache residence. */
@@ -41,6 +42,8 @@ public final class ShadowAuthorityFallback {
     private double lastBatchMs;
     private List<Note> notes = new ArrayList<>();
     private Map<String, Object> metadata;
+    private LongPredicate storageAdmission = bytes -> true;
+    public void attachStorageAdmission(LongPredicate admission) { storageAdmission = Objects.requireNonNull(admission); }
 
     public ShadowAuthorityFallback(Source source) { this(source, System::nanoTime); }
     ShadowAuthorityFallback(Source source, LongSupplier time) {
@@ -110,6 +113,7 @@ public final class ShadowAuthorityFallback {
                     if (!coordinate.equals(note.coordinate())) return refuse("authority-address-mismatch");
                     long estimate = 160L + note.fields().size() * 64L;
                     if (estimate > MAX_SNAPSHOT_BYTES - bytes) return refuse("authority-staging-memory-budget");
+                    if (!storageAdmission.test(estimate)) return refuse("combined-storage-budget");
                     notes.add(note); bytes += estimate;
                 }
                 next++;

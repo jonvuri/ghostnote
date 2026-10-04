@@ -72,9 +72,9 @@ export function independentNotes(raw: Wire): ShadowNote[] {
   assert.equal(raw.count, notes.length); return notes;
 }
 /** Check the declared seed against fixed native inputs before it can become a field oracle. */
-export function verifySeed(state: Wire): void {
+export function verifySeed(state: Wire, allowedPitches: readonly number[] = [60, 72]): void {
   assert(['New 1', '', undefined].every(name => state.project !== name));
-  assert([60, 72].includes(Number(state.pitch))); assert.equal(state.clipName, `gn-8g4-${state.pitch}`);
+  assert(allowedPitches.includes(Number(state.pitch))); assert.equal(state.clipName, `gn-8g4-${state.pitch}`);
   const notes = independentNotes(state.notes as Wire); assert.equal(notes.length, 64);
   for (let channel = 0; channel < 16; channel++) for (let index = 0; index < 4; index++) {
     const matches = notes.filter(note => note.channel === channel && note.cell === index * 8 && note.pitch === Number(state.pitch) + index);
@@ -82,10 +82,10 @@ export function verifySeed(state: Wire): void {
     assert(Math.abs(Number(fields.velocity) - (80 + channel) / 127) < 1e-6); assert.equal(fields.rawDuration, 8 / 512);
   }
 }
-export function verifyComparison(value: Wire, state: Wire, marker = NATIVE_MARKER): void {
+export function verifyComparison(value: Wire, state: Wire, marker = NATIVE_MARKER, allowedPitches: readonly number[] = [60, 72]): void {
   closed(value); assert.equal(value.instrumentationRevision, marker); assert.equal(value.comparison, 'match');
   assert.equal(value.authorityAvailable, true); assert.equal(value.stepWindowConfirmed, true); assert.equal(value.contentComparisonComplete, true);
-  verifySeed(state); const expected = independentNotes(state.notes as Wire), snapshot = value.diagnosticSnapshot as Wire;
+  verifySeed(state, allowedPitches); const expected = independentNotes(state.notes as Wire), snapshot = value.diagnosticSnapshot as Wire;
   assert(snapshot); assert.deepEqual(snapshot.address, { trackId: state.trackId, row: 0 });
   const raw = state.metadata as Wire; assert(raw); assert.equal(raw.exists, true); assert.equal(raw.name, state.clipName);
   const metadata: Wire = { name: raw.name, isLoopEnabled: raw.loopEnabled };

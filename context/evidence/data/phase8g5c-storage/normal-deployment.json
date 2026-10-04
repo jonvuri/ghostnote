@@ -1,0 +1,21 @@
+{
+  "schema": "phase8g5c-normal-deployment-v1",
+  "captured": "2026-10-04T04:16:46.681551+00:00",
+  "complete": false,
+  "eligible": false,
+  "combinedStorageAccepted": false,
+  "normalControllerReplacementPending": true,
+  "ownedFixtureDiscardPending": true,
+  "protectedProject": "New 3",
+  "ownedProject": "New 8",
+  "budgetPath": "combined-budget.json.gz",
+  "priorInitialization": 1791085711888,
+  "priorMarker": "8g5c-combined-storage-v4",
+  "fixtureRestored": true,
+  "cacheResident": 0,
+  "physicalPendingHints": 0,
+  "normalArchiveSha256": "fd1e32ea75324ca05140a46059c2d326605083da1a86504ff8e8e9d0bd3e03f4",
+  "normalArchiveMtimeMs": 1791087368327.1177,
+  "researchArchiveSha256": "e51ea24917b4c856df4aed6106e3b1a662f068ef5f54669f81ed35ee31328d73",
+  "configSha256": "256bbf07094cd654c372d0e5e050e494ef7783c9a0001a0a2a688331bcf643b0"
+}

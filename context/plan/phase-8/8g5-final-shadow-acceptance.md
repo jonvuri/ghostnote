@@ -3,7 +3,7 @@ title: Phase 8g5 — Final shadow acceptance and consumer workflows
 kind: plan
 state: active
 status: Pending. Run after 8g5a–8g5c. Decide the 8g gate without starting 8h.
-updated: 2026-10-03
+updated: 2026-10-04
 parent: 8g-shadow-project-cache.md
 prev: 8g5c-combined-storage-limit.md
 next: 8h-cache-promotion-and-interface-simplification.md
@@ -23,11 +23,15 @@ required predicates and moved them to focused sessions:
 2. [8g5b — Slot inventory delivery](8g5b-slot-inventory-delivery.md): E222
    passes covered occupancy under D28. Equal occupancy is never an identity
    witness; state that limit in the supported-state matrix.
-3. [8g5c — Combined storage limit](8g5c-combined-storage-limit.md): no total
-   limit is selected, and heap memory is not measured. It must also measure
-   topology allocation and implement support for at least 256 instrument/audio
-   tracks plus group, FX, and Master capacity. The 16-track research limit does
-   not satisfy this gate.
+3. [8g5c — Combined storage limit](8g5c-combined-storage-limit.md): E223 passes
+   counted 512-channel topology and occupancy, 24 MiB combined equality, excess,
+   independent exact fallback, and recovery. It measures three empty and three
+   populated fresh-controller loads, the full configured working set, and
+   eviction. JVM and process memory are shared; no cache-owned heap attribution
+   is claimed. The flat boundary has 510 instrument/audio tracks, FX, and Master.
+   Group controls have 256 base tracks, FX, Master, and up to two wrappers.
+   Carry D28, E222 identity limits, and collapsed-child `binding-budget` refusal
+   into the supported-state matrix. Normal reload and protected cleanup pass.
 
 [D27](../../decisions/d27-later-callback-ordering-is-a-named-assumption.md)
 accepts the E217 ordering rule. With D26, it closes covered step-content

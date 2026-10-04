@@ -85,6 +85,7 @@ public final class ShadowInventoryRebuild {
             try { captured = guards.get(); }
             catch (RuntimeException error) { return abort("inventory-guard-unavailable"); }
             if (captured == null) return abort("inventory-guard-unavailable");
+            if (!cache.allowCombinedGrowth(0)) return abort("combined-storage-budget");
             if (!captured.completeEventWindow()) return abort("inventory-event-gap");
             if (!inventory.fullInventory()) return abort("inventory-outside-configured-bank");
             total = inventory.cellCount();
@@ -122,7 +123,11 @@ public final class ShadowInventoryRebuild {
                         return abort("inventory-coverage-incomplete");
                     long bytes = registryMetadataEstimate(slot);
                     if (bytes > metadataBudget - metadataBytes) return abort("inventory-bookkeeping-memory-budget");
-                    cache.stageNonResident(token, slot.address(), slot.coverage());
+                    try { cache.stageNonResident(token, slot.address(), slot.coverage(), bytes); }
+                    catch (IllegalStateException error) {
+                        if ("combined-storage-budget".equals(error.getMessage())) return abort("combined-storage-budget");
+                        throw error;
+                    }
                     metadataBytes += bytes;
                     present++;
                 }
@@ -172,6 +177,12 @@ public final class ShadowInventoryRebuild {
             captured != null && captured.verified(), false, false, false, "aborted".equals(phase),
             cache.diagnostics().health(), "idle".equals(phase) ? 0 : elapsedTo(started, terminal ? ended : nanoTime.getAsLong()),
             lastBatchMs, metadataBytes, metadataBudget, "current-attempt extension-owned registry bookkeeping estimate; excludes prior registry, host, sparse recorder, and enriched snapshots");
+    }
+    /** Current bookkeeping only. Unlike status(), this getter makes no guard or host read. */
+    public long bookkeepingEstimatedBytes() { return metadataBytes; }
+    public long guardEstimatedBytes() {
+        return captured == null ? 0 : 128L + 2L * (captured.structureWitness().length()
+            + (captured.loadedInstanceWitness() == null ? 0 : captured.loadedInstanceWitness().length()));
     }
 
     private boolean publicationCurrent() {

@@ -2,14 +2,16 @@
 title: Phase 8g5c — Combined storage limit
 kind: plan
 state: active
-status: Pending. Run next; 8g5b is complete. Measure topology scale, support at least 256 base tracks, and select one total cache storage limit.
-updated: 2026-10-03
+status: Complete. Counted 512-channel topology and occupancy pass. Live 24 MiB equality, excess, independent exact fallback, recovery, JVM sampling, eviction, and final restoration pass. E223 records the supported limits. Cache eligibility remains false; run 8g5 next.
+updated: 2026-10-04
 parent: 8g-shadow-project-cache.md
 prev: 8g5b-slot-inventory-delivery.md
 next: 8g5-final-shadow-acceptance.md
 ---
 
 # Phase 8g5c — Combined storage limit
+
+Result: [E223](../../evidence/experiments/e223-combined-storage-scale.md).
 
 ## Why
 

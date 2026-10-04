@@ -1,0 +1,29 @@
+{
+ "schema": "phase8g5c-counted-deployment-v1",
+ "captured": "2026-10-03T14:16:01.612+00:00",
+ "marker": "8g5c-counted-allocation-v2",
+ "definitionVersion": "0.0.1-8g-controls-8g5c-counted-2",
+ "archivePath": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-shadow-8g-controls.bwextension",
+ "archiveSha256": "193162d254b012d23212d741363a1ee82799d4cc333bc4c4006e76444375d715",
+ "archiveBytes": 723249,
+ "archiveMtimeMs": 1791036937317.962,
+ "configSha256": "caacbe1f050f29864b400b559eb0afe730ef4708439a4fdd6d21477862426d91",
+ "config": {
+  "recordChars": 0,
+  "stamp": "8g5c-counted-512",
+  "tracks": 512,
+  "cacheTopologyCounted": true,
+  "cacheTopologyTracks": 512,
+  "cacheLifecycleResearch": true,
+  "deliveryResearch": true,
+  "cacheShadowObservers": 2,
+  "cacheShadowSteps": 2048,
+  "fineSteps": 2048,
+  "contentFilter": "ALL_CHANNELS"
+ },
+ "priorSample": "empty-256-3.json",
+ "complete": false,
+ "eligible": false,
+ "controllerReplacementPending": true,
+ "liveRouteAccepted": false
+}

@@ -13,7 +13,7 @@ public final class ShadowGroupControl {
         JsonObject result = new JsonObject(); JsonArray tracks = new JsonArray();
         result.addProperty("groupControlRevision", REVISION); result.addProperty("researchOnly", true);
         result.addProperty("groupMembershipProved", false); result.addProperty("hostInputOrderingProved", false);
-        int bound = Math.min(rig.config.tracks, 256), count = rig.trackBank.itemCount().get();
+        int bound = Math.min(rig.config.tracks, ShadowTopologyControl.MAX_TRACKS), count = rig.trackBank.itemCount().get();
         int offset = rig.trackBank.scrollPosition().get();
         result.addProperty("windowStart", offset);
         result.addProperty("totalCount", count); result.addProperty("bankSize", bound); boolean readable = true;

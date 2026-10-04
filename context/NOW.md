@@ -2,51 +2,54 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-10-03
+updated: 2026-10-04
 phase: phase-8-agent-native-live-engine
-session: 8g5b-complete
+session: 8g5c-complete
 ---
 
 # Now
 
-Next session: [8g5c — Combined storage limit](plan/phase-8/8g5c-combined-storage-limit.md).
+Next session: [8g5 — Final shadow acceptance](plan/phase-8/8g5-final-shadow-acceptance.md).
+[8g5c](plan/phase-8/8g5c-combined-storage-limit.md) is complete.
+[E223](evidence/experiments/e223-combined-storage-scale.md) records the results.
+All cache results keep `complete:false` and `eligible:false`. Do not enter 8h.
 
-[8g5b](plan/phase-8/8g5b-slot-inventory-delivery.md) is complete.
-[E222](evidence/experiments/e222-slot-delivery-and-occupancy-window.md) measured
-zero missed occupancy deliveries and zero foreign slots. The user accepted
-[D28](decisions/d28-slot-occupancy-delivery-is-a-named-assumption.md). Live
-occupancy now publishes only through a confirmed slot-delta window. Any slot or
-structure callback refuses with `slot-window-changed`.
+Counted topology and occupancy support 512 total channels and 128 scenes. FX,
+Master, and group wrappers share that capacity. The flat boundary has 510
+instrument/audio tracks, FX, and Master. Group controls pass at 256 base tracks
+plus FX, Master, and up to two wrappers. At 513, all project admission paths
+refuse; cleanup and recovery pass. Counted allocation uses 513 banks, 1,024 bank
+track handles, and no parent handles. Three empty and three populated fresh
+controller samples pass. Populated initialization median is 50.512 ms; topology
+construction median is 4.298 ms. The JVM and host memory values are shared.
 
-Identity is never inferred from occupancy. Same-callback delete and recreate
-was silent in 30 of 30 runs; 10 witness runs proved a new clip. A project switch
-at equal occupancy was also silent. Each rebuild mints new references. Group
-tracks' own slots mirror their children and are not clips. Carry both limits
-into the 8g5 supported-state matrix, with the collapsed-child rebinding refusal.
+Live 24 MiB equality passes across all seven independent estimate domains.
+Two-byte excess sheds all enriched payloads and returns confirmed authority.
+Independent exact fallback matches all 6,315 notes. Explicit recovery, eviction,
+and restoration pass. The accepted journal preserves completed arms from an
+immutable diagnostic. Retain both harness failures; do not rerun fixture trials.
+Estimates exclude host objects and transient diagnostic copies. JVM samples do
+not measure cache-owned heap. Normal rig defaults stay unchanged.
 
-Scope is still 16 flat tracks and 128 scenes. The occupancy source adds no host
-handles; it reuses 256 rig `hasContent` observers over 32,768 slots. Heap is
-unmeasured. 8g5c must support at least 256 instrument/audio tracks plus group,
-FX, and Master capacity. It tests 512 total channels, raises the topology and
-occupancy limits together, and adds both domains to the resource ledger.
+Carry D28, E222 identity limits, and collapsed-child `binding-budget` refusal
+into 8g5. Group own slots mirror children and are not clips. Occupancy never
+proves identity. Each rebuild mints fresh references. Native input ordering
+remains unproved.
 
 Only protected `New 3 *` remains open. Never save or close it. Its
-[final check](evidence/data/phase8g5b-slot/new3-final-baseline.json) matches the
-[adopted baseline](evidence/data/phase8g5a-group/new3-baseline.json), including
-its reader and empty clip. New 6 and New 7 were discarded without saving.
+[final check](evidence/data/phase8g5c-storage/new3-final-baseline.json) matches the
+[adopted baseline](evidence/data/phase8g5a-group/new3-baseline.json) twice,
+including its reader and empty clip. The operator discarded New 8 without
+saving. Exact original config SHA-256 is `256bbf07…43b0`. The research archive
+is removed. Normal hello passes: 85 methods, hash `bba7383dce25c0f0`, fresh init
+`2026-10-04T04:25:55.814Z`. Normal archive SHA-256 is `fd1e32ea…3e03f4`.
 
-Normal hello passes: 85 methods, hash `bba7383dce25c0f0`, fresh init
-`2026-10-03T09:22:01.778Z`. Config SHA-256 is `256bbf07…43b0`. The research
-archive is removed. The deployed normal archive predates a research-only D28
-label change. Brain typecheck and 1,754 tests pass. Extension, archive,
-artifact, wire, context, and diff checks pass.
-
-Run 8g5c, then 8g5. All cache results remain `complete:false` and
-`eligible:false`. Do not enter 8h. Entry HEAD is `8e907e0`. Session changes
-are staged; no commit is made.
+Brain typecheck and all 1,800 tests pass. Extension, all four archive
+registrations, the 65-file artifact verifier, normal reload, active wire, context,
+and diff checks pass. Entry HEAD is `bcfb5f4`. Session changes are staged for
+review; no commit is made.
 
 ## Retrospective
 
-Declare legitimate intermediate states before an analyzer classifies foreign
-reads. Prove an identity claim with content, not occupancy. Ask the operator
-where a native command placed its result before reading state.
+Use `status` to inspect a view. `read` starts a comparison. Retire other views
+before a global hint drain. Preserve completed live arms during continuation.

@@ -1,0 +1,21 @@
+{
+  "schema": "phase8g5c-cleanup-v1",
+  "captured": "2026-10-04T04:29:17.147823+00:00",
+  "complete": false,
+  "eligible": false,
+  "sessionWorkComplete": true,
+  "operatorDiscardedOwnedFixture": true,
+  "operatorConfirmation": "Done: normal controller replaced, New 8 discarded without saving, New 3 selected",
+  "ownedFixture": "New 8",
+  "protectedProject": "New 3",
+  "protectedRestorationPath": "new3-final-baseline.json",
+  "adoptedBaselineSha256": "8b82607cc61880d604379c2ac17dfbdbc3754bed22e866e7d6b6d3192a228343",
+  "researchArchiveRemoved": true,
+  "researchArchiveSha256": "e51ea24917b4c856df4aed6106e3b1a662f068ef5f54669f81ed35ee31328d73",
+  "normalArchiveSha256": "fd1e32ea75324ca05140a46059c2d326605083da1a86504ff8e8e9d0bd3e03f4",
+  "normalInitialization": 1791087955814,
+  "configSha256": "256bbf07094cd654c372d0e5e050e494ef7783c9a0001a0a2a688331bcf643b0",
+  "uiObservation": "Read-only screenshot: one project tab, New 3 *, no New 8 tab.",
+  "protectedProjectSaved": false,
+  "protectedProjectClosed": false
+}

@@ -84,4 +84,6 @@ public final class SlotDeltaWindow {
     public long readsOpened() { return reads; }
     public long confirmations() { return confirmations; }
     public long changes() { return changes; }
+    /** Source estimate for the window, nonce text, and one current read. It makes no host read. */
+    public long estimatedBytes(Read read) { return 256L + 40L + 2L * initNonce.length() + (read == null ? 0 : 128L); }
 }
