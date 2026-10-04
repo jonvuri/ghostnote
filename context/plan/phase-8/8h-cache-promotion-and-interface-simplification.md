@@ -36,6 +36,20 @@ occurrence, recurrence, and repeat controls on notes that the patch did not
 mention, and it reset disabled recurrence values. Fix or refuse that path before
 a stable write or preflight uses cache state.
 
+## Session split
+
+8h has three sessions:
+
+1. [8h1a — Cache limit knee sweep](8h1a-cache-limit-knee-sweep.md). Find the
+   real host and speed knees with one maximum allocation and runtime
+   configuration. Then 8h1 — cache promotion: turn on address- and
+   domain-scoped eligibility at the selected limits, with exact fallback to
+   the stable E131 reader. The 8h1 plan is written after 8h1a.
+2. [8h2 — Exact reader consolidation](8h2-exact-reader-consolidation.md).
+   Select the exact reader, remove the `1/768` view, and fix or refuse the
+   E131 disabled-control loss.
+3. 8h3 — interface simplification, naming, and device structure migration.
+
 ## Purpose
 
 Make proved cache reads part of the live engine, connect the consolidated

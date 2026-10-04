@@ -358,6 +358,9 @@ owns the migration details.
 28. [8h — Cache promotion and interface simplification](8h-cache-promotion-and-interface-simplification.md).
    Not entered. The 8g gate passes (E224). A later session can select 8h. It
    must fix or refuse the legacy writer loss of disabled expression state.
+   It is split into [8h1a](8h1a-cache-limit-knee-sweep.md) (limit knee sweep),
+   8h1 (cache promotion), [8h2](8h2-exact-reader-consolidation.md)
+   (exact reader consolidation), and 8h3 (interface simplification).
 29. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.

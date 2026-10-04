@@ -16,10 +16,13 @@ fence and no host clip identity are proved. A clip reference is an address
 token in one identity domain, not a clip identity witness. All live cache results keep `complete:false` and
 `eligible:false`. E131 keeps stable authority.
 
-Next: a later session can select
-[8h](plan/phase-8/8h-cache-promotion-and-interface-simplification.md). Before
-stage 1, check its entry conditions and define promoted eligibility as
-address- and domain-scoped. 8h must fix or refuse the legacy E131 reconstruct loss: a stable
+Next: [8h1a](plan/phase-8/8h1a-cache-limit-knee-sweep.md) finds real cache
+limit knees with one maximum allocation and runtime configuration. 8h1 then
+promotes the cache at the selected limits with E131 as exact fallback.
+[8h2](plan/phase-8/8h2-exact-reader-consolidation.md) selects the exact reader,
+removes the `1/768` view, and owns the writer loss below. 8h3 owns interface
+simplification. Define promoted eligibility as
+address- and domain-scoped. 8h2 must fix or refuse the legacy E131 reconstruct loss: a stable
 transpose enabled disabled chance, occurrence, recurrence, and repeat controls
 on notes that it did not mention, and it reset disabled recurrence values.
 The shadow agreed with authority in that case.
