@@ -3,7 +3,7 @@ title: Phase 8h — Cache promotion and interface simplification
 kind: plan
 state: planned
 status: Promote only proved cache states and apply the 8a product reductions over the replacement route.
-updated: 2026-10-01
+updated: 2026-10-04
 parent: README.md
 prev: 8g-shadow-project-cache.md
 next: 8i-agent-native-hybrid-dogfood.md
@@ -23,6 +23,18 @@ complete for identities while articulation/repeat remain unknown. Partial-base
 resolution, signed timbre conversion, raw disabled properties, and pressure/repeat
 preservation need guarded host integration. Decisions D8/D16/D19/D21 contain
 the target amendments; their live implementation gates still apply.
+
+## 8g result
+
+[E224](../../evidence/experiments/e224-final-shadow-acceptance.md) passes the
+8g gate under D26–D28 and lists the supported states. Live eligibility is still
+closed. A clip reference is an address token inside one identity domain; it is not
+proof of the same host clip object.
+Define promoted eligibility in those terms before stage 1. E224 also measured the
+legacy E131 reconstruct path on a stable transpose. It enabled disabled chance,
+occurrence, recurrence, and repeat controls on notes that the patch did not
+mention, and it reset disabled recurrence values. Fix or refuse that path before
+a stable write or preflight uses cache state.
 
 ## Purpose
 

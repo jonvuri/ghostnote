@@ -2,7 +2,7 @@
 title: Phase 8g intermediate review
 kind: evidence
 state: active
-updated: 2026-10-03
+updated: 2026-10-04
 owner: phase-8g-intermediate-review
 ---
 
@@ -165,6 +165,29 @@ Verification: 37 core and 65 adapter groups, extension `check`, 1,723 brain
 tests including retained-report mutants, five artifact verifiers, the E219
 verifier, active wire checks, context links, and diff checks pass.
 
+## Final acceptance in 8g5
+
+[E224](../experiments/e224-final-shadow-acceptance.md) passes the 8g gate
+inside its supported-state matrix, under D26, D27, and D28. It ran ten consumer
+cases on the final build: six shadow matches against a declared oracle and
+independent raw reads, one exact fallback, and four refusals. It also ran 62
+detour trials with zero foreign or differing outputs. Two consumer diagnostics
+and one detour oracle diagnostic are retained separately. Live eligibility stays
+closed. E131 keeps stable authority. This session did not enter 8h.
+
+The remaining unverified predicates are stated limits, not open gates for the
+supported path:
+
+- No host input fence or native input ordering. Reads rely on D26 and D27; occupancy relies on D28.
+- No host clip identity or unseen A–B–A continuity. A reference is an address token in one identity domain.
+- No cache-owned heap or host memory measurement. Estimates and shared JVM samples only.
+- No identical viewport restoration.
+
+E224 also measured a stable writer limit. The legacy E131 reconstruct path
+enables disabled expression controls and resets disabled recurrence values on
+notes that the patch does not mention. The shadow agrees with authority. 8h owns
+the fix.
+
 ## Acceptance ledger
 
 `Pass` means the stated bounded criterion passes. `Unverified` means required
@@ -206,7 +229,7 @@ core addresses, aggregate observer admission in `RigConfig`, and host settlement
 | Reservation serves neither victim nor pending target | Pass | `find` hides reserved entries; `accept` requires retirement and confirmed settlement. | 8g2 |
 | Cancel, clear, invalidate, reload, and failed bookkeeping cannot partly publish | Pass | Stale-domain reservations refuse. Post-retirement cancellation stays free. A failed clock update leaves the reservation uncommitted. | 8g2 |
 | Aggregate physical observer admission | Pass | Rig checks all configured StepData observers before allocation; observer-budget tests pass. | 8g3 |
-| Physical target and project continuity at pool acceptance | Unverified | Guarded canary/target controls pass in bounded runs. The host target update window remains open. | 8g2 |
+| Physical target and project continuity at pool acceptance | Pass under D26/D27 | Confirmed step-delta windows admit reads (E218; final-build rerun in E224). No host fence is proved. | 8g2b, 8g5 |
 
 Disposition: the pool algorithm is complete within its caller contract.
 `markRetired` assumes the caller retired the physical binding. The Boolean
@@ -250,7 +273,7 @@ Inventory area 4 also includes both durable evidence documents and manifests.
 | Independent fixture values, channels, cancellation, and recovery | Pass | Separate v2 and v3 runs each pass 18 comparisons. V3 also has two active-scan cancellation controls and independent recovery. | 8g2 |
 | Chain UUID claims stay within copy, reopen, and paired reload protocols | Pass | Eleven endpoint captures; exact copied package; both reload endpoints and changed extension nonce. No-chain witness is unknown. | 8g2 |
 | Physical notifications remain hints; no unsupported defect claim | Pass | Reconciliation reads current target values on all channels. Trace gaps and source uncertainty remain qualified. | 8g2 |
-| Guarded project-target update window and unseen A–B–A continuity | Unverified | Delivered detours retire correctly. Equal copied roots and equal endpoints cannot exclude an unseen detour. | 8g2 |
+| Guarded project-target update window and unseen A–B–A continuity | Window: pass under D26/D27. Continuity: unsupported | Content is admitted only through a confirmed window. References are address tokens in one identity domain; a read-window change deletes them (E222, E224). | 8g2b, 8g5 |
 
 Disposition: measured replay and reuse protocols are complete within their
 recorded scopes. Loaded-instance continuity remains evidence and implementation
@@ -336,7 +359,7 @@ Do not add these denominators into one acceptance total.
 3. [8g3 — Snapshot and global budgets](../../plan/phase-8/8g3-snapshot-and-global-budgets.md): complete. See the budget section below.
 4. [8g4 — Native topology and ordering](../../plan/phase-8/8g4-native-topology-and-ordering.md): complete; native ordering passes, group membership stays unsupported, and exact API cleanup/normal reload pass. See [E220](../experiments/e220-native-topology-and-ordering.md).
 5. [8g5a](../../plan/phase-8/8g5a-group-topology-support.md), [8g5b](../../plan/phase-8/8g5b-slot-inventory-delivery.md), and [8g5c](../../plan/phase-8/8g5c-combined-storage-limit.md): group topology, slot inventory delivery, and combined storage limit. The 8g5 planning pass selects project-wide occupancy as the gate scope; 8g5a now passes bounded group topology in [E221](../experiments/e221-group-topology-candidates.md). 8g5b passes covered occupancy in [E222](../experiments/e222-slot-delivery-and-occupancy-window.md) under D28; identity is never inferred from occupancy. Combined storage remains open. Collapsed-child clip rebinding still refuses; carry that limit into final supported-state acceptance.
-6. [8g5 — Final shadow acceptance](../../plan/phase-8/8g5-final-shadow-acceptance.md): verify consumers and the whole 8g gate; decide 8h entry separately.
+6. [8g5 — Final shadow acceptance](../../plan/phase-8/8g5-final-shadow-acceptance.md): complete. E224 passes the 8g gate under D26–D28. A later session can select 8h.
 
 8g3 can start offline. The 8g2 decision refuses its intended live acquisitions.
 8g4 can prepare offline in that interval. All live sessions use one owned fixture

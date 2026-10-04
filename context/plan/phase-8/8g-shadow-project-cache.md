@@ -2,17 +2,28 @@
 title: Phase 8g — Shadow project cache
 kind: plan
 state: active
-status: Active. 8g5a, 8g5b, and 8g5c are complete. Run 8g5. Do not enter 8h.
+status: Complete. E224 passes the 8g gate under D26–D28. 8h is not entered.
 updated: 2026-10-04
 parent: README.md
 prev: 8f3-ghostnote-bindings-and-cache-contracts.md
 next: 8h-cache-promotion-and-interface-simplification.md
-evidence: E130-E134; E138-E139; E214-E221; D23; D26; D27
+evidence: E130-E134; E138-E139; E214-E224; D23; D26; D27; D28
 ---
 
 # Phase 8g — Shadow project cache
 
-## Next session
+## Final result
+
+[8g5](8g5-final-shadow-acceptance.md) is complete.
+[E224](../../evidence/experiments/e224-final-shadow-acceptance.md) passes the
+8g gate inside its supported-state matrix, under D26, D27, and D28. No host input
+fence and no host clip identity are proved. A clip reference is an address
+token in one identity domain. Live results keep `complete:false` and `eligible:false`. A later
+implementation session can select 8h after it checks the 8h entry conditions.
+8h must also fix or refuse the legacy E131 writer loss of disabled expression
+state that E224 measured.
+
+## Session history
 
 [8g1 — Review fixes](8g1-review-fixes.md) is complete. Both P2 findings from
 the [intermediate review ledger](../../evidence/format/PHASE8G_INTERMEDIATE_REVIEW.md)

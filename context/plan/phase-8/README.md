@@ -2,8 +2,8 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: D25 selects FIELDS and JSON. 8g is active; 8g1 is complete. Start 8g2.
-updated: 2026-10-02
+status: D25 selects FIELDS and JSON. 8g is complete (E224). 8h is not entered.
+updated: 2026-10-04
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
 next: ../phase-9/README.md
@@ -334,7 +334,8 @@ owns the migration details.
    with host binding, identity, overlay, migration, and cache contracts.
    8g is active. Stable integration stays in 8h.
 27. [8g — Shadow project cache](8g-shadow-project-cache.md).
-   Active. [E214](../../evidence/experiments/e214-shadow-cache-content-and-lifecycle-gates.md)
+   Complete. [E224](../../evidence/experiments/e224-final-shadow-acceptance.md)
+   passes the 8g gate under D26–D28. History: [E214](../../evidence/experiments/e214-shadow-cache-content-and-lifecycle-gates.md)
    records fifteen retained content matches and zero eligible cache results.
    The domain model is implemented. Current bounded replay, reuse, and live
    controls are recorded in E214 and E215. Remaining acceptance gates stay open.
@@ -351,12 +352,12 @@ owns the migration details.
    under D28. [8g5c](8g5c-combined-storage-limit.md) passes counted 512-channel
    topology and occupancy, 24 MiB combined equality, excess, and recovery.
    [E223](../../evidence/experiments/e223-combined-storage-scale.md) records costs,
-   shared JVM samples, and final restoration. Run final shadow acceptance in
-   [8g5](8g5-final-shadow-acceptance.md).
+   shared JVM samples, and final restoration. [8g5](8g5-final-shadow-acceptance.md)
+   completes final shadow acceptance.
    E131 remains authoritative.
 28. [8h — Cache promotion and interface simplification](8h-cache-promotion-and-interface-simplification.md).
-   Not entered. Complete the 8g gates before cache promotion or the selected
-   tool and verification reductions.
+   Not entered. The 8g gate passes (E224). A later session can select 8h. It
+   must fix or refuse the legacy writer loss of disabled expression state.
 29. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.

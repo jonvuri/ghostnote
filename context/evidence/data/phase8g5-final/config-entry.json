@@ -1,0 +1,19 @@
+{
+ "schema": "phase8g5-config-entry-v1",
+ "captured": "2026-10-04T04:58:41.266Z",
+ "originalSha256": "256bbf07094cd654c372d0e5e050e494ef7783c9a0001a0a2a688331bcf643b0",
+ "originalBase64": "eyAicmVjb3JkQ2hhcnMiOiAwLCAic3RhbXAiOiAiZGVmYXVsdCIgfQo=",
+ "research": {
+  "recordChars": 0,
+  "stamp": "8g5-consumers",
+  "tracks": 512,
+  "cacheTopologyCounted": true,
+  "cacheTopologyTracks": 512,
+  "cacheLifecycleResearch": true,
+  "deliveryResearch": true,
+  "cacheShadowObservers": 2,
+  "cacheShadowSteps": 2048,
+  "fineSteps": 2048,
+  "contentFilter": "ALL_CHANNELS"
+ }
+}

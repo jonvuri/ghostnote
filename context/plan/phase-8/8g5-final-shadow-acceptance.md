@@ -2,7 +2,7 @@
 title: Phase 8g5 — Final shadow acceptance and consumer workflows
 kind: plan
 state: active
-status: Pending. Run after 8g5a–8g5c. Decide the 8g gate without starting 8h.
+status: Complete. E224 passes the 8g gate inside its supported-state matrix. 8h is not entered.
 updated: 2026-10-04
 parent: 8g-shadow-project-cache.md
 prev: 8g5c-combined-storage-limit.md
@@ -10,6 +10,17 @@ next: 8h-cache-promotion-and-interface-simplification.md
 ---
 
 # Phase 8g5 — Final shadow acceptance and consumer workflows
+
+## Result
+
+Complete. [E224](../../evidence/experiments/e224-final-shadow-acceptance.md)
+records the supported-state matrix, the pass result for each parent criterion,
+the consumer workflows, the final-build detour rerun, and the measurements.
+The 8g gate passes under D26, D27, and D28. A later session can select 8h.
+The public patch exposed a legacy E131 writer loss of disabled expression state.
+8h owns that fix. The largest shadow cost is the 4,194,304-read authority scan
+for each comparison. The most common fallback cause is the closed live
+eligibility gate.
 
 ## Gate scope and prerequisites
 

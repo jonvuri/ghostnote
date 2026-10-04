@@ -16,7 +16,7 @@ import { pathToFileURL } from 'node:url';
 import { BridgeClient } from '../client.js';
 import { parseSignature } from './e216-delivery-coherence-lib.js';
 import type { Identities } from './e216-delivery-coherence-lib.js';
-import { E218_MARKER, ROOT_MARKER, SHADOW_MARKER, aggregateArm, checkReport, classifyTrial } from './e218-step-delta-acceptance-lib.js';
+import { E218_MARKER, FINAL_SHADOW_MARKER, ROOT_MARKER, SHADOW_MARKER, aggregateArm, checkReport, classifyTrial } from './e218-step-delta-acceptance-lib.js';
 
 type Wire = Record<string, unknown>;
 const NEXT = 'Select Next Project', PREV = 'Select Previous Project';
@@ -169,10 +169,11 @@ async function run(statePath: string, out: string, arm: string, reps: number): P
   assert(identities.P && identities.Q && state.PCanary, 'prepare P, Q, and the P canary first');
   assert.equal(await shown(), identities.P.name, 'trials start on P');
   const info = await shadow('info'), root = await shadow('rootSnapshot');
-  assert.equal(info.instrumentationRevision, SHADOW_MARKER); assert.equal(root.instrumentationRevision, ROOT_MARKER);
+  const shadowMarker = String(info.instrumentationRevision);
+  assert([SHADOW_MARKER, FINAL_SHADOW_MARKER].includes(shadowMarker), `unknown shadow build ${shadowMarker}`); assert.equal(root.instrumentationRevision, ROOT_MARKER);
   const pingP95Ms = await measurePing();
   const report: Wire = { marker: E218_MARKER, arm, reps, researchOnly: true, complete: false, eligible: false, hostFenceProved: false,
-    started: new Date().toISOString(), identities, pingP95Ms, shadowMarker: SHADOW_MARKER, rootMarker: ROOT_MARKER,
+    started: new Date().toISOString(), identities, pingP95Ms, shadowMarker, rootMarker: ROOT_MARKER,
     namedAssumptions: ['D26 complete step-data delivery for covered cells', 'E217 later-callback ordering rule'],
     inventory: keep(await shadow('inventory')), trials: [], limitations: [
       'controller-issued project actions, except the native arm where the user switches tabs',

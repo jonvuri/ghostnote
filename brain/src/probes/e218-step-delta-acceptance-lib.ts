@@ -8,6 +8,8 @@ type Wire = Record<string, unknown>;
 export const E218_MARKER = 'e218-step-delta-acceptance-v1';
 export const SHADOW_MARKER = '8g2b-shadow-step-delta-v1';
 export const ROOT_MARKER = '8g2b-root-step-delta-v1';
+/** 8g5 reruns selected arms on the final 8g5c build. Its root marker is unchanged. */
+export const FINAL_SHADOW_MARKER = '8g5c-combined-storage-v4';
 export const P_PITCH = 60, Q_PITCH = 72;
 export interface NoteKey { channel: number; cell: number; pitch: number }
 
@@ -69,5 +71,6 @@ export function aggregateArm(rows: Wire[]): Wire {
 
 export function checkReport(report: Wire): void {
   assert.equal(report.marker, E218_MARKER);
+  assert([SHADOW_MARKER, FINAL_SHADOW_MARKER].includes(String(report.shadowMarker)), 'unknown shadow build');
   assert.equal(report.eligible, false); assert.equal(report.complete, false); assert.equal(report.hostFenceProved, false);
 }

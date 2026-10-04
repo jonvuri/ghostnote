@@ -18,7 +18,8 @@ import { E216_MARKER, aggregateDetours, classifyTick, parseSignature, summarizeD
 import type { Identities, Side, SideIdentity } from './e216-delivery-coherence-lib.js';
 
 type Wire = Record<string, unknown>;
-const ORIGINAL_PROJECT = 'New 1';
+/** Original and protected projects. The driver never prepares them. */
+const PROTECTED_PROJECTS = ['New 1', 'New 3'];
 export const DWELLS_MS = [-1, 0, 1, 2, 5, 10, 20, 50, 100, 250, 500];
 const SETTLE_MS = 1_500;
 const bridge = new BridgeClient();
@@ -47,7 +48,7 @@ function guardFor(side: SideIdentity): Wire { return { expectedProject: side.nam
 
 async function prepare(side: Side, statePath: string): Promise<void> {
   const status = await delivery('deliveryStatus'); const sig = parseSignature(String(status.signature));
-  assert.notEqual(sig.name, ORIGINAL_PROJECT, 'never prepare the original project');
+  assert(!PROTECTED_PROJECTS.includes(sig.name), 'never prepare a protected project');
   let state: Wire = {}; try { state = await readJson(statePath); } catch { /* first side */ }
   const other = state[side === 'P' ? 'Q' : 'P'] as SideIdentity | undefined;
   assert(!other || (other.name !== sig.name && other.root !== sig.root), 'P and Q must be different loaded projects');
