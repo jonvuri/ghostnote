@@ -9,5 +9,5 @@ public final class GhostnoteShadowCacheExtensionDefinition extends GhostnoteExte
     @Override public UUID getId() { return SHADOW_DRIVER_ID; }
     @Override public String getName() { return "ghostnote 8g controls"; }
     @Override public String getHardwareModel() { return "ghostnote 8g controls"; }
-    @Override public String getVersion() { return "0.0.1-8g-controls-8g5c-combined-4"; }
+    @Override public String getVersion() { return "0.0.1-8g-controls-8h1a-knee-1"; }
 }

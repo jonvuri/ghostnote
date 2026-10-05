@@ -1,0 +1,60 @@
+{
+ "schema": "phase8h1a-state-v1",
+ "fixtures": {
+  "canary": {
+   "name": "canary",
+   "trackIndex": 0,
+   "trackId": "055f50e6-b185-4b5a-982f-711e3dad7043",
+   "row": 0,
+   "width": 2048,
+   "count": 16,
+   "semitones": 0,
+   "durationCap": 64
+  },
+  "sustain1048576": {
+   "name": "sustain1048576",
+   "trackIndex": 0,
+   "trackId": "055f50e6-b185-4b5a-982f-711e3dad7043",
+   "row": 2,
+   "width": 1048576,
+   "count": 4096,
+   "semitones": 0,
+   "durationCap": 1048576
+  }
+ },
+ "tracks": [],
+ "clips": [
+  {
+   "trackId": "055f50e6-b185-4b5a-982f-711e3dad7043",
+   "row": 0,
+   "intent": "canary"
+  },
+  {
+   "trackId": "055f50e6-b185-4b5a-982f-711e3dad7043",
+   "row": 2,
+   "intent": "sustain1048576"
+  }
+ ],
+ "writes": [
+  {
+   "name": "canary",
+   "count": 16,
+   "width": 2048,
+   "writeMs": 25.83462499999996,
+   "batches": 1,
+   "maxBatchMs": 1.032542,
+   "settleMs": 547.5531659999999,
+   "verifiedIndexes": 16
+  },
+  {
+   "name": "sustain1048576",
+   "count": 4096,
+   "width": 1048576,
+   "writeMs": 28.604333999999994,
+   "batches": 1,
+   "maxBatchMs": 4.205834,
+   "settleMs": 532.046291,
+   "verifiedIndexes": 33
+  }
+ ]
+}

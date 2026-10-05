@@ -40,6 +40,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D26 | Complete step-data delivery is a named assumption **[SETTLED 2026-10-02]** | [open](d26-step-data-delivery-is-a-named-assumption.md) |
 | D27 | Later-callback ordering is a named assumption **[SETTLED 2026-10-03]** | [open](d27-later-callback-ordering-is-a-named-assumption.md) |
 | D28 | Complete slot-occupancy delivery is a named assumption **[SETTLED 2026-10-03]** | [open](d28-slot-occupancy-delivery-is-a-named-assumption.md) |
+| D29 | A saved anchor project replaces protected New 3 **[SETTLED 2026-10-05]** | [open](d29-saved-anchor-project-replaces-protected-new-3.md) |
 
 ## Phase 4 closeout audit
 

@@ -108,9 +108,19 @@ public final class ShadowHandlePoolTest {
     private static void capacity() {
         ShadowHandlePool zero = new ShadowHandlePool(0);
         check(zero.acquire(A).kind() == Kind.BUSY && zero.entries().isEmpty(), "zero-capacity pool reports a miss");
-        check(new ShadowHandlePool(MAX_OBSERVERS).capacity() == MAX_OBSERVERS, "selected capacity equality is allowed");
+        check(new ShadowHandlePool(RESEARCH_MAX_OBSERVERS).capacity() == RESEARCH_MAX_OBSERVERS,
+            "research allocation equality is allowed");
         expect(IllegalArgumentException.class, () -> new ShadowHandlePool(-1));
-        expect(IllegalArgumentException.class, () -> new ShadowHandlePool(MAX_OBSERVERS + 1));
+        expect(IllegalArgumentException.class, () -> new ShadowHandlePool(RESEARCH_MAX_OBSERVERS + 1));
+        // 8h1a: an active prefix selects only its handles and cannot exceed the allocation.
+        ShadowHandlePool prefix = new ShadowHandlePool(4);
+        check(prefix.acquire(A).kind() == Kind.RESERVED && prefix.entries().get(0).reserved(), "full prefix reserves");
+        prefix.setActive(1);
+        check(prefix.active() == 1 && prefix.entries().stream().noneMatch(Entry::reserved), "a new prefix clears every slot");
+        ShadowHandlePool.Decision first = prefix.acquire(A);
+        check(first.kind() == Kind.RESERVED && first.index() == 0, "the prefix selects its first handle");
+        check(prefix.acquire(B).kind() == Kind.BUSY, "a handle outside the prefix is never selected");
+        expect(IllegalArgumentException.class, () -> prefix.setActive(5));
         expect(IllegalArgumentException.class, () -> new ShadowHandlePool(1, "", null));
         expect(IllegalArgumentException.class, () -> zero.invalidate(0));
         expect(UnsupportedOperationException.class, () -> new ShadowHandlePool(1).entries().clear());

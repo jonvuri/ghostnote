@@ -91,6 +91,7 @@ export interface Golden {
   addedInPhase8e?: string[];
   /** Phase 8g experimental shadow cache. */
   addedInPhase8g?: string[];
+  addedInPhase8h1a?: string[];
   /** D03 internal plug-in preset file and popup-browser probe surface. */
   addedInD03?: string[];
   preSplitCount: number;

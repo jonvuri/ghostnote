@@ -1,16 +1,47 @@
 ---
 title: Phase 8h1a — Cache limit knee sweep
 kind: plan
-state: planned
-status: Planned. Find the real host and speed knees for each cache limit with one maximum allocation and runtime configuration.
-updated: 2026-10-04
+state: active
+status: First pass done (E225). Width is free; cost is per sounding cell and per observer. Continue with the open rows.
+updated: 2026-10-05
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h-cache-promotion-and-interface-simplification.md
 next: 8h2-exact-reader-consolidation.md
-evidence: E139, E214, E215, E219, E222, E223, E224; D26, D27, D28
+evidence: E139, E214, E215, E219, E222, E223, E224, E225; D26, D27, D28, D29
 ---
 
 # Phase 8h1a — Cache limit knee sweep
+
+## Status
+
+The first pass is recorded in
+[E225](../../evidence/experiments/e225-cache-limit-knee-sweep.md). It replaces
+the single maximum allocation with one dimension for each fresh Bitwig session
+([D29](../../decisions/d29-saved-anchor-project-replaces-protected-new-3.md)).
+The middle allocation crashed the host; the maximum allocation must not load.
+Measure the live heap with `jcmd <pid> GC.class_histogram` and stop at 2 GiB.
+
+### Continuation session
+
+Start a fresh research session with these rows, in order:
+
+1. **Warm-read slowdown.** The same 4,096-note clip needs 32 ms of enrichment
+   host work with 2 allocated observers and 211 ms with 4,096. Test the suspect
+   first: `eligibility` calls `recorderTotal`, which sums every view's hint
+   queue for each enriched coordinate. Replace the sum with a maintained count,
+   then compare 2, 512, and 4,096 observers. Also remove the handle-pool list
+   from each poll response.
+2. **Cursor slot bank.** Rerun the binding matrix with
+   `cacheShadowCursorScenes: 0`: rows up to the last scene, canary rebinds and
+   the escape stage, the dense comparison path, and exact fallback.
+3. **Flat bank.** Vary tracks, then scenes, at a fixed observer count. Measure
+   the heap per slot and the slot-delta drain after a real project switch.
+4. **Deadlines.** Derive replay, enrichment, and rebuild deadlines. Measure the
+   serial canary rebind of a working set.
+5. **Combined arm.** Run near the selected values in a fresh JVM. Get an
+   operator rating of UI responsiveness.
+
+Then replace the limit table below with the selected values and reasons.
 
 ## Why
 

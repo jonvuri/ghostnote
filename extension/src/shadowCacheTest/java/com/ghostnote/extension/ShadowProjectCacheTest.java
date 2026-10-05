@@ -13,6 +13,58 @@ public final class ShadowProjectCacheTest {
     private static final Coverage FULL = coverage(0, 4096, Set.of("velocity"));
     private static final Coordinate CELL = new Coordinate(0, 60);
     private static final ReplayWitness SETTLED = new ReplayWitness(true, true, true, 1500, 10, 50);
+    private static void reconcileOvershoot() {
+        Fixture f = new Fixture();
+        for (int pitch = 0; pitch < 3; pitch++) f.notes(new Coordinate(0, pitch), List.of(new Note(0, 0, pitch, Map.of())));
+        f.ready();
+        for (int pitch = 0; pitch < 3; pitch++) f.cache.callback(f.ref, f.cache.bindingToken(f.ref), new Coordinate(0, pitch));
+        // The first read passes the 1 ms soft budget. The hard 50 ms host-work limit still holds.
+        int done = f.cache.reconcile(f.ref, c -> { sleep(3); return f.notes.getOrDefault(c, List.of()); }, 2048, 1);
+        check(done == 1 && f.cache.clipHealth(f.ref) == Health.DIRTY, "the soft budget stops the batch without failure");
+        f.cache.reconcile(f.ref, c -> f.notes.getOrDefault(c, List.of()), 2048, 50);
+        check(f.cache.clipHealth(f.ref) == Health.COMPLETE, "a later batch drains the rest");
+        f.cache.callback(f.ref, f.cache.bindingToken(f.ref), new Coordinate(0, 0));
+        f.cache.reconcile(f.ref, c -> { sleep(ENRICHMENT_BATCH_MS + 5); return f.notes.getOrDefault(c, List.of()); }, 2048, 40);
+        check(f.cache.clipHealth(f.ref) == Health.INVALID && f.cache.clipReason(f.ref).equals("reconciliation-budget"),
+            "a read past the hard host-work limit still fails the clip");
+    }
+
+    private static void openGates() {
+        ShadowProjectCache cache = new ShadowProjectCache();
+        Limits d = Limits.DEFAULTS;
+        cache.configure(new Limits(d.width(), d.observers(), d.occupied(), OPEN_COUNT, OPEN, d.snapshotBytes(), OPEN,
+            d.registryBytes(), d.replayDeadlineMs(), d.enrichmentDeadlineMs(), d.rebuildDeadlineMs(),
+            d.constructionBudgetMs(), d.pingBudgetMs()));
+        Fixture f = new Fixture(cache);
+        long[] reads = {0};
+        cache.attachExternalStorageEstimate(() -> { reads[0]++; return Long.MAX_VALUE / 4; });
+        for (int cell = 0; cell < 4096; cell++) check(f.cache.callback(f.ref, f.cache.bindingToken(f.ref), new Coordinate(cell, 1)),
+            "an open gate admits every callback");
+        check(reads[0] == 0 && cache.pendingCoordinates() == 4096, "open gates read no estimate and keep every pending coordinate");
+        check(cache.allowCombinedGrowth(Long.MAX_VALUE / 2) && reads[0] == 0, "the open combined gate admits growth without a census");
+    }
+
+    private static void largePending() {
+        ShadowProjectCache cache = new ShadowProjectCache();
+        Limits d = Limits.DEFAULTS;
+        cache.configure(new Limits(d.width(), d.observers(), 1 << 30, OPEN_COUNT, OPEN, OPEN, OPEN, OPEN,
+            d.replayDeadlineMs(), d.enrichmentDeadlineMs(), d.rebuildDeadlineMs(), d.constructionBudgetMs(), d.pingBudgetMs()));
+        Fixture f = new Fixture(cache);
+        int total = 2048 * 128;
+        for (int index = 0; index < total; index++) cache.callback(f.ref, cache.bindingToken(f.ref), new Coordinate(index % 2048, index / 2048));
+        check(cache.pendingCoordinates() == total, "every covered callback is pending");
+        long started = System.nanoTime();
+        int done = cache.reconcile(f.ref, c -> List.of(), 2048, 5);
+        double ms = (System.nanoTime() - started) / 1e6;
+        check(done > 0 && done <= 2048 && cache.clipHealth(f.ref) != Health.INVALID && cache.pendingCoordinates() == total - done,
+            "one bounded batch drains its share without failing the clip: done=" + done + " health=" + cache.clipHealth(f.ref) + " pending=" + cache.pendingCoordinates());
+        check(ms < ENRICHMENT_BATCH_MS, "the batch cost does not grow with the pending set: " + ms + " ms");
+    }
+
+    private static void sleep(double ms) {
+        try { Thread.sleep((long) Math.ceil(ms)); } catch (InterruptedException error) { throw new IllegalStateException(error); }
+    }
+
     private static final class Fixture {
         final ShadowProjectCache cache;
         final Map<Coordinate, List<Note>> notes = new HashMap<>();
@@ -37,6 +89,9 @@ public final class ShadowProjectCacheTest {
     public static void main(String[] args) {
         run("combined equality, excess, deterministic payload shedding, and recovery", ShadowProjectCacheTest::combinedStorage);
         run("first snapshot reserves the full fingerprint before publication", ShadowProjectCacheTest::combinedColdWitness);
+        run("8h1a: a read past the soft reconcile budget keeps the clip", ShadowProjectCacheTest::reconcileOvershoot);
+        run("8h1a: open research gates compute no estimate", ShadowProjectCacheTest::openGates);
+        run("8h1a: a large pending set does not slow one reconcile batch", ShadowProjectCacheTest::largePending);
         run("empty clip and empty inventory", ShadowProjectCacheTest::empty);
         run("warm membership and all MIDI channels", ShadowProjectCacheTest::channels);
         run("dirty coalescing and zero-dirty eligibility", ShadowProjectCacheTest::dirty);

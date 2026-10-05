@@ -199,6 +199,7 @@ public enum RuntimeProfile {
             "app.undo",
             "app.undoState",
             "branch.groupTrack",
+            "cache.configure",
             "cache.scale",
             "cache.shadow",
             "stepdata.observer.enrich",
@@ -289,9 +290,9 @@ public enum RuntimeProfile {
             if (!PRODUCT.containsAll(OPTIONAL_CAPTURE)
                     || PRODUCT.size() != 90
                     || NORMAL.size() != 85
-                    || PROBE.size() != 97
+                    || PROBE.size() != 98
                     || HISTORICAL.size() != 57
-                    || ALL_CLASSIFIED.size() != 159) {
+                    || ALL_CLASSIFIED.size() != 160) {
                 throw new IllegalStateException("invalid runtime wire classification");
             }
         }

@@ -26,15 +26,46 @@ public final class ShadowProjectCache {
     public static final long MAX_RECORDER_BYTES = 16L * 1024 * 1024;
     public static final long MAX_SNAPSHOT_BYTES = 16L * 1024 * 1024;
     public static final long MAX_COMBINED_BYTES = 24L * 1024 * 1024;
+    /** Private inventory registry bookkeeping estimate. */
+    public static final long MAX_REGISTRY_BYTES = 16L * 1024 * 1024;
     /** One enrichment batch has the same host-work limit as reconciliation. */
     public static final double ENRICHMENT_BATCH_MS = 50;
     /** A candidate uses the selected one-binding replay limit as its deadline. */
     public static final double ENRICHMENT_DEADLINE_MS = 5_000;
+    /** Replay settlement deadline for one binding. */
+    public static final double REPLAY_DEADLINE_MS = 5_000;
+    /** Rebuild, binding sequence, and dense authority scan deadline. */
+    public static final double REBUILD_DEADLINE_MS = 40_000;
+    /** One-time cache-bank construction and bridge ping p95 budgets. */
+    public static final double CONSTRUCTION_BUDGET_MS = 50, PING_BUDGET_MS = 50;
+    /** 8h1a research allocation ceilings. A research build allocates once at or below these values. */
+    public static final int RESEARCH_MAX_OBSERVERS = 4_096;
+    public static final int RESEARCH_MAX_WIDTH = 4_194_304;
     public static final String FINGERPRINT_VERSION = "shadow-normalized-v1";
+    /** Dirty coordinates copied at one time inside a reconcile batch. */
+    private static final int RECONCILE_SLICE = 256;
     private static final long FINGERPRINT_ESTIMATED_BYTES = 40L + 2L * (FINGERPRINT_VERSION.length() + 1 + 64);
     public static final double GRID = 1.0 / 512;
 
     public enum Health { INVALID, REBUILDING, WARMING, COMPLETE, DIRTY, REPAIRING, PARTIAL, OVERFLOW, AMBIGUOUS }
+    /**
+     * Active software limits. The defaults are the selected 8g values. The 8h1a research control can
+     * change them at runtime; it cannot raise a host allocation.
+     */
+    public record Limits(int width, int observers, int occupied, int pending, long recorderBytes, long snapshotBytes,
+                         long combinedBytes, long registryBytes, double replayDeadlineMs, double enrichmentDeadlineMs,
+                         double rebuildDeadlineMs, double constructionBudgetMs, double pingBudgetMs) {
+        public static final Limits DEFAULTS = new Limits(MAX_WIDTH, MAX_OBSERVERS, MAX_OCCUPIED, MAX_PENDING,
+            MAX_RECORDER_BYTES, MAX_SNAPSHOT_BYTES, MAX_COMBINED_BYTES, MAX_REGISTRY_BYTES, REPLAY_DEADLINE_MS, ENRICHMENT_DEADLINE_MS,
+            REBUILD_DEADLINE_MS, CONSTRUCTION_BUDGET_MS, PING_BUDGET_MS);
+        public Limits {
+            if (width < 1 || width > RESEARCH_MAX_WIDTH || observers < 0 || observers > RESEARCH_MAX_OBSERVERS + 16
+                || occupied < 1 || pending < 1 || recorderBytes < 0 || snapshotBytes < 0 || combinedBytes < 0 || registryBytes < 0)
+                throw new IllegalArgumentException("invalid cache limits");
+            for (double value : new double[] {replayDeadlineMs, enrichmentDeadlineMs, rebuildDeadlineMs, constructionBudgetMs, pingBudgetMs})
+                if (!Double.isFinite(value) || value <= 0) throw new IllegalArgumentException("invalid cache deadline");
+        }
+    }
     public record Address(String trackId, int row) {
         public Address {
             if (trackId == null || trackId.isEmpty() || row < 0) throw new IllegalArgumentException("invalid address");
@@ -93,9 +124,10 @@ public final class ShadowProjectCache {
     public record ReplayWitness(boolean populatedCanary, boolean targetBound, boolean freshAuthorityMatched,
                                 double elapsedMs, int unchangedPolls, double minimumPollIntervalMs) {
         public ReplayWitness { measure(elapsedMs); measure(minimumPollIntervalMs); if (unchangedPolls < 0) throw new IllegalArgumentException("invalid polls"); }
-        public boolean settled() {
+        public boolean settled() { return settled(REPLAY_DEADLINE_MS); }
+        public boolean settled(double deadlineMs) {
             return populatedCanary && targetBound && freshAuthorityMatched && elapsedMs >= 1_500
-                && elapsedMs <= 5_000 && unchangedPolls >= 10 && minimumPollIntervalMs >= 50;
+                && elapsedMs <= deadlineMs && unchangedPolls >= 10 && minimumPollIntervalMs >= 50;
         }
     }
     public record Result(Health health, String mode, String reason, Snapshot snapshot) {}
@@ -211,10 +243,22 @@ public final class ShadowProjectCache {
     private LongSupplier externalStorageBytes = () -> 0;
     private Runnable snapshotsShed = () -> { };
     private long combinedRefusals, lastCombinedRejected;
+    private Limits limits = Limits.DEFAULTS;
 
     /** Start a fresh identity domain even if the local counters repeat after reload. */
     public ShadowProjectCache() { this(UUID.randomUUID().toString()); }
     ShadowProjectCache(String initDomain) { domain(initDomain); this.initDomain = initDomain; }
+
+    public Limits limits() { return limits; }
+    /** 8h1a research: the maximum value turns a gate off. Its estimate is then not computed. */
+    public static final long OPEN = Long.MAX_VALUE;
+    public static final int OPEN_COUNT = Integer.MAX_VALUE;
+    private boolean recorderGate() { return limits.recorderBytes() != OPEN; }
+    private boolean pendingGate() { return limits.pending() != OPEN_COUNT; }
+    /** Pending dirty coordinates. This reads no census and makes no allocation beyond the entry walk. */
+    public int pendingCoordinates() { return pendingCount(); }
+    /** Research control. The caller first ends the identity domain, so no entry keeps an older limit. */
+    public void configure(Limits next) { limits = java.util.Objects.requireNonNull(next); }
 
     /** Reuse the immutable guard while the identity domain remains current. */
     public IdentityDomain identityDomain() {
@@ -273,9 +317,9 @@ public final class ShadowProjectCache {
     public boolean admit(String ref) {
         Entry candidate = entry(ref);
         if (candidate.resident) { candidate.lastUsed = increment(clock); clock = candidate.lastUsed; return true; }
-        if (eventGap || staging != null || !measurementsValid || pingP95Ms > 50 || constructionMs > 50) return false;
-        if (candidate.coverage.width > MAX_WIDTH) { fail(candidate, Health.OVERFLOW, "view-width-limit"); return false; }
-        while (residentCount() >= MAX_OBSERVERS || recorderTotal() + 256 > MAX_RECORDER_BYTES) {
+        if (eventGap || staging != null || !measurementsValid || pingP95Ms > limits.pingBudgetMs() || constructionMs > limits.constructionBudgetMs()) return false;
+        if (candidate.coverage.width > limits.width()) { fail(candidate, Health.OVERFLOW, "view-width-limit"); return false; }
+        while (residentCount() >= limits.observers() || recorderTotal() + 256 > limits.recorderBytes()) {
             Entry victim = entries.values().stream().filter(e -> e.resident)
                 .min(Comparator.comparingLong((Entry e) -> e.lastUsed).thenComparing(e -> e.ref)).orElse(null);
             if (victim == null) return false;
@@ -302,16 +346,16 @@ public final class ShadowProjectCache {
         entry.sequence = increment(entry.sequence); entry.dirty.put(coordinate, entry.sequence); invalidations++;
         if (entry.replay) entry.health = Health.DIRTY;
         entry.reason = "dirty-coordinates";
-        if (pendingCount() > MAX_PENDING) { requireRebuild("dirty-backpressure"); health = Health.REBUILDING; return false; }
-        if (recorderTotal() > MAX_RECORDER_BYTES) { shedAll(Health.OVERFLOW, "memory-budget"); return false; }
+        if (pendingGate() && pendingCount() > limits.pending()) { requireRebuild("dirty-backpressure"); health = Health.REBUILDING; return false; }
+        if (recorderGate() && recorderTotal() > limits.recorderBytes()) { shedAll(Health.OVERFLOW, "memory-budget"); return false; }
         if (!allowCombinedGrowth(0)) { shedAll(Health.OVERFLOW, "combined-storage-budget"); return false; }
         refreshHealth(); return true;
     }
     public boolean settleReplay(String ref, ReplayWitness witness) {
         Entry entry = entry(ref); replayMs = witness.elapsedMs;
         if (!entry.resident || !current(entry.token)) return false;
-        if (witness.elapsedMs > 5_000) { retire(entry); entry.health = Health.WARMING; entry.reason = "replay-budget"; refreshHealth(); return false; }
-        if (!witness.settled() || !entry.dirty.isEmpty()) return false;
+        if (witness.elapsedMs > limits.replayDeadlineMs()) { retire(entry); entry.health = Health.WARMING; entry.reason = "replay-budget"; refreshHealth(); return false; }
+        if (!witness.settled(limits.replayDeadlineMs()) || !entry.dirty.isEmpty()) return false;
         String membership = membershipFingerprint(entry);
         if (!allowCombinedGrowth(entry.membershipWitness == null ? 40L + 2L * membership.length() : 0)) {
             shedAll(Health.OVERFLOW, "combined-storage-budget"); return false;
@@ -326,23 +370,39 @@ public final class ShadowProjectCache {
         measure(budgetMs); if (budgetMs > 50) throw new IllegalArgumentException("host-work budget exceeds 50 ms");
         Entry entry = entry(ref); if (!entry.resident || !current(entry.token)) return 0;
         long started = System.nanoTime(); int done = 0;
-        for (Map.Entry<Coordinate, Long> work : new ArrayList<>(entry.dirty.entrySet())) {
-            if (done >= maximumCoordinates || elapsed(started) >= budgetMs) break;
-            CallbackToken captured = entry.token; long sequence = entry.sequence;
-            List<Note> notes;
-            try { notes = validateNotes(authority.readCoordinate(work.getKey()), work.getKey(), Set.of()); }
-            catch (RuntimeException error) { fail(entry, Health.INVALID, "authority-unavailable"); return done; }
-            if (!captured.equals(entry.token) || !current(captured)) return done;
-            if (elapsed(started) > budgetMs) { fail(entry, Health.INVALID, "reconciliation-budget"); return done; }
-            if (entry.sequence != sequence) continue;
-            List<Note> membership = notes.stream().map(n -> new Note(n.channel, n.cell, n.pitch, Map.of())).toList();
-            List<Note> previous = entry.occupied.getOrDefault(work.getKey(), List.of());
-            if (!previous.equals(membership) && entry.replay) { entry.content = increment(entry.content); entry.retained = null; }
-            if (membership.isEmpty()) entry.occupied.remove(work.getKey()); else entry.occupied.put(work.getKey(), membership);
-            entry.dirty.remove(work.getKey(), work.getValue()); done++;
-            if (entry.occupied.size() > MAX_OCCUPIED) { fail(entry, Health.OVERFLOW, "clip-density-limit"); return done; }
-            if (recorderTotal() > MAX_RECORDER_BYTES) { shedAll(Health.OVERFLOW, "memory-budget"); return done; }
-            if (!allowCombinedGrowth(0)) { shedAll(Health.OVERFLOW, "combined-storage-budget"); return done; }
+        // 8h1a: copy only a bounded slice of the dirty set. A full copy per batch grew with pending work.
+        // Each coordinate is read at most once per call. A callback during its read leaves it for the next call.
+        List<Coordinate> slice = new ArrayList<>(RECONCILE_SLICE);
+        Set<Coordinate> visited = new HashSet<>();
+        while (done < maximumCoordinates && elapsed(started) < budgetMs) {
+            slice.clear();
+            for (var keys = entry.dirty.keySet().iterator(); keys.hasNext() && slice.size() < RECONCILE_SLICE; ) {
+                Coordinate key = keys.next();
+                if (!visited.contains(key)) slice.add(key);
+            }
+            if (slice.isEmpty()) break;
+            for (Coordinate coordinate : slice) {
+                if (done >= maximumCoordinates || elapsed(started) >= budgetMs) break;
+                visited.add(coordinate);
+                Long queued = entry.dirty.get(coordinate);
+                if (queued == null) continue;
+                CallbackToken captured = entry.token; long sequence = entry.sequence;
+                List<Note> notes;
+                try { notes = validateNotes(authority.readCoordinate(coordinate), coordinate, Set.of()); }
+                catch (RuntimeException error) { fail(entry, Health.INVALID, "authority-unavailable"); return done; }
+                if (!captured.equals(entry.token) || !current(captured)) return done;
+                // The budget stops new reads. Only the hard host-work limit fails the clip, as in enrichment.
+                if (elapsed(started) > ENRICHMENT_BATCH_MS) { fail(entry, Health.INVALID, "reconciliation-budget"); return done; }
+                if (entry.sequence != sequence) continue;
+                List<Note> membership = notes.stream().map(n -> new Note(n.channel, n.cell, n.pitch, Map.of())).toList();
+                List<Note> previous = entry.occupied.getOrDefault(coordinate, List.of());
+                if (!previous.equals(membership) && entry.replay) { entry.content = increment(entry.content); entry.retained = null; }
+                if (membership.isEmpty()) entry.occupied.remove(coordinate); else entry.occupied.put(coordinate, membership);
+                entry.dirty.remove(coordinate, queued); done++;
+                if (entry.occupied.size() > limits.occupied()) { fail(entry, Health.OVERFLOW, "clip-density-limit"); return done; }
+                if (recorderGate() && recorderTotal() > limits.recorderBytes()) { shedAll(Health.OVERFLOW, "memory-budget"); return done; }
+                if (!allowCombinedGrowth(0)) { shedAll(Health.OVERFLOW, "combined-storage-budget"); return done; }
+            }
         }
         entry.health = entry.dirty.isEmpty() ? (entry.replay ? Health.COMPLETE : Health.WARMING) : (entry.replay ? Health.DIRTY : Health.WARMING);
         entry.reason = entry.health == Health.COMPLETE ? "within-budget" : "replay-or-dirty-incomplete";
@@ -369,7 +429,7 @@ public final class ShadowProjectCache {
     public Candidate beginSnapshot(String ref, Coverage request, Map<String, Object> metadata, String acquisitionWitness,
                                    double deadlineMs) {
         measure(deadlineMs);
-        if (deadlineMs > ENRICHMENT_DEADLINE_MS) throw new IllegalArgumentException("enrichment deadline exceeds 5 seconds");
+        if (deadlineMs > limits.enrichmentDeadlineMs()) throw new IllegalArgumentException("enrichment deadline exceeds the active limit");
         Entry entry = entry(ref);
         if (candidate != null) retireCandidate(candidate, "superseded-candidate");
         String refusal = eligibility(entry, request);
@@ -382,7 +442,7 @@ public final class ShadowProjectCache {
         if (refusal != null) { misses++; retireCandidate(work, refusal); return work; }
         long base = payloadEstimate(frozenMetadata, List.of(), request);
         long witness = entry.snapshotWitness == null ? FINGERPRINT_ESTIMATED_BYTES : 0;
-        if (base <= MAX_SNAPSHOT_BYTES && retainedBytes() <= MAX_SNAPSHOT_BYTES - base
+        if (base <= limits.snapshotBytes() && retainedBytes() <= limits.snapshotBytes() - base
             && !allowCombinedGrowth(base + witness)) {
             work.combinedRejected = lastCombinedRejected; retireCandidate(work, "combined-storage-budget");
             shedSnapshots(); return work;
@@ -448,7 +508,7 @@ public final class ShadowProjectCache {
         if ("ready".equals(work.phase)) {
             if (!candidateCurrent(work)) retireCandidate(work, "window-changed");
             else if (elapsed(work.started) > work.deadlineMs) retireCandidate(work, "enrichment-deadline");
-            else if (work.bytes > MAX_SNAPSHOT_BYTES || retainedBytes() + work.bytes > MAX_SNAPSHOT_BYTES)
+            else if (work.bytes > limits.snapshotBytes() || retainedBytes() + work.bytes > limits.snapshotBytes())
                 retireCandidate(work, "snapshot-memory-budget");
             else if (!allowCombinedGrowth(0)) {
                 work.combinedRejected = lastCombinedRejected; retireCandidate(work, "combined-storage-budget"); shedSnapshots();
@@ -487,8 +547,9 @@ public final class ShadowProjectCache {
     /** Check before external growth. Refusal records the proposed total; it never raises a domain limit. */
     public boolean allowCombinedGrowth(long bytes) {
         if (bytes < 0) throw new IllegalArgumentException("negative storage growth");
+        if (limits.combinedBytes() == OPEN) return true;
         long total = combinedEstimatedBytes();
-        if (total <= MAX_COMBINED_BYTES && bytes <= MAX_COMBINED_BYTES - total) return true;
+        if (total <= limits.combinedBytes() && bytes <= limits.combinedBytes() - total) return true;
         combinedRefusals++;
         lastCombinedRejected = bytes > Long.MAX_VALUE - total ? Long.MAX_VALUE : total + bytes;
         return false;
@@ -574,7 +635,7 @@ public final class ShadowProjectCache {
     public String stage(RebuildToken token, Address address, Coverage coverage, List<Note> notes,
                         boolean canaryPassed, boolean targetSettled, boolean completeEventWindow,
                         String continuousRef) {
-        if (!validRebuild(token) || !canaryPassed || !targetSettled || !coverage.allChannels || coverage.width > MAX_WIDTH)
+        if (!validRebuild(token) || !canaryPassed || !targetSettled || !coverage.allChannels || coverage.width > limits.width())
             throw new IllegalStateException("incomplete rebuild stage");
         if (staging.values().stream().anyMatch(e -> e.address.equals(address))) throw new IllegalArgumentException("duplicate rebuild address");
         Entry previous = continuousRef == null ? null : entries.get(continuousRef);
@@ -592,7 +653,7 @@ public final class ShadowProjectCache {
             if (!coverage.contains(note.coordinate())) throw new IllegalArgumentException("rebuild note outside coverage");
             grouped.computeIfAbsent(note.coordinate(), ignored -> new ArrayList<>()).add(note);
         }
-        if (grouped.size() > MAX_OCCUPIED || staging.values().stream().filter(e -> e.resident).count() >= MAX_OBSERVERS) throw new IllegalStateException("rebuild capacity exceeded");
+        if (grouped.size() > limits.occupied() || staging.values().stream().filter(e -> e.resident).count() >= limits.observers()) throw new IllegalStateException("rebuild capacity exceeded");
         for (Map.Entry<Coordinate, List<Note>> coordinate : grouped.entrySet()) {
             List<Note> verified = validateNotes(coordinate.getValue(), coordinate.getKey(), Set.of());
             entry.occupied.put(coordinate.getKey(), verified.stream().map(n -> new Note(n.channel, n.cell, n.pitch, Map.of())).toList());
@@ -605,7 +666,7 @@ public final class ShadowProjectCache {
         for (String value : new String[] {entry.membershipWitness, entry.snapshotWitness}) if (value != null) added += 40L + 2L * value.length();
         if (!allowCombinedGrowth(added)) throw new IllegalStateException("combined-storage-budget");
         staging.put(ref, entry);
-        if (recorderTotal() > MAX_RECORDER_BYTES) { staging.remove(ref); throw new IllegalStateException("rebuild memory exceeded"); }
+        if (recorderTotal() > limits.recorderBytes()) { staging.remove(ref); throw new IllegalStateException("rebuild memory exceeded"); }
         return ref;
     }
     /** Include non-resident clips so inventory enumeration does not truncate the project. */
@@ -623,11 +684,11 @@ public final class ShadowProjectCache {
     }
     public boolean publishRebuild(RebuildToken token, boolean fullInventoryEnumerated, double elapsedMs) {
         measure(elapsedMs); rebuildMs = elapsedMs;
-        if (!validRebuild(token) || !fullInventoryEnumerated || !measurementsValid || constructionMs > 50 || pingP95Ms > 50
-            || recorderTotal() > MAX_RECORDER_BYTES || !allowCombinedGrowth(0) || pendingCount() > MAX_PENDING
+        if (!validRebuild(token) || !fullInventoryEnumerated || !measurementsValid || constructionMs > limits.constructionBudgetMs() || pingP95Ms > limits.pingBudgetMs()
+            || recorderTotal() > limits.recorderBytes() || !allowCombinedGrowth(0) || pendingCount() > limits.pending()
             || staging.values().stream().anyMatch(e -> e.resident && (e.health != Health.COMPLETE || !e.dirty.isEmpty()))
-            || elapsedMs > 40_000 || elapsed(rebuildStartedNanos) > 40_000) {
-            abortRebuild(token, elapsedMs > 40_000 ? "rebuild-budget" : "rebuild-interrupted"); return false;
+            || elapsedMs > limits.rebuildDeadlineMs() || elapsed(rebuildStartedNanos) > limits.rebuildDeadlineMs()) {
+            abortRebuild(token, elapsedMs > limits.rebuildDeadlineMs() ? "rebuild-budget" : "rebuild-interrupted"); return false;
         }
         entries.clear(); entries.putAll(staging); staging = null; rebuildSlots();
         eventGap = false; inventoryComplete = true; refreshHealth(); return true;
@@ -650,8 +711,8 @@ public final class ShadowProjectCache {
         try { measure(constructionMs); measure(pingP95Ms); }
         catch (IllegalArgumentException error) { measurementsValid = false; shedAll(Health.INVALID, "invalid-measurement"); throw error; }
         measurementsValid = true; this.constructionMs = constructionMs; this.pingP95Ms = pingP95Ms;
-        if (constructionMs > 50) shedAll(Health.INVALID, "cache-construction-budget");
-        else if (pingP95Ms > 50) shedAll(Health.INVALID, "tail-latency-budget");
+        if (constructionMs > limits.constructionBudgetMs()) shedAll(Health.INVALID, "cache-construction-budget");
+        else if (pingP95Ms > limits.pingBudgetMs()) shedAll(Health.INVALID, "tail-latency-budget");
     }
     public Diagnostics diagnostics() {
         return new Diagnostics(health, reason, initDomain, project, structure, rebuild, entries.size(), residentCount(),
@@ -665,10 +726,10 @@ public final class ShadowProjectCache {
     public ResourceAccounting resources() {
         long resident = recorderBytes(), staged = stagingBytes(), external = externalRecorderBytes.getAsLong();
         long retained = retainedBytes(), candidateBytes = candidateBytes();
-        return new ResourceAccounting(resident, staged, external, resident + staged + external, MAX_RECORDER_BYTES,
-            retained, candidateBytes, retained + candidateBytes, MAX_SNAPSHOT_BYTES, identityBytes(),
+        return new ResourceAccounting(resident, staged, external, resident + staged + external, limits.recorderBytes(),
+            retained, candidateBytes, retained + candidateBytes, limits.snapshotBytes(), identityBytes(),
             candidate == null ? "none" : candidate.phase, candidate == null ? "none" : candidate.reason, false,
-            candidateWitnessBytes(), combinedEstimatedBytes(), MAX_COMBINED_BYTES, combinedRefusals, lastCombinedRejected);
+            candidateWitnessBytes(), combinedEstimatedBytes(), limits.combinedBytes(), combinedRefusals, lastCombinedRejected);
     }
     /** Use R07 nearest-cell duration rounding. A tie rounds up. Keep at least one cell. */
     public static long normalizeDurationCells(double duration) {
@@ -719,8 +780,8 @@ public final class ShadowProjectCache {
         if (!entry.replay || entry.health == Health.WARMING) return "replay-incomplete";
         if (entry.health != Health.COMPLETE || !entry.dirty.isEmpty()) return "dirty-or-unhealthy";
         if (!entry.coverage.covers(request)) return "coverage-incomplete";
-        if (recorderTotal() > MAX_RECORDER_BYTES || entry.occupied.size() > MAX_OCCUPIED || request.width > MAX_WIDTH
-            || residentCount() > MAX_OBSERVERS || pendingCount() > MAX_PENDING || constructionMs > 50 || pingP95Ms > 50)
+        if (recorderTotal() > limits.recorderBytes() || entry.occupied.size() > limits.occupied() || request.width > limits.width()
+            || residentCount() > limits.observers() || pendingCount() > limits.pending() || constructionMs > limits.constructionBudgetMs() || pingP95Ms > limits.pingBudgetMs())
             return "budget-exceeded";
         return null;
     }
@@ -762,7 +823,7 @@ public final class ShadowProjectCache {
     /** Check the snapshot domain before growth. Equality with the selected limit passes. */
     private boolean addCandidateBytes(Candidate work, long bytes) {
         long others = retainedBytes();
-        if (bytes > MAX_SNAPSHOT_BYTES - work.bytes || others > MAX_SNAPSHOT_BYTES - work.bytes - bytes) {
+        if (bytes > limits.snapshotBytes() - work.bytes || others > limits.snapshotBytes() - work.bytes - bytes) {
             work.reason = "snapshot-memory-budget"; return false;
         }
         if (!allowCombinedGrowth(bytes)) {
@@ -770,7 +831,9 @@ public final class ShadowProjectCache {
             retireCandidate(work, work.reason); shedSnapshots(); return false;
         }
         work.bytes += bytes; work.peakBytes = Math.max(work.peakBytes, work.bytes);
-        work.combinedPeak = Math.max(work.combinedPeak, combinedEstimatedBytes()); return true;
+        // An open research gate skips the census. The census walk per note made enrichment quadratic (8h1a).
+        if (limits.combinedBytes() != OPEN) work.combinedPeak = Math.max(work.combinedPeak, combinedEstimatedBytes());
+        return true;
     }
     private long candidateWitnessBytes() { return candidate != null && candidate.entry.snapshotWitness == null ? FINGERPRINT_ESTIMATED_BYTES : 0; }
     private long identityBytes() { return domainObjects().identityAndWitnessEstimatedBytes() + candidateWitnessBytes(); }

@@ -69,8 +69,8 @@ public class RigConfig {
 
     /** Validate the research capacity before host allocation. */
     public int topologyTracks() {
-        if (cacheTopologyTracks < 0 || cacheTopologyTracks > 512)
-            throw new IllegalArgumentException("topology capacity must be 0 through 512");
+        if (cacheTopologyTracks < 0 || cacheTopologyTracks > ShadowTopologyControl.RESEARCH_MAX_TRACKS)
+            throw new IllegalArgumentException("topology capacity must be 0 through 2048");
         if (cacheTopologyTracks > tracks)
             throw new IllegalArgumentException("topology capacity exceeds the flat bank");
         return cacheTopologyTracks;
@@ -83,7 +83,8 @@ public class RigConfig {
         long total = 1L + cacheScaleObservers + (cacheScaleWidthSteps > 0 ? 2 : 0)
             + cacheShadowObservers + (cacheShadowObservers > 0 ? 1 : 0)
             + (cacheLifecycleResearch ? 2 : 0) + (deliveryResearch ? 1 : 0);
-        if (total < 0 || total > ShadowProjectCache.MAX_OBSERVERS)
+        // 8h1a allocates a research maximum once. The active limit is checked at runtime.
+        if (total < 0 || total > ShadowProjectCache.RESEARCH_MAX_OBSERVERS + 16)
             throw new IllegalArgumentException("experimental step-data observer budget exceeded");
         return (int) total;
     }
@@ -91,6 +92,17 @@ public class RigConfig {
     public int cacheShadowSteps = 131072;
     /** Allocate the experimental lifecycle and observer reuse probes. */
     public boolean cacheLifecycleResearch = false;
+    /**
+     * 8h1a: launcher slots allocated by each shadow cursor track. A negative value uses {@code scenes}.
+     * Binding uses the target track's slot bank, so the cursor's own bank may be unnecessary.
+     */
+    public int cacheShadowCursorScenes = -1;
+    public int shadowCursorScenes() {
+        if (cacheShadowCursorScenes > scenes) throw new IllegalArgumentException("cursor scenes exceed the scene bank");
+        return cacheShadowCursorScenes < 0 ? scenes : cacheShadowCursorScenes;
+    }
+    /** 8h1a: allocate the research fixture writer at the shadow width. */
+    public boolean cacheKneeResearch = false;
     /** Allocate the E216 delivery and coherence recorder in a probe profile. */
     public boolean deliveryResearch = false;
     /**
@@ -156,6 +168,10 @@ public class RigConfig {
             if (obj.has("cacheLifecycleResearch")) {
                 config.cacheLifecycleResearch = obj.get("cacheLifecycleResearch").getAsBoolean();
             }
+            config.cacheShadowCursorScenes = intOr(obj, "cacheShadowCursorScenes", config.cacheShadowCursorScenes);
+            if (obj.has("cacheKneeResearch")) {
+                config.cacheKneeResearch = obj.get("cacheKneeResearch").getAsBoolean();
+            }
             if (obj.has("deliveryResearch")) {
                 config.deliveryResearch = obj.get("deliveryResearch").getAsBoolean();
             }
@@ -201,6 +217,8 @@ public class RigConfig {
         obj.addProperty("cacheTopologyTracks", cacheTopologyTracks);
         obj.addProperty("cacheTopologyCounted", cacheTopologyCounted);
         obj.addProperty("cacheLifecycleResearch", cacheLifecycleResearch);
+        obj.addProperty("cacheKneeResearch", cacheKneeResearch);
+        obj.addProperty("cacheShadowCursorScenes", cacheShadowCursorScenes);
         obj.addProperty("deliveryResearch", deliveryResearch);
         obj.addProperty("contentFilter", contentFilter);
         obj.addProperty("directObservers", directObservers);

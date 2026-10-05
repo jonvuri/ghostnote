@@ -44,6 +44,9 @@ public final class ShadowAuthorityFallback {
     private Map<String, Object> metadata;
     private LongPredicate storageAdmission = bytes -> true;
     public void attachStorageAdmission(LongPredicate admission) { storageAdmission = Objects.requireNonNull(admission); }
+    private java.util.function.Supplier<Limits> limits = () -> Limits.DEFAULTS;
+    /** Read the active width and authority staging limits from the owning cache. */
+    public void attachLimits(java.util.function.Supplier<Limits> source) { limits = Objects.requireNonNull(source); }
 
     public ShadowAuthorityFallback(Source source) { this(source, System::nanoTime); }
     ShadowAuthorityFallback(Source source, LongSupplier time) {
@@ -53,7 +56,7 @@ public final class ShadowAuthorityFallback {
     public Result start(Address target, Coverage request) {
         Objects.requireNonNull(target); Objects.requireNonNull(request);
         if (active()) return result("authority-busy");
-        if (request.width() > MAX_WIDTH || !request.allChannels()) throw new IllegalArgumentException("fallback coverage unavailable");
+        if (request.width() > limits.get().width() || !request.allChannels()) throw new IllegalArgumentException("fallback coverage unavailable");
         address = target; coverage = request; guard = null; window = null;
         started = time.getAsLong(); ended = boundAt = pollAt = next = bytes = 0;
         total = (long) request.width() * 128; quietPolls = 0; lastBatchMs = 0;
@@ -112,7 +115,7 @@ public final class ShadowAuthorityFallback {
                 for (Note note : values) {
                     if (!coordinate.equals(note.coordinate())) return refuse("authority-address-mismatch");
                     long estimate = 160L + note.fields().size() * 64L;
-                    if (estimate > MAX_SNAPSHOT_BYTES - bytes) return refuse("authority-staging-memory-budget");
+                    if (estimate > limits.get().snapshotBytes() - bytes) return refuse("authority-staging-memory-budget");
                     if (!storageAdmission.test(estimate)) return refuse("combined-storage-budget");
                     notes.add(note); bytes += estimate;
                 }

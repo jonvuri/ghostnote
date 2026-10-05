@@ -1,0 +1,83 @@
+{
+ "schema": "phase8h1a-summary-v1",
+ "marker": "8h1a-knee-sweep-v7",
+ "complete": false,
+ "eligible": false,
+ "generated": "2026-10-05T02:27:04.841Z",
+ "arms": [
+  {
+   "file": "arm-sustain-1048576.json",
+   "axis": "sustain",
+   "point": {
+    "value": 1048576,
+    "exact": true,
+    "pingP95Ms": 25.012291999999434,
+    "warmReadMs": 94.20983299999898,
+    "hostWorkMaxBatchMs": 34.19425
+   }
+  },
+  {
+   "file": "arm-width-1048576.json",
+   "axis": "width",
+   "point": {
+    "value": 1048576,
+    "exact": true,
+    "pingP95Ms": 24.654624999966472,
+    "warmReadMs": 86.3627919999999,
+    "exactReadMs": 711293.350542,
+    "hostWorkMaxBatchMs": 38.893917
+   }
+  },
+  {
+   "file": "arm-width-131072.json",
+   "axis": "width",
+   "point": {
+    "value": 131072,
+    "exact": true,
+    "pingP95Ms": 25.158166000001074,
+    "warmReadMs": 100.04254100000071,
+    "exactReadMs": 40729.556708000004,
+    "hostWorkMaxBatchMs": 32.954834
+   }
+  },
+  {
+   "file": "arm-width-4194304.json",
+   "axis": "width",
+   "point": {
+    "value": 4194304,
+    "exact": true,
+    "pingP95Ms": 25.003917,
+    "warmReadMs": 93.61208299999998,
+    "hostWorkMaxBatchMs": 33.964875
+   }
+  },
+  {
+   "file": "arm-width-524288.json",
+   "axis": "width",
+   "point": {
+    "value": 524288,
+    "exact": true,
+    "pingP95Ms": 24.598999999987427,
+    "warmReadMs": 95.21945900000082,
+    "exactReadMs": 256298.16895800002,
+    "hostWorkMaxBatchMs": 31.241917
+   }
+  }
+ ],
+ "selection": {
+  "sustain": {
+   "knee": null,
+   "kneeReasons": [],
+   "largestPassing": 1048576,
+   "selected": 1048576,
+   "source": "largest-passing"
+  },
+  "width": {
+   "knee": null,
+   "kneeReasons": [],
+   "largestPassing": 4194304,
+   "selected": 4194304,
+   "source": "largest-passing"
+  }
+ }
+}

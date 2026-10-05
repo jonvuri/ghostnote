@@ -3,11 +3,11 @@ title: Phase 8h2 — Exact reader consolidation
 kind: plan
 state: planned
 status: Planned. Select the exact clip reader, then remove the 1/768 view and fix or refuse the disabled-control loss on the selected route.
-updated: 2026-10-04
+updated: 2026-10-05
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h-cache-promotion-and-interface-simplification.md
 next: 8i-agent-native-hybrid-dogfood.md
-evidence: E131, E139, E214, E219, E224; D8, D9, D23
+evidence: E131, E139, E214, E219, E224, E225; D8, D9, D23
 ---
 
 # Phase 8h2 — Exact reader consolidation
@@ -41,6 +41,13 @@ occurrence, recurrence, and repeat controls on notes that the patch did not
 mention, and resets disabled recurrence values. The
 [migration contract](../../contracts/GHOSTNOTE_MIGRATION_AND_VERIFICATION.md)
 requires refusal of reconstruction that would lose such state.
+
+[E225](../../evidence/experiments/e225-cache-limit-knee-sweep.md) adds three
+reader findings. Without `adapter.hello()`, the exact source tool reads a
+1-beat pool grid, truncates onsets, and still reports a complete source; it
+must refuse instead. The 4,096-note source limit refuses only after a full scan
+of up to 127 s. Read time grows with clip length: 40.7 s, 256 s, and 711 s at
+64, 256, and 512 bars.
 
 ## Entry
 

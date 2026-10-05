@@ -18,6 +18,8 @@ import java.util.function.Supplier;
 public final class ShadowTopologyControl {
     public static final String REVISION = "8g5a-uuid-group-master-v1";
     public static final int MAX_TRACKS = 512;
+    /** 8h1a research allocation ceiling for the flat bank and counted topology. */
+    public static final int RESEARCH_MAX_TRACKS = 2_048;
     public static final String CANDIDATE_REVISION = "8g5a-topology-candidates-v1";
     private static final Gson JSON = new Gson();
     record Row(int index, String channelId, String name, int position, boolean isGroup, boolean expanded) { }
@@ -65,10 +67,12 @@ public final class ShadowTopologyControl {
         source = () -> {
             if (!"ALL_CHANNELS".equals(rig.contentFilterApplied)) throw new IllegalStateException("flat-topology-filter-unproved");
             int count = rig.trackBank.itemCount().get(), offset = rig.trackBank.scrollPosition().get();
-            if (count < 0 || count > size || offset != 0) throw new IllegalStateException("flat-topology-window-incomplete");
+            // 8h1a: a research bank can be smaller than its allocation. Read only the active prefix.
+            int active = Math.min(size, rig.activeTracks);
+            if (count < 0 || count > active || offset != 0) throw new IllegalStateException("flat-topology-window-incomplete");
             List<Row> flat = new ArrayList<>(); Map<String, Bank> direct = new java.util.LinkedHashMap<>();
             Map<String, GroupCount> counts = new java.util.LinkedHashMap<>(); boolean warming = false;
-            for (int index = 0; index < size; index++) {
+            for (int index = 0; index < active; index++) {
                 Track track = rig.trackBank.getItemAt(index);
                 if (track.exists().get() != (index < count)) throw new IllegalStateException("flat-topology-existence-changed");
                 if (index >= count) continue;

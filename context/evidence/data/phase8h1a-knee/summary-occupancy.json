@@ -1,0 +1,75 @@
+{
+ "schema": "phase8h1a-summary-v1",
+ "marker": "8h1a-knee-sweep-v7",
+ "complete": false,
+ "eligible": false,
+ "generated": "2026-10-05T02:27:04.516Z",
+ "arms": [
+  {
+   "file": "arm-occupancy-1000.json",
+   "axis": "occupancy",
+   "point": {
+    "value": 1000,
+    "exact": true,
+    "pingP95Ms": 25.055333999996947,
+    "warmReadMs": 68.06287499999962,
+    "exactReadMs": 40132.698749999996,
+    "hostWorkMaxBatchMs": 16.423
+   }
+  },
+  {
+   "file": "arm-occupancy-131072.json",
+   "axis": "occupancy",
+   "point": {
+    "value": 131072,
+    "exact": true,
+    "pingP95Ms": 24.930291999975452,
+    "warmReadMs": 3290.2965409999997,
+    "hostWorkMaxBatchMs": 37.902958
+   }
+  },
+  {
+   "file": "arm-occupancy-16384.json",
+   "axis": "occupancy",
+   "point": {
+    "value": 16384,
+    "exact": true,
+    "pingP95Ms": 25.116041999994195,
+    "warmReadMs": 376.7686249999997,
+    "hostWorkMaxBatchMs": 13.868833
+   }
+  },
+  {
+   "file": "arm-occupancy-4096.json",
+   "axis": "occupancy",
+   "point": {
+    "value": 4096,
+    "exact": true,
+    "pingP95Ms": 25.189917000003334,
+    "warmReadMs": 117.83158299999923,
+    "exactReadMs": 40443.06025,
+    "hostWorkMaxBatchMs": 9.498542
+   }
+  },
+  {
+   "file": "arm-occupancy-65536.json",
+   "axis": "occupancy",
+   "point": {
+    "value": 65536,
+    "exact": true,
+    "pingP95Ms": 25.00608400000783,
+    "warmReadMs": 1523.1819160000014,
+    "hostWorkMaxBatchMs": 1.536542
+   }
+  }
+ ],
+ "selection": {
+  "occupancy": {
+   "knee": null,
+   "kneeReasons": [],
+   "largestPassing": 131072,
+   "selected": 131072,
+   "source": "largest-passing"
+  }
+ }
+}

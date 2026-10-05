@@ -1,0 +1,85 @@
+{
+ "schema": "phase8h1a-state-v1",
+ "fixtures": {
+  "canary": {
+   "name": "canary",
+   "trackIndex": 0,
+   "trackId": "b5312271-a6dc-4b8e-a4ef-63af0a5f7748",
+   "row": 0,
+   "width": 2048,
+   "count": 16,
+   "semitones": 0,
+   "durationCap": 64
+  },
+  "w4194304": {
+   "name": "w4194304",
+   "trackIndex": 0,
+   "trackId": "b5312271-a6dc-4b8e-a4ef-63af0a5f7748",
+   "row": 1,
+   "width": 4194304,
+   "count": 4096,
+   "semitones": 0,
+   "durationCap": 64
+  },
+  "sustain1048576": {
+   "name": "sustain1048576",
+   "trackIndex": 0,
+   "trackId": "b5312271-a6dc-4b8e-a4ef-63af0a5f7748",
+   "row": 2,
+   "width": 1048576,
+   "count": 4096,
+   "semitones": 0,
+   "durationCap": 1048576
+  }
+ },
+ "tracks": [],
+ "clips": [
+  {
+   "trackId": "b5312271-a6dc-4b8e-a4ef-63af0a5f7748",
+   "row": 0,
+   "intent": "canary"
+  },
+  {
+   "trackId": "b5312271-a6dc-4b8e-a4ef-63af0a5f7748",
+   "row": 1,
+   "intent": "w4194304"
+  },
+  {
+   "trackId": "b5312271-a6dc-4b8e-a4ef-63af0a5f7748",
+   "row": 2,
+   "intent": "sustain1048576"
+  }
+ ],
+ "writes": [
+  {
+   "name": "canary",
+   "count": 16,
+   "width": 2048,
+   "writeMs": 26.719333000000006,
+   "batches": 1,
+   "maxBatchMs": 1.679958,
+   "settleMs": 539.0840420000001,
+   "verifiedIndexes": 16
+  },
+  {
+   "name": "w4194304",
+   "count": 4096,
+   "width": 4194304,
+   "writeMs": 35.00491599999998,
+   "batches": 1,
+   "maxBatchMs": 9.716959,
+   "settleMs": 536.961834,
+   "verifiedIndexes": 33
+  },
+  {
+   "name": "sustain1048576",
+   "count": 4096,
+   "width": 1048576,
+   "writeMs": 27.486790999999926,
+   "batches": 1,
+   "maxBatchMs": 2.479291,
+   "settleMs": 547.368625,
+   "verifiedIndexes": 33
+  }
+ ]
+}

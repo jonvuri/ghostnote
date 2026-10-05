@@ -12,7 +12,7 @@ public final class ShadowInventoryRebuild {
     public static final double REBUILD_BUDGET_MS = 40_000;
     public static final int MAX_CONTROL_BATCH_CELLS = 64;
     /** Conservative bookkeeping bound. This is not the sparse recorder or snapshot budget. */
-    public static final long DEFAULT_REGISTRY_METADATA_BUDGET_BYTES = 16L * 1024 * 1024;
+    public static final long DEFAULT_REGISTRY_METADATA_BUDGET_BYTES = MAX_REGISTRY_BYTES;
     private static final double BATCH_TARGET_MS = 40;
 
     /** The caller supplies a bounded index space. A null slot proves absence at that index. */
@@ -58,7 +58,7 @@ public final class ShadowInventoryRebuild {
 
     public ShadowInventoryRebuild(ShadowProjectCache cache, InventoryProvider inventory, Supplier<Guard> guards,
                                   long maximumCells) {
-        this(cache, inventory, guards, maximumCells, System::nanoTime, DEFAULT_REGISTRY_METADATA_BUDGET_BYTES);
+        this(cache, inventory, guards, maximumCells, System::nanoTime, cache.limits().registryBytes());
     }
 
     public ShadowInventoryRebuild(ShadowProjectCache cache, InventoryProvider inventory, Supplier<Guard> guards,
@@ -119,7 +119,7 @@ public final class ShadowInventoryRebuild {
                 Slot slot = inventory.read(next);
                 if (!checkWindow()) return status();
                 if (slot != null) {
-                    if (slot.coverage().width() > MAX_WIDTH || !slot.coverage().allChannels())
+                    if (slot.coverage().width() > cache.limits().width() || !slot.coverage().allChannels())
                         return abort("inventory-coverage-incomplete");
                     long bytes = registryMetadataEstimate(slot);
                     if (bytes > metadataBudget - metadataBytes) return abort("inventory-bookkeeping-memory-budget");
@@ -150,7 +150,7 @@ public final class ShadowInventoryRebuild {
                     return abort("inventory-core-window-changed");
                 lastBatchMs = elapsed(batchStarted);
                 if (lastBatchMs > BATCH_BUDGET_MS) return abort("inventory-host-work-budget");
-                if (elapsed(started) > REBUILD_BUDGET_MS) return abort("inventory-rebuild-budget");
+                if (elapsed(started) > cache.limits().rebuildDeadlineMs()) return abort("inventory-rebuild-budget");
                 published = true; phase = "published"; ended = nanoTime.getAsLong();
                 reason = captured.verified() ? "inventory-published-nonresident" : "identity-unverified";
             }
@@ -194,7 +194,7 @@ public final class ShadowInventoryRebuild {
     private boolean active() { return "enumerating".equals(phase); }
 
     private boolean checkWindow() {
-        if (elapsed(started) > REBUILD_BUDGET_MS) { abort("inventory-rebuild-budget"); return false; }
+        if (elapsed(started) > cache.limits().rebuildDeadlineMs()) { abort("inventory-rebuild-budget"); return false; }
         if (!cache.isRebuildCurrent(token)) {
             abort("inventory-core-window-changed"); return false;
         }

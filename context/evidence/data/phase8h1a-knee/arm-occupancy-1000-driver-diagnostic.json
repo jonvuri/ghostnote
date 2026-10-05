@@ -1,0 +1,7209 @@
+{
+ "schema": "phase8h1a-arm-v1",
+ "marker": "8h1a-knee-sweep-v2",
+ "complete": false,
+ "eligible": false,
+ "captured": "2026-10-04T14:43:03.363Z",
+ "axis": "occupancy",
+ "axisValue": 1000,
+ "fixture": {
+  "name": "occ1000",
+  "trackIndex": 0,
+  "trackId": "180fc0f8-e347-4b55-932e-08b70c7ecaf5",
+  "row": 1,
+  "width": 131072,
+  "count": 1000,
+  "semitones": 0
+ },
+ "canary": "canary",
+ "hello": {
+  "contractVersion": 0,
+  "extensionVersion": "0.0.1",
+  "runtimeProfile": "phase-8-probe-v1",
+  "hostApiVersion": 25,
+  "methodCount": 98,
+  "methodsHash": "d89cee6bf21c1f96"
+ },
+ "allocation": {
+  "revision": "8h1a-allocation-v1",
+  "projectName": "New 11",
+  "activeTracks": 512,
+  "activeScenes": 128,
+  "trackItemCount": 4,
+  "sceneItemCount": 8,
+  "complete": false,
+  "eligible": false,
+  "jvmMemory": {
+   "capturedEpochMs": 1791124983339,
+   "usedBytes": 1186988032,
+   "committedBytes": 1650458624,
+   "maximumBytes": 3221225472,
+   "scope": "shared-jvm",
+   "forcedGc": false
+  },
+  "topologyAllocated": true,
+  "topology": {
+   "maximumTracks": 512,
+   "banks": 513,
+   "bankTrackHandles": 1024,
+   "parentTrackHandles": 0,
+   "stepDataObservers": 0,
+   "heapMeasured": false,
+   "hostMemoryMeasured": false,
+   "selectedRoute": "counted-preorder-with-uuid-master",
+   "bookkeepingEstimatedBytes": 10544,
+   "parentHandlesDiagnosticOnly": false,
+   "allocationMeasurement": {
+    "before": {
+     "capturedEpochMs": 1791124896072,
+     "usedBytes": 1551892480,
+     "committedBytes": 1551892480,
+     "maximumBytes": 3221225472,
+     "scope": "shared-jvm",
+     "forcedGc": false
+    },
+    "after": {
+     "capturedEpochMs": 1791124896077,
+     "usedBytes": 1566572544,
+     "committedBytes": 1566572544,
+     "maximumBytes": 3221225472,
+     "scope": "shared-jvm",
+     "forcedGc": false
+    },
+    "constructionMs": 5.132041
+   }
+  },
+  "flatBankTracks": 512,
+  "slotObservers": 512,
+  "slotHandles": 65536
+ },
+ "stats": {
+  "runtimeProfile": "phase-8-probe-v1",
+  "config": {
+   "tracks": 512,
+   "scenes": 128,
+   "gridSteps": 64,
+   "gridKeys": 128,
+   "cursorPool": 8,
+   "sends": 4,
+   "deviceBank": 16,
+   "fineSteps": 512,
+   "noteReadSteps": 2048,
+   "paramHandles": 64,
+   "remotePages": 16,
+   "cacheScaleObservers": 0,
+   "cacheScaleSteps": 131072,
+   "cacheScaleWidthSteps": 0,
+   "cacheShadowObservers": 512,
+   "cacheShadowSteps": 131072,
+   "cacheTopologyTracks": 512,
+   "cacheTopologyCounted": true,
+   "cacheLifecycleResearch": true,
+   "cacheKneeResearch": true,
+   "deliveryResearch": false,
+   "contentFilter": "ALL_CHANNELS",
+   "directObservers": true,
+   "stamp": "8h1a-knee-current",
+   "fromFile": true
+  },
+  "rigConstructMicros": 107994,
+  "initMicros": 122139,
+  "initEpochMs": 1791124896090,
+  "upMs": 87272,
+  "slotObjects": 65536,
+  "markedValues": 396800,
+  "resources": {
+   "cursorDeviceBanks": 8,
+   "siblingDeviceBanks": 1,
+   "layerDeviceBanks": 8,
+   "slotDeviceBanks": 15,
+   "namedSlotDeviceBanks": 0,
+   "drumPadDeviceBanks": 16,
+   "deviceBanks": 48,
+   "cursorDeviceSlots": 128,
+   "cursorDeviceEnabledValues": 128,
+   "layerDeviceSlots": 32,
+   "slotDeviceSlots": 60,
+   "drumPadDeviceSlots": 256,
+   "namedSlotDeviceSlots": 0,
+   "deviceSlots": 492,
+   "cursorDevices": 1,
+   "specificDeviceViews": 4,
+   "typedParameterHandles": 75,
+   "remotePageCursors": 16,
+   "remoteParameterHandles": 128,
+   "directParameterObservers": 4,
+   "noteObserverCursors": 1,
+   "noteStepObservers": 1,
+   "stepDataObservers": 1,
+   "cacheScaleCursorTracks": 0,
+   "cacheScaleClipProxies": 0,
+   "cacheScaleStepDataObservers": 0,
+   "trackSendBanks": 0,
+   "trackSendHandles": 0,
+   "trackVuObservers": 0,
+   "historicalActionHandles": 0,
+   "historicalSelectionObservers": 0,
+   "equalsProxies": 32,
+   "transportProxies": 1,
+   "masterRecorderProxies": 0,
+   "cursorTracks": 10,
+   "cursorClips": 12,
+   "layerBanks": 4,
+   "layerHandles": 23,
+   "layerSendBanks": 0,
+   "layerSendHandles": 0,
+   "explicitHostObjects": 66917,
+   "observerCallbacks": 1607
+  },
+  "heapUsedMb": 1132,
+  "heapMaxMb": 3072
+ },
+ "configuration": {
+  "revision": "8h1a-knee-sweep-v2",
+  "complete": false,
+  "eligible": false,
+  "allocation": {
+   "observers": 512,
+   "authorityObservers": 1,
+   "totalExperimentalStepDataObservers": 516,
+   "width": 131072,
+   "scenes": 128,
+   "tracks": 512,
+   "cacheBankConstructionMs": 29.848583
+  },
+  "active": {
+   "observers": 2,
+   "experimentalStepDataObservers": 6,
+   "width": 131072,
+   "scenes": 128,
+   "tracks": 512,
+   "subscribedObservers": 2
+  },
+  "limits": {
+   "width": 131072,
+   "observers": 6,
+   "occupied": 1073741824,
+   "pending": 1073741824,
+   "recorderBytes": 1125899906842624,
+   "snapshotBytes": 1125899906842624,
+   "combinedBytes": 1125899906842624,
+   "registryBytes": 1125899906842624,
+   "replayDeadlineMs": 600000,
+   "enrichmentDeadlineMs": 600000,
+   "rebuildDeadlineMs": 3600000,
+   "constructionBudgetMs": 60000,
+   "pingBudgetMs": 50
+  },
+  "configurations": 4,
+  "applied": true,
+  "applyMs": 3.235583
+ },
+ "ping": {
+  "health": "invalid",
+  "reason": "lifecycle-unverified",
+  "initDomain": "7e28294a-1ad6-4343-9c1d-944a81ea5c4a",
+  "projectGeneration": 6,
+  "structuralEpoch": 7,
+  "rebuildGeneration": 7,
+  "entries": 0,
+  "resident": 0,
+  "warming": 0,
+  "dirty": 0,
+  "occupiedCoordinates": 0,
+  "pendingCoordinates": 0,
+  "rejectedCallbacks": 0,
+  "recorderEstimatedBytes": 0,
+  "retainedSnapshotEstimatedBytes": 0,
+  "retainedNoteRecords": 0,
+  "constructionMs": 29.848583,
+  "replayMs": 0,
+  "rebuildMs": 0,
+  "pingP95Ms": 25.004999999999995,
+  "hits": 0,
+  "misses": 0,
+  "evictions": 0,
+  "invalidations": 0,
+  "domainObjects": {
+   "clipEntryRecords": 0,
+   "bindingTokenRecords": 0,
+   "occupiedCoordinateEntries": 0,
+   "dirtyCoordinateEntries": 0,
+   "membershipNoteRecords": 0,
+   "occupiedNoteLists": 0,
+   "retainedSnapshotRecords": 0,
+   "retainedNoteRecords": 0,
+   "retainedFieldEntries": 0,
+   "retainedMetadataEntries": 0,
+   "witnessReferences": 0,
+   "identityAndWitnessEstimatedBytes": 112
+  },
+  "resources": {
+   "residentRecorderEstimatedBytes": 0,
+   "stagingRecorderEstimatedBytes": 0,
+   "externalRecorderEstimatedBytes": 0,
+   "recorderDomainEstimatedBytes": 0,
+   "recorderLimitBytes": 1125899906842624,
+   "retainedSnapshotEstimatedBytes": 0,
+   "candidateSnapshotEstimatedBytes": 0,
+   "snapshotDomainEstimatedBytes": 0,
+   "snapshotLimitBytes": 1125899906842624,
+   "identityAndWitnessEstimatedBytes": 112,
+   "candidatePhase": "none",
+   "candidateReason": "none",
+   "heapMeasured": false,
+   "candidateWitnessEstimatedBytes": 0,
+   "totalEstimatedBytes": 12896,
+   "combinedLimitBytes": 1125899906842624,
+   "combinedRefusals": 0,
+   "lastCombinedRejectedEstimatedBytes": 0
+  },
+  "inventoryControlRevision": "8g-inventory-preparation-v1",
+  "inventoryControlMaximumBatchCells": 64,
+  "authorityBindingRevision": "8g-authority-transition-v1",
+  "authorityControlSearchCells": 0,
+  "authorityControlSearchMs": 0,
+  "authorityControlSearchReason": "not-started",
+  "authorityDistinctControlConfirmed": false,
+  "residentHandles": 512,
+  "handlePool": [
+   {
+    "index": 0,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 1,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 2,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 3,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 4,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 5,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 6,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 7,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 8,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 9,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 10,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 11,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 12,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 13,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 14,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 15,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 16,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 17,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 18,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 19,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 20,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 21,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 22,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 23,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 24,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 25,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 26,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 27,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 28,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 29,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 30,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 31,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 32,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 33,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 34,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 35,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 36,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 37,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 38,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 39,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 40,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 41,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 42,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 43,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 44,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 45,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 46,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 47,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 48,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 49,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 50,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 51,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 52,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 53,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 54,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 55,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 56,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 57,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 58,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 59,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 60,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 61,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 62,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 63,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 64,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 65,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 66,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 67,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 68,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 69,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 70,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 71,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 72,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 73,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 74,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 75,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 76,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 77,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 78,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 79,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 80,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 81,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 82,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 83,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 84,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 85,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 86,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 87,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 88,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 89,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 90,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 91,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 92,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 93,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 94,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 95,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 96,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 97,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 98,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 99,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 100,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 101,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 102,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 103,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 104,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 105,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 106,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 107,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 108,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 109,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 110,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 111,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 112,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 113,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 114,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 115,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 116,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 117,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 118,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 119,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 120,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 121,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 122,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 123,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 124,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 125,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 126,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 127,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 128,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 129,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 130,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 131,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 132,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 133,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 134,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 135,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 136,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 137,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 138,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 139,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 140,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 141,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 142,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 143,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 144,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 145,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 146,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 147,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 148,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 149,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 150,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 151,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 152,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 153,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 154,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 155,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 156,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 157,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 158,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 159,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 160,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 161,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 162,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 163,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 164,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 165,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 166,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 167,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 168,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 169,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 170,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 171,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 172,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 173,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 174,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 175,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 176,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 177,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 178,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 179,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 180,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 181,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 182,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 183,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 184,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 185,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 186,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 187,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 188,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 189,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 190,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 191,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 192,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 193,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 194,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 195,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 196,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 197,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 198,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 199,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 200,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 201,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 202,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 203,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 204,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 205,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 206,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 207,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 208,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 209,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 210,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 211,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 212,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 213,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 214,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 215,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 216,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 217,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 218,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 219,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 220,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 221,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 222,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 223,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 224,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 225,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 226,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 227,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 228,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 229,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 230,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 231,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 232,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 233,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 234,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 235,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 236,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 237,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 238,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 239,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 240,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 241,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 242,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 243,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 244,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 245,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 246,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 247,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 248,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 249,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 250,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 251,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 252,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 253,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 254,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 255,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 256,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 257,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 258,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 259,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 260,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 261,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 262,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 263,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 264,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 265,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 266,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 267,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 268,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 269,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 270,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 271,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 272,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 273,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 274,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 275,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 276,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 277,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 278,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 279,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 280,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 281,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 282,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 283,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 284,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 285,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 286,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 287,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 288,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 289,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 290,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 291,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 292,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 293,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 294,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 295,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 296,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 297,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 298,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 299,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 300,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 301,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 302,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 303,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 304,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 305,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 306,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 307,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 308,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 309,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 310,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 311,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 312,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 313,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 314,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 315,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 316,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 317,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 318,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 319,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 320,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 321,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 322,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 323,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 324,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 325,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 326,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 327,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 328,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 329,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 330,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 331,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 332,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 333,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 334,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 335,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 336,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 337,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 338,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 339,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 340,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 341,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 342,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 343,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 344,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 345,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 346,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 347,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 348,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 349,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 350,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 351,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 352,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 353,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 354,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 355,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 356,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 357,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 358,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 359,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 360,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 361,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 362,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 363,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 364,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 365,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 366,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 367,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 368,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 369,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 370,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 371,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 372,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 373,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 374,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 375,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 376,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 377,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 378,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 379,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 380,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 381,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 382,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 383,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 384,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 385,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 386,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 387,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 388,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 389,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 390,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 391,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 392,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 393,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 394,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 395,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 396,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 397,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 398,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 399,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 400,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 401,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 402,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 403,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 404,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 405,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 406,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 407,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 408,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 409,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 410,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 411,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 412,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 413,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 414,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 415,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 416,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 417,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 418,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 419,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 420,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 421,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 422,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 423,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 424,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 425,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 426,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 427,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 428,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 429,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 430,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 431,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 432,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 433,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 434,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 435,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 436,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 437,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 438,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 439,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 440,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 441,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 442,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 443,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 444,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 445,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 446,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 447,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 448,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 449,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 450,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 451,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 452,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 453,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 454,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 455,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 456,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 457,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 458,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 459,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 460,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 461,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 462,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 463,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 464,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 465,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 466,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 467,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 468,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 469,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 470,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 471,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 472,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 473,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 474,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 475,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 476,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 477,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 478,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 479,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 480,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 481,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 482,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 483,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 484,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 485,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 486,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 487,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 488,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 489,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 490,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 491,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 492,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 493,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 494,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 495,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 496,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 497,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 498,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 499,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 500,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 501,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 502,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 503,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 504,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 505,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 506,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 507,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 508,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 509,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 510,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 511,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   }
+  ],
+  "exactFallbackActive": false,
+  "unusedBindingHandles": 512,
+  "inventoryEnumerated": false,
+  "inventoryClipEntries": 0,
+  "rebuildTerminal": false,
+  "registryPublished": false,
+  "registryPendingSlotConfirmation": false,
+  "authorityHandles": 1,
+  "stepDataObservers": 513,
+  "shadowStepDataObservers": 513,
+  "totalExperimentalStepDataObservers": 516,
+  "combinedObserverBudgetAdmitted": true,
+  "constructionMeasurementAvailable": true,
+  "pingMeasurementAvailable": true,
+  "requestedReplayMeasurementAvailable": false,
+  "cacheBudgetMeasurementsComplete": false,
+  "automaticIdentityProbeAttached": true,
+  "automaticIdentityEpoch": 405,
+  "automaticIdentityInvalidations": 1,
+  "automaticIdentityPoisoned": false,
+  "automaticIdentityReason": "step-delta-read-window-required",
+  "identityWitnessAvailable": false,
+  "identityContinuityProved": false,
+  "continuityProtocol": "step-delta-read-window-v1",
+  "stepDataDeliveryAssumption": "D26",
+  "callbackOrderingRule": "E217-later-callback-after-batch",
+  "stepWindowCallbacks": 0,
+  "stepWindowBindingRevision": 513,
+  "stepWindowReadsOpened": 0,
+  "stepWindowConfirmations": 0,
+  "stepWindowChanges": 0,
+  "stepWindowRefusals": 0,
+  "retainedStepWindowDiscards": 0,
+  "inventoryPublicationSupported": true,
+  "slotWindowProtocol": "slot-delta-read-window-v1",
+  "slotDeliveryAssumption": "D28",
+  "clipIdentityFromOccupancy": false,
+  "slotWindowValue": {
+   "initNonce": "abf662ee-2cfd-4f41-b0b9-a67209b8e058",
+   "identityEpoch": 405,
+   "structure": 9752,
+   "slots": 65538
+  },
+  "slotWindowState": "none",
+  "slotWindowReadsOpened": 0,
+  "slotWindowConfirmations": 0,
+  "slotWindowChanges": 0,
+  "slotWindowRefusals": 0,
+  "lastSlotWindowRefusal": {},
+  "slotSourceResources": {
+   "slotObserverKind": "ClipLauncherSlotBank.addHasContentObserver",
+   "slotObservers": 512,
+   "observedSlotHandles": 65536,
+   "admittedTracks": 512,
+   "admittedScenes": 128,
+   "newHostHandles": 0,
+   "stepDataObservers": 0,
+   "heapMeasured": false
+  },
+  "liveAcquisitionSupported": false,
+  "hostModel": false,
+  "hostInputFenceProved": false,
+  "identityGuardHostWorkMs": 5.0445400000000005,
+  "authoritySettlementObservers": 1,
+  "steps": 131072,
+  "grid": 0.001953125,
+  "cacheBankConstructionMs": 29.848583,
+  "canaryPassed": false,
+  "cacheModelHealth": "invalid",
+  "cacheModelReason": "project-generation-changed",
+  "complete": false,
+  "eligible": false,
+  "readMode": "refuse",
+  "authorityAvailable": false,
+  "fallbackPerformed": false,
+  "lifecycleSignalsSupported": false,
+  "projectScopeComplete": false,
+  "lifecycleFallback": "project-lifecycle-fence-unproved",
+  "optionalLifecycleWitnessSupported": true,
+  "instrumentationRevision": "8h1a-knee-sweep-v2",
+  "activeConfiguration": {
+   "revision": "8h1a-knee-sweep-v2",
+   "complete": false,
+   "eligible": false,
+   "allocation": {
+    "observers": 512,
+    "authorityObservers": 1,
+    "totalExperimentalStepDataObservers": 516,
+    "width": 131072,
+    "scenes": 128,
+    "tracks": 512,
+    "cacheBankConstructionMs": 29.848583
+   },
+   "active": {
+    "observers": 2,
+    "experimentalStepDataObservers": 6,
+    "width": 131072,
+    "scenes": 128,
+    "tracks": 512,
+    "subscribedObservers": 2
+   },
+   "limits": {
+    "width": 131072,
+    "observers": 6,
+    "occupied": 1073741824,
+    "pending": 1073741824,
+    "recorderBytes": 1125899906842624,
+    "snapshotBytes": 1125899906842624,
+    "combinedBytes": 1125899906842624,
+    "registryBytes": 1125899906842624,
+    "replayDeadlineMs": 600000,
+    "enrichmentDeadlineMs": 600000,
+    "rebuildDeadlineMs": 3600000,
+    "constructionBudgetMs": 60000,
+    "pingBudgetMs": 50
+   },
+   "configurations": 4
+  },
+  "lastConfiguration": {
+   "revision": "8h1a-knee-sweep-v2",
+   "complete": false,
+   "eligible": false,
+   "allocation": {
+    "observers": 512,
+    "authorityObservers": 1,
+    "totalExperimentalStepDataObservers": 516,
+    "width": 131072,
+    "scenes": 128,
+    "tracks": 512,
+    "cacheBankConstructionMs": 29.848583
+   },
+   "active": {
+    "observers": 2,
+    "experimentalStepDataObservers": 6,
+    "width": 131072,
+    "scenes": 128,
+    "tracks": 512,
+    "subscribedObservers": 2
+   },
+   "limits": {
+    "width": 131072,
+    "observers": 6,
+    "occupied": 1073741824,
+    "pending": 1073741824,
+    "recorderBytes": 1125899906842624,
+    "snapshotBytes": 1125899906842624,
+    "combinedBytes": 1125899906842624,
+    "registryBytes": 1125899906842624,
+    "replayDeadlineMs": 600000,
+    "enrichmentDeadlineMs": 600000,
+    "rebuildDeadlineMs": 3600000,
+    "constructionBudgetMs": 60000,
+    "pingBudgetMs": 50
+   },
+   "configurations": 4,
+   "applied": true,
+   "applyMs": 3.235583
+  },
+  "topologyUsable": true,
+  "topologyControlRevision": "8g5a-uuid-group-master-v1",
+  "observerKind": "addStepDataObserver",
+  "rebindPolicy": "preserve-current-or-forced-canary-transition",
+  "callbackSourceIdentityKnown": false,
+  "physicalPendingHints": 0,
+  "physicalHintDrops": 0,
+  "physicalHintOverflow": false,
+  "physicalHintRecorderEstimatedBytes": 131072,
+  "pendingWorkItemsIncludingPhysicalHints": 0,
+  "comparison": "not-run",
+  "fallbackReason": "cache-configured",
+  "authorityScans": 0,
+  "matches": 0,
+  "mismatches": 0,
+  "mismatchesByCause": {},
+  "comparisonRefusalsByCause": {},
+  "windowChanges": 0,
+  "membershipGetStepCalls": 0,
+  "authorityGetStepCalls": 0,
+  "enrichmentGetStepCalls": 0,
+  "membershipHostWorkMs": 0,
+  "authorityHostWorkMs": 0,
+  "enrichmentHostWorkMs": 0,
+  "acquisitionNoteObjectsAllocated": 0,
+  "acquisitionMutableFieldMapObjectsAllocated": 0,
+  "allocationCountsScope": "explicit adapter allocations; excludes host and domain copies",
+  "acquisitionListObjectsAllocated": 0,
+  "lastSnapshotSerializedBytes": 0,
+  "lastAuthoritySerializedBytes": 0,
+  "serializedBytesAreMemoryMeasurement": false,
+  "durationTimingBasis": "R07-nearest-1/512-ties-up-minimum-one-cell",
+  "gainDomain": "host-amplitude-ratio-portable-amplitude-ratio",
+  "scanStagingNoteObjects": 0,
+  "scanStagingPayloadEstimatedBytes": 0,
+  "resourceAccounting": {
+   "residentRecorderEstimatedBytes": 0,
+   "stagingRecorderEstimatedBytes": 0,
+   "externalRecorderEstimatedBytes": 0,
+   "recorderDomainEstimatedBytes": 0,
+   "recorderLimitBytes": 1125899906842624,
+   "retainedSnapshotEstimatedBytes": 0,
+   "candidateSnapshotEstimatedBytes": 0,
+   "snapshotDomainEstimatedBytes": 0,
+   "snapshotLimitBytes": 1125899906842624,
+   "identityAndWitnessEstimatedBytes": 112,
+   "candidatePhase": "none",
+   "candidateReason": "none",
+   "heapMeasured": false,
+   "candidateWitnessEstimatedBytes": 0,
+   "totalEstimatedBytes": 12896,
+   "combinedLimitBytes": 1125899906842624,
+   "combinedRefusals": 0,
+   "lastCombinedRejectedEstimatedBytes": 0,
+   "physicalHintQueueEstimatedBytes": 0,
+   "comparisonAuthorityStagingEstimatedBytes": 0,
+   "exactAuthorityStagingEstimatedBytes": 0,
+   "authorityDomainEstimatedBytes": 0,
+   "authorityLimitBytes": 1125899906842624,
+   "registryAttemptEstimatedBytes": 0,
+   "registryAttemptLimitBytes": 1125899906842624,
+   "registryGuardEstimatedBytes": 0,
+   "topologyBookkeepingEstimatedBytes": 10544,
+   "topologyWitnessCharacters": 868,
+   "topologyWitnessEstimatedBytes": 1776,
+   "topologyDomainEstimatedBytes": 12320,
+   "slotSourceBookkeepingEstimatedBytes": 96,
+   "slotWindowEstimatedBytes": 368,
+   "slotReadRetained": false,
+   "slotDomainEstimatedBytes": 464,
+   "combinedLimitSelected": true,
+   "combinedSheddingPolicy": "drop-all-enriched-payloads-in-reference-order; preserve-confirmed-authority; explicit-retry",
+   "hostMemoryMeasured": false,
+   "serializedBytesAreMemoryMeasurement": false,
+   "accountingRevision": "8g5c-resource-accounting-v3",
+   "topologyControl": {
+    "maximumTracks": 512,
+    "banks": 513,
+    "bankTrackHandles": 1024,
+    "parentTrackHandles": 0,
+    "stepDataObservers": 0,
+    "heapMeasured": false,
+    "hostMemoryMeasured": false,
+    "selectedRoute": "counted-preorder-with-uuid-master",
+    "bookkeepingEstimatedBytes": 10544,
+    "parentHandlesDiagnosticOnly": false,
+    "allocationMeasurement": {
+     "before": {
+      "capturedEpochMs": 1791124896072,
+      "usedBytes": 1551892480,
+      "committedBytes": 1551892480,
+      "maximumBytes": 3221225472,
+      "scope": "shared-jvm",
+      "forcedGc": false
+     },
+     "after": {
+      "capturedEpochMs": 1791124896077,
+      "usedBytes": 1566572544,
+      "committedBytes": 1566572544,
+      "maximumBytes": 3221225472,
+      "scope": "shared-jvm",
+      "forcedGc": false
+     },
+     "constructionMs": 5.132041
+    }
+   }
+  },
+  "enrichmentBatches": 0,
+  "promotedReads": 0,
+  "lastScanPhaseTimesMs": {},
+  "lastSnapshotCandidate": {}
+ },
+ "cold": {
+  "index": 0,
+  "acquired": {
+   "poolDecision": "reserved"
+  },
+  "bindMs": 6085.412832999999,
+  "settledPhase": "settled",
+  "drain": {
+   "drainMs": 2961.0303329999997,
+   "calls": 30,
+   "coordinates": 64475,
+   "maxReconcileMs": 1005.127041,
+   "reason": "lifecycle-unverified"
+  }
+ },
+ "coldRead": {
+  "wallMs": 150.59187500000007,
+  "polls": 5,
+  "comparison": "promoted-unverified",
+  "noteCount": 0,
+  "enrichmentHostWorkMs": 53.632792,
+  "enrichmentBatches": 2,
+  "maxBatchMs": 13.611125,
+  "responseBytes": 40559,
+  "issues": [
+   "compact rows are absent"
+  ]
+ },
+ "warmReads": [
+  {
+   "wallMs": 136.291792,
+   "polls": 5,
+   "comparison": "promoted-unverified",
+   "noteCount": 0,
+   "enrichmentHostWorkMs": 45.978707,
+   "enrichmentBatches": 2,
+   "maxBatchMs": 5.939166,
+   "responseBytes": 40555,
+   "issues": [
+    "compact rows are absent"
+   ]
+  },
+  {
+   "wallMs": 113.3691660000004,
+   "polls": 4,
+   "comparison": "promoted-unverified",
+   "noteCount": 0,
+   "enrichmentHostWorkMs": 35.924292,
+   "enrichmentBatches": 1,
+   "maxBatchMs": 35.924292,
+   "responseBytes": 40559,
+   "issues": [
+    "compact rows are absent"
+   ]
+  },
+  {
+   "wallMs": 117.75112499999886,
+   "polls": 4,
+   "comparison": "promoted-unverified",
+   "noteCount": 0,
+   "enrichmentHostWorkMs": 36.547417,
+   "enrichmentBatches": 1,
+   "maxBatchMs": 36.547417,
+   "responseBytes": 40553,
+   "issues": [
+    "compact rows are absent"
+   ]
+  }
+ ],
+ "oracleIssues": [],
+ "oracleReadMs": 0.182416,
+ "exactReads": [
+  {
+   "wallMs": 4360.317542000001,
+   "issues": [
+    "exact foreign note 0:2048:56",
+    "exact foreign note 0:4096:88",
+    "exact foreign note 0:6144:40",
+    "exact foreign note 0:8192:72",
+    "exact foreign note 0:10240:24",
+    "exact foreign note 0:12288:56",
+    "exact foreign note 0:14336:88",
+    "exact foreign note 0:16384:40",
+    "exact foreign note 0:18432:72",
+    "exact foreign note 0:23040:56",
+    "exact foreign note 0:25088:88",
+    "exact foreign note 0:27136:40",
+    "exact foreign note 0:29184:72",
+    "exact foreign note 0:31232:24",
+    "exact foreign note 0:33280:56",
+    "exact foreign note 0:35328:88",
+    "exact foreign note 0:37376:40",
+    "exact foreign note 0:39424:72",
+    "exact foreign note 0:44032:56",
+    "exact foreign note 0:46080:88"
+   ],
+   "noteCount": 1000
+  }
+ ],
+ "pingSamplesMs": [
+  3.9387079999996786,
+  23.1851659999993,
+  23.404333000000406,
+  23.8973330000008,
+  24.504124999999476,
+  24.36133300000074,
+  23.800999999999476,
+  24.291165999999066,
+  24.801542000001064,
+  24.03137500000048,
+  23.393583999999464,
+  22.548000000000684,
+  24.614458000000013,
+  24.049999999999272,
+  24.792458000001716,
+  24.290124999999534,
+  24.10004200000003,
+  23.87800000000061,
+  23.125625000000582,
+  24.62341699999888,
+  24.558917000000292,
+  24.243500000000495,
+  24.52362499999981,
+  25.76837499999965,
+  23.2309580000001,
+  24.515166999999565,
+  22.929333000000042,
+  23.54662500000086,
+  24.065291000000798,
+  23.183791999999812,
+  24.86737499999981,
+  22.770167000000583,
+  23.12737500000003,
+  24.895458000000872,
+  24.41991599999892,
+  21.94841699999961,
+  23.506665999999313,
+  24.166124999999738,
+  23.700834000001123,
+  24.61237500000061
+ ],
+ "after": {
+  "health": "partial",
+  "reason": "lifecycle-unverified",
+  "initDomain": "7e28294a-1ad6-4343-9c1d-944a81ea5c4a",
+  "projectGeneration": 6,
+  "structuralEpoch": 7,
+  "rebuildGeneration": 7,
+  "entries": 1,
+  "resident": 1,
+  "warming": 0,
+  "dirty": 0,
+  "occupiedCoordinates": 1000,
+  "pendingCoordinates": 0,
+  "rejectedCallbacks": 0,
+  "recorderEstimatedBytes": 56256,
+  "retainedSnapshotEstimatedBytes": 2036630,
+  "retainedNoteRecords": 1000,
+  "constructionMs": 29.848583,
+  "replayMs": 1570.040625,
+  "rebuildMs": 0,
+  "pingP95Ms": 25.004999999999995,
+  "hits": 4,
+  "misses": 0,
+  "evictions": 0,
+  "invalidations": 64475,
+  "domainObjects": {
+   "clipEntryRecords": 1,
+   "bindingTokenRecords": 1,
+   "occupiedCoordinateEntries": 1000,
+   "dirtyCoordinateEntries": 0,
+   "membershipNoteRecords": 1000,
+   "occupiedNoteLists": 1000,
+   "retainedSnapshotRecords": 1,
+   "retainedNoteRecords": 1000,
+   "retainedFieldEntries": 26000,
+   "retainedMetadataEntries": 10,
+   "witnessReferences": 2,
+   "identityAndWitnessEstimatedBytes": 990
+  },
+  "resources": {
+   "residentRecorderEstimatedBytes": 56256,
+   "stagingRecorderEstimatedBytes": 0,
+   "externalRecorderEstimatedBytes": 0,
+   "recorderDomainEstimatedBytes": 56256,
+   "recorderLimitBytes": 1125899906842624,
+   "retainedSnapshotEstimatedBytes": 2036630,
+   "candidateSnapshotEstimatedBytes": 0,
+   "snapshotDomainEstimatedBytes": 2036630,
+   "snapshotLimitBytes": 1125899906842624,
+   "identityAndWitnessEstimatedBytes": 990,
+   "candidatePhase": "none",
+   "candidateReason": "none",
+   "heapMeasured": false,
+   "candidateWitnessEstimatedBytes": 0,
+   "totalEstimatedBytes": 2106660,
+   "combinedLimitBytes": 1125899906842624,
+   "combinedRefusals": 0,
+   "lastCombinedRejectedEstimatedBytes": 0
+  },
+  "inventoryControlRevision": "8g-inventory-preparation-v1",
+  "inventoryControlMaximumBatchCells": 64,
+  "authorityBindingRevision": "8g-authority-transition-v1",
+  "authorityControlSearchCells": 0,
+  "authorityControlSearchMs": 0,
+  "authorityControlSearchReason": "not-started",
+  "authorityDistinctControlConfirmed": false,
+  "residentHandles": 512,
+  "handlePool": [
+   {
+    "index": 0,
+    "address": {
+     "trackId": "180fc0f8-e347-4b55-932e-08b70c7ecaf5",
+     "row": 1
+    },
+    "lastUsed": 1,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 1,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 2,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 3,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 4,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 5,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 6,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 7,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 8,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 9,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 10,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 11,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 12,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 13,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 14,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 15,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 16,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 17,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 18,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 19,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 20,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 21,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 22,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 23,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 24,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 25,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 26,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 27,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 28,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 29,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 30,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 31,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 32,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 33,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 34,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 35,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 36,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 37,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 38,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 39,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 40,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 41,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 42,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 43,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 44,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 45,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 46,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 47,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 48,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 49,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 50,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 51,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 52,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 53,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 54,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 55,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 56,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 57,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 58,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 59,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 60,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 61,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 62,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 63,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 64,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 65,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 66,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 67,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 68,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 69,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 70,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 71,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 72,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 73,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 74,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 75,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 76,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 77,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 78,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 79,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 80,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 81,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 82,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 83,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 84,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 85,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 86,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 87,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 88,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 89,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 90,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 91,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 92,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 93,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 94,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 95,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 96,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 97,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 98,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 99,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 100,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 101,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 102,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 103,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 104,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 105,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 106,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 107,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 108,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 109,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 110,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 111,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 112,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 113,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 114,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 115,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 116,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 117,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 118,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 119,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 120,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 121,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 122,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 123,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 124,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 125,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 126,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 127,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 128,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 129,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 130,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 131,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 132,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 133,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 134,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 135,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 136,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 137,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 138,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 139,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 140,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 141,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 142,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 143,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 144,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 145,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 146,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 147,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 148,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 149,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 150,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 151,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 152,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 153,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 154,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 155,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 156,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 157,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 158,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 159,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 160,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 161,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 162,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 163,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 164,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 165,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 166,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 167,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 168,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 169,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 170,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 171,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 172,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 173,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 174,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 175,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 176,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 177,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 178,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 179,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 180,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 181,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 182,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 183,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 184,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 185,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 186,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 187,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 188,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 189,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 190,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 191,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 192,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 193,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 194,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 195,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 196,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 197,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 198,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 199,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 200,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 201,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 202,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 203,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 204,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 205,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 206,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 207,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 208,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 209,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 210,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 211,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 212,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 213,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 214,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 215,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 216,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 217,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 218,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 219,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 220,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 221,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 222,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 223,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 224,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 225,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 226,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 227,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 228,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 229,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 230,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 231,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 232,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 233,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 234,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 235,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 236,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 237,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 238,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 239,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 240,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 241,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 242,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 243,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 244,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 245,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 246,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 247,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 248,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 249,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 250,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 251,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 252,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 253,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 254,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 255,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 256,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 257,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 258,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 259,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 260,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 261,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 262,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 263,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 264,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 265,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 266,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 267,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 268,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 269,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 270,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 271,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 272,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 273,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 274,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 275,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 276,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 277,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 278,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 279,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 280,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 281,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 282,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 283,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 284,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 285,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 286,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 287,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 288,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 289,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 290,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 291,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 292,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 293,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 294,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 295,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 296,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 297,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 298,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 299,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 300,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 301,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 302,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 303,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 304,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 305,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 306,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 307,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 308,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 309,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 310,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 311,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 312,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 313,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 314,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 315,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 316,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 317,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 318,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 319,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 320,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 321,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 322,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 323,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 324,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 325,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 326,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 327,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 328,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 329,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 330,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 331,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 332,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 333,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 334,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 335,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 336,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 337,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 338,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 339,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 340,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 341,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 342,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 343,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 344,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 345,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 346,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 347,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 348,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 349,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 350,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 351,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 352,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 353,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 354,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 355,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 356,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 357,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 358,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 359,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 360,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 361,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 362,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 363,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 364,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 365,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 366,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 367,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 368,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 369,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 370,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 371,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 372,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 373,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 374,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 375,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 376,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 377,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 378,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 379,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 380,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 381,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 382,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 383,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 384,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 385,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 386,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 387,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 388,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 389,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 390,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 391,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 392,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 393,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 394,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 395,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 396,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 397,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 398,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 399,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 400,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 401,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 402,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 403,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 404,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 405,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 406,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 407,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 408,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 409,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 410,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 411,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 412,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 413,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 414,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 415,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 416,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 417,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 418,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 419,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 420,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 421,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 422,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 423,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 424,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 425,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 426,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 427,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 428,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 429,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 430,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 431,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 432,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 433,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 434,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 435,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 436,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 437,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 438,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 439,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 440,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 441,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 442,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 443,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 444,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 445,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 446,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 447,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 448,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 449,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 450,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 451,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 452,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 453,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 454,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 455,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 456,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 457,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 458,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 459,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 460,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 461,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 462,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 463,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 464,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 465,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 466,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 467,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 468,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 469,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 470,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 471,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 472,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 473,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 474,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 475,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 476,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 477,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 478,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 479,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 480,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 481,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 482,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 483,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 484,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 485,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 486,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 487,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 488,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 489,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 490,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 491,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 492,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 493,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 494,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 495,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 496,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 497,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 498,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 499,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 500,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 501,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 502,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 503,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 504,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 505,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 506,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 507,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 508,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 509,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 510,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   },
+   {
+    "index": 511,
+    "lastUsed": 0,
+    "reserved": false,
+    "retired": false
+   }
+  ],
+  "exactFallbackActive": false,
+  "unusedBindingHandles": 511,
+  "inventoryEnumerated": false,
+  "inventoryClipEntries": 0,
+  "rebuildTerminal": false,
+  "registryPublished": false,
+  "registryPendingSlotConfirmation": false,
+  "authorityHandles": 1,
+  "stepDataObservers": 513,
+  "shadowStepDataObservers": 513,
+  "totalExperimentalStepDataObservers": 516,
+  "combinedObserverBudgetAdmitted": true,
+  "constructionMeasurementAvailable": true,
+  "pingMeasurementAvailable": true,
+  "requestedReplayMeasurementAvailable": true,
+  "cacheBudgetMeasurementsComplete": true,
+  "automaticIdentityProbeAttached": true,
+  "automaticIdentityEpoch": 405,
+  "automaticIdentityInvalidations": 1,
+  "automaticIdentityPoisoned": false,
+  "automaticIdentityReason": "step-delta-read-window-required",
+  "identityWitnessAvailable": false,
+  "identityContinuityProved": false,
+  "continuityProtocol": "step-delta-read-window-v1",
+  "stepDataDeliveryAssumption": "D26",
+  "callbackOrderingRule": "E217-later-callback-after-batch",
+  "stepWindowCallbacks": 193733,
+  "stepWindowBindingRevision": 523,
+  "stepWindowReadsOpened": 9,
+  "stepWindowConfirmations": 9,
+  "stepWindowChanges": 0,
+  "stepWindowRefusals": 0,
+  "retainedStepWindowDiscards": 0,
+  "inventoryPublicationSupported": true,
+  "slotWindowProtocol": "slot-delta-read-window-v1",
+  "slotDeliveryAssumption": "D28",
+  "clipIdentityFromOccupancy": false,
+  "slotWindowValue": {
+   "initNonce": "abf662ee-2cfd-4f41-b0b9-a67209b8e058",
+   "identityEpoch": 405,
+   "structure": 9752,
+   "slots": 65538
+  },
+  "slotWindowState": "none",
+  "slotWindowReadsOpened": 0,
+  "slotWindowConfirmations": 0,
+  "slotWindowChanges": 0,
+  "slotWindowRefusals": 0,
+  "lastSlotWindowRefusal": {},
+  "slotSourceResources": {
+   "slotObserverKind": "ClipLauncherSlotBank.addHasContentObserver",
+   "slotObservers": 512,
+   "observedSlotHandles": 65536,
+   "admittedTracks": 512,
+   "admittedScenes": 128,
+   "newHostHandles": 0,
+   "stepDataObservers": 0,
+   "heapMeasured": false
+  },
+  "liveAcquisitionSupported": false,
+  "hostModel": false,
+  "hostInputFenceProved": false,
+  "identityGuardHostWorkMs": 36.281208000000035,
+  "authoritySettlementObservers": 1,
+  "steps": 131072,
+  "grid": 0.001953125,
+  "cacheBankConstructionMs": 29.848583,
+  "canaryPassed": false,
+  "cacheModelHealth": "partial",
+  "cacheModelReason": "inventory-incomplete",
+  "complete": false,
+  "eligible": false,
+  "readMode": "refuse",
+  "authorityAvailable": false,
+  "fallbackPerformed": false,
+  "lifecycleSignalsSupported": false,
+  "projectScopeComplete": false,
+  "lifecycleFallback": "project-lifecycle-fence-unproved",
+  "optionalLifecycleWitnessSupported": true,
+  "instrumentationRevision": "8h1a-knee-sweep-v2",
+  "activeConfiguration": {
+   "revision": "8h1a-knee-sweep-v2",
+   "complete": false,
+   "eligible": false,
+   "allocation": {
+    "observers": 512,
+    "authorityObservers": 1,
+    "totalExperimentalStepDataObservers": 516,
+    "width": 131072,
+    "scenes": 128,
+    "tracks": 512,
+    "cacheBankConstructionMs": 29.848583
+   },
+   "active": {
+    "observers": 2,
+    "experimentalStepDataObservers": 6,
+    "width": 131072,
+    "scenes": 128,
+    "tracks": 512,
+    "subscribedObservers": 2
+   },
+   "limits": {
+    "width": 131072,
+    "observers": 6,
+    "occupied": 1073741824,
+    "pending": 1073741824,
+    "recorderBytes": 1125899906842624,
+    "snapshotBytes": 1125899906842624,
+    "combinedBytes": 1125899906842624,
+    "registryBytes": 1125899906842624,
+    "replayDeadlineMs": 600000,
+    "enrichmentDeadlineMs": 600000,
+    "rebuildDeadlineMs": 3600000,
+    "constructionBudgetMs": 60000,
+    "pingBudgetMs": 50
+   },
+   "configurations": 4
+  },
+  "lastConfiguration": {
+   "revision": "8h1a-knee-sweep-v2",
+   "complete": false,
+   "eligible": false,
+   "allocation": {
+    "observers": 512,
+    "authorityObservers": 1,
+    "totalExperimentalStepDataObservers": 516,
+    "width": 131072,
+    "scenes": 128,
+    "tracks": 512,
+    "cacheBankConstructionMs": 29.848583
+   },
+   "active": {
+    "observers": 2,
+    "experimentalStepDataObservers": 6,
+    "width": 131072,
+    "scenes": 128,
+    "tracks": 512,
+    "subscribedObservers": 2
+   },
+   "limits": {
+    "width": 131072,
+    "observers": 6,
+    "occupied": 1073741824,
+    "pending": 1073741824,
+    "recorderBytes": 1125899906842624,
+    "snapshotBytes": 1125899906842624,
+    "combinedBytes": 1125899906842624,
+    "registryBytes": 1125899906842624,
+    "replayDeadlineMs": 600000,
+    "enrichmentDeadlineMs": 600000,
+    "rebuildDeadlineMs": 3600000,
+    "constructionBudgetMs": 60000,
+    "pingBudgetMs": 50
+   },
+   "configurations": 4,
+   "applied": true,
+   "applyMs": 3.235583
+  },
+  "topologyUsable": true,
+  "topologyControlRevision": "8g5a-uuid-group-master-v1",
+  "observerKind": "addStepDataObserver",
+  "rebindPolicy": "preserve-current-or-forced-canary-transition",
+  "callbackSourceIdentityKnown": false,
+  "physicalPendingHints": 0,
+  "physicalHintDrops": 0,
+  "physicalHintOverflow": false,
+  "physicalHintRecorderEstimatedBytes": 131072,
+  "pendingWorkItemsIncludingPhysicalHints": 0,
+  "comparison": "promoted-unverified",
+  "fallbackReason": "cache-configured",
+  "authorityScans": 0,
+  "matches": 0,
+  "mismatches": 0,
+  "mismatchesByCause": {},
+  "comparisonRefusalsByCause": {},
+  "windowChanges": 0,
+  "membershipGetStepCalls": 1031616,
+  "authorityGetStepCalls": 0,
+  "enrichmentGetStepCalls": 64000,
+  "membershipHostWorkMs": 87.75590099999141,
+  "authorityHostWorkMs": 0,
+  "enrichmentHostWorkMs": 16.268797000000248,
+  "acquisitionNoteObjectsAllocated": 5001,
+  "acquisitionMutableFieldMapObjectsAllocated": 4000,
+  "allocationCountsScope": "explicit adapter allocations; excludes host and domain copies",
+  "acquisitionListObjectsAllocated": 5001,
+  "lastSnapshotSerializedBytes": 0,
+  "lastAuthoritySerializedBytes": 0,
+  "serializedBytesAreMemoryMeasurement": false,
+  "durationTimingBasis": "R07-nearest-1/512-ties-up-minimum-one-cell",
+  "gainDomain": "host-amplitude-ratio-portable-amplitude-ratio",
+  "scanStagingNoteObjects": 0,
+  "scanStagingPayloadEstimatedBytes": 0,
+  "resourceAccounting": {
+   "residentRecorderEstimatedBytes": 56256,
+   "stagingRecorderEstimatedBytes": 0,
+   "externalRecorderEstimatedBytes": 0,
+   "recorderDomainEstimatedBytes": 56256,
+   "recorderLimitBytes": 1125899906842624,
+   "retainedSnapshotEstimatedBytes": 2036630,
+   "candidateSnapshotEstimatedBytes": 0,
+   "snapshotDomainEstimatedBytes": 2036630,
+   "snapshotLimitBytes": 1125899906842624,
+   "identityAndWitnessEstimatedBytes": 990,
+   "candidatePhase": "none",
+   "candidateReason": "none",
+   "heapMeasured": false,
+   "candidateWitnessEstimatedBytes": 0,
+   "totalEstimatedBytes": 2106660,
+   "combinedLimitBytes": 1125899906842624,
+   "combinedRefusals": 0,
+   "lastCombinedRejectedEstimatedBytes": 0,
+   "physicalHintQueueEstimatedBytes": 0,
+   "comparisonAuthorityStagingEstimatedBytes": 0,
+   "exactAuthorityStagingEstimatedBytes": 0,
+   "authorityDomainEstimatedBytes": 0,
+   "authorityLimitBytes": 1125899906842624,
+   "registryAttemptEstimatedBytes": 0,
+   "registryAttemptLimitBytes": 1125899906842624,
+   "registryGuardEstimatedBytes": 0,
+   "topologyBookkeepingEstimatedBytes": 10544,
+   "topologyWitnessCharacters": 868,
+   "topologyWitnessEstimatedBytes": 1776,
+   "topologyDomainEstimatedBytes": 12320,
+   "slotSourceBookkeepingEstimatedBytes": 96,
+   "slotWindowEstimatedBytes": 368,
+   "slotReadRetained": false,
+   "slotDomainEstimatedBytes": 464,
+   "combinedLimitSelected": true,
+   "combinedSheddingPolicy": "drop-all-enriched-payloads-in-reference-order; preserve-confirmed-authority; explicit-retry",
+   "hostMemoryMeasured": false,
+   "serializedBytesAreMemoryMeasurement": false,
+   "accountingRevision": "8g5c-resource-accounting-v3",
+   "topologyControl": {
+    "maximumTracks": 512,
+    "banks": 513,
+    "bankTrackHandles": 1024,
+    "parentTrackHandles": 0,
+    "stepDataObservers": 0,
+    "heapMeasured": false,
+    "hostMemoryMeasured": false,
+    "selectedRoute": "counted-preorder-with-uuid-master",
+    "bookkeepingEstimatedBytes": 10544,
+    "parentHandlesDiagnosticOnly": false,
+    "allocationMeasurement": {
+     "before": {
+      "capturedEpochMs": 1791124896072,
+      "usedBytes": 1551892480,
+      "committedBytes": 1551892480,
+      "maximumBytes": 3221225472,
+      "scope": "shared-jvm",
+      "forcedGc": false
+     },
+     "after": {
+      "capturedEpochMs": 1791124896077,
+      "usedBytes": 1566572544,
+      "committedBytes": 1566572544,
+      "maximumBytes": 3221225472,
+      "scope": "shared-jvm",
+      "forcedGc": false
+     },
+     "constructionMs": 5.132041
+    }
+   }
+  },
+  "enrichmentBatches": 6,
+  "promotedReads": 4,
+  "lastScanPhaseTimesMs": {
+   "membership": 0,
+   "promoted-settlement": 24.216083,
+   "enrichment": 24.537292,
+   "result-confirmation": 64.079833,
+   "ended": 72.447,
+   "authorityHostWorkMs": 0,
+   "enrichmentHostWorkMs": 36.547417,
+   "scope": "elapsed wall time from scan start at each stage start; host work is separate"
+  },
+  "lastSnapshotCandidate": {
+   "phase": "published",
+   "reason": "within-budget",
+   "coordinatesDone": 1000,
+   "coordinatesTotal": 1000,
+   "notes": 0,
+   "estimatedBytes": 2036630,
+   "peakEstimatedBytes": 2036630,
+   "combinedPeakEstimatedBytes": 2106660,
+   "combinedRejectedEstimatedBytes": 0,
+   "batches": 1,
+   "lastBatchMs": 36.547417,
+   "hostWorkMs": 36.547417,
+   "elapsedMs": 39.57,
+   "deadlineMs": 600000
+  }
+ },
+ "jvm": {
+  "capturedEpochMs": 1791124999025,
+  "usedBytes": 1442840576,
+  "committedBytes": 3093299200,
+  "maximumBytes": 3221225472,
+  "scope": "shared-jvm",
+  "forcedGc": false
+ },
+ "summary": {
+  "value": 1000,
+  "exact": false,
+  "pingP95Ms": 24.86737499999981,
+  "warmReadMs": 117.75112499999886,
+  "exactReadMs": 4360.317542000001,
+  "hostWorkMaxBatchMs": 36.547417
+ }
+}

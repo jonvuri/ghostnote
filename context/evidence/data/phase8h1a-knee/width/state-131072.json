@@ -1,0 +1,58 @@
+{
+ "schema": "phase8h1a-state-v1",
+ "fixtures": {
+  "canary": {
+   "name": "canary",
+   "trackIndex": 0,
+   "trackId": "035fa2b2-a7bb-4c32-aab6-f3a1226e9fb3",
+   "row": 0,
+   "width": 2048,
+   "count": 16,
+   "semitones": 0
+  },
+  "w131072": {
+   "name": "w131072",
+   "trackIndex": 0,
+   "trackId": "035fa2b2-a7bb-4c32-aab6-f3a1226e9fb3",
+   "row": 1,
+   "width": 131072,
+   "count": 4096,
+   "semitones": 0
+  }
+ },
+ "tracks": [],
+ "clips": [
+  {
+   "trackId": "035fa2b2-a7bb-4c32-aab6-f3a1226e9fb3",
+   "row": 0,
+   "intent": "canary"
+  },
+  {
+   "trackId": "035fa2b2-a7bb-4c32-aab6-f3a1226e9fb3",
+   "row": 1,
+   "intent": "w131072"
+  }
+ ],
+ "writes": [
+  {
+   "name": "canary",
+   "count": 16,
+   "width": 2048,
+   "writeMs": 24.620542,
+   "batches": 1,
+   "maxBatchMs": 1.13925,
+   "settleMs": 546.4537919999999,
+   "verifiedIndexes": 16
+  },
+  {
+   "name": "w131072",
+   "count": 4096,
+   "width": 131072,
+   "writeMs": 31.87850000000003,
+   "batches": 1,
+   "maxBatchMs": 8.302667,
+   "settleMs": 522.946291,
+   "verifiedIndexes": 33
+  }
+ ]
+}

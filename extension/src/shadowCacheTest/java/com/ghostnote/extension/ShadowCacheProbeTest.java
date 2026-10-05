@@ -107,8 +107,89 @@ public final class ShadowCacheProbeTest {
         run("8g5b slot window: later callbacks discard retained occupancy", ShadowCacheProbeTest::slotRetained);
         run("8g5b slot window: delete and recreate without a callback mints no identity", ShadowCacheProbeTest::slotRecreateBoundary);
         run("8g5b slot window: coverage and identity refusals", ShadowCacheProbeTest::slotRefusals);
+        run("8h1a: configuration refuses above allocation and applies atomically", ShadowCacheProbeTest::kneeConfigure);
+        run("8h1a: promoted reads use cached membership without a dense oracle", ShadowCacheProbeTest::kneePromoted);
+        run("8h1a: fixture spec golden values match the brain oracle", ShadowCacheProbeTest::kneeSpec);
         System.out.println("Shadow cache adapter: " + passed + " test groups passed.");
     }
+
+    private static void kneeConfigure() throws Exception {
+        Fixture f = new Fixture(); f.readyA();
+        Limits before = f.cache().limits();
+        for (JsonObject request : List.of(object("activeObservers", 3), object("width", WIDTH + 1), object("scenes", 9),
+                object("occupied", 0))) {
+            JsonObject refused = f.probe.configure(request, null);
+            check(!refused.get("applied").getAsBoolean() && refused.has("reason"), "over-allocation request refuses: " + request);
+            check(f.cache().limits().equals(before) && f.probe.status(0).get("phase").getAsString().equals("complete"),
+                "a refused request changes nothing");
+        }
+        JsonObject request = object("activeObservers", 1); request.addProperty("width", 16); request.addProperty("occupied", 4);
+        request.addProperty("pending", 4096); request.addProperty("snapshotBytes", 1L << 32); request.addProperty("replayDeadlineMs", 9_000);
+        JsonObject applied = f.probe.configure(request, null);
+        check(applied.get("applied").getAsBoolean(), "an allocated request applies");
+        Limits limits = f.cache().limits();
+        check(limits.width() == 16 && limits.occupied() == 4 && limits.pending() == 4096 && limits.snapshotBytes() == 1L << 32
+            && limits.replayDeadlineMs() == 9_000 && limits.combinedBytes() == before.combinedBytes(), "absent values keep current limits");
+        JsonObject active = applied.getAsJsonObject("active");
+        check(active.get("observers").getAsInt() == 1 && active.get("width").getAsInt() == 16
+            && active.get("subscribedObservers").getAsLong() == 1, "the inactive suffix is unsubscribed");
+        check(applied.getAsJsonObject("allocation").get("observers").getAsInt() == 2
+            && applied.getAsJsonObject("allocation").get("width").getAsInt() == WIDTH, "allocation stays fixed");
+        check(f.probe.info().get("complete").getAsBoolean() == false && f.cache().diagnostics().entries() == 0,
+            "configuration ends the identity domain");
+        boolean inactive = false;
+        try { f.probe.status(1); } catch (IllegalArgumentException expected) { inactive = true; }
+        check(inactive, "an inactive handle refuses");
+        f.rebind("A", 0);
+        check(f.compare().get("comparison").getAsString().equals("match"), "the active prefix binds and matches at the new width");
+    }
+
+    private static void kneePromoted() throws Exception {
+        Fixture f = new Fixture(); f.readyA();
+        long authority = f.probe.info().get("authorityGetStepCalls").getAsLong();
+        JsonObject warm = promoted(f, "compact");
+        check(warm.get("comparison").getAsString().equals("promoted-unverified") && warm.get("readMode").getAsString().equals("promoted-research")
+            && !warm.get("complete").getAsBoolean() && !warm.get("eligible").getAsBoolean() && !warm.get("denseOracle").getAsBoolean(),
+            "a warm promoted read is research output: " + warm);
+        check(warm.get("settlementWitness").getAsString().equals("warm-complete"), "a warm read uses the settled replay");
+        check(warm.getAsJsonArray("compactNotes").size() == 1 && warm.getAsJsonArray("compactNotes").get(0).getAsJsonArray().get(2).getAsInt() == 60
+            && !warm.has("authorityNotes") && !warm.has("diagnosticSnapshot"), "compact payload carries membership values only");
+        check(f.probe.info().get("authorityGetStepCalls").getAsLong() == authority, "a promoted read makes no dense authority read");
+        check(promoted(f, "none").get("noteCount").getAsInt() == 1 && !promoted(f, "none").has("compactNotes"), "no payload keeps the count");
+        f.rebind("B", 0);
+        JsonObject cold = promoted(f, "full");
+        check(cold.get("settlementWitness").getAsString().equals("membership-window-only-unverified")
+            && cold.has("diagnosticSnapshot") && cold.get("noteCount").getAsInt() == 1, "a cold read settles from membership only: " + cold);
+        check(f.probe.info().get("authorityGetStepCalls").getAsLong() == authority, "a cold promoted read makes no dense authority read");
+        boolean refused = false;
+        try { f.probe.promotedStart(0, 1, "verbose"); } catch (IllegalArgumentException expected) { refused = true; }
+        check(refused, "an unknown payload refuses");
+    }
+
+    /** The same golden values are in phase8h1a-knee-lib.test.ts. */
+    private static void kneeSpec() {
+        long[][] expected = {{0, 0, 24, 1, 4}, {4, 1, 31, 38, 4}, {8, 2, 38, 75, 4}, {12, 3, 45, 112, 4}, {16, 4, 52, 22, 1}};
+        for (int i = 0; i < 5; i++) {
+            long[] row = {ShadowKneeFixture.cell(i, 5, 17), ShadowKneeFixture.channel(i), ShadowKneeFixture.pitch(i),
+                ShadowKneeFixture.velocity(i), ShadowKneeFixture.durationCells(i, 5, 17)};
+            check(java.util.Arrays.equals(row, expected[i]), "fixture spec row " + i + ": " + java.util.Arrays.toString(row));
+        }
+        check(ShadowKneeFixture.cell(0, 1, 4_194_304) == 4_194_303 && ShadowKneeFixture.cell(131_071, 131_072, 4_194_304) == 4_194_303,
+            "the final cell is always occupied");
+        check(ShadowKneeFixture.durationCells(10, 131_072, 131_072) == 1, "a full clip uses one-cell notes");
+        check(ShadowKneeFixture.durationCells(0, 5, 17, 3) == 3 && ShadowKneeFixture.durationCells(0, 4096, 1_048_576, 1_000_000) == 256,
+            "the duration cap bounds sustained cells and never reaches the next note");
+    }
+
+    private static JsonObject promoted(Fixture f, String payload) throws Exception {
+        JsonObject result = f.probe.promotedStart(0, Integer.MAX_VALUE, payload);
+        for (int attempt = 0; attempt < 80 && result.get("comparison").getAsString().equals("pending"); attempt++) {
+            fastClock(f.probe); f.host.runTasks(); result = f.probe.comparePoll();
+        }
+        return result;
+    }
+
+    private static JsonObject object(String key, Number value) { JsonObject result = new JsonObject(); result.addProperty(key, value); return result; }
 
     private static void topologyRefusal() throws Exception {
         for (boolean retained : List.of(false, true)) {
@@ -1704,6 +1785,7 @@ public final class ShadowCacheProbeTest {
             if (name.equals("isSubscribed")) return subscribed;
             if (name.equals("subscribe")) { subscribed = true; return null; }
             if (name.equals("unsubscribe")) { subscribed = false; return null; }
+            if (name.equals("setIsSubscribed")) throw new IllegalStateException("deprecated since API version 10: subscription is counter based");
             if (name.equals("getStep")) {
                 if (readHook != null) { Runnable hook = readHook; readHook = null; hook.run(); }
                 if (everyRead != null) everyRead.run();

@@ -69,6 +69,7 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
   const probeOnly = [
     'api.runtimeMethods',
     ...Object.keys(WIRE_METHODS_BANNED),
+    'cache.configure',
     'cache.scale',
     'cache.shadow',
     'stepdata.observer.enrich',
@@ -81,7 +82,7 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
   );
   assert.equal(normalGolden.count, 85);
   assert.equal(captureGolden.count, 90);
-  assert.equal(probeGolden.count, 97);
+  assert.equal(probeGolden.count, 98);
 });
 
 test('8b: historical host objects are absent from active Rig construction', () => {
@@ -178,7 +179,8 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
       ...(golden.addedInPhase5Session5o ?? []), ...(golden.addedInPhase5Session5r ?? []),
       ...(golden.addedInD03 ?? []), ...(golden.addedInPhase6Session6a ?? []),
       ...(golden.addedInPhase7bE130 ?? []), ...(golden.addedInPhase7bE131 ?? []),
-      ...(golden.addedInPhase8e ?? []), ...(golden.addedInPhase8g ?? [])];
+      ...(golden.addedInPhase8e ?? []), ...(golden.addedInPhase8g ?? []),
+      ...(golden.addedInPhase8h1a ?? [])];
   assert.deepEqual(
     [...golden.addedInPhase0].sort(),
     historical.filter((method) => golden.methods.includes(method)).sort(),

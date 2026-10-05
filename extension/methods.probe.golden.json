@@ -5,8 +5,8 @@
   ],
   "profile": "probe",
   "identity": "phase-8-probe-v1",
-  "count": 97,
-  "methodsHash": "f03f19414f40e3d3",
+  "count": 98,
+  "methodsHash": "d89cee6bf21c1f96",
   "methods": [
     "api.runtimeMethods",
     "app.actions",
@@ -17,6 +17,7 @@
     "batch.run",
     "branch.duplicateTrack",
     "branch.groupTrack",
+    "cache.configure",
     "cache.scale",
     "cache.shadow",
     "chain.activate",

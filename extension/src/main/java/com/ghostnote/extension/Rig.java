@@ -119,6 +119,20 @@ public class Rig {
     public final DeliveryCoherenceProbe deliveryProbe;
     public final ShadowSceneControl shadowSceneControl;
     public final ShadowTopologyControl shadowTopologyControl;
+    /** 8h1a research fixture writer. Null unless the probe config requests it. */
+    public final ShadowKneeFixture kneeFixture;
+    /** 8h1a: active flat-bank and scene sizes. They start at the allocation and never exceed it. */
+    public int activeTracks, activeScenes;
+    public long activeBankChanges;
+
+    /** Research control. Change only the bank sizes; allocation stays fixed until the next init. */
+    public void configureActiveBanks(int tracks, int scenes) {
+        if (tracks < 1 || tracks > config.tracks || scenes < 1 || scenes > config.scenes)
+            throw new IllegalArgumentException("active bank exceeds allocation");
+        if (tracks != activeTracks) trackBank.setSizeOfBank(tracks);
+        if (scenes != activeScenes) sceneBank.setSizeOfBank(scenes);
+        activeTracks = tracks; activeScenes = scenes; activeBankChanges++;
+    }
 
     /** Arrangement cursor clip (follows arranger clip selection). */
     public final Clip arrangerClip;
@@ -746,6 +760,7 @@ public class Rig {
         trackBank.itemCount().markInterested();
 
         sceneBank = trackBank.sceneBank();
+        activeTracks = config.tracks; activeScenes = config.scenes;
         sceneBank.itemCount().markInterested();
         // §3.2.3's approved extension-side scene epoch, as an actual observer
         // rather than a proposal. Its documented blind spot — a scene MOVE, which
@@ -922,6 +937,8 @@ public class Rig {
                 shadowCacheProbe.attachSlotSource(ShadowCacheProbe.rigSlots(this, shadowTopologyControl));
             }
             if (config.cacheLifecycleResearch) trackBank.scrollPosition().markInterested();
+            kneeFixture = config.cacheKneeResearch && config.cacheShadowObservers > 0
+                ? new ShadowKneeFixture(host, config.cacheShadowSteps, config.scenes) : null;
             arrangerClip = host.createArrangerCursorClip(config.gridSteps, config.gridKeys);
             markClip(arrangerClip);
         } else {
@@ -933,6 +950,7 @@ public class Rig {
             deliveryProbe = null;
             shadowSceneControl = null;
             shadowTopologyControl = null;
+            kneeFixture = null;
             arrangerClip = null;
         }
 

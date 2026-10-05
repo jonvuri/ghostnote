@@ -20,7 +20,7 @@ import static com.ghostnote.extension.ShadowProjectCache.*;
 public final class ShadowCacheProbe {
     private static final Gson JSON = new Gson();
     /** Deliberate build marker for live reload checks. */
-    public static final String INSTRUMENTATION_REVISION = "8g5c-combined-storage-v4";
+    public static final String INSTRUMENTATION_REVISION = "8h1a-knee-sweep-v7";
     private static final int KEYS = 128;
     private static final double BATCH_MS = 40;
     private static final double HOST_WORK_LIMIT_MS = 45;
@@ -38,8 +38,12 @@ public final class ShadowCacheProbe {
     private final ShadowProjectCache cache = new ShadowProjectCache();
     private final View[] views;
     private final View authority;
-    private final Coverage coverage;
-    private final int scenes;
+    /** 8h1a: allocation is fixed at init. The active width, scenes, and observer prefix change at runtime. */
+    private final int allocatedWidth, allocatedScenes, cursorScenes;
+    private Coverage coverage;
+    private int scenes, activeViews;
+    private long configurations;
+    private JsonObject lastConfiguration = new JsonObject();
     private final double constructionMs;
     private boolean canaryPassed, physicalOverload, physicalOverloadApplied;
     private boolean storageOverload;
@@ -88,7 +92,7 @@ public final class ShadowCacheProbe {
     private JsonObject lastSlotWindowRefusal = new JsonObject();
     /** 8g3: the last ended scan's phase times and candidate status stay as diagnostics only. */
     private JsonObject lastScanPhaseTimes = new JsonObject(), lastCandidate = new JsonObject();
-    private long enrichmentBatches;
+    private long enrichmentBatches, promotedReads;
 
     /** Reserve and retire a fixed physical slot before the next binding starts. */
     public JsonObject acquire(Track target, int row) { return acquire(target, row, null, -1); }
@@ -102,7 +106,7 @@ public final class ShadowCacheProbe {
         }
         RootIdentityProbe.IdentityGuard guard = freshIdentityGuard();
         if (!acquisitionAllowed(guard)) return poolRefusal(guardRefusal(guard));
-        if (totalExperimentalStepDataObservers > MAX_OBSERVERS) return poolRefusal("combined-observer-budget");
+        if (activeExperimentalObservers() > cache.limits().observers()) return poolRefusal("combined-observer-budget");
         int existing = handlePool.find(address);
         if (existing >= 0) {
             View current = views[existing];
@@ -187,7 +191,7 @@ public final class ShadowCacheProbe {
         requireAddress(target, row);
         if (!request.allChannels() || request.startCell() < 0 || request.startCell() + request.width() > coverage.width()
             || !FIELDS.containsAll(request.fields())) return exactRefusal("authority-coverage-unavailable", address, request);
-        if (totalExperimentalStepDataObservers > MAX_OBSERVERS) return exactRefusal("combined-observer-budget", address, request);
+        if (activeExperimentalObservers() > cache.limits().observers()) return exactRefusal("combined-observer-budget", address, request);
         authorityWindowVersion = Math.incrementExact(authorityWindowVersion);
         exactTarget = target; exactCoverage = request;
         return exactResult(exactFallback.start(new Address(target.channelId().get(), row), request));
@@ -367,8 +371,11 @@ public final class ShadowCacheProbe {
         if (count < views.length + (authority == null ? 0 : 1))
             throw new IllegalArgumentException("total observer count is below shadow count");
         totalExperimentalStepDataObservers = count;
-        if (count > MAX_OBSERVERS) poisonIdentity("combined-observer-budget");
+        if (activeExperimentalObservers() > cache.limits().observers()) poisonIdentity("combined-observer-budget");
     }
+
+    /** Allocated observers less the inactive shadow suffix. Inactive handles are unsubscribed. */
+    private int activeExperimentalObservers() { return totalExperimentalStepDataObservers - (views.length - activeViews); }
 
     /** Retire once per unresolved burst. Do not read a host proxy in this callback. */
     private void poisonIdentity(String reason) {
@@ -460,11 +467,13 @@ public final class ShadowCacheProbe {
     /** Model tests can supply a fixed host domain without a live identity probe. */
     ShadowCacheProbe(ControllerHost host, RigConfig config, boolean hostModel) {
         this.hostModel = hostModel;
-        if (config.cacheShadowObservers < 0 || config.cacheShadowObservers >= MAX_OBSERVERS
-            || config.cacheShadowSteps < 1 || config.cacheShadowSteps > MAX_WIDTH)
-            throw new IllegalArgumentException("shadow cache configuration exceeds selected limits");
-        scenes = config.scenes;
-        coverage = new Coverage(0, config.cacheShadowSteps, true, FIELDS, UNKNOWN, "1/512-beat");
+        if (config.cacheShadowObservers < 0 || config.cacheShadowObservers > RESEARCH_MAX_OBSERVERS
+            || config.cacheShadowSteps < 1 || config.cacheShadowSteps > RESEARCH_MAX_WIDTH)
+            throw new IllegalArgumentException("shadow cache configuration exceeds research allocation limits");
+        scenes = allocatedScenes = config.scenes;
+        cursorScenes = config.shadowCursorScenes();
+        allocatedWidth = config.cacheShadowSteps;
+        coverage = new Coverage(0, Math.min(allocatedWidth, Limits.DEFAULTS.width()), true, FIELDS, UNKNOWN, "1/512-beat");
         String windowNonce = java.util.UUID.randomUUID().toString();
         stepWindow = new StepDeltaWindow(windowNonce,
             () -> identityProbe == null ? 0 : identityProbe.identityEpoch(), task -> host.scheduleTask(task, 0));
@@ -474,6 +483,7 @@ public final class ShadowCacheProbe {
         long started = System.nanoTime();
         handlePool = new ShadowHandlePool(config.cacheShadowObservers);
         views = new View[config.cacheShadowObservers];
+        activeViews = views.length;
         for (int index = 0; index < views.length; index++) {
             views[index] = new View(host, "RESIDENT_" + index);
         }
@@ -485,7 +495,10 @@ public final class ShadowCacheProbe {
         cache.onSnapshotsShed(() -> {
             for (View view : views) if (view != null) { view.lastResult = null; view.resultRead = null; }
         });
-        if (exactFallback != null) exactFallback.attachStorageAdmission(cache::allowCombinedGrowth);
+        if (exactFallback != null) {
+            exactFallback.attachStorageAdmission(cache::allowCombinedGrowth);
+            exactFallback.attachLimits(cache::limits);
+        }
         cache.measureConstruction(constructionMs);
         totalExperimentalStepDataObservers = views.length + (authority == null ? 0 : 1);
     }
@@ -503,7 +516,7 @@ public final class ShadowCacheProbe {
         applyPhysicalOverload();
         StringBuilder ids = new StringBuilder();
         ids.append(rig.trackBank.itemCount().get()).append(':');
-        for (int index = 0; index < rig.config.tracks; index++) {
+        for (int index = 0; index < rig.activeTracks; index++) {
             Track track = rig.trackBank.getItemAt(index);
             if (track.exists().get()) ids.append(track.channelId().get()).append(';');
         }
@@ -698,18 +711,19 @@ public final class ShadowCacheProbe {
     /** The 8g5b live provider. Group tracks hold no clip of their own; their slot state is a diagnostic. */
     public static SlotSource rigSlots(Rig rig, ShadowTopologyControl topology) {
         java.util.Objects.requireNonNull(rig); java.util.Objects.requireNonNull(topology);
-        int tracks = topology.capacity();
         return new SlotSource() {
+            /** 8h1a: the active bank can be smaller than the topology allocation. */
+            private int tracks() { return Math.min(topology.capacity(), rig.activeTracks); }
             public long slotCallbacks() { return rig.launcherContentEpoch; }
             public long structureCallbacks() { return Math.addExact(topology.sequence(), rig.sceneCountChanges); }
             public String coverageRefusal() {
                 if (!"ALL_CHANNELS".equals(rig.contentFilterApplied)) return "slot-coverage-filter-unproved";
                 if (rig.trackBank.scrollPosition().get() != 0) return "slot-coverage-window-scrolled";
-                if (rig.trackBank.itemCount().get() > tracks) return "slot-coverage-track-limit";
-                if (rig.sceneBank.itemCount().get() > rig.config.scenes) return "slot-coverage-scene-limit";
+                if (rig.trackBank.itemCount().get() > tracks()) return "slot-coverage-track-limit";
+                if (rig.sceneBank.itemCount().get() > rig.activeScenes) return "slot-coverage-scene-limit";
                 return null;
             }
-            public long maximumCells() { return (long) tracks * rig.config.scenes; }
+            public long maximumCells() { return (long) tracks() * rig.activeScenes; }
             public ShadowInventoryRebuild.InventoryProvider inventory(Coverage coverage) {
                 return new ShadowInventoryRebuild.InventoryProvider() {
                     public long cellCount() { return (long) rig.trackBank.itemCount().get() * rig.sceneBank.itemCount().get(); }
@@ -731,8 +745,8 @@ public final class ShadowCacheProbe {
                 result.addProperty("slotObserverKind", "ClipLauncherSlotBank.addHasContentObserver");
                 result.addProperty("slotObservers", rig.config.tracks);
                 result.addProperty("observedSlotHandles", (long) rig.config.tracks * rig.config.scenes);
-                result.addProperty("admittedTracks", tracks);
-                result.addProperty("admittedScenes", rig.config.scenes);
+                result.addProperty("admittedTracks", tracks());
+                result.addProperty("admittedScenes", rig.activeScenes);
                 result.addProperty("newHostHandles", 0);
                 result.addProperty("stepDataObservers", 0);
                 result.addProperty("heapMeasured", false);
@@ -756,7 +770,7 @@ public final class ShadowCacheProbe {
                 return (long) rig.trackBank.itemCount().get() * rig.sceneBank.itemCount().get();
             }
             public boolean fullInventory() {
-                return rig.trackBank.itemCount().get() <= rig.config.tracks && rig.sceneBank.itemCount().get() <= scenes;
+                return rig.trackBank.itemCount().get() <= rig.activeTracks && rig.sceneBank.itemCount().get() <= scenes;
             }
             public ShadowInventoryRebuild.Slot read(long index) {
                 int rows = rig.sceneBank.itemCount().get();
@@ -774,7 +788,7 @@ public final class ShadowCacheProbe {
             return new ShadowInventoryRebuild.Guard(source,
                 topology + ":" + rig.launcherContentEpoch + ":" + rig.sceneCountChanges,
                 guard == null ? 0 : guard.epoch(), false, true);
-        }, (long) rig.config.tracks * scenes);
+        }, (long) rig.activeTracks * scenes);
     }
 
     private JsonObject finishInventoryStep() {
@@ -842,7 +856,7 @@ public final class ShadowCacheProbe {
         result.addProperty("stepDataObservers", views.length + (authority == null ? 0 : 1));
         result.addProperty("shadowStepDataObservers", views.length + (authority == null ? 0 : 1));
         result.addProperty("totalExperimentalStepDataObservers", totalExperimentalStepDataObservers);
-        result.addProperty("combinedObserverBudgetAdmitted", totalExperimentalStepDataObservers <= MAX_OBSERVERS);
+        result.addProperty("combinedObserverBudgetAdmitted", activeExperimentalObservers() <= cache.limits().observers());
         result.addProperty("constructionMeasurementAvailable", Double.isFinite(constructionMs) && constructionMs >= 0);
         result.addProperty("pingMeasurementAvailable", pingMeasurementAvailable);
         boolean replayMeasured = java.util.Arrays.stream(views).anyMatch(v -> v.replayElapsedMs > 0
@@ -906,6 +920,8 @@ public final class ShadowCacheProbe {
         result.addProperty("lifecycleFallback", "project-lifecycle-fence-unproved");
         result.addProperty("optionalLifecycleWitnessSupported", identityProbe != null);
         result.addProperty("instrumentationRevision", INSTRUMENTATION_REVISION);
+        result.add("activeConfiguration", configuration(currentRig));
+        result.add("lastConfiguration", lastConfiguration.deepCopy());
         result.addProperty("topologyUsable", topologyUsable);
         result.addProperty("topologyControlRevision", topologyControl == null ? "unattached" : ShadowTopologyControl.REVISION);
         result.addProperty("observerKind", "addStepDataObserver");
@@ -943,6 +959,7 @@ public final class ShadowCacheProbe {
         result.addProperty("scanStagingPayloadEstimatedBytes", scan == null ? 0 : scan.estimatedBytes);
         result.add("resourceAccounting", resourceAccounting());
         result.addProperty("enrichmentBatches", enrichmentBatches);
+        result.addProperty("promotedReads", promotedReads);
         result.add("lastScanPhaseTimesMs", lastScanPhaseTimes.deepCopy());
         result.add("lastSnapshotCandidate", lastCandidate.deepCopy());
         return result;
@@ -962,10 +979,10 @@ public final class ShadowCacheProbe {
         result.addProperty("comparisonAuthorityStagingEstimatedBytes", comparison);
         result.addProperty("exactAuthorityStagingEstimatedBytes", exact);
         result.addProperty("authorityDomainEstimatedBytes", comparison + exact);
-        result.addProperty("authorityLimitBytes", MAX_SNAPSHOT_BYTES);
+        result.addProperty("authorityLimitBytes", cache.limits().snapshotBytes());
         long registry = registryEstimatedBytes();
         result.addProperty("registryAttemptEstimatedBytes", registry);
-        result.addProperty("registryAttemptLimitBytes", ShadowInventoryRebuild.DEFAULT_REGISTRY_METADATA_BUDGET_BYTES);
+        result.addProperty("registryAttemptLimitBytes", cache.limits().registryBytes());
         result.addProperty("registryGuardEstimatedBytes", inventoryRebuild == null ? 0 : inventoryRebuild.guardEstimatedBytes());
         result.addProperty("topologyBookkeepingEstimatedBytes", topologyControl == null ? 0 : topologyControl.bookkeepingEstimatedBytes());
         result.addProperty("topologyWitnessCharacters", topology == null ? 0 : topology.length());
@@ -1001,7 +1018,7 @@ public final class ShadowCacheProbe {
     public JsonObject point(int index, Track target, int row) {
         View view = view(index);
         RootIdentityProbe.IdentityGuard guard = freshIdentityGuard();
-        if (totalExperimentalStepDataObservers > MAX_OBSERVERS) return fallback(view, "combined-observer-budget");
+        if (activeExperimentalObservers() > cache.limits().observers()) return fallback(view, "combined-observer-budget");
         if (!acquisitionAllowed(guard)) return fallback(view, guardRefusal(guard));
         applyPhysicalOverload();
         if (physicalOverload) return fallback(view, "physical-hint-backpressure-rebuild-required");
@@ -1021,7 +1038,7 @@ public final class ShadowCacheProbe {
     public JsonObject point(int index, Track target, int row, Track canary, int canaryRow) {
         View view = view(index);
         RootIdentityProbe.IdentityGuard guard = freshIdentityGuard();
-        if (totalExperimentalStepDataObservers > MAX_OBSERVERS) return fallback(view, "combined-observer-budget");
+        if (activeExperimentalObservers() > cache.limits().observers()) return fallback(view, "combined-observer-budget");
         if (!acquisitionAllowed(guard)) return fallback(view, guardRefusal(guard));
         applyPhysicalOverload();
         if (physicalOverload) return fallback(view, "physical-hint-backpressure-rebuild-required");
@@ -1117,19 +1134,19 @@ public final class ShadowCacheProbe {
     public JsonObject poll(int index) {
         View view = view(index);
         RootIdentityProbe.IdentityGuard guard = freshIdentityGuard();
-        if (totalExperimentalStepDataObservers > MAX_OBSERVERS) return fallback(view, "combined-observer-budget");
+        if (activeExperimentalObservers() > cache.limits().observers()) return fallback(view, "combined-observer-budget");
         if (!acquisitionAllowed(guard)) return fallback(view, guardRefusal(guard));
         applyPhysicalOverload();
         if (physicalOverload) return fallback(view, "physical-hint-backpressure-rebuild-required");
         if (!"unbound".equals(view.phase) && !"settled".equals(view.phase)
             && !"complete".equals(view.phase) && !"retired".equals(view.phase)
-            && elapsed(view.bindingStarted) > 5_000) {
+            && elapsed(view.bindingStarted) > cache.limits().replayDeadlineMs()) {
             cache.invalidate(view.ref, "binding-budget");
             view.phase = "retired";
             return fallback(view, "binding-budget");
         }
         if (view.requestStarted != 0 && !("complete".equals(view.phase) || "settled".equals(view.phase))
-            && elapsed(view.requestStarted) > 40_000) {
+            && elapsed(view.requestStarted) > cache.limits().rebuildDeadlineMs()) {
             retire(index);
             return fallback(view, "binding-sequence-budget");
         }
@@ -1137,7 +1154,7 @@ public final class ShadowCacheProbe {
         if (!guardCurrent(view.identityGuard)) return fallback(view, "identity-window-changed");
         if ("settling".equals(view.phase)) {
             quietPoll(view);
-            if (elapsed(view.started) > 5_000) {
+            if (elapsed(view.started) > cache.limits().replayDeadlineMs()) {
                 cache.invalidate(view.ref, "replay-budget");
                 view.phase = "retired";
                 return fallback(view, "replay-budget");
@@ -1157,7 +1174,8 @@ public final class ShadowCacheProbe {
                 boolean populated = false;
                 long started = System.nanoTime();
                 try {
-                    for (Coordinate coordinate : new ArrayList<>(view.hints.keySet())) {
+                    // 8h1a: walk the hint set in place. A full copy grew with sounding cells.
+                    for (Coordinate coordinate : view.hints.keySet()) {
                         if (elapsed(started) >= BATCH_MS) break;
                         if (!guardedMembership(view, coordinate).isEmpty()) { populated = true; break; }
                     }
@@ -1187,7 +1205,7 @@ public final class ShadowCacheProbe {
     public JsonObject reconcile(int index) {
         View view = view(index);
         RootIdentityProbe.IdentityGuard guard = freshIdentityGuard();
-        if (totalExperimentalStepDataObservers > MAX_OBSERVERS) return fallback(view, "combined-observer-budget");
+        if (activeExperimentalObservers() > cache.limits().observers()) return fallback(view, "combined-observer-budget");
         if (!acquisitionAllowed(guard)) return fallback(view, guardRefusal(guard));
         applyPhysicalOverload();
         if (physicalOverload) return fallback(view, "physical-hint-backpressure-rebuild-required");
@@ -1201,16 +1219,23 @@ public final class ShadowCacheProbe {
         long started = System.nanoTime();
         // These are current-target read requests. Their source callback identity is unknown.
         long revision = view.physicalBindingRevision;
-        for (Map.Entry<Coordinate, Long> hint : new ArrayList<>(view.hints.entrySet())) {
-            if (!valid(view) || revision != view.physicalBindingRevision) return fallback(view, "hint-binding-changed");
+        // 8h1a: hint transfer shares the batch budget. Remaining hints wait for the next call.
+        int transferred = 0;
+        if (!valid(view)) return fallback(view, "hint-binding-changed");
+        for (var iterator = view.hints.entrySet().iterator(); iterator.hasNext(); ) {
+            if (elapsed(started) >= BATCH_MS / 2) break;
+            Map.Entry<Coordinate, Long> hint = iterator.next();
+            if (revision != view.physicalBindingRevision) return fallback(view, "hint-binding-changed");
             if (!cache.callback(view.ref, view.token, hint.getKey())) return fallback(view, "hint-admission-refused");
-            view.hints.remove(hint.getKey(), hint.getValue());
+            iterator.remove(); transferred++;
         }
         if (!guardCurrent(view.identityGuard)) return fallback(view, "identity-window-changed");
-        int count = cache.reconcile(view.ref, coordinate -> guardedMembership(view, coordinate), MAX_PENDING, BATCH_MS);
+        int count = cache.reconcile(view.ref, coordinate -> guardedMembership(view, coordinate), cache.limits().pending(),
+            Math.max(1, BATCH_MS - elapsed(started)));
         if (!guardCurrent(view.identityGuard)) return fallback(view, "identity-window-changed");
         JsonObject result = status(index);
         result.addProperty("reconciledCoordinates", count);
+        result.addProperty("transferredHints", transferred);
         result.addProperty("reconcileMs", elapsed(started));
         return result;
     }
@@ -1219,6 +1244,21 @@ public final class ShadowCacheProbe {
 
     /** A research control caps enrichment coordinates per poll, so interruption tests can stop partial work. */
     public JsonObject compareStart(int index, int maximumEnrichmentCoordinates) {
+        return startScan(index, maximumEnrichmentCoordinates, false, "full");
+    }
+
+    /**
+     * 8h1a research read. Use cached membership and read values live at occupied coordinates. There is no
+     * dense oracle. A cold binding settles replay from the confirmed membership window only, so the result is
+     * unverified research output. The caller compares it with a declared oracle or an exact reader.
+     * The payload is {@code full}, {@code compact} (channel, cell, pitch, velocity, duration cells), or {@code none}.
+     */
+    public JsonObject promotedStart(int index, int maximumEnrichmentCoordinates, String payload) {
+        if (!Set.of("full", "compact", "none").contains(payload)) throw new IllegalArgumentException("unknown payload");
+        return startScan(index, maximumEnrichmentCoordinates, true, payload);
+    }
+
+    private JsonObject startScan(int index, int maximumEnrichmentCoordinates, boolean promoted, String payload) {
         if (maximumEnrichmentCoordinates < 1) throw new IllegalArgumentException("enrichment batch must contain at least one coordinate");
         View view = view(index);
         RootIdentityProbe.IdentityGuard identity = freshIdentityGuard();
@@ -1232,8 +1272,11 @@ public final class ShadowCacheProbe {
             return fallback(view, "binding-or-replay-incomplete");
         // The membership window opens before reconciliation confirms the target.
         StepDeltaWindow.Read membership = stepWindow.open();
-        if (!subscribed(view) || !subscribed(authority)) return fallback(view, "observer-unsubscribed");
-        reconcile(index);
+        if (!subscribed(view) || (!promoted && !subscribed(authority))) return fallback(view, "observer-unsubscribed");
+        long reconcileStarted = System.nanoTime();
+        JsonObject reconciled = reconcile(index);
+        double reconcileMs = elapsed(reconcileStarted);
+        int reconciledCoordinates = reconciled.has("reconciledCoordinates") ? reconciled.get("reconciledCoordinates").getAsInt() : 0;
         if (!valid(view)) return fallback(view, "reconciliation-invalidated-binding");
         if (!"target".equals(view.stage) || !view.hints.isEmpty() || view.physicalHintOverflow)
             return fallback(view, "physical-hints-pending");
@@ -1247,6 +1290,8 @@ public final class ShadowCacheProbe {
         if (!stepWindow.unchanged(membership)) return stepWindowChanged(index, view);
         scan = new Scan(view, ++scanSequence);
         scan.enrichmentBatchCoordinates = maximumEnrichmentCoordinates;
+        scan.promoted = promoted; scan.payload = payload;
+        scan.reconcileMs = reconcileMs; scan.reconciledCoordinates = reconciledCoordinates;
         scan.membershipRead = membership;
         stepWindow.confirmLater(membership, () -> view.hints.isEmpty() && !view.physicalHintOverflow);
         comparison = "pending";
@@ -1271,10 +1316,11 @@ public final class ShadowCacheProbe {
             return finishStepWindowChange(work);
         if (!valid(view) || view.callbacks != work.callbacks || !work.metadata.equals(metadata(view.clip)))
             return finishWindowChange("window-changed");
-        if (elapsed(work.started) > 40_000) return finishWindowChange("authority-scan-budget");
+        if (elapsed(work.started) > cache.limits().rebuildDeadlineMs()) return finishWindowChange("authority-scan-budget");
         if ("membership".equals(work.stage)) {
             if (work.membershipRead.state() == StepDeltaWindow.State.PENDING) return scanStatus();
             if (!stepWindow.admitted(work.membershipRead)) return finishStepWindowChange(work);
+            if (work.promoted) return promotedSettle(work);
             AuthorityControl control = view.canaryTarget == null || view.canaryAddress == null ? null : new AuthorityControl(view.canaryTarget, view.canaryAddress);
             authority.identityGuard = view.identityGuard;
             try { startAuthorityBinding(view.target, view.expected, control); }
@@ -1288,13 +1334,13 @@ public final class ShadowCacheProbe {
         try { advanceAuthorityBinding(); }
         catch (RuntimeException error) { return finishWindowChange("authority-binding-unavailable"); }
         if (!"target".equals(authority.stage) || !"settling".equals(authority.phase)) {
-            if (elapsed(work.started) > 5_000) return finishWindowChange("authority-binding-budget");
+            if (elapsed(work.started) > cache.limits().replayDeadlineMs()) return finishWindowChange("authority-binding-budget");
             return scanStatus();
         }
         if (work.authorityBoundAt == 0) work.authorityBoundAt = System.nanoTime();
         quietPoll(authority);
         if (elapsed(work.authorityBoundAt) < 1_500 || authority.unchanged < 10) {
-            if (elapsed(work.authorityBoundAt) > 5_000) return finishWindowChange("authority-replay-budget");
+            if (elapsed(work.authorityBoundAt) > cache.limits().replayDeadlineMs()) return finishWindowChange("authority-replay-budget");
             return scanStatus();
         }
         if (!work.authorityReady) {
@@ -1316,13 +1362,13 @@ public final class ShadowCacheProbe {
                 requireIdentityEpoch(work.identityGuard);
                 if (!stepWindow.unchanged(work.authorityRead)) return finishStepWindowChange(work);
                 long added = notes.size() * (160L + FIELDS.size() * 64L);
-                if (added > MAX_SNAPSHOT_BYTES - work.estimatedBytes) return finishWindowChange("authority-staging-memory-budget");
+                if (added > cache.limits().snapshotBytes() - work.estimatedBytes) return finishWindowChange("authority-staging-memory-budget");
                 if (!cache.allowCombinedGrowth(added)) {
                     cache.shedSnapshots(); return finishWindowChange("combined-storage-budget");
                 }
                 work.notes.addAll(notes); work.estimatedBytes += added;
                 work.next++;
-                if (work.estimatedBytes > MAX_SNAPSHOT_BYTES) return finishWindowChange("authority-staging-memory-budget");
+                if (work.estimatedBytes > cache.limits().snapshotBytes()) return finishWindowChange("authority-staging-memory-budget");
             }
         } catch (RuntimeException error) {
             return finishWindowChange(identityEpochCurrent(work.identityGuard) ? "authority-unavailable" : "window-changed");
@@ -1345,10 +1391,91 @@ public final class ShadowCacheProbe {
     /** Publication omits metadata. The result already compared metadata inside its confirmed window. */
     private boolean finalReadsCurrent(Scan work, boolean metadata) {
         View view = work.view;
-        return valid(view) && view.callbacks == work.callbacks && authority.callbacks == work.authorityCallbacks
-            && view.hints.isEmpty() && !view.physicalHintOverflow && bindingReady(authority)
-            && (!metadata || (work.metadata.equals(metadata(view.clip)) && work.metadata.equals(metadata(authority.clip))))
+        return valid(view) && view.callbacks == work.callbacks && authorityCurrent(work)
+            && view.hints.isEmpty() && !view.physicalHintOverflow
+            && (!metadata || (work.metadata.equals(metadata(view.clip))
+                && (work.promoted || work.metadata.equals(metadata(authority.clip)))))
             && guardCurrent(work.identityGuard);
+    }
+
+    /** A promoted read binds no authority handle. */
+    private boolean authorityCurrent(Scan work) {
+        return work.promoted || (authority.callbacks == work.authorityCallbacks && bindingReady(authority));
+    }
+
+    /** Settle a cold replay from the confirmed membership window. Then enrich in the same window value. */
+    private JsonObject promotedSettle(Scan work) {
+        View view = work.view;
+        if (!finalReadsCurrent(work)) return finishWindowChange("window-changed");
+        work.phase("promoted-settlement");
+        if (cache.clipHealth(view.ref) != Health.COMPLETE) {
+            boolean canary = view.canaryVerified || (!view.usedForRebind && view.onsetCallbacks > 0);
+            work.settlementWitness = "membership-window-only-unverified";
+            if (!cache.settleReplay(view.ref, new ReplayWitness(canary, true, true, view.replayElapsedMs, view.unchanged, 50))
+                && cache.clipHealth(view.ref) != Health.COMPLETE) {
+                work.pendingComparison = canary ? "replay-incomplete" : "populated-canary-unavailable";
+                work.resultRead = work.membershipRead;
+                return publishPromoted(work);
+            }
+        } else work.settlementWitness = "warm-complete";
+        StepDeltaWindow.Read result = stepWindow.open();
+        if (!result.value().equals(work.membershipRead.value())) return finishStepWindowChange(work);
+        work.resultRead = result;
+        work.candidate = cache.beginSnapshot(view.ref, coverage, work.metadata, "promoted-research-unverified",
+            cache.limits().enrichmentDeadlineMs());
+        work.stage = "enrichment"; work.phase("enrichment");
+        return enrichConfirmed(work);
+    }
+
+    /** Publish a confirmed promoted read. It never claims completeness or eligibility. */
+    private JsonObject publishPromoted(Scan work) {
+        View view = work.view;
+        comparison = work.pendingComparison;
+        Snapshot snapshot = work.pendingResult == null ? null : work.pendingResult.snapshot();
+        if (snapshot != null) { view.phase = "complete"; view.lastResult = work.pendingResult; view.resultRead = work.resultRead; }
+        promotedReads++;
+        if (snapshot == null) comparisonRefusalsByCause.merge("promoted:" + comparison, 1L, Long::sum);
+        JsonObject result = scanStatus();
+        result.addProperty("comparison", comparison);
+        result.addProperty("promoted", true);
+        result.addProperty("terminal", true);
+        result.addProperty("scanActive", false);
+        result.addProperty("denseOracle", false);
+        result.addProperty("settlementWitness", work.settlementWitness);
+        result.addProperty("complete", false);
+        result.addProperty("eligible", false);
+        result.addProperty("readMode", snapshot == null ? "refuse" : "promoted-research");
+        result.addProperty("reason", snapshot == null ? comparison : "lifecycle-unverified");
+        result.addProperty("stepWindowConfirmed", true);
+        result.addProperty("reconciledCoordinates", work.reconciledCoordinates);
+        result.addProperty("reconcileMs", work.reconcileMs);
+        if (snapshot != null) {
+            result.addProperty("noteCount", snapshot.notes().size());
+            result.addProperty("fingerprint", snapshot.fingerprint());
+            result.addProperty("payloadEstimatedBytes", snapshot.payloadEstimatedBytes());
+            result.add("snapshotCoverage", JSON.toJsonTree(snapshot.coverage()));
+            result.add("snapshotMetadata", JSON.toJsonTree(snapshot.metadata()));
+            result.addProperty("payload", work.payload);
+            long encodeStarted = System.nanoTime();
+            if ("full".equals(work.payload)) result.add("diagnosticSnapshot", JSON.toJsonTree(snapshot));
+            else if ("compact".equals(work.payload)) {
+                com.google.gson.JsonArray rows = new com.google.gson.JsonArray(snapshot.notes().size());
+                for (Note note : snapshot.notes()) {
+                    com.google.gson.JsonArray row = new com.google.gson.JsonArray(5);
+                    row.add(note.channel()); row.add(note.cell()); row.add(note.pitch());
+                    row.add(((Number) note.fields().get("velocity")).doubleValue());
+                    row.add(((Number) note.fields().get("durationCells")).longValue());
+                    rows.add(row);
+                }
+                result.add("compactNotes", rows);
+            }
+            result.addProperty("payloadEncodeMs", elapsed(encodeStarted));
+        }
+        endScan("published");
+        result.add("scanPhaseTimesMs", lastScanPhaseTimes.deepCopy());
+        if (snapshot != null) result.add("lastSnapshotCandidate", lastCandidate.deepCopy());
+        result.add("resourceAccounting", resourceAccounting());
+        return result;
     }
 
     /** Apply settlement only after confirmation. Enrichment reads then use the same window value. */
@@ -1373,7 +1500,7 @@ public final class ShadowCacheProbe {
         // Enrichment reads stay inside one result window. Each poll runs one bounded batch.
         work.resultRead = result;
         work.candidate = cache.beginSnapshot(view.ref, coverage, work.metadata, "settled-independent-1/512-authority",
-            ENRICHMENT_DEADLINE_MS);
+            cache.limits().enrichmentDeadlineMs());
         work.stage = "enrichment"; work.phase("enrichment");
         return enrichConfirmed(work);
     }
@@ -1386,14 +1513,15 @@ public final class ShadowCacheProbe {
         cache.enrich(work.candidate, coordinate -> guardedEnrichment(view, coordinate), BATCH_MS, work.enrichmentBatchCoordinates);
         enrichmentBatches++;
         if (!guardCurrent(work.identityGuard)) return finishWindowChange("window-changed");
-        if (view.callbacks != work.callbacks || authority.callbacks != work.authorityCallbacks || !bindingReady(authority))
+        if (view.callbacks != work.callbacks || !authorityCurrent(work))
             return finishWindowChange("window-changed");
         if (!stepWindow.unchanged(work.resultRead)) return finishStepWindowChange(work);
         if ("enriching".equals(work.candidate.phase())) return scanStatus();
         Result candidate = cache.finishSnapshot(work.candidate, true);
         String outcome = candidate.snapshot() == null ? candidate.reason()
+            : work.promoted ? (cache.isCurrent(candidate.snapshot()) ? "promoted-unverified" : "window-changed")
             : cache.compare(candidate.snapshot(), coverage, metadata(authority.clip), work.notes);
-        if (view.callbacks != work.callbacks || authority.callbacks != work.authorityCallbacks || !bindingReady(authority))
+        if (view.callbacks != work.callbacks || !authorityCurrent(work))
             outcome = "window-changed";
         if ("window-changed".equals(outcome)) return finishWindowChange("window-changed");
         if (!stepWindow.unchanged(work.resultRead)) return finishStepWindowChange(work);
@@ -1413,6 +1541,7 @@ public final class ShadowCacheProbe {
 
     /** Publish one confirmed comparison. */
     private JsonObject publish(Scan work) {
+        if (work.promoted) return publishPromoted(work);
         View view = work.view;
         comparison = work.pendingComparison;
         if (work.pendingResult != null && work.pendingResult.snapshot() != null) {
@@ -1549,10 +1678,117 @@ public final class ShadowCacheProbe {
         handlePool.clear();
         detachInventoryCoordinator(reason);
         fallbackReason = reason;
-        for (int index = 0; index < views.length; index++) if (views[index].used) retire(index);
+        // Configuration retires every handle before it shrinks the active prefix.
+        for (int index = 0; index < activeViews; index++) if (views[index].used) retire(index);
         endScan(reason);
         canaryPassed = false;
         return info();
+    }
+
+    /**
+     * 8h1a research control. Validate the complete request against the allocation, end the identity domain,
+     * then apply the active observer prefix, bank sizes, coverage width, and software limits. A refused request
+     * changes nothing. An absent value keeps the current setting.
+     */
+    public JsonObject configure(JsonObject request, Rig rig) {
+        Limits current = cache.limits();
+        int observers = intOr(request, "activeObservers", activeViews);
+        int width = intOr(request, "width", coverage.width());
+        int tracks = rig == null ? 0 : intOr(request, "tracks", rig.activeTracks);
+        int sceneCount = intOr(request, "scenes", scenes);
+        String refusal = null;
+        if (observers < 0 || observers > views.length) refusal = "active-observers-exceed-allocation";
+        else if (width < 1 || width > allocatedWidth) refusal = "width-exceeds-allocation";
+        else if (rig != null && (tracks < 1 || tracks > rig.config.tracks)) refusal = "tracks-exceed-allocation";
+        else if (sceneCount < 1 || sceneCount > allocatedScenes) refusal = "scenes-exceed-allocation";
+        Limits next = null;
+        if (refusal == null) {
+            int activeTotal = totalExperimentalStepDataObservers - (views.length - observers);
+            try {
+                next = new Limits(width, intOr(request, "observerLimit", Math.max(activeTotal, 1)),
+                    intOr(request, "occupied", current.occupied()), intOr(request, "pending", current.pending()),
+                    longOr(request, "recorderBytes", current.recorderBytes()), longOr(request, "snapshotBytes", current.snapshotBytes()),
+                    longOr(request, "combinedBytes", current.combinedBytes()), longOr(request, "registryBytes", current.registryBytes()),
+                    doubleOr(request, "replayDeadlineMs", current.replayDeadlineMs()),
+                    doubleOr(request, "enrichmentDeadlineMs", current.enrichmentDeadlineMs()),
+                    doubleOr(request, "rebuildDeadlineMs", current.rebuildDeadlineMs()),
+                    doubleOr(request, "constructionBudgetMs", current.constructionBudgetMs()),
+                    doubleOr(request, "pingBudgetMs", current.pingBudgetMs()));
+            } catch (IllegalArgumentException error) { refusal = "invalid-limits"; }
+        }
+        if (refusal != null) {
+            JsonObject result = configuration(rig); result.addProperty("applied", false); result.addProperty("reason", refusal);
+            return result;
+        }
+        long started = System.nanoTime();
+        invalidate("cache-configured");
+        handlePool.setActive(observers);
+        // API 25 subscription is counted. Each view changes its own count only on a transition.
+        for (int index = 0; index < views.length; index++) {
+            View view = views[index]; boolean on = index < observers;
+            if (on == view.controlSubscribed) continue;
+            if (on) { view.track.subscribe(); view.clip.subscribe(); }
+            else { view.clip.unsubscribe(); view.track.unsubscribe(); }
+            view.controlSubscribed = on;
+        }
+        activeViews = observers;
+        coverage = new Coverage(0, width, true, FIELDS, UNKNOWN, "1/512-beat");
+        scenes = sceneCount;
+        if (rig != null) rig.configureActiveBanks(tracks, sceneCount);
+        cache.configure(next);
+        cache.projectChanged();
+        inventoryEnumerated = false; inventoryEntries = 0; topology = null; contentEpoch = sceneEpoch = -1;
+        canaryPassed = false; physicalOverload = physicalOverloadApplied = storageOverload = false;
+        configurations++;
+        JsonObject result = configuration(rig);
+        result.addProperty("applied", true);
+        result.addProperty("applyMs", elapsed(started));
+        lastConfiguration = result.deepCopy();
+        return result;
+    }
+
+    private JsonObject configuration(Rig rig) {
+        JsonObject result = new JsonObject();
+        result.addProperty("revision", INSTRUMENTATION_REVISION);
+        result.addProperty("complete", false); result.addProperty("eligible", false);
+        JsonObject allocation = new JsonObject();
+        allocation.addProperty("observers", views.length);
+        allocation.addProperty("authorityObservers", authority == null ? 0 : 1);
+        allocation.addProperty("totalExperimentalStepDataObservers", totalExperimentalStepDataObservers);
+        allocation.addProperty("width", allocatedWidth);
+        allocation.addProperty("scenes", allocatedScenes);
+        allocation.addProperty("cursorScenes", cursorScenes);
+        if (rig != null) allocation.addProperty("tracks", rig.config.tracks);
+        allocation.addProperty("cacheBankConstructionMs", constructionMs);
+        result.add("allocation", allocation);
+        JsonObject active = new JsonObject();
+        active.addProperty("observers", activeViews);
+        active.addProperty("experimentalStepDataObservers", activeExperimentalObservers());
+        active.addProperty("width", coverage.width());
+        active.addProperty("scenes", scenes);
+        if (rig != null) active.addProperty("tracks", rig.activeTracks);
+        active.addProperty("subscribedObservers", java.util.Arrays.stream(views).filter(ShadowCacheProbe::subscribed).count());
+        result.add("active", active);
+        result.add("limits", JSON.toJsonTree(cache.limits()));
+        result.addProperty("configurations", configurations);
+        return result;
+    }
+
+    private static int intOr(JsonObject request, String key, int fallback) {
+        if (request == null || !request.has(key)) return fallback;
+        var value = request.get(key);
+        return value.isJsonPrimitive() && value.getAsJsonPrimitive().isString() && "open".equals(value.getAsString())
+            ? OPEN_COUNT : value.getAsInt();
+    }
+    /** The text {@code open} turns a research gate off. JSON numbers cannot carry the maximum exactly. */
+    private static long longOr(JsonObject request, String key, long fallback) {
+        if (request == null || !request.has(key)) return fallback;
+        var value = request.get(key);
+        return value.isJsonPrimitive() && value.getAsJsonPrimitive().isString() && "open".equals(value.getAsString())
+            ? OPEN : value.getAsLong();
+    }
+    private static double doubleOr(JsonObject request, String key, double fallback) {
+        return request != null && request.has(key) ? request.get(key).getAsDouble() : fallback;
     }
 
     public JsonObject lifecycle(String kind) {
@@ -1664,8 +1900,8 @@ public final class ShadowCacheProbe {
             if (read != null && !stepWindow.unchanged(read)) return finishStepWindowChange(work);
             if (!valid(work.view) || work.callbacks != work.view.callbacks || !work.metadata.equals(metadata(work.view.clip)))
                 return finishWindowChange("window-changed");
-            if (elapsed(work.started) > 40_000) return finishWindowChange("authority-scan-budget");
-            if (work.candidate != null && elapsed(work.started) - work.phases.get("enrichment") > ENRICHMENT_DEADLINE_MS)
+            if (elapsed(work.started) > cache.limits().rebuildDeadlineMs()) return finishWindowChange("authority-scan-budget");
+            if (work.candidate != null && elapsed(work.started) - work.phases.get("enrichment") > cache.limits().enrichmentDeadlineMs())
                 return finishWindowChange("enrichment-deadline");
         }
         return scanStatus();
@@ -1768,6 +2004,7 @@ public final class ShadowCacheProbe {
 
     private View view(int index) {
         if (index < 0 || index >= views.length) throw new IllegalArgumentException("shadow handle index outside bank");
+        if (index >= activeViews) throw new IllegalArgumentException("shadow handle is inactive");
         return views[index];
     }
 
@@ -1897,6 +2134,8 @@ public final class ShadowCacheProbe {
         Address expected;
         String phase = "unbound";
         boolean used;
+        /** 8h1a: this control holds the initial subscription until configuration releases it. */
+        boolean controlSubscribed = true;
         long callbacks, onsetCallbacks, rejected, started, bindingStarted, lastPoll, lastCallbacks;
         int unchanged;
         double replayElapsedMs;
@@ -1904,12 +2143,12 @@ public final class ShadowCacheProbe {
         StepDeltaWindow.Read canaryRead, resultRead;
 
         View(ControllerHost host, String id) {
-            track = host.createCursorTrack("GN_SHADOW_" + id, "ghostnote shadow " + id, 0, scenes, false);
+            track = host.createCursorTrack("GN_SHADOW_" + id, "ghostnote shadow " + id, 0, cursorScenes, false);
             track.exists().markInterested();
             track.position().markInterested();
             track.channelId().markInterested();
             track.isPinned().markInterested();
-            clip = track.createLauncherCursorClip(coverage.width(), KEYS);
+            clip = track.createLauncherCursorClip(allocatedWidth, KEYS);
             clip.setStepSize(GRID);
             clip.exists().markInterested();
             clip.isPinned().markInterested();
@@ -1930,7 +2169,8 @@ public final class ShadowCacheProbe {
                 if ("AUTHORITY".equals(id)) return;
                 Coordinate coordinate = new Coordinate(x, y);
                 if (physicalHintOverflow) { physicalHintDrops++; return; }
-                if (!hints.containsKey(coordinate) && physicalPending() + cache.diagnostics().pendingCoordinates() >= MAX_PENDING) {
+                if (!hints.containsKey(coordinate) && cache.limits().pending() != OPEN_COUNT
+                    && physicalPending() + cache.pendingCoordinates() >= cache.limits().pending()) {
                     physicalOverload = true;
                     physicalHintOverflow = true;
                     physicalHintDrops++;
@@ -1963,6 +2203,11 @@ public final class ShadowCacheProbe {
         double hostWorkMs;
         ShadowProjectCache.Candidate candidate;
         int enrichmentBatchCoordinates = Integer.MAX_VALUE;
+        /** 8h1a: a promoted read has no authority stage and no dense oracle. */
+        boolean promoted;
+        String payload = "full", settlementWitness = "authority";
+        double reconcileMs;
+        int reconciledCoordinates;
         /** Elapsed wall time at each stage start, measured from the scan start. */
         final LinkedHashMap<String, Double> phases = new LinkedHashMap<>();
         Scan(View view, long id) {

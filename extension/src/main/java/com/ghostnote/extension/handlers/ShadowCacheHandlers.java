@@ -15,13 +15,49 @@ public final class ShadowCacheHandlers extends HandlerGroup {
     private static final Gson JSON = new Gson();
     public ShadowCacheHandlers(ControllerHost host, Rig rig, ExecState state) { super(host, rig, state); }
 
-    @Override public void register(HandlerRegistry r) { r.on("cache.shadow", this::dispatch); }
+    @Override public void register(HandlerRegistry r) {
+        r.on("cache.shadow", this::dispatch);
+        r.on("cache.configure", this::configure);
+    }
+
+    /** 8h1a research control. It applies the complete request or refuses it without a change. */
+    private JsonElement configure(JsonObject params) {
+        ShadowCacheProbe probe = rig.shadowCacheProbe;
+        if (probe == null) throw new IllegalStateException("shadow cache resources are not allocated");
+        return probe.configure(params, rig);
+    }
+
+    private JsonElement fixture(String operation, JsonObject params) {
+        var fixture = rig.kneeFixture;
+        if (fixture == null) throw new IllegalStateException("knee fixture resources are not allocated");
+        return switch (operation) {
+            case "fixtureStatus" -> fixture.status();
+            case "fixturePoint" -> fixture.point(requireTrack(params.get("trackIndex").getAsInt()));
+            case "fixtureSelect" -> fixture.select(requireTrack(params.get("trackIndex").getAsInt()), params.get("row").getAsInt());
+            case "fixturePin" -> fixture.pin(params.get("pinned").getAsBoolean());
+            case "fixtureWrite" -> fixture.write(params.get("count").getAsLong(), params.get("width").getAsLong(),
+                params.get("from").getAsLong(), params.get("size").getAsInt(),
+                params.has("semitones") ? params.get("semitones").getAsInt() : 0,
+                params.has("durationCap") ? params.get("durationCap").getAsLong() : 64);
+            case "fixtureReconstruct" -> fixture.reconstruct(params.get("count").getAsLong(), params.get("width").getAsLong(),
+                params.get("from").getAsLong(), params.get("size").getAsInt(),
+                params.get("fromShift").getAsInt(), params.get("toShift").getAsInt());
+            case "fixtureTranspose" -> fixture.transpose(params.get("semitones").getAsInt());
+            case "fixtureRead" -> fixture.read(params.getAsJsonArray("coordinates"));
+            default -> throw new IllegalArgumentException("unknown knee fixture operation");
+        };
+    }
 
     private JsonElement dispatch(JsonObject params) {
         String operation = params.get("operation").getAsString();
         if (operation.equals("allocationStats")) {
             JsonObject result = new JsonObject();
-            result.addProperty("revision", "8g5c-allocation-v1");
+            result.addProperty("revision", "8h1a-allocation-v1");
+            result.addProperty("projectName", rig.projectName == null ? "" : rig.projectName.get());
+            result.addProperty("activeTracks", rig.activeTracks);
+            result.addProperty("activeScenes", rig.activeScenes);
+            result.addProperty("trackItemCount", rig.trackBank.itemCount().get());
+            result.addProperty("sceneItemCount", rig.sceneBank.itemCount().get());
             result.addProperty("complete", false); result.addProperty("eligible", false);
             result.add("jvmMemory", ShadowTopologyControl.jvmMemory());
             result.addProperty("topologyAllocated", rig.shadowTopologyControl != null);
@@ -68,6 +104,7 @@ public final class ShadowCacheHandlers extends HandlerGroup {
                 default -> throw new IllegalArgumentException("unknown delivery research operation");
             };
         }
+        if (operation.startsWith("fixture")) return fixture(operation, params);
         if (operation.startsWith("reuse")) {
             var reuse = rig.observerReuseProbe;
             if (reuse == null) throw new IllegalStateException("reuse research resources are not allocated");
@@ -118,6 +155,9 @@ public final class ShadowCacheHandlers extends HandlerGroup {
             case "poll" -> probe.poll(index);
             case "status" -> probe.status(index);
             case "reconcile" -> probe.reconcile(index);
+            case "promotedStart" -> probe.promotedStart(index,
+                params.has("maxEnrichmentCoordinates") ? params.get("maxEnrichmentCoordinates").getAsInt() : Integer.MAX_VALUE,
+                params.has("payload") ? params.get("payload").getAsString() : "compact");
             case "compareStart" -> params.has("maxEnrichmentCoordinates")
                 ? probe.compareStart(index, params.get("maxEnrichmentCoordinates").getAsInt()) : probe.compareStart(index);
             case "comparePoll" -> probe.comparePoll();

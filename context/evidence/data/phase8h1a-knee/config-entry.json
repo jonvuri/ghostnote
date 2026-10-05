@@ -1,0 +1,21 @@
+{
+ "schema": "phase8h1a-config-entry-v1",
+ "captured": "2026-10-05T02:10:30.612Z",
+ "originalSha256": "256bbf07094cd654c372d0e5e050e494ef7783c9a0001a0a2a688331bcf643b0",
+ "originalBase64": "eyAicmVjb3JkQ2hhcnMiOiAwLCAic3RhbXAiOiAiZGVmYXVsdCIgfQo=",
+ "allocation": "observers-4096-cursor0",
+ "research": {
+  "recordChars": 0,
+  "stamp": "8h1a-observers-4096-cursor0",
+  "tracks": 16,
+  "scenes": 16,
+  "cacheTopologyCounted": true,
+  "cacheTopologyTracks": 16,
+  "cacheLifecycleResearch": true,
+  "cacheKneeResearch": true,
+  "cacheShadowObservers": 4096,
+  "cacheShadowSteps": 131072,
+  "contentFilter": "ALL_CHANNELS",
+  "cacheShadowCursorScenes": 0
+ }
+}

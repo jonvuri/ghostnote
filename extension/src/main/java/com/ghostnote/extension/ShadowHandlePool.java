@@ -32,20 +32,30 @@ public final class ShadowHandlePool {
     public ShadowHandlePool(int capacity) { this(capacity, UUID.randomUUID().toString(), null); }
 
     ShadowHandlePool(int capacity, String initDomain, LongSupplier suppliedRecency) {
-        if (capacity < 0 || capacity > MAX_OBSERVERS || initDomain == null || initDomain.isEmpty())
+        if (capacity < 0 || capacity > RESEARCH_MAX_OBSERVERS || initDomain == null || initDomain.isEmpty())
             throw new IllegalArgumentException("invalid handle pool configuration");
         this.initDomain = initDomain;
         this.suppliedRecency = suppliedRecency;
         slots = new Slot[capacity];
         for (int index = 0; index < capacity; index++) slots[index] = new Slot();
+        active = capacity;
     }
 
+    private int active;
+
     public int capacity() { return slots.length; }
+    public int active() { return active; }
+
+    /** Research control. Clear every slot, then select only the first {@code count} handles. */
+    public void setActive(int count) {
+        if (count < 0 || count > slots.length) throw new IllegalArgumentException("active handles exceed the pool");
+        clear(); active = count;
+    }
 
     /** A reserved slot cannot serve either the old target or the pending target. */
     public int find(Address target) {
         Objects.requireNonNull(target);
-        for (int index = 0; index < slots.length; index++) {
+        for (int index = 0; index < active; index++) {
             Slot slot = slots[index];
             if (slot.pending == null && target.equals(slot.address)) return index;
         }
@@ -72,12 +82,12 @@ public final class ShadowHandlePool {
             touch(warm);
             return new Decision(Kind.WARM, warm, target, null, null, "current-target");
         }
-        for (int index = 0; index < slots.length; index++) {
+        for (int index = 0; index < active; index++) {
             if (slots[index].pending != null && target.equals(slots[index].pending.target()))
                 return new Decision(Kind.BUSY, index, target, null, null, "target-binding-in-progress");
         }
         int chosen = -1;
-        for (int index = 0; index < slots.length; index++) {
+        for (int index = 0; index < active; index++) {
             Slot candidate = slots[index];
             if (candidate.pending != null) continue;
             if (candidate.address == null) { chosen = index; break; }
