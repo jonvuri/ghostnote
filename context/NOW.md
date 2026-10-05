@@ -27,6 +27,9 @@ warm-read slowdown: 32 ms of enrichment host work with 2 allocated observers,
 211 ms with 4,096. Suspect `eligibility` → `recorderTotal` → a sum over all
 views for each coordinate. Then rerun binding with 0 cursor slots, isolate the
 flat bank, derive deadlines, and run one combined arm.
+[8h1b](plan/phase-8/8h1b-sounding-cell-cost-reduction.md) follows: proxy
+release, one proxy for each clip, sounding-cell admission, a coarse sentinel
+detection matrix, and batched full-width fine acquisition.
 
 [D29](decisions/d29-saved-anchor-project-replaces-protected-new-3.md): the saved
 `gn-scale-test` replaces protected `New 3`. Restart Bitwig between loads. Open

@@ -42,7 +42,8 @@ a stable write or preflight uses cache state.
 
 1. [8h1a — Cache limit knee sweep](8h1a-cache-limit-knee-sweep.md). Find the
    real host and speed knees with one maximum allocation and runtime
-   configuration. Then 8h1 — cache promotion: turn on address- and
+   configuration. [8h1b](8h1b-sounding-cell-cost-reduction.md) then reduces
+   the host cost of each sounding cell. Then 8h1 — cache promotion: turn on address- and
    domain-scoped eligibility at the selected limits, with exact fallback to
    the stable E131 reader. The 8h1 plan is written after 8h1a.
 2. [8h2 — Exact reader consolidation](8h2-exact-reader-consolidation.md).

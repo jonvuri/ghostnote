@@ -6,7 +6,7 @@ status: First pass done (E225). Width is free; cost is per sounding cell and per
 updated: 2026-10-05
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h-cache-promotion-and-interface-simplification.md
-next: 8h2-exact-reader-consolidation.md
+next: 8h1b-sounding-cell-cost-reduction.md
 evidence: E139, E214, E215, E219, E222, E223, E224, E225; D26, D27, D28, D29
 ---
 
@@ -42,6 +42,8 @@ Start a fresh research session with these rows, in order:
    operator rating of UI responsiveness.
 
 Then replace the limit table below with the selected values and reasons.
+[8h1b](8h1b-sounding-cell-cost-reduction.md) follows with the sounding-cell
+cost experiments.
 
 ## Why
 
