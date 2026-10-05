@@ -1,0 +1,27 @@
+{
+ "schema": "phase8h3b-restoration-v1",
+ "complete": false,
+ "eligible": false,
+ "configSha256": "256bbf07094cd654c372d0e5e050e494ef7783c9a0001a0a2a688331bcf643b0",
+ "researchArchiveSha256": "f3c60ff9be731db9c002c7a34a992ec31f0ee1d609f83d4dfeed51861150899d",
+ "researchDeployedAt": "2026-10-05T12:32:50Z",
+ "researchInitializedAt": "2026-10-05T12:33:42.655Z",
+ "researchArchiveRemoved": true,
+ "normalArchiveSha256": "f51c630eb90615c32588f67991db3ac30f8d61b7514a9d83aae205aaa17b5fd1",
+ "normalDeployedAt": "2026-10-05T12:42:40Z",
+ "ownedProject": "New 4",
+ "ownedProjectClosedWithoutSaving": true,
+ "operatorConfirmed": true,
+ "hello": {
+  "contractVersion": 0,
+  "extensionVersion": "0.0.1",
+  "runtimeProfile": "normal-v1",
+  "hostApiVersion": 25,
+  "methodCount": 85,
+  "methodsHash": "bba7383dce25c0f0"
+ },
+ "activeTrackCount": 10,
+ "fixtureTracksPresent": 0,
+ "normalInitializedAt": "2026-10-05T12:45:08.491Z",
+ "normalHelloAllPass": true
+}

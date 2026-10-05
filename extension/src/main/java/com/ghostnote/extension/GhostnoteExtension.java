@@ -83,6 +83,8 @@ public class GhostnoteExtension extends ControllerExtension {
 
         try {
             bridge = new Bridge(PORT, host, registry);
+            // 8h3b research: only the replay research rig records bridge timings.
+            if (rig.replayReader != null) bridge.setTiming(rig.replayReader);
             bridge.start();
             state.setInitStats(System.nanoTime() - initStart, System.currentTimeMillis());
             host.showPopupNotification("ghostnote " + profile.identity()

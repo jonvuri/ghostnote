@@ -327,3 +327,10 @@ tasks.register('replaySelectionActionsTest', JavaExec) {
     mainClass = 'com.ghostnote.extension.ReplaySelectionActionsTest'
 }
 tasks.named('check') { dependsOn 'replaySelectionActionsTest' }
+
+tasks.register('replayFetchTest', JavaExec) {
+    dependsOn shadowCacheTestClasses
+    classpath = sourceSets.shadowCacheTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.ReplayFetchTest'
+}
+tasks.named('check') { dependsOn 'replayFetchTest' }

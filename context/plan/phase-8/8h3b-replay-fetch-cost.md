@@ -1,16 +1,28 @@
 ---
 title: Phase 8h3b — Replay fetch cost
 kind: plan
-state: planned
-status: Planned. Measure where the replay note fetch spends its time, and select a fetch format for the product reader.
+state: done
+status: Complete. The fetch cost is broken down, and one packed page with value tables is selected for 8h3c (E229).
 updated: 2026-10-05
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h3a-cold-read-dealbreaker-check.md
 next: 8h3c-cold-reader-promotion.md
-evidence: E227, E228; D30
+evidence: E227, E228, E229; D30
 ---
 
 # Phase 8h3b — Replay fetch cost
+
+## Result
+
+Complete in [E229](../../evidence/experiments/e229-replay-fetch-cost.md).
+All 800 fetches were bit-exact. Each bridge request waits about 20 ms in the
+host task queue, so the page count sets most of the fixed cost. Gson
+serialization and brain JSON parsing set most of the variable cost.
+
+8h3c uses `packedDict` in one page, encoded on the controller thread. At
+131,072 notes the fetch takes 40 ms instead of 202 ms, and the longest
+controller block is 11.8 ms median. Above 131,072 notes, use pages of 131,072
+notes. Off-thread encoding saves only 2–9 ms and is not selected.
 
 ## Why
 

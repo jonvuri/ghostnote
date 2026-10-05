@@ -17,8 +17,8 @@ import java.util.function.IntFunction;
  * getStep. Value observers on the target values record the start-signal candidates.
  * Every result is research only: complete:false, eligible:false.
  */
-public final class ShadowReplayReader {
-    public static final String REVISION = "8h3a-dealbreakers-v2";
+public final class ShadowReplayReader implements Bridge.Timing {
+    public static final String REVISION = "8h3b-fetch-v1";
     private final ControllerHost host;
     private final Rig rig;
     private JsonObject restoreResult;
@@ -33,6 +33,15 @@ public final class ShadowReplayReader {
     private ReplayEpoch epoch;
     private long epochs;
     private boolean subscribed = true;
+    /** 8h3b: bridge request timings, newest last. Only the controller thread writes and reads them. */
+    private static final int TIMINGS = 8_192;
+    private final String[] timingIds = new String[TIMINGS], timingMethods = new String[TIMINGS];
+    private final long[][] timingNanos = new long[TIMINGS][];
+    private final int[] timingChars = new int[TIMINGS];
+    private long timingCount;
+    /** 8h3b: formats encoded off the controller thread from the close capture, in list order. */
+    private final java.util.Map<String, JsonObject> prepared = new java.util.concurrent.ConcurrentHashMap<>();
+    private volatile long preparedEpoch = -1;
 
     /** {@code editor} applies research edits through the fixture writer, for the concurrent-edit trial. */
     public ShadowReplayReader(ControllerHost host, Rig rig, int width, int scenes, Consumer<JsonArray> editor) {
@@ -77,6 +86,9 @@ public final class ShadowReplayReader {
         result.add("epoch", epoch.status());
         if (writeReceipt != null) result.add("writeReceipt", writeReceipt);
         if (restoreResult != null) result.add("restore", restoreResult);
+        JsonArray ready = new JsonArray();
+        if (preparedEpoch == epoch.id) prepared.keySet().forEach(ready::add);
+        result.add("prepared", ready);
         return result;
     }
 
@@ -111,9 +123,16 @@ public final class ShadowReplayReader {
             epoch = new ReplayEpoch(++epochs, params.has("label") ? params.get("label").getAsString() : action, System.nanoTime(), this::schedule);
             restoreResult = null;
             if (params.has("measureClose") && params.get("measureClose").getAsBoolean()) {
+                java.util.List<String> prepare = new java.util.ArrayList<>();
+                if (params.has("prepare")) params.getAsJsonArray("prepare").forEach(value -> prepare.add(value.getAsString()));
+                for (String format : prepare)
+                    if (!ReplayFetch.FORMATS.contains(format)) throw new IllegalArgumentException("unknown fetch format " + format);
+                ReplayEpoch armed = epoch;
+                preparedEpoch = epoch.id; prepared.clear();
                 epoch.measureClose(() -> {
                     track.isPinned().set(true); clip.isPinned().set(true);
                     if (params.has("restoreWhen") && params.get("restoreWhen").getAsString().equals("close")) restore(params, tracks);
+                    if (!prepare.isEmpty()) prepare(armed, prepare);
                 });
             }
             if (params.has("editAt")) {
@@ -189,6 +208,83 @@ public final class ShadowReplayReader {
             () -> { if (params.has("restoreMixerTrack")) tracks.apply(params.get("restoreMixerTrack").getAsInt()).selectInEditor(); });
         restoreResult = new JsonObject(); restoreResult.addProperty("selected", owned);
         restoreResult.addProperty("revision", rig.selectionRevision);
+    }
+
+    /**
+     * Encode the close capture on a new thread, one format after another. The capture is a copy that the
+     * controller thread does not change after the close.
+     */
+    private void prepare(ReplayEpoch armed, java.util.List<String> formats) {
+        ReplayFetch.Capture capture = armed.capture();
+        long closed = System.nanoTime();
+        Thread worker = new Thread(() -> {
+            for (String format : formats) {
+                long started = System.nanoTime();
+                JsonObject result;
+                try {
+                    result = ReplayFetch.encode(capture, format, 0, Integer.MAX_VALUE);
+                } catch (RuntimeException error) {
+                    result = new JsonObject(); result.addProperty("error", String.valueOf(error));
+                }
+                long ended = System.nanoTime();
+                result.addProperty("epoch", armed.id);
+                result.addProperty("prepareStartMs", (started - closed) / 1e6);
+                result.addProperty("prepareMs", (ended - started) / 1e6);
+                // A later arm owns the map. Drop the result of an older epoch.
+                if (preparedEpoch != armed.id) return;
+                prepared.put(format, result);
+            }
+        }, "ghostnote-8h3b-prepare");
+        worker.setDaemon(true);
+        worker.start();
+    }
+
+    /** The off-thread payload, or {@code ready:false}. The bridge still serializes it on the controller thread. */
+    public JsonObject prepared(long id, String format) {
+        if (id != epoch.id) throw new IllegalStateException("replay epoch " + id + " is not current");
+        JsonObject result = preparedEpoch == id ? prepared.get(format) : null;
+        if (result == null) { JsonObject wait = new JsonObject(); wait.addProperty("ready", false); return wait; }
+        if (result.has("error")) throw new IllegalStateException("prepare failed: " + result.get("error").getAsString());
+        result.addProperty("ready", true);
+        return result;
+    }
+
+    /** Encode the close capture in one research format on the controller thread. */
+    public JsonObject fetch(long id, String format, int from, int limit) {
+        if (id != epoch.id) throw new IllegalStateException("replay epoch " + id + " is not current");
+        long started = System.nanoTime();
+        JsonObject result = epoch.fetch(format, from, Math.max(1, Math.min(limit, 1 << 22)));
+        result.addProperty("encodeMs", (System.nanoTime() - started) / 1e6);
+        return result;
+    }
+
+    @Override
+    public void record(String id, String method, long received, long start, long dispatched, long serialized, long written, int chars) {
+        int at = (int) (timingCount++ % TIMINGS);
+        timingIds[at] = id; timingMethods[at] = method; timingChars[at] = chars;
+        timingNanos[at] = new long[] {received, start, dispatched, serialized, written};
+    }
+
+    /** Bridge timings for the given request ids that are still in the ring. Times are in ms. */
+    public JsonObject timings(JsonArray ids) {
+        java.util.Set<String> wanted = new java.util.HashSet<>();
+        ids.forEach(value -> wanted.add(value.getAsString()));
+        JsonArray rows = new JsonArray();
+        long first = Math.max(0, timingCount - TIMINGS);
+        for (long n = first; n < timingCount; n++) {
+            int at = (int) (n % TIMINGS);
+            if (timingIds[at] == null || !wanted.contains(timingIds[at])) continue;
+            long[] t = timingNanos[at];
+            JsonArray row = new JsonArray();
+            row.add(timingIds[at]); row.add(timingMethods[at]); row.add((t[1] - t[0]) / 1e6); row.add((t[2] - t[1]) / 1e6);
+            row.add((t[3] - t[2]) / 1e6); row.add((t[4] - t[3]) / 1e6); row.add(timingChars[at]); row.add(t[1] / 1e6); row.add(t[4] / 1e6);
+            rows.add(row);
+        }
+        JsonObject result = new JsonObject();
+        result.addProperty("revision", REVISION); result.addProperty("complete", false); result.addProperty("eligible", false);
+        result.addProperty("columns", "id,method,queuedMs,dispatchMs,serializeMs,writeMs,chars,startMs,writtenMs");
+        result.add("rows", rows);
+        return result;
     }
 
     public JsonObject closedNotes(long id, int from, int limit) {

@@ -64,8 +64,9 @@ Complete research:
 
 Remaining sessions, in order:
 
-1. [8h3b — Replay fetch cost](8h3b-replay-fetch-cost.md). Break down the
-   bridge fetch cost and select the product fetch format.
+1. [8h3b — Replay fetch cost](8h3b-replay-fetch-cost.md). Complete
+   ([E229](../../evidence/experiments/e229-replay-fetch-cost.md)): one
+   `packedDict` page, encoded on the controller thread.
 2. [8h3c — Cold-reader promotion](8h3c-cold-reader-promotion.md). Replace E131
    for reads and writes, queue writes behind an open read, remove the `1/768`
    view, and fix or refuse the disabled-control loss.

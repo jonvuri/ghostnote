@@ -365,7 +365,8 @@ owns the migration details.
    [8h2a](8h2a-replay-cold-read.md) (replay cold read; complete in
    [E227](../../evidence/experiments/e227-replay-cold-read.md)),
    [8h3a](8h3a-cold-read-dealbreaker-check.md) (cold-read dealbreaker check),
-   [8h3b](8h3b-replay-fetch-cost.md) (replay fetch cost),
+   [8h3b](8h3b-replay-fetch-cost.md) (replay fetch cost; complete in
+   [E229](../../evidence/experiments/e229-replay-fetch-cost.md)),
    [8h3c](8h3c-cold-reader-promotion.md) (cold-reader promotion; E131
    retirement), [8h3d](8h3d-change-awareness.md) (change awareness),
    [8h3e](8h3e-cache-machinery-trim.md) (cache machinery trim),

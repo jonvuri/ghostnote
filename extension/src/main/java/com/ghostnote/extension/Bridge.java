@@ -35,6 +35,15 @@ public class Bridge {
         JsonElement dispatch(String method, JsonObject params) throws Exception;
     }
 
+    /**
+     * Research timing sink (8h3b). It records the controller-thread phases of one request. Normal builds set
+     * no sink, and the request path is then unchanged.
+     */
+    public interface Timing {
+        void record(String id, String method, long receivedNanos, long startNanos, long dispatchedNanos,
+                    long serializedNanos, long writtenNanos, int chars);
+    }
+
     private final int port;
     private final ControllerHost host;
     private final Dispatcher dispatcher;
@@ -43,12 +52,15 @@ public class Bridge {
 
     private ServerSocket serverSocket;
     private ExecutorService executor;
+    private volatile Timing timing;
 
     public Bridge(int port, ControllerHost host, Dispatcher dispatcher) {
         this.port = port;
         this.host = host;
         this.dispatcher = dispatcher;
     }
+
+    public void setTiming(Timing timing) { this.timing = timing; }
 
     public void start() throws IOException {
         serverSocket = new ServerSocket(port, 8, InetAddress.getLoopbackAddress());
@@ -108,7 +120,13 @@ public class Bridge {
                 }
 
                 final JsonObject req = request;
-                host.scheduleTask(() -> writeLine(out, processRequest(req)), 0);
+                final Timing sink = timing;
+                if (sink == null) {
+                    host.scheduleTask(() -> writeLine(out, processRequest(req)), 0);
+                } else {
+                    final long received = System.nanoTime();
+                    host.scheduleTask(() -> timed(sink, out, req, received), 0);
+                }
             }
         } catch (IOException e) {
             host.println("[ghostnote] client disconnected: " + e.getMessage());
@@ -121,6 +139,22 @@ public class Bridge {
         synchronized (out) {
             out.println(gson.toJson(response));
         }
+    }
+
+    private void timed(Timing sink, PrintWriter out, JsonObject request, long received) {
+        long start = System.nanoTime();
+        JsonObject response = processRequest(request);
+        long dispatched = System.nanoTime();
+        String line = gson.toJson(response);
+        long serialized = System.nanoTime();
+        synchronized (out) {
+            out.println(line);
+        }
+        long written = System.nanoTime();
+        JsonElement id = request.get("id"), method = request.get("method");
+        sink.record(id != null && id.isJsonPrimitive() ? id.getAsString() : null,
+            method != null && method.isJsonPrimitive() ? method.getAsString() : null,
+            received, start, dispatched, serialized, written, line.length());
     }
 
     private JsonObject processRequest(JsonObject request) {

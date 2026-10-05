@@ -73,7 +73,10 @@ profile:
 5. Keep the duplicate-cell refusal, the step-delta window, and the 8h3a
    tripwire. A tripwire event is reported, not hidden.
 6. Restore the visible selection by the 8h3a rule, if the bind moves it.
-7. Use the 8h3b fetch format, with new wire goldens.
+7. Use the 8h3b fetch format, with new wire goldens: `packedDict`
+   (E229), one page up to 131,072 notes, encoded on the controller thread.
+   Encode the close-task copy. Decode in the brain and fill omitted
+   defaults.
 8. The reader refuses when its configuration is absent.
 
 ### 2. Write guards on the new source

@@ -1,0 +1,69 @@
+{
+ "schema": "phase8h2a-state-v1",
+ "tracks": {
+  "park": "35c0ed9d-c517-4e92-a368-5e3d7801de04",
+  "one-64": "4adf9eb8-f2ab-4cb7-aae3-dcac341509ea",
+  "n4096-64": "03601079-a921-4e99-9679-89853573bbd5",
+  "n16384-512": "955d26e0-539e-42aa-93c6-13a07583723c",
+  "n131072-2048": "4f00a027-f51a-4a7f-8cac-d1071ce611d3",
+  "sustain-2048": "98ebb13c-fbda-4b71-ba0f-cae917359255"
+ },
+ "fixtures": {
+  "one-64": {
+   "name": "one-64",
+   "kind": "one",
+   "beats": 64,
+   "count": 1,
+   "cap": 64,
+   "trackId": "4adf9eb8-f2ab-4cb7-aae3-dcac341509ea",
+   "row": 0,
+   "written": true
+  },
+  "n4096-64": {
+   "name": "n4096-64",
+   "kind": "spec",
+   "beats": 64,
+   "count": 4096,
+   "cap": 64,
+   "trackId": "03601079-a921-4e99-9679-89853573bbd5",
+   "row": 0,
+   "written": true
+  },
+  "n16384-512": {
+   "name": "n16384-512",
+   "kind": "spec",
+   "beats": 512,
+   "count": 16384,
+   "cap": 64,
+   "trackId": "955d26e0-539e-42aa-93c6-13a07583723c",
+   "row": 0,
+   "written": true
+  },
+  "n131072-2048": {
+   "name": "n131072-2048",
+   "kind": "spec",
+   "beats": 2048,
+   "count": 131072,
+   "cap": 4,
+   "trackId": "4f00a027-f51a-4a7f-8cac-d1071ce611d3",
+   "row": 0,
+   "written": true
+  },
+  "sustain-2048": {
+   "name": "sustain-2048",
+   "kind": "spec",
+   "beats": 2048,
+   "count": 16384,
+   "cap": 64,
+   "trackId": "98ebb13c-fbda-4b71-ba0f-cae917359255",
+   "row": 0,
+   "written": true
+  }
+ },
+ "defaults": {
+  "gain": 0,
+  "chance": 1,
+  "chanceEnabled": true,
+  "muted": false
+ }
+}

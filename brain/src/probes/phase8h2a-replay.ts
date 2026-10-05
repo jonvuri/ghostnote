@@ -124,11 +124,11 @@ export async function trackIndexOf(id: string): Promise<number> {
 const parkId = (state: Wire): string => String((state.tracks as Wire).park);
 
 /** Create the park track and one track for each fixture. The park track never holds a clip. */
-export async function setup(statePath: string): Promise<void> {
+export async function setup(statePath: string, names: readonly string[] = FIXTURES.map(row => row.name)): Promise<void> {
   await guard();
   const state: Wire = { schema: 'phase8h2a-state-v1', tracks: {}, fixtures: {} };
   await save(statePath, state, true);
-  for (const key of ['park', ...FIXTURES.map(row => row.name)]) {
+  for (const key of ['park', ...names]) {
     const before = await request('track.list'), ids = new Set((before.tracks as Wire[]).map(row => row.channelId));
     await request('track.create', { position: 0 });
     const after = await until(() => request('track.list'), value => (value.tracks as Wire[]).some(row => row.index === 0 && !ids.has(row.channelId)), 30_000, 50);
@@ -186,10 +186,10 @@ function expectedAt(plan: FixturePlan, indexes: number[], defaults: Defaults): D
 }
 
 /** Write, decorate, and verify every fixture. The `one` note gives the host defaults; it is never decorated. */
-export async function fixtures(statePath: string): Promise<void> {
+export async function fixtures(statePath: string, names: readonly string[] = FIXTURES.map(row => row.name)): Promise<void> {
   await guard();
   const state = await readJson(statePath), done = state.fixtures as Record<string, Fixture>;
-  for (const plan of FIXTURES) {
+  for (const plan of FIXTURES.filter(row => names.includes(row.name))) {
     if (done[plan.name]?.written === true) continue;
     const trackId = String((state.tracks as Wire)[plan.name]), track = await trackIndexOf(trackId);
     const started = performance.now();

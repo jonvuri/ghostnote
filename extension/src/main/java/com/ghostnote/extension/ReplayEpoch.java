@@ -37,7 +37,8 @@ public final class ReplayEpoch {
     private boolean pending;
     private boolean measureClose;
     private Runnable onClose;
-    private ReplayEpoch closed;
+    private ReplayFetch.Capture closed;
+    private long closeCopyNanos;
     private long closeNanos, closeSeq = -1, afterClose, firstEmpty = -1, lastEmpty = -1,
         firstNonEmpty = -1, lastNonEmpty = -1, stateTransitions;
     private int lastState = -1;
@@ -51,19 +52,24 @@ public final class ReplayEpoch {
             .findFirst().orElse(null);
         if (signal == null || (callbacks > 0 && (batches.isEmpty() || batches.get(0).taskSeq < 0))) return;
         closeNanos = System.nanoTime(); closeSeq = callbacks;
-        closed = new ReplayEpoch(id, label, armNanos, schedule);
-        closed.notes = notes;
-        closed.channel = Arrays.copyOf(channel, notes); closed.pitch = Arrays.copyOf(pitch, notes);
-        closed.cell = Arrays.copyOf(cell, notes); closed.velocity = Arrays.copyOf(velocity, notes);
-        closed.duration = Arrays.copyOf(duration, notes); closed.gain = Arrays.copyOf(gain, notes);
-        closed.chance = Arrays.copyOf(chance, notes); closed.chanceEnabled = Arrays.copyOf(chanceEnabled, notes);
-        closed.muted = Arrays.copyOf(muted, notes); closed.gone = Arrays.copyOf(gone, notes);
+        // 8h3b: the close task makes the only copy. Later callbacks cannot change it.
+        closed = new ReplayFetch.Capture(notes, channel, pitch, cell, velocity, duration, gain, chance, chanceEnabled, muted, gone);
+        closeCopyNanos = System.nanoTime() - closeNanos;
         if (onClose != null) onClose.run();
     }
 
-    public JsonObject closedNotes(int from, int limit) {
+    public JsonObject closedNotes(int from, int limit) { return fetch("rows", from, limit); }
+
+    /** Encode the D30 close capture in one 8h3b research format. */
+    public JsonObject fetch(String format, int from, int limit) {
+        JsonObject result = ReplayFetch.encode(capture(), format, from, limit);
+        result.addProperty("epoch", id);
+        return result;
+    }
+
+    public ReplayFetch.Capture capture() {
         if (closed == null) throw new IllegalStateException("no D30 close signal");
-        return closed.notes(from, limit);
+        return closed;
     }
     final List<Batch> batches = new ArrayList<>();
     final List<ValueEvent> values = new ArrayList<>();
@@ -181,6 +187,7 @@ public final class ReplayEpoch {
         result.addProperty("pending", pending);
         result.addProperty("closeMs", ms(closeNanos)); result.addProperty("closeSeq", closeSeq);
         result.addProperty("afterClose", afterClose);
+        result.addProperty("closeCopyMs", closeCopyNanos / 1e6);
         result.addProperty("firstEmptySeq", firstEmpty); result.addProperty("lastEmptySeq", lastEmpty);
         result.addProperty("firstNonEmptySeq", firstNonEmpty); result.addProperty("lastNonEmptySeq", lastNonEmpty);
         result.addProperty("stateTransitions", stateTransitions);

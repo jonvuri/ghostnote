@@ -107,6 +107,10 @@ public final class ShadowCacheHandlers extends HandlerGroup {
                 params.has("limit") ? params.get("limit").getAsInt() : 16_384);
             case "replayNotes" -> reader.notes(params.get("epoch").getAsLong(), params.get("from").getAsInt(),
                 params.has("limit") ? params.get("limit").getAsInt() : 16_384);
+            case "replayFetch" -> reader.fetch(params.get("epoch").getAsLong(), params.get("format").getAsString(),
+                params.get("from").getAsInt(), params.get("limit").getAsInt());
+            case "replayPrepared" -> reader.prepared(params.get("epoch").getAsLong(), params.get("format").getAsString());
+            case "replayTimings" -> reader.timings(params.getAsJsonArray("ids"));
             default -> throw new IllegalArgumentException("unknown replay research operation");
         };
     }

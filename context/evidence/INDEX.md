@@ -16,6 +16,8 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E229 | The fetch cost is a 20 ms host queue wait for each page plus JSON serialization and parse; one packed page with value tables fetches 131,072 notes in 40 ms [K] (2026-10-05) | [open](experiments/e229-replay-fetch-cost.md) |
+| E228 | No cold-read dealbreaker is open: bind from park, select the row first, finish writes before the bind, keep a tripwire [K] (2026-10-05) | [open](experiments/e228-cold-read-dealbreaker-check.md) |
 | E227 | One-batch step replay is a complete cold read in 46–698 ms; clipExists closes empty reads; Ghostnote writes must queue behind an open read [K] (2026-10-05) | [open](experiments/e227-replay-cold-read.md) |
 | E226 | Unsubscribe releases a bound grid; a sounding-cell budget evicts exactly; the 1/16 coarse sentinel misses in-cell nudges [K] (2026-10-05) | [open](experiments/e226-sounding-cell-cost-reduction.md) |
 | E225 | Cache knee sweep, first pass: width is free; cost is per sounding cell and per observer [K] (2026-10-05) | [open](experiments/e225-cache-limit-knee-sweep.md) |
