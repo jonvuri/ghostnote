@@ -1,0 +1,12 @@
+{
+ "schema": "phase8h1a-operator-v1",
+ "marker": "8h1a-knee-sweep-v8",
+ "complete": false,
+ "eligible": false,
+ "startupObservation": "Bitwig seemed to take a long time to start up, this time.",
+ "startupWallMs": null,
+ "source": "Operator message after the combined restart",
+ "uiRating": "responsive enough",
+ "uiObservation": "UI seems responsive enough.",
+ "uiSource": "Operator message after the combined series"
+}

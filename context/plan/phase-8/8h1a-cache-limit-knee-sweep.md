@@ -1,8 +1,8 @@
 ---
 title: Phase 8h1a — Cache limit knee sweep
 kind: plan
-state: active
-status: First pass done (E225). Width is free; cost is per sounding cell and per observer. Continue with the open rows.
+state: complete
+status: Complete. Exact reads and normal hello pass. UI is responsive enough; heap, diagnostic-call, and switch knees pass to 8h1b.
 updated: 2026-10-05
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h-cache-promotion-and-interface-simplification.md
@@ -41,7 +41,10 @@ Start a fresh research session with these rows, in order:
 5. **Combined arm.** Run near the selected values in a fresh JVM. Get an
    operator rating of UI responsiveness.
 
-Then replace the limit table below with the selected values and reasons.
+All live rows are recorded in E225. The combined row finds a 2,013 MiB heap,
+210 ms diagnostic calls, and a 10 s first project switch. The operator rates
+the UI as responsive enough. The owned project is discarded, the original
+config and normal extension are restored, and the final normal hello passes.
 [8h1b](8h1b-sounding-cell-cost-reduction.md) follows with the sounding-cell
 cost experiments.
 
@@ -52,23 +55,34 @@ large that normal use practically never reaches them. Set a limit only at a
 measured knee: the first point where host performance degrades, or where a
 warm cache read stops being clearly faster than the exact E131 read.
 
-Most current limits do not come from such a knee:
+The continuation selects these research limits for later promotion. The normal
+runtime limits do not change in this session. The combined row confirmed its
+candidate bank and observer allocation after a fresh JVM start. It kept that
+JVM across its tests to measure retained heap and switch costs.
 
-| Parameter | Current | Origin | Status |
-|---|---|---|---|
-| Clip width | 131,072 steps (64 bars) | E139 musical choice | No knee through 1,048,576 steps |
-| Occupied coordinates per clip | 2,048 | E139 single reconcile pass above 50 ms | Obsolete: reconcile and enrichment now run in batches of 40 ms or less |
-| Pending dirty coordinates | 2,048 total | Same single-pass knee | Obsolete; a large reconstruct transpose forces a rebuild |
-| Observers | 512 (2 in the accepted config) | 50 ms one-time construction budget | Replay and ping showed no knee through 768 |
-| Project channels / scenes | 512 / 128 | Operator requirement / research bound | No measured knee |
-| Snapshot, authority, registry, combined estimates | 16 / 16 / 16 / 24 MiB | Round numbers | No knee; estimates, not heap |
-| Replay, enrichment, rebuild deadlines | 5 s / 5 s / 40 s | Small-clip budgets | Not derived at large sizes |
+| Parameter | Selection | Reason |
+|---|---|---|
+| Clip width | 4,194,304 steps | Largest exact width; no width heap cost |
+| Occupied coordinates per clip | 131,072 | Largest exact occupancy; warm read about 3.3 s |
+| Resident sounding cells | Budget by cells across bound proxies; value follows 8h1b | About 350 bytes per cell; one million cells passed |
+| Pending dirty coordinates | Time-bounded drain | About one million drained in 1.9 s; keep batch and ping limits |
+| Allocated observers | 4,096, with a 200 ms construction budget | Largest passing allocation; construction about 150 ms |
+| Bound observers | 512 demonstrated | Larger resident working sets remain limited by sounding-cell heap |
+| Cursor slot bank | 0 slots | Binding matrix passes; saves about 149 MiB at 4,096 observers |
+| Flat bank | At most 65,536 slots; 512×128 measured | Avoid the failed 786,000-slot load; constrain the track×scene product |
+| Project size | 1,024 channels at 16 scenes; 512 total tracks at 128 scenes | Scene count and retained values also consume heap; keep the 2 GiB stop |
+| Estimate gates | Remove from promotion | Full-data estimates caused host-work stalls |
+| Replay / enrichment / rebuild | 5 s / 5 s / 40 s | Measured largest passing rows with margin |
 
 A promoted read keeps cached membership only. It reads values live at occupied
 coordinates and does not reuse a retained snapshot. Thus snapshot size limits
 only one transient read copy.
 
 ## Runtime configuration
+
+The original maximum-allocation outline below is historical. The middle load
+failed with an out-of-memory error. D29 and E225 replace it with one bounded
+allocation for each fresh JVM. Never load the maximum track×scene product.
 
 Bitwig creates host objects only during `init()`. Allocate once at maximum
 capacity, then vary active scale at runtime. E139 used this method for its
@@ -151,8 +165,8 @@ warm reads at large occupancy exceed about 100 ms.
 - The unsubscribed-cost control is recorded.
 - Warm-read latency is compared with E131 across widths and densities.
 - A selected limit table with reasons replaces the table above.
-- Owned fixtures are removed. Protected New 3 stays at its baseline. The normal
-  extension is restored with a fresh normal hello.
+- Owned projects are closed without saving. The saved anchor stays open. The
+  original rig config and normal extension are restored with a fresh normal hello.
 - Brain check, extension check, wire goldens, context check, and
   `git diff --check` pass.
 

@@ -110,6 +110,8 @@ public final class ShadowCacheProbeTest {
         run("8h1a: configuration refuses above allocation and applies atomically", ShadowCacheProbeTest::kneeConfigure);
         run("8h1a: promoted reads use cached membership without a dense oracle", ShadowCacheProbeTest::kneePromoted);
         run("8h1a: fixture spec golden values match the brain oracle", ShadowCacheProbeTest::kneeSpec);
+        run("8h1a: the maintained hint count matches a recount", ShadowCacheProbeTest::kneeHintCount);
+        run("8h1a: poll responses carry a pool summary, not a slot list", ShadowCacheProbeTest::kneePoolSummary);
         System.out.println("Shadow cache adapter: " + passed + " test groups passed.");
     }
 
@@ -164,6 +166,38 @@ public final class ShadowCacheProbeTest {
         boolean refused = false;
         try { f.probe.promotedStart(0, 1, "verbose"); } catch (IllegalArgumentException expected) { refused = true; }
         check(refused, "an unknown payload refuses");
+    }
+
+    private static void kneeHintCount() throws Exception {
+        Fixture f = new Fixture(); f.readyA();
+        f.probe.point(1, f.b, 0); f.settle(1);
+        Runnable same = () -> {
+            JsonObject info = f.probe.info();
+            check(info.get("physicalPendingHints").getAsLong() == info.get("physicalPendingHintsRecount").getAsLong(),
+                "maintained and recounted hints agree: " + info.get("physicalPendingHints") + " " + info.get("physicalPendingHintsRecount"));
+        };
+        Cursor a = f.host.resident(0), b = f.host.resident(1);
+        for (int key = 0; key < 20; key++) a.emit(key / 128, key % 128, 2);
+        a.emit(0, 0, 2); a.emit(0, 0, 0);
+        for (int key = 0; key < 7; key++) b.emit(1 + key, 64, 2);
+        same.run();
+        check(info(f, "physicalPendingHints") == 27, "a repeated coordinate counts once");
+        f.probe.reconcile(0); same.run();
+        check(info(f, "physicalPendingHints") == 7, "transfer removes only the transferred view's hints");
+        f.probe.retire(1); same.run();
+        check(info(f, "physicalPendingHints") == 0, "retirement removes the view's hints");
+        a.emit(3, 3, 2); f.rebind("C", 0); same.run();
+        check(info(f, "physicalPendingHints") == 0, "a new stage clears the view's hints");
+        a.emit(4, 4, 2); same.run();
+        f.probe.configure(object("activeObservers", 1), null); same.run();
+        check(info(f, "physicalPendingHints") == 0, "configuration clears every view");
+    }
+
+    private static void kneePoolSummary() throws Exception {
+        Fixture f = new Fixture(); f.readyA();
+        JsonObject pool = f.probe.info().getAsJsonObject("handlePool");
+        check(pool.get("capacity").getAsInt() == 2 && pool.get("active").getAsInt() == 2 && pool.get("bound").getAsInt() == 0
+            && pool.get("reserved").getAsInt() == 0 && pool.get("retired").getAsInt() == 0, "info carries slot counts: " + pool);
     }
 
     /** The same golden values are in phase8h1a-knee-lib.test.ts. */

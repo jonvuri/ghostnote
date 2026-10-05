@@ -2,15 +2,19 @@
  * 8h1a cache limit knee sweep. Live driver. Each subcommand writes one artifact and refuses the protected project.
  * One controller load holds one research allocation; `cache.configure` changes the active scale.
  *
- *   config <entry.json> <current|middle|max> [observers]   write the research rig config (records the original)
+ *   config <entry.json> <current|middle|max|width-N|observers-N[-cursorK]|flat-TxS|combined> [observers]
+ *                                                           write the research rig config (records the original)
  *   restore <entry.json>                                    restore the original rig config
  *   load <out.json> <allocation>                            fresh-load allocation, ping, idle CPU, JVM memory
  *   control <out.json>                                      unsubscribed control: nothing subscribed, then everything
  *   populate <state.json> <channels> <emptyRows>            owned tracks and empty count-sweep clips
  *   fixture <state.json> <name> <track> <row> <width> <count>
- *   arm <out.json> <state.json> <name> <axis> <value> [--exact N] [--warm N] [--observers N]
- *   burst <out.json> <state.json> <name> <reconstruct|native>
- *   observers <out.json> <state.json> <count>
+ *   arm <out.json> <state.json> <name> <axis> <value> [--exact N] [--warm N] [--observers N] [--bounded]
+ *   rebinds <out.json> <state.json> [rounds]               serial canary rebinds of one used handle
+ *   switch <out.json> [rounds] [--bounded]                   project switches: slot-delta drain, then inventory publication
+ *   burst <out.json> <state.json> <name> <reconstruct|native> [--bounded]
+ *   binding <out.json> <state.json> [--index N]            cursor slot bank matrix on an unused handle: last scene, canary, escape, dense, exact
+ *   observers <out.json> <state.json> <count> [--bounded] [--indexStart N]
  *   inventory <out.json> <tracks> <scenes>
  *   cleanup <state.json>                                    delete owned fixture clips and tracks
  *   summarize <dir> <out.json>                              recompute arms and select each axis limit (offline)
@@ -18,8 +22,8 @@
 import assert from 'node:assert/strict';
 import { execFile } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { readFile, writeFile } from 'node:fs/promises';
-import { homedir } from 'node:os';
+import { open, readFile, unlink, writeFile } from 'node:fs/promises';
+import { homedir, tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
 import { BridgeClient } from '../client.js';
@@ -32,8 +36,8 @@ import { EXPERIMENTAL_7B_TOOL_PROFILE, callTool } from '../surface/tools.js';
 import { workspaceOf } from '../surface/workspace.js';
 import { ORIGINAL_CONFIG_SHA256, PROTECTED_PROJECT } from './phase8g5-consumers-lib.js';
 import { intervalCpu, processes } from './phase8g5c-storage-lib.js';
-import { ALLOCATIONS, HEAP_STOP_BYTES, KNEE_MARKER, isolationShape, observerConfig, parseHistogram, widthConfig, KNEE_METHOD_COUNT, KNEE_METHODS_HASH, KNEE_PROFILE, compactIssues,
-  exactSourceIssues, fixtureNote, fixtureSoundingCells, kneeConfig, oracleIndexes, openLimits, percentile, selectLimit, targetedIssues, verifyArm,
+import { ALLOCATIONS, HEAP_STOP_BYTES, combinedConfig, flatConfig, KNEE_MARKER, isolationShape, observerConfig, parseHistogram, widthConfig, KNEE_METHOD_COUNT, KNEE_METHODS_HASH, KNEE_PROFILE, compactIssues,
+  exactSourceIssues, fixtureNote, membershipIssues, fixtureSoundingCells, kneeConfig, oracleIndexes, openLimits, percentile, selectLimit, targetedIssues, verifyArm, verifyBinding,
   type AllocationName, type Wire } from './phase8h1a-knee-lib.js';
 
 const configPath = join(homedir(), '.ghostnote', 'rig.json');
@@ -108,16 +112,23 @@ async function configure(values: Wire): Promise<Wire> {
   return applied;
 }
 
-async function config(entryPath: string, name: AllocationName, observers?: number): Promise<void> {
+/** The combined row checks the selected deadlines. Other sweep rows leave those deadlines open. */
+function sweepLimits(bounded: boolean): Wire {
+  return openLimits(bounded ? { replayDeadlineMs: 5_000, enrichmentDeadlineMs: 5_000,
+    rebuildDeadlineMs: 40_000, constructionBudgetMs: 200 } : {});
+}
+
+async function config(entryPath: string, name: string, observers?: number): Promise<void> {
   const bytes = await readFile(configPath);
   let original = bytes;
   try {
     const prior = await readJson(entryPath); original = Buffer.from(String(prior.originalBase64), 'base64');
   } catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error; }
   assert.equal(hash(original), ORIGINAL_CONFIG_SHA256, 'unexpected original config');
-  const research = name.startsWith('width-') ? widthConfig(Number(name.slice(6)))
+  const research = name === 'combined' ? combinedConfig() : name.startsWith('width-') ? widthConfig(Number(name.slice(6)))
+    : name.startsWith('flat-') ? flatConfig(Number(name.slice(5).split('x')[0]), Number(name.split('x')[1]))
     : name.startsWith('observers-') ? observerConfig(Number(name.slice(10).split('-')[0]),
-      name.includes('-cursor') ? Number(name.split('-cursor')[1]) : undefined) : kneeConfig(name, observers);
+      name.includes('-cursor') ? Number(name.split('-cursor')[1]) : undefined) : kneeConfig(name as AllocationName, observers);
   await save(entryPath, { schema: 'phase8h1a-config-entry-v1', captured: new Date().toISOString(),
     originalSha256: hash(original), originalBase64: original.toString('base64'), allocation: name, research });
   await writeFile(configPath, JSON.stringify(research) + '\n');
@@ -131,9 +142,9 @@ async function restore(entryPath: string): Promise<void> {
 }
 
 /** One fresh controller load. Measure allocation, init, idle cost, and ping with the default active set. */
-async function load(out: string, name: AllocationName): Promise<void> {
+async function load(out: string, name: string): Promise<void> {
   const entry = await guard(), stats = entry.stats as Wire;
-  const shape = isolationShape(name), size = shape ?? ALLOCATIONS[name];
+  const shape = isolationShape(name), size = shape ?? ALLOCATIONS[name as AllocationName];
   const configuration = entry.configuration as Wire, allocation = configuration.allocation as Wire;
   assert.equal(allocation.width, size.width); assert.equal(allocation.tracks, size.tracks); assert.equal(allocation.scenes, size.scenes);
   if (shape) assert.equal(allocation.observers, shape.observers);
@@ -174,8 +185,12 @@ async function bindFixture(trackIndex: number, row: number): Promise<void> {
   await shadow('fixturePin', { pinned: false }); await shadow('fixturePoint', { trackIndex });
   const track = await trackAt(trackIndex);
   await until(() => shadow('fixtureStatus'), value => value.trackChannelId === track.channelId);
-  await shadow('fixtureSelect', { trackIndex, row });
-  await until(() => shadow('fixtureStatus'), value => value.clipExists === true && value.sceneIndex === row);
+  // A select issued just after clip creation can be lost. Repeat it until the clip cursor reports the row.
+  await until(async () => {
+    const value = await shadow('fixtureStatus');
+    if (value.clipExists !== true || value.sceneIndex !== row) await shadow('fixtureSelect', { trackIndex, row });
+    return value;
+  }, value => value.clipExists === true && value.sceneIndex === row, 60_000, 200);
   await shadow('fixturePin', { pinned: true });
   await until(() => shadow('fixtureStatus'), value => value.trackPinned === true && value.clipPinned === true);
 }
@@ -299,15 +314,19 @@ async function arm(out: string, statePath: string, name: string, axis: string, v
   try {
     heaps.push(await heap('arm-entry'));
     report.configuration = await configure({ activeObservers: Number(options.observers ?? Math.min(2, Number(allocation.observers))),
-      width: Number(options.width ?? target.width), ...openLimits() });
+      width: Number(options.width ?? target.width), ...sweepLimits(options.bounded === true) });
     report.ping = await shadow('ping', { p95Ms: percentile(await pings(20), 0.95) });
     report.cold = await bindShadow(target, canary);
     heaps.push(await heap('after-cold-bind'));
     const index = Number((report.cold as Wire).index);
     report.coldRead = readSummary(await promoted(index), target);
+    assert.deepEqual((report.coldRead as Wire).issues, [], 'cold read differs from the fixture');
     const warm: Wire[] = [];
-    for (let n = 0; n < Number(options.warm ?? 3); n++) warm.push(readSummary(await promoted(index), target));
     report.warmReads = warm;
+    for (let n = 0; n < Number(options.warm ?? 3); n++) {
+      const read = readSummary(await promoted(index), target); warm.push(read);
+      assert.deepEqual(read.issues, [], 'warm read differs from the fixture');
+    }
     heaps.push(await heap('after-warm-reads'));
     const indexes = oracleIndexes(target.count);
     const cap = target.durationCap ?? 64;
@@ -315,6 +334,8 @@ async function arm(out: string, statePath: string, name: string, axis: string, v
     await bindFixture(target.trackIndex, target.row);
     const targeted = await shadow('fixtureRead', { coordinates });
     report.oracleIssues = targetedIssues(targeted.notes, indexes, target.count, target.width, target.semitones, cap);
+    assert.deepEqual(report.oracleIssues, [], 'targeted read differs from the fixture');
+    heaps.push(await heap('after-targeted-oracle'));
     report.soundingCells = fixtureSoundingCells(target.count, target.width, cap);
     report.oracleReadMs = targeted.readMs;
     const exact: Wire[] = [];
@@ -330,12 +351,121 @@ async function arm(out: string, statePath: string, name: string, axis: string, v
   console.log(JSON.stringify(report.summary));
 }
 
+/** Point one handle and wait for its target replay. Record each canary stage that a poll reports. */
+async function pointShadow(index: number, target: Fixture, canary?: Fixture): Promise<Wire> {
+  const started = performance.now(), stages: string[] = [];
+  const params: Wire = { index, trackIndex: target.trackIndex, row: target.row };
+  if (canary) { params.canaryTrackIndex = canary.trackIndex; params.canaryRow = canary.row; }
+  const pointed = await shadow('point', params);
+  assert.notEqual(pointed.phase, 'retired', `point refused: ${String(pointed.reason)}`);
+  const settled = await until(() => shadow('poll', { index }), value => {
+    assert.notEqual(value.phase, 'retired', `binding retired: ${String(value.reason)}`);
+    if (stages.at(-1) !== value.canaryPhase) stages.push(String(value.canaryPhase));
+    return (value.phase === 'settled' || value.phase === 'complete') && value.canaryPhase === 'target';
+  }, 600_000, 50);
+  return { bindMs: performance.now() - started, stages, canaryVerified: settled.canaryVerifiedForBinding, drain: await drainShadow(index) };
+}
+/** Dense comparison of one bound handle with an independent authority scan. */
+async function dense(index: number): Promise<Wire> {
+  const started = performance.now();
+  let value = await shadow('compareStart', { index }); let polls = 1;
+  while (value.comparison === 'pending') {
+    value = await shadow('comparePoll'); polls++;
+    assert(performance.now() - started < 600_000, 'dense comparison did not end');
+  }
+  return { wallMs: performance.now() - started, polls, comparison: value.comparison, noteCount: (value.authorityNotes as Wire[] | undefined)?.length ?? 0 };
+}
+/** Exact fallback reads a clip through the authority handle only. */
+async function exactFallback(target: Fixture): Promise<Wire> {
+  const started = performance.now(); let polls = 1;
+  let value = await shadow('exactStart', { trackIndex: target.trackIndex, row: target.row });
+  while (value.terminal !== true) {
+    value = await shadow('exactPoll'); polls++;
+    assert(performance.now() - started < 600_000, 'exact fallback did not end');
+  }
+  return { wallMs: performance.now() - started, polls, phase: value.phase, readMode: value.readMode,
+    cacheMembershipUsed: value.cacheMembershipUsed, scannedCoordinates: value.scannedCoordinates,
+    issues: value.phase === 'acquired' ? membershipIssues(value.authorityNotes, target.count, target.width, target.semitones, target.durationCap ?? 64)
+      : [`exact-refused:${String(value.reason)}`] };
+}
+
+/**
+ * Cursor slot bank row. Bind with the allocated cursor slot setting: an unused handle at the last scene, a canary
+ * rebind, and the escape stage. Each binding gets a promoted read and a dense comparison. Exact fallback follows.
+ */
+async function binding(out: string, statePath: string, index: number): Promise<void> {
+  const entry = await guard(), state = await readJson(statePath), fixtures = state.fixtures as Record<string, Fixture>;
+  const { canary, last, other } = fixtures; assert(canary && last && other, 'canary, last, and other fixtures are required');
+  const allocation = (entry.configuration as Wire).allocation as Wire;
+  assert.equal(last.row, Number(allocation.scenes) - 1, 'the last fixture must be in the last scene');
+  assert(canary.width === last.width && other.width === last.width, 'the matrix uses one width');
+  const report: Wire = { schema: 'phase8h1a-binding-v1', marker: KNEE_MARKER, complete: false, eligible: false,
+    captured: new Date().toISOString(), cursorScenes: allocation.cursorScenes, ...entry, steps: [] };
+  await save(out, report, true);
+  const steps = report.steps as Wire[];
+  try {
+    // The first step needs a handle that no earlier run in this load has used.
+    report.configuration = await configure({ activeObservers: index + 1, width: last.width, ...openLimits() });
+    report.handleIndex = index;
+    report.ping = await shadow('ping', { p95Ms: percentile(await pings(20), 0.95) });
+    const plan: [string, Fixture, Fixture | undefined, string[]][] = [
+      ['unused-last-scene', last, undefined, ['target']],
+      ['canary-rebind', other, canary, ['canary', 'target']],
+      ['escape-to-canary', canary, other, ['escape', 'canary', 'target']],
+      ['escape', last, canary, ['escape', 'canary', 'target']],
+    ];
+    for (const [label, target, via, expected] of plan) {
+      const bound = await pointShadow(index, target, via);
+      const read = readSummary(await promoted(index), target);
+      const comparison = await dense(index);
+      const step = { label, target: target.name, canary: via?.name ?? null, expectedStages: expected, ...bound, read, dense: comparison };
+      steps.push(step); await save(out, report);
+      console.log(JSON.stringify({ label, stages: bound.stages, bindMs: Math.round(Number(bound.bindMs)),
+        readIssues: (read.issues as string[]).length, dense: comparison.comparison }));
+    }
+    report.exact = [await exactFallback(last), await exactFallback(other)];
+    report.pingSamplesMs = await pings(); report.pingP95Ms = percentile(report.pingSamplesMs as number[], 0.95);
+    report.heap = await heap('after-binding-matrix');
+    report.summary = verifyBinding(report);
+  } catch (error) { report.error = String(error); throw error; }
+  finally { await save(out, report); }
+  console.log(JSON.stringify(report.summary));
+}
+
+/**
+ * Deadline row. Rebind one used handle serially across fixtures; each rebind needs a populated canary window.
+ * The step window is global, so a working-set rewarm costs about the count times one rebind.
+ */
+async function rebinds(out: string, statePath: string, rounds: number): Promise<void> {
+  const entry = await guard(), state = await readJson(statePath), fixtures = state.fixtures as Record<string, Fixture>;
+  const { canary, last, other, w131072: large } = fixtures; assert(canary && last && other && large, 'canary, last, other, and w131072 are required');
+  const report: Wire = { schema: 'phase8h1a-rebinds-v1', marker: KNEE_MARKER, complete: false, eligible: false,
+    captured: new Date().toISOString(), rounds, ...entry, rebinds: [] };
+  await save(out, report, true);
+  const rows = report.rebinds as Wire[];
+  try {
+    report.configuration = await configure({ activeObservers: 2, width: large.width, ...openLimits() });
+    report.ping = await shadow('ping', { p95Ms: percentile(await pings(20), 0.95) });
+    for (let round = 0; round < rounds; round++) for (const target of [other, large, last]) {
+      const bound = await pointShadow(0, target, canary);
+      const read = readSummary(await promoted(0), target);
+      rows.push({ round, target: target.name, notes: target.count, ...bound, readWallMs: read.wallMs, readIssues: read.issues });
+      assert.deepEqual(read.issues, [], `${target.name} read issues`);
+      console.log(JSON.stringify({ round, target: target.name, stages: bound.stages, bindMs: Math.round(Number(bound.bindMs)) }));
+    }
+    report.pingSamplesMs = await pings(); report.pingP95Ms = percentile(report.pingSamplesMs as number[], 0.95);
+  } catch (error) { report.error = String(error); throw error; }
+  finally { await save(out, report); }
+}
+
 /** Edit burst. Transpose the target by +12 and measure callback drain and dirty work. Then restore it. */
-async function burst(out: string, statePath: string, name: string, mode: string): Promise<void> {
+async function burst(out: string, statePath: string, name: string, mode: string, bounded = false): Promise<void> {
   assert(['reconstruct', 'native'].includes(mode));
   const entry = await guard(), state = await readJson(statePath), fixtures = state.fixtures as Record<string, Fixture>;
   const target = fixtures[name], canary = fixtures.canary; assert(target && canary);
   assert.equal(target.semitones, 0, 'burst needs an untransposed fixture');
+  assert(mode === 'native' || (target.durationCap ?? 64) === 64,
+    'the reconstruct writer supports only the default duration cap');
   const report: Wire = { schema: 'phase8h1a-burst-v1', marker: KNEE_MARKER, complete: false, eligible: false,
     captured: new Date().toISOString(), mode, fixture: target, ...entry, phases: [] };
   await save(out, report, true);
@@ -350,7 +480,9 @@ async function burst(out: string, statePath: string, name: string, mode: string)
     return { writeMs: performance.now() - started, batches };
   };
   try {
-    report.configuration = await configure({ activeObservers: 2, width: target.width, ...openLimits() });
+    const active = Number(((entry.configuration as Wire).active as Wire).observers);
+    report.configuration = await configure({ activeObservers: bounded ? active : 2, width: target.width, ...sweepLimits(bounded) });
+    report.heapBefore = await heap('burst-entry');
     report.ping = await shadow('ping', { p95Ms: percentile(await pings(20), 0.95) });
     const bound = await bindShadow(target, canary); const index = Number(bound.index); report.cold = bound;
     report.before = readSummary(await promoted(index), target);
@@ -364,8 +496,9 @@ async function burst(out: string, statePath: string, name: string, mode: string)
       const drain = await drainShadow(index);
       const pingSamples = await pings(20);
       const read = readSummary(await promoted(index), target);
+      assert.deepEqual(read.issues, [], 'burst read differs from the fixture');
       (report.phases as Wire[]).push({ from, to, write, callbacks: hints.callbacks, physicalHintOverflow: hints.physicalHintOverflow,
-        drain, pingP95Ms: percentile(pingSamples, 0.95), read });
+        drain, pingP95Ms: percentile(pingSamples, 0.95), read, heap: await heap(`burst-shift-${to}`) });
       await save(out, report);
       console.log(JSON.stringify({ to, drainMs: drain.drainMs, coordinates: drain.coordinates, readIssues: (read.issues as string[]).length }));
     }
@@ -380,32 +513,41 @@ async function populate(statePath: string, channels: number, emptyRows: number):
   await guard();
   const state = await readJson(statePath);
   const tracks = state.tracks as Wire[], clips = state.clips as Wire[];
-  let list = (await request('track.list')).tracks as Wire[];
-  while (list.filter(row => row.type !== 'Master').length < channels) {
-    // Insert after the last instrument or audio track, before effect and master tracks.
-    const position = list.filter(row => row.type !== 'Master' && row.type !== 'Effect').length;
+  let snapshot = await request('track.list'), list = snapshot.tracks as Wire[];
+  assert(Number.isInteger(channels) && channels >= 1, 'channels must be a positive integer');
+  const createEmpty = async (track: Wire): Promise<void> => {
+    for (let row = 1; row <= emptyRows; row++) {
+      if ((await request('slot.status', { trackIndex: track.index, slotIndex: row })).hasContent === true) continue;
+      clips.push({ trackId: track.channelId, row, intent: 'empty' }); await save(statePath, state);
+      await request('clip.create', { trackIndex: track.index, slotIndex: row, lengthBeats: 4 });
+      await until(() => request('slot.status', { trackIndex: track.index, slotIndex: row }), value => value.hasContent === true);
+    }
+  };
+  while (Number(snapshot.itemCount) - 1 < channels) {
+    // The project count can exceed the bank window. Keep the new track and the fixture track visible.
+    const position = Math.min(2, Number(snapshot.itemCount) - 1), beforeCount = Number(snapshot.itemCount),
+      beforeIds = new Set(list.map(row => row.channelId));
     tracks.push({ intent: 'track', position }); await save(statePath, state);
     await request('track.create', { position });
-    const next = await until(async () => await request('track.list'), value => (value.tracks as Wire[]).length > list.length, 30_000, 50);
-    list = next.tracks as Wire[];
-    tracks[tracks.length - 1] = { position, channelId: list.find(row => row.index === position)?.channelId };
+    snapshot = await until(() => request('track.list'), value => Number(value.itemCount) > beforeCount
+      && (value.tracks as Wire[]).some(row => row.index === position && !beforeIds.has(row.channelId)), 30_000, 50);
+    list = snapshot.tracks as Wire[];
+    tracks[tracks.length - 1] = { position, channelId: list.find(row => row.index === position)!.channelId };
+    await createEmpty(list.find(row => row.index === position)!);
     if (tracks.length % 64 === 0) { await save(statePath, state); console.log(JSON.stringify({ tracks: tracks.length })); }
   }
   await save(statePath, state);
   const owned = new Set(tracks.map(row => row.channelId));
   for (const track of list.filter(row => owned.has(row.channelId))) {
-    for (let row = 1; row <= emptyRows; row++) {
-      if ((await request('slot.status', { trackIndex: track.index, slotIndex: row })).hasContent === true) continue;
-      clips.push({ trackId: track.channelId, row, intent: 'empty' });
-      await request('clip.create', { trackIndex: track.index, slotIndex: row, lengthBeats: 4 });
-    }
+    await createEmpty(track);
     await save(statePath, state);
   }
-  console.log(JSON.stringify({ ownedTracks: owned.size, emptyClips: clips.filter(row => row.intent === 'empty').length }));
+  console.log(JSON.stringify({ ownedTracks: owned.size, projectChannels: Number(snapshot.itemCount) - 1,
+    visibleTracks: list.length, emptyClips: clips.filter(row => row.intent === 'empty').length }));
 }
 
 /** Observer count arm. Bind one handle per empty owned clip in waves of distinct tracks, then measure steady cost. */
-async function observers(out: string, statePath: string, count: number): Promise<void> {
+async function observers(out: string, statePath: string, count: number, bounded = false, indexStart?: number): Promise<void> {
   const entry = await guard(), state = await readJson(statePath), canary = (state.fixtures as Record<string, Fixture>).canary;
   assert(canary, 'canary fixture required');
   const list = (await request('track.list')).tracks as Wire[];
@@ -416,45 +558,78 @@ async function observers(out: string, statePath: string, count: number): Promise
     captured: new Date().toISOString(), count, ...entry };
   await save(out, report, true);
   try {
-    report.configuration = await configure({ activeObservers: count, ...openLimits() });
+    const allocation = (entry.configuration as Wire).allocation as Wire;
+    if (indexStart !== undefined) assert(indexStart >= 0 && indexStart + count <= Number(allocation.observers));
+    report.configuration = await configure({ activeObservers: indexStart === undefined ? count : Number(allocation.observers),
+      width: bounded ? Number(allocation.width) : Number(((entry.configuration as Wire).active as Wire).width), ...sweepLimits(bounded) });
+    report.directUnusedIndexStart = indexStart ?? null;
     report.ping = await shadow('ping', { p95Ms: percentile(await pings(20), 0.95) });
+    report.heapBefore = await heap('observer-entry');
     report.idleBefore = await cpu();
     const started = performance.now(), waves: Wire[] = [], serial: Wire[] = [];
+    report.waves = waves; report.serialCanaryBindings = serial;
+    let directIndex = indexStart ?? 0, maxPollBatchMs = 0;
     const chosen = targets.slice(0, count), byTrack = new Map<number, typeof chosen>();
     for (const target of chosen) byTrack.set(target.trackIndex, [...(byTrack.get(target.trackIndex) ?? []), target]);
     for (let wave = 0; ; wave++) {
-      const batch = [...byTrack.values()].map(rows => rows[wave]).filter(row => row !== undefined);
-      if (batch.length === 0) break;
-      const waveStarted = performance.now(), indexes: number[] = [];
-      for (const target of batch) {
-        // An unused handle binds without a canary, so a wave binds in parallel. A used handle needs a
-        // canary window. The step window is global, so a canary binding runs alone and settles first.
-        let acquired = await shadow('acquire', { trackIndex: target.trackIndex, row: target.row });
-        if (acquired.reason === 'populated-canary-required-for-rebind') {
-          const serialStarted = performance.now();
-          const bound = await bindShadow({ trackIndex: target.trackIndex, row: target.row } as Fixture, canary);
-          serial.push({ index: bound.index, bindMs: performance.now() - serialStarted });
-          continue;
+      const targetsInWave = [...byTrack.values()].map(rows => rows[wave]).filter(row => row !== undefined);
+      if (targetsInWave.length === 0) break;
+      const waveSize = bounded ? 16 : targetsInWave.length;
+      for (let offset = 0; offset < targetsInWave.length; offset += waveSize) {
+        const batch = targetsInWave.slice(offset, offset + waveSize);
+        const waveStarted = performance.now(), indexes: number[] = [];
+        for (const target of batch) {
+          // An unused handle binds without a canary, so a wave binds in parallel. A used handle needs a
+          // canary window. The step window is global, so a canary binding runs alone and settles first.
+          let acquired: Wire;
+          if (indexStart === undefined) acquired = await shadow('acquire', { trackIndex: target.trackIndex, row: target.row });
+          else {
+            const index = directIndex++;
+            acquired = { ...await shadow('point', { index, trackIndex: target.trackIndex, row: target.row }), index,
+              poolDecision: 'direct-unused' };
+            assert.notEqual(acquired.phase, 'retired', `unused handle ${index} refused: ${String(acquired.reason)}`);
+          }
+          if (acquired.reason === 'populated-canary-required-for-rebind') {
+            const serialStarted = performance.now();
+            const bound = await bindShadow({ trackIndex: target.trackIndex, row: target.row } as Fixture, canary);
+            serial.push({ index: bound.index, bindMs: performance.now() - serialStarted });
+            continue;
+          }
+          assert(['warm', 'reserved', 'direct-unused'].includes(String(acquired.poolDecision)), JSON.stringify(acquired).slice(0, 400));
+          indexes.push(Number(acquired.index));
         }
-        assert(['warm', 'reserved'].includes(String(acquired.poolDecision)), JSON.stringify(acquired).slice(0, 400));
-        indexes.push(Number(acquired.index));
-      }
-      const pending = new Set(indexes);
-      while (pending.size > 0) {
-        for (const index of [...pending]) {
-          const value = await shadow('poll', { index });
-          assert.notEqual(value.phase, 'retired', `binding ${index} retired: ${String(value.reason)}`);
-          if ((value.phase === 'settled' || value.phase === 'complete') && value.canaryPhase === 'target') pending.delete(index);
+        const pending = new Set(indexes);
+        while (pending.size > 0) {
+          if (bounded) {
+            // Service all handles while the host completes their binding and quiet floor.
+            const pumpStarted = performance.now();
+            while (performance.now() - pumpStarted < 2_000) {
+              const pumped = await request('batch.run', { ops: [...pending].map(index =>
+                ({ method: 'cache.shadow', params: { operation: 'poll', index } })) });
+              assert.equal(pumped.failures, 0);
+              maxPollBatchMs = Math.max(maxPollBatchMs, Number(pumped.elapsedMicros) / 1000);
+              assert(maxPollBatchMs < 50, 'observer poll batch exceeded the host-work limit');
+              await wait(50);
+            }
+          }
+          for (const index of [...pending]) {
+            const value = await shadow('poll', { index });
+            assert.notEqual(value.phase, 'retired', `binding ${index} retired: ${String(value.reason)}`);
+            if ((value.phase === 'settled' || value.phase === 'complete') && value.canaryPhase === 'target') pending.delete(index);
+          }
+          assert(performance.now() - waveStarted < 600_000, 'wave did not settle');
+          await wait(50);
         }
-        assert(performance.now() - waveStarted < 600_000, 'wave did not settle');
-        await wait(50);
+        waves.push({ wave, offset, observers: batch.length, wallMs: performance.now() - waveStarted, indexes });
+        await save(out, report);
+        if (waves.length % 8 === 0) console.log(JSON.stringify({ wave, bound: waves.reduce((sum, row) => sum + Number(row.observers), 0) }));
       }
-      waves.push({ wave, observers: batch.length, wallMs: performance.now() - waveStarted });
-      if (wave % 8 === 0) console.log(JSON.stringify({ wave, bound: waves.reduce((sum, row) => sum + Number(row.observers), 0) }));
     }
+    report.maxPollBatchMs = maxPollBatchMs;
     report.waves = waves; report.serialCanaryBindings = serial; report.bindMs = performance.now() - started;
     report.pingSamplesMs = await pings(); report.pingP95Ms = percentile(report.pingSamplesMs as number[], 0.95);
     report.idleAfter = await cpu(); report.after = await shadow('info');
+    report.heap = await heap('after-observers');
     report.jvm = (await shadow('allocationStats')).jvmMemory;
   } catch (error) { report.error = String(error); throw error; }
   finally { await save(out, report); }
@@ -486,6 +661,68 @@ async function inventory(out: string, tracks: number, scenes: number): Promise<v
   } catch (error) { report.error = String(error); throw error; }
   finally { await save(out, report); }
   console.log(JSON.stringify({ tracks, scenes, publication: report.publication, pingP95Ms: report.pingP95Ms }));
+}
+
+/** Wait until the slot callback counter is quiet for one second. Return the drain to the last change. */
+async function slotDrain(started: number, before: number): Promise<Wire> {
+  let last = before, lastChange = started, polls = 0;
+  for (;;) {
+    const value = Number(((await shadow('info')).slotWindowValue as Wire).slots); polls++;
+    if (value !== last) { last = value; lastChange = performance.now(); }
+    if (performance.now() - lastChange >= 1_000) break;
+    assert(performance.now() - started < 600_000, 'slot callbacks did not drain');
+    await wait(20);
+  }
+  return { drainMs: lastChange - started, slotCallbacks: last - before, polls };
+}
+/**
+ * Project size row. Switch to the previous project tab (the saved anchor) and back. Measure slot-delta delivery
+ * and drain after each real switch, then inventory publication in the owned project. Nothing writes in the anchor.
+ */
+async function projectSwitch(out: string, rounds: number, bounded = false): Promise<void> {
+  const entry = await guard(), owned = String((entry.allocation as Wire).projectName);
+  const report: Wire = { schema: 'phase8h1a-switch-v1', marker: KNEE_MARKER, complete: false, eligible: false,
+    captured: new Date().toISOString(), ownedProject: owned, ...entry, switches: [] };
+  await save(out, report, true);
+  const rows = report.switches as Wire[];
+  try {
+    const active = Number(((entry.configuration as Wire).active as Wire).observers);
+    report.configuration = await configure({ activeObservers: bounded ? active : 2, ...sweepLimits(bounded) });
+    report.tracks = (await request('track.list')).itemCount;
+    for (let round = 0; round < rounds; round++) for (const action of ['Select Previous Project', 'Select Next Project']) {
+      const before = Number(((await shadow('info')).slotWindowValue as Wire).slots), started = performance.now();
+      await request('app.invokeAction', { id: action });
+      const expectedProject = action === 'Select Previous Project' ? ANCHOR_PROJECT : owned;
+      await until(() => shadow('allocationStats'), value => value.projectName === expectedProject, 120_000, 100);
+      const activationMs = performance.now() - started;
+      const drain = await slotDrain(started, before);
+      const project = String((await shadow('allocationStats')).projectName);
+      const samples = await pings(20);
+      rows.push({ round, action, project, activationMs, ...drain, pingP95Ms: percentile(samples, 0.95) });
+      await save(out, report);
+      console.log(JSON.stringify({ round, action, project, activationMs: Math.round(activationMs),
+        drainMs: Math.round(Number(drain.drainMs)), slotCallbacks: drain.slotCallbacks }));
+    }
+    const back = await shadow('allocationStats');
+    assert.equal(back.projectName, owned, 'the switch must end in the owned project');
+    report.heap = await heap('after-switches');
+    if (Number(back.trackItemCount) > Number(back.activeTracks)) {
+      report.publication = { refused: 'project-exceeds-active-bank', projectTracks: back.trackItemCount,
+        activeTracks: back.activeTracks };
+      return;
+    }
+    const started = performance.now(); await shadow('rebuildBegin'); let polls = 0, list: Wire;
+    for (;;) {
+      await shadow('rebuildPoll'); polls++;
+      list = await shadow('inventoryList');
+      if (list.occupancyAdmitted === true) break;
+      assert(performance.now() - started < 3_600_000, `inventory did not publish: ${String(list.reason)}`);
+      await wait(20);
+    }
+    report.publication = { wallMs: performance.now() - started, polls, occupancyCount: list.occupancyCount };
+  } catch (error) { report.error = String(error); throw error; }
+  finally { await save(out, report); }
+  console.log(JSON.stringify({ publication: report.publication }));
 }
 
 /** Delete owned clips, then owned tracks, in reverse intent order. */
@@ -527,6 +764,10 @@ async function summarize(directory: string, out: string): Promise<void> {
 }
 
 const [command, ...args] = process.argv.slice(2);
+// Each live command owns the fixture cursor and state files until its process exits.
+const lockPath = join(tmpdir(), 'ghostnote-phase8h1a-live.lock');
+const liveLock = command === 'summarize' ? undefined : await open(lockPath, 'wx');
+if (liveLock) await liveLock.writeFile(JSON.stringify({ pid: process.pid, command, started: new Date().toISOString() }) + '\n');
 const flag = (name: string): string | undefined => { const at = args.indexOf(`--${name}`); return at < 0 ? undefined : args[at + 1]; };
 try {
   if (command === 'config') await config(args[0]!, args[1] as AllocationName, args[2] === undefined ? undefined : Number(args[2]));
@@ -537,11 +778,18 @@ try {
   else if (command === 'fixture') await fixture(args[0]!, args[1]!, Number(args[2]), Number(args[3]), Number(args[4]), Number(args[5]),
     flag('cap') === undefined ? 64 : Number(flag('cap')));
   else if (command === 'arm') await arm(args[0]!, args[1]!, args[2]!, args[3]!, Number(args[4]),
-    { exact: flag('exact'), warm: flag('warm'), observers: flag('observers'), width: flag('width'), canary: flag('canary') });
-  else if (command === 'burst') await burst(args[0]!, args[1]!, args[2]!, args[3]!);
-  else if (command === 'observers') await observers(args[0]!, args[1]!, Number(args[2]));
+    { exact: flag('exact'), warm: flag('warm'), observers: flag('observers'), width: flag('width'), canary: flag('canary'), bounded: args.includes('--bounded') });
+  else if (command === 'binding') await binding(args[0]!, args[1]!, Number(flag('index') ?? 7));
+  else if (command === 'rebinds') await rebinds(args[0]!, args[1]!, Number(args[2] ?? 3));
+  else if (command === 'switch') await projectSwitch(args[0]!, Number(args[1] ?? 2), args.includes('--bounded'));
+  else if (command === 'burst') await burst(args[0]!, args[1]!, args[2]!, args[3]!, args.includes('--bounded'));
+  else if (command === 'observers') await observers(args[0]!, args[1]!, Number(args[2]), args.includes('--bounded'),
+    flag('indexStart') === undefined ? undefined : Number(flag('indexStart')));
   else if (command === 'inventory') await inventory(args[0]!, Number(args[1]), Number(args[2]));
   else if (command === 'cleanup') await cleanup(args[0]!);
   else if (command === 'summarize') await summarize(args[0]!, args[1]!);
   else throw new Error(`unknown command: ${String(command)}`);
-} finally { bridge.disconnect(); }
+} finally {
+  bridge.disconnect();
+  if (liveLock) { await liveLock.close(); await unlink(lockPath); }
+}

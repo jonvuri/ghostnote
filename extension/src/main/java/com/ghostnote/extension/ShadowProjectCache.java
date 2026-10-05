@@ -780,8 +780,9 @@ public final class ShadowProjectCache {
         if (!entry.replay || entry.health == Health.WARMING) return "replay-incomplete";
         if (entry.health != Health.COMPLETE || !entry.dirty.isEmpty()) return "dirty-or-unhealthy";
         if (!entry.coverage.covers(request)) return "coverage-incomplete";
-        if (recorderTotal() > limits.recorderBytes() || entry.occupied.size() > limits.occupied() || request.width > limits.width()
-            || residentCount() > limits.observers() || pendingCount() > limits.pending() || constructionMs > limits.constructionBudgetMs() || pingP95Ms > limits.pingBudgetMs())
+        // 8h1a: an open gate computes no total. Each enriched coordinate checks eligibility.
+        if ((recorderGate() && recorderTotal() > limits.recorderBytes()) || entry.occupied.size() > limits.occupied() || request.width > limits.width()
+            || residentCount() > limits.observers() || (pendingGate() && pendingCount() > limits.pending()) || constructionMs > limits.constructionBudgetMs() || pingP95Ms > limits.pingBudgetMs())
             return "budget-exceeded";
         return null;
     }

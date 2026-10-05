@@ -20,7 +20,7 @@ import static com.ghostnote.extension.ShadowProjectCache.*;
 public final class ShadowCacheProbe {
     private static final Gson JSON = new Gson();
     /** Deliberate build marker for live reload checks. */
-    public static final String INSTRUMENTATION_REVISION = "8h1a-knee-sweep-v7";
+    public static final String INSTRUMENTATION_REVISION = "8h1a-knee-sweep-v8";
     private static final int KEYS = 128;
     private static final double BATCH_MS = 40;
     private static final double HOST_WORK_LIMIT_MS = 45;
@@ -93,6 +93,8 @@ public final class ShadowCacheProbe {
     /** 8g3: the last ended scan's phase times and candidate status stay as diagnostics only. */
     private JsonObject lastScanPhaseTimes = new JsonObject(), lastCandidate = new JsonObject();
     private long enrichmentBatches, promotedReads;
+    /** Physical hints queued in all views. Every hint mutation updates it. */
+    private int physicalHints;
 
     /** Reserve and retire a fixed physical slot before the next binding starts. */
     public JsonObject acquire(Track target, int row) { return acquire(target, row, null, -1); }
@@ -148,7 +150,7 @@ public final class ShadowCacheProbe {
         result.addProperty("poolDecision", choice.kind().name().toLowerCase());
         result.addProperty("poolReason", choice.reason());
         if (choice.victim() != null) result.add("poolVictim", JSON.toJsonTree(choice.victim()));
-        result.add("handlePool", JSON.toJsonTree(handlePool.entries()));
+        result.add("handlePool", JSON.toJsonTree(handlePool.summary()));
         return result;
     }
 
@@ -408,7 +410,7 @@ public final class ShadowCacheProbe {
         view.phase = "retired";
         view.expected = null;
         view.physicalBindingRevision++;
-        view.hints.clear();
+        clearHints(view);
         view.physicalHintOverflow = false;
         view.usedForRebind |= view.used;
         view.lastResult = null;
@@ -840,7 +842,7 @@ public final class ShadowCacheProbe {
         result.addProperty("authorityControlSearchReason", authorityControlSearchReason);
         result.addProperty("authorityDistinctControlConfirmed", authorityDistinctControlConfirmed);
         result.addProperty("residentHandles", views.length);
-        result.add("handlePool", JSON.toJsonTree(handlePool.entries()));
+        result.add("handlePool", JSON.toJsonTree(handlePool.summary()));
         result.addProperty("exactFallbackActive", exactFallback != null && exactFallback.active());
         result.addProperty("unusedBindingHandles", java.util.Arrays.stream(views).filter(v -> !v.used).count());
         result.addProperty("inventoryEnumerated", inventoryEnumerated);
@@ -928,6 +930,7 @@ public final class ShadowCacheProbe {
         result.addProperty("rebindPolicy", "preserve-current-or-forced-canary-transition");
         result.addProperty("callbackSourceIdentityKnown", false);
         result.addProperty("physicalPendingHints", physicalPending());
+        result.addProperty("physicalPendingHintsRecount", physicalPendingRecount());
         result.addProperty("physicalHintDrops", java.util.Arrays.stream(views).mapToLong(v -> v.physicalHintDrops).sum());
         result.addProperty("physicalHintOverflow", physicalOverload || java.util.Arrays.stream(views).anyMatch(v -> v.physicalHintOverflow));
         result.addProperty("physicalHintRecorderEstimatedBytes", views.length * 256L + physicalPending() * 56L);
@@ -1104,7 +1107,7 @@ public final class ShadowCacheProbe {
         stepWindow.onRebind();
         view.canaryRead = null;
         view.physicalBindingRevision++;
-        view.hints.clear();
+        clearHints(view);
         view.physicalHintOverflow = false;
         view.onsetCallbacks = 0;
         view.unchanged = 0;
@@ -1119,9 +1122,14 @@ public final class ShadowCacheProbe {
         view.track.selectChannel(target);
     }
 
-    private int physicalPending() {
+    /** 8h1a: a maintained count. Each enriched coordinate reads it, so a sum over all views grew with the allocation. */
+    private int physicalPending() { return physicalHints; }
+
+    private int physicalPendingRecount() {
         return java.util.Arrays.stream(views).filter(java.util.Objects::nonNull).mapToInt(v -> v.hints.size()).sum();
     }
+
+    private void clearHints(View view) { physicalHints -= view.hints.size(); view.hints.clear(); }
 
     private void applyPhysicalOverload() {
         if (physicalOverload && !physicalOverloadApplied) {
@@ -1227,7 +1235,7 @@ public final class ShadowCacheProbe {
             Map.Entry<Coordinate, Long> hint = iterator.next();
             if (revision != view.physicalBindingRevision) return fallback(view, "hint-binding-changed");
             if (!cache.callback(view.ref, view.token, hint.getKey())) return fallback(view, "hint-admission-refused");
-            iterator.remove(); transferred++;
+            iterator.remove(); physicalHints--; transferred++;
         }
         if (!guardCurrent(view.identityGuard)) return fallback(view, "identity-window-changed");
         int count = cache.reconcile(view.ref, coordinate -> guardedMembership(view, coordinate), cache.limits().pending(),
@@ -1659,7 +1667,7 @@ public final class ShadowCacheProbe {
         stepWindow.discard(view.canaryRead); view.canaryRead = null; view.resultRead = null;
         view.phase = "retired";
         view.physicalBindingRevision++;
-        view.hints.clear();
+        clearHints(view);
         view.physicalHintOverflow = false;
         view.usedForRebind |= view.used;
         view.lastResult = null;
@@ -2179,7 +2187,7 @@ public final class ShadowCacheProbe {
                 if (!hints.containsKey(coordinate) && !cache.allowCombinedGrowth(PHYSICAL_HINT_BYTES)) {
                     storageOverload = physicalOverload = physicalHintOverflow = true; physicalHintDrops++; return;
                 }
-                hints.put(coordinate, ++hintSequence);
+                if (hints.put(coordinate, ++hintSequence) == null) physicalHints++;
             });
         }
     }

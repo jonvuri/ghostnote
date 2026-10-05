@@ -1,0 +1,255 @@
+{
+ "schema": "phase8h1a-state-v1",
+ "fixtures": {},
+ "tracks": [
+  {
+   "position": 2,
+   "channelId": "a7477b6f-c418-421a-a767-1f53c1ff3b85"
+  },
+  {
+   "position": 3,
+   "channelId": "42329e80-fdf4-41e2-af70-58807cb19bd5"
+  },
+  {
+   "position": 4,
+   "channelId": "42ef1ef8-6337-4245-b943-911b59c6554d"
+  },
+  {
+   "position": 5,
+   "channelId": "1796a820-e905-47a8-8c8a-4256b6d15ca3"
+  },
+  {
+   "position": 6,
+   "channelId": "32d01f4e-f5f5-4a7c-a65b-0147a0019b43"
+  },
+  {
+   "position": 7,
+   "channelId": "8ae2bfbb-df42-407e-b7f9-0d02d1004bbe"
+  },
+  {
+   "position": 8,
+   "channelId": "53d8f4fc-271b-42c4-83a2-89ea57c354aa"
+  },
+  {
+   "position": 9,
+   "channelId": "762262e8-7c6f-4014-ada8-dd894c27056f"
+  },
+  {
+   "position": 10,
+   "channelId": "4b61a7a8-d742-4b1f-8828-a98e55ccd14f"
+  },
+  {
+   "position": 11,
+   "channelId": "8b7fba0c-3232-4aab-8f63-08ffee13b4aa"
+  },
+  {
+   "position": 12,
+   "channelId": "33c04652-4701-4404-b6c5-2175f61ca810"
+  },
+  {
+   "position": 13,
+   "channelId": "57eec7e5-4a36-48f1-8258-3485579a13ed"
+  },
+  {
+   "position": 14,
+   "channelId": "e4b30a8b-0780-42eb-854b-5e1db29ff1b8"
+  },
+  {
+   "position": 15,
+   "channelId": "72d1effa-260a-4066-85e7-6303d2b6fcd4"
+  },
+  {
+   "position": 16,
+   "channelId": "c31d742b-64c0-4c11-a026-42696b38aedb"
+  },
+  {
+   "position": 17,
+   "channelId": "b4c00187-83f5-4a6f-8696-bf1dfdda8508"
+  },
+  {
+   "position": 18,
+   "channelId": "812ab49f-aa9f-48c9-9b94-b68f01e6e227"
+  },
+  {
+   "position": 19,
+   "channelId": "8236b180-aba2-4e60-b651-e5e3578eeac3"
+  },
+  {
+   "position": 20,
+   "channelId": "80982454-cc26-440e-9dc4-b5c54b1bb106"
+  },
+  {
+   "position": 21,
+   "channelId": "7e7443c1-8764-4bff-b23a-2301fdb0c373"
+  },
+  {
+   "position": 22,
+   "channelId": "3f01b13f-48c4-4ee0-a8bb-471c93746265"
+  },
+  {
+   "position": 23,
+   "channelId": "cdcc3ac3-1148-4d2b-a23b-eb0e8aa0504c"
+  },
+  {
+   "position": 24,
+   "channelId": "1b7f94c1-3291-421a-9318-3c8b50a058b9"
+  },
+  {
+   "position": 25,
+   "channelId": "5a0a5082-151d-4a2e-99cb-fd6acf76c0e2"
+  },
+  {
+   "position": 26,
+   "channelId": "45fcebcf-1447-4abc-aaad-4f0ec4518128"
+  },
+  {
+   "position": 27,
+   "channelId": "7bcffd16-cce3-4414-a75a-39326391bfa1"
+  },
+  {
+   "position": 28,
+   "channelId": "c6d2ea37-77f0-4191-a7ee-d8b5b63b81e7"
+  },
+  {
+   "position": 29,
+   "channelId": "73b8678a-0160-4e9d-a698-f92c5dac8dc4"
+  },
+  {
+   "position": 30,
+   "channelId": "a43d038b-633a-4f66-b8dc-d268e3314748"
+  },
+  {
+   "position": 31,
+   "channelId": "0b42ea56-3235-4ce2-ae3c-cbc6177c111c"
+  },
+  {
+   "position": 32,
+   "channelId": "d1f04c58-a4c4-4725-9ddf-81be2938ef73"
+  },
+  {
+   "position": 33,
+   "channelId": "8a45311e-146f-4409-b6c0-d91770282808"
+  },
+  {
+   "position": 34,
+   "channelId": "7faa3fa3-9751-47fc-9202-cba898784760"
+  },
+  {
+   "position": 35,
+   "channelId": "05efe900-b26a-4905-bb48-ae521be88e01"
+  },
+  {
+   "position": 36,
+   "channelId": "33c47919-0ac2-4abf-8174-a8ee55f2d105"
+  },
+  {
+   "position": 37,
+   "channelId": "b5324157-e5d8-4ff8-939b-96a90473bf8c"
+  },
+  {
+   "position": 38,
+   "channelId": "197cb97d-8099-4d58-bd38-1f9fcc87df45"
+  },
+  {
+   "position": 39,
+   "channelId": "c91d88da-61b9-4ca3-a396-f705d1f9f2ae"
+  },
+  {
+   "position": 40,
+   "channelId": "96d89e2c-a02d-4575-8f0c-e29fead5b8f3"
+  },
+  {
+   "position": 41,
+   "channelId": "40c9d4a5-0a11-432e-bdb9-12dac7064258"
+  },
+  {
+   "position": 42,
+   "channelId": "30796121-e1f1-4055-8b0d-2dab790f030f"
+  },
+  {
+   "position": 43,
+   "channelId": "751841ce-4b82-47c0-a83f-63b94ed6438e"
+  },
+  {
+   "position": 44,
+   "channelId": "20b0b5f8-9e60-45f0-88f1-d53574c2cb90"
+  },
+  {
+   "position": 45,
+   "channelId": "c2dd6129-4c5a-4581-ba0f-fbcbe9c9b318"
+  },
+  {
+   "position": 46,
+   "channelId": "5783dffd-3c4b-4aa8-9a23-122ddba44454"
+  },
+  {
+   "position": 47,
+   "channelId": "471fbfa9-cd12-44ed-a0fc-6bfe55659656"
+  },
+  {
+   "position": 48,
+   "channelId": "443110ca-5fab-4bb9-b684-91a522c02f52"
+  },
+  {
+   "position": 49,
+   "channelId": "8adbfbc6-b016-4a0e-ac69-156de5711cce"
+  },
+  {
+   "position": 50,
+   "channelId": "aaaf86d3-3daa-4a2c-bf40-5656724dd404"
+  },
+  {
+   "position": 51,
+   "channelId": "2ff778ee-3680-41c3-aec8-321643b3728b"
+  },
+  {
+   "position": 52,
+   "channelId": "fa35f2c9-bbdb-46d3-907d-844ae8e15d7c"
+  },
+  {
+   "position": 53,
+   "channelId": "9ffdad4b-8d60-49e3-ac09-1f8f454cc47a"
+  },
+  {
+   "position": 54,
+   "channelId": "2953d0f0-06d8-4edc-9b03-82d8438209bd"
+  },
+  {
+   "position": 55,
+   "channelId": "2c662402-1a9b-4797-b6c2-86ee68efe9e2"
+  },
+  {
+   "position": 56,
+   "channelId": "1573e1de-3e5e-4e8e-b1d2-e8d61599926d"
+  },
+  {
+   "position": 57,
+   "channelId": "46e4f1e0-6eaf-4783-9223-e9ddcb7b7b86"
+  },
+  {
+   "position": 58,
+   "channelId": "7464e017-072d-4110-843e-8537c9c26a38"
+  },
+  {
+   "position": 59,
+   "channelId": "aa76dd1c-d6da-4027-935e-f47add2282c1"
+  },
+  {
+   "position": 60,
+   "channelId": "5bc74492-c63e-41fb-8c58-cce4eb0779d2"
+  },
+  {
+   "position": 61,
+   "channelId": "f7de2c3a-f70d-4cbb-87ec-0f9a0075586c"
+  },
+  {
+   "intent": "track",
+   "position": 62
+  },
+  {
+   "intent": "track",
+   "position": 63
+  }
+ ],
+ "clips": []
+}

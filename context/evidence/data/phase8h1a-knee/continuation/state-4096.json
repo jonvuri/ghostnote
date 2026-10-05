@@ -1,0 +1,120 @@
+{
+ "schema": "phase8h1a-state-v1",
+ "fixtures": {
+  "canary": {
+   "name": "canary",
+   "trackIndex": 0,
+   "trackId": "3d3626e7-f05e-4181-a181-10ce40955366",
+   "row": 0,
+   "width": 2048,
+   "count": 16,
+   "semitones": 0,
+   "durationCap": 64
+  },
+  "w131072": {
+   "name": "w131072",
+   "trackIndex": 0,
+   "trackId": "3d3626e7-f05e-4181-a181-10ce40955366",
+   "row": 1,
+   "width": 131072,
+   "count": 4096,
+   "semitones": 0,
+   "durationCap": 64
+  },
+  "last": {
+   "name": "last",
+   "trackIndex": 2,
+   "trackId": "587d1d2c-34a1-42a6-94a9-30ced45d1cd4",
+   "row": 15,
+   "width": 2048,
+   "count": 64,
+   "semitones": 0,
+   "durationCap": 64
+  },
+  "other": {
+   "name": "other",
+   "trackIndex": 3,
+   "trackId": "f1d38192-5008-4914-a808-1b3e5391cc1b",
+   "row": 7,
+   "width": 2048,
+   "count": 64,
+   "semitones": 0,
+   "durationCap": 64
+  }
+ },
+ "tracks": [
+  {
+   "position": 2,
+   "channelId": "587d1d2c-34a1-42a6-94a9-30ced45d1cd4"
+  },
+  {
+   "position": 3,
+   "channelId": "f1d38192-5008-4914-a808-1b3e5391cc1b"
+  }
+ ],
+ "clips": [
+  {
+   "trackId": "3d3626e7-f05e-4181-a181-10ce40955366",
+   "row": 0,
+   "intent": "canary"
+  },
+  {
+   "trackId": "3d3626e7-f05e-4181-a181-10ce40955366",
+   "row": 1,
+   "intent": "w131072"
+  },
+  {
+   "trackId": "587d1d2c-34a1-42a6-94a9-30ced45d1cd4",
+   "row": 15,
+   "intent": "last"
+  },
+  {
+   "trackId": "f1d38192-5008-4914-a808-1b3e5391cc1b",
+   "row": 7,
+   "intent": "other"
+  }
+ ],
+ "writes": [
+  {
+   "name": "canary",
+   "count": 16,
+   "width": 2048,
+   "writeMs": 25.059584000000086,
+   "batches": 1,
+   "maxBatchMs": 1.072959,
+   "settleMs": 538.054833,
+   "verifiedIndexes": 16
+  },
+  {
+   "name": "w131072",
+   "count": 4096,
+   "width": 131072,
+   "writeMs": 29.195667000000014,
+   "batches": 1,
+   "maxBatchMs": 3.651458,
+   "settleMs": 539.1589170000002,
+   "verifiedIndexes": 33
+  },
+  {
+   "name": "last",
+   "count": 64,
+   "width": 2048,
+   "writeMs": 23.934415999999942,
+   "batches": 1,
+   "maxBatchMs": 0.090916,
+   "settleMs": 541.047792,
+   "verifiedIndexes": 33
+  },
+  {
+   "name": "other",
+   "count": 64,
+   "width": 2048,
+   "writeMs": 23.03733299999999,
+   "batches": 1,
+   "maxBatchMs": 0.049125,
+   "settleMs": 547.3953750000001,
+   "verifiedIndexes": 33
+  }
+ ],
+ "cleaned": "2026-10-05T03:03:16.854Z"
+}

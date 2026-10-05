@@ -17,6 +17,8 @@ public final class ShadowHandlePool {
                            String reason) {}
     public record Entry(int index, Address address, long lastUsed, boolean reserved, boolean retired,
                         Reservation reservation) {}
+    /** Slot counts only. A complete entry list grew with the allocation in each poll response (8h1a). */
+    public record Summary(int capacity, int active, int bound, int reserved, int retired) {}
 
     private static final class Slot {
         Address address;
@@ -148,6 +150,16 @@ public final class ShadowHandlePool {
             result.add(new Entry(index, slot.address, slot.lastUsed, slot.pending != null, slot.retired, slot.pending));
         }
         return List.copyOf(result);
+    }
+
+    public Summary summary() {
+        int bound = 0, reserved = 0, retired = 0;
+        for (Slot slot : slots) {
+            if (slot.address != null) bound++;
+            if (slot.pending != null) reserved++;
+            if (slot.retired) retired++;
+        }
+        return new Summary(slots.length, active, bound, reserved, retired);
     }
 
     private Slot reserved(Reservation reservation) {

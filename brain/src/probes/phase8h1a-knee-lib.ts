@@ -6,12 +6,13 @@ import assert from 'node:assert/strict';
 
 export type Wire = Record<string, unknown>;
 
-export const KNEE_MARKER = '8h1a-knee-sweep-v7';
+export const KNEE_MARKER = '8h1a-knee-sweep-v8';
 /**
  * Builds whose arm results are retained. v4 fixed the quadratic enrichment census; earlier arms are diagnostics.
- * v5 added the fixture duration cap, v6 bounded the reconcile and canary copies, v7 the cursor slot setting.
+ * v5 added the fixture duration cap, v6 bounded the reconcile and canary copies, v7 the cursor slot setting,
+ * v8 the maintained hint count and the pool summary.
  */
-export const RETAINED_MARKERS = ['8h1a-knee-sweep-v4', '8h1a-knee-sweep-v5', '8h1a-knee-sweep-v6', KNEE_MARKER] as const;
+export const RETAINED_MARKERS = ['8h1a-knee-sweep-v4', '8h1a-knee-sweep-v5', '8h1a-knee-sweep-v6', '8h1a-knee-sweep-v7', KNEE_MARKER] as const;
 export const KNEE_PROFILE = 'phase-8-probe-v1';
 export const KNEE_METHOD_COUNT = 98;
 export const KNEE_METHODS_HASH = 'd89cee6bf21c1f96';
@@ -47,10 +48,30 @@ export function observerConfig(observers: number, cursorScenes?: number): Wire {
   if (cursorScenes !== undefined) { config.cacheShadowCursorScenes = cursorScenes; config.stamp += `-cursor${cursorScenes}`; }
   return config;
 }
+/**
+ * 8h1a flat bank isolation. 512 observers with no cursor slots; only the flat bank changes. Equal slot counts
+ * with different track counts separate the cost per track from the cost per slot. The slot total is capped
+ * well below the middle allocation that ran out of memory.
+ */
+export const FLAT_MAX_SLOTS = 65_536;
+export function flatConfig(tracks: number, scenes: number): Wire {
+  assert(Number.isInteger(tracks) && Number.isInteger(scenes) && tracks >= 16 && scenes >= 16 && tracks <= 2_048 && scenes <= 512,
+    'flat bank is outside the research allocation');
+  assert(tracks * scenes <= FLAT_MAX_SLOTS, 'flat bank exceeds the isolation slot cap');
+  return { ...observerConfig(512, 0), stamp: `8h1a-flat-${tracks}x${scenes}`, tracks, scenes, cacheTopologyTracks: tracks };
+}
+/** Combined row: largest observer and width values, with the passing 65,536-slot bank size. */
+export function combinedConfig(): Wire {
+  return { ...flatConfig(512, 128), stamp: '8h1a-combined', cacheShadowObservers: 4_096,
+    cacheShadowSteps: 4_194_304 };
+}
 /** Fixed allocation shape for an isolation config name. */
 export function isolationShape(name: string): { width: number; tracks: number; scenes: number; observers: number } | undefined {
+  if (name === 'combined') return { width: 4_194_304, tracks: 512, scenes: 128, observers: 4_096 };
   if (name.startsWith('width-')) return { width: Number(name.slice(6)), tracks: 16, scenes: 16, observers: 2 };
   if (name.startsWith('observers-')) return { width: 131_072, tracks: 16, scenes: 16, observers: Number(name.slice(10).split('-')[0]) };
+  const flat = name.match(/^flat-(\d+)x(\d+)$/);
+  if (flat) return { width: 131_072, tracks: Number(flat[1]), scenes: Number(flat[2]), observers: 512 };
   return undefined;
 }
 
@@ -160,6 +181,25 @@ export function oracleIndexes(count: number): number[] {
   return [...indexes].sort((a, b) => a - b);
 }
 
+/** Compare `{ channel, cell, pitch }` notes with the declared fixture membership. An empty list is an exact match. */
+export function membershipIssues(notes: unknown, count: number, width: number, semitones = 0, cap = 64, limit = 20): string[] {
+  if (!Array.isArray(notes)) return ['notes are absent'];
+  const issues: string[] = [], expected = new Set<string>();
+  for (let index = 0; index < count; index++) {
+    const note = fixtureNote(index, count, width, semitones, cap); expected.add(`${note.channel}:${note.cell}:${note.pitch}`);
+  }
+  if (notes.length !== count) issues.push(`note count ${notes.length} differs from ${count}`);
+  const seen = new Set<string>();
+  for (const row of notes as Wire[]) {
+    if (issues.length >= limit) break;
+    const key = `${String(row.channel)}:${String(row.cell)}:${String(row.pitch)}`;
+    if (!expected.has(key)) issues.push(`foreign note ${key}`);
+    else if (seen.has(key)) issues.push(`duplicate note ${key}`);
+    seen.add(key);
+  }
+  return issues;
+}
+
 /** Check targeted host reads at declared coordinates. Each coordinate must hold exactly the declared note. */
 export function targetedIssues(notes: unknown, indexes: readonly number[], count: number, width: number, semitones = 0, cap = 64): string[] {
   if (!Array.isArray(notes)) return ['targeted notes are absent'];
@@ -263,7 +303,8 @@ export function verifyArm(arm: Wire): ArmPoint {
   const exact = ((arm.exactReads as Wire[] | undefined) ?? []).filter(row => row.refused === undefined);
   const pings = (arm.pingSamplesMs as number[] | undefined) ?? [];
   assert(pings.length >= 20, 'an arm needs at least 20 ping samples');
-  const issues = [...warm, ...exact].flatMap(row => (row.issues as string[] | undefined) ?? ['issues absent']);
+  const cold = arm.coldRead === undefined ? [] : [arm.coldRead as Wire];
+  const issues = [...cold, ...warm, ...exact].flatMap(row => (row.issues as string[] | undefined) ?? ['issues absent']);
   const batches = warm.map(row => Number(row.maxBatchMs)).filter(Number.isFinite);
   const point: ArmPoint = {
     value: Number(arm.axisValue),
@@ -277,4 +318,25 @@ export function verifyArm(arm: Wire): ArmPoint {
   const summary = arm.summary as Wire | undefined;
   if (summary !== undefined) assert.deepEqual(summary, point, 'arm summary differs from its samples');
   return point;
+}
+
+/** Recompute the cursor slot bank matrix. Every binding reads exactly, every dense comparison matches, and exact fallback is exact. */
+export function verifyBinding(report: Wire): { steps: number; exact: number; pingP95Ms: number; maxBindMs: number } {
+  assert.equal(report.complete, false); assert.equal(report.eligible, false);
+  const steps = report.steps as Wire[], exact = report.exact as Wire[];
+  assert.equal(steps.length, 4, 'four binding steps');
+  for (const step of steps) {
+    assert.deepEqual(step.stages, step.expectedStages, `${String(step.label)} stages`);
+    const read = step.read as Wire;
+    assert.equal(read.comparison, 'promoted-unverified', `${String(step.label)} promoted read`);
+    assert.deepEqual(read.issues, [], `${String(step.label)} promoted read issues`);
+    assert.equal((step.dense as Wire).comparison, 'match', `${String(step.label)} dense comparison`);
+  }
+  assert.equal(exact.length, 2, 'two exact fallback reads');
+  for (const value of exact) {
+    assert.equal(value.phase, 'acquired'); assert.equal(value.readMode, 'exact-fallback');
+    assert.equal(value.cacheMembershipUsed, false); assert.deepEqual(value.issues, []);
+  }
+  const pingP95Ms = percentile(report.pingSamplesMs as number[], 0.95);
+  return { steps: steps.length, exact: exact.length, pingP95Ms, maxBindMs: Math.max(...steps.map(step => Number(step.bindMs))) };
 }

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { compactIssues, fixtureCell, fixtureChannel, fixtureDurationCells, fixtureNote, fixturePitch, fixtureVelocity,
+import { compactIssues, combinedConfig, flatConfig, membershipIssues, verifyBinding, fixtureCell, fixtureChannel, fixtureDurationCells, fixtureNote, fixturePitch, fixtureVelocity,
   fixtureSoundingCells, isolationShape, kneeConfig, observerConfig, openLimits, oracleIndexes, parseHistogram, widthConfig, HEAP_STOP_BYTES, pointPasses, selectLimit, targetedIssues, verifyArm, KNEE_MARKER, type Wire } from './phase8h1a-knee-lib.js';
 
 test('8h1a: fixture spec matches the Java golden values', () => {
@@ -21,6 +21,14 @@ test('8h1a: the maximum allocation config is explicit and research-only', () => 
   assert.equal(kneeConfig('max', 4_095).cacheShadowObservers, 4_095);
 });
 
+test('8h1a: the combined allocation excludes the unused cursor slot banks', () => {
+  const config = combinedConfig();
+  assert.deepEqual([config.tracks, config.scenes, config.cacheShadowObservers, config.cacheShadowSteps, config.cacheShadowCursorScenes],
+    [512, 128, 4096, 4194304, 0]);
+  assert.equal(config.cacheKneeResearch, true);
+  assert.deepEqual(isolationShape('combined'), { tracks: 512, scenes: 128, observers: 4096, width: 4194304 });
+});
+
 const compact = (count: number, width: number, semitones = 0): unknown[][] =>
   Array.from({ length: count }, (_, i) => { const n = fixtureNote(i, count, width, semitones);
     return [n.channel, n.cell, n.pitch, n.velocity / 127, n.durationCells]; });
@@ -36,6 +44,15 @@ test('8h1a: compact promoted rows match only the declared fixture', () => {
   const foreign = compact(64, 4096); foreign[0] = [15, 1, 1, 0.5, 1];
   assert.match(compactIssues(foreign, 64, 4096).join(';'), /foreign note/);
   assert.deepEqual(compactIssues(undefined, 1, 1), ['compact rows are absent']);
+});
+
+test('8h1a: exact and dense membership match only the declared fixture', () => {
+  const notes = Array.from({ length: 64 }, (_, index) => { const n = fixtureNote(index, 64, 2048); return { channel: n.channel, cell: n.cell, pitch: n.pitch }; });
+  assert.deepEqual(membershipIssues(notes, 64, 2048), []);
+  assert.match(membershipIssues(notes.slice(1), 64, 2048).join(';'), /note count 63/);
+  assert.match(membershipIssues([...notes.slice(1), notes[2]], 64, 2048).join(';'), /duplicate note/);
+  assert.match(membershipIssues(notes, 64, 2048, 12).join(';'), /foreign note/);
+  assert.deepEqual(membershipIssues(undefined, 1, 1), ['notes are absent']);
 });
 
 test('8h1a: targeted oracle checks the final cell and all 16 channels', () => {
@@ -72,6 +89,7 @@ test('8h1a: an arm summary is recomputed from its samples', () => {
   assert.deepEqual(point, { value: 4096, exact: true, pingP95Ms: 38, warmReadMs: 40, exactReadMs: 900, hostWorkMaxBatchMs: 41 });
   assert.throws(() => verifyArm({ ...arm, summary: { ...point, warmReadMs: 10 } }));
   assert.equal(verifyArm({ ...arm, warmReads: [{ wallMs: 30, maxBatchMs: 40, issues: ['velocity'] }] }).exact, false);
+  assert.equal(verifyArm({ ...arm, coldRead: { issues: ['foreign note'] } }).exact, false);
   const refused = verifyArm({ ...arm, exactReads: [{ wallMs: 5, refused: 'the exact source limit is 4096 notes', issues: [] }] });
   assert.equal(refused.exactReadMs, undefined); assert.equal(refused.exact, true);
   assert.throws(() => verifyArm({ ...arm, eligible: true }));
@@ -127,4 +145,28 @@ test('8h1a: the cursor-scene variant changes only the shadow cursor slot bank', 
   const { stamp: base, ...plain } = observerConfig(4_096);
   assert.equal(cacheShadowCursorScenes, 0); assert.equal(stamp, `${base}-cursor0`); assert.deepEqual(rest, plain);
   assert.equal(isolationShape('observers-4096-cursor0')!.observers, 4_096);
+});
+
+test('8h1a: the binding matrix needs exact reads, matching dense scans, and the expected stages', () => {
+  const step = (label: string, expectedStages: string[]): Wire => ({ label, expectedStages, stages: [...expectedStages], bindMs: 100,
+    read: { comparison: 'promoted-unverified', issues: [] }, dense: { comparison: 'match' } });
+  const exact = { phase: 'acquired', readMode: 'exact-fallback', cacheMembershipUsed: false, issues: [] };
+  const report = (): Wire => ({ complete: false, eligible: false, pingSamplesMs: [10, 20], exact: [{ ...exact }, { ...exact }],
+    steps: [step('a', ['target']), step('b', ['canary', 'target']), step('c', ['canary', 'target']), step('d', ['escape', 'canary', 'target'])] });
+  assert.deepEqual(verifyBinding(report()), { steps: 4, exact: 2, pingP95Ms: 20, maxBindMs: 100 });
+  const skipped = report(); ((skipped.steps as Wire[])[3]!).stages = ['canary', 'target'];
+  assert.throws(() => verifyBinding(skipped), /d stages/);
+  const mismatch = report(); ((mismatch.steps as Wire[])[1]!.dense as Wire).comparison = 'membership-mismatch';
+  assert.throws(() => verifyBinding(mismatch), /b dense/);
+  const cached = report(); ((cached.exact as Wire[])[0]!).cacheMembershipUsed = true;
+  assert.throws(() => verifyBinding(cached));
+});
+
+test('8h1a: flat bank isolation keeps 512 observers without cursor slots and caps the slot total', () => {
+  const config = flatConfig(2048, 16);
+  assert.equal(config.tracks, 2048); assert.equal(config.scenes, 16); assert.equal(config.cacheTopologyTracks, 2048);
+  assert.equal(config.cacheShadowObservers, 512); assert.equal(config.cacheShadowCursorScenes, 0); assert.equal(config.stamp, '8h1a-flat-2048x16');
+  assert.deepEqual(isolationShape('flat-64x512'), { width: 131_072, tracks: 64, scenes: 512, observers: 512 });
+  assert.throws(() => flatConfig(1024, 256), /slot cap/);
+  assert.throws(() => flatConfig(4096, 16), /outside/);
 });

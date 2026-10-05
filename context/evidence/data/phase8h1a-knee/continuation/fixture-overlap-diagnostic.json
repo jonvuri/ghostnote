@@ -1,0 +1,14 @@
+{
+ "schema": "phase8h1a-diagnostic-v1",
+ "marker": "8h1a-knee-sweep-v8",
+ "complete": false,
+ "eligible": false,
+ "issue": "The sustained fixture writer started before the dense fixture writer finished. The dense writer later overwrote the sustained state entry.",
+ "recovery": "Retain the owned slot intent, rewrite the sustained fixture serially, then check both complete promoted reads.",
+ "overlappedSustainedResult": {
+  "notes": 16384,
+  "writeMs": 100,
+  "settleMs": 2078,
+  "targetedCoordinates": 33
+ }
+}

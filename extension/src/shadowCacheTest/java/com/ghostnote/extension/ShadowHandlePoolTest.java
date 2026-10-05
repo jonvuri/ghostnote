@@ -70,8 +70,10 @@ public final class ShadowHandlePoolTest {
             "a reserved slot cannot start a concurrent binding");
         check(pool.markRetired(pending) && !pool.accept(pending, false), "unsettled binding cannot commit");
         check(pool.entries().get(0).address() == null, "retirement removes the old address");
+        check(pool.summary().equals(new Summary(1, 1, 0, 1, 1)), "the summary counts a retired reservation: " + pool.summary());
         check(pool.accept(pending, true) && pool.find(B) == 0, "guarded settlement commits the pending target");
         check(!pool.accept(pending, true) && !pool.cancel(pending), "consumed reservation cannot act twice");
+        check(pool.summary().equals(new Summary(1, 1, 1, 0, 0)), "the summary counts a committed address: " + pool.summary());
     }
 
     private static void cancellation() {

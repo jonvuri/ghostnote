@@ -23,6 +23,14 @@ It controls only grid size, step size, scroll position, and subscription.
 
 Run this session after the 8h1a continuation and before 8h1 promotion.
 
+The 8h1a combined row also adds about 264 MiB of retained read data at 131,072
+notes. Complete research reconcile calls reach 210 ms while they build full
+diagnostics. Include that retained-data term in the memory measurements. Remove
+or budget repeated census and historical payload construction before promotion.
+The 512-track, 128-scene project reaches 2,013 MiB and takes 10 s on its first
+switch to the anchor. Keep the scene count and project model in each heap sample.
+
+
 ## Experiments, in order
 
 ### 1. Release of a bound proxy

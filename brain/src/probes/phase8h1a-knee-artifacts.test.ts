@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import test from 'node:test';
-import { fixtureSoundingCells, selectLimit, verifyArm, type Wire } from './phase8h1a-knee-lib.js';
+import { fixtureSoundingCells, selectLimit, verifyArm, verifyBinding, type Wire } from './phase8h1a-knee-lib.js';
 import { ORIGINAL_CONFIG_SHA256 } from './phase8g5-consumers-lib.js';
 
 const DATA = join(process.cwd(), '..', 'context', 'evidence', 'data', 'phase8h1a-knee');
@@ -89,4 +89,122 @@ test('8h1a artifacts: bursts drain inside the host-work limit and restore the fi
       assert(Number((phase.drain as Wire).drainMs) < 1_000);
     }
   }
+});
+
+test('8h1a continuation: the maintained hint count removes the observer read cost', () => {
+  for (const count of [512, 4096]) {
+    const arm = read(`continuation/arm-observers-${count}.json`);
+    assert.equal(verifyArm(arm).exact, true);
+    const rows = arm.warmReads as Wire[];
+    assert(rows.every(row => Number(row.enrichmentHostWorkMs) < 60), 'enrichment work stays below 60 ms');
+    assert(rows.every(row => Number(row.responseBytes) < 200_000), 'poll replies omit the full handle list');
+    const after = arm.after as Wire;
+    assert.equal(after.physicalPendingHints, after.physicalPendingHintsRecount);
+  }
+});
+
+test('8h1a continuation: zero cursor slots pass binding, dense comparison, and exact fallback', () => {
+  const matrix = read('continuation/binding-4096-cursor0.json');
+  assert.equal(matrix.cursorScenes, 0);
+  const result = verifyBinding(matrix);
+  assert.equal(result.steps, 4); assert.equal(result.exact, 2);
+  assert(Number(result.maxBindMs) < 6_000); assert(Number(result.pingP95Ms) < 30);
+});
+
+test('8h1a continuation: project heap growth is independent of the flat bank shape', () => {
+  const large = ['tracks4', 'tracks256'].map(suffix => Number((read(`continuation/switch-flat-2048x16-${suffix}.json`).heap as Wire).liveBytes));
+  const narrow = ['control-tracks4', 'tracks256-rerun'].map(suffix => Number((read(`continuation/switch-flat-64x512-${suffix}.json`).heap as Wire).liveBytes));
+  const growth = [large[1]! - large[0]!, narrow[1]! - narrow[0]!];
+  assert(Math.abs(growth[0]! - growth[1]!) < 4 * MiB);
+  for (const bytes of growth) assert(bytes / 253 > 0.9 * MiB && bytes / 253 < MiB);
+  const rerun = read('continuation/switch-flat-64x512-tracks256-rerun.json');
+  assert.equal(rerun.tracks, 257);
+  assert.equal((rerun.publication as Wire).refused, 'project-exceeds-active-bank');
+  assert.equal((rerun.switches as Wire[]).length, 4);
+  assert((rerun.switches as Wire[]).every(row => Number(row.drainMs) < 350));
+});
+
+test('8h1a continuation: serial canary rebinds stay below the five-second replay budget', () => {
+  const report = read('continuation/rebinds-4096-cursor0.json');
+  assert.equal(report.error, undefined);
+  const rows = report.rebinds as Wire[];
+  assert.equal(rows.length, 9);
+  for (const row of rows) {
+    assert.deepEqual(row.readIssues, []);
+    assert(Number(row.bindMs) > 3_500 && Number(row.bindMs) < 4_000);
+  }
+});
+
+test('8h1a combined: small polled waves bind 512 observers within the selected deadlines', () => {
+  const report = read('continuation/observers-combined-512.json');
+  assert.equal(report.error, undefined);
+  const waves = report.waves as Wire[];
+  assert.equal(waves.length, 32);
+  assert.equal(waves.reduce((sum, wave) => sum + Number(wave.observers), 0), 512);
+  assert.equal(new Set(waves.flatMap(wave => wave.indexes as number[])).size, 512);
+  assert(waves.every(wave => Number(wave.observers) <= 16 && Number(wave.wallMs) < 5_000));
+  assert(Number(report.maxPollBatchMs) < 50);
+  assert(Number(report.pingP95Ms) < 30);
+  const config = report.configuration as Wire, limits = config.limits as Wire;
+  assert.equal((config.active as Wire).width, 4_194_304);
+  assert.equal((config.active as Wire).observers, 4096);
+  assert.deepEqual([limits.replayDeadlineMs, limits.enrichmentDeadlineMs, limits.rebuildDeadlineMs], [5_000, 5_000, 40_000]);
+  assert(Number((report.heap as Wire).liveBytes) < 2 * 1024 ** 3);
+  const failed = read('continuation/observers-combined-512-poll-gap-diagnostic.json');
+  assert.match(String(failed.error), /binding-budget/);
+});
+
+test('8h1a combined: complete density and final-scene reads are exact at the selected deadlines', () => {
+  for (const name of ['density', 'last-scene']) {
+    const arm = read(`continuation/arm-combined-${name}.json`);
+    assert.equal(arm.error, undefined);
+    assert.equal(verifyArm(arm).exact, true);
+    assert.deepEqual((arm.coldRead as Wire).issues, []);
+    assert.deepEqual(arm.oracleIssues, []);
+    const config = arm.configuration as Wire, limits = config.limits as Wire;
+    assert.deepEqual([limits.replayDeadlineMs, limits.enrichmentDeadlineMs, limits.rebuildDeadlineMs], [5_000, 5_000, 40_000]);
+    assert.equal((config.active as Wire).observers, 4096);
+    assert.equal((config.active as Wire).width, 4_194_304);
+    assert((arm.heaps as Wire[]).every(sample => Number(sample.liveBytes) < 2 * 1024 ** 3));
+    assert((arm.heaps as Wire[]).some(sample => sample.label === 'after-targeted-oracle'));
+  }
+  const last = read('continuation/arm-combined-last-scene.json');
+  assert.equal((last.fixture as Wire).row, 127);
+  assert.equal((last.exactReads as Wire[]).length, 1);
+  const density = read('continuation/arm-combined-density.json');
+  assert.equal((density.fixture as Wire).count, 131_072);
+  assert(Number((density.summary as Wire).warmReadMs) < 5_000);
+  const heaps = density.heaps as Wire[];
+  const added = Number(heaps.find(row => row.label === 'after-warm-reads')!.liveBytes)
+    - Number(heaps.find(row => row.label === 'after-cold-bind')!.liveBytes);
+  assert(added > 250 * MiB && added < 280 * MiB, 'retained read data adds about 264 MiB');
+});
+
+test('8h1a combined: the dense transpose and restore are exact and stay below the heap stop', () => {
+  const burst = read('continuation/burst-combined-native-density.json');
+  assert.equal(burst.error, undefined);
+  const phases = burst.phases as Wire[];
+  assert.deepEqual(phases.map(phase => phase.to), [12, 0]);
+  for (const phase of phases) {
+    assert.deepEqual((phase.read as Wire).issues, []);
+    assert.equal((phase.drain as Wire).coordinates, 262_144);
+    assert(Number((phase.drain as Wire).drainMs) < 2_000);
+    assert(Number((phase.heap as Wire).liveBytes) < 2 * 1024 ** 3);
+  }
+  assert(Number((phases[1]!.drain as Wire).maxReconcileMs) > 150, 'the complete diagnostic call exceeds the cache-work budget');
+  assert.equal(((read('continuation/state-combined.json').fixtures as Wire).dense as Wire).semitones, 0);
+});
+
+test('8h1a combined: real project switches publish complete inventory within the rebuild deadline', () => {
+  const report = read('continuation/switch-combined-tracks512-scenes128.json');
+  assert.equal(report.error, undefined);
+  assert.equal(report.tracks, 512);
+  assert.equal((report.allocation as Wire).sceneItemCount, 128);
+  assert.deepEqual((report.switches as Wire[]).map(row => row.project), ['gn-scale-test', 'New 2', 'gn-scale-test', 'New 2']);
+  assert((report.switches as Wire[]).every(row => Number(row.slotCallbacks) === 1032));
+  assert(Number(((report.switches as Wire[])[0]!).activationMs) > 9_000, 'first anchor activation takes about ten seconds');
+  const publication = report.publication as Wire;
+  assert.equal(publication.occupancyCount, 1019);
+  assert(Number(publication.wallMs) < 40_000);
+  assert(Number((report.heap as Wire).liveBytes) < 2 * 1024 ** 3);
 });

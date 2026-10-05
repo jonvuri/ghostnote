@@ -1,0 +1,1814 @@
+{
+ "schema": "phase8h1a-arm-v1",
+ "marker": "8h1a-knee-sweep-v8",
+ "complete": false,
+ "eligible": false,
+ "captured": "2026-10-05T04:08:51.310Z",
+ "axis": "combined",
+ "axisValue": 127,
+ "fixture": {
+  "name": "last",
+  "trackIndex": 0,
+  "trackId": "42bfc267-3fc6-47b3-a385-17ec55e7bd35",
+  "row": 127,
+  "width": 2048,
+  "count": 64,
+  "semitones": 0,
+  "durationCap": 64
+ },
+ "canary": "canary",
+ "hello": {
+  "contractVersion": 0,
+  "extensionVersion": "0.0.1",
+  "runtimeProfile": "phase-8-probe-v1",
+  "hostApiVersion": 25,
+  "methodCount": 98,
+  "methodsHash": "d89cee6bf21c1f96"
+ },
+ "allocation": {
+  "revision": "8h1a-allocation-v1",
+  "projectName": "New 2",
+  "activeTracks": 512,
+  "activeScenes": 128,
+  "trackItemCount": 512,
+  "sceneItemCount": 128,
+  "complete": false,
+  "eligible": false,
+  "jvmMemory": {
+   "capturedEpochMs": 1791173331286,
+   "usedBytes": 2327838720,
+   "committedBytes": 3221225472,
+   "maximumBytes": 3221225472,
+   "scope": "shared-jvm",
+   "forcedGc": false
+  },
+  "topologyAllocated": true,
+  "topology": {
+   "maximumTracks": 512,
+   "banks": 513,
+   "bankTrackHandles": 1024,
+   "parentTrackHandles": 0,
+   "stepDataObservers": 0,
+   "heapMeasured": false,
+   "hostMemoryMeasured": false,
+   "selectedRoute": "counted-preorder-with-uuid-master",
+   "bookkeepingEstimatedBytes": 10544,
+   "parentHandlesDiagnosticOnly": false,
+   "allocationMeasurement": {
+    "before": {
+     "capturedEpochMs": 1791171657594,
+     "usedBytes": 618659840,
+     "committedBytes": 757071872,
+     "maximumBytes": 3221225472,
+     "scope": "shared-jvm",
+     "forcedGc": false
+    },
+    "after": {
+     "capturedEpochMs": 1791171657602,
+     "usedBytes": 637534208,
+     "committedBytes": 757071872,
+     "maximumBytes": 3221225472,
+     "scope": "shared-jvm",
+     "forcedGc": false
+    },
+    "constructionMs": 7.954125
+   }
+  },
+  "flatBankTracks": 512,
+  "slotObservers": 512,
+  "slotHandles": 65536
+ },
+ "stats": {
+  "runtimeProfile": "phase-8-probe-v1",
+  "config": {
+   "tracks": 512,
+   "scenes": 128,
+   "gridSteps": 64,
+   "gridKeys": 128,
+   "cursorPool": 8,
+   "sends": 4,
+   "deviceBank": 16,
+   "fineSteps": 512,
+   "noteReadSteps": 2048,
+   "paramHandles": 64,
+   "remotePages": 16,
+   "cacheScaleObservers": 0,
+   "cacheScaleSteps": 131072,
+   "cacheScaleWidthSteps": 0,
+   "cacheShadowObservers": 4096,
+   "cacheShadowSteps": 4194304,
+   "cacheTopologyTracks": 512,
+   "cacheTopologyCounted": true,
+   "cacheLifecycleResearch": true,
+   "cacheKneeResearch": true,
+   "cacheShadowCursorScenes": 0,
+   "deliveryResearch": false,
+   "contentFilter": "ALL_CHANNELS",
+   "directObservers": true,
+   "stamp": "8h1a-combined",
+   "fromFile": true
+  },
+  "rigConstructMicros": 330160,
+  "initMicros": 361985,
+  "initEpochMs": 1791171657634,
+  "upMs": 1673674,
+  "slotObjects": 65536,
+  "markedValues": 396800,
+  "resources": {
+   "cursorDeviceBanks": 8,
+   "siblingDeviceBanks": 1,
+   "layerDeviceBanks": 8,
+   "slotDeviceBanks": 15,
+   "namedSlotDeviceBanks": 0,
+   "drumPadDeviceBanks": 16,
+   "deviceBanks": 48,
+   "cursorDeviceSlots": 128,
+   "cursorDeviceEnabledValues": 128,
+   "layerDeviceSlots": 32,
+   "slotDeviceSlots": 60,
+   "drumPadDeviceSlots": 256,
+   "namedSlotDeviceSlots": 0,
+   "deviceSlots": 492,
+   "cursorDevices": 1,
+   "specificDeviceViews": 4,
+   "typedParameterHandles": 75,
+   "remotePageCursors": 16,
+   "remoteParameterHandles": 128,
+   "directParameterObservers": 4,
+   "noteObserverCursors": 1,
+   "noteStepObservers": 1,
+   "stepDataObservers": 1,
+   "cacheScaleCursorTracks": 0,
+   "cacheScaleClipProxies": 0,
+   "cacheScaleStepDataObservers": 0,
+   "trackSendBanks": 0,
+   "trackSendHandles": 0,
+   "trackVuObservers": 0,
+   "historicalActionHandles": 0,
+   "historicalSelectionObservers": 0,
+   "equalsProxies": 32,
+   "transportProxies": 1,
+   "masterRecorderProxies": 0,
+   "cursorTracks": 10,
+   "cursorClips": 12,
+   "layerBanks": 4,
+   "layerHandles": 23,
+   "layerSendBanks": 0,
+   "layerSendHandles": 0,
+   "explicitHostObjects": 66917,
+   "observerCallbacks": 1607
+  },
+  "heapUsedMb": 2220,
+  "heapMaxMb": 3072
+ },
+ "configuration": {
+  "revision": "8h1a-knee-sweep-v8",
+  "complete": false,
+  "eligible": false,
+  "allocation": {
+   "observers": 4096,
+   "authorityObservers": 1,
+   "totalExperimentalStepDataObservers": 4100,
+   "width": 4194304,
+   "scenes": 128,
+   "cursorScenes": 0,
+   "tracks": 512,
+   "cacheBankConstructionMs": 131.342167
+  },
+  "active": {
+   "observers": 4096,
+   "experimentalStepDataObservers": 4100,
+   "width": 4194304,
+   "scenes": 128,
+   "tracks": 512,
+   "subscribedObservers": 4096
+  },
+  "limits": {
+   "width": 4194304,
+   "observers": 4100,
+   "occupied": 1073741824,
+   "pending": 2147483647,
+   "recorderBytes": 9223372036854776000,
+   "snapshotBytes": 9223372036854776000,
+   "combinedBytes": 9223372036854776000,
+   "registryBytes": 9223372036854776000,
+   "replayDeadlineMs": 5000,
+   "enrichmentDeadlineMs": 5000,
+   "rebuildDeadlineMs": 40000,
+   "constructionBudgetMs": 200,
+   "pingBudgetMs": 50
+  },
+  "configurations": 6,
+  "applied": true,
+  "applyMs": 15904.350125
+ },
+ "heaps": [
+  {
+   "label": "arm-entry",
+   "capturedEpochMs": 1791173336418,
+   "pid": 78356,
+   "histogramMs": 5032.504667,
+   "liveBytes": 2110418240,
+   "liveInstances": 36161511,
+   "top": [
+    {
+     "instances": 3408406,
+     "bytes": 190870736,
+     "name": "java.util.TreeMap$Entry (java.base@25)"
+    },
+    {
+     "instances": 3422422,
+     "bytes": 179710184,
+     "name": "[Ljava.lang.Object; (java.base@25)"
+    },
+    {
+     "instances": 339922,
+     "bytes": 138262512,
+     "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+    },
+    {
+     "instances": 3256510,
+     "bytes": 104208320,
+     "name": "java.util.ArrayList (java.base@25)"
+    },
+    {
+     "instances": 2085676,
+     "bytes": 83427040,
+     "name": "java.util.HashMap$Node (java.base@25)"
+    },
+    {
+     "instances": 306754,
+     "bytes": 76074992,
+     "name": "djy"
+    },
+    {
+     "instances": 1055982,
+     "bytes": 63682984,
+     "name": "[B (java.base@25)"
+    },
+    {
+     "instances": 261055,
+     "bytes": 62653200,
+     "name": "aXq"
+    },
+    {
+     "instances": 223353,
+     "bytes": 58965192,
+     "name": "dQk"
+    },
+    {
+     "instances": 196968,
+     "bytes": 51999552,
+     "name": "aVt"
+    },
+    {
+     "instances": 717817,
+     "bytes": 51682824,
+     "name": "com.bitwig.flt.control_surface.values.ComputedBooleanValue"
+    },
+    {
+     "instances": 2115114,
+     "bytes": 50762736,
+     "name": "java.lang.Double (java.base@25)"
+    },
+    {
+     "instances": 262400,
+     "bytes": 44083200,
+     "name": "com.bitwig.flt.control_surface.proxy.NoteStep"
+    },
+    {
+     "instances": 1134092,
+     "bytes": 36290944,
+     "name": "com.bitwig.base.geom.rmP"
+    },
+    {
+     "instances": 1045243,
+     "bytes": 33447776,
+     "name": "java.lang.String (java.base@25)"
+    },
+    {
+     "instances": 75424,
+     "bytes": 27756032,
+     "name": "com.bitwig.flt.control_surface.proxy.ClipLauncherSlotProxy"
+    },
+    {
+     "instances": 665906,
+     "bytes": 26636240,
+     "name": "dkf"
+    },
+    {
+     "instances": 825116,
+     "bytes": 26403712,
+     "name": "YrQ"
+    },
+    {
+     "instances": 385231,
+     "bytes": 24654784,
+     "name": "java.util.HashMap (java.base@25)"
+    },
+    {
+     "instances": 296645,
+     "bytes": 23731600,
+     "name": "cZv"
+    },
+    {
+     "instances": 959188,
+     "bytes": 23020512,
+     "name": "zOY"
+    },
+    {
+     "instances": 201349,
+     "bytes": 22551088,
+     "name": "dfJ"
+    },
+    {
+     "instances": 131212,
+     "bytes": 20993920,
+     "name": "yLx"
+    },
+    {
+     "instances": 262271,
+     "bytes": 20981680,
+     "name": "java.util.TreeMap (java.base@25)"
+    },
+    {
+     "instances": 624078,
+     "bytes": 19970496,
+     "name": "com.bitwig.ramona.core.syr"
+    }
+   ],
+   "heapInfo": "78356:\nZHeap            used 2116M, capacity 3072M, max capacity 3072M\n Cache           956M (42)\n  size classes   2M (15), 4M (8), 8M (2), 16M (9), 32M (4), 64M (2), 128M (2)"
+  },
+  {
+   "label": "after-cold-bind",
+   "capturedEpochMs": 1791173357788,
+   "pid": 78356,
+   "histogramMs": 925.6234580000018,
+   "liveBytes": 1734098680,
+   "liveInstances": 27913875,
+   "top": [
+    {
+     "instances": 3291414,
+     "bytes": 172957664,
+     "name": "[Ljava.lang.Object; (java.base@25)"
+    },
+    {
+     "instances": 339922,
+     "bytes": 127811568,
+     "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+    },
+    {
+     "instances": 3256512,
+     "bytes": 104208384,
+     "name": "java.util.ArrayList (java.base@25)"
+    },
+    {
+     "instances": 306754,
+     "bytes": 76074992,
+     "name": "djy"
+    },
+    {
+     "instances": 1055980,
+     "bytes": 63682776,
+     "name": "[B (java.base@25)"
+    },
+    {
+     "instances": 261055,
+     "bytes": 62653200,
+     "name": "aXq"
+    },
+    {
+     "instances": 1565259,
+     "bytes": 62610360,
+     "name": "java.util.HashMap$Node (java.base@25)"
+    },
+    {
+     "instances": 223353,
+     "bytes": 58965192,
+     "name": "dQk"
+    },
+    {
+     "instances": 196968,
+     "bytes": 51999552,
+     "name": "aVt"
+    },
+    {
+     "instances": 717817,
+     "bytes": 51682824,
+     "name": "com.bitwig.flt.control_surface.values.ComputedBooleanValue"
+    },
+    {
+     "instances": 1134092,
+     "bytes": 36290944,
+     "name": "com.bitwig.base.geom.rmP"
+    },
+    {
+     "instances": 1045241,
+     "bytes": 33447712,
+     "name": "java.lang.String (java.base@25)"
+    },
+    {
+     "instances": 75424,
+     "bytes": 27756032,
+     "name": "com.bitwig.flt.control_surface.proxy.ClipLauncherSlotProxy"
+    },
+    {
+     "instances": 665906,
+     "bytes": 26636240,
+     "name": "dkf"
+    },
+    {
+     "instances": 825116,
+     "bytes": 26403712,
+     "name": "YrQ"
+    },
+    {
+     "instances": 385231,
+     "bytes": 24654784,
+     "name": "java.util.HashMap (java.base@25)"
+    },
+    {
+     "instances": 296645,
+     "bytes": 23731600,
+     "name": "cZv"
+    },
+    {
+     "instances": 959189,
+     "bytes": 23020536,
+     "name": "zOY"
+    },
+    {
+     "instances": 201349,
+     "bytes": 22551088,
+     "name": "dfJ"
+    },
+    {
+     "instances": 133199,
+     "bytes": 22377432,
+     "name": "com.bitwig.flt.control_surface.proxy.NoteStep"
+    },
+    {
+     "instances": 131212,
+     "bytes": 20993920,
+     "name": "yLx"
+    },
+    {
+     "instances": 624078,
+     "bytes": 19970496,
+     "name": "com.bitwig.ramona.core.syr"
+    },
+    {
+     "instances": 190717,
+     "bytes": 19834568,
+     "name": "com.bitwig.flt.control_surface.values.SettableEnumAttributeProxy"
+    },
+    {
+     "instances": 742491,
+     "bytes": 17819784,
+     "name": "Gus"
+    },
+    {
+     "instances": 65656,
+     "bytes": 16282688,
+     "name": "aZf"
+    }
+   ],
+   "heapInfo": "78356:\nZHeap            used 1752M, capacity 3072M, max capacity 3072M\n Cache           1320M (74)\n  size classes   2M (27), 4M (19), 8M (11), 16M (6), 32M (6), 64M (2), 128M (3)"
+  },
+  {
+   "label": "after-warm-reads",
+   "capturedEpochMs": 1791173359035,
+   "pid": 78356,
+   "histogramMs": 883.2068749999999,
+   "liveBytes": 1734235296,
+   "liveInstances": 27917043,
+   "top": [
+    {
+     "instances": 3291415,
+     "bytes": 172958192,
+     "name": "[Ljava.lang.Object; (java.base@25)"
+    },
+    {
+     "instances": 339922,
+     "bytes": 127811568,
+     "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+    },
+    {
+     "instances": 3256512,
+     "bytes": 104208384,
+     "name": "java.util.ArrayList (java.base@25)"
+    },
+    {
+     "instances": 306754,
+     "bytes": 76074992,
+     "name": "djy"
+    },
+    {
+     "instances": 1055982,
+     "bytes": 63682984,
+     "name": "[B (java.base@25)"
+    },
+    {
+     "instances": 261055,
+     "bytes": 62653200,
+     "name": "aXq"
+    },
+    {
+     "instances": 1565259,
+     "bytes": 62610360,
+     "name": "java.util.HashMap$Node (java.base@25)"
+    },
+    {
+     "instances": 223353,
+     "bytes": 58965192,
+     "name": "dQk"
+    },
+    {
+     "instances": 196968,
+     "bytes": 51999552,
+     "name": "aVt"
+    },
+    {
+     "instances": 717817,
+     "bytes": 51682824,
+     "name": "com.bitwig.flt.control_surface.values.ComputedBooleanValue"
+    },
+    {
+     "instances": 1134092,
+     "bytes": 36290944,
+     "name": "com.bitwig.base.geom.rmP"
+    },
+    {
+     "instances": 1045243,
+     "bytes": 33447776,
+     "name": "java.lang.String (java.base@25)"
+    },
+    {
+     "instances": 75424,
+     "bytes": 27756032,
+     "name": "com.bitwig.flt.control_surface.proxy.ClipLauncherSlotProxy"
+    },
+    {
+     "instances": 665906,
+     "bytes": 26636240,
+     "name": "dkf"
+    },
+    {
+     "instances": 825116,
+     "bytes": 26403712,
+     "name": "YrQ"
+    },
+    {
+     "instances": 385231,
+     "bytes": 24654784,
+     "name": "java.util.HashMap (java.base@25)"
+    },
+    {
+     "instances": 296645,
+     "bytes": 23731600,
+     "name": "cZv"
+    },
+    {
+     "instances": 959189,
+     "bytes": 23020536,
+     "name": "zOY"
+    },
+    {
+     "instances": 201349,
+     "bytes": 22551088,
+     "name": "dfJ"
+    },
+    {
+     "instances": 133199,
+     "bytes": 22377432,
+     "name": "com.bitwig.flt.control_surface.proxy.NoteStep"
+    },
+    {
+     "instances": 131212,
+     "bytes": 20993920,
+     "name": "yLx"
+    },
+    {
+     "instances": 624078,
+     "bytes": 19970496,
+     "name": "com.bitwig.ramona.core.syr"
+    },
+    {
+     "instances": 190717,
+     "bytes": 19834568,
+     "name": "com.bitwig.flt.control_surface.values.SettableEnumAttributeProxy"
+    },
+    {
+     "instances": 742491,
+     "bytes": 17819784,
+     "name": "Gus"
+    },
+    {
+     "instances": 65656,
+     "bytes": 16282688,
+     "name": "aZf"
+    }
+   ],
+   "heapInfo": "78356:\nZHeap            used 1754M, capacity 3072M, max capacity 3072M\n Cache           1318M (69)\n  size classes   2M (23), 4M (20), 8M (8), 16M (7), 32M (6), 64M (2), 128M (3)"
+  },
+  {
+   "label": "after-targeted-oracle",
+   "capturedEpochMs": 1791173360213,
+   "pid": 78356,
+   "histogramMs": 901.1920830000017,
+   "liveBytes": 1698108432,
+   "liveInstances": 27271917,
+   "top": [
+    {
+     "instances": 3291413,
+     "bytes": 172958176,
+     "name": "[Ljava.lang.Object; (java.base@25)"
+    },
+    {
+     "instances": 339922,
+     "bytes": 127811568,
+     "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+    },
+    {
+     "instances": 3256510,
+     "bytes": 104208320,
+     "name": "java.util.ArrayList (java.base@25)"
+    },
+    {
+     "instances": 306754,
+     "bytes": 76074992,
+     "name": "djy"
+    },
+    {
+     "instances": 1055982,
+     "bytes": 63682984,
+     "name": "[B (java.base@25)"
+    },
+    {
+     "instances": 261055,
+     "bytes": 62653200,
+     "name": "aXq"
+    },
+    {
+     "instances": 223353,
+     "bytes": 58965192,
+     "name": "dQk"
+    },
+    {
+     "instances": 1307210,
+     "bytes": 52288400,
+     "name": "java.util.HashMap$Node (java.base@25)"
+    },
+    {
+     "instances": 196968,
+     "bytes": 51999552,
+     "name": "aVt"
+    },
+    {
+     "instances": 717817,
+     "bytes": 51682824,
+     "name": "com.bitwig.flt.control_surface.values.ComputedBooleanValue"
+    },
+    {
+     "instances": 1134092,
+     "bytes": 36290944,
+     "name": "com.bitwig.base.geom.rmP"
+    },
+    {
+     "instances": 1045243,
+     "bytes": 33447776,
+     "name": "java.lang.String (java.base@25)"
+    },
+    {
+     "instances": 75424,
+     "bytes": 27756032,
+     "name": "com.bitwig.flt.control_surface.proxy.ClipLauncherSlotProxy"
+    },
+    {
+     "instances": 665906,
+     "bytes": 26636240,
+     "name": "dkf"
+    },
+    {
+     "instances": 825116,
+     "bytes": 26403712,
+     "name": "YrQ"
+    },
+    {
+     "instances": 385231,
+     "bytes": 24654784,
+     "name": "java.util.HashMap (java.base@25)"
+    },
+    {
+     "instances": 296645,
+     "bytes": 23731600,
+     "name": "cZv"
+    },
+    {
+     "instances": 959188,
+     "bytes": 23020512,
+     "name": "zOY"
+    },
+    {
+     "instances": 201349,
+     "bytes": 22551088,
+     "name": "dfJ"
+    },
+    {
+     "instances": 131212,
+     "bytes": 20993920,
+     "name": "yLx"
+    },
+    {
+     "instances": 624078,
+     "bytes": 19970496,
+     "name": "com.bitwig.ramona.core.syr"
+    },
+    {
+     "instances": 190717,
+     "bytes": 19834568,
+     "name": "com.bitwig.flt.control_surface.values.SettableEnumAttributeProxy"
+    },
+    {
+     "instances": 742491,
+     "bytes": 17819784,
+     "name": "Gus"
+    },
+    {
+     "instances": 65656,
+     "bytes": 16282688,
+     "name": "aZf"
+    },
+    {
+     "instances": 131212,
+     "bytes": 15745440,
+     "name": "iGF"
+    }
+   ],
+   "heapInfo": "78356:\nZHeap            used 1716M, capacity 3072M, max capacity 3072M\n Cache           1356M (73)\n  size classes   2M (30), 4M (17), 8M (9), 16M (5), 32M (6), 64M (3), 128M (3)"
+  },
+  {
+   "label": "after-exact-reads",
+   "capturedEpochMs": 1791173363393,
+   "pid": 78356,
+   "histogramMs": 866.3356249999961,
+   "liveBytes": 1698892840,
+   "liveInstances": 27283484,
+   "top": [
+    {
+     "instances": 3291418,
+     "bytes": 172968472,
+     "name": "[Ljava.lang.Object; (java.base@25)"
+    },
+    {
+     "instances": 339927,
+     "bytes": 127945024,
+     "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+    },
+    {
+     "instances": 3256512,
+     "bytes": 104208384,
+     "name": "java.util.ArrayList (java.base@25)"
+    },
+    {
+     "instances": 306754,
+     "bytes": 76074992,
+     "name": "djy"
+    },
+    {
+     "instances": 1056106,
+     "bytes": 63690640,
+     "name": "[B (java.base@25)"
+    },
+    {
+     "instances": 261055,
+     "bytes": 62653200,
+     "name": "aXq"
+    },
+    {
+     "instances": 223353,
+     "bytes": 58965192,
+     "name": "dQk"
+    },
+    {
+     "instances": 1311504,
+     "bytes": 52460160,
+     "name": "java.util.HashMap$Node (java.base@25)"
+    },
+    {
+     "instances": 196968,
+     "bytes": 51999552,
+     "name": "aVt"
+    },
+    {
+     "instances": 717817,
+     "bytes": 51682824,
+     "name": "com.bitwig.flt.control_surface.values.ComputedBooleanValue"
+    },
+    {
+     "instances": 1134092,
+     "bytes": 36290944,
+     "name": "com.bitwig.base.geom.rmP"
+    },
+    {
+     "instances": 1045367,
+     "bytes": 33451744,
+     "name": "java.lang.String (java.base@25)"
+    },
+    {
+     "instances": 75424,
+     "bytes": 27756032,
+     "name": "com.bitwig.flt.control_surface.proxy.ClipLauncherSlotProxy"
+    },
+    {
+     "instances": 665906,
+     "bytes": 26636240,
+     "name": "dkf"
+    },
+    {
+     "instances": 825116,
+     "bytes": 26403712,
+     "name": "YrQ"
+    },
+    {
+     "instances": 385232,
+     "bytes": 24654848,
+     "name": "java.util.HashMap (java.base@25)"
+    },
+    {
+     "instances": 296645,
+     "bytes": 23731600,
+     "name": "cZv"
+    },
+    {
+     "instances": 959188,
+     "bytes": 23020512,
+     "name": "zOY"
+    },
+    {
+     "instances": 201349,
+     "bytes": 22551088,
+     "name": "dfJ"
+    },
+    {
+     "instances": 131212,
+     "bytes": 20993920,
+     "name": "yLx"
+    },
+    {
+     "instances": 624152,
+     "bytes": 19972864,
+     "name": "com.bitwig.ramona.core.syr"
+    },
+    {
+     "instances": 190717,
+     "bytes": 19834568,
+     "name": "com.bitwig.flt.control_surface.values.SettableEnumAttributeProxy"
+    },
+    {
+     "instances": 742491,
+     "bytes": 17819784,
+     "name": "Gus"
+    },
+    {
+     "instances": 65656,
+     "bytes": 16282688,
+     "name": "aZf"
+    },
+    {
+     "instances": 131212,
+     "bytes": 15745440,
+     "name": "iGF"
+    }
+   ],
+   "heapInfo": "78356:\nZHeap            used 1712M, capacity 3072M, max capacity 3072M\n Cache           1360M (73)\n  size classes   2M (31), 4M (17), 8M (7), 16M (6), 32M (6), 64M (4), 128M (2)"
+  }
+ ],
+ "ping": {
+  "health": "invalid",
+  "reason": "lifecycle-unverified",
+  "initDomain": "fe31752e-bc1d-4d14-ab96-ca54437e9df7",
+  "projectGeneration": 9,
+  "structuralEpoch": 14,
+  "rebuildGeneration": 14,
+  "entries": 0,
+  "resident": 0,
+  "warming": 0,
+  "dirty": 0,
+  "occupiedCoordinates": 0,
+  "pendingCoordinates": 0,
+  "rejectedCallbacks": 0,
+  "recorderEstimatedBytes": 0,
+  "retainedSnapshotEstimatedBytes": 0,
+  "retainedNoteRecords": 0,
+  "constructionMs": 131.342167,
+  "replayMs": 1564.211583,
+  "rebuildMs": 0,
+  "pingP95Ms": 23.330125000000407,
+  "hits": 10,
+  "misses": 0,
+  "evictions": 770,
+  "invalidations": 1968422,
+  "domainObjects": {
+   "clipEntryRecords": 0,
+   "bindingTokenRecords": 0,
+   "occupiedCoordinateEntries": 0,
+   "dirtyCoordinateEntries": 0,
+   "membershipNoteRecords": 0,
+   "occupiedNoteLists": 0,
+   "retainedSnapshotRecords": 0,
+   "retainedNoteRecords": 0,
+   "retainedFieldEntries": 0,
+   "retainedMetadataEntries": 0,
+   "witnessReferences": 0,
+   "identityAndWitnessEstimatedBytes": 112
+  },
+  "resources": {
+   "residentRecorderEstimatedBytes": 0,
+   "stagingRecorderEstimatedBytes": 0,
+   "externalRecorderEstimatedBytes": 0,
+   "recorderDomainEstimatedBytes": 0,
+   "recorderLimitBytes": 9223372036854776000,
+   "retainedSnapshotEstimatedBytes": 0,
+   "candidateSnapshotEstimatedBytes": 0,
+   "snapshotDomainEstimatedBytes": 0,
+   "snapshotLimitBytes": 9223372036854776000,
+   "identityAndWitnessEstimatedBytes": 112,
+   "candidatePhase": "none",
+   "candidateReason": "none",
+   "heapMeasured": false,
+   "candidateWitnessEstimatedBytes": 0,
+   "totalEstimatedBytes": 222600,
+   "combinedLimitBytes": 9223372036854776000,
+   "combinedRefusals": 0,
+   "lastCombinedRejectedEstimatedBytes": 0
+  },
+  "inventoryControlRevision": "8g-inventory-preparation-v1",
+  "inventoryControlMaximumBatchCells": 64,
+  "authorityBindingRevision": "8g-authority-transition-v1",
+  "authorityControlSearchCells": 0,
+  "authorityControlSearchMs": 0,
+  "authorityControlSearchReason": "not-started",
+  "authorityDistinctControlConfirmed": false,
+  "residentHandles": 4096,
+  "handlePool": {
+   "capacity": 4096,
+   "active": 4096,
+   "bound": 0,
+   "reserved": 0,
+   "retired": 0
+  },
+  "exactFallbackActive": false,
+  "unusedBindingHandles": 3328,
+  "inventoryEnumerated": false,
+  "inventoryClipEntries": 0,
+  "rebuildTerminal": false,
+  "registryPublished": false,
+  "registryPendingSlotConfirmation": false,
+  "authorityHandles": 1,
+  "stepDataObservers": 4097,
+  "shadowStepDataObservers": 4097,
+  "totalExperimentalStepDataObservers": 4100,
+  "combinedObserverBudgetAdmitted": true,
+  "constructionMeasurementAvailable": true,
+  "pingMeasurementAvailable": true,
+  "requestedReplayMeasurementAvailable": false,
+  "cacheBudgetMeasurementsComplete": false,
+  "automaticIdentityProbeAttached": true,
+  "automaticIdentityEpoch": 2147,
+  "automaticIdentityInvalidations": 2,
+  "automaticIdentityPoisoned": false,
+  "automaticIdentityReason": "step-delta-read-window-required",
+  "identityWitnessAvailable": false,
+  "identityContinuityProved": false,
+  "continuityProtocol": "step-delta-read-window-v1",
+  "stepDataDeliveryAssumption": "D26",
+  "callbackOrderingRule": "E217-later-callback-after-batch",
+  "stepWindowCallbacks": 3543760,
+  "stepWindowBindingRevision": 17185,
+  "stepWindowReadsOpened": 25,
+  "stepWindowConfirmations": 25,
+  "stepWindowChanges": 0,
+  "stepWindowRefusals": 0,
+  "retainedStepWindowDiscards": 2,
+  "inventoryPublicationSupported": true,
+  "slotWindowProtocol": "slot-delta-read-window-v1",
+  "slotDeliveryAssumption": "D28",
+  "clipIdentityFromOccupancy": false,
+  "slotWindowValue": {
+   "initNonce": "e0721ff1-58a2-47f5-80f7-3524eacb5d6b",
+   "identityEpoch": 2147,
+   "structure": 272474,
+   "slots": 68637
+  },
+  "slotWindowState": "none",
+  "slotWindowReadsOpened": 0,
+  "slotWindowConfirmations": 0,
+  "slotWindowChanges": 0,
+  "slotWindowRefusals": 0,
+  "lastSlotWindowRefusal": {},
+  "slotSourceResources": {
+   "slotObserverKind": "ClipLauncherSlotBank.addHasContentObserver",
+   "slotObservers": 512,
+   "observedSlotHandles": 65536,
+   "admittedTracks": 512,
+   "admittedScenes": 128,
+   "newHostHandles": 0,
+   "stepDataObservers": 0,
+   "heapMeasured": false
+  },
+  "liveAcquisitionSupported": false,
+  "hostModel": false,
+  "hostInputFenceProved": false,
+  "identityGuardHostWorkMs": 718.508410999992,
+  "authoritySettlementObservers": 1,
+  "steps": 4194304,
+  "grid": 0.001953125,
+  "cacheBankConstructionMs": 131.342167,
+  "canaryPassed": false,
+  "cacheModelHealth": "invalid",
+  "cacheModelReason": "project-generation-changed",
+  "complete": false,
+  "eligible": false,
+  "readMode": "refuse",
+  "authorityAvailable": false,
+  "fallbackPerformed": false,
+  "lifecycleSignalsSupported": false,
+  "projectScopeComplete": false,
+  "lifecycleFallback": "project-lifecycle-fence-unproved",
+  "optionalLifecycleWitnessSupported": true,
+  "instrumentationRevision": "8h1a-knee-sweep-v8",
+  "activeConfiguration": {
+   "revision": "8h1a-knee-sweep-v8",
+   "complete": false,
+   "eligible": false,
+   "allocation": {
+    "observers": 4096,
+    "authorityObservers": 1,
+    "totalExperimentalStepDataObservers": 4100,
+    "width": 4194304,
+    "scenes": 128,
+    "cursorScenes": 0,
+    "tracks": 512,
+    "cacheBankConstructionMs": 131.342167
+   },
+   "active": {
+    "observers": 4096,
+    "experimentalStepDataObservers": 4100,
+    "width": 4194304,
+    "scenes": 128,
+    "tracks": 512,
+    "subscribedObservers": 4096
+   },
+   "limits": {
+    "width": 4194304,
+    "observers": 4100,
+    "occupied": 1073741824,
+    "pending": 2147483647,
+    "recorderBytes": 9223372036854776000,
+    "snapshotBytes": 9223372036854776000,
+    "combinedBytes": 9223372036854776000,
+    "registryBytes": 9223372036854776000,
+    "replayDeadlineMs": 5000,
+    "enrichmentDeadlineMs": 5000,
+    "rebuildDeadlineMs": 40000,
+    "constructionBudgetMs": 200,
+    "pingBudgetMs": 50
+   },
+   "configurations": 6
+  },
+  "lastConfiguration": {
+   "revision": "8h1a-knee-sweep-v8",
+   "complete": false,
+   "eligible": false,
+   "allocation": {
+    "observers": 4096,
+    "authorityObservers": 1,
+    "totalExperimentalStepDataObservers": 4100,
+    "width": 4194304,
+    "scenes": 128,
+    "cursorScenes": 0,
+    "tracks": 512,
+    "cacheBankConstructionMs": 131.342167
+   },
+   "active": {
+    "observers": 4096,
+    "experimentalStepDataObservers": 4100,
+    "width": 4194304,
+    "scenes": 128,
+    "tracks": 512,
+    "subscribedObservers": 4096
+   },
+   "limits": {
+    "width": 4194304,
+    "observers": 4100,
+    "occupied": 1073741824,
+    "pending": 2147483647,
+    "recorderBytes": 9223372036854776000,
+    "snapshotBytes": 9223372036854776000,
+    "combinedBytes": 9223372036854776000,
+    "registryBytes": 9223372036854776000,
+    "replayDeadlineMs": 5000,
+    "enrichmentDeadlineMs": 5000,
+    "rebuildDeadlineMs": 40000,
+    "constructionBudgetMs": 200,
+    "pingBudgetMs": 50
+   },
+   "configurations": 6,
+   "applied": true,
+   "applyMs": 15904.350125
+  },
+  "topologyUsable": true,
+  "topologyControlRevision": "8g5a-uuid-group-master-v1",
+  "observerKind": "addStepDataObserver",
+  "rebindPolicy": "preserve-current-or-forced-canary-transition",
+  "callbackSourceIdentityKnown": false,
+  "physicalPendingHints": 0,
+  "physicalPendingHintsRecount": 0,
+  "physicalHintDrops": 0,
+  "physicalHintOverflow": false,
+  "physicalHintRecorderEstimatedBytes": 1048576,
+  "pendingWorkItemsIncludingPhysicalHints": 0,
+  "comparison": "promoted-unverified",
+  "fallbackReason": "cache-configured",
+  "authorityScans": 0,
+  "matches": 0,
+  "mismatches": 0,
+  "mismatchesByCause": {},
+  "comparisonRefusalsByCause": {
+   "promoted:enrichment-budget": 1
+  },
+  "windowChanges": 0,
+  "membershipGetStepCalls": 31887888,
+  "authorityGetStepCalls": 0,
+  "enrichmentGetStepCalls": 23767392,
+  "membershipHostWorkMs": 1332.712486002294,
+  "authorityHostWorkMs": 0,
+  "enrichmentHostWorkMs": 2530.7825579920204,
+  "acquisitionNoteObjectsAllocated": 2157606,
+  "acquisitionMutableFieldMapObjectsAllocated": 1485462,
+  "allocationCountsScope": "explicit adapter allocations; excludes host and domain copies",
+  "acquisitionListObjectsAllocated": 2157606,
+  "lastSnapshotSerializedBytes": 0,
+  "lastAuthoritySerializedBytes": 0,
+  "serializedBytesAreMemoryMeasurement": false,
+  "durationTimingBasis": "R07-nearest-1/512-ties-up-minimum-one-cell",
+  "gainDomain": "host-amplitude-ratio-portable-amplitude-ratio",
+  "scanStagingNoteObjects": 0,
+  "scanStagingPayloadEstimatedBytes": 0,
+  "resourceAccounting": {
+   "residentRecorderEstimatedBytes": 0,
+   "stagingRecorderEstimatedBytes": 0,
+   "externalRecorderEstimatedBytes": 0,
+   "recorderDomainEstimatedBytes": 0,
+   "recorderLimitBytes": 9223372036854776000,
+   "retainedSnapshotEstimatedBytes": 0,
+   "candidateSnapshotEstimatedBytes": 0,
+   "snapshotDomainEstimatedBytes": 0,
+   "snapshotLimitBytes": 9223372036854776000,
+   "identityAndWitnessEstimatedBytes": 112,
+   "candidatePhase": "none",
+   "candidateReason": "none",
+   "heapMeasured": false,
+   "candidateWitnessEstimatedBytes": 0,
+   "totalEstimatedBytes": 222600,
+   "combinedLimitBytes": 9223372036854776000,
+   "combinedRefusals": 0,
+   "lastCombinedRejectedEstimatedBytes": 0,
+   "physicalHintQueueEstimatedBytes": 0,
+   "comparisonAuthorityStagingEstimatedBytes": 0,
+   "exactAuthorityStagingEstimatedBytes": 0,
+   "authorityDomainEstimatedBytes": 0,
+   "authorityLimitBytes": 9223372036854776000,
+   "registryAttemptEstimatedBytes": 0,
+   "registryAttemptLimitBytes": 9223372036854776000,
+   "registryGuardEstimatedBytes": 0,
+   "topologyBookkeepingEstimatedBytes": 10544,
+   "topologyWitnessCharacters": 105720,
+   "topologyWitnessEstimatedBytes": 211480,
+   "topologyDomainEstimatedBytes": 222024,
+   "slotSourceBookkeepingEstimatedBytes": 96,
+   "slotWindowEstimatedBytes": 368,
+   "slotReadRetained": false,
+   "slotDomainEstimatedBytes": 464,
+   "combinedLimitSelected": true,
+   "combinedSheddingPolicy": "drop-all-enriched-payloads-in-reference-order; preserve-confirmed-authority; explicit-retry",
+   "hostMemoryMeasured": false,
+   "serializedBytesAreMemoryMeasurement": false,
+   "accountingRevision": "8g5c-resource-accounting-v3",
+   "topologyControl": {
+    "maximumTracks": 512,
+    "banks": 513,
+    "bankTrackHandles": 1024,
+    "parentTrackHandles": 0,
+    "stepDataObservers": 0,
+    "heapMeasured": false,
+    "hostMemoryMeasured": false,
+    "selectedRoute": "counted-preorder-with-uuid-master",
+    "bookkeepingEstimatedBytes": 10544,
+    "parentHandlesDiagnosticOnly": false,
+    "allocationMeasurement": {
+     "before": {
+      "capturedEpochMs": 1791171657594,
+      "usedBytes": 618659840,
+      "committedBytes": 757071872,
+      "maximumBytes": 3221225472,
+      "scope": "shared-jvm",
+      "forcedGc": false
+     },
+     "after": {
+      "capturedEpochMs": 1791171657602,
+      "usedBytes": 637534208,
+      "committedBytes": 757071872,
+      "maximumBytes": 3221225472,
+      "scope": "shared-jvm",
+      "forcedGc": false
+     },
+     "constructionMs": 7.954125
+    }
+   }
+  },
+  "enrichmentBatches": 225,
+  "promotedReads": 11,
+  "lastScanPhaseTimesMs": {
+   "membership": 0,
+   "promoted-settlement": 38.948709,
+   "enrichment": 71.8345,
+   "result-confirmation": 2030.303875,
+   "ended": 2399.159542,
+   "authorityHostWorkMs": 0,
+   "enrichmentHostWorkMs": 750.593666,
+   "scope": "elapsed wall time from scan start at each stage start; host work is separate"
+  },
+  "lastSnapshotCandidate": {
+   "phase": "published",
+   "reason": "within-budget",
+   "coordinatesDone": 131072,
+   "coordinatesTotal": 131072,
+   "notes": 0,
+   "estimatedBytes": 270066244,
+   "peakEstimatedBytes": 270066244,
+   "combinedPeakEstimatedBytes": 0,
+   "combinedRejectedEstimatedBytes": 0,
+   "batches": 19,
+   "lastBatchMs": 30.368,
+   "hostWorkMs": 750.593666,
+   "elapsedMs": 1957.614833,
+   "deadlineMs": 5000
+  }
+ },
+ "cold": {
+  "index": 0,
+  "acquired": {
+   "poolDecision": "reserved"
+  },
+  "bindMs": 3816.569542000001,
+  "settledPhase": "settled",
+  "drain": {
+   "drainMs": 164.3806250000016,
+   "calls": 4,
+   "coordinates": 2977,
+   "maxReconcileMs": 11.976458,
+   "reason": "lifecycle-unverified"
+  }
+ },
+ "coldRead": {
+  "wallMs": 51.405917000000045,
+  "polls": 3,
+  "comparison": "promoted-unverified",
+  "settlementWitness": "membership-window-only-unverified",
+  "noteCount": 64,
+  "reconcileMs": 1.482959,
+  "enrichmentHostWorkMs": 0.573834,
+  "enrichmentBatches": 1,
+  "maxBatchMs": 0.573834,
+  "phases": {
+   "membership": 0,
+   "promoted-settlement": 19.76425,
+   "enrichment": 20.207208,
+   "result-confirmation": 21.079583,
+   "ended": 41.848666,
+   "authorityHostWorkMs": 0,
+   "enrichmentHostWorkMs": 0.573834,
+   "scope": "elapsed wall time from scan start at each stage start; host work is separate"
+  },
+  "payloadEncodeMs": 0.030041,
+  "responseBytes": 14488,
+  "issues": []
+ },
+ "warmReads": [
+  {
+   "wallMs": 73.39587499999834,
+   "polls": 3,
+   "comparison": "promoted-unverified",
+   "settlementWitness": "warm-complete",
+   "noteCount": 64,
+   "reconcileMs": 0.738458,
+   "enrichmentHostWorkMs": 0.681708,
+   "enrichmentBatches": 1,
+   "maxBatchMs": 0.681708,
+   "phases": {
+    "membership": 0,
+    "promoted-settlement": 21.098416,
+    "enrichment": 21.145833,
+    "result-confirmation": 22.296791,
+    "ended": 47.778458,
+    "authorityHostWorkMs": 0,
+    "enrichmentHostWorkMs": 0.681708,
+    "scope": "elapsed wall time from scan start at each stage start; host work is separate"
+   },
+   "payloadEncodeMs": 0.03675,
+   "responseBytes": 14462,
+   "issues": []
+  },
+  {
+   "wallMs": 80.92445900000166,
+   "polls": 3,
+   "comparison": "promoted-unverified",
+   "settlementWitness": "warm-complete",
+   "noteCount": 64,
+   "reconcileMs": 2.031291,
+   "enrichmentHostWorkMs": 0.592417,
+   "enrichmentBatches": 1,
+   "maxBatchMs": 0.592417,
+   "phases": {
+    "membership": 0,
+    "promoted-settlement": 25.765375,
+    "enrichment": 25.844,
+    "result-confirmation": 26.67225,
+    "ended": 56.71875,
+    "authorityHostWorkMs": 0,
+    "enrichmentHostWorkMs": 0.592417,
+    "scope": "elapsed wall time from scan start at each stage start; host work is separate"
+   },
+   "payloadEncodeMs": 0.041042,
+   "responseBytes": 14459,
+   "issues": []
+  },
+  {
+   "wallMs": 64.30345899999884,
+   "polls": 3,
+   "comparison": "promoted-unverified",
+   "settlementWitness": "warm-complete",
+   "noteCount": 64,
+   "reconcileMs": 0.965333,
+   "enrichmentHostWorkMs": 0.9575,
+   "enrichmentBatches": 1,
+   "maxBatchMs": 0.9575,
+   "phases": {
+    "membership": 0,
+    "promoted-settlement": 22.461542,
+    "enrichment": 22.533458,
+    "result-confirmation": 23.9715,
+    "ended": 49.289042,
+    "authorityHostWorkMs": 0,
+    "enrichmentHostWorkMs": 0.9575,
+    "scope": "elapsed wall time from scan start at each stage start; host work is separate"
+   },
+   "payloadEncodeMs": 0.040792,
+   "responseBytes": 14448,
+   "issues": []
+  }
+ ],
+ "oracleIssues": [],
+ "soundingCells": 2048,
+ "oracleReadMs": 0.085875,
+ "exactReads": [
+  {
+   "wallMs": 2156.071082999999,
+   "issues": [],
+   "noteCount": 64
+  }
+ ],
+ "pingSamplesMs": [
+  8.739541999995708,
+  23.268542000005255,
+  22.80083300000115,
+  25.289167000002635,
+  22.536166999998386,
+  23.846582999998645,
+  22.488540999998804,
+  24.004291999997804,
+  24.024459000000206,
+  24.654374999998254,
+  23.186957999998413,
+  24.78845900000306,
+  24.377583000001323,
+  23.34562499999447,
+  22.553875000005064,
+  24.23291700000118,
+  23.138959000003524,
+  23.93016699999862,
+  24.96375000000262,
+  22.985207999998238,
+  24.429582999997365,
+  24.74366700000246,
+  22.587084000006143,
+  23.714625000000524,
+  22.350583000006736,
+  23.928916999997455,
+  23.73737500000425,
+  24.96991700000217,
+  22.688709000001836,
+  23.039291000000958,
+  23.485999999997148,
+  22.79654099999607,
+  22.71629199999734,
+  23.49899999999616,
+  23.36720900000364,
+  23.046249999999418,
+  24.66216600000189,
+  21.467499999998836,
+  24.59833300000173,
+  24.098999999994703
+ ],
+ "after": {
+  "health": "partial",
+  "reason": "lifecycle-unverified",
+  "initDomain": "fe31752e-bc1d-4d14-ab96-ca54437e9df7",
+  "projectGeneration": 9,
+  "structuralEpoch": 14,
+  "rebuildGeneration": 14,
+  "entries": 1,
+  "resident": 1,
+  "warming": 0,
+  "dirty": 0,
+  "occupiedCoordinates": 64,
+  "pendingCoordinates": 0,
+  "rejectedCallbacks": 0,
+  "recorderEstimatedBytes": 3840,
+  "retainedSnapshotEstimatedBytes": 133378,
+  "retainedNoteRecords": 64,
+  "constructionMs": 131.342167,
+  "replayMs": 1542.685625,
+  "rebuildMs": 0,
+  "pingP95Ms": 23.330125000000407,
+  "hits": 14,
+  "misses": 0,
+  "evictions": 770,
+  "invalidations": 1971399,
+  "domainObjects": {
+   "clipEntryRecords": 1,
+   "bindingTokenRecords": 1,
+   "occupiedCoordinateEntries": 64,
+   "dirtyCoordinateEntries": 0,
+   "membershipNoteRecords": 64,
+   "occupiedNoteLists": 64,
+   "retainedSnapshotRecords": 1,
+   "retainedNoteRecords": 64,
+   "retainedFieldEntries": 1664,
+   "retainedMetadataEntries": 10,
+   "witnessReferences": 2,
+   "identityAndWitnessEstimatedBytes": 990
+  },
+  "resources": {
+   "residentRecorderEstimatedBytes": 3840,
+   "stagingRecorderEstimatedBytes": 0,
+   "externalRecorderEstimatedBytes": 0,
+   "recorderDomainEstimatedBytes": 3840,
+   "recorderLimitBytes": 9223372036854776000,
+   "retainedSnapshotEstimatedBytes": 133378,
+   "candidateSnapshotEstimatedBytes": 0,
+   "snapshotDomainEstimatedBytes": 133378,
+   "snapshotLimitBytes": 9223372036854776000,
+   "identityAndWitnessEstimatedBytes": 990,
+   "candidatePhase": "none",
+   "candidateReason": "none",
+   "heapMeasured": false,
+   "candidateWitnessEstimatedBytes": 0,
+   "totalEstimatedBytes": 360696,
+   "combinedLimitBytes": 9223372036854776000,
+   "combinedRefusals": 0,
+   "lastCombinedRejectedEstimatedBytes": 0
+  },
+  "inventoryControlRevision": "8g-inventory-preparation-v1",
+  "inventoryControlMaximumBatchCells": 64,
+  "authorityBindingRevision": "8g-authority-transition-v1",
+  "authorityControlSearchCells": 0,
+  "authorityControlSearchMs": 0,
+  "authorityControlSearchReason": "not-started",
+  "authorityDistinctControlConfirmed": false,
+  "residentHandles": 4096,
+  "handlePool": {
+   "capacity": 4096,
+   "active": 4096,
+   "bound": 1,
+   "reserved": 0,
+   "retired": 0
+  },
+  "exactFallbackActive": false,
+  "unusedBindingHandles": 3328,
+  "inventoryEnumerated": false,
+  "inventoryClipEntries": 0,
+  "rebuildTerminal": false,
+  "registryPublished": false,
+  "registryPendingSlotConfirmation": false,
+  "authorityHandles": 1,
+  "stepDataObservers": 4097,
+  "shadowStepDataObservers": 4097,
+  "totalExperimentalStepDataObservers": 4100,
+  "combinedObserverBudgetAdmitted": true,
+  "constructionMeasurementAvailable": true,
+  "pingMeasurementAvailable": true,
+  "requestedReplayMeasurementAvailable": true,
+  "cacheBudgetMeasurementsComplete": true,
+  "automaticIdentityProbeAttached": true,
+  "automaticIdentityEpoch": 2147,
+  "automaticIdentityInvalidations": 2,
+  "automaticIdentityPoisoned": false,
+  "automaticIdentityReason": "step-delta-read-window-required",
+  "identityWitnessAvailable": false,
+  "identityContinuityProved": false,
+  "continuityProtocol": "step-delta-read-window-v1",
+  "stepDataDeliveryAssumption": "D26",
+  "callbackOrderingRule": "E217-later-callback-after-batch",
+  "stepWindowCallbacks": 3678802,
+  "stepWindowBindingRevision": 17195,
+  "stepWindowReadsOpened": 34,
+  "stepWindowConfirmations": 34,
+  "stepWindowChanges": 0,
+  "stepWindowRefusals": 0,
+  "retainedStepWindowDiscards": 2,
+  "inventoryPublicationSupported": true,
+  "slotWindowProtocol": "slot-delta-read-window-v1",
+  "slotDeliveryAssumption": "D28",
+  "clipIdentityFromOccupancy": false,
+  "slotWindowValue": {
+   "initNonce": "e0721ff1-58a2-47f5-80f7-3524eacb5d6b",
+   "identityEpoch": 2147,
+   "structure": 272474,
+   "slots": 68637
+  },
+  "slotWindowState": "none",
+  "slotWindowReadsOpened": 0,
+  "slotWindowConfirmations": 0,
+  "slotWindowChanges": 0,
+  "slotWindowRefusals": 0,
+  "lastSlotWindowRefusal": {},
+  "slotSourceResources": {
+   "slotObserverKind": "ClipLauncherSlotBank.addHasContentObserver",
+   "slotObservers": 512,
+   "observedSlotHandles": 65536,
+   "admittedTracks": 512,
+   "admittedScenes": 128,
+   "newHostHandles": 0,
+   "stepDataObservers": 0,
+   "heapMeasured": false
+  },
+  "liveAcquisitionSupported": false,
+  "hostModel": false,
+  "hostInputFenceProved": false,
+  "identityGuardHostWorkMs": 730.0256169999911,
+  "authoritySettlementObservers": 1,
+  "steps": 4194304,
+  "grid": 0.001953125,
+  "cacheBankConstructionMs": 131.342167,
+  "canaryPassed": false,
+  "cacheModelHealth": "partial",
+  "cacheModelReason": "inventory-incomplete",
+  "complete": false,
+  "eligible": false,
+  "readMode": "refuse",
+  "authorityAvailable": false,
+  "fallbackPerformed": false,
+  "lifecycleSignalsSupported": false,
+  "projectScopeComplete": false,
+  "lifecycleFallback": "project-lifecycle-fence-unproved",
+  "optionalLifecycleWitnessSupported": true,
+  "instrumentationRevision": "8h1a-knee-sweep-v8",
+  "activeConfiguration": {
+   "revision": "8h1a-knee-sweep-v8",
+   "complete": false,
+   "eligible": false,
+   "allocation": {
+    "observers": 4096,
+    "authorityObservers": 1,
+    "totalExperimentalStepDataObservers": 4100,
+    "width": 4194304,
+    "scenes": 128,
+    "cursorScenes": 0,
+    "tracks": 512,
+    "cacheBankConstructionMs": 131.342167
+   },
+   "active": {
+    "observers": 4096,
+    "experimentalStepDataObservers": 4100,
+    "width": 4194304,
+    "scenes": 128,
+    "tracks": 512,
+    "subscribedObservers": 4096
+   },
+   "limits": {
+    "width": 4194304,
+    "observers": 4100,
+    "occupied": 1073741824,
+    "pending": 2147483647,
+    "recorderBytes": 9223372036854776000,
+    "snapshotBytes": 9223372036854776000,
+    "combinedBytes": 9223372036854776000,
+    "registryBytes": 9223372036854776000,
+    "replayDeadlineMs": 5000,
+    "enrichmentDeadlineMs": 5000,
+    "rebuildDeadlineMs": 40000,
+    "constructionBudgetMs": 200,
+    "pingBudgetMs": 50
+   },
+   "configurations": 6
+  },
+  "lastConfiguration": {
+   "revision": "8h1a-knee-sweep-v8",
+   "complete": false,
+   "eligible": false,
+   "allocation": {
+    "observers": 4096,
+    "authorityObservers": 1,
+    "totalExperimentalStepDataObservers": 4100,
+    "width": 4194304,
+    "scenes": 128,
+    "cursorScenes": 0,
+    "tracks": 512,
+    "cacheBankConstructionMs": 131.342167
+   },
+   "active": {
+    "observers": 4096,
+    "experimentalStepDataObservers": 4100,
+    "width": 4194304,
+    "scenes": 128,
+    "tracks": 512,
+    "subscribedObservers": 4096
+   },
+   "limits": {
+    "width": 4194304,
+    "observers": 4100,
+    "occupied": 1073741824,
+    "pending": 2147483647,
+    "recorderBytes": 9223372036854776000,
+    "snapshotBytes": 9223372036854776000,
+    "combinedBytes": 9223372036854776000,
+    "registryBytes": 9223372036854776000,
+    "replayDeadlineMs": 5000,
+    "enrichmentDeadlineMs": 5000,
+    "rebuildDeadlineMs": 40000,
+    "constructionBudgetMs": 200,
+    "pingBudgetMs": 50
+   },
+   "configurations": 6,
+   "applied": true,
+   "applyMs": 15904.350125
+  },
+  "topologyUsable": true,
+  "topologyControlRevision": "8g5a-uuid-group-master-v1",
+  "observerKind": "addStepDataObserver",
+  "rebindPolicy": "preserve-current-or-forced-canary-transition",
+  "callbackSourceIdentityKnown": false,
+  "physicalPendingHints": 0,
+  "physicalPendingHintsRecount": 0,
+  "physicalHintDrops": 0,
+  "physicalHintOverflow": false,
+  "physicalHintRecorderEstimatedBytes": 1048576,
+  "pendingWorkItemsIncludingPhysicalHints": 0,
+  "comparison": "promoted-unverified",
+  "fallbackReason": "cache-configured",
+  "authorityScans": 0,
+  "matches": 0,
+  "mismatches": 0,
+  "mismatchesByCause": {},
+  "comparisonRefusalsByCause": {
+   "promoted:enrichment-budget": 1
+  },
+  "windowChanges": 0,
+  "membershipGetStepCalls": 32132080,
+  "authorityGetStepCalls": 0,
+  "enrichmentGetStepCalls": 23771488,
+  "membershipHostWorkMs": 1354.4518670023176,
+  "authorityHostWorkMs": 0,
+  "enrichmentHostWorkMs": 2531.5315099920153,
+  "acquisitionNoteObjectsAllocated": 2157927,
+  "acquisitionMutableFieldMapObjectsAllocated": 1485718,
+  "allocationCountsScope": "explicit adapter allocations; excludes host and domain copies",
+  "acquisitionListObjectsAllocated": 2157927,
+  "lastSnapshotSerializedBytes": 0,
+  "lastAuthoritySerializedBytes": 0,
+  "serializedBytesAreMemoryMeasurement": false,
+  "durationTimingBasis": "R07-nearest-1/512-ties-up-minimum-one-cell",
+  "gainDomain": "host-amplitude-ratio-portable-amplitude-ratio",
+  "scanStagingNoteObjects": 0,
+  "scanStagingPayloadEstimatedBytes": 0,
+  "resourceAccounting": {
+   "residentRecorderEstimatedBytes": 3840,
+   "stagingRecorderEstimatedBytes": 0,
+   "externalRecorderEstimatedBytes": 0,
+   "recorderDomainEstimatedBytes": 3840,
+   "recorderLimitBytes": 9223372036854776000,
+   "retainedSnapshotEstimatedBytes": 133378,
+   "candidateSnapshotEstimatedBytes": 0,
+   "snapshotDomainEstimatedBytes": 133378,
+   "snapshotLimitBytes": 9223372036854776000,
+   "identityAndWitnessEstimatedBytes": 990,
+   "candidatePhase": "none",
+   "candidateReason": "none",
+   "heapMeasured": false,
+   "candidateWitnessEstimatedBytes": 0,
+   "totalEstimatedBytes": 360696,
+   "combinedLimitBytes": 9223372036854776000,
+   "combinedRefusals": 0,
+   "lastCombinedRejectedEstimatedBytes": 0,
+   "physicalHintQueueEstimatedBytes": 0,
+   "comparisonAuthorityStagingEstimatedBytes": 0,
+   "exactAuthorityStagingEstimatedBytes": 0,
+   "authorityDomainEstimatedBytes": 0,
+   "authorityLimitBytes": 9223372036854776000,
+   "registryAttemptEstimatedBytes": 0,
+   "registryAttemptLimitBytes": 9223372036854776000,
+   "registryGuardEstimatedBytes": 0,
+   "topologyBookkeepingEstimatedBytes": 10544,
+   "topologyWitnessCharacters": 105720,
+   "topologyWitnessEstimatedBytes": 211480,
+   "topologyDomainEstimatedBytes": 222024,
+   "slotSourceBookkeepingEstimatedBytes": 96,
+   "slotWindowEstimatedBytes": 368,
+   "slotReadRetained": false,
+   "slotDomainEstimatedBytes": 464,
+   "combinedLimitSelected": true,
+   "combinedSheddingPolicy": "drop-all-enriched-payloads-in-reference-order; preserve-confirmed-authority; explicit-retry",
+   "hostMemoryMeasured": false,
+   "serializedBytesAreMemoryMeasurement": false,
+   "accountingRevision": "8g5c-resource-accounting-v3",
+   "topologyControl": {
+    "maximumTracks": 512,
+    "banks": 513,
+    "bankTrackHandles": 1024,
+    "parentTrackHandles": 0,
+    "stepDataObservers": 0,
+    "heapMeasured": false,
+    "hostMemoryMeasured": false,
+    "selectedRoute": "counted-preorder-with-uuid-master",
+    "bookkeepingEstimatedBytes": 10544,
+    "parentHandlesDiagnosticOnly": false,
+    "allocationMeasurement": {
+     "before": {
+      "capturedEpochMs": 1791171657594,
+      "usedBytes": 618659840,
+      "committedBytes": 757071872,
+      "maximumBytes": 3221225472,
+      "scope": "shared-jvm",
+      "forcedGc": false
+     },
+     "after": {
+      "capturedEpochMs": 1791171657602,
+      "usedBytes": 637534208,
+      "committedBytes": 757071872,
+      "maximumBytes": 3221225472,
+      "scope": "shared-jvm",
+      "forcedGc": false
+     },
+     "constructionMs": 7.954125
+    }
+   }
+  },
+  "enrichmentBatches": 229,
+  "promotedReads": 15,
+  "lastScanPhaseTimesMs": {
+   "membership": 0,
+   "promoted-settlement": 22.461542,
+   "enrichment": 22.533458,
+   "result-confirmation": 23.9715,
+   "ended": 49.289042,
+   "authorityHostWorkMs": 0,
+   "enrichmentHostWorkMs": 0.9575,
+   "scope": "elapsed wall time from scan start at each stage start; host work is separate"
+  },
+  "lastSnapshotCandidate": {
+   "phase": "published",
+   "reason": "within-budget",
+   "coordinatesDone": 64,
+   "coordinatesTotal": 64,
+   "notes": 0,
+   "estimatedBytes": 133378,
+   "peakEstimatedBytes": 133378,
+   "combinedPeakEstimatedBytes": 0,
+   "combinedRejectedEstimatedBytes": 0,
+   "batches": 1,
+   "lastBatchMs": 0.9575,
+   "hostWorkMs": 0.9575,
+   "elapsedMs": 1.454334,
+   "deadlineMs": 5000
+  }
+ },
+ "jvm": {
+  "capturedEpochMs": 1791173364369,
+  "usedBytes": 1849688064,
+  "committedBytes": 3221225472,
+  "maximumBytes": 3221225472,
+  "scope": "shared-jvm",
+  "forcedGc": false
+ },
+ "summary": {
+  "value": 127,
+  "exact": true,
+  "pingP95Ms": 24.96375000000262,
+  "warmReadMs": 73.39587499999834,
+  "exactReadMs": 2156.071082999999,
+  "hostWorkMaxBatchMs": 0.9575
+ }
+}
