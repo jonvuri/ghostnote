@@ -360,9 +360,10 @@ owns the migration details.
    must fix or refuse the legacy writer loss of disabled expression state.
    It is split into [8h1a](8h1a-cache-limit-knee-sweep.md) (limit knee sweep;
    first pass in [E225](../../evidence/experiments/e225-cache-limit-knee-sweep.md)),
-   [8h1b](8h1b-sounding-cell-cost-reduction.md) (sounding-cell cost reduction),
-   8h1 (cache promotion), [8h2](8h2-exact-reader-consolidation.md)
-   (exact reader consolidation), and 8h3 (interface simplification).
+   [8h1b](8h1b-sounding-cell-cost-reduction.md) (sounding-cell cost reduction;
+   complete in [E226](../../evidence/experiments/e226-sounding-cell-cost-reduction.md)),
+   [8h2a](8h2a-replay-cold-read.md) (replay cold read), 8h1 (cache promotion),
+   [8h2b](8h2b-exact-reader-consolidation.md) (exact reader consolidation), and 8h3 (interface simplification).
 29. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.

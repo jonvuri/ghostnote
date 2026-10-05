@@ -1,0 +1,3770 @@
+{
+ "schema": "phase8h1b-matrix-v1",
+ "marker": "8h1b-sounding-v2",
+ "complete": false,
+ "eligible": false,
+ "captured": "2026-10-05T05:59:25.789Z",
+ "stepCells": 32,
+ "stepBeats": 0.0625,
+ "clipBeats": 64,
+ "hello": {
+  "contractVersion": 0,
+  "extensionVersion": "0.0.1",
+  "runtimeProfile": "phase-8-probe-v1",
+  "hostApiVersion": 25,
+  "methodCount": 98,
+  "methodsHash": "d89cee6bf21c1f96"
+ },
+ "project": "New 2",
+ "configuration": {
+  "revision": "8h1b-sounding-v2",
+  "complete": false,
+  "eligible": false,
+  "allocation": {
+   "observers": 2,
+   "authorityObservers": 1,
+   "totalExperimentalStepDataObservers": 6,
+   "width": 1048576,
+   "scenes": 16,
+   "cursorScenes": 0,
+   "tracks": 16,
+   "cacheBankConstructionMs": 1.443583
+  },
+  "active": {
+   "observers": 2,
+   "experimentalStepDataObservers": 6,
+   "width": 1048576,
+   "scenes": 16,
+   "tracks": 16,
+   "subscribedObservers": 2
+  },
+  "limits": {
+   "width": 1048576,
+   "observers": 6,
+   "occupied": 1073741824,
+   "pending": 2147483647,
+   "recorderBytes": 9223372036854776000,
+   "snapshotBytes": 9223372036854776000,
+   "combinedBytes": 9223372036854776000,
+   "registryBytes": 9223372036854776000,
+   "replayDeadlineMs": 600000,
+   "enrichmentDeadlineMs": 600000,
+   "rebuildDeadlineMs": 3600000,
+   "constructionBudgetMs": 60000,
+   "pingBudgetMs": 50
+  },
+  "configurations": 1
+ },
+ "stats": {
+  "runtimeProfile": "phase-8-probe-v1",
+  "config": {
+   "tracks": 16,
+   "scenes": 16,
+   "gridSteps": 64,
+   "gridKeys": 128,
+   "cursorPool": 8,
+   "sends": 4,
+   "deviceBank": 16,
+   "fineSteps": 512,
+   "noteReadSteps": 2048,
+   "paramHandles": 64,
+   "remotePages": 16,
+   "cacheScaleObservers": 0,
+   "cacheScaleSteps": 131072,
+   "cacheScaleWidthSteps": 0,
+   "cacheShadowObservers": 2,
+   "cacheShadowSteps": 1048576,
+   "cacheTopologyTracks": 16,
+   "cacheTopologyCounted": true,
+   "cacheLifecycleResearch": true,
+   "cacheKneeResearch": true,
+   "cacheShadowCursorScenes": 0,
+   "cacheSoundingResearch": true,
+   "deliveryResearch": false,
+   "contentFilter": "ALL_CHANNELS",
+   "directObservers": true,
+   "stamp": "8h1b-sounding",
+   "fromFile": true
+  },
+  "rigConstructMicros": 28779,
+  "initMicros": 47067,
+  "initEpochMs": 1791179471614,
+  "upMs": 494173,
+  "slotObjects": 256,
+  "markedValues": 1648,
+  "resources": {
+   "cursorDeviceBanks": 8,
+   "siblingDeviceBanks": 1,
+   "layerDeviceBanks": 8,
+   "slotDeviceBanks": 15,
+   "namedSlotDeviceBanks": 0,
+   "drumPadDeviceBanks": 16,
+   "deviceBanks": 48,
+   "cursorDeviceSlots": 128,
+   "cursorDeviceEnabledValues": 128,
+   "layerDeviceSlots": 32,
+   "slotDeviceSlots": 60,
+   "drumPadDeviceSlots": 256,
+   "namedSlotDeviceSlots": 0,
+   "deviceSlots": 492,
+   "cursorDevices": 1,
+   "specificDeviceViews": 4,
+   "typedParameterHandles": 75,
+   "remotePageCursors": 16,
+   "remoteParameterHandles": 128,
+   "directParameterObservers": 4,
+   "noteObserverCursors": 1,
+   "noteStepObservers": 1,
+   "stepDataObservers": 1,
+   "cacheScaleCursorTracks": 0,
+   "cacheScaleClipProxies": 0,
+   "cacheScaleStepDataObservers": 0,
+   "trackSendBanks": 0,
+   "trackSendHandles": 0,
+   "trackVuObservers": 0,
+   "historicalActionHandles": 0,
+   "historicalSelectionObservers": 0,
+   "equalsProxies": 32,
+   "transportProxies": 1,
+   "masterRecorderProxies": 0,
+   "cursorTracks": 10,
+   "cursorClips": 12,
+   "layerBanks": 4,
+   "layerHandles": 23,
+   "layerSendBanks": 0,
+   "layerSendHandles": 0,
+   "explicitHostObjects": 1141,
+   "observerCallbacks": 119
+  },
+  "heapUsedMb": 704,
+  "heapMaxMb": 3072
+ },
+ "rows": [
+  {
+   "label": "nudge-inside-cell",
+   "kind": "nudge",
+   "ops": [
+    {
+     "op": "move",
+     "x": 1,
+     "y": 60,
+     "channel": 0,
+     "dx": 1,
+     "dy": 0
+    }
+   ],
+   "applyMs": 8.096625,
+   "settled": {
+    "fineCallbacks": 2097147,
+    "sentinelCallbacks": 31,
+    "waitedMs": 1586.6937090000001
+   },
+   "fine": [
+    [
+     2097145,
+     2,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097146,
+     5,
+     60,
+     0,
+     1,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097147,
+     1,
+     60,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "nudge-inside-cell",
+    "kind": "nudge",
+    "stepCells": 32,
+    "pass": false,
+    "missing": [
+     "1:60:0",
+     "2:60:0"
+    ],
+    "derivedMissing": [
+     "0:60:0"
+    ],
+    "fineMissing": [],
+    "fineCallbacks": 3,
+    "sentinelCallbacks": 0,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "nudge-across-boundary",
+   "kind": "nudge",
+   "ops": [
+    {
+     "op": "move",
+     "x": 1055,
+     "y": 60,
+     "channel": 0,
+     "dx": 1,
+     "dy": 0
+    }
+   ],
+   "applyMs": 0.07125,
+   "settled": {
+    "fineCallbacks": 2097149,
+    "sentinelCallbacks": 33,
+    "waitedMs": 1576.609124999999
+   },
+   "fine": [
+    [
+     2097148,
+     1056,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.001953125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097149,
+     1055,
+     60,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     32,
+     33,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.001953125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     33,
+     32,
+     60,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "nudge-across-boundary",
+    "kind": "nudge",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 2,
+    "sentinelCallbacks": 2,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "velocity",
+   "kind": "field",
+   "ops": [
+    {
+     "op": "field",
+     "x": 2051,
+     "y": 60,
+     "channel": 0,
+     "field": "velocity",
+     "value": 0.25
+    }
+   ],
+   "applyMs": 3.93575,
+   "settled": {
+    "fineCallbacks": 2097153,
+    "sentinelCallbacks": 34,
+    "waitedMs": 1579.087125
+   },
+   "fine": [
+    [
+     2097150,
+     2051,
+     60,
+     0,
+     2,
+     0.25,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097151,
+     2052,
+     60,
+     0,
+     1,
+     0.25,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097152,
+     2053,
+     60,
+     0,
+     1,
+     0.25,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097153,
+     2054,
+     60,
+     0,
+     1,
+     0.25,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     34,
+     64,
+     60,
+     0,
+     2,
+     0.25,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "velocity",
+    "kind": "field",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 4,
+    "sentinelCallbacks": 1,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "gain",
+   "kind": "field",
+   "ops": [
+    {
+     "op": "field",
+     "x": 3075,
+     "y": 60,
+     "channel": 0,
+     "field": "gain",
+     "value": 0.3
+    }
+   ],
+   "applyMs": 2.17925,
+   "settled": {
+    "fineCallbacks": 2097157,
+    "sentinelCallbacks": 35,
+    "waitedMs": 1575.338749999999
+   },
+   "fine": [
+    [
+     2097154,
+     3075,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0.6,
+     1,
+     true,
+     false
+    ],
+    [
+     2097155,
+     3076,
+     60,
+     0,
+     1,
+     0.787401556968689,
+     0.0078125,
+     0.6,
+     1,
+     true,
+     false
+    ],
+    [
+     2097156,
+     3077,
+     60,
+     0,
+     1,
+     0.787401556968689,
+     0.0078125,
+     0.6,
+     1,
+     true,
+     false
+    ],
+    [
+     2097157,
+     3078,
+     60,
+     0,
+     1,
+     0.787401556968689,
+     0.0078125,
+     0.6,
+     1,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     35,
+     96,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0.6,
+     1,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "gain",
+    "kind": "field",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 4,
+    "sentinelCallbacks": 1,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "chance-enabled",
+   "kind": "field",
+   "ops": [
+    {
+     "op": "field",
+     "x": 4099,
+     "y": 60,
+     "channel": 0,
+     "field": "chanceEnabled",
+     "value": true
+    }
+   ],
+   "applyMs": 0.057375,
+   "settled": {
+    "fineCallbacks": 2097157,
+    "sentinelCallbacks": 35,
+    "waitedMs": 1581.558000000001
+   },
+   "fine": [],
+   "sentinel": [],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "chance-enabled",
+    "kind": "field",
+    "stepCells": 32,
+    "pass": false,
+    "missing": [
+     "4099:60:0"
+    ],
+    "derivedMissing": [],
+    "fineMissing": [
+     "4099:60:0"
+    ],
+    "fineCallbacks": 0,
+    "sentinelCallbacks": 0,
+    "fineObserved": false
+   }
+  },
+  {
+   "label": "chance-value",
+   "kind": "field",
+   "ops": [
+    {
+     "op": "field",
+     "x": 5123,
+     "y": 60,
+     "channel": 0,
+     "field": "chance",
+     "value": 0.5
+    }
+   ],
+   "applyMs": 2.007292,
+   "settled": {
+    "fineCallbacks": 2097161,
+    "sentinelCallbacks": 36,
+    "waitedMs": 1578.334667000001
+   },
+   "fine": [
+    [
+     2097158,
+     5123,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     0.5,
+     true,
+     false
+    ],
+    [
+     2097159,
+     5124,
+     60,
+     0,
+     1,
+     0.787401556968689,
+     0.0078125,
+     0,
+     0.5,
+     true,
+     false
+    ],
+    [
+     2097160,
+     5125,
+     60,
+     0,
+     1,
+     0.787401556968689,
+     0.0078125,
+     0,
+     0.5,
+     true,
+     false
+    ],
+    [
+     2097161,
+     5126,
+     60,
+     0,
+     1,
+     0.787401556968689,
+     0.0078125,
+     0,
+     0.5,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     36,
+     160,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     0.5,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "chance-value",
+    "kind": "field",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 4,
+    "sentinelCallbacks": 1,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "mute",
+   "kind": "field",
+   "ops": [
+    {
+     "op": "field",
+     "x": 6147,
+     "y": 60,
+     "channel": 0,
+     "field": "muted",
+     "value": true
+    }
+   ],
+   "applyMs": 1.453042,
+   "settled": {
+    "fineCallbacks": 2097165,
+    "sentinelCallbacks": 37,
+    "waitedMs": 1591.8159579999992
+   },
+   "fine": [
+    [
+     2097162,
+     6147,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     true
+    ],
+    [
+     2097163,
+     6148,
+     60,
+     0,
+     1,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     true
+    ],
+    [
+     2097164,
+     6149,
+     60,
+     0,
+     1,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     true
+    ],
+    [
+     2097165,
+     6150,
+     60,
+     0,
+     1,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     true
+    ]
+   ],
+   "sentinel": [
+    [
+     37,
+     192,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     true
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "mute",
+    "kind": "field",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 4,
+    "sentinelCallbacks": 1,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "chance-while-disabled",
+   "kind": "disabled-control",
+   "ops": [
+    {
+     "op": "field",
+     "x": 7171,
+     "y": 60,
+     "channel": 0,
+     "field": "chance",
+     "value": 0.3
+    }
+   ],
+   "applyMs": 0.156041,
+   "settled": {
+    "fineCallbacks": 2097169,
+    "sentinelCallbacks": 38,
+    "waitedMs": 1583.0183749999997
+   },
+   "fine": [
+    [
+     2097166,
+     7171,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     0.3,
+     true,
+     false
+    ],
+    [
+     2097167,
+     7172,
+     60,
+     0,
+     1,
+     0.787401556968689,
+     0.0078125,
+     0,
+     0.3,
+     true,
+     false
+    ],
+    [
+     2097168,
+     7173,
+     60,
+     0,
+     1,
+     0.787401556968689,
+     0.0078125,
+     0,
+     0.3,
+     true,
+     false
+    ],
+    [
+     2097169,
+     7174,
+     60,
+     0,
+     1,
+     0.787401556968689,
+     0.0078125,
+     0,
+     0.3,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     38,
+     224,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     0.3,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "chance-while-disabled",
+    "kind": "disabled-control",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 4,
+    "sentinelCallbacks": 1,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "duration-inside-footprint",
+   "kind": "duration",
+   "ops": [
+    {
+     "op": "field",
+     "x": 8193,
+     "y": 60,
+     "channel": 0,
+     "field": "duration",
+     "value": 8
+    }
+   ],
+   "applyMs": 2.639958,
+   "settled": {
+    "fineCallbacks": 2097177,
+    "sentinelCallbacks": 39,
+    "waitedMs": 1584.4015
+   },
+   "fine": [
+    [
+     2097170,
+     8193,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.015625,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097171,
+     8194,
+     60,
+     0,
+     1,
+     0.787401556968689,
+     0.015625,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097172,
+     8195,
+     60,
+     0,
+     1,
+     0.787401556968689,
+     0.015625,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097173,
+     8196,
+     60,
+     0,
+     1,
+     0.787401556968689,
+     0.015625,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097174,
+     8197,
+     60,
+     0,
+     1,
+     0.787401556968689,
+     0.015625,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097175,
+     8198,
+     60,
+     0,
+     1,
+     0.787401556968689,
+     0.015625,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097176,
+     8199,
+     60,
+     0,
+     1,
+     0.787401556968689,
+     0.015625,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097177,
+     8200,
+     60,
+     0,
+     1,
+     0.787401556968689,
+     0.015625,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     39,
+     256,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.015625,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "duration-inside-footprint",
+    "kind": "duration",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 8,
+    "sentinelCallbacks": 1,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "delete-readd-one-update",
+   "kind": "delete-readd",
+   "ops": [
+    {
+     "op": "clear",
+     "x": 9221,
+     "y": 60,
+     "channel": 0
+    },
+    {
+     "op": "set",
+     "x": 9221,
+     "y": 60,
+     "channel": 0,
+     "velocity": 40,
+     "durationCells": 4
+    }
+   ],
+   "applyMs": 2.925333,
+   "settled": {
+    "fineCallbacks": 2097181,
+    "sentinelCallbacks": 40,
+    "waitedMs": 1592.5446660000016
+   },
+   "fine": [
+    [
+     2097178,
+     9221,
+     60,
+     0,
+     2,
+     0.31496062874794006,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097179,
+     9222,
+     60,
+     0,
+     1,
+     0.31496062874794006,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097180,
+     9223,
+     60,
+     0,
+     1,
+     0.31496062874794006,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097181,
+     9224,
+     60,
+     0,
+     1,
+     0.31496062874794006,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     40,
+     288,
+     60,
+     0,
+     2,
+     0.31496062874794006,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "delete-readd-one-update",
+    "kind": "delete-readd",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 4,
+    "sentinelCallbacks": 1,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "same-cell-first",
+   "kind": "same-pitch-channel",
+   "ops": [
+    {
+     "op": "field",
+     "x": 10242,
+     "y": 60,
+     "channel": 0,
+     "field": "velocity",
+     "value": 0.2
+    }
+   ],
+   "applyMs": 0.197167,
+   "settled": {
+    "fineCallbacks": 2097185,
+    "sentinelCallbacks": 41,
+    "waitedMs": 1584.2383330000011
+   },
+   "fine": [
+    [
+     2097182,
+     10242,
+     60,
+     0,
+     2,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097183,
+     10243,
+     60,
+     0,
+     1,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097184,
+     10244,
+     60,
+     0,
+     1,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097185,
+     10245,
+     60,
+     0,
+     1,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     41,
+     320,
+     60,
+     0,
+     2,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "same-cell-first",
+    "kind": "same-pitch-channel",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 4,
+    "sentinelCallbacks": 1,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "same-cell-second",
+   "kind": "same-pitch-channel",
+   "ops": [
+    {
+     "op": "field",
+     "x": 11274,
+     "y": 60,
+     "channel": 0,
+     "field": "velocity",
+     "value": 0.2
+    }
+   ],
+   "applyMs": 0.116459,
+   "settled": {
+    "fineCallbacks": 2097189,
+    "sentinelCallbacks": 43,
+    "waitedMs": 1586.9801250000019
+   },
+   "fine": [
+    [
+     2097186,
+     11274,
+     60,
+     0,
+     2,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097187,
+     11275,
+     60,
+     0,
+     1,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097188,
+     11276,
+     60,
+     0,
+     1,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097189,
+     11277,
+     60,
+     0,
+     1,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     42,
+     320,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     43,
+     352,
+     60,
+     0,
+     2,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "same-cell-second",
+    "kind": "same-pitch-channel",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 4,
+    "sentinelCallbacks": 2,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "channel-0",
+   "kind": "channel",
+   "ops": [
+    {
+     "op": "field",
+     "x": 12295,
+     "y": 60,
+     "channel": 0,
+     "field": "velocity",
+     "value": 0.5
+    }
+   ],
+   "applyMs": 0.076709,
+   "settled": {
+    "fineCallbacks": 2097193,
+    "sentinelCallbacks": 46,
+    "waitedMs": 1581.0543749999997
+   },
+   "fine": [
+    [
+     2097190,
+     12295,
+     60,
+     0,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097191,
+     12296,
+     60,
+     0,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097192,
+     12297,
+     60,
+     0,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097193,
+     12298,
+     60,
+     0,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     44,
+     320,
+     60,
+     0,
+     2,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     45,
+     352,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     46,
+     384,
+     60,
+     0,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "channel-0",
+    "kind": "channel",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 4,
+    "sentinelCallbacks": 3,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "channel-1",
+   "kind": "channel",
+   "ops": [
+    {
+     "op": "field",
+     "x": 13319,
+     "y": 60,
+     "channel": 1,
+     "field": "velocity",
+     "value": 0.5
+    }
+   ],
+   "applyMs": 0.253,
+   "settled": {
+    "fineCallbacks": 2097197,
+    "sentinelCallbacks": 49,
+    "waitedMs": 1590.9474169999994
+   },
+   "fine": [
+    [
+     2097194,
+     13319,
+     60,
+     1,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097195,
+     13320,
+     60,
+     1,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097196,
+     13321,
+     60,
+     1,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097197,
+     13322,
+     60,
+     1,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     47,
+     320,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     48,
+     352,
+     60,
+     0,
+     2,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     49,
+     416,
+     60,
+     1,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "channel-1",
+    "kind": "channel",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 4,
+    "sentinelCallbacks": 3,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "channel-2",
+   "kind": "channel",
+   "ops": [
+    {
+     "op": "field",
+     "x": 14343,
+     "y": 60,
+     "channel": 2,
+     "field": "velocity",
+     "value": 0.5
+    }
+   ],
+   "applyMs": 0.140708,
+   "settled": {
+    "fineCallbacks": 2097201,
+    "sentinelCallbacks": 52,
+    "waitedMs": 1585.136125000001
+   },
+   "fine": [
+    [
+     2097198,
+     14343,
+     60,
+     2,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097199,
+     14344,
+     60,
+     2,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097200,
+     14345,
+     60,
+     2,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097201,
+     14346,
+     60,
+     2,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     50,
+     320,
+     60,
+     0,
+     2,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     51,
+     352,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     52,
+     448,
+     60,
+     2,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "channel-2",
+    "kind": "channel",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 4,
+    "sentinelCallbacks": 3,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "channel-3",
+   "kind": "channel",
+   "ops": [
+    {
+     "op": "field",
+     "x": 15367,
+     "y": 60,
+     "channel": 3,
+     "field": "velocity",
+     "value": 0.5
+    }
+   ],
+   "applyMs": 0.204542,
+   "settled": {
+    "fineCallbacks": 2097205,
+    "sentinelCallbacks": 55,
+    "waitedMs": 1584.640625
+   },
+   "fine": [
+    [
+     2097202,
+     15367,
+     60,
+     3,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097203,
+     15368,
+     60,
+     3,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097204,
+     15369,
+     60,
+     3,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097205,
+     15370,
+     60,
+     3,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     53,
+     320,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     54,
+     352,
+     60,
+     0,
+     2,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     55,
+     480,
+     60,
+     3,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "channel-3",
+    "kind": "channel",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 4,
+    "sentinelCallbacks": 3,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "channel-4",
+   "kind": "channel",
+   "ops": [
+    {
+     "op": "field",
+     "x": 16391,
+     "y": 60,
+     "channel": 4,
+     "field": "velocity",
+     "value": 0.5
+    }
+   ],
+   "applyMs": 0.168542,
+   "settled": {
+    "fineCallbacks": 2097209,
+    "sentinelCallbacks": 58,
+    "waitedMs": 1591.3325000000004
+   },
+   "fine": [
+    [
+     2097206,
+     16391,
+     60,
+     4,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097207,
+     16392,
+     60,
+     4,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097208,
+     16393,
+     60,
+     4,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097209,
+     16394,
+     60,
+     4,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     56,
+     320,
+     60,
+     0,
+     2,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     57,
+     352,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     58,
+     512,
+     60,
+     4,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "channel-4",
+    "kind": "channel",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 4,
+    "sentinelCallbacks": 3,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "channel-5",
+   "kind": "channel",
+   "ops": [
+    {
+     "op": "field",
+     "x": 17415,
+     "y": 60,
+     "channel": 5,
+     "field": "velocity",
+     "value": 0.5
+    }
+   ],
+   "applyMs": 0.238417,
+   "settled": {
+    "fineCallbacks": 2097213,
+    "sentinelCallbacks": 61,
+    "waitedMs": 1588.5479579999956
+   },
+   "fine": [
+    [
+     2097210,
+     17415,
+     60,
+     5,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097211,
+     17416,
+     60,
+     5,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097212,
+     17417,
+     60,
+     5,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097213,
+     17418,
+     60,
+     5,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     59,
+     320,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     60,
+     352,
+     60,
+     0,
+     2,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     61,
+     544,
+     60,
+     5,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "channel-5",
+    "kind": "channel",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 4,
+    "sentinelCallbacks": 3,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "channel-6",
+   "kind": "channel",
+   "ops": [
+    {
+     "op": "field",
+     "x": 18439,
+     "y": 60,
+     "channel": 6,
+     "field": "velocity",
+     "value": 0.5
+    }
+   ],
+   "applyMs": 0.10175,
+   "settled": {
+    "fineCallbacks": 2097217,
+    "sentinelCallbacks": 64,
+    "waitedMs": 1578.4893329999977
+   },
+   "fine": [
+    [
+     2097214,
+     18439,
+     60,
+     6,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097215,
+     18440,
+     60,
+     6,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097216,
+     18441,
+     60,
+     6,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097217,
+     18442,
+     60,
+     6,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     62,
+     320,
+     60,
+     0,
+     2,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     63,
+     352,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     64,
+     576,
+     60,
+     6,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "channel-6",
+    "kind": "channel",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 4,
+    "sentinelCallbacks": 3,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "channel-7",
+   "kind": "channel",
+   "ops": [
+    {
+     "op": "field",
+     "x": 19463,
+     "y": 60,
+     "channel": 7,
+     "field": "velocity",
+     "value": 0.5
+    }
+   ],
+   "applyMs": 0.081375,
+   "settled": {
+    "fineCallbacks": 2097221,
+    "sentinelCallbacks": 67,
+    "waitedMs": 1593.3050000000003
+   },
+   "fine": [
+    [
+     2097218,
+     19463,
+     60,
+     7,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097219,
+     19464,
+     60,
+     7,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097220,
+     19465,
+     60,
+     7,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097221,
+     19466,
+     60,
+     7,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     65,
+     320,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     66,
+     352,
+     60,
+     0,
+     2,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     67,
+     608,
+     60,
+     7,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "channel-7",
+    "kind": "channel",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 4,
+    "sentinelCallbacks": 3,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "channel-8",
+   "kind": "channel",
+   "ops": [
+    {
+     "op": "field",
+     "x": 20487,
+     "y": 60,
+     "channel": 8,
+     "field": "velocity",
+     "value": 0.5
+    }
+   ],
+   "applyMs": 0.186916,
+   "settled": {
+    "fineCallbacks": 2097225,
+    "sentinelCallbacks": 70,
+    "waitedMs": 1588.6890829999975
+   },
+   "fine": [
+    [
+     2097222,
+     20487,
+     60,
+     8,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097223,
+     20488,
+     60,
+     8,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097224,
+     20489,
+     60,
+     8,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097225,
+     20490,
+     60,
+     8,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     68,
+     320,
+     60,
+     0,
+     2,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     69,
+     352,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     70,
+     640,
+     60,
+     8,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "channel-8",
+    "kind": "channel",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 4,
+    "sentinelCallbacks": 3,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "channel-9",
+   "kind": "channel",
+   "ops": [
+    {
+     "op": "field",
+     "x": 21511,
+     "y": 60,
+     "channel": 9,
+     "field": "velocity",
+     "value": 0.5
+    }
+   ],
+   "applyMs": 0.221083,
+   "settled": {
+    "fineCallbacks": 2097229,
+    "sentinelCallbacks": 73,
+    "waitedMs": 1591.8142499999958
+   },
+   "fine": [
+    [
+     2097226,
+     21511,
+     60,
+     9,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097227,
+     21512,
+     60,
+     9,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097228,
+     21513,
+     60,
+     9,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097229,
+     21514,
+     60,
+     9,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     71,
+     320,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     72,
+     352,
+     60,
+     0,
+     2,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     73,
+     672,
+     60,
+     9,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "channel-9",
+    "kind": "channel",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 4,
+    "sentinelCallbacks": 3,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "channel-10",
+   "kind": "channel",
+   "ops": [
+    {
+     "op": "field",
+     "x": 22535,
+     "y": 60,
+     "channel": 10,
+     "field": "velocity",
+     "value": 0.5
+    }
+   ],
+   "applyMs": 0.196375,
+   "settled": {
+    "fineCallbacks": 2097233,
+    "sentinelCallbacks": 76,
+    "waitedMs": 1589.4597920000015
+   },
+   "fine": [
+    [
+     2097230,
+     22535,
+     60,
+     10,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097231,
+     22536,
+     60,
+     10,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097232,
+     22537,
+     60,
+     10,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097233,
+     22538,
+     60,
+     10,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     74,
+     320,
+     60,
+     0,
+     2,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     75,
+     352,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     76,
+     704,
+     60,
+     10,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "channel-10",
+    "kind": "channel",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 4,
+    "sentinelCallbacks": 3,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "channel-11",
+   "kind": "channel",
+   "ops": [
+    {
+     "op": "field",
+     "x": 23559,
+     "y": 60,
+     "channel": 11,
+     "field": "velocity",
+     "value": 0.5
+    }
+   ],
+   "applyMs": 0.1275,
+   "settled": {
+    "fineCallbacks": 2097237,
+    "sentinelCallbacks": 79,
+    "waitedMs": 1590.1665829999984
+   },
+   "fine": [
+    [
+     2097234,
+     23559,
+     60,
+     11,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097235,
+     23560,
+     60,
+     11,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097236,
+     23561,
+     60,
+     11,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097237,
+     23562,
+     60,
+     11,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     77,
+     320,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     78,
+     352,
+     60,
+     0,
+     2,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     79,
+     736,
+     60,
+     11,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "channel-11",
+    "kind": "channel",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 4,
+    "sentinelCallbacks": 3,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "channel-12",
+   "kind": "channel",
+   "ops": [
+    {
+     "op": "field",
+     "x": 24583,
+     "y": 60,
+     "channel": 12,
+     "field": "velocity",
+     "value": 0.5
+    }
+   ],
+   "applyMs": 0.198209,
+   "settled": {
+    "fineCallbacks": 2097241,
+    "sentinelCallbacks": 82,
+    "waitedMs": 1576.463917000001
+   },
+   "fine": [
+    [
+     2097238,
+     24583,
+     60,
+     12,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097239,
+     24584,
+     60,
+     12,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097240,
+     24585,
+     60,
+     12,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097241,
+     24586,
+     60,
+     12,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     80,
+     320,
+     60,
+     0,
+     2,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     81,
+     352,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     82,
+     768,
+     60,
+     12,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "channel-12",
+    "kind": "channel",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 4,
+    "sentinelCallbacks": 3,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "channel-13",
+   "kind": "channel",
+   "ops": [
+    {
+     "op": "field",
+     "x": 25607,
+     "y": 60,
+     "channel": 13,
+     "field": "velocity",
+     "value": 0.5
+    }
+   ],
+   "applyMs": 0.156417,
+   "settled": {
+    "fineCallbacks": 2097245,
+    "sentinelCallbacks": 85,
+    "waitedMs": 1581.6423329999961
+   },
+   "fine": [
+    [
+     2097242,
+     25607,
+     60,
+     13,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097243,
+     25608,
+     60,
+     13,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097244,
+     25609,
+     60,
+     13,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097245,
+     25610,
+     60,
+     13,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     83,
+     320,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     84,
+     352,
+     60,
+     0,
+     2,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     85,
+     800,
+     60,
+     13,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "channel-13",
+    "kind": "channel",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 4,
+    "sentinelCallbacks": 3,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "channel-14",
+   "kind": "channel",
+   "ops": [
+    {
+     "op": "field",
+     "x": 26631,
+     "y": 60,
+     "channel": 14,
+     "field": "velocity",
+     "value": 0.5
+    }
+   ],
+   "applyMs": 0.158792,
+   "settled": {
+    "fineCallbacks": 2097249,
+    "sentinelCallbacks": 88,
+    "waitedMs": 1586.515582999993
+   },
+   "fine": [
+    [
+     2097246,
+     26631,
+     60,
+     14,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097247,
+     26632,
+     60,
+     14,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097248,
+     26633,
+     60,
+     14,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097249,
+     26634,
+     60,
+     14,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     86,
+     320,
+     60,
+     0,
+     2,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     87,
+     352,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     88,
+     832,
+     60,
+     14,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "channel-14",
+    "kind": "channel",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 4,
+    "sentinelCallbacks": 3,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "channel-15",
+   "kind": "channel",
+   "ops": [
+    {
+     "op": "field",
+     "x": 27655,
+     "y": 60,
+     "channel": 15,
+     "field": "velocity",
+     "value": 0.5
+    }
+   ],
+   "applyMs": 0.159,
+   "settled": {
+    "fineCallbacks": 2097253,
+    "sentinelCallbacks": 91,
+    "waitedMs": 1583.744166999997
+   },
+   "fine": [
+    [
+     2097250,
+     27655,
+     60,
+     15,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097251,
+     27656,
+     60,
+     15,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097252,
+     27657,
+     60,
+     15,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     2097253,
+     27658,
+     60,
+     15,
+     1,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     89,
+     320,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     90,
+     352,
+     60,
+     0,
+     2,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     91,
+     864,
+     60,
+     15,
+     2,
+     0.5,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "channel-15",
+    "kind": "channel",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 4,
+    "sentinelCallbacks": 3,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "final-cell-field",
+   "kind": "final-cell",
+   "ops": [
+    {
+     "op": "field",
+     "x": 32767,
+     "y": 61,
+     "channel": 0,
+     "field": "velocity",
+     "value": 0.4
+    }
+   ],
+   "applyMs": 0.154917,
+   "settled": {
+    "fineCallbacks": 2097254,
+    "sentinelCallbacks": 94,
+    "waitedMs": 1583.7115419999973
+   },
+   "fine": [
+    [
+     2097254,
+     32767,
+     61,
+     0,
+     2,
+     0.4,
+     0.001953125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     92,
+     320,
+     60,
+     0,
+     2,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     93,
+     352,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     94,
+     1023,
+     61,
+     0,
+     2,
+     0.4,
+     0.001953125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "final-cell-field",
+    "kind": "final-cell",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 1,
+    "sentinelCallbacks": 3,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "final-cell-add",
+   "kind": "final-cell",
+   "ops": [
+    {
+     "op": "set",
+     "x": 32767,
+     "y": 62,
+     "channel": 0,
+     "velocity": 90,
+     "durationCells": 1
+    }
+   ],
+   "applyMs": 0.124625,
+   "settled": {
+    "fineCallbacks": 2097255,
+    "sentinelCallbacks": 97,
+    "waitedMs": 1574.1422079999975
+   },
+   "fine": [
+    [
+     2097255,
+     32767,
+     62,
+     0,
+     2,
+     0.7086614370346069,
+     0.001953125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "sentinel": [
+    [
+     95,
+     320,
+     60,
+     0,
+     2,
+     0.787401556968689,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     96,
+     352,
+     60,
+     0,
+     2,
+     0.2,
+     0.0078125,
+     0,
+     1,
+     true,
+     false
+    ],
+    [
+     97,
+     1023,
+     62,
+     0,
+     2,
+     0.7086614370346069,
+     0.001953125,
+     0,
+     1,
+     true,
+     false
+    ]
+   ],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "final-cell-add",
+    "kind": "final-cell",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 1,
+    "sentinelCallbacks": 3,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "loop-shorten",
+   "kind": "clip-extent",
+   "ops": [
+    {
+     "op": "loopLength",
+     "beats": 32
+    }
+   ],
+   "applyMs": 2.672167,
+   "settled": {
+    "fineCallbacks": 2097255,
+    "sentinelCallbacks": 97,
+    "waitedMs": 1586.3173749999987
+   },
+   "fine": [],
+   "sentinel": [],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "loop-shorten",
+    "kind": "clip-extent",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 0,
+    "sentinelCallbacks": 0,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "loop-restore",
+   "kind": "clip-extent",
+   "ops": [
+    {
+     "op": "loopLength",
+     "beats": 64
+    }
+   ],
+   "applyMs": 0.055625,
+   "settled": {
+    "fineCallbacks": 2097255,
+    "sentinelCallbacks": 97,
+    "waitedMs": 1582.3977920000034
+   },
+   "fine": [],
+   "sentinel": [],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "loop-restore",
+    "kind": "clip-extent",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 0,
+    "sentinelCallbacks": 0,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "length-shorten",
+   "kind": "clip-extent",
+   "ops": [
+    {
+     "op": "playStop",
+     "beats": 32
+    }
+   ],
+   "applyMs": 0.058709,
+   "settled": {
+    "fineCallbacks": 2097255,
+    "sentinelCallbacks": 97,
+    "waitedMs": 1582.0410829999964
+   },
+   "fine": [],
+   "sentinel": [],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "length-shorten",
+    "kind": "clip-extent",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 0,
+    "sentinelCallbacks": 0,
+    "fineObserved": true
+   }
+  },
+  {
+   "label": "length-restore",
+   "kind": "clip-extent",
+   "ops": [
+    {
+     "op": "playStop",
+     "beats": 64
+    }
+   ],
+   "applyMs": 0.058042,
+   "settled": {
+    "fineCallbacks": 2097255,
+    "sentinelCallbacks": 97,
+    "waitedMs": 1582.3470420000012
+   },
+   "fine": [],
+   "sentinel": [],
+   "fineComplete": true,
+   "sentinelComplete": true,
+   "result": {
+    "label": "length-restore",
+    "kind": "clip-extent",
+    "stepCells": 32,
+    "pass": true,
+    "missing": [],
+    "derivedMissing": [],
+    "fineMissing": [],
+    "fineCallbacks": 0,
+    "sentinelCallbacks": 0,
+    "fineObserved": true
+   }
+  }
+ ],
+ "baseline": {
+  "fineCallbacks": 2097144,
+  "sentinelCallbacks": 31,
+  "waitedMs": 1589.6250419999997
+ },
+ "setup": {
+  "fineCallbacks": 2097144,
+  "sentinelCallbacks": 31,
+  "waitedMs": 1581.7647499999998
+ },
+ "clip": {
+  "width": 1048576,
+  "windowed": false,
+  "subscribed": true,
+  "trackExists": true,
+  "trackChannelId": "0b6c8038-8275-4486-b0ad-e5713cda4f3a",
+  "trackPosition": 0,
+  "trackPinned": true,
+  "clipExists": true,
+  "clipPinned": true,
+  "sceneIndex": 0,
+  "loopLength": 64,
+  "playStop": 64,
+  "callbacks": 2097255,
+  "emptyCallbacks": 1048515,
+  "sustainCallbacks": 1032296,
+  "onsetCallbacks": 16444,
+  "tracing": false,
+  "traceOverwritten": 229,
+  "msSinceLastCallback": 8259.919584,
+  "firstToLastCallbackMs": 361502.873541
+ },
+ "summary": {
+  "stepCells": 32,
+  "stepBeats": 0.0625,
+  "rows": 34,
+  "pass": false,
+  "misses": [
+   "nudge-inside-cell",
+   "chance-enabled"
+  ],
+  "fineBlind": [
+   "chance-enabled"
+  ]
+ }
+}

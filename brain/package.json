@@ -20,6 +20,7 @@
     "probe:phase8g-shadow": "node --import tsx src/probes/phase8g-shadow-cache.ts",
     "probe:phase8g-lifecycle-reuse": "node --import tsx src/probes/phase8g-lifecycle-reuse.ts",
     "probe:phase8h1a-knee": "node --import tsx src/probes/phase8h1a-knee.ts",
+    "probe:phase8h1b-sounding": "node --import tsx src/probes/phase8h1b-sounding.ts",
     "benchmark:compact-bar": "python3 benchmarks/compact-bar-v0/benchmark.py --check benchmarks/compact-bar-v0/expected-deterministic.json",
     "benchmark:compact-format-dev": "python3 benchmarks/compact-format-v2/benchmark.py --check benchmarks/compact-format-v2/expected-deterministic.json",
     "benchmark:compact-format-holdout": "python3 benchmarks/compact-format-v2/holdout.py --check benchmarks/compact-format-v2/expected-holdout-deterministic.json",

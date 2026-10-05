@@ -20,7 +20,7 @@ import static com.ghostnote.extension.ShadowProjectCache.*;
 public final class ShadowCacheProbe {
     private static final Gson JSON = new Gson();
     /** Deliberate build marker for live reload checks. */
-    public static final String INSTRUMENTATION_REVISION = "8h1a-knee-sweep-v8";
+    public static final String INSTRUMENTATION_REVISION = "8h1b-sounding-v2";
     private static final int KEYS = 128;
     private static final double BATCH_MS = 40;
     private static final double HOST_WORK_LIMIT_MS = 45;
@@ -1657,6 +1657,15 @@ public final class ShadowCacheProbe {
             }
         }
         return result;
+    }
+
+    /** 8h1b research: the first resident views and the authority, for the resident-cursor census. */
+    public java.util.List<ShadowSoundingProbe.Cursor> researchCursors(int limit) {
+        java.util.List<ShadowSoundingProbe.Cursor> cursors = new ArrayList<>();
+        for (int index = 0; index < Math.min(limit, views.length); index++)
+            cursors.add(new ShadowSoundingProbe.Cursor("view:" + index, views[index].track, views[index].clip, allocatedWidth, false));
+        if (authority != null) cursors.add(new ShadowSoundingProbe.Cursor("authority", authority.track, authority.clip, allocatedWidth, false));
+        return cursors;
     }
 
     public JsonObject retire(int index) {

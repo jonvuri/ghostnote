@@ -3,7 +3,7 @@ title: Phase 8h — Cache promotion and interface simplification
 kind: plan
 state: planned
 status: Promote only proved cache states and apply the 8a product reductions over the replacement route.
-updated: 2026-10-04
+updated: 2026-10-05
 parent: README.md
 prev: 8g-shadow-project-cache.md
 next: 8i-agent-native-hybrid-dogfood.md
@@ -43,10 +43,14 @@ a stable write or preflight uses cache state.
 1. [8h1a — Cache limit knee sweep](8h1a-cache-limit-knee-sweep.md). Find the
    real host and speed knees with one maximum allocation and runtime
    configuration. [8h1b](8h1b-sounding-cell-cost-reduction.md) then reduces
-   the host cost of each sounding cell. Then 8h1 — cache promotion: turn on address- and
+   the host cost of each sounding cell ([E226](../../evidence/experiments/e226-sounding-cell-cost-reduction.md):
+   unsubscribe release and a sounding-cell budget; no coarse sentinel). Then 8h1 — cache promotion: turn on address- and
    domain-scoped eligibility at the selected limits, with exact fallback to
    the stable E131 reader. The 8h1 plan is written after 8h1a.
-2. [8h2 — Exact reader consolidation](8h2-exact-reader-consolidation.md).
+2. [8h2a — Replay cold read](8h2a-replay-cold-read.md). Prove a complete cold
+   read from the host step replay, with a completion and start signal. Run it
+   after 8h1b and before 8h1, because a fast cold read changes what 8h1 needs.
+   Then [8h2b — Exact reader consolidation](8h2b-exact-reader-consolidation.md).
    Select the exact reader, remove the `1/768` view, and fix or refuse the
    E131 disabled-control loss.
 3. 8h3 — interface simplification, naming, and device structure migration.

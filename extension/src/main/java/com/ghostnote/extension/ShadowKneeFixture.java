@@ -55,6 +55,9 @@ public final class ShadowKneeFixture {
         if (count < 1 || count > width || index < 0 || index >= count) throw new IllegalArgumentException("invalid fixture spec");
     }
 
+    /** 8h1b: the fixture writer is a full-width proxy. It holds the grid of the clip that it is bound to. */
+    public ShadowSoundingProbe.Cursor cursor() { return new ShadowSoundingProbe.Cursor("fixture", track, clip, width, false); }
+
     public JsonObject point(Track target) {
         clip.isPinned().set(false); track.isPinned().set(false); track.selectChannel(target);
         return status();
@@ -115,6 +118,53 @@ public final class ShadowKneeFixture {
         requireBound(1);
         long started = System.nanoTime(); clip.transpose(semitones); transposes++;
         return batch(0, started);
+    }
+
+    /**
+     * 8h1b sentinel matrix. Apply every operation in one call, so they share one host update. Cells are
+     * 1/512 beat. Operations: set, clear, move, field, loopLength, playStop.
+     */
+    public JsonObject edit(JsonArray operations) {
+        requireBound(1);
+        long started = System.nanoTime(); int done = 0;
+        for (var value : operations) {
+            JsonObject op = value.getAsJsonObject();
+            String kind = op.get("op").getAsString();
+            switch (kind) {
+                case "set" -> clip.setStep(op.get("channel").getAsInt(), cellOf(op, "x"), op.get("y").getAsInt(),
+                    op.get("velocity").getAsInt(), op.get("durationCells").getAsLong() * ShadowProjectCache.GRID);
+                case "clear" -> clip.clearStep(op.get("channel").getAsInt(), cellOf(op, "x"), op.get("y").getAsInt());
+                case "move" -> clip.moveStep(op.get("channel").getAsInt(), cellOf(op, "x"), op.get("y").getAsInt(),
+                    op.get("dx").getAsInt(), op.get("dy").getAsInt());
+                case "field" -> field(clip.getStep(op.get("channel").getAsInt(), cellOf(op, "x"), op.get("y").getAsInt()),
+                    op.get("field").getAsString(), op.get("value"));
+                case "loopLength" -> clip.getLoopLength().set(op.get("beats").getAsDouble());
+                case "playStop" -> clip.getPlayStop().set(op.get("beats").getAsDouble());
+                default -> throw new IllegalArgumentException("unknown fixture edit " + kind);
+            }
+            done++;
+        }
+        written += done;
+        return batch(done, started);
+    }
+
+    private int cellOf(JsonObject op, String key) {
+        int x = op.get(key).getAsInt();
+        if (x < 0 || x >= width) throw new IllegalArgumentException("cell outside fixture cursor");
+        return x;
+    }
+
+    private static void field(NoteStep step, String field, com.google.gson.JsonElement value) {
+        if (step.state() != NoteStep.State.NoteOn) throw new IllegalStateException("field edit needs a note start");
+        switch (field) {
+            case "velocity" -> step.setVelocity(value.getAsDouble());
+            case "gain" -> step.setGain(value.getAsDouble());
+            case "chance" -> step.setChance(value.getAsDouble());
+            case "chanceEnabled" -> step.setIsChanceEnabled(value.getAsBoolean());
+            case "muted" -> step.setIsMuted(value.getAsBoolean());
+            case "duration" -> step.setDuration(value.getAsLong() * ShadowProjectCache.GRID);
+            default -> throw new IllegalArgumentException("unknown note field " + field);
+        }
     }
 
     /** Targeted oracle reads. Each coordinate reads all 16 channels. */

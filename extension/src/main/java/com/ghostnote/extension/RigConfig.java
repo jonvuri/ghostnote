@@ -103,6 +103,8 @@ public class RigConfig {
     }
     /** 8h1a: allocate the research fixture writer at the shadow width. */
     public boolean cacheKneeResearch = false;
+    /** 8h1b: allocate the sounding-cell release proxy and coarse sentinel. It needs the knee fixture. */
+    public boolean cacheSoundingResearch = false;
     /** Allocate the E216 delivery and coherence recorder in a probe profile. */
     public boolean deliveryResearch = false;
     /**
@@ -172,6 +174,9 @@ public class RigConfig {
             if (obj.has("cacheKneeResearch")) {
                 config.cacheKneeResearch = obj.get("cacheKneeResearch").getAsBoolean();
             }
+            if (obj.has("cacheSoundingResearch")) {
+                config.cacheSoundingResearch = obj.get("cacheSoundingResearch").getAsBoolean();
+            }
             if (obj.has("deliveryResearch")) {
                 config.deliveryResearch = obj.get("deliveryResearch").getAsBoolean();
             }
@@ -219,6 +224,7 @@ public class RigConfig {
         obj.addProperty("cacheLifecycleResearch", cacheLifecycleResearch);
         obj.addProperty("cacheKneeResearch", cacheKneeResearch);
         obj.addProperty("cacheShadowCursorScenes", cacheShadowCursorScenes);
+        obj.addProperty("cacheSoundingResearch", cacheSoundingResearch);
         obj.addProperty("deliveryResearch", deliveryResearch);
         obj.addProperty("contentFilter", contentFilter);
         obj.addProperty("directObservers", directObservers);

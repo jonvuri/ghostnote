@@ -1,16 +1,36 @@
 ---
 title: Phase 8h1b — Sounding-cell cost reduction
 kind: plan
-state: planned
-status: Planned. Reduce the host cost of each sounding cell with fewer bound proxies and a coarse change sentinel.
+state: complete
+status: Complete. Unsubscribe releases a bound grid; a sounding-cell budget evicts exactly; the 1/16 coarse sentinel is refused.
 updated: 2026-10-05
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h1a-cache-limit-knee-sweep.md
-next: 8h2-exact-reader-consolidation.md
-evidence: E131, E139, E224, E225; D26, D27, D29
+next: 8h2a-replay-cold-read.md
+evidence: E131, E139, E224, E225, E226; D26, D27, D29
 ---
 
 # Phase 8h1b — Sounding-cell cost reduction
+
+## Status
+
+Complete. [E226](../../evidence/experiments/e226-sounding-cell-cost-reduction.md)
+records experiments 1 to 4:
+
+- Unsubscribing the clip of a full-width cursor releases its complete grid.
+  Resubscribe replays 1,048,513 cells in about 130 ms. Moving to an empty park
+  track or scrolling past the clip also releases the grid. Unpin and an empty
+  slot selection do not.
+- Only the cache views, the authority, and the research fixture are
+  full-width. The E131, note-observer, and pool cursors hold only their window.
+- `SoundingCellBudget` admits by measured sounding cells after a read and
+  evicts the least recently used residents. A one-clip budget evicted and
+  readmitted exactly. A canary readmission took 6–7.4 s.
+- At 1/16 beat the sentinel misses a 1/512 nudge inside one coarse cell. The
+  coarse sentinel is refused; 1/4 beat, 1 beat, and experiment 5 did not run.
+
+The retained read-data term and the full research diagnostics were not
+reduced in this session. 8h1 must remove or budget them before promotion.
 
 ## Why
 
@@ -101,4 +121,4 @@ E225's live-value warm reads and with E131.
 ## Out of scope
 
 - Promotion and live eligibility (8h1).
-- Exact reader changes (8h2).
+- Exact reader changes (8h2a, 8h2b).

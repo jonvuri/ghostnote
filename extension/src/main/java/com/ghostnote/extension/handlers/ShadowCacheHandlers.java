@@ -5,6 +5,7 @@ import com.ghostnote.extension.Rig;
 import com.ghostnote.extension.ShadowCacheProbe;
 import com.ghostnote.extension.ShadowGroupControl;
 import com.ghostnote.extension.ShadowTopologyControl;
+import com.ghostnote.extension.SoundingCellBudget;
 import com.ghostnote.extension.ShadowProjectCache.Coverage;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -48,8 +49,53 @@ public final class ShadowCacheHandlers extends HandlerGroup {
         };
     }
 
+    /** 8h1b sounding-cell research. Every reply keeps complete:false and eligible:false. */
+    private JsonElement sounding(String operation, JsonObject params) {
+        var sounding = rig.soundingProbe;
+        if (sounding == null) throw new IllegalStateException("sounding research resources are not allocated");
+        return switch (operation) {
+            case "soundingStatus" -> sounding.status();
+            case "soundingAct" -> sounding.act(params.get("role").getAsString(), params.get("action").getAsString(), params,
+                this::requireTrack);
+            case "soundingTrace" -> sounding.trace(params.get("role").getAsString(), params.get("enabled").getAsBoolean());
+            case "soundingReset" -> sounding.resetCounters(params.get("role").getAsString());
+            case "soundingSince" -> sounding.traceSince(params.get("role").getAsString(), params.get("since").getAsLong(),
+                params.has("limit") ? params.get("limit").getAsInt() : 4096);
+            case "soundingEdit" -> {
+                if (rig.kneeFixture == null) throw new IllegalStateException("knee fixture resources are not allocated");
+                yield rig.kneeFixture.edit(params.getAsJsonArray("ops"));
+            }
+            case "soundingBudget" -> {
+                sounding.budget().configure(params.get("budgetCells").getAsLong(), params.get("clipLimitCells").getAsLong());
+                yield sounding.budget().status();
+            }
+            case "soundingAdmit" -> {
+                var busy = new java.util.HashSet<String>();
+                if (params.has("busy")) params.getAsJsonArray("busy").forEach(value -> busy.add(value.getAsString()));
+                var result = SoundingCellBudget.json(sounding.budget().admit(params.get("key").getAsString(),
+                    params.get("cells").getAsLong(), busy));
+                result.add("budget", sounding.budget().status());
+                yield result;
+            }
+            case "soundingTouch" -> {
+                var result = new JsonObject();
+                result.addProperty("resident", sounding.budget().touch(params.get("key").getAsString()));
+                result.add("budget", sounding.budget().status());
+                yield result;
+            }
+            case "soundingRelease" -> {
+                var result = new JsonObject();
+                result.addProperty("released", sounding.budget().release(params.get("key").getAsString()));
+                result.add("budget", sounding.budget().status());
+                yield result;
+            }
+            default -> throw new IllegalArgumentException("unknown sounding research operation");
+        };
+    }
+
     private JsonElement dispatch(JsonObject params) {
         String operation = params.get("operation").getAsString();
+        if (operation.startsWith("sounding")) return sounding(operation, params);
         if (operation.equals("allocationStats")) {
             JsonObject result = new JsonObject();
             result.addProperty("revision", "8h1a-allocation-v1");

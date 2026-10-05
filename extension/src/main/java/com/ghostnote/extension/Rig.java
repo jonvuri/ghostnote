@@ -121,6 +121,8 @@ public class Rig {
     public final ShadowTopologyControl shadowTopologyControl;
     /** 8h1a research fixture writer. Null unless the probe config requests it. */
     public final ShadowKneeFixture kneeFixture;
+    /** 8h1b sounding-cell research: release proxy, coarse sentinel, and resident-cursor census. */
+    public final ShadowSoundingProbe soundingProbe;
     /** 8h1a: active flat-bank and scene sizes. They start at the allocation and never exceed it. */
     public int activeTracks, activeScenes;
     public long activeBankChanges;
@@ -939,6 +941,9 @@ public class Rig {
             if (config.cacheLifecycleResearch) trackBank.scrollPosition().markInterested();
             kneeFixture = config.cacheKneeResearch && config.cacheShadowObservers > 0
                 ? new ShadowKneeFixture(host, config.cacheShadowSteps, config.scenes) : null;
+            soundingProbe = config.cacheSoundingResearch && kneeFixture != null
+                ? new ShadowSoundingProbe(host, config.cacheShadowSteps, config.scenes) : null;
+            if (soundingProbe != null) attachSoundingCursors(config);
             arrangerClip = host.createArrangerCursorClip(config.gridSteps, config.gridKeys);
             markClip(arrangerClip);
         } else {
@@ -951,6 +956,7 @@ public class Rig {
             shadowSceneControl = null;
             shadowTopologyControl = null;
             kneeFixture = null;
+            soundingProbe = null;
             arrangerClip = null;
         }
 
@@ -1547,6 +1553,17 @@ public class Rig {
         } catch (Throwable t) {
             equalsProxyCount = built;
             return "FAILED@" + built + ":" + t.getClass().getSimpleName() + ":" + t.getMessage();
+        }
+    }
+
+    /** 8h1b: list every cursor that can hold a resident clip. Windowed cursors hold only their window. */
+    private void attachSoundingCursors(RigConfig config) {
+        shadowCacheProbe.researchCursors(4).forEach(soundingProbe::attach);
+        soundingProbe.attach(kneeFixture.cursor());
+        soundingProbe.attach(new ShadowSoundingProbe.Cursor("fine", fineTrack, fineClip, config.noteReadSteps, true));
+        soundingProbe.attach(new ShadowSoundingProbe.Cursor("noteObserver", noteObserverTrack, noteObserverClip, config.noteReadSteps, true));
+        for (int i = 0; i < cursorTracks.length; i++) {
+            soundingProbe.attach(new ShadowSoundingProbe.Cursor("pool:" + i, cursorTracks[i], cursorClips[i], config.fineSteps, true));
         }
     }
 

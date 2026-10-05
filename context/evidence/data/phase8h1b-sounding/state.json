@@ -1,0 +1,68 @@
+{
+ "schema": "phase8h1b-state-v1",
+ "tracks": {
+  "dense": "a6e17389-ca25-401b-93c4-ab7d1442643a",
+  "park": "63aa72f1-43a3-4db8-a307-b8141ae2a0ef",
+  "canary": "dc8b997c-0427-4b1d-876c-41f3f8190f77",
+  "matrix": "0b6c8038-8275-4486-b0ad-e5713cda4f3a"
+ },
+ "fixtures": {
+  "canary": {
+   "name": "canary",
+   "track": "canary",
+   "trackId": "dc8b997c-0427-4b1d-876c-41f3f8190f77",
+   "row": 0,
+   "width": 2048,
+   "count": 16,
+   "cap": 64,
+   "cells": 961
+  },
+  "sustain": {
+   "name": "sustain",
+   "track": "dense",
+   "trackId": "a6e17389-ca25-401b-93c4-ab7d1442643a",
+   "row": 0,
+   "width": 1048576,
+   "count": 16384,
+   "cap": 64,
+   "cells": 1048513
+  },
+  "half": {
+   "name": "half",
+   "track": "dense",
+   "trackId": "a6e17389-ca25-401b-93c4-ab7d1442643a",
+   "row": 2,
+   "width": 1048576,
+   "count": 8192,
+   "cap": 64,
+   "cells": 524225
+  }
+ },
+ "clips": [
+  {
+   "track": "canary",
+   "row": 0,
+   "intent": "canary"
+  },
+  {
+   "track": "dense",
+   "row": 0,
+   "intent": "sustain"
+  },
+  {
+   "track": "dense",
+   "row": 2,
+   "intent": "half"
+  },
+  {
+   "track": "matrix",
+   "row": 0,
+   "intent": "matrix-32-row0"
+  },
+  {
+   "track": "matrix",
+   "row": 3,
+   "intent": "matrix-32-row3"
+  }
+ ]
+}

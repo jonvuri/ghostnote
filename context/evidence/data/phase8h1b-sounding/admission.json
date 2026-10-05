@@ -1,0 +1,693 @@
+{
+ "schema": "phase8h1b-admission-v1",
+ "marker": "8h1b-sounding-v2",
+ "complete": false,
+ "eligible": false,
+ "captured": "2026-10-05T05:58:25.969Z",
+ "budgetCells": 1200000,
+ "clipLimitCells": 1100000,
+ "releaseAction": "other-track",
+ "fixtures": [
+  {
+   "name": "sustain",
+   "track": "dense",
+   "trackId": "a6e17389-ca25-401b-93c4-ab7d1442643a",
+   "row": 0,
+   "width": 1048576,
+   "count": 16384,
+   "cap": 64,
+   "cells": 1048513
+  },
+  {
+   "name": "half",
+   "track": "dense",
+   "trackId": "a6e17389-ca25-401b-93c4-ab7d1442643a",
+   "row": 2,
+   "width": 1048576,
+   "count": 8192,
+   "cap": 64,
+   "cells": 524225
+  }
+ ],
+ "hello": {
+  "contractVersion": 0,
+  "extensionVersion": "0.0.1",
+  "runtimeProfile": "phase-8-probe-v1",
+  "hostApiVersion": 25,
+  "methodCount": 98,
+  "methodsHash": "d89cee6bf21c1f96"
+ },
+ "project": "New 2",
+ "configuration": {
+  "revision": "8h1b-sounding-v2",
+  "complete": false,
+  "eligible": false,
+  "allocation": {
+   "observers": 2,
+   "authorityObservers": 1,
+   "totalExperimentalStepDataObservers": 6,
+   "width": 1048576,
+   "scenes": 16,
+   "cursorScenes": 0,
+   "tracks": 16,
+   "cacheBankConstructionMs": 1.443583
+  },
+  "active": {
+   "observers": 2,
+   "experimentalStepDataObservers": 6,
+   "width": 1048576,
+   "scenes": 16,
+   "tracks": 16,
+   "subscribedObservers": 2
+  },
+  "limits": {
+   "width": 1048576,
+   "observers": 6,
+   "occupied": 1073741824,
+   "pending": 2147483647,
+   "recorderBytes": 9223372036854776000,
+   "snapshotBytes": 9223372036854776000,
+   "combinedBytes": 9223372036854776000,
+   "registryBytes": 9223372036854776000,
+   "replayDeadlineMs": 600000,
+   "enrichmentDeadlineMs": 600000,
+   "rebuildDeadlineMs": 3600000,
+   "constructionBudgetMs": 60000,
+   "pingBudgetMs": 50
+  },
+  "configurations": 1,
+  "applied": true,
+  "applyMs": 1.445875
+ },
+ "stats": {
+  "runtimeProfile": "phase-8-probe-v1",
+  "config": {
+   "tracks": 16,
+   "scenes": 16,
+   "gridSteps": 64,
+   "gridKeys": 128,
+   "cursorPool": 8,
+   "sends": 4,
+   "deviceBank": 16,
+   "fineSteps": 512,
+   "noteReadSteps": 2048,
+   "paramHandles": 64,
+   "remotePages": 16,
+   "cacheScaleObservers": 0,
+   "cacheScaleSteps": 131072,
+   "cacheScaleWidthSteps": 0,
+   "cacheShadowObservers": 2,
+   "cacheShadowSteps": 1048576,
+   "cacheTopologyTracks": 16,
+   "cacheTopologyCounted": true,
+   "cacheLifecycleResearch": true,
+   "cacheKneeResearch": true,
+   "cacheShadowCursorScenes": 0,
+   "cacheSoundingResearch": true,
+   "deliveryResearch": false,
+   "contentFilter": "ALL_CHANNELS",
+   "directObservers": true,
+   "stamp": "8h1b-sounding",
+   "fromFile": true
+  },
+  "rigConstructMicros": 28779,
+  "initMicros": 47067,
+  "initEpochMs": 1791179471614,
+  "upMs": 434353,
+  "slotObjects": 256,
+  "markedValues": 1648,
+  "resources": {
+   "cursorDeviceBanks": 8,
+   "siblingDeviceBanks": 1,
+   "layerDeviceBanks": 8,
+   "slotDeviceBanks": 15,
+   "namedSlotDeviceBanks": 0,
+   "drumPadDeviceBanks": 16,
+   "deviceBanks": 48,
+   "cursorDeviceSlots": 128,
+   "cursorDeviceEnabledValues": 128,
+   "layerDeviceSlots": 32,
+   "slotDeviceSlots": 60,
+   "drumPadDeviceSlots": 256,
+   "namedSlotDeviceSlots": 0,
+   "deviceSlots": 492,
+   "cursorDevices": 1,
+   "specificDeviceViews": 4,
+   "typedParameterHandles": 75,
+   "remotePageCursors": 16,
+   "remoteParameterHandles": 128,
+   "directParameterObservers": 4,
+   "noteObserverCursors": 1,
+   "noteStepObservers": 1,
+   "stepDataObservers": 1,
+   "cacheScaleCursorTracks": 0,
+   "cacheScaleClipProxies": 0,
+   "cacheScaleStepDataObservers": 0,
+   "trackSendBanks": 0,
+   "trackSendHandles": 0,
+   "trackVuObservers": 0,
+   "historicalActionHandles": 0,
+   "historicalSelectionObservers": 0,
+   "equalsProxies": 32,
+   "transportProxies": 1,
+   "masterRecorderProxies": 0,
+   "cursorTracks": 10,
+   "cursorClips": 12,
+   "layerBanks": 4,
+   "layerHandles": 23,
+   "layerSendBanks": 0,
+   "layerSendHandles": 0,
+   "explicitHostObjects": 1141,
+   "observerCallbacks": 119
+  },
+  "heapUsedMb": 462,
+  "heapMaxMb": 3072
+ },
+ "steps": [
+  {
+   "target": "sustain",
+   "cells": 1048513,
+   "bind": {
+    "index": 0,
+    "poolDecision": "reserved",
+    "bindMs": 4053.0629580000004,
+    "drainedMs": 6843.347667,
+    "readMs": 392.826833000001,
+    "totalMs": 7251.146458000001,
+    "issues": []
+   },
+   "decision": {
+    "admitted": true,
+    "reason": "admitted",
+    "evicted": [],
+    "residentCells": 1048513,
+    "budget": {
+     "budgetCells": 1200000,
+     "clipLimitCells": 1100000,
+     "residentCells": 1048513,
+     "admissions": 1,
+     "refusals": 0,
+     "evictions": 0,
+     "lruOrder": [
+      [
+       "sustain",
+       1048513
+      ]
+     ]
+    }
+   },
+   "releases": [],
+   "heap": {
+    "label": "admit-sustain-0",
+    "capturedEpochMs": 1791179921893,
+    "histogramMs": 466.0777079999989,
+    "liveBytes": 789069776,
+    "noteSteps": 1048641,
+    "noteStepBytes": 176171688,
+    "top": [
+     {
+      "instances": 31026,
+      "bytes": 208475024,
+      "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+     },
+     {
+      "instances": 1048641,
+      "bytes": 176171688,
+      "name": "com.bitwig.flt.control_surface.proxy.NoteStep"
+     },
+     {
+      "instances": 2257062,
+      "bytes": 90282480,
+      "name": "java.util.HashMap$Node (java.base@25)"
+     },
+     {
+      "instances": 629548,
+      "bytes": 50363840,
+      "name": "com.google.gson.internal.LinkedTreeMap$Node"
+     },
+     {
+      "instances": 2124968,
+      "bytes": 33999488,
+      "name": "java.lang.Integer (java.base@25)"
+     },
+     {
+      "instances": 387061,
+      "bytes": 26758784,
+      "name": "[B (java.base@25)"
+     },
+     {
+      "instances": 426542,
+      "bytes": 23886352,
+      "name": "java.util.TreeMap$Entry (java.base@25)"
+     },
+     {
+      "instances": 208239,
+      "bytes": 15932320,
+      "name": "[Ljava.lang.Object; (java.base@25)"
+     },
+     {
+      "instances": 580936,
+      "bytes": 13942464,
+      "name": "com.google.gson.JsonPrimitive"
+     },
+     {
+      "instances": 381827,
+      "bytes": 12218464,
+      "name": "java.lang.String (java.base@25)"
+     },
+     {
+      "instances": 488809,
+      "bytes": 11731416,
+      "name": "java.lang.Double (java.base@25)"
+     },
+     {
+      "instances": 36100,
+      "bytes": 7336424,
+      "name": "java.lang.Class (java.base@25)"
+     }
+    ]
+   }
+  },
+  {
+   "target": "half",
+   "cells": 524225,
+   "bind": {
+    "index": 1,
+    "poolDecision": "reserved",
+    "bindMs": 4425.657457999998,
+    "drainedMs": 6863.524290999998,
+    "readMs": 256.77829199999906,
+    "totalMs": 7131.684290999998,
+    "issues": []
+   },
+   "decision": {
+    "admitted": true,
+    "reason": "admitted",
+    "evicted": [
+     "sustain"
+    ],
+    "residentCells": 524225,
+    "budget": {
+     "budgetCells": 1200000,
+     "clipLimitCells": 1100000,
+     "residentCells": 524225,
+     "admissions": 2,
+     "refusals": 0,
+     "evictions": 1,
+     "lruOrder": [
+      [
+       "half",
+       524225
+      ]
+     ]
+    }
+   },
+   "releases": [
+    {
+     "key": "sustain",
+     "index": 0,
+     "releaseMs": 277.8493329999983
+    }
+   ],
+   "heap": {
+    "label": "admit-half-1",
+    "capturedEpochMs": 1791179932854,
+    "histogramMs": 418.67604100000244,
+    "liveBytes": 655222160,
+    "noteSteps": 524289,
+    "noteStepBytes": 88080552,
+    "top": [
+     {
+      "instances": 31033,
+      "bytes": 242029824,
+      "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+     },
+     {
+      "instances": 524289,
+      "bytes": 88080552,
+      "name": "com.bitwig.flt.control_surface.proxy.NoteStep"
+     },
+     {
+      "instances": 629548,
+      "bytes": 50363840,
+      "name": "com.google.gson.internal.LinkedTreeMap$Node"
+     },
+     {
+      "instances": 1191969,
+      "bytes": 47678760,
+      "name": "java.util.HashMap$Node (java.base@25)"
+     },
+     {
+      "instances": 387182,
+      "bytes": 26765864,
+      "name": "[B (java.base@25)"
+     },
+     {
+      "instances": 1076264,
+      "bytes": 17220224,
+      "name": "java.lang.Integer (java.base@25)"
+     },
+     {
+      "instances": 200124,
+      "bytes": 15486064,
+      "name": "[Ljava.lang.Object; (java.base@25)"
+     },
+     {
+      "instances": 580936,
+      "bytes": 13942464,
+      "name": "com.google.gson.JsonPrimitive"
+     },
+     {
+      "instances": 381948,
+      "bytes": 12222336,
+      "name": "java.lang.String (java.base@25)"
+     },
+     {
+      "instances": 213550,
+      "bytes": 11958800,
+      "name": "java.util.TreeMap$Entry (java.base@25)"
+     },
+     {
+      "instances": 357737,
+      "bytes": 8585688,
+      "name": "java.lang.Double (java.base@25)"
+     },
+     {
+      "instances": 36173,
+      "bytes": 7351608,
+      "name": "java.lang.Class (java.base@25)"
+     }
+    ]
+   }
+  },
+  {
+   "target": "sustain",
+   "cells": 1048513,
+   "bind": {
+    "index": 0,
+    "poolDecision": "reserved",
+    "bindMs": 3949.919667000002,
+    "drainedMs": 5713.786,
+    "readMs": 287.85370800000237,
+    "totalMs": 6014.854166999998,
+    "issues": []
+   },
+   "decision": {
+    "admitted": true,
+    "reason": "admitted",
+    "evicted": [
+     "half"
+    ],
+    "residentCells": 1048513,
+    "budget": {
+     "budgetCells": 1200000,
+     "clipLimitCells": 1100000,
+     "residentCells": 1048513,
+     "admissions": 3,
+     "refusals": 0,
+     "evictions": 2,
+     "lruOrder": [
+      [
+       "sustain",
+       1048513
+      ]
+     ]
+    }
+   },
+   "releases": [
+    {
+     "key": "half",
+     "index": 1,
+     "releaseMs": 311.4415000000008
+    }
+   ],
+   "heap": {
+    "label": "admit-sustain-2",
+    "capturedEpochMs": 1791179942881,
+    "histogramMs": 591.8531670000011,
+    "liveBytes": 822806168,
+    "noteSteps": 1048641,
+    "noteStepBytes": 176171688,
+    "top": [
+     {
+      "instances": 31033,
+      "bytes": 242160896,
+      "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+     },
+     {
+      "instances": 1048641,
+      "bytes": 176171688,
+      "name": "com.bitwig.flt.control_surface.proxy.NoteStep"
+     },
+     {
+      "instances": 2257067,
+      "bytes": 90282680,
+      "name": "java.util.HashMap$Node (java.base@25)"
+     },
+     {
+      "instances": 629548,
+      "bytes": 50363840,
+      "name": "com.google.gson.internal.LinkedTreeMap$Node"
+     },
+     {
+      "instances": 2124968,
+      "bytes": 33999488,
+      "name": "java.lang.Integer (java.base@25)"
+     },
+     {
+      "instances": 387186,
+      "bytes": 26766056,
+      "name": "[B (java.base@25)"
+     },
+     {
+      "instances": 426542,
+      "bytes": 23886352,
+      "name": "java.util.TreeMap$Entry (java.base@25)"
+     },
+     {
+      "instances": 208316,
+      "bytes": 15935568,
+      "name": "[Ljava.lang.Object; (java.base@25)"
+     },
+     {
+      "instances": 580936,
+      "bytes": 13942464,
+      "name": "com.google.gson.JsonPrimitive"
+     },
+     {
+      "instances": 381952,
+      "bytes": 12222464,
+      "name": "java.lang.String (java.base@25)"
+     },
+     {
+      "instances": 488809,
+      "bytes": 11731416,
+      "name": "java.lang.Double (java.base@25)"
+     },
+     {
+      "instances": 36173,
+      "bytes": 7351608,
+      "name": "java.lang.Class (java.base@25)"
+     }
+    ]
+   }
+  },
+  {
+   "target": "half",
+   "cells": 524225,
+   "bind": {
+    "index": 1,
+    "poolDecision": "reserved",
+    "bindMs": 4374.892,
+    "drainedMs": 7173.868958999999,
+    "readMs": 181.00633299999754,
+    "totalMs": 7361.404042000002,
+    "issues": []
+   },
+   "decision": {
+    "admitted": true,
+    "reason": "admitted",
+    "evicted": [
+     "sustain"
+    ],
+    "residentCells": 524225,
+    "budget": {
+     "budgetCells": 1200000,
+     "clipLimitCells": 1100000,
+     "residentCells": 524225,
+     "admissions": 4,
+     "refusals": 0,
+     "evictions": 3,
+     "lruOrder": [
+      [
+       "half",
+       524225
+      ]
+     ]
+    }
+   },
+   "releases": [
+    {
+     "key": "sustain",
+     "index": 0,
+     "releaseMs": 270.61816700000054
+    }
+   ],
+   "heap": {
+    "label": "admit-half-3",
+    "capturedEpochMs": 1791179954035,
+    "histogramMs": 409.4476250000007,
+    "liveBytes": 655231720,
+    "noteSteps": 524289,
+    "noteStepBytes": 88080552,
+    "top": [
+     {
+      "instances": 31033,
+      "bytes": 242029824,
+      "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+     },
+     {
+      "instances": 524289,
+      "bytes": 88080552,
+      "name": "com.bitwig.flt.control_surface.proxy.NoteStep"
+     },
+     {
+      "instances": 629548,
+      "bytes": 50363840,
+      "name": "com.google.gson.internal.LinkedTreeMap$Node"
+     },
+     {
+      "instances": 1191969,
+      "bytes": 47678760,
+      "name": "java.util.HashMap$Node (java.base@25)"
+     },
+     {
+      "instances": 387196,
+      "bytes": 26766696,
+      "name": "[B (java.base@25)"
+     },
+     {
+      "instances": 1076264,
+      "bytes": 17220224,
+      "name": "java.lang.Integer (java.base@25)"
+     },
+     {
+      "instances": 200125,
+      "bytes": 15494272,
+      "name": "[Ljava.lang.Object; (java.base@25)"
+     },
+     {
+      "instances": 580936,
+      "bytes": 13942464,
+      "name": "com.google.gson.JsonPrimitive"
+     },
+     {
+      "instances": 381962,
+      "bytes": 12222784,
+      "name": "java.lang.String (java.base@25)"
+     },
+     {
+      "instances": 213550,
+      "bytes": 11958800,
+      "name": "java.util.TreeMap$Entry (java.base@25)"
+     },
+     {
+      "instances": 357737,
+      "bytes": 8585688,
+      "name": "java.lang.Double (java.base@25)"
+     },
+     {
+      "instances": 36173,
+      "bytes": 7351608,
+      "name": "java.lang.Class (java.base@25)"
+     }
+    ]
+   }
+  }
+ ],
+ "baseline": {
+  "label": "admission-baseline",
+  "capturedEpochMs": 1791179911047,
+  "histogramMs": 314.18375000000015,
+  "liveBytes": 419957056,
+  "noteSteps": 0,
+  "noteStepBytes": 0,
+  "top": [
+   {
+    "instances": 31015,
+    "bytes": 174394720,
+    "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+   },
+   {
+    "instances": 629526,
+    "bytes": 50362080,
+    "name": "com.google.gson.internal.LinkedTreeMap$Node"
+   },
+   {
+    "instances": 386476,
+    "bytes": 26730928,
+    "name": "[B (java.base@25)"
+   },
+   {
+    "instances": 191770,
+    "bytes": 15074168,
+    "name": "[Ljava.lang.Object; (java.base@25)"
+   },
+   {
+    "instances": 580914,
+    "bytes": 13941936,
+    "name": "com.google.gson.JsonPrimitive"
+   },
+   {
+    "instances": 381242,
+    "bytes": 12199744,
+    "name": "java.lang.String (java.base@25)"
+   },
+   {
+    "instances": 36031,
+    "bytes": 7322680,
+    "name": "java.lang.Class (java.base@25)"
+   },
+   {
+    "instances": 226650,
+    "bytes": 5439600,
+    "name": "java.lang.Double (java.base@25)"
+   },
+   {
+    "instances": 126984,
+    "bytes": 5079360,
+    "name": "java.util.HashMap$Node (java.base@25)"
+   },
+   {
+    "instances": 154851,
+    "bytes": 4955232,
+    "name": "java.util.ArrayList (java.base@25)"
+   },
+   {
+    "instances": 1200,
+    "bytes": 4498728,
+    "name": "[D (java.base@25)"
+   },
+   {
+    "instances": 24652,
+    "bytes": 3944320,
+    "name": "yLx"
+   }
+  ]
+ },
+ "budget": {
+  "budgetCells": 1200000,
+  "clipLimitCells": 1100000,
+  "residentCells": 524225,
+  "admissions": 4,
+  "refusals": 0,
+  "evictions": 3,
+  "lruOrder": [
+   [
+    "half",
+    524225
+   ]
+  ]
+ },
+ "pingP95Ms": 25.062666999998328
+}

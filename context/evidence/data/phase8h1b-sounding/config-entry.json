@@ -1,0 +1,21 @@
+{
+ "schema": "phase8h1b-config-entry-v1",
+ "captured": "2026-10-05T05:47:29.774Z",
+ "originalSha256": "256bbf07094cd654c372d0e5e050e494ef7783c9a0001a0a2a688331bcf643b0",
+ "originalBase64": "eyAicmVjb3JkQ2hhcnMiOiAwLCAic3RhbXAiOiAiZGVmYXVsdCIgfQo=",
+ "research": {
+  "recordChars": 0,
+  "stamp": "8h1b-sounding",
+  "tracks": 16,
+  "scenes": 16,
+  "cacheTopologyCounted": true,
+  "cacheTopologyTracks": 16,
+  "cacheLifecycleResearch": true,
+  "cacheKneeResearch": true,
+  "cacheShadowObservers": 2,
+  "cacheShadowSteps": 1048576,
+  "contentFilter": "ALL_CHANNELS",
+  "cacheShadowCursorScenes": 0,
+  "cacheSoundingResearch": true
+ }
+}

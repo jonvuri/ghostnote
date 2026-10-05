@@ -1,0 +1,63 @@
+{
+ "schema": "phase8h1b-restoration-v1",
+ "complete": false,
+ "eligible": false,
+ "captured": "2026-10-05T06:03:19.248Z",
+ "configSha256": "256bbf07094cd654c372d0e5e050e494ef7783c9a0001a0a2a688331bcf643b0",
+ "hello": {
+  "contractVersion": 0,
+  "extensionVersion": "0.0.1",
+  "runtimeProfile": "normal-v1",
+  "hostApiVersion": 25,
+  "methodCount": 85,
+  "methodsHash": "bba7383dce25c0f0"
+ },
+ "initEpochMs": 1791180178322,
+ "initIso": "2026-10-05T06:02:58.322Z",
+ "config": {
+  "tracks": 256,
+  "scenes": 128,
+  "gridSteps": 64,
+  "gridKeys": 128,
+  "cursorPool": 8,
+  "sends": 4,
+  "deviceBank": 16,
+  "fineSteps": 512,
+  "noteReadSteps": 2048,
+  "paramHandles": 64,
+  "remotePages": 16,
+  "cacheScaleObservers": 0,
+  "cacheScaleSteps": 131072,
+  "cacheScaleWidthSteps": 0,
+  "cacheShadowObservers": 0,
+  "cacheShadowSteps": 131072,
+  "cacheTopologyTracks": 16,
+  "cacheTopologyCounted": false,
+  "cacheLifecycleResearch": false,
+  "cacheKneeResearch": false,
+  "cacheShadowCursorScenes": -1,
+  "cacheSoundingResearch": false,
+  "deliveryResearch": false,
+  "contentFilter": "",
+  "directObservers": true,
+  "stamp": "default",
+  "fromFile": true
+ },
+ "deployedExtensions": [
+  "daw-mcp-0.8.4.bwextension",
+  "ghostnote-0.0.1.bwextension"
+ ],
+ "visibleTracks": [
+  "Instrument Layer",
+  "Hybrid 2",
+  "gn-A",
+  "gn-B",
+  "Group 5",
+  "gn-lay",
+  "gn-lay4",
+  "gn-sel",
+  "FX 1",
+  "Master"
+ ],
+ "operator": "Operator closed New 2 without saving and replaced the controller with ghostnote; gn-scale-test stays open, unchanged by research."
+}

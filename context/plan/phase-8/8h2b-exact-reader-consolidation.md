@@ -1,16 +1,16 @@
 ---
-title: Phase 8h2 — Exact reader consolidation
+title: Phase 8h2b — Exact reader consolidation
 kind: plan
 state: planned
 status: Planned. Select the exact clip reader, then remove the 1/768 view and fix or refuse the disabled-control loss on the selected route.
 updated: 2026-10-05
 parent: 8h-cache-promotion-and-interface-simplification.md
-prev: 8h-cache-promotion-and-interface-simplification.md
+prev: 8h2a-replay-cold-read.md
 next: 8i-agent-native-hybrid-dogfood.md
 evidence: E131, E139, E214, E219, E224, E225; D8, D9, D23
 ---
 
-# Phase 8h2 — Exact reader consolidation
+# Phase 8h2b — Exact reader consolidation
 
 ## Why
 
@@ -51,6 +51,8 @@ of up to 127 s. Read time grows with clip length: 40.7 s, 256 s, and 711 s at
 
 ## Entry
 
+[8h2a](8h2a-replay-cold-read.md) is complete. Its replay reader is a
+candidate in step 1 below; if 8h2a accepted it, compare the others against it.
 8h1 is complete, or 8h1 explicitly records that it refuses the E131 loss
 before a write. Read E131, E139, E214, E219, E224, D8, D9, D23, and the
 migration contract. Keep stable authority until this session selects and

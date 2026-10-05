@@ -1,0 +1,1539 @@
+{
+ "schema": "phase8h1b-release-v1",
+ "marker": "8h1b-sounding-v2",
+ "complete": false,
+ "eligible": false,
+ "captured": "2026-10-05T05:53:23.443Z",
+ "fixture": {
+  "name": "sustain",
+  "track": "dense",
+  "trackId": "a6e17389-ca25-401b-93c4-ab7d1442643a",
+  "row": 0,
+  "width": 1048576,
+  "count": 16384,
+  "cap": 64,
+  "cells": 1048513
+ },
+ "hello": {
+  "contractVersion": 0,
+  "extensionVersion": "0.0.1",
+  "runtimeProfile": "phase-8-probe-v1",
+  "hostApiVersion": 25,
+  "methodCount": 98,
+  "methodsHash": "d89cee6bf21c1f96"
+ },
+ "project": "New 2",
+ "configuration": {
+  "revision": "8h1b-sounding-v2",
+  "complete": false,
+  "eligible": false,
+  "allocation": {
+   "observers": 2,
+   "authorityObservers": 1,
+   "totalExperimentalStepDataObservers": 6,
+   "width": 1048576,
+   "scenes": 16,
+   "cursorScenes": 0,
+   "tracks": 16,
+   "cacheBankConstructionMs": 1.443583
+  },
+  "active": {
+   "observers": 2,
+   "experimentalStepDataObservers": 6,
+   "width": 131072,
+   "scenes": 16,
+   "tracks": 16,
+   "subscribedObservers": 2
+  },
+  "limits": {
+   "width": 131072,
+   "observers": 512,
+   "occupied": 2048,
+   "pending": 2048,
+   "recorderBytes": 16777216,
+   "snapshotBytes": 16777216,
+   "combinedBytes": 25165824,
+   "registryBytes": 16777216,
+   "replayDeadlineMs": 5000,
+   "enrichmentDeadlineMs": 5000,
+   "rebuildDeadlineMs": 40000,
+   "constructionBudgetMs": 50,
+   "pingBudgetMs": 50
+  },
+  "configurations": 0
+ },
+ "stats": {
+  "runtimeProfile": "phase-8-probe-v1",
+  "config": {
+   "tracks": 16,
+   "scenes": 16,
+   "gridSteps": 64,
+   "gridKeys": 128,
+   "cursorPool": 8,
+   "sends": 4,
+   "deviceBank": 16,
+   "fineSteps": 512,
+   "noteReadSteps": 2048,
+   "paramHandles": 64,
+   "remotePages": 16,
+   "cacheScaleObservers": 0,
+   "cacheScaleSteps": 131072,
+   "cacheScaleWidthSteps": 0,
+   "cacheShadowObservers": 2,
+   "cacheShadowSteps": 1048576,
+   "cacheTopologyTracks": 16,
+   "cacheTopologyCounted": true,
+   "cacheLifecycleResearch": true,
+   "cacheKneeResearch": true,
+   "cacheShadowCursorScenes": 0,
+   "cacheSoundingResearch": true,
+   "deliveryResearch": false,
+   "contentFilter": "ALL_CHANNELS",
+   "directObservers": true,
+   "stamp": "8h1b-sounding",
+   "fromFile": true
+  },
+  "rigConstructMicros": 28779,
+  "initMicros": 47067,
+  "initEpochMs": 1791179471614,
+  "upMs": 131828,
+  "slotObjects": 256,
+  "markedValues": 1648,
+  "resources": {
+   "cursorDeviceBanks": 8,
+   "siblingDeviceBanks": 1,
+   "layerDeviceBanks": 8,
+   "slotDeviceBanks": 15,
+   "namedSlotDeviceBanks": 0,
+   "drumPadDeviceBanks": 16,
+   "deviceBanks": 48,
+   "cursorDeviceSlots": 128,
+   "cursorDeviceEnabledValues": 128,
+   "layerDeviceSlots": 32,
+   "slotDeviceSlots": 60,
+   "drumPadDeviceSlots": 256,
+   "namedSlotDeviceSlots": 0,
+   "deviceSlots": 492,
+   "cursorDevices": 1,
+   "specificDeviceViews": 4,
+   "typedParameterHandles": 75,
+   "remotePageCursors": 16,
+   "remoteParameterHandles": 128,
+   "directParameterObservers": 4,
+   "noteObserverCursors": 1,
+   "noteStepObservers": 1,
+   "stepDataObservers": 1,
+   "cacheScaleCursorTracks": 0,
+   "cacheScaleClipProxies": 0,
+   "cacheScaleStepDataObservers": 0,
+   "trackSendBanks": 0,
+   "trackSendHandles": 0,
+   "trackVuObservers": 0,
+   "historicalActionHandles": 0,
+   "historicalSelectionObservers": 0,
+   "equalsProxies": 32,
+   "transportProxies": 1,
+   "masterRecorderProxies": 0,
+   "cursorTracks": 10,
+   "cursorClips": 12,
+   "layerBanks": 4,
+   "layerHandles": 23,
+   "layerSendBanks": 0,
+   "layerSendHandles": 0,
+   "explicitHostObjects": 1141,
+   "observerCallbacks": 119
+  },
+  "heapUsedMb": 692,
+  "heapMaxMb": 3072
+ },
+ "actions": [
+  {
+   "action": "unsubscribe",
+   "applyMs": 16.168541999999434,
+   "after": {
+    "label": "unsubscribe",
+    "capturedEpochMs": 1791179618872,
+    "histogramMs": 291.5189160000009,
+    "liveBytes": 243987224,
+    "noteSteps": 0,
+    "noteStepBytes": 0,
+    "top": [
+     {
+      "instances": 30985,
+      "bytes": 72682112,
+      "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+     },
+     {
+      "instances": 386312,
+      "bytes": 26721976,
+      "name": "[B (java.base@25)"
+     },
+     {
+      "instances": 191750,
+      "bytes": 14892968,
+      "name": "[Ljava.lang.Object; (java.base@25)"
+     },
+     {
+      "instances": 381078,
+      "bytes": 12194496,
+      "name": "java.lang.String (java.base@25)"
+     },
+     {
+      "instances": 36029,
+      "bytes": 7322296,
+      "name": "java.lang.Class (java.base@25)"
+     },
+     {
+      "instances": 126978,
+      "bytes": 5079120,
+      "name": "java.util.HashMap$Node (java.base@25)"
+     },
+     {
+      "instances": 154832,
+      "bytes": 4954624,
+      "name": "java.util.ArrayList (java.base@25)"
+     },
+     {
+      "instances": 1200,
+      "bytes": 4498728,
+      "name": "[D (java.base@25)"
+     },
+     {
+      "instances": 24652,
+      "bytes": 3944320,
+      "name": "yLx"
+     },
+     {
+      "instances": 17337,
+      "bytes": 3418872,
+      "name": "[I (java.base@25)"
+     },
+     {
+      "instances": 78343,
+      "bytes": 3133720,
+      "name": "java.util.concurrent.ConcurrentHashMap$Node (java.base@25)"
+     },
+     {
+      "instances": 24652,
+      "bytes": 2958240,
+      "name": "iGF"
+     }
+    ]
+   },
+   "delta": {
+    "freed": 1048513,
+    "fraction": 1,
+    "releases": true
+   },
+   "status": {
+    "width": 1048576,
+    "windowed": false,
+    "subscribed": false,
+    "trackExists": true,
+    "trackChannelId": "a6e17389-ca25-401b-93c4-ab7d1442643a",
+    "trackPosition": 3,
+    "trackPinned": true,
+    "clipExists": false,
+    "clipPinned": false,
+    "sceneIndex": 0,
+    "loopLength": 0,
+    "playStop": 0,
+    "callbacks": 2097026,
+    "emptyCallbacks": 1048513,
+    "sustainCallbacks": 1032129,
+    "onsetCallbacks": 16384,
+    "tracing": false,
+    "traceOverwritten": 0,
+    "msSinceLastCallback": 3332.48725,
+    "firstToLastCallbackMs": 2720.993042
+   },
+   "restore": {
+    "replay": {
+     "callbacks": 1048513,
+     "onset": 16384,
+     "sustain": 1032129,
+     "empty": 0,
+     "lastCallbackMs": 129.89633299999923,
+     "firstToLastCallbackMs": 31.976291,
+     "waitedMs": 1227.0382919999993
+    },
+    "heap": {
+     "label": "unsubscribe-restored",
+     "capturedEpochMs": 1791179621655,
+     "histogramMs": 404.6045000000013,
+     "liveBytes": 537573536,
+     "noteSteps": 1048513,
+     "noteStepBytes": 176150184,
+     "top": [
+      {
+       "instances": 1048513,
+       "bytes": 176150184,
+       "name": "com.bitwig.flt.control_surface.proxy.NoteStep"
+      },
+      {
+       "instances": 2224007,
+       "bytes": 88960280,
+       "name": "java.util.HashMap$Node (java.base@25)"
+      },
+      {
+       "instances": 30985,
+       "bytes": 72682112,
+       "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+      },
+      {
+       "instances": 2109427,
+       "bytes": 33750832,
+       "name": "java.lang.Integer (java.base@25)"
+      },
+      {
+       "instances": 386313,
+       "bytes": 26722032,
+       "name": "[B (java.base@25)"
+      },
+      {
+       "instances": 191755,
+       "bytes": 14893208,
+       "name": "[Ljava.lang.Object; (java.base@25)"
+      },
+      {
+       "instances": 381079,
+       "bytes": 12194528,
+       "name": "java.lang.String (java.base@25)"
+      },
+      {
+       "instances": 36029,
+       "bytes": 7322296,
+       "name": "java.lang.Class (java.base@25)"
+      },
+      {
+       "instances": 154837,
+       "bytes": 4954784,
+       "name": "java.util.ArrayList (java.base@25)"
+      },
+      {
+       "instances": 1200,
+       "bytes": 4498728,
+       "name": "[D (java.base@25)"
+      },
+      {
+       "instances": 24652,
+       "bytes": 3944320,
+       "name": "yLx"
+      },
+      {
+       "instances": 17337,
+       "bytes": 3418872,
+       "name": "[I (java.base@25)"
+      }
+     ]
+    },
+    "boundNoteSteps": 1048513
+   }
+  },
+  {
+   "action": "unpin",
+   "applyMs": 11.852999999999156,
+   "after": {
+    "label": "unpin",
+    "capturedEpochMs": 1791179625116,
+    "histogramMs": 333.74658400000044,
+    "liveBytes": 537573744,
+    "noteSteps": 1048513,
+    "noteStepBytes": 176150184,
+    "top": [
+     {
+      "instances": 1048513,
+      "bytes": 176150184,
+      "name": "com.bitwig.flt.control_surface.proxy.NoteStep"
+     },
+     {
+      "instances": 2224007,
+      "bytes": 88960280,
+      "name": "java.util.HashMap$Node (java.base@25)"
+     },
+     {
+      "instances": 30985,
+      "bytes": 72682112,
+      "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+     },
+     {
+      "instances": 2109427,
+      "bytes": 33750832,
+      "name": "java.lang.Integer (java.base@25)"
+     },
+     {
+      "instances": 386314,
+      "bytes": 26722064,
+      "name": "[B (java.base@25)"
+     },
+     {
+      "instances": 191755,
+      "bytes": 14893208,
+      "name": "[Ljava.lang.Object; (java.base@25)"
+     },
+     {
+      "instances": 381080,
+      "bytes": 12194560,
+      "name": "java.lang.String (java.base@25)"
+     },
+     {
+      "instances": 36029,
+      "bytes": 7322296,
+      "name": "java.lang.Class (java.base@25)"
+     },
+     {
+      "instances": 154837,
+      "bytes": 4954784,
+      "name": "java.util.ArrayList (java.base@25)"
+     },
+     {
+      "instances": 1200,
+      "bytes": 4498728,
+      "name": "[D (java.base@25)"
+     },
+     {
+      "instances": 24652,
+      "bytes": 3944320,
+      "name": "yLx"
+     },
+     {
+      "instances": 17337,
+      "bytes": 3418872,
+      "name": "[I (java.base@25)"
+     }
+    ]
+   },
+   "delta": {
+    "freed": 0,
+    "fraction": 0,
+    "releases": false
+   },
+   "status": {
+    "width": 1048576,
+    "windowed": false,
+    "subscribed": true,
+    "trackExists": true,
+    "trackChannelId": "a6e17389-ca25-401b-93c4-ab7d1442643a",
+    "trackPosition": 3,
+    "trackPinned": false,
+    "clipExists": true,
+    "clipPinned": false,
+    "sceneIndex": 0,
+    "loopLength": 2048,
+    "playStop": 2048,
+    "callbacks": 1048513,
+    "emptyCallbacks": 0,
+    "sustainCallbacks": 1032129,
+    "onsetCallbacks": 16384,
+    "tracing": false,
+    "traceOverwritten": 0,
+    "msSinceLastCallback": 6094.196667,
+    "firstToLastCallbackMs": 31.976291
+   },
+   "restore": {
+    "replay": {
+     "callbacks": 0,
+     "lastCallbackMs": null,
+     "waitedMs": 5020.874667
+    },
+    "heap": {
+     "label": "unpin-restored",
+     "capturedEpochMs": 1791179631647,
+     "histogramMs": 352.70337500000096,
+     "liveBytes": 537573600,
+     "noteSteps": 1048513,
+     "noteStepBytes": 176150184,
+     "top": [
+      {
+       "instances": 1048513,
+       "bytes": 176150184,
+       "name": "com.bitwig.flt.control_surface.proxy.NoteStep"
+      },
+      {
+       "instances": 2224007,
+       "bytes": 88960280,
+       "name": "java.util.HashMap$Node (java.base@25)"
+      },
+      {
+       "instances": 30985,
+       "bytes": 72682112,
+       "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+      },
+      {
+       "instances": 2109427,
+       "bytes": 33750832,
+       "name": "java.lang.Integer (java.base@25)"
+      },
+      {
+       "instances": 386314,
+       "bytes": 26722064,
+       "name": "[B (java.base@25)"
+      },
+      {
+       "instances": 191755,
+       "bytes": 14893208,
+       "name": "[Ljava.lang.Object; (java.base@25)"
+      },
+      {
+       "instances": 381080,
+       "bytes": 12194560,
+       "name": "java.lang.String (java.base@25)"
+      },
+      {
+       "instances": 36029,
+       "bytes": 7322296,
+       "name": "java.lang.Class (java.base@25)"
+      },
+      {
+       "instances": 154837,
+       "bytes": 4954784,
+       "name": "java.util.ArrayList (java.base@25)"
+      },
+      {
+       "instances": 1200,
+       "bytes": 4498728,
+       "name": "[D (java.base@25)"
+      },
+      {
+       "instances": 24652,
+       "bytes": 3944320,
+       "name": "yLx"
+      },
+      {
+       "instances": 17337,
+       "bytes": 3418872,
+       "name": "[I (java.base@25)"
+      }
+     ]
+    },
+    "boundNoteSteps": 1048513
+   }
+  },
+  {
+   "action": "empty-slot",
+   "applyMs": 40.31104200000118,
+   "after": {
+    "label": "empty-slot",
+    "capturedEpochMs": 1791179635148,
+    "histogramMs": 344.13083299999926,
+    "liveBytes": 537573768,
+    "noteSteps": 1048513,
+    "noteStepBytes": 176150184,
+    "top": [
+     {
+      "instances": 1048513,
+      "bytes": 176150184,
+      "name": "com.bitwig.flt.control_surface.proxy.NoteStep"
+     },
+     {
+      "instances": 2224007,
+      "bytes": 88960280,
+      "name": "java.util.HashMap$Node (java.base@25)"
+     },
+     {
+      "instances": 30985,
+      "bytes": 72682112,
+      "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+     },
+     {
+      "instances": 2109427,
+      "bytes": 33750832,
+      "name": "java.lang.Integer (java.base@25)"
+     },
+     {
+      "instances": 386316,
+      "bytes": 26722168,
+      "name": "[B (java.base@25)"
+     },
+     {
+      "instances": 191755,
+      "bytes": 14893208,
+      "name": "[Ljava.lang.Object; (java.base@25)"
+     },
+     {
+      "instances": 381082,
+      "bytes": 12194624,
+      "name": "java.lang.String (java.base@25)"
+     },
+     {
+      "instances": 36029,
+      "bytes": 7322296,
+      "name": "java.lang.Class (java.base@25)"
+     },
+     {
+      "instances": 154837,
+      "bytes": 4954784,
+      "name": "java.util.ArrayList (java.base@25)"
+     },
+     {
+      "instances": 1200,
+      "bytes": 4498728,
+      "name": "[D (java.base@25)"
+     },
+     {
+      "instances": 24652,
+      "bytes": 3944320,
+      "name": "yLx"
+     },
+     {
+      "instances": 17337,
+      "bytes": 3418872,
+      "name": "[I (java.base@25)"
+     }
+    ]
+   },
+   "delta": {
+    "freed": 0,
+    "fraction": 0,
+    "releases": false
+   },
+   "status": {
+    "width": 1048576,
+    "windowed": false,
+    "subscribed": true,
+    "trackExists": true,
+    "trackChannelId": "a6e17389-ca25-401b-93c4-ab7d1442643a",
+    "trackPosition": 3,
+    "trackPinned": true,
+    "clipExists": true,
+    "clipPinned": false,
+    "sceneIndex": 0,
+    "loopLength": 2048,
+    "playStop": 2048,
+    "callbacks": 0,
+    "emptyCallbacks": 0,
+    "sustainCallbacks": 0,
+    "onsetCallbacks": 0,
+    "tracing": false,
+    "traceOverwritten": 0,
+    "msSinceLastCallback": -1,
+    "firstToLastCallbackMs": 0
+   },
+   "restore": {
+    "replay": {
+     "callbacks": 0,
+     "lastCallbackMs": null,
+     "waitedMs": 5065.454833
+    },
+    "heap": {
+     "label": "empty-slot-restored",
+     "capturedEpochMs": 1791179641719,
+     "histogramMs": 348.65841699999874,
+     "liveBytes": 537573768,
+     "noteSteps": 1048513,
+     "noteStepBytes": 176150184,
+     "top": [
+      {
+       "instances": 1048513,
+       "bytes": 176150184,
+       "name": "com.bitwig.flt.control_surface.proxy.NoteStep"
+      },
+      {
+       "instances": 2224007,
+       "bytes": 88960280,
+       "name": "java.util.HashMap$Node (java.base@25)"
+      },
+      {
+       "instances": 30985,
+       "bytes": 72682112,
+       "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+      },
+      {
+       "instances": 2109427,
+       "bytes": 33750832,
+       "name": "java.lang.Integer (java.base@25)"
+      },
+      {
+       "instances": 386316,
+       "bytes": 26722168,
+       "name": "[B (java.base@25)"
+      },
+      {
+       "instances": 191755,
+       "bytes": 14893208,
+       "name": "[Ljava.lang.Object; (java.base@25)"
+      },
+      {
+       "instances": 381082,
+       "bytes": 12194624,
+       "name": "java.lang.String (java.base@25)"
+      },
+      {
+       "instances": 36029,
+       "bytes": 7322296,
+       "name": "java.lang.Class (java.base@25)"
+      },
+      {
+       "instances": 154837,
+       "bytes": 4954784,
+       "name": "java.util.ArrayList (java.base@25)"
+      },
+      {
+       "instances": 1200,
+       "bytes": 4498728,
+       "name": "[D (java.base@25)"
+      },
+      {
+       "instances": 24652,
+       "bytes": 3944320,
+       "name": "yLx"
+      },
+      {
+       "instances": 17337,
+       "bytes": 3418872,
+       "name": "[I (java.base@25)"
+      }
+     ]
+    },
+    "boundNoteSteps": 1048513
+   }
+  },
+  {
+   "action": "other-track",
+   "applyMs": 155.68095899999753,
+   "after": {
+    "label": "other-track",
+    "capturedEpochMs": 1791179645258,
+    "histogramMs": 269.7492499999935,
+    "liveBytes": 243988960,
+    "noteSteps": 0,
+    "noteStepBytes": 0,
+    "top": [
+     {
+      "instances": 30989,
+      "bytes": 72682432,
+      "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+     },
+     {
+      "instances": 386315,
+      "bytes": 26722112,
+      "name": "[B (java.base@25)"
+     },
+     {
+      "instances": 191756,
+      "bytes": 14893128,
+      "name": "[Ljava.lang.Object; (java.base@25)"
+     },
+     {
+      "instances": 381081,
+      "bytes": 12194592,
+      "name": "java.lang.String (java.base@25)"
+     },
+     {
+      "instances": 36029,
+      "bytes": 7322296,
+      "name": "java.lang.Class (java.base@25)"
+     },
+     {
+      "instances": 126984,
+      "bytes": 5079360,
+      "name": "java.util.HashMap$Node (java.base@25)"
+     },
+     {
+      "instances": 154838,
+      "bytes": 4954816,
+      "name": "java.util.ArrayList (java.base@25)"
+     },
+     {
+      "instances": 1200,
+      "bytes": 4498728,
+      "name": "[D (java.base@25)"
+     },
+     {
+      "instances": 24652,
+      "bytes": 3944320,
+      "name": "yLx"
+     },
+     {
+      "instances": 17337,
+      "bytes": 3418872,
+      "name": "[I (java.base@25)"
+     },
+     {
+      "instances": 78343,
+      "bytes": 3133720,
+      "name": "java.util.concurrent.ConcurrentHashMap$Node (java.base@25)"
+     },
+     {
+      "instances": 24652,
+      "bytes": 2958240,
+      "name": "iGF"
+     }
+    ]
+   },
+   "delta": {
+    "freed": 1048513,
+    "fraction": 1,
+    "releases": true
+   },
+   "status": {
+    "width": 1048576,
+    "windowed": false,
+    "subscribed": true,
+    "trackExists": true,
+    "trackChannelId": "63aa72f1-43a3-4db8-a307-b8141ae2a0ef",
+    "trackPosition": 2,
+    "trackPinned": true,
+    "clipExists": false,
+    "clipPinned": false,
+    "sceneIndex": 0,
+    "loopLength": 0,
+    "playStop": 0,
+    "callbacks": 1048513,
+    "emptyCallbacks": 1048513,
+    "sustainCallbacks": 0,
+    "onsetCallbacks": 0,
+    "tracing": false,
+    "traceOverwritten": 0,
+    "msSinceLastCallback": 3426.620416,
+    "firstToLastCallbackMs": 40.791792
+   },
+   "restore": {
+    "replay": {
+     "callbacks": 1048513,
+     "onset": 16384,
+     "sustain": 1032129,
+     "empty": 0,
+     "lastCallbackMs": 150.2705409999985,
+     "firstToLastCallbackMs": 33.06825,
+     "waitedMs": 1227.5870829999985
+    },
+    "heap": {
+     "label": "other-track-restored",
+     "capturedEpochMs": 1791179648049,
+     "histogramMs": 404.9117499999993,
+     "liveBytes": 537573872,
+     "noteSteps": 1048513,
+     "noteStepBytes": 176150184,
+     "top": [
+      {
+       "instances": 1048513,
+       "bytes": 176150184,
+       "name": "com.bitwig.flt.control_surface.proxy.NoteStep"
+      },
+      {
+       "instances": 2224007,
+       "bytes": 88960280,
+       "name": "java.util.HashMap$Node (java.base@25)"
+      },
+      {
+       "instances": 30985,
+       "bytes": 72682112,
+       "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+      },
+      {
+       "instances": 2109427,
+       "bytes": 33750832,
+       "name": "java.lang.Integer (java.base@25)"
+      },
+      {
+       "instances": 386317,
+       "bytes": 26722240,
+       "name": "[B (java.base@25)"
+      },
+      {
+       "instances": 191755,
+       "bytes": 14893208,
+       "name": "[Ljava.lang.Object; (java.base@25)"
+      },
+      {
+       "instances": 381083,
+       "bytes": 12194656,
+       "name": "java.lang.String (java.base@25)"
+      },
+      {
+       "instances": 36029,
+       "bytes": 7322296,
+       "name": "java.lang.Class (java.base@25)"
+      },
+      {
+       "instances": 154837,
+       "bytes": 4954784,
+       "name": "java.util.ArrayList (java.base@25)"
+      },
+      {
+       "instances": 1200,
+       "bytes": 4498728,
+       "name": "[D (java.base@25)"
+      },
+      {
+       "instances": 24652,
+       "bytes": 3944320,
+       "name": "yLx"
+      },
+      {
+       "instances": 17337,
+       "bytes": 3418872,
+       "name": "[I (java.base@25)"
+      }
+     ]
+    },
+    "boundNoteSteps": 1048513
+   }
+  },
+  {
+   "action": "coarse-step",
+   "applyMs": 16.156957999999577,
+   "after": {
+    "label": "coarse-step",
+    "capturedEpochMs": 1791179651468,
+    "histogramMs": 284.1993330000041,
+    "liveBytes": 249144496,
+    "noteSteps": 18399,
+    "noteStepBytes": 3091032,
+    "top": [
+     {
+      "instances": 30985,
+      "bytes": 72682112,
+      "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+     },
+     {
+      "instances": 386330,
+      "bytes": 26723792,
+      "name": "[B (java.base@25)"
+     },
+     {
+      "instances": 191755,
+      "bytes": 14893208,
+      "name": "[Ljava.lang.Object; (java.base@25)"
+     },
+     {
+      "instances": 381096,
+      "bytes": 12195072,
+      "name": "java.lang.String (java.base@25)"
+     },
+     {
+      "instances": 36030,
+      "bytes": 7322488,
+      "name": "java.lang.Class (java.base@25)"
+     },
+     {
+      "instances": 163779,
+      "bytes": 6551160,
+      "name": "java.util.HashMap$Node (java.base@25)"
+     },
+     {
+      "instances": 154837,
+      "bytes": 4954784,
+      "name": "java.util.ArrayList (java.base@25)"
+     },
+     {
+      "instances": 1200,
+      "bytes": 4498728,
+      "name": "[D (java.base@25)"
+     },
+     {
+      "instances": 24652,
+      "bytes": 3944320,
+      "name": "yLx"
+     },
+     {
+      "instances": 17337,
+      "bytes": 3418872,
+      "name": "[I (java.base@25)"
+     },
+     {
+      "instances": 78343,
+      "bytes": 3133720,
+      "name": "java.util.concurrent.ConcurrentHashMap$Node (java.base@25)"
+     },
+     {
+      "instances": 18399,
+      "bytes": 3091032,
+      "name": "com.bitwig.flt.control_surface.proxy.NoteStep"
+     }
+    ]
+   },
+   "delta": {
+    "freed": 1030114,
+    "fraction": 0.9824522919601378,
+    "releases": true
+   },
+   "status": {
+    "width": 1048576,
+    "windowed": false,
+    "subscribed": true,
+    "trackExists": true,
+    "trackChannelId": "a6e17389-ca25-401b-93c4-ab7d1442643a",
+    "trackPosition": 3,
+    "trackPinned": true,
+    "clipExists": true,
+    "clipPinned": true,
+    "sceneIndex": 0,
+    "loopLength": 2048,
+    "playStop": 2048,
+    "callbacks": 2115191,
+    "emptyCallbacks": 1048280,
+    "sustainCallbacks": 1034144,
+    "onsetCallbacks": 32767,
+    "tracing": false,
+    "traceOverwritten": 0,
+    "msSinceLastCallback": 3212.214042,
+    "firstToLastCallbackMs": 2856.970375
+   },
+   "restore": {
+    "replay": {
+     "callbacks": 1066678,
+     "onset": 16383,
+     "sustain": 1032129,
+     "empty": 18166,
+     "lastCallbackMs": 243.71795900000143,
+     "firstToLastCallbackMs": 33.574416,
+     "waitedMs": 1336.9788340000014
+    },
+    "heap": {
+     "label": "coarse-step-restored",
+     "capturedEpochMs": 1791179654352,
+     "histogramMs": 394.9667499999996,
+     "liveBytes": 537576416,
+     "noteSteps": 1048513,
+     "noteStepBytes": 176150184,
+     "top": [
+      {
+       "instances": 1048513,
+       "bytes": 176150184,
+       "name": "com.bitwig.flt.control_surface.proxy.NoteStep"
+      },
+      {
+       "instances": 2224007,
+       "bytes": 88960280,
+       "name": "java.util.HashMap$Node (java.base@25)"
+      },
+      {
+       "instances": 30985,
+       "bytes": 72682112,
+       "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+      },
+      {
+       "instances": 2109427,
+       "bytes": 33750832,
+       "name": "java.lang.Integer (java.base@25)"
+      },
+      {
+       "instances": 386330,
+       "bytes": 26723792,
+       "name": "[B (java.base@25)"
+      },
+      {
+       "instances": 191755,
+       "bytes": 14893208,
+       "name": "[Ljava.lang.Object; (java.base@25)"
+      },
+      {
+       "instances": 381096,
+       "bytes": 12195072,
+       "name": "java.lang.String (java.base@25)"
+      },
+      {
+       "instances": 36030,
+       "bytes": 7322488,
+       "name": "java.lang.Class (java.base@25)"
+      },
+      {
+       "instances": 154837,
+       "bytes": 4954784,
+       "name": "java.util.ArrayList (java.base@25)"
+      },
+      {
+       "instances": 1200,
+       "bytes": 4498728,
+       "name": "[D (java.base@25)"
+      },
+      {
+       "instances": 24652,
+       "bytes": 3944320,
+       "name": "yLx"
+      },
+      {
+       "instances": 17337,
+       "bytes": 3418872,
+       "name": "[I (java.base@25)"
+      }
+     ]
+    },
+    "boundNoteSteps": 1048513
+   }
+  },
+  {
+   "action": "scroll-off",
+   "applyMs": 16.450250000001688,
+   "after": {
+    "label": "scroll-off",
+    "capturedEpochMs": 1791179657752,
+    "histogramMs": 271.04262500000186,
+    "liveBytes": 243993920,
+    "noteSteps": 0,
+    "noteStepBytes": 0,
+    "top": [
+     {
+      "instances": 30985,
+      "bytes": 72682112,
+      "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+     },
+     {
+      "instances": 386332,
+      "bytes": 26723928,
+      "name": "[B (java.base@25)"
+     },
+     {
+      "instances": 191755,
+      "bytes": 14893208,
+      "name": "[Ljava.lang.Object; (java.base@25)"
+     },
+     {
+      "instances": 381098,
+      "bytes": 12195136,
+      "name": "java.lang.String (java.base@25)"
+     },
+     {
+      "instances": 36031,
+      "bytes": 7322680,
+      "name": "java.lang.Class (java.base@25)"
+     },
+     {
+      "instances": 126981,
+      "bytes": 5079240,
+      "name": "java.util.HashMap$Node (java.base@25)"
+     },
+     {
+      "instances": 154837,
+      "bytes": 4954784,
+      "name": "java.util.ArrayList (java.base@25)"
+     },
+     {
+      "instances": 1200,
+      "bytes": 4498728,
+      "name": "[D (java.base@25)"
+     },
+     {
+      "instances": 24652,
+      "bytes": 3944320,
+      "name": "yLx"
+     },
+     {
+      "instances": 17337,
+      "bytes": 3418872,
+      "name": "[I (java.base@25)"
+     },
+     {
+      "instances": 78345,
+      "bytes": 3133800,
+      "name": "java.util.concurrent.ConcurrentHashMap$Node (java.base@25)"
+     },
+     {
+      "instances": 24652,
+      "bytes": 2958240,
+      "name": "iGF"
+     }
+    ]
+   },
+   "delta": {
+    "freed": 1048513,
+    "fraction": 1,
+    "releases": true
+   },
+   "status": {
+    "width": 1048576,
+    "windowed": false,
+    "subscribed": true,
+    "trackExists": true,
+    "trackChannelId": "a6e17389-ca25-401b-93c4-ab7d1442643a",
+    "trackPosition": 3,
+    "trackPinned": true,
+    "clipExists": true,
+    "clipPinned": true,
+    "sceneIndex": 0,
+    "loopLength": 2048,
+    "playStop": 2048,
+    "callbacks": 2115191,
+    "emptyCallbacks": 1066679,
+    "sustainCallbacks": 1032129,
+    "onsetCallbacks": 16383,
+    "tracing": false,
+    "traceOverwritten": 0,
+    "msSinceLastCallback": 3317.116959,
+    "firstToLastCallbackMs": 2736.323666
+   },
+   "restore": {
+    "replay": {
+     "callbacks": 1048513,
+     "onset": 16384,
+     "sustain": 1032129,
+     "empty": 0,
+     "lastCallbackMs": 104.61166700000308,
+     "firstToLastCallbackMs": 31.440875,
+     "waitedMs": 1110.8529580000031
+    },
+    "heap": {
+     "label": "scroll-off-restored",
+     "capturedEpochMs": 1791179660423,
+     "histogramMs": 402.53825000000506,
+     "liveBytes": 537577560,
+     "noteSteps": 1048513,
+     "noteStepBytes": 176150184,
+     "top": [
+      {
+       "instances": 1048513,
+       "bytes": 176150184,
+       "name": "com.bitwig.flt.control_surface.proxy.NoteStep"
+      },
+      {
+       "instances": 2224007,
+       "bytes": 88960280,
+       "name": "java.util.HashMap$Node (java.base@25)"
+      },
+      {
+       "instances": 30985,
+       "bytes": 72682112,
+       "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+      },
+      {
+       "instances": 2109427,
+       "bytes": 33750832,
+       "name": "java.lang.Integer (java.base@25)"
+      },
+      {
+       "instances": 386332,
+       "bytes": 26723928,
+       "name": "[B (java.base@25)"
+      },
+      {
+       "instances": 191755,
+       "bytes": 14893208,
+       "name": "[Ljava.lang.Object; (java.base@25)"
+      },
+      {
+       "instances": 381098,
+       "bytes": 12195136,
+       "name": "java.lang.String (java.base@25)"
+      },
+      {
+       "instances": 36031,
+       "bytes": 7322680,
+       "name": "java.lang.Class (java.base@25)"
+      },
+      {
+       "instances": 154837,
+       "bytes": 4954784,
+       "name": "java.util.ArrayList (java.base@25)"
+      },
+      {
+       "instances": 1200,
+       "bytes": 4498728,
+       "name": "[D (java.base@25)"
+      },
+      {
+       "instances": 24652,
+       "bytes": 3944320,
+       "name": "yLx"
+      },
+      {
+       "instances": 17337,
+       "bytes": 3418872,
+       "name": "[I (java.base@25)"
+      }
+     ]
+    },
+    "boundNoteSteps": 1048513
+   }
+  }
+ ],
+ "fixtureBound": {
+  "label": "fixture-bound",
+  "capturedEpochMs": 1791179609180,
+  "histogramMs": 420.7068330000002,
+  "liveBytes": 537574280,
+  "noteSteps": 1048513,
+  "noteStepBytes": 176150184,
+  "top": [
+   {
+    "instances": 1048513,
+    "bytes": 176150184,
+    "name": "com.bitwig.flt.control_surface.proxy.NoteStep"
+   },
+   {
+    "instances": 2224011,
+    "bytes": 88960440,
+    "name": "java.util.HashMap$Node (java.base@25)"
+   },
+   {
+    "instances": 30989,
+    "bytes": 72682432,
+    "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+   },
+   {
+    "instances": 2109427,
+    "bytes": 33750832,
+    "name": "java.lang.Integer (java.base@25)"
+   },
+   {
+    "instances": 386308,
+    "bytes": 26721688,
+    "name": "[B (java.base@25)"
+   },
+   {
+    "instances": 191759,
+    "bytes": 14893304,
+    "name": "[Ljava.lang.Object; (java.base@25)"
+   },
+   {
+    "instances": 381074,
+    "bytes": 12194368,
+    "name": "java.lang.String (java.base@25)"
+   },
+   {
+    "instances": 36029,
+    "bytes": 7322296,
+    "name": "java.lang.Class (java.base@25)"
+   },
+   {
+    "instances": 154841,
+    "bytes": 4954912,
+    "name": "java.util.ArrayList (java.base@25)"
+   },
+   {
+    "instances": 1200,
+    "bytes": 4498728,
+    "name": "[D (java.base@25)"
+   },
+   {
+    "instances": 24652,
+    "bytes": 3944320,
+    "name": "yLx"
+   },
+   {
+    "instances": 17337,
+    "bytes": 3418872,
+    "name": "[I (java.base@25)"
+   }
+  ]
+ },
+ "baseline": {
+  "label": "baseline",
+  "capturedEpochMs": 1791179612699,
+  "histogramMs": 267.06854100000055,
+  "liveBytes": 243988224,
+  "noteSteps": 0,
+  "noteStepBytes": 0,
+  "top": [
+   {
+    "instances": 30989,
+    "bytes": 72682432,
+    "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+   },
+   {
+    "instances": 386307,
+    "bytes": 26721632,
+    "name": "[B (java.base@25)"
+   },
+   {
+    "instances": 191756,
+    "bytes": 14893128,
+    "name": "[Ljava.lang.Object; (java.base@25)"
+   },
+   {
+    "instances": 381073,
+    "bytes": 12194336,
+    "name": "java.lang.String (java.base@25)"
+   },
+   {
+    "instances": 36029,
+    "bytes": 7322296,
+    "name": "java.lang.Class (java.base@25)"
+   },
+   {
+    "instances": 126984,
+    "bytes": 5079360,
+    "name": "java.util.HashMap$Node (java.base@25)"
+   },
+   {
+    "instances": 154838,
+    "bytes": 4954816,
+    "name": "java.util.ArrayList (java.base@25)"
+   },
+   {
+    "instances": 1200,
+    "bytes": 4498728,
+    "name": "[D (java.base@25)"
+   },
+   {
+    "instances": 24652,
+    "bytes": 3944320,
+    "name": "yLx"
+   },
+   {
+    "instances": 17337,
+    "bytes": 3418872,
+    "name": "[I (java.base@25)"
+   },
+   {
+    "instances": 78343,
+    "bytes": 3133720,
+    "name": "java.util.concurrent.ConcurrentHashMap$Node (java.base@25)"
+   },
+   {
+    "instances": 24652,
+    "bytes": 2958240,
+    "name": "iGF"
+   }
+  ]
+ },
+ "fixtureRelease": {
+  "freed": 1048513,
+  "fraction": 1,
+  "releases": true
+ },
+ "bound": {
+  "replay": {
+   "callbacks": 1048513,
+   "onset": 16384,
+   "sustain": 1032129,
+   "empty": 0,
+   "lastCallbackMs": 151.31879299999923,
+   "firstToLastCallbackMs": 32.995417,
+   "waitedMs": 1225.1780839999992
+  },
+  "heap": {
+   "label": "bound-restored",
+   "capturedEpochMs": 1791179615448,
+   "histogramMs": 395.68304200000057,
+   "liveBytes": 537573536,
+   "noteSteps": 1048513,
+   "noteStepBytes": 176150184,
+   "top": [
+    {
+     "instances": 1048513,
+     "bytes": 176150184,
+     "name": "com.bitwig.flt.control_surface.proxy.NoteStep"
+    },
+    {
+     "instances": 2224007,
+     "bytes": 88960280,
+     "name": "java.util.HashMap$Node (java.base@25)"
+    },
+    {
+     "instances": 30985,
+     "bytes": 72682112,
+     "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+    },
+    {
+     "instances": 2109427,
+     "bytes": 33750832,
+     "name": "java.lang.Integer (java.base@25)"
+    },
+    {
+     "instances": 386313,
+     "bytes": 26722032,
+     "name": "[B (java.base@25)"
+    },
+    {
+     "instances": 191755,
+     "bytes": 14893208,
+     "name": "[Ljava.lang.Object; (java.base@25)"
+    },
+    {
+     "instances": 381079,
+     "bytes": 12194528,
+     "name": "java.lang.String (java.base@25)"
+    },
+    {
+     "instances": 36029,
+     "bytes": 7322296,
+     "name": "java.lang.Class (java.base@25)"
+    },
+    {
+     "instances": 154837,
+     "bytes": 4954784,
+     "name": "java.util.ArrayList (java.base@25)"
+    },
+    {
+     "instances": 1200,
+     "bytes": 4498728,
+     "name": "[D (java.base@25)"
+    },
+    {
+     "instances": 24652,
+     "bytes": 3944320,
+     "name": "yLx"
+    },
+    {
+     "instances": 17337,
+     "bytes": 3418872,
+     "name": "[I (java.base@25)"
+    }
+   ]
+  },
+  "boundNoteSteps": 1048513
+ },
+ "released": {
+  "label": "parked",
+  "capturedEpochMs": 1791179663975,
+  "histogramMs": 276.68966699999874,
+  "liveBytes": 243992752,
+  "noteSteps": 0,
+  "noteStepBytes": 0,
+  "top": [
+   {
+    "instances": 30989,
+    "bytes": 72682432,
+    "name": "[Ljava.util.HashMap$Node; (java.base@25)"
+   },
+   {
+    "instances": 386331,
+    "bytes": 26723872,
+    "name": "[B (java.base@25)"
+   },
+   {
+    "instances": 191756,
+    "bytes": 14893128,
+    "name": "[Ljava.lang.Object; (java.base@25)"
+   },
+   {
+    "instances": 381097,
+    "bytes": 12195104,
+    "name": "java.lang.String (java.base@25)"
+   },
+   {
+    "instances": 36031,
+    "bytes": 7322680,
+    "name": "java.lang.Class (java.base@25)"
+   },
+   {
+    "instances": 126984,
+    "bytes": 5079360,
+    "name": "java.util.HashMap$Node (java.base@25)"
+   },
+   {
+    "instances": 154838,
+    "bytes": 4954816,
+    "name": "java.util.ArrayList (java.base@25)"
+   },
+   {
+    "instances": 1200,
+    "bytes": 4498728,
+    "name": "[D (java.base@25)"
+   },
+   {
+    "instances": 24652,
+    "bytes": 3944320,
+    "name": "yLx"
+   },
+   {
+    "instances": 17337,
+    "bytes": 3418872,
+    "name": "[I (java.base@25)"
+   },
+   {
+    "instances": 78345,
+    "bytes": 3133800,
+    "name": "java.util.concurrent.ConcurrentHashMap$Node (java.base@25)"
+   },
+   {
+    "instances": 24652,
+    "bytes": 2958240,
+    "name": "iGF"
+   }
+  ]
+ },
+ "pingP95Ms": 25.093207999998413
+}
