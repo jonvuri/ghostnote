@@ -1,0 +1,29 @@
+{
+ "schema": "phase8h2a-restoration-v1",
+ "captured": "2026-10-05",
+ "configSha256": "256bbf07094cd654c372d0e5e050e494ef7783c9a0001a0a2a688331bcf643b0",
+ "researchArchiveRemoved": "ghostnote-shadow-8g-controls.bwextension",
+ "normalArchive": "ghostnote-0.0.1.bwextension",
+ "operator": "closed owned New 2 without saving; replaced the controller with normal ghostnote",
+ "hello": {
+  "runtimeProfile": "normal-v1",
+  "methodCount": 85,
+  "methodsHash": "bba7383dce25c0f0",
+  "initializedAt": "2026-10-05T07:48:57.336Z",
+  "freshness": "fresh",
+  "allPass": true
+ },
+ "visibleProject": "gn-scale-test",
+ "tracks": [
+  "Instrument Layer",
+  "Hybrid 2",
+  "gn-A",
+  "gn-B",
+  "Group 5",
+  "gn-lay",
+  "gn-lay4",
+  "gn-sel",
+  "FX 1",
+  "Master"
+ ]
+}

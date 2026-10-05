@@ -1,0 +1,1175 @@
+{
+ "schema": "phase8h2a-edit-v1",
+ "marker": "8h2a-replay-v1",
+ "complete": false,
+ "eligible": false,
+ "captured": "2026-10-05T07:43:14.720Z",
+ "fixture": {
+  "name": "n16384-512",
+  "kind": "spec",
+  "beats": 512,
+  "count": 16384,
+  "cap": 64,
+  "trackId": "9e00adbe-4ef5-420e-9fd8-4cf47a68c6e4",
+  "row": 0,
+  "written": true
+ },
+ "hello": {
+  "contractVersion": 0,
+  "extensionVersion": "0.0.1",
+  "runtimeProfile": "phase-8-probe-v1",
+  "hostApiVersion": 25,
+  "methodCount": 98,
+  "methodsHash": "d89cee6bf21c1f96"
+ },
+ "project": "New 2",
+ "configuration": {
+  "revision": "8h2a-replay-v1",
+  "complete": false,
+  "eligible": false,
+  "allocation": {
+   "observers": 2,
+   "authorityObservers": 1,
+   "totalExperimentalStepDataObservers": 6,
+   "width": 4194304,
+   "scenes": 16,
+   "cursorScenes": 0,
+   "tracks": 16,
+   "cacheBankConstructionMs": 0.113667
+  },
+  "active": {
+   "observers": 2,
+   "experimentalStepDataObservers": 6,
+   "width": 131072,
+   "scenes": 16,
+   "tracks": 16,
+   "subscribedObservers": 2
+  },
+  "limits": {
+   "width": 131072,
+   "observers": 512,
+   "occupied": 2048,
+   "pending": 2048,
+   "recorderBytes": 16777216,
+   "snapshotBytes": 16777216,
+   "combinedBytes": 25165824,
+   "registryBytes": 16777216,
+   "replayDeadlineMs": 5000,
+   "enrichmentDeadlineMs": 5000,
+   "rebuildDeadlineMs": 40000,
+   "constructionBudgetMs": 50,
+   "pingBudgetMs": 50
+  },
+  "configurations": 0
+ },
+ "stats": {
+  "runtimeProfile": "phase-8-probe-v1",
+  "config": {
+   "tracks": 16,
+   "scenes": 16,
+   "gridSteps": 64,
+   "gridKeys": 128,
+   "cursorPool": 8,
+   "sends": 4,
+   "deviceBank": 16,
+   "fineSteps": 512,
+   "noteReadSteps": 2048,
+   "paramHandles": 64,
+   "remotePages": 16,
+   "cacheScaleObservers": 0,
+   "cacheScaleSteps": 131072,
+   "cacheScaleWidthSteps": 0,
+   "cacheShadowObservers": 2,
+   "cacheShadowSteps": 4194304,
+   "cacheTopologyTracks": 16,
+   "cacheTopologyCounted": true,
+   "cacheLifecycleResearch": true,
+   "cacheKneeResearch": true,
+   "cacheShadowCursorScenes": 0,
+   "cacheSoundingResearch": false,
+   "cacheReplayResearch": true,
+   "deliveryResearch": false,
+   "contentFilter": "ALL_CHANNELS",
+   "directObservers": true,
+   "stamp": "8h2a-replay",
+   "fromFile": true
+  },
+  "rigConstructMicros": 7095,
+  "initMicros": 8973,
+  "initEpochMs": 1791183436901,
+  "upMs": 2757813,
+  "slotObjects": 256,
+  "markedValues": 1648,
+  "resources": {
+   "cursorDeviceBanks": 8,
+   "siblingDeviceBanks": 1,
+   "layerDeviceBanks": 8,
+   "slotDeviceBanks": 15,
+   "namedSlotDeviceBanks": 0,
+   "drumPadDeviceBanks": 16,
+   "deviceBanks": 48,
+   "cursorDeviceSlots": 128,
+   "cursorDeviceEnabledValues": 128,
+   "layerDeviceSlots": 32,
+   "slotDeviceSlots": 60,
+   "drumPadDeviceSlots": 256,
+   "namedSlotDeviceSlots": 0,
+   "deviceSlots": 492,
+   "cursorDevices": 1,
+   "specificDeviceViews": 4,
+   "typedParameterHandles": 75,
+   "remotePageCursors": 16,
+   "remoteParameterHandles": 128,
+   "directParameterObservers": 4,
+   "noteObserverCursors": 1,
+   "noteStepObservers": 1,
+   "stepDataObservers": 1,
+   "cacheScaleCursorTracks": 0,
+   "cacheScaleClipProxies": 0,
+   "cacheScaleStepDataObservers": 0,
+   "trackSendBanks": 0,
+   "trackSendHandles": 0,
+   "trackVuObservers": 0,
+   "historicalActionHandles": 0,
+   "historicalSelectionObservers": 0,
+   "equalsProxies": 32,
+   "transportProxies": 1,
+   "masterRecorderProxies": 0,
+   "cursorTracks": 10,
+   "cursorClips": 12,
+   "layerBanks": 4,
+   "layerHandles": 23,
+   "layerSendBanks": 0,
+   "layerSendHandles": 0,
+   "explicitHostObjects": 1141,
+   "observerCallbacks": 119
+  },
+  "heapUsedMb": 1568,
+  "heapMaxMb": 3072
+ },
+ "trials": [
+  {
+   "trial": 0,
+   "mode": "in-replay",
+   "status": {
+    "epoch": 345,
+    "label": "n16384-512-edit-0",
+    "complete": false,
+    "eligible": false,
+    "callbacks": 262145,
+    "onset": 16385,
+    "sustain": 245760,
+    "empty": 0,
+    "notes": 16384,
+    "duplicates": 1,
+    "removed": 0,
+    "firstCallbackMs": 46.52925,
+    "lastCallbackMs": 201.424042,
+    "msSinceLastCallback": 2002.476542,
+    "handlerMs": 17.123294,
+    "pending": false,
+    "droppedBatches": 0,
+    "droppedValues": 0,
+    "batches": [
+     [
+      1,
+      46.52925,
+      262144,
+      81.633042,
+      75.747667,
+      262144,
+      106.608417
+     ],
+     [
+      262145,
+      201.424042,
+      262145,
+      225.433375,
+      201.424042,
+      262145,
+      248.885292
+     ]
+    ],
+    "batchColumns": "firstSeq,firstMs,taskSeq,taskMs,lastCallbackAtTaskMs,confirmSeq,confirmMs",
+    "values": [
+     [
+      "playStop",
+      "512.0",
+      262144,
+      75.753042,
+      262144,
+      81.744167
+     ],
+     [
+      "loopLength",
+      "512.0",
+      262144,
+      75.757917,
+      262144,
+      81.744209
+     ],
+     [
+      "clipExists",
+      "true",
+      262144,
+      75.760334,
+      262144,
+      81.744209
+     ],
+     [
+      "trackChannelId",
+      "9e00adbe-4ef5-420e-9fd8-4cf47a68c6e4",
+      262144,
+      75.763417,
+      262144,
+      81.744292
+     ]
+    ],
+    "valueColumns": "kind,value,seq,ms,taskSeq,taskMs",
+    "edit": {
+     "at": 131072,
+     "seq": 131072,
+     "ms": 57.277667
+    }
+   },
+   "completion": {
+    "callbacks": 262145,
+    "batches": 2,
+    "singleTask": false,
+    "lateCallbacks": 1,
+    "bindToFirstMs": 46.52925,
+    "firstToLastMs": 154.894792,
+    "completeMs": 81.633042,
+    "chainCompleteMs": 225.433375,
+    "confirmMs": 106.608417,
+    "chainSteadyAtTask": true
+   },
+   "window": {
+    "refuse": true,
+    "reasons": [
+     "late-batch",
+     "duplicate-cell"
+    ]
+   },
+   "decodeIssues": [
+    "velocity 0.2 at 15:262143:65"
+   ],
+   "editVisible": true
+  },
+  {
+   "trial": 1,
+   "mode": "pre-replay",
+   "status": {
+    "epoch": 347,
+    "label": "n16384-512-edit-1",
+    "complete": false,
+    "eligible": false,
+    "callbacks": 262145,
+    "onset": 16385,
+    "sustain": 245760,
+    "empty": 0,
+    "notes": 16384,
+    "duplicates": 1,
+    "removed": 0,
+    "firstCallbackMs": 119.673167,
+    "lastCallbackMs": 135.895125,
+    "msSinceLastCallback": 2020.000667,
+    "handlerMs": 7.39701,
+    "pending": false,
+    "droppedBatches": 0,
+    "droppedValues": 0,
+    "batches": [
+     [
+      1,
+      119.673167,
+      262145,
+      141.363292,
+      135.895125,
+      262145,
+      164.328209
+     ]
+    ],
+    "batchColumns": "firstSeq,firstMs,taskSeq,taskMs,lastCallbackAtTaskMs,confirmSeq,confirmMs",
+    "values": [
+     [
+      "playStop",
+      "512.0",
+      262144,
+      135.881584,
+      262145,
+      141.368459
+     ],
+     [
+      "loopLength",
+      "512.0",
+      262144,
+      135.88675,
+      262145,
+      141.3685
+     ],
+     [
+      "clipExists",
+      "true",
+      262144,
+      135.888917,
+      262145,
+      141.368542
+     ],
+     [
+      "trackChannelId",
+      "9e00adbe-4ef5-420e-9fd8-4cf47a68c6e4",
+      262144,
+      135.891709,
+      262145,
+      141.368542
+     ]
+    ],
+    "valueColumns": "kind,value,seq,ms,taskSeq,taskMs"
+   },
+   "completion": {
+    "callbacks": 262145,
+    "batches": 1,
+    "singleTask": false,
+    "lateCallbacks": 0,
+    "bindToFirstMs": 119.673167,
+    "firstToLastMs": 16.221958,
+    "completeMs": 141.363292,
+    "chainCompleteMs": 141.363292,
+    "confirmMs": 164.328209,
+    "chainSteadyAtTask": true
+   },
+   "window": {
+    "refuse": true,
+    "reasons": [
+     "duplicate-cell"
+    ]
+   },
+   "decodeIssues": [
+    "velocity 0.2 at 15:262143:65"
+   ],
+   "editVisible": true
+  },
+  {
+   "trial": 2,
+   "mode": "in-replay",
+   "status": {
+    "epoch": 349,
+    "label": "n16384-512-edit-2",
+    "complete": false,
+    "eligible": false,
+    "callbacks": 262145,
+    "onset": 16385,
+    "sustain": 245760,
+    "empty": 0,
+    "notes": 16384,
+    "duplicates": 1,
+    "removed": 0,
+    "firstCallbackMs": 45.992375,
+    "lastCallbackMs": 113.712625,
+    "msSinceLastCallback": 2036.831958,
+    "handlerMs": 6.833037,
+    "pending": false,
+    "droppedBatches": 0,
+    "droppedValues": 0,
+    "batches": [
+     [
+      1,
+      45.992375,
+      262144,
+      67.47025,
+      61.136958,
+      262144,
+      90.367833
+     ],
+     [
+      262145,
+      113.712625,
+      262145,
+      137.641125,
+      113.712625,
+      262145,
+      160.783916
+     ]
+    ],
+    "batchColumns": "firstSeq,firstMs,taskSeq,taskMs,lastCallbackAtTaskMs,confirmSeq,confirmMs",
+    "values": [
+     [
+      "playStop",
+      "512.0",
+      262144,
+      61.150458,
+      262144,
+      67.475708
+     ],
+     [
+      "loopLength",
+      "512.0",
+      262144,
+      61.15975,
+      262144,
+      67.477791
+     ],
+     [
+      "clipExists",
+      "true",
+      262144,
+      61.165583,
+      262144,
+      67.477791
+     ],
+     [
+      "trackChannelId",
+      "9e00adbe-4ef5-420e-9fd8-4cf47a68c6e4",
+      262144,
+      61.1775,
+      262144,
+      67.477833
+     ]
+    ],
+    "valueColumns": "kind,value,seq,ms,taskSeq,taskMs",
+    "edit": {
+     "at": 131072,
+     "seq": 131072,
+     "ms": 52.329041
+    }
+   },
+   "completion": {
+    "callbacks": 262145,
+    "batches": 2,
+    "singleTask": false,
+    "lateCallbacks": 1,
+    "bindToFirstMs": 45.992375,
+    "firstToLastMs": 67.72025,
+    "completeMs": 67.47025,
+    "chainCompleteMs": 137.641125,
+    "confirmMs": 90.367833,
+    "chainSteadyAtTask": true
+   },
+   "window": {
+    "refuse": true,
+    "reasons": [
+     "late-batch",
+     "duplicate-cell"
+    ]
+   },
+   "decodeIssues": [
+    "velocity 0.2 at 15:262143:65"
+   ],
+   "editVisible": true
+  },
+  {
+   "trial": 3,
+   "mode": "pre-replay",
+   "status": {
+    "epoch": 351,
+    "label": "n16384-512-edit-3",
+    "complete": false,
+    "eligible": false,
+    "callbacks": 262145,
+    "onset": 16385,
+    "sustain": 245760,
+    "empty": 0,
+    "notes": 16384,
+    "duplicates": 1,
+    "removed": 0,
+    "firstCallbackMs": 95.987375,
+    "lastCallbackMs": 110.683667,
+    "msSinceLastCallback": 2038.106208,
+    "handlerMs": 6.624026,
+    "pending": false,
+    "droppedBatches": 0,
+    "droppedValues": 0,
+    "batches": [
+     [
+      1,
+      95.987375,
+      262145,
+      117.03375,
+      110.683667,
+      262145,
+      141.6285
+     ]
+    ],
+    "batchColumns": "firstSeq,firstMs,taskSeq,taskMs,lastCallbackAtTaskMs,confirmSeq,confirmMs",
+    "values": [
+     [
+      "playStop",
+      "512.0",
+      262144,
+      110.668,
+      262145,
+      117.037667
+     ],
+     [
+      "loopLength",
+      "512.0",
+      262144,
+      110.673209,
+      262145,
+      117.03775
+     ],
+     [
+      "clipExists",
+      "true",
+      262144,
+      110.675292,
+      262145,
+      117.037792
+     ],
+     [
+      "trackChannelId",
+      "9e00adbe-4ef5-420e-9fd8-4cf47a68c6e4",
+      262144,
+      110.679292,
+      262145,
+      117.037792
+     ]
+    ],
+    "valueColumns": "kind,value,seq,ms,taskSeq,taskMs"
+   },
+   "completion": {
+    "callbacks": 262145,
+    "batches": 1,
+    "singleTask": false,
+    "lateCallbacks": 0,
+    "bindToFirstMs": 95.987375,
+    "firstToLastMs": 14.696292,
+    "completeMs": 117.03375,
+    "chainCompleteMs": 117.03375,
+    "confirmMs": 141.6285,
+    "chainSteadyAtTask": true
+   },
+   "window": {
+    "refuse": true,
+    "reasons": [
+     "duplicate-cell"
+    ]
+   },
+   "decodeIssues": [
+    "velocity 0.2 at 15:262143:65"
+   ],
+   "editVisible": true
+  },
+  {
+   "trial": 4,
+   "mode": "in-replay",
+   "status": {
+    "epoch": 353,
+    "label": "n16384-512-edit-4",
+    "complete": false,
+    "eligible": false,
+    "callbacks": 262145,
+    "onset": 16385,
+    "sustain": 245760,
+    "empty": 0,
+    "notes": 16384,
+    "duplicates": 1,
+    "removed": 0,
+    "firstCallbackMs": 46.365166,
+    "lastCallbackMs": 120.562875,
+    "msSinceLastCallback": 2032.317875,
+    "handlerMs": 8.004742,
+    "pending": false,
+    "droppedBatches": 0,
+    "droppedValues": 0,
+    "batches": [
+     [
+      1,
+      46.365166,
+      262144,
+      70.282708,
+      63.990416,
+      262144,
+      95.381791
+     ],
+     [
+      262145,
+      120.562875,
+      262145,
+      144.685708,
+      120.562875,
+      262145,
+      167.543791
+     ]
+    ],
+    "batchColumns": "firstSeq,firstMs,taskSeq,taskMs,lastCallbackAtTaskMs,confirmSeq,confirmMs",
+    "values": [
+     [
+      "playStop",
+      "512.0",
+      262144,
+      63.995625,
+      262144,
+      70.285958
+     ],
+     [
+      "loopLength",
+      "512.0",
+      262144,
+      63.999875,
+      262144,
+      70.285958
+     ],
+     [
+      "clipExists",
+      "true",
+      262144,
+      64.00175,
+      262144,
+      70.286
+     ],
+     [
+      "trackChannelId",
+      "9e00adbe-4ef5-420e-9fd8-4cf47a68c6e4",
+      262144,
+      64.00475,
+      262144,
+      70.286041
+     ]
+    ],
+    "valueColumns": "kind,value,seq,ms,taskSeq,taskMs",
+    "edit": {
+     "at": 131072,
+     "seq": 131072,
+     "ms": 54.120791
+    }
+   },
+   "completion": {
+    "callbacks": 262145,
+    "batches": 2,
+    "singleTask": false,
+    "lateCallbacks": 1,
+    "bindToFirstMs": 46.365166,
+    "firstToLastMs": 74.197709,
+    "completeMs": 70.282708,
+    "chainCompleteMs": 144.685708,
+    "confirmMs": 95.381791,
+    "chainSteadyAtTask": true
+   },
+   "window": {
+    "refuse": true,
+    "reasons": [
+     "late-batch",
+     "duplicate-cell"
+    ]
+   },
+   "decodeIssues": [
+    "velocity 0.2 at 15:262143:65"
+   ],
+   "editVisible": true
+  },
+  {
+   "trial": 5,
+   "mode": "pre-replay",
+   "status": {
+    "epoch": 355,
+    "label": "n16384-512-edit-5",
+    "complete": false,
+    "eligible": false,
+    "callbacks": 262145,
+    "onset": 16385,
+    "sustain": 245760,
+    "empty": 0,
+    "notes": 16384,
+    "duplicates": 1,
+    "removed": 0,
+    "firstCallbackMs": 94.529334,
+    "lastCallbackMs": 109.428667,
+    "msSinceLastCallback": 2039.830333,
+    "handlerMs": 6.874921,
+    "pending": false,
+    "droppedBatches": 0,
+    "droppedValues": 0,
+    "batches": [
+     [
+      1,
+      94.529334,
+      262145,
+      115.785542,
+      109.428667,
+      262145,
+      139.886792
+     ]
+    ],
+    "batchColumns": "firstSeq,firstMs,taskSeq,taskMs,lastCallbackAtTaskMs,confirmSeq,confirmMs",
+    "values": [
+     [
+      "playStop",
+      "512.0",
+      262144,
+      109.413459,
+      262145,
+      115.790084
+     ],
+     [
+      "loopLength",
+      "512.0",
+      262144,
+      109.418917,
+      262145,
+      115.790167
+     ],
+     [
+      "clipExists",
+      "true",
+      262144,
+      109.421417,
+      262145,
+      115.790167
+     ],
+     [
+      "trackChannelId",
+      "9e00adbe-4ef5-420e-9fd8-4cf47a68c6e4",
+      262144,
+      109.424625,
+      262145,
+      115.790209
+     ]
+    ],
+    "valueColumns": "kind,value,seq,ms,taskSeq,taskMs"
+   },
+   "completion": {
+    "callbacks": 262145,
+    "batches": 1,
+    "singleTask": false,
+    "lateCallbacks": 0,
+    "bindToFirstMs": 94.529334,
+    "firstToLastMs": 14.899332999999999,
+    "completeMs": 115.785542,
+    "chainCompleteMs": 115.785542,
+    "confirmMs": 139.886792,
+    "chainSteadyAtTask": true
+   },
+   "window": {
+    "refuse": true,
+    "reasons": [
+     "duplicate-cell"
+    ]
+   },
+   "decodeIssues": [
+    "velocity 0.2 at 15:262143:65"
+   ],
+   "editVisible": true
+  },
+  {
+   "trial": 6,
+   "mode": "in-replay",
+   "status": {
+    "epoch": 357,
+    "label": "n16384-512-edit-6",
+    "complete": false,
+    "eligible": false,
+    "callbacks": 262145,
+    "onset": 16385,
+    "sustain": 245760,
+    "empty": 0,
+    "notes": 16384,
+    "duplicates": 1,
+    "removed": 0,
+    "firstCallbackMs": 47.396541,
+    "lastCallbackMs": 119.305416,
+    "msSinceLastCallback": 2047.844542,
+    "handlerMs": 7.72664,
+    "pending": false,
+    "droppedBatches": 0,
+    "droppedValues": 0,
+    "batches": [
+     [
+      1,
+      47.396541,
+      262144,
+      70.985333,
+      64.686916,
+      262144,
+      94.890583
+     ],
+     [
+      262145,
+      119.305416,
+      262145,
+      143.472958,
+      119.305416,
+      262145,
+      166.031916
+     ]
+    ],
+    "batchColumns": "firstSeq,firstMs,taskSeq,taskMs,lastCallbackAtTaskMs,confirmSeq,confirmMs",
+    "values": [
+     [
+      "playStop",
+      "512.0",
+      262144,
+      64.690791,
+      262144,
+      70.988166
+     ],
+     [
+      "loopLength",
+      "512.0",
+      262144,
+      64.693791,
+      262144,
+      70.988208
+     ],
+     [
+      "clipExists",
+      "true",
+      262144,
+      64.695083,
+      262144,
+      70.988208
+     ],
+     [
+      "trackChannelId",
+      "9e00adbe-4ef5-420e-9fd8-4cf47a68c6e4",
+      262144,
+      64.697416,
+      262144,
+      70.98825
+     ]
+    ],
+    "valueColumns": "kind,value,seq,ms,taskSeq,taskMs",
+    "edit": {
+     "at": 131072,
+     "seq": 131072,
+     "ms": 54.98175
+    }
+   },
+   "completion": {
+    "callbacks": 262145,
+    "batches": 2,
+    "singleTask": false,
+    "lateCallbacks": 1,
+    "bindToFirstMs": 47.396541,
+    "firstToLastMs": 71.908875,
+    "completeMs": 70.985333,
+    "chainCompleteMs": 143.472958,
+    "confirmMs": 94.890583,
+    "chainSteadyAtTask": true
+   },
+   "window": {
+    "refuse": true,
+    "reasons": [
+     "late-batch",
+     "duplicate-cell"
+    ]
+   },
+   "decodeIssues": [
+    "velocity 0.2 at 15:262143:65"
+   ],
+   "editVisible": true
+  },
+  {
+   "trial": 7,
+   "mode": "pre-replay",
+   "status": {
+    "epoch": 359,
+    "label": "n16384-512-edit-7",
+    "complete": false,
+    "eligible": false,
+    "callbacks": 262145,
+    "onset": 16385,
+    "sustain": 245760,
+    "empty": 0,
+    "notes": 16384,
+    "duplicates": 1,
+    "removed": 0,
+    "firstCallbackMs": 94.505834,
+    "lastCallbackMs": 110.352834,
+    "msSinceLastCallback": 2041.706375,
+    "handlerMs": 7.636961,
+    "pending": false,
+    "droppedBatches": 0,
+    "droppedValues": 0,
+    "batches": [
+     [
+      1,
+      94.505834,
+      262145,
+      116.71025,
+      110.352834,
+      262145,
+      140.924542
+     ]
+    ],
+    "batchColumns": "firstSeq,firstMs,taskSeq,taskMs,lastCallbackAtTaskMs,confirmSeq,confirmMs",
+    "values": [
+     [
+      "playStop",
+      "512.0",
+      262144,
+      110.340875,
+      262145,
+      116.717584
+     ],
+     [
+      "loopLength",
+      "512.0",
+      262144,
+      110.344375,
+      262145,
+      116.717584
+     ],
+     [
+      "clipExists",
+      "true",
+      262144,
+      110.346459,
+      262145,
+      116.717625
+     ],
+     [
+      "trackChannelId",
+      "9e00adbe-4ef5-420e-9fd8-4cf47a68c6e4",
+      262144,
+      110.349042,
+      262145,
+      116.717625
+     ]
+    ],
+    "valueColumns": "kind,value,seq,ms,taskSeq,taskMs"
+   },
+   "completion": {
+    "callbacks": 262145,
+    "batches": 1,
+    "singleTask": false,
+    "lateCallbacks": 0,
+    "bindToFirstMs": 94.505834,
+    "firstToLastMs": 15.847000000000008,
+    "completeMs": 116.71025,
+    "chainCompleteMs": 116.71025,
+    "confirmMs": 140.924542,
+    "chainSteadyAtTask": true
+   },
+   "window": {
+    "refuse": true,
+    "reasons": [
+     "duplicate-cell"
+    ]
+   },
+   "decodeIssues": [
+    "velocity 0.2 at 15:262143:65"
+   ],
+   "editVisible": true
+  },
+  {
+   "trial": 8,
+   "mode": "in-replay",
+   "status": {
+    "epoch": 361,
+    "label": "n16384-512-edit-8",
+    "complete": false,
+    "eligible": false,
+    "callbacks": 262145,
+    "onset": 16385,
+    "sustain": 245760,
+    "empty": 0,
+    "notes": 16384,
+    "duplicates": 1,
+    "removed": 0,
+    "firstCallbackMs": 47.148833,
+    "lastCallbackMs": 120.534083,
+    "msSinceLastCallback": 2029.259958,
+    "handlerMs": 9.06671,
+    "pending": false,
+    "droppedBatches": 0,
+    "droppedValues": 0,
+    "batches": [
+     [
+      1,
+      47.148833,
+      262144,
+      73.292708,
+      66.996833,
+      262144,
+      97.483416
+     ],
+     [
+      262145,
+      120.534083,
+      262145,
+      145.602416,
+      120.534083,
+      262145,
+      169.168166
+     ]
+    ],
+    "batchColumns": "firstSeq,firstMs,taskSeq,taskMs,lastCallbackAtTaskMs,confirmSeq,confirmMs",
+    "values": [
+     [
+      "playStop",
+      "512.0",
+      262144,
+      67.001375,
+      262144,
+      73.295708
+     ],
+     [
+      "loopLength",
+      "512.0",
+      262144,
+      67.005541,
+      262144,
+      73.295708
+     ],
+     [
+      "clipExists",
+      "true",
+      262144,
+      67.007083,
+      262144,
+      73.29575
+     ],
+     [
+      "trackChannelId",
+      "9e00adbe-4ef5-420e-9fd8-4cf47a68c6e4",
+      262144,
+      67.009458,
+      262144,
+      73.295791
+     ]
+    ],
+    "valueColumns": "kind,value,seq,ms,taskSeq,taskMs",
+    "edit": {
+     "at": 131072,
+     "seq": 131072,
+     "ms": 56.392208
+    }
+   },
+   "completion": {
+    "callbacks": 262145,
+    "batches": 2,
+    "singleTask": false,
+    "lateCallbacks": 1,
+    "bindToFirstMs": 47.148833,
+    "firstToLastMs": 73.38524999999998,
+    "completeMs": 73.292708,
+    "chainCompleteMs": 145.602416,
+    "confirmMs": 97.483416,
+    "chainSteadyAtTask": true
+   },
+   "window": {
+    "refuse": true,
+    "reasons": [
+     "late-batch",
+     "duplicate-cell"
+    ]
+   },
+   "decodeIssues": [
+    "velocity 0.2 at 15:262143:65"
+   ],
+   "editVisible": true
+  },
+  {
+   "trial": 9,
+   "mode": "pre-replay",
+   "status": {
+    "epoch": 363,
+    "label": "n16384-512-edit-9",
+    "complete": false,
+    "eligible": false,
+    "callbacks": 262145,
+    "onset": 16385,
+    "sustain": 245760,
+    "empty": 0,
+    "notes": 16384,
+    "duplicates": 1,
+    "removed": 0,
+    "firstCallbackMs": 97.790375,
+    "lastCallbackMs": 114.839917,
+    "msSinceLastCallback": 2038.427791,
+    "handlerMs": 7.795223,
+    "pending": false,
+    "droppedBatches": 0,
+    "droppedValues": 0,
+    "batches": [
+     [
+      1,
+      97.790375,
+      262145,
+      121.123792,
+      114.839917,
+      262145,
+      145.316792
+     ]
+    ],
+    "batchColumns": "firstSeq,firstMs,taskSeq,taskMs,lastCallbackAtTaskMs,confirmSeq,confirmMs",
+    "values": [
+     [
+      "playStop",
+      "512.0",
+      262144,
+      114.825208,
+      262145,
+      121.126792
+     ],
+     [
+      "loopLength",
+      "512.0",
+      262144,
+      114.829833,
+      262145,
+      121.126875
+     ],
+     [
+      "clipExists",
+      "true",
+      262144,
+      114.831792,
+      262145,
+      121.126875
+     ],
+     [
+      "trackChannelId",
+      "9e00adbe-4ef5-420e-9fd8-4cf47a68c6e4",
+      262144,
+      114.835667,
+      262145,
+      121.126917
+     ]
+    ],
+    "valueColumns": "kind,value,seq,ms,taskSeq,taskMs"
+   },
+   "completion": {
+    "callbacks": 262145,
+    "batches": 1,
+    "singleTask": false,
+    "lateCallbacks": 0,
+    "bindToFirstMs": 97.790375,
+    "firstToLastMs": 17.049542000000002,
+    "completeMs": 121.123792,
+    "chainCompleteMs": 121.123792,
+    "confirmMs": 145.316792,
+    "chainSteadyAtTask": true
+   },
+   "window": {
+    "refuse": true,
+    "reasons": [
+     "duplicate-cell"
+    ]
+   },
+   "decodeIssues": [
+    "velocity 0.2 at 15:262143:65"
+   ],
+   "editVisible": true
+  }
+ ],
+ "clean": {
+  "completion": {
+   "callbacks": 262144,
+   "batches": 1,
+   "singleTask": true,
+   "lateCallbacks": 0,
+   "bindToFirstMs": 48.76025,
+   "firstToLastMs": 19.332125000000005,
+   "completeMs": 74.385834,
+   "chainCompleteMs": 74.385834,
+   "confirmMs": 98.571875,
+   "chainSteadyAtTask": true
+  },
+  "window": {
+   "refuse": false,
+   "reasons": []
+  }
+ }
+}

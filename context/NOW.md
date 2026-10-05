@@ -4,17 +4,19 @@ kind: status
 state: active
 updated: 2026-10-05
 phase: phase-8-agent-native-live-engine
-session: 8h1b-complete
+session: 8h2a-complete
 ---
 
 # Now
 
-[8h1b](plan/phase-8/8h1b-sounding-cell-cost-reduction.md) is complete.
-[E226](evidence/experiments/e226-sounding-cell-cost-reduction.md) records the
-results. Session changes are staged for review. No commit was made. Next:
-[8h2a](plan/phase-8/8h2a-replay-cold-read.md), a replay cold read. It runs
-before 8h1 and [8h2b](plan/phase-8/8h2b-exact-reader-consolidation.md),
-because a fast cold read changes what 8h1 needs.
+[8h2a](plan/phase-8/8h2a-replay-cold-read.md) is complete.
+[E227](evidence/experiments/e227-replay-cold-read.md) records the results.
+Session changes are staged for review. No commit was made.
+
+The user accepted the replay batch and `clipExists` start signal as named
+assumptions in [D30](decisions/d30-replay-batch-and-start-signal-are-named-assumptions.md).
+Next: write the 8h1 plan again from E227 and D30. [8h2b](plan/phase-8/8h2b-exact-reader-consolidation.md)
+follows 8h1.
 
 ## Live state
 
@@ -23,30 +25,27 @@ because a fast cold read changes what 8h1 needs.
 - The operator closed the owned `New 2` without saving. The UI shows
   `gn-scale-test`, which research did not change.
 - Normal hello passes: `normal-v1`, 85 methods, hash `bba7383dce25c0f0`.
-  Initialization at `2026-10-05T06:02:58.322Z` is newer than deployment.
+  Initialization at `2026-10-05T07:48:57.336Z` is newer than deployment.
 
-## Inputs for 8h2a and 8h1
+## Inputs for 8h1
 
-- A full-width 1/512 proxy received all 1,048,513 cells, with values, 130–150 ms
-  after a bind. The first and last callbacks were 33 ms apart. 8h2a tests this
-  push as a complete cold read with a D27 completion signal and a start signal.
-- Release rule: a full-width cursor that leaves residence unsubscribes its
-  clip. Resubscribe replays one million cells in about 130 ms, but 8h1 must
-  treat it as a rebind with identity and window checks. Unpin and an empty slot
-  selection do not release. Release the authority after each use.
-- Admission: `SoundingCellBudget` admits by measured cells after a read and
-  evicts least recently used residents. Each cell costs about 280 bytes for
-  each full-width proxy. A canary readmission takes 6–7.4 s.
-- The coarse sentinel is refused: 1/16 beat misses an in-cell 1/512 nudge.
-  Keep one 1/512 proxy for each resident clip.
-- Loop and length changes give no note-step callback; use metadata observers.
-- Still open from E225: the retained read data (about 264 MiB at 131,072
-  notes), the 210 ms research diagnostic calls, and the 10 s first anchor
-  switch.
+- A full-width 1/512 bind is a complete cold read. In 160 of 160 binds the
+  replay was one batch, and the tasks from the first callback and from the
+  target `clipExists` callback saw every callback. Reads took 46–698 ms up
+  to 1,048,513 cells. E131 takes 11 s at 64 beats.
+- Callback-only decode is exact for every note field, with no `getStep`.
+- Edits by the user or the host need no refusal. A Ghostnote write issued
+  during the replay can follow the confirmation (6 of 10 trials). 8h2b queues
+  Ghostnote writes behind an open read.
+- One replay batch blocks the controller thread for up to 316 ms at one million
+  cells. Each release delivers one Empty callback for each cell.
+- The cache may only need to bound memory, not avoid cold reads. A
+  cold read on demand followed by a release keeps no grid resident.
+- Host gain reads back twice the written value (E2). A repeated equal setter
+  leaves a cursor's `getStep` cache stale; rebind for a fresh read.
 
 ## Retrospective
 
-Two first runs used wrong host assumptions: a selected empty slot does not
-move a cursor clip, and new notes have chance enabled. Before a matrix or
-action plan relies on a default or a selection side effect, read it once
-from the host. Both failed runs are kept as diagnostics.
+The gain doubling was already in E2, but no fixture document linked it, so
+two fixture runs failed. When a fixture writes a note field, search the
+evidence index for that field name before trusting a read-back.

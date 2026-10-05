@@ -167,6 +167,33 @@ public final class ShadowKneeFixture {
         }
     }
 
+    /**
+     * 8h2a decoration: non-default note values on a deterministic subset. Index mod 4 selects the field:
+     * 1 sets gain, 2 sets the chance value, 3 mutes. Index mod 8 = 0 disables chance; mod 8 = 4 keeps defaults.
+     */
+    public static double decoratedGain(long index) { return 0.05 + (index * 13 % 90) / 100.0; }
+    public static double decoratedChance(long index) { return 0.1 + (index * 7 % 80) / 100.0; }
+
+    public JsonObject decorate(long count, long noteWidth, long from, int size) {
+        requireBound(noteWidth);
+        long started = System.nanoTime(); int done = 0;
+        for (long index = from; index < Math.min(count, from + size); index++) {
+            int kind = (int) (index % 8);
+            if (kind == 4) continue;
+            NoteStep step = clip.getStep(channel(index), (int) cell(index, count, noteWidth), pitch(index));
+            if (step.state() != NoteStep.State.NoteOn) throw new IllegalStateException("decoration needs a note start at index " + index);
+            switch (kind % 4) {
+                case 0 -> step.setIsChanceEnabled(false);
+                case 1 -> step.setGain(decoratedGain(index));
+                case 2 -> step.setChance(decoratedChance(index));
+                default -> step.setIsMuted(true);
+            }
+            done++;
+        }
+        written += done;
+        return batch(done, started);
+    }
+
     /** Targeted oracle reads. Each coordinate reads all 16 channels. */
     public JsonObject read(JsonArray coordinates) {
         requireBound(1);

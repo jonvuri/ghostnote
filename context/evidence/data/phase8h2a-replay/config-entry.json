@@ -1,0 +1,21 @@
+{
+ "schema": "phase8h2a-config-entry-v1",
+ "captured": "2026-10-05T06:56:26.422Z",
+ "originalSha256": "256bbf07094cd654c372d0e5e050e494ef7783c9a0001a0a2a688331bcf643b0",
+ "originalBase64": "eyAicmVjb3JkQ2hhcnMiOiAwLCAic3RhbXAiOiAiZGVmYXVsdCIgfQo=",
+ "research": {
+  "recordChars": 0,
+  "stamp": "8h2a-replay",
+  "tracks": 16,
+  "scenes": 16,
+  "cacheTopologyCounted": true,
+  "cacheTopologyTracks": 16,
+  "cacheLifecycleResearch": true,
+  "cacheKneeResearch": true,
+  "cacheShadowObservers": 2,
+  "cacheShadowSteps": 4194304,
+  "contentFilter": "ALL_CHANNELS",
+  "cacheShadowCursorScenes": 0,
+  "cacheReplayResearch": true
+ }
+}

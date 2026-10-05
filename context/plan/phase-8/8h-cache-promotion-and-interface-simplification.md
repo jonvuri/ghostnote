@@ -50,6 +50,9 @@ a stable write or preflight uses cache state.
 2. [8h2a — Replay cold read](8h2a-replay-cold-read.md). Prove a complete cold
    read from the host step replay, with a completion and start signal. Run it
    after 8h1b and before 8h1, because a fast cold read changes what 8h1 needs.
+   Complete ([E227](../../evidence/experiments/e227-replay-cold-read.md)): one
+   batch and a `clipExists` start signal in 160 of 160 binds; 46–698 ms reads;
+   Ghostnote writes must queue behind an open read (8h2b). Plan 8h1 again from this result.
    Then [8h2b — Exact reader consolidation](8h2b-exact-reader-consolidation.md).
    Select the exact reader, remove the `1/768` view, and fix or refuse the
    E131 disabled-control loss.

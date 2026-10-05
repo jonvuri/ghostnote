@@ -1,0 +1,102 @@
+{
+ "schema": "phase8h2a-state-v1",
+ "tracks": {
+  "park": "e49fcc7c-0c24-4af4-9404-1a109867f008",
+  "empty-64": "cf56d2b2-de86-4aca-aea1-6548a736b325",
+  "one-64": "56327943-3a1a-4bcc-bcc9-7cc56ec886ec",
+  "final-8192": "b99029a7-86cb-4425-954c-99a89d852e35",
+  "n4096-64": "deef4365-ff6b-41df-be54-6c9e644dfcc6",
+  "n16384-512": "9e00adbe-4ef5-420e-9fd8-4cf47a68c6e4",
+  "n131072-2048": "4e70c2d3-df30-4c6a-8d82-602a41cdf8d4",
+  "sustain-2048": "738e0c47-2ab9-4913-a0dc-caef04ec8b45",
+  "n4096-8192": "df7c9484-3d7f-471b-abfb-957b9dc4b44a"
+ },
+ "fixtures": {
+  "empty-64": {
+   "name": "empty-64",
+   "kind": "empty",
+   "beats": 64,
+   "count": 0,
+   "cap": 64,
+   "trackId": "cf56d2b2-de86-4aca-aea1-6548a736b325",
+   "row": 0,
+   "written": true
+  },
+  "one-64": {
+   "name": "one-64",
+   "kind": "one",
+   "beats": 64,
+   "count": 1,
+   "cap": 64,
+   "trackId": "56327943-3a1a-4bcc-bcc9-7cc56ec886ec",
+   "row": 0,
+   "written": true
+  },
+  "final-8192": {
+   "name": "final-8192",
+   "kind": "spec",
+   "beats": 8192,
+   "count": 1,
+   "cap": 64,
+   "trackId": "b99029a7-86cb-4425-954c-99a89d852e35",
+   "row": 0,
+   "written": true
+  },
+  "n4096-64": {
+   "name": "n4096-64",
+   "kind": "spec",
+   "beats": 64,
+   "count": 4096,
+   "cap": 64,
+   "trackId": "deef4365-ff6b-41df-be54-6c9e644dfcc6",
+   "row": 0,
+   "written": true
+  },
+  "n16384-512": {
+   "name": "n16384-512",
+   "kind": "spec",
+   "beats": 512,
+   "count": 16384,
+   "cap": 64,
+   "trackId": "9e00adbe-4ef5-420e-9fd8-4cf47a68c6e4",
+   "row": 0,
+   "written": true
+  },
+  "n131072-2048": {
+   "name": "n131072-2048",
+   "kind": "spec",
+   "beats": 2048,
+   "count": 131072,
+   "cap": 4,
+   "trackId": "4e70c2d3-df30-4c6a-8d82-602a41cdf8d4",
+   "row": 0,
+   "written": true
+  },
+  "sustain-2048": {
+   "name": "sustain-2048",
+   "kind": "spec",
+   "beats": 2048,
+   "count": 16384,
+   "cap": 64,
+   "trackId": "738e0c47-2ab9-4913-a0dc-caef04ec8b45",
+   "row": 0,
+   "written": true
+  },
+  "n4096-8192": {
+   "name": "n4096-8192",
+   "kind": "spec",
+   "beats": 8192,
+   "count": 4096,
+   "cap": 64,
+   "trackId": "df7c9484-3d7f-471b-abfb-957b9dc4b44a",
+   "row": 0,
+   "written": true
+  }
+ },
+ "defaults": {
+  "gain": 0,
+  "chance": 1,
+  "chanceEnabled": true,
+  "muted": false
+ }
+}

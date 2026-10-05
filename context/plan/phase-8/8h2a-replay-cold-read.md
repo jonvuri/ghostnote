@@ -1,16 +1,38 @@
 ---
 title: Phase 8h2a — Replay cold read
 kind: plan
-state: planned
-status: Planned. Prove a complete cold clip read from the host step replay, with a completion signal and a start signal.
+state: complete
+status: Complete. One-batch replay and the clipExists start signal pass 160 of 160 binds (D30); Ghostnote writes must queue behind an open read (8h2b).
 updated: 2026-10-05
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h1b-sounding-cell-cost-reduction.md
 next: 8h2b-exact-reader-consolidation.md
-evidence: E131, E214, E216, E217, E218, E224, E225, E226; D23, D26, D27
+evidence: E131, E214, E216, E217, E218, E224, E225, E226, E227; D23, D26, D27, D30
 ---
 
 # Phase 8h2a — Replay cold read
+
+## Status
+
+Complete. [E227](../../evidence/experiments/e227-replay-cold-read.md) records
+experiments 1 to 4:
+
+- All 160 binds from an empty park target delivered the complete replay in one
+  batch. The task from the first callback saw every callback. No chain was
+  needed.
+- The task from the target `clipExists` value callback also saw every
+  callback, also for an empty clip. It is the start signal; candidates 2 and 3
+  did not run.
+- Decode from callbacks only was exact at every size, up to 1,048,513 cells
+  and 131,072 notes. The complete read took 46–698 ms. E131 took 11.3–11.7 s
+  at 64 beats.
+- Edits by the user or the host need no refusal: the read is a coherent
+  snapshot, and the duplicate-cell rule refuses an edit inside the replay
+  batch. A Ghostnote write issued during the replay is applied after it; the
+  window confirmed that pre-edit read in 6 of 10 trials. 8h2b queues
+  Ghostnote writes behind an open read instead of refusing the read.
+- The user accepted both rules as named assumptions in
+  [D30](../../decisions/d30-replay-batch-and-start-signal-are-named-assumptions.md).
 
 ## Why
 

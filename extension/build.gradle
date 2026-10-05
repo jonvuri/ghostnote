@@ -311,6 +311,12 @@ tasks.register('soundingCellBudgetTest', JavaExec) {
     mainClass = 'com.ghostnote.extension.SoundingCellBudgetTest'
 }
 
+tasks.register('replayEpochTest', JavaExec) {
+    dependsOn shadowCacheTestClasses
+    classpath = sourceSets.shadowCacheTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.ReplayEpochTest'
+}
+
 tasks.named('check') {
-    dependsOn 'soundingCellBudgetTest', 'shadowCacheTest', 'shadowCacheProbeTest', 'shadowInventoryRebuildTest', 'shadowObserverBudgetTest', 'shadowHandlePoolTest', 'shadowAuthorityFallbackTest', 'shadowSceneControlTest', 'shadowTopologyControlTest'
+    dependsOn 'replayEpochTest', 'soundingCellBudgetTest', 'shadowCacheTest', 'shadowCacheProbeTest', 'shadowInventoryRebuildTest', 'shadowObserverBudgetTest', 'shadowHandlePoolTest', 'shadowAuthorityFallbackTest', 'shadowSceneControlTest', 'shadowTopologyControlTest'
 }

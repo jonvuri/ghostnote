@@ -123,6 +123,8 @@ public class Rig {
     public final ShadowKneeFixture kneeFixture;
     /** 8h1b sounding-cell research: release proxy, coarse sentinel, and resident-cursor census. */
     public final ShadowSoundingProbe soundingProbe;
+    /** 8h2a replay cold-read research: a full-width 1/512 reader proxy. */
+    public final ShadowReplayReader replayReader;
     /** 8h1a: active flat-bank and scene sizes. They start at the allocation and never exceed it. */
     public int activeTracks, activeScenes;
     public long activeBankChanges;
@@ -944,6 +946,8 @@ public class Rig {
             soundingProbe = config.cacheSoundingResearch && kneeFixture != null
                 ? new ShadowSoundingProbe(host, config.cacheShadowSteps, config.scenes) : null;
             if (soundingProbe != null) attachSoundingCursors(config);
+            replayReader = config.cacheReplayResearch && kneeFixture != null
+                ? new ShadowReplayReader(host, config.cacheShadowSteps, config.scenes, kneeFixture::edit) : null;
             arrangerClip = host.createArrangerCursorClip(config.gridSteps, config.gridKeys);
             markClip(arrangerClip);
         } else {
@@ -957,6 +961,7 @@ public class Rig {
             shadowTopologyControl = null;
             kneeFixture = null;
             soundingProbe = null;
+            replayReader = null;
             arrangerClip = null;
         }
 

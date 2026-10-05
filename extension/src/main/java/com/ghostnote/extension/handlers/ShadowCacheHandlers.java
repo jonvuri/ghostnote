@@ -45,6 +45,9 @@ public final class ShadowCacheHandlers extends HandlerGroup {
                 params.get("fromShift").getAsInt(), params.get("toShift").getAsInt());
             case "fixtureTranspose" -> fixture.transpose(params.get("semitones").getAsInt());
             case "fixtureRead" -> fixture.read(params.getAsJsonArray("coordinates"));
+            case "fixtureEdit" -> fixture.edit(params.getAsJsonArray("ops"));
+            case "fixtureDecorate" -> fixture.decorate(params.get("count").getAsLong(), params.get("width").getAsLong(),
+                params.get("from").getAsLong(), params.get("size").getAsInt());
             default -> throw new IllegalArgumentException("unknown knee fixture operation");
         };
     }
@@ -93,8 +96,22 @@ public final class ShadowCacheHandlers extends HandlerGroup {
         };
     }
 
+    /** 8h2a replay cold-read research. Every reply keeps complete:false and eligible:false. */
+    private JsonElement replay(String operation, JsonObject params) {
+        var reader = rig.replayReader;
+        if (reader == null) throw new IllegalStateException("replay research resources are not allocated");
+        return switch (operation) {
+            case "replayStatus" -> reader.status();
+            case "replayAct" -> reader.act(params, this::requireTrack);
+            case "replayNotes" -> reader.notes(params.get("epoch").getAsLong(), params.get("from").getAsInt(),
+                params.has("limit") ? params.get("limit").getAsInt() : 16_384);
+            default -> throw new IllegalArgumentException("unknown replay research operation");
+        };
+    }
+
     private JsonElement dispatch(JsonObject params) {
         String operation = params.get("operation").getAsString();
+        if (operation.startsWith("replay")) return replay(operation, params);
         if (operation.startsWith("sounding")) return sounding(operation, params);
         if (operation.equals("allocationStats")) {
             JsonObject result = new JsonObject();

@@ -16,6 +16,7 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E227 | One-batch step replay is a complete cold read in 46–698 ms; clipExists closes empty reads; Ghostnote writes must queue behind an open read [K] (2026-10-05) | [open](experiments/e227-replay-cold-read.md) |
 | E226 | Unsubscribe releases a bound grid; a sounding-cell budget evicts exactly; the 1/16 coarse sentinel misses in-cell nudges [K] (2026-10-05) | [open](experiments/e226-sounding-cell-cost-reduction.md) |
 | E225 | Cache knee sweep, first pass: width is free; cost is per sounding cell and per observer [K] (2026-10-05) | [open](experiments/e225-cache-limit-knee-sweep.md) |
 | E219 | Snapshot estimate passes live 16 MiB equality and excess; combined storage refuses overlap and recovers [K] (2026-10-03) | [open](experiments/e219-snapshot-budgets-and-combined-storage.md) |
