@@ -2,11 +2,11 @@
 title: Phase 8h2a — Replay cold read
 kind: plan
 state: complete
-status: Complete. One-batch replay and the clipExists start signal pass 160 of 160 binds (D30); Ghostnote writes must queue behind an open read (8h2b).
+status: Complete. One-batch replay and the clipExists start signal pass 160 of 160 binds (D30); Ghostnote writes must queue behind an open read (8h3c).
 updated: 2026-10-05
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h1b-sounding-cell-cost-reduction.md
-next: 8h2b-exact-reader-consolidation.md
+next: 8h3a-cold-read-dealbreaker-check.md
 evidence: E131, E214, E216, E217, E218, E224, E225, E226, E227; D23, D26, D27, D30
 ---
 
@@ -29,7 +29,7 @@ experiments 1 to 4:
 - Edits by the user or the host need no refusal: the read is a coherent
   snapshot, and the duplicate-cell rule refuses an edit inside the replay
   batch. A Ghostnote write issued during the replay is applied after it; the
-  window confirmed that pre-edit read in 6 of 10 trials. 8h2b queues
+  window confirmed that pre-edit read in 6 of 10 trials. 8h3c queues
   Ghostnote writes behind an open read instead of refusing the read.
 - The user accepted both rules as named assumptions in
   [D30](../../decisions/d30-replay-batch-and-start-signal-are-named-assumptions.md).
@@ -53,8 +53,8 @@ The current readers do not use the push as the read:
   2–3 s to drain the replay as dirty work. Then it reads values with `getStep`.
 
 If the replay alone is a correct cold read in about 150 ms, the cache becomes
-much less important. 8h1 must then be planned again. This session runs before
-8h1 and [8h2b](8h2b-exact-reader-consolidation.md).
+much less important. 8h1 must then be planned again. This session ran before
+8h1 and 8h2b. Both were later replaced by [8h3c](8h3c-cold-reader-promotion.md) and [8h3e](8h3e-cache-machinery-trim.md).
 
 Two facts are not known. The replay settlement now waits at least 1.5 s and
 ten quiet 50 ms polls (the `settling` phase in `ShadowCacheProbe`). That is not a
@@ -154,6 +154,6 @@ fallback, and E225 warm cache reads.
 
 ## Out of scope
 
-- Migration of the stable read path and its write guards (8h2b).
-- Removal of the E131 1/768 view and the disabled-control fix (8h2b).
-- Cache promotion (8h1). Plan 8h1 again from this result.
+- Migration of the stable read path and its write guards (8h3c).
+- Removal of the E131 1/768 view and the disabled-control fix (8h3c).
+- Cache promotion (8h1). [8h3e](8h3e-cache-machinery-trim.md) replaces it.

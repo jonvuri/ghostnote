@@ -4,48 +4,52 @@ kind: status
 state: active
 updated: 2026-10-05
 phase: phase-8-agent-native-live-engine
-session: 8h2a-complete
+session: 8h3-planned
 ---
 
 # Now
 
-[8h2a](plan/phase-8/8h2a-replay-cold-read.md) is complete.
-[E227](evidence/experiments/e227-replay-cold-read.md) records the results.
-Session changes are staged for review. No commit was made.
+The replay cold read ([E227](evidence/experiments/e227-replay-cold-read.md),
+[D30](decisions/d30-replay-batch-and-start-signal-are-named-assumptions.md))
+changed the 8h route. The replay reader is the planned replacement for E131 on
+every read and write path. The resident note cache has no speed role. The
+identity, generation, and snapshot-validity machinery stays, because the
+compact-bar format sends patches against snapshots.
 
-The user accepted the replay batch and `clipExists` start signal as named
-assumptions in [D30](decisions/d30-replay-batch-and-start-signal-are-named-assumptions.md).
-Next: write the 8h1 plan again from E227 and D30. [8h2b](plan/phase-8/8h2b-exact-reader-consolidation.md)
-follows 8h1.
+The planning session replaced 8h1 and 8h2b with five sessions, 8h3a to 8h3e. See the
+[8h session split](plan/phase-8/8h-cache-promotion-and-interface-simplification.md#session-split).
+The planning changes are staged for review. No commit was made.
+
+Next: [8h3a — Cold-read dealbreaker check](plan/phase-8/8h3a-cold-read-dealbreaker-check.md).
+Then [8h3b — Replay fetch cost](plan/phase-8/8h3b-replay-fetch-cost.md),
+[8h3c — Cold-reader promotion](plan/phase-8/8h3c-cold-reader-promotion.md),
+[8h3d — Change awareness](plan/phase-8/8h3d-change-awareness.md), and
+[8h3e — Cache machinery trim](plan/phase-8/8h3e-cache-machinery-trim.md)
+(outline only). Interface simplification is now 8h4.
 
 ## Live state
 
 - The original rig config is restored (SHA-256 `256bbf07…43b0`). The normal
   archive is deployed. The research archive is removed.
-- The operator closed the owned `New 2` without saving. The UI shows
-  `gn-scale-test`, which research did not change.
+- The UI shows `gn-scale-test`, which research did not change.
 - Normal hello passes: `normal-v1`, 85 methods, hash `bba7383dce25c0f0`.
-  Initialization at `2026-10-05T07:48:57.336Z` is newer than deployment.
 
-## Inputs for 8h1
+## Facts that are easy to lose
 
-- A full-width 1/512 bind is a complete cold read. In 160 of 160 binds the
-  replay was one batch, and the tasks from the first callback and from the
-  target `clipExists` callback saw every callback. Reads took 46–698 ms up
-  to 1,048,513 cells. E131 takes 11 s at 64 beats.
-- Callback-only decode is exact for every note field, with no `getStep`.
-- Edits by the user or the host need no refusal. A Ghostnote write issued
-  during the replay can follow the confirmation (6 of 10 trials). 8h2b queues
-  Ghostnote writes behind an open read.
-- One replay batch blocks the controller thread for up to 316 ms at one million
-  cells. Each release delivers one Empty callback for each cell.
-- The cache may only need to bound memory, not avoid cold reads. A
-  cold read on demand followed by a release keeps no grid resident.
+- D23 settles one 1/512 view. No triplet policy remains to select. The stable
+  code still has the `1/768` view until 8h3c removes it.
+- E225 proved width up to 4,194,304 steps, but the normal runtime limits are
+  not changed. 8h3c makes that width the product limit.
+- Every bind calls the target track's `selectSlot(row)`. D6, E1, and E14 show
+  that this moves the user's slot selection when the row is not already
+  selected. Non-following cursors do not follow the user's selection, but
+  pointing them can still change it. E227 used row 0 only. 8h3a measures it.
+- The bridge fetch took 379 ms for 131,072 notes (E227). 8h3b profiles it.
 - Host gain reads back twice the written value (E2). A repeated equal setter
   leaves a cursor's `getStep` cache stale; rebind for a fresh read.
 
 ## Retrospective
 
-The gain doubling was already in E2, but no fixture document linked it, so
-two fixture runs failed. When a fixture writes a note field, search the
-evidence index for that field name before trusting a read-back.
+Two facts were misstated during the assessment: the width limit (proved in
+E225 but not promoted) and the triplet policy (settled in D23). The stable code
+did not yet show either. "Facts that are easy to lose" above now records both.

@@ -38,25 +38,42 @@ a stable write or preflight uses cache state.
 
 ## Session split
 
-8h has three sessions:
+The replay cold read (E227, D30) changed the 8h route. A cold read takes
+46–698 ms, so the replay reader replaces E131 on every read and write path. The
+resident note cache has no speed role. The identity, generation, and
+snapshot-validity machinery stays. The earlier 8h1 (cache promotion) and 8h2b
+(exact reader consolidation) plans are replaced by 8h3c and 8h3e.
 
-1. [8h1a — Cache limit knee sweep](8h1a-cache-limit-knee-sweep.md). Find the
-   real host and speed knees with one maximum allocation and runtime
-   configuration. [8h1b](8h1b-sounding-cell-cost-reduction.md) then reduces
-   the host cost of each sounding cell ([E226](../../evidence/experiments/e226-sounding-cell-cost-reduction.md):
-   unsubscribe release and a sounding-cell budget; no coarse sentinel). Then 8h1 — cache promotion: turn on address- and
-   domain-scoped eligibility at the selected limits, with exact fallback to
-   the stable E131 reader. The 8h1 plan is written after 8h1a.
-2. [8h2a — Replay cold read](8h2a-replay-cold-read.md). Prove a complete cold
-   read from the host step replay, with a completion and start signal. Run it
-   after 8h1b and before 8h1, because a fast cold read changes what 8h1 needs.
-   Complete ([E227](../../evidence/experiments/e227-replay-cold-read.md)): one
-   batch and a `clipExists` start signal in 160 of 160 binds; 46–698 ms reads;
-   Ghostnote writes must queue behind an open read (8h2b). Plan 8h1 again from this result.
-   Then [8h2b — Exact reader consolidation](8h2b-exact-reader-consolidation.md).
-   Select the exact reader, remove the `1/768` view, and fix or refuse the
-   E131 disabled-control loss.
-3. 8h3 — interface simplification, naming, and device structure migration.
+Complete research:
+
+1. [8h1a — Cache limit knee sweep](8h1a-cache-limit-knee-sweep.md)
+   ([E225](../../evidence/experiments/e225-cache-limit-knee-sweep.md)): width up
+   to 4,194,304 steps; the clip limit is a sounding-cell budget.
+2. [8h1b — Sounding-cell cost reduction](8h1b-sounding-cell-cost-reduction.md)
+   ([E226](../../evidence/experiments/e226-sounding-cell-cost-reduction.md)):
+   unsubscribe release and a sounding-cell budget; no coarse sentinel.
+3. [8h2a — Replay cold read](8h2a-replay-cold-read.md)
+   ([E227](../../evidence/experiments/e227-replay-cold-read.md), D30): one
+   batch and a `clipExists` start signal in 160 of 160 binds; exact decode
+   from callbacks only.
+
+Remaining sessions, in order:
+
+1. [8h3a — Cold-read dealbreaker check](8h3a-cold-read-dealbreaker-check.md).
+   Bind source, rows and visible selection, a write before the bind, and a
+   soak with a tripwire.
+2. [8h3b — Replay fetch cost](8h3b-replay-fetch-cost.md). Break down the
+   bridge fetch cost and select the product fetch format.
+3. [8h3c — Cold-reader promotion](8h3c-cold-reader-promotion.md). Replace E131
+   for reads and writes, queue writes behind an open read, remove the `1/768`
+   view, and fix or refuse the disabled-control loss.
+4. [8h3d — Change awareness](8h3d-change-awareness.md). Select how Ghostnote
+   tells whether a snapshot is current with no resident grid: pull, or pull
+   with watched clips.
+5. [8h3e — Cache machinery trim and promotion](8h3e-cache-machinery-trim.md).
+   Keep identity, generations, and snapshot validity; retire the resident note
+   grid.
+6. 8h4 — interface simplification, naming, and device structure migration.
 
 ## Purpose
 

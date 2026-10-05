@@ -21,7 +21,7 @@ Edits by the user or the host need no refusal: the replay is one coherent
 snapshot. The only gap is Ghostnote's own writes. A Ghostnote write issued
 during the replay is applied after it, and in 6 of 10 trials its delta arrived
 after the confirmation task. Ghostnote must therefore not write while a read is
-open. 8h2b enforces this with a write queue. See section 3.
+open. 8h3c enforces this with a write queue. See section 3.
 
 The user accepted the completion and start rules as named assumptions in
 [D30](../../decisions/d30-replay-batch-and-start-signal-are-named-assumptions.md).
@@ -143,10 +143,10 @@ correctness needs:
 - A Ghostnote write during the read is the real gap. The read can return
   without the write that Ghostnote itself issued. The bridge runs requests as
   separate tasks and can answer them out of order, so a convention is not
-  enough. 8h2b queues every Ghostnote write behind an open read.
+  enough. 8h3c queues every Ghostnote write behind an open read.
 
 The criterion is therefore met for edits by the user or the host, and it is
-replaced by the 8h2b write queue for Ghostnote's own writes.
+replaced by the 8h3c write queue for Ghostnote's own writes.
 
 ### Fixture finding
 

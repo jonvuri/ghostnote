@@ -363,8 +363,14 @@ owns the migration details.
    [8h1b](8h1b-sounding-cell-cost-reduction.md) (sounding-cell cost reduction;
    complete in [E226](../../evidence/experiments/e226-sounding-cell-cost-reduction.md)),
    [8h2a](8h2a-replay-cold-read.md) (replay cold read; complete in
-   [E227](../../evidence/experiments/e227-replay-cold-read.md)), 8h1 (cache promotion),
-   [8h2b](8h2b-exact-reader-consolidation.md) (exact reader consolidation), and 8h3 (interface simplification).
+   [E227](../../evidence/experiments/e227-replay-cold-read.md)),
+   [8h3a](8h3a-cold-read-dealbreaker-check.md) (cold-read dealbreaker check),
+   [8h3b](8h3b-replay-fetch-cost.md) (replay fetch cost),
+   [8h3c](8h3c-cold-reader-promotion.md) (cold-reader promotion; E131
+   retirement), [8h3d](8h3d-change-awareness.md) (change awareness),
+   [8h3e](8h3e-cache-machinery-trim.md) (cache machinery trim),
+   and 8h4 (interface simplification). 8h3c and 8h3e replace the earlier 8h1
+   and 8h2b plans.
 29. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.

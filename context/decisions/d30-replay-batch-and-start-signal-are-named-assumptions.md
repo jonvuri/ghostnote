@@ -31,7 +31,7 @@ either rule. The host does not expose batch boundaries.
   target.
 - A Ghostnote write during the replay is not covered. E227 found that such a
   write can be applied after the replay and delivered after the step-delta
-  confirmation. Ghostnote writes queue behind an open read (8h2b).
+  confirmation. Ghostnote writes queue behind an open read (8h3c).
 - A second callback for one decoded cell in the binding is not a replay. The
   read must refuse it.
 - No cache or reader result becomes eligible. The 8h gates still apply.
