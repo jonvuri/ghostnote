@@ -1,0 +1,20 @@
+{
+ "schema": "phase8h3a-config-entry-v1",
+ "originalBase64": "eyAicmVjb3JkQ2hhcnMiOiAwLCAic3RhbXAiOiAiZGVmYXVsdCIgfQo=",
+ "originalSha256": "256bbf07094cd654c372d0e5e050e494ef7783c9a0001a0a2a688331bcf643b0",
+ "research": {
+  "recordChars": 0,
+  "stamp": "8h3a-dealbreakers",
+  "tracks": 16,
+  "scenes": 64,
+  "cacheTopologyCounted": true,
+  "cacheTopologyTracks": 16,
+  "cacheLifecycleResearch": true,
+  "cacheKneeResearch": true,
+  "cacheShadowObservers": 2,
+  "cacheShadowSteps": 4194304,
+  "contentFilter": "ALL_CHANNELS",
+  "cacheShadowCursorScenes": 0,
+  "cacheReplayResearch": true
+ }
+}

@@ -18,8 +18,14 @@ import java.util.function.IntFunction;
  * Every result is research only: complete:false, eligible:false.
  */
 public final class ShadowReplayReader {
-    public static final String REVISION = "8h2a-replay-v1";
+    public static final String REVISION = "8h3a-dealbreakers-v2";
     private final ControllerHost host;
+    private final Rig rig;
+    private JsonObject restoreResult;
+    private int watchX = -1, watchY, watchChannel;
+    private double watchVelocity;
+    private long watchNanos;
+    private JsonObject writeReceipt;
     private final CursorTrack track;
     private final PinnableCursorClip clip;
     private final int width;
@@ -29,9 +35,9 @@ public final class ShadowReplayReader {
     private boolean subscribed = true;
 
     /** {@code editor} applies research edits through the fixture writer, for the concurrent-edit trial. */
-    public ShadowReplayReader(ControllerHost host, int width, int scenes, Consumer<JsonArray> editor) {
+    public ShadowReplayReader(ControllerHost host, Rig rig, int width, int scenes, Consumer<JsonArray> editor) {
         if (width < 1 || width > ShadowProjectCache.RESEARCH_MAX_WIDTH) throw new IllegalArgumentException("invalid replay research width");
-        this.host = host; this.width = width; this.editor = editor;
+        this.host = host; this.rig = rig; this.width = width; this.editor = editor;
         track = host.createCursorTrack("GN_REPLAY_READER", "ghostnote 8h2a reader", 0, scenes, false);
         clip = track.createLauncherCursorClip(width, 128);
         clip.setStepSize(ShadowProjectCache.GRID);
@@ -47,6 +53,16 @@ public final class ShadowReplayReader {
                 step.isChanceEnabled(), step.isMuted(), started);
             current.handler(System.nanoTime() - started);
         });
+        rig.kneeFixture.cursor().clip().addNoteStepObserver(step -> {
+            if (step.x() == watchX && step.y() == watchY && step.channel() == watchChannel
+                    && Math.abs(step.velocity() - watchVelocity) < 1e-6 && step.state() == NoteStep.State.NoteOn
+                    && !writeReceipt.get("delivered").getAsBoolean()) {
+                writeReceipt.addProperty("delivered", true);
+                writeReceipt.addProperty("ms", (System.nanoTime() - watchNanos) / 1e6);
+                writeReceipt.addProperty("epoch", epoch.id);
+                writeReceipt.addProperty("readerSeq", epoch.callbacks);
+            }
+        });
         clip.exists().addValueObserver(on -> epoch.value("clipExists", String.valueOf(on), System.nanoTime()));
         clip.clipLauncherSlot().sceneIndex().addValueObserver(row -> epoch.value("sceneIndex", String.valueOf(row), System.nanoTime()));
         clip.getLoopLength().addValueObserver(beats -> epoch.value("loopLength", String.valueOf(beats), System.nanoTime()));
@@ -59,6 +75,8 @@ public final class ShadowReplayReader {
     public JsonObject status() {
         JsonObject result = cursor();
         result.add("epoch", epoch.status());
+        if (writeReceipt != null) result.add("writeReceipt", writeReceipt);
+        if (restoreResult != null) result.add("restore", restoreResult);
         return result;
     }
 
@@ -68,6 +86,7 @@ public final class ShadowReplayReader {
         result.addProperty("complete", false); result.addProperty("eligible", false);
         result.addProperty("width", width);
         result.addProperty("subscribed", subscribed);
+        result.addProperty("isPlaying", rig.transport.isPlaying().get());
         result.addProperty("trackChannelId", track.channelId().get());
         result.addProperty("trackPinned", track.isPinned().get());
         result.addProperty("clipExists", clip.exists().get());
@@ -90,16 +109,47 @@ public final class ShadowReplayReader {
         JsonArray ops = params.has("editOps") ? params.getAsJsonArray("editOps") : null;
         if (arm) {
             epoch = new ReplayEpoch(++epochs, params.has("label") ? params.get("label").getAsString() : action, System.nanoTime(), this::schedule);
+            restoreResult = null;
+            if (params.has("measureClose") && params.get("measureClose").getAsBoolean()) {
+                epoch.measureClose(() -> {
+                    track.isPinned().set(true); clip.isPinned().set(true);
+                    if (params.has("restoreWhen") && params.get("restoreWhen").getAsString().equals("close")) restore(params, tracks);
+                });
+            }
             if (params.has("editAt")) {
                 if (ops == null) throw new IllegalArgumentException("editAt needs editOps");
                 epoch.armEdit(params.get("editAt").getAsLong(), () -> editor.accept(ops));
             }
         }
+        boolean transferred = false;
         switch (action) {
             case "point" -> {
+                if (params.has("leaseFromTrack")) {
+                    String token = params.get("ownerToken").getAsString();
+                    transferred = ReplaySelectionActions.transfer(
+                        () -> rig.selectionOwnedBy(token, params.get("leaseFromTrack").getAsInt(), params.get("leaseFromRow").getAsInt()),
+                        () -> rig.claimSelectionOwnership(token, params.get("trackIndex").getAsInt(), -1));
+                }
                 clip.isPinned().set(false); track.isPinned().set(false);
                 track.selectChannel(tracks.apply(params.get("trackIndex").getAsInt()));
             }
+            case "bind" -> {
+                int target = params.get("trackIndex").getAsInt(), row = params.get("row").getAsInt();
+                clip.isPinned().set(false); track.isPinned().set(false);
+                track.selectChannel(tracks.apply(target));
+                if (params.has("ownerToken")) rig.claimSelectionOwnership(params.get("ownerToken").getAsString(), target, row);
+                else rig.clearSelectionOwnership();
+                tracks.apply(target).selectSlot(row);
+                if (params.has("restoreWhen") && params.get("restoreWhen").getAsString().equals("bind")) restore(params, tracks);
+            }
+            case "play" -> rig.transport.play();
+            case "stop" -> rig.transport.stop();
+            case "watchWrite" -> {
+                watchX = params.get("x").getAsInt(); watchY = params.get("y").getAsInt();
+                watchChannel = params.get("channel").getAsInt(); watchVelocity = params.get("velocity").getAsDouble();
+                watchNanos = System.nanoTime(); writeReceipt = new JsonObject(); writeReceipt.addProperty("delivered", false);
+            }
+            case "restore" -> restore(params, tracks);
             case "select" -> tracks.apply(params.get("trackIndex").getAsInt()).selectSlot(params.get("row").getAsInt());
             case "pin" -> { track.isPinned().set(true); clip.isPinned().set(true); }
             case "unpin" -> { clip.isPinned().set(false); track.isPinned().set(false); }
@@ -118,9 +168,32 @@ public final class ShadowReplayReader {
         }
         JsonObject result = cursor();
         result.addProperty("action", action);
+        if (params.has("leaseFromTrack")) result.addProperty("leaseTransferred", transferred);
         result.addProperty("epoch", epoch.id);
         result.addProperty("actMs", (System.nanoTime() - epoch.armNanos) / 1e6);
         return result;
+    }
+
+    private void restore(JsonObject params, IntFunction<Track> tracks) {
+        boolean owned = ReplaySelectionActions.restore(
+            () -> rig.selectionOwnedBy(params.get("ownerToken").getAsString(),
+                params.get("trackIndex").getAsInt(), params.get("row").getAsInt()),
+            rig::clearSelectionOwnership,
+            () -> {
+                Track original = tracks.apply(params.get("restoreTrack").getAsInt());
+                int row = params.get("restoreRow").getAsInt();
+                if (params.has("restoreMechanism") && params.get("restoreMechanism").getAsString().equals("slot"))
+                    original.clipLauncherSlotBank().getItemAt(row).select();
+                else original.selectSlot(row);
+            },
+            () -> { if (params.has("restoreMixerTrack")) tracks.apply(params.get("restoreMixerTrack").getAsInt()).selectInEditor(); });
+        restoreResult = new JsonObject(); restoreResult.addProperty("selected", owned);
+        restoreResult.addProperty("revision", rig.selectionRevision);
+    }
+
+    public JsonObject closedNotes(long id, int from, int limit) {
+        if (id != epoch.id) throw new IllegalStateException("epoch changed");
+        return epoch.closedNotes(from, Math.max(1, Math.min(limit, 65_536)));
     }
 
     public JsonObject notes(long id, int from, int limit) {

@@ -1,0 +1,2416 @@
+{
+  "schema": "phase8h3a-summary-v1",
+  "complete": false,
+  "eligible": false,
+  "verified": 1042,
+  "soaked": 500,
+  "playing": 250,
+  "playbackAttempts": 125,
+  "sources": {
+    "n4096-64>n16384-512": {
+      "trials": 20,
+      "directStart": 0,
+      "directDecodeExact": 20,
+      "parkedPass": 20,
+      "ordering": {
+        "empty-then-notes": 20
+      },
+      "directTaskMs": {
+        "n": 20,
+        "median": 127.903792,
+        "p95": 154.518375,
+        "max": 179.1845
+      },
+      "parkedCloseMs": {
+        "n": 20,
+        "median": 124.3665,
+        "p95": 151.147375,
+        "max": 151.509708
+      },
+      "releaseLastMs": {
+        "n": 20,
+        "median": 99.303958,
+        "p95": 122.799,
+        "max": 130.7795
+      }
+    },
+    "sustain-2048>n131072-2048": {
+      "trials": 20,
+      "directStart": 0,
+      "directDecodeExact": 20,
+      "parkedPass": 20,
+      "ordering": {
+        "empty-then-notes": 20
+      },
+      "directTaskMs": {
+        "n": 20,
+        "median": 501.490791,
+        "p95": 580.592291,
+        "max": 711.986625
+      },
+      "parkedCloseMs": {
+        "n": 20,
+        "median": 338.393958,
+        "p95": 362.138709,
+        "max": 390.666
+      },
+      "releaseLastMs": {
+        "n": 20,
+        "median": 145.641667,
+        "p95": 171.203959,
+        "max": 190.706791
+      }
+    },
+    "n4096-64>empty-64": {
+      "trials": 20,
+      "directStart": 0,
+      "directDecodeExact": 20,
+      "parkedPass": 20,
+      "ordering": {
+        "empty-only": 20
+      },
+      "directTaskMs": {
+        "n": 20,
+        "median": 72.290959,
+        "p95": 95.210625,
+        "max": 96.498959
+      },
+      "parkedCloseMs": {
+        "n": 20,
+        "median": 49.381959,
+        "p95": 50.552083,
+        "max": 70.38675
+      },
+      "releaseLastMs": null
+    },
+    "empty-64>n4096-64": {
+      "trials": 20,
+      "directStart": 0,
+      "directDecodeExact": 20,
+      "parkedPass": 20,
+      "ordering": {
+        "notes-only": 20
+      },
+      "directTaskMs": {
+        "n": 20,
+        "median": 70.421667,
+        "p95": 92.3615,
+        "max": 96.049375
+      },
+      "parkedCloseMs": {
+        "n": 20,
+        "median": 71.588458,
+        "p95": 74.097542,
+        "max": 96.754541
+      },
+      "releaseLastMs": {
+        "n": 20,
+        "median": 55.71425,
+        "p95": 78.752959,
+        "max": 79.577458
+      }
+    },
+    "one-64>one-row-1": {
+      "trials": 20,
+      "directStart": 0,
+      "directDecodeExact": 20,
+      "parkedPass": 20,
+      "ordering": {
+        "empty-then-notes": 20
+      },
+      "directTaskMs": {
+        "n": 20,
+        "median": 48.911375,
+        "p95": 75.017416,
+        "max": 94.118416
+      },
+      "parkedCloseMs": {
+        "n": 20,
+        "median": 48.796208,
+        "p95": 50.465584,
+        "max": 50.63875
+      },
+      "releaseLastMs": {
+        "n": 20,
+        "median": 25.866083,
+        "p95": 49.77775,
+        "max": 49.847625
+      }
+    },
+    "one-64>one-64": {
+      "trials": 20,
+      "directStart": 0,
+      "directDecodeExact": 0,
+      "parkedPass": 20,
+      "ordering": {
+        "no-callback": 20
+      },
+      "directTaskMs": null,
+      "parkedCloseMs": {
+        "n": 20,
+        "median": 48.9575,
+        "p95": 49.983542,
+        "max": 50.760125
+      },
+      "releaseLastMs": {
+        "n": 20,
+        "median": 25.869459,
+        "p95": 73.696583,
+        "max": 73.734208
+      }
+    }
+  },
+  "selection": [
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-64",
+      "otherTrack": false,
+      "equal": true,
+      "when": "none",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 0,
+      "allEvents": 1
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-64",
+      "otherTrack": false,
+      "equal": true,
+      "when": "bind",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 0,
+      "allEvents": 1
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-64",
+      "otherTrack": false,
+      "equal": true,
+      "when": "close",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 0,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-64",
+      "otherTrack": false,
+      "equal": true,
+      "when": "release",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 0,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-64",
+      "otherTrack": false,
+      "equal": false,
+      "when": "none",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-64",
+      "otherTrack": false,
+      "equal": false,
+      "when": "bind",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-64",
+      "otherTrack": false,
+      "equal": false,
+      "when": "close",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 2,
+      "allEvents": 4
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-64",
+      "otherTrack": false,
+      "equal": false,
+      "when": "release",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 2,
+      "allEvents": 4
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-64",
+      "otherTrack": true,
+      "equal": true,
+      "when": "none",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-64",
+      "otherTrack": true,
+      "equal": true,
+      "when": "bind",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-64",
+      "otherTrack": true,
+      "equal": true,
+      "when": "close",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 2,
+      "allEvents": 4
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-64",
+      "otherTrack": true,
+      "equal": true,
+      "when": "release",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 2,
+      "allEvents": 4
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-64",
+      "otherTrack": true,
+      "equal": false,
+      "when": "none",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-64",
+      "otherTrack": true,
+      "equal": false,
+      "when": "bind",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-64",
+      "otherTrack": true,
+      "equal": false,
+      "when": "close",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 2,
+      "allEvents": 4
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-64",
+      "otherTrack": true,
+      "equal": false,
+      "when": "release",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 2,
+      "allEvents": 4
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-1",
+      "otherTrack": false,
+      "equal": true,
+      "when": "none",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 0,
+      "allEvents": 1
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-1",
+      "otherTrack": false,
+      "equal": true,
+      "when": "bind",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 0,
+      "allEvents": 1
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-1",
+      "otherTrack": false,
+      "equal": true,
+      "when": "close",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 0,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-1",
+      "otherTrack": false,
+      "equal": true,
+      "when": "release",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 0,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-1",
+      "otherTrack": false,
+      "equal": false,
+      "when": "none",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-1",
+      "otherTrack": false,
+      "equal": false,
+      "when": "bind",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-1",
+      "otherTrack": false,
+      "equal": false,
+      "when": "close",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 2,
+      "allEvents": 4
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-1",
+      "otherTrack": false,
+      "equal": false,
+      "when": "release",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 2,
+      "allEvents": 4
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-1",
+      "otherTrack": true,
+      "equal": true,
+      "when": "none",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-1",
+      "otherTrack": true,
+      "equal": true,
+      "when": "bind",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-1",
+      "otherTrack": true,
+      "equal": true,
+      "when": "close",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 2,
+      "allEvents": 4
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-1",
+      "otherTrack": true,
+      "equal": true,
+      "when": "release",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 2,
+      "allEvents": 4
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-1",
+      "otherTrack": true,
+      "equal": false,
+      "when": "none",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-1",
+      "otherTrack": true,
+      "equal": false,
+      "when": "bind",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-1",
+      "otherTrack": true,
+      "equal": false,
+      "when": "close",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 2,
+      "allEvents": 4
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-1",
+      "otherTrack": true,
+      "equal": false,
+      "when": "release",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 2,
+      "allEvents": 4
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-63",
+      "otherTrack": false,
+      "equal": true,
+      "when": "none",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 0,
+      "allEvents": 1
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-63",
+      "otherTrack": false,
+      "equal": true,
+      "when": "bind",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 0,
+      "allEvents": 1
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-63",
+      "otherTrack": false,
+      "equal": true,
+      "when": "close",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 0,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-63",
+      "otherTrack": false,
+      "equal": true,
+      "when": "release",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 0,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-63",
+      "otherTrack": false,
+      "equal": false,
+      "when": "none",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-63",
+      "otherTrack": false,
+      "equal": false,
+      "when": "bind",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-63",
+      "otherTrack": false,
+      "equal": false,
+      "when": "close",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 2,
+      "allEvents": 4
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-63",
+      "otherTrack": false,
+      "equal": false,
+      "when": "release",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 2,
+      "allEvents": 4
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-63",
+      "otherTrack": true,
+      "equal": true,
+      "when": "none",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-63",
+      "otherTrack": true,
+      "equal": true,
+      "when": "bind",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-63",
+      "otherTrack": true,
+      "equal": true,
+      "when": "close",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 2,
+      "allEvents": 4
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-63",
+      "otherTrack": true,
+      "equal": true,
+      "when": "release",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 2,
+      "allEvents": 4
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-63",
+      "otherTrack": true,
+      "equal": false,
+      "when": "none",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-63",
+      "otherTrack": true,
+      "equal": false,
+      "when": "bind",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-63",
+      "otherTrack": true,
+      "equal": false,
+      "when": "close",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 2,
+      "allEvents": 4
+    },
+    {
+      "artifact": "selection-ordered.json.gz",
+      "key": "one-row-63",
+      "otherTrack": true,
+      "equal": false,
+      "when": "release",
+      "route": "select-first",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 2,
+      "allEvents": 4
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-64",
+      "otherTrack": false,
+      "equal": true,
+      "when": "none",
+      "route": "default",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 0,
+      "allEvents": 1
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-64",
+      "otherTrack": false,
+      "equal": true,
+      "when": "bind",
+      "route": "default",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 0,
+      "allEvents": 1
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-64",
+      "otherTrack": false,
+      "equal": true,
+      "when": "close",
+      "route": "default",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 0,
+      "allEvents": 1
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-64",
+      "otherTrack": false,
+      "equal": true,
+      "when": "release",
+      "route": "default",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 0,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-64",
+      "otherTrack": false,
+      "equal": false,
+      "when": "none",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-64",
+      "otherTrack": false,
+      "equal": false,
+      "when": "bind",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-64",
+      "otherTrack": false,
+      "equal": false,
+      "when": "close",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 2,
+      "allEvents": 3
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-64",
+      "otherTrack": false,
+      "equal": false,
+      "when": "release",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 3
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-64",
+      "otherTrack": true,
+      "equal": true,
+      "when": "none",
+      "route": "default",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-64",
+      "otherTrack": true,
+      "equal": true,
+      "when": "bind",
+      "route": "default",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-64",
+      "otherTrack": true,
+      "equal": true,
+      "when": "close",
+      "route": "default",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 2,
+      "allEvents": 3
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-64",
+      "otherTrack": true,
+      "equal": true,
+      "when": "release",
+      "route": "default",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 3
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-64",
+      "otherTrack": true,
+      "equal": false,
+      "when": "none",
+      "route": "default",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-64",
+      "otherTrack": true,
+      "equal": false,
+      "when": "bind",
+      "route": "default",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-64",
+      "otherTrack": true,
+      "equal": false,
+      "when": "close",
+      "route": "default",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 2,
+      "allEvents": 3
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-64",
+      "otherTrack": true,
+      "equal": false,
+      "when": "release",
+      "route": "default",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 3
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-1",
+      "otherTrack": false,
+      "equal": true,
+      "when": "none",
+      "route": "default",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 0,
+      "allEvents": 1
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-1",
+      "otherTrack": false,
+      "equal": true,
+      "when": "bind",
+      "route": "default",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 0,
+      "allEvents": 1
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-1",
+      "otherTrack": false,
+      "equal": true,
+      "when": "close",
+      "route": "default",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 0,
+      "allEvents": 1
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-1",
+      "otherTrack": false,
+      "equal": true,
+      "when": "release",
+      "route": "default",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 0,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-1",
+      "otherTrack": false,
+      "equal": false,
+      "when": "none",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-1",
+      "otherTrack": false,
+      "equal": false,
+      "when": "bind",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-1",
+      "otherTrack": false,
+      "equal": false,
+      "when": "close",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 2,
+      "allEvents": 3
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-1",
+      "otherTrack": false,
+      "equal": false,
+      "when": "release",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 3
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-1",
+      "otherTrack": true,
+      "equal": true,
+      "when": "none",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-1",
+      "otherTrack": true,
+      "equal": true,
+      "when": "bind",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-1",
+      "otherTrack": true,
+      "equal": true,
+      "when": "close",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 2,
+      "allEvents": 3
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-1",
+      "otherTrack": true,
+      "equal": true,
+      "when": "release",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 3
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-1",
+      "otherTrack": true,
+      "equal": false,
+      "when": "none",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-1",
+      "otherTrack": true,
+      "equal": false,
+      "when": "bind",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-1",
+      "otherTrack": true,
+      "equal": false,
+      "when": "close",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 2,
+      "allEvents": 3
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-1",
+      "otherTrack": true,
+      "equal": false,
+      "when": "release",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 3
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-63",
+      "otherTrack": false,
+      "equal": true,
+      "when": "none",
+      "route": "default",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 0,
+      "allEvents": 1
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-63",
+      "otherTrack": false,
+      "equal": true,
+      "when": "bind",
+      "route": "default",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 0,
+      "allEvents": 1
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-63",
+      "otherTrack": false,
+      "equal": true,
+      "when": "close",
+      "route": "default",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 0,
+      "allEvents": 1
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-63",
+      "otherTrack": false,
+      "equal": true,
+      "when": "release",
+      "route": "default",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": true,
+      "slotEvents": 0,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-63",
+      "otherTrack": false,
+      "equal": false,
+      "when": "none",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-63",
+      "otherTrack": false,
+      "equal": false,
+      "when": "bind",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-63",
+      "otherTrack": false,
+      "equal": false,
+      "when": "close",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 2,
+      "allEvents": 3
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-63",
+      "otherTrack": false,
+      "equal": false,
+      "when": "release",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 3
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-63",
+      "otherTrack": true,
+      "equal": true,
+      "when": "none",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-63",
+      "otherTrack": true,
+      "equal": true,
+      "when": "bind",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-63",
+      "otherTrack": true,
+      "equal": true,
+      "when": "close",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 2,
+      "allEvents": 3
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-63",
+      "otherTrack": true,
+      "equal": true,
+      "when": "release",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 3
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-63",
+      "otherTrack": true,
+      "equal": false,
+      "when": "none",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-63",
+      "otherTrack": true,
+      "equal": false,
+      "when": "bind",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-63",
+      "otherTrack": true,
+      "equal": false,
+      "when": "close",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 2,
+      "allEvents": 3
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-63",
+      "otherTrack": true,
+      "equal": false,
+      "when": "release",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 3
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-64",
+      "otherTrack": false,
+      "equal": true,
+      "when": "slot-route",
+      "route": "default",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 0,
+      "allEvents": 1
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-64",
+      "otherTrack": false,
+      "equal": false,
+      "when": "slot-route",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-1",
+      "otherTrack": false,
+      "equal": true,
+      "when": "slot-route",
+      "route": "default",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 0,
+      "allEvents": 1
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-1",
+      "otherTrack": false,
+      "equal": false,
+      "when": "slot-route",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-63",
+      "otherTrack": false,
+      "equal": true,
+      "when": "slot-route",
+      "route": "default",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 0,
+      "allEvents": 1
+    },
+    {
+      "artifact": "selection.json.gz",
+      "key": "one-row-63",
+      "otherTrack": false,
+      "equal": false,
+      "when": "slot-route",
+      "route": "default",
+      "pass": false,
+      "duplicates": 2,
+      "afterClose": 0,
+      "restored": false,
+      "slotEvents": 1,
+      "allEvents": 2
+    }
+  ],
+  "writes": [
+    {
+      "mode": "gap-0",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-0",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-0",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-0",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-0",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-0",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-0",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-0",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-0",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-0",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-1",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-1",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-1",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-1",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-1",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-1",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-1",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-1",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-1",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-1",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-2",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-2",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-2",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-2",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-2",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-2",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-2",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-2",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-2",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "gap-2",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "delayed",
+      "pass": false,
+      "duplicates": 1,
+      "afterClose": 1,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "delayed",
+      "pass": false,
+      "duplicates": 1,
+      "afterClose": 1,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "delayed",
+      "pass": false,
+      "duplicates": 1,
+      "afterClose": 1,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "delayed",
+      "pass": false,
+      "duplicates": 1,
+      "afterClose": 1,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "delayed",
+      "pass": false,
+      "duplicates": 1,
+      "afterClose": 1,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "delayed",
+      "pass": false,
+      "duplicates": 1,
+      "afterClose": 1,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "delayed",
+      "pass": false,
+      "duplicates": 1,
+      "afterClose": 1,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "delayed",
+      "pass": false,
+      "duplicates": 1,
+      "afterClose": 1,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "delayed",
+      "pass": false,
+      "duplicates": 1,
+      "afterClose": 1,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "delayed",
+      "pass": false,
+      "duplicates": 1,
+      "afterClose": 1,
+      "receipt": {
+        "delivered": false
+      }
+    },
+    {
+      "mode": "confirmed",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      },
+      "barrier": {
+        "kind": "execution-counter-in-later-task",
+        "ms": 145.87366599999996,
+        "writtenBefore": 84,
+        "status": {
+          "spec": "8h1a-even-spread-v1",
+          "width": 4194304,
+          "trackExists": true,
+          "trackChannelId": "021b9da5-465a-45ef-9c98-2a7820723726",
+          "trackPosition": 4,
+          "trackPinned": true,
+          "clipExists": true,
+          "clipPinned": true,
+          "sceneIndex": 0,
+          "written": 85,
+          "cleared": 0,
+          "transposes": 0
+        }
+      }
+    },
+    {
+      "mode": "confirmed",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      },
+      "barrier": {
+        "kind": "execution-counter-in-later-task",
+        "ms": 146.70341699999972,
+        "writtenBefore": 86,
+        "status": {
+          "spec": "8h1a-even-spread-v1",
+          "width": 4194304,
+          "trackExists": true,
+          "trackChannelId": "021b9da5-465a-45ef-9c98-2a7820723726",
+          "trackPosition": 4,
+          "trackPinned": true,
+          "clipExists": true,
+          "clipPinned": true,
+          "sceneIndex": 0,
+          "written": 87,
+          "cleared": 0,
+          "transposes": 0
+        }
+      }
+    },
+    {
+      "mode": "confirmed",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      },
+      "barrier": {
+        "kind": "execution-counter-in-later-task",
+        "ms": 146.5017919999991,
+        "writtenBefore": 88,
+        "status": {
+          "spec": "8h1a-even-spread-v1",
+          "width": 4194304,
+          "trackExists": true,
+          "trackChannelId": "021b9da5-465a-45ef-9c98-2a7820723726",
+          "trackPosition": 4,
+          "trackPinned": true,
+          "clipExists": true,
+          "clipPinned": true,
+          "sceneIndex": 0,
+          "written": 89,
+          "cleared": 0,
+          "transposes": 0
+        }
+      }
+    },
+    {
+      "mode": "confirmed",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      },
+      "barrier": {
+        "kind": "execution-counter-in-later-task",
+        "ms": 145.87491600000067,
+        "writtenBefore": 90,
+        "status": {
+          "spec": "8h1a-even-spread-v1",
+          "width": 4194304,
+          "trackExists": true,
+          "trackChannelId": "021b9da5-465a-45ef-9c98-2a7820723726",
+          "trackPosition": 4,
+          "trackPinned": true,
+          "clipExists": true,
+          "clipPinned": true,
+          "sceneIndex": 0,
+          "written": 91,
+          "cleared": 0,
+          "transposes": 0
+        }
+      }
+    },
+    {
+      "mode": "confirmed",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      },
+      "barrier": {
+        "kind": "execution-counter-in-later-task",
+        "ms": 140.67970799999966,
+        "writtenBefore": 92,
+        "status": {
+          "spec": "8h1a-even-spread-v1",
+          "width": 4194304,
+          "trackExists": true,
+          "trackChannelId": "021b9da5-465a-45ef-9c98-2a7820723726",
+          "trackPosition": 4,
+          "trackPinned": true,
+          "clipExists": true,
+          "clipPinned": true,
+          "sceneIndex": 0,
+          "written": 93,
+          "cleared": 0,
+          "transposes": 0
+        }
+      }
+    },
+    {
+      "mode": "confirmed",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      },
+      "barrier": {
+        "kind": "execution-counter-in-later-task",
+        "ms": 141.6079580000005,
+        "writtenBefore": 94,
+        "status": {
+          "spec": "8h1a-even-spread-v1",
+          "width": 4194304,
+          "trackExists": true,
+          "trackChannelId": "021b9da5-465a-45ef-9c98-2a7820723726",
+          "trackPosition": 4,
+          "trackPinned": true,
+          "clipExists": true,
+          "clipPinned": true,
+          "sceneIndex": 0,
+          "written": 95,
+          "cleared": 0,
+          "transposes": 0
+        }
+      }
+    },
+    {
+      "mode": "confirmed",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      },
+      "barrier": {
+        "kind": "execution-counter-in-later-task",
+        "ms": 145.71233400000347,
+        "writtenBefore": 96,
+        "status": {
+          "spec": "8h1a-even-spread-v1",
+          "width": 4194304,
+          "trackExists": true,
+          "trackChannelId": "021b9da5-465a-45ef-9c98-2a7820723726",
+          "trackPosition": 4,
+          "trackPinned": true,
+          "clipExists": true,
+          "clipPinned": true,
+          "sceneIndex": 0,
+          "written": 97,
+          "cleared": 0,
+          "transposes": 0
+        }
+      }
+    },
+    {
+      "mode": "confirmed",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      },
+      "barrier": {
+        "kind": "execution-counter-in-later-task",
+        "ms": 143.2948330000072,
+        "writtenBefore": 98,
+        "status": {
+          "spec": "8h1a-even-spread-v1",
+          "width": 4194304,
+          "trackExists": true,
+          "trackChannelId": "021b9da5-465a-45ef-9c98-2a7820723726",
+          "trackPosition": 4,
+          "trackPinned": true,
+          "clipExists": true,
+          "clipPinned": true,
+          "sceneIndex": 0,
+          "written": 99,
+          "cleared": 0,
+          "transposes": 0
+        }
+      }
+    },
+    {
+      "mode": "confirmed",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      },
+      "barrier": {
+        "kind": "execution-counter-in-later-task",
+        "ms": 141.65058300000237,
+        "writtenBefore": 100,
+        "status": {
+          "spec": "8h1a-even-spread-v1",
+          "width": 4194304,
+          "trackExists": true,
+          "trackChannelId": "021b9da5-465a-45ef-9c98-2a7820723726",
+          "trackPosition": 4,
+          "trackPinned": true,
+          "clipExists": true,
+          "clipPinned": true,
+          "sceneIndex": 0,
+          "written": 101,
+          "cleared": 0,
+          "transposes": 0
+        }
+      }
+    },
+    {
+      "mode": "confirmed",
+      "pass": true,
+      "duplicates": 0,
+      "afterClose": 0,
+      "receipt": {
+        "delivered": false
+      },
+      "barrier": {
+        "kind": "execution-counter-in-later-task",
+        "ms": 145.96104200000264,
+        "writtenBefore": 102,
+        "status": {
+          "spec": "8h1a-even-spread-v1",
+          "width": 4194304,
+          "trackExists": true,
+          "trackChannelId": "021b9da5-465a-45ef-9c98-2a7820723726",
+          "trackPosition": 4,
+          "trackPinned": true,
+          "clipExists": true,
+          "clipPinned": true,
+          "sceneIndex": 0,
+          "written": 103,
+          "cleared": 0,
+          "transposes": 0
+        }
+      }
+    }
+  ],
+  "visualTrials": 8,
+  "soakCloseMs": {
+    "false:empty-64": {
+      "n": 25,
+      "median": 48.274583,
+      "p95": 72.625167,
+      "max": 73.339208
+    },
+    "false:one-64": {
+      "n": 25,
+      "median": 46.715625,
+      "p95": 72.835417,
+      "max": 73.477417
+    },
+    "false:final-8192": {
+      "n": 25,
+      "median": 48.765667,
+      "p95": 66.466083,
+      "max": 66.569833
+    },
+    "false:n4096-64": {
+      "n": 25,
+      "median": 70.471416,
+      "p95": 86.273167,
+      "max": 93.118667
+    },
+    "false:n16384-512": {
+      "n": 25,
+      "median": 122.031333,
+      "p95": 153.616,
+      "max": 161.569959
+    },
+    "false:n131072-2048": {
+      "n": 25,
+      "median": 314.226417,
+      "p95": 377.788208,
+      "max": 379.431625
+    },
+    "false:sustain-2048": {
+      "n": 25,
+      "median": 271.082083,
+      "p95": 457.364084,
+      "max": 706.537833
+    },
+    "false:n4096-8192": {
+      "n": 25,
+      "median": 118.254292,
+      "p95": 135.648958,
+      "max": 140.208458
+    },
+    "false:one-row-1": {
+      "n": 25,
+      "median": 61.7405,
+      "p95": 72.251459,
+      "max": 73.478417
+    },
+    "false:one-row-63": {
+      "n": 25,
+      "median": 49.377291,
+      "p95": 70.316834,
+      "max": 70.648625
+    },
+    "true:empty-64": {
+      "n": 25,
+      "median": 46.350208,
+      "p95": 50.341125,
+      "max": 50.402542
+    },
+    "true:one-64": {
+      "n": 25,
+      "median": 43.996917,
+      "p95": 63.282,
+      "max": 66.264208
+    },
+    "true:final-8192": {
+      "n": 25,
+      "median": 45.927666,
+      "p95": 52.78125,
+      "max": 74.96375
+    },
+    "true:n4096-64": {
+      "n": 25,
+      "median": 68.059834,
+      "p95": 72.364167,
+      "max": 74.023333
+    },
+    "true:n16384-512": {
+      "n": 25,
+      "median": 106.097417,
+      "p95": 122.380584,
+      "max": 129.244833
+    },
+    "true:n131072-2048": {
+      "n": 25,
+      "median": 286.073084,
+      "p95": 358.086458,
+      "max": 370.980542
+    },
+    "true:sustain-2048": {
+      "n": 25,
+      "median": 249.363875,
+      "p95": 292.860958,
+      "max": 356.60375
+    },
+    "true:n4096-8192": {
+      "n": 25,
+      "median": 95.37575,
+      "p95": 119.061291,
+      "max": 127.979167
+    },
+    "true:one-row-1": {
+      "n": 25,
+      "median": 46.096584,
+      "p95": 51.261292,
+      "max": 65.448792
+    },
+    "true:one-row-63": {
+      "n": 25,
+      "median": 45.168708,
+      "p95": 50.131417,
+      "max": 65.757584
+    }
+  },
+  "watchByPlaybackMs": {
+    "false:0": {
+      "n": 90,
+      "median": 22.57720800000243,
+      "p95": 26.216833000071347,
+      "max": 27.424709000013536
+    },
+    "false:50": {
+      "n": 80,
+      "median": 67.85787499998696,
+      "p95": 74.43475000000035,
+      "max": 75.49837499999558
+    },
+    "false:100": {
+      "n": 80,
+      "median": 111.94254100002581,
+      "p95": 122.34658399999898,
+      "max": 125.34704200000851
+    },
+    "true:50": {
+      "n": 90,
+      "median": 67.71770800009836,
+      "p95": 74.58204200002365,
+      "max": 75.455125000095
+    },
+    "true:100": {
+      "n": 80,
+      "median": 112.16816699993797,
+      "p95": 122.4952499999199,
+      "max": 124.92866700002924
+    },
+    "true:0": {
+      "n": 80,
+      "median": 22.494958999974187,
+      "p95": 26.053167000005487,
+      "max": 27.20937500000582
+    }
+  },
+  "watchAddedWallMs": {
+    "0": {
+      "n": 170,
+      "median": 22.52954200003296,
+      "p95": 26.14304200001061,
+      "max": 27.424709000013536
+    },
+    "50": {
+      "n": 170,
+      "median": 67.75183399999514,
+      "p95": 74.45912499999395,
+      "max": 75.49837499999558
+    },
+    "100": {
+      "n": 160,
+      "median": 112.09087499999441,
+      "p95": 122.4952499999199,
+      "max": 125.34704200000851
+    }
+  }
+}

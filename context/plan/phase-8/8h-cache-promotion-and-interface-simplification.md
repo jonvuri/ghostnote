@@ -56,24 +56,26 @@ Complete research:
    ([E227](../../evidence/experiments/e227-replay-cold-read.md), D30): one
    batch and a `clipExists` start signal in 160 of 160 binds; exact decode
    from callbacks only.
+4. [8h3a — Cold-read dealbreaker check](8h3a-cold-read-dealbreaker-check.md)
+   ([E228](../../evidence/experiments/e228-cold-read-dealbreaker-check.md)):
+   bind from park, select the row before pointing, finish staged writes before
+   binding, and keep a callback tripwire. Temporary selection changes are
+   accepted for modal use, with full restore at close under the E99 lease.
 
 Remaining sessions, in order:
 
-1. [8h3a — Cold-read dealbreaker check](8h3a-cold-read-dealbreaker-check.md).
-   Bind source, rows and visible selection, a write before the bind, and a
-   soak with a tripwire.
-2. [8h3b — Replay fetch cost](8h3b-replay-fetch-cost.md). Break down the
+1. [8h3b — Replay fetch cost](8h3b-replay-fetch-cost.md). Break down the
    bridge fetch cost and select the product fetch format.
-3. [8h3c — Cold-reader promotion](8h3c-cold-reader-promotion.md). Replace E131
+2. [8h3c — Cold-reader promotion](8h3c-cold-reader-promotion.md). Replace E131
    for reads and writes, queue writes behind an open read, remove the `1/768`
    view, and fix or refuse the disabled-control loss.
-4. [8h3d — Change awareness](8h3d-change-awareness.md). Select how Ghostnote
+3. [8h3d — Change awareness](8h3d-change-awareness.md). Select how Ghostnote
    tells whether a snapshot is current with no resident grid: pull, or pull
    with watched clips.
-5. [8h3e — Cache machinery trim and promotion](8h3e-cache-machinery-trim.md).
+4. [8h3e — Cache machinery trim and promotion](8h3e-cache-machinery-trim.md).
    Keep identity, generations, and snapshot validity; retire the resident note
    grid.
-6. 8h4 — interface simplification, naming, and device structure migration.
+5. 8h4 — interface simplification, naming, and device structure migration.
 
 ## Purpose
 

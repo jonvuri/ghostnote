@@ -20,7 +20,7 @@ import static com.ghostnote.extension.ShadowProjectCache.*;
 public final class ShadowCacheProbe {
     private static final Gson JSON = new Gson();
     /** Deliberate build marker for live reload checks. */
-    public static final String INSTRUMENTATION_REVISION = "8h2a-replay-v1";
+    public static final String INSTRUMENTATION_REVISION = "8h3a-dealbreakers-v2";
     private static final int KEYS = 128;
     private static final double BATCH_MS = 40;
     private static final double HOST_WORK_LIMIT_MS = 45;

@@ -320,3 +320,10 @@ tasks.register('replayEpochTest', JavaExec) {
 tasks.named('check') {
     dependsOn 'replayEpochTest', 'soundingCellBudgetTest', 'shadowCacheTest', 'shadowCacheProbeTest', 'shadowInventoryRebuildTest', 'shadowObserverBudgetTest', 'shadowHandlePoolTest', 'shadowAuthorityFallbackTest', 'shadowSceneControlTest', 'shadowTopologyControlTest'
 }
+
+tasks.register('replaySelectionActionsTest', JavaExec) {
+    dependsOn shadowCacheTestClasses
+    classpath = sourceSets.shadowCacheTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.ReplaySelectionActionsTest'
+}
+tasks.named('check') { dependsOn 'replaySelectionActionsTest' }

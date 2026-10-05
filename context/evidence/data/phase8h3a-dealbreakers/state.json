@@ -1,0 +1,124 @@
+{
+ "schema": "phase8h2a-state-v1",
+ "tracks": {
+  "park": "41d935d4-ebfd-42fa-8c72-896bb23fb178",
+  "empty-64": "2813c08a-6b33-4daf-ad59-6aa7c626c5e7",
+  "one-64": "27147024-f490-49ff-8ab7-b245f2a9f39b",
+  "final-8192": "d82731c3-cecd-4b44-9461-434f89723b5f",
+  "n4096-64": "021b9da5-465a-45ef-9c98-2a7820723726",
+  "n16384-512": "9985ef76-e81b-4901-b334-c7e1789d2497",
+  "n131072-2048": "b4274973-8ea0-4d34-af40-344d757c49ec",
+  "sustain-2048": "a3c9fc9c-d508-4c52-ad23-05e272ccd0ce",
+  "n4096-8192": "19b74771-a32a-4968-a25e-0452e395360a"
+ },
+ "fixtures": {
+  "empty-64": {
+   "name": "empty-64",
+   "kind": "empty",
+   "beats": 64,
+   "count": 0,
+   "cap": 64,
+   "trackId": "2813c08a-6b33-4daf-ad59-6aa7c626c5e7",
+   "row": 0,
+   "written": true
+  },
+  "one-64": {
+   "name": "one-64",
+   "kind": "one",
+   "beats": 64,
+   "count": 1,
+   "cap": 64,
+   "trackId": "27147024-f490-49ff-8ab7-b245f2a9f39b",
+   "row": 0,
+   "written": true
+  },
+  "final-8192": {
+   "name": "final-8192",
+   "kind": "spec",
+   "beats": 8192,
+   "count": 1,
+   "cap": 64,
+   "trackId": "d82731c3-cecd-4b44-9461-434f89723b5f",
+   "row": 0,
+   "written": true
+  },
+  "n4096-64": {
+   "name": "n4096-64",
+   "kind": "spec",
+   "beats": 64,
+   "count": 4096,
+   "cap": 64,
+   "trackId": "021b9da5-465a-45ef-9c98-2a7820723726",
+   "row": 0,
+   "written": true
+  },
+  "n16384-512": {
+   "name": "n16384-512",
+   "kind": "spec",
+   "beats": 512,
+   "count": 16384,
+   "cap": 64,
+   "trackId": "9985ef76-e81b-4901-b334-c7e1789d2497",
+   "row": 0,
+   "written": true
+  },
+  "n131072-2048": {
+   "name": "n131072-2048",
+   "kind": "spec",
+   "beats": 2048,
+   "count": 131072,
+   "cap": 4,
+   "trackId": "b4274973-8ea0-4d34-af40-344d757c49ec",
+   "row": 0,
+   "written": true
+  },
+  "sustain-2048": {
+   "name": "sustain-2048",
+   "kind": "spec",
+   "beats": 2048,
+   "count": 16384,
+   "cap": 64,
+   "trackId": "a3c9fc9c-d508-4c52-ad23-05e272ccd0ce",
+   "row": 0,
+   "written": true
+  },
+  "n4096-8192": {
+   "name": "n4096-8192",
+   "kind": "spec",
+   "beats": 8192,
+   "count": 4096,
+   "cap": 64,
+   "trackId": "19b74771-a32a-4968-a25e-0452e395360a",
+   "row": 0,
+   "written": true
+  },
+  "one-row-1": {
+   "name": "one-64",
+   "kind": "one",
+   "beats": 64,
+   "count": 1,
+   "cap": 64,
+   "trackId": "27147024-f490-49ff-8ab7-b245f2a9f39b",
+   "row": 1,
+   "written": true
+  },
+  "one-row-63": {
+   "name": "one-64",
+   "kind": "one",
+   "beats": 64,
+   "count": 1,
+   "cap": 64,
+   "trackId": "27147024-f490-49ff-8ab7-b245f2a9f39b",
+   "row": 63,
+   "written": true
+  }
+ },
+ "defaults": {
+  "gain": 0,
+  "chance": 1,
+  "chanceEnabled": true,
+  "muted": false
+ },
+ "ownedProject": "New 3",
+ "researchMarker": "8h3a-dealbreakers-v1"
+}

@@ -1,13 +1,13 @@
 ---
 title: Phase 8h3a — Cold-read dealbreaker check
 kind: plan
-state: planned
-status: Planned. Close the live gaps that could still stop the replay cold reader from replacing E131 for reads and writes.
+state: done
+status: Complete. Product rules are selected, visible selection changes are accepted for modal use, and normal restoration passes.
 updated: 2026-10-05
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h2a-replay-cold-read.md
 next: 8h3b-replay-fetch-cost.md
-evidence: E1, E14, E99, E131, E225, E226, E227; D6, D23, D26, D27, D29, D30
+evidence: E1, E14, E99, E131, E225, E226, E227, E228; D6, D23, D26, D27, D29, D30
 ---
 
 # Phase 8h3a — Cold-read dealbreaker check
@@ -167,3 +167,75 @@ the close adds to the read time.
   fix, and E131 retirement (8h3c).
 - Changes to the cache machinery and its promotion (8h3e).
 - Interface simplification and public naming (8h4).
+
+## Session preparation
+
+The current research build is `8h3a-dealbreakers-v2`. V1 data is retained in
+[E228](../../evidence/experiments/e228-cold-read-dealbreaker-check.md). It keeps the 98-method probe
+profile and hash `d89cee6bf21c1f96`. The rig has 16 tracks, 64 rows, two shadow
+cache views, and a reader width of 4,194,304 steps. The reader records the
+D30 close count and preserves the notes at that time. Later callbacks cannot
+change this capture. It also records the order of Empty and non-Empty callbacks.
+A fixture-writer observer tested a delivery receipt. It did not confirm its
+own field setter; the passing barrier uses the execution counter.
+All trial artifacts keep `complete:false` and `eligible:false`.
+
+The research archive and config were deployed. The original config is in
+[evidence data](../../evidence/data/phase8h3a-dealbreakers/config-entry.json).
+V1 hello passed at `2026-10-05T09:07:50.150Z`. The owned project was `New 3`.
+D29 permits reuse of this retired name. Experiment 1 and the first selection
+matrix are complete. After the operator reported v2 replacement, hello still
+returned v1 and the old initialization time. The next full replacement passed
+v2 hello at `2026-10-05T10:08:31.484Z`. The ordered matrix passed all 48
+cases. The write matrix selects actual execution completion for
+pending staged writes. The corrected soak has 500 qualifying binds, including
+250 verified during playback. Five selection-preserving unsubscribe releases
+also pass. Three labelled visual trials passed the automated checks. The
+operator confirms a visible selection change during every read. The user
+accepts this behavior for modal use. Normal restoration passes.
+
+Preparation checks pass: brain type checking and 1,869 tests, extension checks,
+wire goldens, context links, and diff whitespace. The artifact verifier
+recomputed 1,042 verdicts. See
+[preparation.json](../../evidence/data/phase8h3a-dealbreakers/preparation.json).
+
+The labelled repeat is complete. The operator saw a selection change
+between `WATCH READ` and `READ DONE` in every trial. No changes were noticed
+at other times. The task used was:
+
+```sh
+npm run probe:phase8h3a-visual
+```
+
+Do not run live commands in `gn-scale-test`. The ordered route passes.
+Close-task restore followed by unsubscribe preserves selection in the
+automated checks. The visual command checked the same route in three trials.
+It printed phase labels and a countdown, then saved `visual-labelled.json.gz`.
+The operator's report and acceptance are in `operator-visual.json`. Modal use
+permits temporary selection changes. Restore all three entry selection values
+at close under the E99 lease, then unsubscribe. A lost lease refuses restore.
+
+The write command sends the read in the next bridge request for the zero-gap
+case. Its confirmed case waits for the execution counter in a later task.
+The corrected soak checks actual transport state. Its route starts from park
+and selects the row before pointing. The watch cost includes the bridge status
+request; it is not an extension-only timer cost. The complete artifact check
+passes all 1,042 retained verdicts and the operator and restoration gates.
+
+### Completion
+
+The original config is restored with hash `256bbf07…43b0`. The normal archive
+is deployed, and the research archive is removed. The operator confirmed
+closure of `New 3` without saving and full replacement with normal `ghostnote`.
+Normal hello passes at `2026-10-05T12:05:58.299Z`: `normal-v1`, 85 methods,
+hash `bba7383dce25c0f0`. Its initialization is after deployment. The active
+project contains none of the owned fixture track IDs.
+See [restoration.json](../../evidence/data/phase8h3a-dealbreakers/restoration.json).
+
+No dealbreaker remains open. Continue with [8h3b](8h3b-replay-fetch-cost.md).
+
+### Preparation retrospective
+
+The advertised-probe test caught a transport method outside the active profile.
+Use the existing research operation for transport control. Check the probe
+method table before adding a driver call.

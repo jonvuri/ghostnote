@@ -35,6 +35,36 @@ public final class ReplayEpoch {
     final String label;
     long callbacks, onset, sustain, empty, firstNanos, lastNanos, handlerNanos, duplicates, removed, droppedBatches, droppedValues;
     private boolean pending;
+    private boolean measureClose;
+    private Runnable onClose;
+    private ReplayEpoch closed;
+    private long closeNanos, closeSeq = -1, afterClose, firstEmpty = -1, lastEmpty = -1,
+        firstNonEmpty = -1, lastNonEmpty = -1, stateTransitions;
+    private int lastState = -1;
+
+    /** Enable the 8h3a close capture. Older probes keep their original behavior. */
+    public void measureClose(Runnable action) { measureClose = true; onClose = action; }
+
+    private void tryClose() {
+        if (!measureClose || closed != null) return;
+        ValueEvent signal = values.stream().filter(v -> v.kind.equals("clipExists") && v.value.equals("true") && v.taskSeq >= 0)
+            .findFirst().orElse(null);
+        if (signal == null || (callbacks > 0 && (batches.isEmpty() || batches.get(0).taskSeq < 0))) return;
+        closeNanos = System.nanoTime(); closeSeq = callbacks;
+        closed = new ReplayEpoch(id, label, armNanos, schedule);
+        closed.notes = notes;
+        closed.channel = Arrays.copyOf(channel, notes); closed.pitch = Arrays.copyOf(pitch, notes);
+        closed.cell = Arrays.copyOf(cell, notes); closed.velocity = Arrays.copyOf(velocity, notes);
+        closed.duration = Arrays.copyOf(duration, notes); closed.gain = Arrays.copyOf(gain, notes);
+        closed.chance = Arrays.copyOf(chance, notes); closed.chanceEnabled = Arrays.copyOf(chanceEnabled, notes);
+        closed.muted = Arrays.copyOf(muted, notes); closed.gone = Arrays.copyOf(gone, notes);
+        if (onClose != null) onClose.run();
+    }
+
+    public JsonObject closedNotes(int from, int limit) {
+        if (closed == null) throw new IllegalStateException("no D30 close signal");
+        return closed.notes(from, limit);
+    }
     final List<Batch> batches = new ArrayList<>();
     final List<ValueEvent> values = new ArrayList<>();
     /** Research edit: run once when the callback count reaches {@code editAt}. */
@@ -62,6 +92,12 @@ public final class ReplayEpoch {
 
     public void step(int x, int y, int ch, int state, double vel, double dur, double gn, double chc, boolean chcOn, boolean mute, long now) {
         long seq = ++callbacks;
+        if (closed != null) afterClose++;
+        int phase = state == STATE_EMPTY ? 0 : 1;
+        if (lastState >= 0 && lastState != phase) stateTransitions++;
+        lastState = phase;
+        if (phase == 0) { if (firstEmpty < 0) firstEmpty = seq; lastEmpty = seq; }
+        else { if (firstNonEmpty < 0) firstNonEmpty = seq; lastNonEmpty = seq; }
         if (firstNanos == 0) firstNanos = now;
         lastNanos = now;
         if (!pending) {
@@ -115,6 +151,7 @@ public final class ReplayEpoch {
     private void closeBatch(Batch batch) {
         batch.taskSeq = callbacks; batch.taskNanos = System.nanoTime(); batch.lastNanosAtTask = lastNanos;
         pending = false;
+        tryClose();
         schedule.accept(() -> { batch.confirmSeq = callbacks; batch.confirmNanos = System.nanoTime(); });
     }
 
@@ -123,7 +160,7 @@ public final class ReplayEpoch {
         event.kind = kind; event.value = value; event.seq = callbacks; event.nanos = now;
         if (values.size() >= MAX_VALUES) { droppedValues++; return; }
         values.add(event);
-        schedule.accept(() -> { event.taskSeq = callbacks; event.taskNanos = System.nanoTime(); });
+        schedule.accept(() -> { event.taskSeq = callbacks; event.taskNanos = System.nanoTime(); tryClose(); });
     }
 
     public int noteCount() { return notes - (int) countGone(); }
@@ -142,6 +179,11 @@ public final class ReplayEpoch {
         result.addProperty("msSinceLastCallback", lastNanos == 0 ? -1 : (System.nanoTime() - lastNanos) / 1e6);
         result.addProperty("handlerMs", handlerNanos / 1e6);
         result.addProperty("pending", pending);
+        result.addProperty("closeMs", ms(closeNanos)); result.addProperty("closeSeq", closeSeq);
+        result.addProperty("afterClose", afterClose);
+        result.addProperty("firstEmptySeq", firstEmpty); result.addProperty("lastEmptySeq", lastEmpty);
+        result.addProperty("firstNonEmptySeq", firstNonEmpty); result.addProperty("lastNonEmptySeq", lastNonEmpty);
+        result.addProperty("stateTransitions", stateTransitions);
         result.addProperty("droppedBatches", droppedBatches); result.addProperty("droppedValues", droppedValues);
         JsonArray rows = new JsonArray();
         for (Batch batch : batches) {

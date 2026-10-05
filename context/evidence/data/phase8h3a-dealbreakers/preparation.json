@@ -1,0 +1,73 @@
+{
+  "schema": "phase8h3a-preparation-v1",
+  "captured": "2026-10-05T09:06:49.894944+00:00",
+  "complete": false,
+  "eligible": false,
+  "marker": "8h3a-dealbreakers-v1",
+  "controllerReplacementConfirmed": true,
+  "liveTrials": 1042,
+  "researchArchiveSha256": "179d11b450519c4dda85a3008278b30f9fe68d7fe7b9aff21a7d5fa6f7dac99b",
+  "deployedEpochMs": 1791190959363,
+  "researchConfigSha256": "20ebb0e1c46fd2e3abc088de3649b062f49be4a98a001c83a9dd6c36120f1dcb",
+  "verification": {
+    "brainTypecheck": true,
+    "brainTests": 1869,
+    "brainFailures": 0,
+    "extensionCheck": true,
+    "wireGoldens": true,
+    "contextCheck": true,
+    "diffCheck": true,
+    "liveArtifactVerifier": {
+      "verified": 1042,
+      "soaked": 500,
+      "playing": 250,
+      "extraStoppedPlaybackAttempts": 125
+    },
+    "completeArtifactVerifier": true
+  },
+  "researchHello": {
+    "runtimeProfile": "phase-8-probe-v1",
+    "methodCount": 98,
+    "methodsHash": "d89cee6bf21c1f96",
+    "initializedAt": "2026-10-05T09:07:50.150Z",
+    "freshness": "fresh",
+    "marker": "8h3a-dealbreakers-v1",
+    "allPass": true
+  },
+  "ownedProject": "New 3",
+  "v2": {
+    "marker": "8h3a-dealbreakers-v2",
+    "researchArchiveSha256": "00ee5fdcd6fa6d9b8e539cace6e1f3623ddbaad4549639a0d9bc8face3a949a8",
+    "deployedEpochMs": 1791194142289.69,
+    "operatorReplacementReported": true,
+    "hello": {
+      "allPass": true,
+      "freshness": "fresh",
+      "initializedAt": "2026-10-05T10:08:31.484Z",
+      "actualMarker": "8h3a-dealbreakers-v2",
+      "runtimeProfile": "phase-8-probe-v1",
+      "methodCount": 98,
+      "methodsHash": "d89cee6bf21c1f96"
+    },
+    "replacementPending": false
+  },
+  "updated": "2026-10-05T12:08:58.122134+00:00",
+  "pending": [],
+  "exitState": {
+    "ownedProjectClosedWithoutSaving": true,
+    "normalControllerRestored": true,
+    "originalConfigRestored": true,
+    "researchArchiveRemoved": true,
+    "testResidue": false
+  },
+  "visual": {
+    "operatorReadyConfirmed": true,
+    "trials": 5,
+    "recordedChecksPassed": true,
+    "operatorReport": "I saw selection change between each WATCH READ and READ DONE. I didn't notice any selection changes at other times.",
+    "retest": "Complete: three labelled trials passed automated checks; visible selection change in each read.",
+    "labelledTrials": 3,
+    "selectionDecision": "accepted for modal use"
+  },
+  "restorationArtifact": "restoration.json"
+}

@@ -7,7 +7,7 @@ updated: 2026-10-05
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h3a-cold-read-dealbreaker-check.md
 next: 8h3c-cold-reader-promotion.md
-evidence: E227; D30
+evidence: E227, E228; D30
 ---
 
 # Phase 8h3b — Replay fetch cost
@@ -36,9 +36,13 @@ so that the wire format and its goldens change only once.
 ## Entry
 
 Run after [8h3a](8h3a-cold-read-dealbreaker-check.md) has no open
-dealbreaker. Start from the 8h2a research build and the E227 fixtures
+dealbreaker. [E228](../../evidence/experiments/e228-cold-read-dealbreaker-check.md)
+completes that gate. Start from the checked `8h3a-dealbreakers-v2` research
+build and recreate the E227 fixtures
 `n16384-512`, `n131072-2048`, and `sustain-2048`. Use an owned project, never
 `gn-scale-test` (D29). Follow the reload procedure in `AGENTS.md`.
+The 8h3a owned project was closed without saving. The normal config and
+archive are restored. Do not assume that its live fixtures still exist.
 
 ## Work, in order
 

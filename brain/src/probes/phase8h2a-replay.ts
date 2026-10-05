@@ -18,6 +18,7 @@ import { open, readFile, unlink, writeFile } from 'node:fs/promises';
 import { homedir, tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
+import { pathToFileURL } from 'node:url';
 import { LiveAdapter } from '../adapters/live/adapter.js';
 import { BridgeTransport } from '../adapters/live/transport.js';
 import { BridgeClient } from '../client.js';
@@ -33,6 +34,9 @@ import { FIXTURES, ONE_NOTE, ORACLE_MS, REPLAY_MARKER, REPLAY_METHOD_COUNT, REPL
   decodeIssues, fixturePlan, replayConfig, startCandidates, summarizeTrials, targetedAgreement, undecorated, widthCells, windowVerdict,
   type DecodedRow, type DeclaredNote, type Defaults, type FixturePlan, type Wire } from './phase8h2a-replay-lib.js';
 
+let activeMarker: string = REPLAY_MARKER;
+let retiredNameAllowed = false;
+export const setReplayMarker = (marker: string, allowRetiredName = false): void => { activeMarker = marker; retiredNameAllowed = allowRetiredName; };
 const configPath = join(homedir(), '.ghostnote', 'rig.json');
 const ANCHOR_PROJECT = 'gn-scale-test';
 const NOTE_STEP_CLASS = 'com.bitwig.flt.control_surface.proxy.NoteStep';
@@ -41,13 +45,13 @@ const adapter = new LiveAdapter({ transport: new BridgeTransport(bridge) });
 const workspace = workspaceOf({ ready: async () => undefined, adapter,
   executor: new Executor(adapter), stash: new Stash(), observationStore: new FakeObservationStore() });
 const execute = promisify(execFile);
-const request = async (method: string, params?: Wire, timeout = 60_000): Promise<Wire> =>
+export const request = async (method: string, params?: Wire, timeout = 60_000): Promise<Wire> =>
   await bridge.request(method, params, timeout) as Wire;
-const shadow = async (operation: string, params: Wire = {}): Promise<Wire> => await request('cache.shadow', { operation, ...params });
-const wait = async (ms: number): Promise<void> => await new Promise(resolve => setTimeout(resolve, ms));
+export const shadow = async (operation: string, params: Wire = {}): Promise<Wire> => await request('cache.shadow', { operation, ...params });
+export const wait = async (ms: number): Promise<void> => await new Promise(resolve => setTimeout(resolve, ms));
 const hash = (bytes: Buffer): string => createHash('sha256').update(bytes).digest('hex');
-const readJson = async (path: string): Promise<Wire> => JSON.parse(await readFile(path, 'utf8')) as Wire;
-const save = async (path: string, value: Wire, create = false): Promise<void> =>
+export const readJson = async (path: string): Promise<Wire> => JSON.parse(await readFile(path, 'utf8')) as Wire;
+export const save = async (path: string, value: Wire, create = false): Promise<void> =>
   await writeFile(path, JSON.stringify(value, null, 1) + '\n', create ? { flag: 'wx' } : {});
 async function until(next: () => Promise<Wire>, done: (value: Wire) => boolean, limit = 60_000, interval = 30): Promise<Wire> {
   const started = performance.now();
@@ -59,15 +63,16 @@ async function until(next: () => Promise<Wire>, done: (value: Wire) => boolean, 
 }
 
 /** Check the research runtime, marker, and an owned project. */
-async function guard(): Promise<Wire> {
+export async function guard(): Promise<Wire> {
   const hello = await request('contract.hello');
   assert.equal(hello.runtimeProfile, REPLAY_PROFILE); assert.equal(hello.methodCount, REPLAY_METHOD_COUNT);
   assert.equal(hello.methodsHash, REPLAY_METHODS_HASH);
-  const info = await shadow('info'); assert.equal(info.instrumentationRevision, REPLAY_MARKER);
-  const status = await shadow('replayStatus'); assert.equal(status.revision, REPLAY_MARKER);
+  const info = await shadow('info'); assert.equal(info.instrumentationRevision, activeMarker);
+  const status = await shadow('replayStatus'); assert.equal(status.revision, activeMarker);
   const allocation = await shadow('allocationStats');
-  // D29: never run research in the saved anchor. New 3 stays refused as well.
-  assert(![PROTECTED_PROJECT, ANCHOR_PROJECT].includes(String(allocation.projectName)), 'never run in a protected or anchor project');
+  // D29: refuse the saved anchor. An owned project can reuse the retired name.
+  const refused = retiredNameAllowed ? [ANCHOR_PROJECT] : [PROTECTED_PROJECT, ANCHOR_PROJECT];
+  assert(!refused.includes(String(allocation.projectName)), 'never run in a protected or anchor project');
   assert(String(allocation.projectName).length > 0, 'project name unavailable');
   return { hello, project: allocation.projectName, configuration: info.activeConfiguration, stats: await request('rig.stats') };
 }
@@ -104,7 +109,7 @@ async function config(entryPath: string): Promise<void> {
   await writeFile(configPath, JSON.stringify(research) + '\n');
   console.log(JSON.stringify({ research, researchSha256: hash(await readFile(configPath)) }));
 }
-async function restore(entryPath: string): Promise<void> {
+export async function restore(entryPath: string): Promise<void> {
   const bytes = Buffer.from(String((await readJson(entryPath)).originalBase64), 'base64');
   assert.equal(hash(bytes), ORIGINAL_CONFIG_SHA256); await writeFile(configPath, bytes);
   assert.equal(hash(await readFile(configPath)), ORIGINAL_CONFIG_SHA256);
@@ -112,14 +117,14 @@ async function restore(entryPath: string): Promise<void> {
 }
 
 interface Fixture extends FixturePlan { trackId: string; row: 0; written: boolean }
-async function trackIndexOf(id: string): Promise<number> {
+export async function trackIndexOf(id: string): Promise<number> {
   const track = ((await request('track.list')).tracks as Wire[]).find(row => row.channelId === id);
   assert(track, `owned track ${id} is absent`); return Number(track.index);
 }
 const parkId = (state: Wire): string => String((state.tracks as Wire).park);
 
 /** Create the park track and one track for each fixture. The park track never holds a clip. */
-async function setup(statePath: string): Promise<void> {
+export async function setup(statePath: string): Promise<void> {
   await guard();
   const state: Wire = { schema: 'phase8h2a-state-v1', tracks: {}, fixtures: {} };
   await save(statePath, state, true);
@@ -134,7 +139,7 @@ async function setup(statePath: string): Promise<void> {
   console.log(JSON.stringify({ tracks: state.tracks }));
 }
 
-async function bindFixture(trackIndex: number, row: number): Promise<void> {
+export async function bindFixture(trackIndex: number, row: number): Promise<void> {
   await shadow('fixturePin', { pinned: false }); await shadow('fixturePoint', { trackIndex });
   const id = ((await request('track.list')).tracks as Wire[]).find(value => value.index === trackIndex)!.channelId;
   await until(() => shadow('fixtureStatus'), value => value.trackChannelId === id);
@@ -147,7 +152,7 @@ async function bindFixture(trackIndex: number, row: number): Promise<void> {
   await until(() => shadow('fixtureStatus'), value => value.trackPinned === true && value.clipPinned === true);
 }
 /** The fixture writer is full-width; park it so that it holds no grid. */
-async function parkFixture(state: Wire): Promise<void> {
+export async function parkFixture(state: Wire): Promise<void> {
   await shadow('fixturePin', { pinned: false }); await shadow('fixturePoint', { trackIndex: await trackIndexOf(parkId(state)) });
   await until(() => shadow('fixtureStatus'), value => value.trackChannelId === parkId(state) && value.clipExists === false);
 }
@@ -181,7 +186,7 @@ function expectedAt(plan: FixturePlan, indexes: number[], defaults: Defaults): D
 }
 
 /** Write, decorate, and verify every fixture. The `one` note gives the host defaults; it is never decorated. */
-async function fixtures(statePath: string): Promise<void> {
+export async function fixtures(statePath: string): Promise<void> {
   await guard();
   const state = await readJson(statePath), done = state.fixtures as Record<string, Fixture>;
   for (const plan of FIXTURES) {
@@ -245,7 +250,7 @@ async function fixtures(statePath: string): Promise<void> {
 }
 
 /** Point the reader at the park track with an armed epoch, then wait until it is quiet. */
-async function parkReader(state: Wire): Promise<Wire> {
+export async function parkReader(state: Wire): Promise<Wire> {
   const park = await trackIndexOf(parkId(state));
   const act = await arm({ action: 'point', trackIndex: park, label: 'park' });
   const status = await observe(Number(act.epoch), 1_000);
@@ -254,7 +259,7 @@ async function parkReader(state: Wire): Promise<Wire> {
 }
 /** Observe an epoch until {@code quietMs} after the arm and after its last callback, with no batch task pending. */
 const armTimes = new Map<number, number>();
-async function observe(epoch: number, quietMs: number): Promise<Wire> {
+export async function observe(epoch: number, quietMs: number): Promise<Wire> {
   const armed = armTimes.get(epoch); assert(armed !== undefined, 'observe needs an epoch armed by this driver');
   return await until(() => shadow('replayStatus'), value => {
     const e = value.epoch as Wire; assert.equal(e.epoch, epoch, 'epoch changed under observation');
@@ -262,12 +267,42 @@ async function observe(epoch: number, quietMs: number): Promise<Wire> {
     return e.pending === false && performance.now() - armed >= quietMs && (since < 0 || since >= quietMs);
   }, 600_000, 50);
 }
-async function arm(params: Wire): Promise<Wire> {
+export async function arm(params: Wire): Promise<Wire> {
   const started = performance.now(), act = await shadow('replayAct', { ...params, arm: true });
   armTimes.set(Number(act.epoch), started); return act;
 }
 
-async function decoded(epoch: number): Promise<{ rows: DecodedRow[]; bytes: number; pages: number; encodeMs: number; wallMs: number }> {
+/** Test the point-then-slot.select route in one controller task. */
+export async function armViaSlot(trackIndex: number, row: number): Promise<Wire> {
+  const started = performance.now();
+  const batch = await request('batch.run', { ops: [
+    { method: 'cache.shadow', params: { operation: 'replayAct', action: 'point', trackIndex,
+      arm: true, measureClose: true, label: 'point-then-slot-select' } },
+    { method: 'slot.select', params: { trackIndex, slotIndex: row, mechanism: 'slot' } },
+  ] });
+  assert.equal(batch.failures, 0);
+  const status = await shadow('replayStatus'), epoch = Number((status.epoch as Wire).epoch);
+  armTimes.set(epoch, started);
+  return { epoch, actMs: null, batch };
+}
+
+/** Select the target row while the reader stays at park, then point it in the same task. */
+export async function armSelectedTarget(trackIndex: number, row: number, params: Wire): Promise<Wire> {
+  const started = performance.now(), owned = params.ownerToken === undefined ? {} : { selectionOwnerToken: params.ownerToken };
+  const ops = [
+    { method: 'cache.shadow', params: { operation: 'replayAct', ...params, action: 'none', trackIndex, row,
+      arm: true, measureClose: true, label: 'select-row-before-point' } },
+    { method: 'slot.select', params: { trackIndex, slotIndex: row, mechanism: 'track', ...owned } },
+    { method: 'cache.shadow', params: { operation: 'replayAct', action: 'point', trackIndex } },
+  ];
+  if (params.restoreWhen === 'bind') ops.push({ method: 'cache.shadow', params: { operation: 'replayAct',
+    ...params, action: 'restore', trackIndex, row } });
+  const batch = await request('batch.run', { ops }); assert.equal(batch.failures, 0);
+  const status = await shadow('replayStatus'), epoch = Number((status.epoch as Wire).epoch);
+  armTimes.set(epoch, started); return { epoch, actMs: null, batch };
+}
+
+export async function decoded(epoch: number): Promise<{ rows: DecodedRow[]; bytes: number; pages: number; encodeMs: number; wallMs: number }> {
   const started = performance.now(), rows: DecodedRow[] = [];
   let from = 0, bytes = 0, pages = 0, encodeMs = 0;
   for (;;) {
@@ -437,6 +472,7 @@ async function e131(out: string, statePath: string, name: string, n: number): Pr
   finally { await save(out, report); }
 }
 
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
 const [command, ...args] = process.argv.slice(2);
 // Each live command owns the research cursors and state files until its process exits.
 const lockPath = join(tmpdir(), 'ghostnote-phase8h2a-live.lock');
@@ -457,3 +493,6 @@ try {
   bridge.disconnect();
   if (liveLock) { await liveLock.close(); await unlink(lockPath); }
 }
+
+}
+export const disconnectReplay = (): void => bridge.disconnect();

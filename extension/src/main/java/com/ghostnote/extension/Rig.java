@@ -947,7 +947,7 @@ public class Rig {
                 ? new ShadowSoundingProbe(host, config.cacheShadowSteps, config.scenes) : null;
             if (soundingProbe != null) attachSoundingCursors(config);
             replayReader = config.cacheReplayResearch && kneeFixture != null
-                ? new ShadowReplayReader(host, config.cacheShadowSteps, config.scenes, kneeFixture::edit) : null;
+                ? new ShadowReplayReader(host, this, config.cacheShadowSteps, config.scenes, kneeFixture::edit) : null;
             arrangerClip = host.createArrangerCursorClip(config.gridSteps, config.gridKeys);
             markClip(arrangerClip);
         } else {

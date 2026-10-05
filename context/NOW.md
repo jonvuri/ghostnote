@@ -4,52 +4,59 @@ kind: status
 state: active
 updated: 2026-10-05
 phase: phase-8-agent-native-live-engine
-session: 8h3-planned
+session: 8h3a-complete
 ---
 
 # Now
 
-The replay cold read ([E227](evidence/experiments/e227-replay-cold-read.md),
-[D30](decisions/d30-replay-batch-and-start-signal-are-named-assumptions.md))
-changed the 8h route. The replay reader is the planned replacement for E131 on
-every read and write path. The resident note cache has no speed role. The
-identity, generation, and snapshot-validity machinery stays, because the
-compact-bar format sends patches against snapshots.
+[8h3a — Cold-read dealbreaker check](plan/phase-8/8h3a-cold-read-dealbreaker-check.md)
+is complete. [E228](evidence/experiments/e228-cold-read-dealbreaker-check.md)
+records 1,042 verified verdicts and 500 qualifying soak binds, with 250 playing.
+No dealbreaker remains open. [D30](decisions/d30-replay-batch-and-start-signal-are-named-assumptions.md)
+coverage is updated; its assumptions are not revoked.
 
-The planning session replaced 8h1 and 8h2b with five sessions, 8h3a to 8h3e. See the
-[8h session split](plan/phase-8/8h-cache-promotion-and-interface-simplification.md#session-split).
-The planning changes are staged for review. No commit was made.
+Product rules for 8h3c:
 
-Next: [8h3a — Cold-read dealbreaker check](plan/phase-8/8h3a-cold-read-dealbreaker-check.md).
-Then [8h3b — Replay fetch cost](plan/phase-8/8h3b-replay-fetch-cost.md),
-[8h3c — Cold-reader promotion](plan/phase-8/8h3c-cold-reader-promotion.md),
-[8h3d — Change awareness](plan/phase-8/8h3d-change-awareness.md), and
-[8h3e — Cache machinery trim](plan/phase-8/8h3e-cache-machinery-trim.md)
-(outline only). Interface simplification is now 8h4.
+- Bind from empty park. Select the target row before pointing the reader.
+- Finish scheduled writes before the read opens. A scheduling reply is not
+  an execution barrier. Queue writes behind an open read.
+- The user accepts temporary visible selection changes for modal use.
+  Capture selection before park preparation. Restore slot track, slot row,
+  and mixer track at close under the E99 lease; unsubscribe for release.
+  A lost lease must refuse restoration.
+- Flag every step callback after close and before release. Refuse the frozen
+  capture on a violation. Use no fixed watch delay.
+
+The replay reader remains the planned replacement for E131 on every read and
+write path. The resident note cache has no speed role. Keep identity,
+generation, and snapshot validity for patches against snapshots.
+
+Next: [8h3b — Replay fetch cost](plan/phase-8/8h3b-replay-fetch-cost.md).
+Then 8h3c promotion, 8h3d change awareness, and 8h3e cache trim.
+Changes are staged for review. No commit was made.
 
 ## Live state
 
-- The original rig config is restored (SHA-256 `256bbf07…43b0`). The normal
+- The operator closed `New 3` without saving. No fixture tracks remain in the
+  active project. `gn-scale-test` is the anchor; research did not change it.
+- The original config is restored (SHA-256 `256bbf07…43b0`). The normal
   archive is deployed. The research archive is removed.
-- The UI shows `gn-scale-test`, which research did not change.
-- Normal hello passes: `normal-v1`, 85 methods, hash `bba7383dce25c0f0`.
+- Fresh normal hello passes at `2026-10-05T12:05:58.299Z`: `normal-v1`,
+  85 methods, hash `bba7383dce25c0f0`. See
+  [restoration.json](evidence/data/phase8h3a-dealbreakers/restoration.json).
 
 ## Facts that are easy to lose
 
-- D23 settles one 1/512 view. No triplet policy remains to select. The stable
-  code still has the `1/768` view until 8h3c removes it.
-- E225 proved width up to 4,194,304 steps, but the normal runtime limits are
-  not changed. 8h3c makes that width the product limit.
-- Every bind calls the target track's `selectSlot(row)`. D6, E1, and E14 show
-  that this moves the user's slot selection when the row is not already
-  selected. Non-following cursors do not follow the user's selection, but
-  pointing them can still change it. E227 used row 0 only. 8h3a measures it.
-- The bridge fetch took 379 ms for 131,072 notes (E227). 8h3b profiles it.
-- Host gain reads back twice the written value (E2). A repeated equal setter
-  leaves a cursor's `getStep` cache stale; rebind for a fresh read.
+- D23 settles one 1/512 view. Stable code keeps `1/768` until 8h3c removes it.
+- E225 proved 4,194,304 steps. Normal limits stay unchanged until 8h3c.
+- Non-following cursors can change visible selection when pointed. E131 also
+  borrows selection. Modal acceptance keeps the lease and restore guards.
+- E227 fetched 131,072 notes in 379 ms. 8h3b profiles that cost.
+- Host gain reads back twice the written value (E2). An equal setter can leave
+  `getStep` stale; rebind for a fresh verification read.
 
 ## Retrospective
 
-Two facts were misstated during the assessment: the width limit (proved in
-E225 but not promoted) and the triplet policy (settled in D23). The stable code
-did not yet show either. "Facts that are easy to lose" above now records both.
+Use terminal phase labels and a countdown for operator checks. Verify actual
+transport state; `play()` toggles it. Keep historical attempt data separate
+from the qualifying set.

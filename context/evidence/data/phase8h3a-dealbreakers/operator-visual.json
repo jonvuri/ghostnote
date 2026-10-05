@@ -1,0 +1,17 @@
+{
+  "schema": "phase8h3a-operator-visual-v1",
+  "complete": false,
+  "eligible": false,
+  "operatorConfirmed": true,
+  "row": 1,
+  "artifact": "visual-labelled.json.gz",
+  "trials": 3,
+  "observedSelectionChange": true,
+  "phaseAttribution": "WATCH READ through READ DONE",
+  "otherPhaseChangesNoticed": false,
+  "report": "I saw selection change between each WATCH READ and READ DONE. I didn't notice any selection changes at other times.",
+  "selectionDecision": "accepted",
+  "userAcceptedRule": true,
+  "decisionReport": "The temporary selection change is fine. Modal usage is expected - use the agent to interact with Bitwig, and for the most part don't touch Bitwig while the agent is controlling it.",
+  "acceptedRule": "Modal use permits temporary selection changes. Restore slot track, slot row, and mixer track at close under the E99 lease; unsubscribe for release. A lost lease refuses restoration."
+}

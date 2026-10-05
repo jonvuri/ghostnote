@@ -14,6 +14,8 @@ public final class ReplayEpochTest {
         run("value callbacks schedule a task that sees the step count", ReplayEpochTest::valueTask);
         run("decode keeps note starts only and flags duplicates and removals", ReplayEpochTest::decode);
         run("an in-replay edit runs once at its callback", ReplayEpochTest::edit);
+        run("D30 close preserves notes and detects a later callback", ReplayEpochTest::closeCapture);
+        run("D30 waits for the true exists task and the first step task", ReplayEpochTest::closeOrdering);
         System.out.println("Replay epoch: " + passed + " test groups passed.");
     }
 
@@ -67,6 +69,26 @@ public final class ReplayEpochTest {
         e.armEdit(2, () -> runs[0]++);
         on(e, 0, 60, 0); on(e, 1, 60, 0); on(e, 2, 60, 0);
         check(runs[0] == 1 && e.status().getAsJsonObject("edit").get("seq").getAsLong() == 2, "edit at callback 2 only");
+    }
+
+    private static void closeCapture() {
+        ReplayEpoch e = epoch(); int[] calls = {0};
+        e.measureClose(() -> calls[0]++);
+        e.value("clipExists", "true", 2); on(e, 0, 60, 0); drain();
+        check(e.status().get("closeSeq").getAsLong() == 1 && calls[0] == 1, "one close after both tasks");
+        e.step(0, 60, 0, ReplayEpoch.STATE_EMPTY, 0, 0, 0, 0, false, false, 4); drain();
+        check(e.status().get("afterClose").getAsLong() == 1, "tripwire counts late callback");
+        check(e.closedNotes(0, 10).getAsJsonArray("rows").size() == 1 && e.noteCount() == 0, "snapshot stays exact");
+    }
+
+    private static void closeOrdering() {
+        ReplayEpoch e = epoch(); e.measureClose(null);
+        e.value("clipExists", "false", 2); on(e, 0, 60, 0); drain();
+        check(e.status().get("closeSeq").getAsLong() == -1, "false exists does not close");
+        e.value("clipExists", "true", 4); drain();
+        check(e.status().get("closeSeq").getAsLong() == 1, "later exists task closes");
+        e = epoch(); e.measureClose(null); e.value("clipExists", "true", 2); drain();
+        check(e.status().get("closeSeq").getAsLong() == 0, "empty clip closes on exists");
     }
 
     private static void run(String name, Runnable test) { test.run(); passed++; System.out.println("PASS  " + name); }

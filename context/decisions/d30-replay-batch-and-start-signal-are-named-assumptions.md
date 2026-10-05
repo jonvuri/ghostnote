@@ -23,6 +23,26 @@ to 8,192 beats. Each replay was one batch, and both tasks saw every callback. A
 2 s observation after each bind found no late callback. E227 does not prove
 either rule. The host does not expose batch boundaries.
 
+## E228 coverage
+
+[E228](../evidence/experiments/e228-cold-read-dealbreaker-check.md) adds 120
+matching binds from park, 48 ordered row cases at rows 0, 1, and 63, 40 reads
+after executed velocity writes, and 500 qualifying soak binds. Half of the
+soak binds ran with transport playing. These reads had exact close captures
+and no callback after close. An additional 125 stopped soak attempts also
+passed; they do not count toward the required playback set.
+
+The reader must bind from park and select the row before pointing. A direct
+bind lacks the accepted start signal. A delayed batch reply confirms scheduling,
+not execution. The read must wait until scheduled writes have executed in a
+prior controller task. Writes that execute during the read remain excluded.
+
+This adds evidence for the same named assumptions. It does not prove them or
+admit a product reader. E228 confirms temporary visible selection changes.
+The user accepts them for modal use. Restore the full entry selection at
+close under the E99 lease, then unsubscribe for release. A lost lease must
+refuse restoration. This selection rule does not change the D30 assumptions.
+
 ## What this decision does not accept
 
 - Native input, a target that changes during the bind, and other host

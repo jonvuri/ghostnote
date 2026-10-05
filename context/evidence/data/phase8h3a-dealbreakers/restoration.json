@@ -1,0 +1,135 @@
+{
+  "schema": "phase8h3a-restoration-v1",
+  "complete": false,
+  "eligible": false,
+  "configSha256": "256bbf07094cd654c372d0e5e050e494ef7783c9a0001a0a2a688331bcf643b0",
+  "researchArchiveRemoved": true,
+  "normalArchiveSha256": "1c9cf126b72523026d53df8daaafdc2b745ba37c0fb6b0f3856f771962096d5f",
+  "normalDeployedEpochMs": 1791201863220.8267,
+  "normalDeployedAt": "2026-10-05T12:04:23.220827+00:00",
+  "ownedProjectClosedWithoutSaving": true,
+  "controllerReplacementPending": false,
+  "pending": [],
+  "operatorConfirmed": true,
+  "operatorReport": "Done",
+  "hello": {
+    "contractVersion": 0,
+    "extensionVersion": "0.0.1",
+    "runtimeProfile": "normal-v1",
+    "hostApiVersion": 25,
+    "methodCount": 85,
+    "methodsHash": "bba7383dce25c0f0",
+    "initializedAt": "2026-10-05T12:05:58.299Z",
+    "freshness": "fresh",
+    "allPass": true
+  },
+  "rig": {
+    "runtimeProfile": "normal-v1",
+    "tracks": 256,
+    "scenes": 128,
+    "gridSteps": 64,
+    "fineSteps": 512,
+    "noteReadSteps": 2048,
+    "gridKeys": 128,
+    "stepSize": 0.25,
+    "cursorPool": 8,
+    "deviceBank": 16,
+    "remotePages": 16,
+    "containerScopes": 3,
+    "containerEntryBank": 5,
+    "containerEntryDeviceBank": 4,
+    "parameterRouteDepth": 2,
+    "sceneCount": 10
+  },
+  "host": {
+    "hostApiVersion": 25,
+    "hostProduct": "Bitwig Studio",
+    "hostVendor": "Bitwig",
+    "hostVersion": "6.0.6",
+    "javaVersion": "25",
+    "javaVendor": "Azul Systems, Inc."
+  },
+  "activeTracks": {
+    "tracks": [
+      {
+        "index": 0,
+        "name": "Instrument Layer",
+        "position": 0,
+        "type": "Hybrid",
+        "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+      },
+      {
+        "index": 1,
+        "name": "Hybrid 2",
+        "position": 1,
+        "type": "Hybrid",
+        "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+      },
+      {
+        "index": 2,
+        "name": "gn-A",
+        "position": 2,
+        "type": "Instrument",
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+      },
+      {
+        "index": 3,
+        "name": "gn-B",
+        "position": 3,
+        "type": "Instrument",
+        "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+      },
+      {
+        "index": 4,
+        "name": "Group 5",
+        "position": 4,
+        "type": "Group",
+        "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+      },
+      {
+        "index": 5,
+        "name": "gn-lay",
+        "position": 5,
+        "type": "Instrument",
+        "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+      },
+      {
+        "index": 6,
+        "name": "gn-lay4",
+        "position": 6,
+        "type": "Instrument",
+        "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+      },
+      {
+        "index": 7,
+        "name": "gn-sel",
+        "position": 7,
+        "type": "Instrument",
+        "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+      },
+      {
+        "index": 8,
+        "name": "FX 1",
+        "position": 8,
+        "type": "Effect",
+        "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+      },
+      {
+        "index": 9,
+        "name": "Master",
+        "position": 9,
+        "type": "Master",
+        "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+      }
+    ],
+    "count": 10,
+    "itemCount": 10,
+    "bankSize": 256
+  },
+  "normalBuildChecks": {
+    "researchMethodAbsent": true,
+    "normalRigLimits": true,
+    "ownedFixtureIdsAbsent": true
+  },
+  "verifiedAt": "2026-10-05T12:07:11.597Z"
+}

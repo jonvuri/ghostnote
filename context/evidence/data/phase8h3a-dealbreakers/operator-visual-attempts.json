@@ -1,0 +1,21 @@
+{
+  "schema": "phase8h3a-operator-visual-attempts-v1",
+  "complete": false,
+  "eligible": false,
+  "reports": [
+    {
+      "artifact": "visual.json.gz",
+      "operatorConfirmed": true,
+      "observedTrackFlicker": true,
+      "phaseAttribution": "unknown",
+      "report": "Yes, I saw the track selections flicker several times. I don't know if it was specifically during the reads because I didn't have any kind of progress readout to see at the same time."
+    },
+    {
+      "artifact": "visual-labelled.json.gz",
+      "operatorConfirmed": true,
+      "observedSelectionChange": true,
+      "phaseAttribution": "WATCH READ through READ DONE",
+      "report": "I saw selection change between each WATCH READ and READ DONE. I didn't notice any selection changes at other times."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "schema": "phase8h3a-barrier-attempts-v1",
+  "complete": false,
+  "eligible": false,
+  "marker": "8h3a-dealbreakers-v2",
+  "attempts": [
+    {
+      "kind": "fixture-writer-step-callback",
+      "limit": "100 immediate status requests",
+      "confirmed": false
+    },
+    {
+      "kind": "fixture-writer-step-callback",
+      "limitMs": 5000,
+      "pollMs": 10,
+      "confirmed": false
+    }
+  ],
+  "cleanup": "Original velocity restored; reader and writer returned to park after each timeout."
+}

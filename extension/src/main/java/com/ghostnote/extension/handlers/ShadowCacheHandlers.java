@@ -103,6 +103,8 @@ public final class ShadowCacheHandlers extends HandlerGroup {
         return switch (operation) {
             case "replayStatus" -> reader.status();
             case "replayAct" -> reader.act(params, this::requireTrack);
+            case "replayClosedNotes" -> reader.closedNotes(params.get("epoch").getAsLong(), params.get("from").getAsInt(),
+                params.has("limit") ? params.get("limit").getAsInt() : 16_384);
             case "replayNotes" -> reader.notes(params.get("epoch").getAsLong(), params.get("from").getAsInt(),
                 params.has("limit") ? params.get("limit").getAsInt() : 16_384);
             default -> throw new IllegalArgumentException("unknown replay research operation");
