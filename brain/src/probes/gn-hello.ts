@@ -28,6 +28,13 @@ const rig = (await client.request('rig.info')) as Record<string, unknown>;
 note(`rig.info -> ${JSON.stringify(rig)}`);
 check('the rig constructed (so no marked handle threw at init — E7-0)', typeof rig['tracks'] === 'number', rig);
 
+const reader = rig['clipReader'] as Record<string, unknown> | undefined;
+check('the product clip reader has the required build marker and configuration',
+  reader?.['revision'] === 'clip-reader-v1' && reader?.['closeRule'] === 'confirm-before-release-v1'
+    && reader?.['format'] === 'notes-v1'
+    && reader?.['width'] === 4_194_304 && reader?.['grid'] === 1 / 512,
+  reader);
+
 console.log('\n-- B. the contract handshake');
 const hello = (await client.request('contract.hello')) as {
   contractVersion: number; extensionVersion: string; hostApiVersion: number;

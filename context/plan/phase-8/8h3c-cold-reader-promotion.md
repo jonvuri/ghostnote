@@ -1,16 +1,25 @@
 ---
 title: Phase 8h3c — Cold-reader promotion
 kind: plan
-state: planned
-status: Planned. Replace E131 with the replay cold reader on every read and write path, with a write queue, one 1/512 view, and the disabled-control fix.
+state: done
+status: Complete. Product cold reads, normalized mutation, disabled controls, and write queues pass E230. Fixtures are removed and fresh normal hello passes.
 updated: 2026-10-05
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h3b-replay-fetch-cost.md
 next: 8h3d-change-awareness.md
-evidence: E131, E139, E214, E219, E224, E225, E226, E227; D8, D9, D23, D26, D27, D30
+evidence: E131, E139, E214, E219, E224, E225, E226, E227, E228, E229, E230; D8, D9, D23, D26, D27, D30, D31
 ---
 
 # Phase 8h3c — Cold-reader promotion
+
+## Result
+
+Complete in [E230](../../evidence/experiments/e230-cold-reader-promotion.md).
+All eight paired fixtures match E131 inside D31. All refusal and gate cases
+pass. Raw disabled controls are preserved. E131 is retained only as a named
+diagnostic. Brain check passes 1,887 tests; extension checks and artifact
+verifiers pass. Owned fixtures are removed, the owned project is closed
+without saving, and fresh normal hello passes. Changes are staged only.
 
 ## Why
 
@@ -33,7 +42,7 @@ dealbreaker.
 | Output | Normalized notes and the exact source for write guards | Normalized notes only |
 
 [D23](../../decisions/d23-normalized-clip-acquisition-uses-one-1-512-view.md)
-settles one 1/512 view with nearest-cell rounding. Triplet and other sub-cell
+settles one 1/512 view with occupied-cell rounding. Triplet and other sub-cell
 onsets are not kept. No other triplet policy is needed.
 
 [E224](../../evidence/experiments/e224-final-shadow-acceptance.md) found that
@@ -59,6 +68,10 @@ contract.
 
 ### 1. Product reader
 
+The product park target is the master track. It has no Launcher clips.
+Prove this route with three repeated owned reads before other live cases.
+If it fails, stop live work and ask the operator.
+
 Move `ShadowReplayReader` from research to a product reader in the normal
 profile:
 
@@ -66,7 +79,8 @@ profile:
    width limit (E225). Clips beyond it refuse clearly.
 2. The read follows D30: open, bind under the 8h3a bind-source rule, close at
    the later of the first-callback task and the `clipExists` task, decode
-   from callbacks only, and release (park or unsubscribe, E226).
+   from callbacks only, confirm while subscribed, and then release (park or
+   unsubscribe, E226). E228 ran its oracle before explicit release.
 3. One read is open at a time. Other reads wait in order.
 4. A read has a deadline, for example 2 s, well above the E227 maximum of
    698 ms. At the deadline the read refuses and releases.
@@ -141,6 +155,8 @@ removed methods, tools, profiles, and tests, and any compatibility break.
   duplicate cell, a step-delta violation, and an absent configuration.
 - No `1/768` code or cost remains on the product path. D8 or a new decision
   records the D23 boundary for mutation and reversal.
+- A normalized cell start with a triplet duration reconstructs and verifies
+  inside D31. Unsupported durations still refuse before mutation.
 - The E224 disabled-control case preserves all unmentioned state or refuses
   before mutation.
 - The write queue passes live tests: the E227 in-replay edit, sent as a bridge

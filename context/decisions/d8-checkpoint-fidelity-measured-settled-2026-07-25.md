@@ -2,7 +2,7 @@
 id: D8
 kind: decision
 state: active
-updated: 2026-10-01
+updated: 2026-10-05
 source: DECISIONS.md
 ---
 
@@ -70,3 +70,17 @@ unrelated notes. D16 defines its boundary and concurrent-change refusal.
 preparation only after the [cache contract](../contracts/GHOSTNOTE_CACHE_CONTRACT.md)
 and live verification gates pass. This amendment does not reduce recorded
 reversal fidelity or change the current low-level encoder.
+
+## Phase 8h3c cell boundary amendment — 2026-10-05
+
+[D31](d31-mutation-and-reversal-use-the-d23-cell-boundary.md) adopts D23
+for mutation and reversal. Checkpoints store the reported `1/512` cell start.
+Reconstruction and reversal restore that start. Fidelity excludes the prior
+sub-cell onset and same-cell source multiplicity. The onset can move down by
+less than `1/512` beat. Durations and properties keep their measured fidelity
+limits. A cell start can combine with a duration from another D9 lattice.
+Unsupported durations still refuse before reconstruction.
+
+The 8f3 amendment above describes the prior E131 implementation. Product
+preflight now uses the complete cold reader, inside this stated cell boundary.
+The raw disabled-control preservation gate still applies.

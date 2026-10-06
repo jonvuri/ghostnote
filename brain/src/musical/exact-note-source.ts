@@ -1,4 +1,4 @@
-/** Canonical complete note state for private symbolic consumers. */
+/** Complete NoteStep state inside the D31 cell boundary. Legacy schema names remain. */
 import { createHash } from 'node:crypto';
 
 import {

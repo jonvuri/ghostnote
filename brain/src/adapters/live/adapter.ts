@@ -46,10 +46,11 @@ import {
 import { SETTLE_MS } from '../../contract/index.js';
 import { BridgeError } from '../../client.js';
 import {
-  STEP_SIZES, decodeVerboseNote, encodeStage, notePageStarts, notePropertyPageStarts,
+  encodeStage, notePageStarts, notePropertyPageStarts,
   noteRemovalPageStarts, noteRemovalStepSize,
   sceneRowIn, type EncodeContext,
 } from './encoder.js';
+import { CLIP_READ_GRID, NOTE_FRAME_FORMAT, decodeNoteFrame, notesByChannel, type NoteFrame, type RawNoteFields } from './clip-read.js';
 import { CursorPool } from './pool.js';
 import { BridgeTransport, type Transport } from './transport.js';
 import { WIRE } from './wiremap.js';
@@ -425,87 +426,8 @@ interface ClipCursorStatus {
   readonly cursorTrackPinned?: boolean;
 }
 
-/** One exact, reconciled note reading for all 16 MIDI channels in a clip. */
+/** One normalized note reading for all 16 MIDI channels in a clip. */
 type ClipNoteChannels = ReadonlyMap<number, readonly NoteRecord[]>;
-
-/** Join two lossy grid views without dropping a note that only one view reports. */
-export function reconcileExactNoteScans(
-  clipRef: ClipAddress,
-  channel: number,
-  binary: readonly NoteRecord[],
-  triplet: readonly NoteRecord[],
-  maximumStartDifference = 1 / 48,
-): readonly NoteRecord[] {
-  const byPitch = (notes: readonly NoteRecord[]): ReadonlyMap<number, readonly NoteRecord[]> => {
-    const grouped = new Map<number, NoteRecord[]>();
-    for (const note of notes) {
-      const found = grouped.get(note.pitch) ?? [];
-      found.push(note);
-      grouped.set(note.pitch, found);
-    }
-    for (const found of grouped.values()) found.sort((left, right) => left.startBeats - right.startBeats);
-    return grouped;
-  };
-  const body = (note: NoteRecord): string => {
-    const { startBeats: _start, ...fields } = note;
-    return JSON.stringify(fields);
-  };
-  const left = byPitch(binary);
-  const right = byPitch(triplet);
-  const pitches = new Set([...left.keys(), ...right.keys()]);
-  const result: NoteRecord[] = [];
-  for (const pitch of pitches) {
-    const binaryPitch = left.get(pitch) ?? [];
-    const tripletPitch = right.get(pitch) ?? [];
-    const unusedTriplet = new Set(tripletPitch.map((_, index) => index));
-    const unmatchedBinary: NoteRecord[] = [];
-    for (const binaryNote of binaryPitch) {
-      const matched = [...unusedTriplet]
-        .filter((index) => body(binaryNote) === body(tripletPitch[index]!))
-        .map((index) => ({
-          index,
-          distance: Math.abs(binaryNote.startBeats - tripletPitch[index]!.startBeats),
-        }))
-        .filter((item) => item.distance <= maximumStartDifference)
-        .sort((first, second) => first.distance - second.distance || first.index - second.index)[0];
-      if (matched === undefined) {
-        unmatchedBinary.push(binaryNote);
-        continue;
-      }
-      unusedTriplet.delete(matched.index);
-      const tripletNote = tripletPitch[matched.index]!;
-      result.push({
-        ...binaryNote,
-        startBeats: Math.max(binaryNote.startBeats, tripletNote.startBeats),
-      });
-    }
-    const unmatchedTriplet = [...unusedTriplet].map((index) => tripletPitch[index]!);
-    const ambiguous = unmatchedBinary.some((binaryNote) => unmatchedTriplet.some((tripletNote) =>
-      Math.abs(binaryNote.startBeats - tripletNote.startBeats) <= maximumStartDifference));
-    if (ambiguous) {
-      throw new AddressUnresolvedError(
-        clipRef,
-        `binary and triplet scans disagree on channel ${channel}, pitch ${pitch} note identity`,
-      );
-    }
-    result.push(...unmatchedBinary, ...unmatchedTriplet);
-  }
-  return result.sort((leftNote, rightNote) =>
-    leftNote.startBeats - rightNote.startBeats || leftNote.pitch - rightNote.pitch);
-}
-
-interface WireVerboseChannel {
-  readonly channel: number;
-  readonly notes: readonly Record<string, number | boolean | string>[];
-  readonly count: number;
-}
-
-interface WireVerboseAllChannels {
-  readonly channels: readonly WireVerboseChannel[];
-  readonly count: number;
-  readonly scanMicros: number;
-  readonly clipExists?: boolean;
-}
 
 /**
  * ⚠ `RigConfig.scenes`' shipped default, and a PLACEHOLDER, not a reading.
@@ -537,14 +459,6 @@ export interface LiveOptions {
    * with the rig's full cursor pool.
    */
   readonly cursorRefs?: readonly string[];
-  /**
-   * Dedicated cursor for exact note reads.
-   *
-   * Set this to `fine` in a focused harness that must keep its read handle
-   * separate from its write handles. A normal session selects `fine` after
-   * `hello()` learns that the extension provides the fine cursor.
-   */
-  readonly noteReadCursorRef?: 'fine';
   /**
    * How wide the scene bank window is. Learned from `rig.info` at `hello()` when
    * omitted; like the cursor pool it is fixed at the rig's `init()` (D7), which
@@ -782,12 +696,7 @@ export class LiveAdapter implements BitwigAdapter {
   private gridSteps: number | undefined;
   /** The writer cursor width, learned at hello(). */
   private fineSteps: number | undefined;
-  /** The dedicated exact-note reader width, learned at hello(). */
-  private noteReadSteps: number | undefined;
-  /** A dedicated cursor for dual-grid note reads. */
-  private noteReadCursorRef: 'fine' | undefined;
-  /** True when a harness selected the note-read cursor. */
-  private readonly fixedNoteReadCursorRef: boolean;
+  private clipReader: { width?: number; grid?: number; format?: string; page?: number } | undefined;
   /** Top-level device-bank width, fixed at extension init. */
   private deviceBankSize: number | undefined;
   /** Top-level container positions with complete fixed observation scopes. */
@@ -843,8 +752,6 @@ export class LiveAdapter implements BitwigAdapter {
     // worse than it was, merely no better.
     this.fixedCursorRefs = options.cursorRefs !== undefined;
     this.pool = new CursorPool(options.cursorRefs ?? options.cursorPool ?? 1);
-    this.fixedNoteReadCursorRef = options.noteReadCursorRef !== undefined;
-    this.noteReadCursorRef = options.noteReadCursorRef;
     this.sceneBankSize = options.sceneBankSize ?? RIG_DEFAULT_SCENES;
   }
 
@@ -1283,7 +1190,7 @@ export class LiveAdapter implements BitwigAdapter {
     const rig = (await this.transport.send({ method: WIRE.rigInfo })) as {
       gridSteps?: number;
       fineSteps?: number;
-      noteReadSteps?: number;
+      clipReader?: { width?: number; grid?: number; format?: string; page?: number };
       cursorPool?: number;
       scenes?: number;
       deviceBank?: number;
@@ -1291,10 +1198,7 @@ export class LiveAdapter implements BitwigAdapter {
     };
     this.gridSteps = rig.gridSteps;
     this.fineSteps = rig.fineSteps;
-    this.noteReadSteps = rig.noteReadSteps ?? rig.fineSteps;
-    if (!this.fixedNoteReadCursorRef && !this.fixedCursorRefs && this.noteReadSteps !== undefined) {
-      this.noteReadCursorRef = 'fine';
-    }
+    this.clipReader = rig.clipReader;
     this.deviceBankSize = rig.deviceBank;
     this.containerScopeSize = rig.containerScopes ?? this.containerScopeSize;
     // The rig allocates its cursor pool at init and cannot grow it afterwards
@@ -2635,17 +2539,6 @@ export class LiveAdapter implements BitwigAdapter {
       : { address, found: false, reason: found.miss };
   }
 
-  /**
-   * The finest step size whose `gridSteps`-wide window still covers `lengthBeats`.
-   * Learned from the rig rather than assumed, because it is configurable
-   * (`~/.ghostnote/rig.json`) and the fine cursor uses a different width.
-   */
-  private scanStepSize(lengthBeats: number): number {
-    const steps = this.gridSteps ?? 64;
-    const candidate = [...STEP_SIZES].reverse().find((size) => steps * size >= lengthBeats);
-    return candidate ?? STEP_SIZES[0]!;
-  }
-
   /** Read exact metadata plus the readable but unwritable play-stop marker. */
   private async readClipMetadata(
     clip: ClipAddress,
@@ -2690,124 +2583,54 @@ export class LiveAdapter implements BitwigAdapter {
     };
   }
 
-  /**
-   * Read all note channels through the dedicated fine cursor at both grid
-   * families, then reconcile the two observations.
-   *
-   * Bitwig rounds an off-grid note start down. A binary scan alone corrupts a
-   * triplet start, and a triplet scan alone corrupts a binary start. The later
-   * of the two observed starts is therefore the exact start for every value in
-   * the supported binary-or-triplet grid family. Keep a note that only one grid
-   * reports. Refuse nearby unmatched notes from both grids because their
-   * identities are ambiguous.
-   */
-  private async readFineClipNotes(
-    clipRef: ClipAddress,
-    trackIndex: number,
-    pointedAt: Map<string, AddressKey>,
-  ): Promise<ClipNoteChannels> {
-    const cursor = this.noteReadCursorRef;
-    const steps = this.noteReadSteps;
-    if (cursor !== 'fine' || steps === undefined) {
-      throw new AddressUnresolvedError(
-        clipRef,
-        'exact note read requires the dedicated fine cursor and its measured width',
-      );
+  /** Read one frozen clip capture. The gate can delay the initial request. */
+  private async readClipNotes(clipRef: ClipAddress, trackIndex: number): Promise<ClipNoteChannels | undefined> {
+    const status = await this.transport.send({ method: WIRE.slotStatus,
+      params: { trackIndex, slotIndex: clipRef.slot.scene.index } }) as { hasContent: boolean };
+    if (!status.hasContent) return undefined;
+    const config = this.clipReader;
+    const pageSize = config?.page;
+    if (config?.width !== 4_194_304 || config.grid !== CLIP_READ_GRID || config.format !== NOTE_FRAME_FORMAT
+        || pageSize === undefined || !Number.isInteger(pageSize) || pageSize < 1) {
+      throw new AddressUnresolvedError(clipRef, 'clip.read configuration is absent or incompatible; call hello with the current extension');
     }
-    await this.timed('targetAcquisition', () =>
-      this.pointAtClip(clipRef, trackIndex, pointedAt, cursor));
-    const observed = await this.timed('metadata', () =>
-      this.readClipMetadata(clipRef, trackIndex, pointedAt, cursor));
-    const extent = Math.max(observed.playStopBeats, observed.metadata.loopEndBeats);
-    const lengthBeats = extent > 0 ? extent : 4;
-    const binaryStep = 1 / 512;
-    const tripletStep = 1 / 768;
-    const scan = async (stepSize: number): Promise<ReadonlyMap<number, readonly NoteRecord[]>> => {
-      await this.transport.send({ method: WIRE.cursorSetStepSize, params: { cursor, stepSize } });
-      const channels = new Map<number, NoteRecord[]>();
-      for (let channel = 0; channel < 16; channel += 1) channels.set(channel, []);
-      const totalSteps = Math.max(1, Math.ceil(lengthBeats / stepSize));
-      let currentPageStart = 0;
+    const result = await this.transport.send({
+      method: WIRE.clipRead,
+      params: { trackIndex, row: clipRef.slot.scene.index, channelId: clipRef.slot.track.channelId },
+      timeoutMs: 30_000,
+    }) as { refused?: string; message?: string; readId: number; frame: NoteFrame };
+    if (result.refused !== undefined) {
+      throw new AddressUnresolvedError(clipRef, `clip.read refused ${result.refused}: ${result.message ?? ''}`);
+    }
+    let frame = result.frame;
+    const count = frame?.count;
+    const rows: RawNoteFields[] = [];
+    const cells = new Set<string>();
+    for (;;) {
+      if (frame?.from !== rows.length || frame.count !== count || !Number.isInteger(count)
+          || count < 0 || frame.size > pageSize || frame.from + frame.size > count
+          || frame.next !== (frame.from + frame.size < count ? frame.from + frame.size : -1)
+          || (frame.next >= 0 && frame.size === 0)) {
+        throw new AddressUnresolvedError(clipRef, 'clip.read returned inconsistent page bounds');
+      }
       try {
-        for (let pageStart = 0; pageStart < totalSteps; pageStart += steps) {
-          currentPageStart = pageStart;
-          await this.timed('pageTurn', () => this.transport.send({
-            method: WIRE.cursorScrollToStep,
-            params: { cursor, step: pageStart },
-          }));
-          // One full settlement covers the grid and page-zero transition. Later
-          // pages keep the same measured budget. Neither transition has readback.
-          await this.timed('gridSettlement', () => this.settle('gridChange'));
-          const pageSteps = Math.min(steps, totalSteps - pageStart);
-          const result = (await this.timed('bulkPageRead', () => this.transport.send({
-            method: WIRE.cursorGetNotesVerboseAllChannels,
-            params: { cursor, maxX: pageSteps },
-          }))) as WireVerboseAllChannels;
-          if (!Array.isArray(result.channels) || result.channels.length !== 16) {
-            throw new AddressUnresolvedError(
-              clipRef,
-              'the bulk note reply did not return all 16 MIDI channels',
-            );
-          }
-          const seen = new Set<number>();
-          let returnedCount = 0;
-          for (const returned of result.channels) {
-            const channel = returned.channel;
-            if (!Number.isInteger(channel) || channel < 0 || channel > 15 || seen.has(channel)
-                || !Array.isArray(returned.notes) || returned.count !== returned.notes.length) {
-              throw new AddressUnresolvedError(
-                clipRef,
-                'the bulk note reply returned an invalid or duplicate MIDI channel',
-              );
-            }
-            seen.add(channel);
-            returnedCount += returned.count;
-            channels.get(channel)!.push(...returned.notes.map((note: Record<string, number | boolean | string>) => {
-              const x = note['x'];
-              if (typeof x !== 'number') {
-                throw new AddressUnresolvedError(clipRef, 'a note step returned no numeric position');
-              }
-              return decodeVerboseNote({ ...note, x: x + pageStart }, stepSize);
-            }));
-          }
-          if (result.count !== returnedCount || result.clipExists === false
-              || !Number.isFinite(result.scanMicros) || result.scanMicros < 0) {
-            throw new AddressUnresolvedError(
-              clipRef,
-              'the bulk note reply returned inconsistent page bounds or counts',
-            );
-          }
+        for (const row of decodeNoteFrame(frame, pageSize)) {
+          const key = `${row['channel']}:${row['pitch']}:${row['cell']}`;
+          if (cells.has(key)) throw new Error('duplicate note cell');
+          cells.add(key);
+          rows.push(row);
         }
-      } finally {
-        if (currentPageStart !== 0) {
-          // The reader is shared across calls. Do not leak a nonzero page.
-          await this.timed('pageReset', async () => {
-            await this.transport.send({
-              method: WIRE.cursorScrollToStep,
-              params: { cursor, step: 0 },
-            });
-            await this.settle('gridChange');
-          });
-        }
+      } catch (error) {
+        throw new AddressUnresolvedError(clipRef, String(error));
       }
-      return channels;
-    };
-
-    const binary = await scan(binaryStep);
-    const triplet = await scan(tripletStep);
-    return this.timed('reconciliation', async () => {
-      const reconciled = new Map<number, readonly NoteRecord[]>();
-      for (let channel = 0; channel < 16; channel += 1) {
-        reconciled.set(channel, reconcileExactNoteScans(
-          clipRef,
-          channel,
-          binary.get(channel) ?? [],
-          triplet.get(channel) ?? [],
-          Math.max(binaryStep, tripletStep),
-        ));
-      }
-      return reconciled;
-    });
+      if (frame.next < 0) break;
+      const page = await this.transport.send({ method: WIRE.clipReadPage,
+        params: { readId: result.readId, from: frame.next } }) as NoteFrame & { readId: number };
+      if (page.readId !== result.readId) throw new AddressUnresolvedError(clipRef, 'clip.readPage returned another capture');
+      frame = page;
+    }
+    try { return notesByChannel(rows); }
+    catch (error) { throw new AddressUnresolvedError(clipRef, String(error)); }
   }
 
   /**
@@ -3436,7 +3259,7 @@ export class LiveAdapter implements BitwigAdapter {
     // A dual-grid read scans all channels while each grid is settled. Keep the
     // result for this snapshot so 16 channel addresses cost two grid changes,
     // not 32 grid changes and 32 waits.
-    const noteReads = new Map<AddressKey, Promise<ClipNoteChannels>>();
+    const noteReads = new Map<AddressKey, Promise<ClipNoteChannels | undefined>>();
     const parameterReads = new Map<AddressKey, Promise<ParameterInventory>>();
     const remoteReads = new Map<AddressKey, Promise<RemoteInventory>>();
 
@@ -3846,7 +3669,7 @@ export class LiveAdapter implements BitwigAdapter {
     address: Address,
     row: WireTrack | undefined,
     pointedAt: Map<string, AddressKey>,
-    noteReads: Map<AddressKey, Promise<ClipNoteChannels>>,
+    noteReads: Map<AddressKey, Promise<ClipNoteChannels | undefined>>,
     parameterReads: Map<AddressKey, Promise<ParameterInventory>>,
     remoteReads: Map<AddressKey, Promise<RemoteInventory>>,
   ): Promise<StateEntry | 'unreachable' | 'unstable' | undefined> {
@@ -3915,80 +3738,19 @@ export class LiveAdapter implements BitwigAdapter {
 
       case 'notes': {
         if (row === undefined) return undefined;
-        const sceneIndex = address.clip.slot.scene.index;
-        // ⚠ E2: the cursor must not be pointed at an empty slot, so the clip's
-        // existence is checked before pointing at it.
-        const status = (await this.transport.send({
-          method: WIRE.slotStatus,
-          params: { trackIndex: row.index, slotIndex: sceneIndex },
-        })) as { hasContent: boolean };
-        if (!status.hasContent) return undefined;
-
-        if (this.noteReadCursorRef === 'fine') {
-          const key = addressKey(address.clip);
-          let reading = noteReads.get(key);
-          if (reading === undefined) {
-            reading = this.readFineClipNotes(address.clip, row.index, pointedAt);
-            noteReads.set(key, reading);
-          }
-          const channelNotes = (await reading).get(address.channel ?? 0) ?? [];
-          const selected = channelNotes.filter((note) => (address.range === undefined
-            ? true
-            : note.startBeats >= address.range.startBeats
-              && note.startBeats < address.range.endBeats));
-          const fidelity: Fidelity = selected.some(hasUnverifiedProps) ? 'lossy' : 'exact';
-          return { address, fidelity, value: { of: 'notes', notes: selected } };
+        const key = addressKey(address.clip);
+        let reading = noteReads.get(key);
+        if (reading === undefined) {
+          reading = this.readClipNotes(address.clip, row.index);
+          noteReads.set(key, reading);
         }
-
-        // The SAME allocator the write path uses, so a read of clip A followed
-        // by a write to clip A costs no re-point — and, more to the point, so a
-        // read never silently re-targets the cursor a pending props op depends
-        // on (E15-F). See `pool.ts`.
-        const cursor = await this.pointAtClip(address.clip, row.index, pointedAt);
-
-        // ⚠ Two constraints pull against each other here.
-        //
-        // E2 says scan at the FINEST grid: off-grid notes are reported snapped
-        // DOWN on a coarse grid, so a coarse scan misreports positions rather
-        // than losing notes — which is worse, because it still looks like data.
-        //
-        // But the cursor clip is a FIXED number of steps (`gridSteps`, 64 by
-        // default), so the scanned window is only `gridSteps * stepSize` beats
-        // wide. Scanning a 4-beat clip at 1/64 would cover just the first beat
-        // and silently return nothing for the rest — a blind spot dressed up as
-        // an empty clip.
-        //
-        // So: the finest grid whose window still spans the whole clip.
-        const observed = await this.readClipMetadata(address.clip, row.index, pointedAt);
-        const observedExtent = Math.max(observed.playStopBeats, observed.metadata.loopEndBeats);
-        const lengthBeats = observedExtent > 0 ? observedExtent : 4;
-        const stepSize = this.scanStepSize(lengthBeats);
-        // ⚠ E2/E15-D: setStepSize works at runtime but needs a settle — not
-        // instant. Under-waiting does not fail loudly: the scan runs on the OLD
-        // grid and every x is then decoded against the NEW one, so a note at beat
-        // 1 reads back at beat 0.125. Wrong data, no error. E15-D measured the
-        // floor at ~120ms and named the budget, so this now says what it means
-        // instead of borrowing `trackStruct`'s number; the read path was already
-        // waiting long enough, which is why only the WRITE path was broken.
-        await this.transport.send({ method: WIRE.cursorSetStepSize, params: { cursor, stepSize } });
-        await this.settle('gridChange');
-
-        // The VERBOSE scan, not the lean one: `cursor.getNotes` returns only
-        // [x, y, velocity, duration], so reading it would silently drop every
-        // expression property — a snapshot that looks complete, restores wrong,
-        // and reports `fidelity: 'exact'` while doing it.
-        const res = (await this.transport.send({
-          method: WIRE.cursorGetNotesVerbose,
-          params: { cursor, channel: address.channel },
-        })) as { notes: Record<string, number | boolean | string>[] };
-
-        const all: NoteRecord[] = res.notes
-          .map((step) => decodeVerboseNote(step, stepSize))
-          .filter((n) => (address.range === undefined
-            ? true
-            : n.startBeats >= address.range.startBeats && n.startBeats < address.range.endBeats));
-        const fidelity: Fidelity = all.some(hasUnverifiedProps) ? 'lossy' : 'exact';
-        return { address, fidelity, value: { of: 'notes', notes: all } };
+        const channels = await reading;
+        if (channels === undefined) return undefined;
+        const selected = (channels.get(address.channel ?? 0) ?? []).filter((note) =>
+          address.range === undefined || (note.startBeats >= address.range.startBeats
+            && note.startBeats < address.range.endBeats));
+        const fidelity: Fidelity = selected.some(hasUnverifiedProps) ? 'lossy' : 'exact';
+        return { address, fidelity, value: { of: 'notes', notes: selected } };
       }
 
       case 'clipLaunch': {

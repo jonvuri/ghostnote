@@ -96,28 +96,8 @@ public final class ShadowCacheHandlers extends HandlerGroup {
         };
     }
 
-    /** 8h2a replay cold-read research. Every reply keeps complete:false and eligible:false. */
-    private JsonElement replay(String operation, JsonObject params) {
-        var reader = rig.replayReader;
-        if (reader == null) throw new IllegalStateException("replay research resources are not allocated");
-        return switch (operation) {
-            case "replayStatus" -> reader.status();
-            case "replayAct" -> reader.act(params, this::requireTrack);
-            case "replayClosedNotes" -> reader.closedNotes(params.get("epoch").getAsLong(), params.get("from").getAsInt(),
-                params.has("limit") ? params.get("limit").getAsInt() : 16_384);
-            case "replayNotes" -> reader.notes(params.get("epoch").getAsLong(), params.get("from").getAsInt(),
-                params.has("limit") ? params.get("limit").getAsInt() : 16_384);
-            case "replayFetch" -> reader.fetch(params.get("epoch").getAsLong(), params.get("format").getAsString(),
-                params.get("from").getAsInt(), params.get("limit").getAsInt());
-            case "replayPrepared" -> reader.prepared(params.get("epoch").getAsLong(), params.get("format").getAsString());
-            case "replayTimings" -> reader.timings(params.getAsJsonArray("ids"));
-            default -> throw new IllegalArgumentException("unknown replay research operation");
-        };
-    }
-
     private JsonElement dispatch(JsonObject params) {
         String operation = params.get("operation").getAsString();
-        if (operation.startsWith("replay")) return replay(operation, params);
         if (operation.startsWith("sounding")) return sounding(operation, params);
         if (operation.equals("allocationStats")) {
             JsonObject result = new JsonObject();

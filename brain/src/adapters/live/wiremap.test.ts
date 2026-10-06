@@ -80,9 +80,9 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
     probeGolden.methods,
     [...new Set([...normalGolden.methods, ...probeOnly])].sort(),
   );
-  assert.equal(normalGolden.count, 85);
-  assert.equal(captureGolden.count, 90);
-  assert.equal(probeGolden.count, 98);
+  assert.equal(normalGolden.count, 87);
+  assert.equal(captureGolden.count, 92);
+  assert.equal(probeGolden.count, 100);
 });
 
 test('8b: historical host objects are absent from active Rig construction', () => {
@@ -145,7 +145,7 @@ test('W-registry: no method is registered twice', () => {
 });
 
 test('W-split: the split was a no-op — every pre-split method survived', () => {
-  const carried = golden.methods.filter((m) => !golden.addedInPhase0.includes(m)).sort();
+  const carried = golden.methods.filter((m) => !golden.addedInPhase0.includes(m) && !(golden.addedInPhase8h3c ?? []).includes(m)).sort();
   assert.deepEqual(carried, [...golden.preSplitMethods].sort(),
     'the handler split dropped or renamed a wire method — the archived probes would break');
   assert.equal(carried.length, golden.preSplitCount);

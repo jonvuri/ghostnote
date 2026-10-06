@@ -49,3 +49,12 @@ reads passed page boundaries, long clips, all channels, note properties, and a
 coarse-grid change and return. Binary timing was exact. Triplet starts were
 exact, and durations kept the E42 `2^-20`-beat rule. Precision finer than this
 measured family refuses before mutation.
+
+## Phase 8h3c normalized reconstruction — 2026-10-05
+
+[D31](d31-mutation-and-reversal-use-the-d23-cell-boundary.md) adds a fallback
+when no common D9 lattice represents the captured onset and duration. If every
+onset is on `1/512` and every duration is valid on a measured D9 lattice,
+the writer uses `1/512`. The setter takes duration in beats. Unsupported
+durations still refuse. The measured grid family stays the same. Live
+acceptance must verify this normalized onset plus triplet-duration case.

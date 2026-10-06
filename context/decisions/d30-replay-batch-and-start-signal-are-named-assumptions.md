@@ -56,6 +56,21 @@ refuse restoration. This selection rule does not change the D30 assumptions.
   read must refuse it.
 - No cache or reader result becomes eligible. The 8h gates still apply.
 
+## E230 product release order
+
+[E230](../evidence/experiments/e230-cold-reader-promotion.md) uses the master
+track as the empty product park target. It confirms the frozen close copy
+before unsubscribe, as E228 did. Every callback between close and release
+remains a refusal, including Empty callbacks. Unsubscribe then emits view
+clear callbacks. The product counts these separately and keeps the write
+gate closed through a release task. Non-empty callbacks in that task refuse.
+Later release counters remain visible in the next read and rig statistics.
+Release Empty callbacks cannot change the frozen copy.
+
+Three repeated master reads and all eight paired fixtures pass this order.
+This adds product evidence for the same assumptions. It does not prove the
+host rules or cover native edits during a read.
+
 ## Consequence
 
 With D26 and D27, a full-width 1/512 bind is a complete cold read. The read

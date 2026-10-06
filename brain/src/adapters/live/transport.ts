@@ -19,7 +19,7 @@ export class BridgeTransport implements Transport {
   constructor(private readonly client: BridgeLike = new BridgeClient()) {}
 
   async send(frame: Frame): Promise<unknown> {
-    return this.client.request(frame.method, frame.params);
+    return this.client.request(frame.method, frame.params, frame.timeoutMs);
   }
 
   async close(): Promise<void> {

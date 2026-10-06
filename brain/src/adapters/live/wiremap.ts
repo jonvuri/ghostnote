@@ -1,9 +1,9 @@
 /**
  * The wire vocabulary — THE ONLY PLACE `category.action` strings live.
  *
- * The product encoder can emit 90 methods. The normal extension registers 85;
- * the optional capture extension registers all 90. The Phase 8 probe extension
- * registers 95 methods. The historical source inventory has 157 declarations.
+ * The product encoder can emit 92 methods. The normal extension registers 87;
+ * the optional capture extension registers all 92. The Phase 8 probe extension
+ * registers 100 methods. The historical source inventory has 162 declarations.
  *
  *   - historical exploration methods stay in source evidence but no active
  *     runtime registers them;
@@ -74,6 +74,9 @@ export const WIRE = {
   cursorGetNotes: 'cursor.getNotes',
   cursorGetNotesVerbose: 'cursor.getNotesVerbose',
   cursorGetNotesVerboseAllChannels: 'cursor.getNotesVerboseAllChannels',
+  /** 8h3c: one complete 1/512 clip read and its later pages. */
+  clipRead: 'clip.read',
+  clipReadPage: 'clip.readPage',
   cursorPlayState: 'cursor.playState',
   cursorLaunchSettings: 'cursor.launchSettings',
   cursorSetLaunchSettings: 'cursor.setLaunchSettings',
@@ -269,6 +272,7 @@ export const WIRE_METHODS_FORBIDDEN: Readonly<Record<string, string>> = {
  */
 export interface Frame {
   readonly method: string;
+  readonly timeoutMs?: number;
   readonly params?: Record<string, unknown>;
 }
 

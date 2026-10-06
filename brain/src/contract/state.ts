@@ -104,23 +104,12 @@ export const UNWRITABLE_NOTE_PROPS: readonly string[] = Object.entries(NOTE_PROP
   .filter(([, f]) => f === 'unwritable')
   .map(([k]) => k);
 
-/**
- * The order properties are written in, and the list of what may be written.
- *
- * ⚠ `pressure` is deliberately ABSENT (E15-E) — it is `unwritable`, so nothing
- * may emit it. It used to sit last here under E2/e02e's rule that `setGain` and
- * `setTimbre` "zero pressure". That reading was an artifact: the pressure being
- * zeroed was never in the clip in the first place, and what gain and timbre
- * actually did was force the writing cursor to re-read its `NoteStep`, which
- * replaced the phantom with the clip's real 0. With pressure gone the ordering
- * carries no known dependency; it is kept stable rather than re-derived, because
- * no ordering effect among the remaining 16 has ever been measured.
- */
+/** Write control values before their enable flags (E224, D31). */
 export const NOTE_PROP_WRITE_ORDER: readonly (NoteProp | 'velocity' | 'duration')[] = [
   'velocity', 'duration', 'releaseVelocity', 'velocitySpread', 'pan', 'transpose',
-  'chance', 'isChanceEnabled', 'isMuted', 'isOccurrenceEnabled', 'occurrence',
-  'isRecurrenceEnabled', 'recurrence', 'isRepeatEnabled', 'repeatCount', 'repeatCurve',
-  'repeatVelocityCurve', 'repeatVelocityEnd',
+  'chance', 'isChanceEnabled', 'isMuted', 'occurrence', 'isOccurrenceEnabled',
+  'recurrence', 'isRecurrenceEnabled', 'repeatCount', 'repeatCurve',
+  'repeatVelocityCurve', 'repeatVelocityEnd', 'isRepeatEnabled',
   'gain', 'timbre',
 ];
 

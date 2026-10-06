@@ -1,13 +1,13 @@
 ---
 title: Phase 8h — Cache promotion and interface simplification
 kind: plan
-state: planned
-status: Promote only proved cache states and apply the 8a product reductions over the replacement route.
+state: active
+status: Reader promotion is complete in E230. Change awareness, cache machinery trim, and interface simplification remain.
 updated: 2026-10-05
 parent: README.md
 prev: 8g-shadow-project-cache.md
 next: 8i-agent-native-hybrid-dogfood.md
-evidence: E119-E135, E209, E213; D18, D23, D25
+evidence: E119-E135, E209, E213, E230; D18, D23, D25, D31
 ---
 
 # Phase 8h — Cache promotion and interface simplification
@@ -62,14 +62,15 @@ Complete research:
    binding, and keep a callback tripwire. Temporary selection changes are
    accepted for modal use, with full restore at close under the E99 lease.
 
-Remaining sessions, in order:
+Reader promotion and remaining sessions, in order:
 
 1. [8h3b — Replay fetch cost](8h3b-replay-fetch-cost.md). Complete
    ([E229](../../evidence/experiments/e229-replay-fetch-cost.md)): one
    `packedDict` page, encoded on the controller thread.
-2. [8h3c — Cold-reader promotion](8h3c-cold-reader-promotion.md). Replace E131
-   for reads and writes, queue writes behind an open read, remove the `1/768`
-   view, and fix or refuse the disabled-control loss.
+2. [8h3c — Cold-reader promotion](8h3c-cold-reader-promotion.md). Complete
+   ([E230](../../evidence/experiments/e230-cold-reader-promotion.md)): product
+   reads and mutation guards use one `1/512` source. Writes queue behind an
+   open read. Raw disabled controls survive reconstruction. E131 is diagnostic only.
 3. [8h3d — Change awareness](8h3d-change-awareness.md). Select how Ghostnote
    tells whether a snapshot is current with no resident grid: pull, or pull
    with watched clips.

@@ -92,6 +92,8 @@ export interface Golden {
   /** Phase 8g experimental shadow cache. */
   addedInPhase8g?: string[];
   addedInPhase8h1a?: string[];
+  /** Phase 8h3c product clip reader. */
+  addedInPhase8h3c?: string[];
   /** D03 internal plug-in preset file and popup-browser probe surface. */
   addedInD03?: string[];
   preSplitCount: number;
@@ -101,7 +103,7 @@ export interface Golden {
 }
 
 /**
- * Scrape `r.on("name", …)` out of every handler group.
+ * Scrape `r.on("name", …)` and `r.onAsync("name", …)` out of every handler group.
  *
  * ⚠ Deliberately strict: any line mentioning `r.on(` that this pattern cannot
  * read THROWS rather than being skipped. A silently unparsed registration is
@@ -113,8 +115,8 @@ export function scrapeRegistrations(dir = HANDLERS_DIR): string[] {
   for (const file of readdirSync(dir).filter((f) => f.endsWith('.java'))) {
     const src = readFileSync(join(dir, file), 'utf8');
     for (const line of src.split('\n')) {
-      if (!line.includes('r.on(')) continue;
-      const m = line.match(/r\.on\("([^"]+)"\s*,/);
+      if (!line.includes('r.on(') && !line.includes('r.onAsync(')) continue;
+      const m = line.match(/r\.on(?:Async)?\("([^"]+)"\s*,/);
       if (m === null) throw new Error(`${file}: unparsable registration line -> ${line.trim()}`);
       found.push(m[1]!);
     }

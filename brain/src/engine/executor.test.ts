@@ -217,6 +217,26 @@ test('X-owned-notes: occupied insertion and mismatched removal refuse before app
   assert.equal((await fake.revision()).revision, before.revision);
 });
 
+test('D31 removal fills absent fields with host defaults before the complete-note match', async () => {
+  const { fake, executor, clipA } = await fixture();
+  const minimal = note({ pitch: 60 });
+  const explicit = { ...minimal, releaseVelocity: 100 / 127, isChanceEnabled: true, isOccurrenceEnabled: true,
+    isRecurrenceEnabled: true, isRepeatEnabled: true };
+  const disabled = { ...note({ pitch: 62 }), isChanceEnabled: false };
+  await fake.apply({ ops: [{ op: 'note.write', clip: clipA, notes: [explicit, disabled] }] });
+  await fake.settle('noteWrite');
+  const before = await fake.revision();
+
+  await assert.rejects(
+    executor.run([{ op: 'note.remove', clip: clipA, notes: [note({ pitch: 62 })] }]),
+    /does not match the complete expected note.*Nothing was written/,
+  );
+  assert.equal((await fake.revision()).revision, before.revision);
+  const take = await executor.run([{ op: 'note.remove', clip: clipA, notes: [minimal] }]);
+  assert.deepEqual(take.report.disagreements, []);
+  assert.deepEqual((await readNotes(fake, notesAt(clipA))).map((item) => item.pitch), [62]);
+});
+
 test('X-owned-notes: an insertion that would truncate another note refuses before apply', async () => {
   const { fake, executor, clipA } = await fixture();
   const existing = note({ pitch: 60, durationBeats: 2 });
@@ -1219,4 +1239,26 @@ test('X-concurrent: a REJECTED batch reports an edit on a slot it MEANT to write
   );
   assert.ok(take.report.concurrent.every((c) => c.slotIndex === 0));
   assert.match(take.report.concurrent[0]!.why, /applied nothing/);
+});
+
+test('D31 owned triplet cells verify and reverse at the normalized boundary', async () => {
+  const { fake, executor, clipA } = await fixture();
+  const inserted = note({ startBeats: 1 / 6, durationBeats: 1 / 8, pitch: 67 });
+  const take = await executor.run([{ op: 'note.insert', clip: clipA, notes: [inserted] }]);
+  assert.deepEqual(take.report.disagreements, []);
+  assert.equal((await readNotes(fake, notesAt(clipA)))[0]?.startBeats, 85 / 512);
+  const reverted = await executor.revertUnchecked(take);
+  assert.deepEqual(reverted.plan.ops.map((op) => op.op), ['note.remove']);
+  assert.deepEqual(await readNotes(fake, notesAt(clipA)), []);
+});
+
+test('D31 occupied sub-cell insertion refuses before mutation', async () => {
+  const { fake, executor, clipA } = await fixture();
+  const existing = note({ startBeats: 1 / 6, durationBeats: 1 / 8, pitch: 67 });
+  const row = fake.model.tracks.find((item) => item.channelId === clipA.slot.track.channelId)!;
+  row.slots[0]!.notes.set(noteKey(0, existing.pitch, existing.startBeats), existing);
+  await assert.rejects(executor.run([{ op: 'note.insert', clip: clipA,
+    notes: [{ ...existing, startBeats: 85 / 512 }] }]), /occupied/);
+  assert.equal(row.slots[0]!.notes.size, 1);
+  assert.equal([...row.slots[0]!.notes.values()][0]?.startBeats, 1 / 6);
 });

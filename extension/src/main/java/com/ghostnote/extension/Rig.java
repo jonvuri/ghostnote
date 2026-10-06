@@ -124,7 +124,10 @@ public class Rig {
     /** 8h1b sounding-cell research: release proxy, coarse sentinel, and resident-cursor census. */
     public final ShadowSoundingProbe soundingProbe;
     /** 8h2a replay cold-read research: a full-width 1/512 reader proxy. */
-    public final ShadowReplayReader replayReader;
+    /** 8h3c: the product clip reader. Every profile allocates it. */
+    public final ClipReader clipReader;
+    /** 8h3c: orders Ghostnote writes behind an open clip read. */
+    public final WriteGate writeGate;
     /** 8h1a: active flat-bank and scene sizes. They start at the allocation and never exceed it. */
     public int activeTracks, activeScenes;
     public long activeBankChanges;
@@ -386,6 +389,22 @@ public class Rig {
     private String selectionOwnerToken;
     private int selectionOwnerTrackIndex = -1;
     private int selectionOwnerSlotIndex = -1;
+
+    /** One selection lease, saved so that the clip reader can reinstate it after its own restore. */
+    public record SelectionLease(String token, int trackIndex, int slotIndex) { }
+
+    public SelectionLease selectionLease() {
+        return selectionOwnerToken == null
+            ? null : new SelectionLease(selectionOwnerToken, selectionOwnerTrackIndex, selectionOwnerSlotIndex);
+    }
+
+    public void reinstateSelectionLease(SelectionLease lease) {
+        if (lease != null) claimSelectionOwnership(lease.token(), lease.trackIndex(), lease.slotIndex());
+    }
+
+    public boolean selectionOwnerIs(String token) {
+        return selectionOwnerToken != null && selectionOwnerToken.equals(token);
+    }
 
     /** Claim the current selection for one bounded brain workflow. */
     public void claimSelectionOwnership(String token, int trackIndex, int slotIndex) {
@@ -910,6 +929,9 @@ public class Rig {
         markClip(fineClip);
         fineClip.isPinned().markInterested();
 
+        clipReader = new ClipReader(host, this, config.scenes);
+        writeGate = new WriteGate(task -> host.scheduleTask(task, 0), System::nanoTime, WriteGate.DEFAULT_LIMIT);
+
         noteObserverTrack = host.createCursorTrack(
             "GN_CT_NOTE_OBSERVER", "ghostnote note observer", 0, config.scenes, false);
         noteObserverTrack.exists().markInterested();
@@ -946,8 +968,6 @@ public class Rig {
             soundingProbe = config.cacheSoundingResearch && kneeFixture != null
                 ? new ShadowSoundingProbe(host, config.cacheShadowSteps, config.scenes) : null;
             if (soundingProbe != null) attachSoundingCursors(config);
-            replayReader = config.cacheReplayResearch && kneeFixture != null
-                ? new ShadowReplayReader(host, this, config.cacheShadowSteps, config.scenes, kneeFixture::edit) : null;
             arrangerClip = host.createArrangerCursorClip(config.gridSteps, config.gridKeys);
             markClip(arrangerClip);
         } else {
@@ -961,7 +981,6 @@ public class Rig {
             shadowTopologyControl = null;
             kneeFixture = null;
             soundingProbe = null;
-            replayReader = null;
             arrangerClip = null;
         }
 

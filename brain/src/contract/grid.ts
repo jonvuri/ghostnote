@@ -70,16 +70,18 @@ function durationIsOnGrid(value: number, size: number): boolean {
 }
 
 /**
- * The coarsest grid on which every start and duration is exact, or `undefined`
- * when the notes are finer than the grid floor.
- *
- * The non-throwing form, because two of its three callers are asking a question
- * ("do these two ops want the same grid?") rather than emitting a frame, and for
- * them "no representable grid" is an answer, not an error.
+ * Select a D9 write grid. Refuse unsupported starts or durations.
+ * A D31 cell start can combine with a duration from another D9 lattice.
  */
 export function stepSizeFor(notes: readonly NoteRecord[]): number | undefined {
-  return STEP_SIZES.find((size) => notes.every((note) =>
+  const common = STEP_SIZES.find((size) => notes.every((note) =>
     startIsOnGrid(note.startBeats, size) && durationIsOnGrid(note.durationBeats, size)));
+  if (common !== undefined) return common;
+  // D31: a normalized onset and a D9 duration can use different lattices.
+  // The host setter takes duration in beats, independently of the onset grid.
+  if (notes.every((note) => startIsOnGrid(note.startBeats, 1 / 512)
+      && STEP_SIZES.some((size) => durationIsOnGrid(note.durationBeats, size)))) return 1 / 512;
+  return undefined;
 }
 
 /** The same answer, as a refusal — for the encoder, which has to emit something. */
@@ -88,4 +90,14 @@ export function chooseStepSize(notes: readonly NoteRecord[]): number {
   if (size !== undefined) return size;
   const finest = STEP_SIZES[STEP_SIZES.length - 1]!;
   throw new NoteTimingUnrepresentableError(finest);
+}
+
+/** D23 and D31: the occupied 1/512 cell of a read onset. */
+export function noteReadCell(startBeats: number): number {
+  return Math.floor(startBeats * 512 + 1e-9);
+}
+
+/** Restore the acquired cell start. Sub-cell source timing is not retained. */
+export function noteReadStart(startBeats: number): number {
+  return noteReadCell(startBeats) / 512;
 }

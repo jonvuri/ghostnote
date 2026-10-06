@@ -1,3 +1,4 @@
+import { noteReadCell, noteReadStart } from '../../contract/grid.js';
 /**
  * `FakeAdapter` — a whole Bitwig, in-process, wrong in all the right places.
  *
@@ -597,16 +598,19 @@ export class FakeAdapter implements BitwigAdapter {
         // §Risks' named failure mode.
         if (slotState === undefined || !slotState.hasContent) return undefined;
         const channelPrefix = `${address.channel}:`;
-        const all = [...slotState.notes.entries()]
-          .filter(([key]) => key.startsWith(channelPrefix))
-          .map(([, note]) => note)
+        const acquired = new Map<string, NoteRecord>();
+        for (const [key, note] of slotState.notes) {
+          if (!key.startsWith(channelPrefix)) continue;
+          acquired.set(`${note.pitch}:${noteReadCell(note.startBeats)}`,
+            { ...note, startBeats: noteReadStart(note.startBeats) });
+        }
+        const all = [...acquired.values()]
           .filter((n) => (address.range === undefined
             ? true
             : n.startBeats >= address.range.startBeats && n.startBeats < address.range.endBeats))
           .map(noteOnReadback)
           .sort((a, b) => a.startBeats - b.startBeats || a.pitch - b.pitch);
-        // ⚠ Any unverified property (today: gain, E2) degrades the whole entry, so
-        // a revert declares up front that it cannot promise a full restore (D5).
+        // An unverified property makes the complete entry lossy (D5).
         const fidelity: Fidelity = all.some(hasUnverifiedProps) ? 'lossy' : 'exact';
         return { address, fidelity, value: { of: 'notes', notes: all } };
       }
@@ -1092,7 +1096,10 @@ export class FakeAdapter implements BitwigAdapter {
           const point = pointAtSlot(track, sceneIndex, origin);
           if (point.slot === undefined) return;
           for (const note of op.notes) {
-            point.slot.notes.delete(noteKey(channel, note.pitch, note.startBeats));
+            for (const [key, stored] of point.slot.notes) {
+              if (key.startsWith(`${channel}:`) && stored.pitch === note.pitch
+                  && noteReadCell(stored.startBeats) === noteReadCell(note.startBeats)) point.slot.notes.delete(key);
+            }
           }
           point.slot.stepDataStaleUntilTick = this.clock.tick + budgetTicks('gridChange');
           if (grid !== undefined) this.model.cursorStepSize = grid;

@@ -1,0 +1,224 @@
+{
+  "format": "notes-v1",
+  "count": 3,
+  "from": 0,
+  "size": 3,
+  "next": -1,
+  "columns": [
+    [
+      "channel",
+      "dict",
+      "u8"
+    ],
+    [
+      "pitch",
+      "dict",
+      "u8"
+    ],
+    [
+      "cell",
+      "dict",
+      "u8"
+    ],
+    [
+      "velocity",
+      "dict",
+      "u8"
+    ],
+    [
+      "releaseVelocity",
+      "dict",
+      "u8"
+    ],
+    [
+      "velocitySpread",
+      "dict",
+      "u8"
+    ],
+    [
+      "duration",
+      "dict",
+      "u8"
+    ],
+    [
+      "gain",
+      "dict",
+      "u8"
+    ],
+    [
+      "pan",
+      "dict",
+      "u8"
+    ],
+    [
+      "pressure",
+      "dict",
+      "u8"
+    ],
+    [
+      "timbre",
+      "dict",
+      "u8"
+    ],
+    [
+      "transpose",
+      "dict",
+      "u8"
+    ],
+    [
+      "chance",
+      "dict",
+      "u8"
+    ],
+    [
+      "repeatCurve",
+      "dict",
+      "u8"
+    ],
+    [
+      "repeatVelocityCurve",
+      "dict",
+      "u8"
+    ],
+    [
+      "repeatVelocityEnd",
+      "dict",
+      "u8"
+    ],
+    [
+      "occurrence",
+      "dict",
+      "u8"
+    ],
+    [
+      "recurrenceLength",
+      "dict",
+      "u8"
+    ],
+    [
+      "recurrenceMask",
+      "dict",
+      "u8"
+    ],
+    [
+      "repeatCount",
+      "dict",
+      "u8"
+    ],
+    [
+      "isChanceEnabled",
+      "raw",
+      "u8"
+    ],
+    [
+      "isMuted",
+      "raw",
+      "u8"
+    ],
+    [
+      "isOccurrenceEnabled",
+      "raw",
+      "u8"
+    ],
+    [
+      "isRecurrenceEnabled",
+      "raw",
+      "u8"
+    ],
+    [
+      "isRepeatEnabled",
+      "raw",
+      "u8"
+    ]
+  ],
+  "constants": {},
+  "tables": {
+    "channel": [
+      0,
+      3,
+      15
+    ],
+    "pitch": [
+      60,
+      62,
+      127
+    ],
+    "cell": [
+      0,
+      512,
+      4194303
+    ],
+    "velocity": [
+      0.7874015748031497,
+      0.5039370078740157,
+      1.0
+    ],
+    "releaseVelocity": [
+      0.0,
+      0.5
+    ],
+    "velocitySpread": [
+      0.0,
+      0.25
+    ],
+    "duration": [
+      1.0,
+      0.75,
+      0.001953125
+    ],
+    "gain": [
+      0.0,
+      0.5
+    ],
+    "pan": [
+      0.0,
+      -0.25
+    ],
+    "pressure": [
+      0.0,
+      0.5
+    ],
+    "timbre": [
+      0.0,
+      0.125
+    ],
+    "transpose": [
+      0.0,
+      2.0,
+      -12.0
+    ],
+    "chance": [
+      1.0,
+      0.3
+    ],
+    "repeatCurve": [
+      0.0,
+      0.5
+    ],
+    "repeatVelocityCurve": [
+      0.0,
+      -0.5
+    ],
+    "repeatVelocityEnd": [
+      0.0,
+      0.75
+    ],
+    "occurrence": [
+      "ALWAYS",
+      "PREV"
+    ],
+    "recurrenceLength": [
+      1,
+      8
+    ],
+    "recurrenceMask": [
+      1,
+      85
+    ],
+    "repeatCount": [
+      0,
+      -2
+    ]
+  },
+  "data": "AAECAAECAAECAAECAAEAAAEAAAECAAEAAAEAAAABAAEAAAECAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAQABAAEAAQABAQABAQAB"
+}

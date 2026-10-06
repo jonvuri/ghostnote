@@ -1,6 +1,7 @@
 package com.ghostnote.extension.handlers;
 
 import com.ghostnote.extension.Rig;
+import com.ghostnote.extension.WriteGate;
 import com.bitwig.extension.controller.api.ControllerHost;
 import com.bitwig.extension.controller.api.DuplicableObject;
 import com.bitwig.extension.controller.api.Send;
@@ -115,7 +116,9 @@ public final class BranchHandlers extends HandlerGroup {
         // atomic guard -> claim -> apply protocol here instead.
         long revision = ++state.revision;
         action.invoke();
-        host.scheduleTask(() -> expandCreatedGroup(beforeIds, 0), 25);
+        // Group expansion is part of this write. Hold the write lease until it ends (8h3c).
+        WriteGate.Lease lease = rig.writeGate.lease();
+        host.scheduleTask(() -> expandCreatedGroup(beforeIds, 0, lease), 25);
 
         result.addProperty("success", true);
         result.addProperty("applied", true);
@@ -127,7 +130,18 @@ public final class BranchHandlers extends HandlerGroup {
     }
 
     /** Poll the structural readback and expand one unambiguous newly-created group. */
-    private void expandCreatedGroup(Set<String> beforeIds, int attempt) {
+    private void expandCreatedGroup(Set<String> beforeIds, int attempt, WriteGate.Lease lease) {
+        boolean again = false;
+        try {
+            again = expandOnce(beforeIds, attempt);
+        } finally {
+            if (again) host.scheduleTask(() -> expandCreatedGroup(beforeIds, attempt + 1, lease), 25);
+            else lease.release();
+        }
+    }
+
+    /** One expansion attempt. Returns true when a later attempt is needed. */
+    private boolean expandOnce(Set<String> beforeIds, int attempt) {
         Track created = null;
         for (int i = 0; i < rig.config.tracks; i++) {
             Track candidate = rig.trackBank.getItemAt(i);
@@ -135,16 +149,14 @@ public final class BranchHandlers extends HandlerGroup {
                     || beforeIds.contains(candidate.channelId().get())) {
                 continue;
             }
-            if (created != null) return; // Concurrent new groups: fail closed.
+            if (created != null) return false; // Concurrent new groups: fail closed.
             created = candidate;
         }
         if (created != null) {
             created.isGroupExpanded().set(true);
-            return;
+            return false;
         }
-        if (attempt < 80) {
-            host.scheduleTask(() -> expandCreatedGroup(beforeIds, attempt + 1), 25);
-        }
+        return attempt < 80;
     }
 
     /**

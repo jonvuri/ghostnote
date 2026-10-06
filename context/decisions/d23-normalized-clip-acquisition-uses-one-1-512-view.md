@@ -42,3 +42,9 @@ The project-wide observer scale sweep must use one fixed `1/512` observer per
 clip. Its authority is a settled complete `1/512` scan projected to the same
 cell contract. The existing dual-grid reader can remain a diagnostic control,
 but exact sub-cell differences are not failures under D23.
+
+## Phase 8h3c adoption — 2026-10-05
+
+[D31](d31-mutation-and-reversal-use-the-d23-cell-boundary.md) adopts this
+occupied-cell boundary for product reads, mutation, verification, and reversal.
+The prior E131 implementation remains only as a named diagnostic control.

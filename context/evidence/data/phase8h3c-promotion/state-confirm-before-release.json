@@ -1,0 +1,388 @@
+{
+ "schema": "phase8h3c-state-v1",
+ "entry": {
+  "hello": {
+   "contractVersion": 0,
+   "extensionVersion": "0.0.1",
+   "runtimeProfile": "normal-v1",
+   "hostApiVersion": 25,
+   "methodCount": 87,
+   "methodsHash": "ca139a3e62a55e68"
+  },
+  "mark": {
+   "revision": 0,
+   "generation": "7470f0c1-8781-44be-96b8-8b24a3e96431",
+   "project": "New 6",
+   "projectStatus": "marked",
+   "sceneEpoch": 3,
+   "sceneCount": 8,
+   "contentEpoch": 32812,
+   "contentEvents": [
+    {
+     "seq": 32789,
+     "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+     "trackIndex": 6,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32790,
+     "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+     "trackIndex": 7,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32791,
+     "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+     "trackIndex": 0,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32792,
+     "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+     "trackIndex": 0,
+     "slotIndex": 4,
+     "filled": false
+    },
+    {
+     "seq": 32793,
+     "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+     "trackIndex": 1,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32794,
+     "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+     "trackIndex": 1,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32795,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32796,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32797,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32798,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 3,
+     "filled": false
+    },
+    {
+     "seq": 32799,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 4,
+     "filled": false
+    },
+    {
+     "seq": 32800,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 5,
+     "filled": false
+    },
+    {
+     "seq": 32801,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 6,
+     "filled": false
+    },
+    {
+     "seq": 32802,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 7,
+     "filled": false
+    },
+    {
+     "seq": 32803,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 8,
+     "filled": false
+    },
+    {
+     "seq": 32804,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 9,
+     "filled": false
+    },
+    {
+     "seq": 32805,
+     "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32806,
+     "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+     "trackIndex": 3,
+     "slotIndex": 5,
+     "filled": false
+    },
+    {
+     "seq": 32807,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32808,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32809,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32810,
+     "channelId": "",
+     "trackIndex": 5,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32811,
+     "channelId": "",
+     "trackIndex": 6,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32812,
+     "channelId": "",
+     "trackIndex": 7,
+     "slotIndex": 0,
+     "filled": false
+    }
+   ]
+  },
+  "rig": {
+   "runtimeProfile": "normal-v1",
+   "tracks": 256,
+   "scenes": 128,
+   "gridSteps": 64,
+   "fineSteps": 512,
+   "noteReadSteps": 2048,
+   "gridKeys": 128,
+   "stepSize": 0.25,
+   "cursorPool": 8,
+   "deviceBank": 16,
+   "remotePages": 16,
+   "containerScopes": 3,
+   "containerEntryBank": 5,
+   "containerEntryDeviceBank": 4,
+   "parameterRouteDepth": 2,
+   "sceneCount": 8,
+   "clipReader": {
+    "revision": "clip-reader-v1",
+    "closeRule": "confirm-before-release-v1",
+    "format": "notes-v1",
+    "width": 4194304,
+    "grid": 0.001953125,
+    "page": 131072,
+    "deadlineMs": 2000,
+    "reads": 0,
+    "refusals": 0,
+    "lastRefusal": "",
+    "lateCallbacks": 0,
+    "strayCallbacks": 0,
+    "releaseCallbacks": 0,
+    "releaseEmpty": 0,
+    "releaseSustain": 0,
+    "releaseOn": 0,
+    "subscribed": false,
+    "open": false,
+    "writeGate": {
+     "readOpen": false,
+     "waiting": 0,
+     "leases": 0,
+     "limit": 256,
+     "queuedTotal": 0,
+     "refusedTotal": 0
+    }
+   }
+  },
+  "stats": {
+   "runtimeProfile": "normal-v1",
+   "config": {
+    "tracks": 256,
+    "scenes": 128,
+    "gridSteps": 64,
+    "gridKeys": 128,
+    "cursorPool": 8,
+    "sends": 4,
+    "deviceBank": 16,
+    "fineSteps": 512,
+    "noteReadSteps": 2048,
+    "paramHandles": 64,
+    "remotePages": 16,
+    "cacheScaleObservers": 0,
+    "cacheScaleSteps": 131072,
+    "cacheScaleWidthSteps": 0,
+    "cacheShadowObservers": 0,
+    "cacheShadowSteps": 131072,
+    "cacheTopologyTracks": 16,
+    "cacheTopologyCounted": false,
+    "cacheLifecycleResearch": false,
+    "cacheKneeResearch": false,
+    "cacheShadowCursorScenes": -1,
+    "cacheSoundingResearch": false,
+    "deliveryResearch": false,
+    "contentFilter": "",
+    "directObservers": true,
+    "stamp": "default",
+    "fromFile": true
+   },
+   "rigConstructMicros": 31338,
+   "initMicros": 50083,
+   "initEpochMs": 1791211502234,
+   "upMs": 643728,
+   "clipReader": {
+    "revision": "clip-reader-v1",
+    "closeRule": "confirm-before-release-v1",
+    "format": "notes-v1",
+    "width": 4194304,
+    "grid": 0.001953125,
+    "page": 131072,
+    "deadlineMs": 2000,
+    "reads": 0,
+    "refusals": 0,
+    "lastRefusal": "",
+    "lateCallbacks": 0,
+    "strayCallbacks": 0,
+    "releaseCallbacks": 0,
+    "releaseEmpty": 0,
+    "releaseSustain": 0,
+    "releaseOn": 0,
+    "subscribed": false,
+    "open": false,
+    "writeGate": {
+     "readOpen": false,
+     "waiting": 0,
+     "leases": 0,
+     "limit": 256,
+     "queuedTotal": 0,
+     "refusedTotal": 0
+    }
+   },
+   "slotObjects": 32768,
+   "markedValues": 197888,
+   "resources": {
+    "cursorDeviceBanks": 8,
+    "siblingDeviceBanks": 1,
+    "layerDeviceBanks": 8,
+    "slotDeviceBanks": 15,
+    "namedSlotDeviceBanks": 0,
+    "drumPadDeviceBanks": 16,
+    "deviceBanks": 48,
+    "cursorDeviceSlots": 128,
+    "cursorDeviceEnabledValues": 128,
+    "layerDeviceSlots": 32,
+    "slotDeviceSlots": 60,
+    "drumPadDeviceSlots": 256,
+    "namedSlotDeviceSlots": 0,
+    "deviceSlots": 492,
+    "cursorDevices": 1,
+    "specificDeviceViews": 4,
+    "typedParameterHandles": 75,
+    "remotePageCursors": 16,
+    "remoteParameterHandles": 128,
+    "directParameterObservers": 4,
+    "noteObserverCursors": 1,
+    "noteStepObservers": 1,
+    "stepDataObservers": 0,
+    "cacheScaleCursorTracks": 0,
+    "cacheScaleClipProxies": 0,
+    "cacheScaleStepDataObservers": 0,
+    "trackSendBanks": 0,
+    "trackSendHandles": 0,
+    "trackVuObservers": 0,
+    "historicalActionHandles": 0,
+    "historicalSelectionObservers": 0,
+    "equalsProxies": 32,
+    "transportProxies": 1,
+    "masterRecorderProxies": 0,
+    "cursorTracks": 11,
+    "cursorClips": 11,
+    "layerBanks": 4,
+    "layerHandles": 23,
+    "layerSendBanks": 0,
+    "layerSendHandles": 0,
+    "explicitHostObjects": 33893,
+    "observerCallbacks": 838
+   },
+   "heapUsedMb": 388,
+   "heapMaxMb": 3072
+  }
+ },
+ "trackId": "4d4721ac-fa19-4ee2-a62b-4d69d3266633",
+ "entryTracks": [
+  {
+   "index": 0,
+   "name": "Inst 1",
+   "position": 0,
+   "type": "Instrument",
+   "channelId": "4fc04f82-d81d-494d-9638-761edbd053e8"
+  },
+  {
+   "index": 1,
+   "name": "Audio 2",
+   "position": 1,
+   "type": "Audio",
+   "channelId": "dafc0981-2b5c-4f36-964c-88db8b695566"
+  },
+  {
+   "index": 2,
+   "name": "FX 1",
+   "position": 2,
+   "type": "Effect",
+   "channelId": "3550dbae-c137-407c-9464-97a800ba34ce"
+  },
+  {
+   "index": 3,
+   "name": "Master",
+   "position": 3,
+   "type": "Master",
+   "channelId": "42a16c6d-cbf0-4f9a-bbb3-57dde676f30e"
+  }
+ ],
+ "entrySelection": {
+  "trackIndex": -1,
+  "slotIndex": -1,
+  "mixerTrackIndex": 0,
+  "changes": 0,
+  "revision": 3
+ }
+}

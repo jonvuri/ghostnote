@@ -14,8 +14,8 @@
   ],
   "extractedAt": "2026-10-04",
   "extractedFrom": "handlers/*Handlers.java registration declarations",
-  "count": 160,
-  "methodsHash": "499c677600936884",
+  "count": 162,
+  "methodsHash": "764605be1d884c7e",
   "addedInPhase0": [
     "api.runtimeMethods",
     "app.selectionNotifications",
@@ -149,6 +149,8 @@
     "chainselector.set",
     "chainselector.status",
     "clip.create",
+    "clip.read",
+    "clip.readPage",
     "contract.hello",
     "cursor.clearNote",
     "cursor.clearNotes",
@@ -500,5 +502,9 @@
   ],
   "addedInPhase8h1a": [
     "cache.configure"
+  ],
+  "addedInPhase8h3c": [
+    "clip.read",
+    "clip.readPage"
   ]
 }

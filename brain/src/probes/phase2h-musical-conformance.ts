@@ -234,7 +234,7 @@ async function publicSession(): Promise<PublicSession> {
     transport: new BridgeTransport(bridge), cursorRefs: ['0', '1', '2'],
   });
   const witness = new LiveAdapter({
-    transport: new BridgeTransport(bridge), cursorRefs: ['fine'], noteReadCursorRef: 'fine',
+    transport: new BridgeTransport(bridge), cursorRefs: ['fine'],
   });
   await writer.hello();
   await witness.hello();

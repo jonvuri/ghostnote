@@ -20,7 +20,7 @@ public final class ShadowObserverBudgetTest {
         config.cacheScaleObservers = -1;
         refuses(config, "negative count cannot hide other observers");
         // Load the runtime classification offline. A count drift fails here, not at controller init.
-        check(RuntimeProfile.NORMAL.methodNames().size() == 85 && RuntimeProfile.PROBE.methodNames().size() == 98
+        check(RuntimeProfile.NORMAL.methodNames().size() == 87 && RuntimeProfile.PROBE.methodNames().size() == 100
             && RuntimeProfile.PROBE.includes("cache.configure") && !RuntimeProfile.NORMAL.includes("cache.configure"),
             "runtime method classification initializes with 8h1a cache.configure");
         System.out.println("Shadow observer budget: 2 test groups passed.");

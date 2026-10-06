@@ -85,6 +85,7 @@ public final class CoreHandlers extends HandlerGroup {
         result.addProperty("containerEntryDeviceBank", Rig.SLOT_LAYER_DEVICE_BANK);
         result.addProperty("parameterRouteDepth", Rig.PARAMETER_ROUTE_DEPTH);
         result.addProperty("sceneCount", rig.sceneBank.itemCount().get());
+        result.add("clipReader", ClipReadHandlers.status(rig, registry));
         return result;
     }
 
@@ -103,6 +104,7 @@ public final class CoreHandlers extends HandlerGroup {
         result.addProperty("initMicros", state.initNanos < 0 ? -1 : state.initNanos / 1000);
         result.addProperty("initEpochMs", state.initEpochMs);
         result.addProperty("upMs", state.initEpochMs < 0 ? -1 : System.currentTimeMillis() - state.initEpochMs);
+        result.add("clipReader", ClipReadHandlers.status(rig, registry));
 
         // Derived scaffold volume — the thing that actually scales.
         long slots = (long) rig.config.tracks * rig.config.scenes;
@@ -186,8 +188,9 @@ public final class CoreHandlers extends HandlerGroup {
         for (var bank : rig.layerSendBanks) {
             if (bank != null) layerSendBanks++;
         }
-        long cursorTracks = rig.config.cursorPool + 2L + cacheScaleViews;
-        long cursorClips = rig.config.cursorPool + 2L
+        // Pool, fine, note observer, and the 8h3c clip reader.
+        long cursorTracks = rig.config.cursorPool + 3L + cacheScaleViews;
+        long cursorClips = rig.config.cursorPool + 3L
             + (rig.profile.hasProbeResources() ? 2L : 0L) + cacheScaleViews;
         long layerBanks = 1L + Rig.SLOT_SCOPES;
         long layerHandles = Rig.LAYER_BANK + (long) Rig.SLOT_SCOPES * Rig.SLOT_LAYER_BANK;

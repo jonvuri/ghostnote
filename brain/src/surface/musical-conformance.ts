@@ -333,7 +333,7 @@ export async function runPublicMusicalConformance(
     assert.ok(transformedExact !== undefined);
     assert.equal(transformedExact.pitch, 61);
     assertExactProperties(transformedExact, exactMusicalNote({ pitch: 61 }));
-    assert.equal(notes(await harness.call('read_clip', { ...block, channel: 4 }))[0]?.startBeats, 1 / 3);
+    assert.equal(notes(await harness.call('read_clip', { ...block, channel: 4 }))[0]?.startBeats, 0);
     assert.equal(notes(await harness.call('read_clip', { ...block, channel: 6 })).length, 0);
     assert.ok(notes(await harness.call('read_clip', { ...block, channel: 7 })).length > 2);
     harness.milestone?.('all eight transformation verbs apply in one public call');

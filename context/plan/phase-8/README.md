@@ -356,8 +356,9 @@ owns the migration details.
    completes final shadow acceptance.
    E131 remains authoritative.
 28. [8h — Cache promotion and interface simplification](8h-cache-promotion-and-interface-simplification.md).
-   Not entered. The 8g gate passes (E224). A later session can select 8h. It
-   must fix or refuse the legacy writer loss of disabled expression state.
+   Reader promotion is complete (E230). Change awareness, cache machinery
+   trim, and interface simplification remain. The legacy writer loss of
+   disabled expression state is fixed and verified in the owned E230 case.
    It is split into [8h1a](8h1a-cache-limit-knee-sweep.md) (limit knee sweep;
    first pass in [E225](../../evidence/experiments/e225-cache-limit-knee-sweep.md)),
    [8h1b](8h1b-sounding-cell-cost-reduction.md) (sounding-cell cost reduction;
@@ -367,8 +368,9 @@ owns the migration details.
    [8h3a](8h3a-cold-read-dealbreaker-check.md) (cold-read dealbreaker check),
    [8h3b](8h3b-replay-fetch-cost.md) (replay fetch cost; complete in
    [E229](../../evidence/experiments/e229-replay-fetch-cost.md)),
-   [8h3c](8h3c-cold-reader-promotion.md) (cold-reader promotion; E131
-   retirement), [8h3d](8h3d-change-awareness.md) (change awareness),
+   [8h3c](8h3c-cold-reader-promotion.md) (cold-reader promotion and E131
+   retirement; complete in [E230](../../evidence/experiments/e230-cold-reader-promotion.md)),
+   [8h3d](8h3d-change-awareness.md) (change awareness),
    [8h3e](8h3e-cache-machinery-trim.md) (cache machinery trim),
    and 8h4 (interface simplification). 8h3c and 8h3e replace the earlier 8h1
    and 8h2b plans.

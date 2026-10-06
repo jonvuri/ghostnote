@@ -42,7 +42,7 @@ export type {
 export { EXACT_CLIP_COLORS, exactClipColor, supportedClipColors } from './clip-color.js';
 export type { ClipColorBytes, ExactClipColor } from './clip-color.js';
 
-export { STEP_SIZES, chooseStepSize, stepSizeFor } from './grid.js';
+export { STEP_SIZES, chooseStepSize, stepSizeFor, noteReadCell, noteReadStart } from './grid.js';
 
 export {
   contentDelta, contentTouching, deltaComplete, discontinuityBetween, sliceDelta,

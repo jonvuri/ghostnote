@@ -1,0 +1,62 @@
+{
+  "schema": "phase8h3c-offline-v1",
+  "brainTests": 1886,
+  "liveAcceptance": "passed",
+  "sha256": {
+    "baseline-final.json": "c153eb3617abdb64ebf49c1bd1e622f99138005d1c151803c3286b79f7baf3d1",
+    "brain-check.log.gz": "2c88f9dc3fd9a85552c750e8600aace0136854af511d31b219de801794fae33e",
+    "cleanup-confirm-before-release.json": "c88047b1e8ff9e51116f038163910e62317c88ab1cff56eee52d159898e4870e",
+    "cleanup.json": "f355a55896adf1dc78ef897585399f80b3b315e7c29c93d05ff46edfe3d991b8",
+    "disabled.json.gz": "3cfdc7017038713de26d5c081d758714785141c4748553aa797020d4ec5ff1a0",
+    "e228.json": "b1d207bf3c24745d0724e1d4998ad5bfa6757db8a9e5ced9527a749ac5807a0d",
+    "e229.json": "c0333e2dd130bf38c83f59e1ef3801c3e937198f23b43fc5a76db84e29726e9c",
+    "extension-check.log.gz": "6be16503f565abeed70b160b16512f19dfe311ab3f75d332c4aae9f01dc19f43",
+    "faults.json.gz": "ce7a1bbfe3a7c39a0325e8f2838459b24a8e63d82378683170d68e259ad98d22",
+    "hello-confirm-before-release.log": "aabbb67ef38b067708b1c2976df707cbef22ac976a4dc43c0493986c1d7f1996",
+    "hello-normal-final.log": "161f4cc4628f142f91883e612ce7a242d756a68b6ef91a745d9e95b827b5b5e8",
+    "hello-probe.log": "e5de04be3ee0453f5fe78ae09a5bc1929cb051e26755d363f4a28c63ce80cdd2",
+    "normal-hello-after-cleanup.log": "34d6a3c871c97dfdb7864a444e36d387a709ee47c3681507cbcf5e2f66f0ec59",
+    "paired.json.gz": "cae21a42edf9d417e78972579d2d97456e9269ed94b670d0f7b742efaccdcf18",
+    "queue-first-attempt.json.gz": "a4f4e6ec3440ca4c542c8ff612a45d5da8a6e6f9cd6b25cace3679a18dedcb63",
+    "queue-second-attempt.json.gz": "0e669e50f34394e45c0a5c6e44260772d9fcaf945c2ea8892ac8b04814e581be",
+    "queue-third-attempt.json.gz": "3e7a0890e326f1f4cbb7cbdb392c59c4b18f49a87982a52dd5265db3f94ddef9",
+    "queue.json.gz": "997ee56b14f479efb8547ea4277d15ef3cf72f4b2cfe2a0324d7f519b26055f6",
+    "refusals.json.gz": "948827006f38c4107268c2dd5ea22809569733ffe62d59f02004f96f822d9503",
+    "selection-first-attempt.json.gz": "3a60e71676706c6821df85cb6ffb8b255b8bf6c585d496f7c2ea3a15a6ce497d",
+    "selection.json.gz": "00ec0e84825c3a2c8e1266db82bb6bc9da2e9ab92b33276c2d1a317c9766207d",
+    "smoke-confirm-before-release.json.gz": "4005b6ca1b07c73838cbce35388252361cbe7778920219ca1a0252bdc0e2d9ac",
+    "smoke.json.gz": "5217b9a0583310bd9d2000ca9ee28bd52b3a15921aa6e484ad198cf13dda2df6",
+    "state-confirm-before-release.json": "9be8af9a87215441aebbd66f41feb43e09765e9a38a185c5ebde94b0fae8b0a4",
+    "state.json": "e3ebe371bb1b7ad8fc3d6defca1d4a505ff795542d9d77738cfd95c2842dd12f",
+    "stopped-smoke-verifier-test.log": "d19e6bc40cf529bc4487bfb9acbde968ffb079f1d8a6f23754570d43db13002b"
+  },
+  "deployment": {
+    "runtimeProfile": "normal-v1",
+    "methodCount": 87,
+    "methodsHash": "ca139a3e62a55e68",
+    "readerRevision": "clip-reader-v1",
+    "archiveSha256": "c3dcc97abdcd69e99a07510dc11bb9e15b729f4051891eb3ebb7d5b3329c23fe",
+    "deployedAt": "2026-10-05T15:26:02.563603+00:00",
+    "closeRule": "confirm-before-release-v1"
+  },
+  "originalConfigSha256": "256bbf07094cd654c372d0e5e050e494ef7783c9a0001a0a2a688331bcf643b0",
+  "previousDeployment": {
+    "runtimeProfile": "normal-v1",
+    "methodCount": 87,
+    "methodsHash": "ca139a3e62a55e68",
+    "readerRevision": "clip-reader-v1",
+    "archiveSha256": "50a30d5688d155c43bc6fe87d330cc49f65aa2d96a47778e77f1725f6e266dde",
+    "deployedAt": "2026-10-05T13:53:14.180539+00:00"
+  },
+  "researchDeployment": {
+    "runtimeProfile": "phase-8-probe-v1",
+    "methodCount": 100,
+    "methodsHash": "4232fd6c9f325749",
+    "readerRevision": "clip-reader-v1",
+    "closeRule": "confirm-before-release-v1",
+    "archiveSha256": "822670391bfb68c5756fa1b8148a13b8734763a1e5a3feae5afa1e7c58f42157",
+    "deployedAt": "2026-10-05T15:16:25.043501+00:00"
+  },
+  "ownedProjectClosedWithoutSaving": true,
+  "researchArchiveRemoved": true
+}

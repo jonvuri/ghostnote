@@ -448,3 +448,14 @@ test('R-stages: the plan survives planStages with every props op still behind IT
   assert.equal(clipOf(1), clipOf(0));
   assert.equal(clipOf(3), clipOf(2));
 });
+
+test('D31 reconstruction restores the acquired cell start of a legacy checkpoint', () => {
+  const address = notesAt(CLIP_A);
+  const plan = revertOps({
+    ...writeSetOf([{ op: 'note.write', clip: CLIP_A, notes: [note()] }]),
+    stash: stashOf([notesEntry(address, [note({ startBeats: 1 / 6, durationBeats: 1 / 3 })])]),
+  });
+  const replay = plan.ops.find((op) => op.op === 'note.write');
+  assert.equal(replay?.op === 'note.write' ? replay.notes[0]?.startBeats : undefined, 85 / 512);
+  assert.equal(replay?.op === 'note.write' ? replay.notes[0]?.durationBeats : undefined, 1 / 3);
+});

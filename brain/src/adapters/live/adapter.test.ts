@@ -23,7 +23,9 @@ import {
   type ClipAddress, type NoteRecord, type RevisionMark, type TrackAddress,
 } from '../../contract/index.js';
 import { BridgeError } from '../../client.js';
-import { LiveAdapter, reconcileExactNoteScans } from './adapter.js';
+import { LiveAdapter } from './adapter.js';
+import { readFileSync } from 'node:fs';
+import { decodeNoteFrame, type NoteFrame } from './clip-read.js';
 import type { Transport } from './transport.js';
 import { WIRE, type Frame } from './wiremap.js';
 
@@ -131,11 +133,38 @@ class CursorModelTransport implements Transport {
         return {
           gridSteps: 64,
           fineSteps: 512,
-          noteReadSteps: this.noteReadSteps,
+          clipReader: { width: 4_194_304, grid: 1 / 512, format: 'notes-v1', page: 131_072 },
           cursorPool: 3,
           scenes: 8,
           deviceBank: 8,
         };
+
+      case WIRE.clipRead: {
+        const model = this.slots.get(params['row'] as number)!;
+        const template = JSON.parse(readFileSync(new URL('../../../../extension/clip-read.frame.golden.json', import.meta.url), 'utf8')) as NoteFrame;
+        const constants: Record<string, number | boolean | string> = { ...decodeNoteFrame(template, template.size)[0]!, channel: 0, pitch: model.pitch,
+          cell: Math.floor((model.startBeats ?? 0) * 512), velocity: 100 / 127, duration: 1 };
+        const fields = template.columns.map(([name]) => name);
+        // Encode each numeric field as raw f64. The oracle has one note in each channel.
+        const raw = Buffer.alloc(fields.length * 16 * 8);
+        fields.forEach((name, column) => {
+          for (let channel = 0; channel < 16; channel += 1) {
+            const value = name === 'channel' ? channel : name === 'pitch'
+              ? model.channelPitches?.[channel] ?? model.pitch : constants[name];
+            raw.writeDoubleLE(typeof value === 'number' ? value : 0, (column * 16 + channel) * 8);
+          }
+        });
+        const columns = fields.map((name) => [name, 'raw', 'f64'] as const);
+        // Strings and flags use constants; numeric columns remain raw.
+        const numeric = fields.filter((name) => typeof constants[name] === 'number');
+        const data = Buffer.concat(numeric.map((name) => {
+          const column = fields.indexOf(name);
+          return raw.subarray(column * 16 * 8, (column + 1) * 16 * 8);
+        }));
+        return { readId: 1, frame: { format: 'notes-v1', count: 16, from: 0, size: 16, next: -1,
+          columns: fields.map((name) => numeric.includes(name) ? [name, 'raw', 'f64'] : [name, 'const']),
+          constants, tables: {}, data: data.toString('base64') } };
+      }
 
       case WIRE.trackList:
         return { tracks: [{ index: 0, channelId: CHANNEL_ID, name: 'gn-fixture' }], count: 1, bankSize: 8, itemCount: 1 };
@@ -355,165 +384,55 @@ test('8b: the handshake refuses a different runtime profile', async () => {
   await assert.rejects(adapter.hello(), RuntimeProfileMismatchError);
 });
 
-test('2h: the production fine cursor preserves a triplet start across exact readback', async () => {
-  const transport = new CursorModelTransport(new Map([
-    [0, { lengthBeats: 8, pitch: 65, startBeats: 1 / 6 }],
-  ]));
-  const adapter = new UntimedAdapter({ transport });
-  await adapter.hello();
-
-  const snapshot = await adapter.read([notesAt(CLIP(0), 4)]);
-  const value = snapshot.entries[addressKey(notesAt(CLIP(0), 4))]?.value;
-
-  assert.equal(value?.of === 'notes' ? value.notes[0]?.startBeats : undefined, 1 / 6);
-  assert.deepEqual(
-    transport.frames
-      .filter((frame) => frame.method === WIRE.cursorSetStepSize)
-      .map((frame) => frame.params?.['stepSize']),
-    [1 / 512, 1 / 768],
-  );
-  assert.equal(
-    transport.frames.filter((frame) => frame.method === WIRE.cursorGetNotesVerboseAllChannels).length,
-    5,
-    'eight beats need two binary pages and three triplet pages at the measured limits',
-  );
-  assert.equal(transport.where('fine'), 0);
-});
-
-test('E131: exact reconciliation retains a same-pitch note omitted by one grid', () => {
-  const first: NoteRecord = {
-    startBeats: 0, pitch: 60, velocity: 0.75, durationBeats: 1 / 8,
-  };
-  const second: NoteRecord = {
-    startBeats: 1 / 8, pitch: 60, velocity: 0.8, durationBeats: 1 / 8,
-  };
-  assert.deepEqual(reconcileExactNoteScans(CLIP(0), 0, [first, second], [first]), [first, second]);
-});
-
-test('E131: exact reconciliation refuses incompatible nearby grid identities', () => {
-  const binary: NoteRecord = {
-    startBeats: 1 / 8, pitch: 60, velocity: 0.75, durationBeats: 1 / 8,
-  };
-  const triplet: NoteRecord = { ...binary, startBeats: 1 / 8 + 1 / 768, velocity: 0.5 };
-  assert.throws(() => reconcileExactNoteScans(CLIP(0), 0, [binary], [triplet]),
-    /binary and triplet scans disagree.*note identity/);
-});
-
-test('2i: the exact reader pages through a clip longer than its fine window', async () => {
-  const transport = new CursorModelTransport(new Map([
-    [0, { lengthBeats: 32, pitch: 67, startBeats: 24 }],
-  ]), { trackIndex: -1, slotIndex: -1 }, 0, undefined, 512);
-  const adapter = new UntimedAdapter({ transport });
-  await adapter.hello();
-
-  const snapshot = await adapter.read([notesAt(CLIP(0), 0)]);
-  const value = snapshot.entries[addressKey(notesAt(CLIP(0), 0))]?.value;
-
-  assert.equal(value?.of === 'notes' ? value.notes[0]?.startBeats : undefined, 24);
-  const pageTurns = transport.frames
-    .filter((frame) => frame.method === WIRE.cursorScrollToStep)
-    .map((frame) => frame.params?.['step']);
-  assert.equal(pageTurns.length, 82);
-  assert.deepEqual(pageTurns.slice(0, 3), [0, 512, 1024]);
-  assert.deepEqual(pageTurns.slice(30, 35), [15360, 15872, 0, 0, 512]);
-  assert.deepEqual(pageTurns.slice(-3), [23552, 24064, 0]);
-  assert.equal(
-    transport.frames.filter((frame) => frame.method === WIRE.cursorGetNotesVerboseAllChannels).length,
-    80,
-    'the 512-step test reader needs 32 binary and 48 triplet pages',
-  );
-});
-
-test('4b: bounded page replies preserve all 16 verbose MIDI channels', async () => {
+test('8h3c: reads use one 1/512 capture for all channels and keep the occupied cell', async () => {
   const channelPitches = Array.from({ length: 16 }, (_, channel) => 48 + channel);
-  const phases: string[] = [];
-  const transport = new CursorModelTransport(new Map([
-    [0, { lengthBeats: 4, pitch: 48, channelPitches }],
-  ]));
-  const adapter = new UntimedAdapter({
-    transport,
-    onTiming: (event) => phases.push(event.phase),
-  });
+  const transport = new CursorModelTransport(new Map([[0, { lengthBeats: 256, pitch: 60,
+    startBeats: 1 / 6, channelPitches }]]));
+  const adapter = new UntimedAdapter({ transport });
   await adapter.hello();
-
   const addresses = channelPitches.map((_, channel) => notesAt(CLIP(0), channel));
   const snapshot = await adapter.read(addresses);
-
-  assert.deepEqual(addresses.map((address) => {
+  for (const [channel, address] of addresses.entries()) {
     const value = snapshot.entries[addressKey(address)]?.value;
-    return value?.of === 'notes' ? value.notes[0]?.pitch : undefined;
-  }), channelPitches);
-  assert.equal(
-    transport.frames.filter((frame) => frame.method === WIRE.cursorGetNotesVerboseAllChannels).length,
-    3,
-    'the snapshot reuses one binary and two triplet bulk replies for all channels',
-  );
-  assert.deepEqual(new Set(phases), new Set([
-    'targetAcquisition', 'metadata', 'gridSettlement', 'pageTurn',
-    'bulkPageRead', 'pageReset', 'reconciliation', 'selectionRestoration',
-  ]));
-  assert.equal(phases.filter((phase) => phase === 'gridSettlement').length, 3,
-    'each binary or triplet page uses one full settlement');
-  assert.equal(
-    transport.frames.filter((frame) => frame.method === WIRE.cursorScrollToStep).length,
-    4,
-    'the triplet scan turns one extra page and restores page zero',
-  );
+    assert.equal(value?.of, 'notes');
+    if (value?.of === 'notes') {
+      assert.equal(value.notes[0]?.pitch, channelPitches[channel]);
+      assert.equal(value.notes[0]?.startBeats, 85 / 512);
+    }
+  }
+  const reads = transport.frames.filter((frame) => frame.method === WIRE.clipRead);
+  assert.equal(reads.length, 1);
+  assert.deepEqual(reads[0]?.params, { trackIndex: 0, row: 0, channelId: CHANNEL_ID });
+  assert.equal(reads[0]?.timeoutMs, 30_000);
+  assert.equal(transport.frames.some((frame) => frame.method === WIRE.cursorGetNotesVerboseAllChannels
+    || frame.method === WIRE.cursorSetStepSize || frame.method === WIRE.cursorPointTrack), false);
 });
 
-test('6j: exact-read page cost follows the advertised reader width', async () => {
-  for (const [lengthBeats, readerSteps, pages, resets] of [
-    [4, 2048, 3, 1],
-    [8, 2048, 5, 2],
-    [32, 2048, 20, 2],
-    [128, 2048, 80, 2],
-    [32, 512, 80, 2],
-  ]) {
-    const transport = new CursorModelTransport(new Map([
-      [0, { lengthBeats, pitch: 67, startBeats: lengthBeats - 1 }],
-    ]), { trackIndex: -1, slotIndex: -1 }, 0, undefined, readerSteps);
-    const phases: string[] = [];
-    const adapter = new UntimedAdapter({
-      transport, onTiming: (event) => phases.push(event.phase),
-    });
-    await adapter.hello();
-    const snapshot = await adapter.read(
-      Array.from({ length: 16 }, (_, channel) => notesAt(CLIP(0), channel)),
-    );
-    const value = snapshot.entries[addressKey(notesAt(CLIP(0), 0))]?.value;
-    assert.equal(value?.of === 'notes' ? value.notes[0]?.startBeats : undefined, lengthBeats - 1);
-    assert.equal(Object.keys(snapshot.entries).length, 16);
-    assert.equal(transport.frames.filter(
-      (frame) => frame.method === WIRE.cursorGetNotesVerboseAllChannels,
-    ).length, pages);
-    assert.equal(phases.filter((phase) => phase === 'gridSettlement').length, pages);
-    assert.equal(phases.filter((phase) => phase === 'pageReset').length, resets);
-    assert.equal(transport.frames.filter(
-      (frame) => frame.method === WIRE.cursorScrollToStep,
-    ).length, pages + resets);
+test('8h3c: absent and incompatible reader configurations refuse before acquisition', async () => {
+  for (const config of [undefined, { width: 512, grid: 1 / 512, format: 'notes-v1', page: 131_072 },
+    { width: 4_194_304, grid: 1 / 768, format: 'notes-v1', page: 131_072 },
+    { width: 4_194_304, grid: 1 / 512, format: 'other', page: 131_072 },
+    { width: 4_194_304, grid: 1 / 512, format: 'notes-v1' },
+    { width: 4_194_304, grid: 1 / 512, format: 'notes-v1', page: 0 }]) {
+    const model = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
+    const transport: Transport = { send: async (frame) => frame.method === WIRE.rigInfo
+      ? { clipReader: config } : model.send(frame), close: () => model.close() };
+    const adapter = new UntimedAdapter({ transport });
+    if (config !== undefined) await adapter.hello();
+    await assert.rejects(adapter.read([notesAt(CLIP(0))]), AddressUnresolvedError);
+    assert.equal(model.frames.some((frame) => frame.method === WIRE.clipRead), false);
   }
 });
 
-test('4b: an incomplete bulk page refuses instead of hiding one MIDI channel', async () => {
-  const inner = new CursorModelTransport(new Map([
-    [0, { lengthBeats: 4, pitch: 60 }],
-  ]));
-  const transport: Transport = {
-    send: async (frame) => {
-      const result = await inner.send(frame);
-      if (frame.method !== WIRE.cursorGetNotesVerboseAllChannels) return result;
-      const bulk = result as { readonly channels: readonly unknown[] };
-      return { ...bulk, channels: bulk.channels.slice(0, 15) };
-    },
-    close: () => inner.close(),
-  };
-  const adapter = new UntimedAdapter({ transport });
-  await adapter.hello();
-
-  await assert.rejects(
-    adapter.read([notesAt(CLIP(0), 0)]),
-    /did not return all 16 MIDI channels/,
-  );
+test('8h3c: extension refusals retain their reason', async () => {
+  for (const refused of ['deadline', 'clip-beyond-reader-width', 'duplicate-cell', 'step-delta']) {
+    const model = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
+    const transport: Transport = { send: async (frame) => frame.method === WIRE.clipRead
+      ? { refused, message: 'fixture' } : model.send(frame), close: () => model.close() };
+    const adapter = new UntimedAdapter({ transport });
+    await adapter.hello();
+    await assert.rejects(adapter.read([notesAt(CLIP(0))]), new RegExp(refused));
+  }
 });
 
 test('5g repair: two delayed pins settle before either cursor hold is reused', async () => {
@@ -523,12 +442,10 @@ test('5g repair: two delayed pins settle before either cursor hold is reused', a
   ]), { trackIndex: 3, slotIndex: 2 }, 1);
   const adapter = new DelayedPinAdapter(transport);
 
-  const snapshot = await adapter.read([notesAt(CLIP(0)), notesAt(CLIP(1))]);
-  const first = snapshot.entries[addressKey(notesAt(CLIP(0)))]?.value;
-  const second = snapshot.entries[addressKey(notesAt(CLIP(1)))]?.value;
+  const snapshot = await adapter.read([clipMetadata(CLIP(0)), clipMetadata(CLIP(1))]);
+  const first = snapshot.entries[addressKey(clipMetadata(CLIP(0)))]?.value;
+  const second = snapshot.entries[addressKey(clipMetadata(CLIP(1)))]?.value;
 
-  assert.equal(first?.of === 'notes' ? first.notes[0]?.pitch : undefined, 60);
-  assert.equal(second?.of === 'notes' ? second.notes[0]?.pitch : undefined, 67);
   assert.equal(transport.where('0'), 0, 'the first cursor stays on clip A');
   assert.equal(transport.where('1'), 1, 'the second cursor reaches clip B');
   assert.equal(
@@ -551,10 +468,9 @@ test('5g revert repair: slow pins are polled without restarting the confirmed po
   );
   const adapter = new DelayedPinAdapter(transport);
 
-  const snapshot = await adapter.read([notesAt(CLIP(0))]);
-  const value = snapshot.entries[addressKey(notesAt(CLIP(0)))]?.value;
+  const snapshot = await adapter.read([clipMetadata(CLIP(0))]);
+  const value = snapshot.entries[addressKey(clipMetadata(CLIP(0)))]?.value;
 
-  assert.equal(value?.of === 'notes' ? value.notes[0]?.pitch : undefined, 60);
   assert.equal(transport.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 1);
   assert.equal(transport.frames.filter((frame) =>
     frame.method === WIRE.cursorPin && frame.params?.['pinned'] === true).length, 1);
@@ -571,7 +487,7 @@ test('5g revert repair: pins that never settle refuse within eight attempts', as
   const adapter = new DelayedPinAdapter(transport);
 
   await assert.rejects(
-    adapter.read([notesAt(CLIP(0))]),
+    adapter.read([clipMetadata(CLIP(0))]),
     /target track 0, row 0 confirmed, but clip pin false and track pin false did not both confirm after 8 attempts/,
   );
   assert.equal(transport.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 1);
@@ -585,7 +501,7 @@ test('5g repair: a direct read does not reuse a hold after an out-of-band point'
   ]), { trackIndex: 3, slotIndex: 2 });
   const adapter = new UntimedAdapter({ transport, cursorPool: 1, sceneBankSize: 8 });
 
-  await adapter.read([notesAt(CLIP(0))]);
+  await adapter.read([clipMetadata(CLIP(0))]);
   await transport.send({ method: WIRE.cursorPin, params: { cursor: '0', pinned: false } });
   await transport.send({ method: WIRE.cursorPinTrack, params: { cursor: '0', pinned: false } });
   await transport.send({ method: WIRE.cursorPointTrack, params: { cursor: '0', trackIndex: 0 } });
@@ -594,10 +510,9 @@ test('5g repair: a direct read does not reuse a hold after an out-of-band point'
     params: { trackIndex: 0, slotIndex: 1, mechanism: 'track' },
   });
 
-  const snapshot = await adapter.read([notesAt(CLIP(0))]);
-  const value = snapshot.entries[addressKey(notesAt(CLIP(0)))]?.value;
+  const snapshot = await adapter.read([clipMetadata(CLIP(0))]);
+  const value = snapshot.entries[addressKey(clipMetadata(CLIP(0)))]?.value;
 
-  assert.equal(value?.of === 'notes' ? value.notes[0]?.pitch : undefined, 60);
   assert.equal(transport.where('0'), 0, 'the second call re-points to clip A');
   assert.equal(
     transport.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length,
@@ -615,8 +530,8 @@ test('B4: one selection scope covers repeated live reads and restores once', asy
 
   await assert.rejects(
     adapter.preserveSelection(async () => {
-      await adapter.read([notesAt(CLIP(0))]);
-      await adapter.read([notesAt(CLIP(0))]);
+      await adapter.read([clipMetadata(CLIP(0))]);
+      await adapter.read([clipMetadata(CLIP(0))]);
       throw new Error('pipeline failed after pointing');
     }),
     /pipeline failed/,
@@ -661,7 +576,7 @@ test('5d repair: entry selection wins over a change before the first cursor borr
   await adapter.preserveSelection(async () => {
     selected.trackIndex = 6;
     selected.slotIndex = 5;
-    await adapter.read([notesAt(CLIP(0))]);
+    await adapter.read([clipMetadata(CLIP(0))]);
   });
 
   assert.deepEqual(selected, { trackIndex: 3, slotIndex: 2 });
@@ -684,7 +599,7 @@ test('5d repair: selection changes do not re-point a verified held clip between 
   const adapter = new UntimedAdapter({ transport, cursorPool: 1, sceneBankSize: 8 });
 
   await adapter.preserveSelection(async () => {
-    await adapter.read([notesAt(CLIP(0))]);
+    await adapter.read([clipMetadata(CLIP(0))]);
     selected.trackIndex = 7;
     selected.slotIndex = 4;
     await adapter.apply({
@@ -697,7 +612,7 @@ test('5d repair: selection changes do not re-point a verified held clip between 
         }] },
       ],
     });
-    await adapter.read([notesAt(CLIP(0))]);
+    await adapter.read([clipMetadata(CLIP(0))]);
   });
 
   assert.equal(
@@ -719,9 +634,9 @@ test('5d repair: a structural stage invalidates the verified held clip', async (
     onTrace: (event) => trace.push(event.action),
   });
 
-  await adapter.read([notesAt(CLIP(0))]);
+  await adapter.read([clipMetadata(CLIP(0))]);
   await adapter.apply({ ops: [{ op: 'clip.delete', slot: CLIP(1).slot }] });
-  await adapter.read([notesAt(CLIP(0))]);
+  await adapter.read([clipMetadata(CLIP(0))]);
 
   assert.equal(
     transport.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length,
@@ -743,13 +658,13 @@ test('B4: overlapping pipelines share one capture and restore after both finish'
   const pointed = new Promise<void>((resolve) => { firstPointed = resolve; });
 
   const first = adapter.preserveSelection(async () => {
-    await adapter.read([notesAt(CLIP(0))]);
+    await adapter.read([clipMetadata(CLIP(0))]);
     firstPointed();
     await release;
   });
   await pointed;
   await adapter.preserveSelection(async () => {
-    await adapter.read([notesAt(CLIP(0))]);
+    await adapter.read([clipMetadata(CLIP(0))]);
   });
 
   assert.equal(
@@ -895,6 +810,7 @@ test('L-read: a clip revisited after its cursor was EVICTED is re-pointed, not a
   // `note.props` carry a `channel`, so one clip yields two distinct `notes`
   // addresses — and `writeSetOf` orders targets by FIRST MENTION, which puts the
   // other clips in between.
+  await adapter.hello();
   const snapshot = await adapter.read([
     notesAt(CLIP(0), 0),
     clip(CLIP(1).slot),
@@ -914,12 +830,13 @@ test('L-read: a clip revisited after its cursor was EVICTED is re-pointed, not a
   assert.equal(first?.value.of === 'notes' ? first.value.notes[0]?.pitch : undefined, 60);
 });
 
-test('L-read: a clip and its notes side by side still cost ONE point', async () => {
+test('8h3c: metadata uses the pool and notes use a separate reader', async () => {
   // The other half, and the reason the memo exists at all: the common write-set
   // shape must not pay two point/settle round trips for one clip.
   const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
 
+  await adapter.hello();
   await adapter.read([clip(CLIP(0).slot), notesAt(CLIP(0), 0)]);
 
   const points = wire.frames.filter((f) => f.method === WIRE.cursorPointTrack);
@@ -943,10 +860,10 @@ test('5d cursor repair: a lagging clip cursor retries the complete point', async
   const wire = new LaggingCursorTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 1 });
 
-  const snapshot = await adapter.read([notesAt(CLIP(0))]);
-  const value = snapshot.entries[addressKey(notesAt(CLIP(0)))]?.value;
+  const snapshot = await adapter.read([clipMetadata(CLIP(0))]);
+  const value = snapshot.entries[addressKey(clipMetadata(CLIP(0)))]?.value;
 
-  assert.equal(value?.of === 'notes' ? value.notes[0]?.pitch : undefined, 60);
+  assert.equal(value?.of, 'clipMetadata');
   assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 3);
   assert.equal(wire.frames.filter((frame) => frame.method === WIRE.slotSelect).length, 3);
   assert.deepEqual(
@@ -975,7 +892,7 @@ test('5d cursor repair: a clip cursor that never arrives refuses after eight att
   const wire = new StuckCursorTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 1 });
 
-  await assert.rejects(adapter.read([notesAt(CLIP(0))]), AddressUnresolvedError);
+  await assert.rejects(adapter.read([clipMetadata(CLIP(0))]), AddressUnresolvedError);
   assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 8);
   assert.equal(wire.frames.filter((frame) => frame.method === WIRE.slotSelect).length, 8);
   assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorStatus).length, 8);
@@ -3985,4 +3902,47 @@ test('L-chain: a container position with no scope is UNREACHABLE on a read, not 
   const snapshot = await adapter.read([far]);
   assert.deepEqual(snapshot.unreachable.map(addressKey), [addressKey(far)]);
   assert.deepEqual(snapshot.missing, []);
+});
+
+test('8h3c: pages keep one capture and refuse stale or inconsistent page replies', async () => {
+  const golden = JSON.parse(readFileSync(new URL('../../../../extension/clip-read.frame.golden.json', import.meta.url), 'utf8')) as NoteFrame;
+  const rows = decodeNoteFrame(golden, golden.size);
+  const page = (from: number) => ({ format: 'notes-v1', count: 3, from, size: 1,
+    next: from < 2 ? from + 1 : -1, data: '', tables: {}, constants: rows[from]!,
+    columns: golden.columns.map(([name]) => [name, 'const'] as const), readId: 42 });
+  for (const mode of ['valid', 'wrong-id', 'wrong-from', 'duplicate-cell', 'over-page']) {
+    const model = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
+    const calls: Frame[] = [];
+    const transport: Transport = {
+      send: async (frame) => {
+        calls.push(frame);
+        // The rig reports one note in each page. A larger page refuses.
+        if (frame.method === WIRE.rigInfo) {
+          return { clipReader: { width: 4_194_304, grid: 1 / 512, format: 'notes-v1', page: 1 } };
+        }
+        if (frame.method === WIRE.clipRead) {
+          return { readId: 42, frame: mode === 'over-page' ? { ...page(0), size: 2, next: 2 } : page(0) };
+        }
+        if (frame.method === WIRE.clipReadPage) {
+          const from = frame.params?.['from'] as number;
+          return { ...page(from), ...(mode === 'wrong-id' ? { readId: 43 } : {}),
+            ...(mode === 'wrong-from' ? { from: 0 } : {}),
+            ...(mode === 'duplicate-cell' ? { constants: rows[0]! } : {}) };
+        }
+        return model.send(frame);
+      }, close: () => model.close(),
+    };
+    const adapter = new UntimedAdapter({ transport });
+    await adapter.hello();
+    const addresses = [notesAt(CLIP(0), 0), notesAt(CLIP(0), 3), notesAt(CLIP(0), 15)];
+    if (mode !== 'valid') {
+      await assert.rejects(adapter.read(addresses), AddressUnresolvedError);
+      continue;
+    }
+    const snapshot = await adapter.read(addresses);
+    assert.equal(Object.keys(snapshot.entries).length, 3);
+    assert.equal(calls.filter((frame) => frame.method === WIRE.clipRead).length, 1);
+    assert.deepEqual(calls.filter((frame) => frame.method === WIRE.clipReadPage).map((frame) => frame.params),
+      [{ readId: 42, from: 1 }, { readId: 42, from: 2 }]);
+  }
 });

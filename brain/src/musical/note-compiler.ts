@@ -1,11 +1,11 @@
-/** Compile guarded agent note proposals against complete exact note state. */
+/** Compile guarded agent note proposals against complete D31 note state. */
 import { createHash } from 'node:crypto';
 
 import { z } from 'zod';
 
 import {
   NOTE_PROP_FIDELITY, addressKey, assertOpsWritable, chooseStepSize,
-  clipMetadata, notes as notesAt, track,
+  clipMetadata, notes as notesAt, track, noteReadCell,
   type ClipAddress, type NoteRecord, type Op, type RevisionMark, type Snapshot,
 } from '../contract/index.js';
 import { revertOps, takeAppliedAnything } from '../engine/index.js';
@@ -871,7 +871,7 @@ export function compareCandidateReadback(
       const remaining = [...observedChannel.notes];
       for (const expectedItem of expectedChannel.notes) {
         const index = remaining.findIndex((item) => item.pitch === expectedItem.note.pitch
-          && Math.abs(item.startBeats - expectedItem.note.startBeats) <= 1e-9);
+          && noteReadCell(item.startBeats) === noteReadCell(expectedItem.note.startBeats));
         if (index < 0) {
           discrepancies.push({
             clip: expectedClip.address, channel: expectedChannel.channel,
@@ -884,7 +884,8 @@ export function compareCandidateReadback(
         for (const field of NOTE_FIELDS) {
           const expected = noteField(expectedItem.note, field);
           const actual = noteField(found, field);
-          if (equalHostValue(expected, actual)) continue;
+          if (field === 'startBeats' && typeof expected === 'number' && typeof actual === 'number'
+              ? noteReadCell(expected) === noteReadCell(actual) : equalHostValue(expected, actual)) continue;
           discrepancies.push({
             clip: expectedClip.address, channel: expectedChannel.channel,
             at: `${expectedItem.note.pitch}@${expectedItem.note.startBeats}`,

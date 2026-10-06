@@ -1,6 +1,7 @@
 package com.ghostnote.extension.handlers;
 
 import com.ghostnote.extension.Rig;
+import com.ghostnote.extension.WriteGate;
 import com.bitwig.extension.controller.api.ControllerHost;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -89,8 +90,9 @@ public final class BatchHandlers extends HandlerGroup {
         long batchRevision = ++state.revision;
 
         if (delayMs > 0) {
-            // Staged pacing for ops that settle across turns.
-            scheduleOps(ops, 0, delayMs);
+            // Staged pacing for ops that settle across turns. The write lease keeps a clip read closed until
+            // the last op has run (8h3a delivery barrier, 8h3c).
+            scheduleOps(ops, 0, delayMs, rig.writeGate.lease());
             result.addProperty("applied", true);
             result.addProperty("paced", true);
             result.addProperty("scheduled", ops.size());
@@ -132,7 +134,7 @@ public final class BatchHandlers extends HandlerGroup {
             if (m.startsWith("batch.")) {
                 throw new IllegalArgumentException("nested batch not allowed");
             }
-            JsonElement opResult = registry.dispatch(m, p);
+            JsonElement opResult = registry.invoke(m, p);
             r.addProperty("ok", true);
             // E61 needs the target-bound generation from the write turn. Keep
             // every other handler result out of the established batch reply.
@@ -147,12 +149,17 @@ public final class BatchHandlers extends HandlerGroup {
     }
 
     /** Run op[index] now, then re-schedule op[index+1] delayMs later (staged). */
-    private void scheduleOps(JsonArray ops, int index, int delayMs) {
+    private void scheduleOps(JsonArray ops, int index, int delayMs, WriteGate.Lease lease) {
         if (index >= ops.size()) {
+            lease.release();
             return;
         }
-        runOp(ops.get(index).getAsJsonObject());
-        host.scheduleTask(() -> scheduleOps(ops, index + 1, delayMs), delayMs);
+        try {
+            runOp(ops.get(index).getAsJsonObject());
+        } finally {
+            if (index + 1 >= ops.size()) lease.release();
+            else host.scheduleTask(() -> scheduleOps(ops, index + 1, delayMs, lease), delayMs);
+        }
     }
 
     /**

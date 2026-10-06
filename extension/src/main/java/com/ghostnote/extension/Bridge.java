@@ -31,17 +31,18 @@ import com.google.gson.JsonSyntaxException;
  * correlated by JSON-RPC id.
  */
 public class Bridge {
+    /**
+     * Run one request. The dispatcher calls {@link Reply} once, in this task or in a later controller task:
+     * a request can wait behind an open clip read (8h3c).
+     */
     public interface Dispatcher {
-        JsonElement dispatch(String method, JsonObject params) throws Exception;
+        void dispatch(String method, JsonObject params, Reply reply);
     }
 
-    /**
-     * Research timing sink (8h3b). It records the controller-thread phases of one request. Normal builds set
-     * no sink, and the request path is then unchanged.
-     */
-    public interface Timing {
-        void record(String id, String method, long receivedNanos, long startNanos, long dispatchedNanos,
-                    long serializedNanos, long writtenNanos, int chars);
+    /** The one outcome of a request. {@code queuedNanos} is the time that it waited behind a read, or zero. */
+    public interface Reply {
+        void result(JsonElement result, long queuedNanos);
+        void error(Exception error, long queuedNanos);
     }
 
     private final int port;
@@ -52,15 +53,12 @@ public class Bridge {
 
     private ServerSocket serverSocket;
     private ExecutorService executor;
-    private volatile Timing timing;
 
     public Bridge(int port, ControllerHost host, Dispatcher dispatcher) {
         this.port = port;
         this.host = host;
         this.dispatcher = dispatcher;
     }
-
-    public void setTiming(Timing timing) { this.timing = timing; }
 
     public void start() throws IOException {
         serverSocket = new ServerSocket(port, 8, InetAddress.getLoopbackAddress());
@@ -120,13 +118,7 @@ public class Bridge {
                 }
 
                 final JsonObject req = request;
-                final Timing sink = timing;
-                if (sink == null) {
-                    host.scheduleTask(() -> writeLine(out, processRequest(req)), 0);
-                } else {
-                    final long received = System.nanoTime();
-                    host.scheduleTask(() -> timed(sink, out, req, received), 0);
-                }
+                host.scheduleTask(() -> processRequest(req, response -> writeLine(out, response)), 0);
             }
         } catch (IOException e) {
             host.println("[ghostnote] client disconnected: " + e.getMessage());
@@ -141,27 +133,12 @@ public class Bridge {
         }
     }
 
-    private void timed(Timing sink, PrintWriter out, JsonObject request, long received) {
-        long start = System.nanoTime();
-        JsonObject response = processRequest(request);
-        long dispatched = System.nanoTime();
-        String line = gson.toJson(response);
-        long serialized = System.nanoTime();
-        synchronized (out) {
-            out.println(line);
-        }
-        long written = System.nanoTime();
-        JsonElement id = request.get("id"), method = request.get("method");
-        sink.record(id != null && id.isJsonPrimitive() ? id.getAsString() : null,
-            method != null && method.isJsonPrimitive() ? method.getAsString() : null,
-            received, start, dispatched, serialized, written, line.length());
-    }
-
-    private JsonObject processRequest(JsonObject request) {
+    private void processRequest(JsonObject request, java.util.function.Consumer<JsonObject> send) {
         JsonElement id = request.get("id");
 
         if (!request.has("method") || !request.get("method").isJsonPrimitive()) {
-            return errorResponse(id, -32600, "Invalid Request: missing method");
+            send.accept(errorResponse(id, -32600, "Invalid Request: missing method"));
+            return;
         }
 
         String method = request.get("method").getAsString();
@@ -169,19 +146,35 @@ public class Bridge {
                 ? request.getAsJsonObject("params")
                 : new JsonObject();
 
-        try {
-            JsonElement result = dispatcher.dispatch(method, params);
-            JsonObject response = baseResponse(id);
-            response.add("result", result);
-            return response;
-        } catch (Bridge.MethodNotFoundException e) {
-            return errorResponse(id, -32601, "Method not found: " + method);
-        } catch (IllegalArgumentException e) {
-            return errorResponse(id, -32602, "Invalid params: " + e.getMessage());
-        } catch (Exception e) {
-            host.errorln("[ghostnote] error executing " + method + ": " + e);
-            return errorResponse(id, -32603, "Internal error: " + e.getMessage());
-        }
+        dispatcher.dispatch(method, params, new Reply() {
+            @Override
+            public void result(JsonElement result, long queuedNanos) {
+                JsonObject response = baseResponse(id);
+                response.add("result", result);
+                queued(response, queuedNanos);
+                send.accept(response);
+            }
+
+            @Override
+            public void error(Exception e, long queuedNanos) {
+                JsonObject response;
+                if (e instanceof Bridge.MethodNotFoundException) {
+                    response = errorResponse(id, -32601, "Method not found: " + method);
+                } else if (e instanceof IllegalArgumentException) {
+                    response = errorResponse(id, -32602, "Invalid params: " + e.getMessage());
+                } else {
+                    host.errorln("[ghostnote] error executing " + method + ": " + e);
+                    response = errorResponse(id, -32603, "Internal error: " + e.getMessage());
+                }
+                queued(response, queuedNanos);
+                send.accept(response);
+            }
+        });
+    }
+
+    /** 8h3c: a request that waited behind an open clip read reports its wait. */
+    private static void queued(JsonObject response, long queuedNanos) {
+        if (queuedNanos > 0) response.addProperty("queuedMs", queuedNanos / 1e6);
     }
 
     private JsonObject baseResponse(JsonElement id) {

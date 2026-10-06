@@ -1,0 +1,10 @@
+✔ E230 smoke verifier checks the wire, capture, declared cell, and byte counts (9.804209ms)
+✔ E230 stopped smoke verifier retains failure and checks cleanup evidence (3.465292ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 142.687416

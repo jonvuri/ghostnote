@@ -7,6 +7,7 @@ import com.ghostnote.extension.handlers.ApiInventoryHandlers;
 import com.ghostnote.extension.handlers.BatchHandlers;
 import com.ghostnote.extension.handlers.BranchHandlers;
 import com.ghostnote.extension.handlers.CacheScaleHandlers;
+import com.ghostnote.extension.handlers.ClipReadHandlers;
 import com.ghostnote.extension.handlers.ShadowCacheHandlers;
 import com.ghostnote.extension.handlers.ContainerHandlers;
 import com.ghostnote.extension.handlers.CoreHandlers;
@@ -61,7 +62,7 @@ public class GhostnoteExtension extends ControllerExtension {
         // before any of them have registered. Registration happens at construction
         // time, dispatch at request time — no cycle.
         final ExecState state = new ExecState();
-        final HandlerRegistry registry = new HandlerRegistry(profile);
+        final HandlerRegistry registry = new HandlerRegistry(profile, rig.writeGate);
         registry.register(
             new CoreHandlers(host, rig, state, registry),
             new TrackHandlers(host, rig, state),
@@ -79,12 +80,11 @@ public class GhostnoteExtension extends ControllerExtension {
             new ObservationHandlers(host, rig, state, panel, panelError),
             new StatusHandlers(host, rig, state, panel, panelError),
             new NavigationHandlers(host, rig, state),
+            new ClipReadHandlers(host, rig, state, registry),
             new BatchHandlers(host, rig, state, registry));
 
         try {
             bridge = new Bridge(PORT, host, registry);
-            // 8h3b research: only the replay research rig records bridge timings.
-            if (rig.replayReader != null) bridge.setTiming(rig.replayReader);
             bridge.start();
             state.setInitStats(System.nanoTime() - initStart, System.currentTimeMillis());
             host.showPopupNotification("ghostnote " + profile.identity()

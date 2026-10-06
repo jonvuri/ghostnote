@@ -36,7 +36,7 @@
  * the phase be tested as a function of two values.
  */
 import {
-  addressKey, assertNever, planStages,
+  addressKey, assertNever, planStages, noteReadCell, noteReadStart,
   type Address, type DeviceAddress, type NoteRecord, type Op, type Snapshot, type StageReceipt,
   type StateValue,
 } from '../contract/index.js';
@@ -214,14 +214,15 @@ function ownedNoteInverses(
           && target.opIndices.includes(opIndex))) continue;
       const channel = op.channel === undefined ? {} : { channel: op.channel };
       if (op.op === 'note.remove') {
-        out.push({ op: 'note.insert', clip: op.clip, ...channel, notes: op.notes });
+        const notes = op.notes.map((note) => ({ ...note, startBeats: noteReadStart(note.startBeats) }));
+        out.push({ op: 'note.insert', clip: op.clip, ...channel, notes });
         continue;
       }
 
       const readback = batch.verify?.entries[addressKey(address)]?.value;
-      const cells = new Set(op.notes.map((note) => `${note.startBeats}:${note.pitch}`));
+      const cells = new Set(op.notes.map((note) => `${noteReadCell(note.startBeats)}:${note.pitch}`));
       const notes = readback?.of === 'notes'
-        ? readback.notes.filter((note) => cells.has(`${note.startBeats}:${note.pitch}`))
+        ? readback.notes.filter((note) => cells.has(`${noteReadCell(note.startBeats)}:${note.pitch}`))
         : op.notes;
       if (notes.length === 0) continue;
       out.push({ op: 'note.remove', clip: op.clip, ...channel, notes });
@@ -435,7 +436,7 @@ function restoreValue(target: WriteTarget, value: StateValue, sink: Sink): void 
       const withheld = new Map<string, number>();
       for (const note of value.notes) {
         const split = splitReplayable(note);
-        replay.push(split.note);
+        replay.push({ ...split.note, startBeats: noteReadStart(split.note.startBeats) });
         for (const prop of split.withheld) withheld.set(prop, (withheld.get(prop) ?? 0) + 1);
       }
 

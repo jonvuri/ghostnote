@@ -35,7 +35,7 @@ import {
   StaleAddressError, addressKey, addressScene, addressTrack, assertDevicesRoutable, assertOpsWritable,
   blindSpotError, clipMetadata as clipMetadataAt, deltaComplete,
   discreteNormalizedValues, discreteValueIsRepresentable, exactClipColor, failures, notes as notesAt,
-  param as paramAt,
+  param as paramAt, noteReadCell,
   type Address, type AdapterInfo, type BitwigAdapter, type ContentDelta, type NoteRecord,
   type ClipMetadataState, type Op, type RevisionMark, type Snapshot,
 } from '../contract/index.js';
@@ -629,7 +629,7 @@ export class Executor {
       channels.set(key, notes);
       return notes;
     };
-    const cell = (note: NoteRecord) => `${note.startBeats}:${note.pitch}`;
+    const cell = (note: NoteRecord) => `${noteReadCell(note.startBeats)}:${note.pitch}`;
     const same = (left: unknown, right: unknown): boolean => {
       if (left === right) return true;
       if (Array.isArray(left) && Array.isArray(right)) {
@@ -643,6 +643,14 @@ export class Executor {
       const keys = new Set([...Object.keys(leftBag), ...Object.keys(rightBag)]);
       return Object.keys(leftBag).length === Object.keys(rightBag).length
         && [...keys].every((key) => same(leftBag[key], rightBag[key]));
+    };
+    // An absent field has its host default. A complete read reports the D31 fields explicitly.
+    const sameNote = (left: NoteRecord, right: NoteRecord): boolean => {
+      const keys = new Set(['velocity', 'durationBeats', 'releaseVelocity', ...Object.keys(COMPLETE_NOTE_DEFAULTS),
+        ...Object.keys(left), ...Object.keys(right)]);
+      keys.delete('startBeats');
+      return noteReadCell(left.startBeats) === noteReadCell(right.startBeats)
+        && [...keys].every((key) => same(noteFieldValue(left, key), noteFieldValue(right, key)));
     };
 
     for (const op of ops) {
@@ -670,7 +678,7 @@ export class Executor {
           current.push(requested);
           continue;
         }
-        if (index < 0 || !same(current[index]!, requested)) {
+        if (index < 0 || !sameNote(current[index]!, requested)) {
           throw new InvalidOpError(
             op.op,
             `note cell ${cell(requested)} does not match the complete expected note. Nothing was written.`,
@@ -1041,7 +1049,7 @@ export function disagreementsOf(
     const got = entry?.value.of === 'notes' ? entry.value.notes : [];
     for (const wanted of op.notes) {
       const found = got.find(
-        (n) => n.pitch === wanted.pitch && Math.abs(n.startBeats - wanted.startBeats) < 1e-9,
+        (n) => sameNoteCell(n, wanted),
       );
       if (op.op === 'note.remove') {
         if (found !== undefined) {
@@ -1203,7 +1211,7 @@ function noteFieldValue(note: NoteRecord, field: string): unknown {
 }
 
 function sameNoteCell(left: NoteRecord, right: NoteRecord): boolean {
-  return left.pitch === right.pitch && Math.abs(left.startBeats - right.startBeats) < 1e-9;
+  return left.pitch === right.pitch && noteReadCell(left.startBeats) === noteReadCell(right.startBeats);
 }
 
 function truncateAdjacentNotes(notes: readonly NoteRecord[]): NoteRecord[] {

@@ -4,60 +4,55 @@ kind: status
 state: active
 updated: 2026-10-05
 phase: phase-8-agent-native-live-engine
-session: 8h3b-complete
+session: 8h3c-complete
 ---
 
 # Now
 
-[8h3b — Replay fetch cost](plan/phase-8/8h3b-replay-fetch-cost.md) is
-complete. [E229](evidence/experiments/e229-replay-fetch-cost.md) records
-50 trials and 800 bit-exact fetches over five fixtures.
+[8h3c — Cold-reader promotion](plan/phase-8/8h3c-cold-reader-promotion.md)
+is complete. Changes are staged for review. No commit was made.
 
-Selected fetch format for 8h3c: `packedDict`, one page up to 131,072 notes,
-encoded on the controller thread from the close-task copy. At 131,072 notes
-the fetch takes 40 ms instead of 202 ms. Read plus fetch takes 339 ms instead
-of 505 ms. The longest controller block is 11.8 ms median.
+Read [E230](evidence/experiments/e230-cold-reader-promotion.md),
+[D31](decisions/d31-mutation-and-reversal-use-the-d23-cell-boundary.md),
+and the staged diff for review. The next implementation session is
+[8h3d — Change awareness](plan/phase-8/8h3d-change-awareness.md).
 
-Product rules for 8h3c from 8h3a (E228) stay unchanged:
+## Result
 
-- Bind from empty park. Select the target row before pointing the reader.
-- Finish scheduled writes before the read opens. Queue writes behind an open
-  read.
-- Capture selection before park preparation. Restore slot track, slot row,
-  and mixer track at close under the E99 lease; unsubscribe for release.
-  A lost lease must refuse restoration.
-- Flag every step callback after close and before release. Use no fixed
-  watch delay.
+- Product notes use one memoized `clip.read` capture per clip, with checked
+  `notes-v1` pages. E131 is a named diagnostic only. Missing or incompatible
+  configuration refuses.
+- Master park, eight paired fixtures on all 16 channels, full selection
+  restore, normal and synthetic refusals, and all five write-gate cases pass.
+- D31 applies occupied `1/512` cells to mutation and reversal. Raw disabled
+  controls survive reconstruction. A normalized onset with triplet duration
+  reconstructs and verifies.
+- Brain check passes 1,887 tests, with one review-fix test. Extension
+  check passes with 13 reader test groups. Artifact, context, and diff
+  checks pass.
 
-Next: [8h3c — Cold-reader promotion](plan/phase-8/8h3c-cold-reader-promotion.md).
-Then 8h3d change awareness and 8h3e cache trim.
-Changes are staged for review. No commit was made.
+## Live baseline
 
-## Live state
+The operator closed owned `New 6` without saving and fully restored normal
+`ghostnote`. No fixture or research archive remains. The active anchor is
+`gn-scale-test`; all ten track IDs match the earlier baseline.
 
-- The operator closed `New 4` without saving. No fixture tracks remain.
-  `gn-scale-test` is the anchor; research did not change it.
-- The original config is restored (SHA-256 `256bbf07…43b0`). The normal
-  archive is rebuilt with the `Bridge` timing hook and deployed. The research
-  archive is removed.
-- Fresh normal hello passes at `2026-10-05T12:45:08.491Z`: `normal-v1`,
-  85 methods, hash `bba7383dce25c0f0`. See
-  [restoration.json](evidence/data/phase8h3b-fetch/restoration.json).
+Fresh hello passes `normal-v1`, 87 methods, hash `ca139a3e62a55e68`,
+`clip-reader-v1`, and `closeRule: confirm-before-release-v1`.
+Initialization is `2026-10-05T15:29:49.499Z`. Normal archive SHA-256:
+`c3dcc97abdcd69e99a07510dc11bb9e15b729f4051891eb3ebb7d5b3329c23fe`.
+Rig config SHA-256 is unchanged:
+`256bbf07094cd654c372d0e5e050e494ef7783c9a0001a0a2a688331bcf643b0`.
 
-## Facts that are easy to lose
+## Facts and retrospective
 
-- Each bridge request waits about 20 ms in the host task queue, also when the
-  controller is idle (E229). Count pages and round trips, not bytes.
-- `Bridge.setTiming` is a research hook. Normal builds set no sink. 8h3c can
-  remove it with the research reader.
-- D23 settles one 1/512 view. Stable code keeps `1/768` until 8h3c removes it.
-- E225 proved 4,194,304 steps. Normal limits stay unchanged until 8h3c.
-- Host gain reads back twice the written value (E2). An equal setter can leave
-  `getStep` stale; rebind for a fresh verification read.
-- `context/check.rb` needs a UTF-8 locale: `LANG=en_US.UTF-8`.
+Confirm the frozen close copy before unsubscribe. Release Empty callbacks
+have separate counters and cannot change that copy. Every callback before
+release remains a tripwire event. A deadline before bind can leave mixer
+selection at master park; its reply reports `refused-before-bind`.
 
-## Retrospective
-
-Measure the idle request floor before candidate fixes. Here it was the
-largest fixed cost. Put research timing at the transport, where
-serialization and write happen, not only in the handler.
+Name the product park target before implementation. Include normalized
+onset plus triplet-duration reconstruction in acceptance. Record only owned
+requests for concurrent probe costs. Check slot and mixer selection separately,
+and use MIDI velocity for nominal fixtures while preserving exact raw-field
+comparisons. `context/check.rb` needs `LANG=en_US.UTF-8`.

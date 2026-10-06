@@ -84,6 +84,13 @@ public enum RuntimeProfile {
         }
     }
 
+    /** The write-gate class of one method. An unclassified method is a write. */
+    public static WriteGate.Kind kind(String method) {
+        if (MethodSets.CLIP_READS.contains(method)) return WriteGate.Kind.CLIP_READ;
+        if (MethodSets.READS.contains(method)) return WriteGate.Kind.READ;
+        return WriteGate.Kind.WRITE;
+    }
+
     private static Set<String> methods(String... names) {
         return Set.of(names);
     }
@@ -100,6 +107,8 @@ public enum RuntimeProfile {
             "chain.select",
             "chain.setName",
             "clip.create",
+            "clip.read",
+            "clip.readPage",
             "contract.hello",
             "cursor.clearNote",
             "cursor.clearNotes",
@@ -267,6 +276,56 @@ public enum RuntimeProfile {
             "transport.play"
         );
 
+        /**
+         * 8h3c: requests that change no project or host state. They run at once, also while a clip read is
+         * open. Every other method is a write: undo, redo, app actions, and every unclassified method.
+         */
+        private static final Set<String> READS = methods(
+            "api.runtimeMethods",
+            "app.actions",
+            "app.undoState",
+            "chain.inventory",
+            "clip.readPage",
+            "contract.hello",
+            "cursor.clipMetadata",
+            "cursor.getNotes",
+            "cursor.getNotesVerbose",
+            "cursor.getNotesVerboseAllChannels",
+            "cursor.launchSettings",
+            "cursor.playState",
+            "cursor.status",
+            "devcursor.status",
+            "device.list",
+            "directparam.completion",
+            "directparam.list",
+            "drumpad.list",
+            "host.info",
+            "layer.list",
+            "masterRecorder.status",
+            "note.observer.read",
+            "observation.read",
+            "param.list",
+            "ping",
+            "revision.get",
+            "rig.info",
+            "rig.methods",
+            "rig.scanTracks",
+            "rig.stats",
+            "scene.count",
+            "selection.status",
+            "slot.playState",
+            "slot.status",
+            "stepdata.observer.read",
+            "track.list",
+            "track.resolveByChannelId",
+            "transport.status"
+        );
+
+        /** 8h3c: requests that open one clip read. At most one is open; writes queue behind it. */
+        private static final Set<String> CLIP_READS = methods(
+            "clip.read"
+        );
+
         private static final Set<String> NORMAL;
         private static final Set<String> CAPTURE;
         private static final Set<String> PROBE;
@@ -288,11 +347,14 @@ public enum RuntimeProfile {
             ALL_CLASSIFIED = Set.copyOf(classified);
 
             if (!PRODUCT.containsAll(OPTIONAL_CAPTURE)
-                    || PRODUCT.size() != 90
-                    || NORMAL.size() != 85
-                    || PROBE.size() != 98
+                    || PRODUCT.size() != 92
+                    || NORMAL.size() != 87
+                    || PROBE.size() != 100
                     || HISTORICAL.size() != 57
-                    || ALL_CLASSIFIED.size() != 160) {
+                    || ALL_CLASSIFIED.size() != 162
+                    || !ALL_CLASSIFIED.containsAll(READS)
+                    || !ALL_CLASSIFIED.containsAll(CLIP_READS)
+                    || READS.stream().anyMatch(CLIP_READS::contains)) {
                 throw new IllegalStateException("invalid runtime wire classification");
             }
         }

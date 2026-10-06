@@ -4,7 +4,7 @@ import test from 'node:test';
 import { FakeAdapter } from '../adapters/fake/adapter.js';
 import { noteKey } from '../adapters/fake/model.js';
 import {
-  SlotOccupiedError, addressKey, clip, notes, scene, slot, track,
+  SlotOccupiedError, noteReadStart, addressKey, clip, notes, scene, slot, track,
   type NoteRecord, type Op,
 } from '../contract/index.js';
 import { Executor, UnprotectedWriteError } from '../engine/index.js';
@@ -120,7 +120,7 @@ test('P-apply: several clips, channels, triplets, expression, and ordered pipeli
   assert.ok(result.results.every((item) => item.notes.every((value) => value.pressure === undefined)));
 
   const channel1 = await channelNotes(workspace, trackA!, 0, 1);
-  assert.deepEqual(channel1.map((value) => value.startBeats), [0, 1 / 3]);
+  assert.deepEqual(channel1.map((value) => value.startBeats), [0, noteReadStart(1 / 3)]);
   assert.equal(channel1[0]!.gain, 0.7);
   assert.equal(channel1[1]!.timbre, 0.5);
   assert.deepEqual((await channelNotes(workspace, trackA!, 0, 9)).map((value) => value.pitch), [60]);
@@ -153,7 +153,7 @@ test('P-transform: operation order changes timing and pitch while preserving exp
   const result = await applyMusicalPatch(workspace, patch, 'transformation');
   const [written] = await channelNotes(workspace, trackId!, 0, 7);
   assert.equal(written!.pitch, 67);
-  assert.equal(written!.startBeats, 1 / 3);
+  assert.equal(written!.startBeats, 0);
   assert.equal(written!.gain, 0.8);
   assert.equal(written!.timbre, 0.3);
   assert.ok(result.differences.some((item) => item.code === 'timing-moved'));
