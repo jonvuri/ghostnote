@@ -374,8 +374,15 @@ owns the migration details.
    [E231](../../evidence/experiments/e231-change-awareness.md): pull only),
    [8h3c2](8h3c2-reader-row-binding.md) (reader row binding; complete in
    [E232](../../evidence/experiments/e232-reader-row-binding.md)),
-   [8h3e](8h3e-cache-machinery-trim.md) (cache machinery trim),
-   and 8h4 (interface simplification). 8h3c and 8h3e replace the earlier 8h1
+   [8h3e](8h3e-cache-machinery-trim.md) (cache machinery trim; complete in
+   [E233](../../evidence/experiments/e233-pull-snapshot-references.md)),
+   and 8h4 (interface simplification and document integration):
+   [8h4a](8h4a-write-boundary-and-reader-hardening.md),
+   [8h4b](8h4b-document-read-and-identity-registry.md),
+   [8h4c](8h4c-document-edit-limb.md),
+   [8h4d](8h4d-musical-and-clip-surface-migration.md),
+   [8h4e](8h4e-device-structure-migration.md), and
+   [8h4f](8h4f-tracks-profile-cut-and-closeout.md). 8h3c and 8h3e replace the earlier 8h1
    and 8h2b plans.
 29. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
    Test ordinary work in fresh agent sessions and decide whether the engine,

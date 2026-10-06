@@ -4,41 +4,43 @@ kind: status
 state: active
 updated: 2026-10-06
 phase: phase-8-agent-native-live-engine
-session: 8h3e-complete
+session: 8h4-planned
 ---
 
 # Now
 
-[8h3e](plan/phase-8/8h3e-cache-machinery-trim.md) is complete and staged, not
-committed ([E233](evidence/experiments/e233-pull-snapshot-references.md),
-[D32](decisions/d32-pull-snapshot-references-use-the-revision-mark.md)). The
-next session plans 8h4 from the
+8h4 is planned in six sessions under the
 [8h parent plan](plan/phase-8/8h-cache-promotion-and-interface-simplification.md).
+The next session implements
+[8h4a — Write boundary and reader hardening](plan/phase-8/8h4a-write-boundary-and-reader-hardening.md).
 
-## Result
+## Sessions
 
-- A D32 snapshot reference holds the product `RevisionMark`, the durable
-  address, and one `ghostnote-launcher-source/1` digest
-  (`brain/src/contract/clip-snapshot.ts`, `engine/clip-snapshots.ts`).
-- `RunOptions.ifSnapshot` refuses before any host mutation unless every
-  reference is `current`. The experimental profile returns a reference from
-  `acquire_clip_note_source`, checks it in proposal `apply`, and adds
-  `check_clip_snapshots`. The stable profile is unchanged.
-- 23 live verdicts match independent raw reads. Three P→Q→P detours each
-  overflowed the 24-event ring and refused; none was quiet.
-- The resident-grid research code is removed. Probe: 98 methods,
-  `659635435255b259`. Research uses `ghostnote probe` (`copyProbeExtension`).
-- The pull snapshot contract, host binding, identity rules, migration
-  contract, `Authority`, and the 8h plan state D32.
+1. [8h4a](plan/phase-8/8h4a-write-boundary-and-reader-hardening.md): the scene
+   guard at `batch.run`, the selection after a project switch, metadata in the
+   `clip.read` reply, and the `group-slot` refusal.
+2. [8h4b](plan/phase-8/8h4b-document-read-and-identity-registry.md): the
+   `agent-native-v1` profile, the shared result vocabulary,
+   `read_launcher_clip`, and the clip and event ID registry.
+3. [8h4c](plan/phase-8/8h4c-document-edit-limb.md): `edit_launcher_clip`.
+4. [8h4d](plan/phase-8/8h4d-musical-and-clip-surface-migration.md): the
+   observation workflow and old musical tools retired; Launcher clip names.
+5. [8h4e](plan/phase-8/8h4e-device-structure-migration.md): device structure
+   (depends only on 8h4b).
+6. [8h4f](plan/phase-8/8h4f-tracks-profile-cut-and-closeout.md): track-kind
+   arms, the default profile cut, measurements, and the 8h closeout.
 
-## 8h4 inputs
+## Decisions taken in planning
 
-Document integration on the D32 reference and the clip and event ID registry;
-no adapter checks the scene epoch at apply, so a scene change between the stash
-read and the write is unguarded (E233);
-the stale selection after a project switch (`preserveSelection` refuses in Q);
-about 300 ms of metadata cursor point per checked clip; group-slot handling
-(E222).
+- New tools go into a new `agent-native-v1` profile. 8h4f makes it the
+  default. `stable-v1` stays frozen as the rollback through 8i. The 7b profile
+  retires in 8h4d.
+- The edit limb is `edit_launcher_clip`.
+- A group track's own launcher slots refuse with `group-slot` (E222).
+- The live audio-track creation and Audio/Hybrid duplication arms are in 8h4f.
+
+The plans reserve E234–E239 in session order. Record a decision (D33) only for
+a choice that changes an active rule.
 
 ## Live baseline
 
@@ -52,9 +54,13 @@ Fresh hello passes `normal-v1`, 87 methods, `ca139a3e62a55e68`,
 
 ## Facts and retrospective
 
-Add the index row in the same session as a new E or D record: E230–E232 and
-D31 had no index rows until 8h3e. Start a live edit matrix from a rewritten
-clip so that a rerun is valid. A new launcher clip's default colour is outside
-the exact palette; set a palette colour before `clip.update`. The scene epoch
-counts scene-count callbacks across projects. Report note channels 1-based to
-the operator. `context/check.rb` needs `LANG=en_US.UTF-8`.
+Add the index row in the same session as a new E or D record. Start a live edit
+matrix from a rewritten clip so that a rerun is valid. A new launcher clip's
+default colour is outside the exact palette; set a palette colour before
+`clip.update`. The scene epoch counts scene-count callbacks across projects.
+Report note channels 1-based to the operator. `context/check.rb` needs
+`LANG=en_US.UTF-8`.
+
+Planning retrospective: the 8h parent named 8h4 as one session, but its scope
+had grown to nine topics from three sources (8a, E135, E233). Split a parent
+item into sessions when its input list grows, not at the end.

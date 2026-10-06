@@ -6,7 +6,7 @@ status: Complete. D32 pull snapshot references on the product revision mark; 23 
 updated: 2026-10-06
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h3c2-reader-row-binding.md
-next: 8i-agent-native-hybrid-dogfood.md
+next: 8h4a-write-boundary-and-reader-hardening.md
 evidence: E222, E224, E225, E226, E227, E230, E231, E232, E233; D26, D27, D28, D30, D31, D32
 ---
 

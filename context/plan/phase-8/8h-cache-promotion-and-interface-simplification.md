@@ -2,7 +2,7 @@
 title: Phase 8h — Cache promotion and interface simplification
 kind: plan
 state: active
-status: Reader promotion (E230), change awareness (E231), row binding (E232), and pull snapshot references with the cache machinery trim (E233) are complete. Interface simplification and document integration (8h4) remain.
+status: Reader promotion (E230), change awareness (E231), row binding (E232), and pull snapshot references with the cache machinery trim (E233) are complete. 8h4 is planned in six sessions (8h4a–8h4f).
 updated: 2026-10-06
 parent: README.md
 prev: 8g-shadow-project-cache.md
@@ -82,11 +82,28 @@ Reader promotion and remaining sessions, in order:
    pull snapshot references on the product revision mark, exposed in the
    experimental profile; the resident-grid research code is removed.
 6. 8h4 — interface simplification, naming, device structure migration, and
-   document integration: the compact-bar document read and patch tools on the
-   D32 snapshot reference, the document clip and event ID registry, and the
-   connection of the offline `Authority` binding. Inputs: the stale selection
-   after a project switch (E233), the metadata point cost of each check
-   (E233), and group-slot handling (E222).
+   document integration, in six sessions. New tools go into the
+   `agent-native-v1` profile; 8h4f makes it the default, and `stable-v1`
+   stays frozen as the rollback through 8i.
+   1. [8h4a — Write boundary and reader hardening](8h4a-write-boundary-and-reader-hardening.md):
+      the scene guard at `batch.run`, the selection after a project switch,
+      metadata in the `clip.read` reply, and the `group-slot` refusal (E222,
+      E233).
+   2. [8h4b — Document read and identity registry](8h4b-document-read-and-identity-registry.md):
+      the profile, the shared result vocabulary, `read_launcher_clip` on the
+      D32 reference, and the clip and event ID registry.
+   3. [8h4c — Document edit limb](8h4c-document-edit-limb.md):
+      `edit_launcher_clip` for desired documents and sparse patches, through
+      the host binding and `Authority`.
+   4. [8h4d — Musical and clip surface migration](8h4d-musical-and-clip-surface-migration.md):
+      observation decoupling and retirement, the old musical tools and the 7b
+      profile retired, and the Launcher clip names.
+   5. [8h4e — Device structure migration](8h4e-device-structure-migration.md):
+      `read_devices`, `compose_devices` with the backend benchmark, and the
+      layer-chain limbs. It depends only on 8h4b.
+   6. [8h4f — Tracks, profile cut, and 8h closeout](8h4f-tracks-profile-cut-and-closeout.md):
+      the track-kind arms and names, the vocabulary on the retained tools,
+      the default profile, the measurements, and the decision amendments.
 
 ## Purpose
 
