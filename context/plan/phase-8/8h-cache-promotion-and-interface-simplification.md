@@ -2,7 +2,7 @@
 title: Phase 8h — Cache promotion and interface simplification
 kind: plan
 state: active
-status: Reader promotion is complete in E230. Change awareness, cache machinery trim, and interface simplification remain.
+status: Reader promotion (E230), change awareness (E231), and row binding (E232) are complete. Cache machinery trim (8h3e) and interface simplification remain.
 updated: 2026-10-06
 parent: README.md
 prev: 8g-shadow-project-cache.md
@@ -78,9 +78,11 @@ Reader promotion and remaining sessions, in order:
    ([E232](../../evidence/experiments/e232-reader-row-binding.md)): the open
    task subscribes before it unpins.
 5. [8h3e — Cache machinery trim and promotion](8h3e-cache-machinery-trim.md).
-   Keep identity, generations, and snapshot validity; retire the resident note
-   grid.
-6. 8h4 — interface simplification, naming, and device structure migration.
+   Planned. Pull snapshot validity on the product revision mark, exposed in
+   the experimental profile; the resident-grid research code is removed.
+6. 8h4 — interface simplification, naming, device structure migration, and
+   the compact-bar document read and patch tools on the 8h3e snapshot
+   reference.
 
 ## Purpose
 
