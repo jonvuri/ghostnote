@@ -2,20 +2,21 @@
 title: Phase 8h3e — Cache machinery trim and promotion
 kind: plan
 state: planned
-status: Outline. Keep identity, generations, and pull snapshot validity; retire the resident note grid. Write the full plan after 8h3c2.
+status: Outline. Keep identity, generations, and pull snapshot validity; retire the resident note grid. 8h3c2 is complete; write the full plan next.
 updated: 2026-10-06
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h3c2-reader-row-binding.md
 next: 8i-agent-native-hybrid-dogfood.md
-evidence: E224, E225, E226, E227, E231; D26, D27, D28, D30
+evidence: E224, E225, E226, E227, E231, E232; D26, D27, D28, D30
 ---
 
 # Phase 8h3e — Cache machinery trim and promotion
 
 ## Status
 
-Outline only. Write the full plan after
-[8h3c2](8h3c2-reader-row-binding.md). [8h3d](8h3d-change-awareness.md)
+Outline only. [8h3c2](8h3c2-reader-row-binding.md) is complete
+([E232](../../evidence/experiments/e232-reader-row-binding.md)): the reader
+binds every row. Write the full plan first. [8h3d](8h3d-change-awareness.md)
 selected pull only ([E231](../../evidence/experiments/e231-change-awareness.md)).
 This session replaces the earlier 8h1 cache promotion plan.
 

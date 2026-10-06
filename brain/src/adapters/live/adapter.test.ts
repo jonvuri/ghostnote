@@ -435,6 +435,33 @@ test('8h3c: extension refusals retain their reason', async () => {
   }
 });
 
+test('8h3c2: one retry after a row mismatch on the requested track; other mismatches refuse', async () => {
+  for (const [bound, reads, passes] of [
+    [{ channelId: CHANNEL_ID, row: 1 }, 2, true],
+    [{ channelId: 'another-track', row: 0 }, 1, false],
+    [{ channelId: CHANNEL_ID, row: 0 }, 1, false],
+  ] as const) {
+    const model = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
+    let calls = 0;
+    const transport: Transport = { send: async (frame) => frame.method === WIRE.clipRead && calls++ === 0
+      ? { refused: 'bound-target-mismatch', message: 'fixture', bound } : model.send(frame), close: () => model.close() };
+    const adapter = new UntimedAdapter({ transport });
+    await adapter.hello();
+    if (passes) await adapter.read([notesAt(CLIP(0))]);
+    else await assert.rejects(adapter.read([notesAt(CLIP(0))]), /bound-target-mismatch/);
+    assert.equal(calls, reads);
+  }
+  const model = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
+  let calls = 0;
+  const transport: Transport = { send: async (frame) => frame.method === WIRE.clipRead && ++calls > 0
+    ? { refused: 'bound-target-mismatch', message: 'fixture', bound: { channelId: CHANNEL_ID, row: 1 } }
+    : model.send(frame), close: () => model.close() };
+  const adapter = new UntimedAdapter({ transport });
+  await adapter.hello();
+  await assert.rejects(adapter.read([notesAt(CLIP(0))]), /bound-target-mismatch/);
+  assert.equal(calls, 2, 'a second mismatch refuses without a third read');
+});
+
 test('5g repair: two delayed pins settle before either cursor hold is reused', async () => {
   const transport = new CursorModelTransport(new Map([
     [0, { lengthBeats: 4, pitch: 60 }],

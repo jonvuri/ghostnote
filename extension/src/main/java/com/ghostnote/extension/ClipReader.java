@@ -13,12 +13,13 @@ import com.google.gson.JsonObject;
  * The product clip reader (8h3c). One dedicated cursor, 1/512 beat, 4,194,304 steps wide (E225), reads one
  * launcher clip completely from its replay (D30, E227).
  *
- * <p>The route follows the 8h3a product rules (E228):
+ * <p>The route follows the 8h3a product rules (E228) and the 8h3c2 open order (E232, {@link ClipReadRoute}):
  * <ol>
- *   <li>Capture the slot track, slot row, and mixer track. Then move the reader to the empty park target, the
- *       master track, which has no launcher slots. Wait until the reader reports no clip there.</li>
- *   <li>Subscribe at the park target. In a later task, claim the E99 selection lease, select the target row,
- *       and point the reader at the target track in the same task.</li>
+ *   <li>Capture the slot track, slot row, and mixer track. Subscribe on the prior target, then remove the clip
+ *       and track pins. Then move the reader to the empty park target, the master track, which has no launcher
+ *       slots. Wait until the reader reports no clip there.</li>
+ *   <li>In a later task, claim the E99 selection lease, select the target row, and point the reader at the
+ *       target track in the same task.</li>
  *   <li>Close at the later of the first replay batch task and the target {@code clipExists} task. The close task
  *       copies the notes, pins the reader, restores all three entry selection values under the lease, and
  *       retains the subscription for confirmation. A lost lease refuses the restore.</li>
@@ -28,11 +29,15 @@ import com.google.gson.JsonObject;
  * </ol>
  *
  * <p>A read that does not finish within its deadline refuses and releases. A step callback after the
- * release remains visible in the next read and {@code rig.stats}, with its state counters.
+ * release remains visible in the next read and {@code rig.stats}, with its state counters. The prior clip
+ * replays when the open task subscribes. These callbacks go to no capture; the reply reports them as
+ * {@code unpinCallbacks}.
  */
 public final class ClipReader {
     public static final String REVISION = "clip-reader-v1";
     public static final String CLOSE_RULE = "confirm-before-release-v1";
+    /** 8h3c2 build marker: the open task subscribes before it removes the pins (E232). */
+    public static final String OPEN_RULE = "subscribe-before-unpin-v1";
     public static final int WIDTH = 4_194_304;
     public static final double GRID = 1.0 / 512;
     public static final double WIDTH_BEATS = WIDTH * GRID;
@@ -46,7 +51,7 @@ public final class ClipReader {
     private final class Read {
         final long id;
         final int trackIndex, row;
-        final String channelId, token, diagnosticFault;
+        final String channelId, token, diagnosticFault, route;
         final Track target;
         final int entryTrack, entryRow, entryMixer;
         final Rig.SelectionLease priorLease;
@@ -54,14 +59,15 @@ public final class ClipReader {
         final Done done;
         long parkedNanos, boundNanos, closedNanos, releasedNanos;
         int parkPolls;
-        long parkStray;
+        long openStray, parkStray;
         ClipReadCapture capture;
         boolean finished, faultInjected;
         JsonObject selection, bound;
 
-        Read(long id, int trackIndex, int row, String channelId, Track target, String diagnosticFault, Done done) {
+        Read(long id, int trackIndex, int row, String channelId, Track target, String diagnosticFault, String route,
+             Done done) {
             this.id = id; this.trackIndex = trackIndex; this.row = row; this.channelId = channelId;
-            this.target = target; this.done = done; this.diagnosticFault = diagnosticFault;
+            this.target = target; this.done = done; this.diagnosticFault = diagnosticFault; this.route = route;
             token = "clip-reader-" + id;
             entryTrack = rig.selectedTrackIndex; entryRow = rig.selectedSlotIndex;
             entryMixer = rig.selectedMixerTrackIndex;
@@ -70,6 +76,19 @@ public final class ClipReader {
         }
 
         double ms(long nanos) { return nanos == 0 ? -1 : (nanos - started) / 1e6; }
+
+        /** The host steps of this read, in {@link ClipReadRoute} order. */
+        final ClipReadRoute.Steps steps = new ClipReadRoute.Steps() {
+            public boolean subscribed() { return subscribed; }
+            public void subscribe() { clip.subscribe(); subscribed = true; }
+            public void unpinClip() { clip.isPinned().set(false); }
+            public void unpinTrack() { track.isPinned().set(false); }
+            public boolean atPark() { return ClipReader.this.atPark(); }
+            public void park() { track.selectChannel(park); }
+            public void claimLease() { rig.claimSelectionOwnership(token, trackIndex, row); }
+            public void selectRow() { target.selectSlot(row); }
+            public void pointTarget() { track.selectChannel(target); }
+        };
     }
 
     private final ControllerHost host;
@@ -141,6 +160,13 @@ public final class ClipReader {
 
     private void schedule(Runnable task) { host.scheduleTask(task, 0); }
 
+    /** Only the research profile admits a research route. */
+    static void validateDiagnosticRoute(RuntimeProfile profile, String route) {
+        if (route.isEmpty()) return;
+        if (!profile.hasProbeResources()) throw new IllegalArgumentException("diagnosticRoute requires the probe profile");
+        if (!ClipReadRoute.DIAGNOSTIC_ROUTES.contains(route)) throw new IllegalArgumentException("unknown diagnosticRoute: " + route);
+    }
+
     /** Only the research profile admits a synthetic capture fault. No host note is changed. */
     static void validateDiagnosticFault(RuntimeProfile profile, String fault) {
         if (fault.isEmpty()) return;
@@ -154,8 +180,10 @@ public final class ClipReader {
      * Open one read. The caller holds the write gate; {@code done} runs once, in a later task. A request that
      * fails its preconditions throws before any host change.
      */
-    public void open(int trackIndex, int row, String channelId, int deadlineMs, String diagnosticFault, Done done) {
+    public void open(int trackIndex, int row, String channelId, int deadlineMs, String diagnosticFault,
+                     String diagnosticRoute, Done done) {
         validateDiagnosticFault(rig.profile, diagnosticFault);
+        validateDiagnosticRoute(rig.profile, diagnosticRoute);
         if (read != null) throw new IllegalStateException("a clip read is already open");
         if (trackIndex < 0 || trackIndex >= rig.config.tracks) {
             throw new IllegalArgumentException("trackIndex out of bank range: " + trackIndex);
@@ -174,7 +202,7 @@ public final class ClipReader {
             throw new IllegalArgumentException("slot " + trackIndex + ":" + row + " holds no clip");
         }
         if (park.channelId().get().isEmpty()) throw new IllegalStateException("the park target is not available");
-        Read r = new Read(++reads, trackIndex, row, channelId, target, diagnosticFault, done);
+        Read r = new Read(++reads, trackIndex, row, channelId, target, diagnosticFault, diagnosticRoute, done);
         read = r;
         if (current != null) {
             lateCallbacks += current.afterClose - currentConfirmed;
@@ -185,9 +213,8 @@ public final class ClipReader {
         }
         current = null;
         host.scheduleTask(() -> deadline(r), deadlineMs);
-        clip.isPinned().set(false);
-        track.isPinned().set(false);
-        if (!atPark()) track.selectChannel(park);
+        r.openStray = strayCallbacks;
+        ClipReadRoute.open(r.steps, r.route);
         schedule(() -> awaitPark(r));
     }
 
@@ -205,7 +232,7 @@ public final class ClipReader {
         }
         r.parkedNanos = System.nanoTime();
         r.parkStray = strayCallbacks;
-        if (!subscribed) { clip.subscribe(); subscribed = true; }
+        ClipReadRoute.parked(r.steps);
         schedule(() -> bind(r));
     }
 
@@ -215,9 +242,7 @@ public final class ClipReader {
         r.capture = new ClipReadCapture(r.id, this::schedule, () -> close(r));
         current = r.capture;
         currentConfirmed = 0;
-        rig.claimSelectionOwnership(r.token, r.trackIndex, r.row);
-        r.target.selectSlot(r.row);
-        track.selectChannel(r.target);
+        ClipReadRoute.bind(r.steps);
         r.boundNanos = System.nanoTime();
     }
 
@@ -375,8 +400,10 @@ public final class ClipReader {
         JsonObject result = new JsonObject();
         result.addProperty("revision", REVISION);
         result.addProperty("closeRule", CLOSE_RULE);
+        result.addProperty("openRule", OPEN_RULE);
         result.addProperty("readId", r.id);
         if (!r.diagnosticFault.isEmpty()) result.addProperty("diagnosticFault", r.diagnosticFault);
+        if (!r.route.isEmpty()) result.addProperty("diagnosticRoute", r.route);
         result.addProperty("priorReleaseCallbacks", releaseCallbacks);
         result.addProperty("priorReleaseEmpty", releaseEmpty);
         result.addProperty("priorReleaseSustain", releaseSustain);
@@ -389,6 +416,7 @@ public final class ClipReader {
         result.addProperty("closeMs", r.ms(r.closedNanos));
         result.addProperty("totalMs", r.ms(System.nanoTime()));
         result.addProperty("parkPolls", r.parkPolls);
+        result.addProperty("unpinCallbacks", r.parkedNanos == 0 ? strayCallbacks - r.openStray : r.parkStray - r.openStray);
         if (r.capture != null) {
             result.addProperty("callbacks", r.capture.callbacks);
             result.addProperty("onsets", r.capture.onsets);
@@ -415,6 +443,7 @@ public final class ClipReader {
         JsonObject result = new JsonObject();
         result.addProperty("revision", REVISION);
         result.addProperty("closeRule", CLOSE_RULE);
+        result.addProperty("openRule", OPEN_RULE);
         result.addProperty("format", NoteFrame.FORMAT);
         result.addProperty("width", WIDTH);
         result.addProperty("grid", GRID);

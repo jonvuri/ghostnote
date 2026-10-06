@@ -22,7 +22,9 @@ public final class ClipReaderTest {
         run("an empty clip closes on the exists task", ClipReaderTest::emptyClose);
         run("callbacks after the close are counted and do not change the copy", ClipReaderTest::afterClose);
         run("release callbacks have state counters and cannot change the close copy", ClipReaderTest::releaseCallbacks);
-        run("synthetic faults require the research profile", ClipReaderTest::diagnosticFaults);
+        run("synthetic faults and research routes require the research profile", ClipReaderTest::diagnosticFaults);
+        run("the open task subscribes before it removes the pins (E232)", ClipReaderTest::openOrder);
+        run("the bind task selects the row at park, then points (E228)", ClipReaderTest::bindOrder);
         run("a second callback for one cell is a duplicate", ClipReaderTest::duplicates);
         run("a false clipExists value is no start signal", ClipReaderTest::falseExists);
         run("the notes-v1 frame matches the wire golden", ClipReaderTest::frameGolden);
@@ -113,7 +115,55 @@ public final class ClipReaderTest {
                 catch (IllegalArgumentException expected) { threw = true; }
                 check(threw == (!profile.hasProbeResources() || fault.equals("unknown")), profile + ":" + fault);
             }
+            ClipReader.validateDiagnosticRoute(profile, "");
+            for (String route : List.of("legacy-open", "unknown")) {
+                boolean threw = false;
+                try { ClipReader.validateDiagnosticRoute(profile, route); }
+                catch (IllegalArgumentException expected) { threw = true; }
+                check(threw == (!profile.hasProbeResources() || route.equals("unknown")), profile + ":" + route);
+            }
         }
+    }
+
+    /** Records route steps. A pin change counts on the host only while the clip is subscribed. */
+    private static final class Steps implements ClipReadRoute.Steps {
+        final List<String> log = new ArrayList<>();
+        boolean subscribed, atPark, hostClipPinned = true;
+        public boolean subscribed() { return subscribed; }
+        public void subscribe() { subscribed = true; log.add("subscribe"); }
+        public void unpinClip() { if (subscribed) hostClipPinned = false; log.add("unpinClip"); }
+        public void unpinTrack() { log.add("unpinTrack"); }
+        public boolean atPark() { return atPark; }
+        public void park() { log.add("park"); }
+        public void claimLease() { log.add("claimLease"); }
+        public void selectRow() { log.add("selectRow"); }
+        public void pointTarget() { log.add("pointTarget"); }
+    }
+
+    private static void openOrder() {
+        Steps released = new Steps();
+        ClipReadRoute.open(released, "");
+        check(released.log.equals(List.of("subscribe", "unpinClip", "unpinTrack", "park")), "product open " + released.log);
+        check(!released.hostClipPinned, "the unpin reaches the host");
+        ClipReadRoute.parked(released);
+        check(released.log.size() == 4, "no second subscribe at park");
+
+        Steps open = new Steps();
+        open.subscribed = true; open.atPark = true;
+        ClipReadRoute.open(open, "");
+        check(open.log.equals(List.of("unpinClip", "unpinTrack")), "already subscribed and parked " + open.log);
+
+        Steps legacy = new Steps();
+        ClipReadRoute.open(legacy, "legacy-open");
+        ClipReadRoute.parked(legacy);
+        check(legacy.log.equals(List.of("unpinClip", "unpinTrack", "park", "subscribe")), "legacy open " + legacy.log);
+        check(legacy.hostClipPinned, "the legacy unpin does not reach the host");
+    }
+
+    private static void bindOrder() {
+        Steps s = new Steps();
+        ClipReadRoute.bind(s);
+        check(s.log.equals(List.of("claimLease", "selectRow", "pointTarget")), "bind " + s.log);
     }
 
     private static void duplicates() {

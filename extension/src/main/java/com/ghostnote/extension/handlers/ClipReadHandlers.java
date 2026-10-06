@@ -27,6 +27,7 @@ public final class ClipReadHandlers extends HandlerGroup {
                     params.get("channelId").getAsString(),
                     params.has("deadlineMs") ? params.get("deadlineMs").getAsInt() : ClipReader.DEADLINE_MS,
                     params.has("diagnosticFault") ? params.get("diagnosticFault").getAsString() : "",
+                    params.has("diagnosticRoute") ? params.get("diagnosticRoute").getAsString() : "",
                     result -> {
                         registry.gate().readClosed();
                         reply.result(result, 0);

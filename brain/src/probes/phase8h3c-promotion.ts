@@ -15,6 +15,8 @@ import { readFineClipNotes, reconcileExactNoteScans, type E131Context } from './
 import { decodeVerboseNote } from '../adapters/live/encoder.js';
 import { Executor } from '../engine/executor.js';
 
+/** 8h3c2: the target row of the paired, selection, and queue cases. The fifth CLI argument sets it. */
+let ROW = 0;
 /** The `clip-reader-v1` page size of the E230 runs. The evidence verifiers decode at this limit. */
 const RECORDED_PAGE = 131_072;
 
@@ -109,16 +111,16 @@ async function indexOf(id: string, owned?: Call[]): Promise<number> {
   assert(found, `owned track ${id} is absent`); return found.index;
 }
 function address(id: string, row = 0) { return clip(slot(track(id), scene(row, 0))); }
-async function clipAddress(id: string, row = 0) {
+async function clipAddress(id: string, row = ROW) {
   const mark = await request('revision.get');
   return clip(slot(track(id), scene(row, mark.sceneEpoch)));
 }
-async function bind(id: string, row = 0, cursor = 'fine'): Promise<void> {
+async function bind(id: string, row = ROW, cursor = 'fine'): Promise<void> {
   const target = await clipAddress(id, row);
   const context = adapter as unknown as E131Context;
   await context.pointAtClip(target, await indexOf(id), new Map(), cursor);
 }
-async function capture(id: string, row = 0, deadlineMs?: number, diagnosticFault?: string): Promise<Wire> {
+async function capture(id: string, row = ROW, deadlineMs?: number, diagnosticFault?: string): Promise<Wire> {
   const before = await request('selection.status');
   const calls: Call[] = [], started = performance.now();
   const result = await request('clip.read', { trackIndex: await indexOf(id, calls), row, channelId: id,
@@ -183,13 +185,30 @@ function normalized(note: NoteRecord): NoteRecord {
     isChanceEnabled: note.isChanceEnabled ?? false, isOccurrenceEnabled: note.isOccurrenceEnabled ?? false,
     isRecurrenceEnabled: note.isRecurrenceEnabled ?? false, isRepeatEnabled: note.isRepeatEnabled ?? false };
 }
+/**
+ * 8h3c2: for a target row other than 0, put a distinct clip in row 0: 3 beats, one note at pitch 100 on
+ * channel 9. A bind of row 0 then fails every content check of the case.
+ */
+async function decoy(id: string): Promise<void> {
+  if (ROW === 0) return;
+  const idx = await indexOf(id), row = ROW;
+  await request('slot.delete', { trackIndex: idx, slotIndex: 0 }); await pause(200);
+  await request('clip.create', { trackIndex: idx, slotIndex: 0, lengthBeats: 3 }); await pause(300);
+  ROW = 0;
+  try {
+    await bind(id); await request('cursor.setStepSize', { cursor: 'fine', stepSize: 0.25 });
+    await request('cursor.setNotes', { cursor: 'fine', channel: 9, notes: [[1, 100, 100, 0.25]] });
+  } finally { ROW = row; }
+  await pause(250);
+}
 async function paired(out: string, statePath: string): Promise<void> {
   await guard(); const state = await load(statePath); const reports: Wire[] = [];
+  await decoy(state.trackId);
   for (const bars of [1, 4, 16, 64]) for (const density of ['sparse', 'dense']) {
     const beats = bars * 4, spacing = density === 'sparse' ? 4 : 0.25;
     const idx = await indexOf(state.trackId);
-    await request('slot.delete', { trackIndex: idx, slotIndex: 0 }); await pause(200);
-    await request('clip.create', { trackIndex: idx, slotIndex: 0, lengthBeats: beats }); await pause(300);
+    await request('slot.delete', { trackIndex: idx, slotIndex: ROW }); await pause(200);
+    await request('clip.create', { trackIndex: idx, slotIndex: ROW, lengthBeats: beats }); await pause(300);
     await bind(state.trackId); await request('cursor.setStepSize', { cursor: 'fine', stepSize: 0.25 });
     for (let channel = 0; channel < 16; channel += 1) {
       await request('cursor.setNotes', { cursor: 'fine', channel,
@@ -215,7 +234,7 @@ async function paired(out: string, statePath: string): Promise<void> {
     }
     reports.push({ bars, density, cold, control: [...control], controlMs,
       controlBytes: calls.reduce((sum, call) => sum + call.bytes, 0), before, after, calls });
-    await artifact(out, { schema: 'phase8h3c-paired-v1', state, reports });
+    await artifact(out, { schema: 'phase8h3c-paired-v1', row: ROW, state, reports });
     console.log(JSON.stringify({ bars, density, coldMs: cold.wallMs, controlMs, notes: cold.rows.length }));
   }
 }
@@ -239,8 +258,8 @@ async function baseline(out: string): Promise<void> {
 }
 async function reset(id: string, beats = 4): Promise<void> {
   const idx = await indexOf(id);
-  await request('slot.delete', { trackIndex: idx, slotIndex: 0 }); await pause(200);
-  await request('clip.create', { trackIndex: idx, slotIndex: 0, lengthBeats: beats }); await pause(300);
+  await request('slot.delete', { trackIndex: idx, slotIndex: ROW }); await pause(200);
+  await request('clip.create', { trackIndex: idx, slotIndex: ROW, lengthBeats: beats }); await pause(300);
   await bind(id); await request('cursor.setStepSize', { cursor: 'fine', stepSize: 0.25 });
   await request('cursor.setNotes', { cursor: 'fine', channel: 0, notes: [[0, 48, 100, 0.25]] });
   await pause(250);
@@ -267,10 +286,12 @@ async function refusals(out: string, statePath: string): Promise<void> {
 }
 async function selectionCases(out: string, statePath: string): Promise<void> {
   await guard(); const state = await load(statePath), reports: Wire[] = [];
+  await decoy(state.trackId);
   await reset(state.trackId);
   const other = state.entryTracks.find((row: Wire) => row.type === 'Instrument'); assert(other);
   try {
-    for (const [id, row] of [[other.channelId, 1], [state.trackId, 1], [other.channelId, 0]]) {
+    // Each entry selection differs from the target slot. For target row 1, the owned-track entry is row 0.
+    for (const [id, row] of [[other.channelId, 1], [state.trackId, ROW === 1 ? 0 : 1], [other.channelId, 0]]) {
       const index = await indexOf(id as string);
       await request('slot.select', { trackIndex: index, slotIndex: row }); await pause(250);
       const read = await capture(state.trackId); reports.push({ id, row, read });
@@ -279,7 +300,7 @@ async function selectionCases(out: string, statePath: string): Promise<void> {
         [index, row, read.before.mixerTrackIndex]);
       assert.equal(read.rows.length, 1); assert.equal(read.rows[0].cell, 0); assert.equal(read.rows[0].pitch, 48);
     }
-  } finally { await artifact(out, { schema: 'phase8h3c-selection-v1', state, reports, calls: transport.calls }); }
+  } finally { await artifact(out, { schema: 'phase8h3c-selection-v1', row: ROW, state, reports, calls: transport.calls }); }
 }
 /** Inject capture events only. These cases do not claim a natural host fault. */
 async function faults(out: string, statePath: string): Promise<void> {
@@ -300,6 +321,7 @@ async function faults(out: string, statePath: string): Promise<void> {
 async function queueCases(out: string, statePath: string): Promise<void> {
   await guard(); const state = await load(statePath); const cases: Wire[] = [];
   try {
+  await decoy(state.trackId);
   await reset(state.trackId, 256);
   // A large all-channel capture gives the second client a measured open window.
   for (let channel = 0; channel < 16; channel += 1) await request('cursor.setNotes', {
@@ -348,7 +370,7 @@ async function queueCases(out: string, statePath: string): Promise<void> {
   }
   {
     const idx = await indexOf(state.trackId), start = transport.calls.length;
-    const pendingRead = request('clip.read', { trackIndex: idx, row: 0, channelId: state.trackId, deadlineMs: 1 });
+    const pendingRead = request('clip.read', { trackIndex: idx, row: ROW, channelId: state.trackId, deadlineMs: 1 });
     const pendingWrite = transport.send(edit(90));
     const [result] = await Promise.all([pendingRead, pendingWrite]);
     const calls = transport.calls.slice(start), write = calls.find(call => call.method === 'cursor.setNoteProps')!;
@@ -373,7 +395,7 @@ async function queueCases(out: string, statePath: string): Promise<void> {
     cases.push({ name: 'full-queue-and-unclassified-write', stats, read, results, calls, names });
     await request('track.setName', { trackIndex: idx, name: 'gn-8h3c-owned' });
   }
-  } finally { await artifact(out, { schema: 'phase8h3c-queue-v1', state, cases, calls: transport.calls }); }
+  } finally { await artifact(out, { schema: 'phase8h3c-queue-v1', row: ROW, state, cases, calls: transport.calls }); }
 }
 async function disabled(out: string, statePath: string): Promise<void> {
   await guard(); const state = await load(statePath); await reset(state.trackId);
@@ -454,6 +476,9 @@ function verifyCapture(report: Wire): RawNoteFields[] {
   }
   assert.equal(rows.length, report.result.frame.count);
   assert.deepEqual(report.rows, rows);
+  // 8h3c2: the capture is of the requested track and row.
+  assert.equal(report.result.bound.channelId, initial.params.channelId);
+  assert.equal(report.result.bound.row, initial.params.row);
   assert.equal(new Set(rows.map(row => `${row.channel}:${row.pitch}:${row.cell}`)).size, rows.length);
   assert.equal(report.result.closeRule, 'confirm-before-release-v1');
   assert.equal(report.result.afterClose, 0); assert.equal(report.result.duplicates, 0);
@@ -464,6 +489,12 @@ function verifyCapture(report: Wire): RawNoteFields[] {
   assert.deepEqual([report.after.trackIndex, report.after.slotIndex, report.after.mixerTrackIndex],
     [report.before.trackIndex, report.before.slotIndex, report.before.mixerTrackIndex]);
   return rows;
+}
+/** 8h3c2: every clip read of an artifact requests its recorded row. Earlier artifacts have row 0. */
+function verifyRow(data: Wire, calls: Call[]): void {
+  const reads = calls.filter(call => call.method === 'clip.read');
+  assert(reads.length > 0);
+  for (const call of reads) assert.equal(call.params?.row, data.row ?? 0);
 }
 /** Recompute the E131 control from its saved raw scan replies. */
 function replayControl(calls: Call[], id: string): Map<number, readonly NoteRecord[]> {
@@ -499,6 +530,7 @@ function replayControl(calls: Call[], id: string): Map<number, readonly NoteReco
 export async function verifyPaired(path: string): Promise<void> {
   const data = JSON.parse(gunzipSync(await readFile(path)).toString('utf8')) as Wire;
   assert.equal(data.schema, 'phase8h3c-paired-v1'); assert.equal(data.reports.length, 8);
+  verifyRow(data, data.reports.flatMap((report: Wire) => report.cold.calls));
   const cases = new Set<string>();
   for (const report of data.reports) {
     assert([1, 4, 16, 64].includes(report.bars)); assert(['sparse', 'dense'].includes(report.density));
@@ -535,7 +567,7 @@ export async function verifyRefusals(path: string): Promise<void> {
 }
 export async function verifySelection(path: string): Promise<void> {
   const data = JSON.parse(gunzipSync(await readFile(path)).toString('utf8')) as Wire;
-  assert.equal(data.schema, 'phase8h3c-selection-v1'); verifyCalls(data.calls);
+  assert.equal(data.schema, 'phase8h3c-selection-v1'); verifyCalls(data.calls); verifyRow(data, data.calls);
   assert.equal(data.reports.length, 3);
   for (const report of data.reports) {
     const rows = verifyCapture(report.read);
@@ -563,7 +595,7 @@ export async function verifyFaults(path: string): Promise<void> {
 }
 export async function verifyQueue(path: string): Promise<void> {
   const data = JSON.parse(gunzipSync(await readFile(path)).toString('utf8')) as Wire;
-  assert.equal(data.schema, 'phase8h3c-queue-v1'); verifyCalls(data.calls);
+  assert.equal(data.schema, 'phase8h3c-queue-v1'); verifyCalls(data.calls); verifyRow(data, data.calls);
   assert.equal(data.cases.length, 5);
   const named = new Map<string, Wire>(data.cases.map((entry: Wire) => [entry.name, entry]));
   const velocity = (report: Wire): number => {
@@ -742,8 +774,9 @@ export async function verifyOffline(dir: string): Promise<void> {
   }
 }
 if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {
-  const [command, out, state] = process.argv.slice(2);
+  const [command, out, state, row] = process.argv.slice(2);
   assert(out, 'artifact path required');
+  if (row !== undefined) ROW = Number(row);
   try {
     if (command === 'verify-offline') await verifyOffline(out);
     else if (command === 'verify-smoke') await verifySmoke(out);

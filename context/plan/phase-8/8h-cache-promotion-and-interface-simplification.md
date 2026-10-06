@@ -3,7 +3,7 @@ title: Phase 8h — Cache promotion and interface simplification
 kind: plan
 state: active
 status: Reader promotion is complete in E230. Change awareness, cache machinery trim, and interface simplification remain.
-updated: 2026-10-05
+updated: 2026-10-06
 parent: README.md
 prev: 8g-shadow-project-cache.md
 next: 8i-agent-native-hybrid-dogfood.md
@@ -74,8 +74,9 @@ Reader promotion and remaining sessions, in order:
 3. [8h3d — Change awareness](8h3d-change-awareness.md). Complete
    ([E231](../../evidence/experiments/e231-change-awareness.md)): pull only.
    Clip-level values report no note edit; watched clips save only latency.
-4. [8h3c2 — Reader row binding](8h3c2-reader-row-binding.md). The reader
-   binds only the row that its cursor holds for a track (E231). Fix it before 8h3e.
+4. [8h3c2 — Reader row binding](8h3c2-reader-row-binding.md). Complete
+   ([E232](../../evidence/experiments/e232-reader-row-binding.md)): the open
+   task subscribes before it unpins.
 5. [8h3e — Cache machinery trim and promotion](8h3e-cache-machinery-trim.md).
    Keep identity, generations, and snapshot validity; retire the resident note
    grid.

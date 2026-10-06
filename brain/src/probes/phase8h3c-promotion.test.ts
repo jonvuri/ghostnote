@@ -66,8 +66,9 @@ test('E230 paired verifier recomputes both raw grid scans and checks all eight f
       velocity: 100 / 127, duration: 0.25 }));
     const result = { frame: frameFor(rows), readId: 1, closeRule: 'confirm-before-release-v1',
       afterClose: 0, duplicates: 0, releaseOn: 0, releaseSustain: 0, releaseEmpty: rows.length * 128,
-      releaseCallbacks: rows.length * 128, parkMs: 18, selection: { restored: true } };
-    const read = call('clip.read', result), selection = { trackIndex: 0, slotIndex: 0, mixerTrackIndex: 0 };
+      releaseCallbacks: rows.length * 128, parkMs: 18, selection: { restored: true },
+      bound: { channelId: 'owned', row: 0 } };
+    const read = call('clip.read', result, { trackIndex: 0, row: 0, channelId: 'owned' }), selection = { trackIndex: 0, slotIndex: 0, mixerTrackIndex: 0 };
     const cold = { result, rows, calls: [read], bytes: read.bytes, wallMs: 1, before: selection, after: selection };
     const calls = [], control: [number, unknown[]][] = [];
     for (const stepSize of [1 / 512, 1 / 768]) {

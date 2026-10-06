@@ -1,16 +1,27 @@
 ---
 title: Phase 8h3c2 — Reader row binding
 kind: plan
-state: planned
-status: Planned. Make the product clip reader bind the requested row on a track with more than one clip.
+state: complete
+status: Complete. E232 found a dropped unpin; the open task now subscribes before it unpins. All acceptance cases pass.
 updated: 2026-10-06
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h3d-change-awareness.md
 next: 8h3e-cache-machinery-trim.md
-evidence: E228, E230, E231; D30
+evidence: E228, E230, E231, E232; D30
 ---
 
 # Phase 8h3c2 — Reader row binding
+
+## Result
+
+Complete in [E232](../../evidence/experiments/e232-reader-row-binding.md).
+The host did not apply an unpin that the reader sent while its clip was
+unsubscribed. The clip stayed pinned to the row of its first read on each
+track. None of the three planned candidates changed this. The open task now
+subscribes on the prior target, removes the pins, and then parks. The adapter
+retries one time to remove a pin from an earlier build. Every acceptance
+criterion below passes. One read missed its selection restore once in 2,200
+reads; E232 records it as an open observation.
 
 ## Why
 

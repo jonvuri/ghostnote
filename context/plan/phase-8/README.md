@@ -3,7 +3,7 @@ title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
 status: D25 selects FIELDS and JSON. 8g is complete (E224). 8h is not entered.
-updated: 2026-10-05
+updated: 2026-10-06
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
 next: ../phase-9/README.md
@@ -372,7 +372,8 @@ owns the migration details.
    retirement; complete in [E230](../../evidence/experiments/e230-cold-reader-promotion.md)),
    [8h3d](8h3d-change-awareness.md) (change awareness; complete in
    [E231](../../evidence/experiments/e231-change-awareness.md): pull only),
-   [8h3c2](8h3c2-reader-row-binding.md) (reader row binding),
+   [8h3c2](8h3c2-reader-row-binding.md) (reader row binding; complete in
+   [E232](../../evidence/experiments/e232-reader-row-binding.md)),
    [8h3e](8h3e-cache-machinery-trim.md) (cache machinery trim),
    and 8h4 (interface simplification). 8h3c and 8h3e replace the earlier 8h1
    and 8h2b plans.

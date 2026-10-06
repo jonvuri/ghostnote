@@ -2594,11 +2594,20 @@ export class LiveAdapter implements BitwigAdapter {
         || pageSize === undefined || !Number.isInteger(pageSize) || pageSize < 1) {
       throw new AddressUnresolvedError(clipRef, 'clip.read configuration is absent or incompatible; call hello with the current extension');
     }
-    const result = await this.transport.send({
+    type ClipReadReply = { refused?: string; message?: string; readId: number; frame: NoteFrame;
+      bound?: { channelId?: string; row?: number } };
+    const send = async (): Promise<ClipReadReply> => await this.transport.send({
       method: WIRE.clipRead,
       params: { trackIndex, row: clipRef.slot.scene.index, channelId: clipRef.slot.track.channelId },
       timeoutMs: 30_000,
-    }) as { refused?: string; message?: string; readId: number; frame: NoteFrame };
+    }) as ClipReadReply;
+    let result = await send();
+    // E232: a clip pin from an earlier reader build can bind another row of the correct track once. That
+    // refused read leaves the reader on this track, and the next open removes the pin. Retry one time only.
+    if (result.refused === 'bound-target-mismatch' && result.bound?.channelId === clipRef.slot.track.channelId
+        && result.bound.row !== clipRef.slot.scene.index) {
+      result = await send();
+    }
     if (result.refused !== undefined) {
       throw new AddressUnresolvedError(clipRef, `clip.read refused ${result.refused}: ${result.message ?? ''}`);
     }

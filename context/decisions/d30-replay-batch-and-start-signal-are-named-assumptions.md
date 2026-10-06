@@ -80,6 +80,16 @@ route defect, not a violation of either assumption: each refused read was one
 complete batch of the clip that it bound.
 [8h3c2](../plan/phase-8/8h3c2-reader-row-binding.md) fixes the route.
 
+## E232 open order
+
+[E232](../evidence/experiments/e232-reader-row-binding.md) found the cause.
+The host did not apply an unpin that was sent while the reader clip was
+unsubscribed, so the clip stayed pinned on its target track. The open task now
+subscribes on the prior target, removes the pins, and then goes to park. The
+prior clip replays to no capture before the park check. The close,
+confirmation, and release order is unchanged. The bind still starts from the
+empty park target. This does not change either assumption.
+
 ## Consequence
 
 With D26 and D27, a full-width 1/512 bind is a complete cold read. The read
