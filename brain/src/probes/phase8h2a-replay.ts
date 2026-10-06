@@ -1,3 +1,5 @@
+// E230 and 8h3e removed the research wire that this live driver uses. Live use needs the earlier
+// research build of its own session. Its retained artifacts and offline checks do not need a host.
 /**
  * 8h2a replay cold read. Live driver. Each subcommand writes one artifact and refuses the anchor project.
  *

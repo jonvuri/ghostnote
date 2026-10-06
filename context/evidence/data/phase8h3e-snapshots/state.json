@@ -1,0 +1,309 @@
+{
+ "schema": "phase8h3e-snapshots-v1-state",
+ "entry": {
+  "hello": {
+   "contractVersion": 0,
+   "extensionVersion": "0.0.1",
+   "runtimeProfile": "normal-v1",
+   "hostApiVersion": 25,
+   "methodCount": 87,
+   "methodsHash": "ca139a3e62a55e68"
+  },
+  "mark": {
+   "revision": 0,
+   "generation": "007ca297-7ce4-4144-8aa3-e44b2145e096",
+   "project": "New 4",
+   "projectStatus": "marked",
+   "sceneEpoch": 3,
+   "sceneCount": 8,
+   "contentEpoch": 32812,
+   "contentEvents": [
+    {
+     "seq": 32789,
+     "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+     "trackIndex": 6,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32790,
+     "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+     "trackIndex": 7,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32791,
+     "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+     "trackIndex": 0,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32792,
+     "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+     "trackIndex": 0,
+     "slotIndex": 4,
+     "filled": false
+    },
+    {
+     "seq": 32793,
+     "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+     "trackIndex": 1,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32794,
+     "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+     "trackIndex": 1,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32795,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32796,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32797,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32798,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 3,
+     "filled": false
+    },
+    {
+     "seq": 32799,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 4,
+     "filled": false
+    },
+    {
+     "seq": 32800,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 5,
+     "filled": false
+    },
+    {
+     "seq": 32801,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 6,
+     "filled": false
+    },
+    {
+     "seq": 32802,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 7,
+     "filled": false
+    },
+    {
+     "seq": 32803,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 8,
+     "filled": false
+    },
+    {
+     "seq": 32804,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 9,
+     "filled": false
+    },
+    {
+     "seq": 32805,
+     "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32806,
+     "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+     "trackIndex": 3,
+     "slotIndex": 5,
+     "filled": false
+    },
+    {
+     "seq": 32807,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32808,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32809,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32810,
+     "channelId": "",
+     "trackIndex": 5,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32811,
+     "channelId": "",
+     "trackIndex": 6,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32812,
+     "channelId": "",
+     "trackIndex": 7,
+     "slotIndex": 0,
+     "filled": false
+    }
+   ]
+  },
+  "rig": {
+   "runtimeProfile": "normal-v1",
+   "tracks": 256,
+   "scenes": 128,
+   "gridSteps": 64,
+   "fineSteps": 512,
+   "noteReadSteps": 2048,
+   "gridKeys": 128,
+   "stepSize": 0.25,
+   "cursorPool": 8,
+   "deviceBank": 16,
+   "remotePages": 16,
+   "containerScopes": 3,
+   "containerEntryBank": 5,
+   "containerEntryDeviceBank": 4,
+   "parameterRouteDepth": 2,
+   "sceneCount": 8,
+   "clipReader": {
+    "revision": "clip-reader-v1",
+    "closeRule": "confirm-before-release-v1",
+    "openRule": "subscribe-before-unpin-v1",
+    "format": "notes-v1",
+    "width": 4194304,
+    "grid": 0.001953125,
+    "page": 131072,
+    "deadlineMs": 2000,
+    "reads": 0,
+    "refusals": 0,
+    "lastRefusal": "",
+    "lateCallbacks": 0,
+    "strayCallbacks": 0,
+    "releaseCallbacks": 0,
+    "releaseEmpty": 0,
+    "releaseSustain": 0,
+    "releaseOn": 0,
+    "subscribed": false,
+    "open": false,
+    "writeGate": {
+     "readOpen": false,
+     "waiting": 0,
+     "leases": 0,
+     "limit": 256,
+     "queuedTotal": 0,
+     "refusedTotal": 0
+    }
+   }
+  }
+ },
+ "entryTracks": [
+  {
+   "index": 0,
+   "name": "Inst 1",
+   "position": 0,
+   "type": "Instrument",
+   "channelId": "9760774e-b662-4b32-8a4d-fdae6095a05c"
+  },
+  {
+   "index": 1,
+   "name": "Audio 2",
+   "position": 1,
+   "type": "Audio",
+   "channelId": "c3dad6b6-f991-4d10-9600-c1a7d842bdf2"
+  },
+  {
+   "index": 2,
+   "name": "FX 1",
+   "position": 2,
+   "type": "Effect",
+   "channelId": "119742a6-8084-4be1-9344-f24733c25e0f"
+  },
+  {
+   "index": 3,
+   "name": "Master",
+   "position": 3,
+   "type": "Master",
+   "channelId": "95022aac-c266-48d6-bb33-c2198a613e67"
+  }
+ ],
+ "tracks": {
+  "edit": "de9b6041-ac68-4d88-9446-28a191029b9a",
+  "survey": [
+   "f58fb843-fad0-428c-92c6-2752e2ef9dd4",
+   "de82ef4d-080c-4d92-8e80-df365507efe6",
+   "470a70c8-3cce-4f0f-bcc3-586447c2643a",
+   "4c0f7b20-469c-4502-83ab-3813ec1add3c"
+  ]
+ },
+ "armed": {
+  "operator move": {
+   "token": "gcs1.eyJjaGFubmVsSWQiOiJkZTliNjA0MS1hYzY4LTRkODgtOTQ0Ni0yOGExOTEwMjliOWEiLCJtYXJrIjp7ImNvbnRlbnRFcG9jaCI6MzI4NzIsImdlbmVyYXRpb24iOiIwMDdjYTI5Ny03Y2U0LTQxNDQtOGFhMy1lNDRiMjE0NWUwOTYiLCJwcm9qZWN0IjoiTmV3IDQiLCJyZXZpc2lvbiI6OTEsInNjZW5lRXBvY2giOjQsIndpbmRvdyI6eyJzY2VuZXMiOnsiYmFua1NpemUiOjEyOCwiY291bnQiOjl9LCJ0cmFja3MiOnsiYmFua1NpemUiOjI1NiwiY291bnQiOjl9fX0sInJvdyI6MCwic291cmNlIjp7ImRvbWFpbiI6Imdob3N0bm90ZS1sYXVuY2hlci1zb3VyY2UvMSIsInNoYTI1NiI6ImFkYWQ3ZTUxNGFiMDRhYmFmYTFiZTI0Njc3OTM1MTBmOWE3YmZkNjQ2ZTZhZTFiMjQzYTNmNDk5NzU4NDYwZGEifSwidmVyc2lvbiI6Imdob3N0bm90ZS1jbGlwLXNuYXBzaG90LzEifQ",
+   "armedAt": "2026-10-06T07:09:13.186Z"
+  },
+  "detour 1": {
+   "token": "gcs1.eyJjaGFubmVsSWQiOiJkZTliNjA0MS1hYzY4LTRkODgtOTQ0Ni0yOGExOTEwMjliOWEiLCJtYXJrIjp7ImNvbnRlbnRFcG9jaCI6MzI4NzQsImdlbmVyYXRpb24iOiIwMDdjYTI5Ny03Y2U0LTQxNDQtOGFhMy1lNDRiMjE0NWUwOTYiLCJwcm9qZWN0IjoiTmV3IDQiLCJyZXZpc2lvbiI6OTIsInNjZW5lRXBvY2giOjQsIndpbmRvdyI6eyJzY2VuZXMiOnsiYmFua1NpemUiOjEyOCwiY291bnQiOjl9LCJ0cmFja3MiOnsiYmFua1NpemUiOjI1NiwiY291bnQiOjl9fX0sInJvdyI6MCwic291cmNlIjp7ImRvbWFpbiI6Imdob3N0bm90ZS1sYXVuY2hlci1zb3VyY2UvMSIsInNoYTI1NiI6ImFkYWQ3ZTUxNGFiMDRhYmFmYTFiZTI0Njc3OTM1MTBmOWE3YmZkNjQ2ZTZhZTFiMjQzYTNmNDk5NzU4NDYwZGEifSwidmVyc2lvbiI6Imdob3N0bm90ZS1jbGlwLXNuYXBzaG90LzEifQ",
+   "armedAt": "2026-10-06T07:10:44.975Z"
+  },
+  "project switch": {
+   "token": "gcs1.eyJjaGFubmVsSWQiOiJkZTliNjA0MS1hYzY4LTRkODgtOTQ0Ni0yOGExOTEwMjliOWEiLCJtYXJrIjp7ImNvbnRlbnRFcG9jaCI6MzI5MTAsImdlbmVyYXRpb24iOiIwMDdjYTI5Ny03Y2U0LTQxNDQtOGFhMy1lNDRiMjE0NWUwOTYiLCJwcm9qZWN0IjoiTmV3IDQiLCJyZXZpc2lvbiI6OTIsInNjZW5lRXBvY2giOjYsIndpbmRvdyI6eyJzY2VuZXMiOnsiYmFua1NpemUiOjEyOCwiY291bnQiOjl9LCJ0cmFja3MiOnsiYmFua1NpemUiOjI1NiwiY291bnQiOjl9fX0sInJvdyI6MCwic291cmNlIjp7ImRvbWFpbiI6Imdob3N0bm90ZS1sYXVuY2hlci1zb3VyY2UvMSIsInNoYTI1NiI6ImFkYWQ3ZTUxNGFiMDRhYmFmYTFiZTI0Njc3OTM1MTBmOWE3YmZkNjQ2ZTZhZTFiMjQzYTNmNDk5NzU4NDYwZGEifSwidmVyc2lvbiI6Imdob3N0bm90ZS1jbGlwLXNuYXBzaG90LzEifQ",
+   "armedAt": "2026-10-06T07:11:39.634Z"
+  },
+  "detour 2": {
+   "token": "gcs1.eyJjaGFubmVsSWQiOiJkZTliNjA0MS1hYzY4LTRkODgtOTQ0Ni0yOGExOTEwMjliOWEiLCJtYXJrIjp7ImNvbnRlbnRFcG9jaCI6MzI5MTAsImdlbmVyYXRpb24iOiIwMDdjYTI5Ny03Y2U0LTQxNDQtOGFhMy1lNDRiMjE0NWUwOTYiLCJwcm9qZWN0IjoiTmV3IDQiLCJyZXZpc2lvbiI6OTIsInNjZW5lRXBvY2giOjYsIndpbmRvdyI6eyJzY2VuZXMiOnsiYmFua1NpemUiOjEyOCwiY291bnQiOjl9LCJ0cmFja3MiOnsiYmFua1NpemUiOjI1NiwiY291bnQiOjl9fX0sInJvdyI6MCwic291cmNlIjp7ImRvbWFpbiI6Imdob3N0bm90ZS1sYXVuY2hlci1zb3VyY2UvMSIsInNoYTI1NiI6ImFkYWQ3ZTUxNGFiMDRhYmFmYTFiZTI0Njc3OTM1MTBmOWE3YmZkNjQ2ZTZhZTFiMjQzYTNmNDk5NzU4NDYwZGEifSwidmVyc2lvbiI6Imdob3N0bm90ZS1jbGlwLXNuYXBzaG90LzEifQ",
+   "armedAt": "2026-10-06T07:11:41.232Z"
+  },
+  "detour 3": {
+   "token": "gcs1.eyJjaGFubmVsSWQiOiJkZTliNjA0MS1hYzY4LTRkODgtOTQ0Ni0yOGExOTEwMjliOWEiLCJtYXJrIjp7ImNvbnRlbnRFcG9jaCI6MzI5NDYsImdlbmVyYXRpb24iOiIwMDdjYTI5Ny03Y2U0LTQxNDQtOGFhMy1lNDRiMjE0NWUwOTYiLCJwcm9qZWN0IjoiTmV3IDQiLCJyZXZpc2lvbiI6OTIsInNjZW5lRXBvY2giOjgsIndpbmRvdyI6eyJzY2VuZXMiOnsiYmFua1NpemUiOjEyOCwiY291bnQiOjl9LCJ0cmFja3MiOnsiYmFua1NpemUiOjI1NiwiY291bnQiOjl9fX0sInJvdyI6MCwic291cmNlIjp7ImRvbWFpbiI6Imdob3N0bm90ZS1sYXVuY2hlci1zb3VyY2UvMSIsInNoYTI1NiI6ImFkYWQ3ZTUxNGFiMDRhYmFmYTFiZTI0Njc3OTM1MTBmOWE3YmZkNjQ2ZTZhZTFiMjQzYTNmNDk5NzU4NDYwZGEifSwidmVyc2lvbiI6Imdob3N0bm90ZS1jbGlwLXNuYXBzaG90LzEifQ",
+   "armedAt": "2026-10-06T07:13:30.478Z"
+  },
+  "controller reload": {
+   "token": "gcs1.eyJjaGFubmVsSWQiOiJkZTliNjA0MS1hYzY4LTRkODgtOTQ0Ni0yOGExOTEwMjliOWEiLCJtYXJrIjp7ImNvbnRlbnRFcG9jaCI6MzI5ODIsImdlbmVyYXRpb24iOiIwMDdjYTI5Ny03Y2U0LTQxNDQtOGFhMy1lNDRiMjE0NWUwOTYiLCJwcm9qZWN0IjoiTmV3IDQiLCJyZXZpc2lvbiI6OTIsInNjZW5lRXBvY2giOjgsIndpbmRvdyI6eyJzY2VuZXMiOnsiYmFua1NpemUiOjEyOCwiY291bnQiOjl9LCJ0cmFja3MiOnsiYmFua1NpemUiOjI1NiwiY291bnQiOjl9fX0sInJvdyI6MCwic291cmNlIjp7ImRvbWFpbiI6Imdob3N0bm90ZS1sYXVuY2hlci1zb3VyY2UvMSIsInNoYTI1NiI6ImFkYWQ3ZTUxNGFiMDRhYmFmYTFiZTI0Njc3OTM1MTBmOWE3YmZkNjQ2ZTZhZTFiMjQzYTNmNDk5NzU4NDYwZGEifSwidmVyc2lvbiI6Imdob3N0bm90ZS1jbGlwLXNuYXBzaG90LzEifQ",
+   "armedAt": "2026-10-06T07:14:03.983Z"
+  },
+  "scene insert above": {
+   "token": "gcs1.eyJjaGFubmVsSWQiOiJkZTliNjA0MS1hYzY4LTRkODgtOTQ0Ni0yOGExOTEwMjliOWEiLCJtYXJrIjp7ImNvbnRlbnRFcG9jaCI6MzI3ODYsImdlbmVyYXRpb24iOiJmMGZlOTMxNS1jMDQwLTQxOWYtOWUxOS1iYjY5YzlkZjdhYTAiLCJwcm9qZWN0IjoiTmV3IDQiLCJyZXZpc2lvbiI6MCwic2NlbmVFcG9jaCI6Miwid2luZG93Ijp7InNjZW5lcyI6eyJiYW5rU2l6ZSI6MTI4LCJjb3VudCI6OX0sInRyYWNrcyI6eyJiYW5rU2l6ZSI6MjU2LCJjb3VudCI6OX19fSwicm93IjowLCJzb3VyY2UiOnsiZG9tYWluIjoiZ2hvc3Rub3RlLWxhdW5jaGVyLXNvdXJjZS8xIiwic2hhMjU2IjoiYWRhZDdlNTE0YWIwNGFiYWZhMWJlMjQ2Nzc5MzUxMGY5YTdiZmQ2NDZlNmFlMWIyNDNhM2Y0OTk3NTg0NjBkYSJ9LCJ2ZXJzaW9uIjoiZ2hvc3Rub3RlLWNsaXAtc25hcHNob3QvMSJ9",
+   "armedAt": "2026-10-06T07:14:51.096Z"
+  }
+ },
+ "note": "8h3e removed the armed raw reads after the judges; each case artifact retains its raw read before and after."
+}

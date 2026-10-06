@@ -1,3 +1,5 @@
+// 8h3e removed the research wire or rig configuration that this live driver uses. Live use needs the
+// earlier research build of its own session. Its retained artifacts and offline checks do not need a host.
 /**
  * E217 live driver: the 8g2b later-callback ordering rule. Each tick schedules
  * zero-delay confirmations. Same-callback P→Q→P detours create mid-batch ticks.

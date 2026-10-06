@@ -1,3 +1,5 @@
+// 8h3e removed the research wire or rig configuration that this live driver uses. Live use needs the
+// earlier research build of its own session. Its retained artifacts and offline checks do not need a host.
 /** Run the experimental shadow cache and restore its disposable fixture. */
 import assert from 'node:assert/strict';
 import { access, readFile, unlink, writeFile } from 'node:fs/promises';

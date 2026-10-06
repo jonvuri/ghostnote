@@ -1,3 +1,5 @@
+// 8h3e removed the research wire or rig configuration that this live driver uses. Live use needs the
+// earlier research build of its own session. Its retained artifacts and offline checks do not need a host.
 /**
  * 8h1a cache limit knee sweep. Live driver. Each subcommand writes one artifact and refuses the protected project.
  * One controller load holds one research allocation; `cache.configure` changes the active scale.

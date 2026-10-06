@@ -15,6 +15,7 @@
  */
 import type { Address, AddressKey } from './address.js';
 import type { ObservedChain } from './chains.js';
+import type { ClipSourceDigest } from './clip-snapshot.js';
 import type {
   ClipLaunchState, ClipMetadataState, ClipPlayState, DeviceState, NoteRecord, ParamState,
   RemoteControlState, RemoteControlsState, TrackState,
@@ -220,6 +221,11 @@ export interface Snapshot {
   readonly unreachable: readonly Address[];
   /** The target was reachable, but its observer inventory did not settle. */
   readonly unstable: readonly Address[];
+  /**
+   * D32 source fingerprints, keyed by clip address. Present only for the clips
+   * that the read options named and that hold a clip.
+   */
+  readonly sources?: Readonly<Record<AddressKey, ClipSourceDigest>>;
 }
 
 export interface OpReceipt {

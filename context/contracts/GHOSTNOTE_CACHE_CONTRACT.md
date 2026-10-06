@@ -1,374 +1,150 @@
 ---
-title: Ghostnote internal cache contract
+title: Ghostnote pull snapshot contract
 kind: reference
 state: active
-updated: 2026-10-04
-parent: ../plan/phase-8/8f3-ghostnote-bindings-and-cache-contracts.md
-evidence: E131, E134, E138-E139; D23
+updated: 2026-10-06
+parent: ../plan/phase-8/8h3e-cache-machinery-trim.md
+evidence: E214-E233; D23, D30-D32
 ---
 
-# Ghostnote internal cache contract
+# Ghostnote pull snapshot contract
 
-## Scope and authority
+## Scope
 
-This is the implementation contract for [8g](../plan/phase-8/8g-shadow-project-cache.md).
-It combines the measured [identity rules](../evidence/format/CACHE_IDENTITY_AND_LIFECYCLE.md)
-and [scale rules](../evidence/format/CACHE_SCALE_AND_DEGRADATION.md).
-It does not implement a cache. The stable E131 reader remains authoritative.
-8g must not use cache state for stable responses, write guards, or writes.
+This contract replaces the 8f3 internal cache contract. Ghostnote keeps no
+resident note grid. Every read, preflight, and verification reads the clip
+again through the 8h3c cold reader
+([D30](../decisions/d30-replay-batch-and-start-signal-are-named-assumptions.md),
+[D31](../decisions/d31-mutation-and-reversal-use-the-d23-cell-boundary.md)).
+An agent works on a snapshot of one launcher clip and sends a patch against
+it. A snapshot reference names the clip that the snapshot came from. Ghostnote
+tells at use time if the snapshot is still current
+([D32](../decisions/d32-pull-snapshot-references-use-the-revision-mark.md)).
 
-[E214](../evidence/experiments/e214-shadow-cache-content-and-lifecycle-gates.md)
-records the partial 8g implementation. Content comparisons pass.
-[E215](../evidence/experiments/e215-root-identity-and-observer-reuse.md) shows
-physical observer reuse under tested protocols. Selected StepData replay passes
-26 cases. Bounded adapter reuse passes two separate 18-case runs; the corrected
-run also passes two scan cancellation controls with recovery. Existing chain
-UUIDs distinguish loaded copies and reopen, and survive a matched controller
-reload. Automatic loaded-instance detection remains unproved. Earlier cold-start
-and canary-transition replay evidence remains valid. No live snapshot is eligible.
-V5 also passes fixed pool, independent exact fallback, mutation, delivered
-identity fence, and occupied-coordinate limit controls. E214 keeps their counts
-separate. The 2,048-coordinate result measures enriched storage separately from
-the sparse recorder estimate. Missing-event continuity and host input ordering
-remain gates. The corrected followup passes 14 structural fences and recovery
-comparisons, three private inventory interruption controls, and one native
-Group/Ungroup control. Group membership remains unproved. Separate native scene and note controls
-pass. One native project command during acquisition passes retirement with no
-current output. This is a bounded ordering control. At 4,096 notes, enriched
-snapshot payload is 8,431,780 estimated bytes. At 8,192 notes, enrichment time
-refuses before the selected 16 MiB snapshot boundary in that build.
-[E219](../evidence/experiments/e219-snapshot-budgets-and-combined-storage.md)
-uses bounded enrichment batches. It passes live 16 MiB snapshot equality and
-excess, combined-storage overlap refusal, and recovery. Other boundaries stay
-model-only. Estimates do not measure heap memory.
-Final API baseline, exact config restoration, and fresh normal hello pass.
-The implementation does not change this target contract.
+The implementation is `brain/src/contract/clip-snapshot.ts` and
+`brain/src/engine/clip-snapshots.ts`. Only the experimental tool profile
+exposes it. [E233](../evidence/experiments/e233-pull-snapshot-references.md)
+has the live results.
 
-[8g2](../evidence/format/PHASE8G_PROJECT_CONTINUITY.md) selects conservative
-refusal. The current live adapter has no independent project-target input
-window. It refuses residence, warm reuse, forced canary acquisition, comparison,
-exact shadow acquisition, and inventory publication. Coherent observations do
-not prove continuity. The stable E131 reader keeps its authority. Earlier
-reports retain their historical scope. The target contract below remains in
-force. Live continuity and 8g3 acquisition gates remain open.
+## The reference
 
-Each resident clip uses one fixed `1/512`-beat observer. The internal cache
-stores domain values, not serialized FIELDS or JSON. Host handles, proxy
-indices, callback tokens, queues, and recorder estimates stay internal.
-Public reads expose useful scope, field coverage, freshness, and fallback facts.
+A reference (`ghostnote-clip-snapshot/1`) holds:
 
-## Domain types and invariants
+- the complete `RevisionMark` of the read: `revision`, `generation`, `project`,
+  `sceneEpoch`, `contentEpoch`, and `window`. The content delta needs the full
+  mark at both ends, and the coverage test reads `window` at both;
+- the durable address: track `channelId` and launcher row; and
+- one `ghostnote-launcher-source/1` digest.
 
-| Type | Value and invariant |
-|---|---|
-| InitializationDomain | Unique extension-owned nonce for one cache initialization. Include it in references, callback tokens, rebuild tokens, and snapshots. Equal numeric counters from another initialization cannot prove freshness. |
-| ProjectGeneration | Monotonic local generation. Change on foreground project change, switch back, reopen, or extension reload. A project name is not an identity witness. |
-| StructuralEpoch | Monotonic revision of the current address domain. Change before structural repair or rebuild. |
-| LogicalClipRef | Opaque clip ID plus project generation. Mint independently of content equality. Retire on deletion, replacement, or identity loss. |
-| CurrentAddress | Durable track `channelId` plus current zero-based scene row. Resolve track indices when needed. Never use a held proxy's index as structural authority. |
-| SlotIdentity | Project generation, structural epoch, track `channelId`, and row. It describes the slot, not the clip. |
-| ContentGeneration | Monotonic revision of one logical clip's normalized content. Advance after reconciliation proves a change. Duplicate callbacks alone do not advance it. |
-| Fingerprint | Versioned digest of normalized clip values and declared coverage. Equality is a content witness, never an identity proof. |
-| BindingGeneration | Monotonic token for an observer binding. Change before every rebind, eviction, or callback shedding operation. |
-| RebuildGeneration | Monotonic token for private rebuild staging. Change before every rebuild attempt and on abort. |
-| CallbackToken | Initialization domain, project generation, structural epoch, binding generation, and rebuild generation captured when the binding was created. |
-| Coordinate | Absolute `1/512` cell plus MIDI pitch, without a channel. A coordinate is one recorder membership, even if several channels have notes there. |
-| NoteAddress | Logical clip, host MIDI channel `0..15`, pitch `0..127`, and cell. Public projection converts channel to `1..16`. |
-| Coverage | Onset span, all-channel membership coverage, acquired field set, and normalized timing basis. A complete span does not imply that every portable property is observable. |
-| Snapshot | Immutable normalized values, coverage, identity tokens, content generation, fingerprint, and acquisition witness. It contains no mutable host references. |
+Agents receive it as an opaque token. Ghostnote validates every field on input
+and refuses another shape. A reference is not a host clip ID. A durable track
+ID is not a durable clip ID.
 
-All counters must be valid nonnegative integers. Limits and elapsed times must
-be finite and nonnegative. Invalid measurements cannot admit a snapshot.
-The fingerprint input has a named version and deterministic ordering by
-channel, cell, and pitch. It includes clip metadata and field coverage used by
-the caller. It excludes callback counts, internal handles, serialization,
-portable event IDs, and derived overlays. Compare typed values as well as the
-digest in diagnostic runs. Do not substitute this fingerprint for the portable
-R27 content hash or an exact host-source hash.
+## The fingerprint
 
-The cache fingerprint can use only the acquired normalized domain. Incomplete
-fields remain unknown. A coverage change changes the fingerprint domain.
-Source collisions and sub-cell loss remain the [D23 boundary](../decisions/d23-normalized-clip-acquisition-uses-one-1-512-view.md).
-Cache agreement does not prove exact source multiplicity or exact onset timing.
+`ghostnote-launcher-source/1` is SHA-256 over the domain name, LF, and R26
+canonical JSON of one object:
 
-## Sparse storage and reconciliation
+- `clipMetadata`: the complete raw `cursor.clipMetadata` reply;
+- `clipRead`: the `clip.read` bound extent (`loopStartBeats`, `loopEndBeats`,
+  `playStopBeats`) without `channelId` and `row`; and
+- `notes`: every raw field of every note, in channel, cell, and pitch order,
+  with disabled controls and raw binary64 values.
 
-Store occupied coordinates and deduplicated dirty coordinates per binding.
-Track sustain callbacks as invalidations; do not emit a sustain cell as a new
-note. Every accepted callback dirties its coordinate, including a field-only
-change. The callback state is not note authority.
+Read IDs, timings, and callback counts are not input. The adapter computes the
+digest in the same read as the note entries (`read(addresses, { sources })`).
+The live and the fake adapter use one shared function. The mark and the address
+are typed fields beside the digest, so each refusal has its own reason. This
+digest is not the R27 document hash, the `exact-note-source-v0` digest, or the
+E231 research `pull-fp-v1`. Do not compare digests across domains.
 
-At each dirty coordinate, read all 16 MIDI channels. Replace the normalized
-membership and values for that coordinate from settled authority. Remove an
-occupied coordinate only when no channel has a NoteOn there. Enrich note
-properties only for occupied coordinates and the field set needed by a caller.
-An enrichment with missing properties cannot claim those properties as known.
+## The verdict
 
-Capture tokens and the invalidation sequence before enrichment. Compare them
-after enrichment and before publication. A change keeps the affected work
-dirty and discards the candidate. A callback received during reconciliation
-must not be erased by the reconciliation's queue removal.
+One function compares a reference with a fresh read of its address on all 16
+channels. The adapter reads each clip once for all channels. The delta comes
+from the existing `contentDelta`, `deltaComplete`, and `contentTouching`. It
+is taken after the read, so an event during the read refuses. The delta has no
+scene fields, so the scene guard is checked against the read mark and again
+against a mark taken after the read and the delta. A compaction during the read
+can slide another clip into the row with no event for the slot; only the
+post-read mark sees it. The first row that matches gives the verdict:
 
-Occupancy counts are coordinate counts, not note counts. Pending work is the
-sum of distinct dirty coordinates across bindings. Repeated callbacks for one
-coordinate coalesce. Occupied and dirty set memberships both consume recorder
-storage when the same coordinate is in both sets.
-
-## Health and state machine
-
-`healthy` means `complete` plus all eligibility predicates below. It is not a
-second state. Health applies to a declared scope. An unaffected resident clip
-can be complete while the project working set is partial.
-
-| State | Meaning | Publication and next action |
+| Verdict | Condition | Result |
 |---|---|---|
-| invalid | Identity, binding, authority, or selected resource budget failed | Reject current state. Exact fallback; start a new valid identity domain or shed load. |
-| rebuilding | Private inventory, identity resolution, and replay are in progress | Keep staging private. Exact fallback. Publish only an atomic complete candidate. |
-| warming | Target binding or replay has not settled | Keep replay private. Exact fallback. Complete after settlement and reconciliation. |
-| complete | Declared membership and requested fields are current | Publish an immutable snapshot only if all eligibility predicates pass. |
-| dirty | At least one affected coordinate needs authority reconciliation | Exact fallback for affected coverage. Return to complete after stable reconciliation. |
-| repairing | A known structural event needs address repair and observer rebind | Reject affected coverage. Rebind, warm, then complete. |
-| partial | Some requested coverage or fields are missing | Do not label the request complete. Obtain missing authority or return an explicit partial observation. |
-| overflow | A selected limit was exceeded | Record the limit reason. Exact fallback; shed load or rebuild as the limit table requires. |
-| ambiguous | Several identity outcomes fit the evidence | Reject identity reuse. Rebuild with new IDs or refuse an identity-dependent operation. |
+| `incomparable` | Generation differs (reload), or a project is empty or differs | Refuse. Read again |
+| `uncovered` | The track or scene bank does not cover the project at either mark, or the address is outside the bank | Refuse. Name `tracks`, `scenes`, or `both`. No snapshot |
+| `identity-changed` | Scene epoch or scene count changed; the delta is truncated or has an unattributable event; or an event names the slot | Refuse. Resolve the address again. No snapshot |
+| `absent` | The track does not resolve (`unknown-track`), or the slot has no clip (`absent-clip`) | Refuse |
+| `stale` | All guards pass; the fingerprint differs | Return the new snapshot. Never apply |
+| `current` | All guards pass; the fingerprint is equal | Apply against the snapshot |
 
-Partial observations can serve model context. They cannot serve a full cache
-snapshot, replacement base, or exact guard. A bounded working set can serve a
-complete single-clip request while it cannot serve a complete project request.
-An empty registry is complete only after full requested inventory enumeration.
-A slot with no clip is not an existing empty clip.
+`current` states content equality at the same address in one identity domain.
+It does not prove the same host clip object (E224).
 
-Eligibility requires all of these predicates:
+## Lifetime
 
-1. Project, structure, clip identity, and binding tokens are current.
-2. Requested onset membership and channels are fully covered.
-3. Requested fields are acquired; unsupported fields have explicit coverage.
-4. Populated-canary replay and target settlement passed.
-5. No affected dirty work, pending structural event, or event gap remains.
-6. Pre-read and post-read tokens and invalidation sequence agree.
-7. Admission passes all selected budgets.
+A reference has no time limit while its content delta is complete. The
+extension ring holds 24 launcher events. When the interval since the mark has
+more events than the ring holds, the delta is truncated and the reference
+refuses. A project with many occupied slots therefore loses its references on
+any project switch.
 
-The existing [budget evaluator](../../brain/src/contract/cache-policy.ts) is a
-necessary admission check. It is not a completeness check. For example, it
-accepts pending counts from 1 through 2,048. 8g must apply the separate zero-dirty
-and coverage predicates before publication. `partial`, `overflow`, `repairing`,
-and `ambiguous` are orchestration states; map them to exact fallback or refusal
-before the evaluator can select `cache`.
+## Project detours
 
-## Binding, replay, and late callbacks
+A P→Q→P detour has no special rule. It is `current` only when the scene guard
+is unchanged and the delta since the mark is complete and has no event for the
+target slot. A scene-count change in either direction moves the scene epoch. A
+detour that no guard records cannot be distinguished from no detour; then equal
+content at the address is the valid base. E233 measured three live detours;
+each overflowed the ring and refused.
 
-Resolve the track by `channelId`, confirm it, then pin the track. Select and
-confirm the slot, then pin the clip. Phase-based binding can group this work by
-track and scene after each dependency is confirmed. Do not point all unpinned
-cursors at once: E139 observed convergence on the final target.
+## Use at a write
 
-Use a known populated canary to prove callback replay. Do not add test notes to
-user clips. If no safe canary is available, use exact fallback. A fully
-enumerated inventory with no clips needs no note replay.
-Keep target replay private until expected clearing and membership reconcile.
-Use the retained E139 settlement rule: bound targets, at least 1,500 ms elapsed,
-and unchanged callback counts for ten successive polls at intervals of at least
-50 ms. Quiet time alone does not prove replay. The canary and fresh authority
-checks are also required. 8g must verify this rule for its implementation.
+`RunOptions.ifSnapshot` takes a list of references. The executor stash read
+covers each referenced clip in the same adapter read as the write set. Any
+verdict other than `current` throws `ClipSnapshotRefusedError` with every
+verdict, before the fidelity labels, the floor, and any host mutation. Only a
+`stale` verdict carries a new snapshot. A scene change after the post-read
+mark and before the apply is not checked: the adapters check the scene epoch
+at resolve and read, not at apply. This window exists for every executor
+write. `ifRevision` stays; it counts only
+Ghostnote writes.
 
-### Preserve cold replay evidence
+The experimental agent-proposal `apply` checks a supplied reference before its
+other guards and returns the verdicts on refusal. It then passes the reference
+to the executor, which checks it again at the stash read.
 
-[E130](../evidence/experiments/e130-constant-time-launcher-clip-read-search.md),
-[E134](../evidence/experiments/e134-project-observer-scale-sweep.md), and E139
-establish initial occupancy replay under their measured protocols. E134
-repeatedly verified initial replay after controller load. This evidence remains
-valid. Do not reopen this result because a local recorder was cleared after
-replay without a new target transition.
+## The survey
 
-Use `addStepDataObserver` for the selected occupancy index. `addNoteStepObserver`
-is a different callback family. E130 found no initial replay and missed
-four enable-field changes with that family. E215's first three reuse runs used
-that family. Their independent full scans establish proxy content matches;
-they do not establish selected step-data replay.
+`check_clip_snapshots` gives one verdict for each reference, in input order,
+and a new snapshot only for a stale clip. It reads all clips in one adapter
+read. E233: 16 typical clips take about 8.8 s; each clip needs one cursor point
+for its metadata.
 
-Preserve a recorder on an unchanged, confirmed current binding. If the recorder
-must reset, reset before a populated-canary-to-target transition. The canary
-must differ from the target. If it is already selected, force a different
-selection first. Check sparse membership before a full scan can replace it.
-An empty hint queue and quiet time alone cannot prove that a reset completed.
-A complete scan remains independent comparison or exact fallback evidence.
-Do not require a full scan to seed every startup solely because a recorder
-reset discarded replay.
+## Limits
 
-Reject a callback if any token differs, its binding is retired, or its coordinate
-is outside declared coverage. Count and diagnose rejection. A structural epoch
-change invalidates old bindings, including bindings whose clip did not move.
-Rebind them with current tokens before accepting new callbacks.
-
-Apply this token rule to domain events with known tokens. A physical StepData
-callback supplies no source token. Treat it only as a bounded coordinate hint.
-It cannot supply note values or prove current membership. Read those values
-from the confirmed current target under the guarded read protocol. An old hint
-can cause extra reconciliation or refusal. Do not require universal callback
-source attribution when this rule prevents old payload from entering the cache.
-The subscribed-change delivery rule is an API operating assumption.
-[D26](../decisions/d26-step-data-delivery-is-a-named-assumption.md) names
-complete step-data delivery for covered cells as an assumption. Identity
-values are not a continuity witness because they coalesce. A read window must
-be confirmed in a later callback.
-[E217](../evidence/experiments/e217-later-callback-ordering-rule.md) measured
-that rule, [D27](../decisions/d27-later-callback-ordering-is-a-named-assumption.md)
-accepts it as a named assumption, and
-[8g2b](../plan/phase-8/8g2b-step-delta-read-window.md) implements the window.
-Slot occupancy is outside step coverage. It publishes only through a confirmed
-[slot-delta window](../evidence/format/PHASE8G_PROJECT_CONTINUITY.md#8g5b-slot-delta-read-window)
-under [D28](../decisions/d28-slot-occupancy-delivery-is-a-named-assumption.md).
-Equal occupancy is never a clip identity witness: E222 measured silent delete
-and recreate. Each rebuild mints new references. No measured result proves that
-the host silently loses callbacks.
-
-An immutable snapshot remains a historical observation after invalidation.
-Do not mutate it or present it as current. Consumers must recheck its tokens
-before reuse. Rebuild publication compares project, structural, and rebuild
-tokens, then swaps one complete candidate atomically. Interrupted or expired
-work cannot publish. A retry gets a new rebuild token.
-
-## Identity repair and rebuild
-
-Retain logical clip identity for note edits, clip clear/refill, save, and a
-proved exact move. An exact move needs one ordered empty-to-fill pair, a
-known-empty destination, a complete event window, and a fresh authority
-fingerprint match. Duplicate and replacement always mint a new identity.
-Same-address rebuild continuity also needs a complete event window.
-
-Repair incrementally for exact note invalidations, complete empty/fill events,
-a scene insert/delete at one known row, or a track index change resolved by the
-same `channelId`. Repair rows from the structural event before rebinding.
-Delete retires all pending work for the removed identity.
-
-Rebuild after project changes, reload, an event gap, unknown structural order,
-group or flat-track topology change, equal-candidate ambiguity, observer or
-canary failure, interrupted rebuild, or authority mismatch after repair.
-Do not infer project continuity from a matching name or track list.
-E138's track-reorder rule is model evidence; it is not a working host move route.
-
-## Admission, eviction, and limits
-
-Empty slots do not consume observers. Existing clips with zero notes still
-need proved coverage. Select a deterministic least-recently-used resident set;
-break ties by logical clip reference. Eviction first retires the binding token
-and its dirty work. The evicted clip becomes non-resident, not empty. New
-residence starts in warming and enters complete only after replay.
-
-All limits apply together. A caller cannot use a passing observer count to
-ignore the storage limit. Do not silently truncate clips, queues, fields, or
-requested coverage.
-
-| Resource | Selected limit | Required over-limit result |
+| Limit | Value | Over the limit |
 |---|---:|---|
-| View width | 131,072 steps | Overflow for cached coverage; exact fallback. |
-| Active observers | 512 | Keep excess clips non-resident; exact fallback. |
-| Occupied coordinates per clip | 2,048 | Overflow for that clip; exact fallback. |
-| Pending dirty coordinates, total | 2,048 | Stop callbacks, retire tokens, rebuild; exact fallback. |
-| Sparse recorder estimate | 16 MiB | Drop affected cache state and reduce residence; exact fallback. |
-| Snapshot estimate, retained plus candidate | 16 MiB | Retire the candidate; exact fallback. |
-| Authority staging estimate | 16 MiB | Release the staging buffer; refuse without partial notes. |
-| Registry bookkeeping estimate | 16 MiB | Abort private staging; refuse partial inventory. |
-| Combined extension-owned estimate | 24 MiB | Drop all enriched payloads in reference order; preserve confirmed authority and require explicit retry. |
-| Research topology and occupancy | 512 total channels, 128 scenes | Refuse the whole project above the configured capacity. |
-| Incremental cache-bank construction | 50 ms | Invalidate and shed cache load; exact fallback. |
-| One binding replay | 5 seconds | Keep warming, abort the attempt, then bounded retry or rebuild; exact fallback. |
-| Working-set rebuild | 40 seconds | Abort staging, invalidate its token, then bounded retry; exact fallback. |
-| Bridge ping p95 | 50 ms | Invalidate until rechecked; shed load and use exact fallback. |
+| Reader width | 4,194,304 steps (8,192 beats at `1/512`) | `clip-beyond-reader-width` refusal |
+| Read deadline | 2 s | The read refuses; no partial notes |
+| Note page | 131,072 notes | Further pages through `clip.readPage` |
+| Event ring | 24 launcher events | The delta is truncated; references refuse |
 
-Threshold equality is allowed. E139's recorder estimate is 256 bytes per
-recorder plus 56 bytes per occupied or dirty set membership. This estimate
-excludes Bitwig memory and enriched note payloads. Report all extension-owned
-storage separately and keep enrichment and snapshot retention bounded. 8g must
-measure those costs; it must not call the sparse estimate total cache memory.
-Use cooperative reconciliation batches within the measured 50 ms host-work
-budget. Persistent overload cannot trigger unbounded retries or staging growth.
+The D23 collision boundary applies: one note identity is `(channel, pitch,
+occupied 1/512 cell)`. A delete and reinsert of equal values at one cell
+between two reads is not visible.
 
-One accounting boundary reports every cache-owned estimate by domain. The
-recorder domain holds resident and staged recorders and physical hint queues.
-The snapshot domain holds retained snapshots and the private candidate, with a
-selected 16 MiB estimate. Authority staging and registry bookkeeping are
-separate domains. Topology bookkeeping and retained witness text form the
-topology domain. Slot-source bookkeeping and the confirmed window form the slot
-domain. Identity and witness records are also charged. The selected combined
-estimate limit is 24 MiB. Each domain still applies its own limit; equality
-passes. Before growth, admission includes the new allocation and all other
-retained domains. A confirmed comparison that exceeds the combined limit drops
-all enriched payloads and returns its existing exact authority. An authority
-buffer that exceeds a limit refuses without partial notes. Explicit retry can
-restore residence and payloads. Snapshot enrichment uses a private candidate in
-batches of at most 50 ms host work, with the 5 s replay limit as its deadline. Each batch
-and the final publication recheck the guard. Excess, deadline, cancellation,
-and guard change retire the candidate and retain no snapshot.
+## Historical: the resident grid
 
-The 8g5c research route selects counted allocation at 512 total channels. FX,
-Master, and group wrappers use the same capacity as instrument/audio tracks.
-The flat live boundary has 510 instrument/audio tracks, FX, and Master. Group
-controls have 256 instrument/audio tracks, FX, Master, and up to two wrappers.
-Normal rig defaults stay unchanged. Active research defaults select counted
-512-channel topology, a matching flat bank, and `ALL_CHANNELS` when these
-settings are not explicit. E223 has the measured costs. The versioned fingerprint
-witness is reserved before first publication. C4 live combined equality, two-byte excess, independent exact fallback,
-recovery, and eviction pass. Shared JVM samples cover the configured two-resident
-working set. Final normal reload and fixture cleanup pass. No cache result is eligible;
-8g5 must decide the final supported-state gate. The ledger excludes host handles, host objects, transient diagnostic
-copies, and JVM memory. JVM values are a separate shared-process measurement.
-
-Exact fallback obtains fresh settled authority for the requested normalized
-view. Retain E131 for the existing product path and exact diagnostics. If its
-dual-grid source projection has a normalized collision, do not choose a survivor.
-Acquire the settled single `1/512` cell view with all-channel enrichment or
-refuse. D23 complete coverage follows that acquisition boundary. Fallback does
-not enlarge cached coverage or admit new residence.
-An unavailable exact authority causes explicit `authority-unavailable` refusal.
-For a deleted slot, fresh Launcher inventory proves absence; do not call an
-unavailable existing-clip reader an empty-note result.
-
-## Diagnostics and shadow comparison
-
-Expose health, read mode, reason, measured value, limit, generations, coverage,
-active/resident/warming/dirty counts, rejected callbacks, occupied/pending
-coordinates, estimated bytes, construction/replay/rebuild times, ping p95,
-authority availability, and comparison outcome through the experimental
-boundary. Keep host handles and queue contents out of public documents.
-
-Compare every eligible shadow snapshot with an independent settled `1/512`
-authority scan in the same verified identity and content window. If a mutation
-occurs between scans, record `window-changed` and retry within budget. It is not
-a passing comparison. Compare metadata, membership, all 16 channels, requested
-fields, and declared coverage. Compare values before relying on digests.
-Record address/identity, membership, field, stale-generation, and coverage
-mismatches separately. Use E131 as the exact-source diagnostic control. Report
-D23 collision and displacement separately from implementation mismatches.
-
-| Shadow family | Required cases |
-|---|---|
-| Acquisition | Initialization, warm read, empty existing clip, absent slot, boundary cell, and unknown field coverage. |
-| Notes | Add/remove/move, field-only change, same coordinate on several channels, all 16 channels, repeated callbacks, and sustain invalidation. |
-| Structure | Create/duplicate/replace/clear/refill/delete/move clips; scene insert/delete before/at/after clips; track create/duplicate/delete/index change; group topology. |
-| Identity domain | Save, switch away/back, close/reopen, reload, equal fingerprints, event gap, and ambiguous move. |
-| Capacity | Every limit at equality and above; residence miss; deterministic eviction; combined density/storage limits; authority unavailable. |
-| Recovery | Callback burst, callback during reconciliation, old binding/project callback, shed callbacks, interrupted/expired rebuild, and atomic publication. |
-| Consumer | Read-only and sparse-patch shadow workflows; stale overlay dependencies; partial fields; base conflict; computer-use change followed by reacquisition. |
-
-## Conditional promotion
-
-8g supplies comparison results, bounded recovery and resource measurements,
-fixture cleanup, and the required checks. 8h promotion requires no unexplained
-in-contract mismatch, silent overflow, unbounded rebuild, or unresolved
-project-generation race. Unsupported states retain explicit exact fallback.
-
-Only after this gate can an immutable healthy snapshot serve preparation or a
-write preflight. It must cover the operation's fields and extent; match current
-project, structure, clip identity, and content; and have no intervening event
-gap or dirty work. Recheck these predicates at the guarded write boundary.
-Cached normalization cannot replace exact source evidence needed for preserved
-unobservable values or reversal. Independent post-write authority readback
-remains required by the operation's risk policy. Reuse a preflight observation
-with preparation only within the same validated window.
+8g and 8h1 measured a resident note cache: sparse storage and reconciliation,
+health states and eligibility predicates, populated canaries, binding and
+rebuild generations, admission, eviction, and combined storage limits. That
+work is in [E214](../evidence/experiments/e214-shadow-cache-content-and-lifecycle-gates.md)–[E226](../evidence/experiments/e226-sounding-cell-cost-reduction.md).
+E227 showed that a cold read takes 46–698 ms, so a resident grid gives no speed
+benefit. 8h3e removed its code (E233). None of those rules is a live rule. The
+historical text is in this file's history before 8h3e.
 
 ## Retrospective
 
-The existing budget evaluator does not prove completeness. Name its separate
-eligibility predicates at every publication boundary. Existing E138/E139
-evidence is sufficient for this contract; no new live check is needed in 8f3.
+Before a plan promotes a mechanism, check the product code for an equal
+mechanism. The product `RevisionMark` already covered the pull identity case.

@@ -11,6 +11,9 @@
 export { Executor, disagreementsOf } from './executor.js';
 export type { ExecutorOptions, ExecutorTimingEvent, RevertResult, RunOptions } from './executor.js';
 
+export { acquireClipSnapshot, checkClipSnapshots, readWithClipSnapshots } from './clip-snapshots.js';
+export type { ClipAcquisition, SnapshotPort, SnapshotRead } from './clip-snapshots.js';
+
 export { labelTarget, notePropCaveats, splitReplayable, worse, worstOf } from './fidelity.js';
 
 export {

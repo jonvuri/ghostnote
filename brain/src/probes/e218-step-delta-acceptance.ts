@@ -1,3 +1,5 @@
+// 8h3e removed the research wire or rig configuration that this live driver uses. Live use needs the
+// earlier research build of its own session. Its retained artifacts and offline checks do not need a host.
 /**
  * E218 live driver: guarded shadow acquisitions during P→Q→P project detours.
  * Each trial ends with an independent settled exact authority read after return

@@ -57,7 +57,7 @@ async function until(next: () => Promise<Wire>, done: (value: Wire) => boolean, 
 }
 
 const PROFILES: Record<string, [number, string]> = {
-  'normal-v1': [87, 'ca139a3e62a55e68'], 'phase-8-probe-v1': [100, '4232fd6c9f325749'],
+  'normal-v1': [87, 'ca139a3e62a55e68'], 'phase-8-probe-v1': [98, '659635435255b259'],
 };
 /** A known profile, the reader markers, and an owned unsaved project. */
 async function guard(): Promise<Wire> {

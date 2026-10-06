@@ -65,9 +65,10 @@ import {
   AddressUnresolvedError, BankWindowOverflowError, SlotOccupiedError,
   type Address, type ClipAddress, type DeviceAddress, type DeviceSource, type NoteRecord,
   type ObservedDeviceBank, type Op, type OpKind, type ParamState, type Recurrence,
-  type RevisionMark,
+  type RevisionMark, ClipSnapshotRefusedError, clipSnapshotFrom, decodeClipSnapshotRef,
+  encodeClipSnapshotRef, type ClipSnapshot, type ClipSnapshotRef, type ClipSnapshotVerdict,
 } from '../contract/index.js';
-import { branchProtected, directedDestruction } from '../engine/index.js';
+import { branchProtected, checkClipSnapshots, directedDestruction } from '../engine/index.js';
 import { FX_LAYER_UUID, INSTRUMENT_LAYER_SEED_PATH } from '../device-alternates/assets.js';
 import {
   reportObservationRecord,
@@ -4350,6 +4351,10 @@ const agentProposalBase = {
   proposal: noteProposalSchema,
   invariants: noteProposalInvariantsSchema,
   reference: referenceInput.optional(),
+  snapshot: z.string().min(1).optional().describe(
+    'D32 snapshot reference from acquire_clip_note_source. Apply refuses before any write '
+    + 'unless the reference is current.',
+  ),
 };
 const agentProposalInput = z.discriminatedUnion('action', [
   z.object({ ...agentProposalBase, action: z.literal('preview') }).strict(),
@@ -4393,7 +4398,9 @@ const experimentalTransformation: ToolSpec = {
     + 'workspace write seam, and performs an independent complete readback. Stale state, pressure '
     + 'loss, unreported overlap shortening, unsupported timing, and invariant failures refuse.'
     + ' Incompatible stored note coordinates refuse with this remediation: select the clip in '
-    + 'Bitwig and use Consolidate. Then read the clip and preview the change again.',
+    + 'Bitwig and use Consolidate. Then read the clip and preview the change again.'
+    + ' With a snapshot reference, apply checks the reference before any write and again at the '
+    + 'stash read. A stale reference refuses and returns the new snapshot.',
   inputValidator: experimentalTransformationInput,
   resultContract: {
     format: 'ghostnote-agent-note-proposal-result',
@@ -4405,6 +4412,7 @@ const experimentalTransformation: ToolSpec = {
       'losses', 'previewDigest',
     ],
     apply: ['change', 'readback', 'reversal'],
+    snapshotRefusal: ['verdicts'],
   },
   async run(workspace, input) {
     if ((input as { mode?: unknown }).mode !== 'agent-note-proposal-v0') {
@@ -4426,10 +4434,25 @@ const experimentalTransformation: ToolSpec = {
           ...(referenceComparison === undefined ? {} : { referenceComparison }),
         };
       }
-      const application = await applyNoteProposal(workspace, {
-        ...request,
-        acceptedPreviewSha256: args.acceptedPreviewSha256,
-      });
+      let refs: ClipSnapshotRef[] | undefined;
+      if (args.snapshot !== undefined) {
+        refs = [decodeClipSnapshotRef(args.snapshot)];
+        const named = args.source.clips.some((item) => item.address.slot.track.channelId === refs![0]!.channelId
+          && item.address.slot.scene.index === refs![0]!.row);
+        if (!named) throw new Error('the snapshot reference names a clip that the proposal source does not contain');
+        const verdicts = await checkClipSnapshots(workspace, refs);
+        if (verdicts.some((item) => item.verdict !== 'current')) return snapshotRefusal(verdicts);
+      }
+      let application: Awaited<ReturnType<typeof applyNoteProposal>>;
+      try {
+        application = await applyNoteProposal(workspace, {
+          ...request,
+          acceptedPreviewSha256: args.acceptedPreviewSha256,
+        }, refs === undefined ? {} : { ifSnapshot: refs });
+      } catch (error) {
+        if (error instanceof ClipSnapshotRefusedError) return snapshotRefusal(error.verdicts);
+        throw error;
+      }
       return {
         format: 'ghostnote-agent-note-proposal-result',
         version: 0,
@@ -4447,6 +4470,50 @@ const experimentalTransformation: ToolSpec = {
     });
   },
 };
+
+/** One snapshot as agents see it: an opaque reference and the clip content. */
+function publicClipSnapshot(snapshot: ClipSnapshot) {
+  return {
+    snapshot: encodeClipSnapshotRef(snapshot.ref),
+    clip: {
+      metadata: snapshot.metadata,
+      channels: snapshot.channels.map((notes, channel) => ({ channel, notes })),
+    },
+  };
+}
+
+/** One D32 verdict. Only a stale verdict carries a new snapshot. */
+function publicVerdict(verdict: ClipSnapshotVerdict) {
+  const base = {
+    snapshot: encodeClipSnapshotRef(verdict.ref),
+    target: { trackId: verdict.ref.channelId, row: verdict.ref.row },
+    verdict: verdict.verdict,
+  };
+  switch (verdict.verdict) {
+    case 'current':
+      return base;
+    case 'stale':
+      return { ...base, newSnapshot: publicClipSnapshot(verdict.snapshot) };
+    case 'uncovered':
+      return { ...base, uncoveredIn: verdict.uncoveredIn };
+    case 'identity-changed':
+      return { ...base, why: verdict.why, ...(verdict.events === undefined ? {} : { events: verdict.events.map(
+        (event) => ({ trackId: event.channelId, row: event.slotIndex, filled: event.filled })) }) };
+    default:
+      return { ...base, why: verdict.why };
+  }
+}
+
+function snapshotRefusal(verdicts: readonly ClipSnapshotVerdict[]) {
+  return {
+    format: 'ghostnote-agent-note-proposal-result',
+    version: 0,
+    profile: EXPERIMENTAL_7B_TOOL_PROFILE,
+    action: 'apply',
+    applied: false,
+    snapshotRefusal: { verdicts: verdicts.map(publicVerdict) },
+  };
+}
 
 const experimentalAcquisitionInput = z.object({
   trackId: z.string().min(1).describe('Durable Bitwig track channel ID.'),
@@ -4481,11 +4548,13 @@ const experimentalClipAcquisition: ToolSpec = {
   kind: 'read',
   title: 'Acquire one complete launcher clip',
   description: `Experimental profile ${EXPERIMENTAL_7B_TOOL_PROFILE}. Read one launcher clip by `
-    + 'durable track ID and row. The result uses the complete dual-grid reader, covers all 16 MIDI '
-    + 'channels and note fields, and labels itself authoritative. Normalized note timing uses integer '
-    + '1/512-beat ticks. The call refuses a missing target, unsupported played range, incomplete '
-    + 'coverage, project or target drift, and a normalization collision. It also returns the guarded '
-    + 'exact source accepted by agent-note-proposal-v0.',
+    + 'durable track ID and row. The result uses the 8h3c cold reader: one 1/512-beat capture of '
+    + 'the complete clip (D31). It covers all 16 MIDI channels and note fields, and labels itself '
+    + 'authoritative. Normalized note timing uses integer 1/512-beat ticks. The call refuses a '
+    + 'missing target, unsupported played range, incomplete coverage, project or target drift, and '
+    + 'a normalization collision. It returns the guarded exact source accepted by '
+    + 'agent-note-proposal-v0 and a D32 snapshot reference. Give the reference to '
+    + 'check_clip_snapshots or to an agent-note-proposal-v0 apply.',
   inputSchema: experimentalAcquisitionInput.shape,
   inputValidator: experimentalAcquisitionInput,
   emits: [],
@@ -4494,9 +4563,11 @@ const experimentalClipAcquisition: ToolSpec = {
     version: 0,
     profile: EXPERIMENTAL_7B_TOOL_PROFILE,
     authority: 'authoritative-complete-scan',
+    reader: 'cold-1/512-d31',
     normalizedTiming: { unit: 'beat-tick', ticksPerBeat: 512 },
     coverage: 'complete-all-16-channels',
     guards: ['project', 'generation', 'revision', 'sceneEpoch', 'contentEpoch', 'sourceSha256'],
+    snapshot: 'ghostnote-clip-snapshot/1',
   },
   async run(workspace, input) {
     const args = input as z.infer<typeof experimentalAcquisitionInput>;
@@ -4524,7 +4595,7 @@ const experimentalClipAcquisition: ToolSpec = {
       ...Array.from({ length: 16 }, (_, channel) => notesAt(address, channel)),
     ];
     const acquisitionStarted = performance.now();
-    const read = () => workspace.read(addresses);
+    const read = () => workspace.read(addresses, { sources: [address] });
     const snapshot = workspace.preserveSelection === undefined
       ? await read()
       : await workspace.preserveSelection(read);
@@ -4577,6 +4648,7 @@ const experimentalClipAcquisition: ToolSpec = {
         sourceSha256: source.digest.value,
       },
       exactSource: source,
+      snapshot: encodeClipSnapshotRef(clipSnapshotFrom(snapshot, address).ref),
       timing: {
         acquisitionMs,
         normalizationMs,
@@ -4586,9 +4658,54 @@ const experimentalClipAcquisition: ToolSpec = {
   },
 };
 
+const snapshotCheckInput = z.object({
+  snapshots: z.array(z.string().min(1)).min(1).max(64)
+    .describe('D32 snapshot references from acquire_clip_note_source or an earlier check.'),
+}).strict();
+
+/** The D32 survey: one verdict for each reference, and a new snapshot only for a stale clip. */
+const experimentalSnapshotCheck: ToolSpec = {
+  name: 'check_clip_snapshots',
+  kind: 'read',
+  title: 'Check clip snapshot references',
+  description: `Experimental profile ${EXPERIMENTAL_7B_TOOL_PROFILE}. Read each referenced launcher `
+    + 'clip again and give one verdict for each reference. current: the clip content at the address '
+    + 'is unchanged. stale: the content changed; the result has the new snapshot. identity-changed: '
+    + 'the scene layout or the launcher slot changed, or the change record is incomplete; resolve '
+    + 'the address again. absent: the track or the clip is missing. incomparable: the project '
+    + 'changed or the extension reloaded. uncovered: the project is outside the observed window. '
+    + 'Only stale returns a snapshot. A current verdict states equal content at the same address. '
+    + 'It does not prove the same host clip object.',
+  inputSchema: snapshotCheckInput.shape,
+  inputValidator: snapshotCheckInput,
+  emits: [],
+  resultContract: {
+    format: 'ghostnote-clip-snapshot-check',
+    version: 0,
+    profile: EXPERIMENTAL_7B_TOOL_PROFILE,
+    verdicts: ['current', 'stale', 'identity-changed', 'absent', 'incomparable', 'uncovered'],
+  },
+  async run(workspace, input) {
+    const args = input as z.infer<typeof snapshotCheckInput>;
+    const started = performance.now();
+    const refs = args.snapshots.map(decodeClipSnapshotRef);
+    // The adapter read borrows and restores the selection itself. An outer selection scope can
+    // refuse after a project switch, which is the case that this check must report (8h3e).
+    const verdicts = await checkClipSnapshots(workspace, refs);
+    return {
+      format: 'ghostnote-clip-snapshot-check',
+      version: 0,
+      profile: EXPERIMENTAL_7B_TOOL_PROFILE,
+      verdicts: verdicts.map(publicVerdict),
+      timing: { totalMs: performance.now() - started },
+    };
+  },
+};
+
 export const EXPERIMENTAL_7B_TOOLS: readonly ToolSpec[] = [
   ...TOOLS.map((item) => item.name === 'transform_clip_music' ? experimentalTransformation : item),
   experimentalClipAcquisition,
+  experimentalSnapshotCheck,
 ];
 
 /** Select a frozen tool profile without changing stable registration. */

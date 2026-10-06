@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-10-05
+updated: 2026-10-06
 ---
 
 # Evidence index
@@ -16,6 +16,10 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E233 | Pull snapshot references on the revision mark: 23 live verdicts match raw reads, a stale reference refuses before any write, and the resident-grid research code is removed [K] (2026-10-06) | [open](experiments/e233-pull-snapshot-references.md) |
+| E232 | The reader binds every row: the open task subscribes before it unpins [K] (2026-10-06) | [open](experiments/e232-reader-row-binding.md) |
+| E231 | Change awareness without a resident grid: pull only; watched clips save only latency [K] (2026-10-06) | [open](experiments/e231-change-awareness.md) |
+| E230 | Cold-reader promotion: product reads and mutation guards use one 1/512 source [K] (2026-10-05) | [open](experiments/e230-cold-reader-promotion.md) |
 | E229 | The fetch cost is a 20 ms host queue wait for each page plus JSON serialization and parse; one packed page with value tables fetches 131,072 notes in 40 ms [K] (2026-10-05) | [open](experiments/e229-replay-fetch-cost.md) |
 | E228 | No cold-read dealbreaker is open: bind from park, select the row first, finish writes before the bind, keep a tripwire [K] (2026-10-05) | [open](experiments/e228-cold-read-dealbreaker-check.md) |
 | E227 | One-batch step replay is a complete cold read in 46–698 ms; clipExists closes empty reads; Ghostnote writes must queue behind an open read [K] (2026-10-05) | [open](experiments/e227-replay-cold-read.md) |

@@ -1,0 +1,130 @@
+{
+ "hello": {
+  "ok": {
+   "contractVersion": 0,
+   "extensionVersion": "0.0.1",
+   "runtimeProfile": "phase-8-probe-v1",
+   "hostApiVersion": 25,
+   "methodCount": 98,
+   "methodsHash": "659635435255b259"
+  }
+ },
+ "configure": {
+  "error": "Method not found: cache.configure"
+ },
+ "scale": {
+  "error": "Method not found: cache.scale"
+ },
+ "shadowInfo": {
+  "error": "Invalid params: unknown research operation: info"
+ },
+ "watchStatus": {
+  "error": "Internal error: change-watch research resources are not allocated"
+ },
+ "fixtureStatus": {
+  "error": "Internal error: knee fixture resources are not allocated"
+ },
+ "stats": {
+  "ok": {
+   "runtimeProfile": "phase-8-probe-v1",
+   "config": {
+    "tracks": 256,
+    "scenes": 128,
+    "gridSteps": 64,
+    "gridKeys": 128,
+    "cursorPool": 8,
+    "sends": 4,
+    "deviceBank": 16,
+    "fineSteps": 512,
+    "noteReadSteps": 2048,
+    "paramHandles": 64,
+    "remotePages": 16,
+    "cacheShadowSteps": 131072,
+    "cacheKneeResearch": false,
+    "changeWatchCursors": 0,
+    "contentFilter": "",
+    "directObservers": true,
+    "stamp": "default",
+    "fromFile": true
+   },
+   "rigConstructMicros": 32860,
+   "initMicros": 46797,
+   "initEpochMs": 1791269396648,
+   "upMs": 30108,
+   "clipReader": {
+    "revision": "clip-reader-v1",
+    "closeRule": "confirm-before-release-v1",
+    "openRule": "subscribe-before-unpin-v1",
+    "format": "notes-v1",
+    "width": 4194304,
+    "grid": 0.001953125,
+    "page": 131072,
+    "deadlineMs": 2000,
+    "reads": 0,
+    "refusals": 0,
+    "lastRefusal": "",
+    "lateCallbacks": 0,
+    "strayCallbacks": 0,
+    "releaseCallbacks": 0,
+    "releaseEmpty": 0,
+    "releaseSustain": 0,
+    "releaseOn": 0,
+    "subscribed": false,
+    "open": false,
+    "writeGate": {
+     "readOpen": false,
+     "waiting": 0,
+     "leases": 0,
+     "limit": 256,
+     "queuedTotal": 0,
+     "refusedTotal": 0
+    }
+   },
+   "slotObjects": 32768,
+   "markedValues": 198400,
+   "resources": {
+    "cursorDeviceBanks": 8,
+    "siblingDeviceBanks": 1,
+    "layerDeviceBanks": 8,
+    "slotDeviceBanks": 15,
+    "namedSlotDeviceBanks": 0,
+    "drumPadDeviceBanks": 16,
+    "deviceBanks": 48,
+    "cursorDeviceSlots": 128,
+    "cursorDeviceEnabledValues": 128,
+    "layerDeviceSlots": 32,
+    "slotDeviceSlots": 60,
+    "drumPadDeviceSlots": 256,
+    "namedSlotDeviceSlots": 0,
+    "deviceSlots": 492,
+    "cursorDevices": 1,
+    "specificDeviceViews": 4,
+    "typedParameterHandles": 75,
+    "remotePageCursors": 16,
+    "remoteParameterHandles": 128,
+    "directParameterObservers": 4,
+    "noteObserverCursors": 1,
+    "noteStepObservers": 1,
+    "stepDataObservers": 1,
+    "trackSendBanks": 0,
+    "trackSendHandles": 0,
+    "trackVuObservers": 0,
+    "historicalActionHandles": 0,
+    "historicalSelectionObservers": 0,
+    "equalsProxies": 32,
+    "transportProxies": 1,
+    "masterRecorderProxies": 0,
+    "cursorTracks": 11,
+    "cursorClips": 13,
+    "layerBanks": 4,
+    "layerHandles": 23,
+    "layerSendBanks": 0,
+    "layerSendHandles": 0,
+    "explicitHostObjects": 33895,
+    "observerCallbacks": 839
+   },
+   "heapUsedMb": 834,
+   "heapMaxMb": 3072
+  }
+ }
+}

@@ -134,21 +134,11 @@ tasks.register('probeJar', Jar) {
         probeProfileResource)
 }
 
-tasks.register('shadowProbeJar', Jar) {
-    dependsOn classes
-    archiveClassifier = 'shadow-8g-controls'
-    from sourceSets.main.output
-    configureExtensionArchive(
-        delegate,
-        'com.ghostnote.extension.GhostnoteShadowCacheExtensionDefinition',
-        probeProfileResource)
-}
-
 tasks.register('verifyExtensionArchives') {
-    dependsOn jar, captureJar, probeJar, shadowProbeJar
+    dependsOn jar, captureJar, probeJar
     doLast {
         ['jar': 'normal-v1', 'captureJar': 'capture-v1',
-         'probeJar': 'phase-8-probe-v1', 'shadowProbeJar': 'phase-8-probe-v1'].each { taskName, profile ->
+         'probeJar': 'phase-8-probe-v1'].each { taskName, profile ->
             def archive = tasks.named(taskName).get().archiveFile.get().asFile
             new java.util.jar.JarFile(archive).withCloseable { contents ->
                 def definition = contents.manifest.mainAttributes.getValue('Extension-Class')
@@ -223,100 +213,31 @@ def registerProfileDeploy = { taskName, archiveTaskName ->
 registerProfileDeploy('copyCaptureExtension', 'captureJar')
 registerProfileDeploy('copyProbeExtension', 'probeJar')
 
-tasks.register('copyShadowProbeExtension') {
-    dependsOn shadowProbeJar
-    doLast {
-        def archiveTask = tasks.named('shadowProbeJar').get()
-        def target = file("${bitwigExtensionsDir}/ghostnote-shadow-8g-controls.bwextension")
-        def staging = file("${bitwigExtensionsDir}/.ghostnote-shadow-8g-controls.bwextension.staged")
-        staging.bytes = archiveTask.archiveFile.get().asFile.bytes
-        java.nio.file.Files.move(
-            staging.toPath(), target.toPath(),
-            java.nio.file.StandardCopyOption.REPLACE_EXISTING,
-            java.nio.file.StandardCopyOption.ATOMIC_MOVE)
-        println "Deployed distinct 8g controls (atomic rename) to: ${target}"
-    }
-}
-
-// The cache harness runs as a Java program and needs no running Bitwig instance.
+// The harness runs as a Java program and needs no running Bitwig instance.
 sourceSets {
-    shadowCacheTest {
-        java.srcDir 'src/shadowCacheTest/java'
+    harnessTest {
+        java.srcDir 'src/harnessTest/java'
         compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
         runtimeClasspath += sourceSets.main.output
     }
 }
 
 configurations {
-    shadowCacheTestImplementation.extendsFrom implementation
-    shadowCacheTestRuntimeOnly.extendsFrom runtimeOnly
+    harnessTestImplementation.extendsFrom implementation
+    harnessTestRuntimeOnly.extendsFrom runtimeOnly
 }
 
 dependencies {
     // Adapter tests use host proxies. The API stays outside extension archives.
-    shadowCacheTestRuntimeOnly 'com.bitwig:extension-api:25'
-}
-
-tasks.register('shadowCacheTest', JavaExec) {
-    dependsOn shadowCacheTestClasses
-    classpath = sourceSets.shadowCacheTest.runtimeClasspath
-    mainClass = 'com.ghostnote.extension.ShadowProjectCacheTest'
-}
-
-tasks.register('shadowCacheProbeTest', JavaExec) {
-    dependsOn shadowCacheTestClasses
-    classpath = sourceSets.shadowCacheTest.runtimeClasspath
-    mainClass = 'com.ghostnote.extension.ShadowCacheProbeTest'
-}
-
-tasks.register('shadowInventoryRebuildTest', JavaExec) {
-    dependsOn shadowCacheTestClasses
-    classpath = sourceSets.shadowCacheTest.runtimeClasspath
-    mainClass = 'com.ghostnote.extension.ShadowInventoryRebuildTest'
-}
-
-tasks.register('shadowObserverBudgetTest', JavaExec) {
-    dependsOn shadowCacheTestClasses
-    classpath = sourceSets.shadowCacheTest.runtimeClasspath
-    mainClass = 'com.ghostnote.extension.ShadowObserverBudgetTest'
-}
-
-tasks.register('shadowHandlePoolTest', JavaExec) {
-    dependsOn shadowCacheTestClasses
-    classpath = sourceSets.shadowCacheTest.runtimeClasspath
-    mainClass = 'com.ghostnote.extension.ShadowHandlePoolTest'
-}
-
-tasks.register('shadowAuthorityFallbackTest', JavaExec) {
-    dependsOn shadowCacheTestClasses
-    classpath = sourceSets.shadowCacheTest.runtimeClasspath
-    mainClass = 'com.ghostnote.extension.ShadowAuthorityFallbackTest'
-}
-
-tasks.register('shadowTopologyControlTest', JavaExec) {
-    dependsOn shadowCacheTestClasses
-    classpath = sourceSets.shadowCacheTest.runtimeClasspath
-    mainClass = 'com.ghostnote.extension.ShadowTopologyControlTest'
-}
-
-tasks.register('shadowSceneControlTest', JavaExec) {
-    dependsOn shadowCacheTestClasses
-    classpath = sourceSets.shadowCacheTest.runtimeClasspath
-    mainClass = 'com.ghostnote.extension.ShadowSceneControlTest'
-}
-
-tasks.register('soundingCellBudgetTest', JavaExec) {
-    dependsOn shadowCacheTestClasses
-    classpath = sourceSets.shadowCacheTest.runtimeClasspath
-    mainClass = 'com.ghostnote.extension.SoundingCellBudgetTest'
+    harnessTestRuntimeOnly 'com.bitwig:extension-api:25'
 }
 
 tasks.register('clipReaderTest', JavaExec) {
-    dependsOn shadowCacheTestClasses
-    classpath = sourceSets.shadowCacheTest.runtimeClasspath
+    dependsOn harnessTestClasses
+    classpath = sourceSets.harnessTest.runtimeClasspath
     mainClass = 'com.ghostnote.extension.ClipReaderTest'
 }
 
 tasks.named('check') {
-    dependsOn 'clipReaderTest', 'soundingCellBudgetTest', 'shadowCacheTest', 'shadowCacheProbeTest', 'shadowInventoryRebuildTest', 'shadowObserverBudgetTest', 'shadowHandlePoolTest', 'shadowAuthorityFallbackTest', 'shadowSceneControlTest', 'shadowTopologyControlTest'
+    dependsOn 'clipReaderTest'
 }

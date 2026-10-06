@@ -32,14 +32,14 @@ import {
   ContractVersionError, RuntimeProfileMismatchError, StaleAddressError, WireDriftError,
   addressKey, addressScene, addressTrack, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDeviceInsertable, assertDeviceRelocatable, assertDrumPadInsertable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
   assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, chain as chainAt, chainCopyUnnamed,
-  chainPath, chooseStepSize, clip as clipAt, clipMetadata as clipMetadataAt, clipPlay as clipPlayAt,
+  chainPath, chooseStepSize, clipSourceFingerprint, clip as clipAt, clipMetadata as clipMetadataAt, clipPlay as clipPlayAt,
   contentDelta, device as deviceAt, deviceIn,
   deviceSlot,
   hasUnverifiedProps, planStages,
   lookupChain, lookupDevice, lookupDeviceSlot, lookupNestedDevice, mintedChain, nestingObservable, verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain, windowCovers,
   type Address, type AddressKey, type AdapterInfo, type BatchReceipt, type BatchRequest,
-  type BitwigAdapter, type ChainAddress, type ChainMiss, type ClipAddress, type ClipMetadataState, type ClipNavigationResult, type ContentDelta, type ContentEvent, type DeviceAddress, type DeviceSlotAddress, type Fidelity,
-  type NoteRecord, type ObservedContainer, type ObservedDeviceSequence, type ObservedDrumPadBank, type Op, type ParamState, type ResolveResult, type ResolvedAddress, type RevisionMark,
+  type BitwigAdapter, type ChainAddress, type ChainMiss, type ClipAddress, type ClipSourceDigest, type ClipMetadataState, type ClipNavigationResult, type ContentDelta, type ContentEvent, type DeviceAddress, type DeviceSlotAddress, type Fidelity,
+  type NoteRecord, type ObservedContainer, type ObservedDeviceSequence, type ObservedDrumPadBank, type Op, type ParamState, type ReadOptions, type ResolveResult, type ResolvedAddress, type RevisionMark,
   type LaunchMode, type LaunchQuantization, type SceneAddress, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
   type Stage, type TrackAddress, type TrackState, type WindowCoverage,
 } from '../../contract/index.js';
@@ -428,6 +428,13 @@ interface ClipCursorStatus {
 
 /** One normalized note reading for all 16 MIDI channels in a clip. */
 type ClipNoteChannels = ReadonlyMap<number, readonly NoteRecord[]>;
+/** One frozen clip capture: decoded channels, raw rows, and the bound extent. */
+interface ClipNoteCapture {
+  readonly channels: ClipNoteChannels;
+  readonly rows: readonly RawNoteFields[];
+  /** The `clip.read` bound extent. The D32 source fingerprint requires it. */
+  readonly bound?: Readonly<Record<string, number | string | boolean>>;
+}
 
 /**
  * ⚠ `RigConfig.scenes`' shipped default, and a PLACEHOLDER, not a reading.
@@ -2545,7 +2552,11 @@ export class LiveAdapter implements BitwigAdapter {
     trackIndex: number,
     pointedAt: Map<string, AddressKey>,
     cursorRef?: string,
-  ): Promise<{ readonly metadata: ClipMetadataState; readonly playStopBeats: number }> {
+  ): Promise<{
+    readonly metadata: ClipMetadataState;
+    readonly playStopBeats: number;
+    readonly raw: Readonly<Record<string, number | string | boolean>>;
+  }> {
     const cursor = await this.pointAtClip(clip, trackIndex, pointedAt, cursorRef);
     const raw = (await this.transport.send({
       method: WIRE.cursorClipMetadata,
@@ -2580,11 +2591,12 @@ export class LiveAdapter implements BitwigAdapter {
         loopEndBeats: loopStartBeats + lengthBeats,
       },
       playStopBeats: number('playStop'),
+      raw: raw as Readonly<Record<string, number | string | boolean>>,
     };
   }
 
   /** Read one frozen clip capture. The gate can delay the initial request. */
-  private async readClipNotes(clipRef: ClipAddress, trackIndex: number): Promise<ClipNoteChannels | undefined> {
+  private async readClipNotes(clipRef: ClipAddress, trackIndex: number): Promise<ClipNoteCapture | undefined> {
     const status = await this.transport.send({ method: WIRE.slotStatus,
       params: { trackIndex, slotIndex: clipRef.slot.scene.index } }) as { hasContent: boolean };
     if (!status.hasContent) return undefined;
@@ -2595,7 +2607,7 @@ export class LiveAdapter implements BitwigAdapter {
       throw new AddressUnresolvedError(clipRef, 'clip.read configuration is absent or incompatible; call hello with the current extension');
     }
     type ClipReadReply = { refused?: string; message?: string; readId: number; frame: NoteFrame;
-      bound?: { channelId?: string; row?: number } };
+      bound?: { channelId?: string; row?: number; [field: string]: unknown } };
     const send = async (): Promise<ClipReadReply> => await this.transport.send({
       method: WIRE.clipRead,
       params: { trackIndex, row: clipRef.slot.scene.index, channelId: clipRef.slot.track.channelId },
@@ -2638,7 +2650,9 @@ export class LiveAdapter implements BitwigAdapter {
       if (page.readId !== result.readId) throw new AddressUnresolvedError(clipRef, 'clip.readPage returned another capture');
       frame = page;
     }
-    try { return notesByChannel(rows); }
+    const bound = result.bound !== null && typeof result.bound === 'object'
+      ? { bound: result.bound as NonNullable<ClipNoteCapture['bound']> } : {};
+    try { return { channels: notesByChannel(rows), rows, ...bound }; }
     catch (error) { throw new AddressUnresolvedError(clipRef, String(error)); }
   }
 
@@ -3234,7 +3248,7 @@ export class LiveAdapter implements BitwigAdapter {
     }
   }
 
-  async read(sel: readonly Address[]): Promise<Snapshot> {
+  async read(sel: readonly Address[], options: ReadOptions = {}): Promise<Snapshot> {
     const entries: Record<string, StateEntry> = {};
     const missing: Address[] = [];
     const unreachable: Address[] = [];
@@ -3252,7 +3266,10 @@ export class LiveAdapter implements BitwigAdapter {
     // as of the D16 amendment a `clip` read of an OCCUPIED slot points too, to
     // capture the clip's length. An empty slot still costs nothing — and must
     // not be pointed at in any case (E2).
-    const selection = await this.beginSelectionBorrow(sel.some(addressBorrowsSelection));
+    const sourceClips = options.sources ?? [];
+    const selection = await this.beginSelectionBorrow(
+      sel.some(addressBorrowsSelection) || sourceClips.length > 0,
+    );
     // Where each pool cursor is actually pointed, so the common shape — a clip
     // target and its notes target, side by side in one write-set — costs one
     // point and one settle rather than two.
@@ -3268,9 +3285,21 @@ export class LiveAdapter implements BitwigAdapter {
     // A dual-grid read scans all channels while each grid is settled. Keep the
     // result for this snapshot so 16 channel addresses cost two grid changes,
     // not 32 grid changes and 32 waits.
-    const noteReads = new Map<AddressKey, Promise<ClipNoteChannels | undefined>>();
+    const noteReads = new Map<AddressKey, Promise<ClipNoteCapture | undefined>>();
     const parameterReads = new Map<AddressKey, Promise<ParameterInventory>>();
     const remoteReads = new Map<AddressKey, Promise<RemoteInventory>>();
+    // One metadata read for each clip. The pool can evict a cursor between the clip, metadata, and
+    // source passes of one snapshot, so a pointed-at memo alone can point the same clip again.
+    const metadataReads = new Map<AddressKey, ReturnType<LiveAdapter['readClipMetadata']>>();
+    const metadataOf = (clipRef: ClipAddress, trackIndex: number): ReturnType<LiveAdapter['readClipMetadata']> => {
+      const key = addressKey(clipRef);
+      let reading = metadataReads.get(key);
+      if (reading === undefined) {
+        reading = this.readClipMetadata(clipRef, trackIndex, pointedAt);
+        metadataReads.set(key, reading);
+      }
+      return reading;
+    };
 
     for (const address of sel) {
       const sceneRef = addressScene(address);
@@ -3303,7 +3332,7 @@ export class LiveAdapter implements BitwigAdapter {
         continue;
       }
       const entry = await this.readOne(
-        address, row, pointedAt, noteReads, parameterReads, remoteReads,
+        address, row, pointedAt, noteReads, parameterReads, remoteReads, metadataOf,
       );
       // ⚠ A chain-family address whose container has no observable scope is
       // UNREACHABLE, not missing — the same E5 distinction the track bank makes
@@ -3316,11 +3345,41 @@ export class LiveAdapter implements BitwigAdapter {
       else entries[addressKey(address)] = entry;
     }
 
+    // D32: the source fingerprint uses the same frozen capture as the note entries.
+    const sources: Record<AddressKey, ClipSourceDigest> = {};
+    for (const clipRef of sourceClips) {
+      const sceneRef = clipRef.slot.scene;
+      if (sceneRef.epoch !== at.sceneEpoch) throw new StaleAddressError(clipRef, sceneRef.epoch, at.sceneEpoch);
+      if (this.sceneRowStanding(sceneRef) !== 'visible') continue;
+      const row = list.find((t) => t.channelId === clipRef.slot.track.channelId);
+      if (row === undefined) continue;
+      const key = addressKey(clipRef);
+      let reading = noteReads.get(key);
+      if (reading === undefined) {
+        reading = this.readClipNotes(clipRef, row.index);
+        noteReads.set(key, reading);
+      }
+      const capture = await reading;
+      if (capture === undefined) continue;
+      if (capture.bound === undefined) {
+        throw new AddressUnresolvedError(clipRef, 'clip.read returned no bound clip extent');
+      }
+      const observed = await metadataOf(clipRef, row.index);
+      sources[key] = clipSourceFingerprint({
+        clipMetadata: observed.raw,
+        clipRead: capture.bound,
+        notes: capture.rows,
+      });
+    }
+
     // ⚠ D6, E14-F: reading notes POINTS the pool cursor, which steals the user's
     // clip selection. Restoring it is what Phase 1 owes.
     await this.restoreSelection(selection);
 
-    return { contract: CONTRACT_TAG, at, entries, missing, unreachable, unstable };
+    return {
+      contract: CONTRACT_TAG, at, entries, missing, unreachable, unstable,
+      ...(sourceClips.length === 0 ? {} : { sources }),
+    };
   }
 
   /**
@@ -3678,9 +3737,10 @@ export class LiveAdapter implements BitwigAdapter {
     address: Address,
     row: WireTrack | undefined,
     pointedAt: Map<string, AddressKey>,
-    noteReads: Map<AddressKey, Promise<ClipNoteChannels | undefined>>,
+    noteReads: Map<AddressKey, Promise<ClipNoteCapture | undefined>>,
     parameterReads: Map<AddressKey, Promise<ParameterInventory>>,
     remoteReads: Map<AddressKey, Promise<RemoteInventory>>,
+    metadataOf: (clip: ClipAddress, trackIndex: number) => ReturnType<LiveAdapter['readClipMetadata']>,
   ): Promise<StateEntry | 'unreachable' | 'unstable' | undefined> {
     switch (address.kind) {
       case 'track':
@@ -3715,7 +3775,7 @@ export class LiveAdapter implements BitwigAdapter {
         // the entry. `StateValue.lengthBeats` had been declared and populated by
         // the fake the whole time, which made this the exact shape PHASE-0 §Risks
         // warned about: a fake certifying a capture the live path did not make.
-        const observed = await this.readClipMetadata(clipRef, row.index, pointedAt);
+        const observed = await metadataOf(clipRef, row.index);
         // ⚠ NOT defaulted. The `notes` branch may fall back to 4 beats because a
         // scan window that is too wide only costs resolution; here the number IS
         // the captured value, and a clip silently recreated at a guessed length is
@@ -3741,7 +3801,7 @@ export class LiveAdapter implements BitwigAdapter {
           params: { trackIndex: row.index, slotIndex: sceneIndex },
         })) as { hasContent: boolean };
         if (!status.hasContent) return undefined;
-        const observed = await this.readClipMetadata(address.clip, row.index, pointedAt);
+        const observed = await metadataOf(address.clip, row.index);
         return { address, fidelity: 'exact', value: { of: 'clipMetadata', metadata: observed.metadata } };
       }
 
@@ -3753,9 +3813,9 @@ export class LiveAdapter implements BitwigAdapter {
           reading = this.readClipNotes(address.clip, row.index);
           noteReads.set(key, reading);
         }
-        const channels = await reading;
-        if (channels === undefined) return undefined;
-        const selected = (channels.get(address.channel ?? 0) ?? []).filter((note) =>
+        const capture = await reading;
+        if (capture === undefined) return undefined;
+        const selected = (capture.channels.get(address.channel ?? 0) ?? []).filter((note) =>
           address.range === undefined || (note.startBeats >= address.range.startBeats
             && note.startBeats < address.range.endBeats));
         const fidelity: Fidelity = selected.some(hasUnverifiedProps) ? 'lossy' : 'exact';

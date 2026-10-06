@@ -1,7 +1,7 @@
 import { isDeepStrictEqual } from 'node:util';
 import { binary64 } from '../document/rational.js';
 import { evaluateCachePolicy, type CachePolicyDecision, type CachePolicyInput,
-  type CachePolicyReason } from '../contract/cache-policy.js';
+  type CachePolicyReason } from './phase8e-cache-policy.js';
 
 export type NormalizedValue = string | number | boolean | null;
 export type FieldCoverage = 'known' | 'unknown' | 'unsupported';

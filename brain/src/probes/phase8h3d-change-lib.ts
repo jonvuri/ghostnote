@@ -8,8 +8,9 @@ export type Wire = Record<string, any>;
 
 export const WATCH_REVISION = '8h3d-watch-v1';
 export const RESEARCH_PROFILE = 'phase-8-probe-v1';
-export const RESEARCH_METHODS = 100;
-export const RESEARCH_HASH = '4232fd6c9f325749';
+/** The probe build after the 8h3e trim. The E231 runs used 100 methods, hash `4232fd6c9f325749`. */
+export const RESEARCH_METHODS = 98;
+export const RESEARCH_HASH = '659635435255b259';
 export const FINGERPRINT_VERSION = 'pull-fp-v1';
 export const WATCH_COUNTS = [1, 8, 32] as const;
 export const SURVEY_SIZES = [16, 64] as const;
@@ -116,8 +117,7 @@ export function editToStaleMs(sent: number, received: number, agoMs: number): nu
 /** The research rig config. It adds the watch cursors and the knee fixture writer at the reader width. */
 export function researchConfig(): Wire {
   return { recordChars: 0, stamp: '8h3d-change', tracks: 96, scenes: 16, contentFilter: 'ALL_CHANNELS',
-    cacheKneeResearch: true, cacheShadowObservers: 2, cacheShadowSteps: 4_194_304, cacheShadowCursorScenes: 0,
-    changeWatchCursors: 32 };
+    cacheKneeResearch: true, cacheShadowSteps: 4_194_304, changeWatchCursors: 32 };
 }
 
 export const median = (values: readonly number[]): number => {

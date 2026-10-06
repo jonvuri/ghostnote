@@ -12,7 +12,7 @@ import {
   type ShadowSnapshot,
   type ShadowAdmissionInput,
 } from './phase8g-shadow-cache-lib.js';
-import { CACHE_SCALE_LIMITS, evaluateCachePolicy } from '../contract/cache-policy.js';
+import { CACHE_SCALE_LIMITS, evaluateCachePolicy } from './phase8e-cache-policy.js';
 
 const snapshot: ShadowSnapshot = {
   logicalClipId: 'clip-1',

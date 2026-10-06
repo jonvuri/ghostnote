@@ -6,7 +6,7 @@ import { z } from 'zod';
 import {
   NOTE_PROP_FIDELITY, addressKey, assertOpsWritable, chooseStepSize,
   clipMetadata, notes as notesAt, track, noteReadCell,
-  type ClipAddress, type NoteRecord, type Op, type RevisionMark, type Snapshot,
+  type ClipAddress, type ClipSnapshotRef, type NoteRecord, type Op, type RevisionMark, type Snapshot,
 } from '../contract/index.js';
 import { revertOps, takeAppliedAnything } from '../engine/index.js';
 import type { Disagreement, Unverified } from '../engine/index.js';
@@ -139,6 +139,8 @@ export interface NoteApplicationTimingEvent {
 
 export interface NoteApplicationOptions {
   readonly now?: () => number;
+  /** D32 references. The executor checks them at its stash read, before any write. */
+  readonly ifSnapshot?: readonly ClipSnapshotRef[];
   readonly onTiming?: (event: NoteApplicationTimingEvent) => void;
 }
 
@@ -964,6 +966,7 @@ export async function applyNoteProposal(
   started = now();
   const change = await workspace.apply(preview.operations, {
     ifRevision: fresh.observedAt.revision,
+    ...(options.ifSnapshot === undefined ? {} : { ifSnapshot: options.ifSnapshot }),
   });
   options.onTiming?.({ phase: 'recorded-workspace-apply', elapsedMs: now() - started });
   const applied = takeAppliedAnything(change.take);

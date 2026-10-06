@@ -1,3 +1,5 @@
+// 8h3e removed the research wire or rig configuration that this live driver uses. Live use needs the
+// earlier research build of its own session. Its retained artifacts and offline checks do not need a host.
 /**
  * E216 live driver: observer delivery and per-callback coherence across
  * controller-issued P→Q→P project detours. Research only; nothing becomes eligible.

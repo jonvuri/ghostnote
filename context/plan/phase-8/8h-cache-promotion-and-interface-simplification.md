@@ -2,12 +2,12 @@
 title: Phase 8h — Cache promotion and interface simplification
 kind: plan
 state: active
-status: Reader promotion (E230), change awareness (E231), and row binding (E232) are complete. Cache machinery trim (8h3e) and interface simplification remain.
+status: Reader promotion (E230), change awareness (E231), row binding (E232), and pull snapshot references with the cache machinery trim (E233) are complete. Interface simplification and document integration (8h4) remain.
 updated: 2026-10-06
 parent: README.md
 prev: 8g-shadow-project-cache.md
 next: 8i-agent-native-hybrid-dogfood.md
-evidence: E119-E135, E209, E213, E230; D18, D23, D25, D31
+evidence: E119-E135, E209, E213, E230-E233; D18, D23, D25, D31, D32
 ---
 
 # Phase 8h — Cache promotion and interface simplification
@@ -16,7 +16,7 @@ evidence: E119-E135, E209, E213, E230; D18, D23, D25, D31
 
 Use the [host binding](../../../spec/ghostnote-document-v1/HOST-BINDING.md),
 [identity and overlays](../../../spec/ghostnote-document-v1/IDENTITY-AND-OVERLAYS.md),
-[cache contract](../../contracts/GHOSTNOTE_CACHE_CONTRACT.md), and
+[pull snapshot contract](../../contracts/GHOSTNOTE_CACHE_CONTRACT.md), and
 [migration and risk policy](../../contracts/GHOSTNOTE_MIGRATION_AND_VERIFICATION.md).
 `read_launcher_clip` has single Launcher-clip scope. Its field coverage can be
 complete for identities while articulation/repeat remain unknown. Partial-base
@@ -27,22 +27,21 @@ the target amendments; their live implementation gates still apply.
 ## 8g result
 
 [E224](../../evidence/experiments/e224-final-shadow-acceptance.md) passes the
-8g gate under D26–D28 and lists the supported states. Live eligibility is still
-closed. A clip reference is an address token inside one identity domain; it is not
-proof of the same host clip object.
-Define promoted eligibility in those terms before stage 1. E224 also measured the
-legacy E131 reconstruct path on a stable transpose. It enabled disabled chance,
-occurrence, recurrence, and repeat controls on notes that the patch did not
-mention, and it reset disabled recurrence values. Fix or refuse that path before
-a stable write or preflight uses cache state.
+8g gate under D26–D28 and lists the supported states. A clip reference is an address token inside one identity domain; it is not
+proof of the same host clip object. D32 keeps that meaning. E224 also measured
+the legacy E131 reconstruct path on a stable transpose. It enabled disabled
+chance, occurrence, recurrence, and repeat controls on notes that the patch did
+not mention. The 8h3c reader fixed this: raw disabled controls survive
+reconstruction (E230).
 
 ## Session split
 
 The replay cold read (E227, D30) changed the 8h route. A cold read takes
 46–698 ms, so the replay reader replaces E131 on every read and write path. The
-resident note cache has no speed role. The identity, generation, and
-snapshot-validity machinery stays. The earlier 8h1 (cache promotion) and 8h2b
-(exact reader consolidation) plans are replaced by 8h3c and 8h3e.
+resident note cache has no speed role. Snapshot validity moved to the product
+revision mark (D32); the resident-grid machinery is removed (E233). The
+earlier 8h1 (cache promotion) and 8h2b (exact reader consolidation) plans are
+replaced by 8h3c and 8h3e.
 
 Complete research:
 
@@ -78,17 +77,22 @@ Reader promotion and remaining sessions, in order:
    ([E232](../../evidence/experiments/e232-reader-row-binding.md)): the open
    task subscribes before it unpins.
 5. [8h3e — Cache machinery trim and promotion](8h3e-cache-machinery-trim.md).
-   Planned. Pull snapshot validity on the product revision mark, exposed in
-   the experimental profile; the resident-grid research code is removed.
+   Complete ([E233](../../evidence/experiments/e233-pull-snapshot-references.md),
+   [D32](../../decisions/d32-pull-snapshot-references-use-the-revision-mark.md)):
+   pull snapshot references on the product revision mark, exposed in the
+   experimental profile; the resident-grid research code is removed.
 6. 8h4 — interface simplification, naming, device structure migration, and
-   the compact-bar document read and patch tools on the 8h3e snapshot
-   reference.
+   document integration: the compact-bar document read and patch tools on the
+   D32 snapshot reference, the document clip and event ID registry, and the
+   connection of the offline `Authority` binding. Inputs: the stale selection
+   after a project switch (E233), the metadata point cost of each check
+   (E233), and group-slot handling (E222).
 
 ## Purpose
 
-Make proved cache reads part of the live engine, connect the consolidated
-compact-bar document, and simplify the agent surface according to the 8a
-posture. Keep explicit fallback for states that the cache cannot cover.
+Make fresh reads and D32 snapshot references the live engine path, connect
+the consolidated compact-bar document, and simplify the agent surface
+according to the 8a posture. Refuse explicitly when a reference is not current.
 
 ## Document integration prerequisites
 
@@ -105,19 +109,21 @@ normalized readback. Include the versioned model reference through the prompt
 or skill entry point selected for the surface. The agent must not need a
 repository tutorial.
 
-## Promotion stages
+## Promotion stages: disposition
 
-1. Use healthy cache snapshots for experimental read-only compact documents.
-2. Use them for repeated reads while retaining sampled authority comparisons.
-3. Permit a fresh immutable healthy snapshot to serve an eligible write
-   preflight only when the 8f risk policy allows it.
-4. Share state with write preparation only when scope, generation, channels,
-   metadata, defaults, and freshness all match.
-5. Retire or demote the old route only after every retained fallback and
-   diagnostic owner is explicit.
+The five promotion stages of 8f3 assumed a resident cache. Their disposition:
 
-Each stage has its own feature flag or profile, comparison result, rollback to
-the prior stage, and live acceptance gate. Do not promote all uses at once.
+1. Experimental read-only documents from healthy snapshots, and
+2. repeated reads with sampled authority comparisons: met by 8h3c. Every read
+   is the cold reader, and the paired E131 comparison passed (E230).
+3. Eligible write preflight from a snapshot, and
+4. shared state with write preparation: void. Every preflight is a fresh read.
+5. Retire the old route: this is the 8h3e trim (E233).
+
+The new guard has its flag (the experimental profile
+`phase-7b-agent-note-patch-v0`), its comparison (the E233 live matrix against
+independent raw reads), and its rollback (the stable profile, which does not
+use it). Document integration is assigned to 8h4.
 
 ## Interface simplification
 
@@ -203,9 +209,9 @@ failure it covered, the replacement evidence, and the measured saved work.
 
 ## Acceptance criteria
 
-- Cache authority is limited to explicit healthy and complete states.
-- Every unhealthy, partial, or over-limit state takes the documented fallback
-  or refuses clearly.
+- Every read and preflight is a fresh read. A D32 reference that is not
+  `current` refuses before a write.
+- Every partial or over-limit read refuses clearly.
 - Exact model note/rhythm I/O uses the selected FIELDS/JSON contract and
   reference codec. Complete documents, patches, and overlays pass its corpus.
 - Field preservation and overlay lifecycle match 8f3 under accepted live edits.

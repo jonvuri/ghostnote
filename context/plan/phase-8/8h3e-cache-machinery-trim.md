@@ -1,20 +1,32 @@
 ---
 title: Phase 8h3e — Cache machinery trim and promotion
 kind: plan
-state: planned
-status: Full plan. Pull snapshot validity on the product revision mark; remove the resident-grid research code. Ready for implementation.
+state: complete
+status: Complete. D32 pull snapshot references on the product revision mark; 23 live verdicts match raw reads; the resident-grid research code is removed. All acceptance cases pass.
 updated: 2026-10-06
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h3c2-reader-row-binding.md
 next: 8i-agent-native-hybrid-dogfood.md
-evidence: E222, E224, E225, E226, E227, E230, E231, E232; D26, D27, D28, D30, D31
+evidence: E222, E224, E225, E226, E227, E230, E231, E232, E233; D26, D27, D28, D30, D31, D32
 ---
 
 # Phase 8h3e — Cache machinery trim and promotion
 
-## Status
+## Result
 
-Planned. [8h3c2](8h3c2-reader-row-binding.md) is complete
+Complete in [E233](../../evidence/experiments/e233-pull-snapshot-references.md)
+and [D32](../../decisions/d32-pull-snapshot-references-use-the-revision-mark.md).
+A reference holds the product revision mark, the address, and one
+`ghostnote-launcher-source/1` digest. Every live verdict matches an independent
+raw read. A stale reference refuses before any host mutation. The probe
+profile has 98 methods (`659635435255b259`); the normal wire is unchanged. Each
+check reads clip metadata through a cursor point, so a 16-clip survey takes
+8.8 s against 3.5 s in E231. No live P→Q→P detour was quiet: each overflowed
+the 24-event ring and refused.
+
+## Status before implementation
+
+[8h3c2](8h3c2-reader-row-binding.md) is complete
 ([E232](../../evidence/experiments/e232-reader-row-binding.md)): the product
 reader binds every row. [8h3d](8h3d-change-awareness.md) selected pull only
 ([E231](../../evidence/experiments/e231-change-awareness.md)). This session

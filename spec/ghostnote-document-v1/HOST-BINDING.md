@@ -2,7 +2,7 @@
 title: Ghostnote Document 1.0 host binding
 kind: reference
 state: active
-updated: 2026-10-01
+updated: 2026-10-06
 owner: phase-8f3
 ---
 
@@ -33,8 +33,8 @@ sections needed for its task.
 One complete D23 scan discovers occupied `(cell,pitch)` coordinates. Enrich each
 coordinate on host channels 0..15. Portable channels are host channel plus one.
 A channel-free observer notification does not identify a MIDI channel. Read all
-16 channels before declaring complete onset coverage. Compare project generation,
-structure, and content guards before and after acquisition. Preserve the valid
+16 channels before declaring complete onset coverage. Compare the revision mark
+and the content delta before and after acquisition. Preserve the valid
 selection lease when acquisition borrows selection.
 
 Coverage `complete` means complete note identities under the D23 cell boundary,
@@ -44,10 +44,10 @@ Omit an uncovered field. Do not expand its portable default. `partial` and
 `unavailable` require reasons; neither means an empty clip. An empty slot is an
 occupancy result, not an empty stored clip. Return no invented clip container.
 
-If cache state is unhealthy, use a fresh authority read. If that read fails,
-refuse with `authority-unavailable`. A requested excerpt can be explicit partial
-context. It must not replace a failed complete read. Parser limits and cache
-admission limits are separate. The [cache contract](../../context/contracts/GHOSTNOTE_CACHE_CONTRACT.md)
+Every read is a fresh authority read; there is no resident cache. If that read
+fails, refuse with `authority-unavailable`. A requested excerpt can be explicit
+partial context. It must not replace a failed complete read. Parser limits and
+reader limits are separate. The [pull snapshot contract](../../context/contracts/GHOSTNOTE_CACHE_CONTRACT.md)
 sets the latter.
 
 ## Field mapping and authority
@@ -162,28 +162,33 @@ clip deletion, automation deletion, or permission escalation.
 
 ## Base resolution and conflicts
 
-The private base registry binds an opaque ref to project generation, structural
-epoch, logical clip, current address, original document/coverage/content hash,
-raw authority source, event map, and content generation. The new raw source
+The private base registry binds an opaque ref to one
+[D32](../../context/decisions/d32-pull-snapshot-references-use-the-revision-mark.md)
+snapshot reference (revision mark, durable address, and source digest), the
+original document/coverage/content hash, and the event map. The raw source
 domain is `ghostnote-launcher-source/1`: SHA-256 over that name plus LF and R26
-canonical JSON of project/structure guards, current address, complete raw metadata,
-and every raw note property, with notes ordered by channel/cell/pitch. Include
-disabled controls and raw binary64 timing. It is private acquisition evidence.
-8h must implement this domain before raw state can guard the new route.
+canonical JSON of the complete raw `cursor.clipMetadata` reply, the `clip.read`
+bound extent without its address fields, and every raw note property, with
+notes ordered by channel/cell/pitch. Include disabled controls and raw binary64
+timing. The project, structure, and address guards are typed fields of the
+reference, not digest input, so each refusal has its own reason. The digest is
+private acquisition evidence. 8h3e implements this domain.
 
 The retained diagnostic wrapper uses `exact-note-source-v0` and
 `exact-note-json-v0`. Its decoded omissions cannot establish complete raw field
 authority for the new route. Neither source digest is the R27 document hash.
-R22 dependency basis and cache fingerprints are also separate.
+R22 dependency basis and the E231 research `pull-fp-v1` digest are also separate.
 Do not compare bare digest strings across domains.
 
 For each desired replacement or sparse patch:
 
 1. Validate the proposal with the reference codec. Resolve every clip and event
    through the recorded binding; reject an unknown or expired ref.
-2. Resolve current identity and address. Require the same project generation
-   and proved clip continuity. A proved move still needs a new guard and proposal
-   if its structure/address guard changed.
+2. Run the D32 verdict on a fresh read of the reference address. Require
+   `current`: the same identity domain, an unchanged scene guard, a complete
+   content delta with no event for the slot, and an equal source digest at the
+   same address. Every other verdict refuses. A moved clip is a new address and
+   needs a new read and proposal.
 3. Acquire fresh raw authority. Re-project it with the original IDs, coverage,
    annotations, and acquisition boundary. The original R27 guard must match.
    A normalized match alone cannot hide a raw change to the affected replay or
@@ -246,7 +251,7 @@ names each consumer and protection boundary.
 
 Existing evidence: E15-E pressure, E24 gain, E43 metadata, E116 precision,
 E121 explicit insertion defaults, E128 targeted reversal, E129 range refusal,
-E131 acquisition, and E138-E139 cache budgets. See the
+E131 acquisition, E230 cold reader, and E233 pull snapshot references. See the
 [interface audit](../../context/evidence/format/AGENT_NATIVE_INTERFACE_AUDIT.md)
 and [workstation seams](../../context/evidence/format/WORKSTATION_SEAMS.md).
 

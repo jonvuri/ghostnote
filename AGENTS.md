@@ -13,9 +13,9 @@ in this view are unreliable, including for the operator. Do not retry selectors
 or search for keyboard workarounds.
 
 Prepare and deploy the archive from `extension/`: use `./gradlew copyExtension`
-for normal `ghostnote`, or `./gradlew copyShadowProbeExtension` for research
-`ghostnote 8g controls`. Then ask the operator to replace the controller with
-the required product. State that full removal and the final matching product
+for normal `ghostnote`, or `./gradlew copyProbeExtension` for research
+`ghostnote probe`. Both write the same archive file, so deploy one at a time.
+Then ask the operator to replace the controller with the required product. State that full removal and the final matching product
 in the complete list are needed. A power toggle or an earlier duplicate can
 load cached Java classes. The orange circular-arrow button adds detected
 controllers; it does not reload the extension.

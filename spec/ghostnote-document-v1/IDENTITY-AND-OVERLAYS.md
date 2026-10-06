@@ -2,7 +2,7 @@
 title: Ghostnote clip, event, and overlay identity
 kind: reference
 state: active
-updated: 2026-10-01
+updated: 2026-10-06
 owner: phase-8f3
 ---
 
@@ -11,63 +11,68 @@ owner: phase-8f3
 This is the identity and annotation contract for the
 [host binding](HOST-BINDING.md). It uses the same event IDs as the portable
 core. It does not add host UUIDs to [Document 1.0](SPEC.md). The
+[pull snapshot contract](../../context/contracts/GHOSTNOTE_CACHE_CONTRACT.md)
+and [D32](../../context/decisions/d32-pull-snapshot-references-use-the-revision-mark.md)
+define the clip reference and its verdict. The
 [cache lifecycle evidence](../../context/evidence/format/CACHE_IDENTITY_AND_LIFECYCLE.md)
-sets the measured clip limits. The [cache contract](../../context/contracts/GHOSTNOTE_CACHE_CONTRACT.md)
-keeps observer and address mechanics internal.
+is historical measurement.
 
 ## Clip identity
 
-Mint an opaque document clip ID in one project generation. Bind it privately to
-its logical clip reference and current address: track `channelId`, scene row,
-and structural epoch. A durable track ID is not a durable clip ID. Display names,
-slot indices, and content equality cannot resolve a clip. Two equal clips have
-different IDs. A duplicate always gets a new ID.
+Mint an opaque document clip ID for one read. Bind it privately to one D32
+snapshot reference: the revision mark, the address (track `channelId` and
+launcher row), and the source digest. A durable track ID is not a durable clip
+ID. Display names, slot indices, and content equality cannot resolve a clip.
+Two equal clips have different IDs. A duplicate always gets a new ID.
 
-Retain an ID across note edits and a proved continuous clear/refill. Retire it
-when the clip is deleted or replaced. Retain a move only when one ordered
-empty-to-fill pair has a complete event window, a known-empty destination,
-and a fresh matching authority fingerprint. An equal-content candidate without
-that transition proof is ambiguous. Refuse identity reuse and rebuild or mint.
+Retain an ID while its reference checks as `current`, and across a `stale`
+verdict at the same address: note and metadata edits keep the clip. Retire it
+when the verdict is `identity-changed`, `absent`, `incomparable`, or
+`uncovered`. D32 has no move proof. A moved, duplicated, or replaced clip always
+gets a new ID, also when its content is equal. A scene insertion or deletion
+changes the scene guard and retires every reference in the project. Track index
+changes resolve through `channelId`. A stale base is never repaired by editing
+its address alone.
 
-A known scene insertion/deletion repairs unaffected rows and increments the
-structural epoch. Track index changes resolve through `channelId`. Rebind
-observers; a held proxy's scene index is not address authority. An event gap,
-unknown structural order, or group/flat-topology change requires a full rebuild.
-Same-address reuse after a rebuild needs a complete continuity window. Otherwise
-mint a new ID. A stale base is never repaired by editing its address alone.
-
-Save retains identity within the same loaded generation. Project switch, switch
-back, reopen, controller reload, or unproved continuity starts a new generation.
-Retire old refs, proposals, event maps, and overlay attachment rights. A matching
-project title, file path, byte hash, or fingerprint does not prove continuity.
-Persisted musical declarations can be imported as new declared data with new
-refs; they cannot restore write authority or current inferred claims.
+Save keeps the identity domain. A detected project change or controller reload
+(`incomparable`) retires refs, proposals, event maps, and overlay attachment
+rights. A P→Q→P detour is detected only when a guard records it: a scene-count
+change, a target-slot event, or an incomplete content delta. Then the verdict is
+`identity-changed`. A detour that no guard records cannot be detected; the D32
+verdict is the only protection, and equal content at the address is the valid
+base. A matching project title, file path, byte hash, or fingerprint does not
+prove continuity. Persisted musical declarations can be imported as new
+declared data with new refs; they cannot restore write authority or current
+inferred claims.
 
 ## Event identity and recovery
 
-One acquired event is one `(logical clip, host channel, pitch, 1/512 cell)`.
+One acquired event is one `(document clip, host channel, pitch, 1/512 cell)`.
 Mint an opaque ID that is unique in the document. Maintain a private ID-to-cell
 map in the binding registry. Do not mint the ID from pitch/time alone across
-clips or generations. Do not use the old positional `e-N` alias as a persistent
+clips or identity domains. Do not use the old positional `e-N` alias as a persistent
 live ID. D23 does not expose multiple source IDs in a collided cell.
 
 | Transition | Event ID rule | Evidence needed |
 |---|---|---|
-| Fresh repeated read | Retain an unchanged acquired cell ID | Same project/clip identity; complete acquisition and continuity |
+| Fresh repeated read | Retain an unchanged acquired cell ID | `current` or `stale` D32 verdict with a complete delta; complete acquisition |
 | Human velocity, mute, duration, or expression edit | Retain the cell ID | Address membership remains the same; fresh field read |
 | Human pitch, channel, or onset edit | Retire old ID and mint at new cell | No host note UUID or proved note-move event; equal musical values do not recover identity |
-| Human deletion and later insertion | Retire and mint | An empty cell or a continuity gap breaks the association |
+| Human deletion and later insertion | Retire and mint | An empty cell or an incomplete delta breaks the association |
 | Authorized portable update that changes address | Retain proposal event ID after verified application | Original ID map, exact before guard, collision-free plan, and independent after readback |
 | Authorized add/remove | Mint supplied new ID / retire removed ID | IDs valid and unique; fresh occupancy and expected-state checks |
 | Reconstruct unchanged retained events | Retain only from the authorized plan | Complete protected before state and independent final mapping; partial effects do not prove missing IDs survived |
-| Proved clip move | Retain event IDs with the logical clip | Clip continuity proof, new complete acquisition, and repaired address |
-| Clip duplication/replacement | Mint all events | Separate logical clip identity even when notes match |
-| Restart or ambiguity | Retire; mint after fresh acquisition | New generation or no unique proof; no similarity matching |
+| Clip move | Mint all events | D32 has no move proof; the new address needs a new read |
+| Clip duplication/replacement | Mint all events | A separate document clip ID even when notes match |
+| Reload, project change, or ambiguity | Retire; mint after fresh acquisition | `incomparable` or `identity-changed` verdict, or no unique proof; no similarity matching |
 
-Within continuous occupancy, an ID names the acquired cell identity. It cannot
+Continuity in this table means a `current` or `stale` D32 verdict with a
+complete delta. Within it, an ID names the acquired cell identity. It cannot
 prove that a human did not replace one hidden source note with another at the
-same cell. Report this D23 identity boundary. A lost callback window invalidates
-the continuity claim. Do not pick the nearest pitch/time or first equal note.
+same cell. Pull has no cell-level callback window: a human delete and reinsert
+of equal values at one cell between two reads is not visible. Report this D23
+identity boundary. An incomplete delta invalidates the continuity claim.
+Do not pick the nearest pitch/time or first equal note.
 Conflicted proposals require a new read and new proposal.
 
 A controlled update may preserve its event ID while its host address changes.
@@ -79,11 +84,12 @@ supplies only the expected identity mapping and comparison target.
 ## Annotation storage and authority
 
 Host notes do not store portable overlays. Keep their full envelopes in a
-separate binding annotation store. Key attachments by project generation and
-logical clip identity. Store source/content generation, dependency projection,
-provider or rule name/version/settings, and provenance with each observation.
-Only musical dependencies and provenance cross into portable overlays. Internal
-source generations do not go into `data` or an inert executable extension.
+separate binding annotation store. Key attachments by the D32 reference of the
+read. Store the source digest, dependency projection, provider or rule
+name/version/settings, and provenance with each observation. The digest
+replaces the earlier source and content generations. Only musical dependencies
+and provenance cross into portable overlays. Internal digests do not go into
+`data` or an inert executable extension.
 
 `provenance.source` identifies the author, measurement source, or provider and
 its version. `method` identifies the rule and settings or a settings digest.
@@ -94,7 +100,7 @@ results leave core observations available and report the missing claim.
 
 All current claims carry the R22 `basis`. Declare each field actually used,
 including tempo overlay dependencies when the method uses milliseconds or BPM.
-The generation is an attachment guard; the content dependency projection is
+The reference is an attachment guard; the content dependency projection is
 the currency test. A new raw revision with unchanged declared dependencies
 can preserve an overlay. A stable ID with changed dependencies cannot.
 
@@ -177,9 +183,9 @@ existing R13-R24 conformance cases test nominal/groove equations, membership,
 basis, stale propagation, deleted references, explicit replacement, and removal
 without note changes. These are pure evidence, not proof of live recovery.
 
-8g must test clip lifecycle and identity ambiguity in shadow mode. 8h must test
-controlled event remapping, human-edit reminting, partial effects, and annotation
-attachment against independent reads. 8i must include a stale interpretation,
+8h3e tested the D32 clip verdicts against independent raw reads (E233). 8h4
+must test controlled event remapping, human-edit reminting, partial effects,
+and annotation attachment against independent reads. 8i must include a stale interpretation,
 a fresh proposal after computer use, and ambiguity refusal. The
 [migration policy](../../context/contracts/GHOSTNOTE_MIGRATION_AND_VERIFICATION.md)
 sets owners and rollback gates. No new host behavior was inferred from an ID.

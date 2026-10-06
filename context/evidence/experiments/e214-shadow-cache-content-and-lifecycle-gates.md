@@ -31,15 +31,15 @@ read and write-guard authority.
 
 ## Implementation and method
 
-The [domain cache](../../../extension/src/main/java/com/ghostnote/extension/ShadowProjectCache.java)
+The domain cache
 holds sparse occupied and dirty coordinates, immutable snapshots, identity
 tokens, content generations, health, admission, eviction, repair, and private
 rebuild staging. Its
-[Java checks](../../../extension/src/shadowCacheTest/java/com/ghostnote/extension/ShadowProjectCacheTest.java)
+Java checks
 run without Bitwig. They establish model behavior, including late callbacks,
 interrupted work, limits, and atomic publication.
 
-The [host adapter](../../../extension/src/main/java/com/ghostnote/extension/ShadowCacheProbe.java)
+The host adapter
 and [handler](../../../extension/src/main/java/com/ghostnote/extension/handlers/ShadowCacheHandlers.java)
 are available only at the experimental boundary. The live configuration uses
 eight resident handles and one independent authority handle. All views use

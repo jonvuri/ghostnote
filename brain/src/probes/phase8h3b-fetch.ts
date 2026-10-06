@@ -1,3 +1,5 @@
+// E230 and 8h3e removed the research wire that this live driver uses. Live use needs the earlier
+// research build of its own session. Its retained artifacts and offline checks do not need a host.
 /**
  * 8h3b replay fetch cost. Live driver. Each subcommand refuses the anchor project. Results stay ineligible.
  *

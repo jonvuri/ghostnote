@@ -22,7 +22,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "d4aa7a0c56bc7c966c5177aa489dd212d8469f205d14aba8821f7a1b7f45c24f"
+        "value": "44b5200769890225a11cfba87412244065e64039e51e40771172e272f56584b4"
       },
       "dependencies": [
         "brain/src/document/",
@@ -78,7 +78,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "465e4c7b31d856c6dd4a25efb82a088c78f887333e5403733a728431617f4fd3"
+        "value": "cdab8095d721447f20877010012b7529725ee086147f9a637e3f972a04fd9c45"
       },
       "dependencies": [
         "brain/src/bindings/ghostnote-document.ts",
@@ -92,7 +92,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "9d271cd185bf8b574f74be6962f83775cc6bda2d50243dc05605259ea8c96a76"
+        "value": "e94c9a764b5f27dce06d0e07deaef9e73ffd4b8a1a62eacdbf9fca744c19d99c"
       },
       "dependencies": [
         "brain/src/document/",
@@ -106,7 +106,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "5480c66954949f938f9e14b111a74fecd1840c3f38774ed3f58e7f901c847272"
+        "value": "bfdc138db65ffacdd6e714afc04e1ad171f16ba381aa62d5dbae2bccaeacc1f4"
       },
       "dependencies": [
         "brain/src/bindings/ghostnote-document.ts",
@@ -162,7 +162,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "30f3352627a527bf61ded9202e93a6f5d5dabe1e0e7758f4accfefbc849efc71"
+        "value": "7c4a2f012e5aff60ebb3b188c085d2d335130f0635360a32d82b26ff340c5eb3"
       },
       "dependencies": [
         "brain/src/bindings/ghostnote-document.ts",
@@ -176,7 +176,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "ad770a344d726be59c231fa76851cd1ccd854fa7a88dae579d861ddff0bc1b64"
+        "value": "17d9e091e7a9833410ea6ff96e2e29c82c17bc4aac898ace5d861ee073f2c1b3"
       },
       "dependencies": [
         "brain/src/bindings/ghostnote-document.ts",
@@ -190,7 +190,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "14aefcecce12ce125d4ed3caa3ff391f62ecb402a8b9e8780fea5e2221ed3cf6"
+        "value": "f5d8ad7027b5df2ba94ebb99e41deae1edf29a0c4a1b4b39d02d5c3479535317"
       },
       "dependencies": [
         "brain/src/bindings/ghostnote-document.ts",
@@ -1046,7 +1046,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "6b4b980876f6e129d21facd8d993bf446a255c14d729b88d1ad174b24f69f5d2"
+        "value": "82ca6eff03e9cbdc87c937f582577e3f9bf924a9bc1f89948b49462ada922dcf"
       },
       "dependencies": [
         "brain/src/document/",
@@ -1060,7 +1060,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "3fcebfe90df600022bc7dc11444cb33c8f059e9e38e7fc7b3d690112fc7a6106"
+        "value": "874ffc21ef9d3903dc9d8d3829fac35b41c6b12cfc98d0e080a2df58f759cd43"
       },
       "dependencies": [
         "brain/src/document/",
@@ -1074,7 +1074,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "df636c6ea7bacbe5bfae74241b28723aa553a2002e75dc1ed262cc174f9aa044"
+        "value": "a22b7be62039a648487f209cd1f01686db4b1bace41b16db22b6d9c9b615ba84"
       },
       "dependencies": [
         "spec/ghostnote-document-v1/HOST-BINDING.md",
@@ -1090,7 +1090,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "6d1bd301921a3c4c98ea17e93ef7df9b813685e3a6f615a8532052a59bb99986"
+        "value": "0b71591e4c67cf585cf7e1d9c3bd6114db309ad4766be149b5ca903cfdf49f1f"
       },
       "dependencies": [
         "spec/ghostnote-document-v1/HOST-BINDING.md",
@@ -1119,7 +1119,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "960f502c77dd11cc86ef05ef8d82d3609c19ace35788b4eee212ae9f2f5c0fd4"
+        "value": "b311319b45c6e5289649a5843c159edcb67be8e655aff0f0122afa04e3285e4d"
       },
       "dependencies": [
         "9b package dependency/notice review"

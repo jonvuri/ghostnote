@@ -11,7 +11,7 @@
  * live method table against it.
  *
  *   npm run probe:hello
- *   npm run probe:hello -- --shadow-marker 8g-shadow-physical-hints-v5
+ *   npm run probe:hello -- --watch-marker 8h3d-watch-v1
  */
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -106,13 +106,9 @@ if (deployment.state === 'unknown') {
 }
 
 // A cached class can start after deployment. Check each requested marker.
+// 8h3e: the probe profile keeps only the change-watch and fixture research operations.
 const markerChecks = [
-  ['--shadow-marker', 'info', 'instrumentationRevision'],
-  ['--inventory-marker', 'info', 'inventoryControlRevision'],
-  ['--authority-marker', 'info', 'authorityBindingRevision'],
-  ['--scene-marker', 'sceneSnapshot', 'sceneControlRevision'],
-  ['--group-marker', 'trackGroups', 'groupControlRevision'],
-  ['--delivery-marker', 'deliveryStatus', 'orderingMarker'],
+  ['--watch-marker', 'watchStatus', 'revision'],
 ] as const;
 for (const [argument, operation, field] of markerChecks) {
   const markerArgument = process.argv.indexOf(argument);

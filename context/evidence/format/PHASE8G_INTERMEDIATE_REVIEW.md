@@ -40,9 +40,9 @@ and publication candidates retain their current boundaries.
 
 ### R1 — P2: typed mismatches are absent from the counter (closed in 8g1)
 
-[ShadowCacheProbe.java](../../../extension/src/main/java/com/ghostnote/extension/ShadowCacheProbe.java)
+ShadowCacheProbe.java
 line 965 increments `mismatches` only for `mismatch` and `coverage-mismatch`.
-[ShadowProjectCache.java](../../../extension/src/main/java/com/ghostnote/extension/ShadowProjectCache.java)
+ShadowProjectCache.java
 lines 335–342 also return `metadata-mismatch`, `membership-mismatch`, and
 `field-mismatch`. These real failures retire the view but do not increment the
 counter. The parent plan requires mismatch measurements by cause. An operator

@@ -208,8 +208,6 @@ public enum RuntimeProfile {
             "app.undo",
             "app.undoState",
             "branch.groupTrack",
-            "cache.configure",
-            "cache.scale",
             "cache.shadow",
             "stepdata.observer.enrich",
             "stepdata.observer.prepare",
@@ -349,9 +347,9 @@ public enum RuntimeProfile {
             if (!PRODUCT.containsAll(OPTIONAL_CAPTURE)
                     || PRODUCT.size() != 92
                     || NORMAL.size() != 87
-                    || PROBE.size() != 100
+                    || PROBE.size() != 98
                     || HISTORICAL.size() != 57
-                    || ALL_CLASSIFIED.size() != 162
+                    || ALL_CLASSIFIED.size() != 160
                     || !ALL_CLASSIFIED.containsAll(READS)
                     || !ALL_CLASSIFIED.containsAll(CLIP_READS)
                     || READS.stream().anyMatch(CLIP_READS::contains)) {

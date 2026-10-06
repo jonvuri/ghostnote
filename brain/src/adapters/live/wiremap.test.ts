@@ -69,8 +69,6 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
   const probeOnly = [
     'api.runtimeMethods',
     ...Object.keys(WIRE_METHODS_BANNED),
-    'cache.configure',
-    'cache.scale',
     'cache.shadow',
     'stepdata.observer.enrich',
     'stepdata.observer.prepare',
@@ -82,7 +80,7 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
   );
   assert.equal(normalGolden.count, 87);
   assert.equal(captureGolden.count, 92);
-  assert.equal(probeGolden.count, 100);
+  assert.equal(probeGolden.count, 98);
 });
 
 test('8b: historical host objects are absent from active Rig construction', () => {

@@ -1,3 +1,5 @@
+// 8h3e removed the research wire or rig configuration that this live driver uses. Live use needs the
+// earlier research build of its own session. Its retained artifacts and offline checks do not need a host.
 /** Separate enriched payload admission from sparse recorder capacity. */
 import assert from 'node:assert/strict';
 import { readFile, writeFile } from 'node:fs/promises';

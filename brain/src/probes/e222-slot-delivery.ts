@@ -1,3 +1,5 @@
+// 8h3e removed the research wire or rig configuration that this live driver uses. Live use needs the
+// earlier research build of its own session. Its retained artifacts and offline checks do not need a host.
 /**
  * E222 live driver: hasContent delivery across controller-issued P→Q→P project
  * detours and same-callback clip recreation. Research only; nothing becomes eligible.

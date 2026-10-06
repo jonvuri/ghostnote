@@ -1,3 +1,5 @@
+// 8h3e removed the research wire or rig configuration that this live driver uses. Live use needs the
+// earlier research build of its own session. Its retained artifacts and offline checks do not need a host.
 /** Run native topology and acquisition controls on owned, unsaved projects. */
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';

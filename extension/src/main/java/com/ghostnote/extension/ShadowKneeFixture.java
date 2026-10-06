@@ -15,13 +15,16 @@ import com.google.gson.JsonObject;
  */
 public final class ShadowKneeFixture {
     public static final String SPEC = "8h1a-even-spread-v1";
+    /** The widest fixture: the reader width, 8,192 beats at `1/512`. */
+    public static final int MAX_WIDTH = 4_194_304;
+    public static final double GRID = 1.0 / 512;
     private final CursorTrack track;
     private final PinnableCursorClip clip;
     private final int width;
     private long written, cleared, transposes;
 
     public ShadowKneeFixture(ControllerHost host, int width, int scenes) {
-        if (width < 1 || width > ShadowProjectCache.RESEARCH_MAX_WIDTH) throw new IllegalArgumentException("invalid fixture width");
+        if (width < 1 || width > MAX_WIDTH) throw new IllegalArgumentException("invalid fixture width");
         this.width = width;
         track = host.createCursorTrack("GN_KNEE_FIXTURE", "ghostnote 8h1a fixture", 0, scenes, false);
         track.exists().markInterested();
@@ -29,7 +32,7 @@ public final class ShadowKneeFixture {
         track.position().markInterested();
         track.isPinned().markInterested();
         clip = track.createLauncherCursorClip(width, 128);
-        clip.setStepSize(ShadowProjectCache.GRID);
+        clip.setStepSize(GRID);
         clip.exists().markInterested();
         clip.isPinned().markInterested();
         clip.clipLauncherSlot().sceneIndex().markInterested();
@@ -55,8 +58,6 @@ public final class ShadowKneeFixture {
         if (count < 1 || count > width || index < 0 || index >= count) throw new IllegalArgumentException("invalid fixture spec");
     }
 
-    /** 8h1b: the fixture writer is a full-width proxy. It holds the grid of the clip that it is bound to. */
-    public ShadowSoundingProbe.Cursor cursor() { return new ShadowSoundingProbe.Cursor("fixture", track, clip, width, false); }
 
     public JsonObject point(Track target) {
         clip.isPinned().set(false); track.isPinned().set(false); track.selectChannel(target);
@@ -91,7 +92,7 @@ public final class ShadowKneeFixture {
         long started = System.nanoTime(); int done = 0;
         for (long index = from; index < Math.min(count, from + size); index++) {
             clip.setStep(channel(index), (int) cell(index, count, noteWidth), pitch(index) + semitones, velocity(index),
-                durationCells(index, count, noteWidth, cap) * ShadowProjectCache.GRID);
+                durationCells(index, count, noteWidth, cap) * GRID);
             done++;
         }
         written += done;
@@ -106,7 +107,7 @@ public final class ShadowKneeFixture {
             int x = (int) cell(index, count, noteWidth);
             clip.clearStep(channel(index), x, pitch(index) + fromShift);
             clip.setStep(channel(index), x, pitch(index) + toShift, velocity(index),
-                durationCells(index, count, noteWidth) * ShadowProjectCache.GRID);
+                durationCells(index, count, noteWidth) * GRID);
             done++;
         }
         cleared += done; written += done;
@@ -132,7 +133,7 @@ public final class ShadowKneeFixture {
             String kind = op.get("op").getAsString();
             switch (kind) {
                 case "set" -> clip.setStep(op.get("channel").getAsInt(), cellOf(op, "x"), op.get("y").getAsInt(),
-                    op.get("velocity").getAsInt(), op.get("durationCells").getAsLong() * ShadowProjectCache.GRID);
+                    op.get("velocity").getAsInt(), op.get("durationCells").getAsLong() * GRID);
                 case "clear" -> clip.clearStep(op.get("channel").getAsInt(), cellOf(op, "x"), op.get("y").getAsInt());
                 case "move" -> clip.moveStep(op.get("channel").getAsInt(), cellOf(op, "x"), op.get("y").getAsInt(),
                     op.get("dx").getAsInt(), op.get("dy").getAsInt());
@@ -162,7 +163,7 @@ public final class ShadowKneeFixture {
             case "chance" -> step.setChance(value.getAsDouble());
             case "chanceEnabled" -> step.setIsChanceEnabled(value.getAsBoolean());
             case "muted" -> step.setIsMuted(value.getAsBoolean());
-            case "duration" -> step.setDuration(value.getAsLong() * ShadowProjectCache.GRID);
+            case "duration" -> step.setDuration(value.getAsLong() * GRID);
             default -> throw new IllegalArgumentException("unknown note field " + field);
         }
     }
@@ -210,7 +211,7 @@ public final class ShadowKneeFixture {
                 note.addProperty("channel", channel); note.addProperty("cell", x); note.addProperty("pitch", y);
                 note.addProperty("velocity", step.velocity());
                 note.addProperty("rawDuration", step.duration());
-                note.addProperty("durationCells", ShadowProjectCache.normalizeDurationCells(step.duration()));
+                note.addProperty("durationCells", normalizeDurationCells(step.duration()));
                 note.addProperty("gain", step.gain()); note.addProperty("pan", step.pan());
                 note.addProperty("timbre", step.timbre()); note.addProperty("pressure", step.pressure());
                 note.addProperty("transpose", step.transpose()); note.addProperty("isMuted", step.isMuted());
@@ -235,5 +236,15 @@ public final class ShadowKneeFixture {
         result.addProperty("batch", done);
         result.addProperty("batchMs", (System.nanoTime() - started) / 1_000_000.0);
         return result;
+    }
+
+    /** A host duration in `1/512` cells, rounded half up, at least one cell. */
+    static long normalizeDurationCells(double duration) {
+        if (!Double.isFinite(duration) || duration <= 0) throw new IllegalArgumentException("invalid host duration");
+        double cells = duration * 512;
+        if (!Double.isFinite(cells) || cells > 9_007_199_254_740_991L)
+            throw new IllegalArgumentException("host duration exceeds exact cell range");
+        long lower = (long) Math.floor(cells);
+        return Math.max(1, lower + (cells - lower >= 0.5 ? 1 : 0));
     }
 }

@@ -40,7 +40,7 @@
  * track that is no longer there. The dependencies are therefore getters.
  */
 import type {
-  Address, BitwigAdapter, ClipAddress, ClipNavigationResult, ContentDelta, DeviceAddress, ObservedDeviceBank, ObservedDrumPadBank, Op, RevisionMark, Snapshot, TrackAddress, TrackState,
+  Address, BitwigAdapter, ClipAddress, ClipNavigationResult, ContentDelta, DeviceAddress, ObservedDeviceBank, ObservedDrumPadBank, Op, ReadOptions, RevisionMark, Snapshot, TrackAddress, TrackState,
 } from '../contract/index.js';
 import type { Executor, RunOptions } from '../engine/index.js';
 import type { ReversalPlan, Slice, Stash, StashLog, StashedChangeset } from '../stash/index.js';
@@ -73,7 +73,7 @@ export interface Workspace {
   devices(track: TrackAddress): Promise<ObservedDeviceBank>;
   /** Complete top-level and reachable-pad structure for one Drum Machine. */
   drumPads(container: DeviceAddress): Promise<ObservedDrumPadBank>;
-  read(addresses: readonly Address[]): Promise<Snapshot>;
+  read(addresses: readonly Address[], options?: ReadOptions): Promise<Snapshot>;
   /** Preserve one UI selection across a composed workflow. */
   preserveSelection?<T>(work: () => Promise<T>): Promise<T>;
   /**
@@ -143,9 +143,9 @@ export function cancellableWorkspace(
       before();
       return after(await workspace.drumPads(container));
     },
-    async read(addresses) {
+    async read(addresses, options) {
       before();
-      return after(await workspace.read(addresses));
+      return after(await workspace.read(addresses, options));
     },
     async apply(ops, options) {
       before();
@@ -231,9 +231,9 @@ export function workspaceOf(deps: WorkspaceDeps): Workspace {
       return deps.adapter.drumPads(container);
     },
 
-    async read(addresses: readonly Address[]): Promise<Snapshot> {
+    async read(addresses: readonly Address[], options?: ReadOptions): Promise<Snapshot> {
       await deps.ready();
-      return deps.adapter.read(addresses);
+      return deps.adapter.read(addresses, options);
     },
 
     async preserveSelection<T>(work: () => Promise<T>): Promise<T> {

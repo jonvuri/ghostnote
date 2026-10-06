@@ -23,7 +23,7 @@ Thus this observed signal tuple cannot distinguish those loaded copies.
 The [manifest](../data/phase8g-lifecycle-reuse/manifest.json) identifies the
 compressed raw records and their SHA256 checksums. The root record preserves
 all captures and the first instance's final 84-event trace. No trace event was dropped.
-The [root probe](../../../extension/src/main/java/com/ghostnote/extension/RootIdentityProbe.java)
+The root probe
 only read and observed values during that experiment. The later adapter
 integration uses its delivered changes to invalidate experimental cache state.
 
@@ -144,7 +144,7 @@ fixture. Eleven refused before a completed comparison. No completed
 comparison mismatched. These counts are separate from E214's shadow-cache
 cases. Every result remained `complete:false` and `eligible:false`.
 
-The [reuse probe](../../../extension/src/main/java/com/ghostnote/extension/ObserverReuseProbe.java)
+The reuse probe
 uses one resident observer and one independent authority observer. Both have
 2,048 cells at `1/512` beat, 128 pitches, and all 16 MIDI channels. The three
 owned clips contain 16 notes on all channels at cell 0, two notes at disjoint

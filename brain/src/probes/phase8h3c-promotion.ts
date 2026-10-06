@@ -93,8 +93,8 @@ const artifact = async (path: string, value: unknown): Promise<void> => {
 async function guard(research = false): Promise<Wire> {
   const hello = await request('contract.hello');
   assert.equal(hello.runtimeProfile, research ? 'phase-8-probe-v1' : 'normal-v1');
-  assert.equal(hello.methodCount, research ? 100 : 87);
-  assert.equal(hello.methodsHash, research ? '4232fd6c9f325749' : 'ca139a3e62a55e68');
+  assert.equal(hello.methodCount, research ? 98 : 87);
+  assert.equal(hello.methodsHash, research ? '659635435255b259' : 'ca139a3e62a55e68');
   const mark = await request('revision.get');
   assert(/^New \d+$/.test(mark.project), `use an owned unsaved project, got ${mark.project}`);
   const rig = await request('rig.info');

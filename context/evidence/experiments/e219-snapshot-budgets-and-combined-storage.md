@@ -38,7 +38,7 @@ under this workload is 25.06 ms. All results stay `complete:false` and
 ## Implementation under test
 
 Build marker `8g3-shadow-budgets-v2`, definition version `e219-2`. The
-[core](../../../extension/src/main/java/com/ghostnote/extension/ShadowProjectCache.java)
+core
 acquires a snapshot through a private candidate. Each enrichment batch reads at
 least one coordinate and stops at its budget (40 ms in the adapter, 50 ms hard
 limit). The candidate deadline is the selected 5 s replay limit. Each batch and
@@ -49,7 +49,7 @@ retires the candidate at once and releases its estimate. A new candidate first
 drops the entry's retained snapshot. A replaced snapshot with other coverage
 advances the content generation conservatively.
 
-The [adapter](../../../extension/src/main/java/com/ghostnote/extension/ShadowCacheProbe.java)
+The adapter
 runs one enrichment batch per poll inside the confirmed result window. It
 reports phase start times, host work, the candidate status, and one resource
 ledger (`resourceAccounting`). A research control caps coordinates per

@@ -6,6 +6,12 @@ import {
 import { binary64, cmp, rational, spelling, sum } from '../document/rational.js';
 import { chooseStepSize } from '../contract/grid.js';
 import { orderedNoteProps, type NoteRecord } from '../contract/state.js';
+import {
+  decodeClipSnapshotRef, encodeClipSnapshotRef, judgeClipSnapshot,
+  type ClipSnapshotRef, type ClipSnapshotVerdict,
+} from '../contract/clip-snapshot.js';
+import type { ContentDelta } from '../contract/observers.js';
+import type { RevisionMark, Snapshot } from '../contract/snapshot.js';
 import { isDeepStrictEqual } from 'node:util';
 
 export class BindingRefusal extends Error {
@@ -73,36 +79,44 @@ export function projectRawClip(clip: StateDocument['clips'][number], notes: RawN
   return { document, report };
 }
 
-/** Fresh authority is private. It is separate from the portable digest. */
+/**
+ * Private base authority: one D32 snapshot reference (mark, durable address,
+ * and `ghostnote-launcher-source/1` digest). It is separate from the portable
+ * document digest.
+ */
 export interface Authority {
-  projectGeneration: string;
-  structuralEpoch: number;
-  logicalClip: string;
-  address: string;
-  contentGeneration: number;
-  exactSourceHash: string;
+  snapshot: ClipSnapshotRef;
 }
-export function guardAuthority(expected: Authority, fresh: Authority): void {
-  const keys: (keyof Authority)[] = ['projectGeneration', 'structuralEpoch', 'logicalClip',
-    'address', 'contentGeneration', 'exactSourceHash'];
-  for (const key of keys) {
-    if (!Object.hasOwn(expected, key) || !Object.hasOwn(fresh, key))
-      refuse('authority', `Missing private ${key} authority`);
-    for (const value of [expected[key], fresh[key]]) {
-      if (key === 'structuralEpoch' || key === 'contentGeneration') {
-        if (!Number.isSafeInteger(value) || Number(value) < 0)
-          refuse('authority', `Invalid private ${key} authority`);
-      } else if (typeof value !== 'string' || value.length === 0) {
-        refuse('authority', `Invalid private ${key} authority`);
-      }
-    }
-    if (expected[key] !== fresh[key]) refuse('authority', `Fresh ${key} does not match the proposal authority`);
+/** A fresh read of the reference address and the content delta since its mark. */
+export interface FreshAuthority {
+  read: Snapshot;
+  delta: ContentDelta;
+  /** A mark after the read. The scene guard needs it to see a scene change during the read. */
+  after?: RevisionMark;
+}
+/** Run the D32 verdict. Every verdict other than `current` refuses. */
+export function guardAuthority(expected: Authority, fresh: FreshAuthority): ClipSnapshotVerdict {
+  if (expected === null || typeof expected !== 'object' || !Object.hasOwn(expected, 'snapshot'))
+    refuse('authority', 'Missing private snapshot authority');
+  let ref: ClipSnapshotRef;
+  try {
+    ref = decodeClipSnapshotRef(encodeClipSnapshotRef(expected.snapshot));
+  } catch (error) {
+    return refuse('authority', `Invalid private snapshot authority: ${String(error)}`);
   }
+  let verdict: ClipSnapshotVerdict;
+  try {
+    verdict = judgeClipSnapshot(ref, fresh.read, fresh.delta, fresh.after);
+  } catch (error) {
+    return refuse('authority', `Fresh authority is unavailable: ${String(error)}`);
+  }
+  if (verdict.verdict !== 'current') refuse('authority', `The snapshot reference is ${verdict.verdict}`);
+  return verdict;
 }
 /** Resolve retained partial context with explicit full state and fresh authority. */
 export function resolvePartialProposal(input: {
   original: StateDocument; freshProjection: StateDocument; full: StateDocument;
-  proposal: Document; expected: Authority; fresh: Authority;
+  proposal: Document; expected: Authority; fresh: FreshAuthority;
   resolution: {
     ref: string; declaredFields: { event: string; fields: EventField[] }[];
     hostPreservationProved: boolean;
@@ -145,7 +159,7 @@ export function resolvePartialProposal(input: {
   rebound.base = { ...proposal.base, sha256: contentHash(full) };
   const result = assessBindingProposal(full, rebound, expected, fresh);
   return { ...result, guard: { originalHash, fullHash: contentHash(full), ref: proposal.base.ref,
-    exactSourceHash: fresh.exactSourceHash } };
+    sourceSha256: expected.snapshot.source.sha256 } };
 }
 function values(event: Event): Event {
   return { ...structuredClone(EVENT_DEFAULTS), ...event };
@@ -155,7 +169,7 @@ function equal(a: unknown, b: unknown): boolean {
   return isDeepStrictEqual(plain(a), plain(b));
 }
 /** Assess a complete portable base. Reacquisition must retain the original guard. */
-export function assessBindingProposal(base: StateDocument, proposal: Document, expected: Authority, fresh: Authority) {
+export function assessBindingProposal(base: StateDocument, proposal: Document, expected: Authority, fresh: FreshAuthority) {
   guardAuthority(expected, fresh);
   if (!proposal.base || proposal.base.sha256 !== contentHash(base))
     refuse('base', 'Fresh base does not match the original portable guard');

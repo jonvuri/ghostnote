@@ -6,13 +6,39 @@ import { contentHash, EVENT_DEFAULTS, ImportCollisionError, validate,
   type Event, type Patch, type StateDocument } from '../document/index.js';
 import { BindingRefusal, assessBindingProposal, checkLegacyReplay, d9MappedFields,
   guardAuthority, hostOccurrence, portableOccurrence, projectRawClip, recoverEventIds,
-  resolvePartialProposal, type Authority, type RawNote } from './ghostnote-document.js';
+  resolvePartialProposal, type Authority, type FreshAuthority, type RawNote } from './ghostnote-document.js';
+import { addressKey, clipMetadata, notes as notesAt, snapshotClip, CONTRACT_TAG,
+  type ContentDelta, type RevisionMark, type StateEntry } from '../contract/index.js';
 
 const fixture = JSON.parse(readFileSync(new URL('../../../spec/ghostnote-document-v1/bindings/v1/fixtures.json', import.meta.url), 'utf8')) as {
   clip: StateDocument['clips'][number]; rawNotes: RawNote[]; authority: Authority;
   cases: { id: string; claim: string }[];
 };
 const authority = fixture.authority;
+/** A fresh read of the authority address. By default it is current. */
+function freshOf(over: { mark?: Partial<RevisionMark>; sha256?: string; exists?: boolean;
+  delta?: Partial<ContentDelta> } = {}): FreshAuthority {
+  const ref = authority.snapshot;
+  const at = { ...ref.mark, revision: ref.mark.revision + 1, ...over.mark };
+  const clip = snapshotClip(ref, at.sceneEpoch);
+  const entries: Record<string, StateEntry> = {
+    [addressKey(clip)]: { address: clip, fidelity: 'lossy', value: { of: 'clip', exists: over.exists ?? true, lengthBeats: 4 } },
+    [addressKey(clipMetadata(clip))]: { address: clipMetadata(clip), fidelity: 'exact', value: { of: 'clipMetadata', metadata: {
+      name: 'Binding fixture', color: { red: 1, green: 2, blue: 3 }, lengthBeats: 4, playStartBeats: 0,
+      loopEnabled: true, loopStartBeats: 0, loopEndBeats: 4 } } },
+  };
+  for (let channel = 0; channel < 16; channel += 1) {
+    const address = notesAt(clip, channel);
+    entries[addressKey(address)] = { address, fidelity: 'exact', value: { of: 'notes', notes: [] } };
+  }
+  return {
+    read: { contract: CONTRACT_TAG, at, entries, missing: [], unreachable: [], unstable: [],
+      sources: { [addressKey(clip)]: { domain: ref.source.domain, sha256: over.sha256 ?? ref.source.sha256 } } },
+    delta: { since: ref.mark.contentEpoch, now: at.contentEpoch, events: [], truncated: false,
+      discontinuous: false, uncovered: false, ...over.delta },
+  };
+}
+const current = freshOf();
 const seen = new Set<string>();
 function bindingCase(id: string, body: () => void) {
   const item = fixture.cases.find(c => c.id === id)!;
@@ -37,7 +63,7 @@ function refusal(code: string, body: () => unknown) {
   assert.throws(body, (e: unknown) => e instanceof BindingRefusal && e.code === code);
 }
 function assess(b: StateDocument, p: Patch | StateDocument) {
-  return assessBindingProposal(b, p, authority, authority);
+  return assessBindingProposal(b, p, authority, current);
 }
 bindingCase('B01', () => {
   const { document, report } = projectRawClip(fixture.clip, fixture.rawNotes);
@@ -140,7 +166,7 @@ bindingCase('B10', () => {
   // The caller supplies these declarations. The resolver does not infer them.
   for (const e of full.events) { e.articulation = 'normal'; e.repeat = { ...EVENT_DEFAULTS.repeat }; }
   const input = { original, freshProjection: structuredClone(original), full,
-    proposal: patch(original, { velocity: 91 }), expected: authority, fresh: authority,
+    proposal: patch(original, { velocity: 91 }), expected: authority, fresh: current,
     resolution: { ref: 'retained1', declaredFields: full.events.map(e => ({ event: e.id,
       fields: ['articulation', 'repeat'] as ('articulation' | 'repeat')[] })), hostPreservationProved: true } };
   const result = resolvePartialProposal(input);
@@ -169,19 +195,34 @@ bindingCase('B10', () => {
 });
 bindingCase('B11', () => {
   const b = base(), p = patch(b, { velocity: 91 });
-  for (const key of Object.keys(authority) as (keyof Authority)[]) {
-    const fresh = { ...authority, [key]: typeof authority[key] === 'number' ? 2 : `${authority[key]}-changed` };
-    refusal('authority', () => assessBindingProposal(b, p, authority, fresh));
+  const mark = authority.snapshot.mark;
+  const slotEvent = { seq: mark.contentEpoch + 1, channelId: 'track1', trackIndex: 0, slotIndex: 0, filled: true };
+  const cases: [string, FreshAuthority][] = [
+    ['incomparable', freshOf({ mark: { generation: 'generation2' } })],
+    ['incomparable', freshOf({ mark: { project: 'project2' } })],
+    ['uncovered', freshOf({ mark: { window: { ...mark.window, scenes: { count: 200, bankSize: 128 } } } })],
+    ['identity-changed', freshOf({ mark: { sceneEpoch: 2 } })],
+    ['identity-changed', freshOf({ mark: { contentEpoch: mark.contentEpoch + 1 },
+      delta: { now: mark.contentEpoch + 1, events: [slotEvent] } })],
+    ['identity-changed', freshOf({ delta: { truncated: true } })],
+    ['identity-changed', { ...freshOf(), after: { ...mark, revision: mark.revision + 1, sceneEpoch: mark.sceneEpoch + 1 } }],
+    ['absent', freshOf({ exists: false })],
+    ['stale', freshOf({ sha256: 'f'.repeat(64) })],
+  ];
+  for (const [verdict, fresh] of cases) {
+    assert.throws(() => assessBindingProposal(b, p, authority, fresh),
+      (e: unknown) => e instanceof BindingRefusal && e.code === 'authority' && e.message.endsWith(verdict));
   }
   const freshBase = structuredClone(b); freshBase.events[0].velocity = 92;
-  refusal('base', () => assessBindingProposal(freshBase, p, authority, authority));
-  assert.doesNotThrow(() => guardAuthority(authority, authority));
-  const invalidEpoch = { ...authority, structuralEpoch: 0.5 };
-  refusal('authority', () => guardAuthority(invalidEpoch, invalidEpoch));
-  const missingGeneration = { ...authority, projectGeneration: '' };
-  refusal('authority', () => guardAuthority(missingGeneration, missingGeneration));
-  const missing = { ...authority }; delete (missing as Partial<Authority>).structuralEpoch;
-  refusal('authority', () => guardAuthority(missing, missing));
+  refusal('base', () => assessBindingProposal(freshBase, p, authority, current));
+  assert.equal(guardAuthority(authority, current).verdict, 'current');
+  const invalidRow = { snapshot: { ...authority.snapshot, row: 0.5 } };
+  refusal('authority', () => guardAuthority(invalidRow, current));
+  const invalidSource = { snapshot: { ...authority.snapshot, source: { ...authority.snapshot.source, sha256: 'raw-source1' } } };
+  refusal('authority', () => guardAuthority(invalidSource, current));
+  refusal('authority', () => guardAuthority({} as Authority, current));
+  const noSource = freshOf(); delete (noSource.read as { sources?: unknown }).sources;
+  refusal('authority', () => guardAuthority(authority, noSource));
 });
 bindingCase('B12', () => {
   assert.throws(() => checkLegacyReplay([{ startBeats: 0, durationBeats: 0.0003, pitch: 60, velocity: 90 }]), /grid|timing/i);

@@ -2,7 +2,7 @@
 title: Ghostnote binding corpus version 1
 kind: reference
 state: active
-updated: 2026-10-01
+updated: 2026-10-06
 ---
 
 # Binding corpus version 1
@@ -29,7 +29,7 @@ npm run document:bindings
 | B04–B05 | Portable scalar defaults, existing gain inverse, and host capability refusals |
 | B06 | Sparse preservation, complete desired defaults, and explicit reset |
 | B07–B08 | Same-key overlap refusal, exact adjacency, and normalized cell collision refusal |
-| B09–B11 | Partial-base refusal, guarded explicit resolution, and private authority invalidation |
+| B09–B11 | Partial-base refusal, guarded explicit resolution, and D32 snapshot verdict refusal |
 | B12 | Separate D21 exact-source replay refusal |
 | B13 | Proven ownership, one-to-one ID recovery, and ambiguity |
 | B14 | Pressure preservation, reconstruction refusal, and reversal refusal |
@@ -50,9 +50,12 @@ Gain values above 2 and transpose values outside `-96..96` refuse writes.
 The strict assessor requires a complete represented base. A partial resolver
 also checks the original digest, binding reference, fresh projection, complete
 projection, explicit declarations for unknown fields, and the caller's host
-preservation proof. It reports the original and resolved document hashes beside the supplied
-private source witness. The fixture does not calculate a complete raw source
-hash; 8h owns that acquisition seam. Internal rebinding does
+preservation proof. It reports the original and resolved document hashes beside
+the source digest of the private authority. The authority is one D32 snapshot
+reference. `guardAuthority` runs the D32 verdict on a supplied fresh read and
+content delta and refuses every verdict other than `current`. The product
+adapters compute the `ghostnote-launcher-source/1` digest (8h3e); 8h4 connects
+this binding to them. Internal rebinding does
 not change the original proposal. The proof flag is supplied fixture evidence;
 8h must obtain real evidence from the guarded host path. The test supplies
 articulation and repeat declarations. The helper never invents them.

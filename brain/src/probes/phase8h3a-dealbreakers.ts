@@ -1,3 +1,5 @@
+// E230 and 8h3e removed the research wire that this live driver uses. Live use needs the earlier
+// research build of its own session. Its retained artifacts and offline checks do not need a host.
 /** 8h3a live research. Keep all results ineligible. Refuse the saved anchor. */
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';

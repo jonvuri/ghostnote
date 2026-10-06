@@ -117,5 +117,5 @@ A future package must include SPEC.md, FIELDS.md, fields.ebnf, schema.json,
 the corpus, the Model format reference, and the MIT license. Phase 9b owns
 packaging and external publication. The [8f3 host binding](HOST-BINDING.md) defines capability mappings and
 partial-base resolution. [Identity rules](IDENTITY-AND-OVERLAYS.md) and the
-[cache contract](../../context/contracts/GHOSTNOTE_CACHE_CONTRACT.md) define
+[pull snapshot contract](../../context/contracts/GHOSTNOTE_CACHE_CONTRACT.md) define
 the remaining integration boundaries.

@@ -15,12 +15,12 @@ import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION,
   StaleAddressError, UnsupportedOpError, addressKey, addressScene, addressTrack, assertNever,
   assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertClipSources, assertDeviceInsertable, assertDeviceRelocatable, assertDrumPadInsertable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, budgetTicks,
-  chain as chainAt, chainCopyUnnamed, chainPath, contentDelta,
+  chain as chainAt, chainCopyUnnamed, chainPath, clipSourceFingerprint, contentDelta, notes as notesAt,
   hasUnverifiedProps, lookupChain, lookupNestedDevice, mintedChain, nestingObservable, orderedNoteProps, stepSizeFor,
   verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain,
   type Address, type AdapterInfo, type BatchReceipt, type BatchRequest, type BitwigAdapter,
-  type ClipAddress, type ClipMetadataState, type ClipNavigationResult, type ContentDelta, type DeviceAddress, type Fidelity, type NoteRecord, type ObservedContainer,
-  type Op, type OpReceipt, type ResolveResult,
+  type ClipAddress, type ClipMetadataState, type ClipSourceDigest, type RawSourceRecord, type ClipNavigationResult, type ContentDelta, type DeviceAddress, type Fidelity, type NoteRecord, type ObservedContainer,
+  type Op, type OpReceipt, type ReadOptions, type ResolveResult,
   type ParamState, type RemoteControlState, type RemoteControlsState, type ResolvedAddress,
   type RevisionMark, type SceneAddress, type SettleBudget, type Snapshot,
   type StageReceipt, type StateEntry, type TrackState, type WindowCoverage,
@@ -498,7 +498,7 @@ export class FakeAdapter implements BitwigAdapter {
   }
 
   /** Reads COMMITTED state only — never flushes pending, never advances the clock. */
-  async read(sel: readonly Address[]): Promise<Snapshot> {
+  async read(sel: readonly Address[], options: ReadOptions = {}): Promise<Snapshot> {
     const entries: Record<string, StateEntry> = {};
     const missing: Address[] = [];
     const unreachable: Address[] = [];
@@ -537,7 +537,48 @@ export class FakeAdapter implements BitwigAdapter {
       else entries[addressKey(address)] = entry;
     }
 
-    return { contract: CONTRACT_TAG, at: this.mark(), entries, missing, unreachable, unstable };
+    const sources: Record<string, ClipSourceDigest> = {};
+    for (const clipRef of options.sources ?? []) {
+      const sceneRef = clipRef.slot.scene;
+      if (sceneRef.epoch !== this.model.sceneEpoch) {
+        throw new StaleAddressError(clipRef, sceneRef.epoch, this.model.sceneEpoch);
+      }
+      if (this.sceneRowStanding(sceneRef) !== 'visible') continue;
+      const hit = this.model.findByChannelId(clipRef.slot.track.channelId);
+      const slotState = hit?.track.slots[sceneRef.index];
+      if (hit === undefined || slotState === undefined || !slotState.hasContent) continue;
+      const rows = Array.from({ length: 16 }, (_, channel) => {
+        const entry = this.readOne(notesAt(clipRef, channel), hit.track, hit.index, parameterReads);
+        const notes = typeof entry === 'object' && entry.value.of === 'notes' ? entry.value.notes : [];
+        return notes.map((note) => rawNoteFields(note, channel));
+      }).flat();
+      sources[addressKey(clipRef)] = clipSourceFingerprint({
+        clipMetadata: {
+          exists: true,
+          name: slotState.name,
+          playStart: slotState.playStartBeats,
+          playStop: slotState.playStopBeats,
+          loopEnabled: slotState.loopEnabled,
+          loopStart: slotState.loopStartBeats,
+          loopLength: slotState.lengthBeats,
+          colorRed: slotState.color.red / 255,
+          colorGreen: slotState.color.green / 255,
+          colorBlue: slotState.color.blue / 255,
+          colorAlpha: 1,
+        },
+        clipRead: {
+          loopStartBeats: slotState.loopStartBeats,
+          loopEndBeats: slotState.loopStartBeats + slotState.lengthBeats,
+          playStopBeats: slotState.playStopBeats,
+        },
+        notes: rows,
+      });
+    }
+
+    return {
+      contract: CONTRACT_TAG, at: this.mark(), entries, missing, unreachable, unstable,
+      ...(options.sources === undefined ? {} : { sources }),
+    };
   }
 
   private readOne(
@@ -1799,4 +1840,39 @@ export class FakeAdapter implements BitwigAdapter {
   get isClosed(): boolean {
     return this.closed;
   }
+}
+
+/**
+ * The raw host fields of one fake note, as the 8h3c reader reports them (D31).
+ * The fake keeps MIDI velocity, so its raw velocity is `velocity / 127`.
+ */
+function rawNoteFields(note: NoteRecord, channel: number): RawSourceRecord {
+  const recurrence = note.recurrence ?? [1, 1];
+  return {
+    channel,
+    pitch: note.pitch,
+    cell: noteReadCell(note.startBeats),
+    velocity: note.velocity / 127,
+    releaseVelocity: note.releaseVelocity ?? 100 / 127,
+    velocitySpread: note.velocitySpread ?? 0,
+    duration: note.durationBeats,
+    gain: note.gain ?? 0,
+    pan: note.pan ?? 0,
+    pressure: note.pressure ?? 0,
+    timbre: note.timbre ?? 0,
+    transpose: note.transpose ?? 0,
+    chance: note.chance ?? 1,
+    repeatCurve: note.repeatCurve ?? 0,
+    repeatVelocityCurve: note.repeatVelocityCurve ?? 0,
+    repeatVelocityEnd: note.repeatVelocityEnd ?? 0,
+    occurrence: note.occurrence ?? 'ALWAYS',
+    recurrenceLength: recurrence[0],
+    recurrenceMask: recurrence[1],
+    repeatCount: note.repeatCount ?? 0,
+    isChanceEnabled: note.isChanceEnabled ?? true,
+    isMuted: note.isMuted ?? false,
+    isOccurrenceEnabled: note.isOccurrenceEnabled ?? true,
+    isRecurrenceEnabled: note.isRecurrenceEnabled ?? true,
+    isRepeatEnabled: note.isRepeatEnabled ?? true,
+  };
 }

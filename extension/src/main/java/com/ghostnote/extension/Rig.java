@@ -110,37 +110,14 @@ public class Rig {
     public final PinnableCursorClip noteObserverClip;
     public final NoteObserverProbe noteObserver = new NoteObserverProbe();
     public final StepDataObserverProbe stepDataObserver;
-    /** Configuration-gated Phase 8e scale bank. Null outside the probe profile. */
-    public final CacheScaleProbe cacheScaleProbe;
-    /** Experimental shadow cache. Null outside the probe profile. */
-    public final ShadowCacheProbe shadowCacheProbe;
-    public final RootIdentityProbe rootIdentityProbe;
-    public final ObserverReuseProbe observerReuseProbe;
-    public final DeliveryCoherenceProbe deliveryProbe;
-    public final ShadowSceneControl shadowSceneControl;
-    public final ShadowTopologyControl shadowTopologyControl;
     /** 8h1a research fixture writer. Null unless the probe config requests it. */
     public final ShadowKneeFixture kneeFixture;
-    /** 8h1b sounding-cell research: release proxy, coarse sentinel, and resident-cursor census. */
-    public final ShadowSoundingProbe soundingProbe;
     /** 8h3d change-awareness research: watched clips and clip-level values. Null unless the config requests it. */
     public final ChangeWatchProbe changeWatchProbe;
     /** 8h3c: the product clip reader. Every profile allocates it. */
     public final ClipReader clipReader;
     /** 8h3c: orders Ghostnote writes behind an open clip read. */
     public final WriteGate writeGate;
-    /** 8h1a: active flat-bank and scene sizes. They start at the allocation and never exceed it. */
-    public int activeTracks, activeScenes;
-    public long activeBankChanges;
-
-    /** Research control. Change only the bank sizes; allocation stays fixed until the next init. */
-    public void configureActiveBanks(int tracks, int scenes) {
-        if (tracks < 1 || tracks > config.tracks || scenes < 1 || scenes > config.scenes)
-            throw new IllegalArgumentException("active bank exceeds allocation");
-        if (tracks != activeTracks) trackBank.setSizeOfBank(tracks);
-        if (scenes != activeScenes) sceneBank.setSizeOfBank(scenes);
-        activeTracks = tracks; activeScenes = scenes; activeBankChanges++;
-    }
 
     /** Arrangement cursor clip (follows arranger clip selection). */
     public final Clip arrangerClip;
@@ -689,7 +666,6 @@ public class Rig {
 
     public Rig(ControllerHost host, RigConfig config, RuntimeProfile profile) {
         long start = System.nanoTime();
-        config.configureResearchTopology(profile);
         this.config = config;
         this.profile = profile;
 
@@ -715,7 +691,6 @@ public class Rig {
 
         application = host.createApplication();
         if (profile.hasProbeResources()) {
-            config.experimentalStepDataObservers();
             application.canUndo().markInterested();
             application.canRedo().markInterested();
         }
@@ -784,7 +759,6 @@ public class Rig {
         trackBank.itemCount().markInterested();
 
         sceneBank = trackBank.sceneBank();
-        activeTracks = config.tracks; activeScenes = config.scenes;
         sceneBank.itemCount().markInterested();
         // §3.2.3's approved extension-side scene epoch, as an actual observer
         // rather than a proposal. Its documented blind spot — a scene MOVE, which
@@ -948,42 +922,15 @@ public class Rig {
         if (profile.hasProbeResources()) {
             stepDataObserver = new StepDataObserverProbe(config.noteReadSteps, config.gridKeys);
             stepDataObserver.attach(noteObserverClip);
-            cacheScaleProbe = new CacheScaleProbe(host, config);
-            shadowCacheProbe = new ShadowCacheProbe(host, config);
-            shadowCacheProbe.setTotalExperimentalStepDataObservers(config.experimentalStepDataObservers());
-            rootIdentityProbe = config.cacheLifecycleResearch ? new RootIdentityProbe(host, this) : null;
-            if (rootIdentityProbe != null) shadowCacheProbe.attachIdentityProbe(rootIdentityProbe);
-            observerReuseProbe = config.cacheLifecycleResearch ? new ObserverReuseProbe(host, config) : null;
-            deliveryProbe = config.deliveryResearch ? new DeliveryCoherenceProbe(host, application, project) : null;
-            shadowSceneControl = config.cacheLifecycleResearch ? new ShadowSceneControl(sceneBank, config.scenes) : null;
-            shadowTopologyControl = config.cacheLifecycleResearch && config.cacheShadowObservers > 0 && config.topologyTracks() > 0
-                ? new ShadowTopologyControl(host, this) : null;
-            if (shadowTopologyControl != null) {
-                shadowCacheProbe.attachTopologyControl(shadowTopologyControl);
-                // 8g5b: occupancy uses the existing flat-bank hasContent observers. It adds no host handles.
-                shadowCacheProbe.attachSlotSource(ShadowCacheProbe.rigSlots(this, shadowTopologyControl));
-            }
-            if (config.cacheLifecycleResearch) trackBank.scrollPosition().markInterested();
-            kneeFixture = config.cacheKneeResearch && config.cacheShadowObservers > 0
+            kneeFixture = config.cacheKneeResearch
                 ? new ShadowKneeFixture(host, config.cacheShadowSteps, config.scenes) : null;
-            soundingProbe = config.cacheSoundingResearch && kneeFixture != null
-                ? new ShadowSoundingProbe(host, config.cacheShadowSteps, config.scenes) : null;
-            if (soundingProbe != null) attachSoundingCursors(config);
             changeWatchProbe = config.changeWatchCursors > 0
                 ? new ChangeWatchProbe(host, this, config.changeWatchCursors, config.scenes) : null;
             arrangerClip = host.createArrangerCursorClip(config.gridSteps, config.gridKeys);
             markClip(arrangerClip);
         } else {
             stepDataObserver = null;
-            cacheScaleProbe = null;
-            shadowCacheProbe = null;
-            rootIdentityProbe = null;
-            observerReuseProbe = null;
-            deliveryProbe = null;
-            shadowSceneControl = null;
-            shadowTopologyControl = null;
             kneeFixture = null;
-            soundingProbe = null;
             changeWatchProbe = null;
             arrangerClip = null;
         }
@@ -1581,17 +1528,6 @@ public class Rig {
         } catch (Throwable t) {
             equalsProxyCount = built;
             return "FAILED@" + built + ":" + t.getClass().getSimpleName() + ":" + t.getMessage();
-        }
-    }
-
-    /** 8h1b: list every cursor that can hold a resident clip. Windowed cursors hold only their window. */
-    private void attachSoundingCursors(RigConfig config) {
-        shadowCacheProbe.researchCursors(4).forEach(soundingProbe::attach);
-        soundingProbe.attach(kneeFixture.cursor());
-        soundingProbe.attach(new ShadowSoundingProbe.Cursor("fine", fineTrack, fineClip, config.noteReadSteps, true));
-        soundingProbe.attach(new ShadowSoundingProbe.Cursor("noteObserver", noteObserverTrack, noteObserverClip, config.noteReadSteps, true));
-        for (int i = 0; i < cursorTracks.length; i++) {
-            soundingProbe.attach(new ShadowSoundingProbe.Cursor("pool:" + i, cursorTracks[i], cursorClips[i], config.fineSteps, true));
         }
     }
 

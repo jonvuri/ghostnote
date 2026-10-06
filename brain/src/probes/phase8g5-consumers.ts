@@ -1,3 +1,5 @@
+// 8h3e removed the research wire or rig configuration that this live driver uses. Live use needs the
+// earlier research build of its own session. Its retained artifacts and offline checks do not need a host.
 /**
  * 8g5 consumer workflows on the final shadow build. Research only; every cache result stays
  * `complete:false` and `eligible:false`. Stable E131 tools keep write authority.

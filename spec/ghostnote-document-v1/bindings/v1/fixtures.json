@@ -20,7 +20,12 @@
       "recurrence": { "enabled": true, "length": 4, "mask": 5 }
     }
   ],
-  "authority": { "projectGeneration": "project1", "structuralEpoch": 1, "logicalClip": "clip1", "address": "track1/scene0", "contentGeneration": 1, "exactSourceHash": "raw-source1" },
+  "authority": { "snapshot": {
+    "version": "ghostnote-clip-snapshot/1",
+    "mark": { "revision": 1, "sceneEpoch": 1, "contentEpoch": 10, "generation": "generation1", "project": "project1",
+      "window": { "tracks": { "count": 2, "bankSize": 256 }, "scenes": { "count": 4, "bankSize": 128 } } },
+    "channelId": "track1", "row": 0,
+    "source": { "domain": "ghostnote-launcher-source/1", "sha256": "3615b18ae96dbafc1f670becf04cf521e36116371e3a27e9426cf61a0ed1edb6" } } },
   "cases": [
     { "id": "B01", "claim": "All-channel projection and both timing deltas" },
     { "id": "B02", "claim": "Disabled controls retain stored values" },
@@ -32,7 +37,7 @@
     { "id": "B08", "claim": "Explicit normalized address collision refuses" },
     { "id": "B09", "claim": "Partial bases refuse without explicit full resolution" },
     { "id": "B10", "claim": "Retained partial guard resolves only against the same fresh projection" },
-    { "id": "B11", "claim": "Each private authority component invalidates the proposal" },
+    { "id": "B11", "claim": "Every D32 snapshot verdict other than current invalidates the proposal" },
     { "id": "B12", "claim": "D21 replay refusal remains separate from normalized timing" },
     { "id": "B13", "claim": "Ownership and one-to-one matching are required for ID reuse" },
     { "id": "B14", "claim": "Pressure survives scalar edits but cannot be reconstructed or reversed" }

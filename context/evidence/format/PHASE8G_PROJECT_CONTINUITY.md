@@ -57,7 +57,7 @@ Do not infer silent callback loss from an unsampled native transition.
 
 ## Guard and refusal rules
 
-[RootIdentityProbe](../../../extension/src/main/java/com/ghostnote/extension/RootIdentityProbe.java)
+RootIdentityProbe
 keeps observation coherence separate from acquisition admission. A guard has
 an initialization nonce, delivered epoch, source fingerprint, chain IDs, and
 an independent continuity window. Fresh source values must agree with their
@@ -78,7 +78,7 @@ supplies a positive provider. The public adapter also refuses when no identity
 probe is attached. Its separate package constructor permits a fixed host model;
 that test mode is absent from live construction and grants no eligibility.
 
-[ShadowCacheProbe](../../../extension/src/main/java/com/ghostnote/extension/ShadowCacheProbe.java)
+ShadowCacheProbe
 uses the same decision for pool reservation, direct point, forced canary,
 settlement, reconciliation, comparison, exact shadow reads, and inventory.
 A changed fresh guard retires the old domain before it can admit new work.
@@ -94,7 +94,7 @@ guard, a new reference, and fresh values. Forced canary replay cannot bypass
 refusal. Save preserves identity only inside a proved loaded generation.
 
 Retained snapshot status now checks the guard before and after output assembly.
-[Inventory status](../../../extension/src/main/java/com/ghostnote/extension/ShadowInventoryRebuild.java)
+Inventory status
 also rechecks the external window. A changed window invalidates the registry.
 Cancellation of a published registry is terminal and makes no provider reads.
 Exact fallback already checks its guard after final metadata and on retained
@@ -191,7 +191,7 @@ assumptions: [D26](../../decisions/d26-step-data-delivery-is-a-named-assumption.
 and the [E217 ordering rule](../experiments/e217-later-callback-ordering-rule.md).
 It proves no host input fence. No result becomes eligible.
 
-[`StepDeltaWindow`](../../../extension/src/main/java/com/ghostnote/extension/StepDeltaWindow.java)
+`StepDeltaWindow`
 holds the window value: the adapter init nonce, the delivered identity epoch,
 the observer binding revision, and the step-callback count across all shadow
 observers. Every shadow observer callback increments the count before any
@@ -243,7 +243,7 @@ live acceptance: 147 trials with zero foreign or differing outputs.
 occupancy under [D28](../../decisions/d28-slot-occupancy-delivery-is-a-named-assumption.md)
 and D27. It proves no host input fence. No result becomes eligible.
 
-[`SlotDeltaWindow`](../../../extension/src/main/java/com/ghostnote/extension/SlotDeltaWindow.java)
+`SlotDeltaWindow`
 holds the init nonce, the delivered identity epoch, the structure-callback count,
 and the slot-callback count. Slot callbacks come from the rig's indexed
 `hasContent` observers on the flat `ALL_CHANNELS` bank. Structure callbacks are

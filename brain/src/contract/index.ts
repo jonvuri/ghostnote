@@ -34,10 +34,14 @@ export type {
 export { SETTLE_MS, TICK_MS, budgetTicks } from './budgets.js';
 export type { SettleBudget } from './budgets.js';
 
-export { CACHE_SCALE_LIMITS, evaluateCachePolicy } from './cache-policy.js';
+export {
+  CLIP_SNAPSHOT_VERSION, CLIP_SOURCE_DOMAIN, ClipSnapshotRefusedError, clipSnapshotFrom, clipSourceFingerprint,
+  decodeClipSnapshotRef, encodeClipSnapshotRef, guardVerdict, judgeClipSnapshot, snapshotAddresses, snapshotClip,
+} from './clip-snapshot.js';
 export type {
-  CacheHealth, CachePolicyDecision, CachePolicyInput, CachePolicyReason, CacheReadMode,
-} from './cache-policy.js';
+  ClipSnapshot, ClipSnapshotRef, ClipSnapshotVerdict, ClipSnapshotVerdictKind, ClipSourceCapture,
+  ClipSourceDigest, RawSourceRecord, RawSourceValue,
+} from './clip-snapshot.js';
 
 export { EXACT_CLIP_COLORS, exactClipColor, supportedClipColors } from './clip-color.js';
 export type { ClipColorBytes, ExactClipColor } from './clip-color.js';
@@ -92,5 +96,5 @@ export {
 export type { BankDimension, OccupiedSlotHazard } from './errors.js';
 
 export type {
-  BatchRequest, BitwigAdapter, ClipNavigationResult, ResolveResult, ResolvedAddress,
+  BatchRequest, BitwigAdapter, ClipNavigationResult, ReadOptions, ResolveResult, ResolvedAddress,
 } from './adapter.js';

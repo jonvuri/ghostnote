@@ -33,12 +33,13 @@ import {
   AddressUnresolvedError, CONTRACT_TAG, InvalidOpError, NOTE_PROP_FIDELITY,
   ParameterValueUnrepresentableError,
   StaleAddressError, addressKey, addressScene, addressTrack, assertDevicesRoutable, assertOpsWritable,
-  blindSpotError, clipMetadata as clipMetadataAt, deltaComplete,
+  ClipSnapshotRefusedError, blindSpotError, clipMetadata as clipMetadataAt, deltaComplete,
   discreteNormalizedValues, discreteValueIsRepresentable, exactClipColor, failures, notes as notesAt,
   param as paramAt, noteReadCell,
   type Address, type AdapterInfo, type BitwigAdapter, type ContentDelta, type NoteRecord,
-  type ClipMetadataState, type Op, type RevisionMark, type Snapshot,
+  type ClipMetadataState, type ClipSnapshotRef, type Op, type RevisionMark, type Snapshot,
 } from '../contract/index.js';
+import { readWithClipSnapshots } from './clip-snapshots.js';
 import { labelTarget, worstOf } from './fidelity.js';
 import { floorRefusal, gateBeforeReading, ownChangesetReversal, type Clearance } from './floor.js';
 import { NO_MINT_NO_INVERSE, revertOps, type RevertPlan, type Unrestored } from './revert.js';
@@ -83,6 +84,12 @@ export interface RunOptions {
   readonly ifRevision?: number;
   /** Fresh scalar cohort state. It replaces duplicate resolve and stash reads. */
   readonly parameterPreflight?: Snapshot;
+  /**
+   * D32 snapshot references. The stash read reads each referenced clip, and
+   * any verdict other than `current` refuses the whole batch before the
+   * labels, the floor, and any host mutation (`ClipSnapshotRefusedError`).
+   */
+  readonly ifSnapshot?: readonly ClipSnapshotRef[];
 }
 
 /** What a revert did, and what it could not do (D5). */
@@ -219,6 +226,10 @@ export class Executor {
     const risk = structuralRisk(ops);
 
     const supplied = options.parameterPreflight;
+    const refs = options.ifSnapshot ?? [];
+    if (supplied !== undefined && refs.length > 0) {
+      throw new InvalidOpError('parameter cohort', 'a snapshot guard needs the executor stash read');
+    }
     if (supplied === undefined) {
       await this.timed('resolve', () => this.assertResolvable(addresses));
     } else {
@@ -230,7 +241,7 @@ export class Executor {
         );
       }
     }
-    const stash = supplied ?? await this.timed('stash', () => this.adapter.read(addresses));
+    const stash = supplied ?? await this.timed('stash', () => this.readStash(addresses, refs));
     this.assertVisible(stash);
     this.assertClipsExist(ops, stash);
     this.assertOwnedNotePreconditions(ops, stash);
@@ -370,6 +381,32 @@ export class Executor {
       ],
       unverified, ...seen,
     });
+  }
+
+  /**
+   * The stash read. With D32 references, the same adapter read covers each
+   * referenced clip, and the verdicts are checked before anything else uses
+   * the stash. The stash keeps only the write-set entries.
+   */
+  private async readStash(addresses: readonly Address[], refs: readonly ClipSnapshotRef[]): Promise<Snapshot> {
+    if (refs.length === 0) return this.adapter.read(addresses);
+    const adapter = this.adapter;
+    const { read, verdicts } = await readWithClipSnapshots({
+      mark: () => adapter.revision(),
+      read: (selection, options) => adapter.read(selection, options),
+      contentSince: (since) => adapter.contentSince(since),
+    }, refs, addresses);
+    if (verdicts.some((item) => item.verdict !== 'current')) throw new ClipSnapshotRefusedError(verdicts);
+    const keys = new Set(addresses.map(addressKey));
+    const kept = (address: Address): boolean => keys.has(addressKey(address));
+    return {
+      contract: read.contract,
+      at: read.at,
+      entries: Object.fromEntries(Object.entries(read.entries).filter(([key]) => keys.has(key))),
+      missing: read.missing.filter(kept),
+      unreachable: read.unreachable.filter(kept),
+      unstable: read.unstable.filter(kept),
+    };
   }
 
   /**

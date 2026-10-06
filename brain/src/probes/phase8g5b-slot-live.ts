@@ -1,3 +1,5 @@
+// 8h3e removed the research wire or rig configuration that this live driver uses. Live use needs the
+// earlier research build of its own session. Its retained artifacts and offline checks do not need a host.
 /**
  * 8g5b live occupancy controls. Each trial compares published occupancy with an
  * independent settled slot scan. Research only; nothing becomes eligible.

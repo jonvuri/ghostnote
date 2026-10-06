@@ -19,7 +19,7 @@ import assert from 'node:assert/strict';
 import {
   AddressUnresolvedError, CONTRACT_VERSION, InvalidOpError, RuntimeProfileMismatchError, addressKey, chain as chainAt, clip, clipMetadata, device as deviceAt, deviceEnabled,
   deviceIn as deviceInAt, deviceSlot,
-  drumPad, notes as notesAt, param, remote, remotes, scene, slot, track,
+  drumPad, notes as notesAt, param, remote, remotes, scene, slot, snapshotAddresses, track,
   type ClipAddress, type NoteRecord, type RevisionMark, type TrackAddress,
 } from '../../contract/index.js';
 import { BridgeError } from '../../client.js';
@@ -161,7 +161,9 @@ class CursorModelTransport implements Transport {
           const column = fields.indexOf(name);
           return raw.subarray(column * 16 * 8, (column + 1) * 16 * 8);
         }));
-        return { readId: 1, frame: { format: 'notes-v1', count: 16, from: 0, size: 16, next: -1,
+        return { readId: 1, bound: { channelId: CHANNEL_ID, row: params['row'], loopStartBeats: 0,
+          loopEndBeats: model.lengthBeats, playStopBeats: model.lengthBeats },
+        frame: { format: 'notes-v1', count: 16, from: 0, size: 16, next: -1,
           columns: fields.map((name) => numeric.includes(name) ? [name, 'raw', 'f64'] : [name, 'const']),
           constants, tables: {}, data: data.toString('base64') } };
       }
@@ -382,6 +384,27 @@ test('8b: the handshake refuses a different runtime profile', async () => {
     expectRuntimeProfile: 'phase-8-probe-v1',
   });
   await assert.rejects(adapter.hello(), RuntimeProfileMismatchError);
+});
+
+test('8h3e: a source read fingerprints the same capture and the raw metadata', async () => {
+  const transport = new CursorModelTransport(new Map([[0, { lengthBeats: 16, pitch: 60 }], [1, { lengthBeats: 16, pitch: 62 }]]));
+  const adapter = new UntimedAdapter({ transport });
+  await adapter.hello();
+  const addresses = Array.from({ length: 16 }, (_, channel) => notesAt(CLIP(0), channel));
+  const snapshot = await adapter.read(addresses, { sources: [CLIP(0), CLIP(1)] });
+  assert.equal(transport.frames.filter((frame) => frame.method === WIRE.clipRead).length, 2);
+  const first = snapshot.sources?.[addressKey(CLIP(0))];
+  const second = snapshot.sources?.[addressKey(CLIP(1))];
+  assert.equal(first?.domain, 'ghostnote-launcher-source/1');
+  assert.match(first?.sha256 ?? '', /^[0-9a-f]{64}$/);
+  assert.notEqual(first?.sha256, second?.sha256);
+  const again = await adapter.read([], { sources: [CLIP(0)] });
+  assert.equal(again.sources?.[addressKey(CLIP(0))]?.sha256, first?.sha256);
+  assert.equal(Object.keys((await adapter.read(addresses)).sources ?? {}).length, 0);
+  // One snapshot read points and reads metadata once for each clip.
+  const before = transport.frames.filter((frame) => frame.method === WIRE.cursorClipMetadata).length;
+  await adapter.read([...snapshotAddresses(CLIP(0)), ...snapshotAddresses(CLIP(1))], { sources: [CLIP(0), CLIP(1)] });
+  assert.equal(transport.frames.filter((frame) => frame.method === WIRE.cursorClipMetadata).length - before, 2);
 });
 
 test('8h3c: reads use one 1/512 capture for all channels and keep the occupied cell', async () => {

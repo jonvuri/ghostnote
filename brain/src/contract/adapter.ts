@@ -70,6 +70,15 @@ export interface BatchRequest {
 }
 
 /** Result of one explicit request to focus Bitwig's editor on a launcher clip. */
+/** Optional read work. An adapter that cannot do it refuses; it never omits it silently. */
+export interface ReadOptions {
+  /**
+   * Capture the D32 source fingerprint of these clips in the same read
+   * (`Snapshot.sources`). Each clip is read once for all channels.
+   */
+  readonly sources?: readonly ClipAddress[];
+}
+
 export interface ClipNavigationResult {
   readonly navigated: boolean;
   readonly layoutRequested: 'EDIT';
@@ -118,7 +127,7 @@ export interface BitwigAdapter {
    * primitive — one method, because they are the same operation at different
    * moments, which is also why the stash doubles as Phase 3's diff source (§8f).
    */
-  read(sel: readonly Address[]): Promise<Snapshot>;
+  read(sel: readonly Address[], options?: ReadOptions): Promise<Snapshot>;
 
   /** The only write path. Resolves on COMPLETION, not acceptance — see stages.ts. */
   apply(batch: BatchRequest): Promise<BatchReceipt>;

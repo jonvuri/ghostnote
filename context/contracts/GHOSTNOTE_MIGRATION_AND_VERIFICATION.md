@@ -2,7 +2,7 @@
 title: Ghostnote Document 1.0 migration and verification
 kind: reference
 state: active
-updated: 2026-10-01
+updated: 2026-10-06
 scope: 8f3 target contract; implementation gates for 8g, 8h, 8i, and 9b
 ---
 
@@ -68,34 +68,25 @@ candidate only if it proves cell ownership and excludes same-pitch collateral
 changes. Independent post-write evidence detects silent host defaults, wrong
 rows, lost properties, and truncation. A take stores observed state under D8.
 
-## Conditional cache authority
+## Pull snapshot authority
 
-8g is shadow-only. Its snapshots cannot authorize product writes. 8h can promote
-a snapshot to preflight only after the corresponding shadow cases pass and the
-following facts all match:
+8h3e replaced conditional cache authority with pull snapshots
+([D32](../decisions/d32-pull-snapshot-references-use-the-revision-mark.md)).
+There is no resident cache. Every preflight is a fresh read through the 8h3c
+cold reader, and every verification is an independent fresh read. A D32
+snapshot reference guards an agent base: the revision mark, the durable
+address, and the `ghostnote-launcher-source/1` digest. The executor checks it
+at its stash read. Only a `current` verdict lets the write continue; every
+other verdict refuses before a host mutation, and only `stale` returns the new
+snapshot. The [pull snapshot contract](GHOSTNOTE_CACHE_CONTRACT.md) has the
+verdict table and limits.
 
-- project generation, structure epochs, logical clip reference, and current
-  resolved address;
-- content generation and the current source/content guard;
-- requested span, all required channels, property coverage, metadata, and
-  insertion defaults;
-- healthy immutable state with no outstanding dirty work, unresolved callbacks,
-  invalid binding, overflow, or incomplete enrichment; and
-- the write's risk class and preservation/reversal scope.
-
-Check these facts again at application. A snapshot has no time-to-live exception
-for a pending invalidation. Preparation can share this same immutable authority
-with preflight; it cannot call a partial model document a complete host stash.
+Preparation and preflight share one fresh read only inside one executor call.
 Whole-clip replacement still requires exact protection of the captured source.
-If a cache retains only normalized timing, acquire the separate exact protection
-state or refuse/revert to the current path. Normalized agreement does not prove
-exact replay of sub-cell source values.
-
-On any failed eligibility check, acquire the declared settled fallback or refuse
-with a reason. 8h must measure saved reads against equivalent workloads. Keep
-post-write independent evidence. The
-[verification ledger](../evidence/format/WORKSTATION_VERIFICATION.md) records the
-existing costs and failures; it is not a new cache latency promise.
+Normalized agreement does not prove exact replay of sub-cell source values.
+On a failed read, refuse with a reason. Keep post-write independent evidence.
+The [verification ledger](../evidence/format/WORKSTATION_VERIFICATION.md)
+records the existing costs and failures.
 
 ## Format disposition and value migration
 
@@ -165,10 +156,10 @@ readback, and reversal reductions still require the specified live evidence.
 | Decision | Required amendment or retained boundary | Gate and evidence |
 |---|---|---|
 | D21 | Select one guarded document edit limb for the target surface. Keep v1 generation/transformation as compatibility. Limit overlap shortening to the old operation grammar; the document preserves overlap, and the host refuses an unrepresentable write | D25 and R04/R09 select the contract. 8f3 binding corpus and 8h compatibility/live corpus must pass before the tools migrate |
-| D16a | Qualify the rejection of synthetic clip identity: an internal session reference is permitted as a revocable cache handle; it is not durable host identity or independent write authority | E133/E134 lifecycle evidence, explicit restart/ambiguity refusal, and 8g stale-binding/project-generation cases |
+| D16a | Qualify the rejection of synthetic clip identity: an internal session reference is permitted as a revocable handle; it is not durable host identity or independent write authority | D32 snapshot references and the E233 verdict cases: reload, project change, and ambiguity refuse |
 | D8 and D16e | Add the normalized public boundary separately from exact checkpoint protection. Permit targeted protection only for the proved E128 insertion/removal class; complete clear/replay retains all-channel protection | D23, R07, binding loss cases, 8g shadow equality, then 8h exact targeted inverse and concurrent-change refusal. Do not reduce reversal fidelity to normalized equality |
 | D9 | Retain current encoder units, chooser, measured binary/triplet family, duration quantization, waits, and create/property staging | Document normalization is explicit at acquisition/import. Codec conversion never quantizes. No encoder amendment is needed to serialize or write represented 1/512 values |
-| D15 | Retain independent evidence and validation before host calls | A promoted cache may replace fresh preflight work after proof; it does not replace independent post-write evidence |
+| D15 | Retain independent evidence and validation before host calls | Every preflight is a fresh read (D32); nothing replaces independent post-write evidence |
 | D23 and D25 | Retain one normalized cell plane, explicit sub-cell collision boundary, exact rational overlays, and one semantic model | Do not add a second acquisition grid or promise publication/source losslessness |
 | D19 | Clarify no Ghostnote reversal ownership for reads, navigation, ephemeral effects, or UI actions | 8h result/ownership migration tests and 8i hybrid trials |
 
@@ -178,24 +169,25 @@ inventory cannot authorize container creation or removal through a benign edit.
 
 ## Migration order and rollback
 
-1. 8g implements the cache in shadow mode. Keep E131 and stable-v1 authority.
+1. Complete: 8g implemented the cache in shadow mode (E224). 8h3c replaced
+   E131 with the cold reader (E230), and 8h3e removed the shadow cache (E233).
 2. 8h adds codec I/O and the checked binding behind a separate profile/flag.
    Pass complete, sparse, default, partial, overlay, ambiguity, and migration
    fixtures before exposing the replacement.
-3. Promote read-only healthy snapshots, then repeated reads, then eligible
-   preflight, then shared preparation. Each stage has its own comparison and
-   live gate. Keep exact fallback for uncovered or unhealthy state.
+3. Void: there is no resident cache to promote. Every read and preflight is a
+   fresh read, and a D32 reference guards an agent base. 8h4 exposes it on the
+   stable surface with its own comparison and live gate.
 4. Meet the recorded decision gates before behavior changes. Remove auto-capture
    coupling before retiring observation workflow tools. Retain stored readers.
 5. Migrate public names only after the replacement owns the required behavior.
    Measure the actual schemas and profile identity; do not edit frozen goldens.
 6. 8i runs fresh bounded trials using the versioned model reference. Cover a
    complete desired state, a sparse edit, nominal/groove use, stale overlay,
-   repeated cache read, structure change, UI reacquisition, and a refusal.
+   a stale snapshot reference, structure change, UI reacquisition, and a refusal.
 
 Rollback disables only the failed promotion stage and selects the prior proved
-read/write route. Invalidate incompatible cache bindings and proposal handles;
-reacquire source before reapplying a request. Retain change records and owned
+read/write route. Invalidate incompatible snapshot references and proposal
+handles; reacquire source before reapplying a request. Retain change records and owned
 inverse data. Rolling back a profile does not undo project writes. Reconcile
 partial effects and use guarded directed reversal when requested. Keep model
 reference/codec/profile versions paired. No silent reinterpretation of old

@@ -1,3 +1,5 @@
+// 8h3e removed the research wire or rig configuration that this live driver uses. Live use needs the
+// earlier research build of its own session. Its retained artifacts and offline checks do not need a host.
 /** E139: install and restore probe-only cache scale configuration. */
 import { access, readFile, unlink, writeFile } from 'node:fs/promises';
 import { homedir } from 'node:os';

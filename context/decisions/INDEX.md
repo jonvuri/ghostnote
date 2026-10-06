@@ -2,7 +2,7 @@
 title: Decision index
 kind: index
 state: active
-updated: 2026-10-03
+updated: 2026-10-06
 ---
 
 # Decision index
@@ -42,6 +42,8 @@ with the original decision heading and preserves its amendments and rationale.
 | D28 | Complete slot-occupancy delivery is a named assumption **[SETTLED 2026-10-03]** | [open](d28-slot-occupancy-delivery-is-a-named-assumption.md) |
 | D29 | A saved anchor project replaces protected New 3 **[SETTLED 2026-10-05]** | [open](d29-saved-anchor-project-replaces-protected-new-3.md) |
 | D30 | Replay batch and start signal are named assumptions **[SETTLED 2026-10-05]** | [open](d30-replay-batch-and-start-signal-are-named-assumptions.md) |
+| D31 | Mutation and reversal use the D23 cell boundary **[SETTLED 2026-10-05]** | [open](d31-mutation-and-reversal-use-the-d23-cell-boundary.md) |
+| D32 | Pull snapshot references use the revision mark **[SETTLED 2026-10-06]** | [open](d32-pull-snapshot-references-use-the-revision-mark.md) |
 
 ## Phase 4 closeout audit
 

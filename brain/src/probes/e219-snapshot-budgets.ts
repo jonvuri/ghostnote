@@ -1,3 +1,5 @@
+// 8h3e removed the research wire or rig configuration that this live driver uses. Live use needs the
+// earlier research build of its own session. Its retained artifacts and offline checks do not need a host.
 /**
  * E219 (8g3) live driver: snapshot budget equality and excess at the selected
  * 16 MiB estimate, combined working sets with eviction and recovery, interrupted

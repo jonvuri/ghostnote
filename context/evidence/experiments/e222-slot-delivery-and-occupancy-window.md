@@ -37,14 +37,14 @@ clip with no callback. Thus occupancy claims and identity claims stay separate.
 
 ## Implementation
 
-[`SlotDeltaWindow`](../../../extension/src/main/java/com/ghostnote/extension/SlotDeltaWindow.java)
+`SlotDeltaWindow`
 holds the init nonce, the delivered identity epoch, a structure-callback count,
 and a slot-callback count. The live source reads the existing `Rig` counter of
 `addHasContentObserver` callbacks on the flat `ALL_CHANNELS` bank. Structure
 callbacks are the 8g5a topology sequence plus scene count changes. The counters
 make no host reads.
 
-[`ShadowCacheProbe`](../../../extension/src/main/java/com/ghostnote/extension/ShadowCacheProbe.java)
+`ShadowCacheProbe`
 opens the window before the first slot read. After the final slot read, the read
 callback schedules a zero-delay confirmation. Under D27 it runs after the rest
 of the batch. A later poll admits occupancy only if the read is confirmed and
