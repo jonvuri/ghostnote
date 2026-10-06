@@ -19,10 +19,10 @@ import { Executor } from '../engine/executor.js';
 const RECORDED_PAGE = 131_072;
 
 type Wire = Record<string, any>;
-interface Call { method: string; params?: Wire; sent: number; received: number; bytes: number; reply: Wire; wire: string }
+export interface Call { method: string; params?: Wire; sent: number; received: number; bytes: number; reply: Wire; wire: string }
 
 /** Record full response bytes, including JSON-RPC framing and queuedMs. */
-class WireTransport implements Transport {
+export class WireTransport implements Transport {
   private socket?: net.Socket;
   private buffer = '';
   private serial = 0;

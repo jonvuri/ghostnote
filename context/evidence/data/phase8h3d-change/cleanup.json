@@ -1,0 +1,2721 @@
+{
+ "schema": "phase8h3d-cleanup-v1",
+ "released": {
+  "revision": "8h3d-watch-v1",
+  "complete": false,
+  "eligible": false,
+  "count": 32,
+  "binding": false,
+  "strayCallbacks": 16,
+  "watching": 0,
+  "stale": 0,
+  "watches": [
+   {
+    "index": 0,
+    "phase": "released",
+    "reason": "",
+    "trackId": "d69ef383-51d6-498b-ba8b-ae50cf6bbb42",
+    "row": 0,
+    "subscribed": false,
+    "binds": 3,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 168.995208,
+    "confirmMs": 192.837083,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      56,
+      0,
+      76
+     ],
+     "restored": true
+    }
+   },
+   {
+    "index": 1,
+    "phase": "released",
+    "reason": "",
+    "trackId": "d7b36103-24b0-4348-a4dc-38855e79ab61",
+    "row": 0,
+    "subscribed": false,
+    "binds": 2,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 116.832916,
+    "confirmMs": 140.575416,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      56,
+      0,
+      76
+     ],
+     "restored": true
+    }
+   },
+   {
+    "index": 2,
+    "phase": "released",
+    "reason": "",
+    "trackId": "80a94904-3fde-44c4-9078-bbf770c8c253",
+    "row": 0,
+    "subscribed": false,
+    "binds": 2,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 96.064833,
+    "confirmMs": 119.796042,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      62,
+      0,
+      62
+     ],
+     "restored": true
+    }
+   },
+   {
+    "index": 3,
+    "phase": "released",
+    "reason": "",
+    "trackId": "3b1f08f0-763c-4eff-93e0-ac7c39d5d52e",
+    "row": 0,
+    "subscribed": false,
+    "binds": 2,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 170.185833,
+    "confirmMs": 194.384042,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      62,
+      0,
+      62
+     ],
+     "restored": true
+    }
+   },
+   {
+    "index": 4,
+    "phase": "released",
+    "reason": "",
+    "trackId": "f71e39fd-4ee3-4bfc-a7c0-a908c38d213d",
+    "row": 0,
+    "subscribed": false,
+    "binds": 2,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 142.811333,
+    "confirmMs": 167.025291,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      62,
+      0,
+      62
+     ],
+     "restored": true
+    }
+   },
+   {
+    "index": 5,
+    "phase": "released",
+    "reason": "",
+    "trackId": "f64f546c-c254-49f9-9a73-558e811a59a5",
+    "row": 0,
+    "subscribed": false,
+    "binds": 2,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 143.622708,
+    "confirmMs": 168.569375,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      62,
+      0,
+      62
+     ],
+     "restored": true
+    }
+   },
+   {
+    "index": 6,
+    "phase": "released",
+    "reason": "",
+    "trackId": "bebe36f7-1839-476f-98a7-afe92ccedb19",
+    "row": 0,
+    "subscribed": false,
+    "binds": 2,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 144.770708,
+    "confirmMs": 168.284708,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      62,
+      0,
+      62
+     ],
+     "restored": true
+    }
+   },
+   {
+    "index": 7,
+    "phase": "released",
+    "reason": "",
+    "trackId": "cecfe7e5-1715-49ff-beb3-ee5c44628417",
+    "row": 0,
+    "subscribed": false,
+    "binds": 2,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 121.466042,
+    "confirmMs": 144.640708,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      62,
+      0,
+      62
+     ],
+     "restored": true
+    }
+   },
+   {
+    "index": 8,
+    "phase": "released",
+    "reason": "",
+    "trackId": "df6c1248-5e9e-4d29-8a64-bf928773e21b",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 94.369209,
+    "confirmMs": 117.465167,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      62,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 9,
+    "phase": "released",
+    "reason": "",
+    "trackId": "c4257dc7-61af-43d2-bea8-e6e51f9cc3a5",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 95.624,
+    "confirmMs": 119.979666,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      55,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 10,
+    "phase": "released",
+    "reason": "",
+    "trackId": "564c28fd-0e1f-471a-bd9e-ea7dea382cd9",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 95.897916,
+    "confirmMs": 118.849375,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      54,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 11,
+    "phase": "released",
+    "reason": "",
+    "trackId": "269f35c2-ac55-485d-9b89-edcef8f06ca2",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 94.731458,
+    "confirmMs": 117.274666,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      53,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 12,
+    "phase": "released",
+    "reason": "",
+    "trackId": "33b77257-63f2-4bc2-adff-229c3645701c",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 94.376959,
+    "confirmMs": 117.797709,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      52,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 13,
+    "phase": "released",
+    "reason": "",
+    "trackId": "633d8218-a632-421d-a407-585195cea561",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 91.120625,
+    "confirmMs": 113.646167,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      51,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 14,
+    "phase": "released",
+    "reason": "",
+    "trackId": "92ad1761-ce29-487f-9b14-246b6d4b0065",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 93.852958,
+    "confirmMs": 117.173125,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      50,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 15,
+    "phase": "released",
+    "reason": "",
+    "trackId": "2895d7c4-0084-40f5-960c-1119ae16b20a",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 90.826833,
+    "confirmMs": 114.64225,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      49,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 16,
+    "phase": "released",
+    "reason": "",
+    "trackId": "068aa5da-6b88-4bd4-bec1-1bd20f76e4a8",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 91.55375,
+    "confirmMs": 115.27475,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      48,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 17,
+    "phase": "released",
+    "reason": "",
+    "trackId": "87665f30-0156-40aa-b669-c7be6dbc3fcf",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 99.197667,
+    "confirmMs": 122.736458,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      47,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 18,
+    "phase": "released",
+    "reason": "",
+    "trackId": "77557bb3-26c3-47dc-9f39-1ac79a948120",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 92.551959,
+    "confirmMs": 116.004,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      46,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 19,
+    "phase": "released",
+    "reason": "",
+    "trackId": "3fa2aa8e-f857-4990-8405-984d741567de",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 88.783125,
+    "confirmMs": 112.905333,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      45,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 20,
+    "phase": "released",
+    "reason": "",
+    "trackId": "cc65f27e-d0c1-4338-9e4f-225abe4768a5",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 99.745042,
+    "confirmMs": 124.046167,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      44,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 21,
+    "phase": "released",
+    "reason": "",
+    "trackId": "6fa22f42-c095-4a01-b5fb-ad464f3ef492",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 91.76675,
+    "confirmMs": 115.797833,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      43,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 22,
+    "phase": "released",
+    "reason": "",
+    "trackId": "0fa416e9-6348-40f7-9c76-2c2097cb24b5",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 94.804708,
+    "confirmMs": 117.4235,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      42,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 23,
+    "phase": "released",
+    "reason": "",
+    "trackId": "8c6be6a2-8807-4dd9-8441-d111bd1b4f71",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 91.870333,
+    "confirmMs": 116.278125,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      41,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 24,
+    "phase": "released",
+    "reason": "",
+    "trackId": "c06b5d67-f34d-4450-b0d8-502be1cee29e",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 90.967292,
+    "confirmMs": 115.945542,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      40,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 25,
+    "phase": "released",
+    "reason": "",
+    "trackId": "0244f1d0-cda9-46bd-8db6-bc73e4a83baa",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 96,
+    "confirmMs": 120.978458,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      39,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 26,
+    "phase": "released",
+    "reason": "",
+    "trackId": "44ba2833-ecc2-4933-aa58-55eae2a5f42c",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 90.29375,
+    "confirmMs": 113.566875,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      38,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 27,
+    "phase": "released",
+    "reason": "",
+    "trackId": "9842ad22-ba4b-4271-a592-3f5290c9ac73",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 97.520709,
+    "confirmMs": 122.508084,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      37,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 28,
+    "phase": "released",
+    "reason": "",
+    "trackId": "2c4bc416-91ef-4c52-80af-95b7c05b07a9",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 92.236625,
+    "confirmMs": 116.073417,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      36,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 29,
+    "phase": "released",
+    "reason": "",
+    "trackId": "31709401-4e74-4430-8e46-a56fff9330e0",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 98.65625,
+    "confirmMs": 121.270875,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      35,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 30,
+    "phase": "released",
+    "reason": "",
+    "trackId": "590aa861-3bac-4858-b1dc-ec288b7cd8e0",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 92.999375,
+    "confirmMs": 116.264125,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      34,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 31,
+    "phase": "released",
+    "reason": "",
+    "trackId": "4ead6d89-34d9-4420-b61a-3905621f1695",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 64,
+    "changesSinceMark": 64,
+    "stale": true,
+    "firstChangeAgoMs": 22685.665584,
+    "lastChangeAgoMs": 22685.655,
+    "closeMs": 91.343542,
+    "confirmMs": 115.039625,
+    "callbacks": 32706,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 64,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [
+     [
+      10279,
+      24,
+      0,
+      2,
+      22685.665584
+     ],
+     [
+      10280,
+      24,
+      0,
+      1,
+      22685.664667
+     ],
+     [
+      10281,
+      24,
+      0,
+      1,
+      22685.664292
+     ],
+     [
+      10282,
+      24,
+      0,
+      1,
+      22685.664084
+     ],
+     [
+      10283,
+      24,
+      0,
+      1,
+      22685.663917
+     ],
+     [
+      10284,
+      24,
+      0,
+      1,
+      22685.66375
+     ],
+     [
+      10285,
+      24,
+      0,
+      1,
+      22685.663667
+     ],
+     [
+      10286,
+      24,
+      0,
+      1,
+      22685.663584
+     ],
+     [
+      10287,
+      24,
+      0,
+      1,
+      22685.6635
+     ],
+     [
+      10288,
+      24,
+      0,
+      1,
+      22685.663417
+     ],
+     [
+      10289,
+      24,
+      0,
+      1,
+      22685.663375
+     ],
+     [
+      10290,
+      24,
+      0,
+      1,
+      22685.662959
+     ],
+     [
+      10291,
+      24,
+      0,
+      1,
+      22685.662875
+     ],
+     [
+      10292,
+      24,
+      0,
+      1,
+      22685.662709
+     ],
+     [
+      10293,
+      24,
+      0,
+      1,
+      22685.662625
+     ],
+     [
+      10294,
+      24,
+      0,
+      1,
+      22685.662542
+     ],
+     [
+      10295,
+      24,
+      0,
+      1,
+      22685.662292
+     ],
+     [
+      10296,
+      24,
+      0,
+      1,
+      22685.662209
+     ],
+     [
+      10297,
+      24,
+      0,
+      1,
+      22685.662125
+     ],
+     [
+      10298,
+      24,
+      0,
+      1,
+      22685.662042
+     ],
+     [
+      10299,
+      24,
+      0,
+      1,
+      22685.661917
+     ],
+     [
+      10300,
+      24,
+      0,
+      1,
+      22685.661834
+     ],
+     [
+      10301,
+      24,
+      0,
+      1,
+      22685.661709
+     ],
+     [
+      10302,
+      24,
+      0,
+      1,
+      22685.65875
+     ],
+     [
+      10303,
+      24,
+      0,
+      1,
+      22685.658667
+     ],
+     [
+      10304,
+      24,
+      0,
+      1,
+      22685.658584
+     ],
+     [
+      10305,
+      24,
+      0,
+      1,
+      22685.658542
+     ],
+     [
+      10306,
+      24,
+      0,
+      1,
+      22685.658375
+     ],
+     [
+      10307,
+      24,
+      0,
+      1,
+      22685.658334
+     ],
+     [
+      10308,
+      24,
+      0,
+      1,
+      22685.65825
+     ],
+     [
+      10309,
+      24,
+      0,
+      1,
+      22685.658167
+     ],
+     [
+      10310,
+      24,
+      0,
+      1,
+      22685.658084
+     ]
+    ],
+    "selection": {
+     "entry": [
+      33,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   }
+  ]
+ },
+ "after": {
+  "tracks": [
+   {
+    "index": 0,
+    "name": "Inst 1",
+    "position": 0,
+    "type": "Instrument",
+    "channelId": "9eaf2efa-f80d-4be9-a2ff-af7d50f46383"
+   },
+   {
+    "index": 1,
+    "name": "Audio 2",
+    "position": 1,
+    "type": "Audio",
+    "channelId": "8ad98456-ebef-437b-b6ed-a6253577c82d"
+   },
+   {
+    "index": 2,
+    "name": "FX 1",
+    "position": 2,
+    "type": "Effect",
+    "channelId": "8e73d5a5-be3d-42ad-a26f-17d5ac56d7bd"
+   },
+   {
+    "index": 3,
+    "name": "Master",
+    "position": 3,
+    "type": "Master",
+    "channelId": "1ce99e0b-6ce8-48a9-b735-2319f35030a5"
+   }
+  ],
+  "count": 4,
+  "itemCount": 4,
+  "bankSize": 96
+ },
+ "stats": {
+  "runtimeProfile": "phase-8-probe-v1",
+  "config": {
+   "tracks": 96,
+   "scenes": 16,
+   "gridSteps": 64,
+   "gridKeys": 128,
+   "cursorPool": 8,
+   "sends": 4,
+   "deviceBank": 16,
+   "fineSteps": 512,
+   "noteReadSteps": 2048,
+   "paramHandles": 64,
+   "remotePages": 16,
+   "cacheScaleObservers": 0,
+   "cacheScaleSteps": 131072,
+   "cacheScaleWidthSteps": 0,
+   "cacheShadowObservers": 2,
+   "cacheShadowSteps": 4194304,
+   "cacheTopologyTracks": 16,
+   "cacheTopologyCounted": false,
+   "cacheLifecycleResearch": false,
+   "cacheKneeResearch": true,
+   "cacheShadowCursorScenes": 0,
+   "cacheSoundingResearch": false,
+   "deliveryResearch": false,
+   "changeWatchCursors": 32,
+   "contentFilter": "ALL_CHANNELS",
+   "directObservers": true,
+   "stamp": "8h3d-change",
+   "fromFile": true
+  },
+  "rigConstructMicros": 36701,
+  "initMicros": 53843,
+  "initEpochMs": 1791256387437,
+  "upMs": 260895,
+  "clipReader": {
+   "revision": "clip-reader-v1",
+   "closeRule": "confirm-before-release-v1",
+   "format": "notes-v1",
+   "width": 4194304,
+   "grid": 0.001953125,
+   "page": 131072,
+   "deadlineMs": 2000,
+   "reads": 310,
+   "refusals": 0,
+   "lastRefusal": "",
+   "lateCallbacks": 0,
+   "strayCallbacks": 114503,
+   "releaseCallbacks": 4977905,
+   "releaseEmpty": 4977905,
+   "releaseSustain": 0,
+   "releaseOn": 0,
+   "subscribed": false,
+   "open": false,
+   "writeGate": {
+    "readOpen": false,
+    "waiting": 0,
+    "leases": 0,
+    "limit": 256,
+    "queuedTotal": 0,
+    "refusedTotal": 0
+   }
+  },
+  "slotObjects": 1536,
+  "markedValues": 9888,
+  "resources": {
+   "cursorDeviceBanks": 8,
+   "siblingDeviceBanks": 1,
+   "layerDeviceBanks": 8,
+   "slotDeviceBanks": 15,
+   "namedSlotDeviceBanks": 0,
+   "drumPadDeviceBanks": 16,
+   "deviceBanks": 48,
+   "cursorDeviceSlots": 128,
+   "cursorDeviceEnabledValues": 128,
+   "layerDeviceSlots": 32,
+   "slotDeviceSlots": 60,
+   "drumPadDeviceSlots": 256,
+   "namedSlotDeviceSlots": 0,
+   "deviceSlots": 492,
+   "cursorDevices": 1,
+   "specificDeviceViews": 4,
+   "typedParameterHandles": 75,
+   "remotePageCursors": 16,
+   "remoteParameterHandles": 128,
+   "directParameterObservers": 4,
+   "noteObserverCursors": 1,
+   "noteStepObservers": 1,
+   "stepDataObservers": 1,
+   "cacheScaleCursorTracks": 0,
+   "cacheScaleClipProxies": 0,
+   "cacheScaleStepDataObservers": 0,
+   "trackSendBanks": 0,
+   "trackSendHandles": 0,
+   "trackVuObservers": 0,
+   "historicalActionHandles": 0,
+   "historicalSelectionObservers": 0,
+   "equalsProxies": 32,
+   "transportProxies": 1,
+   "masterRecorderProxies": 0,
+   "cursorTracks": 11,
+   "cursorClips": 13,
+   "layerBanks": 4,
+   "layerHandles": 23,
+   "layerSendBanks": 0,
+   "layerSendHandles": 0,
+   "explicitHostObjects": 2503,
+   "observerCallbacks": 359
+  },
+  "heapUsedMb": 1472,
+  "heapMaxMb": 3072
+ },
+ "watch": {
+  "revision": "8h3d-watch-v1",
+  "complete": false,
+  "eligible": false,
+  "count": 32,
+  "binding": false,
+  "strayCallbacks": 16,
+  "watching": 0,
+  "stale": 0,
+  "watches": [
+   {
+    "index": 0,
+    "phase": "released",
+    "reason": "",
+    "trackId": "d69ef383-51d6-498b-ba8b-ae50cf6bbb42",
+    "row": 0,
+    "subscribed": false,
+    "binds": 3,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 168.995208,
+    "confirmMs": 192.837083,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      56,
+      0,
+      76
+     ],
+     "restored": true
+    }
+   },
+   {
+    "index": 1,
+    "phase": "released",
+    "reason": "",
+    "trackId": "d7b36103-24b0-4348-a4dc-38855e79ab61",
+    "row": 0,
+    "subscribed": false,
+    "binds": 2,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 116.832916,
+    "confirmMs": 140.575416,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      56,
+      0,
+      76
+     ],
+     "restored": true
+    }
+   },
+   {
+    "index": 2,
+    "phase": "released",
+    "reason": "",
+    "trackId": "80a94904-3fde-44c4-9078-bbf770c8c253",
+    "row": 0,
+    "subscribed": false,
+    "binds": 2,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 96.064833,
+    "confirmMs": 119.796042,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      62,
+      0,
+      62
+     ],
+     "restored": true
+    }
+   },
+   {
+    "index": 3,
+    "phase": "released",
+    "reason": "",
+    "trackId": "3b1f08f0-763c-4eff-93e0-ac7c39d5d52e",
+    "row": 0,
+    "subscribed": false,
+    "binds": 2,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 170.185833,
+    "confirmMs": 194.384042,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      62,
+      0,
+      62
+     ],
+     "restored": true
+    }
+   },
+   {
+    "index": 4,
+    "phase": "released",
+    "reason": "",
+    "trackId": "f71e39fd-4ee3-4bfc-a7c0-a908c38d213d",
+    "row": 0,
+    "subscribed": false,
+    "binds": 2,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 142.811333,
+    "confirmMs": 167.025291,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      62,
+      0,
+      62
+     ],
+     "restored": true
+    }
+   },
+   {
+    "index": 5,
+    "phase": "released",
+    "reason": "",
+    "trackId": "f64f546c-c254-49f9-9a73-558e811a59a5",
+    "row": 0,
+    "subscribed": false,
+    "binds": 2,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 143.622708,
+    "confirmMs": 168.569375,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      62,
+      0,
+      62
+     ],
+     "restored": true
+    }
+   },
+   {
+    "index": 6,
+    "phase": "released",
+    "reason": "",
+    "trackId": "bebe36f7-1839-476f-98a7-afe92ccedb19",
+    "row": 0,
+    "subscribed": false,
+    "binds": 2,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 144.770708,
+    "confirmMs": 168.284708,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      62,
+      0,
+      62
+     ],
+     "restored": true
+    }
+   },
+   {
+    "index": 7,
+    "phase": "released",
+    "reason": "",
+    "trackId": "cecfe7e5-1715-49ff-beb3-ee5c44628417",
+    "row": 0,
+    "subscribed": false,
+    "binds": 2,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 121.466042,
+    "confirmMs": 144.640708,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      62,
+      0,
+      62
+     ],
+     "restored": true
+    }
+   },
+   {
+    "index": 8,
+    "phase": "released",
+    "reason": "",
+    "trackId": "df6c1248-5e9e-4d29-8a64-bf928773e21b",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 94.369209,
+    "confirmMs": 117.465167,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      62,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 9,
+    "phase": "released",
+    "reason": "",
+    "trackId": "c4257dc7-61af-43d2-bea8-e6e51f9cc3a5",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 95.624,
+    "confirmMs": 119.979666,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      55,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 10,
+    "phase": "released",
+    "reason": "",
+    "trackId": "564c28fd-0e1f-471a-bd9e-ea7dea382cd9",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 95.897916,
+    "confirmMs": 118.849375,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      54,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 11,
+    "phase": "released",
+    "reason": "",
+    "trackId": "269f35c2-ac55-485d-9b89-edcef8f06ca2",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 94.731458,
+    "confirmMs": 117.274666,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      53,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 12,
+    "phase": "released",
+    "reason": "",
+    "trackId": "33b77257-63f2-4bc2-adff-229c3645701c",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 94.376959,
+    "confirmMs": 117.797709,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      52,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 13,
+    "phase": "released",
+    "reason": "",
+    "trackId": "633d8218-a632-421d-a407-585195cea561",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 91.120625,
+    "confirmMs": 113.646167,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      51,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 14,
+    "phase": "released",
+    "reason": "",
+    "trackId": "92ad1761-ce29-487f-9b14-246b6d4b0065",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 93.852958,
+    "confirmMs": 117.173125,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      50,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 15,
+    "phase": "released",
+    "reason": "",
+    "trackId": "2895d7c4-0084-40f5-960c-1119ae16b20a",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 90.826833,
+    "confirmMs": 114.64225,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      49,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 16,
+    "phase": "released",
+    "reason": "",
+    "trackId": "068aa5da-6b88-4bd4-bec1-1bd20f76e4a8",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 91.55375,
+    "confirmMs": 115.27475,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      48,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 17,
+    "phase": "released",
+    "reason": "",
+    "trackId": "87665f30-0156-40aa-b669-c7be6dbc3fcf",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 99.197667,
+    "confirmMs": 122.736458,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      47,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 18,
+    "phase": "released",
+    "reason": "",
+    "trackId": "77557bb3-26c3-47dc-9f39-1ac79a948120",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 92.551959,
+    "confirmMs": 116.004,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      46,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 19,
+    "phase": "released",
+    "reason": "",
+    "trackId": "3fa2aa8e-f857-4990-8405-984d741567de",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 88.783125,
+    "confirmMs": 112.905333,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      45,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 20,
+    "phase": "released",
+    "reason": "",
+    "trackId": "cc65f27e-d0c1-4338-9e4f-225abe4768a5",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 99.745042,
+    "confirmMs": 124.046167,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      44,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 21,
+    "phase": "released",
+    "reason": "",
+    "trackId": "6fa22f42-c095-4a01-b5fb-ad464f3ef492",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 91.76675,
+    "confirmMs": 115.797833,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      43,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 22,
+    "phase": "released",
+    "reason": "",
+    "trackId": "0fa416e9-6348-40f7-9c76-2c2097cb24b5",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 94.804708,
+    "confirmMs": 117.4235,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      42,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 23,
+    "phase": "released",
+    "reason": "",
+    "trackId": "8c6be6a2-8807-4dd9-8441-d111bd1b4f71",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 91.870333,
+    "confirmMs": 116.278125,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      41,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 24,
+    "phase": "released",
+    "reason": "",
+    "trackId": "c06b5d67-f34d-4450-b0d8-502be1cee29e",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 90.967292,
+    "confirmMs": 115.945542,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      40,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 25,
+    "phase": "released",
+    "reason": "",
+    "trackId": "0244f1d0-cda9-46bd-8db6-bc73e4a83baa",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 96,
+    "confirmMs": 120.978458,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      39,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 26,
+    "phase": "released",
+    "reason": "",
+    "trackId": "44ba2833-ecc2-4933-aa58-55eae2a5f42c",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 90.29375,
+    "confirmMs": 113.566875,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      38,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 27,
+    "phase": "released",
+    "reason": "",
+    "trackId": "9842ad22-ba4b-4271-a592-3f5290c9ac73",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 97.520709,
+    "confirmMs": 122.508084,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      37,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 28,
+    "phase": "released",
+    "reason": "",
+    "trackId": "2c4bc416-91ef-4c52-80af-95b7c05b07a9",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 92.236625,
+    "confirmMs": 116.073417,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      36,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 29,
+    "phase": "released",
+    "reason": "",
+    "trackId": "31709401-4e74-4430-8e46-a56fff9330e0",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 98.65625,
+    "confirmMs": 121.270875,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      35,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 30,
+    "phase": "released",
+    "reason": "",
+    "trackId": "590aa861-3bac-4858-b1dc-ec288b7cd8e0",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 0,
+    "changesSinceMark": 0,
+    "stale": false,
+    "firstChangeAgoMs": -1,
+    "lastChangeAgoMs": -1,
+    "closeMs": 92.999375,
+    "confirmMs": 116.264125,
+    "callbacks": 32642,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 0,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [],
+    "selection": {
+     "entry": [
+      34,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   },
+   {
+    "index": 31,
+    "phase": "released",
+    "reason": "",
+    "trackId": "4ead6d89-34d9-4420-b61a-3905621f1695",
+    "row": 0,
+    "subscribed": false,
+    "binds": 1,
+    "changes": 64,
+    "changesSinceMark": 64,
+    "stale": true,
+    "firstChangeAgoMs": 48448.286125,
+    "lastChangeAgoMs": 48448.275541,
+    "closeMs": 91.343542,
+    "confirmMs": 115.039625,
+    "callbacks": 32706,
+    "onsets": 256,
+    "batches": 1,
+    "duplicates": 0,
+    "afterClose": 64,
+    "afterRelease": 16321,
+    "releaseEmpty": 16321,
+    "samples": [
+     [
+      10279,
+      24,
+      0,
+      2,
+      48448.286125
+     ],
+     [
+      10280,
+      24,
+      0,
+      1,
+      48448.285208
+     ],
+     [
+      10281,
+      24,
+      0,
+      1,
+      48448.284833
+     ],
+     [
+      10282,
+      24,
+      0,
+      1,
+      48448.284625
+     ],
+     [
+      10283,
+      24,
+      0,
+      1,
+      48448.284458
+     ],
+     [
+      10284,
+      24,
+      0,
+      1,
+      48448.284291
+     ],
+     [
+      10285,
+      24,
+      0,
+      1,
+      48448.284208
+     ],
+     [
+      10286,
+      24,
+      0,
+      1,
+      48448.284125
+     ],
+     [
+      10287,
+      24,
+      0,
+      1,
+      48448.284041
+     ],
+     [
+      10288,
+      24,
+      0,
+      1,
+      48448.283958
+     ],
+     [
+      10289,
+      24,
+      0,
+      1,
+      48448.283916
+     ],
+     [
+      10290,
+      24,
+      0,
+      1,
+      48448.2835
+     ],
+     [
+      10291,
+      24,
+      0,
+      1,
+      48448.283416
+     ],
+     [
+      10292,
+      24,
+      0,
+      1,
+      48448.28325
+     ],
+     [
+      10293,
+      24,
+      0,
+      1,
+      48448.283166
+     ],
+     [
+      10294,
+      24,
+      0,
+      1,
+      48448.283083
+     ],
+     [
+      10295,
+      24,
+      0,
+      1,
+      48448.282833
+     ],
+     [
+      10296,
+      24,
+      0,
+      1,
+      48448.28275
+     ],
+     [
+      10297,
+      24,
+      0,
+      1,
+      48448.282666
+     ],
+     [
+      10298,
+      24,
+      0,
+      1,
+      48448.282583
+     ],
+     [
+      10299,
+      24,
+      0,
+      1,
+      48448.282458
+     ],
+     [
+      10300,
+      24,
+      0,
+      1,
+      48448.282375
+     ],
+     [
+      10301,
+      24,
+      0,
+      1,
+      48448.28225
+     ],
+     [
+      10302,
+      24,
+      0,
+      1,
+      48448.279291
+     ],
+     [
+      10303,
+      24,
+      0,
+      1,
+      48448.279208
+     ],
+     [
+      10304,
+      24,
+      0,
+      1,
+      48448.279125
+     ],
+     [
+      10305,
+      24,
+      0,
+      1,
+      48448.279083
+     ],
+     [
+      10306,
+      24,
+      0,
+      1,
+      48448.278916
+     ],
+     [
+      10307,
+      24,
+      0,
+      1,
+      48448.278875
+     ],
+     [
+      10308,
+      24,
+      0,
+      1,
+      48448.278791
+     ],
+     [
+      10309,
+      24,
+      0,
+      1,
+      48448.278708
+     ],
+     [
+      10310,
+      24,
+      0,
+      1,
+      48448.278625
+     ]
+    ],
+    "selection": {
+     "entry": [
+      33,
+      0,
+      62
+     ],
+     "restored": false,
+     "reason": "lease-lost"
+    }
+   }
+  ]
+ }
+}

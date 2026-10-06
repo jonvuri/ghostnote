@@ -96,9 +96,29 @@ public final class ShadowCacheHandlers extends HandlerGroup {
         };
     }
 
+    /** 8h3d change-awareness research. Every reply keeps complete:false and eligible:false. */
+    private JsonElement watch(String operation, JsonObject params) {
+        var watch = rig.changeWatchProbe;
+        if (watch == null) throw new IllegalStateException("change-watch research resources are not allocated");
+        return switch (operation) {
+            case "watchStatus" -> params.has("index") ? watch.status(params.get("index").getAsInt()) : watch.status();
+            case "watchBind" -> watch.bind(params.get("index").getAsInt(), params.get("trackIndex").getAsInt(),
+                params.get("row").getAsInt(), params.get("channelId").getAsString());
+            case "watchMark" -> watch.mark(params.get("index").getAsInt());
+            case "watchRelease" -> watch.release(params.get("index").getAsInt());
+            case "watchValuesBind" -> watch.valuesBind(params.get("trackIndex").getAsInt(), params.get("row").getAsInt(),
+                params.get("channelId").getAsString());
+            case "watchValuesPin" -> watch.valuesPin(params.get("pinned").getAsBoolean());
+            case "watchValuesMark" -> watch.valuesMark();
+            case "watchValuesStatus" -> watch.valuesStatus();
+            default -> throw new IllegalArgumentException("unknown change-watch research operation");
+        };
+    }
+
     private JsonElement dispatch(JsonObject params) {
         String operation = params.get("operation").getAsString();
         if (operation.startsWith("sounding")) return sounding(operation, params);
+        if (operation.startsWith("watch")) return watch(operation, params);
         if (operation.equals("allocationStats")) {
             JsonObject result = new JsonObject();
             result.addProperty("revision", "8h1a-allocation-v1");

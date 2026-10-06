@@ -71,13 +71,15 @@ Reader promotion and remaining sessions, in order:
    ([E230](../../evidence/experiments/e230-cold-reader-promotion.md)): product
    reads and mutation guards use one `1/512` source. Writes queue behind an
    open read. Raw disabled controls survive reconstruction. E131 is diagnostic only.
-3. [8h3d — Change awareness](8h3d-change-awareness.md). Select how Ghostnote
-   tells whether a snapshot is current with no resident grid: pull, or pull
-   with watched clips.
-4. [8h3e — Cache machinery trim and promotion](8h3e-cache-machinery-trim.md).
+3. [8h3d — Change awareness](8h3d-change-awareness.md). Complete
+   ([E231](../../evidence/experiments/e231-change-awareness.md)): pull only.
+   Clip-level values report no note edit; watched clips save only latency.
+4. [8h3c2 — Reader row binding](8h3c2-reader-row-binding.md). The reader
+   binds only the row that its cursor holds for a track (E231). Fix it before 8h3e.
+5. [8h3e — Cache machinery trim and promotion](8h3e-cache-machinery-trim.md).
    Keep identity, generations, and snapshot validity; retire the resident note
    grid.
-5. 8h4 — interface simplification, naming, and device structure migration.
+6. 8h4 — interface simplification, naming, and device structure migration.
 
 ## Purpose
 

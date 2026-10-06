@@ -107,6 +107,8 @@ public class RigConfig {
     public boolean cacheSoundingResearch = false;
     /** Allocate the E216 delivery and coherence recorder in a probe profile. */
     public boolean deliveryResearch = false;
+    /** 8h3d: the count of watched-clip cursors, from 0 through 32. Zero allocates no change-watch research. */
+    public int changeWatchCursors = 0;
     /**
      * ⚠ E16: what the flat track bank is allowed to SEE.
      *
@@ -180,6 +182,7 @@ public class RigConfig {
             if (obj.has("deliveryResearch")) {
                 config.deliveryResearch = obj.get("deliveryResearch").getAsBoolean();
             }
+            config.changeWatchCursors = intOr(obj, "changeWatchCursors", config.changeWatchCursors);
             if (obj.has("contentFilter")) {
                 config.contentFilter = obj.get("contentFilter").getAsString();
             }
@@ -226,6 +229,7 @@ public class RigConfig {
         obj.addProperty("cacheShadowCursorScenes", cacheShadowCursorScenes);
         obj.addProperty("cacheSoundingResearch", cacheSoundingResearch);
         obj.addProperty("deliveryResearch", deliveryResearch);
+        obj.addProperty("changeWatchCursors", changeWatchCursors);
         obj.addProperty("contentFilter", contentFilter);
         obj.addProperty("directObservers", directObservers);
         obj.addProperty("stamp", stamp);

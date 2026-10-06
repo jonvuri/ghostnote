@@ -123,7 +123,8 @@ public class Rig {
     public final ShadowKneeFixture kneeFixture;
     /** 8h1b sounding-cell research: release proxy, coarse sentinel, and resident-cursor census. */
     public final ShadowSoundingProbe soundingProbe;
-    /** 8h2a replay cold-read research: a full-width 1/512 reader proxy. */
+    /** 8h3d change-awareness research: watched clips and clip-level values. Null unless the config requests it. */
+    public final ChangeWatchProbe changeWatchProbe;
     /** 8h3c: the product clip reader. Every profile allocates it. */
     public final ClipReader clipReader;
     /** 8h3c: orders Ghostnote writes behind an open clip read. */
@@ -968,6 +969,8 @@ public class Rig {
             soundingProbe = config.cacheSoundingResearch && kneeFixture != null
                 ? new ShadowSoundingProbe(host, config.cacheShadowSteps, config.scenes) : null;
             if (soundingProbe != null) attachSoundingCursors(config);
+            changeWatchProbe = config.changeWatchCursors > 0
+                ? new ChangeWatchProbe(host, this, config.changeWatchCursors, config.scenes) : null;
             arrangerClip = host.createArrangerCursorClip(config.gridSteps, config.gridKeys);
             markClip(arrangerClip);
         } else {
@@ -981,6 +984,7 @@ public class Rig {
             shadowTopologyControl = null;
             kneeFixture = null;
             soundingProbe = null;
+            changeWatchProbe = null;
             arrangerClip = null;
         }
 

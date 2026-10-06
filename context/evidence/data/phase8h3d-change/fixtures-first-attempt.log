@@ -1,0 +1,20 @@
+{"fixture":"empty-64","ms":1006}
+{"fixture":"one-64","ms":975}
+{"fixture":"final-8192","ms":1002}
+{"fixture":"n4096-64","ms":1312}
+{"fixture":"n16384-512","ms":2360}
+{"fixture":"n4096-8192","ms":1302}
+/Users/jonvuri/Development/ghostnote/brain/src/probes/phase8h3d-change.ts:168
+      rows.push(...decodeNoteFrame(frame, PAGE));
+           ^
+
+RangeError: Maximum call stack size exceeded
+    at read (/Users/jonvuri/Development/ghostnote/brain/src/probes/phase8h3d-change.ts:168:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async state.written.<computed> (/Users/jonvuri/Development/ghostnote/brain/src/probes/phase8h3d-change.ts:207:17)
+    at async until (/Users/jonvuri/Development/ghostnote/brain/src/probes/phase8h3d-change.ts:59:19)
+    at async fixtures (/Users/jonvuri/Development/ghostnote/brain/src/probes/phase8h3d-change.ts:206:5)
+    at async <anonymous> (/Users/jonvuri/Development/ghostnote/brain/src/probes/phase8h3d-change.ts:494:38)
+
+Node.js v24.11.1
+EXIT 1

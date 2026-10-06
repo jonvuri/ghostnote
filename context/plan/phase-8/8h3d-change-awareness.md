@@ -1,16 +1,29 @@
 ---
 title: Phase 8h3d — Change awareness without a resident grid
 kind: plan
-state: planned
-status: Planned. Select how Ghostnote tells whether an agent's clip snapshot is still current, when no note grid stays resident.
-updated: 2026-10-05
+state: complete
+status: Complete. E231 selects pull only. It found a reader row defect; 8h3c2 fixes it before 8h3e.
+updated: 2026-10-06
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h3c-cold-reader-promotion.md
-next: 8h3e-cache-machinery-trim.md
-evidence: E224, E225, E226, E227; D26, D27, D30
+next: 8h3c2-reader-row-binding.md
+evidence: E224, E225, E226, E227, E231; D26, D27, D30
 ---
 
 # Phase 8h3d — Change awareness without a resident grid
+
+## Result
+
+Complete in [E231](../../evidence/experiments/e231-change-awareness.md).
+Pull detected every test edit. No clip, slot, or flat-bank value reported a
+note edit. Watched clips detected every note edit in 24–66 ms, at about
+300 bytes per sounding cell. They save only survey latency, about 200 ms per
+typical clip, not agent work. **Selected design: pull only.** The record
+states the snapshot lifetime and the stale verdict.
+
+The product reader binds only the row that its cursor holds for a track.
+[8h3c2](8h3c2-reader-row-binding.md) fixes this before 8h3e. The surveys and
+watches used single-clip tracks at row 0.
 
 ## Why
 

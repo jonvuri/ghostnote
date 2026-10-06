@@ -1,0 +1,18 @@
+{
+ "schema": "phase8h3d-config-entry-v1",
+ "captured": "2026-10-06T03:12:42.763Z",
+ "originalSha256": "256bbf07094cd654c372d0e5e050e494ef7783c9a0001a0a2a688331bcf643b0",
+ "originalBase64": "eyAicmVjb3JkQ2hhcnMiOiAwLCAic3RhbXAiOiAiZGVmYXVsdCIgfQo=",
+ "research": {
+  "recordChars": 0,
+  "stamp": "8h3d-change",
+  "tracks": 96,
+  "scenes": 16,
+  "contentFilter": "ALL_CHANNELS",
+  "cacheKneeResearch": true,
+  "cacheShadowObservers": 2,
+  "cacheShadowSteps": 4194304,
+  "cacheShadowCursorScenes": 0,
+  "changeWatchCursors": 32
+ }
+}

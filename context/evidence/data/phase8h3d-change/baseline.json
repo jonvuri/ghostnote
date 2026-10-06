@@ -1,0 +1,906 @@
+{
+ "schema": "phase8h3c-baseline-v1",
+ "hello": {
+  "contractVersion": 0,
+  "extensionVersion": "0.0.1",
+  "runtimeProfile": "normal-v1",
+  "hostApiVersion": 25,
+  "methodCount": 87,
+  "methodsHash": "ca139a3e62a55e68"
+ },
+ "mark": {
+  "revision": 0,
+  "generation": "4bb49689-7c41-4a32-a605-2f811c62ac48",
+  "project": "gn-scale-test",
+  "projectStatus": "marked",
+  "sceneEpoch": 2,
+  "sceneCount": 10,
+  "contentEpoch": 32790,
+  "contentEvents": [
+   {
+    "seq": 32767,
+    "channelId": "",
+    "trackIndex": 255,
+    "slotIndex": 126,
+    "filled": false
+   },
+   {
+    "seq": 32768,
+    "channelId": "",
+    "trackIndex": 255,
+    "slotIndex": 127,
+    "filled": false
+   },
+   {
+    "seq": 32769,
+    "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+    "trackIndex": 0,
+    "slotIndex": 2,
+    "filled": true
+   },
+   {
+    "seq": 32770,
+    "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+    "trackIndex": 0,
+    "slotIndex": 4,
+    "filled": true
+   },
+   {
+    "seq": 32771,
+    "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+    "trackIndex": 1,
+    "slotIndex": 1,
+    "filled": true
+   },
+   {
+    "seq": 32772,
+    "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+    "trackIndex": 1,
+    "slotIndex": 2,
+    "filled": true
+   },
+   {
+    "seq": 32773,
+    "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+    "trackIndex": 2,
+    "slotIndex": 0,
+    "filled": true
+   },
+   {
+    "seq": 32774,
+    "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+    "trackIndex": 2,
+    "slotIndex": 1,
+    "filled": true
+   },
+   {
+    "seq": 32775,
+    "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+    "trackIndex": 2,
+    "slotIndex": 2,
+    "filled": true
+   },
+   {
+    "seq": 32776,
+    "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+    "trackIndex": 2,
+    "slotIndex": 3,
+    "filled": true
+   },
+   {
+    "seq": 32777,
+    "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+    "trackIndex": 2,
+    "slotIndex": 4,
+    "filled": true
+   },
+   {
+    "seq": 32778,
+    "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+    "trackIndex": 2,
+    "slotIndex": 5,
+    "filled": true
+   },
+   {
+    "seq": 32779,
+    "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+    "trackIndex": 2,
+    "slotIndex": 6,
+    "filled": true
+   },
+   {
+    "seq": 32780,
+    "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+    "trackIndex": 2,
+    "slotIndex": 7,
+    "filled": true
+   },
+   {
+    "seq": 32781,
+    "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+    "trackIndex": 2,
+    "slotIndex": 8,
+    "filled": true
+   },
+   {
+    "seq": 32782,
+    "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+    "trackIndex": 2,
+    "slotIndex": 9,
+    "filled": true
+   },
+   {
+    "seq": 32783,
+    "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+    "trackIndex": 3,
+    "slotIndex": 0,
+    "filled": true
+   },
+   {
+    "seq": 32784,
+    "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+    "trackIndex": 3,
+    "slotIndex": 5,
+    "filled": true
+   },
+   {
+    "seq": 32785,
+    "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+    "trackIndex": 4,
+    "slotIndex": 0,
+    "filled": true
+   },
+   {
+    "seq": 32786,
+    "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+    "trackIndex": 4,
+    "slotIndex": 1,
+    "filled": true
+   },
+   {
+    "seq": 32787,
+    "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+    "trackIndex": 4,
+    "slotIndex": 2,
+    "filled": true
+   },
+   {
+    "seq": 32788,
+    "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+    "trackIndex": 5,
+    "slotIndex": 0,
+    "filled": true
+   },
+   {
+    "seq": 32789,
+    "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+    "trackIndex": 6,
+    "slotIndex": 0,
+    "filled": true
+   },
+   {
+    "seq": 32790,
+    "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+    "trackIndex": 7,
+    "slotIndex": 0,
+    "filled": true
+   }
+  ]
+ },
+ "tracks": {
+  "tracks": [
+   {
+    "index": 0,
+    "name": "Instrument Layer",
+    "position": 0,
+    "type": "Hybrid",
+    "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+   },
+   {
+    "index": 1,
+    "name": "Hybrid 2",
+    "position": 1,
+    "type": "Hybrid",
+    "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+   },
+   {
+    "index": 2,
+    "name": "gn-A",
+    "position": 2,
+    "type": "Instrument",
+    "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+   },
+   {
+    "index": 3,
+    "name": "gn-B",
+    "position": 3,
+    "type": "Instrument",
+    "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+   },
+   {
+    "index": 4,
+    "name": "Group 5",
+    "position": 4,
+    "type": "Group",
+    "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+   },
+   {
+    "index": 5,
+    "name": "gn-lay",
+    "position": 5,
+    "type": "Instrument",
+    "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+   },
+   {
+    "index": 6,
+    "name": "gn-lay4",
+    "position": 6,
+    "type": "Instrument",
+    "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+   },
+   {
+    "index": 7,
+    "name": "gn-sel",
+    "position": 7,
+    "type": "Instrument",
+    "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+   },
+   {
+    "index": 8,
+    "name": "FX 1",
+    "position": 8,
+    "type": "Effect",
+    "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+   },
+   {
+    "index": 9,
+    "name": "Master",
+    "position": 9,
+    "type": "Master",
+    "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+   }
+  ],
+  "count": 10,
+  "itemCount": 10,
+  "bankSize": 256
+ },
+ "rig": {
+  "runtimeProfile": "normal-v1",
+  "tracks": 256,
+  "scenes": 128,
+  "gridSteps": 64,
+  "fineSteps": 512,
+  "noteReadSteps": 2048,
+  "gridKeys": 128,
+  "stepSize": 0.25,
+  "cursorPool": 8,
+  "deviceBank": 16,
+  "remotePages": 16,
+  "containerScopes": 3,
+  "containerEntryBank": 5,
+  "containerEntryDeviceBank": 4,
+  "parameterRouteDepth": 2,
+  "sceneCount": 10,
+  "clipReader": {
+   "revision": "clip-reader-v1",
+   "closeRule": "confirm-before-release-v1",
+   "format": "notes-v1",
+   "width": 4194304,
+   "grid": 0.001953125,
+   "page": 131072,
+   "deadlineMs": 2000,
+   "reads": 0,
+   "refusals": 0,
+   "lastRefusal": "",
+   "lateCallbacks": 0,
+   "strayCallbacks": 0,
+   "releaseCallbacks": 0,
+   "releaseEmpty": 0,
+   "releaseSustain": 0,
+   "releaseOn": 0,
+   "subscribed": false,
+   "open": false,
+   "writeGate": {
+    "readOpen": false,
+    "waiting": 0,
+    "leases": 0,
+    "limit": 256,
+    "queuedTotal": 0,
+    "refusedTotal": 0
+   }
+  }
+ },
+ "stats": {
+  "runtimeProfile": "normal-v1",
+  "config": {
+   "tracks": 256,
+   "scenes": 128,
+   "gridSteps": 64,
+   "gridKeys": 128,
+   "cursorPool": 8,
+   "sends": 4,
+   "deviceBank": 16,
+   "fineSteps": 512,
+   "noteReadSteps": 2048,
+   "paramHandles": 64,
+   "remotePages": 16,
+   "cacheScaleObservers": 0,
+   "cacheScaleSteps": 131072,
+   "cacheScaleWidthSteps": 0,
+   "cacheShadowObservers": 0,
+   "cacheShadowSteps": 131072,
+   "cacheTopologyTracks": 16,
+   "cacheTopologyCounted": false,
+   "cacheLifecycleResearch": false,
+   "cacheKneeResearch": false,
+   "cacheShadowCursorScenes": -1,
+   "cacheSoundingResearch": false,
+   "deliveryResearch": false,
+   "changeWatchCursors": 0,
+   "contentFilter": "",
+   "directObservers": true,
+   "stamp": "default",
+   "fromFile": true
+  },
+  "rigConstructMicros": 32573,
+  "initMicros": 45792,
+  "initEpochMs": 1791256695343,
+  "upMs": 16973,
+  "clipReader": {
+   "revision": "clip-reader-v1",
+   "closeRule": "confirm-before-release-v1",
+   "format": "notes-v1",
+   "width": 4194304,
+   "grid": 0.001953125,
+   "page": 131072,
+   "deadlineMs": 2000,
+   "reads": 0,
+   "refusals": 0,
+   "lastRefusal": "",
+   "lateCallbacks": 0,
+   "strayCallbacks": 0,
+   "releaseCallbacks": 0,
+   "releaseEmpty": 0,
+   "releaseSustain": 0,
+   "releaseOn": 0,
+   "subscribed": false,
+   "open": false,
+   "writeGate": {
+    "readOpen": false,
+    "waiting": 0,
+    "leases": 0,
+    "limit": 256,
+    "queuedTotal": 0,
+    "refusedTotal": 0
+   }
+  },
+  "slotObjects": 32768,
+  "markedValues": 197888,
+  "resources": {
+   "cursorDeviceBanks": 8,
+   "siblingDeviceBanks": 1,
+   "layerDeviceBanks": 8,
+   "slotDeviceBanks": 15,
+   "namedSlotDeviceBanks": 0,
+   "drumPadDeviceBanks": 16,
+   "deviceBanks": 48,
+   "cursorDeviceSlots": 128,
+   "cursorDeviceEnabledValues": 128,
+   "layerDeviceSlots": 32,
+   "slotDeviceSlots": 60,
+   "drumPadDeviceSlots": 256,
+   "namedSlotDeviceSlots": 0,
+   "deviceSlots": 492,
+   "cursorDevices": 1,
+   "specificDeviceViews": 4,
+   "typedParameterHandles": 75,
+   "remotePageCursors": 16,
+   "remoteParameterHandles": 128,
+   "directParameterObservers": 4,
+   "noteObserverCursors": 1,
+   "noteStepObservers": 1,
+   "stepDataObservers": 0,
+   "cacheScaleCursorTracks": 0,
+   "cacheScaleClipProxies": 0,
+   "cacheScaleStepDataObservers": 0,
+   "trackSendBanks": 0,
+   "trackSendHandles": 0,
+   "trackVuObservers": 0,
+   "historicalActionHandles": 0,
+   "historicalSelectionObservers": 0,
+   "equalsProxies": 32,
+   "transportProxies": 1,
+   "masterRecorderProxies": 0,
+   "cursorTracks": 11,
+   "cursorClips": 11,
+   "layerBanks": 4,
+   "layerHandles": 23,
+   "layerSendBanks": 0,
+   "layerSendHandles": 0,
+   "explicitHostObjects": 33893,
+   "observerCallbacks": 838
+  },
+  "heapUsedMb": 628,
+  "heapMaxMb": 3072
+ },
+ "calls": [
+  {
+   "method": "contract.hello",
+   "sent": 60.502083,
+   "received": 62.531583,
+   "bytes": 184,
+   "reply": {
+    "jsonrpc": "2.0",
+    "id": "1",
+    "result": {
+     "contractVersion": 0,
+     "extensionVersion": "0.0.1",
+     "runtimeProfile": "normal-v1",
+     "hostApiVersion": 25,
+     "methodCount": 87,
+     "methodsHash": "ca139a3e62a55e68"
+    }
+   },
+   "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"1\",\"result\":{\"contractVersion\":0,\"extensionVersion\":\"0.0.1\",\"runtimeProfile\":\"normal-v1\",\"hostApiVersion\":25,\"methodCount\":87,\"methodsHash\":\"ca139a3e62a55e68\"}}"
+  },
+  {
+   "method": "revision.get",
+   "sent": 62.57925,
+   "received": 86.670042,
+   "bytes": 2754,
+   "reply": {
+    "jsonrpc": "2.0",
+    "id": "2",
+    "result": {
+     "revision": 0,
+     "generation": "4bb49689-7c41-4a32-a605-2f811c62ac48",
+     "project": "gn-scale-test",
+     "projectStatus": "marked",
+     "sceneEpoch": 2,
+     "sceneCount": 10,
+     "contentEpoch": 32790,
+     "contentEvents": [
+      {
+       "seq": 32767,
+       "channelId": "",
+       "trackIndex": 255,
+       "slotIndex": 126,
+       "filled": false
+      },
+      {
+       "seq": 32768,
+       "channelId": "",
+       "trackIndex": 255,
+       "slotIndex": 127,
+       "filled": false
+      },
+      {
+       "seq": 32769,
+       "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+       "trackIndex": 0,
+       "slotIndex": 2,
+       "filled": true
+      },
+      {
+       "seq": 32770,
+       "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+       "trackIndex": 0,
+       "slotIndex": 4,
+       "filled": true
+      },
+      {
+       "seq": 32771,
+       "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+       "trackIndex": 1,
+       "slotIndex": 1,
+       "filled": true
+      },
+      {
+       "seq": 32772,
+       "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+       "trackIndex": 1,
+       "slotIndex": 2,
+       "filled": true
+      },
+      {
+       "seq": 32773,
+       "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+       "trackIndex": 2,
+       "slotIndex": 0,
+       "filled": true
+      },
+      {
+       "seq": 32774,
+       "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+       "trackIndex": 2,
+       "slotIndex": 1,
+       "filled": true
+      },
+      {
+       "seq": 32775,
+       "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+       "trackIndex": 2,
+       "slotIndex": 2,
+       "filled": true
+      },
+      {
+       "seq": 32776,
+       "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+       "trackIndex": 2,
+       "slotIndex": 3,
+       "filled": true
+      },
+      {
+       "seq": 32777,
+       "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+       "trackIndex": 2,
+       "slotIndex": 4,
+       "filled": true
+      },
+      {
+       "seq": 32778,
+       "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+       "trackIndex": 2,
+       "slotIndex": 5,
+       "filled": true
+      },
+      {
+       "seq": 32779,
+       "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+       "trackIndex": 2,
+       "slotIndex": 6,
+       "filled": true
+      },
+      {
+       "seq": 32780,
+       "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+       "trackIndex": 2,
+       "slotIndex": 7,
+       "filled": true
+      },
+      {
+       "seq": 32781,
+       "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+       "trackIndex": 2,
+       "slotIndex": 8,
+       "filled": true
+      },
+      {
+       "seq": 32782,
+       "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+       "trackIndex": 2,
+       "slotIndex": 9,
+       "filled": true
+      },
+      {
+       "seq": 32783,
+       "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+       "trackIndex": 3,
+       "slotIndex": 0,
+       "filled": true
+      },
+      {
+       "seq": 32784,
+       "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+       "trackIndex": 3,
+       "slotIndex": 5,
+       "filled": true
+      },
+      {
+       "seq": 32785,
+       "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+       "trackIndex": 4,
+       "slotIndex": 0,
+       "filled": true
+      },
+      {
+       "seq": 32786,
+       "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+       "trackIndex": 4,
+       "slotIndex": 1,
+       "filled": true
+      },
+      {
+       "seq": 32787,
+       "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+       "trackIndex": 4,
+       "slotIndex": 2,
+       "filled": true
+      },
+      {
+       "seq": 32788,
+       "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+       "trackIndex": 5,
+       "slotIndex": 0,
+       "filled": true
+      },
+      {
+       "seq": 32789,
+       "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+       "trackIndex": 6,
+       "slotIndex": 0,
+       "filled": true
+      },
+      {
+       "seq": 32790,
+       "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+       "trackIndex": 7,
+       "slotIndex": 0,
+       "filled": true
+      }
+     ]
+    }
+   },
+   "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"2\",\"result\":{\"revision\":0,\"generation\":\"4bb49689-7c41-4a32-a605-2f811c62ac48\",\"project\":\"gn-scale-test\",\"projectStatus\":\"marked\",\"sceneEpoch\":2,\"sceneCount\":10,\"contentEpoch\":32790,\"contentEvents\":[{\"seq\":32767,\"channelId\":\"\",\"trackIndex\":255,\"slotIndex\":126,\"filled\":false},{\"seq\":32768,\"channelId\":\"\",\"trackIndex\":255,\"slotIndex\":127,\"filled\":false},{\"seq\":32769,\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\",\"trackIndex\":0,\"slotIndex\":2,\"filled\":true},{\"seq\":32770,\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\",\"trackIndex\":0,\"slotIndex\":4,\"filled\":true},{\"seq\":32771,\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\",\"trackIndex\":1,\"slotIndex\":1,\"filled\":true},{\"seq\":32772,\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\",\"trackIndex\":1,\"slotIndex\":2,\"filled\":true},{\"seq\":32773,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":0,\"filled\":true},{\"seq\":32774,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":1,\"filled\":true},{\"seq\":32775,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":2,\"filled\":true},{\"seq\":32776,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":3,\"filled\":true},{\"seq\":32777,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":4,\"filled\":true},{\"seq\":32778,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":5,\"filled\":true},{\"seq\":32779,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":6,\"filled\":true},{\"seq\":32780,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":7,\"filled\":true},{\"seq\":32781,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":8,\"filled\":true},{\"seq\":32782,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":9,\"filled\":true},{\"seq\":32783,\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\",\"trackIndex\":3,\"slotIndex\":0,\"filled\":true},{\"seq\":32784,\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\",\"trackIndex\":3,\"slotIndex\":5,\"filled\":true},{\"seq\":32785,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":0,\"filled\":true},{\"seq\":32786,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":1,\"filled\":true},{\"seq\":32787,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":2,\"filled\":true},{\"seq\":32788,\"channelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\",\"trackIndex\":5,\"slotIndex\":0,\"filled\":true},{\"seq\":32789,\"channelId\":\"9a88b37d-337a-4ef2-96a8-a147419d7cda\",\"trackIndex\":6,\"slotIndex\":0,\"filled\":true},{\"seq\":32790,\"channelId\":\"6fb96670-abde-4958-9147-f573a4b43918\",\"trackIndex\":7,\"slotIndex\":0,\"filled\":true}]}}"
+  },
+  {
+   "method": "track.list",
+   "sent": 86.769208,
+   "received": 110.846917,
+   "bytes": 1197,
+   "reply": {
+    "jsonrpc": "2.0",
+    "id": "3",
+    "result": {
+     "tracks": [
+      {
+       "index": 0,
+       "name": "Instrument Layer",
+       "position": 0,
+       "type": "Hybrid",
+       "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+      },
+      {
+       "index": 1,
+       "name": "Hybrid 2",
+       "position": 1,
+       "type": "Hybrid",
+       "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+      },
+      {
+       "index": 2,
+       "name": "gn-A",
+       "position": 2,
+       "type": "Instrument",
+       "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+      },
+      {
+       "index": 3,
+       "name": "gn-B",
+       "position": 3,
+       "type": "Instrument",
+       "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+      },
+      {
+       "index": 4,
+       "name": "Group 5",
+       "position": 4,
+       "type": "Group",
+       "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+      },
+      {
+       "index": 5,
+       "name": "gn-lay",
+       "position": 5,
+       "type": "Instrument",
+       "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+      },
+      {
+       "index": 6,
+       "name": "gn-lay4",
+       "position": 6,
+       "type": "Instrument",
+       "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+      },
+      {
+       "index": 7,
+       "name": "gn-sel",
+       "position": 7,
+       "type": "Instrument",
+       "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+      },
+      {
+       "index": 8,
+       "name": "FX 1",
+       "position": 8,
+       "type": "Effect",
+       "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+      },
+      {
+       "index": 9,
+       "name": "Master",
+       "position": 9,
+       "type": "Master",
+       "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+      }
+     ],
+     "count": 10,
+     "itemCount": 10,
+     "bankSize": 256
+    }
+   },
+   "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"3\",\"result\":{\"tracks\":[{\"index\":0,\"name\":\"Instrument Layer\",\"position\":0,\"type\":\"Hybrid\",\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\"},{\"index\":1,\"name\":\"Hybrid 2\",\"position\":1,\"type\":\"Hybrid\",\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\"},{\"index\":2,\"name\":\"gn-A\",\"position\":2,\"type\":\"Instrument\",\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\"},{\"index\":3,\"name\":\"gn-B\",\"position\":3,\"type\":\"Instrument\",\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\"},{\"index\":4,\"name\":\"Group 5\",\"position\":4,\"type\":\"Group\",\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\"},{\"index\":5,\"name\":\"gn-lay\",\"position\":5,\"type\":\"Instrument\",\"channelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\"},{\"index\":6,\"name\":\"gn-lay4\",\"position\":6,\"type\":\"Instrument\",\"channelId\":\"9a88b37d-337a-4ef2-96a8-a147419d7cda\"},{\"index\":7,\"name\":\"gn-sel\",\"position\":7,\"type\":\"Instrument\",\"channelId\":\"6fb96670-abde-4958-9147-f573a4b43918\"},{\"index\":8,\"name\":\"FX 1\",\"position\":8,\"type\":\"Effect\",\"channelId\":\"52bd865e-c958-4bda-b9d3-97d0ea2f463a\"},{\"index\":9,\"name\":\"Master\",\"position\":9,\"type\":\"Master\",\"channelId\":\"834e65ab-efa4-4bc6-ae9d-4eafd818d16e\"}],\"count\":10,\"itemCount\":10,\"bankSize\":256}}"
+  },
+  {
+   "method": "rig.info",
+   "sent": 110.890542,
+   "received": 134.479208,
+   "bytes": 785,
+   "reply": {
+    "jsonrpc": "2.0",
+    "id": "4",
+    "result": {
+     "runtimeProfile": "normal-v1",
+     "tracks": 256,
+     "scenes": 128,
+     "gridSteps": 64,
+     "fineSteps": 512,
+     "noteReadSteps": 2048,
+     "gridKeys": 128,
+     "stepSize": 0.25,
+     "cursorPool": 8,
+     "deviceBank": 16,
+     "remotePages": 16,
+     "containerScopes": 3,
+     "containerEntryBank": 5,
+     "containerEntryDeviceBank": 4,
+     "parameterRouteDepth": 2,
+     "sceneCount": 10,
+     "clipReader": {
+      "revision": "clip-reader-v1",
+      "closeRule": "confirm-before-release-v1",
+      "format": "notes-v1",
+      "width": 4194304,
+      "grid": 0.001953125,
+      "page": 131072,
+      "deadlineMs": 2000,
+      "reads": 0,
+      "refusals": 0,
+      "lastRefusal": "",
+      "lateCallbacks": 0,
+      "strayCallbacks": 0,
+      "releaseCallbacks": 0,
+      "releaseEmpty": 0,
+      "releaseSustain": 0,
+      "releaseOn": 0,
+      "subscribed": false,
+      "open": false,
+      "writeGate": {
+       "readOpen": false,
+       "waiting": 0,
+       "leases": 0,
+       "limit": 256,
+       "queuedTotal": 0,
+       "refusedTotal": 0
+      }
+     }
+    }
+   },
+   "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"4\",\"result\":{\"runtimeProfile\":\"normal-v1\",\"tracks\":256,\"scenes\":128,\"gridSteps\":64,\"fineSteps\":512,\"noteReadSteps\":2048,\"gridKeys\":128,\"stepSize\":0.25,\"cursorPool\":8,\"deviceBank\":16,\"remotePages\":16,\"containerScopes\":3,\"containerEntryBank\":5,\"containerEntryDeviceBank\":4,\"parameterRouteDepth\":2,\"sceneCount\":10,\"clipReader\":{\"revision\":\"clip-reader-v1\",\"closeRule\":\"confirm-before-release-v1\",\"format\":\"notes-v1\",\"width\":4194304,\"grid\":0.001953125,\"page\":131072,\"deadlineMs\":2000,\"reads\":0,\"refusals\":0,\"lastRefusal\":\"\",\"lateCallbacks\":0,\"strayCallbacks\":0,\"releaseCallbacks\":0,\"releaseEmpty\":0,\"releaseSustain\":0,\"releaseOn\":0,\"subscribed\":false,\"open\":false,\"writeGate\":{\"readOpen\":false,\"waiting\":0,\"leases\":0,\"limit\":256,\"queuedTotal\":0,\"refusedTotal\":0}}}}"
+  },
+  {
+   "method": "rig.stats",
+   "sent": 134.533292,
+   "received": 158.352083,
+   "bytes": 2263,
+   "reply": {
+    "jsonrpc": "2.0",
+    "id": "5",
+    "result": {
+     "runtimeProfile": "normal-v1",
+     "config": {
+      "tracks": 256,
+      "scenes": 128,
+      "gridSteps": 64,
+      "gridKeys": 128,
+      "cursorPool": 8,
+      "sends": 4,
+      "deviceBank": 16,
+      "fineSteps": 512,
+      "noteReadSteps": 2048,
+      "paramHandles": 64,
+      "remotePages": 16,
+      "cacheScaleObservers": 0,
+      "cacheScaleSteps": 131072,
+      "cacheScaleWidthSteps": 0,
+      "cacheShadowObservers": 0,
+      "cacheShadowSteps": 131072,
+      "cacheTopologyTracks": 16,
+      "cacheTopologyCounted": false,
+      "cacheLifecycleResearch": false,
+      "cacheKneeResearch": false,
+      "cacheShadowCursorScenes": -1,
+      "cacheSoundingResearch": false,
+      "deliveryResearch": false,
+      "changeWatchCursors": 0,
+      "contentFilter": "",
+      "directObservers": true,
+      "stamp": "default",
+      "fromFile": true
+     },
+     "rigConstructMicros": 32573,
+     "initMicros": 45792,
+     "initEpochMs": 1791256695343,
+     "upMs": 16973,
+     "clipReader": {
+      "revision": "clip-reader-v1",
+      "closeRule": "confirm-before-release-v1",
+      "format": "notes-v1",
+      "width": 4194304,
+      "grid": 0.001953125,
+      "page": 131072,
+      "deadlineMs": 2000,
+      "reads": 0,
+      "refusals": 0,
+      "lastRefusal": "",
+      "lateCallbacks": 0,
+      "strayCallbacks": 0,
+      "releaseCallbacks": 0,
+      "releaseEmpty": 0,
+      "releaseSustain": 0,
+      "releaseOn": 0,
+      "subscribed": false,
+      "open": false,
+      "writeGate": {
+       "readOpen": false,
+       "waiting": 0,
+       "leases": 0,
+       "limit": 256,
+       "queuedTotal": 0,
+       "refusedTotal": 0
+      }
+     },
+     "slotObjects": 32768,
+     "markedValues": 197888,
+     "resources": {
+      "cursorDeviceBanks": 8,
+      "siblingDeviceBanks": 1,
+      "layerDeviceBanks": 8,
+      "slotDeviceBanks": 15,
+      "namedSlotDeviceBanks": 0,
+      "drumPadDeviceBanks": 16,
+      "deviceBanks": 48,
+      "cursorDeviceSlots": 128,
+      "cursorDeviceEnabledValues": 128,
+      "layerDeviceSlots": 32,
+      "slotDeviceSlots": 60,
+      "drumPadDeviceSlots": 256,
+      "namedSlotDeviceSlots": 0,
+      "deviceSlots": 492,
+      "cursorDevices": 1,
+      "specificDeviceViews": 4,
+      "typedParameterHandles": 75,
+      "remotePageCursors": 16,
+      "remoteParameterHandles": 128,
+      "directParameterObservers": 4,
+      "noteObserverCursors": 1,
+      "noteStepObservers": 1,
+      "stepDataObservers": 0,
+      "cacheScaleCursorTracks": 0,
+      "cacheScaleClipProxies": 0,
+      "cacheScaleStepDataObservers": 0,
+      "trackSendBanks": 0,
+      "trackSendHandles": 0,
+      "trackVuObservers": 0,
+      "historicalActionHandles": 0,
+      "historicalSelectionObservers": 0,
+      "equalsProxies": 32,
+      "transportProxies": 1,
+      "masterRecorderProxies": 0,
+      "cursorTracks": 11,
+      "cursorClips": 11,
+      "layerBanks": 4,
+      "layerHandles": 23,
+      "layerSendBanks": 0,
+      "layerSendHandles": 0,
+      "explicitHostObjects": 33893,
+      "observerCallbacks": 838
+     },
+     "heapUsedMb": 628,
+     "heapMaxMb": 3072
+    }
+   },
+   "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"5\",\"result\":{\"runtimeProfile\":\"normal-v1\",\"config\":{\"tracks\":256,\"scenes\":128,\"gridSteps\":64,\"gridKeys\":128,\"cursorPool\":8,\"sends\":4,\"deviceBank\":16,\"fineSteps\":512,\"noteReadSteps\":2048,\"paramHandles\":64,\"remotePages\":16,\"cacheScaleObservers\":0,\"cacheScaleSteps\":131072,\"cacheScaleWidthSteps\":0,\"cacheShadowObservers\":0,\"cacheShadowSteps\":131072,\"cacheTopologyTracks\":16,\"cacheTopologyCounted\":false,\"cacheLifecycleResearch\":false,\"cacheKneeResearch\":false,\"cacheShadowCursorScenes\":-1,\"cacheSoundingResearch\":false,\"deliveryResearch\":false,\"changeWatchCursors\":0,\"contentFilter\":\"\",\"directObservers\":true,\"stamp\":\"default\",\"fromFile\":true},\"rigConstructMicros\":32573,\"initMicros\":45792,\"initEpochMs\":1791256695343,\"upMs\":16973,\"clipReader\":{\"revision\":\"clip-reader-v1\",\"closeRule\":\"confirm-before-release-v1\",\"format\":\"notes-v1\",\"width\":4194304,\"grid\":0.001953125,\"page\":131072,\"deadlineMs\":2000,\"reads\":0,\"refusals\":0,\"lastRefusal\":\"\",\"lateCallbacks\":0,\"strayCallbacks\":0,\"releaseCallbacks\":0,\"releaseEmpty\":0,\"releaseSustain\":0,\"releaseOn\":0,\"subscribed\":false,\"open\":false,\"writeGate\":{\"readOpen\":false,\"waiting\":0,\"leases\":0,\"limit\":256,\"queuedTotal\":0,\"refusedTotal\":0}},\"slotObjects\":32768,\"markedValues\":197888,\"resources\":{\"cursorDeviceBanks\":8,\"siblingDeviceBanks\":1,\"layerDeviceBanks\":8,\"slotDeviceBanks\":15,\"namedSlotDeviceBanks\":0,\"drumPadDeviceBanks\":16,\"deviceBanks\":48,\"cursorDeviceSlots\":128,\"cursorDeviceEnabledValues\":128,\"layerDeviceSlots\":32,\"slotDeviceSlots\":60,\"drumPadDeviceSlots\":256,\"namedSlotDeviceSlots\":0,\"deviceSlots\":492,\"cursorDevices\":1,\"specificDeviceViews\":4,\"typedParameterHandles\":75,\"remotePageCursors\":16,\"remoteParameterHandles\":128,\"directParameterObservers\":4,\"noteObserverCursors\":1,\"noteStepObservers\":1,\"stepDataObservers\":0,\"cacheScaleCursorTracks\":0,\"cacheScaleClipProxies\":0,\"cacheScaleStepDataObservers\":0,\"trackSendBanks\":0,\"trackSendHandles\":0,\"trackVuObservers\":0,\"historicalActionHandles\":0,\"historicalSelectionObservers\":0,\"equalsProxies\":32,\"transportProxies\":1,\"masterRecorderProxies\":0,\"cursorTracks\":11,\"cursorClips\":11,\"layerBanks\":4,\"layerHandles\":23,\"layerSendBanks\":0,\"layerSendHandles\":0,\"explicitHostObjects\":33893,\"observerCallbacks\":838},\"heapUsedMb\":628,\"heapMaxMb\":3072}}"
+  }
+ ]
+}

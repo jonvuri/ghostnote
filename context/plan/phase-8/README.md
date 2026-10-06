@@ -370,7 +370,9 @@ owns the migration details.
    [E229](../../evidence/experiments/e229-replay-fetch-cost.md)),
    [8h3c](8h3c-cold-reader-promotion.md) (cold-reader promotion and E131
    retirement; complete in [E230](../../evidence/experiments/e230-cold-reader-promotion.md)),
-   [8h3d](8h3d-change-awareness.md) (change awareness),
+   [8h3d](8h3d-change-awareness.md) (change awareness; complete in
+   [E231](../../evidence/experiments/e231-change-awareness.md): pull only),
+   [8h3c2](8h3c2-reader-row-binding.md) (reader row binding),
    [8h3e](8h3e-cache-machinery-trim.md) (cache machinery trim),
    and 8h4 (interface simplification). 8h3c and 8h3e replace the earlier 8h1
    and 8h2b plans.

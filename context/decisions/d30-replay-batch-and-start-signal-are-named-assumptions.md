@@ -71,6 +71,15 @@ Three repeated master reads and all eight paired fixtures pass this order.
 This adds product evidence for the same assumptions. It does not prove the
 host rules or cover native edits during a read.
 
+## E231 row finding
+
+[E231](../evidence/experiments/e231-change-awareness.md) found that the master
+park route does not bind a requested row other than the row that the cursor
+holds for that track. The bound-target guard refused each mismatch. This is a
+route defect, not a violation of either assumption: each refused read was one
+complete batch of the clip that it bound.
+[8h3c2](../plan/phase-8/8h3c2-reader-row-binding.md) fixes the route.
+
 ## Consequence
 
 With D26 and D27, a full-width 1/512 bind is a complete cold read. The read
