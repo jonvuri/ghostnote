@@ -21,6 +21,7 @@ import type {
   RemoteControlState, RemoteControlsState, TrackState,
 } from './state.js';
 import type { ContractTag } from './version.js';
+import type { SceneGuardField } from './write-boundary.js';
 
 /**
  * How much of one population the bank can see — the numbers standing rule 5 is
@@ -246,8 +247,14 @@ export interface StageReceipt {
 export interface BatchReceipt {
   readonly contract: ContractTag;
   readonly accepted: boolean;
-  /** Set when the revision guard rejected the current stage (E8-D). */
-  readonly rejected?: { readonly reason: 'stale-revision'; readonly expected: number; readonly actual: number };
+  /**
+   * Set when a guard rejected the current stage (E8-D). `stale-scene` is the
+   * 8h4a scene guard on a later stage; on the first stage the adapter throws
+   * `StaleAddressError` instead.
+   */
+  readonly rejected?:
+    | { readonly reason: 'stale-revision'; readonly expected: number; readonly actual: number }
+    | { readonly reason: 'stale-scene'; readonly field: SceneGuardField; readonly expected: number; readonly actual: number };
   /**
    * Per stage, in order.
    *

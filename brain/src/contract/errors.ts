@@ -237,12 +237,15 @@ export class StaleAddressError extends ContractError {
     readonly address: Address,
     readonly mintedEpoch: number,
     readonly currentEpoch: number,
+    /** Set when the refusal is not a scene-epoch change: the project or the extension changed (8h4a). */
+    readonly why?: 'project-changed' | 'extension-restarted',
   ) {
-    super(
-      `stale address: minted at scene epoch ${mintedEpoch}, current epoch is ${currentEpoch}. ` +
+    super(why === undefined
+      ? `stale address: minted at scene epoch ${mintedEpoch}, current epoch is ${currentEpoch}. ` +
         'A scene was created or deleted since, which compacts rows and invalidates every ' +
-        'scene-relative address. Re-resolve before writing.',
-    );
+        'scene-relative address. Re-resolve before writing.'
+      : `stale address: the ${why === 'project-changed' ? 'project' : 'extension generation'} changed `
+        + 'after the address was read. Nothing was written. Re-resolve before writing.');
   }
 }
 

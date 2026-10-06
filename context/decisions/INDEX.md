@@ -44,6 +44,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D30 | Replay batch and start signal are named assumptions **[SETTLED 2026-10-05]** | [open](d30-replay-batch-and-start-signal-are-named-assumptions.md) |
 | D31 | Mutation and reversal use the D23 cell boundary **[SETTLED 2026-10-05]** | [open](d31-mutation-and-reversal-use-the-d23-cell-boundary.md) |
 | D32 | Pull snapshot references use the revision mark **[SETTLED 2026-10-06]** | [open](d32-pull-snapshot-references-use-the-revision-mark.md) |
+| D33 | The product track bank lists all channels **[SETTLED 2026-10-06]** | [open](d33-the-product-track-bank-lists-all-channels.md) |
 
 ## Phase 4 closeout audit
 

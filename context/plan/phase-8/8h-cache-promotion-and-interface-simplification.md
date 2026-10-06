@@ -2,7 +2,7 @@
 title: Phase 8h — Cache promotion and interface simplification
 kind: plan
 state: active
-status: Reader promotion (E230), change awareness (E231), row binding (E232), and pull snapshot references with the cache machinery trim (E233) are complete. 8h4 is planned in six sessions (8h4a–8h4f).
+status: Reader promotion (E230), change awareness (E231), row binding (E232), and pull snapshot references with the cache machinery trim (E233) are complete. 8h4 is planned in six sessions (8h4a–8h4f); 8h4a is complete (E234).
 updated: 2026-10-06
 parent: README.md
 prev: 8g-shadow-project-cache.md
@@ -88,7 +88,10 @@ Reader promotion and remaining sessions, in order:
    1. [8h4a — Write boundary and reader hardening](8h4a-write-boundary-and-reader-hardening.md):
       the scene guard at `batch.run`, the selection after a project switch,
       metadata in the `clip.read` reply, and the `group-slot` refusal (E222,
-      E233).
+      E233). Complete (E234).
+      - [8h4a2 — Collapsed-child reader routes](8h4a2-collapsed-child-reader-routes.md):
+        a reader route for any row of a track inside a collapsed group
+        (E221, E234). Independent of 8h4b–8h4f; evidence E240.
    2. [8h4b — Document read and identity registry](8h4b-document-read-and-identity-registry.md):
       the profile, the shared result vocabulary, `read_launcher_clip` on the
       D32 reference, and the clip and event ID registry.

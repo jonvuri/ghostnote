@@ -259,6 +259,11 @@ export class TrapControl {
    * reached the other way: there the counters keep CLIMBING and nothing looks
    * wrong at all. Two controls, because two different fields catch them.
    */
+  /** 8h4a: the operator selects a launcher slot in the current project. */
+  selectSlot(trackIndex: number, slotIndex: number): void {
+    this.fake.model.selection = { trackIndex, slotIndex, project: this.fake.model.project };
+  }
+
   restartExtension(): void {
     const model = this.fake.model;
     model.generation = `fake-gen-${Math.random().toString(36).slice(2, 10)}`;

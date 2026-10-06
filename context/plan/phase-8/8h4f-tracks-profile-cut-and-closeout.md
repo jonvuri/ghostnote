@@ -38,6 +38,10 @@ result. A failed arm is a proof gap, not a host refusal; record it so.
   failure or request.
 - Check that every `agent-native-v1` tool uses one address, health, result,
   and error vocabulary. Add a schema test over the full tool list.
+- E234 input: under `ALL_CHANNELS` (D33) a collapsed child is listed, but a
+  read of a row other than 0 refuses `bound-target-mismatch` (E221). If
+  [8h4a2](8h4a2-collapsed-child-reader-routes.md) finds no route, give that
+  refusal a reason that says to expand the group.
 
 ### 3. Profile cut
 

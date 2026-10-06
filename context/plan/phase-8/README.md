@@ -378,6 +378,7 @@ owns the migration details.
    [E233](../../evidence/experiments/e233-pull-snapshot-references.md)),
    and 8h4 (interface simplification and document integration):
    [8h4a](8h4a-write-boundary-and-reader-hardening.md),
+   [8h4a2](8h4a2-collapsed-child-reader-routes.md),
    [8h4b](8h4b-document-read-and-identity-registry.md),
    [8h4c](8h4c-document-edit-limb.md),
    [8h4d](8h4d-musical-and-clip-surface-migration.md),

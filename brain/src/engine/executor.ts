@@ -33,7 +33,7 @@ import {
   AddressUnresolvedError, CONTRACT_TAG, InvalidOpError, NOTE_PROP_FIDELITY,
   ParameterValueUnrepresentableError,
   StaleAddressError, addressKey, addressScene, addressTrack, assertDevicesRoutable, assertOpsWritable,
-  ClipSnapshotRefusedError, blindSpotError, clipMetadata as clipMetadataAt, deltaComplete,
+  ClipSnapshotRefusedError, GroupSlotError, blindSpotError, opsHaveSceneRows, sceneGuardOf, clipMetadata as clipMetadataAt, deltaComplete,
   discreteNormalizedValues, discreteValueIsRepresentable, exactClipColor, failures, notes as notesAt,
   param as paramAt, noteReadCell,
   type Address, type AdapterInfo, type BitwigAdapter, type ContentDelta, type NoteRecord,
@@ -259,9 +259,16 @@ export class Executor {
     // concurrent write between reading prior state and applying rejects the
     // batch WHOLE. Without it the take would claim a "before" that was already
     // someone else's "after".
+    //
+    // 8h4a: the revision counts only Ghostnote writes. A human scene insert or
+    // delete after the stash read slides another clip into a held row with no
+    // revision change (E233). The scene guard of the stash mark goes with every
+    // batch that names a launcher row; a mismatch throws `StaleAddressError`
+    // before the first operation.
     const receipt = await this.timed('apply', () => this.adapter.apply({
       ops,
       ifRevision: options.ifRevision ?? stash.at.revision,
+      ...(opsHaveSceneRows(ops) ? { ifScene: sceneGuardOf(stash.at) } : {}),
       ...(supplied === undefined ? {} : { parameterPreflight: supplied }),
     }));
 
@@ -271,10 +278,23 @@ export class Executor {
         // turn landed. Read the complete state and report the remaining delta.
         // Never replay the mutation after this ambiguous partial result.
         await this.adapter.settle('noteWrite');
-        const verify = await this.timed('verification', () => this.adapter.read(addresses));
+        // A scene-guard rejection means that the rows moved: read only the
+        // addresses that do not depend on a row (E3).
+        const rowsMoved = receipt.at.sceneEpoch !== stash.at.sceneEpoch
+          || receipt.at.project !== stash.at.project || receipt.at.generation !== stash.at.generation;
+        const rowless = rowsMoved ? addresses.filter((a) => addressScene(a) === undefined) : addresses;
+        const unverifiedRows: Unverified[] = rowsMoved
+          ? addresses.filter((a) => addressScene(a) !== undefined).map((address) => ({
+            address,
+            why: 'the scene layout or the project changed during this batch, so this row address is no '
+              + 'longer trusted (E3). Re-resolve and re-read.',
+          }))
+          : [];
+        const unreadRows = new Set(unverifiedRows.map((item) => addressKey(item.address)));
+        const verify = await this.timed('verification', () => this.adapter.read(rowless));
         const seen = await this.concurrent(stash.at, targets, true);
         const reconcileStarted = performance.now();
-        const mutationConflicts = mutationStateDisagreementsOf(ops, stash, verify);
+        const mutationConflicts = mutationStateDisagreementsOf(ops, stash, verify, unreadRows);
         this.onTiming?.({
           phase: 'finalReconciliation',
           elapsedMs: performance.now() - reconcileStarted,
@@ -282,8 +302,8 @@ export class Executor {
         this.onTiming?.({ phase: 'conflict', elapsedMs: 0 });
         return this.take({
           ops, targets, unrevertable, stash, receipt, verify, values,
-          disagreements: [...disagreementsOf(ops, verify), ...mutationConflicts],
-          unverified: [], ...seen,
+          disagreements: [...disagreementsOf(ops, verify, unreadRows), ...mutationConflicts],
+          unverified: unverifiedRows, ...seen,
         });
       }
       // ⚠ A rejected batch applied ZERO ops (E8-D), so every launcher event in
@@ -586,6 +606,8 @@ export class Executor {
             r.address,
             'the target device was confirmed, but its DirectParameter observer inventory did not settle',
           );
+        case 'group-slot':
+          throw new GroupSlotError(r.address, { channelId: addressTrack(r.address)?.channelId ?? '' });
         default:
           if (r.reason === 'absent'
               && (r.address.kind === 'param' || r.address.kind === 'remote')) {

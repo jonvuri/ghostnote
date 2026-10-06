@@ -1021,3 +1021,29 @@ test('W-banned: no source outside src/probes/ mentions a banned wire method', ()
   walk(srcRoot);
   assert.deepEqual(offenders, [], 'a banned wire method leaked outside the probe layer');
 });
+
+test('8h4a: the clip.read metadata block and cursor.clipMetadata are one function, and batch.run guards before any op', () => {
+  const source = (...path: string[]) => readFileSync(
+    join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote', 'extension', ...path), 'utf8');
+  const cursor = source('handlers', 'CursorHandlers.java');
+  const metadataHandler = cursor.slice(cursor.indexOf('private JsonElement cursorClipMetadata'));
+  assert.match(metadataHandler.slice(0, metadataHandler.indexOf('\n    }')),
+    /return ClipMetadata\.read\(rig\.clip\(params\.get\("cursor"\)\.getAsString\(\)\)\);/,
+    'cursor.clipMetadata must return the shared block unchanged');
+  const reader = source('ClipReader.java');
+  const close = reader.slice(reader.indexOf('private void close(Read r)'));
+  assert.match(close.slice(0, close.indexOf('\n    }')), /r\.metadata = ClipMetadata\.read\(clip\);/,
+    'the reader reads the block from its own cursor in the close task');
+  assert.match(reader, /ClipMetadata\.markInterested\(clip\);/);
+  assert.match(reader, /if \(r\.metadata != null\) result\.add\("metadata", r\.metadata\);/);
+
+  const batch = source('handlers', 'BatchHandlers.java');
+  const run = batch.slice(batch.indexOf('private JsonElement batchRun'));
+  const guard = run.indexOf('sceneGuardRefusal(params)');
+  assert.ok(guard > 0 && guard < run.indexOf('++state.revision') && guard < run.indexOf('runOp('),
+    'the scene guard runs before the revision claim and before the first op');
+  assert.match(batch, /"stale-scene"/);
+  for (const field of ['expectedGeneration', 'expectedProject', 'expectedSceneEpoch']) {
+    assert.match(batch, new RegExp(`params\\.has\\("${field}"\\)`));
+  }
+});

@@ -61,12 +61,12 @@ public class RigConfig {
      * while the child is still audible.
      *
      * `ALL_CHANNELS` is documented as "include all tracks, even the ones that
-     * are not visible in the mixer", which is the candidate fix. It is a knob
-     * rather than a constant because it changes what EVERY bank read means —
-     * including standing rule 5's bank-window accounting — so flipping it is a
-     * measurement, not a default.
+     * are not visible in the mixer". E221–E223 measured it to 512 channels.
+     * 8h4a (E234, D33) makes it the default, so a collapsed group's children
+     * stay addressable and count toward the bank window. An empty value
+     * applies no filter (the legacy ALL_VISIBLE_CHANNELS behaviour).
      */
-    public String contentFilter = "";
+    public String contentFilter = "ALL_CHANNELS";
 
     /** Echoed back by rig.stats so a probe can prove which config is live. */
     public String stamp = "default";

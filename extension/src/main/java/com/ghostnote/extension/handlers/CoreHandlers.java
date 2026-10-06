@@ -86,6 +86,11 @@ public final class CoreHandlers extends HandlerGroup {
         result.addProperty("parameterRouteDepth", Rig.PARAMETER_ROUTE_DEPTH);
         result.addProperty("sceneCount", rig.sceneBank.itemCount().get());
         result.add("clipReader", ClipReadHandlers.status(rig, registry));
+        // 8h4a deliberate build markers. A cached class cannot report them.
+        result.addProperty("writeGuard", BatchHandlers.WRITE_GUARD);
+        result.addProperty("selectionRule", BatchHandlers.SELECTION_RULE);
+        // 8h4a (D33): the track-bank content filter that init applied.
+        result.addProperty("contentFilter", rig.contentFilterApplied);
         return result;
     }
 

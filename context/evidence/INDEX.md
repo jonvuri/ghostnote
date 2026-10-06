@@ -16,6 +16,7 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E234 | Write boundary and reader hardening: `batch.run` refuses a changed scene guard before any op, stale-project selections are ignored, `clip.read` carries the metadata block (survey 4.6 s), and group slots refuse; the product bank now uses `ALL_CHANNELS` so collapsed children stay listed (D33) [K] (2026-10-06) | [open](experiments/e234-write-boundary-and-reader-hardening.md) |
 | E233 | Pull snapshot references on the revision mark: 23 live verdicts match raw reads, a stale reference refuses before any write, and the resident-grid research code is removed [K] (2026-10-06) | [open](experiments/e233-pull-snapshot-references.md) |
 | E232 | The reader binds every row: the open task subscribes before it unpins [K] (2026-10-06) | [open](experiments/e232-reader-row-binding.md) |
 | E231 | Change awareness without a resident grid: pull only; watched clips save only latency [K] (2026-10-06) | [open](experiments/e231-change-awareness.md) |

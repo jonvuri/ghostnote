@@ -3487,3 +3487,49 @@ test('T-stdout: nothing in the surface writes to stdout', async () => {
     assert.doesNotMatch(code, /console\.log|process\.stdout\.write/, `${file} writes to stdout`);
   }
 });
+
+test('8h4a: a selection from another project makes no write or revert tool refuse, and it is not restored', async () => {
+  const fx = fixture();
+  control(fx.fake).selectSlot(5, 3);
+  fx.fake.model.project = 'fake-project-Q';
+  const stale = fx.fake.model.selection;
+  await call(fx, 'add_clip', { clips: [{ trackId: fx.trackA, row: 2, lengthBeats: 4 }] });
+  const written = await call(fx, 'write_notes', {
+    clips: [{ trackId: fx.trackA, row: 2, notes: [note({ pitch: 60 })] }],
+  });
+  assert.equal(written['applied'], true);
+  assert.equal((await call(fx, 'revert_change', { changeId: written['changeId'] }))['applied'], true);
+  assert.equal(fx.fake.model.selectionRestores, 0);
+  assert.equal(fx.fake.model.selection, stale);
+});
+
+test('8h4a: list_tracks marks a group track, and clip tools refuse its own slots with group-slot', async () => {
+  const fx = fixture();
+  const [group, child] = fx.fake.model.visibleTracks();
+  await call(fx, 'add_clip', { clips: [{ trackId: fx.trackB, row: 0, lengthBeats: 4 }] });
+  group!.type = 'Group';
+  group!.slots[0] = { ...child!.slots[0]! };
+  const listed = await call(fx, 'list_tracks') as { tracks: Record<string, unknown>[] };
+  assert.deepEqual(listed.tracks.slice(0, 2).map((item) => [item['kind'], item['group'], item['launcherSlots']]), [
+    ['Group', true, 'mirror-children'], ['Instrument', undefined, undefined],
+  ]);
+  assert.equal(listed.tracks.filter((item) => item['group'] === true).length, 1);
+  const sent = fx.sent.length;
+  for (const [name, args] of [
+    ['read_clip', { trackId: fx.trackA, row: 0 }],
+    ['write_notes', { clips: [{ trackId: fx.trackA, row: 0, notes: [note()] }] }],
+    ['add_clip', { clips: [{ trackId: fx.trackA, row: 1, lengthBeats: 4 }] }],
+    ['delete_clip', { clips: [{ trackId: fx.trackA, row: 0 }] }],
+    ['copy_clip_down', { trackId: fx.trackA, row: 0, quantization: '1', mode: 'continue_or_synced' }],
+    ['move_clip_block', { trackId: fx.trackA, firstRow: 0, lastRow: 0, destinationFirstRow: 3 }],
+    ['launch_clip', { trackId: fx.trackA, row: 0, quantization: 'none', mode: 'from_start' }],
+  ] as const) {
+    const result = await call(fx, name, args);
+    assert.equal(result['refused'], true, `${name}: ${JSON.stringify(result)}`);
+    assert.equal(result['reason'], 'group-slot', name);
+  }
+  assert.equal(fx.sent.length, sent, 'no operation was sent');
+  // The child clip still reads.
+  const childRead = await call(fx, 'read_clip', { trackId: fx.trackB, row: 0 });
+  assert.equal(childRead['refused'], undefined, JSON.stringify(childRead));
+});

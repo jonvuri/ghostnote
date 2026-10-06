@@ -30,6 +30,7 @@ import type { ObservedDeviceBank, ObservedDrumPadBank, Op } from './ops.js';
 import type { BatchReceipt, RevisionMark, Snapshot } from './snapshot.js';
 import type { TrackState } from './state.js';
 import type { AdapterInfo } from './version.js';
+import type { SceneGuard } from './write-boundary.js';
 
 export interface ResolvedAddress {
   readonly address: Address;
@@ -48,7 +49,8 @@ export interface ResolvedAddress {
    * we looked, we could look, and we found too much. `ChainAddress` names the
    * refusal as an obligation on any resolver; this is where it lands.
    */
-  readonly reason?: 'absent' | 'outside-bank-window' | 'stale-epoch' | 'unsupported' | 'ambiguous' | 'unstable';
+  readonly reason?: 'absent' | 'outside-bank-window' | 'stale-epoch' | 'unsupported' | 'ambiguous' | 'unstable'
+    | 'group-slot';
 }
 
 export interface ResolveResult {
@@ -67,6 +69,13 @@ export interface BatchRequest {
    * while a paced one is still draining.
    */
   readonly ifRevision?: number;
+  /**
+   * 8h4a scene guard. When set, the adapter compares it before the first
+   * operation and refuses the whole batch on a changed generation, project,
+   * or scene epoch (`StaleAddressError`, no host mutation). The live adapter
+   * sends it with each stage until the batch's own scene op has run.
+   */
+  readonly ifScene?: SceneGuard;
 }
 
 /** Result of one explicit request to focus Bitwig's editor on a launcher clip. */

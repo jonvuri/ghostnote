@@ -37,7 +37,7 @@ import {
   addressKey, addressTrack, assertNever, chainPath, stepSizeFor,
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, ContractVersionError,
   InvalidOpError, NoteTimingUnrepresentableError, ParameterValueUnrepresentableError,
-  SlotOccupiedError, StaleAddressError,
+  GroupSlotError, SlotOccupiedError, StaleAddressError,
   WireDriftError,
   type Address, type ChainAddress, type DeviceAddress, type NoteRecord, type StateValue,
 } from '../contract/index.js';
@@ -653,6 +653,8 @@ export interface Refusal {
   readonly nothingWasWritten: true;
   readonly why: string;
   readonly where?: readonly Where[];
+  /** A machine-readable refusal reason, where one exists (8h4a `group-slot`). */
+  readonly reason?: 'group-slot';
   readonly inTheWay?: readonly { readonly where: Where; readonly why: readonly string[] }[];
   readonly allowedParameterDomain?: ({
     readonly parameterId: string | number;
@@ -732,11 +734,28 @@ export function refusalOf(error: unknown): Refusal {
     );
   }
   if (error instanceof StaleAddressError) {
+    if (error.why !== undefined) {
+      return refusal(
+        `nothing was written. The ${error.why === 'project-changed' ? 'project in Bitwig' : 'Ghostnote controller'} `
+        + 'changed after the places in this call were worked out, so the addresses no longer mean what '
+        + 'they meant. Look the places up again and repeat the call.',
+        { where: [describeAddress(error.address)] },
+      );
+    }
     return refusal(
       'nothing was written. A row was added or removed since the places in this call were worked '
       + 'out, which moves every row below the edit — so the addresses no longer mean what they '
       + 'meant. Look the places up again and repeat the call.',
       { where: [describeAddress(error.address)] },
+    );
+  }
+  if (error instanceof GroupSlotError) {
+    return refusal(
+      'nothing was read or written. That track is a group track. Its launcher slots show the clips '
+      + 'of the tracks inside the group; they are not clips themselves. Name the child track by its '
+      + 'trackId from `list_tracks` instead. A track inside a collapsed group is still listed '
+      + 'and works the same way.',
+      { reason: error.reason, where: [describeAddress(error.address)] },
     );
   }
   if (error instanceof AddressUnresolvedError) {

@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import { z } from 'zod';
 
 import { FakeAdapter } from '../adapters/fake/adapter.js';
+import { control } from '../adapters/fake/control.js';
 import { listModulators } from '../bwmod/index.js';
 import { Executor } from '../engine/index.js';
 import { FakeObservationStore } from '../observation/index.js';
@@ -76,7 +77,7 @@ function fixture() {
       return change;
     },
   });
-  return { row, target, trackId: row.channelId, workspace };
+  return { fake, row, target, trackId: row.channelId, workspace };
 }
 
 const request = (trackId: string) => ({
@@ -260,4 +261,21 @@ test('5p-public: changed fields on a valid checkpoint cannot delete another FX L
   assert.match(String(result['why']), /exact value issued/);
   assert.equal(fx.workspace.changes.list().length, before);
   assert.equal(fx.row.devices[1], unrelated);
+});
+
+test('8h4a: a selection from another project makes neither wrapper tool refuse, and it is not restored', async () => {
+  const fx = fixture();
+  control(fx.fake).selectSlot(6, 0);
+  fx.fake.model.project = 'fake-project-Q';
+  const stale = fx.fake.model.selection;
+  const wrapped = await callTool(
+    fx.workspace, 'wrap_existing_device_modulation', request(fx.trackId),
+  ) as Record<string, unknown>;
+  assert.equal(wrapped['complete'], true, JSON.stringify(wrapped));
+  const reversed = await callTool(fx.workspace, 'reverse_existing_device_modulation_wrap', {
+    checkpoint: wrapped['reversalCheckpoint'],
+  }) as Record<string, unknown>;
+  assert.equal(reversed['complete'], true, JSON.stringify(reversed));
+  assert.equal(fx.fake.model.selectionRestores, 0);
+  assert.equal(fx.fake.model.selection, stale);
 });

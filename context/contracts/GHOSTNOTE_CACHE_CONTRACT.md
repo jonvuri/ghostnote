@@ -4,7 +4,7 @@ kind: reference
 state: active
 updated: 2026-10-06
 parent: ../plan/phase-8/8h3e-cache-machinery-trim.md
-evidence: E214-E233; D23, D30-D32
+evidence: E214-E234; D23, D30-D32
 ---
 
 # Ghostnote pull snapshot contract
@@ -24,7 +24,9 @@ tells at use time if the snapshot is still current
 The implementation is `brain/src/contract/clip-snapshot.ts` and
 `brain/src/engine/clip-snapshots.ts`. Only the experimental tool profile
 exposes it. [E233](../evidence/experiments/e233-pull-snapshot-references.md)
-has the live results.
+has the live results. [E234](../evidence/experiments/e234-write-boundary-and-reader-hardening.md)
+adds the scene guard at the apply, the metadata block, and the group-slot
+refusal (8h4a).
 
 ## The reference
 
@@ -45,7 +47,12 @@ ID is not a durable clip ID.
 `ghostnote-launcher-source/1` is SHA-256 over the domain name, LF, and R26
 canonical JSON of one object:
 
-- `clipMetadata`: the complete raw `cursor.clipMetadata` reply;
+- `clipMetadata`: the complete raw metadata block. Since 8h4a the `clip.read`
+  reply holds it, from the reader cursor in the close task. The extension makes
+  it and the `cursor.clipMetadata` reply with one function (`ClipMetadata.read`).
+  E234 found the two byte-equal in canonical JSON on five fixture shapes, so the
+  domain stays `/1`. A clip whose notes the read captures needs no metadata
+  point;
 - `clipRead`: the `clip.read` bound extent (`loopStartBeats`, `loopEndBeats`,
   `playStopBeats`) without `channelId` and `row`; and
 - `notes`: every raw field of every note, in channel, cell, and pitch order,
@@ -104,11 +111,23 @@ each overflowed the ring and refused.
 covers each referenced clip in the same adapter read as the write set. Any
 verdict other than `current` throws `ClipSnapshotRefusedError` with every
 verdict, before the fidelity labels, the floor, and any host mutation. Only a
-`stale` verdict carries a new snapshot. A scene change after the post-read
-mark and before the apply is not checked: the adapters check the scene epoch
-at resolve and read, not at apply. This window exists for every executor
-write. `ifRevision` stays; it counts only
-Ghostnote writes.
+`stale` verdict carries a new snapshot.
+
+The scene guard is checked three times: at the read mark, at the post-read
+mark, and at the apply. Since 8h4a every executor batch that names a launcher
+row sends the scene guard of its stash mark (`generation`, `project`,
+`sceneEpoch`) with `batch.run`. The extension compares it on the controller
+thread before the first operation, with the rule of the guarded
+`slot.launchWithOptions`: an empty current project fails closed. A mismatch
+runs no operation and throws `StaleAddressError` (`why` names a project change
+or a restart). The live adapter sends the guard with each stage until the
+batch's own scene op has run. `ifRevision` stays; it counts only Ghostnote
+writes.
+
+The guard and the operations run in one handler call, in one controller-thread
+task, so no controller callback runs between them (D27). The guard reads the
+extension's last delivered scene count. A host scene change that the host has
+not yet delivered to the extension is not seen. This is not a host fence.
 
 The experimental agent-proposal `apply` checks a supplied reference before its
 other guards and returns the verdicts on refusal. It then passes the reference
@@ -118,8 +137,8 @@ to the executor, which checks it again at the stash read.
 
 `check_clip_snapshots` gives one verdict for each reference, in input order,
 and a new snapshot only for a stale clip. It reads all clips in one adapter
-read. E233: 16 typical clips take about 8.8 s; each clip needs one cursor point
-for its metadata.
+read. E234: 16 typical clips take 4.6 s with no cursor point (E233: 8.8 s with
+one metadata point for each clip; E231: 3.5 s for notes only).
 
 ## Limits
 
@@ -129,6 +148,8 @@ for its metadata.
 | Read deadline | 2 s | The read refuses; no partial notes |
 | Note page | 131,072 notes | Further pages through `clip.readPage` |
 | Event ring | 24 launcher events | The delta is truncated; references refuse |
+| Group track slots | Mirror the child occupancy (E222) | Reads, writes, snapshots, and checks refuse with `group-slot` |
+| Collapsed group | Children listed under `ALL_CHANNELS` (D33); the reader binds only row 0 of a collapsed child (E221, E234) | A read of another row refuses `bound-target-mismatch`; expand the group (8h4a2 tests routes) |
 
 The D23 collision boundary applies: one note identity is `(channel, pitch,
 occupied 1/512 cell)`. A delete and reinsert of equal values at one cell

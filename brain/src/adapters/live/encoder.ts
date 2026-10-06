@@ -37,7 +37,7 @@ import {
   BlindSpotError, InvalidOpError, addressKey, assertNever, chainPath, chooseStepSize, exactClipColor, orderedNoteProps,
   stepSizeFor,
   type ChainAddress, type ClipAddress, type DeviceAddress, type NoteRecord, type Op, type SceneAddress,
-  type TrackAddress, type WindowCoverage,
+  type SceneGuard, type TrackAddress, type WindowCoverage,
 } from '../../contract/index.js';
 import { isNativeDeviceUuid } from '../../native-catalog/catalog.js';
 import { WIRE, frame, type Frame } from './wiremap.js';
@@ -868,12 +868,23 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
  * always on: the wire only returns per-op results when asked, and §8c requires a
  * report of what applied and what did not.
  */
-export function encodeStage(ops: readonly Op[], ctx: EncodeContext, ifRevision?: number): Frame {
+export function encodeStage(
+  ops: readonly Op[],
+  ctx: EncodeContext,
+  ifRevision?: number,
+  ifScene?: SceneGuard,
+): Frame {
   const wireOps = mergeNoteWritesForTransport(ops)
     .flatMap((op) => encodeOp(op, ctx))
     .map((f) => ({ method: f.method, params: f.params ?? {} }));
   const params: Record<string, unknown> = { ops: wireOps, verbose: true };
   if (ifRevision !== undefined) params['ifRevision'] = ifRevision;
+  // 8h4a: the extension compares all three before the first operation.
+  if (ifScene !== undefined) {
+    params['expectedGeneration'] = ifScene.generation;
+    params['expectedProject'] = ifScene.project;
+    params['expectedSceneEpoch'] = ifScene.sceneEpoch;
+  }
   return frame(WIRE.batchRun, params);
 }
 

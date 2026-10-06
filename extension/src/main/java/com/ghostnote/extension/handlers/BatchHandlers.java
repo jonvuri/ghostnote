@@ -22,6 +22,11 @@ import com.google.gson.JsonObject;
  * Split out of ProbeHandlers.java in Phase 0; the method bodies are unchanged.
  */
 public final class BatchHandlers extends HandlerGroup {
+    /** 8h4a build marker: `batch.run` checks the optional scene guard before the first op. */
+    public static final String WRITE_GUARD = "batch-scene-guard-v1";
+    /** 8h4a build marker: `selection.status` reports the project of each observed selection. */
+    public static final String SELECTION_RULE = "selection-project-v1";
+
     private final HandlerRegistry registry;
 
     public BatchHandlers(ControllerHost host, Rig rig, ExecState state, HandlerRegistry registry) {
@@ -59,7 +64,9 @@ public final class BatchHandlers extends HandlerGroup {
      *
      * Optimistic concurrency: if `ifRevision` is present and does not match the
      * current revision, the batch is REJECTED whole (nothing is applied) — the
-     * stale-write guard. Acceptance claims the next revision immediately, so a
+     * stale-write guard. The optional 8h4a scene guard (`expectedGeneration`,
+     * `expectedProject`, `expectedSceneEpoch`) rejects the batch whole in the
+     * same way, with reason `stale-scene`. Acceptance claims the next revision immediately, so a
      * second batch submitted against the old revision is rejected even while a
      * paced batch is still draining.
      *
@@ -87,6 +94,12 @@ public final class BatchHandlers extends HandlerGroup {
                 return result;
             }
         }
+        // --- 8h4a scene guard: generation, project, and scene epoch ---
+        // The revision counts only Ghostnote writes, so it cannot see a human
+        // scene insert or delete after the brain read its rows (E233). Same rule
+        // as the guarded `slot.launchWithOptions`. A mismatch runs no op.
+        JsonObject sceneRefusal = sceneGuardRefusal(params);
+        if (sceneRefusal != null) return sceneRefusal;
         long batchRevision = ++state.revision;
 
         if (delayMs > 0) {
@@ -121,6 +134,37 @@ public final class BatchHandlers extends HandlerGroup {
         if (params.has("verbose") && params.get("verbose").getAsBoolean()) {
             result.add("results", results);
         }
+        return result;
+    }
+
+    /** The 8h4a scene guard refusal, or null. All three fields or none. */
+    private JsonObject sceneGuardRefusal(JsonObject params) {
+        boolean generation = params.has("expectedGeneration");
+        boolean project = params.has("expectedProject");
+        boolean sceneEpoch = params.has("expectedSceneEpoch");
+        if (!generation && !project && !sceneEpoch) return null;
+        if (!generation || !project || !sceneEpoch) {
+            throw new IllegalArgumentException(
+                "expectedGeneration, expectedProject, and expectedSceneEpoch must be sent together");
+        }
+        // An empty project name makes the guard fail closed.
+        String projectName = rig.currentProjectName();
+        String field = null;
+        if (!rig.epochGeneration.equals(params.get("expectedGeneration").getAsString())) {
+            field = "generation";
+        } else if (projectName.isEmpty() || !projectName.equals(params.get("expectedProject").getAsString())) {
+            field = "project";
+        } else if (rig.sceneCountChanges != params.get("expectedSceneEpoch").getAsInt()) {
+            field = "sceneEpoch";
+        }
+        if (field == null) return null;
+        JsonObject result = new JsonObject();
+        result.addProperty("applied", false);
+        result.addProperty("rejected", true);
+        result.addProperty("reason", "stale-scene");
+        result.addProperty("field", field);
+        result.addProperty("expected", params.get("expectedSceneEpoch").getAsInt());
+        result.addProperty("actual", rig.sceneCountChanges);
         return result;
     }
 

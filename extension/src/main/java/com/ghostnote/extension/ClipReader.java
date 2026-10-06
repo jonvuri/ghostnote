@@ -34,7 +34,8 @@ import com.google.gson.JsonObject;
  * {@code unpinCallbacks}.
  */
 public final class ClipReader {
-    public static final String REVISION = "clip-reader-v1";
+    /** 8h4a: v2 adds the {@code metadata} block to the reply ({@link ClipMetadata}). */
+    public static final String REVISION = "clip-reader-v2";
     public static final String CLOSE_RULE = "confirm-before-release-v1";
     /** 8h3c2 build marker: the open task subscribes before it removes the pins (E232). */
     public static final String OPEN_RULE = "subscribe-before-unpin-v1";
@@ -54,6 +55,7 @@ public final class ClipReader {
         final String channelId, token, diagnosticFault, route;
         final Track target;
         final int entryTrack, entryRow, entryMixer;
+        final boolean entryStale;
         final Rig.SelectionLease priorLease;
         final long started;
         final Done done;
@@ -62,15 +64,20 @@ public final class ClipReader {
         long openStray, parkStray;
         ClipReadCapture capture;
         boolean finished, faultInjected;
-        JsonObject selection, bound;
+        JsonObject selection, bound, metadata;
 
         Read(long id, int trackIndex, int row, String channelId, Track target, String diagnosticFault, String route,
              Done done) {
             this.id = id; this.trackIndex = trackIndex; this.row = row; this.channelId = channelId;
             this.target = target; this.done = done; this.diagnosticFault = diagnosticFault; this.route = route;
             token = "clip-reader-" + id;
-            entryTrack = rig.selectedTrackIndex; entryRow = rig.selectedSlotIndex;
-            entryMixer = rig.selectedMixerTrackIndex;
+            // 8h4a: a selection observed in another project is no selection. Do not restore it (E233).
+            rig.refreshStaleSlotSelection();
+            boolean slotCurrent = rig.slotSelectionCurrent(), mixerCurrent = rig.mixerSelectionCurrent();
+            entryTrack = slotCurrent ? rig.selectedTrackIndex : -1;
+            entryRow = slotCurrent ? rig.selectedSlotIndex : -1;
+            entryMixer = mixerCurrent ? rig.selectedMixerTrackIndex : -1;
+            entryStale = !slotCurrent || !mixerCurrent;
             priorLease = rig.selectionLease();
             started = System.nanoTime();
         }
@@ -116,12 +123,9 @@ public final class ClipReader {
         park.channelId().markInterested();
         track.channelId().markInterested();
         track.isPinned().markInterested();
-        clip.exists().markInterested();
         clip.isPinned().markInterested();
         clip.clipLauncherSlot().sceneIndex().markInterested();
-        clip.getLoopStart().markInterested();
-        clip.getLoopLength().markInterested();
-        clip.getPlayStop().markInterested();
+        ClipMetadata.markInterested(clip);
         clip.addNoteStepObserver(this::onStep);
         clip.exists().addValueObserver(value -> { if (current != null) current.exists(value); });
         // Hold no clip between reads. The first read parks before it subscribes again.
@@ -260,6 +264,8 @@ public final class ClipReader {
         bound.addProperty("loopEndBeats", loopStart + loopLength);
         bound.addProperty("playStopBeats", clip.getPlayStop().get());
         r.bound = bound;
+        // 8h4a: the same block as `cursor.clipMetadata`, from this cursor in the close task. No second point.
+        r.metadata = ClipMetadata.read(clip);
         r.selection = restoreSelection(r);
         if (r.diagnosticFault.equals("step-delta")) {
             schedule(() -> r.capture.step(0, 0, 0, ClipReadCapture.STATE_EMPTY, fields));
@@ -392,7 +398,8 @@ public final class ClipReader {
         rig.reinstateSelectionLease(r.priorLease);
         s.addProperty("restored", slot && mixer);
         s.addProperty("changed", changed);
-        if (!slot || !mixer) s.addProperty("reason", "entry-selection-outside-bank");
+        if (r.entryStale) s.addProperty("reason", "entry-selection-from-another-project");
+        else if (!slot || !mixer) s.addProperty("reason", "entry-selection-outside-bank");
         return s;
     }
 
@@ -425,6 +432,7 @@ public final class ClipReader {
             result.addProperty("afterClose", r.capture.afterClose);
         }
         if (r.bound != null) result.add("bound", r.bound);
+        if (r.metadata != null) result.add("metadata", r.metadata);
         result.add("selection", r.selection);
         result.addProperty("lateCallbacks", lateCallbacks);
         return result;

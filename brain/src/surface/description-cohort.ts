@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v24';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v25';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -378,7 +378,7 @@ export const encodeDescriptionCohort = (artifact: DescriptionCohortArtifact): st
 export const fingerprintDescriptionCohort = (artifact: DescriptionCohortArtifact): string =>
   createHash('sha256').update(encodeDescriptionCohort(artifact), 'utf8').digest('hex');
 
-// V1 through V23 record shipped artifacts. Do not recompute them from current
+// V1 through V24 record shipped artifacts. Do not recompute them from current
 // tool schemas. Only the current version follows the current public surface.
 
 /** Changing this fingerprint requires a new description version. */
@@ -476,3 +476,7 @@ export const TOOL_DESCRIPTION_V23_SHA256 =
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V24_SHA256 =
   'a7369426e25fb10b123209fb9b2bbe37c306daee1e7bc6557925436f47992c0e';
+
+/** Changing this fingerprint requires a new description version. */
+export const TOOL_DESCRIPTION_V25_SHA256 =
+  '5743ab008ef486a8d597289ced0052c97aafcea5df84283bc7ffcc41cd8b4321';

@@ -1,5 +1,6 @@
 package com.ghostnote.extension.handlers;
 
+import com.ghostnote.extension.ClipMetadata;
 import com.ghostnote.extension.Rig;
 import com.bitwig.extension.controller.api.Clip;
 import com.bitwig.extension.controller.api.ControllerHost;
@@ -45,20 +46,8 @@ public final class CursorHandlers extends HandlerGroup {
 
     /** Read every candidate launcher-clip metadata value through one cursor. */
     private JsonElement cursorClipMetadata(JsonObject params) {
-        Clip clip = rig.clip(params.get("cursor").getAsString());
-        JsonObject result = new JsonObject();
-        putGuarded(result, "exists", () -> clip.exists().get());
-        putGuarded(result, "name", () -> clip.clipLauncherSlot().name().get());
-        putGuarded(result, "playStart", () -> clip.getPlayStart().get());
-        putGuarded(result, "playStop", () -> clip.getPlayStop().get());
-        putGuarded(result, "loopEnabled", () -> clip.isLoopEnabled().get());
-        putGuarded(result, "loopStart", () -> clip.getLoopStart().get());
-        putGuarded(result, "loopLength", () -> clip.getLoopLength().get());
-        putGuarded(result, "colorRed", () -> clip.color().red());
-        putGuarded(result, "colorGreen", () -> clip.color().green());
-        putGuarded(result, "colorBlue", () -> clip.color().blue());
-        putGuarded(result, "colorAlpha", () -> clip.color().alpha());
-        return result;
+        // 8h4a: the `clip.read` reply holds the same block (ClipMetadata).
+        return ClipMetadata.read(rig.clip(params.get("cursor").getAsString()));
     }
 
     /** Set candidate metadata fields independently for the live probe. */
@@ -435,12 +424,18 @@ public final class CursorHandlers extends HandlerGroup {
     // ------------------------------------------- E1: UI selection tracking
 
     private JsonElement selectionStatus() {
+        rig.refreshStaleSlotSelection();
         JsonObject result = new JsonObject();
         result.addProperty("trackIndex", rig.selectedTrackIndex);
         result.addProperty("slotIndex", rig.selectedSlotIndex);
         result.addProperty("mixerTrackIndex", rig.selectedMixerTrackIndex);
         result.addProperty("changes", rig.selectionChanges);
         result.addProperty("revision", rig.selectionRevision);
+        // 8h4a: the project in which each value was observed, and the current project. A value from
+        // another project is not a selection here (E233).
+        result.addProperty("slotProject", rig.slotSelectionProject);
+        result.addProperty("mixerProject", rig.mixerSelectionProject);
+        result.addProperty("project", rig.currentProjectName());
         return result;
     }
 }

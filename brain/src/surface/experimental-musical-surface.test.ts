@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import { FakeAdapter } from '../adapters/fake/adapter.js';
+import { control } from '../adapters/fake/control.js';
 import { clip, scene, slot, track, type NoteRecord } from '../contract/index.js';
 import { Executor } from '../engine/index.js';
 import {
@@ -306,4 +307,37 @@ test('8h3e: apply against a stale reference refuses before any write; a current 
   assert.equal(applied.applied, true);
   assert.deepEqual(applied.readback.discrepancies, []);
   assert.equal(workspace.changes.list().length, changes + 1);
+});
+
+test('8h4a: a selection from another project makes no experimental tool refuse, and it is not restored', async () => {
+  const { fake, workspace, trackState } = await fixture();
+  // The operator selected a slot in P. The project then changed; the observer kept the value.
+  control(fake).selectSlot(4, 0);
+  fake.model.project = 'fake-project-Q';
+  const stale = fake.model.selection;
+  const acquired = await callTool(workspace, 'acquire_clip_note_source', {
+    trackId: trackState.channelId, row: 0,
+  }, EXPERIMENTAL_7B_TOOL_PROFILE) as Acquired;
+  const checked = await callTool(workspace, 'check_clip_snapshots', {
+    snapshots: [acquired.snapshot],
+  }, EXPERIMENTAL_7B_TOOL_PROFILE) as Checked;
+  assert.equal(checked.verdicts[0]!.verdict, 'current');
+  const input = transposeInput(acquired.exactSource, 55);
+  const preview = await callTool(workspace, 'transform_clip_music', {
+    ...input, action: 'preview',
+  }, EXPERIMENTAL_7B_TOOL_PROFILE) as { preview: { previewDigest: { value: string } } };
+  const applied = await callTool(workspace, 'transform_clip_music', {
+    ...input, snapshot: acquired.snapshot, action: 'apply',
+    acceptedPreviewSha256: preview.preview.previewDigest.value,
+  }, EXPERIMENTAL_7B_TOOL_PROFILE) as { applied: boolean };
+  assert.equal(applied.applied, true);
+  assert.equal(fake.model.selectionRestores, 0, 'the stale selection was never restored');
+  assert.equal(fake.model.selection, stale);
+
+  // A selection in the current project is restored.
+  control(fake).selectSlot(0, 0);
+  await callTool(workspace, 'acquire_clip_note_source', {
+    trackId: trackState.channelId, row: 0,
+  }, EXPERIMENTAL_7B_TOOL_PROFILE);
+  assert.ok(fake.model.selectionRestores > 0);
 });

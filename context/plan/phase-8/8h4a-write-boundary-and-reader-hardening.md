@@ -1,16 +1,38 @@
 ---
 title: Phase 8h4a — Write boundary and reader hardening
 kind: plan
-state: planned
-status: Planned. Closes the E233 apply window, the stale selection after a project switch, the per-clip metadata point, and group-slot handling before new tools use them.
+state: complete
+status: Complete (E234). batch.run refuses a changed scene guard before any op; stale-project selections are ignored; clip.read carries the metadata block and the fingerprint stays /1; group slots refuse with group-slot. The product bank lists collapsed group children (D33).
 updated: 2026-10-06
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h3e-cache-machinery-trim.md
 next: 8h4b-document-read-and-identity-registry.md
-evidence: E3, E75, E99, E222, E230, E232, E233; D27, D30, D31, D32
+evidence: E3, E75, E99, E222, E230, E232, E233, E234; D27, D30, D31, D32
 ---
 
 # Phase 8h4a — Write boundary and reader hardening
+
+## Result
+
+Complete. [E234](../../evidence/experiments/e234-write-boundary-and-reader-hardening.md)
+has the evidence. All acceptance criteria pass, with these differences from
+the plan:
+
+- The normal method count and hash do not change (87, `ca139a3e62a55e68`):
+  the work adds reply and parameter fields, not methods. Three build markers
+  identify the build instead.
+- The `group-slot` refusal names no child track. The flat product list holds
+  no group membership.
+- A collapsed child was not addressable: the rig set no content filter, and
+  the default hides a collapsed group's children (E16). E221–E223 ran with
+  `contentFilter: ALL_CHANNELS`, which is why E222 saw them. D33 makes
+  `ALL_CHANNELS` the product default. A collapsed child is listed and row 0
+  reads; another row refuses in the reader (E221 binding limit).
+  [8h4a2](8h4a2-collapsed-child-reader-routes.md) tests reader routes for it.
+- The `list_tracks` description now states the group mark (description v25).
+  Tool descriptions are not frozen outside dogfood sessions.
+- Live, Q had its own current selection, so the stale-index branch ran only in
+  unit and fake cases. The wrapper tools have a fake case only.
 
 ## Why
 
@@ -39,7 +61,9 @@ all of them, so fix them first, below the tool surface:
 - **Group slots refuse.** `list_tracks` marks group tracks. A clip read,
   write, snapshot, or check on a group track's own slot refuses with reason
   `group-slot` and names the child tracks. A collapsed child stays
-  addressable by its `channelId` (E222).
+  addressable by its `channelId` (E222). *E234 correction: the flat list
+  cannot name the children. A collapsed child is listed only under the
+  `ALL_CHANNELS` filter (now the default, D33), and only its row 0 reads.*
 
 ## Work, in order
 

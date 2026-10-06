@@ -587,7 +587,7 @@ export function assertOpsWritable(ops: readonly Op[]): void {
  * Exhaustive on purpose: a Phase-4/5 variant that carries a scene row and is not
  * listed here fails to COMPILE rather than slipping past the window guard.
  */
-function sceneRowsOf(op: Op): readonly SceneAddress[] {
+export function sceneRowsOf(op: Op): readonly SceneAddress[] {
   switch (op.op) {
     case 'note.write':
     case 'note.insert':
@@ -628,6 +628,54 @@ function sceneRowsOf(op: Op): readonly SceneAddress[] {
       return [];
     default:
       return assertNever(op, 'sceneRowsOf');
+  }
+}
+
+/**
+ * The launcher SLOTS an op puts on the wire: the slot of each clip that it
+ * reads, writes, copies, moves, or launches, and each destination slot.
+ *
+ * Exhaustive for the same reason as `sceneRowsOf`. The group-slot refusal
+ * (8h4a, E222) uses it, so a new slot-bearing variant must be listed here.
+ */
+export function launcherSlotsOf(op: Op): readonly SlotAddress[] {
+  switch (op.op) {
+    case 'note.write':
+    case 'note.insert':
+    case 'note.remove':
+    case 'note.clear':
+    case 'note.props':
+    case 'clip.update':
+    case 'clip.launch':
+    case 'clip.launchSettings':
+      return [op.clip.slot];
+    case 'clip.create':
+    case 'clip.delete':
+      return [op.slot];
+    case 'clip.duplicate':
+    case 'clip.move':
+      return [op.source.slot, op.destination];
+    case 'scene.delete':
+    case 'scene.create':
+    case 'track.create':
+    case 'track.duplicate':
+    case 'track.rename':
+    case 'track.delete':
+    case 'device.insert':
+    case 'device.delete':
+    case 'device.setEnabled':
+    case 'device.relocate':
+    case 'param.set':
+    case 'remote.set':
+    case 'chain.create':
+    case 'chain.rename':
+    case 'chain.relocate':
+    case 'chain.activate':
+    case 'drumPad.insert':
+    case 'notify':
+      return [];
+    default:
+      return assertNever(op, 'launcherSlotsOf');
   }
 }
 

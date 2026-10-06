@@ -17,7 +17,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  AddressUnresolvedError, CONTRACT_VERSION, InvalidOpError, RuntimeProfileMismatchError, addressKey, chain as chainAt, clip, clipMetadata, device as deviceAt, deviceEnabled,
+  AddressUnresolvedError, CONTRACT_VERSION, GroupSlotError, InvalidOpError, RuntimeProfileMismatchError,
+  StaleAddressError, addressKey, chain as chainAt, clip, clipMetadata, device as deviceAt, deviceEnabled,
   deviceIn as deviceInAt, deviceSlot,
   drumPad, notes as notesAt, param, remote, remotes, scene, slot, snapshotAddresses, track,
   type ClipAddress, type NoteRecord, type RevisionMark, type TrackAddress,
@@ -78,6 +79,25 @@ class CursorModelTransport implements Transport {
   private readonly stepSize = new Map<string, number>();
   private observerGeneration = 0;
   private observerArmed = false;
+  /** 8h4a: the `clip.read` reply holds the metadata block. */
+  metadataBlock = false;
+  /** 8h4a: the `track.list` type of the fixture track. */
+  trackType = 'Instrument';
+  /** 8h4a: the projects that `selection.status` reports. Absent is an extension before 8h4a. */
+  selectionProjects: { readonly slotProject: string; readonly project: string } | undefined;
+  /** 8h4a: replace the `batch.run` reply. */
+  batchReply: ((params: Record<string, unknown>) => unknown) | undefined;
+  /** 8h4a: a `slot.select` for this track index fails as for a missing track. */
+  missingTrackIndex: number | undefined;
+
+  /** The one metadata reply shape, for `cursor.clipMetadata` and the `clip.read` block. */
+  static metadataOf(model: SlotModel): Record<string, number | string | boolean> {
+    return {
+      name: '', colorRed: 87 / 255, colorGreen: 97 / 255, colorBlue: 198 / 255,
+      playStart: 0, playStop: model.lengthBeats, loopEnabled: true,
+      loopStart: 0, loopLength: model.lengthBeats,
+    };
+  }
 
   constructor(
     private readonly slots: ReadonlyMap<number, SlotModel>,
@@ -163,13 +183,15 @@ class CursorModelTransport implements Transport {
         }));
         return { readId: 1, bound: { channelId: CHANNEL_ID, row: params['row'], loopStartBeats: 0,
           loopEndBeats: model.lengthBeats, playStopBeats: model.lengthBeats },
+        ...(this.metadataBlock ? { metadata: CursorModelTransport.metadataOf(model) } : {}),
         frame: { format: 'notes-v1', count: 16, from: 0, size: 16, next: -1,
           columns: fields.map((name) => numeric.includes(name) ? [name, 'raw', 'f64'] : [name, 'const']),
           constants, tables: {}, data: data.toString('base64') } };
       }
 
       case WIRE.trackList:
-        return { tracks: [{ index: 0, channelId: CHANNEL_ID, name: 'gn-fixture' }], count: 1, bankSize: 8, itemCount: 1 };
+        return { tracks: [{ index: 0, channelId: CHANNEL_ID, name: 'gn-fixture', type: this.trackType }],
+          count: 1, bankSize: 8, itemCount: 1 };
 
       case WIRE.revisionGet:
         // ⚠ The mark now carries both epochs and the generation nonce, because
@@ -179,9 +201,12 @@ class CursorModelTransport implements Transport {
         return { revision: 1, generation: 'stub-gen', sceneEpoch: 1, contentEpoch: 0, contentEvents: [] };
 
       case WIRE.selectionStatus:
-        return this.selection;
+        return { ...this.selection, ...this.selectionProjects };
 
       case WIRE.slotStatus:
+        if (params['trackIndex'] === this.missingTrackIndex) {
+          throw new BridgeError(-32602, `Invalid params: no track at index: ${this.missingTrackIndex}`);
+        }
         return {
           hasContent: this.slots.has(params['slotIndex'] as number),
           isSelected: this.selection.trackIndex === params['trackIndex']
@@ -198,6 +223,9 @@ class CursorModelTransport implements Transport {
         return {};
 
       case WIRE.slotSelect: {
+        if (params['trackIndex'] === this.missingTrackIndex) {
+          throw new BridgeError(-32602, `Invalid params: no track at index: ${this.missingTrackIndex}`);
+        }
         const restoreOwnerToken = params['restoreOwnerToken'] as string | undefined;
         if (restoreOwnerToken !== undefined && restoreOwnerToken !== this.selectionOwnerToken) {
           return { selected: false };
@@ -268,11 +296,7 @@ class CursorModelTransport implements Transport {
       case WIRE.cursorClipMetadata: {
         const on = this.cursorOn.get(params['cursor'] as string);
         const model = on === undefined ? undefined : this.slots.get(on);
-        return model === undefined ? {} : {
-          name: '', colorRed: 87 / 255, colorGreen: 97 / 255, colorBlue: 198 / 255,
-          playStart: 0, playStop: model.lengthBeats, loopEnabled: true,
-          loopStart: 0, loopLength: model.lengthBeats,
-        };
+        return model === undefined ? {} : CursorModelTransport.metadataOf(model);
       }
 
       case WIRE.cursorGetNotesVerbose:
@@ -341,7 +365,7 @@ class CursorModelTransport implements Transport {
         };
 
       case WIRE.batchRun:
-        return { applied: true, revision: 2, results: [] };
+        return this.batchReply?.(params) ?? { applied: true, revision: 2, results: [] };
 
       default:
         return {};
@@ -405,6 +429,120 @@ test('8h3e: a source read fingerprints the same capture and the raw metadata', a
   const before = transport.frames.filter((frame) => frame.method === WIRE.cursorClipMetadata).length;
   await adapter.read([...snapshotAddresses(CLIP(0)), ...snapshotAddresses(CLIP(1))], { sources: [CLIP(0), CLIP(1)] });
   assert.equal(transport.frames.filter((frame) => frame.method === WIRE.cursorClipMetadata).length - before, 2);
+});
+
+test('8h4a: a snapshot read takes metadata from the clip.read block and keeps the fingerprint', async () => {
+  const slots = new Map([[0, { lengthBeats: 16, pitch: 60 }], [1, { lengthBeats: 16, pitch: 62 }]]);
+  const pointed = new CursorModelTransport(slots);
+  const pointedAdapter = new UntimedAdapter({ transport: pointed });
+  await pointedAdapter.hello();
+  const addresses = [...snapshotAddresses(CLIP(0)), ...snapshotAddresses(CLIP(1))];
+  const before = await pointedAdapter.read(addresses, { sources: [CLIP(0), CLIP(1)] });
+  assert.equal(pointed.frames.filter((frame) => frame.method === WIRE.cursorClipMetadata).length, 2);
+
+  const block = new CursorModelTransport(slots);
+  block.metadataBlock = true;
+  const blockAdapter = new UntimedAdapter({ transport: block });
+  await blockAdapter.hello();
+  const after = await blockAdapter.read(addresses, { sources: [CLIP(0), CLIP(1)] });
+  assert.equal(block.frames.filter((frame) => frame.method === WIRE.cursorClipMetadata).length, 0,
+    'no metadata point when the reply holds the block');
+  assert.equal(block.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 0,
+    'no pool cursor point at all for a snapshot read');
+  assert.deepEqual(after.sources, before.sources, 'an equal block keeps ghostnote-launcher-source/1 digests');
+  for (const address of addresses) {
+    assert.deepEqual(after.entries[addressKey(address)], before.entries[addressKey(address)]);
+  }
+  // A clip address without a note read still points for its metadata.
+  await blockAdapter.read([clipMetadata(CLIP(0))]);
+  assert.equal(block.frames.filter((frame) => frame.method === WIRE.cursorClipMetadata).length, 1);
+});
+
+test('8h4a: batch.run carries the scene guard, and a first-stage refusal is a StaleAddressError', async () => {
+  const transport = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
+  const adapter = new UntimedAdapter({ transport });
+  await adapter.hello();
+  const guard = { generation: 'stub-gen', project: 'P', sceneEpoch: 1 };
+  await adapter.apply({ ops: [{ op: 'note.insert', clip: CLIP(0), notes: [{ startBeats: 1, pitch: 64, velocity: 100, durationBeats: 0.5 }] }],
+    ifRevision: 1, ifScene: guard });
+  const sent = transport.frames.filter((frame) => frame.method === WIRE.batchRun);
+  assert.ok(sent.length > 0);
+  for (const frame of sent) {
+    assert.equal(frame.params?.['expectedGeneration'], 'stub-gen');
+    assert.equal(frame.params?.['expectedProject'], 'P');
+    assert.equal(frame.params?.['expectedSceneEpoch'], 1);
+  }
+
+  transport.batchReply = () => ({ applied: false, rejected: true, reason: 'stale-scene', field: 'sceneEpoch', expected: 1, actual: 2 });
+  await assert.rejects(adapter.apply({ ops: [{ op: 'note.insert', clip: CLIP(0), notes: [{ startBeats: 2, pitch: 64, velocity: 100, durationBeats: 0.5 }] }],
+    ifRevision: 1, ifScene: guard }), (error: unknown) => error instanceof StaleAddressError && error.why === undefined);
+  transport.batchReply = () => ({ applied: false, rejected: true, reason: 'stale-scene', field: 'project', expected: 1, actual: 1 });
+  await assert.rejects(adapter.apply({ ops: [{ op: 'note.insert', clip: CLIP(0), notes: [{ startBeats: 2, pitch: 64, velocity: 100, durationBeats: 0.5 }] }],
+    ifScene: guard }), (error: unknown) => error instanceof StaleAddressError && error.why === 'project-changed');
+});
+
+test('8h4a: a batch without a scene guard sends no guard fields', async () => {
+  const transport = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
+  const adapter = new UntimedAdapter({ transport });
+  await adapter.hello();
+  await adapter.apply({ ops: [{ op: 'note.insert', clip: CLIP(0), notes: [{ startBeats: 1, pitch: 64, velocity: 100, durationBeats: 0.5 }] }] });
+  for (const frame of transport.frames.filter((item) => item.method === WIRE.batchRun)) {
+    assert.equal('expectedSceneEpoch' in (frame.params ?? {}), false);
+  }
+});
+
+test('8h4a: a selection from another project is no selection, and the read does not refuse', async () => {
+  const transport = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]), { trackIndex: 4, slotIndex: 0 });
+  transport.selectionProjects = { slotProject: 'P', project: 'Q' };
+  transport.missingTrackIndex = 4;
+  const adapter = new UntimedAdapter({ transport, cursorPool: 2, sceneBankSize: 8 });
+  await adapter.hello();
+  const read = await adapter.preserveSelection(() => adapter.read([clipMetadata(CLIP(0))]));
+  assert.equal(read.entries[addressKey(clipMetadata(CLIP(0)))]?.value.of, 'clipMetadata');
+  assert.equal(transport.frames.some((frame) => frame.method === WIRE.slotStatus && frame.params?.['trackIndex'] === 4), false,
+    'no slot.status for the stale index');
+  assert.equal(transport.frames.some((frame) => frame.method === WIRE.slotSelect && frame.params?.['trackIndex'] === 4), false,
+    'no restore of the stale selection');
+  // The same index in the current project is a selection and is restored.
+  transport.selectionProjects = { slotProject: 'Q', project: 'Q' };
+  transport.missingTrackIndex = undefined;
+  await adapter.preserveSelection(() => adapter.read([clipMetadata(CLIP(0))]));
+  assert.equal(transport.frames.some((frame) => frame.method === WIRE.slotStatus && frame.params?.['trackIndex'] === 4), true);
+});
+
+test('8h4a: a restore to a track that is gone does not refuse the operation', async () => {
+  const transport = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]), { trackIndex: 3, slotIndex: 2 });
+  const adapter = new UntimedAdapter({ transport, cursorPool: 2, sceneBankSize: 8 });
+  await adapter.hello();
+  await adapter.preserveSelection(async () => {
+    await adapter.read([clipMetadata(CLIP(0))]);
+    transport.missingTrackIndex = 3;
+  });
+});
+
+test('8h4a: a group track slot refuses with group-slot in read, apply, and resolve', async () => {
+  const transport = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
+  transport.trackType = 'Group';
+  const adapter = new UntimedAdapter({ transport });
+  await adapter.hello();
+  await assert.rejects(adapter.read(snapshotAddresses(CLIP(0)), { sources: [CLIP(0)] }),
+    (error: unknown) => error instanceof GroupSlotError && error.reason === 'group-slot');
+  assert.equal(transport.frames.some((frame) => frame.method === WIRE.clipRead), false, 'no clip read was opened');
+  const batches = transport.frames.filter((frame) => frame.method === WIRE.batchRun).length;
+  for (const ops of [
+    [{ op: 'note.insert' as const, clip: CLIP(0), notes: [{ startBeats: 1, pitch: 64, velocity: 100, durationBeats: 0.5 }] }],
+    [{ op: 'clip.duplicate' as const, source: CLIP(0), destination: slot(TRACK, scene(1, 1)) }],
+    [{ op: 'clip.move' as const, source: CLIP(0), destination: slot(TRACK, scene(1, 1)) }],
+    [{ op: 'clip.launch' as const, clip: CLIP(0), quantization: '1' as const, mode: 'default' as const }],
+  ]) {
+    await assert.rejects(adapter.apply({ ops }), GroupSlotError);
+  }
+  assert.equal(transport.frames.filter((frame) => frame.method === WIRE.batchRun).length, batches, 'no batch was sent');
+  const { resolved } = await adapter.resolve([CLIP(0), TRACK]);
+  assert.deepEqual(resolved.map((item) => item.reason), ['group-slot', undefined]);
+  // The track itself still reads.
+  const read = await adapter.read([TRACK]);
+  assert.equal(read.entries[addressKey(TRACK)]?.value.of, 'track');
 });
 
 test('8h3c: reads use one 1/512 capture for all channels and keep the occupied cell', async () => {

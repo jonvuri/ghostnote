@@ -29,6 +29,8 @@ import { randomUUID } from 'node:crypto';
 
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION, InvalidOpError,
+  GROUP_TRACK_TYPE, GroupSlotError, OP_BUMPS_SCENE_EPOCH, assertNoGroupSlotAddresses, assertNoGroupSlotOps, sceneGuardError,
+  type SceneGuard,
   ContractVersionError, RuntimeProfileMismatchError, StaleAddressError, WireDriftError,
   addressKey, addressScene, addressTrack, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDeviceInsertable, assertDeviceRelocatable, assertDrumPadInsertable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
   assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, chain as chainAt, chainCopyUnnamed,
@@ -67,6 +69,8 @@ interface BatchRunResult {
   readonly applied: boolean;
   readonly rejected?: boolean;
   readonly reason?: string;
+  /** 8h4a: the first scene-guard field that failed. */
+  readonly field?: string;
   readonly expected?: number;
   readonly actual?: number;
   readonly revision: number;
@@ -434,6 +438,53 @@ interface ClipNoteCapture {
   readonly rows: readonly RawNoteFields[];
   /** The `clip.read` bound extent. The D32 source fingerprint requires it. */
   readonly bound?: Readonly<Record<string, number | string | boolean>>;
+  /** 8h4a: the `clip.read` metadata block, equal in shape to `cursor.clipMetadata`. */
+  readonly metadata?: Readonly<Record<string, number | string | boolean>>;
+}
+
+/** One parsed metadata reply: the contract state, the play stop, and the raw reply for the fingerprint. */
+interface ParsedClipMetadata {
+  readonly metadata: ClipMetadataState;
+  readonly playStopBeats: number;
+  readonly raw: Readonly<Record<string, number | string | boolean>>;
+}
+
+/**
+ * Parse a `cursor.clipMetadata` reply or the equal `clip.read` metadata block
+ * (8h4a). Both come from `ClipMetadata.read` in the extension.
+ */
+function parseClipMetadata(raw: Readonly<Record<string, unknown>>): ParsedClipMetadata {
+  const number = (name: string): number => {
+    const value = raw[name];
+    if (typeof value !== 'number' || !Number.isFinite(value)) {
+      throw new Error(`clip metadata ${name} did not return a finite number`);
+    }
+    return value;
+  };
+  const text = raw.name;
+  if (typeof text !== 'string' || typeof raw.loopEnabled !== 'boolean') {
+    throw new Error('clip metadata name or loopEnabled did not return its measured type');
+  }
+  const colorByte = (name: string): number => Math.max(0, Math.min(255, Math.round(number(name) * 255)));
+  const loopStartBeats = number('loopStart');
+  const lengthBeats = number('loopLength');
+  return {
+    metadata: {
+      name: text,
+      color: {
+        red: colorByte('colorRed'),
+        green: colorByte('colorGreen'),
+        blue: colorByte('colorBlue'),
+      },
+      lengthBeats,
+      playStartBeats: number('playStart'),
+      loopEnabled: raw.loopEnabled,
+      loopStartBeats,
+      loopEndBeats: loopStartBeats + lengthBeats,
+    },
+    playStopBeats: number('playStop'),
+    raw: raw as Readonly<Record<string, number | string | boolean>>,
+  };
 }
 
 /**
@@ -538,6 +589,7 @@ export interface LiveTraceEvent {
     | 'device-reuse-invalid'
     | 'selection-restore'
     | 'selection-restore-skipped'
+    | 'selection-capture-skipped'
     | 'structural-invalidation';
   readonly target?: string;
 }
@@ -946,6 +998,7 @@ export class LiveAdapter implements BitwigAdapter {
       if (row === undefined || clip.slot.scene.epoch !== current.sceneEpoch) {
         throw new AddressUnresolvedError(clip, 'the capture launcher address is stale or absent');
       }
+      if (row.type === GROUP_TRACK_TYPE) throw new GroupSlotError(clip, row);
       const status = await this.transport.send({
         method: WIRE.slotStatus,
         params: { trackIndex: row.index, slotIndex: clip.slot.scene.index },
@@ -2552,47 +2605,13 @@ export class LiveAdapter implements BitwigAdapter {
     trackIndex: number,
     pointedAt: Map<string, AddressKey>,
     cursorRef?: string,
-  ): Promise<{
-    readonly metadata: ClipMetadataState;
-    readonly playStopBeats: number;
-    readonly raw: Readonly<Record<string, number | string | boolean>>;
-  }> {
+  ): Promise<ParsedClipMetadata> {
     const cursor = await this.pointAtClip(clip, trackIndex, pointedAt, cursorRef);
     const raw = (await this.transport.send({
       method: WIRE.cursorClipMetadata,
       params: { cursor },
     })) as Readonly<Record<string, unknown>>;
-    const number = (name: string): number => {
-      const value = raw[name];
-      if (typeof value !== 'number' || !Number.isFinite(value)) {
-        throw new Error(`clip metadata ${name} did not return a finite number`);
-      }
-      return value;
-    };
-    const text = raw.name;
-    if (typeof text !== 'string' || typeof raw.loopEnabled !== 'boolean') {
-      throw new Error('clip metadata name or loopEnabled did not return its measured type');
-    }
-    const colorByte = (name: string): number => Math.max(0, Math.min(255, Math.round(number(name) * 255)));
-    const loopStartBeats = number('loopStart');
-    const lengthBeats = number('loopLength');
-    return {
-      metadata: {
-        name: text,
-        color: {
-          red: colorByte('colorRed'),
-          green: colorByte('colorGreen'),
-          blue: colorByte('colorBlue'),
-        },
-        lengthBeats,
-        playStartBeats: number('playStart'),
-        loopEnabled: raw.loopEnabled,
-        loopStartBeats,
-        loopEndBeats: loopStartBeats + lengthBeats,
-      },
-      playStopBeats: number('playStop'),
-      raw: raw as Readonly<Record<string, number | string | boolean>>,
-    };
+    return parseClipMetadata(raw);
   }
 
   /** Read one frozen clip capture. The gate can delay the initial request. */
@@ -2607,7 +2626,8 @@ export class LiveAdapter implements BitwigAdapter {
       throw new AddressUnresolvedError(clipRef, 'clip.read configuration is absent or incompatible; call hello with the current extension');
     }
     type ClipReadReply = { refused?: string; message?: string; readId: number; frame: NoteFrame;
-      bound?: { channelId?: string; row?: number; [field: string]: unknown } };
+      bound?: { channelId?: string; row?: number; [field: string]: unknown };
+      metadata?: Record<string, unknown> };
     const send = async (): Promise<ClipReadReply> => await this.transport.send({
       method: WIRE.clipRead,
       params: { trackIndex, row: clipRef.slot.scene.index, channelId: clipRef.slot.track.channelId },
@@ -2652,7 +2672,9 @@ export class LiveAdapter implements BitwigAdapter {
     }
     const bound = result.bound !== null && typeof result.bound === 'object'
       ? { bound: result.bound as NonNullable<ClipNoteCapture['bound']> } : {};
-    try { return { channels: notesByChannel(rows), rows, ...bound }; }
+    const metadata = result.metadata !== null && typeof result.metadata === 'object'
+      ? { metadata: result.metadata as NonNullable<ClipNoteCapture['metadata']> } : {};
+    try { return { channels: notesByChannel(rows), rows, ...bound, ...metadata }; }
     catch (error) { throw new AddressUnresolvedError(clipRef, String(error)); }
   }
 
@@ -2776,8 +2798,23 @@ export class LiveAdapter implements BitwigAdapter {
     const status = (await this.transport.send({ method: WIRE.selectionStatus })) as {
       trackIndex: number;
       slotIndex: number;
+      slotProject?: string;
+      project?: string;
     };
     if (status.trackIndex < 0 || status.slotIndex < 0 || status.slotIndex >= this.sceneBankSize) {
+      return undefined;
+    }
+    // 8h4a: a project load does not re-init() the extension, and the selection
+    // observer can keep an index from the earlier project (E233). A selection
+    // observed in another project is no selection: do not ask about its index and
+    // do not restore it. The value lives in one extension life, so its generation
+    // is always the current one. An extension before 8h4a sends no project.
+    if (status.project !== undefined
+        && (status.project === '' || status.slotProject !== status.project)) {
+      this.onTrace?.({
+        action: 'selection-capture-skipped',
+        target: `${status.trackIndex}:${status.slotIndex}`,
+      });
       return undefined;
     }
 
@@ -2834,19 +2871,33 @@ export class LiveAdapter implements BitwigAdapter {
       });
       return;
     }
-    const reply = await this.transport.send({
-      method: WIRE.slotSelect,
-      params: {
-        trackIndex: saved.trackIndex,
-        slotIndex: saved.slotIndex,
-        mechanism: 'track',
-        ...(scope === undefined ? {} : {
-          restoreOwnerToken: scope.token,
-          expectedBorrowedTrackIndex: scope.lastBorrowedTrackIndex,
-          expectedBorrowedSlotIndex: scope.lastBorrowedSlotIndex ?? -1,
-        }),
-      },
-    }) as { selected?: boolean };
+    let reply: { selected?: boolean };
+    try {
+      reply = await this.transport.send({
+        method: WIRE.slotSelect,
+        params: {
+          trackIndex: saved.trackIndex,
+          slotIndex: saved.slotIndex,
+          mechanism: 'track',
+          ...(scope === undefined ? {} : {
+            restoreOwnerToken: scope.token,
+            expectedBorrowedTrackIndex: scope.lastBorrowedTrackIndex,
+            expectedBorrowedSlotIndex: scope.lastBorrowedSlotIndex ?? -1,
+          }),
+        },
+      }) as { selected?: boolean };
+    } catch (error) {
+      // 8h4a: the saved track can be gone, for example after a project change.
+      // A UI-only restore miss must not refuse the operation.
+      if (error instanceof BridgeError && error.code === -32602 && (
+        error.message === `Invalid params: no track at index: ${saved.trackIndex}`
+        || error.message === `Invalid params: trackIndex out of bank range: ${saved.trackIndex}`
+      )) {
+        this.onTrace?.({ action: 'selection-restore-skipped', target: `${saved.trackIndex}:${saved.slotIndex}` });
+        return;
+      }
+      throw error;
+    }
     if (scope !== undefined && reply.selected !== true) {
       this.onTrace?.({
         action: 'selection-restore-skipped',
@@ -2965,6 +3016,14 @@ export class LiveAdapter implements BitwigAdapter {
    * not in the bank's own answer, and `RevisionMark.window.tracks` is what says
    * how many were left out.
    */
+  /** One track of the last bank scan, as `tracks()` reports it. */
+  private bankTrack(channelId: string): TrackState | undefined {
+    const row = this.bank.find((item) => item.channelId === channelId);
+    return row === undefined
+      ? undefined
+      : { channelId: row.channelId, name: row.name, position: row.position, type: row.type };
+  }
+
   async tracks(): Promise<readonly TrackState[]> {
     const list = await this.scanTracks();
     return list.tracks.map((t) => ({
@@ -3101,6 +3160,10 @@ export class LiveAdapter implements BitwigAdapter {
       const trackRef = addressTrack(address);
       if (trackRef === undefined) return { address, found: true };
       const index = this.index.get(trackRef.channelId);
+      if (index !== undefined && sceneRef !== undefined
+          && this.bankTrack(trackRef.channelId)?.type === GROUP_TRACK_TYPE) {
+        return { address, found: false, reason: 'group-slot' as const };
+      }
       if (index !== undefined) {
         // ⚠ The track bank resolves only the durable ANCHOR, and a chain-family
         // address is not resolved until its whole path has been walked. Marked
@@ -3261,6 +3324,8 @@ export class LiveAdapter implements BitwigAdapter {
     // reading that could disagree with the mark the snapshot carries.
     const at = await this.revision();
     const list = this.bank;
+    // 8h4a, E222: refuse a group track's own slot before any point or clip read.
+    assertNoGroupSlotAddresses([...sel, ...(options.sources ?? [])], (channelId) => this.bankTrack(channelId));
     // ⚠ Pointing steals the user's clip selection (E1, D6, E14-F), so anything
     // that MIGHT point has to be paid for here. That used to be `notes` alone;
     // as of the D16 amendment a `clip` read of an OCCUPIED slot points too, to
@@ -3290,12 +3355,32 @@ export class LiveAdapter implements BitwigAdapter {
     const remoteReads = new Map<AddressKey, Promise<RemoteInventory>>();
     // One metadata read for each clip. The pool can evict a cursor between the clip, metadata, and
     // source passes of one snapshot, so a pointed-at memo alone can point the same clip again.
-    const metadataReads = new Map<AddressKey, ReturnType<LiveAdapter['readClipMetadata']>>();
-    const metadataOf = (clipRef: ClipAddress, trackIndex: number): ReturnType<LiveAdapter['readClipMetadata']> => {
+    const metadataReads = new Map<AddressKey, Promise<ParsedClipMetadata>>();
+    // 8h4a: a clip whose notes this read captures takes its metadata from the
+    // `clip.read` block of the same capture, with no cursor point. Other clips,
+    // and a reply without the block, point a pool cursor as before.
+    const capturedClips = new Set<AddressKey>([
+      ...sel.filter((address) => address.kind === 'notes').map((address) => addressKey(address.clip)),
+      ...sourceClips.map((clipRef) => addressKey(clipRef)),
+    ]);
+    const noteReadOf = (clipRef: ClipAddress, trackIndex: number): Promise<ClipNoteCapture | undefined> => {
+      const key = addressKey(clipRef);
+      let reading = noteReads.get(key);
+      if (reading === undefined) {
+        reading = this.readClipNotes(clipRef, trackIndex);
+        noteReads.set(key, reading);
+      }
+      return reading;
+    };
+    const metadataOf = (clipRef: ClipAddress, trackIndex: number): Promise<ParsedClipMetadata> => {
       const key = addressKey(clipRef);
       let reading = metadataReads.get(key);
       if (reading === undefined) {
-        reading = this.readClipMetadata(clipRef, trackIndex, pointedAt);
+        reading = capturedClips.has(key)
+          ? noteReadOf(clipRef, trackIndex).then((capture) => capture?.metadata === undefined
+            ? this.readClipMetadata(clipRef, trackIndex, pointedAt)
+            : parseClipMetadata(capture.metadata))
+          : this.readClipMetadata(clipRef, trackIndex, pointedAt);
         metadataReads.set(key, reading);
       }
       return reading;
@@ -3354,12 +3439,7 @@ export class LiveAdapter implements BitwigAdapter {
       const row = list.find((t) => t.channelId === clipRef.slot.track.channelId);
       if (row === undefined) continue;
       const key = addressKey(clipRef);
-      let reading = noteReads.get(key);
-      if (reading === undefined) {
-        reading = this.readClipNotes(clipRef, row.index);
-        noteReads.set(key, reading);
-      }
-      const capture = await reading;
+      const capture = await noteReadOf(clipRef, row.index);
       if (capture === undefined) continue;
       if (capture.bound === undefined) {
         throw new AddressUnresolvedError(clipRef, 'clip.read returned no bound clip extent');
@@ -3604,9 +3684,10 @@ export class LiveAdapter implements BitwigAdapter {
     guard: number | undefined,
     views: Map<string, WriterView>,
     writerPageStart?: number,
+    sceneGuard?: SceneGuard,
   ): Promise<BatchRunResult> {
     if (writerPageStart === undefined) {
-      return await this.transport.send(encodeStage(ops, this.ctx, guard)) as BatchRunResult;
+      return await this.transport.send(encodeStage(ops, this.ctx, guard, sceneGuard)) as BatchRunResult;
     }
     const props = ops[0];
     if (ops.length !== 1 || props?.op !== 'note.props') {
@@ -3624,6 +3705,7 @@ export class LiveAdapter implements BitwigAdapter {
       ops,
       { ...this.ctx, writerPageStart },
       guard,
+      sceneGuard,
     )) as BatchRunResult;
   }
 
@@ -4746,6 +4828,8 @@ export class LiveAdapter implements BitwigAdapter {
     // damage (E19). Shared with the fake so neither adapter is more forgiving.
     assertSceneRoom(batch.ops, at.window.scenes);
     assertOpsAddressable(batch.ops, at.window.scenes);
+    // 8h4a, E222: a group track's own slots mirror its children. Refuse before any operation.
+    assertNoGroupSlotOps(batch.ops, (channelId) => this.bankTrack(channelId));
     // ⚠⚠ E21, and the door the scene budget above does not cover. A
     // `clip.create` into an OCCUPIED slot is a silent `scene.create`: Bitwig
     // appends a row at the END of the project and puts the clip out there, past
@@ -4830,6 +4914,10 @@ export class LiveAdapter implements BitwigAdapter {
     const writerViews = new Map<string, WriterView>();
     const confirmedMutationTargets = new Set<AddressKey>();
     let guard = batch.ifRevision;
+    // 8h4a: the scene guard goes with each stage until a stage of this batch
+    // has sent a scene op. That op changes the scene epoch itself, and its
+    // callback can arrive after the reply.
+    let sceneGuard = batch.ifScene;
     // ⚠ D6, E14-F: pointing borrows the user's clip selection, and a whole batch
     // costs exactly ONE observable selection change — so one restore at the end
     // suffices. Captured before the first stage, because by the end the cursor
@@ -5229,7 +5317,7 @@ export class LiveAdapter implements BitwigAdapter {
 
       let result: BatchRunResult;
       try {
-        result = await this.sendStage(stage.ops, guard, writerViews, stage.writerPageStart);
+        result = await this.sendStage(stage.ops, guard, writerViews, stage.writerPageStart, sceneGuard);
       } catch (error) {
         this.pendingNoteWake = undefined;
         try { await this.resetWriterViews(writerViews); } catch {}
@@ -5264,15 +5352,30 @@ export class LiveAdapter implements BitwigAdapter {
         this.pendingNoteWake = undefined;
         await this.resetWriterViews(writerViews);
         await this.restoreSelection(selection);
+        const at = await this.revision();
+        if (result.reason === 'stale-scene' && sceneGuard !== undefined) {
+          const field = result.field === 'generation' || result.field === 'project' ? result.field : 'sceneEpoch';
+          // 8h4a: no stage ran, so this is the typed refusal with no host mutation.
+          if (receipts.length === 0) throw sceneGuardError(batch.ops, sceneGuard, field, at.sceneEpoch);
+          return {
+            contract: CONTRACT_TAG,
+            accepted: false,
+            rejected: { reason: 'stale-scene', field, expected: sceneGuard.sceneEpoch, actual: at.sceneEpoch },
+            stages: receipts,
+            minted,
+            at,
+          };
+        }
         return {
           contract: CONTRACT_TAG,
           accepted: false,
           rejected: { reason: 'stale-revision', expected: result.expected ?? -1, actual: result.actual ?? -1 },
           stages: receipts,
           minted,
-          at: await this.revision(),
+          at,
         };
       }
+      if (stage.ops.some((op) => OP_BUMPS_SCENE_EPOCH.has(op.op))) sceneGuard = undefined;
 
       const receipt: StageReceipt = {
         index: i,

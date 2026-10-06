@@ -266,6 +266,14 @@ export class ProjectModel {
   project = 'fake-project-A';
 
   /**
+   * 8h4a: the launcher selection and the project in which it was observed. A
+   * project load keeps the old value, as the extension observer does (E233).
+   */
+  selection: { readonly trackIndex: number; readonly slotIndex: number; readonly project: string } | undefined;
+  /** 8h4a: how many times a selection scope restored a selection. */
+  selectionRestores = 0;
+
+  /**
    * The ONE place a slot changes occupancy — so every route into that state
    * change emits the observer event, exactly as Bitwig does.
    *

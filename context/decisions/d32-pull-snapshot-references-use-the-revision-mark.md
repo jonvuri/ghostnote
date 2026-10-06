@@ -99,3 +99,24 @@ archive, and their tests, Gradle tasks, wire methods, and rig keys. The 8h3d
 `ChangeWatchProbe` and the 8h1a fixture writer remain research. Topology,
 group inventory, and slot inventory are not promoted; the product inventory
 stays flat. Group-slot handling (E222) is an 8h4 and 8i input.
+
+## 8h4a guards
+
+[E234](../evidence/experiments/e234-write-boundary-and-reader-hardening.md)
+adds three guards. They do not change a verdict row or the reference shape.
+
+- **Scene guard at the apply.** The scene guard is now checked at the read
+  mark, at the post-read mark, and at the apply. `batch.run` takes optional
+  `expectedGeneration`, `expectedProject`, and `expectedSceneEpoch`. The
+  executor sends the stash mark with every batch that names a launcher row. A
+  mismatch runs no operation and maps to `StaleAddressError`. This is not a
+  host fence: the guard reads the last scene count that the host delivered.
+- **Metadata block.** The `clip.read` reply holds the metadata block, made by
+  the same extension function as `cursor.clipMetadata`. The two are
+  byte-equal in canonical JSON on every measured shape, so the fingerprint
+  domain stays `ghostnote-launcher-source/1`, and old references stay valid.
+- **Group slots.** A read, write, snapshot, or check on a group track's own
+  slot refuses with `group-slot` (`GroupSlotError`), before any host call.
+  The product bank lists the children of a collapsed group
+  ([D33](d33-the-product-track-bank-lists-all-channels.md)); a read of a row
+  other than 0 on a collapsed child refuses (E221).

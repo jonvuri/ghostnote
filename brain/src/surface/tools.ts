@@ -62,7 +62,7 @@ import {
   addressKey, blindCount, blindSpotError, LAUNCH_MODES, LAUNCH_QUANTIZATIONS, lookupChain,
   projectedReorder, exactClipColor, supportedClipColors, discreteNormalizedValues,
   hasMeaningfulBaseToModulatedDivergence,
-  AddressUnresolvedError, BankWindowOverflowError, SlotOccupiedError,
+  AddressUnresolvedError, BankWindowOverflowError, SlotOccupiedError, isGroupTrack,
   type Address, type ClipAddress, type DeviceAddress, type DeviceSource, type NoteRecord,
   type ObservedDeviceBank, type Op, type OpKind, type ParamState, type Recurrence,
   type RevisionMark, ClipSnapshotRefusedError, clipSnapshotFrom, decodeClipSnapshotRef,
@@ -882,7 +882,10 @@ export const TOOLS: readonly ToolSpec[] = [
       + 'survives renaming and reordering and is the only durable name a track has: a track that '
       + 'is deleted and made again is a different track with a new id. Tracks beyond what this '
       + 'connection can address are not listed at all, and how many were left out is reported '
-      + 'separately — an incomplete list is never presented as a complete one.',
+      + 'separately — an incomplete list is never presented as a complete one. Tracks inside a '
+      + 'group are listed, also when the group is collapsed. A group track is marked `group: true`: '
+      + 'its own launcher slots only show the clips of the tracks inside it, so clip tools refuse '
+      + 'them with `group-slot`. Name the track inside the group instead.',
     inputSchema: {},
     async run(workspace) {
       return writing(async () => {
@@ -894,6 +897,9 @@ export const TOOLS: readonly ToolSpec[] = [
             name: t.name,
             kind: t.type,
             position: t.position,
+            // 8h4a, E222: the slots of a group track mirror its children. Clip tools refuse them
+            // with `group-slot`.
+            ...(isGroupTrack(t) ? { group: true, launcherSlots: 'mirror-children' as const } : {}),
           })),
           rows: coverage(at.window.scenes),
           notListed: missing < 0 ? null : missing,
@@ -4689,9 +4695,12 @@ const experimentalSnapshotCheck: ToolSpec = {
     const args = input as z.infer<typeof snapshotCheckInput>;
     const started = performance.now();
     const refs = args.snapshots.map(decodeClipSnapshotRef);
-    // The adapter read borrows and restores the selection itself. An outer selection scope can
-    // refuse after a project switch, which is the case that this check must report (8h3e).
-    const verdicts = await checkClipSnapshots(workspace, refs);
+    // 8h4a: a selection from an earlier project is no selection, so the outer scope no longer
+    // refuses after a project switch. The 8h3e workaround without a scope is removed.
+    const check = () => checkClipSnapshots(workspace, refs);
+    const verdicts = workspace.preserveSelection === undefined
+      ? await check()
+      : await workspace.preserveSelection(check);
     return {
       format: 'ghostnote-clip-snapshot-check',
       version: 0,

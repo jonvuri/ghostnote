@@ -57,7 +57,7 @@ export type { ContentDelta, ContentEvent, UncoveredIn } from './observers.js';
 export {
   OP_BUMPS_SCENE_EPOCH, OP_SETTLE, OP_SETTLE_BEFORE, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDeviceInsertable, assertDeviceRelocatable, assertDrumPadInsertable, assertDevicesRoutable,
   assertNever, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom,
-  assertSlotsFree, assertClipSources,
+  assertSlotsFree, assertClipSources, launcherSlotsOf, sceneRowsOf,
 } from './ops.js';
 export type {
   DeviceSource, ObservedDeviceBank, ObservedDrumPad, ObservedDrumPadBank, Op, OpKind,
@@ -94,6 +94,12 @@ export {
   RuntimeProfileMismatchError, blindSpotError,
 } from './errors.js';
 export type { BankDimension, OccupiedSlotHazard } from './errors.js';
+
+export {
+  GROUP_TRACK_TYPE, GroupSlotError, assertNoGroupSlotAddresses, assertNoGroupSlotOps, isGroupTrack,
+  opsHaveSceneRows, sceneGuardError, sceneGuardMismatch, sceneGuardOf,
+} from './write-boundary.js';
+export type { SceneGuard, SceneGuardField } from './write-boundary.js';
 
 export type {
   BatchRequest, BitwigAdapter, ClipNavigationResult, ReadOptions, ResolveResult, ResolvedAddress,

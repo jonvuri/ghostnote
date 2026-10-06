@@ -363,6 +363,13 @@ public class Rig {
     public int selectionChanges = 0;
     /** All observed mixer-track and launcher-slot selection events. */
     public long selectionRevision = 0;
+    /**
+     * 8h4a: the project name when each selection value was last observed. A project load does not
+     * re-init() the extension, and the observers do not always fire for the new project (E233). A value
+     * observed in another project is not a selection in this one.
+     */
+    public String slotSelectionProject = "";
+    public String mixerSelectionProject = "";
     /** Selection lease held only while the UI still shows Ghostnote's last target. */
     private String selectionOwnerToken;
     private int selectionOwnerTrackIndex = -1;
@@ -402,6 +409,7 @@ public class Rig {
     public void observeMixerSelection(int trackIndex) {
         selectionRevision++;
         selectedMixerTrackIndex = trackIndex;
+        mixerSelectionProject = currentProjectName();
         if (selectionOwnerToken != null && selectionOwnerTrackIndex != trackIndex) {
             clearSelectionOwnership();
         }
@@ -412,12 +420,60 @@ public class Rig {
         selectionRevision++;
         selectedTrackIndex = trackIndex;
         selectedSlotIndex = slotIndex;
+        slotSelectionProject = currentProjectName();
         selectionChanges++;
         if (selectionOwnerToken != null
                 && (selectionOwnerTrackIndex != trackIndex
                     || selectionOwnerSlotIndex != slotIndex)) {
             clearSelectionOwnership();
         }
+    }
+
+    /** The current project name, or empty when it cannot be read. */
+    public String currentProjectName() {
+        try {
+            String name = projectName == null ? "" : projectName.get();
+            return name == null ? "" : name;
+        } catch (Throwable ignored) {
+            return "";
+        }
+    }
+
+    /** True when the slot selection was observed in the current, named project. */
+    public boolean slotSelectionCurrent() {
+        String now = currentProjectName();
+        return !now.isEmpty() && now.equals(slotSelectionProject);
+    }
+
+    /**
+     * 8h4a: after a project change, read the slot selection again from the host values. The selection observer
+     * does not always fire for the new project (E233), but every slot's {@code isSelected} value is marked at
+     * init. Exactly one selected slot becomes the current selection. None, or more than one, leaves the old
+     * value, which then reads as no selection. The lease is not touched.
+     */
+    public void refreshStaleSlotSelection() {
+        String now = currentProjectName();
+        if (now.isEmpty() || now.equals(slotSelectionProject)) return;
+        int foundTrack = -1, foundSlot = -1, found = 0;
+        for (int t = 0; t < config.tracks; t++) {
+            Track track = trackBank.getItemAt(t);
+            if (!track.exists().get()) continue;
+            for (int j = 0; j < config.scenes; j++) {
+                if (track.clipLauncherSlotBank().getItemAt(j).isSelected().get()) {
+                    found++; foundTrack = t; foundSlot = j;
+                }
+            }
+        }
+        if (found != 1) return;
+        selectedTrackIndex = foundTrack;
+        selectedSlotIndex = foundSlot;
+        slotSelectionProject = now;
+    }
+
+    /** True when the mixer selection was observed in the current, named project. */
+    public boolean mixerSelectionCurrent() {
+        String now = currentProjectName();
+        return !now.isEmpty() && now.equals(mixerSelectionProject);
     }
 
     /** Test one lease without a separate read-before-write boundary. */
@@ -728,8 +784,8 @@ public class Rig {
         // the child is still audibly playing. ALL_CHANNELS is documented as
         // including tracks "not visible in the mixer" and is the candidate fix.
         //
-        // Applied only when asked for, because it changes the meaning of every
-        // bank read including standing rule 5's accounting. Guarded: an unknown
+        // 8h4a (D33): RigConfig defaults to ALL_CHANNELS; rig.json can set
+        // another filter or "" for none. Guarded: an unknown
         // name must not throw from this constructor (E7-Finding-0 / rule 3c) and
         // a Beta API that disappears in a later Bitwig must not brick init.
         if (!config.contentFilter.isEmpty()) {

@@ -12,7 +12,8 @@ import { noteReadCell, noteReadStart } from '../../contract/grid.js';
  * `live/encoder.test.ts` instead. See `traps.ts`.
  */
 import {
-  AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION,
+  AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION, GROUP_TRACK_TYPE,
+  assertNoGroupSlotAddresses, assertNoGroupSlotOps, sceneGuardError, sceneGuardMismatch, sceneGuardOf,
   StaleAddressError, UnsupportedOpError, addressKey, addressScene, addressTrack, assertNever,
   assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertClipSources, assertDeviceInsertable, assertDeviceRelocatable, assertDrumPadInsertable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, budgetTicks,
   chain as chainAt, chainCopyUnnamed, chainPath, clipSourceFingerprint, contentDelta, notes as notesAt,
@@ -320,8 +321,23 @@ export class FakeAdapter implements BitwigAdapter {
   }
 
   /** The fake has no UI selection, but shares the executor's pipeline shape. */
+  /**
+   * The fake has no UI, so `work` borrows nothing. It still applies the 8h4a
+   * live rule: a selection observed in another project is no selection and is
+   * never restored. A current selection is restored once, unless its track is
+   * gone.
+   */
   async preserveSelection<T>(work: () => Promise<T>): Promise<T> {
-    return work();
+    const saved = this.model.selection;
+    const current = saved !== undefined && saved.project === this.model.project ? saved : undefined;
+    try {
+      return await work();
+    } finally {
+      if (current !== undefined && this.model.visibleTracks()[current.trackIndex] !== undefined) {
+        this.model.selection = current;
+        this.model.selectionRestores += 1;
+      }
+    }
   }
 
   /**
@@ -349,6 +365,9 @@ export class FakeAdapter implements BitwigAdapter {
       const trackRef = addressTrack(address);
       if (trackRef === undefined) return { address, found: true };
       const hit = this.model.findByChannelId(trackRef.channelId);
+      if (hit !== undefined && sceneRef !== undefined && hit.track.type === GROUP_TRACK_TYPE) {
+        return { address, found: false, reason: 'group-slot' as const };
+      }
       if (hit !== undefined) {
         // ⚠⚠ Resolving the durable TRACK anchor is not resolving the structure
         // hanging off it. Every chain-family address is walked to the end
@@ -497,6 +516,14 @@ export class FakeAdapter implements BitwigAdapter {
     }));
   }
 
+  /** One visible track as `tracks()` reports it. */
+  private trackState(channelId: string): TrackState | undefined {
+    const hit = this.model.findByChannelId(channelId);
+    return hit === undefined
+      ? undefined
+      : { channelId, name: hit.track.name, position: hit.index, type: hit.track.type };
+  }
+
   /** Reads COMMITTED state only — never flushes pending, never advances the clock. */
   async read(sel: readonly Address[], options: ReadOptions = {}): Promise<Snapshot> {
     const entries: Record<string, StateEntry> = {};
@@ -505,6 +532,7 @@ export class FakeAdapter implements BitwigAdapter {
     const unstable: Address[] = [];
     const parameterReads = new Map<string, readonly ParamState[] | 'unstable'>();
 
+    assertNoGroupSlotAddresses([...sel, ...(options.sources ?? [])], (channelId) => this.trackState(channelId));
     for (const address of sel) {
       const sceneRef = addressScene(address);
       if (sceneRef !== undefined && sceneRef.epoch !== this.model.sceneEpoch) {
@@ -860,6 +888,8 @@ export class FakeAdapter implements BitwigAdapter {
     // runs after the damage (E19, and rule 5's own words).
     assertSceneRoom(batch.ops, this.sceneWindow);
     assertOpsAddressable(batch.ops, this.sceneWindow);
+    // 8h4a, E222: a group track's own slots mirror its children. Refuse before any operation.
+    assertNoGroupSlotOps(batch.ops, (channelId) => this.trackState(channelId));
     // ⚠⚠ E21, the door the scene budget above does not cover: a `clip.create`
     // into an OCCUPIED slot appends a row at the END of the project, past the
     // window. The rule is the contract's; only the lookup is the fake's.
@@ -964,6 +994,13 @@ export class FakeAdapter implements BitwigAdapter {
         minted: {},
         at: this.mark(),
       };
+    }
+    // 8h4a: the same scene guard the extension checks in `batch.run`, before
+    // the first operation. The fake runs every stage in this call, so one
+    // check covers the batch.
+    if (batch.ifScene !== undefined) {
+      const field = sceneGuardMismatch(batch.ifScene, sceneGuardOf(this.mark()));
+      if (field !== undefined) throw sceneGuardError(batch.ops, batch.ifScene, field, this.model.sceneEpoch);
     }
 
     const stages = planStages(batch.ops);
