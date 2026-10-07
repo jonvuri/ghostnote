@@ -2,7 +2,7 @@
 title: Ghostnote clip, event, and overlay identity
 kind: reference
 state: active
-updated: 2026-10-06
+updated: 2026-10-07
 owner: phase-8f3
 ---
 
@@ -44,6 +44,19 @@ base. A matching project title, file path, byte hash, or fingerprint does not
 prove continuity. Persisted musical declarations can be imported as new
 declared data with new refs; they cannot restore write authority or current
 inferred claims.
+
+## Registry lifetime and bound
+
+The identity registry is private and in process memory only. It is not
+persisted: a restart of the Ghostnote server retires every base ref, clip ID,
+and event map. It holds at most 256 live base refs. When it is full, the least
+recently used ref retires. A ref that the registry does not hold, because it
+retired by this bound or came from an earlier process, refuses with
+`expired-ref`. A malformed ref refuses with `invalid-ref`. A project or
+generation change retires every ref of the earlier domain; a scene layout
+change retires every ref of the project. The registry keeps a bounded record
+of retired refs, so a check can report the verdict that retired a ref.
+The implementation is `brain/src/bindings/identity-registry.ts` (8h4b, E235).
 
 ## Event identity and recovery
 

@@ -1,16 +1,25 @@
 ---
 title: Phase 8h4b — Document read and identity registry
 kind: plan
-state: planned
-status: Planned. Adds the agent-native-v1 profile, the shared result vocabulary, read_launcher_clip on the D32 reference, and the clip and event ID registry.
-updated: 2026-10-06
+state: done
+status: Complete (E235), except the 40 percent byte target and the per-model token counts. agent-native-v1 has read_launcher_clip and check_launcher_clips on the shared result module and the identity registry.
+updated: 2026-10-07
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h4a-write-boundary-and-reader-hardening.md
-next: 8h4c-document-edit-limb.md
-evidence: E120, E131, E135, E230, E233; D23, D25, D32
+next: 8h4b2-document-read-compactness-and-gain.md
+evidence: E120, E131, E135, E230, E233, E235; D23, D25, D32
 ---
 
 # Phase 8h4b — Document read and identity registry
+
+## Result
+
+[E235](../../evidence/experiments/e235-document-read-and-identity-registry.md)
+records the implementation and the live acceptance. Every identity criterion
+passed live against an independent raw read. Two criteria are open: FIELDS is
+41–57 percent of the 8c exact JSON, and no per-model token count was
+measured. [8h4b2](8h4b2-document-read-compactness-and-gain.md) fixes the
+three E235 format findings.
 
 ## Why
 

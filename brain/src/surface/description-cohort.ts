@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v25';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v26';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -313,9 +313,26 @@ export const DESCRIPTION_COHORT_V22: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V21,
 ] as const;
 
-/** v23 publishes compact successful parameter results and grouped warnings. */
-export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+/** v23 through v25 keep this stable cohort. Their artifacts use the stable tool list. */
+export const DESCRIPTION_COHORT_V25: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V22,
+] as const;
+
+/**
+ * v26 (8h4b) adds the agent-native-v1 document read and its check. Build the
+ * v26 artifact from the agent-native-v1 tool list; the stable members are
+ * unchanged.
+ */
+export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+  ...DESCRIPTION_COHORT_V25,
+  {
+    name: 'read_launcher_clip', kind: 'read',
+    reason: 'Reads one Launcher clip as a Document 1.0 snapshot with a base ref.',
+  },
+  {
+    name: 'check_launcher_clips', kind: 'read',
+    reason: 'Checks base refs with the D32 verdict and the identity registry.',
+  },
 ] as const;
 
 interface ToolAnnotations {
@@ -378,7 +395,7 @@ export const encodeDescriptionCohort = (artifact: DescriptionCohortArtifact): st
 export const fingerprintDescriptionCohort = (artifact: DescriptionCohortArtifact): string =>
   createHash('sha256').update(encodeDescriptionCohort(artifact), 'utf8').digest('hex');
 
-// V1 through V24 record shipped artifacts. Do not recompute them from current
+// V1 through V25 record shipped artifacts. Do not recompute them from current
 // tool schemas. Only the current version follows the current public surface.
 
 /** Changing this fingerprint requires a new description version. */
@@ -480,3 +497,7 @@ export const TOOL_DESCRIPTION_V24_SHA256 =
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V25_SHA256 =
   '5743ab008ef486a8d597289ced0052c97aafcea5df84283bc7ffcc41cd8b4321';
+
+/** Changing this fingerprint requires a new description version. */
+export const TOOL_DESCRIPTION_V26_SHA256 =
+  '9ef5f402e46c3127f911f10eed20a3bf1bde302f76aebeaef177f9973f5a39f6';

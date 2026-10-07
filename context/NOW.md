@@ -4,68 +4,61 @@ kind: status
 state: active
 updated: 2026-10-07
 phase: phase-8-agent-native-live-engine
-session: 8h4b-next
+session: 8h4b2-next
 ---
 
 # Now
 
-8h4a through 8h4a5 are complete
+8h4a through 8h4b are complete
 ([E234](evidence/experiments/e234-write-boundary-and-reader-hardening.md),
-[E240](evidence/experiments/e240-collapsed-child-reader-routes.md),
-[E241](evidence/experiments/e241-expand-parent-acceptance.md),
-[E242](evidence/experiments/e242-cursor-track-identity.md),
-[E243](evidence/experiments/e243-collapsed-cursor-and-parameter-settle.md)).
-Every row of a child of a collapsed group now reads and writes, through the
-reader (D34) and through the cursor route `cursor.pointExpanded` (E243). A
-device after a same-type device settles its parameters. The next session is
-[8h4b](plan/phase-8/8h4b-document-read-and-identity-registry.md).
+[E240](evidence/experiments/e240-collapsed-child-reader-routes.md)–[E243](evidence/experiments/e243-collapsed-cursor-and-parameter-settle.md),
+[E235](evidence/experiments/e235-document-read-and-identity-registry.md)).
+The `agent-native-v1` profile reads a Launcher clip as a Document 1.0
+snapshot (`read_launcher_clip`) and checks base refs (`check_launcher_clips`).
+Every live identity claim agreed with a raw read. The next session is
+[8h4b2](plan/phase-8/8h4b2-document-read-compactness-and-gain.md): it fixes
+the E235 format findings (gain meaning, neutral enable flags, the release
+velocity default, other distractions) before 8h4c writes documents.
 
 ## Sessions
 
 1. [8h4a](plan/phase-8/8h4a-write-boundary-and-reader-hardening.md) and
    8h4a2–8h4a5: complete (E234, E240–E243; D33, D34).
-2. [8h4b](plan/phase-8/8h4b-document-read-and-identity-registry.md): next.
-   The `agent-native-v1` profile, the shared result vocabulary,
-   `read_launcher_clip`, and the clip and event ID registry.
-3. [8h4c](plan/phase-8/8h4c-document-edit-limb.md): `edit_launcher_clip`.
-4. [8h4d](plan/phase-8/8h4d-musical-and-clip-surface-migration.md): the
+2. [8h4b](plan/phase-8/8h4b-document-read-and-identity-registry.md):
+   complete (E235), except the 40 percent byte target and per-model tokens.
+3. [8h4b2](plan/phase-8/8h4b2-document-read-compactness-and-gain.md): next.
+   Gain correctness and read compactness (E245).
+4. [8h4c](plan/phase-8/8h4c-document-edit-limb.md): `edit_launcher_clip`.
+5. [8h4d](plan/phase-8/8h4d-musical-and-clip-surface-migration.md): the
    observation workflow and old musical tools retired; Launcher clip names.
-5. [8h4e0](plan/phase-8/8h4e0-direct-parameter-display-probe.md): probe of
-   the DirectParameter display observer (E244). `Rig` discards the observer
-   object, so it observes no ID; the probe tests that cause.
-6. [8h4e](plan/phase-8/8h4e-device-structure-migration.md): device structure
+6. [8h4e0](plan/phase-8/8h4e0-direct-parameter-display-probe.md): probe of
+   the DirectParameter display observer (E244).
+7. [8h4e](plan/phase-8/8h4e-device-structure-migration.md): device structure
    (depends only on 8h4b; uses E244 for display text).
-7. [8h4f](plan/phase-8/8h4f-tracks-profile-cut-and-closeout.md): track-kind
+8. [8h4f](plan/phase-8/8h4f-tracks-profile-cut-and-closeout.md): track-kind
    arms, the default profile cut, measurements, and the 8h closeout.
 
-## What 8h4a–8h4a5 give 8h4b
+## What 8h4b gives 8h4c
 
-- `batch.run` refuses a changed generation, project, or scene epoch before
-  any op; a refusal is `StaleAddressError`. A selection from an earlier
-  project is no selection.
-- `clip.read` returns the `metadata` and `launch` blocks (`clip-reader-v3`).
-  The adapter serves `clip`, `clipMetadata`, and `clipLaunch` from the
-  capture; one snapshot reads each clip once and points no cursor. Only
-  `clipPlay` and writes use a pool cursor. The fingerprint stays
-  `ghostnote-launcher-source/1`.
-- `track.list` marks a child of a collapsed group `hidden: true`. The adapter
-  points such a track only with `cursor.pointExpanded`, which expands, points,
-  pins, restores the selection, and collapses (D34 order). Other tracks keep
-  the present route at no extra cost. The extra time on a collapsed child is
-  about 250 ms for a read and 1.8 s for a note round trip (E243).
-- Machine refusal reasons on `Refusal.reason`: `group-slot` and
-  `collapsed-group-row` (the reader or the cursor route could not expand the
-  target). 8h4b maps these to machine codes. `list_tracks` marks
-  `group: true`; it does not yet expose `hidden`.
-- Confirm a cursor target by `trackChannelId`, never by `trackPosition`.
-  `directparam.list` reports `settledBy` (`ids`, `switch`, `target`).
-- Tool descriptions are at v25; 8h4a2 through 8h4a5 changed none. Update
-  them in the session that changes the behaviour they describe, and bump the
-  version (AGENTS.md, Implementation sessions, step 3).
+- One result module, `brain/src/surface/agent-native-result.ts`: read,
+  write, and failure envelopes, `FAILURE_CODES`, `VERDICT_CODES`, and
+  `REFUSAL_CODES`. Return a `failureResult`; do not throw to the agent and do
+  not add a second envelope.
+- `workspace.documents` is the identity registry. `entry.snapshot` is the D32
+  `Authority` for `guardAuthority`; `entry.events` maps `channel:pitch:cell`
+  to event ID; `entry.contentHash` is the R27 base. A write that keeps an ID
+  at a new cell must record it through a new registry method (the identity
+  table row "authorized portable update").
+- `projectLauncherClip` and `launcherClipCells` project a fresh read with
+  given IDs. `playRange` is uncovered: the typed metadata has no play-stop
+  marker. Add it before a write that changes the range.
+- Tool descriptions are at v26 (`TOOL_DESCRIPTION_V26_SHA256`, built from the
+  agent-native list). The v25 stable artifact still reproduces.
+- A typical read takes about 600–680 ms and returns about 91 KB (E235).
 
-The plans reserve E235–E239 for 8h4b–8h4f in session order; the next free
-number after them is E244 (8h4e0), then E245. Record a decision (next D35) only for a choice that
-changes an active rule.
+The plans reserve E236–E239 for 8h4c–8h4f in session order, E244 for 8h4e0,
+and E245 for 8h4b2; the next free number is E246. Record a decision (next D35)
+only for a choice that changes an active rule.
 
 ## Live baseline
 
@@ -101,6 +94,12 @@ cursor write must confirm its row before the turn. A direct adapter read on
 the present route restores only the slot; the mixer selection stays on the
 target (not new, E243). `write_notes` adds notes; restore with `erase_notes`.
 The first read of a session can lose its lease (E232 open observation).
+
+8h4b retrospective: the byte target came from an 8c measurement that omitted
+most host fields, and no session had measured Document 1.0 against it. A plan
+that adopts a numeric target from an earlier format should cite the
+measurement that shows the new format can meet it. A probe that polls during
+an operator edit must treat a reader refusal as not settled.
 
 8h4a5 retrospective: the plan assumed that `list_tracks` knows a track's
 parent and that a hop could make the ID observer fire. Neither was true, and

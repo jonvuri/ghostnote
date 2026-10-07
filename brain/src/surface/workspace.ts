@@ -47,6 +47,7 @@ import type { ReversalPlan, Slice, Stash, StashLog, StashedChangeset } from '../
 import { ObservationCapture, type ObservationCaptureOptions, type ObservationStore } from '../observation/index.js';
 import { ProductStatus, type StatusSink } from './status.js';
 import { OperationRegistry } from './operations.js';
+import { IdentityRegistry } from '../bindings/identity-registry.js';
 
 export interface WorkspaceDeps {
   /** Connected, handshaken, and talking to the extension we think we are. */
@@ -60,6 +61,8 @@ export interface WorkspaceDeps {
   readonly statusSink?: StatusSink;
   /** Session-owned background operations. Tests can inject deterministic ids. */
   readonly operations?: OperationRegistry;
+  /** Session-owned document identity registry (8h4b). Tests can inject a bounded one. */
+  readonly documents?: IdentityRegistry;
 }
 
 export interface Workspace {
@@ -93,6 +96,8 @@ export interface Workspace {
   readonly status: ProductStatus;
   /** Background completion and cancellation for long-running tool calls. */
   readonly operations: OperationRegistry;
+  /** Private clip and event identity registry of the agent-native profile. In memory only. */
+  readonly documents: IdentityRegistry;
   /**
    * ⚠ Plan putting one change back, ALWAYS against the launcher window. Shared by
    * the tool that previews a reversal and the tool that performs one, so the two
@@ -210,6 +215,7 @@ export function workspaceOf(deps: WorkspaceDeps): Workspace {
     observations: new ObservationCapture(deps.observationStore, deps.observationCaptureOptions),
     status: new ProductStatus(deps.statusSink),
     operations: deps.operations ?? new OperationRegistry(),
+    documents: deps.documents ?? new IdentityRegistry(),
 
     async mark(): Promise<RevisionMark> {
       await deps.ready();

@@ -5,7 +5,7 @@ state: planned
 status: Planned. Adds edit_launcher_clip for desired documents and sparse patches through the host binding, guarded by the D32 reference.
 updated: 2026-10-06
 parent: 8h-cache-promotion-and-interface-simplification.md
-prev: 8h4b-document-read-and-identity-registry.md
+prev: 8h4b2-document-read-compactness-and-gain.md
 next: 8h4d-musical-and-clip-surface-migration.md
 evidence: E8, E15, E24, E43, E121, E128, E129, E230, E233; D8, D9, D16, D21, D23, D31, D32
 ---

@@ -30,17 +30,16 @@ import { Session } from './session.js';
 import { BridgeTransport } from './adapters/live/transport.js';
 import { LiveStatusSink } from './surface/status.js';
 import {
-  EXPERIMENTAL_7B_TOOL_PROFILE, STABLE_TOOL_PROFILE, registerTools, type ToolProfile,
+  STABLE_TOOL_PROFILE, TOOL_PROFILES, registerTools, type ToolProfile,
 } from './surface/tools.js';
 import { workspaceOf } from './surface/workspace.js';
 
 const session = new Session();
 const requestedProfile = process.env['GHOSTNOTE_TOOL_PROFILE'];
-const profile: ToolProfile = requestedProfile === undefined || requestedProfile === STABLE_TOOL_PROFILE
+const profile: ToolProfile = requestedProfile === undefined
   ? STABLE_TOOL_PROFILE
-  : requestedProfile === EXPERIMENTAL_7B_TOOL_PROFILE
-    ? EXPERIMENTAL_7B_TOOL_PROFILE
-    : (() => { throw new Error(`unsupported Ghostnote tool profile: ${requestedProfile}`); })();
+  : TOOL_PROFILES.find((item) => item === requestedProfile)
+    ?? (() => { throw new Error(`unsupported Ghostnote tool profile: ${requestedProfile}`); })();
 
 const server = new McpServer({
   name: 'ghostnote',

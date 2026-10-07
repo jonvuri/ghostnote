@@ -104,7 +104,11 @@ Reader promotion and remaining sessions, in order:
         same-type device (E242 limits). Complete (E243).
    2. [8h4b — Document read and identity registry](8h4b-document-read-and-identity-registry.md):
       the profile, the shared result vocabulary, `read_launcher_clip` on the
-      D32 reference, and the clip and event ID registry.
+      D32 reference, and the clip and event ID registry. Complete (E235),
+      except the 40 percent byte target; E235 names three format findings.
+      - [8h4b2 — Document read compactness and gain correctness](8h4b2-document-read-compactness-and-gain.md):
+        the gain mapping, neutral enable flags, the release velocity default,
+        and other distractions, before 8h4c (E245).
    3. [8h4c — Document edit limb](8h4c-document-edit-limb.md):
       `edit_launcher_clip` for desired documents and sparse patches, through
       the host binding and `Authority`.

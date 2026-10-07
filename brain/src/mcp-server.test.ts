@@ -39,3 +39,21 @@ test('the explicit Phase 7b server profile adds only experimental tools', async 
   const listed = await client.listTools();
   assert.equal(listed.tools.some((item) => item.name === 'acquire_clip_note_source'), true);
 });
+
+test('the agent-native-v1 server profile lists the stable tools and the document tools', async (t) => {
+  const env = Object.fromEntries(Object.entries(process.env)
+    .filter((entry): entry is [string, string] => entry[1] !== undefined));
+  const transport = new StdioClientTransport({
+    command: process.execPath,
+    args: ['--import', 'tsx', 'src/mcp-server.ts'],
+    env: { ...env, GHOSTNOTE_TOOL_PROFILE: 'agent-native-v1' },
+  });
+  const client = new Client({ name: 'ghostnote-agent-native-profile-test', version: '1.0.0' });
+  await client.connect(transport);
+  t.after(async () => client.close());
+
+  const names = (await client.listTools()).tools.map((item) => item.name);
+  assert.equal(names.length, 55);
+  assert.deepEqual(names.slice(-2), ['read_launcher_clip', 'check_launcher_clips']);
+  assert.equal(names.includes('acquire_clip_note_source'), false);
+});

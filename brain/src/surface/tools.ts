@@ -83,6 +83,8 @@ import {
   cancellableWorkspace, captureWorkspaceChanges, type Workspace,
 } from './workspace.js';
 import { showChangedClip } from './navigation.js';
+import { AGENT_NATIVE_ADDITIONS } from './agent-native.js';
+import { AGENT_NATIVE_TOOL_PROFILE } from './agent-native-result.js';
 import type { StatusCategory } from './status.js';
 import {
   applyMusicalPatch, applyNoteProposal, compareCandidateToReference,
@@ -4333,7 +4335,12 @@ export const TOOLS: readonly ToolSpec[] = [
 
 export const STABLE_TOOL_PROFILE = 'stable-v1';
 export const EXPERIMENTAL_7B_TOOL_PROFILE = 'phase-7b-agent-note-patch-v0';
-export type ToolProfile = typeof STABLE_TOOL_PROFILE | typeof EXPERIMENTAL_7B_TOOL_PROFILE;
+export { AGENT_NATIVE_TOOL_PROFILE };
+export type ToolProfile =
+  | typeof STABLE_TOOL_PROFILE | typeof EXPERIMENTAL_7B_TOOL_PROFILE | typeof AGENT_NATIVE_TOOL_PROFILE;
+export const TOOL_PROFILES: readonly ToolProfile[] = [
+  STABLE_TOOL_PROFILE, EXPERIMENTAL_7B_TOOL_PROFILE, AGENT_NATIVE_TOOL_PROFILE,
+];
 
 const exactSourceInput = z.custom<ExactNoteSource>((value) => {
   try {
@@ -4717,9 +4724,17 @@ export const EXPERIMENTAL_7B_TOOLS: readonly ToolSpec[] = [
   experimentalSnapshotCheck,
 ];
 
+/**
+ * 8h4b: the agent-native profile starts as the stable list. Each 8h4 session adds,
+ * replaces, or removes tools here; 8h4f makes it the default. `stable-v1` stays frozen.
+ */
+export const AGENT_NATIVE_TOOLS: readonly ToolSpec[] = [...TOOLS, ...AGENT_NATIVE_ADDITIONS];
+
 /** Select a frozen tool profile without changing stable registration. */
 export function toolsForProfile(profile: ToolProfile = STABLE_TOOL_PROFILE): readonly ToolSpec[] {
-  return profile === EXPERIMENTAL_7B_TOOL_PROFILE ? EXPERIMENTAL_7B_TOOLS : TOOLS;
+  return profile === EXPERIMENTAL_7B_TOOL_PROFILE ? EXPERIMENTAL_7B_TOOLS
+    : profile === AGENT_NATIVE_TOOL_PROFILE ? AGENT_NATIVE_TOOLS
+      : TOOLS;
 }
 
 // --- plumbing ----------------------------------------------------------------

@@ -5,6 +5,8 @@ import { createHash } from 'node:crypto';
 import {
   DESCRIPTION_COHORT,
   DESCRIPTION_COHORT_V1,
+  DESCRIPTION_COHORT_V25,
+  TOOL_DESCRIPTION_V26_SHA256,
   TOOL_DESCRIPTION_V25_SHA256,
   TOOL_DESCRIPTION_V24_SHA256,
   TOOL_DESCRIPTION_V23_SHA256,
@@ -32,7 +34,7 @@ import {
   descriptionCohortArtifact,
   fingerprintDescriptionCohort,
 } from './description-cohort.js';
-import { ANNOTATIONS, TOOLS } from './tools.js';
+import { AGENT_NATIVE_TOOLS, ANNOTATIONS, TOOLS } from './tools.js';
 
 const EXPECTED_COHORT = [
   'inspect_device_alternates',
@@ -82,15 +84,17 @@ const EXPECTED_COHORT = [
   'reverse_existing_device_modulation_wrap',
   'compose_device_sources',
   'reverse_device_source_composition',
+  'read_launcher_clip',
+  'check_launcher_clips',
 ] as const;
 
-test('description v25 names one complete and explicit cohort', () => {
-  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v25');
+test('description v26 names one complete and explicit cohort', () => {
+  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v26');
   assert.deepEqual(DESCRIPTION_COHORT.map((member) => member.name), EXPECTED_COHORT);
   assert.equal(new Set(EXPECTED_COHORT).size, EXPECTED_COHORT.length);
   for (const member of DESCRIPTION_COHORT) {
     assert.ok(member.reason.length > 20, `${member.name} needs an inclusion reason`);
-    const spec = TOOLS.find((candidate) => candidate.name === member.name);
+    const spec = AGENT_NATIVE_TOOLS.find((candidate) => candidate.name === member.name);
     assert.ok(spec !== undefined, `${member.name} must exist`);
     assert.equal(spec.kind, member.kind, `${member.name} changed privilege class`);
   }
@@ -104,13 +108,20 @@ test('description v1 stays frozen as its original 15-tool artifact', () => {
   );
 });
 
-test('description v25 matches its public artifact', () => {
-  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS);
+test('description v26 matches its public artifact', () => {
+  const artifact = descriptionCohortArtifact(AGENT_NATIVE_TOOLS, ANNOTATIONS);
   assert.equal(
     fingerprintDescriptionCohort(artifact),
-    TOOL_DESCRIPTION_V25_SHA256,
-    'the v25 public wording or schema changed',
+    TOOL_DESCRIPTION_V26_SHA256,
+    'the v26 public wording or schema changed',
   );
+});
+
+test('description v25 keeps its frozen public artifact, and the stable tools still produce it', () => {
+  assert.equal(TOOL_DESCRIPTION_V25_SHA256,
+    '5743ab008ef486a8d597289ced0052c97aafcea5df84283bc7ffcc41cd8b4321');
+  assert.equal(fingerprintDescriptionCohort(descriptionCohortArtifact(TOOLS, ANNOTATIONS, DESCRIPTION_COHORT_V25)),
+    TOOL_DESCRIPTION_V25_SHA256);
 });
 
 test('description v24 keeps its frozen public artifact', () => {
@@ -119,7 +130,7 @@ test('description v24 keeps its frozen public artifact', () => {
 });
 
 test('set_parameter keeps its pre-compaction request schema', () => {
-  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS);
+  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS, DESCRIPTION_COHORT_V25);
   const schema = artifact.find((tool) => tool.name === 'set_parameter')!.inputSchema;
   const canonical = (value: unknown): unknown => {
     if (Array.isArray(value)) return value.map(canonical);
