@@ -1012,7 +1012,7 @@ test('C32 schema copy meta-schema compilation valid fixtures semantic boundary',
     assert.equal(structural(d), true);
     rejects(() => validate(d), 'R06');
 });
-for (const [field, lo, hi] of [['velocitySpread', 0, 1], ['gain', 0, 4], ['pan', -1, 1], ['pressure', 0, 1], ['timbre', 0, 1], ['transpose', -128, 128]] as const)
+for (const [field, lo, hi] of [['velocitySpread', 0, 1], ['gain', 0, 8], ['pan', -1, 1], ['pressure', 0, 1], ['timbre', 0, 1], ['transpose', -128, 128]] as const)
     for (const value of [lo, hi])
         test(`C04 expression ${field} ${value}`, () => {
             const d = fresh();

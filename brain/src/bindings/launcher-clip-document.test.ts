@@ -5,6 +5,8 @@ import test from 'node:test';
 
 import type { ClipSnapshot } from '../contract/clip-snapshot.js';
 import type { NoteRecord } from '../contract/state.js';
+import { equivalentExactJson, pythonCanonical } from '../probes/phase8h4b-document-read-lib.js';
+import { hostGain } from './ghostnote-document.js';
 import { encodeLauncherClip, launcherClipCells, projectLauncherClip } from './launcher-clip-document.js';
 
 /** The fixed 8c corpus (`benchmarks/compact-bar-v0/corpus.py`), frozen as canonical JSON. */
@@ -19,20 +21,11 @@ const PINNED = {
 
 interface FixtureNote {
   id: string; channel: number; start: string; duration: string; pitch: number; velocity: number;
-  muted: boolean; release_velocity: number;
+  muted: boolean; release_velocity: number; track: string; articulation: string;
   expression: { pressure: string; timbre: string; pan: string; gain: string };
 }
 interface Fixture { sha256: string; length_beats: string; notes: FixtureNote[] }
 
-/** Python `json.dumps(sort_keys=True, separators=(',', ':'), ensure_ascii=False)`. */
-function pythonCanonical(value: unknown): string {
-  if (Array.isArray(value)) return `[${value.map(pythonCanonical).join(',')}]`;
-  if (value !== null && typeof value === 'object') {
-    return `{${Object.keys(value).sort().map((key) =>
-      `${JSON.stringify(key)}:${pythonCanonical((value as Record<string, unknown>)[key])}`).join(',')}}`;
-  }
-  return JSON.stringify(value);
-}
 const number = (text: string): number => {
   const [n, d = '1'] = text.split('/');
   return Number(n) / Number(d);
@@ -52,7 +45,8 @@ function snapshotOf(fixture: Fixture): ClipSnapshot {
       pressure: number(item.expression.pressure),
       timbre: number(item.expression.timbre),
       pan: number(item.expression.pan),
-      gain: number(item.expression.gain),
+      // The 8c gain is a portable amplitude ratio; the host stores its raw value (E245).
+      gain: hostGain(number(item.expression.gain)),
       isChanceEnabled: false, isOccurrenceEnabled: false, isRecurrenceEnabled: false, isRepeatEnabled: false,
     });
   }
@@ -65,18 +59,23 @@ function snapshotOf(fixture: Fixture): ClipSnapshot {
   };
 }
 
-/** FIELDS bytes against the 8c exact JSON control, for one fixture. */
+/** The fixture as a document, with the read IDs. */
+function projectFixture(name: keyof typeof PINNED) {
+  const snapshot = snapshotOf(CORPUS[name]!);
+  const cells = launcherClipCells(snapshot);
+  return projectLauncherClip(snapshot, 'c1', cells.map((_, index) => `e${(index + 1).toString(36)}`)).document;
+}
+
+/** FIELDS bytes against the equivalent exact JSON and against the 8c control fields, for one fixture. */
 export function measureFixture(name: keyof typeof PINNED) {
   const fixture = CORPUS[name]!;
-  const snapshot = snapshotOf(fixture);
-  const cells = launcherClipCells(snapshot);
-  const projection = projectLauncherClip(snapshot, 'c1', cells.map((_, index) => `e${(index + 1).toString(36)}`));
-  const fields = Buffer.byteLength(encodeLauncherClip(projection.document, 'fields'));
-  const json = Buffer.byteLength(encodeLauncherClip(projection.document, 'json'));
-  const exact = Buffer.byteLength(pythonCanonical(fixture));
-  const notesOnly = Buffer.byteLength(pythonCanonical({ length_beats: fixture.length_beats, notes: fixture.notes }));
-  return { notes: fixture.notes.length, fields, documentJson: json, exact, notesOnly,
-    ratioExact: fields / exact, ratioNotesOnly: fields / notesOnly };
+  const document = projectFixture(name);
+  const fields = Buffer.byteLength(encodeLauncherClip(document, 'fields'));
+  const exact = Buffer.byteLength(equivalentExactJson(document));
+  // The 8c control without the fields that the document does not represent (track, articulation).
+  const control = Buffer.byteLength(pythonCanonical({ length_beats: fixture.length_beats,
+    notes: fixture.notes.map(({ track: _track, articulation: _articulation, ...rest }) => rest) }));
+  return { notes: fixture.notes.length, fields, exact, control };
 }
 
 test('8h4b corpus: the frozen fixture is the pinned 8c corpus', () => {
@@ -90,18 +89,39 @@ test('8h4b corpus: the frozen fixture is the pinned 8c corpus', () => {
 });
 
 /**
- * E235 records these bytes. The 40 percent target of the interface audit is NOT met: each 8c note has
- * MIDI release velocity 64, which the document holds exactly as `releaseVelocity` 64/127 in binary64.
- * The pins make any change of the read output visible.
+ * E245 records these bytes. FIELDS is at most 40 percent of the equivalent exact JSON. Each 8c note has MIDI
+ * release velocity 64, not the default 100/127, so each row keeps it in WITH (about 45 bytes). The pins make any
+ * change of the read output visible.
  */
-test('8h4b corpus: FIELDS read output bytes against the 8c exact JSON control are pinned', () => {
+test('8h4b2 corpus: FIELDS is at most 40 percent of the equivalent exact JSON', () => {
   const measured = Object.fromEntries((Object.keys(PINNED) as (keyof typeof PINNED)[]).map((name) => {
-    const { fields, documentJson, exact, notesOnly } = measureFixture(name);
-    return [name, { fields, documentJson, exact, notesOnly }];
+    const { fields, exact, control } = measureFixture(name);
+    assert.ok(fields <= 0.4 * exact, `${name}: ${fields} > 40 percent of ${exact}`);
+    return [name, { fields, exact, control }];
   }));
   assert.deepEqual(measured, {
-    short: { fields: 1528, documentJson: 2064, exact: 3289, notesOnly: 2672 },
-    medium: { fields: 4673, documentJson: 6770, exact: 11173, notesOnly: 10338 },
-    long: { fields: 9006, documentJson: 13192, exact: 21940, notesOnly: 20819 },
+    short: { fields: 1528, exact: 4330, control: 2200 },
+    medium: { fields: 4673, exact: 16818, control: 8495 },
+    long: { fields: 9006, exact: 33674, control: 17133 },
   });
+});
+
+/** A typical E231 clip of new host notes (256 notes, 16 channels): no WITH object, and the same bound. */
+test('8h4b2 typical clip: host-default notes have no WITH object', () => {
+  const channels: NoteRecord[][] = Array.from({ length: 16 }, (_, channel) => Array.from({ length: 16 }, (_, k) => {
+    const step = k * 16 + channel;
+    return { startBeats: step / 4, durationBeats: 0.125, pitch: 36 + (step % 48), velocity: 100,
+      releaseVelocity: 100 / 127, isChanceEnabled: true, isOccurrenceEnabled: true, isRecurrenceEnabled: true,
+      isRepeatEnabled: true };
+  }));
+  const snapshot: ClipSnapshot = { ref: {} as ClipSnapshot['ref'], metadata: { name: '', color: { red: 0, green: 0,
+    blue: 0 } as never, lengthBeats: 64, playStartBeats: 0, loopEnabled: true, loopStartBeats: 0, loopEndBeats: 64 },
+  channels };
+  const cells = launcherClipCells(snapshot);
+  const { document } = projectLauncherClip(snapshot, 'c1', cells.map((_, index) => `e${(index + 1).toString(36)}`));
+  const fields = encodeLauncherClip(document, 'fields');
+  assert.ok(!fields.includes(' WITH '));
+  const bytes = { notes: 256, fields: Buffer.byteLength(fields), exact: Buffer.byteLength(equivalentExactJson(document)) };
+  assert.ok(bytes.fields <= 0.4 * bytes.exact);
+  assert.deepEqual(bytes, { notes: 256, fields: 9902, exact: 92468 });
 });

@@ -219,7 +219,7 @@ export const EVENT_FIELDS: EventField[] = ['id', 'clip', 'at', 'duration', 'pitc
 export const REQUIRED_FIELDS: EventField[] = ['id', 'clip', 'at', 'duration', 'pitch', 'velocity'];
 export const BINDING: EventField[] = [...REQUIRED_FIELDS, 'channel', 'mute'];
 export const EVENT_DEFAULTS = {
-    channel: 1, mute: false, releaseVelocity: 0.5, articulation: 'normal',
+    channel: 1, mute: false, releaseVelocity: 100 / 127, articulation: 'normal',
     expression: { velocitySpread: 0, gain: 1, pan: 0, pressure: 0, timbre: 0.5, transpose: 0 },
     chance: { enabled: false, value: 1 }, occurrence: { enabled: false, condition: 'always' },
     recurrence: { enabled: false, length: 1, mask: 1 },

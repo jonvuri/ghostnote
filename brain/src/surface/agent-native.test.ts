@@ -26,10 +26,13 @@ import {
 } from './tools.js';
 import { workspaceOf } from './workspace.js';
 
-/** A note as the cold reader reports it: release velocity and the enable flags are always present. */
+/**
+ * A note as the cold reader reports a new host note (E245): release velocity 100/127 and the enable flags are
+ * always present, and the flags are on.
+ */
 const note = (over: Partial<NoteRecord> = {}): NoteRecord => ({
-  startBeats: 0, pitch: 60, velocity: 100, durationBeats: 1, releaseVelocity: 0.5,
-  isChanceEnabled: false, isOccurrenceEnabled: false, isRecurrenceEnabled: false, isRepeatEnabled: false,
+  startBeats: 0, pitch: 60, velocity: 100, durationBeats: 1, releaseVelocity: 100 / 127,
+  isChanceEnabled: true, isOccurrenceEnabled: true, isRecurrenceEnabled: true, isRepeatEnabled: true,
   ...over,
 });
 
@@ -138,12 +141,22 @@ async function assertAgrees(fx: Awaited<ReturnType<typeof fixture>>, document: S
     assert.ok(event !== undefined, `no event for channel ${channel} pitch ${item.pitch} cell ${cell}`);
     assert.equal(event.velocity, item.velocity);
     assert.equal(event.mute ?? false, item.isMuted === true);
-    assert.equal(event.releaseVelocity ?? 0.5, item.releaseVelocity);
+    assert.equal(event.releaseVelocity ?? 100 / 127, item.releaseVelocity);
     assert.equal(event.expression?.pressure ?? 0, item.pressure ?? 0);
-    assert.equal(event.expression?.gain ?? 1, item.gain ?? 0);
+    // E245: raw 0 is unity; otherwise the cube root of the portable gain is the raw gain.
+    const gain = event.expression?.gain ?? 1;
+    assert.ok((item.gain ?? 0) === 0 ? gain === 1 : Math.cbrt(gain) === item.gain, `gain ${gain} for raw ${item.gain}`);
     assert.equal(event.expression?.pan ?? 0, item.pan ?? 0);
     assert.equal(event.expression?.timbre ?? 0.5, ((item.timbre ?? 0) + 1) / 2);
-    assert.deepEqual(plain(event.chance ?? { enabled: false, value: 1 }), { enabled: item.isChanceEnabled, value: item.chance ?? 1 });
+    // An enabled control with a neutral value is the portable default.
+    assert.deepEqual(plain(event.chance ?? { enabled: false, value: 1 }),
+      { enabled: item.isChanceEnabled === true && (item.chance ?? 1) !== 1, value: item.chance ?? 1 });
+    assert.deepEqual(plain(event.occurrence ?? { enabled: false, condition: 'always' }), {
+      enabled: item.isOccurrenceEnabled === true && (item.occurrence ?? 'ALWAYS') !== 'ALWAYS',
+      condition: (item.occurrence ?? 'ALWAYS') === 'ALWAYS' ? 'always' : `bitwig:${item.occurrence}` });
+    const [length, mask] = item.recurrence ?? [1, 1];
+    assert.deepEqual(plain(event.recurrence ?? { enabled: false, length: 1, mask: 1 }),
+      { enabled: item.isRecurrenceEnabled === true && !(length === 1 && mask === 1), length, mask });
   }
 }
 
@@ -227,14 +240,19 @@ test('8h4b read: a typical clip passes the codec corpus and agrees with the raw 
   assert.equal(result.data.occupancy, 'occupied');
   assert.equal(result.authority.identity, 'new');
   assert.equal(result.authority.mintedIds, 16);
-  assert.deepEqual(result.coverage['uncoveredEventFields'], ['articulation', 'repeat']);
-  assert.deepEqual(result.coverage['uncoveredClipFields'], ['playRange']);
+  // 8h4b2: the wrapper has only the status; the document COVERAGE record and the description state the rest.
+  assert.deepEqual(result.coverage, { status: 'complete' });
+  assert.equal(result.data.loss, undefined, 'a read that moved no timing has no loss block');
+  const description = toolsForProfile(AGENT_NATIVE_TOOL_PROFILE).find((spec) => spec.name === 'read_launcher_clip')!.description;
+  assert.match(description, /articulation and repeat are not covered/);
+  assert.match(description, /playRange is not covered/);
   const document = await assertCodec(fx, result);
   await assertAgrees(fx, document);
   assert.equal(document.clips[0]!.length, '4');
   assert.equal(document.coverage[0]!.status, 'complete');
   assert.deepEqual(result.warnings, []);
   assert.equal(result.diagnostic, undefined);
+  assert.ok(!(result.data.document as string).includes(' WITH '), 'a host-default note has no WITH object');
 });
 
 test('8h4b read: all 16 channels, disabled controls, and pressure stay in the document', async () => {
@@ -257,7 +275,9 @@ test('8h4b read: all 16 channels, disabled controls, and pressure stay in the do
   assert.deepEqual(plain(disabled.recurrence), { enabled: false, length: 3, mask: 5 });
   assert.equal(disabled.mute, true);
   const pressed = document.events.find((item) => item.pitch === 47)!;
-  assert.deepEqual(plain(pressed.expression), { velocitySpread: 0, gain: 1.4, pan: -0.25, pressure: 0.4, timbre: 0.25, transpose: 0 });
+  const { gain, ...expression } = plain(pressed.expression) as Record<string, number>;
+  assert.deepEqual(expression, { velocitySpread: 0, pan: -0.25, pressure: 0.4, timbre: 0.25, transpose: 0 });
+  assert.equal(Math.cbrt(gain!), 1.4, 'raw gain 1.4 projects to its cube');
 });
 
 test('8h4b read: finer-than-cell onsets floor to the cell plane and report D23 loss', async () => {
@@ -281,7 +301,9 @@ test('8h4b read: two source notes in one cell read as one event with an unknown 
   const result = await fx.read({});
   const document = await assertCodec(fx, result);
   assert.equal(document.events.length, 1);
-  assert.equal(result.data.loss!['collisionCount'], 'unknown');
+  // The read cannot see a collision, so it moved no timing; the description states that the count is unknown.
+  assert.equal(result.data.loss, undefined);
+  assert.match(toolsForProfile(AGENT_NATIVE_TOOL_PROFILE).find((spec) => spec.name === 'read_launcher_clip')!.description, /cannot see\s+two source notes in one cell/);
 });
 
 test('8h4b projection: a snapshot with two notes in one cell refuses with collision', () => {

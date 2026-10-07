@@ -2,7 +2,7 @@
 title: Ghostnote Document 1.0 field reference
 kind: reference
 state: active
-updated: 2026-10-01
+updated: 2026-10-07
 ---
 
 # Field reference
@@ -25,7 +25,7 @@ value must supply all its keys. All field names in this document are exact.
 | `velocity` | Integer 0..127; MIDI attack velocity | Required | Realized performance | Add, update |
 | `channel` | Integer 1..16; MIDI channel | 1 | Realized address | Add, update, reset |
 | `mute` | Boolean | false | Realized performance | Add, update, reset |
-| `releaseVelocity` | Number 0..1; normalized release velocity | 0.5 | Realized performance | Add, update, reset |
+| `releaseVelocity` | Number 0..1; normalized release velocity | `100/127` in binary64 (`0.7874015748031497`) | Realized performance | Add, update, reset |
 | `articulation` | Nonempty string; author label | `"normal"` | Declared event property | Add, update, reset |
 | `expression` | Full object below; scalar note expression | Object below | Realized performance | Add, atomic update, reset |
 | `chance` | `{enabled:boolean,value:number 0..1}`; probability | `{enabled:false,value:1}` | Realized playback condition | Add, atomic update, reset |
@@ -53,7 +53,7 @@ are unknown and must be absent. A sparse update omission always preserves.
 | Key | Type and unit | Default |
 |---|---|---|
 | `velocitySpread` | Number 0..1; normalized velocity spread | 0 |
-| `gain` | Number 0..4; linear amplitude ratio | 1 |
+| `gain` | Number 0..8; linear amplitude ratio | 1 |
 | `pan` | Number -1..1; left to right | 0 |
 | `pressure` | Number 0..1; normalized pressure | 0 |
 | `timbre` | Number 0..1; normalized timbre | 0.5 |

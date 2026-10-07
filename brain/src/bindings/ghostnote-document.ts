@@ -57,15 +57,61 @@ export function hostOccurrence(portable: string): string {
     refuse('occurrence', `Unsupported portable occurrence ${portable}`);
   return host;
 }
+/** The binary64 value `steps` units in the last place away from a nonnegative `value`. */
+function ulpStep(value: number, steps: number): number {
+  const view = new DataView(new ArrayBuffer(8));
+  view.setFloat64(0, value);
+  view.setBigInt64(0, view.getBigInt64(0) + BigInt(steps));
+  return view.getFloat64(0);
+}
+/**
+ * Portable gain of a raw host gain (E245). The inspector shows `60*log10(raw)` dB, so the amplitude ratio is
+ * `raw^3`. About three binary64 ratios have the same cube root; return the one with the shortest spelling, so a
+ * written portable value with up to six decimals reads back unchanged. `cbrt` of the result is `raw` whenever
+ * the cube is a normal number. Raw 0 is the gain of a new note and of setter 0, which the host plays at 0 dB; it
+ * is unity. An inspector -inf note also reads raw 0 (HOST-BINDING.md, "Gain zero").
+ */
+export function portableGain(raw: number): number {
+  if (raw === 0) return 1;
+  const cube = raw ** 3;
+  let best = cube;
+  for (let steps = -4; steps <= 4; steps += 1) {
+    const candidate = ulpStep(cube, steps);
+    if (candidate >= 0 && Math.cbrt(candidate) === raw && String(candidate).length < String(best).length) best = candidate;
+  }
+  return best;
+}
+/** The smallest raw gain. The host shows it as -inf and it reads back as portable 0, not as unity. */
+export const SILENT_RAW_GAIN = 1e-323;
+/** Raw host gain of a portable gain: the inverse of `portableGain`. */
+export function hostGain(portable: number): number {
+  return portable === 0 ? SILENT_RAW_GAIN : Math.cbrt(portable);
+}
+/**
+ * An enabled control with a neutral value has no effect. It projects to the portable default (disabled).
+ * A disabled control keeps its stored value.
+ */
+function neutralChance(chance: RawNote['chance']): RawNote['chance'] {
+  return chance.enabled && chance.value === 1 ? { enabled: false, value: 1 } : chance;
+}
+function neutralOccurrence(occurrence: RawNote['occurrence']): RawNote['occurrence'] {
+  return occurrence.enabled && occurrence.condition === 'ALWAYS' ? { enabled: false, condition: 'ALWAYS' } : occurrence;
+}
+function neutralRecurrence(recurrence: RawNote['recurrence']): RawNote['recurrence'] {
+  return recurrence.enabled && recurrence.length === 1 && recurrence.mask === 1
+    ? { enabled: false, length: 1, mask: 1 } : recurrence;
+}
 /** Project a raw note scan. Clip metadata is supplied as portable values. */
 export function projectRawClip(clip: StateDocument['clips'][number], notes: RawNote[]) {
   const source: SourceNote[] = notes.map(n => {
     if (!Number.isInteger(n.channel) || n.channel < 0 || n.channel > 15)
       refuse('channel', 'Host channel must be an integer from 0 through 15');
-    const { occurrence, ...values } = n;
-    return { ...values, clip: clip.id, channel: n.channel + 1,
-      expression: { ...n.expression, timbre: (n.expression.timbre + 1) / 2 },
-      occurrence: { ...occurrence, condition: portableOccurrence(occurrence.condition) } };
+    const occurrence = neutralOccurrence(n.occurrence);
+    return { ...n, clip: clip.id, channel: n.channel + 1,
+      expression: { ...n.expression, gain: portableGain(n.expression.gain), timbre: (n.expression.timbre + 1) / 2 },
+      chance: neutralChance(n.chance),
+      occurrence: { ...occurrence, condition: portableOccurrence(occurrence.condition) },
+      recurrence: neutralRecurrence(n.recurrence) };
   });
   const { events, report } = importNotes(source);
   const document = validate({
@@ -194,8 +240,6 @@ export function assessBindingProposal(base: StateDocument, proposal: Document, e
       refuse('repeat', 'Host repeat controls have no total-trigger-count mapping');
     if (!equal(next.expression?.pressure, prior?.expression?.pressure ?? 0))
       refuse('pressure', 'The host cannot write pressure');
-    if (!equal(next.expression?.gain, prior?.expression?.gain) && next.expression!.gain > 2)
-      refuse('gain', 'The measured gain setter maps only portable values from 0 through 2');
     if (!equal(next.expression?.transpose, prior?.expression?.transpose) && Math.abs(next.expression!.transpose) > 96)
       refuse('transpose', 'The host transpose setter supports -96 through 96 semitones');
     const reconstruction = !prior || ['clip', 'at', 'pitch', 'channel'].some(k => !equal(next[k as keyof Event], prior[k as keyof Event]));
@@ -241,7 +285,6 @@ export function d9MappedFields(event: Event): { channel: number; note: NoteRecor
   if (e.articulation !== 'normal') refuse('articulation', 'The host cannot write articulation labels');
   if (!equal(e.repeat, EVENT_DEFAULTS.repeat)) refuse('repeat', 'Host repeat controls need an explicit semantic converter');
   if (e.expression!.pressure !== 0) refuse('pressure', 'The host cannot write pressure');
-  if (e.expression!.gain > 2) refuse('gain', 'The gain setter supports portable values from 0 through 2');
   if (Math.abs(e.expression!.transpose) > 96) refuse('transpose', 'The transpose setter supports -96 through 96 semitones');
   if (e.recurrence!.length > 8) refuse('recurrence', 'The host supports at most eight recurrence cycles');
   const rationalNumber = (s: string) => {
@@ -254,7 +297,7 @@ export function d9MappedFields(event: Event): { channel: number; note: NoteRecor
   const { pressure: _pressure, ...expression } = e.expression!;
   const note: NoteRecord = {
     startBeats: rationalNumber(e.at), durationBeats: rationalNumber(e.duration),
-    pitch: e.pitch, velocity: e.velocity, ...expression, timbre: 2 * expression.timbre - 1,
+    pitch: e.pitch, velocity: e.velocity, ...expression, gain: hostGain(expression.gain), timbre: 2 * expression.timbre - 1,
     releaseVelocity: e.releaseVelocity, isMuted: e.mute,
     chance: e.chance!.value, isChanceEnabled: e.chance!.enabled,
     occurrence: hostOccurrence(e.occurrence!.condition), isOccurrenceEnabled: e.occurrence!.enabled,

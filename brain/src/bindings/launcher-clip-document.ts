@@ -8,7 +8,11 @@
  *
  * The reader omits a note field that equals the default of a new host note,
  * except release velocity and the four enable flags (`readerNote`). This module
- * restores those host defaults. It does not use the portable defaults.
+ * restores those raw host defaults. `projectRawClip` then maps raw values to
+ * portable values: gain by the E245 cube law, and an enabled control with a
+ * neutral value to the portable default. A new host note therefore has no
+ * non-default field (8h4b2). The uncovered fields (articulation, repeat, and
+ * playRange) are stated in the `read_launcher_clip` description.
  */
 import type { ClipSnapshot } from '../contract/clip-snapshot.js';
 import type { NoteRecord } from '../contract/state.js';
@@ -27,11 +31,6 @@ const HOST_DEFAULTS = {
   velocitySpread: 0, gain: 0, pan: 0, pressure: 0, timbre: 0, transpose: 0, chance: 1,
   occurrence: 'ALWAYS', recurrence: [1, 1] as const,
 };
-
-/** Clip fields that this read does not cover. The read has no play-stop marker. */
-export const UNCOVERED_CLIP_FIELDS = ['playRange'] as const;
-/** Event fields with no measured host mapping (HOST-BINDING.md). */
-export const UNCOVERED_EVENT_FIELDS = ['articulation', 'repeat'] as const;
 
 /** A clip that the portable model cannot hold without consolidation (E129). */
 export interface RangeDiagnostic {

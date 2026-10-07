@@ -1,0 +1,16 @@
+{
+  "schema": "phase8h4b2-defaults-addendum-v1",
+  "note": "Ad-hoc reads after the probe run, in the same project (2026-10-07). Raw values from clip.read; displays as the operator reported them.",
+  "row0Note1AfterOperatorDrag": { "display": "-120 dB (one tick above -inf)", "raw": 0.009999999999999997 },
+  "row1SetterWrites": {
+    "method": "cursor.setNoteProps gain after a reset to setter 0.5; one note per setter value",
+    "pairs": [
+      { "setter": 1e-12, "raw": 2e-12, "display": "-inf dB" },
+      { "setter": 5e-324, "raw": 1e-323, "display": "-inf dB" },
+      { "setter": -1, "raw": 1, "display": "not reported; the write was ignored and the note kept setter 0.5" },
+      { "setter": 0.005, "raw": 0.01, "display": "-120 dB" },
+      { "setter": 0.0001, "raw": 0.0002, "display": "-inf dB" }
+    ]
+  },
+  "row1SetterZeroDisplay": "0.0 dB (raw 0, from the probe sweep)"
+}

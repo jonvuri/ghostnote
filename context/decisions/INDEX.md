@@ -2,7 +2,7 @@
 title: Decision index
 kind: index
 state: active
-updated: 2026-10-06
+updated: 2026-10-07
 ---
 
 # Decision index
@@ -46,6 +46,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D32 | Pull snapshot references use the revision mark **[SETTLED 2026-10-06]** | [open](d32-pull-snapshot-references-use-the-revision-mark.md) |
 | D33 | The product track bank lists all channels **[SETTLED 2026-10-06]** | [open](d33-the-product-track-bank-lists-all-channels.md) |
 | D34 | The reader expands collapsed parent groups **[SETTLED 2026-10-06]** | [open](d34-the-reader-expands-collapsed-parent-groups.md) |
+| D35 | Document gain range and release velocity default **[SETTLED 2026-10-07]** | [open](d35-document-gain-range-and-release-velocity-default.md) |
 
 ## Phase 4 closeout audit
 

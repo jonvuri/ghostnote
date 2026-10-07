@@ -30,7 +30,7 @@
     { "id": "B01", "claim": "All-channel projection and both timing deltas" },
     { "id": "B02", "claim": "Disabled controls retain stored values" },
     { "id": "B03", "claim": "Unknown articulation and repeat remain uncovered" },
-    { "id": "B04", "claim": "Mapped D9 fields use portable defaults and the existing gain inverse" },
+    { "id": "B04", "claim": "Mapped D9 fields use portable defaults and the measured gain inverse" },
     { "id": "B05", "claim": "Pressure, occurrence, recurrence, and repeat capability refusals" },
     { "id": "B06", "claim": "Sparse omission preserves; desired omission resets covered fields" },
     { "id": "B07", "claim": "Same-key overlap refuses; exact adjacency remains admissible" },
@@ -40,6 +40,9 @@
     { "id": "B11", "claim": "Every D32 snapshot verdict other than current invalidates the proposal" },
     { "id": "B12", "claim": "D21 replay refusal remains separate from normalized timing" },
     { "id": "B13", "claim": "Ownership and one-to-one matching are required for ID reuse" },
-    { "id": "B14", "claim": "Pressure survives scalar edits but cannot be reconstructed or reversed" }
+    { "id": "B14", "claim": "Pressure survives scalar edits but cannot be reconstructed or reversed" },
+    { "id": "B15", "claim": "Raw gain maps by the cube law; raw zero is unity; portable zero writes the silent raw value" },
+    { "id": "B16", "claim": "An enabled control with a neutral value projects to the portable default" },
+    { "id": "B17", "claim": "A drawn host-default note has no non-default field" }
   ]
 }

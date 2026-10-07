@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto';
 import { contentHash, EVENT_DEFAULTS, ImportCollisionError, validate,
   type Event, type Patch, type StateDocument } from '../document/index.js';
 import { BindingRefusal, assessBindingProposal, checkLegacyReplay, d9MappedFields,
-  guardAuthority, hostOccurrence, portableOccurrence, projectRawClip, recoverEventIds,
+  SILENT_RAW_GAIN, guardAuthority, hostGain, hostOccurrence, portableGain, portableOccurrence, projectRawClip, recoverEventIds,
   resolvePartialProposal, type Authority, type FreshAuthority, type RawNote } from './ghostnote-document.js';
 import { addressKey, clipMetadata, notes as notesAt, snapshotClip, CONTRACT_TAG,
   type ContentDelta, type RevisionMark, type StateEntry } from '../contract/index.js';
@@ -96,9 +96,11 @@ bindingCase('B03', () => {
 bindingCase('B04', () => {
   const mapped = d9MappedFields(base().events[0]);
   assert.equal(mapped.channel, 0);
-  assert.equal(mapped.note.releaseVelocity, 0.5);
+  assert.equal(mapped.note.releaseVelocity, 100 / 127);
   assert.equal(mapped.note.timbre, 0);
   assert.equal(mapped.note.gain, 1);
+  assert.equal(d9MappedFields(base({ expression: { ...EVENT_DEFAULTS.expression, gain: 8 } }).events[0]).note.gain, 2);
+  assert.equal(d9MappedFields(base({ expression: { ...EVENT_DEFAULTS.expression, gain: 0 } }).events[0]).note.gain, SILENT_RAW_GAIN);
   assert.equal(mapped.note.isChanceEnabled, false);
   assert.equal(mapped.note.isOccurrenceEnabled, false);
   assert.equal(mapped.note.isRecurrenceEnabled, false);
@@ -116,7 +118,9 @@ bindingCase('B05', () => {
   refusal('recurrence', () => assess(b, patch(b, { recurrence: { enabled: false, length: 9, mask: 1 } })));
   refusal('repeat', () => assess(b, patch(b, { repeat: { ...EVENT_DEFAULTS.repeat, count: 2 } })));
   refusal('articulation', () => assess(b, patch(b, { articulation: 'staccato' })));
-  refusal('gain', () => assess(b, patch(b, { expression: { ...EVENT_DEFAULTS.expression, gain: 2.1 } })));
+  // The host range is the portable range (raw 2 is portable 8); the codec refuses a larger value.
+  assert.doesNotThrow(() => assess(b, patch(b, { expression: { ...EVENT_DEFAULTS.expression, gain: 8 } })));
+  assert.throws(() => assess(b, patch(b, { expression: { ...EVENT_DEFAULTS.expression, gain: 8.5 } })));
   refusal('transpose', () => assess(b, patch(b, { expression: { ...EVENT_DEFAULTS.expression, transpose: 97 } })));
   assert.equal(d9MappedFields(base({ expression: { ...EVENT_DEFAULTS.expression, timbre: 0.25 } }).events[0]).note.timbre, -0.5);
   for (const host of ['ALWAYS', 'FIRST', 'NOT_PREV_KEY', 'FILL']) assert.equal(hostOccurrence(portableOccurrence(host)), host);
@@ -138,11 +142,11 @@ bindingCase('B06', () => {
   const desired = base();
   desired.kind = 'desired'; desired.base = { sha256: contentHash(b) };
   const complete = assess(b, desired).document.events[0];
-  assert.equal(complete.releaseVelocity ?? EVENT_DEFAULTS.releaseVelocity, 0.5);
+  assert.equal(complete.releaseVelocity ?? EVENT_DEFAULTS.releaseVelocity, 100 / 127);
   assert.equal(complete.expression?.pan ?? 0, 0);
   assert.equal(complete.chance?.value ?? 1, 1);
   const reset = assess(b, patch(b, { releaseVelocity: null })).document.events[0];
-  assert.equal(reset.releaseVelocity ?? EVENT_DEFAULTS.releaseVelocity, 0.5);
+  assert.equal(reset.releaseVelocity ?? EVENT_DEFAULTS.releaseVelocity, 100 / 127);
 });
 bindingCase('B07', () => {
   const b = base(); b.events.push({ ...b.events[0], id: 'event2', at: '1' });
@@ -249,6 +253,54 @@ bindingCase('B14', () => {
   refusal('pressure', () => assess(b, patch(b, { at: '2' })));
   const remove = patch(b, {}); remove.update = []; remove.remove = ['event1'];
   refusal('pressure', () => assess(b, remove));
+});
+bindingCase('B15', () => {
+  // E245: raw r shows 60*log10(r) dB. The live pairs: -6 dB, 0 dB, +6 dB, -120 dB, and the raw maximum.
+  for (const [raw, portable] of [[0.7943282347242815, 0.5011872336272722], [1, 1], [1.2589254117941673, 1.99526231496888],
+    [0.009999999999999997, 9.99999999999999e-7], [2, 8], [0.5, 0.125]] as const) {
+    assert.equal(portableGain(raw), portable);
+    assert.equal(hostGain(portable), raw);
+  }
+  // The shortest portable value with the same cube root: a written value with six decimals reads back unchanged.
+  for (let thousandths = 1; thousandths <= 8000; thousandths += 1) {
+    const portable = thousandths / 1000;
+    assert.equal(portableGain(hostGain(portable)), portable);
+  }
+  for (let raw = 0.01; raw <= 2; raw += 0.000917) assert.equal(hostGain(portableGain(raw)), raw);
+  assert.equal(portableGain(0), 1, 'raw 0 is a new note at 0 dB');
+  assert.equal(portableGain(SILENT_RAW_GAIN), 0, 'the silent write reads back as portable 0');
+  assert.equal(hostGain(0), SILENT_RAW_GAIN);
+  const raw = { ...fixture.rawNotes[0], expression: { ...fixture.rawNotes[0].expression, gain: 0 } };
+  assert.equal(projectRawClip(fixture.clip, [raw]).document.events[0].expression, undefined);
+});
+bindingCase('B16', () => {
+  const event2 = projectRawClip(fixture.clip, fixture.rawNotes).document.events.find(e => e.id === 'event2')!;
+  assert.equal(event2.chance, undefined, 'enabled chance at value 1 is the default');
+  assert.equal(event2.occurrence, undefined, 'enabled ALWAYS is the default');
+  assert.deepEqual({ ...event2.recurrence }, { enabled: true, length: 4, mask: 5 });
+  const host = { ...fixture.rawNotes[0], chance: { enabled: true, value: 1 }, occurrence: { enabled: true, condition: 'ALWAYS' },
+    recurrence: { enabled: true, length: 1, mask: 1 } };
+  const e = projectRawClip(fixture.clip, [host]).document.events[0];
+  assert.deepEqual([e.chance, e.occurrence, e.recurrence], [undefined, undefined, undefined]);
+  const active = projectRawClip(fixture.clip, [{ ...host, chance: { enabled: true, value: 0.5 },
+    recurrence: { enabled: true, length: 1, mask: 0 } }]).document.events[0];
+  assert.deepEqual({ ...active.chance }, { enabled: true, value: 0.5 });
+  assert.deepEqual({ ...active.recurrence }, { enabled: true, length: 1, mask: 0 });
+  const disabled = projectRawClip(fixture.clip, [fixture.rawNotes[0]]).document.events[0];
+  assert.deepEqual({ ...disabled.chance }, { enabled: false, value: 0.25 }, 'a disabled nondefault value stays');
+});
+bindingCase('B17', () => {
+  // A drawn Bitwig note (E245): release 100/127, gain 0, timbre 0, and the three flags enabled. It has no WITH values.
+  const drawn: RawNote = { id: 'drawn', channel: 0, at: '0', duration: '1/4', pitch: 60, velocity: 100, mute: false,
+    releaseVelocity: 0.7874015748031497,
+    expression: { velocitySpread: 0, gain: 0, pan: 0, pressure: 0, timbre: 0, transpose: 0 },
+    chance: { enabled: true, value: 1 }, occurrence: { enabled: true, condition: 'ALWAYS' },
+    recurrence: { enabled: true, length: 1, mask: 1 } };
+  const { document } = projectRawClip(fixture.clip, [drawn]);
+  assert.deepEqual(Object.keys(document.events[0]).sort(), ['at', 'clip', 'duration', 'id', 'pitch', 'velocity']);
+  assert.equal(EVENT_DEFAULTS.releaseVelocity, 0.7874015748031497);
+  const other = projectRawClip(fixture.clip, [{ ...drawn, releaseVelocity: 64 / 127 }]).document.events[0];
+  assert.equal(other.releaseVelocity, 64 / 127, 'a nondefault release velocity stays explicit and exact');
 });
 test('The corpus case inventory is complete', () => {
   const manifest = JSON.parse(readFileSync(new URL('../../../spec/ghostnote-document-v1/bindings/v1/manifest.json', import.meta.url), 'utf8'));

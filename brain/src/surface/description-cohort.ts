@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v26';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v27';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -321,7 +321,9 @@ export const DESCRIPTION_COHORT_V25: readonly DescriptionCohortMember[] = [
 /**
  * v26 (8h4b) adds the agent-native-v1 document read and its check. Build the
  * v26 artifact from the agent-native-v1 tool list; the stable members are
- * unchanged.
+ * unchanged. v27 (8h4b2) keeps this cohort. It changes the read wording (the
+ * loss block, the uncovered fields, and gain at -inf dB) and the model
+ * reference revision 2 (release velocity default 100/127, gain 0..8).
  */
 export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V25,
@@ -501,3 +503,7 @@ export const TOOL_DESCRIPTION_V25_SHA256 =
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V26_SHA256 =
   '9ef5f402e46c3127f911f10eed20a3bf1bde302f76aebeaef177f9973f5a39f6';
+
+/** Changing this fingerprint requires a new description version. */
+export const TOOL_DESCRIPTION_V27_SHA256 =
+  '44c8e346ee9ef9d6905550c2fb62af4cbea3dff87abb154c96f979a68c930452';

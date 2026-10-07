@@ -2,7 +2,7 @@
 title: Ghostnote Document 1.0 host binding
 kind: reference
 state: active
-updated: 2026-10-06
+updated: 2026-10-07
 owner: phase-8f3
 ---
 
@@ -66,18 +66,46 @@ value in a portable range has passed a live test.
 | `velocity` | Round host normalized velocity times 127 | Integer MIDI setter; compare integer readback |
 | `channel` | Host `channel()` plus one | Subtract one for typed operations; explicit on every musical write |
 | `mute` | `isMuted` | Direct Boolean |
-| `releaseVelocity` | Raw normalized `releaseVelocity`, not MIDI 0..127 | Direct normalized value; do not substitute the old 64/127 insertion policy |
+| `releaseVelocity` | Raw normalized `releaseVelocity`, not MIDI 0..127. The host insertion value is exactly `100/127` for a drawn note and an API note (E235, E245); it is the portable default | Direct normalized value; do not substitute the old 64/127 insertion policy |
 | `articulation` | No measured host field | Uncovered on a host-only snapshot. `normal` on a new proposal has no setter. Other labels require separate declared storage or refusal |
 | `expression.velocitySpread` | Raw `velocitySpread` | Direct normalized value |
-| `expression.gain` | Raw `gain`, amplitude ratio | Host profile is 0..2; shared encoder applies `gain/2` exactly once. Refuse portable values above 2 |
+| `expression.gain` | Raw `gain` `r` is 0..2; the inspector shows `60*log10(r)` dB (E245). Portable gain is `r^3`, spelled as the shortest binary64 value whose `cbrt` is `r`; raw 1 is 0 dB and raw 2 is portable 8 (+18.06 dB). Raw 0 is portable 1: see [gain zero](#gain-zero) | Raw is `cbrt(portable)`; the shared encoder applies `raw/2` exactly once (E24). Portable 0 writes raw `1e-323` |
 | `expression.pan` | Raw `pan` | Direct signed value |
 | `expression.pressure` | Independent raw `pressure` read | Unwritable. Preserve on untouched existing notes; refuse a changed or reconstructed nonzero value |
 | `expression.timbre` | `(raw timbre + 1)/2` from host -1..1 | Inverse is `2*portable - 1`; portable default 0.5 maps to host centre 0 |
 | `expression.transpose` | Raw `transpose` | Direct semitones; host range -96..96. Refuse the wider portable values |
-| `chance` | `isChanceEnabled`, `chance` | Map both members; keep a disabled value |
-| `occurrence` | `isOccurrenceEnabled`, `occurrence` enum | `ALWAYS` maps to `always`; other supported enums map to `bitwig:ENUM`. Map the exact inverse; refuse other labels |
-| `recurrence` | `isRecurrenceEnabled`, `recurrenceLength`, `recurrenceMask` | Preserve all three even when disabled. Host length is 1..8 and mask is below `2^length`; refuse longer writable cycles |
+| `chance` | `isChanceEnabled`, `chance` | Map both members; keep a disabled value. Enabled with value 1 is the portable default ([neutral flags](#neutral-enable-flags)) |
+| `occurrence` | `isOccurrenceEnabled`, `occurrence` enum | `ALWAYS` maps to `always`; other supported enums map to `bitwig:ENUM`. Map the exact inverse; refuse other labels. Enabled `ALWAYS` is the portable default |
+| `recurrence` | `isRecurrenceEnabled`, `recurrenceLength`, `recurrenceMask` | Preserve all three even when disabled. Host length is 1..8 and mask is below `2^length`; refuse longer writable cycles. Enabled with length 1 and mask 1 is the portable default |
 | `repeat` | Host controls use different semantics | Uncovered as a portable atomic field. Keep raw controls private. Refuse conversion or reconstruction that needs an unproved semantic mapping |
+
+### Gain zero
+
+A new host note reads raw gain 0 and the inspector shows 0 dB. Setter 0 also
+reads raw 0 and shows 0 dB. An inspector value of -inf dB also reads raw 0. The
+API has no other gain accessor, so a read cannot separate -inf from the
+default. The binding projects raw 0 as portable 1 (unity). An inspector -inf
+note therefore reads as unity. The lowest finite inspector value, -120 dB, reads
+raw 0.01. A raw value below 0.01 shows -inf and projects to its cube.
+`cbrt(r^3)` returns `r` in binary64 when the cube is a normal number (raw above
+about `2.8e-103`). Smaller raw values can share one portable value; the cube is
+0 below about `1.35e-108`. The source digest still covers the raw value.
+About three binary64 portable values share one raw value. The shortest
+spelling makes a written portable value with up to six decimals read back
+unchanged. A longer value can read back as a neighbour; compare raw readback.
+Portable 0 writes raw `1e-323` (setter `5e-324`). The inspector shows -inf, and
+the readback projects to portable 0, not to unity.
+
+### Neutral enable flags
+
+The host enables chance, occurrence, and recurrence on a new note. An enabled
+control with a neutral value has no effect: chance enabled at value 1,
+occurrence enabled with `ALWAYS`, and recurrence enabled with length 1 and mask
+1. The projection maps each of these to the portable default. A disabled
+control with a nondefault value stays as it is. The raw flag is host-private.
+A write builds its candidate from fresh raw state, so an untouched note keeps
+its host flag. The source digest covers every raw field, so event identity and
+the D32 verdicts do not change.
 
 Supported occurrence suffixes are `FIRST`, `NOT_FIRST`, `PREV`, `NOT_PREV`,
 `PREV_CHANNEL`, `NOT_PREV_CHANNEL`, `PREV_KEY`, `NOT_PREV_KEY`, `FILL`, and
@@ -96,8 +124,8 @@ protected clip copy under the existing fidelity policy.
 Scalar expression/release readback uses the existing `2e-3` property tolerance
 where measured; signed timbre tolerance 0.002 becomes portable tolerance 0.001.
 Identity, pitch, MIDI velocity, Booleans, enums, recurrence,
-and normalized cell timing compare exactly. Gain uses the measured E24 inverse;
-a comparison tolerance does not authorize a changed source or base guard.
+and normalized cell timing compare exactly. Gain uses the E245 cube law and the E24 setter scale;
+compare raw readback. A comparison tolerance does not authorize a changed source or base guard.
 Portable values outside measured host support refuse before mutation. A future
 wider profile needs named values and independent host evidence.
 
@@ -137,7 +165,8 @@ unrepresented host state.
 ## Defaults and proposed changes
 
 New portable notes expand R04 defaults. The writer must set each mapped default
-explicitly when host insertion defaults differ. It must not substitute
+explicitly when host insertion defaults differ. Release velocity, gain, and
+the neutral flags already match the host insertion values. It must not substitute
 `track-neutral-v0`: that policy uses release 64/127, host-centred timbre 0, enabled conditions,
 and host repeat controls. Pressure zero is omitted from setters only when
 independent insertion readback proves zero. The initial binding refuses a new
@@ -249,7 +278,7 @@ names each consumer and protection boundary.
 
 ## Source and handoff
 
-Existing evidence: E15-E pressure, E24 gain, E43 metadata, E116 precision,
+Existing evidence: E15-E pressure, E24 gain setter scale, E245 gain meaning and insertion defaults, E43 metadata, E116 precision,
 E121 explicit insertion defaults, E128 targeted reversal, E129 range refusal,
 E131 acquisition, E230 cold reader, and E233 pull snapshot references. See the
 [interface audit](../../context/evidence/format/AGENT_NATIVE_INTERFACE_AUDIT.md)

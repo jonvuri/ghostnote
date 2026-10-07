@@ -22,7 +22,7 @@ import {
 import { readWithClipSnapshots } from '../engine/index.js';
 import { IdentityRegistry, type Acquired, type BaseEntry, type Retirement } from '../bindings/identity-registry.js';
 import {
-  LauncherClipReadError, UNCOVERED_CLIP_FIELDS, UNCOVERED_EVENT_FIELDS, cellKey, encodeLauncherClip,
+  LauncherClipReadError, cellKey, encodeLauncherClip,
   launcherClipCells, projectLauncherClip, type LauncherClipProjection,
 } from '../bindings/launcher-clip-document.js';
 import type { Encoding } from '../document/index.js';
@@ -96,20 +96,17 @@ const SOURCE = Object.freeze({
   reference: { revision: MODEL_REFERENCE.revision, sha256: MODEL_REFERENCE.sha256 },
 });
 
-function documentCoverage(projection: LauncherClipProjection) {
-  return {
-    status: 'complete',
-    channels: 16,
-    from: projection.boundary.from,
-    to: projection.boundary.to,
-    plane: projection.boundary.plane,
-    uncoveredEventFields: UNCOVERED_EVENT_FIELDS,
-    uncoveredClipFields: UNCOVERED_CLIP_FIELDS,
-    reasons: [
-      'articulation and repeat have no measured host mapping',
-      'playRange needs the play-stop marker, which this read does not report',
-    ],
-  };
+/**
+ * The wrapper coverage of a projection. The document COVERAGE record states the span, the channels, and the
+ * covered fields; the description states the constant uncovered fields and their reasons (8h4b2).
+ */
+const DOCUMENT_COVERAGE = Object.freeze({ status: 'complete' });
+
+/** The loss facts, or nothing when the read moved no timing. The description states the constant D23 facts. */
+function lossOf(projection: LauncherClipProjection) {
+  const { loss } = projection;
+  const moved = loss.onsetsMoved + loss.durationsRounded + loss.minimumDurationPromotions + loss.changedOverlaps;
+  return moved === 0 ? {} : { loss };
 }
 
 function projectionWarnings(projection: LauncherClipProjection): Warning[] {
@@ -205,9 +202,12 @@ type ReadInput = z.infer<typeof readInput>;
 
 const READ_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Read one Launcher clip as a Ghostnote `
   + 'Document 1.0 snapshot. Address it by durable trackId and zero-based row. Each call is one fresh '
-  + 'read of the complete clip on all 16 MIDI channels. Note timing uses the 1/512-beat cell plane; '
-  + 'data.loss counts onsets and durations that moved to it. articulation, repeat, and playRange are '
-  + 'not covered.\n'
+  + 'read of the complete clip on all 16 MIDI channels. Note timing uses the 1/512-beat cell plane. '
+  + 'The read sees each onset at its cell, so a finer source onset is not observable, and it cannot see '
+  + 'two source notes in one cell. data.loss is present only when the read moved timing; it counts onsets '
+  + 'and durations that moved to the cell plane. articulation and repeat are not covered: they have no '
+  + 'measured host mapping. playRange is not covered: the read has no play-stop marker. Gain 1 is also '
+  + 'the value of a note that Bitwig shows at -inf dB; the host reports both as one value.\n'
   + 'Result: data.occupancy is occupied or empty. An empty slot has no document; it is not an empty '
   + 'clip. authority.base has the document sha256 and an opaque base ref. A repeated read of an '
   + 'unchanged clip returns the same ref and the same IDs (identity current). After a human edit, '
@@ -295,7 +295,7 @@ async function readLauncherClip(workspace: Workspace, args: ReadInput): Promise<
       schema: READ_SCHEMA,
       source: SOURCE,
       target: named,
-      coverage: documentCoverage(projection),
+      coverage: DOCUMENT_COVERAGE,
       authority: {
         kind: 'fresh-read',
         base: { sha256: acquired.entry.contentHash, ref: acquired.entry.ref },
@@ -305,7 +305,7 @@ async function readLauncherClip(workspace: Workspace, args: ReadInput): Promise<
         occupancy: 'occupied',
         format: encoding,
         document: encoded(projection.document, encoding),
-        loss: projection.loss,
+        ...lossOf(projection),
       },
       warnings: projectionWarnings(projection),
       timing: { readMs, totalMs: performance.now() - started },
@@ -418,10 +418,10 @@ async function checkLauncherClips(workspace: Workspace, args: CheckInput): Promi
             ref: entry.ref, verdict: 'stale', target,
             base: { sha256: acquired.entry.contentHash, ref: acquired.entry.ref },
             ...identityFacts(acquired),
-            coverage: documentCoverage(projection),
+            coverage: DOCUMENT_COVERAGE,
             format: encoding,
             document: encoded(projection.document, encoding),
-            loss: projection.loss,
+            ...lossOf(projection),
             warnings: projectionWarnings(projection),
           };
         } catch (error) {
@@ -466,7 +466,7 @@ const checkLauncherClipsTool: ToolSpec = {
     profile: AGENT_NATIVE_TOOL_PROFILE,
     verdicts: ['current', 'stale', 'identity-changed', 'absent', 'incomparable', 'uncovered'],
     itemCodes: ['expired-ref', 'invalid-ref'],
-    staleCarries: ['base', 'document', 'loss'],
+    staleCarries: ['base', 'document', 'loss when timing moved'],
   },
   run: (workspace, input) => checkLauncherClips(workspace, input as CheckInput),
 };

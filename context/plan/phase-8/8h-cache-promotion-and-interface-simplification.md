@@ -108,7 +108,8 @@ Reader promotion and remaining sessions, in order:
       except the 40 percent byte target; E235 names three format findings.
       - [8h4b2 — Document read compactness and gain correctness](8h4b2-document-read-compactness-and-gain.md):
         the gain mapping, neutral enable flags, the release velocity default,
-        and other distractions, before 8h4c (E245).
+        and other distractions, before 8h4c. Complete (E245, D35); the 8h4b
+        byte target is met, and E245 records tokens.
    3. [8h4c — Document edit limb](8h4c-document-edit-limb.md):
       `edit_launcher_clip` for desired documents and sparse patches, through
       the host binding and `Authority`.

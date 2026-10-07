@@ -1,7 +1,7 @@
 {
   "owner": "8f2 reference codec",
   "formatVersion": "1.0",
-  "referenceSha256": "e86f08a070621c46f4678fb2d4cfb598a440f72a956f2f2e888a8efbe2acd4d7",
+  "referenceSha256": "ced8e40aa30522cf7b77fc6d01cd7cdbb31f4591b23849836788a8f3581f3732",
   "scope": "Complete selected reference plus its examples and source identity preface. No task, input document, or provider wrapper.",
   "providerTokensReason": "No tokenizer for these provider models is bundled. No token-count or generation request was made. Bytes are not tokens.",
   "baseline": {
@@ -58,9 +58,9 @@
       "sections": [
         "Core"
       ],
-      "bytes": 3575,
-      "sha256": "3ebb8f55bbc3125aad4cd49939be82fc54fb9a6db5d34d9fd06e3e1bb66e9833",
-      "ratioToRetainedReference": 4.904,
+      "bytes": 3639,
+      "sha256": "26759fee78ee20cbd3c2e4423fc8705627cc36ab95f8390581b28e2ed2f09587",
+      "ratioToRetainedReference": 4.9918,
       "providerTokens": null
     },
     {
@@ -69,9 +69,9 @@
         "Core",
         "Patch"
       ],
-      "bytes": 4650,
-      "sha256": "9ee4f6029a41ae932dcf3daaa0f9d0fd8fd20761941b14dc240965fc8d77f4c1",
-      "ratioToRetainedReference": 6.3786,
+      "bytes": 4714,
+      "sha256": "18f2dc6b77884bcd3a6b7efdeea85e6f6e31205a214e2b7729c7896169b16f41",
+      "ratioToRetainedReference": 6.4664,
       "providerTokens": null
     },
     {
@@ -80,9 +80,9 @@
         "Core",
         "Timing overlays"
       ],
-      "bytes": 5856,
-      "sha256": "888a27ec9d21443f3092deb7a60ab46ca802748398856bfd5e20efc4775d4090",
-      "ratioToRetainedReference": 8.0329,
+      "bytes": 5920,
+      "sha256": "27213f43032ba7400fdc7e89f2abb094aa04f935962c900f087303619cdc8593",
+      "ratioToRetainedReference": 8.1207,
       "providerTokens": null
     },
     {
@@ -94,9 +94,9 @@
         "Groups",
         "Meter and tempo"
       ],
-      "bytes": 7916,
-      "sha256": "e86f08a070621c46f4678fb2d4cfb598a440f72a956f2f2e888a8efbe2acd4d7",
-      "ratioToRetainedReference": 10.8587,
+      "bytes": 7980,
+      "sha256": "ced8e40aa30522cf7b77fc6d01cd7cdbb31f4591b23849836788a8f3581f3732",
+      "ratioToRetainedReference": 10.9465,
       "providerTokens": null
     }
   ]

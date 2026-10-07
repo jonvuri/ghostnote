@@ -2,7 +2,7 @@
 title: Ghostnote Document 1.0 specification
 kind: specification
 state: active
-updated: 2026-10-01
+updated: 2026-10-07
 source: ../../context/decisions/d25-fields-json-document-format-and-publication.md
 ---
 
@@ -96,8 +96,9 @@ it is not a complete desired replacement.
 Use the types, units, defaults, authority, and operations in [FIELDS.md](FIELDS.md).
 An event requires `id`, `clip`, `at`, `duration`, `pitch`, and `velocity`.
 Channel defaults to 1 and mute defaults to false. Optional values have one
-portable default. Defaults do not claim a Bitwig insertion policy. Realized
-properties belong to the event. No overlay is another note list.
+portable default. A default can equal a measured host insertion value, as
+release velocity `100/127` does, but it does not define a host insertion
+policy. Realized properties belong to the event. No overlay is another note list.
 
 Do not collapse distinct event IDs because their pitches or times match.
 Reject a duplicate `(clip,channel,pitch,at)` address after rational reduction.

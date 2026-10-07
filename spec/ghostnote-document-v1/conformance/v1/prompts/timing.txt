@@ -1,6 +1,6 @@
 # Model format reference
 
-Format: `ghostnote-document/1.0`. Reference revision: `1`.
+Format: `ghostnote-document/1.0`. Reference revision: `2`.
 The [identity file](MODEL-REFERENCE.identity.json) gives the SHA-256 of this
 maintained source. Select the Core section and the optional sections needed
 for the task. Examples use generated MIT fixture music.
@@ -31,8 +31,9 @@ minimum. Import reports both deltas. Conversion does not quantize.
 [R07](SPEC.md#r07--acquisition-and-import-normalization)
 
 Pitch and velocity are integers 0..127. Channel is 1..16. Defaults are channel
-1, mute false, releaseVelocity 0.5, and articulation `normal`. Expression is
-atomic, with defaults `{velocitySpread:0,gain:1,pan:0,pressure:0,timbre:0.5,transpose:0}`.
+1, mute false, releaseVelocity 0.7874015748031497 (100/127), and articulation
+`normal`. Gain is a linear amplitude ratio 0..8. Expression is atomic, with
+defaults `{velocitySpread:0,gain:1,pan:0,pressure:0,timbre:0.5,transpose:0}`.
 Playback defaults are chance `{enabled:false,value:1}`, occurrence
 `{enabled:false,condition:"always"}`, recurrence `{enabled:false,length:1,mask:1}`,
 and repeat `{enabled:false,count:1,curve:0,velocityCurve:0,velocityEnd:1}`.

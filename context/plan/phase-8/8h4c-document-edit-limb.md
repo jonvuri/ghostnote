@@ -3,11 +3,11 @@ title: Phase 8h4c — Document edit limb
 kind: plan
 state: planned
 status: Planned. Adds edit_launcher_clip for desired documents and sparse patches through the host binding, guarded by the D32 reference.
-updated: 2026-10-06
+updated: 2026-10-07
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h4b2-document-read-compactness-and-gain.md
 next: 8h4d-musical-and-clip-surface-migration.md
-evidence: E8, E15, E24, E43, E121, E128, E129, E230, E233; D8, D9, D16, D21, D23, D31, D32
+evidence: E8, E15, E24, E43, E121, E128, E129, E230, E233, E245; D8, D9, D16, D21, D23, D31, D32, D35
 ---
 
 # Phase 8h4c — Document edit limb
@@ -54,6 +54,11 @@ migration contract T3 rows; D8, D9, D16, D31; and the 8h4b registry.
 - Lower to executor operations through `d9MappedFields` and the existing D9
   encoder. Set every mapped default explicitly for new notes; do not use
   `track-neutral-v0`.
+- Use the E245 rules (HOST-BINDING "Gain zero" and "Neutral enable flags"):
+  raw gain is `hostGain(portable)`, and portable 0 is the silent raw value,
+  not setter 0. Compare gain readback by raw value. An untouched note keeps
+  its raw enable flags; a portable default writes disabled flags. Add a live
+  case that writes portable gain 0, 0.5, and 8 and reads them back.
 - Select the route: E128 targeted insertion and removal when the plan proves
   cell ownership and has no same-pitch collateral; otherwise whole-clip
   replacement with complete all-channel protection (D16).

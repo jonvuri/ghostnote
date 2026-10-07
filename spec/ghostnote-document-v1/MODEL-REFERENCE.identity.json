@@ -1,7 +1,7 @@
 {
   "formatVersion": "1.0",
-  "referenceRevision": 1,
+  "referenceRevision": 2,
   "algorithm": "sha256",
   "scope": "Exact UTF-8 bytes of MODEL-REFERENCE.md",
-  "sha256": "e86f08a070621c46f4678fb2d4cfb598a440f72a956f2f2e888a8efbe2acd4d7"
+  "sha256": "ced8e40aa30522cf7b77fc6d01cd7cdbb31f4591b23849836788a8f3581f3732"
 }

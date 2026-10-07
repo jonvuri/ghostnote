@@ -2,7 +2,7 @@
 title: Ghostnote binding corpus version 1
 kind: reference
 state: active
-updated: 2026-10-06
+updated: 2026-10-07
 ---
 
 # Binding corpus version 1
@@ -26,25 +26,31 @@ npm run document:bindings
 | Cases | Contract checked |
 |---|---|
 | B01–B03 | All 16 channels, onset and duration deltas, disabled stored values, and unavailable fields |
-| B04–B05 | Portable scalar defaults, existing gain inverse, and host capability refusals |
+| B04–B05 | Portable scalar defaults, measured gain inverse, and host capability refusals |
 | B06 | Sparse preservation, complete desired defaults, and explicit reset |
 | B07–B08 | Same-key overlap refusal, exact adjacency, and normalized cell collision refusal |
 | B09–B11 | Partial-base refusal, guarded explicit resolution, and D32 snapshot verdict refusal |
 | B12 | Separate D21 exact-source replay refusal |
 | B13 | Proven ownership, one-to-one ID recovery, and ambiguity |
 | B14 | Pressure preservation, reconstruction refusal, and reversal refusal |
+| B15 | Gain cube law, raw zero as unity, and the silent raw write value (E245) |
+| B16 | Neutral enabled chance, occurrence, and recurrence project to the portable default |
+| B17 | A drawn host-default note has no non-default field; other release velocities stay exact |
 
 `projectRawClip` consumes supplied raw groups. It retains disabled controls and
 does not infer values from the old decoder's omissions. Articulation and repeat
 are absent and uncovered. Its coverage describes the supplied complete scan;
 the helper does not acquire that scan. Clip metadata is supplied in portable
-units. `d9MappedFields` maps supported scalar fields and confirms the existing
+units. `d9MappedFields` maps supported scalar fields and applies the measured
 gain inverse. Its output is not a complete insertion plan. Host repeat count
 uses signed division or rate controls. It cannot map to a total trigger count
 without a separate semantic converter.
 Raw timbre uses the host range `-1..1`. Portable timbre uses `(raw+1)/2`.
-The D9 scalar input uses `2*portable-1`. The existing gain inverse runs once.
-Gain values above 2 and transpose values outside `-96..96` refuse writes.
+The D9 scalar input uses `2*portable-1`. Raw gain is `cbrt(portable)`, and
+portable 0 is raw `1e-323`; the shared encoder then writes `raw/2` once.
+Portable gain 0..8 covers the host range. Transpose values outside `-96..96`
+refuse writes. An enabled control with a neutral value projects to the
+portable default; a disabled nondefault value stays.
 8h must verify these boundary transforms through independent live readback.
 
 The strict assessor requires a complete represented base. A partial resolver

@@ -1,13 +1,13 @@
 ---
 title: Phase 8h4b2 — Document read compactness and gain correctness
 kind: plan
-state: planned
-status: Planned. Fixes the E235 format findings before 8h4c writes documents.
+state: done
+status: Complete (E245, D35).
 updated: 2026-10-07
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h4b-document-read-and-identity-registry.md
 next: 8h4c-document-edit-limb.md
-evidence: E15, E24, E121, E235; D23, D25
+evidence: E15, E24, E121, E235, E245; D23, D25, D35
 ---
 
 # Phase 8h4b2 — Document read compactness and gain correctness

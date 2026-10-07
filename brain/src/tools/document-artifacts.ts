@@ -37,7 +37,7 @@ const source = read('MODEL-REFERENCE.md'), examples = [...source.matchAll(/```fi
 assert.equal(examples.length, 2);
 const result = applyPatch(examples[0] as StateDocument, examples[1] as Patch);
 assert.equal(result.document.events[0].pitch, 62);
-emit('MODEL-REFERENCE.identity.json', JSON.stringify({ formatVersion: '1.0', referenceRevision: 1, algorithm: 'sha256', scope: 'Exact UTF-8 bytes of MODEL-REFERENCE.md', sha256: hash(source) }, null, 2) + '\n');
+emit('MODEL-REFERENCE.identity.json', JSON.stringify({ formatVersion: '1.0', referenceRevision: 2, algorithm: 'sha256', scope: 'Exact UTF-8 bytes of MODEL-REFERENCE.md', sha256: hash(source) }, null, 2) + '\n');
 const baseline = JSON.parse(execFileSync('python3', [new URL('conformance/v1/measure-baseline.py', spec).pathname], { encoding: 'utf8', env: { ...process.env, PYTHONDONTWRITEBYTECODE: '1' } }));
 const selections = { core: [], patch: ['Patch'], timing: ['Timing overlays'], full: REFERENCE_SECTIONS.filter(section => section !== 'Core') } as const;
 const measurements = Object.entries(selections).map(([name, sections]) => {

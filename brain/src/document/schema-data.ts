@@ -73,7 +73,7 @@ export const schema: Record<string, any> = {
         "gain": {
           "type": "number",
           "minimum": 0,
-          "maximum": 4
+          "maximum": 8
         },
         "pan": {
           "type": "number",

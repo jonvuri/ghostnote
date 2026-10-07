@@ -25,6 +25,7 @@
     "probe:phase8h2a-replay": "node --import tsx src/probes/phase8h2a-replay.ts",
     "probe:phase8h3b-fetch": "node --import tsx src/probes/phase8h3b-fetch.ts",
     "probe:phase8h4b-document": "node --import tsx src/probes/phase8h4b-document-read.ts",
+    "probe:phase8h4b2-defaults": "node --import tsx src/probes/phase8h4b2-defaults.ts",
     "benchmark:compact-bar": "python3 benchmarks/compact-bar-v0/benchmark.py --check benchmarks/compact-bar-v0/expected-deterministic.json",
     "benchmark:compact-format-dev": "python3 benchmarks/compact-format-v2/benchmark.py --check benchmarks/compact-format-v2/expected-deterministic.json",
     "benchmark:compact-format-holdout": "python3 benchmarks/compact-format-v2/holdout.py --check benchmarks/compact-format-v2/expected-holdout-deterministic.json",

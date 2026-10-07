@@ -25,7 +25,10 @@ import { workspaceOf } from '../surface/workspace.js';
 import type { E131Context } from './e131-diagnostic.js';
 import { WireTransport } from './phase8h3c-promotion.js';
 import { typicalNotes } from './phase8h3e-snapshots-lib.js';
-import { NORMAL, SCHEMA, agreement, idsByKey, rawDiff, type Wire } from './phase8h4b-document-read-lib.js';
+import { parse, type StateDocument } from '../document/index.js';
+import {
+  NORMAL, SCHEMA, agreement, equivalentExactJson, idsByKey, rawDiff, withIssues, type Wire,
+} from './phase8h4b-document-read-lib.js';
 
 const PAGE = 131_072;
 const ANCHOR = 'gn-scale-test';
@@ -227,6 +230,7 @@ export async function verify(a: Wire): Promise<{ issues: string[]; summary: Wire
   if (first.result.authority.base.ref !== second.result.authority.base.ref) issues.push('repeated read changed the ref');
   if (doc(first) !== doc(second)) issues.push('repeated read changed the document');
   issues.push(...agreement(doc(first), a.raw0).map(issue => `first: ${issue}`));
+  issues.push(...withIssues(doc(first), a.raw0).map(issue => `first: ${issue}`));
   if (rawDiff(a.raw0, a.reads.rawAfter).changed.length > 0) issues.push('the reads changed the clip');
 
   const vd = a.velocity.diff;
@@ -238,6 +242,7 @@ export async function verify(a: Wire): Promise<{ issues: string[]; summary: Wire
     if (JSON.stringify([...idsByKey(v.document)]) !== JSON.stringify([...idsByKey(doc(first))])) issues.push('velocity edit changed IDs');
     if (v.retainedIds !== 256 || v.mintedIds !== 0) issues.push(`velocity retained ${v.retainedIds} minted ${v.mintedIds}`);
     issues.push(...agreement(v.document, a.velocity.raw).map(issue => `velocity: ${issue}`));
+    issues.push(...withIssues(v.document, a.velocity.raw).map(issue => `velocity: ${issue}`));
   }
 
   const pd = a.pitch.diff;
@@ -267,6 +272,9 @@ export async function verify(a: Wire): Promise<{ issues: string[]; summary: Wire
   return {
     issues,
     summary: {
+      withRows: doc(first).split('\n').filter((line: string) => line.includes(' WITH ')).length,
+      bytesPerNote: first.documentBytes / a.raw0.length,
+      exactJsonBytes: Buffer.byteLength(equivalentExactJson(parse(doc(first), 'fields') as StateDocument)),
       firstRead: { wallMs: first.wallMs, toolMs: first.result.timing.totalMs, readMs: first.result.timing.readMs,
         resultBytes: first.resultBytes, documentBytes: first.documentBytes, wireCalls: first.wireCalls, wireBytes: first.wireBytes },
       jsonDocumentBytes: a.reads.json.documentBytes, jsonResultBytes: a.reads.json.resultBytes,

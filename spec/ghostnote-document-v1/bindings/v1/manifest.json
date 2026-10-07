@@ -2,7 +2,7 @@
   "format": "ghostnote-binding-corpus",
   "version": "1",
   "fixture": "fixtures.json",
-  "sha256": "17d9e091e7a9833410ea6ff96e2e29c82c17bc4aac898ace5d861ee073f2c1b3",
+  "sha256": "ea24f1fa61ff567334b07d0c95831174672368b1c3ce5f664f431b36d15d1fc4",
   "runner": "brain/src/bindings/ghostnote-document.test.ts",
-  "cases": ["B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B09", "B10", "B11", "B12", "B13", "B14"]
+  "cases": ["B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B09", "B10", "B11", "B12", "B13", "B14", "B15", "B16", "B17"]
 }
