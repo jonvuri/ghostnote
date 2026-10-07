@@ -3,9 +3,9 @@ title: Phase 8h4e — Device structure migration
 kind: plan
 state: planned
 status: Planned. Replaces the device-alternate lifecycle with read_devices, compose_devices, and generic layer-chain limbs, and benchmarks the two composition backends.
-updated: 2026-10-06
+updated: 2026-10-07
 parent: 8h-cache-promotion-and-interface-simplification.md
-prev: 8h4d-musical-and-clip-surface-migration.md
+prev: 8h4e0-direct-parameter-display-probe.md
 next: 8h4f-tracks-profile-cut-and-closeout.md
 evidence: E17, E18a-h, E34, E59, E63, E73, E80, E126, E127, E135; D18, D20
 ---
@@ -30,6 +30,8 @@ result module; it does not depend on 8h4c or 8h4d.
 - `inspect_device_parameters` → `read_device_controls`; `set_parameter` →
   `set_device_controls`. Keep cohort writes, domain checks, and selector
   kinds. A 27-control success stays at or below 3,181 bytes (E126).
+  Report DirectParameter display text as
+  [8h4e0](8h4e0-direct-parameter-display-probe.md) (E244) recommends.
 - `inspect_preset_modulation` → `read_preset_modulation`;
   `author_modulators` → `edit_preset_modulation`.
 - `add_native_devices` and `add_device` → one `add_devices` with explicit

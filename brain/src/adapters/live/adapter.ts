@@ -45,7 +45,7 @@ import {
   type LaunchMode, type LaunchQuantization, type SceneAddress, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
   type Stage, type TrackAddress, type TrackState, type WindowCoverage,
 } from '../../contract/index.js';
-import { SETTLE_MS } from '../../contract/index.js';
+import { LAUNCH_MODES, LAUNCH_QUANTIZATIONS, SETTLE_MS } from '../../contract/index.js';
 import { BridgeError } from '../../client.js';
 import {
   encodeStage, notePageStarts, notePropertyPageStarts,
@@ -63,6 +63,8 @@ interface WireTrack {
   position: number;
   type: string;
   channelId: string;
+  /** 8h4a5: inside a collapsed group. The mixer does not show the track (E243). */
+  hidden?: boolean;
 }
 
 interface BatchRunResult {
@@ -446,6 +448,36 @@ interface ClipNoteCapture {
   readonly bound?: Readonly<Record<string, number | string | boolean>>;
   /** 8h4a: the `clip.read` metadata block, equal in shape to `cursor.clipMetadata`. */
   readonly metadata?: Readonly<Record<string, number | string | boolean>>;
+  /** 8h4a5: the `clip.read` launch block, equal in shape to the `cursor.launchSettings` values. */
+  readonly launch?: Readonly<Record<string, unknown>>;
+}
+
+/** One validated launch block: the `clipLaunch` state of a clip. */
+interface ParsedClipLaunch {
+  readonly quantization: LaunchQuantization;
+  readonly mode: LaunchMode;
+  readonly useLoopStartAsQuantizationReference: boolean;
+}
+
+/**
+ * Parse the `clip.read` launch block (8h4a5). The extension reads it with `ClipLaunch.read`, the same method as
+ * `cursor.launchSettings`. A value outside the API 16 sets, or a failed host read (`ERR:`), refuses the read.
+ */
+export function parseClipLaunch(raw: Readonly<Record<string, unknown>>): ParsedClipLaunch {
+  const quantization = raw['launchQuantization'];
+  const mode = raw['launchMode'];
+  const reference = raw['useLoopStartAsQuantizationReference'];
+  if (typeof quantization !== 'string' || !(LAUNCH_QUANTIZATIONS as readonly string[]).includes(quantization)) {
+    throw new Error(`clip launch quantization is not a known value: ${String(quantization)}`);
+  }
+  if (typeof mode !== 'string' || !(LAUNCH_MODES as readonly string[]).includes(mode)) {
+    throw new Error(`clip launch mode is not a known value: ${String(mode)}`);
+  }
+  if (typeof reference !== 'boolean') {
+    throw new Error('clip launch useLoopStartAsQuantizationReference did not return a boolean');
+  }
+  return { quantization: quantization as LaunchQuantization, mode: mode as LaunchMode,
+    useLoopStartAsQuantizationReference: reference };
 }
 
 /** One parsed metadata reply: the contract state, the play stop, and the raw reply for the fingerprint. */
@@ -596,7 +628,9 @@ export interface LiveTraceEvent {
     | 'selection-restore'
     | 'selection-restore-skipped'
     | 'selection-capture-skipped'
-    | 'structural-invalidation';
+    | 'structural-invalidation'
+    /** 8h4a5: a clip point through `cursor.pointExpanded`, for a child of a collapsed group (E243). */
+    | 'group-point';
   readonly target?: string;
 }
 
@@ -762,6 +796,8 @@ export class LiveAdapter implements BitwigAdapter {
   /** The writer cursor width, learned at hello(). */
   private fineSteps: number | undefined;
   private clipReader: { width?: number; grid?: number; format?: string; page?: number } | undefined;
+  /** 8h4a5: the `cursor.pointExpanded` build marker, or undefined for an earlier extension. */
+  private groupPoint: string | undefined;
   /** Top-level device-bank width, fixed at extension init. */
   private deviceBankSize: number | undefined;
   /** Top-level container positions with complete fixed observation scopes. */
@@ -1257,6 +1293,7 @@ export class LiveAdapter implements BitwigAdapter {
       gridSteps?: number;
       fineSteps?: number;
       clipReader?: { width?: number; grid?: number; format?: string; page?: number };
+      groupPoint?: string;
       cursorPool?: number;
       scenes?: number;
       deviceBank?: number;
@@ -1265,6 +1302,7 @@ export class LiveAdapter implements BitwigAdapter {
     this.gridSteps = rig.gridSteps;
     this.fineSteps = rig.fineSteps;
     this.clipReader = rig.clipReader;
+    this.groupPoint = rig.groupPoint;
     this.deviceBankSize = rig.deviceBank;
     this.containerScopeSize = rig.containerScopes ?? this.containerScopeSize;
     // The rig allocates its cursor pool at init and cannot grow it afterwards
@@ -2599,21 +2637,6 @@ export class LiveAdapter implements BitwigAdapter {
       : { address, found: false, reason: found.miss };
   }
 
-  /** Read exact metadata plus the readable but unwritable play-stop marker. */
-  private async readClipMetadata(
-    clip: ClipAddress,
-    trackIndex: number,
-    pointedAt: Map<string, AddressKey>,
-    cursorRef?: string,
-  ): Promise<ParsedClipMetadata> {
-    const cursor = await this.pointAtClip(clip, trackIndex, pointedAt, cursorRef);
-    const raw = (await this.transport.send({
-      method: WIRE.cursorClipMetadata,
-      params: { cursor },
-    })) as Readonly<Record<string, unknown>>;
-    return parseClipMetadata(raw);
-  }
-
   /** Read one frozen clip capture. The gate can delay the initial request. */
   private async readClipNotes(clipRef: ClipAddress, trackIndex: number): Promise<ClipNoteCapture | undefined> {
     const status = await this.transport.send({ method: WIRE.slotStatus,
@@ -2627,7 +2650,7 @@ export class LiveAdapter implements BitwigAdapter {
     }
     type ClipReadReply = { refused?: string; message?: string; readId: number; frame: NoteFrame;
       bound?: { channelId?: string; row?: number; [field: string]: unknown };
-      metadata?: Record<string, unknown> };
+      metadata?: Record<string, unknown>; launch?: Record<string, unknown> };
     const send = async (): Promise<ClipReadReply> => await this.transport.send({
       method: WIRE.clipRead,
       params: { trackIndex, row: clipRef.slot.scene.index, channelId: clipRef.slot.track.channelId },
@@ -2677,7 +2700,8 @@ export class LiveAdapter implements BitwigAdapter {
       ? { bound: result.bound as NonNullable<ClipNoteCapture['bound']> } : {};
     const metadata = result.metadata !== null && typeof result.metadata === 'object'
       ? { metadata: result.metadata as NonNullable<ClipNoteCapture['metadata']> } : {};
-    try { return { channels: notesByChannel(rows), rows, ...bound, ...metadata }; }
+    const launch = result.launch !== null && typeof result.launch === 'object' ? { launch: result.launch } : {};
+    try { return { channels: notesByChannel(rows), rows, ...bound, ...metadata, ...launch }; }
     catch (error) { throw new AddressUnresolvedError(clipRef, String(error)); }
   }
 
@@ -3356,16 +3380,8 @@ export class LiveAdapter implements BitwigAdapter {
     const noteReads = new Map<AddressKey, Promise<ClipNoteCapture | undefined>>();
     const parameterReads = new Map<AddressKey, Promise<ParameterInventory>>();
     const remoteReads = new Map<AddressKey, Promise<RemoteInventory>>();
-    // One metadata read for each clip. The pool can evict a cursor between the clip, metadata, and
-    // source passes of one snapshot, so a pointed-at memo alone can point the same clip again.
+    // One metadata read for each clip.
     const metadataReads = new Map<AddressKey, Promise<ParsedClipMetadata>>();
-    // 8h4a: a clip whose notes this read captures takes its metadata from the
-    // `clip.read` block of the same capture, with no cursor point. Other clips,
-    // and a reply without the block, point a pool cursor as before.
-    const capturedClips = new Set<AddressKey>([
-      ...sel.filter((address) => address.kind === 'notes').map((address) => addressKey(address.clip)),
-      ...sourceClips.map((clipRef) => addressKey(clipRef)),
-    ]);
     const noteReadOf = (clipRef: ClipAddress, trackIndex: number): Promise<ClipNoteCapture | undefined> => {
       const key = addressKey(clipRef);
       let reading = noteReads.get(key);
@@ -3375,15 +3391,20 @@ export class LiveAdapter implements BitwigAdapter {
       }
       return reading;
     };
+    // 8h4a5: every metadata and launch read uses the `clip.read` capture of the clip, with no cursor point.
+    // One snapshot reads each clip once: the notes, metadata, launch, and source passes share the capture.
     const metadataOf = (clipRef: ClipAddress, trackIndex: number): Promise<ParsedClipMetadata> => {
       const key = addressKey(clipRef);
       let reading = metadataReads.get(key);
       if (reading === undefined) {
-        reading = capturedClips.has(key)
-          ? noteReadOf(clipRef, trackIndex).then((capture) => capture?.metadata === undefined
-            ? this.readClipMetadata(clipRef, trackIndex, pointedAt)
-            : parseClipMetadata(capture.metadata))
-          : this.readClipMetadata(clipRef, trackIndex, pointedAt);
+        reading = noteReadOf(clipRef, trackIndex).then((capture) => {
+          if (capture === undefined) throw new AddressUnresolvedError(clipRef, 'the slot holds no clip');
+          if (capture.metadata === undefined) {
+            throw new AddressUnresolvedError(clipRef, 'clip.read returned no metadata block; call hello with the current extension');
+          }
+          try { return parseClipMetadata(capture.metadata); }
+          catch (error) { throw new AddressUnresolvedError(clipRef, String(error)); }
+        });
         metadataReads.set(key, reading);
       }
       return reading;
@@ -3499,6 +3520,14 @@ export class LiveAdapter implements BitwigAdapter {
     if (pointedAt.get(cursor) === key) return cursor;
     this.heldClips.delete(cursor);
 
+    // 8h4a5 (E243): a slot selection inside a collapsed group does not take, so this route cannot reach another
+    // row of such a track (E242). `track.list` marks the track hidden; point it through the expansion instead.
+    // Other tracks keep this route with no extra request.
+    const groupPoint = this.groupPoint !== undefined;
+    if (groupPoint && this.bank.find((t) => t.channelId === clipRef.slot.track.channelId)?.hidden === true) {
+      return await this.pointExpanded(clipRef, trackIndex, cursor, key, pointedAt);
+    }
+
     let confirmingPins = false;
     let lastStatus: ClipCursorStatus | undefined;
     for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt += 1) {
@@ -3536,6 +3565,12 @@ export class LiveAdapter implements BitwigAdapter {
       const targetConfirmed = lastStatus.trackChannelId === clipRef.slot.track.channelId
         && lastStatus.sceneIndex === clipRef.slot.scene.index;
       if (!targetConfirmed) {
+        // 8h4a5: the target track on another row is how a child of a collapsed group answers (E242). The group
+        // can have collapsed after the track list was read. Use the expansion route at once.
+        if (groupPoint && lastStatus.trackChannelId === clipRef.slot.track.channelId
+            && lastStatus.sceneIndex !== clipRef.slot.scene.index) {
+          return await this.pointExpanded(clipRef, trackIndex, cursor, key, pointedAt);
+        }
         confirmingPins = false;
         continue;
       }
@@ -3585,6 +3620,38 @@ export class LiveAdapter implements BitwigAdapter {
       clipRef,
       `cursor ${cursor} ${detail}`,
     );
+  }
+
+  /**
+   * 8h4a5 (E243): point and pin one pool cursor through `cursor.pointExpanded`. The extension expands each
+   * collapsed parent group, points, pins, restores the person's selection while the group is expanded, and
+   * collapses the group again (the D34 order). It does not change the selection, so this records no borrow.
+   * A target that does not confirm refuses `collapsed-group-row`.
+   */
+  private async pointExpanded(
+    clipRef: ClipAddress,
+    trackIndex: number,
+    cursor: string,
+    key: AddressKey,
+    pointedAt: Map<string, AddressKey>,
+  ): Promise<string> {
+    const reply = await this.transport.send({
+      method: WIRE.cursorPointExpanded,
+      params: { cursor, trackIndex, row: clipRef.slot.scene.index, channelId: clipRef.slot.track.channelId },
+      timeoutMs: 30_000,
+    }) as { refused?: string; message?: string };
+    this.onTrace?.({ action: 'group-point', target: `${cursor}:${trackIndex}:${clipRef.slot.scene.index}` });
+    // Confirm with an independent status reading, as the other route does.
+    const status = (await this.transport.send({ method: WIRE.cursorStatus, params: { cursor } })) as ClipCursorStatus;
+    const confirmed = reply.refused === undefined
+      && status.trackChannelId === clipRef.slot.track.channelId
+      && status.sceneIndex === clipRef.slot.scene.index
+      && status.isPinned === true
+      && status.cursorTrackPinned === true;
+    if (!confirmed) throw new CollapsedGroupRowError(clipRef, Number(status.sceneIndex ?? -1), 'cursor');
+    this.heldClips.set(cursor, key);
+    pointedAt.set(cursor, key);
+    return cursor;
   }
 
   /** Check every writer page before the stage can mutate project state. */
@@ -3722,8 +3789,9 @@ export class LiveAdapter implements BitwigAdapter {
   ): Promise<void> {
     const clipTargets = new Map<AddressKey, ClipAddress>();
     for (const op of ops) {
+      // 8h4a5: `clip.launchSettings` also writes through a pool cursor. Confirm its row before the turn (E243 P2).
       if (op.op !== 'clip.update' && op.op !== 'note.clear' && op.op !== 'note.write'
-          && op.op !== 'note.insert' && op.op !== 'note.remove') continue;
+          && op.op !== 'note.insert' && op.op !== 'note.remove' && op.op !== 'clip.launchSettings') continue;
       const key = addressKey(op.clip);
       if (!skip.has(key)) clipTargets.set(key, op.clip);
     }
@@ -3826,7 +3894,7 @@ export class LiveAdapter implements BitwigAdapter {
     noteReads: Map<AddressKey, Promise<ClipNoteCapture | undefined>>,
     parameterReads: Map<AddressKey, Promise<ParameterInventory>>,
     remoteReads: Map<AddressKey, Promise<RemoteInventory>>,
-    metadataOf: (clip: ClipAddress, trackIndex: number) => ReturnType<LiveAdapter['readClipMetadata']>,
+    metadataOf: (clip: ClipAddress, trackIndex: number) => Promise<ParsedClipMetadata>,
   ): Promise<StateEntry | 'unreachable' | 'unstable' | undefined> {
     switch (address.kind) {
       case 'track':
@@ -3910,25 +3978,22 @@ export class LiveAdapter implements BitwigAdapter {
 
       case 'clipLaunch': {
         if (row === undefined) return undefined;
-        const sceneIndex = address.clip.slot.scene.index;
-        const status = (await this.transport.send({
-          method: WIRE.slotStatus,
-          params: { trackIndex: row.index, slotIndex: sceneIndex },
-        })) as { hasContent: boolean };
-        if (!status.hasContent) return undefined;
-        const cursor = await this.pointAtClip(address.clip, row.index, pointedAt);
-        const launch = (await this.transport.send({
-          method: WIRE.cursorLaunchSettings, params: { cursor },
-        })) as {
-          launchQuantization: LaunchQuantization;
-          launchMode: LaunchMode;
-          useLoopStartAsQuantizationReference: boolean;
-        };
-        return { address, fidelity: 'exact', value: { of: 'clipLaunch', launch: {
-          quantization: launch.launchQuantization,
-          mode: launch.launchMode,
-          useLoopStartAsQuantizationReference: launch.useLoopStartAsQuantizationReference,
-        } } };
+        // 8h4a5: the launch block of the `clip.read` capture, with no cursor point.
+        const key = addressKey(address.clip);
+        let reading = noteReads.get(key);
+        if (reading === undefined) {
+          reading = this.readClipNotes(address.clip, row.index);
+          noteReads.set(key, reading);
+        }
+        const capture = await reading;
+        if (capture === undefined) return undefined;
+        if (capture.launch === undefined) {
+          throw new AddressUnresolvedError(address.clip, 'clip.read returned no launch block; call hello with the current extension');
+        }
+        let launch: ParsedClipLaunch;
+        try { launch = parseClipLaunch(capture.launch); }
+        catch (error) { throw new AddressUnresolvedError(address.clip, String(error)); }
+        return { address, fidelity: 'exact', value: { of: 'clipLaunch', launch } };
       }
 
       case 'clipPlay': {
@@ -4902,7 +4967,7 @@ export class LiveAdapter implements BitwigAdapter {
     });
     for (const stage of stages) {
       const clips = new Set(stage.ops
-        .filter((op) => op.op === 'clip.update' || op.op === 'note.clear'
+        .filter((op) => op.op === 'clip.update' || op.op === 'note.clear' || op.op === 'clip.launchSettings'
           || op.op === 'note.write' || op.op === 'note.insert' || op.op === 'note.remove')
         .map((op) => addressKey(op.clip)));
       if (clips.size > this.pool.size) {

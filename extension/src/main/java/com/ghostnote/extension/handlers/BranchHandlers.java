@@ -423,6 +423,8 @@ public final class BranchHandlers extends HandlerGroup {
         r.addProperty("type", track.trackType().get());
         r.addProperty("isGroup", track.isGroup().get());
         r.addProperty("isGroupExpanded", track.isGroupExpanded().get());
+        // 8h4a5 probe: the group values only. The mixer values are not marked in the current rig.
+        if (params.has("groupOnly") && params.get("groupOnly").getAsBoolean()) return r;
         r.addProperty("volume", track.volume().value().get());
         r.addProperty("volumeDisplayed", track.volume().value().displayedValue().get());
         r.addProperty("pan", track.pan().value().get());

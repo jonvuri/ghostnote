@@ -88,6 +88,7 @@ public final class TrackHandlers extends HandlerGroup {
 
     private JsonElement trackList() {
         JsonArray tracks = new JsonArray();
+        java.util.Set<String> visible = rig.visibleChannelIds();
         for (int i = 0; i < rig.config.tracks; i++) {
             Track track = rig.trackBank.getItemAt(i);
             if (!track.exists().get()) {
@@ -99,6 +100,8 @@ public final class TrackHandlers extends HandlerGroup {
             obj.addProperty("position", track.position().get());
             obj.addProperty("type", track.trackType().get());
             obj.addProperty("channelId", track.channelId().get());
+            // 8h4a5 (E243): inside a collapsed group. The mixer does not show the track.
+            if (!visible.contains(track.channelId().get())) obj.addProperty("hidden", true);
             tracks.add(obj);
         }
         JsonObject result = new JsonObject();

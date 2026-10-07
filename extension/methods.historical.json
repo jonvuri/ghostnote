@@ -13,10 +13,10 @@
     "`rig.methods` during the Phase-0 sitting. methodsHash is sha256 of the sorted",
     "names joined by \\n, first 16 hex chars; contract.hello returns the same value."
   ],
-  "extractedAt": "2026-10-06",
+  "extractedAt": "2026-10-07",
   "extractedFrom": "handlers/*Handlers.java registration declarations",
-  "count": 160,
-  "methodsHash": "2de27e60c3512a21",
+  "count": 163,
+  "methodsHash": "cbae51aa2e1d1d0d",
   "addedInPhase0": [
     "api.runtimeMethods",
     "app.selectionNotifications",
@@ -43,6 +43,7 @@
     "cursor.launchSettings",
     "cursor.moveNote",
     "cursor.playState",
+    "cursor.pointExpanded",
     "cursor.scrollToStep",
     "cursor.setClipMetadata",
     "cursor.setLaunchSettings",
@@ -53,7 +54,9 @@
     "device.moveTo",
     "device.selectInEditor",
     "device.setEnabled",
+    "directparam.callbacks",
     "directparam.completion",
+    "directparam.hop",
     "equals.status",
     "equals.tryCreate",
     "layer.delete",
@@ -161,6 +164,7 @@
     "cursor.pin",
     "cursor.pinTrack",
     "cursor.playState",
+    "cursor.pointExpanded",
     "cursor.pointToClipOf",
     "cursor.pointTrack",
     "cursor.scrollToStep",
@@ -195,7 +199,9 @@
     "device.nesting",
     "device.selectInEditor",
     "device.setEnabled",
+    "directparam.callbacks",
     "directparam.completion",
+    "directparam.hop",
     "directparam.list",
     "directparam.set",
     "drumpad.duplicate",
@@ -503,5 +509,10 @@
   "addedInPhase8h3c": [
     "clip.read",
     "clip.readPage"
+  ],
+  "addedInPhase8h4a5": [
+    "cursor.pointExpanded",
+    "directparam.callbacks",
+    "directparam.hop"
   ]
 }

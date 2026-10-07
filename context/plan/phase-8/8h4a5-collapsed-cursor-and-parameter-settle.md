@@ -1,16 +1,27 @@
 ---
 title: Phase 8h4a5 — Collapsed-child cursor route and parameter settle
 kind: plan
-state: planned
-status: Planned. Moves clip metadata and launch reads to clip.read, gives cursor points a collapsed-group route, and fixes the DirectParameter settle on a same-type device.
+state: done
+status: Complete (E243). Clip metadata and launch reads use clip.read; cursor.pointExpanded reaches every row of a collapsed child; a same-type device settles on its name and value callbacks.
 updated: 2026-10-07
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h4a4-cursor-track-identity.md
 next: 8h4b-document-read-and-identity-registry.md
-evidence: E221, E230, E234, E240, E241, E242; D30, D32, D33, D34
+evidence: E221, E230, E234, E240, E241, E242, E243; D30, D32, D33, D34
 ---
 
 # Phase 8h4a5 — Collapsed-child cursor route and parameter settle
+
+## Result
+
+Complete ([E243](../../evidence/experiments/e243-collapsed-cursor-and-parameter-settle.md)).
+P1 showed that a pinned cursor keeps its row across a collapse, so the route
+expands for each point (D34 unchanged; no D35). Two plan assumptions were
+wrong. `list_tracks` does not know a track's parent: a visible-only track bank
+now marks a collapsed child `hidden` in `track.list`. No hop makes the ID
+observer fire (P5): the settle uses the name and value callbacks (P4). The
+session also fixed `clip.launchSettings`, which wrote row 0 of a collapsed
+child (P2).
 
 ## Why
 

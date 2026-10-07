@@ -53,7 +53,7 @@ test('8b: active profiles match the fail-closed Java classification', () => {
   assert.equal(normalGolden.identity, 'normal-v1');
   assert.equal(captureGolden.identity, 'capture-v1');
   assert.equal(probeGolden.identity, 'phase-8-probe-v1');
-  assert.equal(classification.historical.length, 57);
+  assert.equal(classification.historical.length, 55);
 });
 
 test('8b: normal, capture, and probe profiles have only their owned methods', () => {
@@ -69,7 +69,12 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
   const probeOnly = [
     'api.runtimeMethods',
     ...Object.keys(WIRE_METHODS_BANNED),
+    // 8h4a5 (E243): the group expansion and DirectParameter callback probes.
+    'branch.mixer',
+    'branch.setMixer',
     'cache.shadow',
+    'directparam.callbacks',
+    'directparam.hop',
     'stepdata.observer.enrich',
     'stepdata.observer.prepare',
     'stepdata.observer.read',
@@ -78,9 +83,9 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
     probeGolden.methods,
     [...new Set([...normalGolden.methods, ...probeOnly])].sort(),
   );
-  assert.equal(normalGolden.count, 87);
-  assert.equal(captureGolden.count, 92);
-  assert.equal(probeGolden.count, 98);
+  assert.equal(normalGolden.count, 88);
+  assert.equal(captureGolden.count, 93);
+  assert.equal(probeGolden.count, 103);
 });
 
 test('8b: historical host objects are absent from active Rig construction', () => {
@@ -178,7 +183,7 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
       ...(golden.addedInD03 ?? []), ...(golden.addedInPhase6Session6a ?? []),
       ...(golden.addedInPhase7bE130 ?? []), ...(golden.addedInPhase7bE131 ?? []),
       ...(golden.addedInPhase8e ?? []), ...(golden.addedInPhase8g ?? []),
-      ...(golden.addedInPhase8h1a ?? [])];
+      ...(golden.addedInPhase8h1a ?? []), ...(golden.addedInPhase8h4a5 ?? [])];
   assert.deepEqual(
     [...golden.addedInPhase0].sort(),
     historical.filter((method) => golden.methods.includes(method)).sort(),

@@ -39,6 +39,8 @@ public final class ParamHandlers extends HandlerGroup {
         r.on("directparam.list", params -> directParamList(params));
         r.on("directparam.set", params -> directParamSet(params));
         r.on("directparam.completion", params -> directParamCompletion());
+        r.on("directparam.callbacks", params -> directParamCallbacks());
+        r.on("directparam.hop", params -> directParamHop(params));
         r.on("remote.list", params -> remoteList(params));
         r.on("remote.set", params -> remoteSet(params));
         r.on("remote.setMapping", params -> remoteSetMapping(params));
@@ -195,6 +197,9 @@ public final class ParamHandlers extends HandlerGroup {
         result.addProperty("deviceName", rig.cursorDevice0.name().get());
         result.addProperty("generation", rig.directParamGeneration);
         result.addProperty("idsGeneration", rig.directParamIdsGeneration);
+        // 8h4a5 build marker and diagnostic: how the generation settled (E243).
+        result.addProperty("settleRule", Rig.DIRECT_PARAMETER_SETTLE);
+        result.addProperty("settledBy", rig.directParamSettledBy);
         result.addProperty("trackChannelId", rig.cursorTracks[0].channelId().get());
         result.addProperty("trackPosition", rig.cursorTracks[0].position().get());
         result.addProperty("deviceIndex", rig.currentDirectParameterDeviceIndex());
@@ -205,6 +210,47 @@ public final class ParamHandlers extends HandlerGroup {
             result.addProperty("observedDeviceName", rig.directParamObservedDeviceName);
         }
         result.addProperty("observedDeviceIndex", rig.directParamObservedDeviceIndex);
+        return result;
+    }
+
+    /** 8h4a5 probe (P4): the observer call counters, the map sizes, and the current target. */
+    private JsonElement directParamCallbacks() {
+        JsonObject result = new JsonObject();
+        String[] kinds = {"ids", "names", "values", "displays", "remotePageNames", "remoteSelectedPage"};
+        for (int i = 0; i < kinds.length; i++) result.addProperty(kinds[i], rig.directParamCallbacks[i]);
+        result.addProperty("idCount", rig.directParamIds.length);
+        result.addProperty("nameCount", rig.directParamNames.size());
+        result.addProperty("valueCount", rig.directParamValues.size());
+        result.addProperty("displayCount", rig.directParamDisplays.size());
+        result.addProperty("generation", rig.directParamGeneration);
+        result.addProperty("idsGeneration", rig.directParamIdsGeneration);
+        result.addProperty("remoteGeneration", rig.remoteGeneration);
+        result.addProperty("remoteObservedGeneration", rig.remoteObservedGeneration);
+        result.addProperty("deviceItemCount", rig.cursorDeviceBanks[0].itemCount().get());
+        result.addProperty("deviceName", rig.cursorDevice0.name().get());
+        result.addProperty("deviceExists", rig.cursorDevice0.exists().get());
+        result.addProperty("trackChannelId", rig.cursorTracks[0].channelId().get());
+        return result;
+    }
+
+    /**
+     * 8h4a5 probe (P5): candidate moves that can make the DirectParameter ID observer fire again. {@code empty}
+     * selects the first bank item past the device count. {@code empty-back} does that and then selects
+     * {@code deviceIndex} again in the same task.
+     */
+    private JsonElement directParamHop(JsonObject params) {
+        String mode = params.get("mode").getAsString();
+        int count = rig.cursorDeviceBanks[0].itemCount().get();
+        if (count >= rig.config.deviceBank) throw new IllegalArgumentException("the device bank has no empty item");
+        rig.cursorDevice0.selectDevice(rig.cursorDeviceBanks[0].getDevice(count));
+        if (mode.equals("empty-back")) {
+            int back = params.get("deviceIndex").getAsInt();
+            rig.cursorDevice0.selectDevice(rig.cursorDeviceBanks[0].getDevice(back));
+        } else if (!mode.equals("empty")) {
+            throw new IllegalArgumentException("unknown hop mode: " + mode);
+        }
+        JsonObject result = ok();
+        result.addProperty("emptyIndex", count);
         return result;
     }
 

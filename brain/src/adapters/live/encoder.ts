@@ -551,8 +551,10 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       const t = ctx.trackIndex(op.clip.slot.track);
       const s = ctx.sceneRow(op.clip.slot.scene);
       const cursor = ctx.cursorFor(op.clip);
+      // 8h4a5 (E243 P2): an unconfirmed point in the turn can bind another row of a collapsed group's child. The
+      // live adapter confirms and pins the clip before the turn, as for `clip.update`, and omits these frames.
       return [
-        ...pointFrames(cursor, t, s),
+        ...pointFrames(cursor, t, s, ctx.shouldPointClip?.(op.clip, cursor) ?? true),
         frame(WIRE.cursorSetLaunchSettings, {
           cursor,
           launchQuantization: op.quantization,

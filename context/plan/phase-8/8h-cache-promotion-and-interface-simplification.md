@@ -101,7 +101,7 @@ Reader promotion and remaining sessions, in order:
       - [8h4a5 — Collapsed-child cursor route and parameter settle](8h4a5-collapsed-cursor-and-parameter-settle.md):
         clip metadata and launch reads through `clip.read`, a cursor point
         route for collapsed children, and the DirectParameter settle on a
-        same-type device (E242 limits). Planned.
+        same-type device (E242 limits). Complete (E243).
    2. [8h4b — Document read and identity registry](8h4b-document-read-and-identity-registry.md):
       the profile, the shared result vocabulary, `read_launcher_clip` on the
       D32 reference, and the clip and event ID registry.
@@ -111,10 +111,13 @@ Reader promotion and remaining sessions, in order:
    4. [8h4d — Musical and clip surface migration](8h4d-musical-and-clip-surface-migration.md):
       observation decoupling and retirement, the old musical tools and the 7b
       profile retired, and the Launcher clip names.
-   5. [8h4e — Device structure migration](8h4e-device-structure-migration.md):
+   5. [8h4e0 — DirectParameter display probe](8h4e0-direct-parameter-display-probe.md):
+      whether the display observer reports text when it is given the
+      target's IDs, and at what cost (E244). Before 8h4e.
+   6. [8h4e — Device structure migration](8h4e-device-structure-migration.md):
       `read_devices`, `compose_devices` with the backend benchmark, and the
       layer-chain limbs. It depends only on 8h4b.
-   6. [8h4f — Tracks, profile cut, and 8h closeout](8h4f-tracks-profile-cut-and-closeout.md):
+   7. [8h4f — Tracks, profile cut, and 8h closeout](8h4f-tracks-profile-cut-and-closeout.md):
       the track-kind arms and names, the vocabulary on the retained tools,
       the default profile, the measurements, and the decision amendments.
 

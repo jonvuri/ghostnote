@@ -10,6 +10,12 @@ owner: phase-8h4a4
 
 ## Status
 
+Both limits below are fixed in
+[E243](e243-collapsed-cursor-and-parameter-settle.md) (8h4a5): the cursor
+route `cursor.pointExpanded` reaches every row of a collapsed child, and a
+same-type device settles on its name and value callbacks. The text below
+records the state at 8h4a4.
+
 [8h4a4](../../plan/phase-8/8h4a4-cursor-track-identity.md) is complete. The
 adapter confirms a cursor target by the track `channelId`, not by the cursor
 track position. The E240 defect is fixed: cursor-pointed clip addresses and

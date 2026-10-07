@@ -6,7 +6,7 @@ status: Planned. Retires the old musical read and write tools and the observatio
 updated: 2026-10-06
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h4c-document-edit-limb.md
-next: 8h4e-device-structure-migration.md
+next: 8h4e0-direct-parameter-display-probe.md
 evidence: E20b, E43, E45, E48, E128, E135; D19, D21, D25
 ---
 

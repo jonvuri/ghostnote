@@ -30,7 +30,7 @@ check('the rig constructed (so no marked handle threw at init — E7-0)', typeof
 
 const reader = rig['clipReader'] as Record<string, unknown> | undefined;
 check('the product clip reader has the required build marker and configuration',
-  reader?.['revision'] === 'clip-reader-v2' && reader?.['closeRule'] === 'confirm-before-release-v1'
+  reader?.['revision'] === 'clip-reader-v3' && reader?.['closeRule'] === 'confirm-before-release-v1'
     && reader?.['openRule'] === 'subscribe-before-unpin-v1'
     && reader?.['groupRule'] === 'expand-collapsed-parent-v1'
     && reader?.['format'] === 'notes-v1'
@@ -42,6 +42,10 @@ check('the write boundary has the 8h4a build markers',
   { writeGuard: rig['writeGuard'], selectionRule: rig['selectionRule'] });
 check('cursor status reports the track channelId (8h4a4 build marker)',
   rig['cursorIdentity'] === 'cursor-channel-id-v1', { cursorIdentity: rig['cursorIdentity'] });
+check('the 8h4a5 build markers: the group point route and the DirectParameter settle',
+  rig['groupPoint'] === 'expand-collapsed-point-v1' && rig['parameterSettle'] === 'same-ids-switch-v1'
+    && (reader?.['groupPoint'] as Record<string, unknown> | undefined)?.['rule'] === 'expand-collapsed-point-v1',
+  { groupPoint: rig['groupPoint'], parameterSettle: rig['parameterSettle'] });
 check('the track bank lists collapsed group children (ALL_CHANNELS, D33)',
   rig['contentFilter'] === 'ALL_CHANNELS', { contentFilter: rig['contentFilter'] });
 

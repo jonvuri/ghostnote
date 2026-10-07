@@ -77,6 +77,8 @@ export const WIRE = {
   /** 8h3c: one complete 1/512 clip read and its later pages. */
   clipRead: 'clip.read',
   clipReadPage: 'clip.readPage',
+  /** 8h4a5: point one pool cursor through the expansion of its collapsed parent groups (E243). */
+  cursorPointExpanded: 'cursor.pointExpanded',
   cursorPlayState: 'cursor.playState',
   cursorLaunchSettings: 'cursor.launchSettings',
   cursorSetLaunchSettings: 'cursor.setLaunchSettings',

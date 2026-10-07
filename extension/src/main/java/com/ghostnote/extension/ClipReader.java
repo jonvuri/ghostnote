@@ -38,24 +38,16 @@ import com.google.gson.JsonObject;
  * {@code unpinCallbacks}.
  */
 public final class ClipReader {
-    /** 8h4a: v2 adds the {@code metadata} block to the reply ({@link ClipMetadata}). */
-    public static final String REVISION = "clip-reader-v2";
+    /**
+     * 8h4a: v2 adds the {@code metadata} block to the reply ({@link ClipMetadata}). 8h4a5: v3 adds the
+     * {@code launch} block ({@link ClipLaunch}).
+     */
+    public static final String REVISION = "clip-reader-v3";
     public static final String CLOSE_RULE = "confirm-before-release-v1";
     /** 8h3c2 build marker: the open task subscribes before it removes the pins (E232). */
     public static final String OPEN_RULE = "subscribe-before-unpin-v1";
     /** 8h4a3 build marker: the read expands each collapsed parent group and collapses it again (E240, D34). */
     public static final String GROUP_RULE = "expand-collapsed-parent-v1";
-    /** Parent levels above the target that one read can expand: a group inside a group inside a group. */
-    static final int PARENT_DEPTH = 3;
-    /** Polls of 5 ms for the host to report the collapse, and then the entry mixer track. */
-    static final int RESELECT_POLLS = 40;
-    /**
-     * Polls for {@code selectParent} to move a finder. A finder that stays is at a top-level group. Every move in
-     * E241 landed at the first poll (about 23 ms). A slower move ends the climb early: the read then refuses.
-     */
-    static final int ROOT_POLLS = 3;
-    /** Polls of 5 ms for the host to report an expansion. Then bind anyway: the bound-target guard refuses. */
-    static final int EXPAND_POLLS = 40;
     public static final int WIDTH = 4_194_304;
     public static final double GRID = 1.0 / 512;
     public static final double WIDTH_BEATS = WIDTH * GRID;
@@ -71,43 +63,26 @@ public final class ClipReader {
         final int trackIndex, row;
         final String channelId, token, diagnosticFault, route;
         final Track target;
-        final int entryTrack, entryRow, entryMixer;
-        final boolean entryStale;
-        final Rig.SelectionLease priorLease;
+        /** The person's selection at the open (8h4a: from the current project only, E233). */
+        final SelectionEntry entry;
         final long started;
         final Done done;
         long parkedNanos, boundNanos, closedNanos, releasedNanos;
         int parkPolls;
         long openStray, parkStray;
         ClipReadCapture capture;
-        boolean finished, faultInjected, collapsed;
-        JsonObject selection, bound, metadata;
-        /** The parent groups that this read expanded, by level. */
-        final boolean[] expanded = new boolean[PARENT_DEPTH];
-        /** The report of each parent level. {@code parents} also holds the climb moves, in order. */
-        final JsonObject[] levelReports = new JsonObject[PARENT_DEPTH];
-        JsonArray parents;
-        /**
-         * The next parent level to read, or -1. {@code below} is the channel ID of the level under it.
-         * {@code climbSteps} counts the {@code selectParent} calls that remain for that level.
-         */
-        int climbing = -1, climbSteps, climbPolls, expandPolls;
-        String below, level0, climbFrom;
-        long climbStarted;
+        boolean finished, faultInjected;
+        JsonObject selection, bound, metadata, launch;
+        /** The collapsed parent groups above the target (D34). */
+        final ParentGroups.Expansion parents;
 
         Read(long id, int trackIndex, int row, String channelId, Track target, String diagnosticFault, String route,
              Done done) {
             this.id = id; this.trackIndex = trackIndex; this.row = row; this.channelId = channelId;
             this.target = target; this.done = done; this.diagnosticFault = diagnosticFault; this.route = route;
             token = "clip-reader-" + id;
-            // 8h4a: a selection observed in another project is no selection. Do not restore it (E233).
-            rig.refreshStaleSlotSelection();
-            boolean slotCurrent = rig.slotSelectionCurrent(), mixerCurrent = rig.mixerSelectionCurrent();
-            entryTrack = slotCurrent ? rig.selectedTrackIndex : -1;
-            entryRow = slotCurrent ? rig.selectedSlotIndex : -1;
-            entryMixer = mixerCurrent ? rig.selectedMixerTrackIndex : -1;
-            entryStale = !slotCurrent || !mixerCurrent;
-            priorLease = rig.selectionLease();
+            parents = groups.expansion(channelId);
+            entry = SelectionEntry.capture(rig);
             started = System.nanoTime();
         }
 
@@ -124,21 +99,9 @@ public final class ClipReader {
             public void claimLease() { rig.claimSelectionOwnership(token, trackIndex, row); }
             public void selectRow() { target.selectSlot(row); }
             public void pointTarget() { track.selectChannel(target); }
-            public void findParent() { finders[0].selectChannel(target); }
-            public void expandParents() {
-                parents = new JsonArray();
-                below = channelId;
-                climbing = climbLevel(Read.this, 0) ? 1 : -1;
-            }
-            public void collapseParents() {
-                if (collapsed) return;
-                collapsed = true;
-                for (int i = PARENT_DEPTH - 1; i >= 0; i--) {
-                    if (!expanded[i]) continue;
-                    level(i).isGroupExpanded().set(false);
-                    levelReports[i].addProperty("collapsed", true);
-                }
-            }
+            public void findParent() { parents.find(target); }
+            public void expandParents() { parents.start(); }
+            public void collapseParents() { parents.collapse(); }
         };
     }
 
@@ -147,16 +110,8 @@ public final class ClipReader {
     private final CursorTrack track;
     private final PinnableCursorClip clip;
     private final MasterTrack park;
-    /**
-     * Cursors that follow no selection (E240, E241). Finder 0 goes to the target; its parent handle is level 0.
-     * Finder i goes to level 0 and then climbs i levels with {@code selectParent}; it stays at level i. The
-     * parent handle of a group track repeats the group itself, so it cannot find level 1 (E241).
-     */
-    private final CursorTrack[] finders = new CursorTrack[PARENT_DEPTH];
-    private Track parent0;
-
-    /** The track handle of parent level {@code i}. */
-    private Track level(int i) { return i == 0 ? parent0 : finders[i]; }
+    /** The parent finders (E240, E241). The 8h4a5 cursor point route uses the same instance. */
+    final ParentGroups groups;
     private final ClipReadCapture.Fields fields = new ClipReadCapture.Fields();
     /** The capture that receives step callbacks. It stays on the last read to count late callbacks. */
     private ClipReadCapture current;
@@ -180,21 +135,10 @@ public final class ClipReader {
         clip.isPinned().markInterested();
         clip.clipLauncherSlot().sceneIndex().markInterested();
         ClipMetadata.markInterested(clip);
+        ClipLaunch.markInterested(clip);
         clip.addNoteStepObserver(this::onStep);
         clip.exists().addValueObserver(value -> { if (current != null) current.exists(value); });
-        for (int i = 0; i < PARENT_DEPTH; i++) {
-            finders[i] = host.createCursorTrack("GN_CLIP_READER_PARENT_" + i, "ghostnote clip reader parent " + i,
-                0, 0, false);
-            finders[i].channelId().markInterested();
-            finders[i].exists().markInterested();
-            finders[i].isGroup().markInterested();
-            finders[i].isGroupExpanded().markInterested();
-        }
-        parent0 = finders[0].createParentTrack(0, 0);
-        parent0.exists().markInterested();
-        parent0.channelId().markInterested();
-        parent0.isGroup().markInterested();
-        parent0.isGroupExpanded().markInterested();
+        groups = new ParentGroups(host, park);
         // Hold no clip between reads. The first read parks before it subscribes again.
         host.scheduleTask(() -> {
             if (read == null && subscribed) { clip.unsubscribe(); subscribed = false; }
@@ -296,40 +240,7 @@ public final class ClipReader {
 
     /** The finder is on the target and its parent handle exists. The {@code no-expand} route does not wait. */
     private boolean parentReady(Read r) {
-        return !ClipReadRoute.expands(r.route)
-            || (r.channelId.equals(finders[0].channelId().get()) && parent0.exists().get());
-    }
-
-    /**
-     * Read parent level {@code i} of the target. Expand it if it is a collapsed group. Then point the next finder
-     * at it. Returns true when the next level is to be read. The parent of a top-level track is the project
-     * proxy: it reports the master track's channel ID and {@code isGroup} true (E221, E241). It is no group. A
-     * handle that repeats the level below it is no parent (E221).
-     */
-    private boolean climbLevel(Read r, int i) {
-        Track p = level(i);
-        JsonObject level = new JsonObject();
-        String id = p.channelId().get();
-        level.addProperty("channelId", id);
-        level.addProperty("isGroup", p.isGroup().get());
-        level.addProperty("wasExpanded", p.isGroupExpanded().get());
-        r.parents.add(level);
-        r.levelReports[i] = level;
-        if (!ClipReadRoute.isParentGroup(p.exists().get(), p.isGroup().get(), id, r.below, park.channelId().get())) {
-            return false;
-        }
-        if (!p.isGroupExpanded().get()) {
-            p.isGroupExpanded().set(true);
-            r.expanded[i] = true;
-        }
-        level.addProperty("expanded", r.expanded[i]);
-        r.below = id;
-        if (i == 0) r.level0 = id;
-        if (i + 1 >= PARENT_DEPTH) return false;
-        finders[i + 1].selectChannel(parent0);
-        r.climbSteps = i + 1;
-        r.climbPolls = 0;
-        return true;
+        return !ClipReadRoute.expands(r.route) || r.parents.ready();
     }
 
     private void awaitPark(Read r) {
@@ -348,64 +259,7 @@ public final class ClipReader {
     /** Climb the parent levels, one task or more for each. Bind after the host reports each expansion. */
     private void awaitExpanded(Read r) {
         if (r.finished) return;
-        if (r.climbing > 0) {
-            climb(r);
-            return;
-        }
-        for (int i = 0; i < PARENT_DEPTH; i++) {
-            if (r.expanded[i] && !level(i).isGroupExpanded().get() && ++r.expandPolls <= EXPAND_POLLS) {
-                host.scheduleTask(() -> awaitExpanded(r), 5);
-                return;
-            }
-        }
-        bind(r);
-    }
-
-    /**
-     * One climb task for level {@code r.climbing}. The finder first reaches level 0, then calls
-     * {@code selectParent} once for each step and waits until it moves. A finder that does not move within
-     * {@link #ROOT_POLLS} is at a top-level group: the climb ends.
-     */
-    private void climb(Read r) {
-        int i = r.climbing;
-        CursorTrack f = finders[i];
-        String at = f.channelId().get();
-        // Before its first selectParent, the finder must have reached level 0.
-        if (i == r.climbSteps && r.climbPolls == 0 && !r.level0.equals(at)) {
-            host.scheduleTask(() -> awaitExpanded(r), 5);
-            return;
-        }
-        if (r.climbSteps > 0 && r.climbPolls == 0) {
-            r.climbFrom = at;
-            r.climbStarted = System.nanoTime();
-            f.selectParent();
-            r.climbPolls = 1;
-            host.scheduleTask(() -> awaitExpanded(r), 5);
-            return;
-        }
-        if (r.climbSteps > 0) {
-            if (at.equals(r.climbFrom)) {
-                if (++r.climbPolls <= ROOT_POLLS) { host.scheduleTask(() -> awaitExpanded(r), 5); return; }
-                JsonObject top = new JsonObject();
-                top.addProperty("top", r.climbFrom);
-                top.addProperty("waitMs", (System.nanoTime() - r.climbStarted) / 1e6);
-                r.parents.add(top);
-                r.climbing = -1;
-                schedule(() -> awaitExpanded(r));
-                return;
-            }
-            // Read the group values of the new level one task after the move.
-            JsonObject move = new JsonObject();
-            move.addProperty("movePolls", r.climbPolls);
-            move.addProperty("moveMs", (System.nanoTime() - r.climbStarted) / 1e6);
-            r.parents.add(move);
-            r.climbSteps--;
-            r.climbPolls = 0;
-            host.scheduleTask(() -> awaitExpanded(r), 5);
-            return;
-        }
-        r.climbing = climbLevel(r, i) ? i + 1 : -1;
-        schedule(() -> awaitExpanded(r));
+        r.parents.advance(() -> awaitExpanded(r), () -> bind(r));
     }
 
     private void bind(Read r) {
@@ -434,9 +288,11 @@ public final class ClipReader {
         r.bound = bound;
         // 8h4a: the same block as `cursor.clipMetadata`, from this cursor in the close task. No second point.
         r.metadata = ClipMetadata.read(clip);
+        // 8h4a5: the same values as `cursor.launchSettings`, outside the metadata block (D32 fingerprint).
+        r.launch = ClipLaunch.read(clip);
         // E241: restore while the target group is expanded. The collapse waits until the host reports the restored
         // slot selection (afterRelease): a slot selection inside a collapsed group does not take.
-        r.selection = restoreSelection(r);
+        r.selection = r.entry.restore(rig, r.token, r.trackIndex, r.row);
         if (r.diagnosticFault.equals("step-delta")) {
             schedule(() -> r.capture.step(0, 0, 0, ClipReadCapture.STATE_EMPTY, fields));
         }
@@ -485,7 +341,7 @@ public final class ClipReader {
         if (r.capture != null && r.selection == null) {
             track.isPinned().set(true);
             clip.isPinned().set(true);
-            r.selection = restoreSelection(r);
+            r.selection = r.entry.restore(rig, r.token, r.trackIndex, r.row);
         }
         if (r.selection == null) {
             JsonObject selection = new JsonObject();
@@ -522,69 +378,12 @@ public final class ClipReader {
             result.addProperty("releaseMs", r.ms(r.releasedNanos));
             result.addProperty("totalMs", r.ms(System.nanoTime()));
             if (r.capture != null) addReleaseReport(result, r.capture);
-            afterRelease(r, result, 0);
+            r.entry.close(host, rig, r.selection, r.parents, result, new SelectionEntry.Close() {
+                public void collapse() { ClipReadRoute.closed(r.steps, r.route); }
+                public boolean reselects() { return ClipReadRoute.reselects(r.route); }
+                public void finish(JsonObject done) { ClipReader.this.finish(r, done); }
+            });
         });
-    }
-
-    private boolean restored(Read r) {
-        return r.selection != null && r.selection.has("restored") && r.selection.get("restored").getAsBoolean();
-    }
-
-    /**
-     * 8h4a3 (E241): collapse each group that this read expanded, after the host reports the restored slot
-     * selection. A slot selection made after the collapse, inside the collapsed group, does not take.
-     */
-    private void afterRelease(Read r, JsonObject result, int polls) {
-        boolean wait = restored(r) && r.selection.get("changed").getAsBoolean() && r.entryTrack >= 0
-            && !(rig.selectedTrackIndex == r.entryTrack && rig.selectedSlotIndex == r.entryRow);
-        if (wait && polls < RESELECT_POLLS) {
-            host.scheduleTask(() -> afterRelease(r, result, polls + 1), 5);
-            return;
-        }
-        if (r.parents != null) {
-            result.addProperty("slotPolls", polls);
-            result.addProperty("slotRestored", !wait);
-        }
-        ClipReadRoute.closed(r.steps, r.route);
-        awaitCollapsed(r, result, 0);
-    }
-
-    /**
-     * 8h4a3 (E241): the host can apply a collapse after the selection restore, and then move the mixer selection
-     * to the group track. When this read expanded a group and restored the selection, wait until the host reports
-     * the collapse, then select the entry mixer track again. The write gate stays closed until the finish.
-     */
-    private void awaitCollapsed(Read r, JsonObject result, int polls) {
-        boolean any = false, pending = false;
-        for (int i = 0; i < PARENT_DEPTH; i++) {
-            if (!r.expanded[i]) continue;
-            any = true;
-            if (level(i).isGroupExpanded().get()) pending = true;
-        }
-        if (!any || !restored(r) || !ClipReadRoute.reselects(r.route)) { finish(r, result); return; }
-        if (pending && polls < RESELECT_POLLS) {
-            host.scheduleTask(() -> awaitCollapsed(r, result, polls + 1), 5);
-            return;
-        }
-        JsonObject reselect = new JsonObject();
-        reselect.addProperty("collapsePolls", polls);
-        reselect.addProperty("collapsed", !pending);
-        reselect.addProperty("mixerAfterCollapse", rig.selectedMixerTrackIndex);
-        reselect.addProperty("slotTrackAfterCollapse", rig.selectedTrackIndex);
-        reselect.addProperty("slotAfterCollapse", rig.selectedSlotIndex);
-        rig.trackBank.getItemAt(r.entryMixer).selectInEditor();
-        result.add("mixerReselect", reselect);
-        awaitMixer(r, result, reselect, 0);
-    }
-
-    private void awaitMixer(Read r, JsonObject result, JsonObject reselect, int polls) {
-        if (rig.selectedMixerTrackIndex != r.entryMixer && polls < RESELECT_POLLS) {
-            host.scheduleTask(() -> awaitMixer(r, result, reselect, polls + 1), 5);
-            return;
-        }
-        reselect.addProperty("mixerPolls", polls);
-        reselect.addProperty("mixer", rig.selectedMixerTrackIndex);
-        finish(r, result);
     }
 
     private void addReleaseReport(JsonObject result, ClipReadCapture capture) {
@@ -606,32 +405,6 @@ public final class ClipReader {
         read = null;
         if (result.has("refused")) last = null;
         r.done.finish(result);
-    }
-
-    /** Restore all three entry selection values under the lease, then reinstate a prior workflow lease. */
-    private JsonObject restoreSelection(Read r) {
-        JsonObject s = new JsonObject();
-        JsonArray entry = new JsonArray();
-        entry.add(r.entryTrack); entry.add(r.entryRow); entry.add(r.entryMixer);
-        s.add("entry", entry);
-        if (!rig.selectionOwnedBy(r.token, r.trackIndex, r.row)) {
-            if (rig.selectionOwnerIs(r.token)) rig.clearSelectionOwnership();
-            s.addProperty("restored", false);
-            s.addProperty("reason", "lease-lost");
-            return s;
-        }
-        rig.clearSelectionOwnership();
-        boolean slot = r.entryTrack >= 0 && r.entryTrack < rig.config.tracks && r.entryRow >= 0;
-        boolean mixer = r.entryMixer >= 0 && r.entryMixer < rig.config.tracks;
-        boolean changed = r.entryTrack != r.trackIndex || r.entryRow != r.row || r.entryMixer != r.trackIndex;
-        if (changed && slot) rig.trackBank.getItemAt(r.entryTrack).selectSlot(r.entryRow);
-        if (changed && mixer) rig.trackBank.getItemAt(r.entryMixer).selectInEditor();
-        rig.reinstateSelectionLease(r.priorLease);
-        s.addProperty("restored", slot && mixer);
-        s.addProperty("changed", changed);
-        if (r.entryStale) s.addProperty("reason", "entry-selection-from-another-project");
-        else if (!slot || !mixer) s.addProperty("reason", "entry-selection-outside-bank");
-        return s;
     }
 
     private JsonObject report(Read r) {
@@ -665,10 +438,8 @@ public final class ClipReader {
         }
         if (r.bound != null) result.add("bound", r.bound);
         if (r.metadata != null) result.add("metadata", r.metadata);
-        if (r.parents != null) {
-            result.add("parents", r.parents);
-            result.addProperty("expandPolls", r.expandPolls);
-        }
+        if (r.launch != null) result.add("launch", r.launch);
+        r.parents.report(result);
         result.add("selection", r.selection);
         result.addProperty("lateCallbacks", lateCallbacks);
         return result;

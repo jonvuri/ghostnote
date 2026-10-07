@@ -27,6 +27,9 @@ public final class ClipReaderTest {
         run("the bind task selects the row at park, then points (E228)", ClipReaderTest::bindOrder);
         run("a read expands collapsed parents at park and collapses them before the restore (E240)",
             ClipReaderTest::groupOrder);
+        run("the group point route unpins, finds the parents, binds, then pins (8h4a5)", ClipReaderTest::pointOrder);
+        run("a same-type device settles on name and value callbacks under its own target (E243)",
+            ClipReaderTest::directParameterSwitch);
         run("a second callback for one cell is a duplicate", ClipReaderTest::duplicates);
         run("a false clipExists value is no start signal", ClipReaderTest::falseExists);
         run("the notes-v1 frame matches the wire golden", ClipReaderTest::frameGolden);
@@ -195,6 +198,50 @@ public final class ClipReaderTest {
         check(!ClipReadRoute.isParentGroup(true, true, "g2", "g2", "master"), "a repeat is no parent");
         check(!ClipReadRoute.isParentGroup(false, true, "g2", "track", "master"), "an absent parent");
         check(!ClipReadRoute.isParentGroup(true, true, "", "track", "master"), "an empty channel ID");
+    }
+
+    /** Records the group point host steps in order. */
+    private static final class PointSteps implements GroupPoint.Steps {
+        final List<String> log = new ArrayList<>();
+        public void unpinClip() { log.add("unpinClip"); }
+        public void unpinTrack() { log.add("unpinTrack"); }
+        public void findParent() { log.add("findParent"); }
+        public void claimLease() { log.add("claimLease"); }
+        public void selectRow() { log.add("selectRow"); }
+        public void pointTarget() { log.add("pointTarget"); }
+        public void pinTrack() { log.add("pinTrack"); }
+        public void pinClip() { log.add("pinClip"); }
+    }
+
+    private static void pointOrder() {
+        PointSteps s = new PointSteps();
+        GroupPoint.open(s);
+        GroupPoint.bind(s);
+        GroupPoint.pin(s);
+        check(s.log.equals(List.of("unpinClip", "unpinTrack", "findParent", "claimLease", "selectRow", "pointTarget",
+            "pinTrack", "pinClip")), "route " + s.log);
+    }
+
+    private static void directParameterSwitch() {
+        String[] ids = {"A", "B"};
+        DirectParameterSwitch sw = new DirectParameterSwitch();
+        check(!sw.covers("t1", ids), "nothing observed");
+        // The earlier device on track 1.
+        sw.name("t1", "A", "Cutoff"); sw.value("t1", "A", 0.1);
+        sw.name("t1", "B", "Res"); sw.value("t1", "B", 0.2);
+        check(sw.covers("t1", ids), "track 1 settles");
+        check(!sw.covers("t2", ids), "another target does not settle on track 1 callbacks");
+        // A same-type device on track 2: equal IDs, so no ID callback. Name and value callbacks for each ID.
+        sw.name("t2", "A", "Cutoff");
+        check(sw.valueOf("A") == null, "a new target discards the earlier values");
+        check(!sw.covers("t2", ids), "a partial switch does not settle");
+        sw.value("t2", "A", 0.5); sw.name("t2", "B", "Res");
+        check(!sw.covers("t2", ids), "B has no value yet");
+        sw.value("t2", "B", 0.2);
+        check(sw.covers("t2", ids), "every ID has a name and a value under the new target");
+        check(sw.valueOf("A") == 0.5 && sw.valueOf("B") == 0.2 && "Res".equals(sw.nameOf("B")), "the new values");
+        check(!sw.covers("t2", new String[0]), "an empty ID list never settles here");
+        check(!sw.covers("t2", new String[] {"A", "B", "C"}), "a known ID without callbacks does not settle");
     }
 
     private static void duplicates() {
@@ -380,6 +427,9 @@ public final class ClipReaderTest {
             check(RuntimeProfile.kind(method) == WriteGate.Kind.WRITE, method + " is a write");
         }
         check(RuntimeProfile.kind("clip.read") == WriteGate.Kind.CLIP_READ, "clip.read opens a read");
+        check(RuntimeProfile.kind("cursor.pointExpanded") == WriteGate.Kind.CLIP_READ,
+            "cursor.pointExpanded holds the gate as a clip read");
+        check(RuntimeProfile.NORMAL.includes("cursor.pointExpanded"), "normal profile has the group point");
         check(RuntimeProfile.kind("clip.readPage") == WriteGate.Kind.READ, "clip.readPage is a read");
         check(RuntimeProfile.NORMAL.includes("clip.read") && RuntimeProfile.NORMAL.includes("clip.readPage"),
             "normal profile has the reader");

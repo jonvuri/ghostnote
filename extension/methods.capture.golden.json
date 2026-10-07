@@ -5,8 +5,8 @@
   ],
   "profile": "capture",
   "identity": "capture-v1",
-  "count": 92,
-  "methodsHash": "e073a6dde3444ff6",
+  "count": 93,
+  "methodsHash": "c14be4995e483949",
   "methods": [
     "batch.run",
     "branch.duplicateTrack",
@@ -30,6 +30,7 @@
     "cursor.pin",
     "cursor.pinTrack",
     "cursor.playState",
+    "cursor.pointExpanded",
     "cursor.pointTrack",
     "cursor.scrollToStep",
     "cursor.setClipMetadata",

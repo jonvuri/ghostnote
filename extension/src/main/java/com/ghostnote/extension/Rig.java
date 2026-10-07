@@ -47,6 +47,11 @@ import java.util.List;
  */
 public class Rig {
     public static final double STEP_SIZE = 0.25;
+    /**
+     * 8h4a5 build marker: a device with the same DirectParameter ID list as the earlier device settles on its
+     * name and value callbacks (E243, {@link DirectParameterSwitch}).
+     */
+    public static final String DIRECT_PARAMETER_SETTLE = "same-ids-switch-v1";
 
     /** Live scaffold sizes for this init. */
     public final RigConfig config;
@@ -116,6 +121,8 @@ public class Rig {
     public final ChangeWatchProbe changeWatchProbe;
     /** 8h3c: the product clip reader. Every profile allocates it. */
     public final ClipReader clipReader;
+    /** 8h4a5: the cursor point route for a track inside collapsed groups. */
+    public final GroupPoint groupPoint;
     /** 8h3c: orders Ghostnote writes behind an open clip read. */
     public final WriteGate writeGate;
 
@@ -315,6 +322,17 @@ public class Rig {
     public String directParamCompletionTrackId = null;
     public String directParamCompletionDeviceName = null;
     public int directParamCompletionDeviceIndex = -1;
+    /**
+     * 8h4a5 probe counters: the calls of the ID, name, value, and display observers, and then the page-name and
+     * selected-page observers of the remote pages. They only count; no product decision reads them.
+     */
+    public final long[] directParamCallbacks = new long[6];
+    /** 8h4a5: the last list that the ID observer delivered. A target change does not clear it. */
+    public String[] directParamKnownIds = new String[0];
+    /** 8h4a5: the name and value callbacks under the current target (E243). */
+    public final DirectParameterSwitch directParamSwitch = new DirectParameterSwitch();
+    /** How the current generation settled: {@code ids} (the ID observer), {@code switch}, or {@code target}. */
+    public String directParamSettledBy = "";
 
     // --- E16: mixer state + the audibility oracle ---
     /**
@@ -341,6 +359,18 @@ public class Rig {
      */
     /** What `setContentFilter` actually did at init — echoed by rig.stats. */
     public String contentFilterApplied = "not-requested";
+    /** 8h4a5: the tracks that the mixer shows. A collapsed group's children are absent. */
+    public final TrackBank visibleBank;
+
+    /** 8h4a5: the channel IDs that the mixer shows now. */
+    public java.util.Set<String> visibleChannelIds() {
+        java.util.Set<String> ids = new java.util.HashSet<>();
+        for (int i = 0; i < config.tracks; i++) {
+            Track t = visibleBank.getItemAt(i);
+            if (t.exists().get()) ids.add(t.channelId().get());
+        }
+        return ids;
+    }
 
     public static final int VU_RANGE = 128;
     public final int[] vuNow;
@@ -814,6 +844,15 @@ public class Rig {
         // verified after any deploy.
         trackBank.itemCount().markInterested();
 
+        // 8h4a5 (E243): the visible-only bank, the legacy filter that D33 removed from the product bank. A track
+        // in the product bank that this bank does not list is inside a collapsed group. `track.list` marks it
+        // `hidden`, so the brain points it with `cursor.pointExpanded`. No scenes, sends, or other values.
+        visibleBank = host.createTrackBank(config.tracks, 0, 0, true);
+        for (int i = 0; i < config.tracks; i++) {
+            visibleBank.getItemAt(i).exists().markInterested();
+            visibleBank.getItemAt(i).channelId().markInterested();
+        }
+
         sceneBank = trackBank.sceneBank();
         sceneBank.itemCount().markInterested();
         // §3.2.3's approved extension-side scene epoch, as an actual observer
@@ -961,6 +1000,7 @@ public class Rig {
         fineClip.isPinned().markInterested();
 
         clipReader = new ClipReader(host, this, config.scenes);
+        groupPoint = new GroupPoint(host, this, clipReader.groups);
         writeGate = new WriteGate(task -> host.scheduleTask(task, 0), System::nanoTime, WriteGate.DEFAULT_LIMIT);
 
         noteObserverTrack = host.createCursorTrack(
@@ -1245,9 +1285,9 @@ public class Rig {
             remotePage.selectedPageIndex().markInterested();
             remotePage.pageNames().markInterested();
             remotePage.pageNames().addValueObserver(
-                names -> noteRemotePageObservation(pageIndex));
+                names -> { directParamCallbacks[4]++; noteRemotePageObservation(pageIndex); });
             remotePage.selectedPageIndex().addValueObserver(
-                index -> noteRemotePageObservation(pageIndex));
+                index -> { directParamCallbacks[5]++; noteRemotePageObservation(pageIndex); });
             prepareRemotePage(page);
             for (int r = 0; r < REMOTE_BANK; r++) {
                 RemoteControl rc = remotePage.getParameter(r);
@@ -1353,7 +1393,10 @@ public class Rig {
         // Callbacks fire on the control-surface thread.
         if (config.directObservers) {
             cursorDevice0.addDirectParameterIdObserver(ids -> {
+                directParamCallbacks[0]++;
                 directParamIds = ids != null ? ids : new String[0];
+                directParamKnownIds = directParamIds;
+                directParamSettledBy = "ids";
                 java.util.Set<String> current = new java.util.HashSet<>(
                     java.util.Arrays.asList(directParamIds));
                 directParamNames.keySet().retainAll(current);
@@ -1367,13 +1410,20 @@ public class Rig {
                 directParamObservedRoute = directParameterRouteSignature();
             });
             cursorDevice0.addDirectParameterNameObserver(48, (id, name) -> {
+                directParamCallbacks[1]++;
                 directParamNames.put(id, name);
+                directParamSwitch.name(directParameterTargetStamp(), id, name);
+                settleDirectParameterSwitch();
             });
             cursorDevice0.addDirectParameterNormalizedValueObserver((id, value) -> {
+                directParamCallbacks[2]++;
                 directParamValues.put(id, value);
+                directParamSwitch.value(directParameterTargetStamp(), id, value);
+                settleDirectParameterSwitch();
                 noteDirectParameterCompletion(id, value);
             });
             cursorDevice0.addDirectParameterValueDisplayObserver(48, (id, display) -> {
+                directParamCallbacks[3]++;
                 directParamDisplays.put(id, display);
             });
         }
@@ -1407,6 +1457,7 @@ public class Rig {
         if (sameTarget) {
             directParamObservedDeviceIndex = currentDeviceIndex;
             directParamIdsGeneration = directParamGeneration;
+            directParamSettledBy = "target";
             return directParamGeneration;
         }
         directParamIdsGeneration = -1;
@@ -1419,7 +1470,45 @@ public class Rig {
         directParamObservedDeviceIndex = -1;
         directParamObservedNested = false;
         directParamObservedRoute = null;
+        directParamSettledBy = "";
+        settleDirectParameterSwitch();
         return directParamGeneration;
+    }
+
+    /**
+     * 8h4a5: the target as the name and value callbacks see it. The device index is part of a top-level target;
+     * a nested target uses its named route, as {@link #beginDirectParameterObservation} does.
+     */
+    private String directParameterTargetStamp() {
+        boolean nested = cursorDevice0.isNested().get();
+        return cursorTracks[0].channelId().get() + "|" + cursorDevice0.name().get() + "|" + nested + "|"
+            + (nested ? directParameterRouteSignature() : String.valueOf(currentDirectParameterDeviceIndex()));
+    }
+
+    /**
+     * 8h4a5 (E243): settle a pending generation with the unchanged ID list. Bitwig calls no ID observer for a
+     * device with the same ID list as the earlier device. The current target settles when each known ID has a
+     * name and a value callback under its stamp. Values from an earlier target are never kept.
+     */
+    private void settleDirectParameterSwitch() {
+        if (directParamIdsGeneration >= 0 || directParamKnownIds.length == 0) return;
+        String stamp = directParameterTargetStamp();
+        if (!directParamSwitch.covers(stamp, directParamKnownIds)) return;
+        directParamIds = directParamKnownIds;
+        directParamNames.clear();
+        directParamValues.clear();
+        directParamDisplays.clear();
+        for (String id : directParamIds) {
+            directParamNames.put(id, directParamSwitch.nameOf(id));
+            directParamValues.put(id, directParamSwitch.valueOf(id));
+        }
+        directParamIdsGeneration = directParamGeneration;
+        directParamObservedTrackId = cursorTracks[0].channelId().get();
+        directParamObservedDeviceName = cursorDevice0.name().get();
+        directParamObservedDeviceIndex = currentDirectParameterDeviceIndex();
+        directParamObservedNested = cursorDevice0.isNested().get();
+        directParamObservedRoute = directParameterRouteSignature();
+        directParamSettledBy = "switch";
     }
 
     private String directParameterRouteSignature() {

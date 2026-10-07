@@ -5,8 +5,8 @@
   ],
   "profile": "normal",
   "identity": "normal-v1",
-  "count": 87,
-  "methodsHash": "ca139a3e62a55e68",
+  "count": 88,
+  "methodsHash": "68d457c4c4d1d7b3",
   "methods": [
     "batch.run",
     "branch.duplicateTrack",
@@ -30,6 +30,7 @@
     "cursor.pin",
     "cursor.pinTrack",
     "cursor.playState",
+    "cursor.pointExpanded",
     "cursor.pointTrack",
     "cursor.scrollToStep",
     "cursor.setClipMetadata",

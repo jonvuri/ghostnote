@@ -88,18 +88,19 @@ export class GroupSlotError extends ContractError {
 }
 
 /**
- * A clip read that binds another row of the requested track after the E232 retry. The one measured cause is
- * a track inside a collapsed group: the reader binds only row 0 of such a track (E221, E234). Since 8h4a3 the
- * reader expands up to three collapsed parent groups for the read (E241, D34). This refusal remains for a
- * target that it could not expand. Expanding the groups removes the limit.
+ * A clip read or a cursor point that reaches another row of the requested track. The reader refuses after the
+ * E232 retry; the cursor point route refuses after `cursor.pointExpanded`. The one measured cause is a track
+ * inside a collapsed group: Bitwig shows only row 0 of such a track (E221, E234, E242). Since 8h4a3 the reader,
+ * and since 8h4a5 the cursor route, expand up to three collapsed parent groups (E241, D34, E243). This refusal
+ * remains for a target that they could not expand. Expanding the groups removes the limit.
  */
 export class CollapsedGroupRowError extends ContractError {
   readonly reason = 'collapsed-group-row' as const;
-  constructor(readonly address: Address, readonly boundRow: number) {
+  constructor(readonly address: Address, readonly boundRow: number, readonly source: 'reader' | 'cursor' = 'reader') {
     super(
-      `collapsed-group-row: the reader bound row ${boundRow} of the requested track, not the requested row. `
-        + 'The track can be inside a collapsed group that the reader could not expand. Expand the group, then '
-        + 'read again.',
+      `collapsed-group-row: the ${source} ${source === 'reader' ? 'bound' : 'reported'} row ${boundRow} of the `
+        + 'requested track, not the requested row. The track can be inside a collapsed group that could not be '
+        + 'expanded. Expand the group, then try again.',
     );
   }
 }

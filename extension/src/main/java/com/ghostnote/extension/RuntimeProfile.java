@@ -120,6 +120,7 @@ public enum RuntimeProfile {
             "cursor.pin",
             "cursor.pinTrack",
             "cursor.playState",
+            "cursor.pointExpanded",
             "cursor.pointTrack",
             "cursor.scrollToStep",
             "cursor.setClipMetadata",
@@ -208,7 +209,11 @@ public enum RuntimeProfile {
             "app.undo",
             "app.undoState",
             "branch.groupTrack",
+            "branch.mixer",
+            "branch.setMixer",
             "cache.shadow",
+            "directparam.callbacks",
+            "directparam.hop",
             "stepdata.observer.enrich",
             "stepdata.observer.prepare",
             "stepdata.observer.read"
@@ -218,9 +223,7 @@ public enum RuntimeProfile {
             "app.selectionNotifications",
             "branch.contentFilter",
             "branch.createParentTrack",
-            "branch.mixer",
             "branch.moveTrack",
-            "branch.setMixer",
             "branch.vu",
             "chainselector.set",
             "chainselector.status",
@@ -282,6 +285,7 @@ public enum RuntimeProfile {
             "api.runtimeMethods",
             "app.actions",
             "app.undoState",
+            "branch.mixer",
             "chain.inventory",
             "clip.readPage",
             "contract.hello",
@@ -294,6 +298,7 @@ public enum RuntimeProfile {
             "cursor.status",
             "devcursor.status",
             "device.list",
+            "directparam.callbacks",
             "directparam.completion",
             "directparam.list",
             "drumpad.list",
@@ -319,9 +324,13 @@ public enum RuntimeProfile {
             "transport.status"
         );
 
-        /** 8h3c: requests that open one clip read. At most one is open; writes queue behind it. */
+        /**
+         * 8h3c: requests that open one clip read. At most one is open; writes queue behind it. 8h4a5: the cursor
+         * point route also expands groups, so it is admitted in the same way.
+         */
         private static final Set<String> CLIP_READS = methods(
-            "clip.read"
+            "clip.read",
+            "cursor.pointExpanded"
         );
 
         private static final Set<String> NORMAL;
@@ -345,11 +354,11 @@ public enum RuntimeProfile {
             ALL_CLASSIFIED = Set.copyOf(classified);
 
             if (!PRODUCT.containsAll(OPTIONAL_CAPTURE)
-                    || PRODUCT.size() != 92
-                    || NORMAL.size() != 87
-                    || PROBE.size() != 98
-                    || HISTORICAL.size() != 57
-                    || ALL_CLASSIFIED.size() != 160
+                    || PRODUCT.size() != 93
+                    || NORMAL.size() != 88
+                    || PROBE.size() != 103
+                    || HISTORICAL.size() != 55
+                    || ALL_CLASSIFIED.size() != 163
                     || !ALL_CLASSIFIED.containsAll(READS)
                     || !ALL_CLASSIFIED.containsAll(CLIP_READS)
                     || READS.stream().anyMatch(CLIP_READS::contains)) {

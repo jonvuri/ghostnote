@@ -1,5 +1,6 @@
 package com.ghostnote.extension.handlers;
 
+import com.ghostnote.extension.ClipLaunch;
 import com.ghostnote.extension.ClipMetadata;
 import com.ghostnote.extension.Rig;
 import com.bitwig.extension.controller.api.Clip;
@@ -282,10 +283,8 @@ public final class CursorHandlers extends HandlerGroup {
         JsonObject result = new JsonObject();
         putGuarded(result, "exists", () -> clip.exists().get());
         putGuarded(result, "sceneIndex", () -> clip.clipLauncherSlot().sceneIndex().get());
-        putGuarded(result, "launchQuantization", () -> clip.launchQuantization().get());
-        putGuarded(result, "launchMode", () -> clip.launchMode().get());
-        putGuarded(result, "useLoopStartAsQuantizationReference",
-            () -> clip.useLoopStartAsQuantizationReference().get());
+        // 8h4a5: the `clip.read` launch block holds the same values (ClipLaunch).
+        ClipLaunch.read(clip).entrySet().forEach(e -> result.add(e.getKey(), e.getValue()));
         return result;
     }
 

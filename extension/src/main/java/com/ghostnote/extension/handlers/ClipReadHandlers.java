@@ -38,6 +38,24 @@ public final class ClipReadHandlers extends HandlerGroup {
                 throw error;
             }
         });
+        // 8h4a5: point one pool cursor through the expansion of its collapsed parent groups (E243). It holds the
+        // gate as a clip read does, so no write runs while a group is expanded.
+        r.onAsync("cursor.pointExpanded", (params, reply) -> {
+            try {
+                rig.groupPoint.open(
+                    params.get("cursor").getAsString(),
+                    params.get("trackIndex").getAsInt(),
+                    params.get("row").getAsInt(),
+                    params.get("channelId").getAsString(),
+                    result -> {
+                        registry.gate().readClosed();
+                        reply.result(result, 0);
+                    });
+            } catch (RuntimeException error) {
+                registry.gate().readClosed();
+                throw error;
+            }
+        });
         r.on("clip.readPage", params -> rig.clipReader.page(
             params.get("readId").getAsLong(), params.get("from").getAsInt()));
     }
@@ -53,6 +71,7 @@ public final class ClipReadHandlers extends HandlerGroup {
         gate.addProperty("queuedTotal", registry.gate().queuedTotal());
         gate.addProperty("refusedTotal", registry.gate().refusedTotal());
         result.add("writeGate", gate);
+        result.add("groupPoint", rig.groupPoint.status());
         return result;
     }
 }

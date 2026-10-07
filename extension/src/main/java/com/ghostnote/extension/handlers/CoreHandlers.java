@@ -1,5 +1,6 @@
 package com.ghostnote.extension.handlers;
 
+import com.ghostnote.extension.GroupPoint;
 import com.ghostnote.extension.Rig;
 import com.bitwig.extension.controller.api.ControllerHost;
 import com.bitwig.extension.controller.api.Track;
@@ -91,6 +92,9 @@ public final class CoreHandlers extends HandlerGroup {
         result.addProperty("selectionRule", BatchHandlers.SELECTION_RULE);
         // 8h4a4 deliberate build marker. A new reply field does not move the hash.
         result.addProperty("cursorIdentity", CursorHandlers.CURSOR_IDENTITY);
+        // 8h4a5 deliberate build markers (E243).
+        result.addProperty("groupPoint", GroupPoint.RULE);
+        result.addProperty("parameterSettle", Rig.DIRECT_PARAMETER_SETTLE);
         // 8h4a (D33): the track-bank content filter that init applied.
         result.addProperty("contentFilter", rig.contentFilterApplied);
         return result;

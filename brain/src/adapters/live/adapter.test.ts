@@ -18,7 +18,7 @@ import assert from 'node:assert/strict';
 
 import {
   AddressUnresolvedError, CONTRACT_VERSION, GroupSlotError, InvalidOpError, RuntimeProfileMismatchError,
-  StaleAddressError, addressKey, chain as chainAt, clip, clipMetadata, device as deviceAt, deviceEnabled,
+  StaleAddressError, addressKey, chain as chainAt, clip, clipLaunch, clipMetadata, clipPlay, device as deviceAt, deviceEnabled,
   deviceIn as deviceInAt, deviceSlot,
   drumPad, notes as notesAt, param, remote, remotes, scene, slot, snapshotAddresses, track,
   type ClipAddress, type NoteRecord, type RevisionMark, type TrackAddress,
@@ -80,8 +80,12 @@ class CursorModelTransport implements Transport {
   private readonly stepSize = new Map<string, number>();
   private observerGeneration = 0;
   private observerArmed = false;
-  /** 8h4a: the `clip.read` reply holds the metadata block. */
-  metadataBlock = false;
+  /** 8h4a: the `clip.read` reply holds the metadata block. 8h4a5: and the launch block. */
+  metadataBlock = true;
+  /** 8h4a5: the `clip.read` launch block. */
+  launchBlock: Record<string, unknown> | undefined = {
+    launchQuantization: 'default', launchMode: 'default', useLoopStartAsQuantizationReference: false,
+  };
   /** 8h4a: the `track.list` type of the fixture track. */
   trackType = 'Instrument';
   /** 8h4a: the projects that `selection.status` reports. Absent is an extension before 8h4a. */
@@ -90,6 +94,14 @@ class CursorModelTransport implements Transport {
   batchReply: ((params: Record<string, unknown>) => unknown) | undefined;
   /** 8h4a: a `slot.select` for this track index fails as for a missing track. */
   missingTrackIndex: number | undefined;
+  /** 8h4a5: the `rig.info` group point marker. Absent is an extension before 8h4a5. */
+  groupPoint: string | undefined;
+  /** 8h4a5: the fixture track is inside a collapsed group: a slot selection does not take (E242). */
+  collapsed = false;
+  /** 8h4a5: `track.list` marks the fixture track hidden. */
+  hidden = false;
+  /** 8h4a5: `cursor.pointExpanded` refuses and leaves the cursor on row 0. */
+  pointExpandedRefuses = false;
 
   /** The one metadata reply shape, for `cursor.clipMetadata` and the `clip.read` block. */
   static metadataOf(model: SlotModel): Record<string, number | string | boolean> {
@@ -158,7 +170,20 @@ class CursorModelTransport implements Transport {
           cursorPool: 3,
           scenes: 8,
           deviceBank: 8,
+          ...(this.groupPoint === undefined ? {} : { groupPoint: this.groupPoint }),
         };
+
+      case WIRE.cursorPointExpanded: {
+        const cursor = params['cursor'] as string;
+        if (this.pointExpandedRefuses) {
+          this.cursorOn.set(cursor, 0);
+          return { rule: this.groupPoint, refused: 'target-not-confirmed' };
+        }
+        this.cursorOn.set(cursor, params['row'] as number);
+        this.pinned.set(cursor, true);
+        this.trackPinned.set(cursor, true);
+        return { rule: this.groupPoint, selection: { restored: true } };
+      }
 
       case WIRE.clipRead: {
         const model = this.slots.get(params['row'] as number)!;
@@ -185,13 +210,15 @@ class CursorModelTransport implements Transport {
         return { readId: 1, bound: { channelId: CHANNEL_ID, row: params['row'], loopStartBeats: 0,
           loopEndBeats: model.lengthBeats, playStopBeats: model.lengthBeats },
         ...(this.metadataBlock ? { metadata: CursorModelTransport.metadataOf(model) } : {}),
+        ...(this.launchBlock ? { launch: this.launchBlock } : {}),
         frame: { format: 'notes-v1', count: 16, from: 0, size: 16, next: -1,
           columns: fields.map((name) => numeric.includes(name) ? [name, 'raw', 'f64'] : [name, 'const']),
           constants, tables: {}, data: data.toString('base64') } };
       }
 
       case WIRE.trackList:
-        return { tracks: [{ index: 0, channelId: CHANNEL_ID, name: 'gn-fixture', type: this.trackType }],
+        return { tracks: [{ index: 0, channelId: CHANNEL_ID, name: 'gn-fixture', type: this.trackType,
+          ...(this.hidden ? { hidden: true } : {}) }],
           count: 1, bankSize: 8, itemCount: 1 };
 
       case WIRE.revisionGet:
@@ -243,7 +270,8 @@ class CursorModelTransport implements Transport {
           }
         }
         if (this.pending !== undefined) {
-          this.cursorOn.set(this.pending, slotIndex);
+          // E242: inside a collapsed group the selection does not take; the cursor binds row 0.
+          this.cursorOn.set(this.pending, this.collapsed ? 0 : slotIndex);
           this.pending = undefined;
         } else {
           this.selection.trackIndex = params['trackIndex'] as number;
@@ -293,6 +321,16 @@ class CursorModelTransport implements Transport {
           isPinned: this.pinned.get(cursor) === true,
           cursorTrackPinned: this.trackPinned.get(cursor) === true,
         };
+      }
+
+      case WIRE.slotPlayState:
+        return { hasContent: this.slots.has(params['slotIndex'] as number), isPlaying: false,
+          isPlaybackQueued: false, isStopQueued: false, playPosition: 0, sampledAtMs: 0 };
+
+      case WIRE.cursorPlayState: {
+        const on = this.cursorOn.get(params['cursor'] as string);
+        return on === undefined ? {} : { playingStep: -1, playPosition: 0, sampledAtMs: 0, sceneIndex: on,
+          trackChannelId: CHANNEL_ID };
       }
 
       case WIRE.cursorClipMetadata: {
@@ -427,37 +465,36 @@ test('8h3e: a source read fingerprints the same capture and the raw metadata', a
   const again = await adapter.read([], { sources: [CLIP(0)] });
   assert.equal(again.sources?.[addressKey(CLIP(0))]?.sha256, first?.sha256);
   assert.equal(Object.keys((await adapter.read(addresses)).sources ?? {}).length, 0);
-  // One snapshot read points and reads metadata once for each clip.
-  const before = transport.frames.filter((frame) => frame.method === WIRE.cursorClipMetadata).length;
+  // 8h4a5: one snapshot read reads each clip once, with no cursor point.
+  const before = transport.frames.filter((frame) => frame.method === WIRE.clipRead).length;
   await adapter.read([...snapshotAddresses(CLIP(0)), ...snapshotAddresses(CLIP(1))], { sources: [CLIP(0), CLIP(1)] });
-  assert.equal(transport.frames.filter((frame) => frame.method === WIRE.cursorClipMetadata).length - before, 2);
+  assert.equal(transport.frames.filter((frame) => frame.method === WIRE.clipRead).length - before, 2);
+  assert.equal(transport.frames.filter((frame) => frame.method === WIRE.cursorClipMetadata).length, 0);
+  assert.equal(transport.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 0);
 });
 
 test('8h4a: a snapshot read takes metadata from the clip.read block and keeps the fingerprint', async () => {
   const slots = new Map([[0, { lengthBeats: 16, pitch: 60 }], [1, { lengthBeats: 16, pitch: 62 }]]);
-  const pointed = new CursorModelTransport(slots);
-  const pointedAdapter = new UntimedAdapter({ transport: pointed });
-  await pointedAdapter.hello();
-  const addresses = [...snapshotAddresses(CLIP(0)), ...snapshotAddresses(CLIP(1))];
-  const before = await pointedAdapter.read(addresses, { sources: [CLIP(0), CLIP(1)] });
-  assert.equal(pointed.frames.filter((frame) => frame.method === WIRE.cursorClipMetadata).length, 2);
-
   const block = new CursorModelTransport(slots);
-  block.metadataBlock = true;
   const blockAdapter = new UntimedAdapter({ transport: block });
   await blockAdapter.hello();
+  const addresses = [...snapshotAddresses(CLIP(0)), ...snapshotAddresses(CLIP(1))];
   const after = await blockAdapter.read(addresses, { sources: [CLIP(0), CLIP(1)] });
   assert.equal(block.frames.filter((frame) => frame.method === WIRE.cursorClipMetadata).length, 0,
     'no metadata point when the reply holds the block');
   assert.equal(block.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 0,
     'no pool cursor point at all for a snapshot read');
-  assert.deepEqual(after.sources, before.sources, 'an equal block keeps ghostnote-launcher-source/1 digests');
-  for (const address of addresses) {
-    assert.deepEqual(after.entries[addressKey(address)], before.entries[addressKey(address)]);
-  }
-  // A clip address without a note read still points for its metadata.
+  assert.equal(after.sources?.[addressKey(CLIP(0))]?.domain, 'ghostnote-launcher-source/1');
+  // 8h4a5: a clip address without a note read also takes the block. It does not point.
   await blockAdapter.read([clipMetadata(CLIP(0))]);
-  assert.equal(block.frames.filter((frame) => frame.method === WIRE.cursorClipMetadata).length, 1);
+  assert.equal(block.frames.filter((frame) => frame.method === WIRE.cursorClipMetadata).length, 0);
+  // A reply without the block is an extension before 8h4a. The read refuses; it does not point.
+  const old = new CursorModelTransport(slots);
+  old.metadataBlock = false;
+  const oldAdapter = new UntimedAdapter({ transport: old });
+  await oldAdapter.hello();
+  await assert.rejects(oldAdapter.read([clipMetadata(CLIP(0))]), /no metadata block/);
+  assert.equal(old.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 0);
 });
 
 test('8h4a: batch.run carries the scene guard, and a first-stage refusal is a StaleAddressError', async () => {
@@ -633,9 +670,9 @@ test('5g repair: two delayed pins settle before either cursor hold is reused', a
   ]), { trackIndex: 3, slotIndex: 2 }, 1);
   const adapter = new DelayedPinAdapter(transport);
 
-  const snapshot = await adapter.read([clipMetadata(CLIP(0)), clipMetadata(CLIP(1))]);
-  const first = snapshot.entries[addressKey(clipMetadata(CLIP(0)))]?.value;
-  const second = snapshot.entries[addressKey(clipMetadata(CLIP(1)))]?.value;
+  const snapshot = await adapter.read([clipPlay(CLIP(0)), clipPlay(CLIP(1))]);
+  const first = snapshot.entries[addressKey(clipPlay(CLIP(0)))]?.value;
+  const second = snapshot.entries[addressKey(clipPlay(CLIP(1)))]?.value;
 
   assert.equal(transport.where('0'), 0, 'the first cursor stays on clip A');
   assert.equal(transport.where('1'), 1, 'the second cursor reaches clip B');
@@ -645,7 +682,7 @@ test('5g repair: two delayed pins settle before either cursor hold is reused', a
     'each clip gets target and pin status readings',
   );
   assert.equal(
-    transport.frames.filter((frame) => frame.method === WIRE.cursorClipMetadata).length,
+    transport.frames.filter((frame) => frame.method === WIRE.cursorPlayState).length,
     2,
     'each clip gets one complete metadata reading',
   );
@@ -659,8 +696,8 @@ test('5g revert repair: slow pins are polled without restarting the confirmed po
   );
   const adapter = new DelayedPinAdapter(transport);
 
-  const snapshot = await adapter.read([clipMetadata(CLIP(0))]);
-  const value = snapshot.entries[addressKey(clipMetadata(CLIP(0)))]?.value;
+  const snapshot = await adapter.read([clipPlay(CLIP(0))]);
+  const value = snapshot.entries[addressKey(clipPlay(CLIP(0)))]?.value;
 
   assert.equal(transport.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 1);
   assert.equal(transport.frames.filter((frame) =>
@@ -678,7 +715,7 @@ test('5g revert repair: pins that never settle refuse within eight attempts', as
   const adapter = new DelayedPinAdapter(transport);
 
   await assert.rejects(
-    adapter.read([clipMetadata(CLIP(0))]),
+    adapter.read([clipPlay(CLIP(0))]),
     /target track 0, row 0 confirmed, but clip pin false and track pin false did not both confirm after 8 attempts/,
   );
   assert.equal(transport.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 1);
@@ -692,7 +729,7 @@ test('5g repair: a direct read does not reuse a hold after an out-of-band point'
   ]), { trackIndex: 3, slotIndex: 2 });
   const adapter = new UntimedAdapter({ transport, cursorPool: 1, sceneBankSize: 8 });
 
-  await adapter.read([clipMetadata(CLIP(0))]);
+  await adapter.read([clipPlay(CLIP(0))]);
   await transport.send({ method: WIRE.cursorPin, params: { cursor: '0', pinned: false } });
   await transport.send({ method: WIRE.cursorPinTrack, params: { cursor: '0', pinned: false } });
   await transport.send({ method: WIRE.cursorPointTrack, params: { cursor: '0', trackIndex: 0 } });
@@ -701,8 +738,8 @@ test('5g repair: a direct read does not reuse a hold after an out-of-band point'
     params: { trackIndex: 0, slotIndex: 1, mechanism: 'track' },
   });
 
-  const snapshot = await adapter.read([clipMetadata(CLIP(0))]);
-  const value = snapshot.entries[addressKey(clipMetadata(CLIP(0)))]?.value;
+  const snapshot = await adapter.read([clipPlay(CLIP(0))]);
+  const value = snapshot.entries[addressKey(clipPlay(CLIP(0)))]?.value;
 
   assert.equal(transport.where('0'), 0, 'the second call re-points to clip A');
   assert.equal(
@@ -721,8 +758,8 @@ test('B4: one selection scope covers repeated live reads and restores once', asy
 
   await assert.rejects(
     adapter.preserveSelection(async () => {
-      await adapter.read([clipMetadata(CLIP(0))]);
-      await adapter.read([clipMetadata(CLIP(0))]);
+      await adapter.read([clipPlay(CLIP(0))]);
+      await adapter.read([clipPlay(CLIP(0))]);
       throw new Error('pipeline failed after pointing');
     }),
     /pipeline failed/,
@@ -735,8 +772,13 @@ test('B4: one selection scope covers repeated live reads and restores once', asy
   );
   assert.equal(
     transport.frames.filter((frame) => frame.method === WIRE.slotStatus).length,
-    3,
-    'one slot status validates the selection and two read the target clip',
+    1,
+    'one slot status validates the selection',
+  );
+  assert.equal(
+    transport.frames.filter((frame) => frame.method === WIRE.slotPlayState).length,
+    2,
+    'two slot play states read the target clip',
   );
   const selects = transport.frames.filter((frame) => frame.method === WIRE.slotSelect);
   assert.equal(selects.length, 2, 'one verified cursor point and one final restore are sent');
@@ -767,7 +809,7 @@ test('5d repair: entry selection wins over a change before the first cursor borr
   await adapter.preserveSelection(async () => {
     selected.trackIndex = 6;
     selected.slotIndex = 5;
-    await adapter.read([clipMetadata(CLIP(0))]);
+    await adapter.read([clipPlay(CLIP(0))]);
   });
 
   assert.deepEqual(selected, { trackIndex: 3, slotIndex: 2 });
@@ -790,7 +832,7 @@ test('5d repair: selection changes do not re-point a verified held clip between 
   const adapter = new UntimedAdapter({ transport, cursorPool: 1, sceneBankSize: 8 });
 
   await adapter.preserveSelection(async () => {
-    await adapter.read([clipMetadata(CLIP(0))]);
+    await adapter.read([clipPlay(CLIP(0))]);
     selected.trackIndex = 7;
     selected.slotIndex = 4;
     await adapter.apply({
@@ -803,7 +845,7 @@ test('5d repair: selection changes do not re-point a verified held clip between 
         }] },
       ],
     });
-    await adapter.read([clipMetadata(CLIP(0))]);
+    await adapter.read([clipPlay(CLIP(0))]);
   });
 
   assert.equal(
@@ -825,9 +867,9 @@ test('5d repair: a structural stage invalidates the verified held clip', async (
     onTrace: (event) => trace.push(event.action),
   });
 
-  await adapter.read([clipMetadata(CLIP(0))]);
+  await adapter.read([clipPlay(CLIP(0))]);
   await adapter.apply({ ops: [{ op: 'clip.delete', slot: CLIP(1).slot }] });
-  await adapter.read([clipMetadata(CLIP(0))]);
+  await adapter.read([clipPlay(CLIP(0))]);
 
   assert.equal(
     transport.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length,
@@ -849,13 +891,13 @@ test('B4: overlapping pipelines share one capture and restore after both finish'
   const pointed = new Promise<void>((resolve) => { firstPointed = resolve; });
 
   const first = adapter.preserveSelection(async () => {
-    await adapter.read([clipMetadata(CLIP(0))]);
+    await adapter.read([clipPlay(CLIP(0))]);
     firstPointed();
     await release;
   });
   await pointed;
   await adapter.preserveSelection(async () => {
-    await adapter.read([clipMetadata(CLIP(0))]);
+    await adapter.read([clipPlay(CLIP(0))]);
   });
 
   assert.equal(
@@ -1021,17 +1063,47 @@ test('L-read: a clip revisited after its cursor was EVICTED is re-pointed, not a
   assert.equal(first?.value.of === 'notes' ? first.value.notes[0]?.pitch : undefined, 60);
 });
 
-test('8h3c: metadata uses the pool and notes use a separate reader', async () => {
-  // The other half, and the reason the memo exists at all: the common write-set
-  // shape must not pay two point/settle round trips for one clip.
+test('8h4a5: the clip, metadata, launch, and notes of one clip share one clip.read and point no cursor', async () => {
+  // The common write-set shape reads a clip and its notes back to back. It must not pay two reads for one clip.
   const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
 
   await adapter.hello();
-  await adapter.read([clip(CLIP(0).slot), notesAt(CLIP(0), 0)]);
+  const snapshot = await adapter.read([clip(CLIP(0).slot), clipMetadata(CLIP(0)), clipLaunch(CLIP(0)),
+    notesAt(CLIP(0), 0)]);
 
-  const points = wire.frames.filter((f) => f.method === WIRE.cursorPointTrack);
-  assert.equal(points.length, 1, 'one clip, one point — the memo is still doing its job');
+  assert.equal(wire.frames.filter((f) => f.method === WIRE.clipRead).length, 1, 'one clip, one capture');
+  assert.equal(wire.frames.filter((f) => f.method === WIRE.cursorPointTrack).length, 0, 'no pool cursor point');
+  assert.equal(wire.frames.filter((f) => f.method === WIRE.cursorClipMetadata).length, 0);
+  assert.equal(wire.frames.filter((f) => f.method === WIRE.cursorLaunchSettings).length, 0);
+  assert.deepEqual(snapshot.entries[addressKey(clipLaunch(CLIP(0)))]?.value, { of: 'clipLaunch', launch: {
+    quantization: 'default', mode: 'default', useLoopStartAsQuantizationReference: false } });
+  const metadata = snapshot.entries[addressKey(clipMetadata(CLIP(0)))]?.value;
+  assert.equal(metadata?.of === 'clipMetadata' ? metadata.metadata.lengthBeats : undefined, 4);
+});
+
+test('8h4a5: the clip.read launch block is validated; a bad or absent block refuses the read', async () => {
+  const bad = async (launch: Record<string, unknown> | undefined, pattern: RegExp): Promise<void> => {
+    const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
+    wire.launchBlock = launch;
+    const adapter = new UntimedAdapter({ transport: wire });
+    await adapter.hello();
+    await assert.rejects(adapter.read([clipLaunch(CLIP(0))]), pattern);
+  };
+  const good = { launchQuantization: '1/4', launchMode: 'synced', useLoopStartAsQuantizationReference: true };
+  await bad({ ...good, launchQuantization: '3' }, /quantization is not a known value: 3/);
+  await bad({ ...good, launchMode: 'ERR:host' }, /launch mode is not a known value: ERR:host/);
+  await bad({ ...good, useLoopStartAsQuantizationReference: 'true' }, /did not return a boolean/);
+  await bad(undefined, /no launch block/);
+  const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
+  wire.launchBlock = good;
+  const adapter = new UntimedAdapter({ transport: wire });
+  await adapter.hello();
+  const value = (await adapter.read([clipLaunch(CLIP(0))])).entries[addressKey(clipLaunch(CLIP(0)))]?.value;
+  assert.deepEqual(value, { of: 'clipLaunch', launch: { quantization: '1/4', mode: 'synced',
+    useLoopStartAsQuantizationReference: true } });
+  // An empty slot has no entry and is not read.
+  assert.equal((await adapter.read([clipLaunch(CLIP(3))])).entries[addressKey(clipLaunch(CLIP(3)))], undefined);
 });
 
 test('8h4a4: a group child confirms by channelId, not by its sibling position', async () => {
@@ -1083,10 +1155,10 @@ test('5d cursor repair: a lagging clip cursor retries the complete point', async
   const wire = new LaggingCursorTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 1 });
 
-  const snapshot = await adapter.read([clipMetadata(CLIP(0))]);
-  const value = snapshot.entries[addressKey(clipMetadata(CLIP(0)))]?.value;
+  const snapshot = await adapter.read([clipPlay(CLIP(0))]);
+  const value = snapshot.entries[addressKey(clipPlay(CLIP(0)))]?.value;
 
-  assert.equal(value?.of, 'clipMetadata');
+  assert.equal(value?.of, 'clipPlay');
   assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 3);
   assert.equal(wire.frames.filter((frame) => frame.method === WIRE.slotSelect).length, 3);
   assert.deepEqual(
@@ -1099,7 +1171,7 @@ test('5d cursor repair: a lagging clip cursor retries the complete point', async
     ],
   );
   assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorStatus).length, 4);
-  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorClipMetadata).length, 1);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorPlayState).length, 1);
 });
 
 test('5d cursor repair: a clip cursor that never arrives refuses after eight attempts', async () => {
@@ -1115,7 +1187,7 @@ test('5d cursor repair: a clip cursor that never arrives refuses after eight att
   const wire = new StuckCursorTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 1 });
 
-  await assert.rejects(adapter.read([clipMetadata(CLIP(0))]), AddressUnresolvedError);
+  await assert.rejects(adapter.read([clipPlay(CLIP(0))]), AddressUnresolvedError);
   assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 8);
   assert.equal(wire.frames.filter((frame) => frame.method === WIRE.slotSelect).length, 8);
   assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorStatus).length, 8);
@@ -1142,7 +1214,7 @@ test('L-read: an EMPTY slot is never pointed at, and is exact (E2, D16d)', async
 test('2h: a structural stage releases every physical writer cursor', async () => {
   const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
-  await adapter.read([clip(CLIP(0).slot)]);
+  await adapter.read([clipPlay(CLIP(0))]);
   const beforeApply = wire.frames.length;
 
   await adapter.apply({ ops: [{
@@ -1203,6 +1275,105 @@ test('2h: a clip-wide reconstruction verifies its cursor before the write turn',
     WIRE.cursorSetNotes,
     WIRE.cursorScrollToStep,
   ]);
+});
+
+/** 8h4a5: a fixture track inside a collapsed group, with clips in rows 0 and 2. */
+async function collapsedChild(options: { hidden: boolean; groupPoint?: string; refuses?: boolean }) {
+  const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }], [2, { lengthBeats: 8, pitch: 62 }]]),
+    { trackIndex: 3, slotIndex: 1 });
+  wire.collapsed = true;
+  wire.hidden = options.hidden;
+  wire.groupPoint = options.groupPoint;
+  wire.pointExpandedRefuses = options.refuses === true;
+  const trace: string[] = [];
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3, onTrace: (event) => trace.push(event.action) });
+  await adapter.hello();
+  return { wire, adapter, trace };
+}
+
+test('8h4a5: a hidden track points through cursor.pointExpanded, with no borrow and no normal point', async () => {
+  const { wire, adapter, trace } = await collapsedChild({ hidden: true, groupPoint: 'expand-collapsed-point-v1' });
+  const snapshot = await adapter.read([clipPlay(CLIP(2))]);
+  assert.equal(snapshot.entries[addressKey(clipPlay(CLIP(2)))]?.value.of, 'clipPlay');
+  const routed = wire.frames.filter((frame) => frame.method === WIRE.cursorPointExpanded);
+  assert.deepEqual(routed.map((frame) => frame.params), [{ cursor: '0', trackIndex: 0, row: 2, channelId: CHANNEL_ID }]);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 0, 'no normal point');
+  // A direct read restores its entry selection at the end. The route itself selects nothing on this wire.
+  assert.deepEqual(wire.frames.filter((frame) => frame.method === WIRE.slotSelect).map((frame) =>
+    [frame.params?.['trackIndex'], frame.params?.['slotIndex']]), [[3, 1]]);
+  assert.equal(wire.where('0'), 2);
+  assert.deepEqual(trace.filter((action) => action === 'group-point'), ['group-point']);
+});
+
+test('8h4a5: a track that is not hidden keeps the normal route with no extra request', async () => {
+  const wire = new CursorModelTransport(new Map([[2, { lengthBeats: 8, pitch: 62 }]]));
+  wire.groupPoint = 'expand-collapsed-point-v1';
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  await adapter.hello();
+  await adapter.read([clipPlay(CLIP(2))]);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorPointExpanded).length, 0);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 1);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorStatus).length, 2);
+});
+
+test('8h4a5: the target track on row 0 after a normal point switches to the expansion route at once', async () => {
+  // The group collapsed after the track list was read: the track is not marked hidden.
+  const { wire, adapter } = await collapsedChild({ hidden: false, groupPoint: 'expand-collapsed-point-v1' });
+  await adapter.read([clipPlay(CLIP(2))]);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 1, 'one normal attempt');
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorPointExpanded).length, 1);
+  assert.equal(wire.where('0'), 2);
+});
+
+test('8h4a5: a refused expansion point is collapsed-group-row, not a bare unresolved address', async () => {
+  const { adapter } = await collapsedChild({ hidden: true, groupPoint: 'expand-collapsed-point-v1', refuses: true });
+  await assert.rejects(adapter.read([clipPlay(CLIP(2))]), (error: unknown) =>
+    error instanceof CollapsedGroupRowError && error.reason === 'collapsed-group-row' && error.source === 'cursor'
+      && /the cursor reported row 0/.test(error.message));
+});
+
+test('8h4a5: an extension before 8h4a5 keeps the normal route and refuses as before', async () => {
+  const { wire, adapter } = await collapsedChild({ hidden: true });
+  await assert.rejects(adapter.read([clipPlay(CLIP(2))]), AddressUnresolvedError);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorPointExpanded).length, 0);
+});
+
+test('8h4a5: a note write to a hidden track confirms through the expansion route and sends no point frame', async () => {
+  const { wire, adapter } = await collapsedChild({ hidden: true, groupPoint: 'expand-collapsed-point-v1' });
+  await adapter.apply({ ops: [{
+    op: 'note.insert', clip: CLIP(2), channel: 0,
+    notes: [{ startBeats: 1, pitch: 64, velocity: 90, durationBeats: 1 }],
+  }] });
+  const batchAt = wire.frames.findIndex((frame) => frame.method === WIRE.batchRun);
+  assert.ok(batchAt > 0);
+  assert.equal(wire.frames.slice(0, batchAt).filter((frame) => frame.method === WIRE.cursorPointExpanded).length, 1);
+  const batch = wire.frames[batchAt]!.params as { ops: { method: string }[] };
+  assert.ok(!batch.ops.some((frame) => frame.method === WIRE.cursorPointTrack || frame.method === WIRE.slotSelect),
+    'the write reuses the pinned cursor');
+  assert.equal(wire.where('0'), 2);
+});
+
+test('8h4a5: clip.launchSettings confirms its row before the turn and sends no point frame in it (E243 P2)', async () => {
+  for (const hidden of [false, true]) {
+    const { wire, adapter } = hidden
+      ? await collapsedChild({ hidden: true, groupPoint: 'expand-collapsed-point-v1' })
+      : await (async () => {
+        const w = new CursorModelTransport(new Map([[2, { lengthBeats: 8, pitch: 62 }]]));
+        const a = new UntimedAdapter({ transport: w, cursorPool: 3 });
+        await a.hello();
+        return { wire: w, adapter: a };
+      })();
+    await adapter.apply({ ops: [{ op: 'clip.launchSettings', clip: CLIP(2), quantization: '1/4', mode: 'synced',
+      useLoopStartAsQuantizationReference: false }] });
+    const batchAt = wire.frames.findIndex((frame) => frame.method === WIRE.batchRun);
+    assert.ok(batchAt > 0);
+    const confirms = wire.frames.slice(0, batchAt).filter((frame) => frame.method === (hidden
+      ? WIRE.cursorPointExpanded : WIRE.cursorPointTrack));
+    assert.equal(confirms.length, 1, `${hidden ? 'expansion' : 'normal'} point before the turn`);
+    const batch = wire.frames[batchAt]!.params as { ops: { method: string }[] };
+    assert.deepEqual(batch.ops.map((frame) => frame.method), [WIRE.cursorSetLaunchSettings]);
+    assert.equal(wire.where('0'), 2);
+  }
 });
 
 test('2i: an additive note write verifies and pins its exact clip before the write turn', async () => {
@@ -1287,6 +1458,7 @@ test('2i follow-up: clip metadata verifies the occupied exact target before the 
 test('d02-s8: clip colour host floats read back as exact public bytes', async () => {
   const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 8, pitch: 60 }]]));
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  await adapter.hello();
 
   const snapshot = await adapter.read([clipMetadata(CLIP(0))]);
   const value = snapshot.entries[addressKey(clipMetadata(CLIP(0)))]?.value;

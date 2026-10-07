@@ -762,7 +762,7 @@ export function refusalOf(error: unknown): Refusal {
     return refusal(
       'nothing was read or written. Bitwig showed another row of that track to this connection, not '
       + 'the requested row. This can happen when the track is inside a collapsed group that this '
-      + 'connection could not open. Ask the person to expand the group in Bitwig, then read again.',
+      + 'connection could not open. Ask the person to expand the group in Bitwig, then try again.',
       { reason: error.reason, where: [describeAddress(error.address)] },
     );
   }
