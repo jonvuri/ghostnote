@@ -34,7 +34,7 @@ import { control } from '../adapters/fake/control.js';
 import { ProjectModel } from '../adapters/fake/model.js';
 import { FIXTURE_DIR } from '../bwmod/fixtures.js';
 import {
-  AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, ContractVersionError,
+  AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, CollapsedGroupRowError, ContractVersionError,
   InvalidOpError, NOTE_PROP_FIDELITY, SlotOccupiedError, StaleAddressError, WireDriftError,
   addressKey, chain as chainAt, clip as clipAt, clipMetadata as metadataAt,
   notes as notesAt, scene as sceneAt, slot as slotAt, track as trackAt,
@@ -3370,6 +3370,14 @@ test('2i: an unresolved note read does not claim that an occupied slot is empty'
   assert.doesNotMatch(result.why, /There is no clip/);
 });
 
+test('8h4a2: a collapsed-group row refusal names the limit and says to expand the group (E240)', () => {
+  const target = notesAt(clipAt(slotAt(trackAt('t-1'), sceneAt(1, 1))), 0);
+  const result = refusalOf(new CollapsedGroupRowError(target, 0));
+  assert.equal(result.reason, 'collapsed-group-row');
+  assert.match(result.why, /collapsed group/);
+  assert.match(result.why, /expand the group/);
+});
+
 test('T-words: EVERY refusal the surface can produce is written in its own words', () => {
   // ⚠ The emitted-text guard above only reads what the suite happened to run.
   // This one enumerates the refusal catalogue directly, so a path nobody
@@ -3395,6 +3403,7 @@ test('T-words: EVERY refusal the surface can produce is written in its own words
     new StaleAddressError(clip, 1, 2),
     new AddressUnresolvedError(notesAddress, marker),
     new AddressUnresolvedError(trackAt('t-1'), marker),
+    new CollapsedGroupRowError(notesAddress, 1),
     new ChangesetNotFoundError('nope'),
     new EmptySliceError([marker]),
     new InvalidOpError('scene.create', marker),

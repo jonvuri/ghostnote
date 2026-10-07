@@ -32,6 +32,7 @@ const reader = rig['clipReader'] as Record<string, unknown> | undefined;
 check('the product clip reader has the required build marker and configuration',
   reader?.['revision'] === 'clip-reader-v2' && reader?.['closeRule'] === 'confirm-before-release-v1'
     && reader?.['openRule'] === 'subscribe-before-unpin-v1'
+    && reader?.['groupRule'] === 'expand-collapsed-parent-v1'
     && reader?.['format'] === 'notes-v1'
     && reader?.['width'] === 4_194_304 && reader?.['grid'] === 1 / 512,
   reader);

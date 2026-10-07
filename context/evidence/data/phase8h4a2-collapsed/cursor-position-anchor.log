@@ -1,0 +1,3 @@
+gn-A 2 0 ok
+gn-E16 5 0 ERR AddressUnresolvedError: address did not resolve: cursor 1 target track 5, row 0 did not confirm after 8 attempts; last observed track 0, row 0
+gn-sel 8 0 ERR AddressUnresolvedError: address did not resolve: cursor 2 target track 8, row 0 did not confirm after 8 attempts; last observed track 7, row 0

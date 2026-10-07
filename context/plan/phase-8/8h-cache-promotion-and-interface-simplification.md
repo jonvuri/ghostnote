@@ -91,7 +91,10 @@ Reader promotion and remaining sessions, in order:
       E233). Complete (E234).
       - [8h4a2 — Collapsed-child reader routes](8h4a2-collapsed-child-reader-routes.md):
         a reader route for any row of a track inside a collapsed group
-        (E221, E234). Independent of 8h4b–8h4f; evidence E240.
+        (E221, E234). Complete (E240): no route passed the full matrix.
+      - [8h4a3 — Expand-parent acceptance](8h4a3-expand-parent-acceptance.md):
+        the reader expands collapsed parent groups for each read. Complete
+        (E241, D34).
    2. [8h4b — Document read and identity registry](8h4b-document-read-and-identity-registry.md):
       the profile, the shared result vocabulary, `read_launcher_clip` on the
       D32 reference, and the clip and event ID registry.

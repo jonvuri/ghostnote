@@ -29,10 +29,16 @@ found the gap and measured the new default.
 
 - The children of a collapsed group are listed. In E234 both children listed,
   and row 0 of each read and checked `current`.
-- The E221 collapsed-child binding limit stays. A clip read of a row other
-  than 0 on a collapsed child refuses with `bound-target-mismatch`
-  (`AddressUnresolvedError`) and returns no content. Expand the group to read
-  those rows.
+- The E221 collapsed-child binding limit: the reader binds only row 0 of a
+  collapsed child. Since [D34](d34-the-reader-expands-collapsed-parent-groups.md)
+  the reader expands the collapsed parent groups for each read, so every row
+  reads (E241). A target that it cannot expand refuses with
+  `collapsed-group-row` (`CollapsedGroupRowError`, E240).
+- Open defect (E240): cursor-pointed clip addresses confirm the target by
+  cursor track position, which is the position among sibling tracks. It does
+  not count group children. A cursor-pointed clip read or write fails on a
+  child of any group and on every track after a group. D33 extended this to
+  tracks after a collapsed group.
 - `gn-scale-test` lists 11 tracks, not 10: `gn-E16` inside the collapsed
   `Group 5` is now visible. The ten earlier track IDs are unchanged. The anchor
   baseline is `phase8h4a-boundary/baseline-final.json`.

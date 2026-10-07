@@ -22,6 +22,7 @@ import {
   deviceIn as deviceInAt, deviceSlot,
   drumPad, notes as notesAt, param, remote, remotes, scene, slot, snapshotAddresses, track,
   type ClipAddress, type NoteRecord, type RevisionMark, type TrackAddress,
+  CollapsedGroupRowError,
 } from '../../contract/index.js';
 import { BridgeError } from '../../client.js';
 import { LiveAdapter } from './adapter.js';
@@ -596,7 +597,7 @@ test('8h3c: extension refusals retain their reason', async () => {
   }
 });
 
-test('8h3c2: one retry after a row mismatch on the requested track; other mismatches refuse', async () => {
+test('8h3c2: one retry after a row mismatch on the requested track; other mismatches refuse (E240)', async () => {
   for (const [bound, reads, passes] of [
     [{ channelId: CHANNEL_ID, row: 1 }, 2, true],
     [{ channelId: 'another-track', row: 0 }, 1, false],
@@ -619,8 +620,9 @@ test('8h3c2: one retry after a row mismatch on the requested track; other mismat
     : model.send(frame), close: () => model.close() };
   const adapter = new UntimedAdapter({ transport });
   await adapter.hello();
-  await assert.rejects(adapter.read([notesAt(CLIP(0))]), /bound-target-mismatch/);
-  assert.equal(calls, 2, 'a second mismatch refuses without a third read');
+  await assert.rejects(adapter.read([notesAt(CLIP(0))]), (error: unknown) =>
+    error instanceof CollapsedGroupRowError && error.reason === 'collapsed-group-row' && error.boundRow === 1);
+  assert.equal(calls, 2, 'a second mismatch refuses as the collapsed-group limit without a third read');
 });
 
 test('5g repair: two delayed pins settle before either cursor hold is reused', async () => {

@@ -1,0 +1,291 @@
+{
+ "schema": "phase8h4a2-state-v1",
+ "entry": {
+  "hello": {
+   "contractVersion": 0,
+   "extensionVersion": "0.0.1",
+   "runtimeProfile": "phase-8-probe-v1",
+   "hostApiVersion": 25,
+   "methodCount": 98,
+   "methodsHash": "659635435255b259"
+  },
+  "mark": {
+   "revision": 0,
+   "generation": "f60dd57e-1e75-4a00-b367-73a73dfcb875",
+   "project": "New 9",
+   "projectStatus": "marked",
+   "sceneEpoch": 3,
+   "sceneCount": 8,
+   "contentEpoch": 32818,
+   "contentEvents": [
+    {
+     "seq": 32795,
+     "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+     "trackIndex": 0,
+     "slotIndex": 4,
+     "filled": false
+    },
+    {
+     "seq": 32796,
+     "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+     "trackIndex": 1,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32797,
+     "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+     "trackIndex": 1,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32798,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32799,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32800,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32801,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 3,
+     "filled": false
+    },
+    {
+     "seq": 32802,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 4,
+     "filled": false
+    },
+    {
+     "seq": 32803,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 5,
+     "filled": false
+    },
+    {
+     "seq": 32804,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 6,
+     "filled": false
+    },
+    {
+     "seq": 32805,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 7,
+     "filled": false
+    },
+    {
+     "seq": 32806,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 8,
+     "filled": false
+    },
+    {
+     "seq": 32807,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 9,
+     "filled": false
+    },
+    {
+     "seq": 32808,
+     "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32809,
+     "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+     "trackIndex": 3,
+     "slotIndex": 5,
+     "filled": false
+    },
+    {
+     "seq": 32810,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32811,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32812,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32813,
+     "channelId": "",
+     "trackIndex": 5,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32814,
+     "channelId": "",
+     "trackIndex": 5,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32815,
+     "channelId": "",
+     "trackIndex": 5,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32816,
+     "channelId": "",
+     "trackIndex": 6,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32817,
+     "channelId": "",
+     "trackIndex": 7,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32818,
+     "channelId": "",
+     "trackIndex": 8,
+     "slotIndex": 0,
+     "filled": false
+    }
+   ]
+  },
+  "rig": {
+   "runtimeProfile": "phase-8-probe-v1",
+   "tracks": 256,
+   "scenes": 128,
+   "gridSteps": 64,
+   "fineSteps": 512,
+   "noteReadSteps": 2048,
+   "gridKeys": 128,
+   "stepSize": 0.25,
+   "cursorPool": 8,
+   "deviceBank": 16,
+   "remotePages": 16,
+   "containerScopes": 3,
+   "containerEntryBank": 5,
+   "containerEntryDeviceBank": 4,
+   "parameterRouteDepth": 2,
+   "sceneCount": 8,
+   "clipReader": {
+    "revision": "clip-reader-v2",
+    "closeRule": "confirm-before-release-v1",
+    "openRule": "subscribe-before-unpin-v1",
+    "format": "notes-v1",
+    "width": 4194304,
+    "grid": 0.001953125,
+    "page": 131072,
+    "deadlineMs": 2000,
+    "reads": 0,
+    "refusals": 0,
+    "lastRefusal": "",
+    "lateCallbacks": 0,
+    "strayCallbacks": 0,
+    "releaseCallbacks": 0,
+    "releaseEmpty": 0,
+    "releaseSustain": 0,
+    "releaseOn": 0,
+    "subscribed": false,
+    "open": false,
+    "writeGate": {
+     "readOpen": false,
+     "waiting": 0,
+     "leases": 0,
+     "limit": 256,
+     "queuedTotal": 0,
+     "refusedTotal": 0
+    }
+   },
+   "writeGuard": "batch-scene-guard-v1",
+   "selectionRule": "selection-project-v1",
+   "contentFilter": "ALL_CHANNELS"
+  }
+ },
+ "entryTracks": [
+  {
+   "index": 0,
+   "name": "Inst 1",
+   "position": 0,
+   "type": "Instrument",
+   "channelId": "733d7db7-f48f-4332-9540-255e80a59de7"
+  },
+  {
+   "index": 1,
+   "name": "Audio 2",
+   "position": 1,
+   "type": "Audio",
+   "channelId": "86bb49a0-5eb4-41f2-a927-a435e48c0cc9"
+  },
+  {
+   "index": 2,
+   "name": "FX 1",
+   "position": 2,
+   "type": "Effect",
+   "channelId": "8d5acc81-5be1-4bff-aa08-d9e00d49703b"
+  },
+  {
+   "index": 3,
+   "name": "Master",
+   "position": 3,
+   "type": "Master",
+   "channelId": "58db9ab6-54d7-4c8b-96c7-70567b1b397f"
+  }
+ ],
+ "entrySelection": {
+  "trackIndex": -1,
+  "slotIndex": -1,
+  "mixerTrackIndex": 0,
+  "changes": 0,
+  "revision": 2,
+  "slotProject": "",
+  "mixerProject": "New 9",
+  "project": "New 9"
+ },
+ "tracks": {
+  "other": "f09f015e-29ab-406d-bc36-5e09a996cb02"
+ },
+ "children": {
+  "expand-parent": "2dc22a6a-8d84-48a8-afda-66324ce5a1ca",
+  "cursor-step": "bc742612-926a-4f3c-91ad-ca920d56e8b5",
+  "show-in-editor": "105cac3d-205c-4a5f-9aac-040826fea056",
+  "product": "3016072c-1ed2-48ba-a707-6eaa7e9bf5c9"
+ }
+}

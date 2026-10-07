@@ -29,7 +29,7 @@ import { randomUUID } from 'node:crypto';
 
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION, InvalidOpError,
-  GROUP_TRACK_TYPE, GroupSlotError, OP_BUMPS_SCENE_EPOCH, assertNoGroupSlotAddresses, assertNoGroupSlotOps, sceneGuardError,
+  CollapsedGroupRowError, GROUP_TRACK_TYPE, GroupSlotError, OP_BUMPS_SCENE_EPOCH, assertNoGroupSlotAddresses, assertNoGroupSlotOps, sceneGuardError,
   type SceneGuard,
   ContractVersionError, RuntimeProfileMismatchError, StaleAddressError, WireDriftError,
   addressKey, addressScene, addressTrack, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDeviceInsertable, assertDeviceRelocatable, assertDrumPadInsertable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
@@ -2636,9 +2636,12 @@ export class LiveAdapter implements BitwigAdapter {
     let result = await send();
     // E232: a clip pin from an earlier reader build can bind another row of the correct track once. That
     // refused read leaves the reader on this track, and the next open removes the pin. Retry one time only.
-    if (result.refused === 'bound-target-mismatch' && result.bound?.channelId === clipRef.slot.track.channelId
-        && result.bound.row !== clipRef.slot.scene.index) {
+    const otherRow = (reply: ClipReadReply): boolean => reply.refused === 'bound-target-mismatch'
+      && reply.bound?.channelId === clipRef.slot.track.channelId && reply.bound.row !== clipRef.slot.scene.index;
+    if (otherRow(result)) {
       result = await send();
+      // E240, E241: a second mismatch on the requested track is a collapsed group that the reader could not expand.
+      if (otherRow(result)) throw new CollapsedGroupRowError(clipRef, Number(result.bound?.row));
     }
     if (result.refused !== undefined) {
       throw new AddressUnresolvedError(clipRef, `clip.read refused ${result.refused}: ${result.message ?? ''}`);

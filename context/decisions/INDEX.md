@@ -45,6 +45,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D31 | Mutation and reversal use the D23 cell boundary **[SETTLED 2026-10-05]** | [open](d31-mutation-and-reversal-use-the-d23-cell-boundary.md) |
 | D32 | Pull snapshot references use the revision mark **[SETTLED 2026-10-06]** | [open](d32-pull-snapshot-references-use-the-revision-mark.md) |
 | D33 | The product track bank lists all channels **[SETTLED 2026-10-06]** | [open](d33-the-product-track-bank-lists-all-channels.md) |
+| D34 | The reader expands collapsed parent groups **[SETTLED 2026-10-06]** | [open](d34-the-reader-expands-collapsed-parent-groups.md) |
 
 ## Phase 4 closeout audit
 

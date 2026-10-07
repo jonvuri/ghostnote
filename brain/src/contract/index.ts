@@ -96,7 +96,7 @@ export {
 export type { BankDimension, OccupiedSlotHazard } from './errors.js';
 
 export {
-  GROUP_TRACK_TYPE, GroupSlotError, assertNoGroupSlotAddresses, assertNoGroupSlotOps, isGroupTrack,
+  CollapsedGroupRowError, GROUP_TRACK_TYPE, GroupSlotError, assertNoGroupSlotAddresses, assertNoGroupSlotOps, isGroupTrack,
   opsHaveSceneRows, sceneGuardError, sceneGuardMismatch, sceneGuardOf,
 } from './write-boundary.js';
 export type { SceneGuard, SceneGuardField } from './write-boundary.js';

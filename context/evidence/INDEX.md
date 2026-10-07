@@ -16,6 +16,8 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E241 | Expand-parent acceptance: the reader expands collapsed parent groups (up to three levels) and collapses them again, so every row of a collapsed child reads in both profiles, nested groups, and the person's own selection path; five fail-closed defects fixed on the way; grouped reads 262 ms, nested 378 ms, others unchanged (D34) [K] (2026-10-06) | [open](experiments/e241-expand-parent-acceptance.md) |
+| E240 | Collapsed-child reader routes: no route passes the full matrix (`expand-parent` reads every row but loses a hidden-child mixer selection), so the read refuses `collapsed-group-row` and says to expand the group; separately, cursor-pointed clip addresses fail on tracks inside or after a group because the cursor position does not count group children [K] (2026-10-06) | [open](experiments/e240-collapsed-child-reader-routes.md) |
 | E234 | Write boundary and reader hardening: `batch.run` refuses a changed scene guard before any op, stale-project selections are ignored, `clip.read` carries the metadata block (survey 4.6 s), and group slots refuse; the product bank now uses `ALL_CHANNELS` so collapsed children stay listed (D33) [K] (2026-10-06) | [open](experiments/e234-write-boundary-and-reader-hardening.md) |
 | E233 | Pull snapshot references on the revision mark: 23 live verdicts match raw reads, a stale reference refuses before any write, and the resident-grid research code is removed [K] (2026-10-06) | [open](experiments/e233-pull-snapshot-references.md) |
 | E232 | The reader binds every row: the open task subscribes before it unpins [K] (2026-10-06) | [open](experiments/e232-reader-row-binding.md) |

@@ -25,6 +25,8 @@ public final class ClipReaderTest {
         run("synthetic faults and research routes require the research profile", ClipReaderTest::diagnosticFaults);
         run("the open task subscribes before it removes the pins (E232)", ClipReaderTest::openOrder);
         run("the bind task selects the row at park, then points (E228)", ClipReaderTest::bindOrder);
+        run("a read expands collapsed parents at park and collapses them before the restore (E240)",
+            ClipReaderTest::groupOrder);
         run("a second callback for one cell is a duplicate", ClipReaderTest::duplicates);
         run("a false clipExists value is no start signal", ClipReaderTest::falseExists);
         run("the notes-v1 frame matches the wire golden", ClipReaderTest::frameGolden);
@@ -116,7 +118,7 @@ public final class ClipReaderTest {
                 check(threw == (!profile.hasProbeResources() || fault.equals("unknown")), profile + ":" + fault);
             }
             ClipReader.validateDiagnosticRoute(profile, "");
-            for (String route : List.of("legacy-open", "unknown")) {
+            for (String route : List.of("legacy-open", "no-expand", "no-reselect", "unknown")) {
                 boolean threw = false;
                 try { ClipReader.validateDiagnosticRoute(profile, route); }
                 catch (IllegalArgumentException expected) { threw = true; }
@@ -138,25 +140,31 @@ public final class ClipReaderTest {
         public void claimLease() { log.add("claimLease"); }
         public void selectRow() { log.add("selectRow"); }
         public void pointTarget() { log.add("pointTarget"); }
+        public void findParent() { log.add("findParent"); }
+        public void expandParents() { log.add("expandParents"); }
+        public void collapseParents() { log.add("collapseParents"); }
     }
 
     private static void openOrder() {
         Steps released = new Steps();
         ClipReadRoute.open(released, "");
-        check(released.log.equals(List.of("subscribe", "unpinClip", "unpinTrack", "park")), "product open " + released.log);
+        check(released.log.equals(List.of("findParent", "subscribe", "unpinClip", "unpinTrack", "park")),
+            "product open " + released.log);
         check(!released.hostClipPinned, "the unpin reaches the host");
-        ClipReadRoute.parked(released);
-        check(released.log.size() == 4, "no second subscribe at park");
+        ClipReadRoute.parked(released, "");
+        check(released.log.equals(List.of("findParent", "subscribe", "unpinClip", "unpinTrack", "park",
+            "expandParents")), "no second subscribe at park " + released.log);
 
         Steps open = new Steps();
         open.subscribed = true; open.atPark = true;
         ClipReadRoute.open(open, "");
-        check(open.log.equals(List.of("unpinClip", "unpinTrack")), "already subscribed and parked " + open.log);
+        check(open.log.equals(List.of("findParent", "unpinClip", "unpinTrack")), "already subscribed and parked " + open.log);
 
         Steps legacy = new Steps();
         ClipReadRoute.open(legacy, "legacy-open");
-        ClipReadRoute.parked(legacy);
-        check(legacy.log.equals(List.of("unpinClip", "unpinTrack", "park", "subscribe")), "legacy open " + legacy.log);
+        ClipReadRoute.parked(legacy, "legacy-open");
+        check(legacy.log.equals(List.of("findParent", "unpinClip", "unpinTrack", "park", "subscribe", "expandParents")),
+            "legacy open " + legacy.log);
         check(legacy.hostClipPinned, "the legacy unpin does not reach the host");
     }
 
@@ -164,6 +172,29 @@ public final class ClipReaderTest {
         Steps s = new Steps();
         ClipReadRoute.bind(s);
         check(s.log.equals(List.of("claimLease", "selectRow", "pointTarget")), "bind " + s.log);
+    }
+
+    private static void groupOrder() {
+        Steps s = new Steps();
+        ClipReadRoute.open(s, "");
+        ClipReadRoute.parked(s, "");
+        ClipReadRoute.bind(s);
+        ClipReadRoute.closed(s, "");
+        check(s.log.equals(List.of("findParent", "subscribe", "unpinClip", "unpinTrack", "park", "expandParents",
+            "claimLease", "selectRow", "pointTarget", "collapseParents")), "product " + s.log);
+        Steps none = new Steps();
+        ClipReadRoute.open(none, "no-expand");
+        ClipReadRoute.parked(none, "no-expand");
+        ClipReadRoute.bind(none);
+        ClipReadRoute.closed(none, "no-expand");
+        check(none.log.equals(List.of("subscribe", "unpinClip", "unpinTrack", "park", "claimLease", "selectRow",
+            "pointTarget")), "no-expand " + none.log);
+        check(ClipReadRoute.isParentGroup(true, true, "g2", "track", "master"), "a group above the target");
+        check(!ClipReadRoute.isParentGroup(true, true, "master", "track", "master"), "the project proxy (E241)");
+        check(!ClipReadRoute.isParentGroup(true, false, "g2", "g2", "master"), "a group handle repeats itself");
+        check(!ClipReadRoute.isParentGroup(true, true, "g2", "g2", "master"), "a repeat is no parent");
+        check(!ClipReadRoute.isParentGroup(false, true, "g2", "track", "master"), "an absent parent");
+        check(!ClipReadRoute.isParentGroup(true, true, "", "track", "master"), "an empty channel ID");
     }
 
     private static void duplicates() {

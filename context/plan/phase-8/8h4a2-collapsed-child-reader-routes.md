@@ -1,16 +1,25 @@
 ---
 title: Phase 8h4a2 — Collapsed-child reader routes
 kind: plan
-state: planned
-status: Planned. Finds a reader route that binds any row of a track inside a collapsed group. Independent of 8h4b–8h4f.
+state: done
+status: Complete (E240). No route passed; the read refuses `collapsed-group-row` and says to expand the group.
 updated: 2026-10-06
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h4a-write-boundary-and-reader-hardening.md
-next: 8h4b-document-read-and-identity-registry.md
-evidence: E16, E221, E223, E232, E234; D30, D33
+next: 8h4a3-expand-parent-acceptance.md
+evidence: E16, E221, E223, E232, E234, E240; D30, D33
 ---
 
 # Phase 8h4a2 — Collapsed-child reader routes
+
+**Result (E240).** No route passed the complete matrix. `show-in-editor` and
+`cursor-step` bind only row 0. `expand-parent` reads every row, but when the
+entry mixer track is another child of the collapsed group, the mixer selection
+moves to the group track. The read keeps its refusal; the brain now reports
+`collapsed-group-row` and says to expand the group. The session also found
+that cursor-pointed clip addresses fail on tracks inside or after a group
+(E240, Cursor position). [8h4a3](8h4a3-expand-parent-acceptance.md) then
+promoted `expand-parent` (E241, D34).
 
 ## Why
 

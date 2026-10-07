@@ -82,7 +82,24 @@ export class GroupSlotError extends ContractError {
       `group-slot: track ${track.name === undefined ? '' : `"${track.name}" `}(${track.channelId}) is a group `
         + 'track. Its launcher slots mirror '
         + 'the clips of its child tracks and are not clips. Address a child track by its trackId instead; '
-        + 'a child of a collapsed group stays addressable.',
+        + 'a child of a collapsed group stays listed and is addressed the same way.',
+    );
+  }
+}
+
+/**
+ * A clip read that binds another row of the requested track after the E232 retry. The one measured cause is
+ * a track inside a collapsed group: the reader binds only row 0 of such a track (E221, E234). Since 8h4a3 the
+ * reader expands up to three collapsed parent groups for the read (E241, D34). This refusal remains for a
+ * target that it could not expand. Expanding the groups removes the limit.
+ */
+export class CollapsedGroupRowError extends ContractError {
+  readonly reason = 'collapsed-group-row' as const;
+  constructor(readonly address: Address, readonly boundRow: number) {
+    super(
+      `collapsed-group-row: the reader bound row ${boundRow} of the requested track, not the requested row. `
+        + 'The track can be inside a collapsed group that the reader could not expand. Expand the group, then '
+        + 'read again.',
     );
   }
 }

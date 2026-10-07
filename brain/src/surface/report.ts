@@ -37,7 +37,7 @@ import {
   addressKey, addressTrack, assertNever, chainPath, stepSizeFor,
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, ContractVersionError,
   InvalidOpError, NoteTimingUnrepresentableError, ParameterValueUnrepresentableError,
-  GroupSlotError, SlotOccupiedError, StaleAddressError,
+  CollapsedGroupRowError, GroupSlotError, SlotOccupiedError, StaleAddressError,
   WireDriftError,
   type Address, type ChainAddress, type DeviceAddress, type NoteRecord, type StateValue,
 } from '../contract/index.js';
@@ -654,7 +654,7 @@ export interface Refusal {
   readonly why: string;
   readonly where?: readonly Where[];
   /** A machine-readable refusal reason, where one exists (8h4a `group-slot`). */
-  readonly reason?: 'group-slot';
+  readonly reason?: 'group-slot' | 'collapsed-group-row';
   readonly inTheWay?: readonly { readonly where: Where; readonly why: readonly string[] }[];
   readonly allowedParameterDomain?: ({
     readonly parameterId: string | number;
@@ -753,8 +753,16 @@ export function refusalOf(error: unknown): Refusal {
     return refusal(
       'nothing was read or written. That track is a group track. Its launcher slots show the clips '
       + 'of the tracks inside the group; they are not clips themselves. Name the child track by its '
-      + 'trackId from `list_tracks` instead. A track inside a collapsed group is still listed '
-      + 'and works the same way.',
+      + 'trackId from `list_tracks` instead. A track inside a collapsed group is still listed and '
+      + 'is named the same way.',
+      { reason: error.reason, where: [describeAddress(error.address)] },
+    );
+  }
+  if (error instanceof CollapsedGroupRowError) {
+    return refusal(
+      'nothing was read or written. Bitwig showed another row of that track to this connection, not '
+      + 'the requested row. This can happen when the track is inside a collapsed group that this '
+      + 'connection could not open. Ask the person to expand the group in Bitwig, then read again.',
       { reason: error.reason, where: [describeAddress(error.address)] },
     );
   }
