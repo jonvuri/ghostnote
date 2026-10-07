@@ -5,7 +5,7 @@ state: planned
 status: Planned. Retires the old musical read and write tools and the observation workflow from agent-native-v1, and applies the Launcher clip names.
 updated: 2026-10-06
 parent: 8h-cache-promotion-and-interface-simplification.md
-prev: 8h4c-document-edit-limb.md
+prev: 8h4c2-edit-cost-and-reader-heap.md
 next: 8h4e0-direct-parameter-display-probe.md
 evidence: E20b, E43, E45, E48, E128, E135; D19, D21, D25
 ---
@@ -51,7 +51,11 @@ Remove from `agent-native-v1`, with one migration row each:
   timeout, and clients can change it. Use 60 s as the measured budget. Remove
   the three tools only if the 8h4c worst-case edits all finish in at most
   30 s, end to end, with verification. If not, add one generic operation
-  handle and record the measured times.
+  handle and record the measured times. E236: they do not (whole-clip 4,096
+  notes 20.1 s, 16,384 notes 73.0 s), so keep an asynchronous route. E236
+  also found that a 65,536-note fixture read exhausts the extension heap;
+  8h4c2 adds a sounding-cell guard and reduces the edit cost first; use its
+  times.
 
 Retire the `phase-7b-agent-note-patch-v0` profile. Its comparison owners
 (E131 pairing, E230, the E233 matrix) are discharged. Keep its frozen

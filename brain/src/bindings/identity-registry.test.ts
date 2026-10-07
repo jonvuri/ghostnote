@@ -3,7 +3,7 @@ import test from 'node:test';
 
 import type { ClipSnapshotRef } from '../contract/clip-snapshot.js';
 import type { RevisionMark } from '../contract/snapshot.js';
-import { IdentityRegistry, REGISTRY_LIMIT, cellKey, type CellKey } from './identity-registry.js';
+import { IdentityRegistry, REGISTRY_LIMIT, cellKey, type CellKey, type ProjectionIds } from './identity-registry.js';
 
 const mark = (over: Partial<RevisionMark> = {}): RevisionMark => ({
   revision: 1, sceneEpoch: 0, contentEpoch: 0, generation: 'g1', project: 'p1',
@@ -15,9 +15,10 @@ const ref = (sha: string, over: Partial<ClipSnapshotRef> = {}): ClipSnapshotRef 
   source: { domain: 'ghostnote-launcher-source/1', sha256: sha.repeat(64).slice(0, 64) }, ...over,
 });
 const cell = (pitch: number, at = 0, channel = 0): CellKey => ({ channel, pitch, cell: at });
-const project = (hash: string) => () => ({
+const project = (hash: string) => (ids: ProjectionIds) => ({
   contentHash: hash.repeat(64).slice(0, 64), coverage: [],
   boundary: { plane: 'D23-1/512-cell' as const, channels: 16 as const, from: '0', to: '4' },
+  document: { overlays: ids.overlays, ...ids.envelope },
 });
 
 function first(registry: IdentityRegistry, cells = [cell(60), cell(64, 512), cell(67, 1024)]) {
@@ -42,7 +43,7 @@ test('identity: a current verdict keeps the ref and every ID, and does not proje
   let projected = 0;
   const again = registry.acquire({
     snapshot: ref('a', { mark: mark({ revision: 9 }) }), cells: [cell(60), cell(64, 512), cell(67, 1024)],
-    prior: { entry: prior, verdict: 'current' }, project: () => { projected += 1; return project('1')(); },
+    prior: { entry: prior, verdict: 'current' }, project: (ids) => { projected += 1; return project('1')(ids); },
   });
   assert.equal(again.outcome, 'current');
   assert.equal(again.entry, prior);
@@ -137,4 +138,24 @@ test('identity: duplicate cells and a prior at another address refuse', () => {
   const prior = first(registry).entry;
   assert.throws(() => registry.acquire({ snapshot: ref('b', { row: 1 }), cells: [],
     prior: { entry: prior, verdict: 'stale' }, project: project('2') }), /another address/);
+});
+
+test('identity: a verified write keeps the clip ID and takes event IDs from the candidate', () => {
+  const registry = new IdentityRegistry();
+  const prior = first(registry).entry;
+  const moved = cell(62, 512);
+  const ids = new Map([[cellKey(cell(60)), prior.events.get(cellKey(cell(60)))!],
+    [cellKey(moved), prior.events.get(cellKey(cell(64, 512)))!], [cellKey(cell(70, 0)), 'n-new']]);
+  const written = registry.recordWrite({
+    snapshot: ref('b', { mark: mark({ revision: 2 }) }), cells: [cell(60), moved, cell(70, 0), cell(72, 0)],
+    clipId: prior.clipId, ids, overlays: [], envelope: {}, project: project('2'),
+  });
+  assert.equal(written.outcome, 'written');
+  assert.equal(written.entry.clipId, prior.clipId);
+  assert.equal(written.retained, 3);
+  assert.equal(written.minted, 1, 'a cell outside the candidate gets a new ID');
+  assert.equal(written.entry.events.get(cellKey(moved)), prior.events.get(cellKey(cell(64, 512))));
+  assert.equal(written.entry.events.get(cellKey(cell(70, 0))), 'n-new');
+  assert.equal(registry.latestAt('track-a', 0), written.entry);
+  assert.equal(registry.lookup(prior.ref).state, 'live', 'the older ref stays live; its next check is stale');
 });

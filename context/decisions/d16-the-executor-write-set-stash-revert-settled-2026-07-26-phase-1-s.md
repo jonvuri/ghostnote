@@ -197,3 +197,9 @@ preflight evidence only after 8g comparison and the relevant live inverse gates.
 Independent post-write evidence and all partial-effect records remain required.
 The [risk policy](../contracts/GHOSTNOTE_MIGRATION_AND_VERIFICATION.md) states the
 consumer and evidence required for each class.
+
+> ⚠ **AMENDED 2026-10-07 ([D37](d37-note-pressure-is-a-blind-host-limit.md), E236).**
+> Section c assumed that readback captures human pressure. It does not: Bitwig
+> reports note pressure as 0 on every read route. The strip-and-report path
+> stays as a defensive check; a clip replay loses human pressure without a
+> report.

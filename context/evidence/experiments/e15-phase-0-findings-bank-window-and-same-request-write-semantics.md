@@ -172,7 +172,9 @@ assert it. Reading one back still works and degrades the entry to `lossy`, since
 we cannot restore what we cannot write. `planStages`' third turn (pressure alone)
 is gone; a fully-specified note is now two turns, not three.
 
-⚠ **Open, for Phase 1.** Whether a HUMAN-authored pressure reads back non-zero is
+⚠ **Closed by [E236](e236-document-edit-limb.md) (2026-10-07): a human-authored
+pressure reads 0 on every read route ([D37](../../decisions/d37-note-pressure-is-a-blind-host-limit.md)).**
+Original note: whether a HUMAN-authored pressure reads back non-zero is
 untested (there is no way to author one from the bridge). If it does, a stash
 would carry pressure and replaying it would hit the refusal — loud, but it would
 mean revert cannot be faithful for such a note. Also untested: whether pressure

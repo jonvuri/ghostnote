@@ -53,7 +53,7 @@ test('the agent-native-v1 server profile lists the stable tools and the document
   t.after(async () => client.close());
 
   const names = (await client.listTools()).tools.map((item) => item.name);
-  assert.equal(names.length, 55);
-  assert.deepEqual(names.slice(-2), ['read_launcher_clip', 'check_launcher_clips']);
+  assert.equal(names.length, 56);
+  assert.deepEqual(names.slice(-3), ['read_launcher_clip', 'check_launcher_clips', 'edit_launcher_clip']);
   assert.equal(names.includes('acquire_clip_note_source'), false);
 });

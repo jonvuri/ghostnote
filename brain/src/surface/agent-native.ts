@@ -80,16 +80,16 @@ export function identityRegistryOf(workspace: Workspace): IdentityRegistry {
 
 // --- shared pieces -------------------------------------------------------------
 
-const format = z.enum(['fields', 'json']).default('fields').describe(
+export const format = z.enum(['fields', 'json']).default('fields').describe(
   'Document encoding: fields (canonical FIELDS text, default) or json (the equivalent canonical JSON object).',
 );
 
-function encoded(document: LauncherClipProjection['document'], encoding: Encoding): unknown {
+export function encoded(document: LauncherClipProjection['document'], encoding: Encoding): unknown {
   const text = encodeLauncherClip(document, encoding);
   return encoding === 'json' ? JSON.parse(text) : text;
 }
 
-const SOURCE = Object.freeze({
+export const SOURCE = Object.freeze({
   host: 'bitwig-launcher',
   read: 'fresh-cold-read-all-16-channels',
   document: MODEL_REFERENCE.format,
@@ -100,16 +100,16 @@ const SOURCE = Object.freeze({
  * The wrapper coverage of a projection. The document COVERAGE record states the span, the channels, and the
  * covered fields; the description states the constant uncovered fields and their reasons (8h4b2).
  */
-const DOCUMENT_COVERAGE = Object.freeze({ status: 'complete' });
+export const DOCUMENT_COVERAGE = Object.freeze({ status: 'complete' });
 
 /** The loss facts, or nothing when the read moved no timing. The description states the constant D23 facts. */
-function lossOf(projection: LauncherClipProjection) {
+export function lossOf(projection: LauncherClipProjection) {
   const { loss } = projection;
   const moved = loss.onsetsMoved + loss.durationsRounded + loss.minimumDurationPromotions + loss.changedOverlaps;
   return moved === 0 ? {} : { loss };
 }
 
-function projectionWarnings(projection: LauncherClipProjection): Warning[] {
+export function projectionWarnings(projection: LauncherClipProjection): Warning[] {
   const warnings: Warning[] = [];
   const { loss } = projection;
   if (loss.onsetsMoved + loss.durationsRounded > 0) {
@@ -123,7 +123,8 @@ function projectionWarnings(projection: LauncherClipProjection): Warning[] {
   return warnings;
 }
 
-function identityFacts(acquired: Acquired) {
+export function identityFacts(acquired: Acquired, projection?: LauncherClipProjection) {
+  const carried = projection?.overlays;
   return {
     identity: acquired.outcome,
     retainedIds: acquired.retained,
@@ -131,35 +132,50 @@ function identityFacts(acquired: Acquired) {
     ...(acquired.retired === undefined ? {} : {
       retiredRefs: acquired.retired.map((item) => ({ ref: item.ref, reason: item.reason })),
     }),
+    ...(carried === undefined || carried.removed.length + carried.staled.length === 0 ? {} : {
+      overlays: {
+        ...(carried.removed.length === 0 ? {} : { removed: carried.removed }),
+        ...(carried.staled.length === 0 ? {} : { staled: carried.staled }),
+      },
+    }),
   };
 }
 
-/** Bind and project one acquisition through the registry. */
-function bindSnapshot(
+/**
+ * Bind and project one acquisition through the registry. A stale verdict on an older ref, when a newer entry at
+ * the address (for example a verified edit) has the fresh source, reuses that entry: it is current.
+ */
+export function bindSnapshot(
   registry: IdentityRegistry,
   snapshot: ClipSnapshot,
   prior: { entry: BaseEntry; verdict: ClipSnapshotVerdict['verdict'] } | undefined,
 ): { acquired: Acquired; projection: LauncherClipProjection } {
+  const latest = registry.latestAt(snapshot.ref.channelId, snapshot.ref.row);
+  if (prior?.verdict === 'stale' && latest !== undefined && latest !== prior.entry
+      && latest.snapshot.source.sha256 === snapshot.ref.source.sha256) {
+    prior = { entry: latest, verdict: 'current' };
+  }
   const cells = launcherClipCells(snapshot);
   let projection: LauncherClipProjection | undefined;
   const acquired = registry.acquire({
     snapshot: snapshot.ref,
     cells,
     ...(prior === undefined ? {} : { prior }),
-    project: ({ clipId, eventIds }) => {
-      projection = projectLauncherClip(snapshot, clipId, eventIds);
+    project: ({ clipId, eventIds, overlays, envelope }) => {
+      projection = projectLauncherClip(snapshot, clipId, eventIds, overlays, envelope);
       return projection;
     },
   });
   if (projection === undefined) {
     const { entry } = acquired;
-    projection = projectLauncherClip(snapshot, entry.clipId, cells.map((key) => entry.events.get(cellKey(key))!));
+    projection = projectLauncherClip(snapshot, entry.clipId, cells.map((key) => entry.events.get(cellKey(key))!),
+      entry.overlays, entry.envelope);
     if (projection.contentHash !== entry.contentHash) throw new Error('a current ref projected another document');
   }
   return { acquired, projection };
 }
 
-function asToolFailure(error: unknown): unknown {
+export function asToolFailure(error: unknown): unknown {
   if (error instanceof LauncherClipReadError) {
     return new ToolFailure(error.code, 'project', error.message, {
       ...(error.detail === undefined ? {} : { detail: error.detail }),
@@ -169,11 +185,11 @@ function asToolFailure(error: unknown): unknown {
   return error;
 }
 
-async function guarded<T>(workspace: Workspace, work: () => Promise<T>): Promise<T> {
+export async function guarded<T>(workspace: Workspace, work: () => Promise<T>): Promise<T> {
   return workspace.preserveSelection === undefined ? work() : workspace.preserveSelection(work);
 }
 
-function checkHealth(mark: RevisionMark): void {
+export function checkHealth(mark: RevisionMark): void {
   if (mark.project.length === 0) {
     throw new ToolFailure('unhealthy', 'resolve', 'The live project identity is unavailable.', {
       retryWhen: 'after a project is open in Bitwig' });
@@ -207,7 +223,8 @@ const READ_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Read one Launche
   + 'two source notes in one cell. data.loss is present only when the read moved timing; it counts onsets '
   + 'and durations that moved to the cell plane. articulation and repeat are not covered: they have no '
   + 'measured host mapping. playRange is not covered: the read has no play-stop marker. Gain 1 is also '
-  + 'the value of a note that Bitwig shows at -inf dB; the host reports both as one value.\n'
+  + 'the value of a note that Bitwig shows at -inf dB; the host reports both as one value. Bitwig reports '
+  + 'note pressure as 0, also when a person set it, so pressure is always 0 in a read.\n'
   + 'Result: data.occupancy is occupied or empty. An empty slot has no document; it is not an empty '
   + 'clip. authority.base has the document sha256 and an opaque base ref. A repeated read of an '
   + 'unchanged clip returns the same ref and the same IDs (identity current). After a human edit, '
@@ -215,6 +232,8 @@ const READ_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Read one Launche
   + 'ID (identity stale). A scene insert or delete, a project change, or a missing clip retires the '
   + 'ref; the next read mints new IDs. Give refs to check_launcher_clips. Refs live in this server '
   + 'process only and a restart retires them.\n'
+  + 'Overlays, META, and EXTENSIONS that edit_launcher_clip stored come back with the document while the clip '
+  + 'ID stays. When notes change, authority.overlays names the claims that became stale or were removed.\n'
   + 'A failure has failure.code: absent, outside-limit, unhealthy, authority-unavailable, '
   + 'target-changed, stale-address, group-slot, collapsed-group-row, range (select the clip in Bitwig '
   + 'and use Consolidate, then read again), collision, partial, or unavailable. Branch on the code, '
@@ -299,7 +318,7 @@ async function readLauncherClip(workspace: Workspace, args: ReadInput): Promise<
       authority: {
         kind: 'fresh-read',
         base: { sha256: acquired.entry.contentHash, ref: acquired.entry.ref },
-        ...identityFacts(acquired),
+        ...identityFacts(acquired, projection),
       },
       data: {
         occupancy: 'occupied',
@@ -417,7 +436,7 @@ async function checkLauncherClips(workspace: Workspace, args: CheckInput): Promi
           return {
             ref: entry.ref, verdict: 'stale', target,
             base: { sha256: acquired.entry.contentHash, ref: acquired.entry.ref },
-            ...identityFacts(acquired),
+            ...identityFacts(acquired, projection),
             coverage: DOCUMENT_COVERAGE,
             format: encoding,
             document: encoded(projection.document, encoding),

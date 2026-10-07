@@ -43,6 +43,7 @@
     { "id": "B14", "claim": "Pressure survives scalar edits but cannot be reconstructed or reversed" },
     { "id": "B15", "claim": "Raw gain maps by the cube law; raw zero is unity; portable zero writes the silent raw value" },
     { "id": "B16", "claim": "An enabled control with a neutral value projects to the portable default" },
-    { "id": "B17", "claim": "A drawn host-default note has no non-default field" }
+    { "id": "B17", "claim": "A drawn host-default note has no non-default field" },
+    { "id": "B18", "claim": "With raw replay, reconstruction and removal keep raw repeat; pressure still refuses" }
   ]
 }

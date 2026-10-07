@@ -162,7 +162,7 @@ async function assertAgrees(fx: Awaited<ReturnType<typeof fixture>>, document: S
 
 // --- profile -------------------------------------------------------------------
 
-test('8h4b profile: stable-v1 registration is byte-equal; agent-native-v1 adds two tools after it', () => {
+test('8h4b profile: stable-v1 registration is byte-equal; agent-native-v1 adds three tools after it', () => {
   const stable = toolsForProfile(STABLE_TOOL_PROFILE);
   assert.equal(stable, TOOLS);
   const registration = stable.map((spec) => ({
@@ -176,9 +176,10 @@ test('8h4b profile: stable-v1 registration is byte-equal; agent-native-v1 adds t
   const native = toolsForProfile(AGENT_NATIVE_TOOL_PROFILE);
   assert.deepEqual(native.slice(0, TOOLS.length), [...TOOLS]);
   assert.deepEqual(native.slice(TOOLS.length).map((spec) => [spec.name, spec.kind]),
-    [['read_launcher_clip', 'read'], ['check_launcher_clips', 'read']]);
+    [['read_launcher_clip', 'read'], ['check_launcher_clips', 'read'], ['edit_launcher_clip', 'write']]);
   for (const spec of native.slice(TOOLS.length)) {
-    assert.deepEqual(spec.emits, []);
+    assert.deepEqual(spec.emits, spec.kind === 'read' ? []
+      : ['clip.update', 'note.remove', 'note.insert', 'note.clear', 'note.write']);
     assert.doesNotMatch(spec.description, /cursor|observer|stash|take\b|compiler|module/i);
   }
 });

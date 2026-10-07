@@ -17,6 +17,10 @@
  *     a fresh read.
  *   - `outside-limit`: the target or its content is outside the observed window
  *     or the reader limits.
+ *
+ * An edit adds `unsupported` (8h4c): the host binding cannot write or reverse
+ * the proposed change exactly. `detail.reason` names the rule (HOST-BINDING.md,
+ * "Edit refusals").
  */
 import { BridgeError } from '../client.js';
 import {
@@ -51,12 +55,14 @@ export const FAILURE_CODES = [
   'identity-changed',
   'incomparable',
   'invalid-input',
+  'unsupported',
   'internal',
 ] as const;
 export type FailureCode = typeof FAILURE_CODES[number];
 
 /** The stage of a tool at which a failure stopped it. */
-export type FailureStage = 'input' | 'resolve' | 'acquire' | 'project' | 'registry' | 'guard' | 'write' | 'readback';
+export type FailureStage =
+  | 'input' | 'resolve' | 'acquire' | 'project' | 'registry' | 'guard' | 'plan' | 'write' | 'readback';
 
 /**
  * One machine code for each D32 verdict. `current` is not a failure. A write

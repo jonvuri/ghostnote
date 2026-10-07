@@ -17,11 +17,12 @@
 import type { ClipSnapshot } from '../contract/clip-snapshot.js';
 import type { NoteRecord } from '../contract/state.js';
 import {
-  contentHash, LIMITS, serialize, type Coverage, type Encoding, type ImportReport, type StateDocument,
+  contentHash, LIMITS, serialize, type Coverage, type Encoding, type ImportReport, type Overlay, type StateDocument,
 } from '../document/index.js';
 import { binary64, spelling } from '../document/rational.js';
 import { projectRawClip, type RawNote } from './ghostnote-document.js';
-import { cellKey, type AcquisitionBoundary, type CellKey } from './identity-registry.js';
+import { cellKey, type AcquisitionBoundary, type CellKey, type StoredEnvelope } from './identity-registry.js';
+import { carryOverlays, type CarriedOverlays } from './overlay-carry.js';
 
 /** The note fields that the reader always reports. A note without one is a partial read. */
 const ALWAYS_READ = ['releaseVelocity', 'isChanceEnabled', 'isOccurrenceEnabled', 'isRecurrenceEnabled'] as const;
@@ -191,13 +192,21 @@ export interface LauncherClipProjection {
   readonly loss: LossFacts;
   /** Notes whose end is after the clip length. Valid in the document; the host writer refuses them. */
   readonly notesPastLength: number;
+  /** The carry of stored overlays, when the clip had any (8h4c). */
+  readonly overlays?: CarriedOverlays;
 }
 
-/** Project the snapshot with assigned IDs. `eventIds` follows `launcherClipCells` order. */
+/**
+ * Project the snapshot with assigned IDs. `eventIds` follows `launcherClipCells` order. `priorOverlays` are the
+ * stored overlays of the clip ID; the projection carries them under the overlay lifecycle rules. `envelope` is
+ * the stored META and EXTENSIONS.
+ */
 export function projectLauncherClip(
   snapshot: ClipSnapshot,
   clipId: string,
   eventIds: readonly string[],
+  priorOverlays: readonly Overlay[] = [],
+  envelope: StoredEnvelope = {},
 ): LauncherClipProjection {
   const located = locate(snapshot);
   if (eventIds.length !== located.length) throw new Error('one event ID is needed for each acquired note');
@@ -213,7 +222,9 @@ export function projectLauncherClip(
   const { document, report } = projectRawClip(clip, notes);
   // Complete coverage needs no reason; the read wrapper states the uncovered fields.
   const coverage = document.coverage.map(({ reason: _reason, ...item }) => item);
-  const projected: StateDocument = { ...document, coverage };
+  const bare: StateDocument = { ...document, ...envelope, coverage };
+  const overlays = priorOverlays.length === 0 ? undefined : carryOverlays(priorOverlays, bare);
+  const projected: StateDocument = overlays === undefined ? bare : { ...bare, overlays: overlays.overlays };
   return {
     document: projected,
     contentHash: contentHash(projected),
@@ -221,6 +232,7 @@ export function projectLauncherClip(
     boundary: { plane: 'D23-1/512-cell', channels: 16, from: '0', to: length },
     loss: lossFacts(report),
     notesPastLength: located.filter((item) => item.note.startBeats + item.note.durationBeats > metadata.lengthBeats).length,
+    ...(overlays === undefined ? {} : { overlays }),
   };
 }
 

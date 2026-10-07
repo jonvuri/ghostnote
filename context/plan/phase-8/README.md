@@ -381,6 +381,7 @@ owns the migration details.
    [8h4a2](8h4a2-collapsed-child-reader-routes.md),
    [8h4b](8h4b-document-read-and-identity-registry.md),
    [8h4c](8h4c-document-edit-limb.md),
+   [8h4c2](8h4c2-edit-cost-and-reader-heap.md),
    [8h4d](8h4d-musical-and-clip-surface-migration.md),
    [8h4e](8h4e-device-structure-migration.md), and
    [8h4f](8h4f-tracks-profile-cut-and-closeout.md). 8h3c and 8h3e replace the earlier 8h1

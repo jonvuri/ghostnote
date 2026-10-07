@@ -57,6 +57,9 @@ generation change retires every ref of the earlier domain; a scene layout
 change retires every ref of the project. The registry keeps a bounded record
 of retired refs, so a check can report the verdict that retired a ref.
 The implementation is `brain/src/bindings/identity-registry.ts` (8h4b, E235).
+Each entry also stores the overlays, META, and EXTENSIONS of its document
+(8h4c). A kept clip ID carries them with the lifecycle rules below
+(`overlay-carry.ts`); a restart loses them with the refs.
 
 ## Event identity and recovery
 

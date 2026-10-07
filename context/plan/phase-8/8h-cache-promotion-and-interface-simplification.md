@@ -112,7 +112,11 @@ Reader promotion and remaining sessions, in order:
         byte target is met, and E245 records tokens.
    3. [8h4c — Document edit limb](8h4c-document-edit-limb.md):
       `edit_launcher_clip` for desired documents and sparse patches, through
-      the host binding and `Authority`.
+      the host binding and `Authority`. Complete (E236, D36, D37); note
+      pressure is a blind host limit, and a whole-clip edit of 16,384 notes
+      takes 73 s.
+      - [8h4c2 — Edit cost and reader heap guard](8h4c2-edit-cost-and-reader-heap.md):
+        host-insertion lowering, shared reads, and a sounding-cell guard.
    4. [8h4d — Musical and clip surface migration](8h4d-musical-and-clip-surface-migration.md):
       observation decoupling and retirement, the old musical tools and the 7b
       profile retired, and the Launcher clip names.

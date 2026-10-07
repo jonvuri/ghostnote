@@ -49,11 +49,13 @@ const DEFAULTS: Wire = {
 const plain = (value: unknown): unknown => JSON.parse(JSON.stringify(value));
 
 /**
- * E245: raw 0 is unity; otherwise the cube root of the portable gain is the raw gain, and the portable gain is
+ * E245: raw 0 is unity; a cube that underflows is portable 0; otherwise the cube root of the portable gain is the raw gain, and the portable gain is
  * within four units in the last place of `raw^3`.
  */
 export function gainAgrees(portable: number, raw: number): boolean {
   if (raw === 0) return portable === 1;
+  // A raw value whose cube underflows (the silent raw value 1e-323, E245) projects to portable 0.
+  if (portable === 0) return raw ** 3 === 0;
   return Math.cbrt(portable) === raw && Math.abs(portable - raw ** 3) <= 4 * Number.EPSILON * raw ** 3;
 }
 

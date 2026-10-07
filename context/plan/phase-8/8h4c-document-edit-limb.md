@@ -1,16 +1,36 @@
 ---
 title: Phase 8h4c — Document edit limb
 kind: plan
-state: planned
-status: Planned. Adds edit_launcher_clip for desired documents and sparse patches through the host binding, guarded by the D32 reference.
+state: done
+status: Complete (E236, D36, D37). Pressure is a blind host limit; the worst case was measured to 16,384 notes, and a 65,536-note fixture read exhausts the extension heap.
 updated: 2026-10-07
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h4b2-document-read-compactness-and-gain.md
-next: 8h4d-musical-and-clip-surface-migration.md
-evidence: E8, E15, E24, E43, E121, E128, E129, E230, E233, E245; D8, D9, D16, D21, D23, D31, D32, D35
+next: 8h4c2-edit-cost-and-reader-heap.md
+evidence: E8, E15, E24, E43, E121, E128, E129, E230, E233, E236, E245; D8, D9, D16, D21, D23, D31, D32, D35, D36, D37
 ---
 
 # Phase 8h4c — Document edit limb
+
+## Result
+
+Complete ([E236](../../evidence/experiments/e236-document-edit-limb.md)).
+Deviations from this plan:
+
+- An empty slot refuses with `absent`. The edit limb creates no clip
+  container; 8h4d `add_launcher_clip` owns creation.
+- Bitwig reports note pressure as 0, also when a person set it
+  ([D37](../../decisions/d37-note-pressure-is-a-blind-host-limit.md)). The
+  pressure refusals of live item 3 cannot trigger from a read. A document
+  pressure value refuses instead, and the operator confirmed visually that
+  pressure survives a targeted desired document (item 2).
+- Raw repeat controls replay on reconstruction
+  ([D36](../../decisions/d36-the-live-writer-replays-raw-repeat-controls.md));
+  the "repeat reconstruction" refusal is a portable repeat change.
+- Worst case (item 6): whole-clip 4,096 notes 20.1 s, 16,384 notes 73.0 s. The
+  65,536-note fixture read exhausted the extension heap before the edit; the
+  131,072-note fixture failed at the 2,048-step writer window, and Bitwig
+  crashed.
 
 ## Why
 

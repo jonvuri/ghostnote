@@ -36,6 +36,7 @@ npm run document:bindings
 | B15 | Gain cube law, raw zero as unity, and the silent raw write value (E245) |
 | B16 | Neutral enabled chance, occurrence, and recurrence project to the portable default |
 | B17 | A drawn host-default note has no non-default field; other release velocities stay exact |
+| B18 | With raw replay (D36), reconstruction and removal keep raw repeat controls; pressure still refuses |
 
 `projectRawClip` consumes supplied raw groups. It retains disabled controls and
 does not infer values from the old decoder's omissions. Articulation and repeat

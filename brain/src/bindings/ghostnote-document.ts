@@ -167,6 +167,7 @@ export function resolvePartialProposal(input: {
     ref: string; declaredFields: { event: string; fields: EventField[] }[];
     hostPreservationProved: boolean;
   };
+  options?: AssessOptions;
 }) {
   const { original, freshProjection, full, proposal, expected, fresh, resolution } = input;
   guardAuthority(expected, fresh);
@@ -203,7 +204,7 @@ export function resolvePartialProposal(input: {
     refuse('base', 'The full base does not reproduce the retained projection');
   const rebound = structuredClone(proposal);
   rebound.base = { ...proposal.base, sha256: contentHash(full) };
-  const result = assessBindingProposal(full, rebound, expected, fresh);
+  const result = assessBindingProposal(full, rebound, expected, fresh, input.options);
   return { ...result, guard: { originalHash, fullHash: contentHash(full), ref: proposal.base.ref,
     sourceSha256: expected.snapshot.source.sha256 } };
 }
@@ -214,8 +215,18 @@ function equal(a: unknown, b: unknown): boolean {
   const plain = (v: unknown) => v === undefined ? undefined : JSON.parse(JSON.stringify(v));
   return isDeepStrictEqual(plain(a), plain(b));
 }
+export interface AssessOptions {
+  /**
+   * The live writer builds each reconstructed or removed note from its fresh raw host state, so the raw repeat
+   * controls replay exactly (E230, D36). A pure fixture has no raw state and leaves this unset: then every
+   * reconstruction and removal refuses for repeat. Pressure refusals do not change.
+   */
+  rawReplay?: boolean;
+}
 /** Assess a complete portable base. Reacquisition must retain the original guard. */
-export function assessBindingProposal(base: StateDocument, proposal: Document, expected: Authority, fresh: FreshAuthority) {
+export function assessBindingProposal(
+  base: StateDocument, proposal: Document, expected: Authority, fresh: FreshAuthority, options: AssessOptions = {},
+) {
   guardAuthority(expected, fresh);
   if (!proposal.base || proposal.base.sha256 !== contentHash(base))
     refuse('base', 'Fresh base does not match the original portable guard');
@@ -245,7 +256,7 @@ export function assessBindingProposal(base: StateDocument, proposal: Document, e
     const reconstruction = !prior || ['clip', 'at', 'pitch', 'channel'].some(k => !equal(next[k as keyof Event], prior[k as keyof Event]));
     if (reconstruction && next.expression!.pressure !== 0)
       refuse('pressure', 'Reconstruction cannot preserve nonzero pressure');
-    if (reconstruction)
+    if (reconstruction && !options.rawReplay)
       refuse('repeat', 'Reconstruction needs a confirmed mapping for all repeat controls');
     if (!equal(next.occurrence, prior?.occurrence)) hostOccurrence(next.occurrence!.condition);
     if (!equal(next.recurrence, prior?.recurrence) && next.recurrence!.length > 8)
@@ -254,7 +265,7 @@ export function assessBindingProposal(base: StateDocument, proposal: Document, e
   for (const id of result.report.removed)
     if (old.get(id)?.expression?.pressure !== 0)
       refuse('pressure', 'Reversal cannot restore removed nonzero pressure');
-    else refuse('repeat', 'Removal needs a confirmed repeat mapping for reversal');
+    else if (!options.rawReplay) refuse('repeat', 'Removal needs a confirmed repeat mapping for reversal');
   const groups = new Map<string, Event[]>();
   for (const event of result.document.events) {
     const e = values(event), key = `${e.clip}\0${e.channel}\0${e.pitch}`;

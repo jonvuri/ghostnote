@@ -302,6 +302,25 @@ bindingCase('B17', () => {
   const other = projectRawClip(fixture.clip, [{ ...drawn, releaseVelocity: 64 / 127 }]).document.events[0];
   assert.equal(other.releaseVelocity, 64 / 127, 'a nondefault release velocity stays explicit and exact');
 });
+bindingCase('B18', () => {
+  const b = base();
+  const moved = patch(b, { pitch: 62, at: '2' });
+  const remove = patch(b, {}); remove.update = []; remove.remove = ['event1'];
+  // A pure fixture has no raw state: reconstruction and removal refuse for repeat.
+  refusal('repeat', () => assess(b, moved));
+  refusal('repeat', () => assess(b, remove));
+  // The live writer carries the raw controls (D36): both apply.
+  const raw = { rawReplay: true };
+  assert.equal(assessBindingProposal(b, moved, authority, current, raw).document.events[0]!.pitch, 62);
+  assert.deepEqual(assessBindingProposal(b, remove, authority, current, raw).report.removed, ['event1']);
+  // A portable repeat change and pressure still refuse.
+  refusal('repeat', () => assessBindingProposal(b, patch(b, { repeat: { ...EVENT_DEFAULTS.repeat, count: 2 } }),
+    authority, current, raw));
+  const pressed = base({ expression: { ...EVENT_DEFAULTS.expression, pressure: 0.2 } });
+  refusal('pressure', () => assessBindingProposal(pressed, patch(pressed, { at: '2' }), authority, current, raw));
+  const pressedRemove = patch(pressed, {}); pressedRemove.update = []; pressedRemove.remove = ['event1'];
+  refusal('pressure', () => assessBindingProposal(pressed, pressedRemove, authority, current, raw));
+});
 test('The corpus case inventory is complete', () => {
   const manifest = JSON.parse(readFileSync(new URL('../../../spec/ghostnote-document-v1/bindings/v1/manifest.json', import.meta.url), 'utf8'));
   const bytes = readFileSync(new URL('../../../spec/ghostnote-document-v1/bindings/v1/fixtures.json', import.meta.url));

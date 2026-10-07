@@ -11,6 +11,12 @@
  *     occupied. Mint an ID at each new cell. The new acquisition gets a new ref.
  *   - `identity-changed`, `absent`, `incomparable`, `uncovered`: retire every
  *     ref at the address. A new acquisition mints all IDs.
+ *   - a verified write (8h4c, "authorized portable update"): keep the clip ID
+ *     and take the event ID of each cell from the confirmed candidate.
+ *
+ * Each entry also holds the stored overlays, META, and EXTENSIONS of its
+ * document: the binding annotation store. A kept clip ID carries them
+ * (`overlay-carry.ts`).
  *
  * The registry never matches by similarity. It is in process memory only: a
  * restart retires every ref. It holds at most `limit` live refs (default 256).
@@ -22,7 +28,10 @@ import { randomBytes } from 'node:crypto';
 
 import type { ClipSnapshotRef, ClipSnapshotVerdictKind } from '../contract/clip-snapshot.js';
 import type { RevisionMark } from '../contract/snapshot.js';
-import type { Coverage } from '../document/index.js';
+import type { Coverage, Overlay, StateDocument } from '../document/index.js';
+
+/** The inert document envelope that the binding stores: META and EXTENSIONS. It grants no host authority. */
+export type StoredEnvelope = Pick<StateDocument, 'meta' | 'extensions'>;
 
 export const REGISTRY_LIMIT = 256;
 const TOMBSTONE_LIMIT = 1024;
@@ -54,6 +63,10 @@ export interface BaseEntry {
   readonly boundary: AcquisitionBoundary;
   /** `cellKey` to event ID. */
   readonly events: ReadonlyMap<string, string>;
+  /** The stored overlays of the document (the annotation store). */
+  readonly overlays: readonly Overlay[];
+  /** The stored META and EXTENSIONS of the document. */
+  readonly envelope: StoredEnvelope;
 }
 
 /** Why a ref no longer resolves. */
@@ -74,7 +87,7 @@ export type Lookup =
   | { readonly state: 'unknown' };
 
 /** How the IDs of one acquisition relate to the prior entry at the address. */
-export type IdentityOutcome = 'new' | 'current' | 'stale' | 'retired-and-new';
+export type IdentityOutcome = 'new' | 'current' | 'stale' | 'retired-and-new' | 'written';
 
 export interface Acquired {
   readonly entry: BaseEntry;
@@ -90,6 +103,17 @@ export interface Projected {
   readonly contentHash: string;
   readonly coverage: readonly Coverage[];
   readonly boundary: AcquisitionBoundary;
+  readonly document: { readonly overlays: readonly Overlay[] } & StoredEnvelope;
+}
+
+/** The IDs and stored overlays that one projection uses. */
+export interface ProjectionIds {
+  readonly clipId: string;
+  readonly eventIds: readonly string[];
+  /** The stored overlays to carry: those of the kept clip, or none for a new clip ID. */
+  readonly overlays: readonly Overlay[];
+  /** The stored envelope of the kept clip, or none for a new clip ID. */
+  readonly envelope: StoredEnvelope;
 }
 
 const RETIRING: ReadonlySet<ClipSnapshotVerdictKind> = new Set(['identity-changed', 'absent', 'incomparable', 'uncovered']);
@@ -169,7 +193,7 @@ export class IdentityRegistry {
     readonly snapshot: ClipSnapshotRef;
     readonly cells: readonly CellKey[];
     readonly prior?: { readonly entry: BaseEntry; readonly verdict: ClipSnapshotVerdictKind };
-    readonly project: (ids: { readonly clipId: string; readonly eventIds: readonly string[] }) => Projected;
+    readonly project: (ids: ProjectionIds) => Projected;
   }): Acquired {
     const { snapshot, cells, prior } = input;
     if (prior !== undefined && addressOf(prior.entry.snapshot) !== addressOf(snapshot)) {
@@ -205,8 +229,54 @@ export class IdentityRegistry {
       }
       return this.mint('e');
     });
-    const projected = input.project({ clipId, eventIds });
-    const entry: BaseEntry = {
+    const projected = input.project({ clipId, eventIds, overlays: base?.overlays ?? [], envelope: base?.envelope ?? {} });
+    const entry = this.entryOf(snapshot, clipId, keys, eventIds, projected);
+    this.insert(entry);
+    const outcome: IdentityOutcome = base !== undefined ? 'stale' : retired !== undefined ? 'retired-and-new' : 'new';
+    return {
+      entry, outcome, retained, minted: keys.length - retained,
+      ...(retired === undefined ? {} : { retired }),
+    };
+  }
+
+  /**
+   * Bind the independent readback of a verified write (identity table row "authorized portable update"). The
+   * confirmed candidate gives the event ID of each cell in `ids`; a cell that the candidate does not name gets a
+   * new ID. The clip ID stays, and `overlays` are the stored overlays of the written document. Older refs at the
+   * address stay live; their next check is `stale`.
+   */
+  recordWrite(input: {
+    readonly snapshot: ClipSnapshotRef;
+    readonly cells: readonly CellKey[];
+    readonly clipId: string;
+    readonly ids: ReadonlyMap<string, string>;
+    readonly overlays: readonly Overlay[];
+    readonly envelope: StoredEnvelope;
+    readonly project: (ids: ProjectionIds) => Projected;
+  }): Acquired {
+    const keys = input.cells.map(cellKey);
+    if (new Set(keys).size !== keys.length) throw new Error('two acquired events have one cell address');
+    let retained = 0;
+    const used = new Set<string>();
+    const eventIds = keys.map((key) => {
+      const id = input.ids.get(key);
+      if (id !== undefined && !used.has(id)) {
+        used.add(id);
+        retained += 1;
+        return id;
+      }
+      return this.mint('e');
+    });
+    const projected = input.project({ clipId: input.clipId, eventIds, overlays: input.overlays, envelope: input.envelope });
+    const entry = this.entryOf(input.snapshot, input.clipId, keys, eventIds, projected);
+    this.insert(entry);
+    return { entry, outcome: 'written', retained, minted: keys.length - retained };
+  }
+
+  private entryOf(
+    snapshot: ClipSnapshotRef, clipId: string, keys: readonly string[], eventIds: readonly string[], projected: Projected,
+  ): BaseEntry {
+    return {
       ref: this.uniqueRef(),
       snapshot,
       clipId,
@@ -214,12 +284,11 @@ export class IdentityRegistry {
       coverage: projected.coverage,
       boundary: projected.boundary,
       events: new Map(keys.map((key, index) => [key, eventIds[index]!])),
-    };
-    this.insert(entry);
-    const outcome: IdentityOutcome = base !== undefined ? 'stale' : retired !== undefined ? 'retired-and-new' : 'new';
-    return {
-      entry, outcome, retained, minted: keys.length - retained,
-      ...(retired === undefined ? {} : { retired }),
+      overlays: projected.document.overlays,
+      envelope: {
+        ...(projected.document.meta === undefined ? {} : { meta: projected.document.meta }),
+        ...(projected.document.extensions === undefined ? {} : { extensions: projected.document.extensions }),
+      },
     };
   }
 

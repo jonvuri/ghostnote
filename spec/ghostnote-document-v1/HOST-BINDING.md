@@ -71,7 +71,7 @@ value in a portable range has passed a live test.
 | `expression.velocitySpread` | Raw `velocitySpread` | Direct normalized value |
 | `expression.gain` | Raw `gain` `r` is 0..2; the inspector shows `60*log10(r)` dB (E245). Portable gain is `r^3`, spelled as the shortest binary64 value whose `cbrt` is `r`; raw 1 is 0 dB and raw 2 is portable 8 (+18.06 dB). Raw 0 is portable 1: see [gain zero](#gain-zero) | Raw is `cbrt(portable)`; the shared encoder applies `raw/2` exactly once (E24). Portable 0 writes raw `1e-323` |
 | `expression.pan` | Raw `pan` | Direct signed value |
-| `expression.pressure` | Independent raw `pressure` read | Unwritable. Preserve on untouched existing notes; refuse a changed or reconstructed nonzero value |
+| `expression.pressure` | Raw `pressure`. Bitwig reports 0 also for a pressure that a person set ([D37](../../context/decisions/d37-note-pressure-is-a-blind-host-limit.md), E236) | Unwritable and unobservable. A targeted edit leaves it on untouched notes; a whole-clip rewrite loses it and warns `pressure-unobservable`. Refuse a document that sets a nonzero value |
 | `expression.timbre` | `(raw timbre + 1)/2` from host -1..1 | Inverse is `2*portable - 1`; portable default 0.5 maps to host centre 0 |
 | `expression.transpose` | Raw `transpose` | Direct semitones; host range -96..96. Refuse the wider portable values |
 | `chance` | `isChanceEnabled`, `chance` | Map both members; keep a disabled value. Enabled with value 1 is the portable default ([neutral flags](#neutral-enable-flags)) |
@@ -117,9 +117,12 @@ negative values select a rate. Host repeat velocity end is -1..1 and relative
 to attack velocity. Portable count is a total trigger count; portable velocity
 end is 0..1. Neither has a proved general inverse. Do not use `count+1`, take an
 absolute value, or drop a disabled nondefault control. Read and preserve raw
-controls when the host operation leaves the note intact. Refuse a full replay
-until 8h has a deliberate converter with evidence, or use an exactly matching
-protected clip copy under the existing fidelity policy.
+controls when the host operation leaves the note intact. Do not convert a
+portable repeat value to host controls until 8h has a deliberate converter with
+evidence. The live writer builds a reconstructed or removed note from its fresh
+raw state, so it replays the raw controls exactly
+([D36](../../context/decisions/d36-the-live-writer-replays-raw-repeat-controls.md),
+E230). A proposal that changes portable repeat refuses.
 
 Scalar expression/release readback uses the existing `2e-3` property tolerance
 where measured; signed timbre tolerance 0.002 becomes portable tolerance 0.001.
@@ -135,7 +138,7 @@ wider profile needs named values and independent host evidence.
 |---|---|
 | `format`, `version`, `kind` | Codec contract; never host properties |
 | Root arrays | Represented inventory only; no permission to create/delete clip containers |
-| `meta`, `extensions` | Declared inert annotations; preserve in the binding store. They grant no host authority |
+| `meta`, `extensions` | Declared inert annotations; preserve in the binding store (the registry entry of the base ref, 8h4c). They grant no host authority |
 | `base` | R27 content guard plus optional opaque registry ref; see base resolution below |
 | Clip `id` | Session logical reference; separate from current Launcher address |
 | Clip `name` | Launcher clip name; direct writable string, including empty string |
@@ -244,6 +247,45 @@ clip still requires a fresh target guard and complete effect/protection evidence
 A stale, ambiguous, unsupported, or unresolved proposal writes nothing. Do not
 choose the nearest event, default channel, matching name, or matching digest
 as an alternative target. A changed host guard requires a new proposal.
+
+## Edit limb
+
+`edit_launcher_clip` (8h4c, [E236](../../context/evidence/experiments/e236-document-edit-limb.md))
+implements the steps above. The read covers every field except articulation
+and repeat, so each base is partial. The full base declares both at their
+defaults: articulation has no host storage, and the raw repeat controls stay in
+the raw candidate (D36). An unguarded desired document with intent `replace`
+claims no event identity: every base note is removed and every desired note is
+new. An empty slot refuses with `absent`; the edit limb does not create clip
+containers.
+
+Route selection: the E128 targeted route (`note.remove`, then `note.insert`)
+when every changed note changes its cell and no inserted cell is a removed
+cell. Otherwise whole-clip replacement (`note.clear` and `note.write` on all
+channels, D16). A clip property change adds one `clip.update` first. The
+executor receives the D32 reference (`ifSnapshot`), the revision of the fresh
+read (`ifRevision`), and the scene guard.
+
+### Edit refusals
+
+Each refusal happens before a host call. Code `unsupported` has
+`detail.reason`:
+
+| Reason | Rule |
+|---|---|
+| `pressure` | The document sets a nonzero pressure. The raw-state checks (a moved or removed note, a whole-clip rewrite) are defensive: a live read reports pressure 0 (D37) |
+| `repeat`, `articulation` | A proposal changes the uncovered field |
+| `overlap` | A changed note overlaps a same-channel, same-pitch note |
+| `transpose`, `recurrence`, `occurrence` | Outside the host range or label set |
+| `timing` | A written note does not fit a D9 grid (also an untouched raw note on the whole-clip route) |
+| `play-range`, `loop` | Play range changes; a loop other than null or `0..length` |
+| `clip-colour` | A clip property change on a clip whose colour is outside the exact palette |
+| `protection` | The executor floor cannot record the prior state exactly |
+
+Code `range` (reason `past-clip-end`): a written note would start or end after
+the clip length. Code `invalid-input`: codec errors and a BASE sha256 that does
+not match the ref. Non-`current` verdicts use their verdict codes; `stale`
+returns the new document and base in `detail`.
 
 ## D9 writes, loss, and readback
 

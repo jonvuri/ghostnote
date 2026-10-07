@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v27';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v28';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -325,7 +325,7 @@ export const DESCRIPTION_COHORT_V25: readonly DescriptionCohortMember[] = [
  * loss block, the uncovered fields, and gain at -inf dB) and the model
  * reference revision 2 (release velocity default 100/127, gain 0..8).
  */
-export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+export const DESCRIPTION_COHORT_V27: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V25,
   {
     name: 'read_launcher_clip', kind: 'read',
@@ -334,6 +334,18 @@ export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
   {
     name: 'check_launcher_clips', kind: 'read',
     reason: 'Checks base refs with the D32 verdict and the identity registry.',
+  },
+] as const;
+
+/**
+ * v28 (8h4c) adds the guarded document edit limb. The read wording adds the
+ * stored overlays and envelope.
+ */
+export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+  ...DESCRIPTION_COHORT_V27,
+  {
+    name: 'edit_launcher_clip', kind: 'write',
+    reason: 'Edits one Launcher clip with a guarded Document 1.0 patch or desired document.',
   },
 ] as const;
 
@@ -507,3 +519,7 @@ export const TOOL_DESCRIPTION_V26_SHA256 =
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V27_SHA256 =
   '44c8e346ee9ef9d6905550c2fb62af4cbea3dff87abb154c96f979a68c930452';
+
+/** Changing this fingerprint requires a new description version. */
+export const TOOL_DESCRIPTION_V28_SHA256 =
+  '46f4230b84944d354ca0f38e4b3a8f0c17b6e0c2c23a56f4cc525168a933063b';

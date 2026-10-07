@@ -47,6 +47,8 @@ with the original decision heading and preserves its amendments and rationale.
 | D33 | The product track bank lists all channels **[SETTLED 2026-10-06]** | [open](d33-the-product-track-bank-lists-all-channels.md) |
 | D34 | The reader expands collapsed parent groups **[SETTLED 2026-10-06]** | [open](d34-the-reader-expands-collapsed-parent-groups.md) |
 | D35 | Document gain range and release velocity default **[SETTLED 2026-10-07]** | [open](d35-document-gain-range-and-release-velocity-default.md) |
+| D36 | The live writer replays raw repeat controls **[SETTLED 2026-10-07]** | [open](d36-the-live-writer-replays-raw-repeat-controls.md) |
+| D37 | Note pressure is a blind host limit **[SETTLED 2026-10-07]** | [open](d37-note-pressure-is-a-blind-host-limit.md) |
 
 ## Phase 4 closeout audit
 
