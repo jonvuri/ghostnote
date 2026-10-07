@@ -1,0 +1,13 @@
+# Transcribed console output (the matrix artifact of these runs was overwritten
+# by the rerun). Owned project New N, group expanded, Polysynth on every track.
+# Matrix run 1 and run 2 (run 2 retried each device read up to 5 times):
+before index 0 device ok
+in     index 2 device FAIL: the device read has no parameter (run 2: after 5 attempts)
+in2    index 3 device ok
+after  index 4 device FAIL: the device read has no parameter (run 2: after 5 attempts)
+# Diagnostic, adapter.read(device(track, 0)) in order in2, in: cursor 0 confirmed the
+# target (devcursor.status trackChannelId = target, isPinned, cursorTrackPinned), then
+# 70 directparam.list polls returned generation 91, idsGeneration -1, count 0,
+# observedDeviceIndex -1. The ID observer never fired.
+# Diagnostic with a hop: cursor.pointTrack cursor 0 to the empty group track, 300 ms,
+# then the device read. in2 55, in 55, after 55, before 55 parameters.

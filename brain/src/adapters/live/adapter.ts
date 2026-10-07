@@ -425,6 +425,12 @@ const REMOTE_INVENTORY_ACQUISITIONS = 3;
 
 interface ClipCursorStatus {
   readonly trackPosition?: number;
+  /**
+   * 8h4a4: the only track identity that confirms a target. `trackPosition`
+   * counts sibling tracks, so it is not the bank index of a track inside or
+   * after a group (E240).
+   */
+  readonly trackChannelId?: string;
   readonly sceneIndex?: number;
   readonly isPinned?: boolean;
   readonly cursorTrackPinned?: boolean;
@@ -1051,7 +1057,7 @@ export class LiveAdapter implements BitwigAdapter {
           readonly exists?: boolean;
           readonly loopLength?: number;
           readonly sceneIndex?: number;
-          readonly trackPosition?: number;
+          readonly trackChannelId?: string;
         };
         const slotPlay = await this.transport.send({
           method: WIRE.slotPlayState,
@@ -1067,7 +1073,7 @@ export class LiveAdapter implements BitwigAdapter {
         if (typeof value.isPlaying !== 'boolean' || !Number.isSafeInteger(value.playingStep)
             || !Number.isFinite(value.sampledAtMs) || value.exists !== true
             || value.loopLength !== range.endBeats
-            || value.sceneIndex !== clip.slot.scene.index || value.trackPosition !== row.index
+            || value.sceneIndex !== clip.slot.scene.index || value.trackChannelId !== clip.slot.track.channelId
             || slotPlay.hasContent !== true || typeof slotPlay.isPlaying !== 'boolean'
             || typeof slotPlay.isPlaybackQueued !== 'boolean'
             || typeof slotPlay.isStopQueued !== 'boolean'
@@ -1695,7 +1701,6 @@ export class LiveAdapter implements BitwigAdapter {
       const confirmed = status.exists === true
         && status.name === held.deviceName
         && status.trackChannelId === held.channelId
-        && status.trackPosition === held.trackIndex
         && status.deviceIndex === held.deviceIndex
         && status.isNested === held.nested
         && status.isPinned === true
@@ -1707,7 +1712,6 @@ export class LiveAdapter implements BitwigAdapter {
       }
       this.onTrace?.({ action: 'device-reuse-invalid', target: key });
       if (status.trackChannelId !== held.channelId
-          || status.trackPosition !== held.trackIndex
           || status.cursorTrackPinned !== true) {
         this.heldCursorTracks.delete('0');
       }
@@ -1767,7 +1771,6 @@ export class LiveAdapter implements BitwigAdapter {
       const parentStatus = await this.transport.send({ method: WIRE.deviceCursorStatus }) as DeviceCursorStatus;
       if (parentStatus.exists !== true || parentStatus.name !== targetName
           || parentStatus.trackChannelId !== device.track.channelId
-          || parentStatus.trackPosition !== row.index
           || parentStatus.deviceIndex !== step.container.chainIndex) {
         return { standing: 'unstable', deviceName: targetName };
       }
@@ -1861,7 +1864,6 @@ export class LiveAdapter implements BitwigAdapter {
           : status.name === targetName;
         descended = nameMatches && status.isNested === true
           && status.trackChannelId === device.track.channelId
-          && status.trackPosition === row.index
           && status.deviceIndex === nestedAddress.chainIndex;
         if (descended) {
           targetName = status.name!;
@@ -1899,7 +1901,6 @@ export class LiveAdapter implements BitwigAdapter {
           childRestored = status.exists === true && status.name === childName
             && status.isNested === true
             && status.trackChannelId === device.track.channelId
-            && status.trackPosition === row.index
             && status.deviceIndex === nestedAddress.chainIndex;
           if (childRestored) break;
         }
@@ -1915,7 +1916,7 @@ export class LiveAdapter implements BitwigAdapter {
       await this.settle('cursorPoint');
       const status = await this.transport.send({ method: WIRE.deviceCursorStatus }) as DeviceCursorStatus;
       pinned = status.exists === true && status.name === targetName
-        && status.trackChannelId === device.track.channelId && status.trackPosition === row.index
+        && status.trackChannelId === device.track.channelId
         && status.isPinned === true && status.cursorTrackPinned === true
         && status.deviceIndex === device.chainIndex;
       if (pinned) {
@@ -1994,7 +1995,6 @@ export class LiveAdapter implements BitwigAdapter {
           && observed.deviceName === target.deviceName
           && (device.chain !== undefined || observed.deviceIndex === device.chainIndex)
           && observed.trackChannelId === device.track.channelId
-          && observed.trackPosition === row.index
           && observed.observedTrackChannelId === device.track.channelId
           && observed.observedDeviceName === target.deviceName
           && (observed.observedDeviceIndex === undefined
@@ -3533,7 +3533,7 @@ export class LiveAdapter implements BitwigAdapter {
         method: WIRE.cursorStatus,
         params: { cursor },
       })) as ClipCursorStatus;
-      const targetConfirmed = lastStatus.trackPosition === trackIndex
+      const targetConfirmed = lastStatus.trackChannelId === clipRef.slot.track.channelId
         && lastStatus.sceneIndex === clipRef.slot.scene.index;
       if (!targetConfirmed) {
         confirmingPins = false;
@@ -3559,7 +3559,7 @@ export class LiveAdapter implements BitwigAdapter {
           params: { cursor },
         })) as ClipCursorStatus;
       }
-      const pinnedTargetConfirmed = lastStatus.trackPosition === trackIndex
+      const pinnedTargetConfirmed = lastStatus.trackChannelId === clipRef.slot.track.channelId
         && lastStatus.sceneIndex === clipRef.slot.scene.index;
       if (pinnedTargetConfirmed
           && lastStatus.isPinned === true
@@ -3579,7 +3579,8 @@ export class LiveAdapter implements BitwigAdapter {
         + `did not both confirm after ${CLIP_POINT_ATTEMPTS} attempts`
       : `target track ${trackIndex}, row ${clipRef.slot.scene.index} did not confirm after `
         + `${CLIP_POINT_ATTEMPTS} attempts; last observed track `
-        + `${String(lastStatus?.trackPosition)}, row ${String(lastStatus?.sceneIndex)}`;
+        + `${String(lastStatus?.trackChannelId)} (position ${String(lastStatus?.trackPosition)}), `
+        + `row ${String(lastStatus?.sceneIndex)}`;
     throw new AddressUnresolvedError(
       clipRef,
       `cursor ${cursor} ${detail}`,
@@ -3635,7 +3636,7 @@ export class LiveAdapter implements BitwigAdapter {
       method: WIRE.cursorStatus,
       params: { cursor },
     })) as ClipCursorStatus;
-    const confirmed = status.trackPosition === this.trackIndex(clipRef.slot.track)
+    const confirmed = status.trackChannelId === clipRef.slot.track.channelId
       && status.sceneIndex === clipRef.slot.scene.index
       && status.isPinned === true
       && status.cursorTrackPinned === true;
@@ -3666,7 +3667,7 @@ export class LiveAdapter implements BitwigAdapter {
         method: WIRE.cursorStatus,
         params: { cursor },
       })) as ClipCursorStatus;
-      const confirmed = status.trackPosition === this.trackIndex(view.clip.slot.track)
+      const confirmed = status.trackChannelId === view.clip.slot.track.channelId
         && status.sceneIndex === view.clip.slot.scene.index
         && status.isPinned === true
         && status.cursorTrackPinned === true;
@@ -5769,7 +5770,7 @@ export class LiveAdapter implements BitwigAdapter {
    *
    * ⚠ This is a paced WAIT, not a poll, and the doc comment here used to claim
    * otherwise. Stating it plainly, because the difference matters: E1's
-   * poll-until-`trackPosition`-confirms rule applies to POINTING, which has an
+   * poll-until-confirmed rule applies to POINTING, which has an
    * observable target to poll for. Most budgets do not — E15-D's `gridChange`
    * is "the cursor has re-fetched its step data", which has no readback at all;
    * the only way to observe it is to attempt the write and see whether it was

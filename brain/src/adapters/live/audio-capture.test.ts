@@ -91,7 +91,7 @@ class CaptureRangeTransport implements Transport {
         return { exists: true, hasContent: true, isSelected: true };
       case WIRE.cursorStatus:
         return {
-          trackPosition: 0, cursorTrackPosition: 0, sceneIndex: 0,
+          trackPosition: 0, cursorTrackPosition: 0, trackChannelId: 'track-7e', sceneIndex: 0,
           isPinned: true, cursorTrackPinned: true,
         };
       case WIRE.slotLaunchWithOptions:
@@ -105,7 +105,8 @@ class CaptureRangeTransport implements Transport {
           playingStep: this.audioClip ? -1 : steps[index] ?? 1,
           sampledAtMs: 1_000 + index * 2_200,
           exists: true, loopLength: 8, sceneIndex: 0,
-          trackPosition: this.wrongIdentity && index === 1 ? 1 : 0,
+          trackPosition: 0,
+          trackChannelId: this.wrongIdentity && index === 1 ? 'track-other' : 'track-7e',
         };
       }
       case WIRE.slotPlayState: {

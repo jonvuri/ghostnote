@@ -89,6 +89,8 @@ public final class CoreHandlers extends HandlerGroup {
         // 8h4a deliberate build markers. A cached class cannot report them.
         result.addProperty("writeGuard", BatchHandlers.WRITE_GUARD);
         result.addProperty("selectionRule", BatchHandlers.SELECTION_RULE);
+        // 8h4a4 deliberate build marker. A new reply field does not move the hash.
+        result.addProperty("cursorIdentity", CursorHandlers.CURSOR_IDENTITY);
         // 8h4a (D33): the track-bank content filter that init applied.
         result.addProperty("contentFilter", rig.contentFilterApplied);
         return result;

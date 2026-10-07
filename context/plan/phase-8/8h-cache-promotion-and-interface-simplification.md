@@ -3,7 +3,7 @@ title: Phase 8h — Cache promotion and interface simplification
 kind: plan
 state: active
 status: Reader promotion (E230), change awareness (E231), row binding (E232), and pull snapshot references with the cache machinery trim (E233) are complete. 8h4 is planned in six sessions (8h4a–8h4f); 8h4a is complete (E234).
-updated: 2026-10-06
+updated: 2026-10-07
 parent: README.md
 prev: 8g-shadow-project-cache.md
 next: 8i-agent-native-hybrid-dogfood.md
@@ -95,6 +95,9 @@ Reader promotion and remaining sessions, in order:
       - [8h4a3 — Expand-parent acceptance](8h4a3-expand-parent-acceptance.md):
         the reader expands collapsed parent groups for each read. Complete
         (E241, D34).
+      - [8h4a4 — Cursor track identity](8h4a4-cursor-track-identity.md):
+        cursor targets confirm by the track `channelId` (E240 defect).
+        Complete (E242).
    2. [8h4b — Document read and identity registry](8h4b-document-read-and-identity-registry.md):
       the profile, the shared result vocabulary, `read_launcher_clip` on the
       D32 reference, and the clip and event ID registry.

@@ -1602,6 +1602,7 @@ public class Rig {
         clip.getTrack().exists().markInterested();
         clip.getTrack().name().markInterested();
         clip.getTrack().position().markInterested();
+        clip.getTrack().channelId().markInterested();
         clip.clipLauncherSlot().exists().markInterested();
         clip.clipLauncherSlot().sceneIndex().markInterested();
         clip.clipLauncherSlot().name().markInterested();

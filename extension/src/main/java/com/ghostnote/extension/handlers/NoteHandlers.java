@@ -160,8 +160,10 @@ public final class NoteHandlers extends HandlerGroup {
         String trackId = params.get("trackId").getAsString();
         int trackIndex = params.get("trackIndex").getAsInt();
         int slotIndex = params.get("slotIndex").getAsInt();
+        // 8h4a4: the track position counts sibling tracks only. It is not
+        // the bank index of a track inside or after a group, so only the
+        // channelId confirms the track.
         if (!rig.noteObserverClip.exists().get()
-                || rig.noteObserverTrack.position().get() != trackIndex
                 || !rig.noteObserverTrack.channelId().get().equals(trackId)
                 || rig.noteObserverClip.clipLauncherSlot().sceneIndex().get() != slotIndex
                 || !rig.noteObserverTrack.isPinned().get()

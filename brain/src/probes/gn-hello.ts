@@ -40,6 +40,8 @@ check('the product clip reader has the required build marker and configuration',
 check('the write boundary has the 8h4a build markers',
   rig['writeGuard'] === 'batch-scene-guard-v1' && rig['selectionRule'] === 'selection-project-v1',
   { writeGuard: rig['writeGuard'], selectionRule: rig['selectionRule'] });
+check('cursor status reports the track channelId (8h4a4 build marker)',
+  rig['cursorIdentity'] === 'cursor-channel-id-v1', { cursorIdentity: rig['cursorIdentity'] });
 check('the track bank lists collapsed group children (ALL_CHANNELS, D33)',
   rig['contentFilter'] === 'ALL_CHANNELS', { contentFilter: rig['contentFilter'] });
 

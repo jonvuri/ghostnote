@@ -287,6 +287,7 @@ class CursorModelTransport implements Transport {
         return model === undefined ? {} : {
           loopLength: model.lengthBeats,
           trackPosition: 0,
+          trackChannelId: CHANNEL_ID,
           sceneIndex: this.failWriterPage !== undefined
             && this.stepOffset.get(cursor) === this.failWriterPage ? on! + 1 : on,
           isPinned: this.pinned.get(cursor) === true,
@@ -1033,6 +1034,38 @@ test('8h3c: metadata uses the pool and notes use a separate reader', async () =>
   assert.equal(points.length, 1, 'one clip, one point — the memo is still doing its job');
 });
 
+test('8h4a4: a group child confirms by channelId, not by its sibling position', async () => {
+  // E240: the cursor position counts sibling tracks. The fixture is the
+  // first child of a group, so its bank index is 5 and its position is 0.
+  class GroupedTransport extends CursorModelTransport {
+    override async send(frame: Frame): Promise<unknown> {
+      if (frame.method === WIRE.trackList) {
+        return {
+          tracks: [
+            ...[0, 1, 2, 3].map((index) => ({ index, channelId: `before-${index}`, name: `before-${index}`, type: 'Instrument' })),
+            { index: 4, channelId: 'group', name: 'Group 5', type: 'Group' },
+            { index: 5, channelId: CHANNEL_ID, name: 'gn-fixture', type: 'Instrument' },
+          ],
+          count: 6, bankSize: 8, itemCount: 6,
+        };
+      }
+      return await super.send(frame);
+    }
+  }
+  const wire = new GroupedTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 2 });
+  await adapter.hello();
+
+  const snapshot = await adapter.read([clip(CLIP(0).slot), clipMetadata(CLIP(0))]);
+  assert.equal(snapshot.entries[addressKey(clipMetadata(CLIP(0)))]?.value.of, 'clipMetadata');
+  await adapter.apply({ ops: [{ op: 'note.insert', clip: CLIP(0), notes: [{ startBeats: 1, pitch: 64, velocity: 100, durationBeats: 0.5 }] }] });
+
+  const points = wire.frames.filter((frame) => frame.method === WIRE.cursorPointTrack);
+  assert.ok(points.length > 0);
+  for (const frame of points) assert.equal(frame.params?.['trackIndex'], 5);
+  assert.ok(wire.frames.some((frame) => frame.method === WIRE.batchRun));
+});
+
 test('5d cursor repair: a lagging clip cursor retries the complete point', async () => {
   class LaggingCursorTransport extends CursorModelTransport {
     private statusReads = 0;
@@ -1042,7 +1075,7 @@ test('5d cursor repair: a lagging clip cursor retries the complete point', async
       if (frame.method !== WIRE.cursorStatus) return reply;
       this.statusReads += 1;
       return this.statusReads < 3
-        ? { ...(reply as Record<string, unknown>), trackPosition: 9, sceneIndex: 7 }
+        ? { ...(reply as Record<string, unknown>), trackChannelId: 'other-track', sceneIndex: 7 }
         : reply;
     }
   }
@@ -1074,7 +1107,7 @@ test('5d cursor repair: a clip cursor that never arrives refuses after eight att
     override async send(frame: Frame): Promise<unknown> {
       const reply = await super.send(frame);
       return frame.method === WIRE.cursorStatus
-        ? { ...(reply as Record<string, unknown>), trackPosition: 9, sceneIndex: 7 }
+        ? { ...(reply as Record<string, unknown>), trackChannelId: 'other-track', sceneIndex: 7 }
         : reply;
     }
   }
@@ -2438,6 +2471,8 @@ class ParameterTransport implements Transport {
   collateralAfterWrite: { readonly id: string; readonly value: number } | undefined;
   failRemoteIndex: number | undefined;
   emptySlot = false;
+  /** 8h4a4: the fixture is a group child at bank index 1 and sibling position 0. */
+  groupChild = false;
   private selected = 0;
   private depth = 0;
   private padSelected = false;
@@ -2497,8 +2532,11 @@ class ParameterTransport implements Transport {
     const params = (frame.params ?? {}) as Record<string, unknown>;
     switch (frame.method) {
       case WIRE.trackList:
-        return { tracks: [{ index: 0, channelId: CHANNEL_ID, name: 'gn-fixture' }], count: 1,
-          bankSize: 8, itemCount: 1 };
+        return this.groupChild
+          ? { tracks: [{ index: 0, channelId: 'group', name: 'Group', type: 'Group' },
+            { index: 1, channelId: CHANNEL_ID, name: 'gn-fixture' }], count: 2, bankSize: 8, itemCount: 2 }
+          : { tracks: [{ index: 0, channelId: CHANNEL_ID, name: 'gn-fixture' }], count: 1,
+            bankSize: 8, itemCount: 1 };
       case WIRE.revisionGet:
         return { revision: this.revision, generation: 'param-gen', project: 'param-project',
           sceneEpoch: 1, contentEpoch: 0, sceneCount: 8, contentEvents: [] };
@@ -2507,7 +2545,7 @@ class ParameterTransport implements Transport {
       case WIRE.slotSelect:
       case WIRE.cursorPointTrack:
         this.cursorTrackChannelId = CHANNEL_ID;
-        this.cursorTrackPosition = params['trackIndex'] as number;
+        this.cursorTrackPosition = this.groupChild ? 0 : params['trackIndex'] as number;
         return {};
       case WIRE.cursorPinTrack:
         this.trackPinned = params['pinned'] === true;
@@ -3164,6 +3202,31 @@ test('4f live route: depth-2 DirectParameter write uses two confirmed named desc
   assert.equal(restored.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
   assert.equal(wire.frames.filter((frame) => frame.method === WIRE.deviceCursorSelectInLayer).length >= 4, true);
   assert.equal(wire.frames.some((frame) => frame.method === 'devcursor.selectFirstInKeyPad'), false);
+});
+
+test('8h4a4: a group child device confirms by channelId, not by its sibling position', async () => {
+  const wire = new ParameterTransport();
+  wire.groupChild = true;
+  const trace: string[] = [];
+  const adapter = new UntimedAdapter({
+    transport: wire, cursorPool: 3, onTrace: (event) => trace.push(event.action),
+  });
+  const outer = chainAt(deviceAt(TRACK, 0), 'Outer');
+  const inner = chainAt(deviceInAt(outer, 0), 'Inner');
+  const nested = param(deviceInAt(inner, 0), 'DP1');
+  const top = param(deviceAt(TRACK, 0), 'P1');
+
+  const snapshot = await adapter.read([nested.device, nested]);
+  const entry = snapshot.entries[addressKey(nested)];
+  assert.equal(entry?.value.of === 'param' ? entry.value.param.value : undefined, 0.2);
+  await adapter.preserveSelection(async () => {
+    await adapter.read([top]);
+    await adapter.read([top]);
+  });
+  assert.equal(trace.filter((action) => action === 'device-reuse').length, 1);
+  for (const frame of wire.frames.filter((item) => item.method === WIRE.cursorPointTrack)) {
+    assert.equal(frame.params?.['trackIndex'], 1);
+  }
 });
 
 test('d02-s2 live route: depth-1 and drum-pad DirectParameters keep guarded routes', async () => {

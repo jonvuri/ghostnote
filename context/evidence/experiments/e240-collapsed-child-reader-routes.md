@@ -2,7 +2,7 @@
 title: E240 — Collapsed-child reader routes
 kind: evidence
 state: done
-updated: 2026-10-06
+updated: 2026-10-07
 owner: phase-8h4a2
 ---
 
@@ -188,8 +188,8 @@ write ops. The `clip.read` notes path is not affected, because it checks the
 D33 widened the defect: before it, the bank did not hold the children of a
 collapsed group, so tracks after a collapsed group still matched. Expanded
 groups had the defect before D33. E234 did not see it, because its group runs
-used `clip.read` and the snapshot tools. This needs its own session; see
-`context/NOW.md`.
+used `clip.read` and the snapshot tools. [E242](e242-cursor-track-identity.md)
+fixes it.
 
 ## Artifacts and verification
 

@@ -3,10 +3,10 @@ title: Phase 8h4a3 — Expand-parent acceptance
 kind: plan
 state: done
 status: Complete (E241, D34). The reader expands collapsed parent groups, up to three levels, for each read.
-updated: 2026-10-06
+updated: 2026-10-07
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h4a2-collapsed-child-reader-routes.md
-next: 8h4b-document-read-and-identity-registry.md
+next: 8h4a4-cursor-track-identity.md
 evidence: E221, E232, E234, E240, E241; D30, D33, D34
 ---
 

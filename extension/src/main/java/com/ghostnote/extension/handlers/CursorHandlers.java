@@ -20,6 +20,9 @@ import com.google.gson.JsonObject;
  * Split out of ProbeHandlers.java in Phase 0; the method bodies are unchanged.
  */
 public final class CursorHandlers extends HandlerGroup {
+    /** 8h4a4 build marker: `cursor.status` and `cursor.playState` report `trackChannelId`. */
+    public static final String CURSOR_IDENTITY = "cursor-channel-id-v1";
+
     public CursorHandlers(ControllerHost host, Rig rig, ExecState state) {
         super(host, rig, state);
     }
@@ -212,6 +215,9 @@ public final class CursorHandlers extends HandlerGroup {
         putGuarded(result, "trackExists", () -> clip.getTrack().exists().get());
         putGuarded(result, "trackName", () -> clip.getTrack().name().get());
         putGuarded(result, "trackPosition", () -> clip.getTrack().position().get());
+        // 8h4a4: the position counts sibling tracks only, not the flat bank
+        // index. Confirm a target by this identity.
+        putGuarded(result, "trackChannelId", () -> clip.getTrack().channelId().get());
         putGuarded(result, "slotExists", () -> clip.clipLauncherSlot().exists().get());
         putGuarded(result, "sceneIndex", () -> clip.clipLauncherSlot().sceneIndex().get());
         putGuarded(result, "slotName", () -> clip.clipLauncherSlot().name().get());
@@ -254,6 +260,7 @@ public final class CursorHandlers extends HandlerGroup {
         putGuarded(result, "loopLength", () -> clip.getLoopLength().get());
         putGuarded(result, "sceneIndex", () -> clip.clipLauncherSlot().sceneIndex().get());
         putGuarded(result, "trackPosition", () -> clip.getTrack().position().get());
+        putGuarded(result, "trackChannelId", () -> clip.getTrack().channelId().get());
         putGuarded(result, "playPosition", () -> rig.transport.playPosition().get());
         putGuarded(result, "isPlaying", () -> rig.transport.isPlaying().get());
         return result;

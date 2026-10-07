@@ -16,7 +16,7 @@
  * ⚠ A budget is a MEASURED DURATION, and `LiveAdapter.settle` waits it out. An
  * earlier version of this header claimed the live adapter polls to the budget as
  * a deadline; it does not, and it cannot in general. E1's poll-until-confirmed
- * rule applies to POINTING, which has an observable target (`trackPosition` /
+ * rule applies to POINTING, which has an observable target (`trackChannelId` /
  * `sceneIndex`) to poll for. Most budgets have none — E15-D's `gridChange` is
  * "the cursor has re-fetched its step data", whose only observable is attempting
  * the write and seeing whether it was silently discarded, which is the thing the
@@ -50,7 +50,7 @@ export const TICK_MS = 24;
 export const SETTLE_MS: Record<SettleBudget, number> = {
   /** One control-surface turn (E5). */
   tick: 24,
-  /** Cursor point, verified by polling trackPosition + sceneIndex (E1). */
+  /** Cursor point, verified by polling trackChannelId + sceneIndex (E1, 8h4a4). */
   cursorPoint: 25,
   /** Two-turn write visibility; applies once per BATCH, not per op (E2, E8-A). */
   noteWrite: 25,

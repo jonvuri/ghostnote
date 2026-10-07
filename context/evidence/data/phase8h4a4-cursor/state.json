@@ -1,0 +1,280 @@
+{
+ "schema": "phase8h4a4-state-v1",
+ "entry": {
+  "hello": {
+   "contractVersion": 0,
+   "extensionVersion": "0.0.1",
+   "runtimeProfile": "normal-v1",
+   "hostApiVersion": 25,
+   "methodCount": 87,
+   "methodsHash": "ca139a3e62a55e68"
+  },
+  "mark": {
+   "revision": 0,
+   "generation": "b1078de9-bac7-4e7e-bb12-5039433b8d7c",
+   "project": "New 2",
+   "projectStatus": "marked",
+   "sceneEpoch": 3,
+   "sceneCount": 8,
+   "contentEpoch": 32818,
+   "contentEvents": [
+    {
+     "seq": 32795,
+     "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+     "trackIndex": 0,
+     "slotIndex": 4,
+     "filled": false
+    },
+    {
+     "seq": 32796,
+     "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+     "trackIndex": 1,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32797,
+     "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+     "trackIndex": 1,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32798,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32799,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32800,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32801,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 3,
+     "filled": false
+    },
+    {
+     "seq": 32802,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 4,
+     "filled": false
+    },
+    {
+     "seq": 32803,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 5,
+     "filled": false
+    },
+    {
+     "seq": 32804,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 6,
+     "filled": false
+    },
+    {
+     "seq": 32805,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 7,
+     "filled": false
+    },
+    {
+     "seq": 32806,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 8,
+     "filled": false
+    },
+    {
+     "seq": 32807,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 9,
+     "filled": false
+    },
+    {
+     "seq": 32808,
+     "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32809,
+     "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+     "trackIndex": 3,
+     "slotIndex": 5,
+     "filled": false
+    },
+    {
+     "seq": 32810,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32811,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32812,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32813,
+     "channelId": "",
+     "trackIndex": 5,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32814,
+     "channelId": "",
+     "trackIndex": 5,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32815,
+     "channelId": "",
+     "trackIndex": 5,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32816,
+     "channelId": "",
+     "trackIndex": 6,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32817,
+     "channelId": "",
+     "trackIndex": 7,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32818,
+     "channelId": "",
+     "trackIndex": 8,
+     "slotIndex": 0,
+     "filled": false
+    }
+   ]
+  },
+  "rig": {
+   "runtimeProfile": "normal-v1",
+   "tracks": 256,
+   "scenes": 128,
+   "gridSteps": 64,
+   "fineSteps": 512,
+   "noteReadSteps": 2048,
+   "gridKeys": 128,
+   "stepSize": 0.25,
+   "cursorPool": 8,
+   "deviceBank": 16,
+   "remotePages": 16,
+   "containerScopes": 3,
+   "containerEntryBank": 5,
+   "containerEntryDeviceBank": 4,
+   "parameterRouteDepth": 2,
+   "sceneCount": 8,
+   "clipReader": {
+    "revision": "clip-reader-v2",
+    "closeRule": "confirm-before-release-v1",
+    "openRule": "subscribe-before-unpin-v1",
+    "groupRule": "expand-collapsed-parent-v1",
+    "format": "notes-v1",
+    "width": 4194304,
+    "grid": 0.001953125,
+    "page": 131072,
+    "deadlineMs": 2000,
+    "reads": 0,
+    "refusals": 0,
+    "lastRefusal": "",
+    "lateCallbacks": 0,
+    "strayCallbacks": 0,
+    "releaseCallbacks": 0,
+    "releaseEmpty": 0,
+    "releaseSustain": 0,
+    "releaseOn": 0,
+    "subscribed": false,
+    "open": false,
+    "writeGate": {
+     "readOpen": false,
+     "waiting": 0,
+     "leases": 0,
+     "limit": 256,
+     "queuedTotal": 0,
+     "refusedTotal": 0
+    }
+   },
+   "writeGuard": "batch-scene-guard-v1",
+   "selectionRule": "selection-project-v1",
+   "cursorIdentity": "cursor-channel-id-v1",
+   "contentFilter": "ALL_CHANNELS"
+  }
+ },
+ "entryTracks": [
+  {
+   "index": 0,
+   "name": "Inst 1",
+   "position": 0,
+   "type": "Instrument",
+   "channelId": "17846d2d-1206-41b8-aa3d-9d2814d3d457"
+  },
+  {
+   "index": 1,
+   "name": "Audio 2",
+   "position": 1,
+   "type": "Audio",
+   "channelId": "8323dcc0-0e0f-4077-b4d8-57755a0e92a0"
+  },
+  {
+   "index": 2,
+   "name": "FX 1",
+   "position": 2,
+   "type": "Effect",
+   "channelId": "c9a96c46-87ab-473c-bc76-85bc3efeb995"
+  },
+  {
+   "index": 3,
+   "name": "Master",
+   "position": 3,
+   "type": "Master",
+   "channelId": "60a4e340-ffa8-4b83-88db-9b848965791c"
+  }
+ ],
+ "tracks": {
+  "after": "a55b18ed-cd5f-4a51-aebd-72e7f5f76396",
+  "in2": "3235f362-1849-490d-91f7-0d73656c6800",
+  "in": "719cb2c4-dd81-44b6-9925-b1ce30ff5f0f",
+  "before": "1a41cec5-3bc9-4613-a5a6-5cc6d5bf7af2"
+ }
+}
