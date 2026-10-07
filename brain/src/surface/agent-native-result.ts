@@ -21,11 +21,14 @@
  * An edit adds `unsupported` (8h4c): the host binding cannot write or reverse
  * the proposed change exactly. `detail.reason` names the rule (HOST-BINDING.md,
  * "Edit refusals").
+ *
+ * The Launcher clip tools add `occupied` (8h4d): a destination slot holds a clip,
+ * and the write would replace it or put the clip on an unreachable row (E20b, E21).
  */
 import { BridgeError } from '../client.js';
 import {
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, CLIP_READ_SOUNDING_CELLS, ClipReadLimitError,
-  ClipSnapshotRefusedError,
+  ClipSnapshotRefusedError, SlotOccupiedError,
   CollapsedGroupRowError, ContractVersionError, GroupSlotError, RuntimeProfileMismatchError,
   StaleAddressError, WireDriftError,
   type ClipSnapshotVerdictKind,
@@ -57,6 +60,7 @@ export const FAILURE_CODES = [
   'incomparable',
   'invalid-input',
   'unsupported',
+  'occupied',
   'internal',
 ] as const;
 export type FailureCode = typeof FAILURE_CODES[number];
@@ -182,6 +186,9 @@ export function classifyError(error: unknown): {
     const first = error.verdicts.find((item) => item.verdict !== 'current');
     const code = first === undefined ? 'internal' : VERDICT_CODES[first.verdict as keyof typeof VERDICT_CODES];
     return { code, message: 'A clip reference is not current.' };
+  }
+  if (error instanceof SlotOccupiedError) {
+    return { code: 'occupied', message: 'A destination slot holds a clip. Nothing was written.' };
   }
   if (error instanceof BankWindowOverflowError || error instanceof BlindSpotError) {
     return { code: 'outside-limit', message: 'The target is outside the observed track or scene window.' };

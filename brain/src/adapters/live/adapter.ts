@@ -3374,9 +3374,10 @@ export class LiveAdapter implements BitwigAdapter {
     // capture the clip's length. An empty slot still costs nothing — and must
     // not be pointed at in any case (E2).
     const sourceClips = options.sources ?? [];
-    const selection = await this.beginSelectionBorrow(
-      sel.some(addressBorrowsSelection) || sourceClips.length > 0,
-    );
+    const occupancyOnly = options.occupancy === true;
+    const borrows = (address: Address): boolean => addressBorrowsSelection(address)
+      && !(occupancyOnly && (address.kind === 'clip' || address.kind === 'slot'));
+    const selection = await this.beginSelectionBorrow(sel.some(borrows) || sourceClips.length > 0);
     // Where each pool cursor is actually pointed, so the common shape — a clip
     // target and its notes target, side by side in one write-set — costs one
     // point and one settle rather than two.
@@ -3456,7 +3457,7 @@ export class LiveAdapter implements BitwigAdapter {
         continue;
       }
       const entry = await this.readOne(
-        address, row, pointedAt, noteReads, parameterReads, remoteReads, metadataOf,
+        address, row, pointedAt, noteReads, parameterReads, remoteReads, metadataOf, occupancyOnly,
       );
       // ⚠ A chain-family address whose container has no observable scope is
       // UNREACHABLE, not missing — the same E5 distinction the track bank makes
@@ -3910,6 +3911,7 @@ export class LiveAdapter implements BitwigAdapter {
     parameterReads: Map<AddressKey, Promise<ParameterInventory>>,
     remoteReads: Map<AddressKey, Promise<RemoteInventory>>,
     metadataOf: (clip: ClipAddress, trackIndex: number) => Promise<ParsedClipMetadata>,
+    occupancyOnly = false,
   ): Promise<StateEntry | 'unreachable' | 'unstable' | undefined> {
     switch (address.kind) {
       case 'track':
@@ -3935,6 +3937,8 @@ export class LiveAdapter implements BitwigAdapter {
         if (!status.hasContent) {
           return { address, fidelity: 'exact', value: { of: 'clip', exists: false } };
         }
+        // 8h4d: an occupancy read asks for `exists` only, so it needs no clip capture.
+        if (occupancyOnly) return { address, fidelity: 'lossy', value: { of: 'clip', exists: true } };
 
         // ⚠ AMENDED 2026-08-07 (D16, §3.3.3). This branch used to return
         // `fidelity: 'none'` with no length, on the reason that a clip has no

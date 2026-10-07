@@ -34,7 +34,8 @@ import { acquireClipSnapshot } from '../engine/clip-snapshots.js';
 import { NOTE_INVARIANTS_SCHEMA, NOTE_PROPOSAL_SCHEMA, type ExactNoteSource } from '../musical/index.js';
 import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
-import { EXPERIMENTAL_7B_TOOL_PROFILE, STABLE_TOOL_PROFILE, callTool, type ToolProfile } from '../surface/tools.js';
+import { STABLE_TOOL_PROFILE, callTool, type ToolProfile } from '../surface/tools.js';
+import { EXPERIMENTAL_7B_TOOL_PROFILE, callExperimental7b } from './phase7b-profile.js';
 import { workspaceOf } from '../surface/workspace.js';
 import type { E131Context } from './e131-diagnostic.js';
 import { WireTransport } from './phase8h3c-promotion.js';
@@ -78,8 +79,10 @@ const workspace = workspaceOf({
 });
 const request = async (method: string, params?: Wire): Promise<Wire> =>
   await transport.send({ method, ...(params ? { params } : {}) }) as Wire;
-const tool = async (name: string, args: Wire, profile: ToolProfile = EXPERIMENTAL_7B_TOOL_PROFILE): Promise<Wire> =>
-  await callTool(workspace, name, args, profile) as Wire;
+const tool = async (
+  name: string, args: Wire, profile: ToolProfile | typeof EXPERIMENTAL_7B_TOOL_PROFILE = EXPERIMENTAL_7B_TOOL_PROFILE,
+): Promise<Wire> => await (profile === EXPERIMENTAL_7B_TOOL_PROFILE
+  ? callExperimental7b(workspace, name, args) : callTool(workspace, name, args, profile)) as Wire;
 const pause = async (ms: number): Promise<void> => new Promise(resolve => setTimeout(resolve, ms));
 const load = async (path: string): Promise<Wire> => JSON.parse(await readFile(path, 'utf8'));
 const save = async (path: string, value: unknown): Promise<void> => {
@@ -439,7 +442,7 @@ async function selection(out: string, statePath: string): Promise<void> {
   await artifact(out, { schema: `${SCHEMA}-selection`, entry, first, steps, last: await status() });
 }
 
-const GROUP_TOOLS = (group: string, child: string): [string, Wire, ToolProfile][] => [
+const GROUP_TOOLS = (group: string, child: string): [string, Wire, ToolProfile | typeof EXPERIMENTAL_7B_TOOL_PROFILE][] => [
   ['read_clip', { trackId: group, row: 0 }, STABLE_TOOL_PROFILE],
   ['write_notes', { clips: [{ trackId: group, row: 0, notes: [note({ startBeats: 1.5 })] }] }, STABLE_TOOL_PROFILE],
   ['add_clip', { clips: [{ trackId: group, row: 5, lengthBeats: 4 }] }, STABLE_TOOL_PROFILE],

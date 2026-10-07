@@ -14,7 +14,7 @@ import { Executor } from '../engine/index.js';
 import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
 import { NOTE_INVARIANTS_SCHEMA, NOTE_PROPOSAL_SCHEMA, type ExactNoteSource } from '../musical/index.js';
-import { EXPERIMENTAL_7B_TOOL_PROFILE, callTool } from '../surface/tools.js';
+import { callExperimental7b } from './phase7b-profile.js';
 import { workspaceOf } from '../surface/workspace.js';
 import { compareShadowSnapshots, shadowSnapshotFromWire, assessShadowConsumer, assessShadowAdmission,
   type ShadowCacheWireSnapshot, type ShadowNote } from './phase8g-shadow-cache-lib.js';
@@ -225,7 +225,7 @@ async function run(): Promise<void> {
   cases.push(await compare(0, 'warm-read')); await persist();
   await adapter.hello();
   const readStarted = performance.now();
-  const stableRead = await callTool(workspace, 'read_clip', { trackId: track.channelId, row: 0 }, EXPERIMENTAL_7B_TOOL_PROFILE);
+  const stableRead = await callExperimental7b(workspace, 'read_clip', { trackId: track.channelId, row: 0 });
   assert.equal((stableRead as { readable?: boolean }).readable, true);
   assert.equal((stableRead as { clipExists?: boolean }).clipExists, true);
   assert.equal((stableRead as { notes?: readonly unknown[] }).notes?.length, 1);
@@ -314,9 +314,9 @@ async function workflow(): Promise<void> {
   await request('cursor.scrollToStep', { cursor: '0', step: 0 });
   await request('cursor.setNotes', { cursor: '0', channel: 0, notes: [[0, 48, 96, GRID]] });
   await wait(150);
-  const acquisition = await callTool(workspace, 'acquire_clip_note_source', {
+  const acquisition = await callExperimental7b(workspace, 'acquire_clip_note_source', {
     trackId: target.channelId, row: 1,
-  }, EXPERIMENTAL_7B_TOOL_PROFILE) as { exactSource: ExactNoteSource };
+  }) as { exactSource: ExactNoteSource };
   const source = acquisition.exactSource;
   const input = { mode: 'agent-note-proposal-v0', source,
     proposal: { schema: NOTE_PROPOSAL_SCHEMA, base_sha256: source.digest.value,
@@ -328,13 +328,13 @@ async function workflow(): Promise<void> {
       samePitchOverlap: 'refuse', allowedOperations: ['insert'],
       allowedTrackAliases: source.aliases.map(v => v.alias), noteCount: { min: 2, max: 2 } } };
   const started = performance.now();
-  const preview = await callTool(workspace, 'transform_clip_music', {
+  const preview = await callExperimental7b(workspace, 'transform_clip_music', {
     ...input, action: 'preview',
-  }, EXPERIMENTAL_7B_TOOL_PROFILE) as { preview: { previewDigest: { value: string } } };
+  }) as { preview: { previewDigest: { value: string } } };
   assert(preview.preview?.previewDigest?.value, JSON.stringify(preview));
-  const application = await callTool(workspace, 'transform_clip_music', {
+  const application = await callExperimental7b(workspace, 'transform_clip_music', {
     ...input, action: 'apply', acceptedPreviewSha256: preview.preview.previewDigest.value,
-  }, EXPERIMENTAL_7B_TOOL_PROFILE) as Record<string, unknown>;
+  }) as Record<string, unknown>;
   assert.equal(application.applied, true, JSON.stringify(application));
   report['sparsePatchWorkflow'] = { application, publicToolCalls: 3,
     wallMs: performance.now() - started, authority: 'stable-E131',

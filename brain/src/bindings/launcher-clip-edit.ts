@@ -225,13 +225,36 @@ function merged(raw: NoteRecord, event: Event, fields: readonly string[]): NoteR
   return next as unknown as NoteRecord;
 }
 
-/** Clip metadata after the portable clip fields; unrepresented raw fields stay. */
-function plannedMetadata(raw: ClipMetadataState, clip: StateDocument['clips'][number], fields: readonly string[]): ClipMetadataState {
-  if (fields.length === 0) return raw;
-  if (exactClipColor(raw.color) === undefined) {
+/** The requested change of one clip property write. Omitted properties keep their prior value. */
+export type ClipPropertyChanges = Partial<ClipMetadataState>;
+
+/**
+ * The one clip property writer (8h4d): `edit_launcher_clip` and `set_launcher_clip_properties` both complete a
+ * `clip.update` here. A property change needs a palette colour before and after, so the change can be reversed
+ * exactly. A length change without a loop end keeps the loop start and moves the loop end with the length.
+ */
+export function completeClipProperties(prior: ClipMetadataState, changes: ClipPropertyChanges): ClipMetadataState {
+  if (exactClipColor(prior.color) === undefined) {
     throw new EditRefusal('unsupported', 'clip-colour', 'The clip colour is outside the exact Bitwig palette, so '
       + 'a clip property change cannot be reversed exactly. Set a palette colour in Bitwig first.');
   }
+  if (changes.color !== undefined && exactClipColor(changes.color) === undefined) {
+    throw new EditRefusal('unsupported', 'clip-colour', 'The requested clip colour is outside the exact Bitwig '
+      + 'palette. Use a colour of detail.supportedClipColors.');
+  }
+  const next = { ...prior, ...changes };
+  if (changes.loopEndBeats === undefined
+      && (changes.lengthBeats !== undefined || changes.loopStartBeats !== undefined)) {
+    next.loopEndBeats = next.loopStartBeats + next.lengthBeats;
+  }
+  if (next.loopEndBeats !== next.loopStartBeats + next.lengthBeats) {
+    throw new EditRefusal('invalid-input', 'loop', 'The loop end must equal the loop start plus the length.');
+  }
+  return next;
+}
+
+/** The clip length of a document clip in beats. It must be an exact binary64 value. */
+export function documentClipLength(clip: StateDocument['clips'][number]): number {
   const lengthBeats = exactNumber(clip.length);
   if (cmp(spelling(binary64(lengthBeats)), clip.length) !== 0) {
     throw new EditRefusal('unsupported', 'length', 'The clip length must be an exact binary64 beat value.');
@@ -241,13 +264,15 @@ function plannedMetadata(raw: ClipMetadataState, clip: StateDocument['clips'][nu
     throw new EditRefusal('unsupported', 'loop', 'The host loop runs from 0 to the clip length. A loop must be '
       + 'null or {from:"0", to:<length>}.');
   }
-  return {
-    ...raw,
-    name: clip.name ?? '',
-    lengthBeats,
-    loopEnabled: loop !== null,
-    loopEndBeats: raw.loopStartBeats + lengthBeats,
-  };
+  return lengthBeats;
+}
+
+/** Clip metadata after the portable clip fields; unrepresented raw fields stay. */
+function plannedMetadata(raw: ClipMetadataState, clip: StateDocument['clips'][number], fields: readonly string[]): ClipMetadataState {
+  if (fields.length === 0) return raw;
+  if (exactClipColor(raw.color) === undefined) completeClipProperties(raw, {});
+  const lengthBeats = documentClipLength(clip);
+  return completeClipProperties(raw, { name: clip.name ?? '', lengthBeats, loopEnabled: (clip.loop ?? null) !== null });
 }
 
 function eventEnd(event: Event): string {

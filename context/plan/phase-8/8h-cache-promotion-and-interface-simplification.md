@@ -3,7 +3,7 @@ title: Phase 8h — Cache promotion and interface simplification
 kind: plan
 state: active
 status: Reader promotion (E230), change awareness (E231), row binding (E232), and pull snapshot references with the cache machinery trim (E233) are complete. 8h4 is planned in sessions 8h4a–8h4g; 8h4a through 8h4c2 are complete (E234–E236, E240–E243, E245, E246).
-updated: 2026-10-07
+updated: 2026-10-08
 parent: README.md
 prev: 8g-shadow-project-cache.md
 next: 8i-agent-native-hybrid-dogfood.md
@@ -120,7 +120,8 @@ Reader promotion and remaining sessions, in order:
         Complete (E246, D38); a read and a 16-note insertion take 1,892 ms.
    4. [8h4d — Musical and clip surface migration](8h4d-musical-and-clip-surface-migration.md):
       observation decoupling and retirement, the old musical tools and the 7b
-      profile retired, and the Launcher clip names.
+      profile retired, and the Launcher clip names. Complete (E237, D39); the
+      live workflow is 41 percent faster than on `stable-v1`.
    5. [8h4e0 — DirectParameter display probe](8h4e0-direct-parameter-display-probe.md):
       whether the display observer reports text when it is given the
       target's IDs, and at what cost (E244). Before 8h4e.

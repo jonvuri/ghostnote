@@ -2,7 +2,7 @@
 title: Ghostnote Document 1.0 migration and verification
 kind: reference
 state: active
-updated: 2026-10-07
+updated: 2026-10-08
 scope: 8f3 target contract; implementation gates for 8g, 8h, 8i, and 9b
 ---
 
@@ -35,7 +35,9 @@ generation and coverage before combining results. This session does not select
 a public batch read or an atomic multi-clip snapshot. `inspect_clip_block`
 retires only after 8h supplies equivalent boundary occupancy through bounded
 Launcher inventory data or guarded copy/move preflight. Repeated single reads
-alone do not prove that boundary.
+alone do not prove that boundary. 8h4d (E237) supplies it through the guarded
+preflight: `copy_launcher_clips` and `move_launcher_clips` return the
+occupancy of each slot that they read, also on a dry run and on a refusal.
 
 ## Risk and evidence consumers
 
@@ -108,7 +110,7 @@ Keep old source and new content digests in their own named domains.
 | `ghostnote-note-candidate-v0`, `note-compiler-v0`, preview and application result | Retain comparison implementation through 8h, then retire normal envelopes | Preserve complete candidate validation, host default checks, conflicts, independent observed state, partial effects, and change IDs in the new internal planner/results. A preview hash cannot substitute for the new document guard or a host read |
 | `ghostnote-groove-patch-v0` | Retire normal discovery; retain probe evidence | Fixed-object E116 checks do not establish a general lowering compiler. Refuse it as a live edit request. A new groove edit must explicitly produce realized event updates and authorized overlay changes through the new guarded limb |
 | `ghostnote-musical-patch` version 1 and its reports | Retain compatibility until 8h migration passes, then retire normal discovery | Materialize deterministic operations with their seed/scopes in the old pure planner. Translate the resulting state to the new document and preserve the operation's reported timing/velocity/removal/shortening loss. This is not a patch-schema alias. Old channel replace, overlap-shortening, random, and variation semantics remain on the old route until an explicit migrated request passes its guards |
-| Observation JSON v1-v3 and five auto-capture call sites | Retain stored-record readers; retire public workflow after decoupling | Keep migration readers for existing projects. First remove automatic capture from generation, transformation, clip copy, track copy, and alternate creation. Storage failure must not change a successful project-write result. This session authorizes no record deletion |
+| Observation JSON v1-v3 and five auto-capture call sites | Retain stored-record readers; retire public workflow after decoupling | Keep migration readers for existing projects. First remove automatic capture from generation, transformation, clip copy, track copy, and alternate creation. Storage failure must not change a successful project-write result. This session authorizes no record deletion. Done in `agent-native-v1` (8h4d, E237); see "Tool migration" |
 | Workstation module envelopes, run records, provider probe envelopes | Retain internal optional plumbing and explicit evidence; retire normal envelope exposure | Keep request/source/provider correlation, permissions, coverage, formula identity, failure isolation, and verdict boundaries beside retained sensors. A provider judgment cannot become observed note state or an operator verdict |
 | Reference-context, audio-facts-v0, audio-capture-v0, document cache/index | Retain optional or defer as the audit states | Keep their own byte/source/provider domains and coverage. No automatic conversion into the core note document. Capture stays a state-changing operation |
 | Benchmark FIELDS/JSON/native formats, local labels, ballots, model results | Retain frozen evidence only | No schema retrofit or rescoring under this session. Keep corrected matrix and adjudicated addendum denominators separate. New 1.0 coverage/overlay rules have no historical provider-score claim |
@@ -149,6 +151,43 @@ disabled recurrence values through the new seam; the legacy decoder omitted
 them. `track-neutral-v0` enables repeat with raw count zero and therefore cannot
 be converted to the portable repeat default by a cast. 8h must explicitly select
 and verify a supported insertion policy or refuse that migration.
+
+## Tool migration
+
+8h4d (E237) removes these `stable-v1` tools from `agent-native-v1`. `stable-v1`
+keeps each tool with its frozen wording as the rollback through 8i. A client
+on `agent-native-v1` that calls a removed name gets `no such tool`.
+
+| Removed tool | Replacement in `agent-native-v1` | Incompatibility |
+|---|---|---|
+| `read_clip` | `read_launcher_clip` | A Document 1.0 snapshot of all 16 channels with a base ref, not one channel of raw notes. Channels are 1-based. An empty slot is occupancy `empty` |
+| `acquire_clip_note_source` (7b profile) | `read_launcher_clip` | The 7b profile is retired. The exact source stays internal; `diagnostic` returns it on request |
+| `check_clip_snapshots` (7b profile) | `check_launcher_clips` | Opaque base refs from the identity registry, not encoded D32 references |
+| `generate_clip_music`, `transform_clip_music` | `edit_launcher_clip` | The agent owns generation and transformation and sends the result as a patch or desired document. Musical patch version 1, its seeds, variations, and overlap shortening stay on `stable-v1` (D21) |
+| `write_notes` | `edit_launcher_clip` (patch `ADD`) | A guarded patch on a base ref; 1/512-beat cells; channels 1–16 |
+| `erase_notes` | `edit_launcher_clip` (desired document without events) | A note pressure that a person set is lost on the whole-clip route and named in a warning (D37) |
+| `inspect_clip_block` | `read_launcher_clip` and the occupancy of `copy_launcher_clips` and `move_launcher_clips` (`dryRun`) | Occupancy is reported for the rows that a copy or move names, not for an arbitrary range |
+| `start_clip_music_operation` | `background: true` on `edit_launcher_clip` or `add_launcher_clip` (D39) | No generic start; the tool name keeps the permission |
+| `inspect_clip_music_operation` | `inspect_operation` | Result envelope `ghostnote-operation/1` |
+| `cancel_clip_music_operation` | `cancel_operation` | Same cooperative cancellation |
+| `record_observation`, `read_observation_record`, `report_observations` | None | The observation workflow is retired from `agent-native-v1`; see the policy below |
+| `add_clip` | `add_launcher_clip` | One clip from a desired document without BASE; two change records (creation, then content). A content refusal after creation returns the creation as an effect |
+| `copy_clip_down` | `copy_launcher_clips` | Explicit source and destination pairs; the host copies only to the row below on the same track. Launch settings are a separate call (`set_launcher_clip_launch_settings`) |
+| `move_clip_block` | `move_launcher_clips` | Same range and guards; failure codes and an occupancy report |
+| `set_clip_launch` | `set_launcher_clip_launch_settings` | Every clip must exist (`absent`) |
+| `set_clip_metadata` | `set_launcher_clip_properties` | Partial properties; omitted properties keep their value. The writer of `edit_launcher_clip` |
+| `delete_clip` | `delete_launcher_clip` | A separate destructive name; an empty slot refuses |
+| `show_changed_clip` | `show_launcher_clip_in_detail_editor` | Addressed by track ID and row, not by change ID |
+
+`launch_clip`, `add_scenes`, and `delete_scene` keep their names on the shared
+result module. `launch_clip` creates no change record (D19).
+
+Observation compatibility policy: `agent-native-v1` captures nothing, so a
+storage failure cannot change its write results. The stored-record readers for
+observation JSON v1–v3 and the `observation.read` and `observation.replace`
+wire methods stay for `stable-v1` and for old projects. No stored record is
+deleted or rewritten. `stable-v1` keeps automatic capture and its frozen
+behaviour, including the partial-success result after a storage failure.
 
 ## Decision amendments and gates
 

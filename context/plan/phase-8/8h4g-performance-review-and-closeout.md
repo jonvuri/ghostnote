@@ -3,11 +3,11 @@ title: Phase 8h4g — Performance review and 8h closeout
 kind: plan
 state: planned
 status: Planned. Examines the cost of every agent-native-v1 path against its probes and earlier product paths, removes waste, and closes 8h.
-updated: 2026-10-07
+updated: 2026-10-08
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h4f-tracks-profile-cut-and-closeout.md
 next: 8i-agent-native-hybrid-dogfood.md
-evidence: E45, E54, E227, E229, E231, E234, E236, E246; D8, D15, D16, D18, D19, D21, D38
+evidence: E45, E54, E227, E229, E231, E234, E236, E237, E246; D8, D15, D16, D18, D19, D21, D38, D39
 ---
 
 # Phase 8h4g — Performance review and 8h closeout
@@ -65,6 +65,25 @@ goes (validation, `cloneJson`, `mappedNote` called twice for each changed
 note, the materialization, projection, and hashing) and fix the largest
 causes. Add an offline time budget test.
 
+### 3b. Worst-case edit and the background route
+
+D39 added `background` on `edit_launcher_clip` and `add_launcher_clip`, with
+`inspect_operation` and `cancel_operation`, because the worst-case whole-clip
+edit (16,384 notes at the reader limit) took 48.0 s (E246), above the 30 s
+budget of 8h4d. The route makes tool use more complex: an agent must choose
+the flag, poll, and handle a second result envelope.
+
+- Try to bring that worst case, end to end with verification, under 30 s:
+  the planning work of step 3 (12.0 s) and the write (31.6 s). Time it live
+  with `phase8h4c-edit.ts worst`.
+- Then decide whether to remove the background route from `agent-native-v1`.
+  The 30 s budget is a margin; the measured ceiling is the 60 s MCP client
+  timeout (E45). Removal is possible also when the worst case stays above
+  30 s, if it stays clearly under 60 s. State the measured worst case, the
+  margin to 60 s, and the cost of the route to agents. Record the result as an
+  amendment of D39, and update the tool descriptions, the migration contract
+  rows, the call budgets, and the ledger in the same session.
+
 ### 4. Reductions
 
 Remove the waste that has a safe replacement. For each removed call, guard,
@@ -91,6 +110,8 @@ Moved here from 8h4f, so 8h closes after the review.
   named cause.
 - Planning for 16,384 notes is a small fraction of the host write, with an
   offline time budget test.
+- The worst-case whole-clip edit has a new live time, and D39 records the
+  decision to keep or remove the background route.
 - Every 8h parent acceptance criterion is met or has an explicit open record.
 - Brain check, extension tests, wire goldens, context check, live
   comparisons, and `git diff --check` pass. Record the evidence as E247.

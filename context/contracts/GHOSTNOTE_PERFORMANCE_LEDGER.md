@@ -2,9 +2,9 @@
 title: Ghostnote performance ledger
 kind: reference
 state: active
-updated: 2026-10-07
+updated: 2026-10-08
 parent: ../plan/phase-8/8h-cache-promotion-and-interface-simplification.md
-evidence: E227, E229, E234, E236, E246
+evidence: E227, E229, E234, E236, E237, E246
 ---
 
 # Ghostnote performance ledger
@@ -42,6 +42,8 @@ session as a change that moves a number.
 | One sequential wire call | About 24 ms (one control-surface turn) | E246 trace |
 | One mark (`revision.get` and `track.list`, sent together) | One turn | E246 |
 | One `clip.read` capture, typical clip | About 190 ms | E246 trace |
+| A plain read of an occupied `clip` address | One `clip.read` capture and a selection borrow (about 380 ms): the adapter reads the clip length | E237 trace |
+| An occupancy read (`ReadOptions.occupancy`) of a `clip` address | One `slot.status` (one turn) | E237 |
 | Bare replay read (the primitive) | 46–698 ms, by size | E227 |
 | `gridChange` settle | 144 ms | E15-D, `SETTLE_MS` |
 | `noteWrite` settle | 25 ms | `SETTLE_MS` |
@@ -62,6 +64,14 @@ of the measurement.
 | Edit refusal before a write | About 400 ms | E236: 560 ms | — | E246 |
 | `check_launcher_clips`, 16 typical clips | 4.6 s (before the E246 trims) | E231: 3.5 s, notes only | 2 refs: mark 2, clipRead 1, delta 1 | E234 |
 | Whole-clip edit, 16,384 notes (at the reader limit) | 48.0 s (plan 12.0 s, write 31.6 s) | E236: 73.0 s | as whole-clip | E246 |
+| One read and one 16-note insert, 8h4d remeasure | 2,030–2,058 ms (edit 1,538–1,550 ms; 56–58 wire calls) | E246: 1,877–1,936 ms, same call count | as above | E237 |
+| E45/E48-style workflow (read, copy, read and edit, launch, show, two reverts) | 8 calls, 7,864 ms, 31,080 bytes | `stable-v1`: 7 calls, 13,344 ms, 15,091 bytes | — | E237 |
+| `add_launcher_clip`, 16 notes | 2,611 ms (targeted) | `add_clip`: 1,827 ms | mark 3, tracks 2, read 3, resolve 2, apply 2, delta 4, clipRead 3 | E237 |
+| `copy_launcher_clips`, one typical clip | 1,249 ms | `copy_clip_down`: 2,897 ms (also two launch-settings writes) | mark 1, tracks 1, read 3, resolve 1, apply 1, delta 1 | E237 |
+| `launch_clip` (`agent-native-v1`) | Median 764 ms | `stable-v1`: 696 ms | mark 1, tracks 1, read 4, apply 1, delta 1 | E237 |
+| `show_launcher_clip_in_detail_editor` | 264 ms | `show_changed_clip`: 578 ms | mark 2, tracks 1, read 1, resolve 1 | E237 |
+| `set_launcher_clip_properties`, one clip | — | — | mark 1, tracks 1, read 3, resolve 1, apply 1, delta 1 | E237 (offline) |
+| Background edit handle (`background: true`) | Handle 1 ms; 64-note whole-clip edit completed at 2,057 ms | Direct call: same edit cost | as the tool | E237 |
 
 ## Limits
 
@@ -85,3 +95,10 @@ of the measurement.
   scanned the bank.
 - Whole-clip rewrites of notes with nondefault expression need one property
   stage for each channel.
+- `add_launcher_clip` resolves twice (creation, then the edit limb) and is two
+  change records; reverting it takes two calls (4,707 and 1,518 ms).
+- A whole-clip reversal of the typical clip takes about 4.7–4.9 s (E237).
+- `launch_clip` on `agent-native-v1` checks the track and the occupancy
+  first: about 3 turns (+10 percent) over `stable-v1`.
+- `read_launcher_clip` returns all 16 channels (about 11 KB for the typical
+  clip); an edit needs a read for its base.

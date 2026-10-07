@@ -1,0 +1,2098 @@
+{
+  "schema": "ghostnote-retired-profile-registration/1",
+  "profile": "phase-7b-agent-note-patch-v0",
+  "retiredIn": "8h4d",
+  "sourceCommit": "24b319a",
+  "note": "The 7b list is the stable-v1 list with transform_clip_music replaced, plus two tools. Custom input types are open (unrepresentable: any).",
+  "toolNames": [
+    "list_modulator_types",
+    "inspect_preset_modulation",
+    "check_connection",
+    "inspect_clip_music_operation",
+    "read_observation_record",
+    "report_observations",
+    "list_tracks",
+    "read_clip",
+    "inspect_device_alternates",
+    "inspect_clip_block",
+    "list_changes",
+    "check_revert",
+    "show_changed_clip",
+    "record_observation",
+    "generate_clip_music",
+    "transform_clip_music",
+    "start_clip_music_operation",
+    "cancel_clip_music_operation",
+    "copy_clip_down",
+    "set_clip_launch",
+    "set_clip_metadata",
+    "launch_clip",
+    "move_clip_block",
+    "write_notes",
+    "erase_notes",
+    "add_clip",
+    "add_track",
+    "copy_track",
+    "rename_track",
+    "add_scenes",
+    "inspect_devices",
+    "inspect_device_parameters",
+    "author_modulators",
+    "compose_device_structure",
+    "compose_drum_machine",
+    "wrap_existing_device_modulation",
+    "reverse_existing_device_modulation_wrap",
+    "compose_device_sources",
+    "reverse_device_source_composition",
+    "add_native_devices",
+    "add_device",
+    "set_parameter",
+    "set_device_enabled",
+    "create_device_alternates",
+    "fill_device_alternate",
+    "switch_device_alternate",
+    "revert_change",
+    "remove_device_alternate",
+    "keep_device_alternate",
+    "delete_clip",
+    "delete_track",
+    "delete_scene",
+    "delete_device",
+    "acquire_clip_note_source",
+    "check_clip_snapshots"
+  ],
+  "experimentalSha256": "5752e0a7c0494c8c5a8067afdd0cbb50f11fe5a45bb7ea7085fa48cbcba40dbf",
+  "experimental": [
+    {
+      "name": "transform_clip_music",
+      "title": "Transform music or execute an accepted agent note proposal",
+      "description": "Transform notes already in one or more launcher clips with musical patch version 1. No target starts with generate. Track ids are durable ids from list_tracks. Rows and note times count from zero in beats. MIDI channels are 0-15. Each source clip must already exist. This tool does not remove clip containers.\nOperations run in the order supplied. Merge keeps existing notes and adds the output. Replace changes only the addressed MIDI channel after all 16 channels are read. A matching note address, an unread channel, pressure, or a pitch outside MIDI 0-127 is refused before a write. Timing, expression, added notes, removed notes, and shortened overlaps are returned as differences.\nDirect work creates no alternate. It is recorded for revert_change and is refused if the prior clip cannot be restored. Requested variations copy the source clip into adjacent rows before any note write. Fidelity-required work needs an adjacent existing protected row whose notes match on all 16 channels. The complete patch is one revision-bound change.\nThe result returns outputs, differences, warnings, clip rows, readback, a change id, and reversal limits. Use read_clip to inspect an output, revert_change to put the change back, and show_changed_clip to open one changed clip in the editor.\nExperimental profile phase-7b-agent-note-patch-v0: mode agent-note-proposal-v0 accepts only ghostnote-note-patch-v0. Preview is read-only and returns the complete exact before and candidate state, typed operations, guards, invariants, defaults, loss, and a preview digest. Apply needs that exact digest, refreshes complete state, uses the recorded workspace write seam, and performs an independent complete readback. Stale state, pressure loss, unreported overlap shortening, unsupported timing, and invariant failures refuse. Incompatible stored note coordinates refuse with this remediation: select the clip in Bitwig and use Consolidate. Then read the clip and preview the change again. With a snapshot reference, apply checks the reference before any write and again at the stash read. A stale reference refuses and returns the new snapshot.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false
+      },
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "schema": {
+                "type": "string",
+                "const": "ghostnote-musical-patch"
+              },
+              "version": {
+                "type": "number",
+                "const": 1
+              },
+              "seed": {
+                "type": "string",
+                "minLength": 1
+              },
+              "protection": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "const": "direct"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "const": "clip-block"
+                      },
+                      "reason": {
+                        "type": "string",
+                        "const": "requested-variations"
+                      },
+                      "takes": {
+                        "type": "integer",
+                        "minimum": 2,
+                        "maximum": 9007199254740991
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "reason",
+                      "takes"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "const": "clip-block"
+                      },
+                      "reason": {
+                        "type": "string",
+                        "const": "fidelity-required"
+                      },
+                      "takes": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 9007199254740991
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "reason",
+                      "takes"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "targets": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "clip": {
+                      "type": "object",
+                      "properties": {
+                        "trackId": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "row": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "trackId",
+                        "row"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "channel": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 15
+                    },
+                    "write": {
+                      "type": "string",
+                      "enum": [
+                        "merge",
+                        "replace"
+                      ]
+                    },
+                    "operations": {
+                      "minItems": 1,
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "op": {
+                                    "type": "string",
+                                    "const": "generate"
+                                  },
+                                  "source": {
+                                    "type": "object",
+                                    "properties": {
+                                      "kind": {
+                                        "type": "string",
+                                        "const": "notes"
+                                      },
+                                      "notes": {
+                                        "minItems": 1,
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "releaseVelocity": {
+                                              "type": "number",
+                                              "minimum": 0,
+                                              "maximum": 1
+                                            },
+                                            "velocitySpread": {
+                                              "type": "number",
+                                              "minimum": 0,
+                                              "maximum": 1
+                                            },
+                                            "gain": {
+                                              "type": "number"
+                                            },
+                                            "pan": {
+                                              "type": "number",
+                                              "minimum": -1,
+                                              "maximum": 1
+                                            },
+                                            "timbre": {
+                                              "type": "number",
+                                              "minimum": -1,
+                                              "maximum": 1
+                                            },
+                                            "transpose": {
+                                              "type": "number"
+                                            },
+                                            "chance": {
+                                              "type": "number",
+                                              "minimum": 0,
+                                              "maximum": 1
+                                            },
+                                            "isChanceEnabled": {
+                                              "type": "boolean"
+                                            },
+                                            "isMuted": {
+                                              "type": "boolean"
+                                            },
+                                            "isOccurrenceEnabled": {
+                                              "type": "boolean"
+                                            },
+                                            "occurrence": {
+                                              "type": "string"
+                                            },
+                                            "isRecurrenceEnabled": {
+                                              "type": "boolean"
+                                            },
+                                            "recurrence": {
+                                              "minItems": 2,
+                                              "maxItems": 2,
+                                              "type": "array",
+                                              "items": {
+                                                "type": "number"
+                                              }
+                                            },
+                                            "isRepeatEnabled": {
+                                              "type": "boolean"
+                                            },
+                                            "repeatCount": {
+                                              "type": "integer",
+                                              "minimum": -9007199254740991,
+                                              "maximum": 9007199254740991
+                                            },
+                                            "repeatCurve": {
+                                              "type": "number"
+                                            },
+                                            "repeatVelocityCurve": {
+                                              "type": "number"
+                                            },
+                                            "repeatVelocityEnd": {
+                                              "type": "number"
+                                            },
+                                            "startBeats": {
+                                              "type": "number",
+                                              "minimum": 0
+                                            },
+                                            "pitch": {
+                                              "type": "integer",
+                                              "minimum": 0,
+                                              "maximum": 127
+                                            },
+                                            "velocity": {
+                                              "type": "number",
+                                              "minimum": 0,
+                                              "maximum": 127
+                                            },
+                                            "durationBeats": {
+                                              "type": "number",
+                                              "exclusiveMinimum": 0
+                                            }
+                                          },
+                                          "required": [
+                                            "startBeats",
+                                            "pitch",
+                                            "velocity",
+                                            "durationBeats"
+                                          ],
+                                          "additionalProperties": false
+                                        }
+                                      }
+                                    },
+                                    "required": [
+                                      "kind",
+                                      "notes"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                },
+                                "required": [
+                                  "op",
+                                  "source"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "op": {
+                                    "type": "string",
+                                    "const": "generate"
+                                  },
+                                  "source": {
+                                    "oneOf": [
+                                      {
+                                        "type": "object",
+                                        "properties": {
+                                          "kind": {
+                                            "type": "string",
+                                            "const": "intervals"
+                                          },
+                                          "root": {
+                                            "type": "string",
+                                            "minLength": 1
+                                          },
+                                          "intervals": {
+                                            "minItems": 1,
+                                            "type": "array",
+                                            "items": {
+                                              "type": "string",
+                                              "minLength": 1
+                                            }
+                                          }
+                                        },
+                                        "required": [
+                                          "kind",
+                                          "root",
+                                          "intervals"
+                                        ],
+                                        "additionalProperties": false
+                                      },
+                                      {
+                                        "type": "object",
+                                        "properties": {
+                                          "kind": {
+                                            "type": "string",
+                                            "const": "chord"
+                                          },
+                                          "symbol": {
+                                            "type": "string",
+                                            "minLength": 1
+                                          },
+                                          "octave": {
+                                            "type": "integer",
+                                            "minimum": -9007199254740991,
+                                            "maximum": 9007199254740991
+                                          }
+                                        },
+                                        "required": [
+                                          "kind",
+                                          "symbol",
+                                          "octave"
+                                        ],
+                                        "additionalProperties": false
+                                      },
+                                      {
+                                        "type": "object",
+                                        "properties": {
+                                          "kind": {
+                                            "type": "string",
+                                            "const": "scale"
+                                          },
+                                          "tonic": {
+                                            "type": "string",
+                                            "minLength": 1
+                                          },
+                                          "name": {
+                                            "type": "string",
+                                            "minLength": 1
+                                          },
+                                          "octave": {
+                                            "type": "integer",
+                                            "minimum": -9007199254740991,
+                                            "maximum": 9007199254740991
+                                          },
+                                          "octaves": {
+                                            "type": "integer",
+                                            "minimum": 1,
+                                            "maximum": 9007199254740991
+                                          }
+                                        },
+                                        "required": [
+                                          "kind",
+                                          "tonic",
+                                          "name",
+                                          "octave",
+                                          "octaves"
+                                        ],
+                                        "additionalProperties": false
+                                      },
+                                      {
+                                        "type": "object",
+                                        "properties": {
+                                          "kind": {
+                                            "type": "string",
+                                            "const": "progression"
+                                          },
+                                          "key": {
+                                            "type": "string",
+                                            "minLength": 1
+                                          },
+                                          "degrees": {
+                                            "minItems": 1,
+                                            "type": "array",
+                                            "items": {
+                                              "type": "string",
+                                              "minLength": 1
+                                            }
+                                          },
+                                          "octave": {
+                                            "type": "integer",
+                                            "minimum": -9007199254740991,
+                                            "maximum": 9007199254740991
+                                          }
+                                        },
+                                        "required": [
+                                          "kind",
+                                          "key",
+                                          "degrees",
+                                          "octave"
+                                        ],
+                                        "additionalProperties": false
+                                      },
+                                      {
+                                        "type": "object",
+                                        "properties": {
+                                          "kind": {
+                                            "type": "string",
+                                            "const": "pitch-class-set"
+                                          },
+                                          "pitchClasses": {
+                                            "minItems": 1,
+                                            "type": "array",
+                                            "items": {
+                                              "type": "string",
+                                              "minLength": 1
+                                            }
+                                          },
+                                          "octave": {
+                                            "type": "integer",
+                                            "minimum": -9007199254740991,
+                                            "maximum": 9007199254740991
+                                          },
+                                          "octaves": {
+                                            "type": "integer",
+                                            "minimum": 1,
+                                            "maximum": 9007199254740991
+                                          }
+                                        },
+                                        "required": [
+                                          "kind",
+                                          "pitchClasses",
+                                          "octave",
+                                          "octaves"
+                                        ],
+                                        "additionalProperties": false
+                                      }
+                                    ]
+                                  },
+                                  "placement": {
+                                    "oneOf": [
+                                      {
+                                        "type": "object",
+                                        "properties": {
+                                          "kind": {
+                                            "type": "string",
+                                            "const": "stack"
+                                          },
+                                          "startBeats": {
+                                            "type": "number",
+                                            "minimum": 0
+                                          },
+                                          "durationBeats": {
+                                            "type": "number",
+                                            "exclusiveMinimum": 0
+                                          }
+                                        },
+                                        "required": [
+                                          "kind",
+                                          "startBeats",
+                                          "durationBeats"
+                                        ],
+                                        "additionalProperties": false
+                                      },
+                                      {
+                                        "type": "object",
+                                        "properties": {
+                                          "kind": {
+                                            "type": "string",
+                                            "const": "sequence"
+                                          },
+                                          "startBeats": {
+                                            "type": "number",
+                                            "minimum": 0
+                                          },
+                                          "stepBeats": {
+                                            "type": "number",
+                                            "exclusiveMinimum": 0
+                                          },
+                                          "durationBeats": {
+                                            "type": "number",
+                                            "exclusiveMinimum": 0
+                                          }
+                                        },
+                                        "required": [
+                                          "kind",
+                                          "startBeats",
+                                          "stepBeats",
+                                          "durationBeats"
+                                        ],
+                                        "additionalProperties": false
+                                      }
+                                    ]
+                                  },
+                                  "velocity": {
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "maximum": 127
+                                  },
+                                  "expression": {
+                                    "type": "object",
+                                    "properties": {
+                                      "releaseVelocity": {
+                                        "type": "number",
+                                        "minimum": 0,
+                                        "maximum": 1
+                                      },
+                                      "velocitySpread": {
+                                        "type": "number",
+                                        "minimum": 0,
+                                        "maximum": 1
+                                      },
+                                      "gain": {
+                                        "type": "number"
+                                      },
+                                      "pan": {
+                                        "type": "number",
+                                        "minimum": -1,
+                                        "maximum": 1
+                                      },
+                                      "timbre": {
+                                        "type": "number",
+                                        "minimum": -1,
+                                        "maximum": 1
+                                      },
+                                      "transpose": {
+                                        "type": "number"
+                                      },
+                                      "chance": {
+                                        "type": "number",
+                                        "minimum": 0,
+                                        "maximum": 1
+                                      },
+                                      "isChanceEnabled": {
+                                        "type": "boolean"
+                                      },
+                                      "isMuted": {
+                                        "type": "boolean"
+                                      },
+                                      "isOccurrenceEnabled": {
+                                        "type": "boolean"
+                                      },
+                                      "occurrence": {
+                                        "type": "string"
+                                      },
+                                      "isRecurrenceEnabled": {
+                                        "type": "boolean"
+                                      },
+                                      "recurrence": {
+                                        "minItems": 2,
+                                        "maxItems": 2,
+                                        "type": "array",
+                                        "items": {
+                                          "type": "number"
+                                        }
+                                      },
+                                      "isRepeatEnabled": {
+                                        "type": "boolean"
+                                      },
+                                      "repeatCount": {
+                                        "type": "integer",
+                                        "minimum": -9007199254740991,
+                                        "maximum": 9007199254740991
+                                      },
+                                      "repeatCurve": {
+                                        "type": "number"
+                                      },
+                                      "repeatVelocityCurve": {
+                                        "type": "number"
+                                      },
+                                      "repeatVelocityEnd": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "additionalProperties": false
+                                  }
+                                },
+                                "required": [
+                                  "op",
+                                  "source",
+                                  "placement",
+                                  "velocity"
+                                ],
+                                "additionalProperties": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "op": {
+                                "type": "string",
+                                "const": "transpose"
+                              },
+                              "semitones": {
+                                "type": "integer",
+                                "minimum": -9007199254740991,
+                                "maximum": 9007199254740991
+                              },
+                              "selection": {
+                                "type": "object",
+                                "properties": {
+                                  "beatRange": {
+                                    "type": "object",
+                                    "properties": {
+                                      "fromBeats": {
+                                        "type": "number",
+                                        "minimum": 0
+                                      },
+                                      "toBeats": {
+                                        "type": "number",
+                                        "exclusiveMinimum": 0
+                                      }
+                                    },
+                                    "required": [
+                                      "fromBeats",
+                                      "toBeats"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "pitchRange": {
+                                    "type": "object",
+                                    "properties": {
+                                      "min": {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 127
+                                      },
+                                      "max": {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 127
+                                      }
+                                    },
+                                    "required": [
+                                      "min",
+                                      "max"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                },
+                                "additionalProperties": false
+                              }
+                            },
+                            "required": [
+                              "op",
+                              "semitones"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "op": {
+                                "type": "string",
+                                "const": "harmonize"
+                              },
+                              "harmony": {
+                                "oneOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "kind": {
+                                        "type": "string",
+                                        "const": "intervals"
+                                      },
+                                      "intervals": {
+                                        "minItems": 1,
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string",
+                                          "minLength": 1
+                                        }
+                                      }
+                                    },
+                                    "required": [
+                                      "kind",
+                                      "intervals"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "kind": {
+                                        "type": "string",
+                                        "const": "chord"
+                                      },
+                                      "symbol": {
+                                        "type": "string",
+                                        "minLength": 1
+                                      }
+                                    },
+                                    "required": [
+                                      "kind",
+                                      "symbol"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "kind": {
+                                        "type": "string",
+                                        "const": "scale"
+                                      },
+                                      "tonic": {
+                                        "type": "string",
+                                        "minLength": 1
+                                      },
+                                      "name": {
+                                        "type": "string",
+                                        "minLength": 1
+                                      }
+                                    },
+                                    "required": [
+                                      "kind",
+                                      "tonic",
+                                      "name"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "kind": {
+                                        "type": "string",
+                                        "const": "detect"
+                                      },
+                                      "as": {
+                                        "type": "string",
+                                        "enum": [
+                                          "chord",
+                                          "scale"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "kind",
+                                      "as"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                ]
+                              },
+                              "selection": {
+                                "type": "object",
+                                "properties": {
+                                  "beatRange": {
+                                    "type": "object",
+                                    "properties": {
+                                      "fromBeats": {
+                                        "type": "number",
+                                        "minimum": 0
+                                      },
+                                      "toBeats": {
+                                        "type": "number",
+                                        "exclusiveMinimum": 0
+                                      }
+                                    },
+                                    "required": [
+                                      "fromBeats",
+                                      "toBeats"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "pitchRange": {
+                                    "type": "object",
+                                    "properties": {
+                                      "min": {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 127
+                                      },
+                                      "max": {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 127
+                                      }
+                                    },
+                                    "required": [
+                                      "min",
+                                      "max"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                },
+                                "additionalProperties": false
+                              }
+                            },
+                            "required": [
+                              "op",
+                              "harmony"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "op": {
+                                "type": "string",
+                                "const": "arpeggiate"
+                              },
+                              "pattern": {
+                                "type": "string",
+                                "enum": [
+                                  "up",
+                                  "down",
+                                  "up-down",
+                                  "as-played"
+                                ]
+                              },
+                              "stepBeats": {
+                                "type": "number",
+                                "exclusiveMinimum": 0
+                              },
+                              "durationBeats": {
+                                "type": "number",
+                                "exclusiveMinimum": 0
+                              },
+                              "selection": {
+                                "type": "object",
+                                "properties": {
+                                  "beatRange": {
+                                    "type": "object",
+                                    "properties": {
+                                      "fromBeats": {
+                                        "type": "number",
+                                        "minimum": 0
+                                      },
+                                      "toBeats": {
+                                        "type": "number",
+                                        "exclusiveMinimum": 0
+                                      }
+                                    },
+                                    "required": [
+                                      "fromBeats",
+                                      "toBeats"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "pitchRange": {
+                                    "type": "object",
+                                    "properties": {
+                                      "min": {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 127
+                                      },
+                                      "max": {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 127
+                                      }
+                                    },
+                                    "required": [
+                                      "min",
+                                      "max"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                },
+                                "additionalProperties": false
+                              }
+                            },
+                            "required": [
+                              "op",
+                              "pattern",
+                              "stepBeats",
+                              "durationBeats"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "op": {
+                                "type": "string",
+                                "const": "revoice"
+                              },
+                              "minPitch": {
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 127
+                              },
+                              "maxPitch": {
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 127
+                              },
+                              "strategy": {
+                                "type": "string",
+                                "enum": [
+                                  "closest",
+                                  "ascending",
+                                  "drop-2"
+                                ]
+                              },
+                              "selection": {
+                                "type": "object",
+                                "properties": {
+                                  "beatRange": {
+                                    "type": "object",
+                                    "properties": {
+                                      "fromBeats": {
+                                        "type": "number",
+                                        "minimum": 0
+                                      },
+                                      "toBeats": {
+                                        "type": "number",
+                                        "exclusiveMinimum": 0
+                                      }
+                                    },
+                                    "required": [
+                                      "fromBeats",
+                                      "toBeats"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "pitchRange": {
+                                    "type": "object",
+                                    "properties": {
+                                      "min": {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 127
+                                      },
+                                      "max": {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 127
+                                      }
+                                    },
+                                    "required": [
+                                      "min",
+                                      "max"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                },
+                                "additionalProperties": false
+                              }
+                            },
+                            "required": [
+                              "op",
+                              "minPitch",
+                              "maxPitch",
+                              "strategy"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "op": {
+                                "type": "string",
+                                "const": "quantize"
+                              },
+                              "gridBeats": {
+                                "type": "number",
+                                "exclusiveMinimum": 0
+                              },
+                              "strength": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 1
+                              },
+                              "selection": {
+                                "type": "object",
+                                "properties": {
+                                  "beatRange": {
+                                    "type": "object",
+                                    "properties": {
+                                      "fromBeats": {
+                                        "type": "number",
+                                        "minimum": 0
+                                      },
+                                      "toBeats": {
+                                        "type": "number",
+                                        "exclusiveMinimum": 0
+                                      }
+                                    },
+                                    "required": [
+                                      "fromBeats",
+                                      "toBeats"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "pitchRange": {
+                                    "type": "object",
+                                    "properties": {
+                                      "min": {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 127
+                                      },
+                                      "max": {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 127
+                                      }
+                                    },
+                                    "required": [
+                                      "min",
+                                      "max"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                },
+                                "additionalProperties": false
+                              }
+                            },
+                            "required": [
+                              "op",
+                              "gridBeats",
+                              "strength"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "op": {
+                                "type": "string",
+                                "const": "humanize"
+                              },
+                              "maxTimingBeats": {
+                                "type": "number",
+                                "minimum": 0
+                              },
+                              "maxVelocity": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 127
+                              },
+                              "selection": {
+                                "type": "object",
+                                "properties": {
+                                  "beatRange": {
+                                    "type": "object",
+                                    "properties": {
+                                      "fromBeats": {
+                                        "type": "number",
+                                        "minimum": 0
+                                      },
+                                      "toBeats": {
+                                        "type": "number",
+                                        "exclusiveMinimum": 0
+                                      }
+                                    },
+                                    "required": [
+                                      "fromBeats",
+                                      "toBeats"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "pitchRange": {
+                                    "type": "object",
+                                    "properties": {
+                                      "min": {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 127
+                                      },
+                                      "max": {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 127
+                                      }
+                                    },
+                                    "required": [
+                                      "min",
+                                      "max"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                },
+                                "additionalProperties": false
+                              }
+                            },
+                            "required": [
+                              "op",
+                              "maxTimingBeats",
+                              "maxVelocity"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "op": {
+                                "type": "string",
+                                "const": "thin"
+                              },
+                              "probability": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 1
+                              },
+                              "selection": {
+                                "type": "object",
+                                "properties": {
+                                  "beatRange": {
+                                    "type": "object",
+                                    "properties": {
+                                      "fromBeats": {
+                                        "type": "number",
+                                        "minimum": 0
+                                      },
+                                      "toBeats": {
+                                        "type": "number",
+                                        "exclusiveMinimum": 0
+                                      }
+                                    },
+                                    "required": [
+                                      "fromBeats",
+                                      "toBeats"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "pitchRange": {
+                                    "type": "object",
+                                    "properties": {
+                                      "min": {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 127
+                                      },
+                                      "max": {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 127
+                                      }
+                                    },
+                                    "required": [
+                                      "min",
+                                      "max"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                },
+                                "additionalProperties": false
+                              }
+                            },
+                            "required": [
+                              "op",
+                              "probability"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "op": {
+                                "type": "string",
+                                "const": "densify"
+                              },
+                              "gridBeats": {
+                                "type": "number",
+                                "exclusiveMinimum": 0
+                              },
+                              "probability": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 1
+                              },
+                              "selection": {
+                                "type": "object",
+                                "properties": {
+                                  "beatRange": {
+                                    "type": "object",
+                                    "properties": {
+                                      "fromBeats": {
+                                        "type": "number",
+                                        "minimum": 0
+                                      },
+                                      "toBeats": {
+                                        "type": "number",
+                                        "exclusiveMinimum": 0
+                                      }
+                                    },
+                                    "required": [
+                                      "fromBeats",
+                                      "toBeats"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "pitchRange": {
+                                    "type": "object",
+                                    "properties": {
+                                      "min": {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 127
+                                      },
+                                      "max": {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 127
+                                      }
+                                    },
+                                    "required": [
+                                      "min",
+                                      "max"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                },
+                                "additionalProperties": false
+                              }
+                            },
+                            "required": [
+                              "op",
+                              "gridBeats",
+                              "probability"
+                            ],
+                            "additionalProperties": false
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "clip",
+                    "channel",
+                    "write",
+                    "operations"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "schema",
+              "version",
+              "protection",
+              "targets"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "mode": {
+                    "type": "string",
+                    "const": "agent-note-proposal-v0"
+                  },
+                  "source": {
+                    "description": "Complete ghostnote-exact-note-source-v0 state from the experimental symbolic path."
+                  },
+                  "proposal": {
+                    "type": "object",
+                    "properties": {
+                      "schema": {
+                        "type": "string",
+                        "const": "ghostnote-note-patch-v0"
+                      },
+                      "base_sha256": {
+                        "type": "string",
+                        "pattern": "^[0-9a-f]{64}$"
+                      },
+                      "ops": {
+                        "minItems": 1,
+                        "maxItems": 128,
+                        "type": "array",
+                        "items": {
+                          "oneOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "op": {
+                                  "type": "string",
+                                  "const": "transpose"
+                                },
+                                "note_ids": {
+                                  "minItems": 1,
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 128
+                                  }
+                                },
+                                "semitones": {
+                                  "type": "integer",
+                                  "minimum": -9007199254740991,
+                                  "maximum": 9007199254740991
+                                }
+                              },
+                              "required": [
+                                "op",
+                                "note_ids",
+                                "semitones"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "op": {
+                                  "type": "string",
+                                  "const": "delete"
+                                },
+                                "note_ids": {
+                                  "minItems": 1,
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 128
+                                  }
+                                }
+                              },
+                              "required": [
+                                "op",
+                                "note_ids"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "op": {
+                                  "type": "string",
+                                  "const": "move"
+                                },
+                                "note_id": {
+                                  "type": "string",
+                                  "minLength": 1,
+                                  "maxLength": 128
+                                },
+                                "start": {
+                                  "type": "string",
+                                  "minLength": 1
+                                }
+                              },
+                              "required": [
+                                "op",
+                                "note_id",
+                                "start"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "op": {
+                                  "type": "string",
+                                  "const": "insert"
+                                },
+                                "default_policy": {
+                                  "type": "string",
+                                  "const": "track-neutral-v0"
+                                },
+                                "notes": {
+                                  "minItems": 1,
+                                  "maxItems": 2048,
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 128
+                                      },
+                                      "track": {
+                                        "type": "string",
+                                        "pattern": "^t-[1-9][0-9]*$"
+                                      },
+                                      "start": {
+                                        "type": "string",
+                                        "minLength": 1
+                                      },
+                                      "duration": {
+                                        "type": "string",
+                                        "minLength": 1
+                                      },
+                                      "pitch": {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 127
+                                      },
+                                      "velocity": {
+                                        "type": "integer",
+                                        "minimum": 1,
+                                        "maximum": 127
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "track",
+                                      "start",
+                                      "duration",
+                                      "pitch",
+                                      "velocity"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                }
+                              },
+                              "required": [
+                                "op",
+                                "default_policy",
+                                "notes"
+                              ],
+                              "additionalProperties": false
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "schema",
+                      "base_sha256",
+                      "ops"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "invariants": {
+                    "type": "object",
+                    "properties": {
+                      "schema": {
+                        "type": "string",
+                        "const": "ghostnote-note-invariants-v0"
+                      },
+                      "preserveUnmentionedFields": {
+                        "type": "boolean",
+                        "const": true
+                      },
+                      "samePitchOverlap": {
+                        "type": "string",
+                        "const": "refuse"
+                      },
+                      "allowedOperations": {
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "enum": [
+                            "transpose",
+                            "delete",
+                            "move",
+                            "insert"
+                          ]
+                        }
+                      },
+                      "allowedTrackAliases": {
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "pattern": "^t-[1-9][0-9]*$"
+                        }
+                      },
+                      "noteCount": {
+                        "type": "object",
+                        "properties": {
+                          "min": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "max": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "required": [
+                          "min",
+                          "max"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "pitchRange": {
+                        "type": "object",
+                        "properties": {
+                          "min": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 127
+                          },
+                          "max": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 127
+                          }
+                        },
+                        "required": [
+                          "min",
+                          "max"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "beatRange": {
+                        "type": "object",
+                        "properties": {
+                          "from": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "to": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "noteEndsWithin": {
+                            "type": "boolean",
+                            "const": true
+                          }
+                        },
+                        "required": [
+                          "from",
+                          "to",
+                          "noteEndsWithin"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "requiredEventIds": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 128
+                        }
+                      }
+                    },
+                    "required": [
+                      "schema",
+                      "preserveUnmentionedFields",
+                      "samePitchOverlap",
+                      "allowedOperations",
+                      "allowedTrackAliases"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "reference": {
+                    "type": "object",
+                    "properties": {
+                      "projection": {
+                        "description": "Validated reference-context-v0 projection."
+                      },
+                      "source": {
+                        "description": "Complete permitted reference source used by the projection."
+                      }
+                    },
+                    "required": [
+                      "projection",
+                      "source"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "snapshot": {
+                    "description": "D32 snapshot reference from acquire_clip_note_source. Apply refuses before any write unless the reference is current.",
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "action": {
+                    "type": "string",
+                    "const": "preview"
+                  }
+                },
+                "required": [
+                  "mode",
+                  "source",
+                  "proposal",
+                  "invariants",
+                  "action"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "mode": {
+                    "type": "string",
+                    "const": "agent-note-proposal-v0"
+                  },
+                  "source": {
+                    "description": "Complete ghostnote-exact-note-source-v0 state from the experimental symbolic path."
+                  },
+                  "proposal": {
+                    "type": "object",
+                    "properties": {
+                      "schema": {
+                        "type": "string",
+                        "const": "ghostnote-note-patch-v0"
+                      },
+                      "base_sha256": {
+                        "type": "string",
+                        "pattern": "^[0-9a-f]{64}$"
+                      },
+                      "ops": {
+                        "minItems": 1,
+                        "maxItems": 128,
+                        "type": "array",
+                        "items": {
+                          "oneOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "op": {
+                                  "type": "string",
+                                  "const": "transpose"
+                                },
+                                "note_ids": {
+                                  "minItems": 1,
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 128
+                                  }
+                                },
+                                "semitones": {
+                                  "type": "integer",
+                                  "minimum": -9007199254740991,
+                                  "maximum": 9007199254740991
+                                }
+                              },
+                              "required": [
+                                "op",
+                                "note_ids",
+                                "semitones"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "op": {
+                                  "type": "string",
+                                  "const": "delete"
+                                },
+                                "note_ids": {
+                                  "minItems": 1,
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 128
+                                  }
+                                }
+                              },
+                              "required": [
+                                "op",
+                                "note_ids"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "op": {
+                                  "type": "string",
+                                  "const": "move"
+                                },
+                                "note_id": {
+                                  "type": "string",
+                                  "minLength": 1,
+                                  "maxLength": 128
+                                },
+                                "start": {
+                                  "type": "string",
+                                  "minLength": 1
+                                }
+                              },
+                              "required": [
+                                "op",
+                                "note_id",
+                                "start"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "op": {
+                                  "type": "string",
+                                  "const": "insert"
+                                },
+                                "default_policy": {
+                                  "type": "string",
+                                  "const": "track-neutral-v0"
+                                },
+                                "notes": {
+                                  "minItems": 1,
+                                  "maxItems": 2048,
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 128
+                                      },
+                                      "track": {
+                                        "type": "string",
+                                        "pattern": "^t-[1-9][0-9]*$"
+                                      },
+                                      "start": {
+                                        "type": "string",
+                                        "minLength": 1
+                                      },
+                                      "duration": {
+                                        "type": "string",
+                                        "minLength": 1
+                                      },
+                                      "pitch": {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 127
+                                      },
+                                      "velocity": {
+                                        "type": "integer",
+                                        "minimum": 1,
+                                        "maximum": 127
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "track",
+                                      "start",
+                                      "duration",
+                                      "pitch",
+                                      "velocity"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                }
+                              },
+                              "required": [
+                                "op",
+                                "default_policy",
+                                "notes"
+                              ],
+                              "additionalProperties": false
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "schema",
+                      "base_sha256",
+                      "ops"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "invariants": {
+                    "type": "object",
+                    "properties": {
+                      "schema": {
+                        "type": "string",
+                        "const": "ghostnote-note-invariants-v0"
+                      },
+                      "preserveUnmentionedFields": {
+                        "type": "boolean",
+                        "const": true
+                      },
+                      "samePitchOverlap": {
+                        "type": "string",
+                        "const": "refuse"
+                      },
+                      "allowedOperations": {
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "enum": [
+                            "transpose",
+                            "delete",
+                            "move",
+                            "insert"
+                          ]
+                        }
+                      },
+                      "allowedTrackAliases": {
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "pattern": "^t-[1-9][0-9]*$"
+                        }
+                      },
+                      "noteCount": {
+                        "type": "object",
+                        "properties": {
+                          "min": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "max": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "required": [
+                          "min",
+                          "max"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "pitchRange": {
+                        "type": "object",
+                        "properties": {
+                          "min": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 127
+                          },
+                          "max": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 127
+                          }
+                        },
+                        "required": [
+                          "min",
+                          "max"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "beatRange": {
+                        "type": "object",
+                        "properties": {
+                          "from": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "to": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "noteEndsWithin": {
+                            "type": "boolean",
+                            "const": true
+                          }
+                        },
+                        "required": [
+                          "from",
+                          "to",
+                          "noteEndsWithin"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "requiredEventIds": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 128
+                        }
+                      }
+                    },
+                    "required": [
+                      "schema",
+                      "preserveUnmentionedFields",
+                      "samePitchOverlap",
+                      "allowedOperations",
+                      "allowedTrackAliases"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "reference": {
+                    "type": "object",
+                    "properties": {
+                      "projection": {
+                        "description": "Validated reference-context-v0 projection."
+                      },
+                      "source": {
+                        "description": "Complete permitted reference source used by the projection."
+                      }
+                    },
+                    "required": [
+                      "projection",
+                      "source"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "snapshot": {
+                    "description": "D32 snapshot reference from acquire_clip_note_source. Apply refuses before any write unless the reference is current.",
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "action": {
+                    "type": "string",
+                    "const": "apply"
+                  },
+                  "acceptedPreviewSha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                },
+                "required": [
+                  "mode",
+                  "source",
+                  "proposal",
+                  "invariants",
+                  "action",
+                  "acceptedPreviewSha256"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        ]
+      },
+      "resultContract": {
+        "format": "ghostnote-agent-note-proposal-result",
+        "version": 0,
+        "profile": "phase-7b-agent-note-patch-v0",
+        "actions": [
+          "preview",
+          "apply"
+        ],
+        "preview": [
+          "before",
+          "candidate",
+          "operations",
+          "guards",
+          "invariants",
+          "insertionDefaults",
+          "losses",
+          "previewDigest"
+        ],
+        "apply": [
+          "change",
+          "readback",
+          "reversal"
+        ],
+        "snapshotRefusal": [
+          "verdicts"
+        ]
+      }
+    },
+    {
+      "name": "acquire_clip_note_source",
+      "title": "Acquire one complete launcher clip",
+      "description": "Experimental profile phase-7b-agent-note-patch-v0. Read one launcher clip by durable track ID and row. The result uses the 8h3c cold reader: one 1/512-beat capture of the complete clip (D31). It covers all 16 MIDI channels and note fields, and labels itself authoritative. Normalized note timing uses integer 1/512-beat ticks. The call refuses a missing target, unsupported played range, incomplete coverage, project or target drift, and a normalization collision. It returns the guarded exact source accepted by agent-note-proposal-v0 and a D32 snapshot reference. Give the reference to check_clip_snapshots or to an agent-note-proposal-v0 apply.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true
+      },
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "trackId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Durable Bitwig track channel ID."
+          },
+          "row": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991,
+            "description": "Zero-based launcher row."
+          }
+        },
+        "required": [
+          "trackId",
+          "row"
+        ],
+        "additionalProperties": false
+      },
+      "resultContract": {
+        "format": "ghostnote-clip-acquisition",
+        "version": 0,
+        "profile": "phase-7b-agent-note-patch-v0",
+        "authority": "authoritative-complete-scan",
+        "reader": "cold-1/512-d31",
+        "normalizedTiming": {
+          "unit": "beat-tick",
+          "ticksPerBeat": 512
+        },
+        "coverage": "complete-all-16-channels",
+        "guards": [
+          "project",
+          "generation",
+          "revision",
+          "sceneEpoch",
+          "contentEpoch",
+          "sourceSha256"
+        ],
+        "snapshot": "ghostnote-clip-snapshot/1"
+      }
+    },
+    {
+      "name": "check_clip_snapshots",
+      "title": "Check clip snapshot references",
+      "description": "Experimental profile phase-7b-agent-note-patch-v0. Read each referenced launcher clip again and give one verdict for each reference. current: the clip content at the address is unchanged. stale: the content changed; the result has the new snapshot. identity-changed: the scene layout or the launcher slot changed, or the change record is incomplete; resolve the address again. absent: the track or the clip is missing. incomparable: the project changed or the extension reloaded. uncovered: the project is outside the observed window. Only stale returns a snapshot. A current verdict states equal content at the same address. It does not prove the same host clip object.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true
+      },
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "snapshots": {
+            "minItems": 1,
+            "maxItems": 64,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "D32 snapshot references from acquire_clip_note_source or an earlier check."
+          }
+        },
+        "required": [
+          "snapshots"
+        ],
+        "additionalProperties": false
+      },
+      "resultContract": {
+        "format": "ghostnote-clip-snapshot-check",
+        "version": 0,
+        "profile": "phase-7b-agent-note-patch-v0",
+        "verdicts": [
+          "current",
+          "stale",
+          "identity-changed",
+          "absent",
+          "incomparable",
+          "uncovered"
+        ]
+      }
+    }
+  ]
+}

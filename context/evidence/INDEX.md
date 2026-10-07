@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-10-07
+updated: 2026-10-08
 ---
 
 # Evidence index
@@ -16,6 +16,7 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E237 | Musical and clip surface migration: `agent-native-v1` lists 46 tools, retires 19 stable tools (each with a migration row) and the observation workflow (no capture; stored records stay), adds the Launcher clip names, an `occupied` code, occupancy on copy and move, and the `background` route (D39); a launch creates no change record (D19); the 7b profile is retired; live workflow 8 calls 7,864 ms against `stable-v1` 7 calls 13,344 ms; an occupancy read is one `slot.status` (launch +10 percent, not +55) [K] (2026-10-08) | [open](experiments/e237-musical-and-clip-surface-migration.md) |
 | E246 | Edit cost and reader heap guard: new notes leave default fields to the host (a 16-note insert is 1 stage, not 32); a targeted edit reads the clip twice (D38); the note-step wake is off and a mark costs one turn; one read plus a 16-note insert 1,892 ms (E236 7,176), whole-clip velocity 1,772 ms; the reader refuses above 2,097,152 sounding cells (`outside-limit`) and the extension stays alive; 4.2 million cells reach the 3 GiB heap maximum; 16,384 notes whole-clip 48 s [K] (2026-10-07) | [open](experiments/e246-edit-cost-and-reader-heap.md) |
 | E236 | Document edit limb: `edit_launcher_clip` live — sparse patch, desired document, and replacement verify on all 16 channels; targeted and whole-clip routes reverse exactly; refusals write nothing; one read plus a 16-note insert 7,176 ms (E121 16,044); Bitwig reports note pressure as 0 (blind limit); whole-clip 16,384 notes 73 s, and a 65,536-note fixture read exhausts the extension heap [K] (2026-10-07) | [open](experiments/e236-document-edit-limb.md) |
 | E245 | Document read compactness and gain meaning: raw gain `r` shows `60*log10(r)` dB, so portable gain is `r^3` (raw 0 is unity; an inspector -inf note also reads 0); neutral enabled controls and release velocity `100/127` are portable defaults, so a new host note has no `WITH`; live typical read 10,951 bytes (E235: 90,778), FIELDS 10.7% of the equivalent exact JSON (8c corpus 27–35%; tokens 31–45%) [K] (2026-10-07) | [open](experiments/e245-document-read-compactness-and-gain.md) |

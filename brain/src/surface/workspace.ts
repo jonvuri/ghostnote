@@ -42,7 +42,7 @@
 import type {
   Address, BitwigAdapter, ClipAddress, ClipNavigationResult, ContentDelta, DeviceAddress, ObservedDeviceBank, ObservedDrumPadBank, Op, ReadOptions, RevisionMark, Snapshot, TrackAddress, TrackState,
 } from '../contract/index.js';
-import type { Executor, RunOptions } from '../engine/index.js';
+import type { Executor, RunOptions, Take } from '../engine/index.js';
 import type { ReversalPlan, Slice, Stash, StashLog, StashedChangeset } from '../stash/index.js';
 import { ObservationCapture, type ObservationCaptureOptions, type ObservationStore } from '../observation/index.js';
 import { ProductStatus, type StatusSink } from './status.js';
@@ -108,7 +108,14 @@ export interface Workspace {
   contentSince(since: RevisionMark): Promise<ContentDelta>;
   /** Explicit UI focus. This bypasses the project-write and stash path. */
   showClipInEditor(clip: ClipAddress, verifiedAt: RevisionMark): Promise<ClipNavigationResult>;
+  /**
+   * An ephemeral launch (D19, 8h4d). It goes through the executor guards and readback, and it creates no change
+   * record: a launch has no durable effect to put back. Only `clip.launch` is accepted.
+   */
+  launch?(ops: readonly LaunchOp[], options?: RunOptions): Promise<Take>;
 }
+
+export type LaunchOp = Extract<Op, { readonly op: 'clip.launch' }>;
 
 /**
  * Stop a tool at workspace boundaries after cancellation is requested.
@@ -176,6 +183,12 @@ export function cancellableWorkspace(
       before();
       return after(await workspace.showClipInEditor(clip, verifiedAt));
     },
+    ...(workspace.launch === undefined ? {} : {
+      async launch(ops: readonly LaunchOp[], options?: RunOptions) {
+        before();
+        return after(await workspace.launch!(ops, options));
+      },
+    }),
   });
 }
 
@@ -258,6 +271,12 @@ export function workspaceOf(deps: WorkspaceDeps): Workspace {
     ): Promise<ClipNavigationResult> {
       await deps.ready();
       return deps.adapter.showClipInEditor(clip, verifiedAt);
+    },
+
+    async launch(ops: readonly LaunchOp[], options: RunOptions = {}): Promise<Take> {
+      await deps.ready();
+      if (ops.some((op) => op.op !== 'clip.launch')) throw new Error('launch accepts only clip.launch');
+      return deps.executor.run(ops, options);
     },
 
     async apply(ops: readonly Op[], options: RunOptions = {}): Promise<StashedChangeset> {

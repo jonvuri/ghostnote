@@ -67,8 +67,11 @@ const editInput = z.object({
   readback: z.enum(['summary', 'document']).optional().describe(
     'summary (default): the new base, IDs, and discrepancies. document: also the read-back document.',
   ),
+  background: z.boolean().optional().describe(
+    'Return an operation handle at once and run the edit in the background. Use inspect_operation.',
+  ),
 }).strict();
-type EditInput = z.infer<typeof editInput>;
+export type EditInput = Omit<z.infer<typeof editInput>, 'background'>;
 
 const EDIT_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Edit one Launcher clip with a Ghostnote Document 1.0 `
   + 'patch or desired document. Address it by trackId and row, as in read_launcher_clip. A patch or a desired '
@@ -88,16 +91,19 @@ const EDIT_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Edit one Launche
   + '-96..96, recurrence length above 8, timing (no writable grid), play-range, loop (only null or 0..length), '
   + 'clip-colour (a clip property change needs a palette colour). Code range: a note would start or end after '
   + 'the clip length. Code invalid-input: the codec rejected the document (detail has rule and line), or BASE '
-  + 'does not match. Code absent: no clip in the slot. Code outside-limit: the clip is above a reader limit (see '
-  + 'read_launcher_clip).\n'
+  + 'does not match. Code absent: no clip in the slot; add_launcher_clip creates one. Code outside-limit: the clip '
+  + 'is above a reader limit (see read_launcher_clip).\n'
   + 'Result: applied, effects (each with a changeId for revert_change), and readback from an independent read of '
   + 'all 16 channels: the new base (sha256 and ref), the IDs, and discrepancies (empty when every value landed). '
   + 'readback document returns the new document too. dryRun returns the plan and writes nothing. A failed write '
   + 'states its effects and is not retried; read the clip before another edit.\n'
   + 'Overlays in the document are stored with the base ref in this server process. A later read returns them, '
-  + 'stale or removed when their notes changed.';
+  + 'stale or removed when their notes changed.\n'
+  + 'A whole-clip rewrite of thousands of notes can last longer than a client request (16,384 notes: about 48 s). '
+  + 'background true returns an operation handle at once; inspect_operation returns the same result when the '
+  + 'operation is completed.';
 
-function parseProposal(args: EditInput): Document {
+export function parseProposal(args: Pick<EditInput, 'document' | 'format'>): Document {
   const encoding: Encoding = args.format ?? 'fields';
   if (typeof args.document !== 'string' && encoding !== 'json') {
     throw new ToolFailure('invalid-input', 'input', 'A JSON object document needs format json.');
@@ -263,7 +269,7 @@ function planView(plan: EditPlan) {
   };
 }
 
-async function editLauncherClip(workspace: Workspace, args: EditInput): Promise<unknown> {
+export async function editLauncherClip(workspace: Workspace, args: EditInput): Promise<unknown> {
   const started = performance.now();
   const encoding: Encoding = args.format ?? 'fields';
   const target = { trackId: args.trackId, row: args.row };
@@ -473,6 +479,7 @@ export const editLauncherClipTool: ToolSpec = {
   inputSchema: editInput.shape,
   inputValidator: editInput,
   emits: ['clip.update', 'note.remove', 'note.insert', 'note.clear', 'note.write'],
+  background: true,
   resultContract: {
     schema: EDIT_SCHEMA,
     profile: AGENT_NATIVE_TOOL_PROFILE,

@@ -5,7 +5,7 @@ import { Executor } from '../engine/index.js';
 import { validateExactNoteSource, type ExactNoteSource } from '../musical/index.js';
 import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
-import { EXPERIMENTAL_7B_TOOL_PROFILE, callTool } from '../surface/tools.js';
+import { callExperimental7b } from './phase7b-profile.js';
 import { workspaceOf } from '../surface/workspace.js';
 import { check, client as bridge, failureCount } from './lib.js';
 
@@ -67,10 +67,10 @@ try {
     stash: new Stash(),
     observationStore: new FakeObservationStore(),
   });
-  const result = await callTool(workspace, 'acquire_clip_note_source', {
+  const result = await callExperimental7b(workspace, 'acquire_clip_note_source', {
     trackId: selected.channelId,
     row: selectionBefore.slotIndex,
-  }, EXPERIMENTAL_7B_TOOL_PROFILE) as AcquisitionResult;
+  }) as AcquisitionResult;
   validateExactNoteSource(result.exactSource);
   check('E131-A0: the live API 25 build serves the acquisition route',
     hello.host?.apiVersion === 25 && result.format === 'ghostnote-clip-acquisition',

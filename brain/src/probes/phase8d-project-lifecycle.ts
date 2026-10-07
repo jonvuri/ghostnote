@@ -8,7 +8,7 @@ import { BridgeClient } from '../client.js';
 import { Executor } from '../engine/index.js';
 import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
-import { EXPERIMENTAL_7B_TOOL_PROFILE, callTool } from '../surface/tools.js';
+import { callExperimental7b } from './phase7b-profile.js';
 import { workspaceOf } from '../surface/workspace.js';
 import { check, failureCount, note, pollUntil } from './lib.js';
 
@@ -302,10 +302,10 @@ async function comparePopulated(
   check(`${label}: rebuilt content matches the prior normalized cache`,
     stable(exact) === stable(state.expected),
     { rebuilt: exact.length, prior: state.expected.length });
-  const acquisition = await callTool(workspace, 'acquire_clip_note_source', {
+  const acquisition = await callExperimental7b(workspace, 'acquire_clip_note_source', {
     trackId: track.channelId,
     row: state.targetRow,
-  }, EXPERIMENTAL_7B_TOOL_PROFILE) as AcquisitionResult;
+  }) as AcquisitionResult;
   const e131 = acquisition.clip.notes.map(({ eventId: _eventId, ...item }) => item)
     .sort((left, right) => left.channel - right.channel
       || left.startTick - right.startTick || left.pitch - right.pitch);
@@ -411,10 +411,10 @@ async function verify(event: EventName): Promise<void> {
     check('user clip create: cache matches the fresh settled 1/512 scan',
       cached.length === 0 && exact.length === 0,
       { cache: cached.length, authority: exact.length });
-    const acquisition = await callTool(workspace, 'acquire_clip_note_source', {
+    const acquisition = await callExperimental7b(workspace, 'acquire_clip_note_source', {
       trackId: track.channelId,
       row,
-    }, EXPERIMENTAL_7B_TOOL_PROFILE) as AcquisitionResult;
+    }) as AcquisitionResult;
     note(`user clip create: E131 diagnostic ${acquisition.clip.notes.length === 0 ? 'matches' : 'DIFFERS'}; `
       + `${acquisition.timing.totalMs.toFixed(3)} ms`);
     check('a user-created clip mints a new session-local logical identity',

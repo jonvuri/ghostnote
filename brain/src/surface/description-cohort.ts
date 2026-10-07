@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v29';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v30';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -339,13 +339,66 @@ export const DESCRIPTION_COHORT_V27: readonly DescriptionCohortMember[] = [
 
 /**
  * v28 (8h4c) adds the guarded document edit limb. The read wording adds the
- * stored overlays and envelope.
+ * stored overlays and envelope. v29 (8h4c2) keeps this cohort.
  */
-export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+export const DESCRIPTION_COHORT_V29: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V27,
   {
     name: 'edit_launcher_clip', kind: 'write',
     reason: 'Edits one Launcher clip with a guarded Document 1.0 patch or desired document.',
+  },
+] as const;
+
+/** The v29 members that 8h4d retired from agent-native-v1. */
+const RETIRED_IN_V30 = new Set([
+  'inspect_clip_block', 'copy_clip_down', 'set_clip_launch', 'move_clip_block', 'delete_clip', 'read_clip',
+  'write_notes', 'erase_notes', 'add_clip', 'generate_clip_music', 'transform_clip_music', 'show_changed_clip',
+  'record_observation', 'read_observation_record', 'report_observations', 'start_clip_music_operation',
+  'inspect_clip_music_operation', 'cancel_clip_music_operation',
+]);
+
+/**
+ * v30 (8h4d): agent-native-v1 retires the old musical tools and the observation workflow, renames the Launcher
+ * clip tools, moves launch_clip, add_scenes, and delete_scene to the shared result module, and adds the generic
+ * operation handle. edit_launcher_clip gains background.
+ */
+export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+  ...DESCRIPTION_COHORT_V29.filter((member) => !RETIRED_IN_V30.has(member.name)),
+  {
+    name: 'add_launcher_clip', kind: 'write',
+    reason: 'Creates one Launcher clip from a desired Document 1.0 through the edit limb.',
+  },
+  {
+    name: 'copy_launcher_clips', kind: 'write',
+    reason: 'Copies Launcher clips with occupancy guards; replaces copy_clip_down and inspect_clip_block.',
+  },
+  {
+    name: 'move_launcher_clips', kind: 'write',
+    reason: 'Moves a range of Launcher clips with occupancy guards; replaces move_clip_block.',
+  },
+  {
+    name: 'set_launcher_clip_launch_settings', kind: 'write',
+    reason: 'Sets Launcher clip launch settings; replaces set_clip_launch.',
+  },
+  {
+    name: 'set_launcher_clip_properties', kind: 'write',
+    reason: 'Sets Launcher clip properties through the writer of edit_launcher_clip.',
+  },
+  {
+    name: 'delete_launcher_clip', kind: 'destructive',
+    reason: 'Deletes Launcher clips under a separate destructive name.',
+  },
+  {
+    name: 'show_launcher_clip_in_detail_editor', kind: 'focus',
+    reason: 'Opens one Launcher clip in the detail editor; replaces show_changed_clip.',
+  },
+  {
+    name: 'inspect_operation', kind: 'read',
+    reason: 'Reads a background operation of a long edit or add.',
+  },
+  {
+    name: 'cancel_operation', kind: 'write',
+    reason: 'Cancels a background operation before its next project write.',
   },
 ] as const;
 
@@ -526,8 +579,14 @@ export const TOOL_DESCRIPTION_V28_SHA256 =
 
 /**
  * v29 (8h4c2): a new note keeps the host value for a default field, and the
- * read and edit descriptions name the reader sounding-cell limit. Changing
- * this fingerprint requires a new description version.
+ * read and edit descriptions name the reader sounding-cell limit. Frozen in 8h4d.
  */
 export const TOOL_DESCRIPTION_V29_SHA256 =
   'bfaa24dbef2614da391aa9978dcab6eb155441b87ead37111f5fc7179a401740';
+
+/**
+ * v30 (8h4d): the musical and clip surface migration of agent-native-v1. Changing
+ * this fingerprint requires a new description version.
+ */
+export const TOOL_DESCRIPTION_V30_SHA256 =
+  '6a8752b90fed22060450e5021b4343cfe643daf59be9611b9135eb637f2e6ccc';

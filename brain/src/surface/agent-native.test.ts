@@ -22,7 +22,7 @@ import {
   FAILURE_CODES, REFUSAL_CODES, VERDICT_CODES, classifyError,
 } from './agent-native-result.js';
 import {
-  AGENT_NATIVE_TOOL_PROFILE, ANNOTATIONS, STABLE_TOOL_PROFILE, TOOLS, callTool, toolsForProfile,
+  AGENT_NATIVE_RETIRED, AGENT_NATIVE_TOOL_PROFILE, ANNOTATIONS, STABLE_TOOL_PROFILE, TOOLS, callTool, toolsForProfile,
 } from './tools.js';
 import { workspaceOf } from './workspace.js';
 
@@ -162,7 +162,7 @@ async function assertAgrees(fx: Awaited<ReturnType<typeof fixture>>, document: S
 
 // --- profile -------------------------------------------------------------------
 
-test('8h4b profile: stable-v1 registration is byte-equal; agent-native-v1 adds three tools after it', () => {
+test('8h4b profile: stable-v1 registration is byte-equal; agent-native-v1 keeps the unretired stable tools', () => {
   const stable = toolsForProfile(STABLE_TOOL_PROFILE);
   assert.equal(stable, TOOLS);
   const registration = stable.map((spec) => ({
@@ -174,13 +174,26 @@ test('8h4b profile: stable-v1 registration is byte-equal; agent-native-v1 adds t
   assert.equal(createHash('sha256').update(JSON.stringify(registration)).digest('hex'),
     'c16f2a9bb40cc7c8c207505320295d196a1cdbc10703b0bd1cb9ad79ba971d5f', 'stable-v1 registration changed');
   const native = toolsForProfile(AGENT_NATIVE_TOOL_PROFILE);
-  assert.deepEqual(native.slice(0, TOOLS.length), [...TOOLS]);
-  assert.deepEqual(native.slice(TOOLS.length).map((spec) => [spec.name, spec.kind]),
-    [['read_launcher_clip', 'read'], ['check_launcher_clips', 'read'], ['edit_launcher_clip', 'write']]);
-  for (const spec of native.slice(TOOLS.length)) {
+  const kept = TOOLS.filter((spec) => AGENT_NATIVE_RETIRED[spec.name] === undefined);
+  // 8h4d: an unretired stable tool is the same spec, except the three scene tools on the shared result module.
+  const replaced = ['launch_clip', 'add_scenes', 'delete_scene'];
+  assert.deepEqual(native.slice(0, kept.length).map((spec) => spec.name), kept.map((spec) => spec.name));
+  for (const [index, spec] of kept.entries()) {
+    assert.equal(native[index] === spec, !replaced.includes(spec.name), spec.name);
+  }
+  assert.deepEqual(native.slice(kept.length).map((spec) => [spec.name, spec.kind]), [
+    ['read_launcher_clip', 'read'], ['check_launcher_clips', 'read'], ['edit_launcher_clip', 'write'],
+    ['add_launcher_clip', 'write'], ['copy_launcher_clips', 'write'], ['move_launcher_clips', 'write'],
+    ['set_launcher_clip_launch_settings', 'write'], ['set_launcher_clip_properties', 'write'],
+    ['delete_launcher_clip', 'destructive'], ['show_launcher_clip_in_detail_editor', 'focus'],
+    ['inspect_operation', 'read'], ['cancel_operation', 'write'],
+  ]);
+  for (const spec of native.slice(kept.length, kept.length + 3)) {
     assert.deepEqual(spec.emits, spec.kind === 'read' ? []
       : ['clip.update', 'note.remove', 'note.insert', 'note.clear', 'note.write']);
-    assert.doesNotMatch(spec.description, /cursor|observer|stash|take\b|compiler|module/i);
+  }
+  for (const spec of native.filter((item) => !TOOLS.includes(item))) {
+    assert.doesNotMatch(spec.description, /cursor|observer|stash|take\b|compiler|module/i, spec.name);
   }
 });
 

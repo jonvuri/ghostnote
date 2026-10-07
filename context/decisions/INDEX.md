@@ -2,7 +2,7 @@
 title: Decision index
 kind: index
 state: active
-updated: 2026-10-07
+updated: 2026-10-08
 ---
 
 # Decision index
@@ -50,6 +50,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D36 | The live writer replays raw repeat controls **[SETTLED 2026-10-07]** | [open](d36-the-live-writer-replays-raw-repeat-controls.md) |
 | D37 | Note pressure is a blind host limit **[SETTLED 2026-10-07]** | [open](d37-note-pressure-is-a-blind-host-limit.md) |
 | D38 | A shared preflight read is the stash only on the targeted route **[SETTLED 2026-10-07]** | [open](d38-a-shared-preflight-read-is-the-stash-only-on-the-targeted-route.md) |
+| D39 | Long agent-native writes run in the background on their own name **[SETTLED 2026-10-08]** | [open](d39-long-agent-native-writes-run-in-the-background-on-their-own-name.md) |
 
 ## Phase 4 closeout audit
 

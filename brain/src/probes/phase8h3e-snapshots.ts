@@ -29,7 +29,7 @@ import { Executor } from '../engine/executor.js';
 import { NOTE_INVARIANTS_SCHEMA, NOTE_PROPOSAL_SCHEMA, type ExactNoteSource } from '../musical/index.js';
 import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
-import { EXPERIMENTAL_7B_TOOL_PROFILE, callTool } from '../surface/tools.js';
+import { callExperimental7b } from './phase7b-profile.js';
 import { workspaceOf } from '../surface/workspace.js';
 import type { E131Context } from './e131-diagnostic.js';
 import { WireTransport } from './phase8h3c-promotion.js';
@@ -46,7 +46,7 @@ const workspace = workspaceOf({
 const request = async (method: string, params?: Wire): Promise<Wire> =>
   await transport.send({ method, ...(params ? { params } : {}) }) as Wire;
 const tool = async (name: string, args: Wire): Promise<Wire> =>
-  await callTool(workspace, name, args, EXPERIMENTAL_7B_TOOL_PROFILE) as Wire;
+  await callExperimental7b(workspace, name, args) as Wire;
 const pause = async (ms: number): Promise<void> => new Promise(resolve => setTimeout(resolve, ms));
 const load = async (path: string): Promise<Wire> => JSON.parse(await readFile(path, 'utf8'));
 const save = async (path: string, value: unknown): Promise<void> => {

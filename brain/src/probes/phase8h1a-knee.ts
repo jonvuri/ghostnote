@@ -34,7 +34,7 @@ import { BridgeTransport } from '../adapters/live/transport.js';
 import { Executor } from '../engine/index.js';
 import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
-import { EXPERIMENTAL_7B_TOOL_PROFILE, callTool } from '../surface/tools.js';
+import { callExperimental7b } from './phase7b-profile.js';
 import { workspaceOf } from '../surface/workspace.js';
 import { ORIGINAL_CONFIG_SHA256, PROTECTED_PROJECT } from './phase8g5-consumers-lib.js';
 import { intervalCpu, processes } from './phase8g5c-storage-lib.js';
@@ -292,7 +292,7 @@ async function exactRead(target: Fixture): Promise<Wire> {
   const started = performance.now();
   let value: Wire;
   try {
-    value = await callTool(workspace, 'acquire_clip_note_source', { trackId: target.trackId, row: target.row }, EXPERIMENTAL_7B_TOOL_PROFILE) as Wire;
+    value = await callExperimental7b(workspace, 'acquire_clip_note_source', { trackId: target.trackId, row: target.row }) as Wire;
   } catch (error) {
     // E131 refuses some clips, for example above its note limit. A refusal is not an exact read.
     return { wallMs: performance.now() - started, refused: String(error).slice(0, 300), issues: [], noteCount: 0 };

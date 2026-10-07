@@ -25,7 +25,7 @@ import { Executor } from '../engine/index.js';
 import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
 import { NOTE_INVARIANTS_SCHEMA, NOTE_PROPOSAL_SCHEMA, type ExactNoteSource } from '../musical/index.js';
-import { EXPERIMENTAL_7B_TOOL_PROFILE, callTool } from '../surface/tools.js';
+import { callExperimental7b } from './phase7b-profile.js';
 import { workspaceOf } from '../surface/workspace.js';
 import { parseSignature } from './e216-delivery-coherence-lib.js';
 import { CANARY_FIXTURE, CANARY_NAME, CANARY_ROW, CONSUMER_SCHEMA, FALLBACK_WRITE, FIELD_EDIT, FINAL_MARKER, METADATA,
@@ -192,7 +192,7 @@ async function runA(statePath: string, out: string): Promise<void> {
   await save(out, report);
   const source = async (): Promise<{ source: ExactNoteSource; wallMs: number }> => {
     const started = performance.now();
-    const value = await callTool(workspace, 'acquire_clip_note_source', { trackId, row: TARGET_ROW }, EXPERIMENTAL_7B_TOOL_PROFILE);
+    const value = await callExperimental7b(workspace, 'acquire_clip_note_source', { trackId, row: TARGET_ROW });
     return { source: (value as { exactSource: ExactNoteSource }).exactSource, wallMs: performance.now() - started };
   };
   try {
@@ -212,13 +212,13 @@ async function runA(statePath: string, out: string): Promise<void> {
         allowedOperations: ['transpose'], allowedTrackAliases: before.source.aliases.map(alias => alias.alias),
         noteCount: { min: TARGET_FIXTURE.length, max: TARGET_FIXTURE.length } } };
     const started = performance.now();
-    const preview = await callTool(workspace, 'transform_clip_music', { ...input, action: 'preview' }, EXPERIMENTAL_7B_TOOL_PROFILE) as { preview?: { previewDigest?: { value: string } } };
+    const preview = await callExperimental7b(workspace, 'transform_clip_music', { ...input, action: 'preview' }) as { preview?: { previewDigest?: { value: string } } };
     assert(preview.preview?.previewDigest?.value, JSON.stringify(preview).slice(0, 400));
     const accepted = preview.preview.previewDigest.value;
-    const application = await callTool(workspace, 'transform_clip_music', { ...input, action: 'apply', acceptedPreviewSha256: accepted }, EXPERIMENTAL_7B_TOOL_PROFILE) as Wire;
+    const application = await callExperimental7b(workspace, 'transform_clip_music', { ...input, action: 'apply', acceptedPreviewSha256: accepted }) as Wire;
     const patchWallMs = performance.now() - started;
     let stale: Wire;
-    try { stale = await callTool(workspace, 'transform_clip_music', { ...input, action: 'apply', acceptedPreviewSha256: accepted }, EXPERIMENTAL_7B_TOOL_PROFILE) as Wire; }
+    try { stale = await callExperimental7b(workspace, 'transform_clip_music', { ...input, action: 'apply', acceptedPreviewSha256: accepted }) as Wire; }
     catch (error) { stale = { applied: false, error: String(error) }; }
     await wait(300);
     const change: Change = { kind: 'transpose', ...PATCH };

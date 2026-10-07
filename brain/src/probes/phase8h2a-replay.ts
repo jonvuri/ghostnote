@@ -27,7 +27,7 @@ import { BridgeClient } from '../client.js';
 import { Executor } from '../engine/index.js';
 import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
-import { EXPERIMENTAL_7B_TOOL_PROFILE, callTool } from '../surface/tools.js';
+import { callExperimental7b } from './phase7b-profile.js';
 import { workspaceOf } from '../surface/workspace.js';
 import { ORIGINAL_CONFIG_SHA256, PROTECTED_PROJECT } from './phase8g5-consumers-lib.js';
 import { HEAP_STOP_BYTES, exactSourceIssues, fixtureNote, oracleIndexes, parseHistogram, percentile } from './phase8h1a-knee-lib.js';
@@ -460,7 +460,7 @@ async function e131(out: string, statePath: string, name: string, n: number): Pr
     await adapter.hello();
     for (let trial = 0; trial < n; trial++) {
       const started = performance.now();
-      const value = await callTool(workspace, 'acquire_clip_note_source', { trackId: target.trackId, row: 0 }, EXPERIMENTAL_7B_TOOL_PROFILE) as Wire;
+      const value = await callExperimental7b(workspace, 'acquire_clip_note_source', { trackId: target.trackId, row: 0 }) as Wire;
       const wallMs = performance.now() - started, source = value.exactSource as Wire | undefined;
       const events = (source?.eventMap ?? source?.events) as Wire[] | undefined;
       const issues = target.kind === 'spec'

@@ -17,9 +17,7 @@ import {
 } from '../musical/index.js';
 import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
-import {
-  EXPERIMENTAL_7B_TOOL_PROFILE, callTool,
-} from '../surface/tools.js';
+import { EXPERIMENTAL_7B_TOOL_PROFILE, callExperimental7b } from './phase7b-profile.js';
 import { workspaceOf, type Workspace } from '../surface/workspace.js';
 import { client as bridge } from './lib.js';
 
@@ -642,9 +640,9 @@ try {
         reference: { projection: referenceContext, source: referenceSource },
       };
       const previewStarted = performance.now();
-      const preview = await callTool(workspace, 'transform_clip_music', {
+      const preview = await callExperimental7b(workspace, 'transform_clip_music', {
         ...input, action: 'preview',
-      }, EXPERIMENTAL_7B_TOOL_PROFILE) as Record<string, unknown>;
+      }) as Record<string, unknown>;
       const previewToolMs = performance.now() - previewStarted;
       const previewValue = preview['preview'] as {
         readonly previewDigest?: { readonly value?: string };
@@ -683,11 +681,11 @@ try {
         const backing = requireArgument('--backing');
         const listeningInstruction = requireArgument('--listening-instruction');
         const applyStarted = performance.now();
-        const application = await callTool(workspace, 'transform_clip_music', {
+        const application = await callExperimental7b(workspace, 'transform_clip_music', {
           ...input,
           action: 'apply',
           acceptedPreviewSha256,
-        }, EXPERIMENTAL_7B_TOOL_PROFILE) as Record<string, unknown>;
+        }) as Record<string, unknown>;
         const applyToolMs = performance.now() - applyStarted;
         if (application['applied'] !== true) {
           throw new Error(`the experimental apply did not complete: ${JSON.stringify(application)}`);

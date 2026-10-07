@@ -8,9 +8,7 @@ import { BridgeClient } from '../client.js';
 import { Executor } from '../engine/index.js';
 import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
-import {
-  EXPERIMENTAL_7B_TOOL_PROFILE, callTool,
-} from '../surface/tools.js';
+import { callExperimental7b } from './phase7b-profile.js';
 import { workspaceOf } from '../surface/workspace.js';
 import {
   CacheLifecycleRegistry,
@@ -356,9 +354,9 @@ async function compareArm(
   const exact512 = await authority(currentTrack.index, row);
   check(`${label}: normalized cache matches a fresh settled 1/512 scan`,
     stable(cached) === stable(exact512), { cache: cached.length, authority: exact512.length });
-  const acquisition = await callTool(workspace, 'acquire_clip_note_source', {
+  const acquisition = await callExperimental7b(workspace, 'acquire_clip_note_source', {
     trackId: track.channelId, row,
-  }, EXPERIMENTAL_7B_TOOL_PROFILE) as AcquisitionResult;
+  }) as AcquisitionResult;
   const e131 = normalizedE131(acquisition.clip.notes);
   const different = stable(e131) !== stable(exact512);
   note(`${label}: E131 diagnostic ${different ? 'DIFFERS' : 'matches'}; ${acquisition.timing.totalMs.toFixed(3)} ms`);

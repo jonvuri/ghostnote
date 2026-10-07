@@ -6,6 +6,7 @@ import {
   DESCRIPTION_COHORT,
   DESCRIPTION_COHORT_V1,
   DESCRIPTION_COHORT_V25,
+  TOOL_DESCRIPTION_V30_SHA256,
   TOOL_DESCRIPTION_V29_SHA256,
   TOOL_DESCRIPTION_V28_SHA256,
   TOOL_DESCRIPTION_V27_SHA256,
@@ -46,31 +47,13 @@ const EXPECTED_COHORT = [
   'switch_device_alternate',
   'keep_device_alternate',
   'remove_device_alternate',
-  'inspect_clip_block',
-  'copy_clip_down',
-  'set_clip_launch',
   'launch_clip',
-  'move_clip_block',
-  'delete_clip',
   'copy_track',
   'add_scenes',
   'delete_track',
   'list_tracks',
-  'read_clip',
-  'write_notes',
-  'erase_notes',
-  'add_clip',
-  'generate_clip_music',
-  'transform_clip_music',
   'list_changes',
   'revert_change',
-  'show_changed_clip',
-  'record_observation',
-  'read_observation_record',
-  'report_observations',
-  'start_clip_music_operation',
-  'inspect_clip_music_operation',
-  'cancel_clip_music_operation',
   'inspect_devices',
   'inspect_device_parameters',
   'add_device',
@@ -90,10 +73,19 @@ const EXPECTED_COHORT = [
   'read_launcher_clip',
   'check_launcher_clips',
   'edit_launcher_clip',
+  'add_launcher_clip',
+  'copy_launcher_clips',
+  'move_launcher_clips',
+  'set_launcher_clip_launch_settings',
+  'set_launcher_clip_properties',
+  'delete_launcher_clip',
+  'show_launcher_clip_in_detail_editor',
+  'inspect_operation',
+  'cancel_operation',
 ] as const;
 
-test('description v29 names one complete and explicit cohort', () => {
-  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v29');
+test('description v30 names one complete and explicit cohort', () => {
+  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v30');
   assert.deepEqual(DESCRIPTION_COHORT.map((member) => member.name), EXPECTED_COHORT);
   assert.equal(new Set(EXPECTED_COHORT).size, EXPECTED_COHORT.length);
   for (const member of DESCRIPTION_COHORT) {
@@ -112,13 +104,18 @@ test('description v1 stays frozen as its original 15-tool artifact', () => {
   );
 });
 
-test('description v29 matches its public artifact', () => {
+test('description v30 matches its public artifact', () => {
   const artifact = descriptionCohortArtifact(AGENT_NATIVE_TOOLS, ANNOTATIONS);
   assert.equal(
     fingerprintDescriptionCohort(artifact),
-    TOOL_DESCRIPTION_V29_SHA256,
-    'the v29 public wording or schema changed',
+    TOOL_DESCRIPTION_V30_SHA256,
+    'the v30 public wording or schema changed',
   );
+});
+
+test('description v29 keeps its frozen public artifact', () => {
+  assert.equal(TOOL_DESCRIPTION_V29_SHA256,
+    'bfaa24dbef2614da391aa9978dcab6eb155441b87ead37111f5fc7179a401740');
 });
 
 test('description v28 keeps its frozen public artifact', () => {

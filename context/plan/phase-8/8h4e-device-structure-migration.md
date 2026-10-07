@@ -63,7 +63,9 @@ control, then to a fresh `read_devices`.
 Remove `create_device_alternates`, `fill_device_alternate`,
 `switch_device_alternate`, `remove_device_alternate`, and
 `keep_device_alternate` from `agent-native-v1`, with the device-alternate
-observation event. Keep legacy alternate assets only for `stable-v1`.
+observation outcome. 8h4d (E237) already stopped its capture in
+`agent-native-v1`; the outcome still gates the product status. Keep legacy
+alternate assets only for `stable-v1`.
 Document the A/B audition and winner collapse recipes in the tool text.
 
 ## Live acceptance

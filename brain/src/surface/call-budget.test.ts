@@ -127,3 +127,33 @@ test('call budget: edit_launcher_clip on the targeted, whole-clip, and property 
   assert.equal(named.result.readback?.status, 'verified');
   assert.deepEqual(named.counts, { mark: 2, tracks: 1, clipRead: 3, delta: 3, resolve: 1, apply: 1 });
 });
+
+test('call budget: the 8h4d Launcher clip tools', async () => {
+  const fx = await fixture();
+  const desired = ['DOC ghostnote-document 1.0 desired', 'CLIP {"id":"c1","length":"8"}',
+    'COVERAGE {"channels":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],"clip":"c1","fields":"all","from":"0","status":"complete","to":"8"}',
+    'FIELDS id clip at duration pitch velocity channel',
+    ...Array.from({ length: 16 }, (_, c) => `EVENT n${c} c1 ${c}/4 1/4 60 100 ${c + 1}`)].join('\n') + '\n';
+  // Creation: resolve, one occupancy read, one apply. Content: the edit replace path on the new clip; the
+  // fake's new clip loops, so the loop change adds a clip property stage (the executor reads the clip again).
+  const added = await fx.call('add_launcher_clip', { trackId: fx.trackId, row: 2, document: desired });
+  assert.equal(added.result.readback?.status, 'verified', JSON.stringify(added.result).slice(0, 300));
+  assert.deepEqual(added.counts, { mark: 3, tracks: 2, read: 3, resolve: 2, apply: 2, delta: 4, clipRead: 3 });
+  // Copy, properties: one occupancy read; the executor verify read is the readback.
+  const copied = await fx.call('copy_launcher_clips', { copies: [{ source: { trackId: fx.trackId, row: 2 },
+    destination: { trackId: fx.trackId, row: 3 } }] });
+  assert.equal(copied.result.readback?.status, 'verified');
+  assert.deepEqual(copied.counts, { mark: 1, tracks: 1, read: 3, resolve: 1, apply: 1, delta: 1 });
+  const props = await fx.call('set_launcher_clip_properties', { clips: [{ trackId: fx.trackId, row: 0,
+    properties: { name: 'budget' } }] });
+  assert.equal(props.result.readback?.status, 'verified');
+  assert.deepEqual(props.counts, { mark: 1, tracks: 1, read: 3, resolve: 1, apply: 1, delta: 1 });
+  // A launch: no change record; one playback read after the executor.
+  const launched = await fx.call('launch_clip', { trackId: fx.trackId, row: 0, quantization: 'none', mode: 'from_start' });
+  assert.equal(launched.result.applied, true);
+  assert.deepEqual(launched.counts, { mark: 1, tracks: 1, read: 4, apply: 1, delta: 1 });
+  // Show: the second mark is the mark that the adapter and the extension validate.
+  const shown = await fx.call('show_launcher_clip_in_detail_editor', { trackId: fx.trackId, row: 0 });
+  assert.equal(shown.result.failure, undefined);
+  assert.deepEqual(shown.counts, { mark: 2, tracks: 1, read: 1, resolve: 1 });
+});

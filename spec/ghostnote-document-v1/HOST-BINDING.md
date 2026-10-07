@@ -2,7 +2,7 @@
 title: Ghostnote Document 1.0 host binding
 kind: reference
 state: active
-updated: 2026-10-07
+updated: 2026-10-08
 owner: phase-8f3
 ---
 
@@ -266,6 +266,15 @@ claims no event identity: every base note is removed and every desired note is
 new. An empty slot refuses with `absent`; the edit limb does not create clip
 containers.
 
+`add_launcher_clip` (8h4d, [E237](../../context/evidence/experiments/e237-musical-and-clip-surface-migration.md))
+creates one clip from a desired document without BASE. It reads the slot
+occupancy first: an occupied slot refuses with `occupied` before a write,
+because Bitwig would put the new clip on an appended scene past the reachable
+rows (E21). It creates the clip at the CLIP length, then writes the content
+through the edit limb as an unguarded replacement of the new, empty clip. A
+content refusal after the creation returns the creation as an effect. Copy and
+move destinations that hold a clip also refuse with `occupied` (E20b).
+
 Route selection: the E128 targeted route (`note.remove`, then `note.insert`)
 when every changed note changes its cell and no inserted cell is a removed
 cell. Otherwise whole-clip replacement (`note.clear` and `note.write` on all
@@ -299,7 +308,7 @@ Each refusal happens before a host call. Code `unsupported` has
 | `transpose`, `recurrence`, `occurrence` | Outside the host range or label set |
 | `timing` | A written note does not fit a D9 grid (also an untouched raw note on the whole-clip route) |
 | `play-range`, `loop` | Play range changes; a loop other than null or `0..length` |
-| `clip-colour` | A clip property change on a clip whose colour is outside the exact palette |
+| `clip-colour` | A clip property change on a clip whose colour is outside the exact palette. `set_launcher_clip_properties` uses the same writer and also refuses a requested colour outside the palette |
 | `protection` | The executor floor cannot record the prior state exactly |
 
 Code `range` (reason `past-clip-end`): a written note would start or end after

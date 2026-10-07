@@ -24,23 +24,21 @@ test('initialize returns the compact Ghostnote server instructions', async (t) =
   assert.equal(Buffer.byteLength(JSON.stringify(instructions), 'utf8'), 371);
 });
 
-test('the explicit Phase 7b server profile adds only experimental tools', async (t) => {
+test('the retired Phase 7b server profile refuses to start (8h4d)', async () => {
   const env = Object.fromEntries(Object.entries(process.env)
     .filter((entry): entry is [string, string] => entry[1] !== undefined));
   const transport = new StdioClientTransport({
     command: process.execPath,
     args: ['--import', 'tsx', 'src/mcp-server.ts'],
     env: { ...env, GHOSTNOTE_TOOL_PROFILE: 'phase-7b-agent-note-patch-v0' },
+    stderr: 'ignore',
   });
-  const client = new Client({ name: 'ghostnote-experimental-profile-test', version: '1.0.0' });
-  await client.connect(transport);
-  t.after(async () => client.close());
-
-  const listed = await client.listTools();
-  assert.equal(listed.tools.some((item) => item.name === 'acquire_clip_note_source'), true);
+  const client = new Client({ name: 'ghostnote-retired-profile-test', version: '1.0.0' });
+  await assert.rejects(client.connect(transport));
+  await client.close().catch(() => undefined);
 });
 
-test('the agent-native-v1 server profile lists the stable tools and the document tools', async (t) => {
+test('the agent-native-v1 server profile lists the kept stable tools, the document tools, and the clip tools', async (t) => {
   const env = Object.fromEntries(Object.entries(process.env)
     .filter((entry): entry is [string, string] => entry[1] !== undefined));
   const transport = new StdioClientTransport({
@@ -53,7 +51,9 @@ test('the agent-native-v1 server profile lists the stable tools and the document
   t.after(async () => client.close());
 
   const names = (await client.listTools()).tools.map((item) => item.name);
-  assert.equal(names.length, 56);
-  assert.deepEqual(names.slice(-3), ['read_launcher_clip', 'check_launcher_clips', 'edit_launcher_clip']);
-  assert.equal(names.includes('acquire_clip_note_source'), false);
+  assert.equal(names.length, 46);
+  assert.deepEqual(names.slice(-12, -9), ['read_launcher_clip', 'check_launcher_clips', 'edit_launcher_clip']);
+  for (const retired of ['acquire_clip_note_source', 'read_clip', 'write_notes', 'record_observation', 'copy_clip_down']) {
+    assert.equal(names.includes(retired), false, retired);
+  }
 });

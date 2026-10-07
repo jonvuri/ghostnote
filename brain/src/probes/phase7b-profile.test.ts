@@ -11,11 +11,11 @@ import {
 } from '../musical/index.js';
 import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
+import { STABLE_TOOL_PROFILE, TOOLS, TOOL_PROFILES, callTool, toolsForProfile } from '../surface/tools.js';
 import {
-  EXPERIMENTAL_7B_TOOL_PROFILE, STABLE_TOOL_PROFILE, TOOLS,
-  callTool, normalizeExactSourceForAcquisition, toolsForProfile,
-} from './tools.js';
-import { workspaceOf } from './workspace.js';
+  EXPERIMENTAL_7B_TOOLS, EXPERIMENTAL_7B_TOOL_PROFILE, callExperimental7b, normalizeExactSourceForAcquisition,
+} from './phase7b-profile.js';
+import { workspaceOf } from '../surface/workspace.js';
 
 const note = (over: Partial<NoteRecord> = {}): NoteRecord => ({
   startBeats: 0, pitch: 60, velocity: 100, durationBeats: 4, ...over,
@@ -52,25 +52,26 @@ async function fixture() {
   return { fake, workspace, source, trackState, target };
 }
 
-test('7b profile: stable registration stays byte-for-byte scoped while the experimental transform is a union', () => {
+test('7b profile: retired from the selectable profiles (8h4d); the research list keeps its union transform', () => {
   assert.equal(toolsForProfile(STABLE_TOOL_PROFILE), TOOLS);
+  assert.equal((TOOL_PROFILES as readonly string[]).includes(EXPERIMENTAL_7B_TOOL_PROFILE), false);
   const stable = toolsForProfile(STABLE_TOOL_PROFILE)
     .find((item) => item.name === 'transform_clip_music')!;
-  const experimental = toolsForProfile(EXPERIMENTAL_7B_TOOL_PROFILE)
+  const experimental = EXPERIMENTAL_7B_TOOLS
     .find((item) => item.name === 'transform_clip_music')!;
   assert.notEqual(experimental, stable);
-  assert.equal(toolsForProfile(EXPERIMENTAL_7B_TOOL_PROFILE).length, TOOLS.length + 2);
+  assert.equal(EXPERIMENTAL_7B_TOOLS.length, TOOLS.length + 2);
   assert.deepEqual(
-    toolsForProfile(EXPERIMENTAL_7B_TOOL_PROFILE).map((item) => item.name).slice(0, TOOLS.length),
+    EXPERIMENTAL_7B_TOOLS.map((item) => item.name).slice(0, TOOLS.length),
     TOOLS.map((item) => item.name),
   );
   assert.equal(toolsForProfile(STABLE_TOOL_PROFILE)
     .some((item) => item.name === 'acquire_clip_note_source'), false);
-  assert.deepEqual(toolsForProfile(EXPERIMENTAL_7B_TOOL_PROFILE).slice(-2).map((item) => item.name),
+  assert.deepEqual(EXPERIMENTAL_7B_TOOLS.slice(-2).map((item) => item.name),
     ['acquire_clip_note_source', 'check_clip_snapshots']);
   assert.equal(toolsForProfile(STABLE_TOOL_PROFILE)
     .some((item) => item.name === 'check_clip_snapshots'), false);
-  const acquisition = toolsForProfile(EXPERIMENTAL_7B_TOOL_PROFILE)
+  const acquisition = EXPERIMENTAL_7B_TOOLS
     .find((item) => item.name === 'acquire_clip_note_source')!;
   assert.doesNotMatch(acquisition.description, /dual-grid/);
   assert.match(acquisition.description, /8h3c cold reader/);
@@ -80,10 +81,10 @@ test('7b profile: stable registration stays byte-for-byte scoped while the exper
 
 test('7b profile: clip acquisition returns guarded authoritative normalized state', async () => {
   const { workspace, trackState } = await fixture();
-  const result = await callTool(workspace, 'acquire_clip_note_source', {
+  const result = await callExperimental7b(workspace, 'acquire_clip_note_source', {
     trackId: trackState.channelId,
     row: 0,
-  }, EXPERIMENTAL_7B_TOOL_PROFILE) as {
+  }) as {
     authority: string;
     coverage: { complete: boolean; channels: number; notes: number };
     timingPlane: { ticksPerBeat: number };
@@ -105,10 +106,10 @@ test('7b profile: clip acquisition returns guarded authoritative normalized stat
     trackId: trackState.channelId,
     row: 0,
   }, STABLE_TOOL_PROFILE), /no such tool/);
-  await assert.rejects(callTool(workspace, 'acquire_clip_note_source', {
+  await assert.rejects(callExperimental7b(workspace, 'acquire_clip_note_source', {
     trackId: 'missing-track',
     row: 0,
-  }, EXPERIMENTAL_7B_TOOL_PROFILE), /did not resolve to exactly one track/);
+  }), /did not resolve to exactly one track/);
 });
 
 test('7b profile: clip acquisition refuses a normalized event collision', async () => {
@@ -159,9 +160,9 @@ test('7b profile: preview writes nothing and apply needs the accepted exact prev
     },
   };
   const before = workspace.changes.list().length;
-  const preview = await callTool(workspace, 'transform_clip_music', {
+  const preview = await callExperimental7b(workspace, 'transform_clip_music', {
     ...input, action: 'preview',
-  }, EXPERIMENTAL_7B_TOOL_PROFILE) as {
+  }) as {
     applied: boolean;
     preview: { previewDigest: { value: string }; operations: unknown[] };
   };
@@ -173,11 +174,11 @@ test('7b profile: preview writes nothing and apply needs the accepted exact prev
     ...input, action: 'preview',
   }, STABLE_TOOL_PROFILE), /invalid input|Unrecognized key|expected/i);
 
-  const applied = await callTool(workspace, 'transform_clip_music', {
+  const applied = await callExperimental7b(workspace, 'transform_clip_music', {
     ...input,
     action: 'apply',
     acceptedPreviewSha256: preview.preview.previewDigest.value,
-  }, EXPERIMENTAL_7B_TOOL_PROFILE) as {
+  }) as {
     applied: boolean;
     profile: string;
     readback: { discrepancies: unknown[] };
@@ -222,32 +223,32 @@ interface Checked { verdicts: { verdict: string; snapshot: string; newSnapshot?:
 
 test('8h3e: acquisition returns a reference and the check gives current, then stale with the new snapshot', async () => {
   const { fake, workspace, trackState, target } = await fixture();
-  const acquired = await callTool(workspace, 'acquire_clip_note_source', {
+  const acquired = await callExperimental7b(workspace, 'acquire_clip_note_source', {
     trackId: trackState.channelId, row: 0,
-  }, EXPERIMENTAL_7B_TOOL_PROFILE) as Acquired;
+  }) as Acquired;
   assert.match(acquired.snapshot, /^gcs1\./);
-  const current = await callTool(workspace, 'check_clip_snapshots', {
+  const current = await callExperimental7b(workspace, 'check_clip_snapshots', {
     snapshots: [acquired.snapshot],
-  }, EXPERIMENTAL_7B_TOOL_PROFILE) as Checked;
+  }) as Checked;
   assert.deepEqual(current.verdicts.map((item) => item.verdict), ['current']);
   assert.equal(current.verdicts[0]!.newSnapshot, undefined);
 
   await fake.apply({ ops: [{ op: 'note.insert', clip: target, channel: 3, notes: [note({ startBeats: 4, pitch: 72 })] }] });
   await fake.settle('noteWrite');
-  const stale = await callTool(workspace, 'check_clip_snapshots', {
+  const stale = await callExperimental7b(workspace, 'check_clip_snapshots', {
     snapshots: [acquired.snapshot],
-  }, EXPERIMENTAL_7B_TOOL_PROFILE) as Checked;
+  }) as Checked;
   assert.equal(stale.verdicts[0]!.verdict, 'stale');
   const fresh = stale.verdicts[0]!.newSnapshot!;
   assert.deepEqual(fresh.clip.channels[3]!.notes.map((item) => item.pitch), [48, 55, 60, 72]);
-  const again = await callTool(workspace, 'check_clip_snapshots', {
+  const again = await callExperimental7b(workspace, 'check_clip_snapshots', {
     snapshots: [fresh.snapshot],
-  }, EXPERIMENTAL_7B_TOOL_PROFILE) as Checked;
+  }) as Checked;
   assert.equal(again.verdicts[0]!.verdict, 'current');
 
-  await assert.rejects(callTool(workspace, 'check_clip_snapshots', {
+  await assert.rejects(callExperimental7b(workspace, 'check_clip_snapshots', {
     snapshots: ['gcs1.e30'],
-  }, EXPERIMENTAL_7B_TOOL_PROFILE), /invalid clip snapshot reference/);
+  }), /invalid clip snapshot reference/);
   await assert.rejects(callTool(workspace, 'check_clip_snapshots', {
     snapshots: [acquired.snapshot],
   }, STABLE_TOOL_PROFILE), /no such tool/);
@@ -255,23 +256,23 @@ test('8h3e: acquisition returns a reference and the check gives current, then st
 
 test('8h3e: apply against a stale reference refuses before any write; a current one applies', async () => {
   const { fake, workspace, trackState, target } = await fixture();
-  const acquired = await callTool(workspace, 'acquire_clip_note_source', {
+  const acquired = await callExperimental7b(workspace, 'acquire_clip_note_source', {
     trackId: trackState.channelId, row: 0,
-  }, EXPERIMENTAL_7B_TOOL_PROFILE) as Acquired;
+  }) as Acquired;
   const input = transposeInput(acquired.exactSource, 55);
-  const preview = await callTool(workspace, 'transform_clip_music', {
+  const preview = await callExperimental7b(workspace, 'transform_clip_music', {
     ...input, action: 'preview',
-  }, EXPERIMENTAL_7B_TOOL_PROFILE) as { preview: { previewDigest: { value: string } } };
+  }) as { preview: { previewDigest: { value: string } } };
 
   // Another writer changes the clip outside Ghostnote.
   await fake.apply({ ops: [{ op: 'note.insert', clip: target, channel: 0, notes: [note({ startBeats: 6, pitch: 40, durationBeats: 1 })] }] });
   await fake.settle('noteWrite');
   const changes = workspace.changes.list().length;
   const revision = fake.model.revision;
-  const refused = await callTool(workspace, 'transform_clip_music', {
+  const refused = await callExperimental7b(workspace, 'transform_clip_music', {
     ...input, snapshot: acquired.snapshot, action: 'apply',
     acceptedPreviewSha256: preview.preview.previewDigest.value,
-  }, EXPERIMENTAL_7B_TOOL_PROFILE) as { applied: boolean; snapshotRefusal: Checked };
+  }) as { applied: boolean; snapshotRefusal: Checked };
   assert.equal(refused.applied, false);
   assert.equal(refused.snapshotRefusal.verdicts[0]!.verdict, 'stale');
   assert.ok(refused.snapshotRefusal.verdicts[0]!.newSnapshot !== undefined);
@@ -282,28 +283,28 @@ test('8h3e: apply against a stale reference refuses before any write; a current 
   const otherSlot = slot(track(trackState.channelId), scene(1, target.slot.scene.epoch));
   await fake.apply({ ops: [{ op: 'clip.create', slot: otherSlot, lengthBeats: 4 }] });
   await fake.settle('trackStruct');
-  const fresh = await callTool(workspace, 'acquire_clip_note_source', {
+  const fresh = await callExperimental7b(workspace, 'acquire_clip_note_source', {
     trackId: trackState.channelId, row: 0,
-  }, EXPERIMENTAL_7B_TOOL_PROFILE) as Acquired;
-  const other = await callTool(workspace, 'acquire_clip_note_source', {
+  }) as Acquired;
+  const other = await callExperimental7b(workspace, 'acquire_clip_note_source', {
     trackId: trackState.channelId, row: 1,
-  }, EXPERIMENTAL_7B_TOOL_PROFILE) as Acquired;
-  const mismatched = await callTool(workspace, 'transform_clip_music', {
+  }) as Acquired;
+  const mismatched = await callExperimental7b(workspace, 'transform_clip_music', {
     ...input, snapshot: other.snapshot, action: 'apply',
     acceptedPreviewSha256: preview.preview.previewDigest.value,
-  }, EXPERIMENTAL_7B_TOOL_PROFILE);
+  });
   assert.match(JSON.stringify(mismatched), /names a clip that the proposal source does not contain/);
   assert.equal(workspace.changes.list().length, changes);
   const freshInput = { ...transposeInput(fresh.exactSource, 55),
     invariants: { ...transposeInput(fresh.exactSource, 55).invariants, noteCount: { min: 4, max: 4 },
       pitchRange: { min: 40, max: 72 } } };
-  const freshPreview = await callTool(workspace, 'transform_clip_music', {
+  const freshPreview = await callExperimental7b(workspace, 'transform_clip_music', {
     ...freshInput, action: 'preview',
-  }, EXPERIMENTAL_7B_TOOL_PROFILE) as { preview: { previewDigest: { value: string } } };
-  const applied = await callTool(workspace, 'transform_clip_music', {
+  }) as { preview: { previewDigest: { value: string } } };
+  const applied = await callExperimental7b(workspace, 'transform_clip_music', {
     ...freshInput, snapshot: fresh.snapshot, action: 'apply',
     acceptedPreviewSha256: freshPreview.preview.previewDigest.value,
-  }, EXPERIMENTAL_7B_TOOL_PROFILE) as { applied: boolean; readback: { discrepancies: unknown[] } };
+  }) as { applied: boolean; readback: { discrepancies: unknown[] } };
   assert.equal(applied.applied, true);
   assert.deepEqual(applied.readback.discrepancies, []);
   assert.equal(workspace.changes.list().length, changes + 1);
@@ -315,29 +316,29 @@ test('8h4a: a selection from another project makes no experimental tool refuse, 
   control(fake).selectSlot(4, 0);
   fake.model.project = 'fake-project-Q';
   const stale = fake.model.selection;
-  const acquired = await callTool(workspace, 'acquire_clip_note_source', {
+  const acquired = await callExperimental7b(workspace, 'acquire_clip_note_source', {
     trackId: trackState.channelId, row: 0,
-  }, EXPERIMENTAL_7B_TOOL_PROFILE) as Acquired;
-  const checked = await callTool(workspace, 'check_clip_snapshots', {
+  }) as Acquired;
+  const checked = await callExperimental7b(workspace, 'check_clip_snapshots', {
     snapshots: [acquired.snapshot],
-  }, EXPERIMENTAL_7B_TOOL_PROFILE) as Checked;
+  }) as Checked;
   assert.equal(checked.verdicts[0]!.verdict, 'current');
   const input = transposeInput(acquired.exactSource, 55);
-  const preview = await callTool(workspace, 'transform_clip_music', {
+  const preview = await callExperimental7b(workspace, 'transform_clip_music', {
     ...input, action: 'preview',
-  }, EXPERIMENTAL_7B_TOOL_PROFILE) as { preview: { previewDigest: { value: string } } };
-  const applied = await callTool(workspace, 'transform_clip_music', {
+  }) as { preview: { previewDigest: { value: string } } };
+  const applied = await callExperimental7b(workspace, 'transform_clip_music', {
     ...input, snapshot: acquired.snapshot, action: 'apply',
     acceptedPreviewSha256: preview.preview.previewDigest.value,
-  }, EXPERIMENTAL_7B_TOOL_PROFILE) as { applied: boolean };
+  }) as { applied: boolean };
   assert.equal(applied.applied, true);
   assert.equal(fake.model.selectionRestores, 0, 'the stale selection was never restored');
   assert.equal(fake.model.selection, stale);
 
   // A selection in the current project is restored.
   control(fake).selectSlot(0, 0);
-  await callTool(workspace, 'acquire_clip_note_source', {
+  await callExperimental7b(workspace, 'acquire_clip_note_source', {
     trackId: trackState.channelId, row: 0,
-  }, EXPERIMENTAL_7B_TOOL_PROFILE);
+  });
   assert.ok(fake.model.selectionRestores > 0);
 });

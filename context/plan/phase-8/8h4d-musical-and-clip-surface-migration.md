@@ -1,13 +1,13 @@
 ---
 title: Phase 8h4d — Musical and clip surface migration
 kind: plan
-state: planned
-status: Planned. Retires the old musical read and write tools and the observation workflow from agent-native-v1, and applies the Launcher clip names.
-updated: 2026-10-06
+state: complete
+status: Complete (E237, D39). agent-native-v1 retires the old musical tools and the observation workflow, applies the Launcher clip names, and keeps one background route.
+updated: 2026-10-08
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h4c2-edit-cost-and-reader-heap.md
 next: 8h4e0-direct-parameter-display-probe.md
-evidence: E20b, E43, E45, E48, E128, E135; D19, D21, D25
+evidence: E20b, E43, E45, E48, E128, E135, E237; D19, D21, D25, D39
 ---
 
 # Phase 8h4d — Musical and clip surface migration
@@ -95,6 +95,51 @@ durable effect.
   time against the same workflow on `stable-v1`.
 - `stable-v1` is unchanged. Brain check, extension check, wire goldens,
   context check, and `git diff --check` pass. Record the evidence as E237.
+
+## Cost model
+
+Each wire call is one control-surface turn of about 24 ms (ledger).
+
+| Path | Expected | Measured (E237) |
+|---|---|---|
+| `copy_launcher_clips`, one pair | Mark and tracks (1 turn each), occupancy read, one apply with its stash and verify reads, `trackStruct` settle: under `copy_clip_down` (which also writes launch settings twice) | 1,249 ms against 2,897 ms |
+| `add_launcher_clip`, 16 notes | Creation (about 8 turns and a settle), then the targeted edit route (E246: 1,449–1,470 ms): about 2–2.5 s | 2,611 ms |
+| `launch_clip` | Stable path plus a track check and an occupancy read: about 3 turns more | First 1,077 ms (+55 percent: the occupancy read was a `clip.read` capture); after the occupancy read option 764 ms against 696 ms |
+| Workflow (read, copy, edit, launch, show, revert ×2) | Below `stable-v1`: no launch-settings writes, a targeted inverse | 7,864 ms against 13,344 ms |
+| Largest admitted case | Unchanged: a whole-clip edit of 16,384 notes, 48.0 s (E246); `background` keeps it out of one request | Not remeasured; the edit path has the same call count (56–58 calls for the typical insertion) |
+
+Heap: no new resident state. An operation keeps its result in the registry
+until the process ends.
+
+## Decisions taken in implementation
+
+- **Observation scope.** Capture stops in `agent-native-v1` only. `stable-v1`
+  keeps automatic capture and the partial-success result after a storage
+  failure, because it must stay unchanged. The two retained capture sites
+  (`copy_track`, `create_device_alternates`) and the replacements of the three
+  retired sites have tests.
+- **Background route (D39).** `background: true` on `edit_launcher_clip` and
+  `add_launcher_clip`, with `inspect_operation` and `cancel_operation`. No
+  generic start tool: the name is the permission grain.
+- **Copy destinations.** The host copies only to the row below on the same
+  track (`slot.duplicateClip`). `copy_launcher_clips` takes explicit pairs and
+  refuses another destination with `unsupported`/`copy-destination`. Launch
+  settings are a separate call.
+- **Creation.** `add_launcher_clip` creates the clip, then writes the content
+  through the edit limb as an unguarded replacement: two change records. A
+  content refusal after the creation returns the creation as an effect; the
+  tool does not remove it, because a write tool that removes is a named
+  crossing (`WRITE_TOOLS_THAT_MAY_REMOVE`).
+- **Occupancy.** Copy and move return occupancy for every slot that they read
+  (`inspect_clip_block`). `ReadOptions.occupancy` makes an occupancy read one
+  `slot.status`. New failure code `occupied`.
+- **Launch (D19).** `Workspace.launch` runs a launch through the executor
+  without a change record.
+- **Show.** `show_launcher_clip_in_detail_editor` takes a track ID and a row,
+  not a change ID.
+- **7b profile.** Removed from the selectable profiles; its tools moved to the
+  research module `brain/src/probes/phase7b-profile.ts` for the historical
+  probes.
 
 ## Out of scope
 

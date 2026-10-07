@@ -86,6 +86,11 @@ export interface ReadOptions {
    * (`Snapshot.sources`). Each clip is read once for all channels.
    */
   readonly sources?: readonly ClipAddress[];
+  /**
+   * 8h4d: a `clip` or `slot` address reports occupancy only: `exists`, without the clip length. The live
+   * adapter then sends one `slot.status` for it, with no clip capture and no selection borrow.
+   */
+  readonly occupancy?: boolean;
 }
 
 export interface ClipNavigationResult {

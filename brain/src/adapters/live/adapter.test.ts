@@ -4406,3 +4406,14 @@ test('8h4c2 call budget: a mark sends revision.get and track.list together; a sn
   assert.deepEqual(model.frames.map((frame) => frame.method), [WIRE.revisionGet, WIRE.trackList, WIRE.selectionStatus,
     WIRE.slotStatus, WIRE.slotStatus, WIRE.clipRead, WIRE.slotStatus]);
 });
+
+test('8h4d call budget: an occupancy read of an occupied clip is one slot.status, with no capture and no borrow', async () => {
+  const model = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
+  const adapter = new UntimedAdapter({ transport: model });
+  await adapter.hello();
+  model.frames.length = 0;
+  const read = await adapter.read([CLIP(0)], { occupancy: true });
+  assert.deepEqual(model.frames.map((frame) => frame.method), [WIRE.revisionGet, WIRE.trackList, WIRE.slotStatus]);
+  const entry = Object.values(read.entries)[0]!;
+  assert.deepEqual(entry.value, { of: 'clip', exists: true });
+});
