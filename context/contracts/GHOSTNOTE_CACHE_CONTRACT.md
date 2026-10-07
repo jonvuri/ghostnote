@@ -2,7 +2,7 @@
 title: Ghostnote pull snapshot contract
 kind: reference
 state: active
-updated: 2026-10-06
+updated: 2026-10-07
 parent: ../plan/phase-8/8h3e-cache-machinery-trim.md
 evidence: E214-E234; D23, D30-D32
 ---
@@ -147,6 +147,7 @@ one metadata point for each clip; E231: 3.5 s for notes only).
 | Reader width | 4,194,304 steps (8,192 beats at `1/512`) | `clip-beyond-reader-width` refusal |
 | Read deadline | 2 s | The read refuses; no partial notes |
 | Note page | 131,072 notes | Further pages through `clip.readPage` |
+| Sounding cells | 2,097,152 cells at `1/512` (notes times their length in cells; E246) | `sounding-cell-limit` refusal; tools return `outside-limit`. The host builds its steps before the count, so the guard protects only up to the size that the replay survives (at least 4.2 million cells; 8.4 million exhausted the 3 GiB heap, E236) |
 | Event ring | 24 launcher events | The delta is truncated; references refuse |
 | Group track slots | Mirror the child occupancy (E222) | Reads, writes, snapshots, and checks refuse with `group-slot` |
 | Collapsed group | Children listed under `ALL_CHANNELS` (D33); the reader binds only row 0 of a collapsed child (E221, E234) | A read of another row refuses `bound-target-mismatch`; expand the group (8h4a2 tests routes) |

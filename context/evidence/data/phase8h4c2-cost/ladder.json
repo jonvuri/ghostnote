@@ -1,0 +1,658 @@
+{
+ "schema": "phase8h4c2-ladder-v1",
+ "command": "ladder",
+ "entry": {
+  "hello": [
+   "normal-v1",
+   88,
+   "68d457c4c4d1d7b3"
+  ],
+  "mark": {
+   "revision": 0,
+   "generation": "2e49fb92-09b8-4651-8aa7-0972791e67db",
+   "project": "New 2",
+   "projectStatus": "marked",
+   "sceneEpoch": 4,
+   "sceneCount": 8,
+   "contentEpoch": 32818,
+   "contentEvents": [
+    {
+     "seq": 32795,
+     "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+     "trackIndex": 0,
+     "slotIndex": 4,
+     "filled": false
+    },
+    {
+     "seq": 32796,
+     "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+     "trackIndex": 1,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32797,
+     "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+     "trackIndex": 1,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32798,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32799,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32800,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32801,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 3,
+     "filled": false
+    },
+    {
+     "seq": 32802,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 4,
+     "filled": false
+    },
+    {
+     "seq": 32803,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 5,
+     "filled": false
+    },
+    {
+     "seq": 32804,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 6,
+     "filled": false
+    },
+    {
+     "seq": 32805,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 7,
+     "filled": false
+    },
+    {
+     "seq": 32806,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 8,
+     "filled": false
+    },
+    {
+     "seq": 32807,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 9,
+     "filled": false
+    },
+    {
+     "seq": 32808,
+     "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32809,
+     "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+     "trackIndex": 3,
+     "slotIndex": 5,
+     "filled": false
+    },
+    {
+     "seq": 32810,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32811,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32812,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32813,
+     "channelId": "",
+     "trackIndex": 5,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32814,
+     "channelId": "",
+     "trackIndex": 5,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32815,
+     "channelId": "",
+     "trackIndex": 5,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32816,
+     "channelId": "",
+     "trackIndex": 6,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32817,
+     "channelId": "",
+     "trackIndex": 7,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32818,
+     "channelId": "",
+     "trackIndex": 8,
+     "slotIndex": 0,
+     "filled": false
+    }
+   ]
+  },
+  "clipReader": {
+   "revision": "clip-reader-v3",
+   "closeRule": "confirm-before-release-v1",
+   "openRule": "subscribe-before-unpin-v1",
+   "groupRule": "expand-collapsed-parent-v1",
+   "format": "notes-v1",
+   "width": 4194304,
+   "grid": 0.001953125,
+   "page": 131072,
+   "deadlineMs": 2000,
+   "reads": 0,
+   "refusals": 0,
+   "lastRefusal": "",
+   "lateCallbacks": 0,
+   "strayCallbacks": 0,
+   "releaseCallbacks": 0,
+   "releaseEmpty": 0,
+   "releaseSustain": 0,
+   "releaseOn": 0,
+   "subscribed": false,
+   "open": false,
+   "writeGate": {
+    "readOpen": false,
+    "waiting": 0,
+    "leases": 0,
+    "limit": 256,
+    "queuedTotal": 0,
+    "refusedTotal": 0
+   },
+   "groupPoint": {
+    "rule": "expand-collapsed-point-v1",
+    "points": 0,
+    "refusals": 0,
+    "lastRefusal": "",
+    "open": false
+   }
+  },
+  "jvm": {
+   "args": [
+    "-XX:+UseZGC",
+    "-XX:+ZGenerational",
+    "-Xms300m",
+    "-Xmx3g",
+    "-XX:ErrorFile=/Users/jonvuri/Library/Logs/Bitwig/bitwig-studio-jvm-crash.log",
+    "-XX:-MaxFDLimit"
+   ],
+   "heap": {
+    "at": 1791384491628,
+    "usedMb": 388,
+    "capacityMb": 606,
+    "maxMb": 3072
+   }
+  }
+ },
+ "trackId": "da9efff2-0e87-4440-8d59-b40711214347",
+ "notesPerRung": 4096,
+ "rungs": [
+  {
+   "cellsPerNote": 64,
+   "notes": 4096,
+   "lengthBeats": 32,
+   "cells": 262144,
+   "heapBefore": {
+    "at": 1791384494473,
+    "usedMb": 366,
+    "capacityMb": 610,
+    "maxMb": 3072
+   },
+   "read": {
+    "readMs": 194.06862499999988,
+    "notes": 4096,
+    "reply": {
+     "revision": "clip-reader-v3",
+     "closeRule": "confirm-before-release-v1",
+     "openRule": "subscribe-before-unpin-v1",
+     "groupRule": "expand-collapsed-parent-v1",
+     "readId": 1,
+     "priorReleaseCallbacks": 0,
+     "priorReleaseEmpty": 0,
+     "priorReleaseSustain": 0,
+     "priorReleaseOn": 0,
+     "trackIndex": 0,
+     "row": 0,
+     "channelId": "da9efff2-0e87-4440-8d59-b40711214347",
+     "parkMs": 19.386875,
+     "bindMs": 45.1985,
+     "closeMs": 117.569,
+     "totalMs": 158.060042,
+     "parkPolls": 0,
+     "unpinCallbacks": 0,
+     "callbacks": 262144,
+     "onsets": 4096,
+     "batches": 1,
+     "duplicates": 0,
+     "afterClose": 0,
+     "bound": {
+      "channelId": "da9efff2-0e87-4440-8d59-b40711214347",
+      "row": 0,
+      "loopStartBeats": 0,
+      "loopEndBeats": 32,
+      "playStopBeats": 32
+     },
+     "metadata": {
+      "exists": true,
+      "name": "",
+      "playStart": 0,
+      "playStop": 32,
+      "loopEnabled": true,
+      "loopStart": 0,
+      "loopLength": 32,
+      "colorRed": 0.77647066,
+      "colorGreen": 0.62352943,
+      "colorBlue": 0.43137258,
+      "colorAlpha": 1
+     },
+     "launch": {
+      "launchQuantization": "default",
+      "launchMode": "default",
+      "useLoopStartAsQuantizationReference": false
+     },
+     "parents": [
+      {
+       "channelId": "28be6fa8-9282-4a4d-8db3-27c7a6292c01",
+       "isGroup": true,
+       "wasExpanded": false
+      }
+     ],
+     "expandPolls": 0,
+     "selection": {
+      "entry": [
+       0,
+       0,
+       0
+      ],
+      "restored": true,
+      "changed": false
+     },
+     "lateCallbacks": 0,
+     "encodeMs": 3.19,
+     "releaseMs": 139.969333,
+     "releaseCallbacks": 0,
+     "releaseEmpty": 0,
+     "releaseSustain": 0,
+     "releaseOn": 0,
+     "releaseSamples": [],
+     "slotPolls": 0,
+     "slotRestored": true
+    },
+    "samples": [
+     {
+      "at": 1791384494618,
+      "usedMb": 446,
+      "capacityMb": 610,
+      "maxMb": 3072
+     },
+     {
+      "at": 1791384494844,
+      "usedMb": 552,
+      "capacityMb": 610,
+      "maxMb": 3072
+     },
+     {
+      "at": 1791384495084,
+      "usedMb": 552,
+      "capacityMb": 610,
+      "maxMb": 3072
+     },
+     {
+      "at": 1791384495327,
+      "usedMb": 552,
+      "capacityMb": 610,
+      "maxMb": 3072
+     }
+    ],
+    "peakUsedMb": 552
+   },
+   "after": {
+    "pingMs": 39.046415999999226,
+    "pong": true,
+    "heapUsedMb": 552,
+    "heapMaxMb": 3072,
+    "reader": {
+     "reads": 1,
+     "refusals": 0,
+     "lastRefusal": ""
+    }
+   }
+  },
+  {
+   "cellsPerNote": 512,
+   "notes": 4096,
+   "lengthBeats": 256,
+   "cells": 2097152,
+   "heapBefore": {
+    "at": 1791384497856,
+    "usedMb": 786,
+    "capacityMb": 786,
+    "maxMb": 3072
+   },
+   "read": {
+    "readMs": 553.0532910000002,
+    "notes": 4096,
+    "reply": {
+     "revision": "clip-reader-v3",
+     "closeRule": "confirm-before-release-v1",
+     "openRule": "subscribe-before-unpin-v1",
+     "groupRule": "expand-collapsed-parent-v1",
+     "readId": 2,
+     "priorReleaseCallbacks": 262144,
+     "priorReleaseEmpty": 262144,
+     "priorReleaseSustain": 0,
+     "priorReleaseOn": 0,
+     "trackIndex": 0,
+     "row": 0,
+     "channelId": "da9efff2-0e87-4440-8d59-b40711214347",
+     "parkMs": 276.749417,
+     "bindMs": 301.516625,
+     "closeMs": 477.824875,
+     "totalMs": 528.1485,
+     "parkPolls": 7,
+     "unpinCallbacks": 4194304,
+     "callbacks": 2097152,
+     "onsets": 4096,
+     "batches": 1,
+     "duplicates": 0,
+     "afterClose": 0,
+     "bound": {
+      "channelId": "da9efff2-0e87-4440-8d59-b40711214347",
+      "row": 0,
+      "loopStartBeats": 0,
+      "loopEndBeats": 256,
+      "playStopBeats": 256
+     },
+     "metadata": {
+      "exists": true,
+      "name": "",
+      "playStart": 0,
+      "playStop": 256,
+      "loopEnabled": true,
+      "loopStart": 0,
+      "loopLength": 256,
+      "colorRed": 0.77647066,
+      "colorGreen": 0.62352943,
+      "colorBlue": 0.43137258,
+      "colorAlpha": 1
+     },
+     "launch": {
+      "launchQuantization": "default",
+      "launchMode": "default",
+      "useLoopStartAsQuantizationReference": false
+     },
+     "parents": [
+      {
+       "channelId": "28be6fa8-9282-4a4d-8db3-27c7a6292c01",
+       "isGroup": true,
+       "wasExpanded": false
+      }
+     ],
+     "expandPolls": 0,
+     "selection": {
+      "entry": [
+       0,
+       0,
+       0
+      ],
+      "restored": true,
+      "changed": false
+     },
+     "lateCallbacks": 0,
+     "encodeMs": 1.908333,
+     "releaseMs": 504.558583,
+     "releaseCallbacks": 0,
+     "releaseEmpty": 0,
+     "releaseSustain": 0,
+     "releaseOn": 0,
+     "releaseSamples": [],
+     "slotPolls": 0,
+     "slotRestored": true
+    },
+    "samples": [
+     {
+      "at": 1791384497993,
+      "usedMb": 1362,
+      "capacityMb": 1362,
+      "maxMb": 3072
+     },
+     {
+      "at": 1791384498219,
+      "usedMb": 1818,
+      "capacityMb": 1818,
+      "maxMb": 3072
+     },
+     {
+      "at": 1791384498460,
+      "usedMb": 2570,
+      "capacityMb": 2570,
+      "maxMb": 3072
+     },
+     {
+      "at": 1791384498701,
+      "usedMb": 2604,
+      "capacityMb": 2604,
+      "maxMb": 3072
+     },
+     {
+      "at": 1791384498942,
+      "usedMb": 2604,
+      "capacityMb": 2604,
+      "maxMb": 3072
+     }
+    ],
+    "peakUsedMb": 2604
+   },
+   "after": {
+    "pingMs": 32.839624999999614,
+    "pong": true,
+    "heapUsedMb": 2606,
+    "heapMaxMb": 3072,
+    "reader": {
+     "reads": 2,
+     "refusals": 0,
+     "lastRefusal": ""
+    }
+   }
+  },
+  {
+   "cellsPerNote": 1024,
+   "notes": 4096,
+   "lengthBeats": 512,
+   "cells": 4194304,
+   "heapBefore": {
+    "at": 1791384501530,
+    "usedMb": 2874,
+    "capacityMb": 2874,
+    "maxMb": 3072
+   },
+   "read": {
+    "readMs": 801.478083,
+    "notes": 4096,
+    "reply": {
+     "revision": "clip-reader-v3",
+     "closeRule": "confirm-before-release-v1",
+     "openRule": "subscribe-before-unpin-v1",
+     "groupRule": "expand-collapsed-parent-v1",
+     "readId": 3,
+     "priorReleaseCallbacks": 2359296,
+     "priorReleaseEmpty": 2359296,
+     "priorReleaseSustain": 0,
+     "priorReleaseOn": 0,
+     "trackIndex": 0,
+     "row": 0,
+     "channelId": "da9efff2-0e87-4440-8d59-b40711214347",
+     "parkMs": 451.363625,
+     "bindMs": 474.795542,
+     "closeMs": 731.86125,
+     "totalMs": 780.590834,
+     "parkPolls": 11,
+     "unpinCallbacks": 8388608,
+     "callbacks": 4194304,
+     "onsets": 4096,
+     "batches": 1,
+     "duplicates": 0,
+     "afterClose": 0,
+     "bound": {
+      "channelId": "da9efff2-0e87-4440-8d59-b40711214347",
+      "row": 0,
+      "loopStartBeats": 0,
+      "loopEndBeats": 512,
+      "playStopBeats": 512
+     },
+     "metadata": {
+      "exists": true,
+      "name": "",
+      "playStart": 0,
+      "playStop": 512,
+      "loopEnabled": true,
+      "loopStart": 0,
+      "loopLength": 512,
+      "colorRed": 0.77647066,
+      "colorGreen": 0.62352943,
+      "colorBlue": 0.43137258,
+      "colorAlpha": 1
+     },
+     "launch": {
+      "launchQuantization": "default",
+      "launchMode": "default",
+      "useLoopStartAsQuantizationReference": false
+     },
+     "parents": [
+      {
+       "channelId": "28be6fa8-9282-4a4d-8db3-27c7a6292c01",
+       "isGroup": true,
+       "wasExpanded": false
+      }
+     ],
+     "expandPolls": 0,
+     "selection": {
+      "entry": [
+       0,
+       0,
+       0
+      ],
+      "restored": true,
+      "changed": false
+     },
+     "lateCallbacks": 0,
+     "encodeMs": 1.604792,
+     "releaseMs": 756.724334,
+     "releaseCallbacks": 0,
+     "releaseEmpty": 0,
+     "releaseSustain": 0,
+     "releaseOn": 0,
+     "releaseSamples": [],
+     "slotPolls": 0,
+     "slotRestored": true
+    },
+    "samples": [
+     {
+      "at": 1791384501654,
+      "usedMb": 934,
+      "capacityMb": 3066,
+      "maxMb": 3072
+     },
+     {
+      "at": 1791384501877,
+      "usedMb": 2076,
+      "capacityMb": 3066,
+      "maxMb": 3072
+     },
+     {
+      "at": 1791384502117,
+      "usedMb": 3072,
+      "capacityMb": 3072,
+      "maxMb": 3072
+     },
+     {
+      "at": 1791384502356,
+      "usedMb": 2010,
+      "capacityMb": 3072,
+      "maxMb": 3072
+     },
+     {
+      "at": 1791384502595,
+      "usedMb": 2030,
+      "capacityMb": 3072,
+      "maxMb": 3072
+     },
+     {
+      "at": 1791384502826,
+      "usedMb": 1782,
+      "capacityMb": 3072,
+      "maxMb": 3072
+     }
+    ],
+    "peakUsedMb": 3072
+   },
+   "after": {
+    "pingMs": 33.13366700000006,
+    "pong": true,
+    "heapUsedMb": 1782,
+    "heapMaxMb": 3072,
+    "reader": {
+     "reads": 3,
+     "refusals": 0,
+     "lastRefusal": ""
+    }
+   }
+  }
+ ]
+}

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { FakeAdapter } from '../adapters/fake/adapter.js';
+import { FakeAdapter, reportedNote } from '../adapters/fake/adapter.js';
 import { noteKey } from '../adapters/fake/model.js';
 import {
   SlotOccupiedError, noteReadStart, addressKey, clip, notes, scene, slot, track,
@@ -206,7 +206,7 @@ test('P-variations: the complete copy chain settles before any take reconstructi
     [2, 3, 4],
   );
   await workspace.apply(reversal.ops, { clearance: reversal.clearance });
-  assert.deepEqual(await channelNotes(workspace, trackId!, 1, 0), source);
+  assert.deepEqual(await channelNotes(workspace, trackId!, 1, 0), source.map(reportedNote));
   for (const row of [2, 3, 4]) assert.equal(await clipExists(workspace, trackId!, row), false);
 });
 

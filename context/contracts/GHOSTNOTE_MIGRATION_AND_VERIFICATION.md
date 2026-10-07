@@ -2,7 +2,7 @@
 title: Ghostnote Document 1.0 migration and verification
 kind: reference
 state: active
-updated: 2026-10-06
+updated: 2026-10-07
 scope: 8f3 target contract; implementation gates for 8g, 8h, 8i, and 9b
 ---
 
@@ -82,6 +82,10 @@ snapshot. The [pull snapshot contract](GHOSTNOTE_CACHE_CONTRACT.md) has the
 verdict table and limits.
 
 Preparation and preflight share one fresh read only inside one executor call.
+The one exception is the targeted route of `edit_launcher_clip`: its fresh read
+is also the executor stash read, and the executor judges the reference on it
+again ([D38](../decisions/d38-a-shared-preflight-read-is-the-stash-only-on-the-targeted-route.md)).
+The whole-clip route and a clip property change read again.
 Whole-clip replacement still requires exact protection of the captured source.
 Normalized agreement does not prove exact replay of sub-cell source values.
 On a failed read, refuse with a reason. Keep post-write independent evidence.

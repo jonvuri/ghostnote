@@ -78,7 +78,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "9ca259878ac08c2569b9cae72a4babcb53b225796c1b0d8823ab878a61ec5fb4"
+        "value": "0b36a79867209f903db68e67758de0bd1ea94278edfb790293ae19d62f3cdc90"
       },
       "dependencies": [
         "brain/src/bindings/ghostnote-document.ts",
@@ -1130,7 +1130,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "a8c4760b291843fbd3fb1002b6d1444cee04511f89c6626754b499218d2253af"
+        "value": "12fcd2f165a524487bbb7bf491736c912e99576aeee8b965f5d7b724eef50a78"
       },
       "dependencies": [
         "brain/src/document/",
@@ -1158,7 +1158,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "5dce282fca9924a30eba6a5e22ea4b44b7fdd070d4f812798167817a32fc139a"
+        "value": "dde3215816a8711c12320d703754462200c3d7a7bca0035307388b5a4aa739db"
       },
       "dependencies": [
         "spec/ghostnote-document-v1/HOST-BINDING.md",
@@ -1174,7 +1174,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "0b71591e4c67cf585cf7e1d9c3bd6114db309ad4766be149b5ca903cfdf49f1f"
+        "value": "36b228601cd101cc143b9bf4483b9bcc141b05c5f694aba48413753f2ab45c22"
       },
       "dependencies": [
         "spec/ghostnote-document-v1/HOST-BINDING.md",
@@ -1203,7 +1203,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "c1104945e2102b9b795be9c30da6db4e80d1b07782aedea345dd7de735c34436"
+        "value": "53f5571b9c01d55c80a07a8428d0a025f207b1420dcdbf13d319dc8c8c3aeeb5"
       },
       "dependencies": [
         "9b package dependency/notice review"

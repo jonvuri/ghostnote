@@ -73,7 +73,8 @@ migration contract T3 rows; D8, D9, D16, D31; and the 8h4b registry.
 
 - Lower to executor operations through `d9MappedFields` and the existing D9
   encoder. Set every mapped default explicitly for new notes; do not use
-  `track-neutral-v0`.
+  `track-neutral-v0`. (8h4c2, E246: a field whose portable value equals the
+  projection of the host insertion value is now left to the host.)
 - Use the E245 rules (HOST-BINDING "Gain zero" and "Neutral enable flags"):
   raw gain is `hostGain(portable)`, and portable 0 is the silent raw value,
   not setter 0. Compare gain readback by raw value. An untouched note keeps

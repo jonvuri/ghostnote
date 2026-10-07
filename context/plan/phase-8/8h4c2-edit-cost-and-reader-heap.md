@@ -1,13 +1,13 @@
 ---
 title: Phase 8h4c2 — Edit cost and reader heap guard
 kind: plan
-state: planned
-status: Planned. Removes avoidable property stages and duplicate reads from edit_launcher_clip, and adds a sounding-cell guard to the cold reader.
+state: done
+status: Complete (E246, D38). One read and a 16-note insertion take 1,892 ms; the reader refuses above 2,097,152 sounding cells. The read is shared only on the targeted route (D38); the round-trip trims were added with the operator's approval.
 updated: 2026-10-07
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h4c-document-edit-limb.md
 next: 8h4d-musical-and-clip-surface-migration.md
-evidence: E15, E121, E225, E227, E229, E230, E236, E245; D16, D31, D32, D35, D36, D37
+evidence: E15, E121, E225, E227, E229, E230, E236, E245, E246; D16, D31, D32, D35, D36, D37, D38
 ---
 
 # Phase 8h4c2 — Edit cost and reader heap guard

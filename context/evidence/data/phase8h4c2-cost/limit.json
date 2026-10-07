@@ -1,0 +1,553 @@
+{
+ "schema": "phase8h4c2-ladder-v1",
+ "command": "limit",
+ "entry": {
+  "hello": [
+   "normal-v1",
+   88,
+   "68d457c4c4d1d7b3"
+  ],
+  "mark": {
+   "revision": 0,
+   "generation": "9b62b2ec-5184-494a-9e50-146268677d83",
+   "project": "New 2",
+   "projectStatus": "marked",
+   "sceneEpoch": 2,
+   "sceneCount": 8,
+   "contentEpoch": 32768,
+   "contentEvents": [
+    {
+     "seq": 32745,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 104,
+     "filled": false
+    },
+    {
+     "seq": 32746,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 105,
+     "filled": false
+    },
+    {
+     "seq": 32747,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 106,
+     "filled": false
+    },
+    {
+     "seq": 32748,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 107,
+     "filled": false
+    },
+    {
+     "seq": 32749,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 108,
+     "filled": false
+    },
+    {
+     "seq": 32750,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 109,
+     "filled": false
+    },
+    {
+     "seq": 32751,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 110,
+     "filled": false
+    },
+    {
+     "seq": 32752,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 111,
+     "filled": false
+    },
+    {
+     "seq": 32753,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 112,
+     "filled": false
+    },
+    {
+     "seq": 32754,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 113,
+     "filled": false
+    },
+    {
+     "seq": 32755,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 114,
+     "filled": false
+    },
+    {
+     "seq": 32756,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 115,
+     "filled": false
+    },
+    {
+     "seq": 32757,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 116,
+     "filled": false
+    },
+    {
+     "seq": 32758,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 117,
+     "filled": false
+    },
+    {
+     "seq": 32759,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 118,
+     "filled": false
+    },
+    {
+     "seq": 32760,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 119,
+     "filled": false
+    },
+    {
+     "seq": 32761,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 120,
+     "filled": false
+    },
+    {
+     "seq": 32762,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 121,
+     "filled": false
+    },
+    {
+     "seq": 32763,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 122,
+     "filled": false
+    },
+    {
+     "seq": 32764,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 123,
+     "filled": false
+    },
+    {
+     "seq": 32765,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 124,
+     "filled": false
+    },
+    {
+     "seq": 32766,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 125,
+     "filled": false
+    },
+    {
+     "seq": 32767,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 126,
+     "filled": false
+    },
+    {
+     "seq": 32768,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 127,
+     "filled": false
+    }
+   ]
+  },
+  "clipReader": {
+   "revision": "clip-reader-v3",
+   "closeRule": "confirm-before-release-v1",
+   "openRule": "subscribe-before-unpin-v1",
+   "groupRule": "expand-collapsed-parent-v1",
+   "limitRule": "sounding-cell-limit-v1",
+   "format": "notes-v1",
+   "width": 4194304,
+   "grid": 0.001953125,
+   "page": 131072,
+   "deadlineMs": 2000,
+   "soundingCells": 2097152,
+   "reads": 0,
+   "refusals": 0,
+   "lastRefusal": "",
+   "lateCallbacks": 0,
+   "strayCallbacks": 0,
+   "releaseCallbacks": 0,
+   "releaseEmpty": 0,
+   "releaseSustain": 0,
+   "releaseOn": 0,
+   "subscribed": false,
+   "open": false,
+   "writeGate": {
+    "readOpen": false,
+    "waiting": 0,
+    "leases": 0,
+    "limit": 256,
+    "queuedTotal": 0,
+    "refusedTotal": 0
+   },
+   "groupPoint": {
+    "rule": "expand-collapsed-point-v1",
+    "points": 0,
+    "refusals": 0,
+    "lastRefusal": "",
+    "open": false
+   }
+  },
+  "jvm": {
+   "args": [
+    "-XX:+UseZGC",
+    "-XX:+ZGenerational",
+    "-Xms300m",
+    "-Xmx3g",
+    "-XX:ErrorFile=/Users/jonvuri/Library/Logs/Bitwig/bitwig-studio-jvm-crash.log",
+    "-XX:-MaxFDLimit"
+   ],
+   "heap": {
+    "at": 1791384566256,
+    "usedMb": 396,
+    "capacityMb": 3072,
+    "maxMb": 3072
+   }
+  }
+ },
+ "trackId": "53ba840c-b3be-4707-be54-57e550eff80d",
+ "limit": 2097152,
+ "rungs": [
+  {
+   "cellsPerNote": 128,
+   "notes": 16384,
+   "lengthBeats": 256,
+   "cells": 2097152,
+   "heapBefore": {
+    "at": 1791384568960,
+    "usedMb": 610,
+    "capacityMb": 3072,
+    "maxMb": 3072
+   },
+   "read": {
+    "readMs": 537.9948329999997,
+    "notes": 16384,
+    "reply": {
+     "revision": "clip-reader-v3",
+     "closeRule": "confirm-before-release-v1",
+     "openRule": "subscribe-before-unpin-v1",
+     "groupRule": "expand-collapsed-parent-v1",
+     "limitRule": "sounding-cell-limit-v1",
+     "readId": 1,
+     "priorReleaseCallbacks": 0,
+     "priorReleaseEmpty": 0,
+     "priorReleaseSustain": 0,
+     "priorReleaseOn": 0,
+     "trackIndex": 0,
+     "row": 0,
+     "channelId": "53ba840c-b3be-4707-be54-57e550eff80d",
+     "parkMs": 289.443917,
+     "bindMs": 316.008792,
+     "closeMs": 441.388959,
+     "totalMs": 480.138584,
+     "parkPolls": 8,
+     "unpinCallbacks": 4194304,
+     "callbacks": 2097152,
+     "onsets": 16384,
+     "batches": 1,
+     "duplicates": 0,
+     "afterClose": 0,
+     "sounding": 2097152,
+     "heapBindMb": 1348,
+     "heapCloseMb": 2070,
+     "heapMaxMb": 3072,
+     "bound": {
+      "channelId": "53ba840c-b3be-4707-be54-57e550eff80d",
+      "row": 0,
+      "loopStartBeats": 0,
+      "loopEndBeats": 256,
+      "playStopBeats": 256
+     },
+     "metadata": {
+      "exists": true,
+      "name": "",
+      "playStart": 0,
+      "playStop": 256,
+      "loopEnabled": true,
+      "loopStart": 0,
+      "loopLength": 256,
+      "colorRed": 0.34117648,
+      "colorGreen": 0.3803922,
+      "colorBlue": 0.77647066,
+      "colorAlpha": 1
+     },
+     "launch": {
+      "launchQuantization": "default",
+      "launchMode": "default",
+      "useLoopStartAsQuantizationReference": false
+     },
+     "parents": [
+      {
+       "channelId": "28be6fa8-9282-4a4d-8db3-27c7a6292c01",
+       "isGroup": true,
+       "wasExpanded": false
+      }
+     ],
+     "expandPolls": 0,
+     "selection": {
+      "entry": [
+       0,
+       0,
+       0
+      ],
+      "restored": true,
+      "changed": false
+     },
+     "lateCallbacks": 0,
+     "encodeMs": 7.190042,
+     "releaseMs": 467.372292,
+     "releaseCallbacks": 0,
+     "releaseEmpty": 0,
+     "releaseSustain": 0,
+     "releaseOn": 0,
+     "releaseSamples": [],
+     "slotPolls": 0,
+     "slotRestored": true
+    },
+    "samples": [
+     {
+      "at": 1791384569098,
+      "usedMb": 1214,
+      "capacityMb": 3072,
+      "maxMb": 3072
+     },
+     {
+      "at": 1791384569326,
+      "usedMb": 1348,
+      "capacityMb": 3072,
+      "maxMb": 3072
+     },
+     {
+      "at": 1791384569564,
+      "usedMb": 2198,
+      "capacityMb": 3072,
+      "maxMb": 3072
+     },
+     {
+      "at": 1791384569805,
+      "usedMb": 2222,
+      "capacityMb": 3072,
+      "maxMb": 3072
+     },
+     {
+      "at": 1791384570045,
+      "usedMb": 2222,
+      "capacityMb": 3072,
+      "maxMb": 3072
+     }
+    ],
+    "peakUsedMb": 2222
+   },
+   "after": {
+    "pingMs": 31.547417000000678,
+    "pong": true,
+    "heapUsedMb": 2222,
+    "heapMaxMb": 3072,
+    "reader": {
+     "reads": 1,
+     "refusals": 0,
+     "lastRefusal": ""
+    }
+   }
+  },
+  {
+   "cellsPerNote": 128,
+   "notes": 16400,
+   "lengthBeats": 256.25,
+   "cells": 2099200,
+   "heapBefore": {
+    "at": 1791384572587,
+    "usedMb": 1200,
+    "capacityMb": 3072,
+    "maxMb": 3072
+   },
+   "read": {
+    "readMs": 498.3234170000005,
+    "notes": 0,
+    "reply": {
+     "revision": "clip-reader-v3",
+     "closeRule": "confirm-before-release-v1",
+     "openRule": "subscribe-before-unpin-v1",
+     "groupRule": "expand-collapsed-parent-v1",
+     "limitRule": "sounding-cell-limit-v1",
+     "readId": 2,
+     "priorReleaseCallbacks": 2097152,
+     "priorReleaseEmpty": 2097152,
+     "priorReleaseSustain": 0,
+     "priorReleaseOn": 0,
+     "trackIndex": 0,
+     "row": 0,
+     "channelId": "53ba840c-b3be-4707-be54-57e550eff80d",
+     "parkMs": 268.824667,
+     "bindMs": 275.179625,
+     "closeMs": 425.172042,
+     "totalMs": 474.413709,
+     "parkPolls": 7,
+     "unpinCallbacks": 4198400,
+     "callbacks": 2099200,
+     "onsets": 16384,
+     "batches": 1,
+     "duplicates": 0,
+     "afterClose": 0,
+     "sounding": 2099200,
+     "heapBindMb": 2036,
+     "heapCloseMb": 2794,
+     "heapMaxMb": 3072,
+     "bound": {
+      "channelId": "53ba840c-b3be-4707-be54-57e550eff80d",
+      "row": 0,
+      "loopStartBeats": 0,
+      "loopEndBeats": 256,
+      "playStopBeats": 256
+     },
+     "metadata": {
+      "exists": true,
+      "name": "",
+      "playStart": 0,
+      "playStop": 256,
+      "loopEnabled": true,
+      "loopStart": 0,
+      "loopLength": 256,
+      "colorRed": 0.34117648,
+      "colorGreen": 0.3803922,
+      "colorBlue": 0.77647066,
+      "colorAlpha": 1
+     },
+     "launch": {
+      "launchQuantization": "default",
+      "launchMode": "default",
+      "useLoopStartAsQuantizationReference": false
+     },
+     "parents": [
+      {
+       "channelId": "28be6fa8-9282-4a4d-8db3-27c7a6292c01",
+       "isGroup": true,
+       "wasExpanded": false
+      }
+     ],
+     "expandPolls": 0,
+     "selection": {
+      "entry": [
+       0,
+       0,
+       0
+      ],
+      "restored": true,
+      "changed": false
+     },
+     "lateCallbacks": 0,
+     "refused": "sounding-cell-limit",
+     "message": "the clip has more than 2097152 sounding 1/512-beat cells; 2099200 arrived before the close",
+     "releaseMs": 449.644834,
+     "releaseCallbacks": 0,
+     "releaseEmpty": 0,
+     "releaseSustain": 0,
+     "releaseOn": 0,
+     "releaseSamples": [],
+     "slotPolls": 0,
+     "slotRestored": true
+    },
+    "samples": [
+     {
+      "at": 1791384572701,
+      "usedMb": 1682,
+      "capacityMb": 3072,
+      "maxMb": 3072
+     },
+     {
+      "at": 1791384572929,
+      "usedMb": 2306,
+      "capacityMb": 3072,
+      "maxMb": 3072
+     },
+     {
+      "at": 1791384573165,
+      "usedMb": 1358,
+      "capacityMb": 3072,
+      "maxMb": 3072
+     },
+     {
+      "at": 1791384573406,
+      "usedMb": 1366,
+      "capacityMb": 3072,
+      "maxMb": 3072
+     },
+     {
+      "at": 1791384573647,
+      "usedMb": 1366,
+      "capacityMb": 3072,
+      "maxMb": 3072
+     }
+    ],
+    "peakUsedMb": 2306
+   },
+   "after": {
+    "pingMs": 43.76679200000035,
+    "pong": true,
+    "heapUsedMb": 1366,
+    "heapMaxMb": 3072,
+    "reader": {
+     "reads": 2,
+     "refusals": 1,
+     "lastRefusal": "sounding-cell-limit"
+    }
+   }
+  }
+ ],
+ "tool": {
+  "failure": {
+   "code": "outside-limit",
+   "stage": "acquire",
+   "effects": []
+  },
+  "message": "The clip has more sounding cells than the reader limit (2097152 cells: notes times their length in 1/512-beat cells). Nothing was read. Shorten or split the clip in Bitwig.",
+  "alive": {
+   "pingMs": 101.26408300000003,
+   "pong": true,
+   "heapUsedMb": 1368,
+   "heapMaxMb": 3072,
+   "reader": {
+    "reads": 3,
+    "refusals": 2,
+    "lastRefusal": "sounding-cell-limit"
+   }
+  }
+ }
+}

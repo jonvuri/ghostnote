@@ -8,6 +8,18 @@
  * with the D32 reference and the revision guard, and read back independently.
  * The readback binds the new base ref with the IDs of the confirmed candidate.
  *
+ * Reads (8h4c2): the executor verify read covers the complete clip and is the
+ * readback. It is a new `clip.read` capture after the write, not the writer
+ * echo (D15). On the targeted route, the fresh read is also the executor stash
+ * read, and the executor checks the reference on it again. A note edit by a
+ * person changes neither the revision nor the launcher events, so the shared
+ * read cannot see an edit made after it. The targeted route writes only the
+ * named cells, and the readback compares every other note, so such an edit
+ * stays and the readback reports it. The whole-clip route and a clip property
+ * change would overwrite such an edit, so the executor reads the clip again
+ * before the write. A targeted edit reads the clip twice; any other edit three
+ * times.
+ *
  * Every refusal before the write has no effect. A write that applied returns
  * its change ID; a failed readback returns the effect and does not retry.
  */
@@ -65,7 +77,8 @@ const EDIT_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Edit one Launche
   + 'defaults. With intent replace, a desired document without BASE replaces the whole clip; it keeps no event IDs.\n'
   + 'Each call reads the clip again and checks the base ref. A change since the read refuses with no write; '
   + 'code stale returns the new document and base in detail. The edit keeps every unnamed note and every host '
-  + 'value that the document does not show. A new note gets every field explicitly. A changed note keeps its ID, '
+  + 'value that the document does not show. A new note gets the stated values; a field at its default keeps the host '
+  + 'value of a new note, which reads back as that default. A changed note keeps its ID, '
   + 'also when its pitch, channel, or onset changes. When the edit only adds, removes, or moves notes to new '
   + 'cells, the write touches only those cells; any other note change rewrites the whole clip.\n'
   + 'Bitwig does not report note pressure, so a whole-clip rewrite loses pressure that a person set in Bitwig; '
@@ -75,7 +88,8 @@ const EDIT_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Edit one Launche
   + '-96..96, recurrence length above 8, timing (no writable grid), play-range, loop (only null or 0..length), '
   + 'clip-colour (a clip property change needs a palette colour). Code range: a note would start or end after '
   + 'the clip length. Code invalid-input: the codec rejected the document (detail has rule and line), or BASE '
-  + 'does not match. Code absent: no clip in the slot.\n'
+  + 'does not match. Code absent: no clip in the slot. Code outside-limit: the clip is above a reader limit (see '
+  + 'read_launcher_clip).\n'
   + 'Result: applied, effects (each with a changeId for revert_change), and readback from an independent read of '
   + 'all 16 channels: the new base (sha256 and ref), the IDs, and discrepancies (empty when every value landed). '
   + 'readback document returns the new document too. dryRun returns the plan and writes nothing. A failed write '
@@ -110,14 +124,19 @@ interface Fresh {
   readonly after: RevisionMark;
 }
 
-/** One fresh read of the clip, and the content delta since `since` (the base mark, or the read mark). */
-async function readFresh(workspace: Workspace, trackId: string, row: number, since?: RevisionMark): Promise<Fresh> {
-  const now = await workspace.mark();
+/**
+ * One fresh read of the clip, and the content delta since `since` (the base mark, or the read mark). `now` is a
+ * mark that the caller just took; the read checks its scene epoch again. The delta mark is the mark after the read.
+ */
+async function readFresh(
+  workspace: Workspace, trackId: string, row: number, since?: RevisionMark, now?: RevisionMark,
+): Promise<Fresh> {
+  now ??= await workspace.mark();
   const clip = snapshotClip({ channelId: trackId, row }, now.sceneEpoch);
   const read = await guarded(workspace, () => workspace.read(
     [trackAt(trackId), ...snapshotAddresses(clip)], { sources: [clip] }));
   const delta = await workspace.contentSince(since ?? read.at);
-  const after = await workspace.mark();
+  const after = delta.mark ?? await workspace.mark();
   return { read, delta, after };
 }
 
@@ -158,6 +177,18 @@ function resolveBase(registry: IdentityRegistry, proposal: Document, trackId: st
       detail: { refTarget: { trackId: entry.snapshot.channelId, row: entry.snapshot.row } } });
   }
   return entry;
+}
+
+/** A new read of the complete clip. */
+async function readClip(workspace: Workspace, trackId: string, row: number): Promise<ClipSnapshot> {
+  const { read } = await readFresh(workspace, trackId, row);
+  return clipSnapshotFrom(read, snapshotClip({ channelId: trackId, row }, read.at.sceneEpoch));
+}
+
+/** The complete clip from the executor verify read, when that read captured its source. */
+function verifiedSnapshot(verify: Snapshot, trackId: string, row: number): ClipSnapshot | undefined {
+  const clip = snapshotClip({ channelId: trackId, row }, verify.at.sceneEpoch);
+  return verify.sources?.[addressKey(clip)] === undefined ? undefined : clipSnapshotFrom(verify, clip);
 }
 
 function planFailure(error: unknown): unknown {
@@ -271,7 +302,7 @@ async function editLauncherClip(workspace: Workspace, args: EditInput): Promise<
 
     stage = 'acquire';
     const readStarted = performance.now();
-    const fresh = await readFresh(workspace, args.trackId, args.row, guardedEntry?.snapshot.mark);
+    const fresh = await readFresh(workspace, args.trackId, args.row, guardedEntry?.snapshot.mark, now);
     timing.readMs = performance.now() - readStarted;
     let entry: BaseEntry;
     let snapshot: ClipSnapshot;
@@ -352,11 +383,16 @@ async function editLauncherClip(workspace: Workspace, args: EditInput): Promise<
 
     stage = 'write';
     let changeId: string | undefined;
+    let verified: ClipSnapshot | undefined;
     if (plan.ops.length > 0) {
       const writeStarted = performance.now();
       let change;
       try {
-        change = await workspace.apply(plan.ops, { ifRevision: fresh.read.at.revision, ifSnapshot: [entry.snapshot] });
+        change = await workspace.apply(plan.ops, {
+          ifRevision: fresh.read.at.revision, ifSnapshot: [entry.snapshot], verifySources: [plan.clip],
+          ...(plan.route === 'targeted' && !plan.ops.some((op) => op.op === 'clip.update')
+            ? { snapshotPreflight: fresh.read } : {}),
+        });
       } catch (error) {
         throw writeFailure(error);
       }
@@ -366,6 +402,7 @@ async function editLauncherClip(workspace: Workspace, args: EditInput): Promise<
           + 'written.', { retryWhen: 'after a new read' });
       }
       changeId = change.take.id;
+      verified = verifiedSnapshot(change.take.verify, args.trackId, args.row);
       effects = [{
         changeId, target, summary: summaryText(plan), fidelity: change.take.fidelity,
       }];
@@ -376,9 +413,7 @@ async function editLauncherClip(workspace: Workspace, args: EditInput): Promise<
     const warnings: Warning[] = plan.route === 'whole-clip' ? [PRESSURE_WARNING] : [];
     let readback: Record<string, unknown>;
     try {
-      const observed = await readFresh(workspace, args.trackId, args.row);
-      const clip = snapshotClip({ channelId: args.trackId, row: args.row }, observed.read.at.sceneEpoch);
-      const after = clipSnapshotFrom(observed.read, clip);
+      const after = verified ?? await readClip(workspace, args.trackId, args.row);
       const discrepancies = compareReadback(plan, after);
       let projection: LauncherClipProjection | undefined;
       const acquired = registry.recordWrite({

@@ -325,6 +325,59 @@ test('S-executor: a stale reference refuses before any host mutation; a current 
   assert.ok(entry?.value.of === 'notes' && entry.value.notes.some((item) => item.pitch === 91));
 });
 
+test('S-executor: a supplied preflight read replaces the stash read; the verify read covers the whole clip', async () => {
+  class Counting extends FakeAdapter {
+    sourced = 0;
+    override async read(...args: Parameters<FakeAdapter['read']>) {
+      if (args[1]?.sources !== undefined) this.sourced += 1;
+      return super.read(...args);
+    }
+  }
+  const fake = new Counting({ tracks: ['gn-A'], scenes: 4 });
+  const id = fake.model.visibleTracks()[0]!.channelId;
+  const target = clip(slot(track(id), scene(0, 1)));
+  await fake.apply({ ops: [{ op: 'clip.create', slot: target.slot, lengthBeats: 4 }] });
+  await fake.settle('trackStruct');
+  const port: SnapshotPort = { mark: () => fake.revision(), read: (a, o) => fake.read(a, o), contentSince: (m) => fake.contentSince(m) };
+  const executor = new Executor(fake, { newId: () => 'take', now: () => 0 });
+  const write = [{ op: 'note.insert' as const, clip: target, notes: [note({ pitch: 91, startBeats: 2 })] }];
+
+  // A Ghostnote write after the preflight read: the revision guard rejects the batch whole.
+  const stale = await acquireClipSnapshot(port, id, 0);
+  assert.equal(stale.found, true);
+  await fake.apply({ ops: [{ op: 'note.insert', clip: target, notes: [note({ pitch: 90 })] }] });
+  await fake.settle('noteWrite');
+  const revision = fake.model.revision;
+  const rejected = await executor.run(write, { ifSnapshot: [(stale as Extract<typeof stale, { found: true }>).snapshot.ref],
+    snapshotPreflight: stale.read, ifRevision: stale.read.at.revision });
+  assert.equal(rejected.report.applied, false);
+  assert.equal(fake.model.revision, revision);
+
+  // A preflight read that does not hold the write set refuses.
+  const narrow = await fake.read([notesAt(target, 3)]);
+  const fresh = await acquireClipSnapshot(port, id, 0);
+  const ref = (fresh as Extract<typeof fresh, { found: true }>).snapshot.ref;
+  await assert.rejects(executor.run(write, { ifSnapshot: [ref], snapshotPreflight: narrow }), /does not cover/);
+  assert.equal(fake.model.revision, revision);
+
+  fake.sourced = 0;
+  const take = await executor.run(write, { ifSnapshot: [ref], snapshotPreflight: fresh.read, verifySources: [target] });
+  assert.equal(take.report.applied, true);
+  assert.equal(fake.sourced, 1, 'one sourced read: the verify read');
+  assert.deepEqual(Object.keys(take.stash.entries), [addressKey(notesAt(target))]);
+  assert.ok(take.verify.sources?.[addressKey(target)] !== undefined);
+  const channels = Array.from({ length: 16 }, (_, channel) => take.verify.entries[addressKey(notesAt(target, channel))]);
+  assert.ok(channels.every((entry) => entry?.value.of === 'notes'));
+
+  // A scene change after the preflight read: the verdict on the new mark refuses before any host call.
+  const later = await acquireClipSnapshot(port, id, 0);
+  const laterRef = (later as Extract<typeof later, { found: true }>).snapshot.ref;
+  const before = fake.model.revision;
+  control(fake).compactScene(3);
+  await assert.rejects(executor.run(write, { ifSnapshot: [laterRef], snapshotPreflight: later.read }));
+  assert.equal(fake.model.revision, before);
+});
+
 /** A port whose read lets one scene change happen after the read's own mark. */
 function changingDuringRead(fx: Fixture, change: () => void): SnapshotPort {
   return {

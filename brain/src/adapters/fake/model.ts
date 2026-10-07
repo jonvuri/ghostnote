@@ -182,6 +182,8 @@ export class ProjectModel {
   deviceBankSize = 16;
   /** DirectParameter writes can be accepted without taking (E4b). */
   parameterWritesTake = true;
+  /** Report notes as stored, without the fields that the live reader always reports (a partial reader). */
+  partialNoteReads = false;
   /** Device enabled writes can be accepted without taking. */
   deviceEnabledWritesTake = true;
   /** Complete inventories to reject before current observer data settles. */

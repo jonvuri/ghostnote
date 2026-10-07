@@ -53,6 +53,14 @@ public final class ClipReader {
     public static final double WIDTH_BEATS = WIDTH * GRID;
     public static final int PAGE = 131_072;
     public static final int DEADLINE_MS = 2_000;
+    /**
+     * 8h4c2: the sounding-cell limit of one read (E246). The host holds one {@code NoteStep} for each sounding
+     * cell while the reader is bound (E227), in the Java heap that the extension shares with Bitwig. A read past
+     * the limit stops decoding and refuses {@code sounding-cell-limit} at the confirmation.
+     */
+    public static final long SOUNDING_CELLS = 2_097_152;
+    /** 8h4c2 build marker: the sounding-cell limit and the heap samples in the reply. */
+    public static final String LIMIT_RULE = "sounding-cell-limit-v1";
     private static final int KEYS = 128;
 
     /** Receives the result of one read: a frame, or a refusal with {@code refused}. Called once. */
@@ -68,6 +76,8 @@ public final class ClipReader {
         final long started;
         final Done done;
         long parkedNanos, boundNanos, closedNanos, releasedNanos;
+        /** Used Java heap at the bind and at the close, in MiB (8h4c2). The close sample holds the bound steps. */
+        long heapBindMb = -1, heapCloseMb = -1;
         int parkPolls;
         long openStray, parkStray;
         ClipReadCapture capture;
@@ -151,7 +161,7 @@ public final class ClipReader {
         NoteStep.State value = step.state();
         int state = value == NoteStep.State.Empty ? ClipReadCapture.STATE_EMPTY
             : value == NoteStep.State.NoteSustain ? ClipReadCapture.STATE_SUSTAIN : ClipReadCapture.STATE_ON;
-        if (state == ClipReadCapture.STATE_ON && !target.isClosed()) {
+        if (state == ClipReadCapture.STATE_ON && !target.isClosed() && !target.overLimit) {
             double[] d = fields.doubles;
             d[0] = step.velocity(); d[1] = step.releaseVelocity(); d[2] = step.velocitySpread(); d[3] = step.duration();
             d[4] = step.gain(); d[5] = step.pan(); d[6] = step.pressure(); d[7] = step.timbre(); d[8] = step.transpose();
@@ -265,7 +275,8 @@ public final class ClipReader {
     private void bind(Read r) {
         if (r.finished) return;
         if (strayCallbacks != r.parkStray) { refuse(r, "park-not-empty", "the park target delivered note steps"); return; }
-        r.capture = new ClipReadCapture(r.id, this::schedule, () -> close(r));
+        r.heapBindMb = heapUsedMb();
+        r.capture = new ClipReadCapture(r.id, SOUNDING_CELLS, this::schedule, () -> close(r));
         current = r.capture;
         currentConfirmed = 0;
         ClipReadRoute.bind(r.steps);
@@ -276,6 +287,7 @@ public final class ClipReader {
     private void close(Read r) {
         if (r.finished) return;
         r.closedNanos = System.nanoTime();
+        r.heapCloseMb = heapUsedMb();
         track.isPinned().set(true);
         clip.isPinned().set(true);
         JsonObject bound = new JsonObject();
@@ -308,7 +320,10 @@ public final class ClipReader {
         ClipReadCapture c = r.capture;
         currentConfirmed = c.afterClose;
         double extent = Math.max(r.bound.get("loopEndBeats").getAsDouble(), r.bound.get("playStopBeats").getAsDouble());
-        if (c.afterClose > 0) {
+        if (c.overLimit) {
+            refuse(r, "sounding-cell-limit", "the clip has more than " + SOUNDING_CELLS
+                + " sounding 1/512-beat cells; " + c.sounding + " arrived before the close");
+        } else if (c.afterClose > 0) {
             refuse(r, "step-delta", c.afterClose + " note-step callback(s) arrived after the close");
         } else if (c.batches > 1) {
             refuse(r, "replay-batches", "the replay arrived in " + c.batches + " delivery batches");
@@ -330,6 +345,11 @@ public final class ClipReader {
             last = c;
             releaseAndFinish(r, result);
         }
+    }
+
+    private static long heapUsedMb() {
+        Runtime runtime = Runtime.getRuntime();
+        return (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024);
     }
 
     private void deadline(Read r) {
@@ -413,6 +433,7 @@ public final class ClipReader {
         result.addProperty("closeRule", CLOSE_RULE);
         result.addProperty("openRule", OPEN_RULE);
         result.addProperty("groupRule", GROUP_RULE);
+        result.addProperty("limitRule", LIMIT_RULE);
         result.addProperty("readId", r.id);
         if (!r.diagnosticFault.isEmpty()) result.addProperty("diagnosticFault", r.diagnosticFault);
         if (!r.route.isEmpty()) result.addProperty("diagnosticRoute", r.route);
@@ -435,7 +456,11 @@ public final class ClipReader {
             result.addProperty("batches", r.capture.batches);
             result.addProperty("duplicates", r.capture.duplicates);
             result.addProperty("afterClose", r.capture.afterClose);
+            result.addProperty("sounding", r.capture.sounding);
         }
+        result.addProperty("heapBindMb", r.heapBindMb);
+        result.addProperty("heapCloseMb", r.heapCloseMb);
+        result.addProperty("heapMaxMb", Runtime.getRuntime().maxMemory() / (1024 * 1024));
         if (r.bound != null) result.add("bound", r.bound);
         if (r.metadata != null) result.add("metadata", r.metadata);
         if (r.launch != null) result.add("launch", r.launch);
@@ -460,11 +485,13 @@ public final class ClipReader {
         result.addProperty("closeRule", CLOSE_RULE);
         result.addProperty("openRule", OPEN_RULE);
         result.addProperty("groupRule", GROUP_RULE);
+        result.addProperty("limitRule", LIMIT_RULE);
         result.addProperty("format", NoteFrame.FORMAT);
         result.addProperty("width", WIDTH);
         result.addProperty("grid", GRID);
         result.addProperty("page", PAGE);
         result.addProperty("deadlineMs", DEADLINE_MS);
+        result.addProperty("soundingCells", SOUNDING_CELLS);
         result.addProperty("reads", reads);
         result.addProperty("refusals", refusals);
         result.addProperty("lastRefusal", lastRefusal);

@@ -24,7 +24,8 @@
  */
 import { BridgeError } from '../client.js';
 import {
-  AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, ClipSnapshotRefusedError,
+  AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, CLIP_READ_SOUNDING_CELLS, ClipReadLimitError,
+  ClipSnapshotRefusedError,
   CollapsedGroupRowError, ContractVersionError, GroupSlotError, RuntimeProfileMismatchError,
   StaleAddressError, WireDriftError,
   type ClipSnapshotVerdictKind,
@@ -184,6 +185,12 @@ export function classifyError(error: unknown): {
   }
   if (error instanceof BankWindowOverflowError || error instanceof BlindSpotError) {
     return { code: 'outside-limit', message: 'The target is outside the observed track or scene window.' };
+  }
+  if (error instanceof ClipReadLimitError) {
+    return { code: 'outside-limit', message: error.reason === 'sounding-cell-limit'
+      ? `The clip has more sounding cells than the reader limit (${CLIP_READ_SOUNDING_CELLS} cells: notes times `
+        + 'their length in 1/512-beat cells). Nothing was read. Shorten or split the clip in Bitwig.'
+      : 'The clip extends past the reader width of 8,192 beats. Nothing was read.' };
   }
   if (error instanceof AddressUnresolvedError) {
     return { code: 'authority-unavailable', message: 'The fresh host read did not complete.',

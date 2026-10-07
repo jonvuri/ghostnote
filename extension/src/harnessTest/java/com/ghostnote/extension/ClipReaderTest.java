@@ -31,6 +31,7 @@ public final class ClipReaderTest {
         run("a same-type device settles on name and value callbacks under its own target (E243)",
             ClipReaderTest::directParameterSwitch);
         run("a second callback for one cell is a duplicate", ClipReaderTest::duplicates);
+        run("sounding cells past the limit stop decoding and mark the capture (8h4c2)", ClipReaderTest::soundingLimit);
         run("a false clipExists value is no start signal", ClipReaderTest::falseExists);
         run("the notes-v1 frame matches the wire golden", ClipReaderTest::frameGolden);
         run("frame encodings: const, dict u8/u16, raw f64/i32, and pages", ClipReaderTest::frameEncodings);
@@ -67,6 +68,21 @@ public final class ClipReaderTest {
         c.exists(true);
         drain();
         check(c.isClosed() && closes[0] == 1 && c.closeSeq() == 2 && c.notes().count == 1, "closed with one note");
+    }
+
+    private static void soundingLimit() {
+        int[] closes = {0};
+        queue.clear();
+        ClipReadCapture c = new ClipReadCapture(1, 3, queue::add, () -> closes[0]++);
+        c.step(0, 60, 0, ClipReadCapture.STATE_ON, fields(0.5));
+        c.step(1, 60, 0, ClipReadCapture.STATE_SUSTAIN, fields(0));
+        c.step(2, 60, 0, ClipReadCapture.STATE_SUSTAIN, fields(0));
+        check(!c.overLimit && c.sounding == 3, "three sounding cells are at the limit");
+        c.step(4, 62, 0, ClipReadCapture.STATE_ON, fields(0.5));
+        check(c.overLimit && c.sounding == 4, "the fourth sounding cell passes the limit");
+        c.exists(true);
+        drain();
+        check(c.isClosed() && c.notes().count == 1, "no note is stored past the limit");
     }
 
     private static void emptyClose() {

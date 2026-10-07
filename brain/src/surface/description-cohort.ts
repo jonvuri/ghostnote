@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v28';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v29';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -523,3 +523,11 @@ export const TOOL_DESCRIPTION_V27_SHA256 =
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V28_SHA256 =
   '46f4230b84944d354ca0f38e4b3a8f0c17b6e0c2c23a56f4cc525168a933063b';
+
+/**
+ * v29 (8h4c2): a new note keeps the host value for a default field, and the
+ * read and edit descriptions name the reader sounding-cell limit. Changing
+ * this fingerprint requires a new description version.
+ */
+export const TOOL_DESCRIPTION_V29_SHA256 =
+  'bfaa24dbef2614da391aa9978dcab6eb155441b87ead37111f5fc7179a401740';

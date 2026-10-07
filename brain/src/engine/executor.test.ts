@@ -17,7 +17,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { FakeAdapter } from '../adapters/fake/adapter.js';
+import { FakeAdapter, reportedNote } from '../adapters/fake/adapter.js';
 import { control } from '../adapters/fake/control.js';
 import { noteKey } from '../adapters/fake/model.js';
 import {
@@ -196,7 +196,7 @@ test('X-owned-notes: insertion bypasses unrelated replay loss and reverses witho
   assert.equal(take.targets.length, 1);
   const reverted = await executor.revertUnchecked(take);
   assert.deepEqual(reverted.plan.ops.map((op) => op.op), ['note.remove']);
-  assert.deepEqual(await readNotes(fake, target), [existing]);
+  assert.deepEqual(await readNotes(fake, target), [reportedNote(existing)]);
 });
 
 test('X-owned-notes: occupied insertion and mismatched removal refuse before apply', async () => {
@@ -252,7 +252,7 @@ test('X-owned-notes: an insertion that would truncate another note refuses befor
     /overlaps a same-pitch note.*nothing was written/,
   );
   assert.equal((await fake.revision()).revision, before.revision);
-  assert.deepEqual(await readNotes(fake, notesAt(clipA)), [existing]);
+  assert.deepEqual(await readNotes(fake, notesAt(clipA)), [reportedNote(existing)]);
 });
 
 test('4b settlement: complete reconciliation exposes a same-target foreign note', async () => {

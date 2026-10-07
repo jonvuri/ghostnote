@@ -351,9 +351,12 @@ test('8h4b read: notes past the loop, a group slot, and a missing target refuse 
 
 test('8h4b read: a partial note refuses; the diagnostic and reference sections are on request', async () => {
   const fx = await fixture();
+  // The live reader always reports release velocity and the enable flags; a partial reader omits them.
+  control(fx.fake).setPartialNoteReads(true);
   await fx.write(0, { 0: [{ startBeats: 0, pitch: 60, velocity: 100, durationBeats: 1 }] });
   const partial = await fx.read({});
   assert.equal(partial.failure?.code, 'partial');
+  control(fx.fake).setPartialNoteReads(false);
   await fx.write(1, { 0: [note()] });
   const detailed = await fx.read({ row: 1, diagnostic: true, reference: ['Patch', 'Groups'] });
   assert.deepEqual(Object.keys(detailed.diagnostic!), ['source', 'mark', 'metadata', 'channels']);

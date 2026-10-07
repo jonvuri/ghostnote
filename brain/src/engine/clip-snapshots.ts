@@ -8,7 +8,7 @@
  * through `contentSince` (`contract/clip-snapshot.ts`).
  */
 import {
-  addressKey, clipSnapshotFrom, guardVerdict, judgeClipSnapshot, snapshotAddresses, snapshotClip,
+  InvalidOpError, addressKey, clipSnapshotFrom, guardVerdict, judgeClipSnapshot, snapshotAddresses, snapshotClip,
   type Address, type ClipAddress, type ClipSnapshot, type ClipSnapshotRef, type ClipSnapshotVerdict,
   type ContentDelta, type ReadOptions, type RevisionMark, type Snapshot,
 } from '../contract/index.js';
@@ -34,20 +34,17 @@ export interface SnapshotRead {
  * changed scene layout) is not read. The content delta is taken after the
  * read, so it covers the read itself. An event during the read therefore gives
  * `identity-changed`, never `current`.
+ *
+ * `supplied` is a caller's fresh read (8h4c2). It replaces the adapter read and
+ * must cover every address and every source clip. The delta and the mark are
+ * taken after it, so the verdict also covers the time since that read.
  */
 export async function readWithClipSnapshots(
   port: SnapshotPort,
   refs: readonly ClipSnapshotRef[],
   addresses: readonly Address[] = [],
+  supplied?: Snapshot,
 ): Promise<SnapshotRead> {
-  const now = refs.length === 0 ? undefined : await port.mark();
-  const early = refs.map((ref) => (now === undefined ? undefined : guardVerdict(ref, now, undefined)));
-  const clips: ClipAddress[] = [];
-  refs.forEach((ref, index) => {
-    if (early[index] === undefined) clips.push(snapshotClip(ref, now!.sceneEpoch));
-  });
-  const all = uniqueAddresses([...addresses, ...clips.flatMap(snapshotAddresses)]);
-  const read = await port.read(all, clips.length === 0 ? {} : { sources: clips });
   const deltas = new Map<string, Promise<ContentDelta>>();
   const deltaFor = (mark: RevisionMark): Promise<ContentDelta> => {
     const key = JSON.stringify(mark);
@@ -58,10 +55,25 @@ export async function readWithClipSnapshots(
     }
     return delta;
   };
+  // A supplied read is already taken: its deltas come first, and their mark is both `now` and the mark after it.
+  const suppliedDeltas = supplied === undefined || refs.length === 0 ? undefined
+    : await Promise.all(refs.map((ref) => deltaFor(ref.mark)));
+  const now = refs.length === 0 ? undefined
+    : suppliedDeltas?.[0]!.mark ?? await port.mark();
+  const early = refs.map((ref) => (now === undefined ? undefined : guardVerdict(ref, now, undefined)));
+  const clips: ClipAddress[] = [];
+  refs.forEach((ref, index) => {
+    if (early[index] === undefined) clips.push(snapshotClip(ref, now!.sceneEpoch));
+  });
+  const all = uniqueAddresses([...addresses, ...clips.flatMap(snapshotAddresses)]);
+  const read = supplied === undefined ? await port.read(all, clips.length === 0 ? {} : { sources: clips })
+    : covered(supplied, all, clips);
   const deltaList = refs.map((ref, index) => (early[index] === undefined ? deltaFor(ref.mark) : undefined));
   await Promise.all(deltaList);
-  // The scene guard also needs a mark after the read: see `judgeClipSnapshot`.
-  const after = clips.length === 0 ? undefined : await port.mark();
+  // The scene guard also needs a mark after the read: see `judgeClipSnapshot`. A delta taken after the read has one.
+  const first = deltaList.find((item) => item !== undefined);
+  const after = clips.length === 0 ? undefined
+    : supplied !== undefined ? now : (await first)?.mark ?? await port.mark();
   const verdicts: ClipSnapshotVerdict[] = [];
   for (const [index, ref] of refs.entries()) {
     const decided = early[index];
@@ -100,6 +112,18 @@ export async function acquireClipSnapshot(
   }
   if (entry.value.of !== 'clip' || !entry.value.exists) return { found: false, why: 'absent-clip', read };
   return { found: true, snapshot: clipSnapshotFrom(read, clip), read };
+}
+
+/** A supplied read must hold each address (as an entry or a reported gap) and the source of each clip. */
+function covered(read: Snapshot, addresses: readonly Address[], clips: readonly ClipAddress[]): Snapshot {
+  const reported = new Set([...Object.keys(read.entries), ...[...read.missing, ...read.unreachable, ...read.unstable]
+    .map(addressKey)]);
+  const absent = addresses.find((address) => !reported.has(addressKey(address)));
+  const unsourced = clips.find((clip) => read.sources?.[addressKey(clip)] === undefined);
+  if (absent !== undefined || unsourced !== undefined) {
+    throw new InvalidOpError('snapshot preflight', `the supplied read does not cover ${addressKey((absent ?? unsourced)!)}`);
+  }
+  return read;
 }
 
 /** Keep the first occurrence of each address. */

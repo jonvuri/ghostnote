@@ -678,6 +678,7 @@ export class FakeAdapter implements BitwigAdapter {
             ? true
             : n.startBeats >= address.range.startBeats && n.startBeats < address.range.endBeats))
           .map(noteOnReadback)
+          .map((n) => (this.model.partialNoteReads ? n : reportedNote(n)))
           .sort((a, b) => a.startBeats - b.startBeats || a.pitch - b.pitch);
         // An unverified property makes the complete entry lossy (D5).
         const fidelity: Fidelity = all.some(hasUnverifiedProps) ? 'lossy' : 'exact';
@@ -1877,6 +1878,21 @@ export class FakeAdapter implements BitwigAdapter {
   get isClosed(): boolean {
     return this.closed;
   }
+}
+
+/**
+ * The live reader always reports release velocity and the four enable flags (D31, `readerNote`). A note that
+ * was written without them has the host insertion values.
+ */
+export function reportedNote(note: NoteRecord): NoteRecord {
+  return {
+    ...note,
+    releaseVelocity: note.releaseVelocity ?? 100 / 127,
+    isChanceEnabled: note.isChanceEnabled ?? true,
+    isOccurrenceEnabled: note.isOccurrenceEnabled ?? true,
+    isRecurrenceEnabled: note.isRecurrenceEnabled ?? true,
+    isRepeatEnabled: note.isRepeatEnabled ?? true,
+  };
 }
 
 /**

@@ -59,6 +59,12 @@ final class ClipReadCapture {
     }
 
     final long id;
+    /** The sounding-cell limit: NoteOn and NoteSustain callbacks before the close (8h4c2). */
+    private final long limit;
+    /** NoteOn and NoteSustain callbacks before the close. */
+    long sounding;
+    /** True when {@link #sounding} passed {@link #limit}. The capture then stores no further note. */
+    boolean overLimit;
     private final Consumer<Runnable> schedule;
     private final Runnable onClose;
     long callbacks, onsets, duplicates;
@@ -81,9 +87,14 @@ final class ClipReadCapture {
     private boolean[][] flags = new boolean[FLAGS.length][64];
     private boolean[] gone = new boolean[64];
 
-    /** {@code onClose} runs once, in the close task, after the copy. */
+    /** {@code onClose} runs once, in the close task, after the copy. No sounding-cell limit. */
     ClipReadCapture(long id, Consumer<Runnable> schedule, Runnable onClose) {
-        this.id = id; this.schedule = schedule; this.onClose = onClose;
+        this(id, Long.MAX_VALUE, schedule, onClose);
+    }
+
+    /** {@code limit} is the sounding-cell limit (8h4c2). */
+    ClipReadCapture(long id, long limit, Consumer<Runnable> schedule, Runnable onClose) {
+        this.id = id; this.limit = limit; this.schedule = schedule; this.onClose = onClose;
     }
 
     static long key(int channel, int x, int y) { return ((long) x << 11) | ((long) channel << 7) | y; }
@@ -121,6 +132,8 @@ final class ClipReadCapture {
             batches++;
             schedule.accept(this::batchTask);
         }
+        if (state != STATE_EMPTY && ++sounding > limit) overLimit = true;
+        if (overLimit) return;
         long k = key(ch, x, y);
         Integer at = index.get(k);
         if (state == STATE_ON) {

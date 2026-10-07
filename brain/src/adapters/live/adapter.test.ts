@@ -17,7 +17,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  AddressUnresolvedError, CONTRACT_VERSION, GroupSlotError, InvalidOpError, RuntimeProfileMismatchError,
+  AddressUnresolvedError, CLIP_READ_SOUNDING_CELLS, CONTRACT_VERSION, ClipReadLimitError, GroupSlotError, InvalidOpError,
+  RuntimeProfileMismatchError,
   StaleAddressError, addressKey, chain as chainAt, clip, clipLaunch, clipMetadata, clipPlay, device as deviceAt, deviceEnabled,
   deviceIn as deviceInAt, deviceSlot,
   drumPad, notes as notesAt, param, remote, remotes, scene, slot, snapshotAddresses, track,
@@ -166,7 +167,7 @@ class CursorModelTransport implements Transport {
         return {
           gridSteps: 64,
           fineSteps: 512,
-          clipReader: { width: 4_194_304, grid: 1 / 512, format: 'notes-v1', page: 131_072 },
+          clipReader: { width: 4_194_304, grid: 1 / 512, format: 'notes-v1', page: 131_072, soundingCells: CLIP_READ_SOUNDING_CELLS },
           cursorPool: 3,
           scenes: 8,
           deviceBank: 8,
@@ -613,7 +614,9 @@ test('8h3c: absent and incompatible reader configurations refuse before acquisit
     { width: 4_194_304, grid: 1 / 768, format: 'notes-v1', page: 131_072 },
     { width: 4_194_304, grid: 1 / 512, format: 'other', page: 131_072 },
     { width: 4_194_304, grid: 1 / 512, format: 'notes-v1' },
-    { width: 4_194_304, grid: 1 / 512, format: 'notes-v1', page: 0 }]) {
+    { width: 4_194_304, grid: 1 / 512, format: 'notes-v1', page: 0 },
+    { width: 4_194_304, grid: 1 / 512, format: 'notes-v1', page: 131_072 },
+    { width: 4_194_304, grid: 1 / 512, format: 'notes-v1', page: 131_072, soundingCells: CLIP_READ_SOUNDING_CELLS + 1 }]) {
     const model = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
     const transport: Transport = { send: async (frame) => frame.method === WIRE.rigInfo
       ? { clipReader: config } : model.send(frame), close: () => model.close() };
@@ -625,13 +628,16 @@ test('8h3c: absent and incompatible reader configurations refuse before acquisit
 });
 
 test('8h3c: extension refusals retain their reason', async () => {
-  for (const refused of ['deadline', 'clip-beyond-reader-width', 'duplicate-cell', 'step-delta']) {
+  for (const refused of ['deadline', 'clip-beyond-reader-width', 'duplicate-cell', 'step-delta', 'sounding-cell-limit']) {
     const model = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
     const transport: Transport = { send: async (frame) => frame.method === WIRE.clipRead
       ? { refused, message: 'fixture' } : model.send(frame), close: () => model.close() };
     const adapter = new UntimedAdapter({ transport });
     await adapter.hello();
     await assert.rejects(adapter.read([notesAt(CLIP(0))]), new RegExp(refused));
+    // 8h4c2: a reader limit is its own error, so a tool reports outside-limit, not a failed read.
+    const limit = refused === 'sounding-cell-limit' || refused === 'clip-beyond-reader-width';
+    await assert.rejects(adapter.read([notesAt(CLIP(0))]), limit ? ClipReadLimitError : AddressUnresolvedError);
   }
 });
 
@@ -1412,6 +1418,7 @@ test('4b settlement: an eligible note event wakes but does not replace verificat
   const adapter = new ObserverAdapter({
     transport: wire,
     cursorPool: 3,
+    noteWake: true,
     onTiming: (event) => phases.push(event.phase),
   });
   await adapter.hello();
@@ -4343,7 +4350,7 @@ test('8h3c: pages keep one capture and refuse stale or inconsistent page replies
         calls.push(frame);
         // The rig reports one note in each page. A larger page refuses.
         if (frame.method === WIRE.rigInfo) {
-          return { clipReader: { width: 4_194_304, grid: 1 / 512, format: 'notes-v1', page: 1 } };
+          return { clipReader: { width: 4_194_304, grid: 1 / 512, format: 'notes-v1', page: 1, soundingCells: CLIP_READ_SOUNDING_CELLS } };
         }
         if (frame.method === WIRE.clipRead) {
           return { readId: 42, frame: mode === 'over-page' ? { ...page(0), size: 2, next: 2 } : page(0) };

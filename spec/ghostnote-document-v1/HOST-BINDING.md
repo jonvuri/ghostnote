@@ -167,9 +167,16 @@ unrepresented host state.
 
 ## Defaults and proposed changes
 
-New portable notes expand R04 defaults. The writer must set each mapped default
-explicitly when host insertion defaults differ. Release velocity, gain, and
-the neutral flags already match the host insertion values. It must not substitute
+New portable notes expand R04 defaults. The writer writes a raw property only
+when its portable value differs from the projection of the host insertion
+value. The host insertion values (enabled neutral flags, raw gain 0, release
+`100/127`, timbre 0) project to the portable defaults (D35), so a new note with
+default values writes no property and needs no property stage (8h4c2,
+[E246](../../context/evidence/experiments/e246-edit-cost-and-reader-heap.md)).
+A note that a whole-clip rewrite reconstructs omits each raw field that equals
+the host insertion value; every other raw field is written. The readback
+compares each raw field on all 16 channels, with the host insertion value for
+an omitted field. It must not substitute
 `track-neutral-v0`: that policy uses release 64/127, host-centred timbre 0, enabled conditions,
 and host repeat controls. Pressure zero is omitted from setters only when
 independent insertion readback proves zero. The initial binding refuses a new
@@ -265,6 +272,19 @@ cell. Otherwise whole-clip replacement (`note.clear` and `note.write` on all
 channels, D16). A clip property change adds one `clip.update` first. The
 executor receives the D32 reference (`ifSnapshot`), the revision of the fresh
 read (`ifRevision`), and the scene guard.
+
+Reads (8h4c2, E246): the executor verify read covers the complete clip with its
+D32 source and is the independent readback. It is a new `clip.read` capture,
+not the writer echo (D15). On the targeted route without a clip property
+change, the fresh read is also the executor stash read; the executor judges the
+reference on it again with a new content delta and mark. A note edit by a
+person changes neither the revision nor the launcher events, so a shared read
+cannot see an edit made after it. The targeted route writes only the named
+cells, and the readback compares every other note, so such an edit stays and
+the readback reports it as `differs`. The whole-clip route and a clip property
+change would overwrite such an edit, so the executor reads the clip again
+before the write. A targeted edit reads the clip twice; every other edit three
+times.
 
 ### Edit refusals
 

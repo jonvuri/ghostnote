@@ -88,7 +88,7 @@ export { CONTRACT_TAG, CONTRACT_VERSION } from './version.js';
 export type { AdapterCapabilities, AdapterInfo, BankLimits, ContractTag } from './version.js';
 
 export {
-  AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, ContractError,
+  AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, CLIP_READ_SOUNDING_CELLS, ClipReadLimitError, ContractError,
   ContractVersionError, InvalidOpError, NoteTimingUnrepresentableError, SlotOccupiedError,
   ParameterValueUnrepresentableError, StaleAddressError, UnsupportedOpError, WireDriftError,
   RuntimeProfileMismatchError, blindSpotError,

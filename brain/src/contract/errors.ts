@@ -257,6 +257,29 @@ export class AddressUnresolvedError extends ContractError {
 }
 
 /**
+ * The sounding-cell limit of one clip read (8h4c2, E246). The host holds one
+ * `NoteStep` for each sounding 1/512-beat cell while the reader is bound
+ * (E227), in the Bitwig Java heap. The extension reports the same value in
+ * `rig.info`.
+ */
+export const CLIP_READ_SOUNDING_CELLS = 2_097_152;
+
+/**
+ * The clip reader refused a clip that is larger than its limits (8h4c2): the
+ * reader width or the sounding-cell limit. The read is complete or absent; it
+ * is never partial. A smaller clip can be read.
+ */
+export class ClipReadLimitError extends ContractError {
+  constructor(
+    readonly address: Address,
+    readonly reason: 'sounding-cell-limit' | 'clip-beyond-reader-width',
+    detail: string,
+  ) {
+    super(`clip read limit ${reason}: ${detail}`);
+  }
+}
+
+/**
  * The op is well-typed but cannot be represented on the wire, and we refuse
  * BEFORE emitting a frame — because the underlying API would accept it and do
  * nothing (E4h: a relative path, a wrong extension and a missing file are all

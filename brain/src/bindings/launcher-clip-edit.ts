@@ -15,14 +15,20 @@
  *      binding assessment with `rawReplay`.
  *   3. Build the candidate from fresh raw state. An untouched note keeps every
  *      raw field. A changed note keeps its raw fields outside the changed
- *      portable fields. A new note sets every mapped default explicitly
- *      (`d9MappedFields`).
+ *      portable fields. A new note and a changed field are mapped with
+ *      `d9MappedFields`. Then the candidate omits each portable group of a
+ *      new or changed field that has its portable default, and each raw value
+ *      that equals the host insertion value (8h4c2). The host insertion value
+ *      projects to the portable default (D35), so an omitted field needs no
+ *      property stage.
  *   4. Select the route. E128 targeted removal and insertion when every
  *      changed note changes its cell and no inserted cell is a removed cell;
  *      otherwise whole-clip replacement with all-channel protection (D16).
  *
  * A refusal is an `EditRefusal`. Every refusal happens before a host call.
  */
+import { isDeepStrictEqual } from 'node:util';
+
 import {
   chooseStepSize, exactClipColor, snapshotClip,
   type ClipAddress, type ClipMetadataState, type ClipSnapshot, type NoteRecord, type Op,
@@ -33,6 +39,7 @@ import {
   type Document, type Event, type EventField, type Materialized, type StateDocument,
 } from '../document/index.js';
 import { cloneJson } from '../document/json.js';
+import { EVENT_DEFAULTS } from '../document/model.js';
 import { binary64, cmp, rational, spelling, sum } from '../document/rational.js';
 import {
   assessBindingProposal, BindingRefusal, d9MappedFields, resolvePartialProposal,
@@ -111,6 +118,16 @@ const RAW_KEYS: Readonly<Partial<Record<EventField, readonly (keyof NoteRecord)[
 
 const UNCOVERED: EventField[] = ['articulation', 'repeat'];
 
+/** The raw key groups that one portable value maps to. Each expression member maps to one raw key. */
+const GROUPS: readonly (readonly (keyof NoteRecord)[])[] = [
+  ['isMuted'], ['releaseVelocity'], ['velocitySpread'], ['gain'], ['pan'], ['timbre'], ['transpose'],
+  ['chance', 'isChanceEnabled'], ['occurrence', 'isOccurrenceEnabled'], ['recurrence', 'isRecurrenceEnabled'],
+];
+const DEFAULT_GROUPS = {
+  mute: EVENT_DEFAULTS.mute, releaseVelocity: EVENT_DEFAULTS.releaseVelocity, expression: EVENT_DEFAULTS.expression,
+  chance: EVENT_DEFAULTS.chance, occurrence: EVENT_DEFAULTS.occurrence, recurrence: EVENT_DEFAULTS.recurrence,
+};
+
 function refusalOf(error: unknown): never {
   if (error instanceof EditRefusal) throw error;
   if (error instanceof BindingRefusal) {
@@ -168,12 +185,40 @@ function mappedNote(event: Event): { channel: number; note: NoteRecord } {
   return { channel, note };
 }
 
+/**
+ * The raw keys of `event` whose portable group has its default. The host insertion value projects to the same
+ * portable value (D35), so a write can leave these keys to the host.
+ */
+function defaultKeys(event: Event): Set<string> {
+  const mapped = mappedNote(event).note as unknown as Record<string, unknown>;
+  const fallback = mappedNote({ ...event, ...DEFAULT_GROUPS }).note as unknown as Record<string, unknown>;
+  const keys = new Set<string>();
+  for (const group of GROUPS) {
+    if (group.every((key) => isDeepStrictEqual(mapped[key], fallback[key]))) for (const key of group) keys.add(key);
+  }
+  return keys;
+}
+
+/** A new note: the mapped raw note without the keys whose portable group has its default. */
+function addedNote(event: Event): { channel: number; note: NoteRecord } {
+  const { channel, note } = mappedNote(event);
+  const omitted = defaultKeys(event);
+  return { channel, note: Object.fromEntries(Object.entries(note).filter(([key]) => !omitted.has(key))) as unknown as NoteRecord };
+}
+
+/** Omit each raw value that equals the host insertion value. A note write then leaves it to the host (D31). */
+function lean(note: NoteRecord): NoteRecord {
+  return Object.fromEntries(Object.entries(note).filter(([key, value]) =>
+    !(key in HOST_NOTE_DEFAULTS) || !isDeepStrictEqual(value, HOST_NOTE_DEFAULTS[key]))) as unknown as NoteRecord;
+}
+
 function merged(raw: NoteRecord, event: Event, fields: readonly string[]): NoteRecord {
   const mapped = mappedNote(event).note as unknown as Record<string, unknown>;
+  const omitted = defaultKeys(event);
   const next = { ...raw } as Record<string, unknown>;
   for (const field of fields) {
     for (const key of RAW_KEYS[field as EventField] ?? []) {
-      if (mapped[key] === undefined) delete next[key];
+      if (mapped[key] === undefined || omitted.has(key)) delete next[key];
       else next[key] = mapped[key];
     }
   }
@@ -283,16 +328,16 @@ export function planLauncherClipEdit(input: EditPlanInput): EditPlan {
         if (cmp(event.at, clip.length) >= 0 || cmp(eventEnd(event), clip.length) > 0) pastEnd.push(event.id);
       }
       if (added.has(event.id)) {
-        const { channel, note } = mappedNote(event);
-        candidate.push({ id: event.id, channel, note, origin: 'added' });
+        const { channel, note } = addedNote(event);
+        candidate.push({ id: event.id, channel, note: lean(note), origin: 'added' });
         continue;
       }
       const prior = rawById.get(event.id)!;
       if (fields === undefined) {
-        candidate.push({ id: event.id, channel: prior.channel, note: prior.note, origin: 'untouched' });
+        candidate.push({ id: event.id, channel: prior.channel, note: lean(prior.note), origin: 'untouched' });
         continue;
       }
-      const note = merged(prior.note, event, fields);
+      const note = lean(merged(prior.note, event, fields));
       candidate.push({ id: event.id, channel: key.channel, note, origin: 'changed' });
       if (cellKey(key) !== cellKey(prior.key)) moved.push({ id: event.id, from: prior.key, to: key });
     }

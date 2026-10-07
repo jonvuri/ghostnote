@@ -11,9 +11,13 @@
  *                  D  cost of one read and one 16-note insertion; revert_change of a targeted and a whole-clip edit;
  *                     a concurrent edit blocks a reversal.
  *                  Every result is compared with an independent raw `clip.read`.
+ *                  GN_8H4C_UNATTENDED=1 (8h4c2 rerun) skips the operator steps that add nothing new: the B pressure
+ *                  steps and the C project switch. A raw writer-cursor note stands in for the C stale edit.
  *   pressure <dir> <inspector>   read the first note through both host routes after the operator set inspector
  *                 Pressure on it (E236: the host reports 0)
  *   worst <dir> [notes]   whole-clip replacement at the reader limits (default 131,072 notes over 8,192 beats)
+ *   cost <dir>     profile one read and one 16-note insertion on a rewritten typical clip: executor phases and
+ *                  wire calls (8h4c2)
  *   verify-offline <dir>  recompute the claims from the retained artifacts
  */
 import assert from 'node:assert/strict';
@@ -41,10 +45,19 @@ const ANCHOR = 'gn-scale-test';
 const NAME = 'gn-8h4c-edit';
 const ROW = 0;
 const transport = new WireTransport();
+/** Executor phases and wire calls, for the `cost` profile (8h4c2). */
+const phases: Wire[] = [];
+const wire: Wire[] = [];
+const send = transport.send.bind(transport);
+transport.send = async (frame) => {
+  const started = performance.now();
+  try { return await send(frame); } finally { wire.push({ method: frame.method, at: started, ms: performance.now() - started }); }
+};
 const adapter = new LiveAdapter({ transport });
 const stash = new Stash();
 const workspace = workspaceOf({
-  ready: async () => undefined, adapter, executor: new Executor(adapter), stash,
+  ready: async () => undefined, adapter, stash,
+  executor: new Executor(adapter, { onTiming: (event) => phases.push({ ...event, at: performance.now() }) }),
   observationStore: new FakeObservationStore(),
 });
 const request = async (method: string, params?: Wire): Promise<Wire> =>
@@ -54,6 +67,7 @@ const tool = async (name: string, args: Wire): Promise<Wire> =>
 const pause = async (ms: number): Promise<void> => new Promise(resolve => setTimeout(resolve, ms));
 const say = (value: Wire): void => console.log(JSON.stringify(value));
 const changes = (): number => workspace.changes.list().length;
+const unattended = process.env.GN_8H4C_UNATTENDED === '1';
 
 async function until(next: () => Promise<Wire>, done: (value: Wire) => boolean, limit = 30_000): Promise<Wire> {
   const started = performance.now();
@@ -218,7 +232,7 @@ async function accept(dir: string): Promise<void> {
   // B. Bitwig does not report pressure (E236). The operator sets it and confirms it visually after a targeted
   // desired document replaces the clip around that note.
   const rawB = resume ? await rawRead(id, ROW) : await writeTypical(id, ROW);
-  if (!resume) await flag(dir, 'B-pressure', `In ${NAME}, open the clip in scene 1 in the editor. Select the first `
+  if (!resume && !unattended) await flag(dir, 'B-pressure', `In ${NAME}, open the clip in scene 1 in the editor. Select the first `
     + 'note: beat 1.1.1, pitch C1 (36), MIDI channel 1. In the inspector, set Pressure to about 50 percent.');
   assert.equal(rawB.length, 256, 'B starts from the typical clip');
   const readB = await read(id);
@@ -232,7 +246,7 @@ async function accept(dir: string): Promise<void> {
     }))],
   };
   const b = await edit(id, 'B-desired', serialize(desiredB, 'fields'));
-  await flag(dir, 'B-check', 'In the editor, select the first note (C1 at 1.1.1) again. Report the Pressure value '
+  if (!unattended) await flag(dir, 'B-check', 'In the editor, select the first note (C1 at 1.1.1) again. Report the Pressure value '
     + 'that the inspector shows. The other 255 old notes are gone and 16 new notes stand near beat 1.3.');
   out.B = { rawB, read: readB, desired: b, pressureReported: process.env.GN_8H4C_PRESSURE ?? null };
   await save();
@@ -298,7 +312,8 @@ async function refusalsAndReversal(id: string, out: Wire, save: () => Promise<vo
 
   const staleRead = await read(id);
   const rawStale = await rawRead(id, ROW);
-  await operatorEdit(id, rawStale, 'C-stale', 'In the same clip, change the velocity of the note at pitch C4 (72), '
+  if (unattended) await outsideNote(id, [14, 83, 90, 0.25]);
+  else await operatorEdit(id, rawStale, 'C-stale', 'In the same clip, change the velocity of the note at pitch C4 (72), '
     + 'the lowest note of the stack near beat 1.3, to about 50 percent. Change nothing else.');
   const stale = await refuse('C-stale', patchText(staleRead.result.authority.base, [`UPDATE b1 {"velocity":30}`]));
   stale.staleDocument = stale.result.detail?.document;
@@ -313,6 +328,27 @@ async function refusalsAndReversal(id: string, out: Wire, save: () => Promise<vo
   await until(() => request('scene.count'), value => Number(value.sceneCount) === scenes);
   await pause(500);
 
+  if (unattended) {
+    out.C = { read: readC, refusals, skipped: ['C-project'] };
+  } else {
+    await projectSwitch(id, refusals);
+    out.C = { read: readC, refusals };
+  }
+  await save();
+
+  // D. Cost, reversal, and a blocked reversal.
+  const rawD = await writeTypical(id, ROW);
+  const costRead = await read(id);
+  const docD = documentOf(costRead.result.data.document);
+  const clipD = docD.clips[0]!.id;
+  const insert = Array.from({ length: 16 }, (_, c) => `ADD i${c + 1} ${clipD} 33/2 1/4 96 100 ${c + 1} false`);
+  const cost = await edit(id, 'D-cost-16-notes', patchText(costRead.result.authority.base, insert));
+  out.D = { rawD, costRead: { wallMs: costRead.wallMs, toolMs: costRead.result.timing.totalMs }, cost };
+  await reversals(id, out, save, clipD, cost);
+}
+
+/** C. The operator switches the project: the base ref is incomparable. */
+async function projectSwitch(id: string, refusals: Wire[]): Promise<void> {
   const projectRead = await read(id);
   const project = String((await request('revision.get')).project);
   const rawProject = await rawRead(id, ROW);
@@ -330,18 +366,18 @@ async function refusalsAndReversal(id: string, out: Wire, save: () => Promise<vo
   await adapter.hello();
   refusals.push({ name: 'C-project', result: switched, before: rawProject, after: await rawRead(id, ROW),
     changes: [changeCount, changes()] });
-  out.C = { read: readC, refusals };
-  await save();
+}
 
-  // D. Cost, reversal, and a blocked reversal.
-  const rawD = await writeTypical(id, ROW);
-  const costRead = await read(id);
-  const docD = documentOf(costRead.result.data.document);
-  const clipD = docD.clips[0]!.id;
-  const insert = Array.from({ length: 16 }, (_, c) => `ADD i${c + 1} ${clipD} 33/2 1/4 96 100 ${c + 1} false`);
-  const cost = await edit(id, 'D-cost-16-notes', patchText(costRead.result.authority.base, insert));
-  out.D = { rawD, costRead: { wallMs: costRead.wallMs, toolMs: costRead.result.timing.totalMs }, cost };
+/** A note written through the raw writer cursor: an edit outside Ghostnote. */
+async function outsideNote(id: string, note: number[]): Promise<void> {
+  await (adapter as unknown as E131Context).pointAtClip(await clipOf(id, ROW), await indexOf(id), new Map(), 'fine');
+  await request('cursor.setStepSize', { cursor: 'fine', stepSize: 1 / 4 });
+  await request('cursor.setNotes', { cursor: 'fine', channel: 0, notes: [note] });
+  await pause(800);
+}
 
+/** D. Reversal of a targeted and a whole-clip edit, and a concurrent edit that blocks a reversal. */
+async function reversals(id: string, out: Wire, save: () => Promise<void>, clipD: string, cost: Wire): Promise<void> {
   const preTargeted = await rawRead(id, ROW);
   const docT = documentOf(cost.result.readback.document);
   const targeted = await edit(id, 'D-targeted', patchText(cost.result.readback.base, [
@@ -362,11 +398,7 @@ async function refusalsAndReversal(id: string, out: Wire, save: () => Promise<vo
   const concurrent = await edit(id, 'D-concurrent-edit', patchText(concurrentRead.result.authority.base,
     [`ADD k1 ${clipD} 5/2 1/2 81 90 1 false`]));
   // A concurrent edit outside Ghostnote, in the same channel.
-  const index = await indexOf(id);
-  await (adapter as unknown as E131Context).pointAtClip(await clipOf(id, ROW), index, new Map(), 'fine');
-  await request('cursor.setStepSize', { cursor: 'fine', stepSize: 1 / 4 });
-  await request('cursor.setNotes', { cursor: 'fine', channel: 0, notes: [[14, 83, 90, 0.25]] });
-  await pause(800);
+  await outsideNote(id, [14, 83, 90, 0.25]);
   const preBlocked = await rawRead(id, ROW);
   const revertBlocked = await tool('revert_change', { changeId: concurrent.result.effects[0].changeId });
   const afterBlocked = await rawRead(id, ROW);
@@ -454,6 +486,10 @@ export function verify(a: Wire): { issues: string[]; summary: Wire } {
     'C-repeat': ['unsupported', 'repeat'], 'C-overlap': ['unsupported', 'overlap'], 'C-past-end': ['range', 'past-clip-end'],
     'C-stale': ['stale'], 'C-scene': ['identity-changed'], 'C-project': ['incomparable'],
   };
+  const skipped: string[] = a.C.skipped ?? [];
+  for (const name of Object.keys(expected)) {
+    if (!skipped.includes(name) && !(a.C.refusals as Wire[]).some((record) => record.name === name)) issues.push(`${name}: missing`);
+  }
   for (const record of a.C.refusals as Wire[]) {
     const [code, reason] = expected[record.name]!;
     if (record.result.failure?.code !== code) issues.push(`${record.name}: code ${record.result.failure?.code}`);
@@ -488,6 +524,38 @@ export function verify(a: Wire): { issues: string[]; summary: Wire } {
         blockedReason: d.revertBlocked.nothingToPutBack ?? d.revertBlocked.why ?? null },
     },
   };
+}
+
+// --- cost profile ------------------------------------------------------------------------
+
+async function cost(dir: string): Promise<void> {
+  await mkdir(dir, { recursive: true });
+  const entry = await guard();
+  const existing = ((await request('track.list')).tracks as Wire[]).find(row => row.name === NAME);
+  const id = existing === undefined ? await createTrack(NAME) : String(existing.channelId);
+  const runs: Wire[] = [];
+  for (let run = 0; run < 3; run += 1) {
+    await writeTypical(id, ROW);
+    phases.length = 0; wire.length = 0;
+    const started = performance.now();
+    const first = await read(id);
+    const clipId = documentOf(first.result.data.document).clips[0]!.id;
+    const insert = Array.from({ length: 16 }, (_, c) => `ADD i${c + 1} ${clipId} 33/2 1/4 96 100 ${c + 1} false`);
+    const result = await tool('edit_launcher_clip', { trackId: id, row: ROW, document: patchText(first.result.authority.base, insert) });
+    const totalMs = performance.now() - started;
+    assert.equal(result.readback?.status, 'verified', JSON.stringify(result).slice(0, 400));
+    const at = (value: number) => Math.round(value - started);
+    const record = { totalMs, readMs: first.wallMs, timing: result.timing,
+      phases: phases.map((item) => ({ phase: item.phase, ms: Math.round(item.elapsedMs), end: at(item.at) })),
+      wire: wire.map((item) => ({ method: item.method, start: at(item.at), ms: Math.round(item.ms) })) };
+    runs.push(record);
+    const byMethod = new Map<string, number>();
+    for (const item of record.wire) byMethod.set(item.method, (byMethod.get(item.method) ?? 0) + item.ms);
+    say({ run, totalMs: Math.round(totalMs), timing: result.timing, phases: record.phases,
+      wire: Object.fromEntries([...byMethod].sort((a, b) => b[1] - a[1]).slice(0, 8)), calls: record.wire.length });
+  }
+  await writeFile(join(dir, 'cost.json'), JSON.stringify({ schema: `${SCHEMA}-cost`, entry, trackId: id, runs }, null, 1) + '\n');
+  await request('track.delete', { trackIndex: await indexOf(id) });
 }
 
 // --- pressure observability -------------------------------------------------------------
@@ -584,6 +652,7 @@ async function main(): Promise<void> {
       case 'accept': await accept(args[0]!); break;
       case 'worst': await worst(args[0]!, Number(args[1] ?? 131_072)); break;
       case 'pressure': await pressure(args[0]!, args[1] ?? ''); break;
+      case 'cost': await cost(args[0]!); break;
       case 'verify-offline': {
         const a = JSON.parse(gunzipSync(await readFile(join(args[0]!, 'accept.json.gz'))).toString('utf8'));
         const result = verify(a);

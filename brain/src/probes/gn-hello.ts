@@ -16,6 +16,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
+import { CLIP_READ_SOUNDING_CELLS } from '../contract/index.js';
 import { compareDeployment, deployedAtMs } from '../deploy.js';
 import { client, check, note, failureCount } from './lib.js';
 
@@ -37,6 +38,9 @@ check('the product clip reader has the required build marker and configuration',
     && reader?.['width'] === 4_194_304 && reader?.['grid'] === 1 / 512,
   reader);
 
+check('the 8h4c2 build marker: the reader sounding-cell limit',
+  reader?.['limitRule'] === 'sounding-cell-limit-v1' && reader?.['soundingCells'] === CLIP_READ_SOUNDING_CELLS,
+  { limitRule: reader?.['limitRule'], soundingCells: reader?.['soundingCells'] });
 check('the write boundary has the 8h4a build markers',
   rig['writeGuard'] === 'batch-scene-guard-v1' && rig['selectionRule'] === 'selection-project-v1',
   { writeGuard: rig['writeGuard'], selectionRule: rig['selectionRule'] });

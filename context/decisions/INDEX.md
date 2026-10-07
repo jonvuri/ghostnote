@@ -49,6 +49,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D35 | Document gain range and release velocity default **[SETTLED 2026-10-07]** | [open](d35-document-gain-range-and-release-velocity-default.md) |
 | D36 | The live writer replays raw repeat controls **[SETTLED 2026-10-07]** | [open](d36-the-live-writer-replays-raw-repeat-controls.md) |
 | D37 | Note pressure is a blind host limit **[SETTLED 2026-10-07]** | [open](d37-note-pressure-is-a-blind-host-limit.md) |
+| D38 | A shared preflight read is the stash only on the targeted route **[SETTLED 2026-10-07]** | [open](d38-a-shared-preflight-read-is-the-stash-only-on-the-targeted-route.md) |
 
 ## Phase 4 closeout audit
 

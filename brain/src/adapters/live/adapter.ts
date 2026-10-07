@@ -28,7 +28,8 @@
 import { randomUUID } from 'node:crypto';
 
 import {
-  AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION, InvalidOpError,
+  AddressUnresolvedError, BankWindowOverflowError, CLIP_READ_SOUNDING_CELLS, CONTRACT_TAG, CONTRACT_VERSION,
+  ClipReadLimitError, InvalidOpError,
   CollapsedGroupRowError, GROUP_TRACK_TYPE, GroupSlotError, OP_BUMPS_SCENE_EPOCH, assertNoGroupSlotAddresses, assertNoGroupSlotOps, sceneGuardError,
   type SceneGuard,
   ContractVersionError, RuntimeProfileMismatchError, StaleAddressError, WireDriftError,
@@ -567,6 +568,13 @@ export interface LiveOptions {
   readonly expectRuntimeProfile?: string;
   /** Optional phase timing for focused performance probes. */
   readonly onTiming?: (event: LiveTimingEvent) => void;
+  /**
+   * Arm the E54 note-step wake before a single-clip note batch. Off by default
+   * since 8h4c2 (E246): the arm points a second cursor and waits one grid
+   * settle, about 450 ms, and it can end only the fixed `noteWrite` wait of
+   * 25 ms early. The executor verify read checks the result in both cases.
+   */
+  readonly noteWake?: boolean;
   /** Optional ordered trace for selection and target diagnostics. */
   readonly onTrace?: (event: LiveTraceEvent) => void;
 }
@@ -795,7 +803,7 @@ export class LiveAdapter implements BitwigAdapter {
   private gridSteps: number | undefined;
   /** The writer cursor width, learned at hello(). */
   private fineSteps: number | undefined;
-  private clipReader: { width?: number; grid?: number; format?: string; page?: number } | undefined;
+  private clipReader: { width?: number; grid?: number; format?: string; page?: number; soundingCells?: number } | undefined;
   /** 8h4a5: the `cursor.pointExpanded` build marker, or undefined for an earlier extension. */
   private groupPoint: string | undefined;
   /** Top-level device-bank width, fixed at extension init. */
@@ -837,6 +845,7 @@ export class LiveAdapter implements BitwigAdapter {
   private structuralRevision = 0;
   /** One armed single-clip wake. Exact bulk readback remains the proof. */
   private pendingNoteWake: NoteWake | undefined;
+  private readonly noteWake: boolean;
   /** One confirmed device cursor is the complete DirectParameter route. */
   private parameterQueue: Promise<void> = Promise.resolve();
   /** Keep complete scalar write pipelines from interleaving on that cursor. */
@@ -847,6 +856,7 @@ export class LiveAdapter implements BitwigAdapter {
     this.expectMethodsHash = options.expectMethodsHash;
     this.expectRuntimeProfile = options.expectRuntimeProfile;
     this.onTiming = options.onTiming;
+    this.noteWake = options.noteWake === true;
     this.onTrace = options.onTrace;
     // A pool of one until `hello()` learns the rig's real size — which is the
     // Phase-0 behaviour exactly, so an adapter used before the handshake is no
@@ -1292,7 +1302,7 @@ export class LiveAdapter implements BitwigAdapter {
     const rig = (await this.transport.send({ method: WIRE.rigInfo })) as {
       gridSteps?: number;
       fineSteps?: number;
-      clipReader?: { width?: number; grid?: number; format?: string; page?: number };
+      clipReader?: { width?: number; grid?: number; format?: string; page?: number; soundingCells?: number };
       groupPoint?: string;
       cursorPool?: number;
       scenes?: number;
@@ -2645,7 +2655,7 @@ export class LiveAdapter implements BitwigAdapter {
     const config = this.clipReader;
     const pageSize = config?.page;
     if (config?.width !== 4_194_304 || config.grid !== CLIP_READ_GRID || config.format !== NOTE_FRAME_FORMAT
-        || pageSize === undefined || !Number.isInteger(pageSize) || pageSize < 1) {
+        || config.soundingCells !== CLIP_READ_SOUNDING_CELLS || pageSize === undefined || !Number.isInteger(pageSize) || pageSize < 1) {
       throw new AddressUnresolvedError(clipRef, 'clip.read configuration is absent or incompatible; call hello with the current extension');
     }
     type ClipReadReply = { refused?: string; message?: string; readId: number; frame: NoteFrame;
@@ -2665,6 +2675,9 @@ export class LiveAdapter implements BitwigAdapter {
       result = await send();
       // E240, E241: a second mismatch on the requested track is a collapsed group that the reader could not expand.
       if (otherRow(result)) throw new CollapsedGroupRowError(clipRef, Number(result.bound?.row));
+    }
+    if (result.refused === 'sounding-cell-limit' || result.refused === 'clip-beyond-reader-width') {
+      throw new ClipReadLimitError(clipRef, result.refused, result.message ?? '');
     }
     if (result.refused !== undefined) {
       throw new AddressUnresolvedError(clipRef, `clip.read refused ${result.refused}: ${result.message ?? ''}`);
@@ -2714,8 +2727,8 @@ export class LiveAdapter implements BitwigAdapter {
    * then read a short window as a quiet one. Together they are one observation of
    * one moment.
    *
-   * ⚠⚠ The bank SCAN is the second call, and it is not part of that atomicity
-   * requirement — coverage is a fact about how the rig was built, not about the
+   * ⚠⚠ The bank SCAN is a separate call, sent together with `revision.get`
+   * (8h4c2), and it is not part of that atomicity requirement — coverage is a fact about how the rig was built, not about the
    * event stream. It rides here so that every mark in the system carries it: a
    * consumer that has to fetch coverage separately is a consumer that can forget
    * to, and forgetting fails in the direction that reads as "nothing happened"
@@ -2729,7 +2742,10 @@ export class LiveAdapter implements BitwigAdapter {
    * predicate treats as UNCOVERED rather than as covered.
    */
   private async readMark(): Promise<{ mark: RevisionMark; events: readonly ContentEvent[] }> {
-    const r = (await this.transport.send({ method: WIRE.revisionGet })) as {
+    // 8h4c2 (E246): both requests go out together. The bridge answers each in its own task, so the pair costs
+    // one control-surface turn, not two. The scan is not part of the epoch and event atomicity (see above).
+    const [revision, list] = await Promise.all([this.transport.send({ method: WIRE.revisionGet }), this.scanTracks()]);
+    const r = revision as {
       revision: number;
       generation: string;
       sceneEpoch: number;
@@ -2738,7 +2754,6 @@ export class LiveAdapter implements BitwigAdapter {
       sceneCount?: number;
       contentEvents?: readonly ContentEvent[];
     };
-    const list = await this.scanTracks();
     const mark: RevisionMark = {
       revision: r.revision,
       sceneEpoch: r.sceneEpoch,
@@ -3834,7 +3849,7 @@ export class LiveAdapter implements BitwigAdapter {
         })));
       }
     }
-    if (clips.size !== 1) return;
+    if (clips.size !== 1 || !this.noteWake) return;
     const [clipKey, clipRef] = clips.entries().next().value as [AddressKey, ClipAddress];
     if (created.has(clipKey)) return;
 

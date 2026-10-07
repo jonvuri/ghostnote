@@ -6,7 +6,7 @@ import { FakeAdapter } from '../adapters/fake/adapter.js';
 import { control } from '../adapters/fake/control.js';
 import { IdentityRegistry } from '../bindings/identity-registry.js';
 import {
-  addressKey, clip, notes, scene, slot, track, type NoteRecord,
+  addressKey, clip, notes, planStages, scene, slot, track, type NoteRecord,
 } from '../contract/index.js';
 import {
   applyPatch, contentHash, dependencyBasis, parse, sealOverlays, serialize, type Overlay, type StateDocument,
@@ -111,17 +111,16 @@ test('edit: a sparse patch adds a note on the targeted route, reads back verifie
     'the targeted route keeps untouched notes and their pressure');
   assert.equal(result.effects.length, 1);
   assert.equal(result.effects[0].fidelity, 'exact');
-  // Untouched notes keep every raw field; the new note has every mapped default explicitly.
+  // Untouched notes keep every raw field. The new note has only portable defaults, so the write leaves every
+  // property to the host insertion value (8h4c2): one stage, no property write.
   const after = await fx.raw();
   assert.deepEqual(json(after[0]), json(before[0]));
   assert.deepEqual(json(after[3]), json(before[3]));
   const added = after[1]![0]!;
-  assert.deepEqual([added.startBeats, added.durationBeats, added.pitch, added.velocity], [3, 0.5, 67, 90]);
-  assert.equal(added.releaseVelocity, 100 / 127);
-  assert.equal(added.gain, 1, 'portable gain 1 writes raw cbrt(1)');
-  assert.equal(added.timbre, 0, 'portable timbre 0.5 writes the host centre');
-  assert.deepEqual([added.isChanceEnabled, added.isOccurrenceEnabled, added.isRecurrenceEnabled], [false, false, false],
-    'a portable default writes disabled flags');
+  assert.deepEqual(added, note({ startBeats: 3, durationBeats: 0.5, pitch: 67, velocity: 90 }));
+  const written = fx.stash.get(result.effects[0].changeId)!.take.ops;
+  assert.deepEqual(written.map((op) => op.op), ['note.insert']);
+  assert.equal(planStages(written).length, 1, 'no property stage');
   const read = await fx.read();
   assert.equal(read.authority.base.ref, result.readback.base.ref, 'the next read is current on the written ref');
   assert.equal(read.authority.identity, 'current');
@@ -187,6 +186,49 @@ test('edit: a velocity or expression change rewrites the whole clip and preserve
   assert.equal(after[0]!.find((item) => item.pitch === 60)!.velocity, 70);
   const event = documentOf(await fx.read()).events.find((item) => item.pitch === 64)!;
   assert.equal(event.expression!.gain, 0.5, 'portable gain reads back unchanged');
+});
+
+test('edit cost (8h4c2): host values need no property stage; a targeted edit reads twice, a whole-clip edit three times', async () => {
+  const fx = await fixture();
+  const notesOf = (channel: number) => Array.from({ length: 4 }, (_, k) => note({ pitch: 60 + k, startBeats: k }));
+  await fx.write(0, Object.fromEntries(Array.from({ length: 16 }, (_, channel) => [channel, notesOf(channel)])));
+  const read = fx.fake.read.bind(fx.fake);
+  let sourced = 0;
+  fx.fake.read = async (addresses, options) => {
+    if (options?.sources !== undefined) sourced += 1;
+    return read(addresses, options);
+  };
+  const stagesOf = (result: Wire) => planStages(fx.stash.get(result.effects[0].changeId)!.take.ops);
+  const props = (result: Wire) => stagesOf(result).flatMap((stage) => stage.ops).filter((op) => op.op === 'note.props');
+
+  // 16 new notes with portable defaults: one create stage, no property stage.
+  let first = await fx.read();
+  const clipId = documentOf(first).clips[0]!.id;
+  sourced = 0;
+  const insert = await fx.editClip(patch(first.authority.base,
+    Array.from({ length: 16 }, (_, c) => `ADD i${c + 1} ${clipId} 7/2 1/4 96 100 ${c + 1} false`)));
+  assert.equal(insert.readback?.status, 'verified', JSON.stringify(insert));
+  assert.equal(insert.plan.route, 'targeted');
+  assert.equal(stagesOf(insert).length, 1);
+  assert.equal(sourced, 2, 'the fresh read is the stash read; the verify read is the readback');
+
+  // A whole-clip velocity edit of host-value notes: no property stage, and one more read before the write.
+  first = await fx.read();
+  sourced = 0;
+  const velocity = await fx.editClip(patch(first.authority.base, [`UPDATE ${ids(documentOf(first)).get('1:60:0')} {"velocity":70}`]));
+  assert.equal(velocity.readback.status, 'verified', JSON.stringify(velocity));
+  assert.equal(velocity.plan.route, 'whole-clip');
+  assert.deepEqual(props(velocity), []);
+  assert.equal(sourced, 3, 'the whole-clip route reads the clip again before the write');
+
+  // A new note with one nondefault value writes only that value.
+  first = await fx.read();
+  const gain = await fx.editClip(patch(first.authority.base, [`ADD g1 ${clipId} 3 1/2 80 90 1 false`]).replace(
+    'FIELDS id clip at duration pitch velocity channel mute', 'FIELDS id clip at duration pitch velocity channel mute expression')
+    .replace('90 1 false', '90 1 false {"velocitySpread":0,"gain":0.5,"pan":0,"pressure":0,"timbre":0.5,"transpose":0}'));
+  assert.equal(gain.readback?.status, 'verified', JSON.stringify(gain));
+  const written = props(gain).flatMap((op) => (op.op === 'note.props' ? op.notes : []));
+  assert.deepEqual(written.map((item) => Object.keys(item).sort()), [['durationBeats', 'gain', 'pitch', 'startBeats', 'velocity']]);
 });
 
 test('edit: portable gain 0, 0.5, and 8 write raw 1e-323, cbrt(0.5), and 2 and read back unchanged', async () => {

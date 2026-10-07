@@ -34,7 +34,7 @@ import {
   param as paramAddress, remote as remoteAddress, remotes as remotesAddress, planStages,
   scene, slot, stepSizeFor, track, type NoteRecord, type Op,
 } from '../../contract/index.js';
-import { FakeAdapter } from './adapter.js';
+import { FakeAdapter, reportedNote } from './adapter.js';
 import { VirtualClock } from './clock.js';
 import { ProjectModel, noteKey, type FakeChain } from './model.js';
 import {
@@ -403,9 +403,9 @@ test('note.insert and note.remove preserve unrelated cells and channels', async 
   const channel0 = snap.entries[addressKey(notesAddress(target, 0))]?.value;
   const channel1 = snap.entries[addressKey(notesAddress(target, 1))]?.value;
   assert.equal(channel0?.of, 'notes');
-  assert.deepEqual(channel0?.of === 'notes' ? channel0.notes : [], [kept]);
+  assert.deepEqual(channel0?.of === 'notes' ? channel0.notes : [], [reportedNote(kept)]);
   assert.equal(channel1?.of, 'notes');
-  assert.deepEqual(channel1?.of === 'notes' ? channel1.notes : [], [otherChannel]);
+  assert.deepEqual(channel1?.of === 'notes' ? channel1.notes : [], [reportedNote(otherChannel)]);
 });
 
 // --- E2: the empty-slot mispointing trap -------------------------------------

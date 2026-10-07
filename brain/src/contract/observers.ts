@@ -165,6 +165,12 @@ export interface ContentEvent {
 export interface ContentDelta {
   readonly since: number;
   readonly now: number;
+  /**
+   * The mark that closes the window (8h4c2). It is a mark taken when the delta
+   * was read, so a caller that needs a mark after an earlier read can use it
+   * and save one more round trip.
+   */
+  readonly mark?: RevisionMark;
   /** Events in `(since, now]`, oldest first. Empty is only meaningful if `complete`. */
   readonly events: readonly ContentEvent[];
   /** ⚠ The ring dropped events in this window: something moved, unnamed. */
@@ -281,11 +287,13 @@ export function contentDelta(
       discontinuous: true,
       discontinuity,
       ...coverage,
+      mark: now,
     };
   }
   return {
     ...sliceDelta(since.contentEpoch, now.contentEpoch, ring),
     discontinuous: false,
     ...coverage,
+    mark: now,
   };
 }

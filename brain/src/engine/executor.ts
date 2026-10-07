@@ -35,8 +35,8 @@ import {
   StaleAddressError, addressKey, addressScene, addressTrack, assertDevicesRoutable, assertOpsWritable,
   ClipSnapshotRefusedError, GroupSlotError, blindSpotError, opsHaveSceneRows, sceneGuardOf, clipMetadata as clipMetadataAt, deltaComplete,
   discreteNormalizedValues, discreteValueIsRepresentable, exactClipColor, failures, notes as notesAt,
-  param as paramAt, noteReadCell,
-  type Address, type AdapterInfo, type BitwigAdapter, type ContentDelta, type NoteRecord,
+  param as paramAt, noteReadCell, snapshotAddresses,
+  type Address, type AdapterInfo, type BitwigAdapter, type ClipAddress, type ContentDelta, type NoteRecord,
   type ClipMetadataState, type ClipSnapshotRef, type Op, type RevisionMark, type Snapshot,
 } from '../contract/index.js';
 import { readWithClipSnapshots } from './clip-snapshots.js';
@@ -90,6 +90,19 @@ export interface RunOptions {
    * labels, the floor, and any host mutation (`ClipSnapshotRefusedError`).
    */
   readonly ifSnapshot?: readonly ClipSnapshotRef[];
+  /**
+   * A caller's fresh read of the `ifSnapshot` clips at the same revision
+   * (8h4c2). It replaces the stash read. The verdicts are judged on it again,
+   * with a content delta and a mark taken after it. It must cover every
+   * write-set address and the source of each reference.
+   */
+  readonly snapshotPreflight?: Snapshot;
+  /**
+   * Clips that the verify read also reads completely, with their D32 source
+   * (8h4c2). A caller can then use `take.verify` as its independent readback.
+   * A batch that changes the scene layout does not read them.
+   */
+  readonly verifySources?: readonly ClipAddress[];
 }
 
 /** What a revert did, and what it could not do (D5). */
@@ -230,7 +243,14 @@ export class Executor {
     if (supplied !== undefined && refs.length > 0) {
       throw new InvalidOpError('parameter cohort', 'a snapshot guard needs the executor stash read');
     }
-    if (supplied === undefined) {
+    const preflight = options.snapshotPreflight;
+    if (preflight !== undefined && refs.length === 0) {
+      throw new InvalidOpError('snapshot preflight', 'a supplied read needs ifSnapshot references');
+    }
+    if (preflight !== undefined) {
+      // The preflight read already resolved the clip at its scene epoch, and the verdict below checks the epoch,
+      // the window, and the project again on a new mark. A separate resolve would add one more mark.
+    } else if (supplied === undefined) {
       await this.timed('resolve', () => this.assertResolvable(addresses));
     } else {
       const suppliedKeys = new Set(Object.keys(supplied.entries));
@@ -241,7 +261,7 @@ export class Executor {
         );
       }
     }
-    const stash = supplied ?? await this.timed('stash', () => this.readStash(addresses, refs));
+    const stash = supplied ?? await this.timed('stash', () => this.readStash(addresses, refs, preflight));
     this.assertVisible(stash);
     this.assertClipsExist(ops, stash);
     this.assertOwnedNotePreconditions(ops, stash);
@@ -343,7 +363,9 @@ export class Executor {
     const staled = receipt.at.sceneEpoch !== stash.at.sceneEpoch;
     const scalarReadable = staled ? addresses.filter((a) => addressScene(a) === undefined) : addresses;
     const integrityDevices = supplied === undefined ? [] : uniqueParameterDevices(ops);
-    const readable = uniqueAddresses([...scalarReadable, ...integrityDevices]);
+    const sources = staled ? [] : options.verifySources ?? [];
+    const readable = uniqueAddresses([...scalarReadable, ...integrityDevices, ...sources.flatMap(snapshotAddresses)]);
+    const verifyOptions = sources.length === 0 ? {} : { sources };
     const unverified: Unverified[] = staled
       ? addresses.filter((a) => addressScene(a) !== undefined).map((address) => ({
         address,
@@ -354,7 +376,7 @@ export class Executor {
       }))
       : [];
     const unread = new Set(unverified.map((item) => addressKey(item.address)));
-    let verify = await this.timed('verification', () => this.adapter.read(readable));
+    let verify = await this.timed('verification', () => this.adapter.read(readable, verifyOptions));
     for (const address of verify.unstable) {
       unread.add(addressKey(address));
       unverified.push({
@@ -373,7 +395,7 @@ export class Executor {
       // second exact snapshot separates delayed visibility from a stable
       // conflict without risking a duplicate non-idempotent action.
       await this.adapter.settle('noteWrite');
-      verify = await this.timed('verificationRetry', () => this.adapter.read(readable));
+      verify = await this.timed('verificationRetry', () => this.adapter.read(readable, verifyOptions));
       reconcileStarted = performance.now();
       mutationConflicts = mutationStateDisagreementsOf(ops, stash, verify, unread);
       this.onTiming?.({
@@ -406,16 +428,21 @@ export class Executor {
   /**
    * The stash read. With D32 references, the same adapter read covers each
    * referenced clip, and the verdicts are checked before anything else uses
-   * the stash. The stash keeps only the write-set entries.
+   * the stash. The stash keeps only the write-set entries. A supplied
+   * preflight read replaces the adapter read.
    */
-  private async readStash(addresses: readonly Address[], refs: readonly ClipSnapshotRef[]): Promise<Snapshot> {
+  private async readStash(
+    addresses: readonly Address[],
+    refs: readonly ClipSnapshotRef[],
+    preflight?: Snapshot,
+  ): Promise<Snapshot> {
     if (refs.length === 0) return this.adapter.read(addresses);
     const adapter = this.adapter;
     const { read, verdicts } = await readWithClipSnapshots({
       mark: () => adapter.revision(),
       read: (selection, options) => adapter.read(selection, options),
       contentSince: (since) => adapter.contentSince(since),
-    }, refs, addresses);
+    }, refs, addresses, preflight);
     if (verdicts.some((item) => item.verdict !== 'current')) throw new ClipSnapshotRefusedError(verdicts);
     const keys = new Set(addresses.map(addressKey));
     const kept = (address: Address): boolean => keys.has(addressKey(address));

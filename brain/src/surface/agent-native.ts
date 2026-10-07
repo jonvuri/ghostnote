@@ -15,7 +15,7 @@ import { readFileSync } from 'node:fs';
 import { z } from 'zod';
 
 import {
-  addressKey, clipSnapshotFrom, contentTouching, deltaComplete, isGroupTrack, judgeClipSnapshot,
+  CLIP_READ_SOUNDING_CELLS, addressKey, clipSnapshotFrom, contentTouching, deltaComplete, isGroupTrack, judgeClipSnapshot,
   snapshotAddresses, snapshotClip, track as trackAt,
   type ClipSnapshot, type ClipSnapshotVerdict, type RevisionMark,
 } from '../contract/index.js';
@@ -237,7 +237,9 @@ const READ_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Read one Launche
   + 'A failure has failure.code: absent, outside-limit, unhealthy, authority-unavailable, '
   + 'target-changed, stale-address, group-slot, collapsed-group-row, range (select the clip in Bitwig '
   + 'and use Consolidate, then read again), collision, partial, or unavailable. Branch on the code, '
-  + 'not on the message.\n'
+  + 'not on the message. outside-limit also means that the clip is above a reader limit: more than '
+  + `${CLIP_READ_SOUNDING_CELLS} sounding 1/512-beat cells (each note counts its length in cells), or longer `
+  + 'than 8,192 beats. Nothing is read; split or shorten the clip in Bitwig.\n'
   + `Model format reference revision ${MODEL_REFERENCE.revision} (sha256 ${MODEL_REFERENCE.sha256.slice(0, 12)}), `
   + 'Core section:\n'
   + CORE_REFERENCE;
@@ -275,7 +277,7 @@ async function readLauncherClip(workspace: Workspace, args: ReadInput): Promise<
     const prior = registry.latestAt(args.trackId, args.row);
     const delta = await workspace.contentSince(read.at);
     const priorDelta = prior === undefined ? undefined : await workspace.contentSince(prior.snapshot.mark);
-    const after = await workspace.mark();
+    const after = delta.mark ?? await workspace.mark();
     if (after.project !== read.at.project || after.generation !== read.at.generation
         || after.sceneEpoch !== read.at.sceneEpoch || after.window.scenes.count !== read.at.window.scenes.count
         || !deltaComplete(delta) || contentTouching(delta, clip).length > 0) {

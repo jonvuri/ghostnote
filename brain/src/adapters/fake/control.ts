@@ -42,6 +42,11 @@ export class TrapControl {
     this.fake.model.parameterWritesTake = take;
   }
 
+  /** Report notes without the fields that the live reader always reports, to test a partial read. */
+  setPartialNoteReads(partial: boolean): void {
+    this.fake.model.partialNoteReads = partial;
+  }
+
   /** Make accepted device enabled writes remain unchanged. */
   setDeviceEnabledWritesTake(take: boolean): void {
     this.fake.model.deviceEnabledWritesTake = take;
