@@ -59,7 +59,9 @@ device after a same-type device settles its parameters. The next session is
   `group: true`; it does not yet expose `hidden`.
 - Confirm a cursor target by `trackChannelId`, never by `trackPosition`.
   `directparam.list` reports `settledBy` (`ids`, `switch`, `target`).
-- Tool descriptions are at v25; 8h4a2 through 8h4a5 changed none.
+- Tool descriptions are at v25; 8h4a2 through 8h4a5 changed none. Update
+  them in the session that changes the behaviour they describe, and bump the
+  version (AGENTS.md, Implementation sessions, step 3).
 
 The plans reserve E235–E239 for 8h4b–8h4f in session order; the next free
 number after them is E244 (8h4e0), then E245. Record a decision (next D35) only for a choice that

@@ -33,6 +33,12 @@ and deliberate build markers before live work.
 3. Implement the complete session. Add or update tests and run the checks that
    the acceptance criteria require. Leave live projects and fixtures at their
    documented baseline, with no test residue.
+   - Tool descriptions are part of the implementation. When a change makes a
+     tool description inaccurate or incomplete, update the description in the
+     same session and bump `TOOL_DESCRIPTION_VERSION`
+     (`brain/src/surface/description-cohort.ts`) and its public artifact. Do
+     not defer a description change to a later or dogfood session. Report the
+     new version, or state that no description changed.
 4. Update the relevant context documents. Make `context/NOW.md` a short,
    accurate handoff for the next session.
 5. Stage only the session changes for review. Do not commit them. End with a
