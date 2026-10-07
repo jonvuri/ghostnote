@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-10-07
 phase: phase-8-agent-native-live-engine
-session: 8h4a4-complete
+session: 8h4a5-planned
 ---
 
 # Now
@@ -18,11 +18,13 @@ expands collapsed parent groups for each read
 ([D34](decisions/d34-the-reader-expands-collapsed-parent-groups.md)).
 Cursor targets now confirm by the track `channelId`, so cursor-pointed reads,
 writes, and device targets work inside and after groups (E242). The next
-session is 8h4b.
+session is
+[8h4a5](plan/phase-8/8h4a5-collapsed-cursor-and-parameter-settle.md). It fixes
+the two E242 limits below, then 8h4b follows.
 
-## Open limits (E242)
+## Open limits (E242), planned for 8h4a5
 
-Both fail closed. The operator decides if and when to plan a session.
+Both fail closed.
 
 - **Rows other than 0 of a collapsed child.** A fresh cursor point does not
   reach them: the `clip`, launch, play, and metadata reads, write stage
@@ -46,6 +48,10 @@ Both fail closed. The operator decides if and when to plan a session.
      (E241, D34). The reader expands collapsed parent groups.
    - [8h4a4](plan/phase-8/8h4a4-cursor-track-identity.md): complete (E242).
      Cursor targets confirm by `channelId`.
+   - [8h4a5](plan/phase-8/8h4a5-collapsed-cursor-and-parameter-settle.md):
+     next. Clip metadata and launch reads move to `clip.read`; cursor points
+     reach collapsed children; same-type devices settle their parameters.
+     Probes first; evidence E243.
 2. [8h4b](plan/phase-8/8h4b-document-read-and-identity-registry.md): the
    `agent-native-v1` profile, the shared result vocabulary,
    `read_launcher_clip`, and the clip and event ID registry.
@@ -84,7 +90,7 @@ Both fail closed. The operator decides if and when to plan a session.
   changed none).
 
 The plans reserve E235–E239 for 8h4b–8h4f in session order; the next free
-number after them is E243. Record a decision (next D35) only for a choice that
+number after them is E243 (8h4a5). Record a decision (next D35) only for a choice that
 changes an active rule.
 
 ## Live baseline

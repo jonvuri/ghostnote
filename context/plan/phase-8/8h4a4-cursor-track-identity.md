@@ -6,7 +6,7 @@ status: Complete (E242). Cursor targets confirm by the track channelId. Rows oth
 updated: 2026-10-07
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h4a3-expand-parent-acceptance.md
-next: 8h4b-document-read-and-identity-registry.md
+next: 8h4a5-collapsed-cursor-and-parameter-settle.md
 evidence: E240, E241, E242; D33, D34
 ---
 

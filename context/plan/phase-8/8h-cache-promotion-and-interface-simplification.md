@@ -98,6 +98,10 @@ Reader promotion and remaining sessions, in order:
       - [8h4a4 — Cursor track identity](8h4a4-cursor-track-identity.md):
         cursor targets confirm by the track `channelId` (E240 defect).
         Complete (E242).
+      - [8h4a5 — Collapsed-child cursor route and parameter settle](8h4a5-collapsed-cursor-and-parameter-settle.md):
+        clip metadata and launch reads through `clip.read`, a cursor point
+        route for collapsed children, and the DirectParameter settle on a
+        same-type device (E242 limits). Planned.
    2. [8h4b — Document read and identity registry](8h4b-document-read-and-identity-registry.md):
       the profile, the shared result vocabulary, `read_launcher_clip` on the
       D32 reference, and the clip and event ID registry.
