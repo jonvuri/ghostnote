@@ -30,9 +30,20 @@ and deliberate build markers before live work.
    code needed for the named session.
 2. Derive the work and acceptance criteria from those sources. Ask a question
    only when a missing answer can materially change the result.
+   - When the session adds or changes a live path, read the
+     [performance ledger](context/contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md)
+     first. If the plan has no cost model, write one before the work: the
+     host turns (about 24 ms each), cold reads, write stages, and heap, for
+     the typical and the largest admitted case. Compare it with the probe or
+     primitive number in the ledger and explain the difference.
 3. Implement the complete session. Add or update tests and run the checks that
    the acceptance criteria require. Leave live projects and fixtures at their
    documented baseline, with no test residue.
+   - The call-budget tests (`brain/src/surface/call-budget.test.ts` and the
+     live adapter frame test) fail when a host call is added. When a budget
+     changes on purpose, update the test and the ledger, and state the cost
+     in the E record. Rerun the matching live measurement after a live-path
+     change; explain a regression of more than 20 percent.
    - Tool descriptions are part of the implementation. When a change makes a
      tool description inaccurate or incomplete, update the description in the
      same session and bump `TOOL_DESCRIPTION_VERSION`
@@ -63,7 +74,9 @@ inspect, audit, or approve staged changes.
    verification is sufficient. Run focused, non-destructive checks when useful.
 4. Look first for high-priority problems: incorrect behavior, data loss,
    permission-boundary errors, regressions, missing failure handling, missing
-   tests, and documentation that overstates the implementation.
+   tests, and documentation that overstates the implementation. Include
+   performance regressions: a changed call budget or a ledger number that
+   moved without a stated cause.
 5. Report findings in priority order with file and line references. If there are
    no high-priority findings, say so directly and note any remaining verification
    gap. Do not change the implementation unless the user asks for fixes.

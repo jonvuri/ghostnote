@@ -2,7 +2,7 @@
 title: Phase 8h — Cache promotion and interface simplification
 kind: plan
 state: active
-status: Reader promotion (E230), change awareness (E231), row binding (E232), and pull snapshot references with the cache machinery trim (E233) are complete. 8h4 is planned in six sessions (8h4a–8h4f); 8h4a is complete (E234).
+status: Reader promotion (E230), change awareness (E231), row binding (E232), and pull snapshot references with the cache machinery trim (E233) are complete. 8h4 is planned in sessions 8h4a–8h4g; 8h4a through 8h4c2 are complete (E234–E236, E240–E243, E245, E246).
 updated: 2026-10-07
 parent: README.md
 prev: 8g-shadow-project-cache.md
@@ -117,6 +117,7 @@ Reader promotion and remaining sessions, in order:
       takes 73 s.
       - [8h4c2 — Edit cost and reader heap guard](8h4c2-edit-cost-and-reader-heap.md):
         host-insertion lowering, shared reads, and a sounding-cell guard.
+        Complete (E246, D38); a read and a 16-note insertion take 1,892 ms.
    4. [8h4d — Musical and clip surface migration](8h4d-musical-and-clip-surface-migration.md):
       observation decoupling and retirement, the old musical tools and the 7b
       profile retired, and the Launcher clip names.
@@ -126,9 +127,13 @@ Reader promotion and remaining sessions, in order:
    6. [8h4e — Device structure migration](8h4e-device-structure-migration.md):
       `read_devices`, `compose_devices` with the backend benchmark, and the
       layer-chain limbs. It depends only on 8h4b.
-   7. [8h4f — Tracks, profile cut, and 8h closeout](8h4f-tracks-profile-cut-and-closeout.md):
+   7. [8h4f — Tracks, profile cut, and measurements](8h4f-tracks-profile-cut-and-closeout.md):
       the track-kind arms and names, the vocabulary on the retained tools,
-      the default profile, the measurements, and the decision amendments.
+      the default profile, and the measurements.
+   8. [8h4g — Performance review and 8h closeout](8h4g-performance-review-and-closeout.md):
+      every path against its probe and earlier product path (waste, scaling,
+      wall clock), brain planning time, the reductions, the decision
+      amendments, and the closeout.
 
 ## Purpose
 

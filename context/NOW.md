@@ -40,7 +40,10 @@ The next session is
    the DirectParameter display observer (E244).
 6. [8h4e](plan/phase-8/8h4e-device-structure-migration.md): device structure.
 7. [8h4f](plan/phase-8/8h4f-tracks-profile-cut-and-closeout.md): track-kind
-   arms, the default profile cut, measurements, and the 8h closeout.
+   arms, the default profile cut, and measurements.
+8. [8h4g](plan/phase-8/8h4g-performance-review-and-closeout.md): performance
+   review of every path (waste, scaling, wall clock against probes; brain
+   planning time), then the 8h closeout.
 
 ## What 8h4c and 8h4c2 give 8h4d
 
@@ -71,8 +74,13 @@ The next session is
   `cursor.scrollToStep` (E236).
 - Tool descriptions are at v29 (`TOOL_DESCRIPTION_V29_SHA256`); v25 still
   reproduces from the stable tools; v26–v28 are frozen fingerprints.
-- The next free evidence number is E247 (E237–E239 stay reserved for
-  8h4d–8h4f). The next decision is D39.
+- The next free evidence number is E248 (E237–E239 stay reserved for
+  8h4d–8h4f, E247 for 8h4g). The next decision is D39.
+- Cost rules (AGENTS.md): a session that changes a live path reads the
+  [performance ledger](contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md), writes a
+  cost model if the plan has none, keeps the call-budget tests
+  (`brain/src/surface/call-budget.test.ts`, the live adapter frame test)
+  current, and remeasures.
 
 ## Live baseline
 

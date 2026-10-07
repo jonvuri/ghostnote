@@ -21,6 +21,7 @@ history so an agent does not have to reconstruct authority from chronology.
 | Investigate a Bitwig capability | [capability index](evidence/capability/INDEX.md) → subject page → cited experiment |
 | Find what one experiment measured | [evidence index](evidence/INDEX.md) → named experiment |
 | Work on Document 1.0 or cache integration | [specification](../spec/ghostnote-document-v1/SPEC.md) → [host binding](../spec/ghostnote-document-v1/HOST-BINDING.md) → [identity and overlays](../spec/ghostnote-document-v1/IDENTITY-AND-OVERLAYS.md) → [cache contract](contracts/GHOSTNOTE_CACHE_CONTRACT.md) → [migration and risk policy](contracts/GHOSTNOTE_MIGRATION_AND_VERIFICATION.md) |
+| Plan, change, or review the cost of a live path | [performance ledger](contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md) → cited experiment → call-budget tests |
 | Work on the agent musical language | [language reference](evidence/format/AGENT_MUSICAL_LANGUAGE.md) → cited evidence → Phase 7 plan |
 | Implement or audit a workstation module | [contracts](evidence/format/WORKSTATION_CONTRACTS.md) → [inventory](evidence/format/WORKSTATION_INTERFACES.md) → [seam blockers](evidence/format/WORKSTATION_SEAMS.md) → [verification costs](evidence/format/WORKSTATION_VERIFICATION.md) → named Phase 7 brief |
 | Work on the `.bwpreset` byte format | [format spec](evidence/format/BWFORMAT_SPEC.md) → [bwmod design](evidence/format/BWMOD_DESIGN.md) |

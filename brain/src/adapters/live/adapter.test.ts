@@ -4378,3 +4378,31 @@ test('8h3c: pages keep one capture and refuse stale or inconsistent page replies
       [{ readId: 42, from: 1 }, { readId: 42, from: 2 }]);
   }
 });
+
+test('8h4c2 call budget: a mark sends revision.get and track.list together; a snapshot read has a fixed frame list', async () => {
+  const model = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
+  let inFlight = 0;
+  let most = 0;
+  const transport: Transport = {
+    send: async (frame) => {
+      inFlight += 1; most = Math.max(most, inFlight);
+      await new Promise((resolve) => setImmediate(resolve));
+      inFlight -= 1;
+      return model.send(frame);
+    },
+    close: () => model.close(),
+  };
+  const adapter = new UntimedAdapter({ transport });
+  await adapter.hello();
+  most = 0;
+  model.frames.length = 0;
+  await adapter.revision();
+  assert.deepEqual(model.frames.map((frame) => frame.method), [WIRE.revisionGet, WIRE.trackList]);
+  assert.equal(most, 2, 'one control-surface turn, not two (E246)');
+
+  // When this list grows, update the performance ledger (GHOSTNOTE_PERFORMANCE_LEDGER.md).
+  model.frames.length = 0;
+  await adapter.read(snapshotAddresses(CLIP(0)), { sources: [CLIP(0)] });
+  assert.deepEqual(model.frames.map((frame) => frame.method), [WIRE.revisionGet, WIRE.trackList, WIRE.selectionStatus,
+    WIRE.slotStatus, WIRE.slotStatus, WIRE.clipRead, WIRE.slotStatus]);
+});

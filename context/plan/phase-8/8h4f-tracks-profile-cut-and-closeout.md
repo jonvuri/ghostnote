@@ -1,16 +1,16 @@
 ---
-title: Phase 8h4f — Tracks, profile cut, and 8h closeout
+title: Phase 8h4f — Tracks, profile cut, and measurements
 kind: plan
 state: planned
-status: Planned. Proves track kinds for the track names, applies the vocabulary to the retained tools, makes agent-native-v1 the default, and closes 8h.
-updated: 2026-10-06
+status: Planned. Proves track kinds for the track names, applies the vocabulary to the retained tools, makes agent-native-v1 the default, and measures the representative workflows. 8h4g reviews performance and closes 8h.
+updated: 2026-10-07
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h4e-device-structure-migration.md
-next: 8i-agent-native-hybrid-dogfood.md
+next: 8h4g-performance-review-and-closeout.md
 evidence: E16, E20c, E126, E135; D8, D16, D18, D19, D20, D21
 ---
 
-# Phase 8h4f — Tracks, profile cut, and 8h closeout
+# Phase 8h4f — Tracks, profile cut, and measurements
 
 ## Decisions taken in planning
 
@@ -58,18 +58,17 @@ compact read, a 16-note insertion, an E45/E48-style clip workflow, a
 wall time. For each removed guard or verification step, name the failure it
 covered, the replacement evidence, and the saved work.
 
+Record the results in the
+[performance ledger](../../contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md); they
+are the input of 8h4g.
+
 ### 5. Records and closeout
 
-- Amend D8, D16, D18, D19, and D21 with the implemented surface. Update
-  `PROJECT.md` and the workstation contract, interface, and verification
-  references. Update the 8h parent to complete.
-- Write the 8h retrospective target: the simplification that removed the most
-  agent work and the retained safeguard that costs the most. Carry both into
-  the 8i charter.
+[8h4g](8h4g-performance-review-and-closeout.md) owns the decision amendments
+and the 8h closeout, after the performance review.
 
 ## Acceptance criteria
 
-- Every 8h parent acceptance criterion is met or has an explicit open record.
 - Public clip operations name Launcher scope. Track operations name only the
   kinds that passed.
 - Stable and default profile names state their compatibility. Every retired
