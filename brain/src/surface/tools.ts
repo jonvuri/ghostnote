@@ -92,6 +92,9 @@ import { editLauncherClipTool } from './agent-native-edit.js';
 import { AGENT_NATIVE_CLIP_TOOLS, AGENT_NATIVE_SCENE_TOOLS, startedOperation } from './agent-native-clips.js';
 import { AGENT_NATIVE_TOOL_PROFILE } from './agent-native-result.js';
 import { AGENT_NATIVE_DEVICE_RETIRED, agentNativeDeviceTools } from './agent-native-devices.js';
+import {
+  AGENT_NATIVE_RETAINED_RETIRED, MEASURED_BODY_SCHEMAS, agentNativeRetainedTools, measuredBody,
+} from './agent-native-retained.js';
 import type { StatusCategory } from './status.js';
 import {
   applyMusicalPatch, applyNoteProposal, compareCandidateToReference,
@@ -3797,6 +3800,11 @@ export type ToolProfile = typeof STABLE_TOOL_PROFILE | typeof AGENT_NATIVE_TOOL_
  * historical probes (`probes/phase7b-profile.ts`).
  */
 export const TOOL_PROFILES: readonly ToolProfile[] = [STABLE_TOOL_PROFILE, AGENT_NATIVE_TOOL_PROFILE];
+/**
+ * 8h4f: the profile that the server registers when `GHOSTNOTE_TOOL_PROFILE` is not set. `stable-v1` stays
+ * selectable, with its frozen wording, as the rollback through 8i.
+ */
+export const DEFAULT_TOOL_PROFILE: ToolProfile = AGENT_NATIVE_TOOL_PROFILE;
 
 /**
  * The stable tools that `agent-native-v1` does not list (8h4d), each with its replacement. The migration contract
@@ -3823,30 +3831,45 @@ export const AGENT_NATIVE_RETIRED: Readonly<Record<string, string>> = {
   delete_clip: 'delete_launcher_clip',
   show_changed_clip: 'show_launcher_clip_in_detail_editor',
   ...AGENT_NATIVE_DEVICE_RETIRED,
+  ...AGENT_NATIVE_RETAINED_RETIRED,
 };
 
 /**
  * 8h4b: the agent-native profile starts as the stable list. Each 8h4 session adds,
- * replaces, or removes tools here; 8h4f makes it the default. `stable-v1` stays frozen.
+ * replaces, or removes tools here. `stable-v1` stays frozen.
  * 8h4d: the retired tools leave; `launch_clip`, `add_scenes`, and `delete_scene` keep their names and
  * move to the shared result module in place.
  * 8h4e: the device-alternate lifecycle and the device tools with old names leave; the device and layer-chain
- * limbs are added, and `set_device_enabled`, `wrap_existing_device_modulation`, `delete_device`, `revert_change`,
- * and `check_revert` change in place (`agent-native-devices.ts`).
+ * limbs are added, and `wrap_existing_device_modulation` and `delete_device` change in place
+ * (`agent-native-devices.ts`).
+ * 8h4f: every other retained tool moves to the shared result module (`agent-native-retained.ts`).
+ * `check_connection`, `add_track`, and `copy_track` take the names `check_bitwig_connection`, `add_tracks`, and
+ * `duplicate_track` in their list position. The six tools with a measured result body add the shared `schema` and
+ * `failure` fields. `agent-native-v1` is the default profile.
  */
 const AGENT_NATIVE_DEVICES = agentNativeDeviceTools(TOOLS);
+const AGENT_NATIVE_RETAINED = agentNativeRetainedTools();
 
 export const AGENT_NATIVE_TOOLS: readonly ToolSpec[] = [
-  ...TOOLS.filter((item) => AGENT_NATIVE_RETIRED[item.name] === undefined)
-    .map((item) => AGENT_NATIVE_SCENE_TOOLS.find((replacement) => replacement.name === item.name)
-      ?? AGENT_NATIVE_DEVICES.replacements.get(item.name) ?? item),
+  ...TOOLS.flatMap((item): ToolSpec[] => {
+    const renamed = AGENT_NATIVE_RETAINED.renamed.get(item.name);
+    if (renamed !== undefined) return [renamed];
+    if (AGENT_NATIVE_RETIRED[item.name] !== undefined) return [];
+    return [AGENT_NATIVE_SCENE_TOOLS.find((replacement) => replacement.name === item.name)
+      ?? AGENT_NATIVE_RETAINED.replacements.get(item.name) ?? AGENT_NATIVE_DEVICES.replacements.get(item.name) ?? item];
+  }),
   ...AGENT_NATIVE_ADDITIONS,
   editLauncherClipTool,
   ...AGENT_NATIVE_CLIP_TOOLS,
   ...AGENT_NATIVE_DEVICES.additions,
-];
+].map((item) => MEASURED_BODY_SCHEMAS[item.name] === undefined ? item
+  : measuredBody(item, MEASURED_BODY_SCHEMAS[item.name]!));
 
-/** Select a frozen tool profile without changing stable registration. */
+/**
+ * Select a tool profile without changing stable registration. The server uses `DEFAULT_TOOL_PROFILE`. The library
+ * helpers here default to `stable-v1`, because the historical probes and the frozen stable tests call them
+ * without a profile.
+ */
 export function toolsForProfile(profile: ToolProfile = STABLE_TOOL_PROFILE): readonly ToolSpec[] {
   return profile === AGENT_NATIVE_TOOL_PROFILE ? AGENT_NATIVE_TOOLS : TOOLS;
 }

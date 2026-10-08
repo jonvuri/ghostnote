@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v31';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v32';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -414,9 +414,9 @@ const RETIRED_IN_V31 = new Set([
  * v31 (8h4e): agent-native-v1 replaces the device-alternate lifecycle with read_devices and the generic layer-chain
  * limbs (D18), renames the device control and preset modulation tools, merges device insertion and composition,
  * and reports DirectParameter display text (E244). set_device_enabled, wrap_existing_device_modulation,
- * delete_device, revert_change, and check_revert change in place.
+ * delete_device, revert_change, and check_revert change in place. Frozen in 8h4f.
  */
-export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+export const DESCRIPTION_COHORT_V31: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V30.filter((member) => !RETIRED_IN_V31.has(member.name)),
   {
     name: 'read_devices', kind: 'read',
@@ -467,6 +467,43 @@ export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
     reason: 'Sets exclusive, on, or off layer-chain solo: the A/B audition limb.',
   },
 ] as const;
+
+/** The reasons of the v32 members that are not in v31 (8h4f). */
+const ADDED_IN_V32: Readonly<Record<string, DescriptionCohortMember>> = {
+  check_bitwig_connection: { name: 'check_bitwig_connection', kind: 'read',
+    reason: 'Checks the extension build, the open project, and the address window before work; replaces check_connection.' },
+  check_revert: { name: 'check_revert', kind: 'read',
+    reason: 'Reads what a reversal would restore and what it would not, without a write.' },
+  add_tracks: { name: 'add_tracks', kind: 'write',
+    reason: 'Creates named instrument or audio tracks (E239); replaces add_track.' },
+  duplicate_track: { name: 'duplicate_track', kind: 'write',
+    reason: 'Duplicates one Instrument, Audio, or Hybrid track (E239); replaces copy_track.' },
+  rename_track: { name: 'rename_track', kind: 'write',
+    reason: 'Renames tracks; the trackId does not change.' },
+  delete_scene: { name: 'delete_scene', kind: 'destructive',
+    reason: 'Deletes scenes with every clip in them; a separate destructive name (D20).' },
+};
+
+/**
+ * v32 (8h4f): agent-native-v1 is the default profile, and the cohort is its complete tool list in profile order.
+ * Every retained tool is on the shared result module; check_connection, add_track, and copy_track take the names
+ * check_bitwig_connection, add_tracks, and duplicate_track.
+ */
+export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+  'list_modulator_types', 'check_bitwig_connection', 'list_tracks', 'list_changes', 'check_revert', 'launch_clip',
+  'add_tracks', 'duplicate_track', 'rename_track', 'add_scenes', 'wrap_existing_device_modulation',
+  'reverse_existing_device_modulation_wrap', 'set_device_enabled', 'revert_change', 'delete_track', 'delete_scene',
+  'delete_device', 'read_launcher_clip', 'check_launcher_clips', 'edit_launcher_clip', 'add_launcher_clip',
+  'copy_launcher_clips', 'move_launcher_clips', 'set_launcher_clip_launch_settings', 'set_launcher_clip_properties',
+  'delete_launcher_clip', 'show_launcher_clip_in_detail_editor', 'inspect_operation', 'cancel_operation',
+  'read_devices', 'read_device_controls', 'set_device_controls', 'read_preset_modulation', 'edit_preset_modulation',
+  'add_devices', 'compose_devices', 'duplicate_layer_chain', 'rename_layer_chain', 'move_devices', 'copy_devices',
+  'set_layer_chain_solo',
+].map((name) => {
+  const member = DESCRIPTION_COHORT_V31.find((item) => item.name === name) ?? ADDED_IN_V32[name];
+  if (member === undefined) throw new Error(`description v32 member has no reason: ${name}`);
+  return member;
+});
 
 interface ToolAnnotations {
   readonly readOnlyHint: boolean;
@@ -660,3 +697,10 @@ export const TOOL_DESCRIPTION_V30_SHA256 =
  */
 export const TOOL_DESCRIPTION_V31_SHA256 =
   '4bb28d29ed289b3b10b58192d684ce9759fa2a0c9cc68102b5431ce2b0cf3781';
+
+/**
+ * v32 (8h4f): the complete default agent-native-v1 list on the shared result module. Changing this fingerprint
+ * requires a new description version.
+ */
+export const TOOL_DESCRIPTION_V32_SHA256 =
+  'ab830bd293117fd58ac546c6f8748966ed18c51b3c604fe866fdec7860f5adbf';

@@ -2,7 +2,7 @@
 title: Phase 8h — Cache promotion and interface simplification
 kind: plan
 state: active
-status: Reader promotion (E230), change awareness (E231), row binding (E232), and pull snapshot references with the cache machinery trim (E233) are complete. 8h4 is planned in sessions 8h4a–8h4g; 8h4a through 8h4c2 are complete (E234–E236, E240–E243, E245, E246).
+status: Reader promotion (E230), change awareness (E231), row binding (E232), and pull snapshot references with the cache machinery trim (E233) are complete. 8h4 is planned in sessions 8h4a–8h4g; 8h4a through 8h4f are complete (E234–E246, D33–D40). 8h4g is next.
 updated: 2026-10-08
 parent: README.md
 prev: 8g-shadow-project-cache.md
@@ -131,7 +131,9 @@ Reader promotion and remaining sessions, in order:
       times faster than staged.
    7. [8h4f — Tracks, profile cut, and measurements](8h4f-tracks-profile-cut-and-closeout.md):
       the track-kind arms and names, the vocabulary on the retained tools,
-      the default profile, and the measurements.
+      the default profile, and the measurements. Complete (E239, D40):
+      `add_tracks` and `duplicate_track` name the proved kinds, and
+      `agent-native-v1` is the default.
    8. [8h4g — Performance review and 8h closeout](8h4g-performance-review-and-closeout.md):
       every path against its probe and earlier product path (waste, scaling,
       wall clock), brain planning time, the reductions, the decision

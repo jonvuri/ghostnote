@@ -8,6 +8,7 @@ import {
   DESCRIPTION_COHORT_V25,
   TOOL_DESCRIPTION_V30_SHA256,
   TOOL_DESCRIPTION_V31_SHA256,
+  TOOL_DESCRIPTION_V32_SHA256,
   TOOL_DESCRIPTION_V29_SHA256,
   TOOL_DESCRIPTION_V28_SHA256,
   TOOL_DESCRIPTION_V27_SHA256,
@@ -41,48 +42,23 @@ import {
 } from './description-cohort.js';
 import { AGENT_NATIVE_TOOLS, ANNOTATIONS, TOOLS } from './tools.js';
 
+/** v32 (8h4f): the complete default agent-native-v1 list, in profile order. */
 const EXPECTED_COHORT = [
-  'launch_clip',
-  'copy_track',
-  'add_scenes',
-  'delete_track',
-  'list_tracks',
-  'list_changes',
-  'revert_change',
-  'set_device_enabled',
-  'delete_device',
-  'list_modulator_types',
-  'wrap_existing_device_modulation',
-  'reverse_existing_device_modulation_wrap',
-  'read_launcher_clip',
-  'check_launcher_clips',
-  'edit_launcher_clip',
-  'add_launcher_clip',
-  'copy_launcher_clips',
-  'move_launcher_clips',
-  'set_launcher_clip_launch_settings',
-  'set_launcher_clip_properties',
-  'delete_launcher_clip',
-  'show_launcher_clip_in_detail_editor',
-  'inspect_operation',
-  'cancel_operation',
-  'read_devices',
-  'read_device_controls',
-  'set_device_controls',
-  'read_preset_modulation',
-  'edit_preset_modulation',
-  'add_devices',
-  'compose_devices',
-  'duplicate_layer_chain',
-  'rename_layer_chain',
-  'move_devices',
-  'copy_devices',
+  'list_modulator_types', 'check_bitwig_connection', 'list_tracks', 'list_changes', 'check_revert', 'launch_clip',
+  'add_tracks', 'duplicate_track', 'rename_track', 'add_scenes', 'wrap_existing_device_modulation',
+  'reverse_existing_device_modulation_wrap', 'set_device_enabled', 'revert_change', 'delete_track', 'delete_scene',
+  'delete_device', 'read_launcher_clip', 'check_launcher_clips', 'edit_launcher_clip', 'add_launcher_clip',
+  'copy_launcher_clips', 'move_launcher_clips', 'set_launcher_clip_launch_settings', 'set_launcher_clip_properties',
+  'delete_launcher_clip', 'show_launcher_clip_in_detail_editor', 'inspect_operation', 'cancel_operation',
+  'read_devices', 'read_device_controls', 'set_device_controls', 'read_preset_modulation', 'edit_preset_modulation',
+  'add_devices', 'compose_devices', 'duplicate_layer_chain', 'rename_layer_chain', 'move_devices', 'copy_devices',
   'set_layer_chain_solo',
 ] as const;
 
-test('description v31 names one complete and explicit cohort', () => {
-  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v31');
+test('description v32 names one complete and explicit cohort: the default agent-native-v1 list', () => {
+  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v32');
   assert.deepEqual(DESCRIPTION_COHORT.map((member) => member.name), EXPECTED_COHORT);
+  assert.deepEqual(AGENT_NATIVE_TOOLS.map((spec) => spec.name), EXPECTED_COHORT);
   assert.equal(new Set(EXPECTED_COHORT).size, EXPECTED_COHORT.length);
   for (const member of DESCRIPTION_COHORT) {
     assert.ok(member.reason.length > 20, `${member.name} needs an inclusion reason`);
@@ -100,13 +76,18 @@ test('description v1 stays frozen as its original 15-tool artifact', () => {
   );
 });
 
-test('description v31 matches its public artifact', () => {
+test('description v32 matches its public artifact', () => {
   const artifact = descriptionCohortArtifact(AGENT_NATIVE_TOOLS, ANNOTATIONS);
   assert.equal(
     fingerprintDescriptionCohort(artifact),
-    TOOL_DESCRIPTION_V31_SHA256,
-    'the v31 public wording or schema changed',
+    TOOL_DESCRIPTION_V32_SHA256,
+    'the v32 public wording or schema changed',
   );
+});
+
+test('description v31 keeps its frozen public artifact', () => {
+  assert.equal(TOOL_DESCRIPTION_V31_SHA256,
+    '4bb28d29ed289b3b10b58192d684ce9759fa2a0c9cc68102b5431ce2b0cf3781');
 });
 
 test('description v30 keeps its frozen public artifact', () => {

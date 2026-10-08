@@ -75,7 +75,10 @@ async function until(next: () => Promise<Wire>, done: (value: Wire) => boolean, 
 
 async function guard(): Promise<Wire> {
   const hello = await request('contract.hello');
-  assert.deepEqual([hello.runtimeProfile, hello.methodCount, hello.methodsHash], NORMAL);
+  // 8h4f reruns this workflow on the current normal profile (89 methods since 8h4e).
+  const current = [[...NORMAL], ['normal-v1', 89, '0ef817f4bac8a8a7']];
+  assert(current.some((item) => JSON.stringify(item) === JSON.stringify([hello.runtimeProfile, hello.methodCount,
+    hello.methodsHash])), `unexpected profile ${JSON.stringify(hello)}`);
   const mark = await request('revision.get');
   assert(/^New \d+$/.test(mark.project) && mark.project !== ANCHOR, `use an owned unsaved project, got ${mark.project}`);
   await adapter.hello();

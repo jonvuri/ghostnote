@@ -206,6 +206,29 @@ their schema text names the new tools. `delete_device` returns the write
 envelope with `removedLayerChains`. `revert_change` and `check_revert` add the
 composition reversal.
 
+8h4f (E239, D40) makes `agent-native-v1` the default server profile.
+`GHOSTNOTE_TOOL_PROFILE=stable-v1` selects the frozen rollback through 8i,
+with its 53 tools and its server instructions. Three stable tools take a new
+name in `agent-native-v1`:
+
+| Removed tool | Replacement in `agent-native-v1` | Incompatibility |
+|---|---|---|
+| `check_connection` | `check_bitwig_connection` | The read envelope (`ghostnote-connection/1`); `data.health` is `healthy` or `outside-limit`; a stale build or no open project is a failure with code `unhealthy` |
+| `add_track` | `add_tracks` | `tracks: [{ name, kind }]` with `kind` `instrument` (default) or `audio` (E239); the write envelope with two effects (creation, naming) |
+| `copy_track` | `duplicate_track` | Instrument, Audio, and Hybrid tracks (E239); other kinds refuse before a write (`unsupported`, `detail.reason` `track-kind`); no observation capture |
+
+The retained tools keep their names and change their result shape:
+
+| Tool | Change in `agent-native-v1` |
+|---|---|
+| `list_tracks`, `list_changes`, `check_revert`, `list_modulator_types` | The read envelope. A place uses `track`, `scene`, `launcher_clip`, `device`, or `device_control`, with 1-based note channels |
+| `revert_change`, `rename_track`, `set_device_enabled`, `delete_track` | The write envelope. A reversal is one effect with `target.undoOf`; nothing to put back is `applied: false` with `readback.status` `nothing-to-revert` |
+| `read_device_controls`, `set_device_controls`, `read_preset_modulation`, `edit_preset_modulation`, `wrap_existing_device_modulation`, `reverse_existing_device_modulation_wrap` | The measured body stays; `schema` is added, and a refusal, a standing that is not stable, an incomplete or partial write, or a throw after a write adds the `failure` object with each recorded change in `failure.effects` (D40) |
+| `delete_device`, `move_devices` | A project device address is `devicePosition`, not `position`. `read_devices` and `add_devices` report `devicePosition` |
+
+A failure code changes on every tool: an unresolved trackId is `absent`, not
+`authority-unavailable`.
+
 Observation compatibility policy: `agent-native-v1` captures nothing, so a
 storage failure cannot change its write results. The stored-record readers for
 observation JSON v1–v3 and the `observation.read` and `observation.replace`

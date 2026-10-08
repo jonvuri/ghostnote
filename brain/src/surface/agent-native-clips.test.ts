@@ -308,11 +308,11 @@ test('8h4d D19: reads, navigation, and a launch create no change record; each du
 
 // --- observation decoupling ------------------------------------------------------
 
-test('8h4d observation: agent-native-v1 copy_track does not touch the store; 8h4e retires the alternates', async () => {
+test('8h4d observation: agent-native-v1 duplicate_track does not touch the store; 8h4e retires the alternates', async () => {
   const store = new FailingObservationStore();
   const fx = fixture(store);
-  const copied = await fx.native('copy_track', { trackId: fx.trackId, name: 'copy' });
-  assert.equal(copied['copyConfirmed'], true, JSON.stringify(copied).slice(0, 300));
+  const copied = await fx.native('duplicate_track', { trackId: fx.trackId, name: 'copy' });
+  assert.equal(copied['readback']?.status, 'verified', JSON.stringify(copied).slice(0, 300));
   const native = new Set(toolsForProfile(AGENT_NATIVE_TOOL_PROFILE).map((spec) => spec.name));
   assert.equal(native.has('create_device_alternates'), false);
   assert.equal(toolsForProfile(AGENT_NATIVE_TOOL_PROFILE).some((spec) => spec.observation === 'device-alternate'), false);

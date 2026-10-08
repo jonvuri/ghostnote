@@ -120,17 +120,17 @@ test('8h4e winner collapse recipe: move out, delete the container, restore the p
   assert.deepEqual(extracted.readback.topLevel.map((item: Wire) => item.name), ['Polysynth', 'FX Layer', 'Tool', 'Delay+']);
   assert.deepEqual(extracted.readback.layerChains[0].devices, []);
 
-  const refused = await fx.native('delete_device', { devices: [{ trackId: fx.trackId, position: 1, layerChain: 'A' }] });
+  const refused = await fx.native('delete_device', { devices: [{ trackId: fx.trackId, devicePosition: 1, layerChain: 'A' }] });
   assert.equal(refused.failure.code, 'unsupported');
   assert.equal(refused.detail.reason, 'layer-chain-delete');
   assert.equal(fx.row.devices.length, 4, 'the refusal wrote nothing');
 
-  const deleted = await fx.native('delete_device', { devices: [{ trackId: fx.trackId, position: 1 }] });
+  const deleted = await fx.native('delete_device', { devices: [{ trackId: fx.trackId, devicePosition: 1 }] });
   assert.equal(deleted.applied, true, JSON.stringify(deleted));
   assert.deepEqual(deleted.readback.removedLayerChains[0].layerChains.map((item: Wire) => item.name), ['A', 'B']);
 
   const restored = await fx.native('move_devices', { trackId: fx.trackId,
-    devices: [{ from: 'top-level', devicePosition: 2 }], destination: { to: 'top-level-position', position: 1 } });
+    devices: [{ from: 'top-level', devicePosition: 2 }], destination: { to: 'top-level-position', devicePosition: 1 } });
   assert.equal(restored.readback.status, 'verified', JSON.stringify(restored));
   assert.deepEqual(fx.row.devices.map((item) => item.name), ['Polysynth', 'Delay+', 'Tool']);
 });

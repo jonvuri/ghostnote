@@ -907,9 +907,43 @@ public class Rig {
                 if (selected) observeMixerSelection(mixerTrackIdx);
             });
 
-            // The E16 mixer, send, and VU probes are historical. Their arrays
-            // remain empty so archived source still compiles without allocating
-            // normal-runtime host objects.
+            // 8h4f track-kind arms (E239): the probe profile reads the mixer, the
+            // sends, the input kind, and the VU of a created or copied track. The
+            // normal and capture runtimes do not allocate these host objects.
+            // Use only the modern accessors (standing rule 9). sendBank() throws
+            // at size 0, so the guard on config.sends stays (E16).
+            if (profile.hasProbeResources()) {
+                track.volume().value().markInterested();
+                track.volume().value().displayedValue().markInterested();
+                track.pan().value().markInterested();
+                track.mute().markInterested();
+                track.solo().markInterested();
+                track.isMutedBySolo().markInterested();
+                track.isActivated().markInterested();
+                track.color().markInterested();
+                track.sourceSelector().hasAudioInputSelected().markInterested();
+                track.sourceSelector().hasNoteInputSelected().markInterested();
+                if (config.sends > 0) {
+                    sendBanks[i] = track.sendBank();
+                    sendBanks[i].itemCount().markInterested();
+                    for (int s = 0; s < config.sends; s++) {
+                        Send send = sendBanks[i].getItemAt(s);
+                        send.exists().markInterested();
+                        send.name().markInterested();
+                        send.value().markInterested();
+                        send.isEnabled().markInterested();
+                        send.isPreFader().markInterested();
+                        send.sendMode().markInterested();
+                    }
+                }
+                final int vuIdx = i;
+                track.addVuMeterObserver(VU_RANGE, -1, true, level -> {
+                    vuNow[vuIdx] = level;
+                    if (level > vuHold[vuIdx]) {
+                        vuHold[vuIdx] = level;
+                    }
+                });
+            }
 
             ClipLauncherSlotBank slots = track.clipLauncherSlotBank();
             for (int j = 0; j < config.scenes; j++) {

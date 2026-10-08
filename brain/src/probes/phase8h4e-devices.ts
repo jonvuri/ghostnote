@@ -139,7 +139,7 @@ async function recipes(dir: string): Promise<void> {
     assert.deepEqual([...chainNames(read, 0)].sort(), ['A', 'B', 'C']);
     // The typed single-chain delete refuses before a write.
     const refusal = await call('delete-layer-chain-refusal', 'delete_device',
-      { devices: [{ trackId, position: 0, layerChain: 'C' }] }, 'failure');
+      { devices: [{ trackId, devicePosition: 0, layerChain: 'C' }] }, 'failure');
     assert.equal(refusal.failure.code, 'unsupported');
     assert.equal(refusal.detail.reason, 'layer-chain-delete');
     read = await call('delete-layer-chain-refusal-read', 'read_devices', { trackId });
@@ -156,12 +156,12 @@ async function recipes(dir: string): Promise<void> {
     read = await call('collapse-read-2', 'read_devices', { trackId });
     assert.deepEqual(containerOf(read, 0).layerChains.find((item: Wire) => item.name === 'B').devices, []);
     assert.deepEqual(read.data.devices.map((item: Wire) => item.name), ['Instrument Layer', 'Tool', ...winnerDevices]);
-    const deleted = await call('collapse-delete-container', 'delete_device', { devices: [{ trackId, position: 0 }] });
+    const deleted = await call('collapse-delete-container', 'delete_device', { devices: [{ trackId, devicePosition: 0 }] });
     results['collapse-removed-layer-chains'] = deleted.readback.removedLayerChains;
     read = await call('collapse-read-3', 'read_devices', { trackId });
     assert.deepEqual(read.data.devices.map((item: Wire) => item.name), ['Tool', ...winnerDevices]);
     await call('collapse-restore', 'move_devices', { trackId, devices: winnerDevices.map((_: string, index: number) => ({
-      from: 'top-level', devicePosition: 1 + index })), destination: { to: 'top-level-position', position: 0 } });
+      from: 'top-level', devicePosition: 1 + index })), destination: { to: 'top-level-position', devicePosition: 0 } });
     read = await call('collapse-read-final', 'read_devices', { trackId });
     assert.deepEqual(read.data.devices.map((item: Wire) => item.name), [...winnerDevices, 'Tool']);
   } finally {

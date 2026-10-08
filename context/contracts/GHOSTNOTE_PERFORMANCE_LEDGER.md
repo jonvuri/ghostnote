@@ -4,7 +4,7 @@ kind: reference
 state: active
 updated: 2026-10-08
 parent: ../plan/phase-8/8h-cache-promotion-and-interface-simplification.md
-evidence: E227, E229, E234, E236, E237, E238, E244, E246
+evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246
 ---
 
 # Ghostnote performance ledger
@@ -52,6 +52,7 @@ session as a change that moves a number.
 | DirectParameter read of a new target, with display text (product) | No extra wire call: the set rides the poll that the settle needed | E238 |
 | `deviceInsert` settle after each `device.insert`, `device.relocate`, `chain.create`, `chain.relocate` stage | 4,000 ms fixed wait | `SETTLE_MS` |
 | One container read (`containerScope`, layer container, track not held) | About 8 turns (190 ms) | E238 trace |
+| One structural track stage (`track.create`, `track.duplicate`, `track.delete`): cursor release, rescan, mint poll | About 800 ms, 31 wire calls; the same for every track kind | E239 |
 | Bound heap for each sounding cell | About 300 bytes live (ZGC "used" is higher) | E227, E246 |
 
 ## Product paths
@@ -89,6 +90,15 @@ of the measurement.
 | `compose_devices`, offline, 2 and 4 layer chains | 7,199–7,330 ms; 7,770–7,779 ms | E18a insertion 463–465 ms | — | E238 |
 | `compose_devices`, staged, 2 and 4 layer chains | 36,525–37,145 ms; 64,878–64,937 ms | 9 and 17 stages | — | E238 |
 | `revert_change` of a composition, offline; staged 2 and 4 | 1,691–1,754 ms; 21.3 s; 38.4–38.5 s | — | — | E238 |
+| `add_tracks`, 2 tracks (audio and instrument) | 1,935 ms, 67 wire calls | One structural stage: about 800 ms (E239 arms) | add: read 4, apply 2, delta 2, resolve 1, tracks 1 (`add_track`: read 5) | E239 |
+| `duplicate_track`, Audio or Hybrid | 1,178–1,197 ms, 48 wire calls | E16: 117–190 ms until visible | duplicate: tracks 2, read 4, apply 2, delta 2, resolve 1 (`copy_track`: mark 1, tracks 1, read 5) | E239 |
+| `check_bitwig_connection`; `list_tracks` | 21 ms (2 wire calls); 43 ms (3) | One mark | connection: mark 1; tracks: mark 1, tracks 1 | E239 |
+| `rename_track`; `check_revert`; `revert_change` of a rename | 386 ms; 42 ms; 413 ms | — | rename: tracks 1, resolve 1, read 2, apply 1, delta 1 (+1 tracks against `stable-v1`); check: read 1, delta 1; revert: read 3, delta 2, resolve 1, apply 1 | E239 |
+| `set_device_enabled`, one device; its revert | 770 ms; 665 ms | — | devices 1, resolve 1, read 2, apply 1, delta 1 | E239 |
+| `delete_track`, 4 tracks | 2,517 ms, 87 wire calls | — | tracks 1, resolve 1, read 2, apply 1, delta 1 | E239 |
+| 27-control write, Polysynth (`set_device_controls`) | 14,463–14,521 ms, 282 wire calls; 4,321 bytes | `set_parameter`: 14,452–14,490 ms, same calls; 4,278 bytes | as `set_parameter` | E239 |
+| A/B audition and winner collapse, 2 chains (8 calls) | 21,877–21,903 ms, 497 wire calls | `stable-v1` managed alternates (9 calls): 50,693–50,706 ms, 763 wire calls | — | E239 |
+| E45/E48-style workflow, 8h4f remeasure | 8 calls, 7,411 ms, 28,364 bytes | `stable-v1`: 7 calls, 12,860 ms, 15,123 bytes | — | E239 |
 
 ## Limits
 
@@ -130,3 +140,10 @@ of the measurement.
   also for the same target.
 - `read_launcher_clip` returns all 16 channels (about 11 KB for the typical
   clip); an edit needs a read for its base.
+- A 27-control write takes 14.5 s and 282 wire calls (about 10 calls and
+  535 ms for each control), on both profiles. Its live result (4,321 bytes)
+  is above the 3,181-byte E126 figure because live parameter IDs are longer.
+- A structural track stage takes about 800 ms and 31 wire calls; the host
+  makes the track visible in 117–190 ms (E16).
+- `rename_track` reads the bank once to refuse a missing track (+1 call): the
+  executor records the rename of a missing track as a failed op.

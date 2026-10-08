@@ -53,7 +53,7 @@ test('8b: active profiles match the fail-closed Java classification', () => {
   assert.equal(normalGolden.identity, 'normal-v1');
   assert.equal(captureGolden.identity, 'capture-v1');
   assert.equal(probeGolden.identity, 'phase-8-probe-v1');
-  assert.equal(classification.historical.length, 55);
+  assert.equal(classification.historical.length, 54);
 });
 
 test('8b: normal, capture, and probe profiles have only their owned methods', () => {
@@ -72,6 +72,8 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
     // 8h4a5 (E243): the group expansion and DirectParameter callback probes.
     'branch.mixer',
     'branch.setMixer',
+    // 8h4f (E239): the VU oracle of the track-kind arms.
+    'branch.vu',
     'cache.shadow',
     'directparam.callbacks',
     'directparam.hop',
@@ -88,7 +90,7 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
   );
   assert.equal(normalGolden.count, 89);
   assert.equal(captureGolden.count, 94);
-  assert.equal(probeGolden.count, 106);
+  assert.equal(probeGolden.count, 107);
 });
 
 test('8b: historical host objects are absent from active Rig construction', () => {
@@ -97,8 +99,10 @@ test('8b: historical host objects are absent from active Rig construction', () =
       'extension', 'Rig.java'),
     'utf8',
   );
-  assert.doesNotMatch(rigSource, /sendBanks\[i\]\s*=\s*track\.sendBank\(\)/);
-  assert.doesNotMatch(rigSource, /track\.addVuMeterObserver\(/);
+  // 8h4f (E239): the send bank and the VU observer exist only in the probe profile.
+  assert.match(rigSource,
+    /if \(profile\.hasProbeResources\(\)\) \{\s*track\.volume\(\)[\s\S]*sendBanks\[i\] = track\.sendBank\(\)[\s\S]*track\.addVuMeterObserver\(/);
+  assert.equal(rigSource.match(/track\.addVuMeterObserver\(/g)?.length, 1);
   assert.doesNotMatch(rigSource, /createCursorTrack\("GN_CT_BARE"/);
   assert.doesNotMatch(rigSource, /createCursorLayer\(\)/);
   assert.doesNotMatch(rigSource, /createChainSelector\(\)/);

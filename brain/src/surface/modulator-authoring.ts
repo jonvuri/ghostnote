@@ -11,7 +11,7 @@ import {
   ModulatorAuthoringError, authorSemanticModulatorEdit, inspectPresetModulation, modulationRoute,
   type ModulationVerification, type ModulatorPageVerification,
 } from '../engine/index.js';
-import { receiptOf } from './report.js';
+import { receiptOf, withCause } from './report.js';
 import type { Workspace } from './workspace.js';
 
 const ROUTED_MODULATOR_TYPES = listDonorTypes()
@@ -435,6 +435,6 @@ export async function runModulatorAuthoring(
     if (workspace.changes.list().some((change) => !priorChangeIds.has(change.id))) {
       throw error;
     }
-    return authoringRefusal(error);
+    return withCause(authoringRefusal(error), error);
   }
 }

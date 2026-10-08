@@ -24,17 +24,24 @@
  *
  * The Launcher clip tools add `occupied` (8h4d): a destination slot holds a clip,
  * and the write would replace it or put the clip on an unreachable row (E20b, E21).
+ *
+ * 8h4f: a write that stopped after an earlier recorded change uses `partial`;
+ * `failure.effects` lists each completed change. The retained tools map a
+ * missing change record to `absent` and a value outside a host-proved domain
+ * to `range`.
  */
 import { BridgeError } from '../client.js';
 import {
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, CLIP_READ_SOUNDING_CELLS, ClipReadLimitError,
-  ClipSnapshotRefusedError, SlotOccupiedError,
+  ClipSnapshotRefusedError, InvalidOpError, ParameterValueUnrepresentableError, SlotOccupiedError,
   CollapsedGroupRowError, ContractVersionError, GroupSlotError, RuntimeProfileMismatchError,
   StaleAddressError, WireDriftError,
   type ClipSnapshotVerdictKind,
 } from '../contract/index.js';
 import { StaleExtensionError } from '../deploy.js';
 import { BindingRefusal } from '../bindings/ghostnote-document.js';
+import { UnprotectedWriteError } from '../engine/index.js';
+import { ChangesetNotFoundError, EmptySliceError } from '../stash/index.js';
 import { DocumentError, ImportCollisionError } from '../document/index.js';
 
 export const AGENT_NATIVE_TOOL_PROFILE = 'agent-native-v1';
@@ -200,8 +207,33 @@ export function classifyError(error: unknown): {
       : 'The clip extends past the reader width of 8,192 beats. Nothing was read.' };
   }
   if (error instanceof AddressUnresolvedError) {
+    // 8h4f: a track ID that does not resolve names no track in the connection window. A window overflow refuses
+    // before this with outside-limit.
+    if (error.address.kind === 'track') {
+      return { code: 'absent', message: 'The trackId does not name a track that this connection can see. Use '
+        + 'list_tracks.' };
+    }
     return { code: 'authority-unavailable', message: 'The fresh host read did not complete.',
       retryWhen: 'once; then check the connection' };
+  }
+  if (error instanceof ChangesetNotFoundError) {
+    return { code: 'absent', message: 'This server process has no change with that ID. revert_change reverses only '
+      + 'the changes in list_changes; an earlier edit or a person\'s edit is for Bitwig undo.' };
+  }
+  if (error instanceof EmptySliceError) {
+    return { code: 'invalid-input', message: 'The change touched nothing inside the named scope.' };
+  }
+  if (error instanceof ParameterValueUnrepresentableError) {
+    return { code: 'range', message: 'The normalized value is not in the host-proved discrete domain of the '
+      + 'control. Use one of the returned normalized values.' };
+  }
+  if (error instanceof UnprotectedWriteError) {
+    return { code: 'unsupported', message: 'The write would replace state that cannot be recorded exactly first. '
+      + 'Nothing was written.' };
+  }
+  if (error instanceof InvalidOpError) {
+    return { code: 'invalid-input', message: `The host cannot represent the requested ${error.op} exactly. Nothing `
+      + 'was written.' };
   }
   if (error instanceof ImportCollisionError) {
     return { code: 'collision', message: 'Two host notes normalize to the same channel, pitch, and 1/512-beat cell.' };
@@ -220,6 +252,9 @@ export function classifyError(error: unknown): {
   if (error instanceof BridgeError) {
     return { code: 'authority-unavailable', message: 'The Bitwig extension did not complete the read.',
       retryWhen: 'once; then check the connection' };
+  }
+  if (error instanceof Error && (error as NodeJS.ErrnoException).code === 'ENOENT') {
+    return { code: 'absent', message: 'The named file does not exist.' };
   }
   return { code: 'internal', message: 'Ghostnote failed for an unexpected reason.' };
 }

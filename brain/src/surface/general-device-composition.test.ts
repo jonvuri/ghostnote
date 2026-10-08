@@ -1077,11 +1077,17 @@ test('8h4e compose_devices: the staged backend composes and revert_change revers
   assert.ok(result.effects.length > 1);
   const checked = await callTool(fx.workspace, 'check_revert', { changeId: result.next.revert.changeId },
     AGENT_NATIVE_TOOL_PROFILE) as Record<string, unknown>;
-  assert.equal(checked['compositionReversal'], true);
+  assert.equal((checked['data'] as Record<string, unknown>)['compositionReversal'], true);
+  // 8h4f: the write envelope; each reversal stage is one effect.
   const reversed = await callTool(fx.workspace, 'revert_change', { changeId: result.next.revert.changeId },
-    AGENT_NATIVE_TOOL_PROFILE) as Record<string, unknown>;
-  assert.equal(reversed['complete'], true, JSON.stringify(reversed).slice(0, 600));
-  assert.equal(reversed['undoOf'], result.next.revert.changeId);
+    AGENT_NATIVE_TOOL_PROFILE) as { applied: boolean; readback: { status: string; compositionReversal: boolean };
+      effects: { target: { undoOf: string } }[]; target: { changeId: string } };
+  assert.equal(reversed.applied, true, JSON.stringify(reversed).slice(0, 600));
+  assert.equal(reversed.readback.status, 'verified');
+  assert.equal(reversed.readback.compositionReversal, true);
+  assert.ok(reversed.effects.length > 0);
+  assert.ok(reversed.effects.every((effect) => effect.target.undoOf === result.next.revert.changeId));
+  assert.equal(reversed.target.changeId, result.next.revert.changeId);
   assert.deepEqual(fx.row.devices.map((item) => [item.name, item.enabled]), [
     ['Existing Twin', true], ['Tool', false],
   ]);
@@ -1097,18 +1103,22 @@ test('8h4e check_revert: the composition preview runs the first reversal guards 
     })),
   }, AGENT_NATIVE_TOOL_PROFILE) as { next: { revert: { changeId: string } } };
   const changeId = result.next.revert.changeId;
-  const before = await callTool(fx.workspace, 'check_revert', { changeId }, AGENT_NATIVE_TOOL_PROFILE) as Record<string, unknown>;
+  const data = async (): Promise<Record<string, unknown>> => ((await callTool(fx.workspace, 'check_revert', { changeId },
+    AGENT_NATIVE_TOOL_PROFILE)) as { data: Record<string, unknown> }).data;
+  const before = await data();
   assert.equal(before['wouldWriteAnything'], true, JSON.stringify(before));
   // An operator adds a device: the projected top-level order no longer holds.
   fx.row.devices.push({ name: 'Operator EQ', enabled: true, paramsLive: true, params: [] });
   fx.fake.model.revision += 1;
-  const after = await callTool(fx.workspace, 'check_revert', { changeId }, AGENT_NATIVE_TOOL_PROFILE) as Record<string, unknown>;
+  const after = await data();
   assert.equal(after['wouldWriteAnything'], false, JSON.stringify(after));
   assert.equal(typeof after['why'], 'string');
   assert.equal('wouldRestore' in after, false);
   const devicesBefore = fx.row.devices.map((item) => item.name);
-  const reversed = await callTool(fx.workspace, 'revert_change', { changeId }, AGENT_NATIVE_TOOL_PROFILE) as Record<string, unknown>;
-  assert.equal(reversed['complete'], false);
-  assert.equal(reversed['failedStage'], 'reversal-boundary');
+  const reversed = await callTool(fx.workspace, 'revert_change', { changeId }, AGENT_NATIVE_TOOL_PROFILE) as {
+    failure: { code: string; effects: unknown[] }; detail: { failedStage: string } };
+  assert.equal(reversed.failure.code, 'target-changed', JSON.stringify(reversed));
+  assert.deepEqual(reversed.failure.effects, []);
+  assert.equal(reversed.detail.failedStage, 'reversal-boundary');
   assert.deepEqual(fx.row.devices.map((item) => item.name), devicesBefore, 'the refused reversal wrote nothing');
 });

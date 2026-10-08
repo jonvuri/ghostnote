@@ -1,0 +1,444 @@
+{
+ "schema": "phase8h4f-tracks-v1",
+ "hello": {
+  "contractVersion": 0,
+  "extensionVersion": "0.0.1",
+  "runtimeProfile": "phase-8-probe-v1",
+  "hostApiVersion": 25,
+  "methodCount": 107,
+  "methodsHash": "a4c9dcd1499f498a"
+ },
+ "project": "New 6",
+ "fixture": [
+  {
+   "name": "Inst 1",
+   "type": "Instrument"
+  },
+  {
+   "name": "Audio 2",
+   "type": "Audio"
+  },
+  {
+   "name": "Polysynth",
+   "type": "Hybrid"
+  },
+  {
+   "name": "FX 1",
+   "type": "Effect"
+  },
+  {
+   "name": "Master",
+   "type": "Master"
+  }
+ ],
+ "arms": [
+  {
+   "arm": "control",
+   "kind": "Instrument",
+   "checks": {
+    "minted": true,
+    "freshIdentity": true,
+    "sourceKept": true,
+    "sameType": true,
+    "adjacent": true,
+    "sceneCountKept": true,
+    "content": true,
+    "mixer": true,
+    "routing": true,
+    "arrivesAudible": true,
+    "audible": true,
+    "cleanup": true
+   },
+   "facts": {
+    "source": {
+     "name": "Polysynth",
+     "type": "Instrument",
+     "mixer": {
+      "volume": 0.62,
+      "pan": 0.35,
+      "mute": false,
+      "solo": false,
+      "activated": true,
+      "color": "0.898,0.200,0.396",
+      "audioInput": false,
+      "noteInput": true,
+      "sends": [
+       {
+        "value": 0.42,
+        "enabled": true,
+        "preFader": true,
+        "sendMode": "PRE"
+       }
+      ]
+     },
+     "slots": [
+      true,
+      false,
+      false,
+      false
+     ],
+     "devices": [
+      "Polysynth"
+     ],
+     "notes": "EVENT 0 1/2 60 110 1 false\nEVENT 1/2 1/2 64 110 1 false\nEVENT 1 1/2 68 110 1 false\nEVENT 3/2 1/2 72 110 1 false\nEVENT 2 1/2 60 110 1 false\nEVENT 5/2 1/2 64 110 1 false\nEVENT 3 1/2 68 110 1 false\nEVENT 7/2 1/2 72 110 1 false",
+     "position": 3
+    },
+    "write": {
+     "ms": 832,
+     "wireCalls": 31,
+     "minted": "2138de92-85ab-4a17-895b-8f7d5fe76511",
+     "applied": true,
+     "changeId": "63cf0d7f-6710-45dc-bf9a-959e8e1b1e28"
+    },
+    "copy": {
+     "name": "Polysynth",
+     "type": "Instrument",
+     "position": 4,
+     "mixer": {
+      "volume": 0.62,
+      "pan": 0.35,
+      "mute": false,
+      "solo": false,
+      "activated": true,
+      "color": "0.898,0.200,0.396",
+      "audioInput": false,
+      "noteInput": true,
+      "sends": [
+       {
+        "value": 0.42,
+        "enabled": true,
+        "preFader": true,
+        "sendMode": "PRE"
+       }
+      ]
+     },
+     "slots": [
+      true,
+      false,
+      false,
+      false
+     ],
+     "devices": [
+      "Polysynth"
+     ],
+     "notes": "EVENT 0 1/2 60 110 1 false\nEVENT 1/2 1/2 64 110 1 false\nEVENT 1 1/2 68 110 1 false\nEVENT 3/2 1/2 72 110 1 false\nEVENT 2 1/2 60 110 1 false\nEVENT 5/2 1/2 64 110 1 false\nEVENT 3 1/2 68 110 1 false\nEVENT 7/2 1/2 72 110 1 false"
+    },
+    "audibility": {
+     "copyAlone": {
+      "played": 68,
+      "muted": 0,
+      "master": 70,
+      "isPlaying": true
+     },
+     "sourceAlone": {
+      "played": 68,
+      "muted": 0,
+      "master": 70,
+      "isPlaying": true
+     }
+    },
+    "cleanup": {
+     "ms": 819,
+     "wireCalls": 32,
+     "applied": true,
+     "changeId": "cb27b292-24a4-4a50-94f0-6b80647757fa"
+    }
+   }
+  },
+  {
+   "arm": "audio-new",
+   "kind": "Audio",
+   "checks": {
+    "minted": true,
+    "freshIdentity": true,
+    "type": true,
+    "named": true,
+    "sceneCountKept": true,
+    "empty": true,
+    "routing": true,
+    "mixerDefault": true,
+    "silentWithoutContent": true,
+    "cleanup": true
+   },
+   "facts": {
+    "write": {
+     "ms": 801,
+     "wireCalls": 31,
+     "minted": "c3ec7c55-d163-4afb-a66d-3d91e689d767",
+     "applied": true,
+     "changeId": "9a5cce20-7d12-478e-993c-92a5aa0d9890"
+    },
+    "rename": {
+     "ms": 364,
+     "wireCalls": 15,
+     "applied": true,
+     "changeId": "e508aaff-4268-47f3-988c-f772205a1547"
+    },
+    "created": {
+     "name": "gn-8h4f-audio",
+     "type": "Audio",
+     "position": 3,
+     "mixer": {
+      "volume": 0.5407418735600996,
+      "pan": 0.5,
+      "mute": false,
+      "solo": false,
+      "activated": true,
+      "color": "0.498,0.498,0.490",
+      "audioInput": true,
+      "noteInput": false,
+      "sends": [
+       {
+        "value": 0,
+        "enabled": false,
+        "preFader": false,
+        "sendMode": "AUTO"
+       }
+      ]
+     },
+     "slots": [
+      false,
+      false,
+      false,
+      false
+     ],
+     "devices": []
+    },
+    "silentHold": 0,
+    "cleanup": {
+     "ms": 791,
+     "wireCalls": 32,
+     "applied": true,
+     "changeId": "fe8c7dfe-d092-4f81-bc5e-ac478ec6ce55"
+    }
+   }
+  },
+  {
+   "arm": "audio-dup",
+   "kind": "Audio",
+   "checks": {
+    "minted": true,
+    "freshIdentity": true,
+    "sourceKept": true,
+    "sameType": true,
+    "adjacent": true,
+    "sceneCountKept": true,
+    "content": true,
+    "mixer": true,
+    "routing": true,
+    "arrivesAudible": true,
+    "audible": true,
+    "cleanup": true
+   },
+   "facts": {
+    "source": {
+     "name": "Audio 2",
+     "type": "Audio",
+     "mixer": {
+      "volume": 0.62,
+      "pan": 0.35,
+      "mute": false,
+      "solo": false,
+      "activated": true,
+      "color": "0.898,0.200,0.396",
+      "audioInput": true,
+      "noteInput": false,
+      "sends": [
+       {
+        "value": 0.42,
+        "enabled": true,
+        "preFader": true,
+        "sendMode": "PRE"
+       }
+      ]
+     },
+     "slots": [
+      true,
+      false,
+      false,
+      false
+     ],
+     "devices": [
+      "Peak Limiter"
+     ],
+     "notes": null,
+     "position": 1
+    },
+    "write": {
+     "ms": 831,
+     "wireCalls": 31,
+     "minted": "4822ebca-e043-4a0d-9d34-4971ee69f718",
+     "applied": true,
+     "changeId": "b4f6566c-ad6f-4abb-8f2a-e03d44ec52c0"
+    },
+    "copy": {
+     "name": "Audio 3",
+     "type": "Audio",
+     "position": 2,
+     "mixer": {
+      "volume": 0.62,
+      "pan": 0.35,
+      "mute": false,
+      "solo": false,
+      "activated": true,
+      "color": "0.898,0.200,0.396",
+      "audioInput": true,
+      "noteInput": false,
+      "sends": [
+       {
+        "value": 0.42,
+        "enabled": true,
+        "preFader": true,
+        "sendMode": "PRE"
+       }
+      ]
+     },
+     "slots": [
+      true,
+      false,
+      false,
+      false
+     ],
+     "devices": [
+      "Peak Limiter"
+     ],
+     "notes": null
+    },
+    "audibility": {
+     "copyAlone": {
+      "played": 105,
+      "muted": 0,
+      "master": 109,
+      "isPlaying": true
+     },
+     "sourceAlone": {
+      "played": 103,
+      "muted": 0,
+      "master": 107,
+      "isPlaying": true
+     }
+    },
+    "cleanup": {
+     "ms": 819,
+     "wireCalls": 32,
+     "applied": true,
+     "changeId": "d3285f96-4198-438c-b4b4-9faaac4e9d61"
+    }
+   }
+  },
+  {
+   "arm": "hybrid-dup",
+   "kind": "Hybrid",
+   "checks": {
+    "minted": true,
+    "freshIdentity": true,
+    "sourceKept": true,
+    "sameType": true,
+    "adjacent": true,
+    "sceneCountKept": true,
+    "content": true,
+    "mixer": true,
+    "routing": true,
+    "arrivesAudible": true,
+    "audible": true,
+    "cleanup": true
+   },
+   "facts": {
+    "source": {
+     "name": "Polysynth",
+     "type": "Hybrid",
+     "mixer": {
+      "volume": 0.62,
+      "pan": 0.35,
+      "mute": false,
+      "solo": false,
+      "activated": true,
+      "color": "0.898,0.200,0.396",
+      "audioInput": false,
+      "noteInput": true,
+      "sends": [
+       {
+        "value": 0.42,
+        "enabled": true,
+        "preFader": true,
+        "sendMode": "PRE"
+       }
+      ]
+     },
+     "slots": [
+      true,
+      false,
+      false,
+      false
+     ],
+     "devices": [
+      "Polysynth"
+     ],
+     "notes": "EVENT 0 1/2 60 110 1 false\nEVENT 1/2 1/2 64 110 1 false\nEVENT 1 1/2 68 110 1 false\nEVENT 3/2 1/2 72 110 1 false\nEVENT 2 1/2 60 110 1 false\nEVENT 5/2 1/2 64 110 1 false\nEVENT 3 1/2 68 110 1 false\nEVENT 7/2 1/2 72 110 1 false",
+     "position": 2
+    },
+    "write": {
+     "ms": 827,
+     "wireCalls": 31,
+     "minted": "fa19d12a-a518-463b-91e9-5a12045bd1d4",
+     "applied": true,
+     "changeId": "3a9fec33-91d3-4971-95b1-edbbf0bf18b7"
+    },
+    "copy": {
+     "name": "Polysynth",
+     "type": "Hybrid",
+     "position": 3,
+     "mixer": {
+      "volume": 0.62,
+      "pan": 0.35,
+      "mute": false,
+      "solo": false,
+      "activated": true,
+      "color": "0.898,0.200,0.396",
+      "audioInput": false,
+      "noteInput": true,
+      "sends": [
+       {
+        "value": 0.42,
+        "enabled": true,
+        "preFader": true,
+        "sendMode": "PRE"
+       }
+      ]
+     },
+     "slots": [
+      true,
+      false,
+      false,
+      false
+     ],
+     "devices": [
+      "Polysynth"
+     ],
+     "notes": "EVENT 0 1/2 60 110 1 false\nEVENT 1/2 1/2 64 110 1 false\nEVENT 1 1/2 68 110 1 false\nEVENT 3/2 1/2 72 110 1 false\nEVENT 2 1/2 60 110 1 false\nEVENT 5/2 1/2 64 110 1 false\nEVENT 3 1/2 68 110 1 false\nEVENT 7/2 1/2 72 110 1 false"
+    },
+    "audibility": {
+     "copyAlone": {
+      "played": 69,
+      "muted": 0,
+      "master": 71,
+      "isPlaying": true
+     },
+     "sourceAlone": {
+      "played": 70,
+      "muted": 0,
+      "master": 73,
+      "isPlaying": true
+     }
+    },
+    "cleanup": {
+     "ms": 813,
+     "wireCalls": 32,
+     "applied": true,
+     "changeId": "8a1f7094-f5b3-4e45-937f-7f900a7f5552"
+    }
+   }
+  }
+ ],
+ "residue": []
+}

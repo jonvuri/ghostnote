@@ -1,0 +1,228 @@
+{
+ "schema": "phase8h4f-measure-v1",
+ "hello": {
+  "contractVersion": 0,
+  "extensionVersion": "0.0.1",
+  "runtimeProfile": "normal-v1",
+  "hostApiVersion": 25,
+  "methodCount": 89,
+  "methodsHash": "0ef817f4bac8a8a7"
+ },
+ "project": "New 6",
+ "steps": [
+  {
+   "run": 1,
+   "profile": "stable-v1",
+   "step": "setup-track",
+   "tool": "add_track",
+   "ms": 1226,
+   "bytes": 499,
+   "wire": 48
+  },
+  {
+   "run": 1,
+   "profile": "stable-v1",
+   "step": "setup-device",
+   "tool": "add_native_devices",
+   "ms": 5648,
+   "bytes": 549,
+   "wire": 64
+  },
+  {
+   "run": 1,
+   "profile": "stable-v1",
+   "step": "read",
+   "tool": "inspect_device_parameters",
+   "ms": 816,
+   "bytes": 10731,
+   "wire": 23
+  },
+  {
+   "run": 1,
+   "profile": "stable-v1",
+   "step": "write",
+   "tool": "set_parameter",
+   "ms": 14452,
+   "bytes": 4278,
+   "wire": 282
+  },
+  {
+   "run": 1,
+   "profile": "stable-v1",
+   "step": "cleanup",
+   "tool": "delete_track",
+   "ms": 848,
+   "bytes": 436,
+   "wire": 33
+  },
+  {
+   "run": 2,
+   "profile": "stable-v1",
+   "step": "setup-track",
+   "tool": "add_track",
+   "ms": 1199,
+   "bytes": 499,
+   "wire": 48
+  },
+  {
+   "run": 2,
+   "profile": "stable-v1",
+   "step": "setup-device",
+   "tool": "add_native_devices",
+   "ms": 5650,
+   "bytes": 549,
+   "wire": 64
+  },
+  {
+   "run": 2,
+   "profile": "stable-v1",
+   "step": "read",
+   "tool": "inspect_device_parameters",
+   "ms": 819,
+   "bytes": 10731,
+   "wire": 23
+  },
+  {
+   "run": 2,
+   "profile": "stable-v1",
+   "step": "write",
+   "tool": "set_parameter",
+   "ms": 14490,
+   "bytes": 4278,
+   "wire": 282
+  },
+  {
+   "run": 2,
+   "profile": "stable-v1",
+   "step": "cleanup",
+   "tool": "delete_track",
+   "ms": 841,
+   "bytes": 436,
+   "wire": 33
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "setup-track",
+   "tool": "add_tracks",
+   "ms": 1235,
+   "bytes": 674,
+   "wire": 47
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "setup-device",
+   "tool": "add_devices",
+   "ms": 5640,
+   "bytes": 649,
+   "wire": 64
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "read",
+   "tool": "read_device_controls",
+   "ms": 826,
+   "bytes": 10793,
+   "wire": 23
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "write",
+   "tool": "set_device_controls",
+   "ms": 14463,
+   "bytes": 4321,
+   "wire": 282
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "cleanup",
+   "tool": "delete_track",
+   "ms": 831,
+   "bytes": 474,
+   "wire": 33
+  },
+  {
+   "run": 2,
+   "profile": "agent-native-v1",
+   "step": "setup-track",
+   "tool": "add_tracks",
+   "ms": 1215,
+   "bytes": 674,
+   "wire": 47
+  },
+  {
+   "run": 2,
+   "profile": "agent-native-v1",
+   "step": "setup-device",
+   "tool": "add_devices",
+   "ms": 5645,
+   "bytes": 655,
+   "wire": 64
+  },
+  {
+   "run": 2,
+   "profile": "agent-native-v1",
+   "step": "read",
+   "tool": "read_device_controls",
+   "ms": 830,
+   "bytes": 10793,
+   "wire": 23
+  },
+  {
+   "run": 2,
+   "profile": "agent-native-v1",
+   "step": "write",
+   "tool": "set_device_controls",
+   "ms": 14521,
+   "bytes": 4321,
+   "wire": 282
+  },
+  {
+   "run": 2,
+   "profile": "agent-native-v1",
+   "step": "cleanup",
+   "tool": "delete_track",
+   "ms": 823,
+   "bytes": 474,
+   "wire": 33
+  }
+ ],
+ "totals": [
+  {
+   "profile": "stable-v1",
+   "run": 1,
+   "calls": 2,
+   "ms": 15268,
+   "bytes": 15009,
+   "wire": 305
+  },
+  {
+   "profile": "stable-v1",
+   "run": 2,
+   "calls": 2,
+   "ms": 15309,
+   "bytes": 15009,
+   "wire": 305
+  },
+  {
+   "profile": "agent-native-v1",
+   "run": 1,
+   "calls": 2,
+   "ms": 15289,
+   "bytes": 15114,
+   "wire": 305
+  },
+  {
+   "profile": "agent-native-v1",
+   "run": 2,
+   "calls": 2,
+   "ms": 15351,
+   "bytes": 15114,
+   "wire": 305
+  }
+ ]
+}

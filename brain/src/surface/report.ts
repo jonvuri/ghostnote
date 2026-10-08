@@ -648,6 +648,19 @@ function unrestoredWhy(what: string): string {
 
 // --- refusals ----------------------------------------------------------------
 
+/**
+ * 8h4f: keep the error behind one refusal or partial body as a non-enumerable `cause`. The serialized body does not
+ * change (stable-v1 stays byte-equal); the agent-native wrappers classify the cause into a stable failure code.
+ */
+export function withCause<T extends object>(body: T, error: unknown): T {
+  Object.defineProperty(body, 'cause', { value: error, enumerable: false });
+  return body;
+}
+
+/** The error that `withCause` kept, if any. */
+export const causeOf = (body: unknown): unknown =>
+  body !== null && typeof body === 'object' ? (body as { cause?: unknown }).cause : undefined;
+
 export interface Refusal {
   readonly refused: true;
   readonly nothingWasWritten: true;
@@ -680,7 +693,7 @@ export interface Refusal {
  */
 export function refusalOf(error: unknown): Refusal {
   const refusal = (why: string, extra: Partial<Refusal> = {}): Refusal =>
-    ({ refused: true, nothingWasWritten: true, why, ...extra });
+    withCause({ refused: true, nothingWasWritten: true, why, ...extra }, error);
 
   if (error instanceof UnprotectedWriteError) {
     const risk = { scenes: false, deviceChains: false };

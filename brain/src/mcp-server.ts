@@ -30,26 +30,36 @@ import { Session } from './session.js';
 import { BridgeTransport } from './adapters/live/transport.js';
 import { LiveStatusSink } from './surface/status.js';
 import {
-  STABLE_TOOL_PROFILE, TOOL_PROFILES, registerTools, type ToolProfile,
+  DEFAULT_TOOL_PROFILE, STABLE_TOOL_PROFILE, TOOL_PROFILES, registerTools, type ToolProfile,
 } from './surface/tools.js';
 import { workspaceOf } from './surface/workspace.js';
 
 const session = new Session();
+// 8h4f: agent-native-v1 is the default. GHOSTNOTE_TOOL_PROFILE=stable-v1 selects the frozen rollback (through 8i).
 const requestedProfile = process.env['GHOSTNOTE_TOOL_PROFILE'];
 const profile: ToolProfile = requestedProfile === undefined
-  ? STABLE_TOOL_PROFILE
+  ? DEFAULT_TOOL_PROFILE
   : TOOL_PROFILES.find((item) => item === requestedProfile)
     ?? (() => { throw new Error(`unsupported Ghostnote tool profile: ${requestedProfile}`); })();
+
+/** The server instructions of each profile. The stable-v1 text is frozen. */
+const INSTRUCTIONS: Readonly<Record<ToolProfile, string>> = {
+  [STABLE_TOOL_PROFILE]: 'Ghostnote reads and edits the active Bitwig Studio project: tracks, launcher clips, '
+    + 'notes, devices, parameters, modulation, device alternates, and verified composition workflows. '
+    + 'Clients should use a specific read when current state is needed. Writes return recorded '
+    + 'change IDs; supported writes can be inspected or reversed. Delete tools permanently remove '
+    + 'containers.',
+  'agent-native-v1': 'Ghostnote reads and edits the active Bitwig Studio project: tracks, Launcher clips as '
+    + 'Ghostnote documents, devices, layer chains, device controls, and preset modulation. Read the current state '
+    + 'before a write. Each result has a schema; a failure has failure.code. Each durable effect has a change ID '
+    + 'for revert_change. Delete tools permanently remove what they name.',
+};
 
 const server = new McpServer({
   name: 'ghostnote',
   version: '0.0.1',
 }, {
-  instructions: 'Ghostnote reads and edits the active Bitwig Studio project: tracks, launcher clips, '
-    + 'notes, devices, parameters, modulation, device alternates, and verified composition workflows. '
-    + 'Clients should use a specific read when current state is needed. Writes return recorded '
-    + 'change IDs; supported writes can be inspected or reversed. Delete tools permanently remove '
-    + 'containers.',
+  instructions: INSTRUCTIONS[profile],
 });
 
 registerTools(server, workspaceOf({

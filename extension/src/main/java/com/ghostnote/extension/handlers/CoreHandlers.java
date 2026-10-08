@@ -95,6 +95,8 @@ public final class CoreHandlers extends HandlerGroup {
         // 8h4a5 deliberate build markers (E243).
         result.addProperty("groupPoint", GroupPoint.RULE);
         result.addProperty("parameterSettle", Rig.DIRECT_PARAMETER_SETTLE);
+        // 8h4f deliberate build marker: the track kinds that track.create accepts.
+        result.add("trackCreateKinds", TrackHandlers.createKinds());
         // 8h4a (D33): the track-bank content filter that init applied.
         result.addProperty("contentFilter", rig.contentFilterApplied);
         return result;
@@ -126,8 +128,10 @@ public final class CoreHandlers extends HandlerGroup {
         // volume — 768 more values at the default rig — and `initMicros` beside
         // this number is what says whether it cost anything (E5's measurement,
         // which is only interpretable if this count stays honest).
+        // 8h4f: the probe profile also marks 10 mixer and input values and, with sends, 1 + 6 for each send.
+        long probeTrackValues = 7 + 10 + (rig.config.sends > 0 ? 1 + 6L * rig.config.sends : 0);
         result.addProperty("markedValues", slots * 6 + (long) rig.config.tracks
-            * (rig.profile.hasProbeResources() ? 7 : 5));
+            * (rig.profile.hasProbeResources() ? probeTrackValues : 5));
 
         // Session 4a: report the device and parameter scaffold explicitly. These
         // values let the scale probe separate project density from resources that

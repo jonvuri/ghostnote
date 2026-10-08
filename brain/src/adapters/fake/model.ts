@@ -456,11 +456,12 @@ export class ProjectModel {
    * ⚠ E2c also: default names auto-renumber, so 'Inst 2' is a positional
    * auto-name and never an identity.
    */
-  createTrack(name?: string): FakeTrack {
+  createTrack(name?: string, kind: 'instrument' | 'audio' = 'instrument'): FakeTrack {
+    const type: TrackType = kind === 'audio' ? 'Audio' : 'Instrument';
     const track: FakeTrack = {
       channelId: this.mintChannelId(),
-      name: name ?? `Inst ${this.tracks.filter((t) => t.type === 'Instrument').length + 1}`,
-      type: 'Instrument',
+      name: name ?? `${kind === 'audio' ? 'Audio' : 'Inst'} ${this.tracks.filter((t) => t.type === type).length + 1}`,
+      type,
       slots: this.makeSlots(),
       devices: [],
     };

@@ -30,7 +30,7 @@ import {
   type ChainAddress, type DeviceAddress, type DeviceSource, type DeviceState, type ObservedChain,
   type ObservedContainer, type ObservedDeviceBank, type Op, type TrackAddress,
 } from '../contract/index.js';
-import { directedDestruction, takeAppliedAnything } from '../engine/index.js';
+import { takeAppliedAnything } from '../engine/index.js';
 import {
   isNativeDeviceUuid, NativeNameResolutionError, resolveExactNativeDevices, type NativeCatalog,
 } from '../native-catalog/catalog.js';
@@ -51,9 +51,7 @@ import {
 } from './drum-machine-composition.js';
 import { existingDeviceModulationWrapperSchemas } from './existing-device-modulation-wrapper.js';
 import {
-  generalDeviceCompositionInputValidator, issuedCompositionCheckpoint, modulation,
-  previewGeneralDeviceCompositionReversal, runGeneralDeviceComposition,
-  runGeneralDeviceCompositionReversal,
+  generalDeviceCompositionInputValidator, modulation, runGeneralDeviceComposition,
   source as compositionSource,
 } from './general-device-composition.js';
 import { modulatorAuthoringSchemas, runModulatorAuthoring } from './modulator-authoring.js';
@@ -61,7 +59,7 @@ import {
   presetModulationInspectionInputSchema, presetModulationInspectionInputValidator,
   runPresetModulationInspection,
 } from './preset-modulation-inspection.js';
-import { receiptOf } from './report.js';
+import { causeOf, receiptOf } from './report.js';
 import type { ToolSpec } from './tools.js';
 import type { Workspace } from './workspace.js';
 
@@ -248,7 +246,7 @@ function publicLayerChain(item: ObservedChain) {
     volume: typeof item.volume === 'number' ? item.volume : null,
     pan: typeof item.pan === 'number' ? item.pan : null,
     color: item.color ?? null,
-    devices: item.devices.map((nested) => ({ position: nested.index, name: nested.name })),
+    devices: item.devices.map((nested) => ({ devicePosition: nested.index, name: nested.name })),
     devicesComplete: item.devicesComplete,
     deviceCapacity: item.devicesBankSize ?? null,
   };
@@ -276,7 +274,7 @@ const readInput = z.object({ trackId }).strict();
 type ReadInput = z.infer<typeof readInput>;
 
 const READ_DESCRIPTION = `${PROFILE} Read the complete top-level device order of one track, and the layer `
-  + 'chains of each container at top-level positions 0 through 2. Each device has its position, name, and '
+  + 'chains of each container at top-level positions 0 through 2. Each device has its devicePosition, name, and '
   + 'enabled state. A container (Instrument Layer or FX Layer; containerKind) lists its layer chains in order: '
   + 'name, solo, mute, volume, pan, colour, and the ordered devices in each. Positions are not IDs: a device-order '
   + 'edit changes later positions, so read again after each structural edit. Layer-chain names are the address '
@@ -301,7 +299,7 @@ async function readDevices(workspace: Workspace, args: ReadInput): Promise<unkno
     const structure = await structureAt(workspace, track, scoped);
     let containersComplete = true;
     const devices = bank.devices.map((item) => {
-      const base = { position: item.index, name: item.name, enabled: item.enabled ?? null };
+      const base = { devicePosition: item.index, name: item.name, enabled: item.enabled ?? null };
       if (item.index >= LAYER_CHAIN_POSITIONS) return { ...base, layerChains: 'outside-limit' as const };
       const read = structure.get(item.index);
       if (read === undefined || typeof read === 'string') {
@@ -517,7 +515,7 @@ const toTrackEnd = z.object({ to: z.literal('track-end') }).strict()
   .describe('Append at the end of the top-level device order.');
 const toTopLevelPosition = z.object({
   to: z.literal('top-level-position'),
-  position: z.number().int().min(0).describe(
+  devicePosition: z.number().int().min(0).describe(
     'Final top-level position of the first moved device, from the starting order. It must be before the sources.',
   ),
 }).strict().describe('Put top-level devices before the device at this position.');
@@ -676,7 +674,7 @@ async function planRelocation(
       for (const [index, original] of positions.entries()) {
         const name = topNames[original]!;
         const currentIndex = identity.indexOf(original);
-        const anchor = destination.position + index;
+        const anchor = destination.devicePosition + index;
         if (anchor >= currentIndex) {
           throw new ToolFailure('unsupported', 'plan', 'The proved top-level route moves a device to an earlier '
             + 'position only.', { detail: { reason: 'route', device: name } });
@@ -767,7 +765,7 @@ async function relocateDevices(
       schema, applied: true, effects: state.effects,
       readback: {
         status: verified ? 'verified' : 'differs',
-        topLevel: after.devices.map((item) => ({ position: item.index, name: item.name, enabled: item.enabled ?? null })),
+        topLevel: after.devices.map((item) => ({ devicePosition: item.index, name: item.name, enabled: item.enabled ?? null })),
         topLevelComplete: after.devicesComplete,
         layerChains: touched,
       },
@@ -892,7 +890,7 @@ async function addDevices(workspace: Workspace, args: AddInput, options: AddDevi
       if (minted.length !== 1) {
         throw new ToolFailure('unavailable', 'readback', 'The insertion did not read back at one exact position.');
       }
-      added.push({ deviceIndex: index, source: item.kind, position: minted[0]!.chainIndex,
+      added.push({ deviceIndex: index, source: item.kind, devicePosition: minted[0]!.chainIndex,
         ...(deviceName === undefined ? {} : { name: deviceName }) });
     }
     state.stage = 'readback';
@@ -902,7 +900,7 @@ async function addDevices(workspace: Workspace, args: AddInput, options: AddDevi
       readback: {
         status: after.devicesComplete ? 'verified' : 'differs',
         added,
-        topLevel: after.devices.map((entry) => ({ position: entry.index, name: entry.name, enabled: entry.enabled ?? null })),
+        topLevel: after.devices.map((entry) => ({ devicePosition: entry.index, name: entry.name, enabled: entry.enabled ?? null })),
       },
       next: { revert: { tool: 'revert_change', changeIds: state.effects.map((item) => item.changeId).reverse() } },
       warnings: [], timing: { totalMs: performance.now() - started },
@@ -1215,9 +1213,9 @@ async function composeStaged(
 const deleteInput = z.object({
   devices: z.array(z.object({
     trackId,
-    position: z.number().int().min(0).describe('Top-level position from read_devices.'),
+    devicePosition: z.number().int().min(0).describe('Top-level position from read_devices.'),
     layerChain: z.string().min(1).optional().describe(
-      'A layer chain inside the container at position. Typed deletion of one layer chain is unavailable: this '
+      'A layer chain inside the container at devicePosition. Typed deletion of one layer chain is unavailable: this '
       + 'always refuses before a write.',
     ),
   }).strict()).min(1),
@@ -1256,7 +1254,7 @@ async function deleteDevices(workspace: Workspace, args: DeleteInput, stable: To
       throw new ToolFailure('unsupported', 'input', 'Bitwig has no typed deletion of one layer chain. Nothing was '
         + 'written. Remove the layer chain with computer control in Bitwig: confirm the focus and the target, '
         + 'delete it, then read_devices again.', { detail: { reason: 'layer-chain-delete',
-        trackId: chainEntry.trackId, position: chainEntry.position, layerChain: chainEntry.layerChain } });
+        trackId: chainEntry.trackId, devicePosition: chainEntry.devicePosition, layerChain: chainEntry.layerChain } });
     }
     state.stage = 'acquire';
     const inside: Array<Record<string, unknown>> = [];
@@ -1273,7 +1271,10 @@ async function deleteDevices(workspace: Workspace, args: DeleteInput, stable: To
     }
     state.stage = 'write';
     const stableResult = await stable.run(workspace, { devices: args.devices.map((item) => ({
-      trackId: item.trackId, position: item.position })) } as never) as Record<string, unknown>;
+      trackId: item.trackId, position: item.devicePosition })) } as never) as Record<string, unknown>;
+    // 8h4f: a refusal before any write keeps its error; the failure envelope classifies it.
+    const cause = causeOf(stableResult);
+    if (stableResult['refused'] === true && cause !== undefined) throw cause;
     const receipts = (stableResult['changes'] as ReturnType<typeof receiptOf>[] | undefined) ?? [];
     for (const receipt of receipts) {
       state.effects.push({ changeId: receipt.changeId, target, summary: 'Removed one top-level device.',
@@ -1298,52 +1299,8 @@ async function deleteDevices(workspace: Workspace, args: DeleteInput, stable: To
 
 function groupBy(devices: DeleteInput['devices']): Map<string, number[]> {
   const out = new Map<string, number[]>();
-  for (const item of devices) out.set(item.trackId, [...(out.get(item.trackId) ?? []), item.position]);
+  for (const item of devices) out.set(item.trackId, [...(out.get(item.trackId) ?? []), item.devicePosition]);
   return out;
-}
-
-// --- revert_change and check_revert (in place) ----------------------------------
-
-/** 8h4e: a staged composition reverses through its container insertion change ID. */
-function revertTool(stable: ToolSpec): ToolSpec {
-  return {
-    ...stable,
-    description: `${stable.description}\nA compose_devices change ID (next.revert) reverses the whole composition: `
-      + 'moved existing devices go back, and only the owned sources and the owned container are removed, each '
-      + 'stage after its guards.',
-    run: async (workspace, input) => {
-      const args = input as { changeId: string; scope?: unknown };
-      const checkpoint = issuedCompositionCheckpoint(workspace, args.changeId);
-      if (checkpoint === undefined || args.scope !== undefined) return stable.run(workspace, input);
-      return { ...await runGeneralDeviceCompositionReversal(workspace, { checkpoint }), undoOf: args.changeId };
-    },
-  };
-}
-
-function checkRevertTool(stable: ToolSpec): ToolSpec {
-  return {
-    ...stable,
-    description: `${stable.description}\nFor a compose_devices change ID, the answer runs the guards of the first `
-      + 'reversal stage without writing; wouldWriteAnything is false, with why, when they refuse. Later stages check '
-      + 'their guards again.',
-    run: async (workspace, input) => {
-      const args = input as { changeId: string; scope?: unknown };
-      const checkpoint = issuedCompositionCheckpoint(workspace, args.changeId);
-      if (checkpoint === undefined || args.scope !== undefined) return stable.run(workspace, input);
-      const preview = await previewGeneralDeviceCompositionReversal(workspace, checkpoint);
-      return {
-        compositionReversal: true,
-        wouldWriteAnything: preview.wouldWrite,
-        ...(preview.why === undefined ? {} : { why: preview.why }),
-        guards: 'The first reversal stage passes its guards now. Each later stage checks its guards again.',
-        ...(preview.wouldWrite ? {
-          wouldRestore: 'the original top-level order: moved existing devices go back to their positions',
-          wouldRemove: 'only the owned sources and the owned container, each after its complete guards',
-        } : {}),
-        completedStages: checkpoint.completedEntries.length,
-      };
-    },
-  };
 }
 
 // --- renamed control and modulation tools ---------------------------------------
@@ -1380,15 +1337,8 @@ const SET_CONTROLS_DESCRIPTION = `${PROFILE} Set DirectParameters by ids from re
   + 'the full receipts. list_changes keeps the complete records; revert_change restores the base value while the '
   + 'device route is valid.';
 
-function controlsTools(stable: { read: ToolSpec; set: ToolSpec; enabled: ToolSpec }): ToolSpec[] {
+function controlsTools(stable: { read: ToolSpec; set: ToolSpec }): ToolSpec[] {
   const setInput = z.object({ settings: z.array(parameterSetting).min(1) }).strict();
-  const enabledInput = z.object({
-    settings: z.array(z.object({
-      trackId,
-      devicePosition: z.number().int().min(0).describe('Current top-level position from read_devices.'),
-      enabled: z.boolean(),
-    })).min(1),
-  });
   return [
     {
       name: 'read_device_controls',
@@ -1413,12 +1363,6 @@ function controlsTools(stable: { read: ToolSpec; set: ToolSpec; enabled: ToolSpe
       inputSchema: setInput.shape,
       inputValidator: setInput,
       run: (workspace, input) => setDeviceControls(workspace, input as { settings: ParameterSetting[] }),
-    },
-    {
-      ...stable.enabled,
-      description: `${PROFILE} ${stable.enabled.description}`,
-      inputSchema: enabledInput.shape,
-      inputValidator: enabledInput,
     },
   ];
 }
@@ -1503,8 +1447,8 @@ export function agentNativeDeviceTools(stable: readonly ToolSpec[]): {
     if (found === undefined) throw new Error(`stable tool is missing: ${name}`);
     return found;
   };
-  const [readControls, setControls, setEnabled] = controlsTools({
-    read: named('inspect_device_parameters'), set: named('set_parameter'), enabled: named('set_device_enabled') });
+  const [readControls, setControls] = controlsTools({
+    read: named('inspect_device_parameters'), set: named('set_parameter') });
   const [readPreset, editPreset, wrap] = modulationTools({
     inspect: named('inspect_preset_modulation'), author: named('author_modulators'),
     wrap: named('wrap_existing_device_modulation') });
@@ -1535,12 +1479,10 @@ export function agentNativeDeviceTools(stable: readonly ToolSpec[]): {
       ['chain.activate', 'chain.solo'], (workspace, input) => setLayerChainSolo(workspace, input as SoloInput),
       { readback: ['verified', 'differs', 'already-set'] }),
   ];
+  // 8h4f: set_device_enabled, revert_change, and check_revert moved to agent-native-retained.ts.
   const replacements = new Map<string, ToolSpec>([
-    ['set_device_enabled', setEnabled!],
     ['wrap_existing_device_modulation', wrap!],
     ['delete_device', deviceDeletionTool(named('delete_device'))],
-    ['revert_change', revertTool(named('revert_change'))],
-    ['check_revert', checkRevertTool(named('check_revert'))],
   ]);
   return { additions, replacements };
 }

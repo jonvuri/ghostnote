@@ -1,13 +1,13 @@
 ---
 title: Phase 8h4f — Tracks, profile cut, and measurements
 kind: plan
-state: planned
-status: Planned. Proves track kinds for the track names, applies the vocabulary to the retained tools, makes agent-native-v1 the default, and measures the representative workflows. 8h4g reviews performance and closes 8h.
-updated: 2026-10-07
+state: done
+status: Complete (E239, D40). Live arms prove audio creation and Audio and Hybrid duplication (add_tracks, duplicate_track); every retained tool is on the shared result module; agent-native-v1 is the default with 41 tools; the E45/E48 workflow is 42 percent and the A/B recipe 57 percent faster than on stable-v1.
+updated: 2026-10-08
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h4e-device-structure-migration.md
 next: 8h4g-performance-review-and-closeout.md
-evidence: E16, E20c, E126, E135; D8, D16, D18, D19, D20, D21
+evidence: E16, E20c, E126, E135, E239; D8, D16, D18, D19, D20, D21, D40
 ---
 
 # Phase 8h4f — Tracks, profile cut, and measurements
@@ -66,6 +66,26 @@ are the input of 8h4g.
 
 [8h4g](8h4g-performance-review-and-closeout.md) owns the decision amendments
 and the 8h closeout, after the performance review.
+
+## Cost model (written at the session start)
+
+Units from the [performance ledger](../../contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md):
+one wire call is one turn (about 24 ms). A structural stage (`track.create`,
+`track.duplicate`, `track.delete`) releases every writer cursor (2 calls for
+each pool cursor), waits the `cursorPoint` settle, and rescans the bank; a
+minting stage polls the bank every 100 ms for at most 8 s. The `trackStruct`
+settle (144 ms) follows a rename.
+
+| Path | Typical case | Largest admitted case | Primitive and difference |
+|---|---|---|---|
+| `add_tracks`, one audio or instrument track | Mark, one create stage (about 12 turns and the mint poll, E16: 117–190 ms until visible), one rename stage (144 ms), one verify read: about 0.8–1.2 s | 8 names: 8 mint polls in one create batch, then one rename batch: about 3–4 s | `add_track` (instrument): the same ops; an audio track adds only the `kind` parameter, no turn |
+| `duplicate_track`, Audio or Hybrid | Mark, track list, one duplicate stage (E16: 330–520 ms for a heavy track), one rename stage, one verify read: about 1.0–1.5 s | A track with plug-ins: plug-in load in the mint poll; E16 measured 376–520 ms until readable | `copy_track` (instrument): the same ops; a new kind adds no turn |
+| Retained tools on the shared envelope | No host call added: the envelope maps the same reads and writes | Same | The call-budget test must not move |
+| `check_bitwig_connection`, `list_tracks` | One mark (one turn), and one `tracks()` for `list_tracks` | Same | `check_connection`, `list_tracks`: the same calls |
+
+Heap: no new host object in the normal profile. The probe profile marks 10
+mixer and input values for each track, the sends, and a VU observer for the
+arms only.
 
 ## Acceptance criteria
 

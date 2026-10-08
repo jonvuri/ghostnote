@@ -174,15 +174,15 @@ test('8h4b profile: stable-v1 registration is byte-equal; agent-native-v1 keeps 
   assert.equal(createHash('sha256').update(JSON.stringify(registration)).digest('hex'),
     'c16f2a9bb40cc7c8c207505320295d196a1cdbc10703b0bd1cb9ad79ba971d5f', 'stable-v1 registration changed');
   const native = toolsForProfile(AGENT_NATIVE_TOOL_PROFILE);
-  const kept = TOOLS.filter((spec) => AGENT_NATIVE_RETIRED[spec.name] === undefined);
-  // 8h4d: an unretired stable tool is the same spec, except the three scene tools on the shared result module.
-  // 8h4e: five device and reversal tools also change in place.
-  const replaced = ['launch_clip', 'add_scenes', 'delete_scene', 'set_device_enabled',
-    'wrap_existing_device_modulation', 'delete_device', 'revert_change', 'check_revert'];
-  assert.deepEqual(native.slice(0, kept.length).map((spec) => spec.name), kept.map((spec) => spec.name));
-  for (const [index, spec] of kept.entries()) {
-    assert.equal(native[index] === spec, !replaced.includes(spec.name), spec.name);
-  }
+  // 8h4f: three stable tools take a new name in their list position; every kept stable tool is a new spec on the
+  // shared result module.
+  const renamed: Record<string, string> = {
+    check_connection: 'check_bitwig_connection', add_track: 'add_tracks', copy_track: 'duplicate_track' };
+  const kept = TOOLS.filter((spec) => AGENT_NATIVE_RETIRED[spec.name] === undefined || renamed[spec.name] !== undefined);
+  assert.equal(kept.length, 17);
+  assert.deepEqual(native.slice(0, kept.length).map((spec) => spec.name),
+    kept.map((spec) => renamed[spec.name] ?? spec.name));
+  for (const [index, spec] of kept.entries()) assert.notEqual(native[index], spec, spec.name);
   assert.deepEqual(native.slice(kept.length).map((spec) => [spec.name, spec.kind]), [
     ['read_launcher_clip', 'read'], ['check_launcher_clips', 'read'], ['edit_launcher_clip', 'write'],
     ['add_launcher_clip', 'write'], ['copy_launcher_clips', 'write'], ['move_launcher_clips', 'write'],
@@ -199,7 +199,7 @@ test('8h4b profile: stable-v1 registration is byte-equal; agent-native-v1 keeps 
     assert.deepEqual(spec.emits, spec.kind === 'read' ? []
       : ['clip.update', 'note.remove', 'note.insert', 'note.clear', 'note.write']);
   }
-  for (const spec of native.filter((item) => !TOOLS.includes(item))) {
+  for (const spec of native) {
     assert.doesNotMatch(spec.description, /cursor|observer|stash|take\b|compiler|module/i, spec.name);
   }
 });

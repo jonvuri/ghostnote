@@ -212,6 +212,7 @@ public enum RuntimeProfile {
             "branch.groupTrack",
             "branch.mixer",
             "branch.setMixer",
+            "branch.vu",
             "cache.shadow",
             "directparam.callbacks",
             "directparam.hop",
@@ -227,7 +228,6 @@ public enum RuntimeProfile {
             "branch.contentFilter",
             "branch.createParentTrack",
             "branch.moveTrack",
-            "branch.vu",
             "chainselector.set",
             "chainselector.status",
             "cursor.duplicateContent",
@@ -359,8 +359,8 @@ public enum RuntimeProfile {
             if (!PRODUCT.containsAll(OPTIONAL_CAPTURE)
                     || PRODUCT.size() != 94
                     || NORMAL.size() != 89
-                    || PROBE.size() != 106
-                    || HISTORICAL.size() != 55
+                    || PROBE.size() != 107
+                    || HISTORICAL.size() != 54
                     || ALL_CLASSIFIED.size() != 166
                     || !ALL_CLASSIFIED.containsAll(READS)
                     || !ALL_CLASSIFIED.containsAll(CLIP_READS)

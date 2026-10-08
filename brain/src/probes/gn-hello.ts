@@ -50,6 +50,9 @@ check('the 8h4a5 build markers: the group point route and the DirectParameter se
   rig['groupPoint'] === 'expand-collapsed-point-v1' && rig['parameterSettle'] === 'same-ids-switch-v1'
     && (reader?.['groupPoint'] as Record<string, unknown> | undefined)?.['rule'] === 'expand-collapsed-point-v1',
   { groupPoint: rig['groupPoint'], parameterSettle: rig['parameterSettle'] });
+check('the 8h4f build marker: track.create makes instrument and audio tracks',
+  JSON.stringify(rig['trackCreateKinds']) === JSON.stringify(['instrument', 'audio']),
+  { trackCreateKinds: rig['trackCreateKinds'] });
 check('the track bank lists collapsed group children (ALL_CHANNELS, D33)',
   rig['contentFilter'] === 'ALL_CHANNELS', { contentFilter: rig['contentFilter'] });
 

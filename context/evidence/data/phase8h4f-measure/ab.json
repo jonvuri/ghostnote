@@ -1,0 +1,426 @@
+{
+ "schema": "phase8h4f-measure-v1",
+ "hello": {
+  "contractVersion": 0,
+  "extensionVersion": "0.0.1",
+  "runtimeProfile": "normal-v1",
+  "hostApiVersion": 25,
+  "methodCount": 89,
+  "methodsHash": "0ef817f4bac8a8a7"
+ },
+ "project": "New 6",
+ "steps": [
+  {
+   "run": 1,
+   "profile": "stable-v1",
+   "step": "setup-track",
+   "tool": "add_track",
+   "ms": 1229,
+   "bytes": 493,
+   "wire": 48
+  },
+  {
+   "run": 1,
+   "profile": "stable-v1",
+   "step": "compose",
+   "tool": "create_device_alternates",
+   "ms": 12924,
+   "bytes": 1420,
+   "wire": 157
+  },
+  {
+   "run": 1,
+   "profile": "stable-v1",
+   "step": "compose-devices",
+   "tool": "add_native_devices",
+   "ms": 11283,
+   "bytes": 894,
+   "wire": 128
+  },
+  {
+   "run": 1,
+   "profile": "stable-v1",
+   "step": "compose-fill-A",
+   "tool": "fill_device_alternate",
+   "ms": 6049,
+   "bytes": 873,
+   "wire": 71
+  },
+  {
+   "run": 1,
+   "profile": "stable-v1",
+   "step": "compose-fill-B",
+   "tool": "fill_device_alternate",
+   "ms": 5960,
+   "bytes": 904,
+   "wire": 69
+  },
+  {
+   "run": 1,
+   "profile": "stable-v1",
+   "step": "read",
+   "tool": "inspect_device_alternates",
+   "ms": 809,
+   "bytes": 746,
+   "wire": 23
+  },
+  {
+   "run": 1,
+   "profile": "stable-v1",
+   "step": "audition-A",
+   "tool": "switch_device_alternate",
+   "ms": 1393,
+   "bytes": 357,
+   "wire": 47
+  },
+  {
+   "run": 1,
+   "profile": "stable-v1",
+   "step": "audition-B",
+   "tool": "switch_device_alternate",
+   "ms": 1394,
+   "bytes": 357,
+   "wire": 47
+  },
+  {
+   "run": 1,
+   "profile": "stable-v1",
+   "step": "collapse-keep",
+   "tool": "keep_device_alternate",
+   "ms": 10499,
+   "bytes": 1104,
+   "wire": 208
+  },
+  {
+   "run": 1,
+   "profile": "stable-v1",
+   "step": "collapse-verify",
+   "tool": "inspect_devices",
+   "ms": 382,
+   "bytes": 155,
+   "wire": 13
+  },
+  {
+   "run": 1,
+   "profile": "stable-v1",
+   "step": "cleanup",
+   "tool": "delete_track",
+   "ms": 826,
+   "bytes": 436,
+   "wire": 33
+  },
+  {
+   "run": 2,
+   "profile": "stable-v1",
+   "step": "setup-track",
+   "tool": "add_track",
+   "ms": 1212,
+   "bytes": 493,
+   "wire": 48
+  },
+  {
+   "run": 2,
+   "profile": "stable-v1",
+   "step": "compose",
+   "tool": "create_device_alternates",
+   "ms": 12948,
+   "bytes": 1422,
+   "wire": 157
+  },
+  {
+   "run": 2,
+   "profile": "stable-v1",
+   "step": "compose-devices",
+   "tool": "add_native_devices",
+   "ms": 11298,
+   "bytes": 894,
+   "wire": 128
+  },
+  {
+   "run": 2,
+   "profile": "stable-v1",
+   "step": "compose-fill-A",
+   "tool": "fill_device_alternate",
+   "ms": 6015,
+   "bytes": 875,
+   "wire": 71
+  },
+  {
+   "run": 2,
+   "profile": "stable-v1",
+   "step": "compose-fill-B",
+   "tool": "fill_device_alternate",
+   "ms": 5964,
+   "bytes": 906,
+   "wire": 69
+  },
+  {
+   "run": 2,
+   "profile": "stable-v1",
+   "step": "read",
+   "tool": "inspect_device_alternates",
+   "ms": 815,
+   "bytes": 748,
+   "wire": 23
+  },
+  {
+   "run": 2,
+   "profile": "stable-v1",
+   "step": "audition-A",
+   "tool": "switch_device_alternate",
+   "ms": 1400,
+   "bytes": 357,
+   "wire": 47
+  },
+  {
+   "run": 2,
+   "profile": "stable-v1",
+   "step": "audition-B",
+   "tool": "switch_device_alternate",
+   "ms": 1405,
+   "bytes": 357,
+   "wire": 47
+  },
+  {
+   "run": 2,
+   "profile": "stable-v1",
+   "step": "collapse-keep",
+   "tool": "keep_device_alternate",
+   "ms": 10484,
+   "bytes": 1105,
+   "wire": 208
+  },
+  {
+   "run": 2,
+   "profile": "stable-v1",
+   "step": "collapse-verify",
+   "tool": "inspect_devices",
+   "ms": 377,
+   "bytes": 155,
+   "wire": 13
+  },
+  {
+   "run": 2,
+   "profile": "stable-v1",
+   "step": "cleanup",
+   "tool": "delete_track",
+   "ms": 849,
+   "bytes": 436,
+   "wire": 33
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "setup-track",
+   "tool": "add_tracks",
+   "ms": 1186,
+   "bytes": 668,
+   "wire": 47
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "compose",
+   "tool": "compose_devices",
+   "ms": 7684,
+   "bytes": 1365,
+   "wire": 125
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "read",
+   "tool": "read_devices",
+   "ms": 650,
+   "bytes": 1026,
+   "wire": 24
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "audition-A",
+   "tool": "set_layer_chain_solo",
+   "ms": 1105,
+   "bytes": 579,
+   "wire": 46
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "audition-B",
+   "tool": "set_layer_chain_solo",
+   "ms": 1105,
+   "bytes": 578,
+   "wire": 46
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "collapse-read",
+   "tool": "read_devices",
+   "ms": 653,
+   "bytes": 1025,
+   "wire": 24
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "collapse-move",
+   "tool": "move_devices",
+   "ms": 6386,
+   "bytes": 840,
+   "wire": 92
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "collapse-delete",
+   "tool": "delete_device",
+   "ms": 3670,
+   "bytes": 613,
+   "wire": 116
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "collapse-verify",
+   "tool": "read_devices",
+   "ms": 650,
+   "bytes": 466,
+   "wire": 24
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "cleanup",
+   "tool": "delete_track",
+   "ms": 830,
+   "bytes": 474,
+   "wire": 33
+  },
+  {
+   "run": 2,
+   "profile": "agent-native-v1",
+   "step": "setup-track",
+   "tool": "add_tracks",
+   "ms": 1189,
+   "bytes": 668,
+   "wire": 47
+  },
+  {
+   "run": 2,
+   "profile": "agent-native-v1",
+   "step": "compose",
+   "tool": "compose_devices",
+   "ms": 7690,
+   "bytes": 1373,
+   "wire": 125
+  },
+  {
+   "run": 2,
+   "profile": "agent-native-v1",
+   "step": "read",
+   "tool": "read_devices",
+   "ms": 648,
+   "bytes": 1034,
+   "wire": 24
+  },
+  {
+   "run": 2,
+   "profile": "agent-native-v1",
+   "step": "audition-A",
+   "tool": "set_layer_chain_solo",
+   "ms": 1116,
+   "bytes": 579,
+   "wire": 46
+  },
+  {
+   "run": 2,
+   "profile": "agent-native-v1",
+   "step": "audition-B",
+   "tool": "set_layer_chain_solo",
+   "ms": 1112,
+   "bytes": 579,
+   "wire": 46
+  },
+  {
+   "run": 2,
+   "profile": "agent-native-v1",
+   "step": "collapse-read",
+   "tool": "read_devices",
+   "ms": 647,
+   "bytes": 1033,
+   "wire": 24
+  },
+  {
+   "run": 2,
+   "profile": "agent-native-v1",
+   "step": "collapse-move",
+   "tool": "move_devices",
+   "ms": 6373,
+   "bytes": 844,
+   "wire": 92
+  },
+  {
+   "run": 2,
+   "profile": "agent-native-v1",
+   "step": "collapse-delete",
+   "tool": "delete_device",
+   "ms": 3641,
+   "bytes": 612,
+   "wire": 116
+  },
+  {
+   "run": 2,
+   "profile": "agent-native-v1",
+   "step": "collapse-verify",
+   "tool": "read_devices",
+   "ms": 650,
+   "bytes": 466,
+   "wire": 24
+  },
+  {
+   "run": 2,
+   "profile": "agent-native-v1",
+   "step": "cleanup",
+   "tool": "delete_track",
+   "ms": 819,
+   "bytes": 474,
+   "wire": 33
+  }
+ ],
+ "totals": [
+  {
+   "profile": "stable-v1",
+   "run": 1,
+   "calls": 9,
+   "ms": 50693,
+   "bytes": 6810,
+   "wire": 763
+  },
+  {
+   "profile": "stable-v1",
+   "run": 2,
+   "calls": 9,
+   "ms": 50706,
+   "bytes": 6819,
+   "wire": 763
+  },
+  {
+   "profile": "agent-native-v1",
+   "run": 1,
+   "calls": 8,
+   "ms": 21903,
+   "bytes": 6492,
+   "wire": 497
+  },
+  {
+   "profile": "agent-native-v1",
+   "run": 2,
+   "calls": 8,
+   "ms": 21877,
+   "bytes": 6520,
+   "wire": 497
+  }
+ ]
+}

@@ -11,7 +11,7 @@ import {
   type ExistingDeviceWrapperCheckpoint, type ExistingDeviceWrapperOptions,
   type ExistingDeviceWrapperResult, type ExistingDeviceWrapperReversal,
 } from '../engine/index.js';
-import { receiptOf } from './report.js';
+import { receiptOf, withCause } from './report.js';
 import type { Workspace } from './workspace.js';
 
 const ADD_TYPES = listDonorTypes()
@@ -139,7 +139,7 @@ export async function runExistingDeviceModulationWrapper(
     if (recorded.length > 0) {
       const changes = recorded.map((item) => receiptOf(workspace.changes.require(item.id)));
       const applied = changes.some((item) => item.applied);
-      return {
+      return withCause({
         applied,
         complete: false,
         partialCompletion: applied,
@@ -148,13 +148,13 @@ export async function runExistingDeviceModulationWrapper(
         stages: [],
         changes,
         currentLocation: { kind: 'unknown' },
-      };
+      }, error);
     }
-    return {
+    return withCause({
       refused: true,
       nothingWasWritten: true,
       why: `Nothing was written. ${message(error)}`,
-    };
+    }, error);
   }
 }
 
@@ -205,7 +205,7 @@ export async function runExistingDeviceModulationReversal(
     if (recorded.length === 0) throw error;
     const changes = recorded.map((item) => receiptOf(workspace.changes.require(item.id)));
     const applied = changes.some((item) => item.applied);
-    return {
+    return withCause({
       applied,
       complete: false,
       partialReversal: applied,
@@ -216,7 +216,7 @@ export async function runExistingDeviceModulationReversal(
       currentLocation: { kind: 'unknown' },
       containerRemoved: false,
       restoredDeviceOrder: false,
-    };
+    }, error);
   }
 }
 

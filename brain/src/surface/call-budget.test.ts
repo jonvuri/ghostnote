@@ -193,3 +193,45 @@ const EXPECTED_DEVICE_BUDGETS: Record<string, Counts> = {
   move: { devices: 2, read: 4, apply: 1, delta: 1 },
   controls: { read: 1 },
 };
+
+test('call budget: the 8h4f retained and track tools', async () => {
+  const fx = await fixture();
+  const dev = (name: string) => ({ name, enabled: true, paramsLive: true, params: [{ id: `P-${name}`, name, value: 0.5 }] });
+  fx.fake.model.visibleTracks()[0]!.devices.push(dev('Polysynth'));
+  const counts: Record<string, Counts> = {};
+  const run = async (label: string, name: string, args: Wire): Promise<Wire> => {
+    const { result, counts: used } = await fx.call(name, args);
+    assert.equal(result.failure, undefined, `${label}: ${JSON.stringify(result).slice(0, 300)}`);
+    counts[label] = used;
+    return result;
+  };
+  await run('connection', 'check_bitwig_connection', {});
+  await run('tracks', 'list_tracks', {});
+  const added = await run('add', 'add_tracks', { tracks: [{ name: 'gn-audio', kind: 'audio' }] });
+  const audio = added.readback.tracks[0].trackId as string;
+  const copied = await run('duplicate', 'duplicate_track', { trackId: audio, name: 'gn-audio copy' });
+  const renamed = await run('rename', 'rename_track', { tracks: [{ trackId: audio, name: 'gn-audio 2' }] });
+  await run('changes', 'list_changes', {});
+  await run('check', 'check_revert', { changeId: renamed.effects[0].changeId });
+  await run('revert', 'revert_change', { changeId: renamed.effects[0].changeId });
+  await run('enabled', 'set_device_enabled', { settings: [{ trackId: fx.trackId, devicePosition: 0, enabled: false }] });
+  await run('delete', 'delete_track', { trackIds: [copied.readback.copy.trackId, audio] });
+  assert.deepEqual(counts, EXPECTED_RETAINED_BUDGETS);
+});
+
+// Against stable-v1 (the same fixture): the same counts, except three. add_tracks reads the bank once for the kind
+// readback where add_track read the minted addresses (read 5); duplicate_track reads the bank where copy_track
+// took a mark (mark 1, tracks 1, read 5); rename_track reads the bank once more, because the executor records a
+// rename of a missing track as a failed op, not a refusal. Net: one more call, on rename_track only.
+const EXPECTED_RETAINED_BUDGETS: Record<string, Counts> = {
+  connection: { mark: 1 },
+  tracks: { mark: 1, tracks: 1 },
+  add: { read: 4, apply: 2, delta: 2, resolve: 1, tracks: 1 },
+  duplicate: { tracks: 2, read: 4, apply: 2, delta: 2, resolve: 1 },
+  rename: { tracks: 1, resolve: 1, read: 2, apply: 1, delta: 1 },
+  changes: {},
+  check: { read: 1, delta: 1 },
+  revert: { read: 3, delta: 2, resolve: 1, apply: 1 },
+  enabled: { devices: 1, resolve: 1, read: 2, apply: 1, delta: 1 },
+  delete: { tracks: 1, resolve: 1, read: 2, apply: 1, delta: 1 },
+};

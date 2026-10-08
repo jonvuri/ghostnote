@@ -74,10 +74,27 @@ public final class TrackHandlers extends HandlerGroup {
         "default", "from_start", "continue_or_from_start", "continue_or_synced", "synced",
     };
 
+    /** 8h4f (E239): the track kinds of {@code track.create}. A missing kind is an instrument track. */
+    private static final String[] CREATE_KINDS = { "instrument", "audio" };
+
+    public static JsonArray createKinds() {
+        JsonArray kinds = new JsonArray();
+        for (String kind : CREATE_KINDS) kinds.add(kind);
+        return kinds;
+    }
+
     private JsonElement trackCreate(JsonObject params) {
         int position = params.get("position").getAsInt();
-        rig.application.createInstrumentTrack(position);
-        return ok();
+        String kind = params.has("kind") ? params.get("kind").getAsString() : "instrument";
+        // Validate before the call: an unknown kind must not fall back to an instrument track (rule 3c).
+        switch (kind) {
+            case "instrument" -> rig.application.createInstrumentTrack(position);
+            case "audio" -> rig.application.createAudioTrack(position);
+            default -> throw new IllegalArgumentException("unknown track kind: " + kind);
+        }
+        JsonObject result = ok();
+        result.addProperty("kind", kind);
+        return result;
     }
 
     private JsonElement trackSetName(JsonObject params) {

@@ -569,7 +569,7 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       // honour bank positions (asking for 9 landed at 7, asking for 0 landed at
       // 1), so the caller must diff the bank by channelId afterwards (E2c). The
       // receipt's `minted` map is where that lands.
-      return [frame(WIRE.trackCreate, { position: -1 })];
+      return [frame(WIRE.trackCreate, { position: -1, ...(op.kind === undefined ? {} : { kind: op.kind }) })];
 
     case 'track.duplicate':
       return [frame(WIRE.trackDuplicate, {

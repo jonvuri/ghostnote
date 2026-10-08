@@ -1416,7 +1416,7 @@ export class FakeAdapter implements BitwigAdapter {
       case 'track.create': {
         // ⚠ E2c: the requested position is not honoured, so identity comes from
         // reading back what was actually created — never from an assumption.
-        const created = this.model.createTrack(op.name);
+        const created = this.model.createTrack(op.name, op.kind);
         minted[opIndex] = { kind: 'track', channelId: created.channelId };
         return;
       }

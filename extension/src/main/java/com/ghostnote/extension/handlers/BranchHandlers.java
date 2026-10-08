@@ -433,6 +433,9 @@ public final class BranchHandlers extends HandlerGroup {
         r.addProperty("mutedBySolo", track.isMutedBySolo().get());
         r.addProperty("activated", track.isActivated().get());
         r.addProperty("color", colorOf(track));
+        // 8h4f: the input kind. The API has no output-routing read.
+        r.addProperty("audioInput", track.sourceSelector().hasAudioInputSelected().get());
+        r.addProperty("noteInput", track.sourceSelector().hasNoteInputSelected().get());
 
         JsonArray sends = new JsonArray();
         // Null when the rig was built with sends=0 — reading them is then simply

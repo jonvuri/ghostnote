@@ -44,6 +44,10 @@ export type DeviceSource =
   /** ⚠ MUST be absolute and MUST end `.bwpreset` — both fail silently otherwise (E4h). */
   | { readonly from: 'file'; readonly path: string };
 
+/** The track kinds that `track.create` can make (8h4f, E239). Bitwig has no API route for a Hybrid track. */
+export const CREATABLE_TRACK_KINDS = ['instrument', 'audio'] as const;
+export type CreatableTrackKind = typeof CREATABLE_TRACK_KINDS[number];
+
 export type Op =
   // --- notes: Phase 1's only object class -----------------------------------
   | { readonly op: 'note.write'; readonly clip: ClipAddress; readonly channel?: number; readonly notes: readonly NoteRecord[] }
@@ -87,7 +91,8 @@ export type Op =
   // --- tracks: the only ops that MINT identity ------------------------------
   // `createInstrumentTrack(position)` does not honour positions (E2c), so the
   // receipt reports the channelId the new track was FOUND at, never a guess.
-  | { readonly op: 'track.create'; readonly name: string }
+  // 8h4f (E239): `kind` selects the host route. A missing kind is an instrument track.
+  | { readonly op: 'track.create'; readonly name: string; readonly kind?: CreatableTrackKind }
   /** Duplicate one addressed track. The receipt reports the fresh channelId. */
   | { readonly op: 'track.duplicate'; readonly track: TrackAddress }
   | { readonly op: 'track.rename'; readonly track: TrackAddress; readonly name: string }
