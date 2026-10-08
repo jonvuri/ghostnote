@@ -91,7 +91,7 @@ export {
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, CLIP_READ_SOUNDING_CELLS, ClipReadLimitError, ContractError,
   ContractVersionError, InvalidOpError, NoteTimingUnrepresentableError, SlotOccupiedError,
   ParameterValueUnrepresentableError, StaleAddressError, UnsupportedOpError, WireDriftError,
-  RuntimeProfileMismatchError, blindSpotError,
+  RuntimeProfileMismatchError, WriterWidthError, blindSpotError,
 } from './errors.js';
 export type { BankDimension, OccupiedSlotHazard } from './errors.js';
 

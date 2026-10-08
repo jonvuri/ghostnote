@@ -1,0 +1,40 @@
+{
+ "schema": "phase8h4g-inventory-v1-add-worst",
+ "hello": {
+  "contractVersion": 0,
+  "extensionVersion": "0.0.1",
+  "runtimeProfile": "normal-v1",
+  "hostApiVersion": 25,
+  "methodCount": 89,
+  "methodsHash": "0ef817f4bac8a8a7"
+ },
+ "project": "New 6",
+ "count": 16384,
+ "documentBytes": 552539,
+ "ms": 6390,
+ "status": "verified",
+ "timing": {
+  "readMs": 360.21362499999987,
+  "planMs": 773.5283749999999,
+  "writeMs": 3331.746125,
+  "readbackMs": 613.5916669999997,
+  "totalMs": 6389.6539999999995
+ },
+ "calls": 86,
+ "turns": 55,
+ "methods": {
+  "revision.get": 16,
+  "track.list": 17,
+  "slot.status": 15,
+  "selection.status": 4,
+  "batch.run": 2,
+  "cursor.pin": 10,
+  "cursor.pinTrack": 10,
+  "clip.read": 3,
+  "cursor.pointTrack": 1,
+  "slot.select": 2,
+  "cursor.status": 3,
+  "cursor.setStepSize": 1,
+  "cursor.scrollToStep": 2
+ }
+}

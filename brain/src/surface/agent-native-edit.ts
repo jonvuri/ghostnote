@@ -67,11 +67,8 @@ const editInput = z.object({
   readback: z.enum(['summary', 'document']).optional().describe(
     'summary (default): the new base, IDs, and discrepancies. document: also the read-back document.',
   ),
-  background: z.boolean().optional().describe(
-    'Return an operation handle at once and run the edit in the background. Use inspect_operation.',
-  ),
 }).strict();
-export type EditInput = Omit<z.infer<typeof editInput>, 'background'>;
+export type EditInput = z.infer<typeof editInput>;
 
 const EDIT_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Edit one Launcher clip with a Ghostnote Document 1.0 `
   + 'patch or desired document. Address it by trackId and row, as in read_launcher_clip. A patch or a desired '
@@ -99,9 +96,7 @@ const EDIT_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Edit one Launche
   + 'states its effects and is not retried; read the clip before another edit.\n'
   + 'Overlays in the document are stored with the base ref in this server process. A later read returns them, '
   + 'stale or removed when their notes changed.\n'
-  + 'A whole-clip rewrite of thousands of notes can last longer than a client request (16,384 notes: about 48 s). '
-  + 'background true returns an operation handle at once; inspect_operation returns the same result when the '
-  + 'operation is completed.';
+  + 'A whole-clip rewrite at the reader limit (16,384 notes) takes about 7 s.';
 
 export function parseProposal(args: Pick<EditInput, 'document' | 'format'>): Document {
   const encoding: Encoding = args.format ?? 'fields';
@@ -479,7 +474,6 @@ export const editLauncherClipTool: ToolSpec = {
   inputSchema: editInput.shape,
   inputValidator: editInput,
   emits: ['clip.update', 'note.remove', 'note.insert', 'note.clear', 'note.write'],
-  background: true,
   resultContract: {
     schema: EDIT_SCHEMA,
     profile: AGENT_NATIVE_TOOL_PROFILE,

@@ -25,6 +25,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { gunzipSync, gzipSync } from 'node:zlib';
 import { pathToFileURL } from 'node:url';
+import { isDeepStrictEqual } from 'node:util';
 import { LiveAdapter } from '../adapters/live/adapter.js';
 import { decodeNoteFrame, type NoteFrame, type RawNoteFields } from '../adapters/live/clip-read.js';
 import { clip, clipMetadata, scene, slot, supportedClipColors, track, type ClipAddress } from '../contract/index.js';
@@ -37,6 +38,7 @@ import type { E131Context } from './e131-diagnostic.js';
 import { WireTransport } from './phase8h3c-promotion.js';
 import { typicalNotes } from './phase8h3e-snapshots-lib.js';
 import { parse, serialize, type Event, type StateDocument } from '../document/index.js';
+import { NORMAL_8H4E } from './phase8h4e-devices.js';
 import { NORMAL, agreement, eventKey, rawDiff, rowKey, type Wire } from './phase8h4b-document-read-lib.js';
 
 const SCHEMA = 'phase8h4c-edit-v1';
@@ -80,7 +82,9 @@ async function until(next: () => Promise<Wire>, done: (value: Wire) => boolean, 
 
 async function guard(): Promise<Wire> {
   const hello = await request('contract.hello');
-  assert.deepEqual([hello.runtimeProfile, hello.methodCount, hello.methodsHash], NORMAL);
+  // The 8h4c build or a later normal build with the same methods (8h4e: 89 methods; 8h4g reruns).
+  assert([[...NORMAL], [...NORMAL_8H4E]].some((value) =>
+    isDeepStrictEqual(value, [hello.runtimeProfile, hello.methodCount, hello.methodsHash])), JSON.stringify(hello));
   const mark = await request('revision.get');
   assert(/^New \d+$/.test(mark.project) && mark.project !== ANCHOR, `use an owned unsaved project, got ${mark.project}`);
   const rig = await request('rig.info');
@@ -629,15 +633,27 @@ async function worst(dir: string, count: number): Promise<void> {
     events: document.events.map((event) => ({ ...event, velocity: event.velocity === 100 ? 90 : 100 })),
   };
   const text = serialize(desired, 'fields');
+  phases.length = 0; wire.length = 0;
   const started = performance.now();
   const result = await tool('edit_launcher_clip', { trackId: id, row: ROW, document: text });
   const editWallMs = performance.now() - started;
+  // 8h4g: executor phases and every wire call of the edit, with its time.
+  const at = (value: number) => Math.round(value - started);
+  const trace = { phases: phases.map((item) => ({ phase: item.phase, ms: Math.round(item.elapsedMs), end: at(item.at) })),
+    wire: wire.map((item) => ({ method: item.method, start: at(item.at), ms: Math.round(item.ms) })) };
+  const byMethod = new Map<string, { calls: number; ms: number }>();
+  for (const item of trace.wire) {
+    const sum = byMethod.get(item.method) ?? { calls: 0, ms: 0 };
+    byMethod.set(item.method, { calls: sum.calls + 1, ms: sum.ms + item.ms });
+  }
+  say({ step: 'worst-trace', calls: trace.wire.length, phases: trace.phases,
+    wire: Object.fromEntries([...byMethod].sort((a, b) => b[1].ms - a[1].ms).slice(0, 12)) });
   const after = await rawRead(id, ROW);
   const changed = after.filter((row) => Math.round(Number(row.velocity) * 127) === 90).length;
   const out = { schema: `${SCHEMA}-worst`, entry, trackId: id, requested: count, written, lengthBeats, fixtureMs,
     readWallMs, readToolMs: first.timing?.totalMs, documentBytes: Buffer.byteLength(text), editWallMs,
     result: { ...result, readback: result.readback === undefined ? undefined : { ...result.readback, document: undefined } },
-    rawBefore: before.length, rawAfter: after.length, velocity90: changed };
+    rawBefore: before.length, rawAfter: after.length, velocity90: changed, trace };
   await writeFile(join(dir, `worst-${count}.json.gz`), gzipSync(JSON.stringify(out) + '\n'));
   say({ step: 'worst', notes: before.length, code: result.failure?.code, reason: result.detail?.reason,
     route: result.plan?.route, status: result.readback?.status, readWallMs: Math.round(readWallMs),

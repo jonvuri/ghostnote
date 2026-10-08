@@ -53,3 +53,15 @@ Durable bounded effects retain their change IDs, actual observed effects, and
 D8/D16 reversal evidence. A failed readback or partial write cannot erase this
 record. 8h result migration and 8i hybrid trials must verify these boundaries
 under the [risk policy](../contracts/GHOSTNOTE_MIGRATION_AND_VERIFICATION.md).
+
+## 8h implemented surface — 2026-10-08 (8h4g closeout, E247)
+
+Every durable write of `agent-native-v1` returns its change IDs in
+`effects`, with `next.revert` for `revert_change`. `check_revert` reads what
+a reversal would restore without a write. `launch_clip` and
+`show_launcher_clip_in_detail_editor` have no change record. A failed or
+partial write reports each recorded change in `failure.effects`.
+
+8h4g removed the background route of `agent-native-v1` (D39 amendment):
+`edit_launcher_clip` and `add_launcher_clip` return their effects in the
+direct result, so there is no operation handle to inspect for them.

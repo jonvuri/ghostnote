@@ -1,0 +1,3740 @@
+{
+ "schema": "phase8h4e-devices-v1",
+ "steps": [
+  {
+   "step": "add-track-gn-8h4e-bench",
+   "tool": "add_tracks",
+   "ms": 853,
+   "bytes": 669,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-2-offline-0",
+   "tool": "compose_devices",
+   "ms": 3382,
+   "bytes": 1369,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-2-offline-0-read",
+   "tool": "read_devices",
+   "ms": 552,
+   "bytes": 1036,
+   "ok": true
+  },
+  {
+   "step": "bench-2-offline-0-revert",
+   "tool": "revert_change",
+   "ms": 1440,
+   "bytes": 696,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-2-offline-0-after",
+   "tool": "read_devices",
+   "ms": 333,
+   "bytes": 416,
+   "ok": true
+  },
+  {
+   "step": "bench-2-staged-0",
+   "tool": "compose_devices",
+   "ms": 17551,
+   "bytes": 3833,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-2-staged-0-read",
+   "tool": "read_devices",
+   "ms": 546,
+   "bytes": 1036,
+   "ok": true
+  },
+  {
+   "step": "bench-2-staged-0-revert",
+   "tool": "revert_change",
+   "ms": 12597,
+   "bytes": 1122,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-2-staged-0-after",
+   "tool": "read_devices",
+   "ms": 341,
+   "bytes": 415,
+   "ok": true
+  },
+  {
+   "step": "bench-4-offline-0",
+   "tool": "compose_devices",
+   "ms": 4023,
+   "bytes": 1834,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-4-offline-0-read",
+   "tool": "read_devices",
+   "ms": 557,
+   "bytes": 1495,
+   "ok": true
+  },
+  {
+   "step": "bench-4-offline-0-revert",
+   "tool": "revert_change",
+   "ms": 1454,
+   "bytes": 696,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-4-offline-0-after",
+   "tool": "read_devices",
+   "ms": 333,
+   "bytes": 415,
+   "ok": true
+  },
+  {
+   "step": "bench-4-staged-0",
+   "tool": "compose_devices",
+   "ms": 30556,
+   "bytes": 7012,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-4-staged-0-read",
+   "tool": "read_devices",
+   "ms": 554,
+   "bytes": 1495,
+   "ok": true
+  },
+  {
+   "step": "bench-4-staged-0-revert",
+   "tool": "revert_change",
+   "ms": 20916,
+   "bytes": 1844,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-4-staged-0-after",
+   "tool": "read_devices",
+   "ms": 335,
+   "bytes": 416,
+   "ok": true
+  },
+  {
+   "step": "bench-2-offline-1",
+   "tool": "compose_devices",
+   "ms": 3403,
+   "bytes": 1375,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-2-offline-1-read",
+   "tool": "read_devices",
+   "ms": 554,
+   "bytes": 1036,
+   "ok": true
+  },
+  {
+   "step": "bench-2-offline-1-revert",
+   "tool": "revert_change",
+   "ms": 1444,
+   "bytes": 696,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-2-offline-1-after",
+   "tool": "read_devices",
+   "ms": 334,
+   "bytes": 414,
+   "ok": true
+  },
+  {
+   "step": "bench-2-staged-1",
+   "tool": "compose_devices",
+   "ms": 17500,
+   "bytes": 3832,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-2-staged-1-read",
+   "tool": "read_devices",
+   "ms": 551,
+   "bytes": 1036,
+   "ok": true
+  },
+  {
+   "step": "bench-2-staged-1-revert",
+   "tool": "revert_change",
+   "ms": 12558,
+   "bytes": 1122,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-2-staged-1-after",
+   "tool": "read_devices",
+   "ms": 340,
+   "bytes": 415,
+   "ok": true
+  },
+  {
+   "step": "bench-4-offline-1",
+   "tool": "compose_devices",
+   "ms": 3978,
+   "bytes": 1834,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-4-offline-1-read",
+   "tool": "read_devices",
+   "ms": 545,
+   "bytes": 1495,
+   "ok": true
+  },
+  {
+   "step": "bench-4-offline-1-revert",
+   "tool": "revert_change",
+   "ms": 1428,
+   "bytes": 696,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-4-offline-1-after",
+   "tool": "read_devices",
+   "ms": 335,
+   "bytes": 416,
+   "ok": true
+  },
+  {
+   "step": "bench-4-staged-1",
+   "tool": "compose_devices",
+   "ms": 30430,
+   "bytes": 7018,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-4-staged-1-read",
+   "tool": "read_devices",
+   "ms": 553,
+   "bytes": 1495,
+   "ok": true
+  },
+  {
+   "step": "bench-4-staged-1-revert",
+   "tool": "revert_change",
+   "ms": 20968,
+   "bytes": 1844,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-4-staged-1-after",
+   "tool": "read_devices",
+   "ms": 336,
+   "bytes": 415,
+   "ok": true
+  },
+  {
+   "step": "cleanup",
+   "tool": "delete_track",
+   "ms": 485,
+   "bytes": 474,
+   "ok": true,
+   "status": "verified"
+  }
+ ],
+ "results": {
+  "add-track-gn-8h4e-bench": {
+   "schema": "ghostnote-track-add/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "58eafef8-c485-458a-a2f3-d4587b326041",
+     "target": {
+      "trackIds": [
+       "a4161dd0-1316-460a-8194-bfaa41828f37"
+      ]
+     },
+     "summary": "Created 1 track(s).",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "2f86d5c8-a589-41c8-ab7e-ce85373ca594",
+     "target": {
+      "trackIds": [
+       "a4161dd0-1316-460a-8194-bfaa41828f37"
+      ]
+     },
+     "summary": "Named the new track(s).",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "tracks": [
+     {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "name": "gn-8h4e-bench",
+      "kind": "Instrument"
+     }
+    ]
+   },
+   "warnings": [
+    {
+     "code": "not-reversible",
+     "message": "revert_change does not remove a new track; use delete_track."
+    }
+   ],
+   "target": {
+    "tracks": 1
+   }
+  },
+  "bench-2-offline-0": {
+   "schema": "ghostnote-device-compose/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "3274e7ec-280c-432d-8ad2-e926d7f045dd",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Inserted one Instrument Layer with 2 layer chains.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "d9dcd743-9a03-46e8-95df-b3d8948309dc",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Named 2 layer chain(s).",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "backend": "offline",
+    "containerPosition": 0,
+    "containerKind": "Instrument Layer",
+    "layerChains": [
+     {
+      "position": 0,
+      "name": "L1",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.263,
+       "green": 0.824,
+       "blue": 0.718
+      },
+      "devices": [
+       {
+        "devicePosition": 0,
+        "name": "Polysynth"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     },
+     {
+      "position": 1,
+      "name": "L2",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.263,
+       "green": 0.824,
+       "blue": 0.718
+      },
+      "devices": [
+       {
+        "devicePosition": 0,
+        "name": "Phase-4"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     }
+    ],
+    "complete": true,
+    "capacity": 5,
+    "modulation": []
+   },
+   "next": {
+    "revert": {
+     "tool": "revert_change",
+     "changeId": "3274e7ec-280c-432d-8ad2-e926d7f045dd"
+    }
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 3382.094333
+   },
+   "target": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+    "containerKind": "Instrument Layer"
+   }
+  },
+  "bench-2-offline-0-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+    "devices": [
+     {
+      "devicePosition": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "L1",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.263,
+          "green": 0.824,
+          "blue": 0.718
+         },
+         "devices": [
+          {
+           "devicePosition": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "L2",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.263,
+          "green": 0.824,
+          "blue": 0.718
+         },
+         "devices": [
+          {
+           "devicePosition": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 551.2842499999997
+   }
+  },
+  "bench-2-offline-0-revert": {
+   "schema": "ghostnote-revert/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "52cebd01-8158-4fdd-ac66-50899c381f8c",
+     "target": {
+      "undoOf": "3274e7ec-280c-432d-8ad2-e926d7f045dd"
+     },
+     "summary": "Reverted change 3274e7ec-280c-432d-8ad2-e926d7f045dd.",
+     "fidelity": "none"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "restored": [],
+    "notRestored": [],
+    "caveats": [
+     "this removes a device at the position its insertion was seen to produce. A track's device list exposes names and order but no durable device identity. This generic reversal did not retain a full managed-chain witness, so a later rearrangement can make the position name a different device."
+    ]
+   },
+   "warnings": [],
+   "target": {
+    "changeId": "3274e7ec-280c-432d-8ad2-e926d7f045dd"
+   }
+  },
+  "bench-2-offline-0-after": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+    "devices": []
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 332.97804199999973
+   }
+  },
+  "bench-2-staged-0": {
+   "schema": "ghostnote-device-compose/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "6f7ac325-79fd-46cb-ae2d-d85b3a81f0a8",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Composition stage insert-container.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "193c7335-70f8-409b-9f95-461fd783bf72",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage prepare-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "35f73369-02a8-4683-9447-aafd51eba405",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage prepare-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "a9589f6f-c4c0-44c5-8aa6-423bff1353e6",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage confirm-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "d735cb59-4615-4894-84a8-2a4b443db943",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage confirm-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "5943c156-1409-4802-a91c-8a8bb331c209",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage insert-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "87fc167a-b348-4b62-b0ff-bbb48237238f",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage relocate-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "8cbf7e9d-c61a-4451-bca4-f9e854f3817f",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage insert-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "3722412b-9a0d-403d-af96-ce0b13ee5416",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage relocate-source.",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "backend": "staged",
+    "containerPosition": 0,
+    "structure": [
+     {
+      "entryIndex": 0,
+      "entryName": "L1",
+      "devices": [
+       {
+        "position": 0,
+        "name": "Polysynth",
+        "enabled": true
+       }
+      ]
+     },
+     {
+      "entryIndex": 1,
+      "entryName": "L2",
+      "devices": [
+       {
+        "position": 0,
+        "name": "Phase-4",
+        "enabled": true
+       }
+      ]
+     }
+    ],
+    "layerChains": [
+     {
+      "entryIndex": 0,
+      "deviceIndex": 0,
+      "entryName": "L1",
+      "sourceKind": "native",
+      "sourceIdentity": {
+       "kind": "native",
+       "exactCatalogName": "Polysynth"
+      },
+      "observed": {
+       "deviceName": "Polysynth",
+       "enabled": true,
+       "position": 0
+      },
+      "instance": "new",
+      "stateClaim": "The source created a new device instance.",
+      "scalarFingerprint": {
+       "after": {
+        "algorithm": "sha256",
+        "sha256": "182dac11e829bc76378a693dfc1086e77e4fee2eb709a0350697f17206a55d42",
+        "parameterCount": 55
+       }
+      },
+      "pages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "containerPages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "behaviors": [],
+      "verified": true
+     },
+     {
+      "entryIndex": 1,
+      "deviceIndex": 0,
+      "entryName": "L2",
+      "sourceKind": "native",
+      "sourceIdentity": {
+       "kind": "native",
+       "exactCatalogName": "Phase-4"
+      },
+      "observed": {
+       "deviceName": "Phase-4",
+       "enabled": true,
+       "position": 0
+      },
+      "instance": "new",
+      "stateClaim": "The source created a new device instance.",
+      "scalarFingerprint": {
+       "after": {
+        "algorithm": "sha256",
+        "sha256": "db7336d70c108ef0b65eaf68924d0c5532e08444d9d4dae2474306d4684d6def",
+        "parameterCount": 103
+       }
+      },
+      "pages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "containerPages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "behaviors": [],
+      "verified": true
+     }
+    ]
+   },
+   "next": {
+    "revert": {
+     "tool": "revert_change",
+     "changeId": "6f7ac325-79fd-46cb-ae2d-d85b3a81f0a8"
+    }
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 17551.042415999997
+   },
+   "target": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+    "containerKind": "Instrument Layer"
+   }
+  },
+  "bench-2-staged-0-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+    "devices": [
+     {
+      "devicePosition": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "L1",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.263,
+          "green": 0.824,
+          "blue": 0.718
+         },
+         "devices": [
+          {
+           "devicePosition": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "L2",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.263,
+          "green": 0.824,
+          "blue": 0.718
+         },
+         "devices": [
+          {
+           "devicePosition": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 546.2235419999997
+   }
+  },
+  "bench-2-staged-0-revert": {
+   "schema": "ghostnote-revert/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "597a183c-7dde-4091-a986-d6c364895813",
+     "target": {
+      "undoOf": "6f7ac325-79fd-46cb-ae2d-d85b3a81f0a8"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "e898f18f-daf8-415e-8fd7-18233a112ced",
+     "target": {
+      "undoOf": "6f7ac325-79fd-46cb-ae2d-d85b3a81f0a8"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "none"
+    },
+    {
+     "changeId": "b5c95061-24a4-4e45-8ffd-c2a8c9d6a5d6",
+     "target": {
+      "undoOf": "6f7ac325-79fd-46cb-ae2d-d85b3a81f0a8"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "f244e5e7-cff6-4a0c-992d-f4c2a8ddd7dc",
+     "target": {
+      "undoOf": "6f7ac325-79fd-46cb-ae2d-d85b3a81f0a8"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "none"
+    },
+    {
+     "changeId": "efd9a2ac-1c25-4166-8b9b-311aaf3c1c0b",
+     "target": {
+      "undoOf": "6f7ac325-79fd-46cb-ae2d-d85b3a81f0a8"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "none"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "compositionReversal": true,
+    "restoredDeviceOrder": true
+   },
+   "warnings": [],
+   "target": {
+    "changeId": "6f7ac325-79fd-46cb-ae2d-d85b3a81f0a8"
+   }
+  },
+  "bench-2-staged-0-after": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+    "devices": []
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 341.4044169999979
+   }
+  },
+  "bench-4-offline-0": {
+   "schema": "ghostnote-device-compose/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "6ade982a-553c-4e22-80be-79667db6f48a",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Inserted one Instrument Layer with 4 layer chains.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "3231c372-e1bd-4c0d-9241-637753bc8e24",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Named 4 layer chain(s).",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "backend": "offline",
+    "containerPosition": 0,
+    "containerKind": "Instrument Layer",
+    "layerChains": [
+     {
+      "position": 0,
+      "name": "L1",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.263,
+       "green": 0.824,
+       "blue": 0.718
+      },
+      "devices": [
+       {
+        "devicePosition": 0,
+        "name": "Polysynth"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     },
+     {
+      "position": 1,
+      "name": "L2",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.263,
+       "green": 0.824,
+       "blue": 0.718
+      },
+      "devices": [
+       {
+        "devicePosition": 0,
+        "name": "Phase-4"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     },
+     {
+      "position": 2,
+      "name": "L3",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.263,
+       "green": 0.824,
+       "blue": 0.718
+      },
+      "devices": [
+       {
+        "devicePosition": 0,
+        "name": "FM-4"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     },
+     {
+      "position": 3,
+      "name": "L4",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.263,
+       "green": 0.824,
+       "blue": 0.718
+      },
+      "devices": [
+       {
+        "devicePosition": 0,
+        "name": "Organ"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     }
+    ],
+    "complete": true,
+    "capacity": 5,
+    "modulation": []
+   },
+   "next": {
+    "revert": {
+     "tool": "revert_change",
+     "changeId": "6ade982a-553c-4e22-80be-79667db6f48a"
+    }
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 4022.870542000004
+   },
+   "target": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+    "containerKind": "Instrument Layer"
+   }
+  },
+  "bench-4-offline-0-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+    "devices": [
+     {
+      "devicePosition": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "L1",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.263,
+          "green": 0.824,
+          "blue": 0.718
+         },
+         "devices": [
+          {
+           "devicePosition": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "L2",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.263,
+          "green": 0.824,
+          "blue": 0.718
+         },
+         "devices": [
+          {
+           "devicePosition": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 2,
+         "name": "L3",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.263,
+          "green": 0.824,
+          "blue": 0.718
+         },
+         "devices": [
+          {
+           "devicePosition": 0,
+           "name": "FM-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 3,
+         "name": "L4",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.263,
+          "green": 0.824,
+          "blue": 0.718
+         },
+         "devices": [
+          {
+           "devicePosition": 0,
+           "name": "Organ"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 556.9082909999997
+   }
+  },
+  "bench-4-offline-0-revert": {
+   "schema": "ghostnote-revert/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "19f37e56-7959-472e-af8a-a5c484af5e77",
+     "target": {
+      "undoOf": "6ade982a-553c-4e22-80be-79667db6f48a"
+     },
+     "summary": "Reverted change 6ade982a-553c-4e22-80be-79667db6f48a.",
+     "fidelity": "none"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "restored": [],
+    "notRestored": [],
+    "caveats": [
+     "this removes a device at the position its insertion was seen to produce. A track's device list exposes names and order but no durable device identity. This generic reversal did not retain a full managed-chain witness, so a later rearrangement can make the position name a different device."
+    ]
+   },
+   "warnings": [],
+   "target": {
+    "changeId": "6ade982a-553c-4e22-80be-79667db6f48a"
+   }
+  },
+  "bench-4-offline-0-after": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+    "devices": []
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 332.8404159999991
+   }
+  },
+  "bench-4-staged-0": {
+   "schema": "ghostnote-device-compose/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "4907dbf7-c856-4205-95c4-8ca7394cf9cb",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Composition stage insert-container.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "42a8661d-087c-400a-a881-1321d9e82c6c",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage prepare-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "81a0191d-dd82-4cac-b1c2-4b4ec65c06cd",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage prepare-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "a567b5df-e34d-4c14-8de6-897722fdc7a9",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L3"
+     },
+     "summary": "Composition stage prepare-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "7fa32015-44a5-4363-aed4-30565b3a002a",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L4"
+     },
+     "summary": "Composition stage prepare-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "54d6f393-3a76-4cd0-b7d1-372f678d0ddc",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage confirm-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "b951128a-295d-42e5-b32d-826bf19a854c",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage confirm-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "f64f2bcb-c102-4d8e-ba74-09bf39b71c9f",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L3"
+     },
+     "summary": "Composition stage confirm-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "aa732b9d-d4e8-4ab4-b863-7e89734adee8",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L4"
+     },
+     "summary": "Composition stage confirm-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "722bdcf1-c808-4966-a1b1-73636fd42ff3",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage insert-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "146188f6-cd03-45da-a3c1-c17698fde3c5",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage relocate-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "e1d95479-3a89-4258-b816-6038e9b3cfc6",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage insert-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "49d42f59-650b-4acc-8bda-0e08af642103",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage relocate-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "6725d910-ecf8-44aa-a590-e7251f7bc3aa",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L3"
+     },
+     "summary": "Composition stage insert-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "2a39b556-c668-4311-bde7-a63a0a11524a",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L3"
+     },
+     "summary": "Composition stage relocate-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "19b55f36-bce7-44a9-9893-65af4cc39cc8",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L4"
+     },
+     "summary": "Composition stage insert-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "85839060-280a-40f9-bfad-37865769a898",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L4"
+     },
+     "summary": "Composition stage relocate-source.",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "backend": "staged",
+    "containerPosition": 0,
+    "structure": [
+     {
+      "entryIndex": 0,
+      "entryName": "L1",
+      "devices": [
+       {
+        "position": 0,
+        "name": "Polysynth",
+        "enabled": true
+       }
+      ]
+     },
+     {
+      "entryIndex": 1,
+      "entryName": "L2",
+      "devices": [
+       {
+        "position": 0,
+        "name": "Phase-4",
+        "enabled": true
+       }
+      ]
+     },
+     {
+      "entryIndex": 2,
+      "entryName": "L3",
+      "devices": [
+       {
+        "position": 0,
+        "name": "FM-4",
+        "enabled": true
+       }
+      ]
+     },
+     {
+      "entryIndex": 3,
+      "entryName": "L4",
+      "devices": [
+       {
+        "position": 0,
+        "name": "Organ",
+        "enabled": true
+       }
+      ]
+     }
+    ],
+    "layerChains": [
+     {
+      "entryIndex": 0,
+      "deviceIndex": 0,
+      "entryName": "L1",
+      "sourceKind": "native",
+      "sourceIdentity": {
+       "kind": "native",
+       "exactCatalogName": "Polysynth"
+      },
+      "observed": {
+       "deviceName": "Polysynth",
+       "enabled": true,
+       "position": 0
+      },
+      "instance": "new",
+      "stateClaim": "The source created a new device instance.",
+      "scalarFingerprint": {
+       "after": {
+        "algorithm": "sha256",
+        "sha256": "182dac11e829bc76378a693dfc1086e77e4fee2eb709a0350697f17206a55d42",
+        "parameterCount": 55
+       }
+      },
+      "pages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "containerPages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "behaviors": [],
+      "verified": true
+     },
+     {
+      "entryIndex": 1,
+      "deviceIndex": 0,
+      "entryName": "L2",
+      "sourceKind": "native",
+      "sourceIdentity": {
+       "kind": "native",
+       "exactCatalogName": "Phase-4"
+      },
+      "observed": {
+       "deviceName": "Phase-4",
+       "enabled": true,
+       "position": 0
+      },
+      "instance": "new",
+      "stateClaim": "The source created a new device instance.",
+      "scalarFingerprint": {
+       "after": {
+        "algorithm": "sha256",
+        "sha256": "db7336d70c108ef0b65eaf68924d0c5532e08444d9d4dae2474306d4684d6def",
+        "parameterCount": 103
+       }
+      },
+      "pages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "containerPages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "behaviors": [],
+      "verified": true
+     },
+     {
+      "entryIndex": 2,
+      "deviceIndex": 0,
+      "entryName": "L3",
+      "sourceKind": "native",
+      "sourceIdentity": {
+       "kind": "native",
+       "exactCatalogName": "FM-4"
+      },
+      "observed": {
+       "deviceName": "FM-4",
+       "enabled": true,
+       "position": 0
+      },
+      "instance": "new",
+      "stateClaim": "The source created a new device instance.",
+      "scalarFingerprint": {
+       "after": {
+        "algorithm": "sha256",
+        "sha256": "2bf4446edd838b04228f3db9e8c0a09f33d220d4ed8b0e368e00bc06dbda53e8",
+        "parameterCount": 34
+       }
+      },
+      "pages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "containerPages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "behaviors": [],
+      "verified": true
+     },
+     {
+      "entryIndex": 3,
+      "deviceIndex": 0,
+      "entryName": "L4",
+      "sourceKind": "native",
+      "sourceIdentity": {
+       "kind": "native",
+       "exactCatalogName": "Organ"
+      },
+      "observed": {
+       "deviceName": "Organ",
+       "enabled": true,
+       "position": 0
+      },
+      "instance": "new",
+      "stateClaim": "The source created a new device instance.",
+      "scalarFingerprint": {
+       "after": {
+        "algorithm": "sha256",
+        "sha256": "e57fe620494c69e220fec70e8d0f84f55f045637f13eec729ef4eacad8b0ee69",
+        "parameterCount": 17
+       }
+      },
+      "pages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "containerPages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "behaviors": [],
+      "verified": true
+     }
+    ]
+   },
+   "next": {
+    "revert": {
+     "tool": "revert_change",
+     "changeId": "4907dbf7-c856-4205-95c4-8ca7394cf9cb"
+    }
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 30556.020334
+   },
+   "target": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+    "containerKind": "Instrument Layer"
+   }
+  },
+  "bench-4-staged-0-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+    "devices": [
+     {
+      "devicePosition": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "L1",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.263,
+          "green": 0.824,
+          "blue": 0.718
+         },
+         "devices": [
+          {
+           "devicePosition": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "L2",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.263,
+          "green": 0.824,
+          "blue": 0.718
+         },
+         "devices": [
+          {
+           "devicePosition": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 2,
+         "name": "L3",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.263,
+          "green": 0.824,
+          "blue": 0.718
+         },
+         "devices": [
+          {
+           "devicePosition": 0,
+           "name": "FM-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 3,
+         "name": "L4",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.263,
+          "green": 0.824,
+          "blue": 0.718
+         },
+         "devices": [
+          {
+           "devicePosition": 0,
+           "name": "Organ"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 553.8154170000053
+   }
+  },
+  "bench-4-staged-0-revert": {
+   "schema": "ghostnote-revert/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "590afa1d-bb23-4cf3-b51c-1da319df7e47",
+     "target": {
+      "undoOf": "4907dbf7-c856-4205-95c4-8ca7394cf9cb"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "8fad57ff-f4e3-4f1b-a494-152200f64313",
+     "target": {
+      "undoOf": "4907dbf7-c856-4205-95c4-8ca7394cf9cb"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "none"
+    },
+    {
+     "changeId": "34fa99f5-e590-45f2-a3c8-99ba26ba8220",
+     "target": {
+      "undoOf": "4907dbf7-c856-4205-95c4-8ca7394cf9cb"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "c49fb2c1-cdf6-4636-855b-cce0b33d64fb",
+     "target": {
+      "undoOf": "4907dbf7-c856-4205-95c4-8ca7394cf9cb"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "none"
+    },
+    {
+     "changeId": "5127d013-12b2-4996-bc45-663698103069",
+     "target": {
+      "undoOf": "4907dbf7-c856-4205-95c4-8ca7394cf9cb"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "f7f13123-0606-4400-a2d5-076fa4a53ea9",
+     "target": {
+      "undoOf": "4907dbf7-c856-4205-95c4-8ca7394cf9cb"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "none"
+    },
+    {
+     "changeId": "58305d4c-903c-43c9-905a-8930d982902e",
+     "target": {
+      "undoOf": "4907dbf7-c856-4205-95c4-8ca7394cf9cb"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "5539f6e0-8650-4baf-bedd-3e9d869e2ecf",
+     "target": {
+      "undoOf": "4907dbf7-c856-4205-95c4-8ca7394cf9cb"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "none"
+    },
+    {
+     "changeId": "6a2b85d9-ee75-4763-ac6c-fa41416cc45c",
+     "target": {
+      "undoOf": "4907dbf7-c856-4205-95c4-8ca7394cf9cb"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "none"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "compositionReversal": true,
+    "restoredDeviceOrder": true
+   },
+   "warnings": [],
+   "target": {
+    "changeId": "4907dbf7-c856-4205-95c4-8ca7394cf9cb"
+   }
+  },
+  "bench-4-staged-0-after": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+    "devices": []
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 335.15937499998836
+   }
+  },
+  "bench-2-offline-1": {
+   "schema": "ghostnote-device-compose/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "64424fa4-fdfb-4cd1-802b-75b2666f52a2",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Inserted one Instrument Layer with 2 layer chains.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "e3fbfcb1-afce-432d-b230-a96e4465b292",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Named 2 layer chain(s).",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "backend": "offline",
+    "containerPosition": 0,
+    "containerKind": "Instrument Layer",
+    "layerChains": [
+     {
+      "position": 0,
+      "name": "L1",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.263,
+       "green": 0.824,
+       "blue": 0.718
+      },
+      "devices": [
+       {
+        "devicePosition": 0,
+        "name": "Polysynth"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     },
+     {
+      "position": 1,
+      "name": "L2",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.263,
+       "green": 0.824,
+       "blue": 0.718
+      },
+      "devices": [
+       {
+        "devicePosition": 0,
+        "name": "Phase-4"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     }
+    ],
+    "complete": true,
+    "capacity": 5,
+    "modulation": []
+   },
+   "next": {
+    "revert": {
+     "tool": "revert_change",
+     "changeId": "64424fa4-fdfb-4cd1-802b-75b2666f52a2"
+    }
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 3403.418040999997
+   },
+   "target": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+    "containerKind": "Instrument Layer"
+   }
+  },
+  "bench-2-offline-1-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+    "devices": [
+     {
+      "devicePosition": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "L1",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.263,
+          "green": 0.824,
+          "blue": 0.718
+         },
+         "devices": [
+          {
+           "devicePosition": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "L2",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.263,
+          "green": 0.824,
+          "blue": 0.718
+         },
+         "devices": [
+          {
+           "devicePosition": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 554.4421250000014
+   }
+  },
+  "bench-2-offline-1-revert": {
+   "schema": "ghostnote-revert/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "030a0197-46ad-44fc-b260-2a52978a3084",
+     "target": {
+      "undoOf": "64424fa4-fdfb-4cd1-802b-75b2666f52a2"
+     },
+     "summary": "Reverted change 64424fa4-fdfb-4cd1-802b-75b2666f52a2.",
+     "fidelity": "none"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "restored": [],
+    "notRestored": [],
+    "caveats": [
+     "this removes a device at the position its insertion was seen to produce. A track's device list exposes names and order but no durable device identity. This generic reversal did not retain a full managed-chain witness, so a later rearrangement can make the position name a different device."
+    ]
+   },
+   "warnings": [],
+   "target": {
+    "changeId": "64424fa4-fdfb-4cd1-802b-75b2666f52a2"
+   }
+  },
+  "bench-2-offline-1-after": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+    "devices": []
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 334.077541000006
+   }
+  },
+  "bench-2-staged-1": {
+   "schema": "ghostnote-device-compose/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "53e9023d-5d2a-464d-8363-b39e1b39b722",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Composition stage insert-container.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "c724b2d0-918e-4f31-a3a7-ae21dcbb890a",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage prepare-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "28049560-2f8c-4d78-b07e-58869c65595b",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage prepare-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "a3a60963-b964-4b7e-88b5-763f520e51ac",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage confirm-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "83562edc-536e-4c07-a60c-24a274b36f28",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage confirm-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "21d8ade1-6b18-4d64-a6ff-e6e348b2bd46",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage insert-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "4471b36a-53af-4412-8483-3720669e770c",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage relocate-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "ffa550de-9fc5-471d-9f7a-b48c90bf4f80",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage insert-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "07a32d58-f7a6-4462-9358-11e9c2c0fb67",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage relocate-source.",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "backend": "staged",
+    "containerPosition": 0,
+    "structure": [
+     {
+      "entryIndex": 0,
+      "entryName": "L1",
+      "devices": [
+       {
+        "position": 0,
+        "name": "Polysynth",
+        "enabled": true
+       }
+      ]
+     },
+     {
+      "entryIndex": 1,
+      "entryName": "L2",
+      "devices": [
+       {
+        "position": 0,
+        "name": "Phase-4",
+        "enabled": true
+       }
+      ]
+     }
+    ],
+    "layerChains": [
+     {
+      "entryIndex": 0,
+      "deviceIndex": 0,
+      "entryName": "L1",
+      "sourceKind": "native",
+      "sourceIdentity": {
+       "kind": "native",
+       "exactCatalogName": "Polysynth"
+      },
+      "observed": {
+       "deviceName": "Polysynth",
+       "enabled": true,
+       "position": 0
+      },
+      "instance": "new",
+      "stateClaim": "The source created a new device instance.",
+      "scalarFingerprint": {
+       "after": {
+        "algorithm": "sha256",
+        "sha256": "182dac11e829bc76378a693dfc1086e77e4fee2eb709a0350697f17206a55d42",
+        "parameterCount": 55
+       }
+      },
+      "pages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "containerPages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "behaviors": [],
+      "verified": true
+     },
+     {
+      "entryIndex": 1,
+      "deviceIndex": 0,
+      "entryName": "L2",
+      "sourceKind": "native",
+      "sourceIdentity": {
+       "kind": "native",
+       "exactCatalogName": "Phase-4"
+      },
+      "observed": {
+       "deviceName": "Phase-4",
+       "enabled": true,
+       "position": 0
+      },
+      "instance": "new",
+      "stateClaim": "The source created a new device instance.",
+      "scalarFingerprint": {
+       "after": {
+        "algorithm": "sha256",
+        "sha256": "db7336d70c108ef0b65eaf68924d0c5532e08444d9d4dae2474306d4684d6def",
+        "parameterCount": 103
+       }
+      },
+      "pages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "containerPages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "behaviors": [],
+      "verified": true
+     }
+    ]
+   },
+   "next": {
+    "revert": {
+     "tool": "revert_change",
+     "changeId": "53e9023d-5d2a-464d-8363-b39e1b39b722"
+    }
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 17499.63762499999
+   },
+   "target": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+    "containerKind": "Instrument Layer"
+   }
+  },
+  "bench-2-staged-1-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+    "devices": [
+     {
+      "devicePosition": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "L1",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.263,
+          "green": 0.824,
+          "blue": 0.718
+         },
+         "devices": [
+          {
+           "devicePosition": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "L2",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.263,
+          "green": 0.824,
+          "blue": 0.718
+         },
+         "devices": [
+          {
+           "devicePosition": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 551.1277909999917
+   }
+  },
+  "bench-2-staged-1-revert": {
+   "schema": "ghostnote-revert/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "a179eb1a-a366-4a5b-98e4-d18150b86f64",
+     "target": {
+      "undoOf": "53e9023d-5d2a-464d-8363-b39e1b39b722"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "80128ed9-97d6-4e19-a6fd-fc56cf001a66",
+     "target": {
+      "undoOf": "53e9023d-5d2a-464d-8363-b39e1b39b722"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "none"
+    },
+    {
+     "changeId": "2ca96360-27d5-406a-805e-7724701969c3",
+     "target": {
+      "undoOf": "53e9023d-5d2a-464d-8363-b39e1b39b722"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "cfd697b1-a861-4d64-97d6-f95600ff8ff2",
+     "target": {
+      "undoOf": "53e9023d-5d2a-464d-8363-b39e1b39b722"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "none"
+    },
+    {
+     "changeId": "d5886982-509f-46d2-98e1-03e157d6f55f",
+     "target": {
+      "undoOf": "53e9023d-5d2a-464d-8363-b39e1b39b722"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "none"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "compositionReversal": true,
+    "restoredDeviceOrder": true
+   },
+   "warnings": [],
+   "target": {
+    "changeId": "53e9023d-5d2a-464d-8363-b39e1b39b722"
+   }
+  },
+  "bench-2-staged-1-after": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+    "devices": []
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 340.1055419999757
+   }
+  },
+  "bench-4-offline-1": {
+   "schema": "ghostnote-device-compose/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "295454a5-1a5d-4c7d-b901-5355222940e7",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Inserted one Instrument Layer with 4 layer chains.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "002e2f95-533d-4781-870e-18a04af15630",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Named 4 layer chain(s).",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "backend": "offline",
+    "containerPosition": 0,
+    "containerKind": "Instrument Layer",
+    "layerChains": [
+     {
+      "position": 0,
+      "name": "L1",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.263,
+       "green": 0.824,
+       "blue": 0.718
+      },
+      "devices": [
+       {
+        "devicePosition": 0,
+        "name": "Polysynth"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     },
+     {
+      "position": 1,
+      "name": "L2",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.263,
+       "green": 0.824,
+       "blue": 0.718
+      },
+      "devices": [
+       {
+        "devicePosition": 0,
+        "name": "Phase-4"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     },
+     {
+      "position": 2,
+      "name": "L3",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.263,
+       "green": 0.824,
+       "blue": 0.718
+      },
+      "devices": [
+       {
+        "devicePosition": 0,
+        "name": "FM-4"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     },
+     {
+      "position": 3,
+      "name": "L4",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.263,
+       "green": 0.824,
+       "blue": 0.718
+      },
+      "devices": [
+       {
+        "devicePosition": 0,
+        "name": "Organ"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     }
+    ],
+    "complete": true,
+    "capacity": 5,
+    "modulation": []
+   },
+   "next": {
+    "revert": {
+     "tool": "revert_change",
+     "changeId": "295454a5-1a5d-4c7d-b901-5355222940e7"
+    }
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 3977.726000000024
+   },
+   "target": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+    "containerKind": "Instrument Layer"
+   }
+  },
+  "bench-4-offline-1-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+    "devices": [
+     {
+      "devicePosition": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "L1",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.263,
+          "green": 0.824,
+          "blue": 0.718
+         },
+         "devices": [
+          {
+           "devicePosition": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "L2",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.263,
+          "green": 0.824,
+          "blue": 0.718
+         },
+         "devices": [
+          {
+           "devicePosition": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 2,
+         "name": "L3",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.263,
+          "green": 0.824,
+          "blue": 0.718
+         },
+         "devices": [
+          {
+           "devicePosition": 0,
+           "name": "FM-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 3,
+         "name": "L4",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.263,
+          "green": 0.824,
+          "blue": 0.718
+         },
+         "devices": [
+          {
+           "devicePosition": 0,
+           "name": "Organ"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 544.5122909999918
+   }
+  },
+  "bench-4-offline-1-revert": {
+   "schema": "ghostnote-revert/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "116ccdb9-57a4-43ab-918f-222d37678f29",
+     "target": {
+      "undoOf": "295454a5-1a5d-4c7d-b901-5355222940e7"
+     },
+     "summary": "Reverted change 295454a5-1a5d-4c7d-b901-5355222940e7.",
+     "fidelity": "none"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "restored": [],
+    "notRestored": [],
+    "caveats": [
+     "this removes a device at the position its insertion was seen to produce. A track's device list exposes names and order but no durable device identity. This generic reversal did not retain a full managed-chain witness, so a later rearrangement can make the position name a different device."
+    ]
+   },
+   "warnings": [],
+   "target": {
+    "changeId": "295454a5-1a5d-4c7d-b901-5355222940e7"
+   }
+  },
+  "bench-4-offline-1-after": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+    "devices": []
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 335.29320900002494
+   }
+  },
+  "bench-4-staged-1": {
+   "schema": "ghostnote-device-compose/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "bf908c69-51fd-41db-a62d-6e800184d8f1",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Composition stage insert-container.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "e099ae22-793c-4e4a-ae70-633f41171f34",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage prepare-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "4b93009c-6da2-4c3a-b0a2-e6682126ff3b",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage prepare-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "cdb1ce9b-4c5a-4a1a-9717-8e747e92ff4b",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L3"
+     },
+     "summary": "Composition stage prepare-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "487fb8bb-a4ed-452f-914a-18f67e842ca4",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L4"
+     },
+     "summary": "Composition stage prepare-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "a36b9f62-3e96-4cc5-a2d6-629fdb264a00",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage confirm-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "b332359b-2368-4ac7-bb16-1240797d7a53",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage confirm-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "7241de31-f129-4af2-9fb0-b0f63fbcf23f",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L3"
+     },
+     "summary": "Composition stage confirm-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "fbbbe9f3-73dd-4316-9366-d06a459d317a",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L4"
+     },
+     "summary": "Composition stage confirm-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "3149cf78-1cbb-4b66-84e7-c535fa6ead93",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage insert-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "0343a6dc-16a7-43eb-b8ce-bad10cbb00d3",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage relocate-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "3b039c27-d079-4860-a5d2-d3af0ff5adc5",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage insert-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "4ee83db8-3862-48e8-91ee-d7101f527940",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage relocate-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "8393d988-8fe5-4223-a67e-6755e898c9f6",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L3"
+     },
+     "summary": "Composition stage insert-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "06996efc-fa5e-4f9b-a952-8e4215430930",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L3"
+     },
+     "summary": "Composition stage relocate-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "5089e856-29ef-4ef4-a224-9f0a7010f4af",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L4"
+     },
+     "summary": "Composition stage insert-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "8539ad1f-d716-4446-946b-3408d616628f",
+     "target": {
+      "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L4"
+     },
+     "summary": "Composition stage relocate-source.",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "backend": "staged",
+    "containerPosition": 0,
+    "structure": [
+     {
+      "entryIndex": 0,
+      "entryName": "L1",
+      "devices": [
+       {
+        "position": 0,
+        "name": "Polysynth",
+        "enabled": true
+       }
+      ]
+     },
+     {
+      "entryIndex": 1,
+      "entryName": "L2",
+      "devices": [
+       {
+        "position": 0,
+        "name": "Phase-4",
+        "enabled": true
+       }
+      ]
+     },
+     {
+      "entryIndex": 2,
+      "entryName": "L3",
+      "devices": [
+       {
+        "position": 0,
+        "name": "FM-4",
+        "enabled": true
+       }
+      ]
+     },
+     {
+      "entryIndex": 3,
+      "entryName": "L4",
+      "devices": [
+       {
+        "position": 0,
+        "name": "Organ",
+        "enabled": true
+       }
+      ]
+     }
+    ],
+    "layerChains": [
+     {
+      "entryIndex": 0,
+      "deviceIndex": 0,
+      "entryName": "L1",
+      "sourceKind": "native",
+      "sourceIdentity": {
+       "kind": "native",
+       "exactCatalogName": "Polysynth"
+      },
+      "observed": {
+       "deviceName": "Polysynth",
+       "enabled": true,
+       "position": 0
+      },
+      "instance": "new",
+      "stateClaim": "The source created a new device instance.",
+      "scalarFingerprint": {
+       "after": {
+        "algorithm": "sha256",
+        "sha256": "182dac11e829bc76378a693dfc1086e77e4fee2eb709a0350697f17206a55d42",
+        "parameterCount": 55
+       }
+      },
+      "pages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "containerPages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "behaviors": [],
+      "verified": true
+     },
+     {
+      "entryIndex": 1,
+      "deviceIndex": 0,
+      "entryName": "L2",
+      "sourceKind": "native",
+      "sourceIdentity": {
+       "kind": "native",
+       "exactCatalogName": "Phase-4"
+      },
+      "observed": {
+       "deviceName": "Phase-4",
+       "enabled": true,
+       "position": 0
+      },
+      "instance": "new",
+      "stateClaim": "The source created a new device instance.",
+      "scalarFingerprint": {
+       "after": {
+        "algorithm": "sha256",
+        "sha256": "db7336d70c108ef0b65eaf68924d0c5532e08444d9d4dae2474306d4684d6def",
+        "parameterCount": 103
+       }
+      },
+      "pages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "containerPages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "behaviors": [],
+      "verified": true
+     },
+     {
+      "entryIndex": 2,
+      "deviceIndex": 0,
+      "entryName": "L3",
+      "sourceKind": "native",
+      "sourceIdentity": {
+       "kind": "native",
+       "exactCatalogName": "FM-4"
+      },
+      "observed": {
+       "deviceName": "FM-4",
+       "enabled": true,
+       "position": 0
+      },
+      "instance": "new",
+      "stateClaim": "The source created a new device instance.",
+      "scalarFingerprint": {
+       "after": {
+        "algorithm": "sha256",
+        "sha256": "2bf4446edd838b04228f3db9e8c0a09f33d220d4ed8b0e368e00bc06dbda53e8",
+        "parameterCount": 34
+       }
+      },
+      "pages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "containerPages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "behaviors": [],
+      "verified": true
+     },
+     {
+      "entryIndex": 3,
+      "deviceIndex": 0,
+      "entryName": "L4",
+      "sourceKind": "native",
+      "sourceIdentity": {
+       "kind": "native",
+       "exactCatalogName": "Organ"
+      },
+      "observed": {
+       "deviceName": "Organ",
+       "enabled": true,
+       "position": 0
+      },
+      "instance": "new",
+      "stateClaim": "The source created a new device instance.",
+      "scalarFingerprint": {
+       "after": {
+        "algorithm": "sha256",
+        "sha256": "e57fe620494c69e220fec70e8d0f84f55f045637f13eec729ef4eacad8b0ee69",
+        "parameterCount": 17
+       }
+      },
+      "pages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "containerPages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "behaviors": [],
+      "verified": true
+     }
+    ]
+   },
+   "next": {
+    "revert": {
+     "tool": "revert_change",
+     "changeId": "bf908c69-51fd-41db-a62d-6e800184d8f1"
+    }
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 30429.536374999996
+   },
+   "target": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+    "containerKind": "Instrument Layer"
+   }
+  },
+  "bench-4-staged-1-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+    "devices": [
+     {
+      "devicePosition": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "L1",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.263,
+          "green": 0.824,
+          "blue": 0.718
+         },
+         "devices": [
+          {
+           "devicePosition": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "L2",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.263,
+          "green": 0.824,
+          "blue": 0.718
+         },
+         "devices": [
+          {
+           "devicePosition": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 2,
+         "name": "L3",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.263,
+          "green": 0.824,
+          "blue": 0.718
+         },
+         "devices": [
+          {
+           "devicePosition": 0,
+           "name": "FM-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 3,
+         "name": "L4",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.263,
+          "green": 0.824,
+          "blue": 0.718
+         },
+         "devices": [
+          {
+           "devicePosition": 0,
+           "name": "Organ"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 552.7744999999995
+   }
+  },
+  "bench-4-staged-1-revert": {
+   "schema": "ghostnote-revert/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "ad7220dc-c26c-4dfd-8941-a8355014ccd0",
+     "target": {
+      "undoOf": "bf908c69-51fd-41db-a62d-6e800184d8f1"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "2a125a11-a6e0-4daf-a5bd-d6ac1848edef",
+     "target": {
+      "undoOf": "bf908c69-51fd-41db-a62d-6e800184d8f1"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "none"
+    },
+    {
+     "changeId": "8db7c831-6c06-4285-906f-eeb36e7aca34",
+     "target": {
+      "undoOf": "bf908c69-51fd-41db-a62d-6e800184d8f1"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "114204c3-21a0-415e-a0b9-f1f9132b78db",
+     "target": {
+      "undoOf": "bf908c69-51fd-41db-a62d-6e800184d8f1"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "none"
+    },
+    {
+     "changeId": "ae24e060-bf26-4726-8ef0-81bd73947030",
+     "target": {
+      "undoOf": "bf908c69-51fd-41db-a62d-6e800184d8f1"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "38effe7d-7fd2-49a8-a918-014591f248ba",
+     "target": {
+      "undoOf": "bf908c69-51fd-41db-a62d-6e800184d8f1"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "none"
+    },
+    {
+     "changeId": "b1d4972e-50c0-4425-9413-c21885ee23de",
+     "target": {
+      "undoOf": "bf908c69-51fd-41db-a62d-6e800184d8f1"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "270f6121-854f-4db5-87db-77840dc07f94",
+     "target": {
+      "undoOf": "bf908c69-51fd-41db-a62d-6e800184d8f1"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "none"
+    },
+    {
+     "changeId": "bc08ca7b-fc6e-446f-9d39-cc202d670ca1",
+     "target": {
+      "undoOf": "bf908c69-51fd-41db-a62d-6e800184d8f1"
+     },
+     "summary": "One stage of the composition reversal.",
+     "fidelity": "none"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "compositionReversal": true,
+    "restoredDeviceOrder": true
+   },
+   "warnings": [],
+   "target": {
+    "changeId": "bf908c69-51fd-41db-a62d-6e800184d8f1"
+   }
+  },
+  "bench-4-staged-1-after": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "a4161dd0-1316-460a-8194-bfaa41828f37",
+    "devices": []
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 336.1632090000203
+   }
+  },
+  "cleanup": {
+   "schema": "ghostnote-track-delete/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "3bb9a5ed-b837-4f67-bb64-ca9c0f003da8",
+     "target": {
+      "trackIds": [
+       "a4161dd0-1316-460a-8194-bfaa41828f37"
+      ]
+     },
+     "summary": "Deleted 1 track(s).",
+     "fidelity": "none"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "removed": [
+     "a4161dd0-1316-460a-8194-bfaa41828f37"
+    ]
+   },
+   "warnings": [
+    {
+     "code": "not-reversible",
+     "message": "revert_change cannot put a deleted track back."
+    }
+   ],
+   "target": {
+    "trackIds": [
+     "a4161dd0-1316-460a-8194-bfaa41828f37"
+    ]
+   }
+  }
+ },
+ "guard": {
+  "hello": {
+   "contractVersion": 0,
+   "extensionVersion": "0.0.1",
+   "runtimeProfile": "normal-v1",
+   "hostApiVersion": 25,
+   "methodCount": 89,
+   "methodsHash": "0ef817f4bac8a8a7"
+  },
+  "mark": {
+   "revision": 731,
+   "generation": "ce95574b-538b-4a0f-8381-945ca18a12a8",
+   "project": "New 6",
+   "projectStatus": "marked",
+   "sceneEpoch": 18,
+   "sceneCount": 8,
+   "contentEpoch": 32906,
+   "contentEvents": [
+    {
+     "seq": 32883,
+     "channelId": "a657edd1-6358-43de-a28d-67e0f61fffba",
+     "trackIndex": 1,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32884,
+     "channelId": "39042f64-c654-4363-a2bc-692ee10b78c5",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32885,
+     "channelId": "a657edd1-6358-43de-a28d-67e0f61fffba",
+     "trackIndex": 1,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32886,
+     "channelId": "39042f64-c654-4363-a2bc-692ee10b78c5",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32887,
+     "channelId": "4caa1fa2-e493-4ff1-9365-5b792402021e",
+     "trackIndex": 0,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32888,
+     "channelId": "4caa1fa2-e493-4ff1-9365-5b792402021e",
+     "trackIndex": 0,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32889,
+     "channelId": "a657edd1-6358-43de-a28d-67e0f61fffba",
+     "trackIndex": 1,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32890,
+     "channelId": "39042f64-c654-4363-a2bc-692ee10b78c5",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32891,
+     "channelId": "09e28750-ecb8-423d-ae1a-99f8d88b8da7",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32892,
+     "channelId": "09e28750-ecb8-423d-ae1a-99f8d88b8da7",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32893,
+     "channelId": "9732007b-ac10-4016-87a6-bfa04a0f1b3b",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32894,
+     "channelId": "9732007b-ac10-4016-87a6-bfa04a0f1b3b",
+     "trackIndex": 3,
+     "slotIndex": 1,
+     "filled": true
+    },
+    {
+     "seq": 32895,
+     "channelId": "9732007b-ac10-4016-87a6-bfa04a0f1b3b",
+     "trackIndex": 3,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32896,
+     "channelId": "9732007b-ac10-4016-87a6-bfa04a0f1b3b",
+     "trackIndex": 3,
+     "slotIndex": 2,
+     "filled": true
+    },
+    {
+     "seq": 32897,
+     "channelId": "9732007b-ac10-4016-87a6-bfa04a0f1b3b",
+     "trackIndex": 3,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32898,
+     "channelId": "9732007b-ac10-4016-87a6-bfa04a0f1b3b",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32899,
+     "channelId": "2e8e1ec8-025d-4c94-8135-fb9c0777c758",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32900,
+     "channelId": "2e8e1ec8-025d-4c94-8135-fb9c0777c758",
+     "trackIndex": 3,
+     "slotIndex": 1,
+     "filled": true
+    },
+    {
+     "seq": 32901,
+     "channelId": "2e8e1ec8-025d-4c94-8135-fb9c0777c758",
+     "trackIndex": 3,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32902,
+     "channelId": "2e8e1ec8-025d-4c94-8135-fb9c0777c758",
+     "trackIndex": 3,
+     "slotIndex": 2,
+     "filled": true
+    },
+    {
+     "seq": 32903,
+     "channelId": "2e8e1ec8-025d-4c94-8135-fb9c0777c758",
+     "trackIndex": 3,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32904,
+     "channelId": "6c8b956f-006b-404b-860b-1778b96bb706",
+     "trackIndex": 4,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32905,
+     "channelId": "6c8b956f-006b-404b-860b-1778b96bb706",
+     "trackIndex": 4,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32906,
+     "channelId": "2e8e1ec8-025d-4c94-8135-fb9c0777c758",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": false
+    }
+   ]
+  }
+ },
+ "runs": [
+  {
+   "chains": 2,
+   "backend": "offline",
+   "run": 0,
+   "ms": 3382,
+   "stages": 2,
+   "revertMs": 1440,
+   "revertComplete": true
+  },
+  {
+   "chains": 2,
+   "backend": "staged",
+   "run": 0,
+   "ms": 17551,
+   "stages": 9,
+   "revertMs": 12597,
+   "revertComplete": true
+  },
+  {
+   "chains": 4,
+   "backend": "offline",
+   "run": 0,
+   "ms": 4023,
+   "stages": 2,
+   "revertMs": 1454,
+   "revertComplete": true
+  },
+  {
+   "chains": 4,
+   "backend": "staged",
+   "run": 0,
+   "ms": 30556,
+   "stages": 17,
+   "revertMs": 20916,
+   "revertComplete": true
+  },
+  {
+   "chains": 2,
+   "backend": "offline",
+   "run": 1,
+   "ms": 3403,
+   "stages": 2,
+   "revertMs": 1444,
+   "revertComplete": true
+  },
+  {
+   "chains": 2,
+   "backend": "staged",
+   "run": 1,
+   "ms": 17500,
+   "stages": 9,
+   "revertMs": 12558,
+   "revertComplete": true
+  },
+  {
+   "chains": 4,
+   "backend": "offline",
+   "run": 1,
+   "ms": 3978,
+   "stages": 2,
+   "revertMs": 1428,
+   "revertComplete": true
+  },
+  {
+   "chains": 4,
+   "backend": "staged",
+   "run": 1,
+   "ms": 30430,
+   "stages": 17,
+   "revertMs": 20968,
+   "revertComplete": true
+  }
+ ]
+}

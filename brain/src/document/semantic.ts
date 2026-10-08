@@ -5,6 +5,8 @@ import { BINDING, CLIP_DEFAULTS, EVENT_DEFAULTS, EVENT_FIELDS, LIMITS, type Clip
 import { cmp, onGrid, rational, normalizeTiming, sum, difference, boundedInteger } from './rational.js';
 export const ascii = (a: string, b: string): number => a < b ? -1 : a > b ? 1 : 0;
 export const digest = (domain: string, value: unknown): string => createHash('sha256').update(domain + '\n' + canonicalJson(value), 'utf8').digest('hex');
+/** R27 content hash of a document that `validate` already normalized. */
+export const normalizedContentHash = (doc: unknown): string => digest('ghostnote-document/1.0', doc);
 export const equal = (a: unknown, b: unknown): boolean => canonicalJson(a) === canonicalJson(b);
 export function eventValues(event: Event): Required<Event> {
     return { ...EVENT_DEFAULTS, ...event };

@@ -1,9 +1,9 @@
 import { fail } from './error.js';
 import { cloneJson } from './json.js';
 import { CLIP_DEFAULTS, EVENT_DEFAULTS, type Document, type Patch, type StateDocument } from './model.js';
-import { validate, contentHash } from './index.js';
+import { validate } from './index.js';
 import { cmp } from './rational.js';
-import { ascii, basisFromIndex, clipValues, equal, eventValues, indexState, overlayOrder } from './semantic.js';
+import { ascii, basisFromIndex, normalizedContentHash, clipValues, equal, eventValues, indexState, overlayOrder } from './semantic.js';
 export interface ChangeReport {
     added: string[];
     removed: string[];
@@ -36,8 +36,9 @@ function fullBase(base: StateDocument): void {
             fail('R09', '$.base', `pure application requires full coverage for ${c.id}`);
     }
 }
+/** `base` is the normalized result of `validate`. */
 function guard(base: StateDocument, proposal: Document): void {
-    if (!proposal.base || proposal.base.sha256 !== contentHash(base))
+    if (!proposal.base || proposal.base.sha256 !== normalizedContentHash(base))
         fail('R09', '$.base.sha256', 'base guard does not match');
     fullBase(base);
 }
@@ -91,7 +92,11 @@ function finish(base: StateDocument, result: StateDocument, explicit: Set<string
     return { document, report };
 }
 export function applyPatch(baseInput: StateDocument, patchInput: Patch): Materialized {
-    const base = validate(baseInput), patch = validate(patchInput);
+    return applyPatchTo(validate(baseInput), patchInput);
+}
+/** `applyPatch` on a base that `validate` already normalized. The base is not changed. */
+export function applyPatchTo(base: Document, patchInput: Patch): Materialized {
+    const patch = validate(patchInput);
     if (base.kind === 'patch' || patch.kind !== 'patch')
         fail('R09', '$', 'expected a full base and sparse patch');
     guard(base, patch);
@@ -140,7 +145,11 @@ export function applyPatch(baseInput: StateDocument, patchInput: Patch): Materia
     return finish(base, result, new Set(patch.overlayPut.map(o => o.id)));
 }
 export function applyDesired(baseInput: StateDocument, desiredInput: StateDocument): Materialized {
-    const base = validate(baseInput), desired = validate(desiredInput);
+    return applyDesiredTo(validate(baseInput), desiredInput);
+}
+/** `applyDesired` on a base that `validate` already normalized. The base is not changed. */
+export function applyDesiredTo(base: Document, desiredInput: StateDocument): Materialized {
+    const desired = validate(desiredInput);
     if (base.kind === 'patch' || desired.kind !== 'desired')
         fail('R09', '$', 'expected full base and desired replacement');
     guard(base, desired);

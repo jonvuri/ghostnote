@@ -2,11 +2,32 @@
 title: Workstation interface inventory
 kind: reference
 state: active
-updated: 2026-09-25
+updated: 2026-10-08
 scope: Formats that cross the implemented Phase 7 boundary
 ---
 
 # Workstation interface inventory
+
+## 8h closeout status (2026-10-08, E247)
+
+The rows below record the Phase 7 boundary. After 8h, five rows have a
+current state that differs:
+
+- I01: two profiles. `agent-native-v1` is the default (D40) with 39 tools
+  and description cohort `ghostnote-description-v33`; `stable-v1` keeps its
+  frozen cohort as the rollback through 8i.
+- I03: the normal profile has 89 methods (`0ef817f4bac8a8a7`).
+- I07: musical patch version 1 and its result are on `stable-v1` only. The
+  default profile uses Document 1.0 through `edit_launcher_clip` (D21).
+- I08: the operation handle serves the `stable-v1` clip music operations
+  only. `agent-native-v1` has no background route (D39 amendment). The
+  writer cursors have the reader width, so every admitted clip is one writer
+  page (D41, E248).
+- I21: the device-alternate assets serve `stable-v1` only; the default
+  profile uses `compose_devices` and the layer-chain limbs (D18).
+
+The [performance ledger](../../contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md) has
+the current cost of each tool.
 
 This inventory applies the [shared contract fields](WORKSTATION_CONTRACTS.md).
 The [Phase 8 audit](AGENT_NATIVE_INTERFACE_AUDIT.md) supplies the current

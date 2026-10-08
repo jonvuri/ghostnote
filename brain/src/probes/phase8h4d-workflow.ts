@@ -5,7 +5,8 @@
  *                   agent-native-v1: read, copy to the next scene, a 16-note insertion into the copy, launch, show,
  *                   and revert of the edit and the copy. Each tool call records wall time and result bytes. Then,
  *                   agent-native-v1 only: add_launcher_clip (and add_clip on stable-v1 for comparison), and one
- *                   background edit through inspect_operation. Every step ends at the raw baseline: an independent
+ *                   64-note whole-clip edit (8h4g: a direct call; before 8h4g, a background edit through
+ *                   inspect_operation). Every step ends at the raw baseline: an independent
  *                   raw `clip.read` of the source equals its first read, and the work rows are empty.
  *                   The normal profile has no transport stop: the operator stops playback after the run.
  *   verify-offline <dir>  recompute the claims from the retained artifact
@@ -208,30 +209,17 @@ async function addComparison(id: string): Promise<Wire> {
   return { plan: added.plan, timing: added.timing, clip: document.clips[0], events: document.events.length };
 }
 
-async function backgroundEdit(id: string): Promise<Wire> {
+/** 8h4g: the 64-note whole-clip edit of the former background step, as a direct call (D39 amendment). */
+async function directEdit(id: string): Promise<Wire> {
   const p = AGENT_NATIVE_TOOL_PROFILE;
-  const read = await call(p, 'background', 'read_launcher_clip', { trackId: id, row: SOURCE });
+  const read = await call(p, 'direct', 'read_launcher_clip', { trackId: id, row: SOURCE });
   const document = parse(read.data.document, 'fields') as StateDocument;
   const desired = ['DOC ghostnote-document 1.0 patch', `BASE ${JSON.stringify(read.authority.base)}`,
     'FIELDS id clip at duration pitch velocity channel mute', ...document.events.slice(0, 64).map((event) => `UPDATE ${event.id} {"velocity":90}`)].join('\n') + '\n';
-  const started = performance.now();
-  const handle = await call(p, 'background', 'edit_launcher_clip', { trackId: id, row: SOURCE, document: desired, background: true });
-  const handleMs = performance.now() - started;
-  let polls = 0;
-  let status: Wire;
-  do {
-    await pause(250); polls += 1;
-    status = await callTool(workspace, 'inspect_operation', { operationId: handle.operation.operationId }, p) as Wire;
-  } while (status.operation.terminal !== true);
-  const doneMs = performance.now() - started;
-  steps.push({ profile: p, phase, step: 'background', tool: 'inspect_operation', ms: Math.round(doneMs - handleMs),
-    bytes: Buffer.byteLength(JSON.stringify(status)), ok: status.operation.state === 'completed' });
-  assert.equal(status.operation.state, 'completed', JSON.stringify(status).slice(0, 600));
-  const result = status.operation.result as Wire;
+  const result = await call(p, 'direct', 'edit_launcher_clip', { trackId: id, row: SOURCE, document: desired });
   assert.equal(result.readback?.status, 'verified', JSON.stringify(result).slice(0, 600));
   await call(p, 'revert', 'revert_change', { changeId: result.effects[0].changeId });
-  return { handleMs: Math.round(handleMs), doneMs: Math.round(doneMs), polls, operationElapsedMs: status.operation.elapsedMs,
-    route: result.plan.route, editTotalMs: Math.round(result.timing.totalMs) };
+  return { route: result.plan.route, editTotalMs: Math.round(result.timing.totalMs) };
 }
 
 function totals(from: readonly Step[], profile: string): Wire {
@@ -270,17 +258,17 @@ async function workflow(dir: string): Promise<void> {
   phase = 'extra';
   const add = await addComparison(id);
   const addBaseline = await baseline(id, source, 'add');
-  const background = await backgroundEdit(id);
-  const backgroundBaseline = await baseline(id, source, 'background');
+  const direct = await directEdit(id);
+  const directBaseline = await baseline(id, source, 'direct');
   const launches = await launchPairs(id);
   const out = {
     schema: SCHEMA, at: new Date().toISOString(), entry, trackId: id, steps,
     totals: { stable: totals(steps, STABLE_TOOL_PROFILE), native: totals(steps, AGENT_NATIVE_TOOL_PROFILE) },
-    native, add, background, launches,
-    baselines: [stableBaseline, nativeBaseline, addBaseline, backgroundBaseline],
+    native, add, direct, launches,
+    baselines: [stableBaseline, nativeBaseline, addBaseline, directBaseline],
   };
   await writeFile(join(dir, 'workflow.json'), JSON.stringify(out, null, 1) + '\n');
-  say({ totals: out.totals, add, background, launches });
+  say({ totals: out.totals, add, direct, launches });
   await request('track.delete', { trackIndex: await indexOf(id) });
 }
 
@@ -294,7 +282,7 @@ function verify(a: Wire): Wire {
   const stable = totals(a.steps as Step[], STABLE_TOOL_PROFILE), native = totals(a.steps as Step[], AGENT_NATIVE_TOOL_PROFILE);
   if (JSON.stringify(stable) !== JSON.stringify(a.totals.stable)) issues.push('stable totals');
   if (JSON.stringify(native) !== JSON.stringify(a.totals.native)) issues.push('native totals');
-  return { issues, stable, native, background: a.background, add: { plan: a.add.plan, events: a.add.events } };
+  return { issues, stable, native, ...(a.background === undefined ? { direct: a.direct } : { background: a.background }), add: { plan: a.add.plan, events: a.add.events } };
 }
 
 async function main(): Promise<void> {

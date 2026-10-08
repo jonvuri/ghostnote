@@ -1,0 +1,27 @@
+{
+ "issues": [],
+ "stable": {
+  "calls": 7,
+  "ms": 12773,
+  "bytes": 15122
+ },
+ "native": {
+  "calls": 8,
+  "ms": 6745,
+  "bytes": 28362
+ },
+ "direct": {
+  "route": "whole-clip",
+  "editTotalMs": 1739
+ },
+ "add": {
+  "plan": {
+   "route": "targeted",
+   "added": 16,
+   "removed": 0,
+   "changed": 0,
+   "moved": 0
+  },
+  "events": 16
+ }
+}

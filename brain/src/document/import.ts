@@ -75,13 +75,21 @@ function overlaps(notes: {
         from: string;
         to: string;
     }>();
+    // Each note end is computed once.
+    const ends = new Map<(typeof notes)[number], string>();
+    const endOf = (n: (typeof notes)[number]): string => {
+        let end = ends.get(n);
+        if (end === undefined)
+            ends.set(n, end = sum(n.at, n.duration));
+        return end;
+    };
     for (const group of groups.values()) {
         group.sort((a, b) => cmp(a.at, b.at) || ascii(a.id, b.id));
         const active: typeof group = [];
         for (const n of group) {
             for (let i = active.length - 1; i >= 0; i--) {
                 const prev = active[i];
-                if (cmp(sum(prev.at, prev.duration), n.at) <= 0) {
+                if (cmp(endOf(prev), n.at) <= 0) {
                     active.splice(i, 1);
                     continue;
                 }
@@ -89,7 +97,7 @@ function overlaps(notes: {
                     string,
                     string
                 ];
-                const end = sum(prev.at, prev.duration), nextEnd = sum(n.at, n.duration);
+                const end = endOf(prev), nextEnd = endOf(n);
                 pairs.set(ids.join('\0'), { ids, from: n.at, to: cmp(end, nextEnd) < 0 ? end : nextEnd });
                 if (pairs.size > LIMITS.events)
                     fail('R28', '$import.changedOverlaps', 'overlap report exceeds bounded pair count');

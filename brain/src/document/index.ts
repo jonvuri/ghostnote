@@ -2,7 +2,7 @@ import { DocumentError, fail } from './error.js';
 import { cloneJson, decodeInput, readJson, canonicalJson } from './json.js';
 import { readFields, writeFields } from './fields.js';
 import { validateStructure, normalizeTimingFields } from './structure.js';
-import { digest, normalizeDocument, validateSemantics, basisFromIndex, indexState, overlayOrder, checkReferences } from './semantic.js';
+import { normalizedContentHash, normalizeDocument, validateSemantics, basisFromIndex, indexState, overlayOrder, checkReferences } from './semantic.js';
 import { LIMITS, type Document, type Overlay, type StateDocument } from './model.js';
 export * from './model.js';
 export * from './error.js';
@@ -85,7 +85,7 @@ export function serialize(doc: Document, encoding: Encoding): string {
     return fail('R29', '$encoding', 'unknown encoding');
 }
 export function contentHash(doc: Document): string {
-    return digest('ghostnote-document/1.0', validate(doc));
+    return normalizedContentHash(validate(doc));
 }
 export function convert(input: string | Uint8Array, from: Encoding, to: Encoding): string {
     return serialize(parse(input, from), to);

@@ -280,6 +280,25 @@ export class ClipReadLimitError extends ContractError {
 }
 
 /**
+ * 8h4g (D41, E248): the loaded rig's writer cursors are narrower than the reader width. A write then needs one page
+ * check (about 210 ms) for each distinct writer page, and an admitted clip can need 8,192 pages: E248 measured
+ * 111 s for one valid edit at 512 steps, above the 60 s client timeout. The adapter refuses a note write before any
+ * mutation. The fix is the rig configuration (`fineSteps` in rig.json), so the message names it.
+ */
+export class WriterWidthError extends ContractError {
+  constructor(
+    readonly required: number,
+    readonly actual: number | undefined,
+  ) {
+    super(
+      `${actual === undefined ? 'the writer cursor width is not known (call hello)' : `the writer cursors are ${actual} steps wide`}, `
+        + `not the reader width of ${required}: `
+        + 'remove the fineSteps override in ~/.ghostnote/rig.json and replace the controller in Bitwig',
+    );
+  }
+}
+
+/**
  * The op is well-typed but cannot be represented on the wire, and we refuse
  * BEFORE emitting a frame — because the underlying API would accept it and do
  * nothing (E4h: a relative path, a wrong extension and a missing file are all

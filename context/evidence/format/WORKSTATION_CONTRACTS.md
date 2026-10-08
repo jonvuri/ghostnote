@@ -2,11 +2,18 @@
 title: Workstation contracts — experimental Phase 7 baseline
 kind: reference
 state: active
-updated: 2026-09-24
+updated: 2026-10-08
 scope: Phase 7 experimental baseline through 7f hybrid dogfood
 ---
 
 # Workstation contracts
+
+> **8h closeout (2026-10-08).** The product contracts of the default profile
+> are now the [Document 1.0 specification](../../../spec/ghostnote-document-v1/SPEC.md),
+> the [migration and risk policy](../../contracts/GHOSTNOTE_MIGRATION_AND_VERIFICATION.md),
+> and the shared result module of `agent-native-v1`
+> ([source](../../../brain/src/surface/agent-native-result.ts), D40). This
+> reference stays the record of the Phase 7 experimental baseline.
 
 ## Status and reading route
 

@@ -1,13 +1,13 @@
 ---
 title: Phase 8h — Cache promotion and interface simplification
 kind: plan
-state: active
-status: Reader promotion (E230), change awareness (E231), row binding (E232), and pull snapshot references with the cache machinery trim (E233) are complete. 8h4 is planned in sessions 8h4a–8h4g; 8h4a through 8h4f are complete (E234–E246, D33–D40). 8h4g is next.
+state: complete
+status: Complete (E230–E247, D30–D40). The cold reader is the only read path, agent-native-v1 is the default profile, and the 8h4g performance review measured every tool against its reference. 8i is next.
 updated: 2026-10-08
 parent: README.md
 prev: 8g-shadow-project-cache.md
 next: 8i-agent-native-hybrid-dogfood.md
-evidence: E119-E135, E209, E213, E230-E233; D18, D23, D25, D31, D32
+evidence: E119-E135, E209, E213, E230-E247; D18, D23, D25, D31, D32, D39, D40
 ---
 
 # Phase 8h — Cache promotion and interface simplification
@@ -137,7 +137,10 @@ Reader promotion and remaining sessions, in order:
    8. [8h4g — Performance review and 8h closeout](8h4g-performance-review-and-closeout.md):
       every path against its probe and earlier product path (waste, scaling,
       wall clock), brain planning time, the reductions, the decision
-      amendments, and the closeout.
+      amendments, and the closeout. Complete (E247, E248, D41): the
+      16,384-note clip edit takes 6.6 s, not 48 s; the writer window is the
+      reader width, so no admitted clip needs more than one writer page; and
+      the background route left `agent-native-v1` (D39 amendment).
 
 ## Purpose
 
@@ -282,6 +285,45 @@ failure it covered, the replacement evidence, and the measured saved work.
 - Stable and experimental profile names state their actual compatibility.
 - Focused checks, the complete brain check, extension tests, wire checks,
   context check, live comparisons, and `git diff --check` pass.
+
+## Closeout (8h4g, E247)
+
+Each acceptance criterion, with its evidence:
+
+| Criterion | State | Evidence |
+|---|---|---|
+| Fresh reads; a D32 reference that is not `current` refuses before a write | Met | E230, E233, E236. 8h4g reuses a projection only for an equal D32 source digest; the read stays fresh |
+| Partial or over-limit reads refuse clearly | Met | E246 (`outside-limit`) |
+| FIELDS/JSON and the reference codec; corpus passes | Met | E235, E236; codec conformance passes after the 8h4g speedups |
+| Field preservation and overlay lifecycle under live edits | Met | E236; the E247 rerun of the E236 matrix A to D |
+| Model reference version matches the codec and examples | Met | `document:artifacts` check |
+| Migration or incompatibility record for each retired tool | Met | Migration contract; 8h4g updates the three operation rows |
+| A/B audition and collapse with generic layer-chain operations | Met | E238, E239; recipes pass again in E247 |
+| Composition benchmarks state the backend boundary | Met | E238; E247: offline 3.4 and 4.0 s against staged 17.5 and 30.5 s for 2 and 4 layer chains |
+| Launcher scope in clip names; proved kinds in track names | Met | E237, E239 |
+| Destructive and ambiguous operations keep the stronger policy | Met | D20 names; E238 layer-chain delete refusal |
+| Result size, tool calls, and wall time improve on representative workflows | Partly met; open record | Wall time improves (E239, E247). The E45/E48 workflow needs one more call (the edit needs a read for its base) and returns more bytes (16 channels); E239 names both |
+| One address, health, result, and error vocabulary | Met | E239 vocabulary test over every tool |
+| Profile names state their compatibility | Met | D40 |
+| Checks and live comparisons pass | Met | E247 |
+
+### Retrospective target
+
+- **The simplification that removed the most agent work** is the document
+  edit limb: one `read_launcher_clip` and one `edit_launcher_clip` replace
+  five musical tools, a seed and variation grammar, and three operation
+  tools. With 8h4g the largest edit is a direct call, so an agent does not
+  choose a route, poll, or read a second envelope (D39 amendment, which
+  depends on the D41 writer width).
+- **The retained safeguard that costs the most** is the complete parameter
+  inventory around each device control write: an inventory before the write
+  for the change record, one for the cohort integrity check, and the
+  executor's independent readback (D15). A 27-control write takes about
+  14.4 s and 276 wire calls. Second is the structural proof of each staged
+  composition stage (a staged 4-layer-chain composition takes 30.5 s).
+
+8i uses both facts: it measures whether agents use the read and edit pair
+without coaching, and whether the control-write cost limits real work.
 
 ## Out of scope
 

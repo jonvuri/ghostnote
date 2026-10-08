@@ -1,13 +1,13 @@
 ---
 title: Phase 8h4g — Performance review and 8h closeout
 kind: plan
-state: planned
-status: Planned. Examines the cost of every agent-native-v1 path against its probes and earlier product paths, removes waste, and closes 8h.
+state: done
+status: Complete (E247, E248, D41). Every agent-native-v1 tool has a ledger row; the planner, the writer page check, the device insertion wait, and the cursor release lost their repeated work; the writer window is the reader width, so every admitted clip is one writer page and the worst-case clip edit takes about 7 s; the background route left agent-native-v1 (D39 amendment). 8h is closed.
 updated: 2026-10-08
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h4f-tracks-profile-cut-and-closeout.md
 next: 8i-agent-native-hybrid-dogfood.md
-evidence: E45, E54, E227, E229, E231, E234, E236, E237, E246; D8, D15, D16, D18, D19, D21, D38, D39
+evidence: E45, E54, E227, E229, E231, E234, E236, E237, E246, E247, E248; D8, D15, D16, D18, D19, D21, D38, D39, D41
 ---
 
 # Phase 8h4g — Performance review and 8h closeout
@@ -116,8 +116,26 @@ Moved here from 8h4f, so 8h closes after the review.
 - Brain check, extension tests, wire goldens, context check, live
   comparisons, and `git diff --check` pass. Record the evidence as E247.
 
+### 6. Writer cursor width (continuation, added 2026-10-08)
+
+A review found a valid edit above the client timeout: 512 notes on a
+2,048-beat clip, four beats apart, duration 1/512, whole-clip. The 1/512
+duration forces the 1/512 grid; each note is on its own 512-step writer page,
+so the write needs 512 page checks (grid waits alone 73.7 s). The worst case
+of a write depends on its distinct writer pages, not its note count; the
+reader admits up to 8,192 pages of 512 steps. Probe a wider writer cursor
+(`fineSteps`), with a cost model first. If a width that covers the reader
+limit holds up live, the page count is bounded and the background route can
+stay removed; otherwise restore the route (D39). The operator relaxed the
+scope rule below for this step.
+
+Result (E248, D41): the writer window is the reader width (4,194,304 steps),
+and a writer parks on an empty window after each write. The review case
+takes 2.3 s (add) and 1.8 s (edit), not 111 s. The route stays removed.
+
 ## Out of scope
 
-- New features and new host capabilities.
+- New features. New host capabilities, except the writer cursor width of
+  step 6 (operator decision, 2026-10-08).
 - Changes that remove independent post-write evidence (D15) or widen the
   shared read beyond D38.

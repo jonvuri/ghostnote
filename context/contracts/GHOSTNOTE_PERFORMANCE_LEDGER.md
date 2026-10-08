@@ -4,7 +4,7 @@ kind: reference
 state: active
 updated: 2026-10-08
 parent: ../plan/phase-8/8h-cache-promotion-and-interface-simplification.md
-evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246
+evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248
 ---
 
 # Ghostnote performance ledger
@@ -26,79 +26,118 @@ session as a change that moves a number.
 2. **Call budgets.** The offline call-budget tests fail when a tool, the
    executor, or the live adapter adds a host call:
    `brain/src/surface/call-budget.test.ts` (adapter calls for each tool and
-   route) and the 8h4c2 call-budget test in
-   `brain/src/adapters/live/adapter.test.ts` (the wire frames of a mark and a
-   snapshot read). When a budget changes on purpose, update the test and this
-   ledger, and state the cost in the E record.
+   route) and the call-budget tests in
+   `brain/src/adapters/live/adapter.test.ts` (the wire frames of a mark, a
+   snapshot read, a bank scan after a mark, the writer page check, and the
+   writer park). When a
+   budget changes on purpose, update the test and this ledger, and state the
+   cost in the E record. `phase8h4g-inventory.test.ts` holds the offline time
+   budget of the edit planner.
 3. **Remeasure.** A session that changes a live path reruns the matching
-   measurement (for example `phase8h4c-edit.ts cost`) and records it here. A
-   regression of more than 20 percent, or a new host turn, needs a named cause
-   and an accepted reason in the E record.
+   measurement (for example `phase8h4c-edit.ts cost` or
+   `phase8h4g-inventory.ts inventory`) and records it here. A regression of
+   more than 20 percent, or a new host turn, needs a named cause and an
+   accepted reason in the E record.
 
 ## Unit costs
 
 | Unit | Cost | Source |
-|---|---:|---|
+|---|---|---|
 | One sequential wire call | About 24 ms (one control-surface turn) | E246 trace |
-| One mark (`revision.get` and `track.list`, sent together) | One turn | E246 |
+| Calls sent together | One turn: a mark (`revision.get` and `track.list`); the 16 cursor-release frames after a structural stage | E246, E247 |
+| A bank scan (`tracks()`) within 50 ms of a mark, with no request after it | No call: the mark's scan | E247 |
 | One `clip.read` capture, typical clip | About 190 ms | E246 trace |
-| A plain read of an occupied `clip` address | One `clip.read` capture and a selection borrow (about 380 ms): the adapter reads the clip length | E237 trace |
+| One `clip.read` capture, 16,384 notes | About 970 ms | E247 worst trace |
 | An occupancy read (`ReadOptions.occupancy`) of a `clip` address | One `slot.status` (one turn) | E237 |
 | Bare replay read (the primitive) | 46–698 ms, by size | E227 |
 | `gridChange` settle | 144 ms | E15-D, `SETTLE_MS` |
+| Writer page check before a note stage | About 210 ms for each distinct view (step size, page): set, scroll, settle, status. Not repeated for each channel. The writer window is the reader width, so an admitted clip has one page at each grid (at 512 steps, a 2,048-beat clip at 1/512 had 512 pages: 111 s) | E46, E247, E248 |
+| Writer park after an apply that writes notes | One turn (about 24 ms) for all used writers: a 1-beat grid and step 8,192 for each, no settle | E248 |
 | `noteWrite` settle | 25 ms | `SETTLE_MS` |
 | DirectParameter display set (any count, 8–281 IDs) to text for each ID | One turn (22.6–25.4 ms); a switch sends no text | E244 |
 | DirectParameter same-type switch settle (driver: point and poll) | 165–174 ms, independent of the observed count | E244 |
-| DirectParameter read of a new target, with display text (product) | No extra wire call: the set rides the poll that the settle needed | E238 |
-| `deviceInsert` settle after each `device.insert`, `device.relocate`, `chain.create`, `chain.relocate` stage | 4,000 ms fixed wait | `SETTLE_MS` |
+| DirectParameter inventory with the parameter settle | About 290 ms of settle and poll (the idle time of `read_device_controls`) | E247 inventory |
+| Device insertion, layer-chain copy (`deviceInsert`) | A poll of the structural proof, deadline 4,000 ms; a native device lands in about 1 s | E247 |
+| Device or chain relocation | No fixed wait; its proof poll (deadline 8,000 ms) | E247 |
 | One container read (`containerScope`, layer container, track not held) | About 8 turns (190 ms) | E238 trace |
-| One structural track stage (`track.create`, `track.duplicate`, `track.delete`): cursor release, rescan, mint poll | About 800 ms, 31 wire calls; the same for every track kind | E239 |
-| Bound heap for each sounding cell | About 300 bytes live (ZGC "used" is higher) | E227, E246 |
+| One structural track stage (`track.create`, `track.duplicate`, `track.delete`): cursor release, rescan, mint poll | About 420 ms, 23 wire calls | E247 |
+| Bound heap for each sounding cell | About 300 bytes live (ZGC "used" is higher); 336 bytes in a held writer | E227, E246, E248 |
 
 ## Product paths
 
-Typical clip: 256 notes on 16 channels over 64 beats (E231). Dates are those
-of the measurement.
+Live, normal profile, owned project "New 6", 2026-10-08 (E247) unless the
+source says otherwise. E248 rows are on the build with the reader-width
+writer and the park. Typical clip: 256 notes on 16 channels over 64 beats
+(E231). "Before" is the first E247 inventory, before the 8h4g reductions.
+Budgets are adapter calls in `call-budget.test.ts`; "wire" budgets are the
+live wire-call count of the E247 inventory.
 
-| Path | Current | Primitive or earlier | Adapter calls (call-budget test) | Source |
-|---|---:|---:|---|---|
-| `read_launcher_clip`, typical | 419–459 ms | Replay 48 ms + 40 ms fetch (E227) | mark 1, tracks 1, clipRead 1, delta 1 (repeated read: delta 2) | E246 |
-| `edit_launcher_clip`, 16-note insert (targeted) | 1,449–1,470 ms | E236: 6,610 ms | mark 1, tracks 1, clipRead 2, delta 3, apply 1 | E246 |
-| One read and one 16-note insert | 1,892 ms | E236: 7,176 ms; E121 apply 16,044 ms | — | E246 |
-| Whole-clip velocity edit, typical | 1,772 ms | E236: 6,574 ms | mark 2, tracks 1, clipRead 3, delta 3, resolve 1, apply 1 | E246 |
-| Whole-clip edit, notes with nondefault expression | 5,675–6,898 ms | E236: 16,213–16,293 ms | as whole-clip | E246 |
+### Launcher clips
+
+| Path | Current | Reference or earlier | Call budget | Source |
+|---|---:|---|---|---|
+| `read_launcher_clip`, typical | 415–477 ms; 14 calls, 10 turns, 1 capture; 11.8 KB | Replay 48 ms + fetch 40 ms (E227); E246: 419–459 ms | mark 1, tracks 1, clipRead 1, delta 1 (repeated read: delta 2) | E247 |
+| `read_launcher_clip`, 16,384 notes | 1,542 ms | E246: 4,102 ms | as typical | E247 worst |
+| `check_launcher_clips`, one ref | 409 ms | E234: 16 clips 4.6 s | mark 2, clipRead 1, delta 1 (refs with one mark share one delta) | E247 |
+| `edit_launcher_clip`, 16-note insert (targeted) | 1,367–1,428 ms | E247: 1,406–1,502 ms; E246: 1,449–1,470 ms; E236: 6,610 ms | mark 1, tracks 1, clipRead 2, delta 3, apply 1 | E248 cost |
+| One read and one 16-note insert | 1,790–1,832 ms | E247: 1,857–1,951 ms, 54–56 wire calls; E236: 7,176 ms | as above | E248 cost |
+| `edit_launcher_clip`, whole-clip velocity, typical | 1,725–1,740 ms | E246: 1,772 ms | mark 2, tracks 1, clipRead 3, delta 3, resolve 1, apply 1 | E247 |
+| Whole-clip edit, notes with nondefault expression | 1,929–1,934 ms | E247: 5,683–6,913 ms (a page for each property stage) | as whole-clip | E248 accept |
+| Whole-clip edit, 16,384 notes (reader limit) | 6,588 ms (plan 1,195, write 3,710, readback 637) | E247: 8,337 ms, 75 wire calls; E246: 47,977 ms (plan 12,003, write 31,609) | as whole-clip | E248 worst |
+| Whole-clip edit, 512 notes on 2,048 beats at the 1/512 grid (the review case) | 1,781 ms; 53 wire calls | 512 steps: 110,838 ms, 512 page checks | as whole-clip | E248 reviewer |
+| Edit planner, 16,384 notes, offline | 1.2 s (4,096 notes: 0.5 s); budget 4,000 ms | E246: 12.0 s live | `phase8h4g-inventory.test.ts` | E247 |
 | Edit refusal before a write | About 400 ms | E236: 560 ms | — | E246 |
-| `check_launcher_clips`, 16 typical clips | 4.6 s (before the E246 trims) | E231: 3.5 s, notes only | 2 refs: mark 2, clipRead 1, delta 1 | E234 |
-| Whole-clip edit, 16,384 notes (at the reader limit) | 48.0 s (plan 12.0 s, write 31.6 s) | E236: 73.0 s | as whole-clip | E246 |
-| One read and one 16-note insert, 8h4d remeasure | 2,030–2,058 ms (edit 1,538–1,550 ms; 56–58 wire calls) | E246: 1,877–1,936 ms, same call count | as above | E237 |
-| E45/E48-style workflow (read, copy, read and edit, launch, show, two reverts) | 8 calls, 7,864 ms, 31,080 bytes | `stable-v1`: 7 calls, 13,344 ms, 15,091 bytes | — | E237 |
-| `add_launcher_clip`, 16 notes | 2,611 ms (targeted) | `add_clip`: 1,827 ms | mark 3, tracks 2, read 3, resolve 2, apply 2, delta 4, clipRead 3 | E237 |
-| `copy_launcher_clips`, one typical clip | 1,249 ms | `copy_clip_down`: 2,897 ms (also two launch-settings writes) | mark 1, tracks 1, read 3, resolve 1, apply 1, delta 1 | E237 |
-| `launch_clip` (`agent-native-v1`) | Median 764 ms | `stable-v1`: 696 ms | mark 1, tracks 1, read 4, apply 1, delta 1 | E237 |
-| `show_launcher_clip_in_detail_editor` | 264 ms | `show_changed_clip`: 578 ms | mark 2, tracks 1, read 1, resolve 1 | E237 |
-| `set_launcher_clip_properties`, one clip | — | — | mark 1, tracks 1, read 3, resolve 1, apply 1, delta 1 | E237 (offline) |
-| Background edit handle (`background: true`) | Handle 1 ms; 64-note whole-clip edit completed at 2,057 ms | Direct call: same edit cost | as the tool | E237 |
-| `read_devices`, one container | 460–495 ms (two devices after it: 613–750 ms) | `inspect_devices` + `inspect_device_alternates`: before the E238 slot fix, 3.8 s | devices 1, read 1 | E238 |
-| `read_device_controls`, new or same target (55–103 IDs) | 701–731 ms | — | read 1 | E238 |
-| `read_device_controls`, Diva (CLAP, 281 IDs) | 3,919–4,011 ms | — | read 1 | E238 |
-| `set_device_controls`, one write in a layer chain | 2,324–2,398 ms (CLAP: 8,302 ms) | — | as `set_parameter` | E238 |
-| `set_layer_chain_solo` | 828–868 ms; no-op 182 ms | before the E238 slot fix: 16 s | read 4, apply 1, delta 1; no-op: read 1 | E238 |
-| `rename_layer_chain` | 953 ms | — | read 4, apply 1, delta 1 | E238 |
-| `duplicate_layer_chain` | 5,199 ms | — | — | E238 |
-| `move_devices`, one device | 5,366–5,957 ms | 4,000 ms settle | devices 2, read 4, apply 1, delta 1 | E238 |
-| `delete_device`, one container | 3,132 ms (about 100 wire calls) | — | — | E238 |
-| `compose_devices`, offline, 2 and 4 layer chains | 7,199–7,330 ms; 7,770–7,779 ms | E18a insertion 463–465 ms | — | E238 |
-| `compose_devices`, staged, 2 and 4 layer chains | 36,525–37,145 ms; 64,878–64,937 ms | 9 and 17 stages | — | E238 |
-| `revert_change` of a composition, offline; staged 2 and 4 | 1,691–1,754 ms; 21.3 s; 38.4–38.5 s | — | — | E238 |
-| `add_tracks`, 2 tracks (audio and instrument) | 1,935 ms, 67 wire calls | One structural stage: about 800 ms (E239 arms) | add: read 4, apply 2, delta 2, resolve 1, tracks 1 (`add_track`: read 5) | E239 |
-| `duplicate_track`, Audio or Hybrid | 1,178–1,197 ms, 48 wire calls | E16: 117–190 ms until visible | duplicate: tracks 2, read 4, apply 2, delta 2, resolve 1 (`copy_track`: mark 1, tracks 1, read 5) | E239 |
-| `check_bitwig_connection`; `list_tracks` | 21 ms (2 wire calls); 43 ms (3) | One mark | connection: mark 1; tracks: mark 1, tracks 1 | E239 |
-| `rename_track`; `check_revert`; `revert_change` of a rename | 386 ms; 42 ms; 413 ms | — | rename: tracks 1, resolve 1, read 2, apply 1, delta 1 (+1 tracks against `stable-v1`); check: read 1, delta 1; revert: read 3, delta 2, resolve 1, apply 1 | E239 |
-| `set_device_enabled`, one device; its revert | 770 ms; 665 ms | — | devices 1, resolve 1, read 2, apply 1, delta 1 | E239 |
-| `delete_track`, 4 tracks | 2,517 ms, 87 wire calls | — | tracks 1, resolve 1, read 2, apply 1, delta 1 | E239 |
-| 27-control write, Polysynth (`set_device_controls`) | 14,463–14,521 ms, 282 wire calls; 4,321 bytes | `set_parameter`: 14,452–14,490 ms, same calls; 4,278 bytes | as `set_parameter` | E239 |
-| A/B audition and winner collapse, 2 chains (8 calls) | 21,877–21,903 ms, 497 wire calls | `stable-v1` managed alternates (9 calls): 50,693–50,706 ms, 763 wire calls | — | E239 |
-| E45/E48-style workflow, 8h4f remeasure | 8 calls, 7,411 ms, 28,364 bytes | `stable-v1`: 7 calls, 12,860 ms, 15,123 bytes | — | E239 |
+| `add_launcher_clip`, typical (256 notes) | 2,323 ms; 85 wire calls | 16 notes, E237: 2,611 ms; `add_clip` 1,827 ms | mark 3, tracks 2, read 3, resolve 2, apply 2, delta 4, clipRead 3 | E247 |
+| `add_launcher_clip`, 16,384 notes | 6,418 ms (plan 778, write 3,352) | E247: 8,172 ms | as typical | E248 add-worst |
+| `add_launcher_clip`, the review case; 2,097,152 cells (4,096 one-beat 1/512 notes) | 2,293 ms; 3,341 ms, ZGC used peak 2,450 MiB | 512 steps: 111,419 ms; about 54 s (257 pages) | as typical | E248 |
+| `copy_launcher_clips`, one clip | 924 ms | Before: 1,228 ms; `copy_clip_down`: 2,897 ms | mark 1, tracks 1, read 3, resolve 1, apply 1, delta 1 | E247 |
+| `move_launcher_clips`, one clip | 1,190 ms | Before: 1,472 ms | mark 1, tracks 1, read 3, resolve 1, apply 1, delta 1 | E247 |
+| `set_launcher_clip_launch_settings` | 1,056 ms | — | mark 1, tracks 1, read 3, resolve 1, apply 1, delta 1 | E247 |
+| `set_launcher_clip_properties`, one clip | 1,447 ms; 3 captures | — | mark 1, tracks 1, read 3, resolve 1, apply 1, delta 1 | E247 |
+| `delete_launcher_clip` | 878 ms | Before: 1,233 ms | mark 1, tracks 1, read 3, resolve 1, apply 1, delta 1 | E247 |
+| `launch_clip` | Median 752 ms (742–763) | `stable-v1`: median 703 ms; E237: 764 ms | mark 1, tracks 1, read 4, apply 1, delta 1 | E247 workflow |
+| `show_launcher_clip_in_detail_editor` | 238 ms | `show_changed_clip`: 578 ms | mark 2, tracks 1, read 1, resolve 1 | E247 |
+| `add_scenes`, one; `delete_scene`, one | 368 ms; 393 ms | Before: 676 ms; 726 ms | add: mark 2, read 2, apply 1, delta 1; delete: mark 2, resolve 1, read 2, apply 1, delta 1 | E247 |
+| E45/E48-style workflow (read, copy, read and edit, launch, show, two reverts) | 8 calls, 6,745 ms, 28,362 bytes | E247: 6,895 ms; E239: 7,411 ms; `stable-v1`: 7 calls, 12,773 ms, 15,122 bytes | — | E248 workflow |
+
+### Tracks, changes, and connection
+
+| Path | Current | Reference or earlier | Call budget | Source |
+|---|---:|---|---|---|
+| `check_bitwig_connection` | 25 ms; 2 wire calls | One mark | mark 1 | E247 |
+| `list_tracks` | 25 ms; 2 wire calls | E239: 43 ms, 3 calls | mark 1, tracks 1 (the mark's scan) | E247 |
+| `add_tracks`, one track; two tracks | 835–841 ms, 46 wire calls; 1,277 ms, 66 | Before: 1,163 ms; E239 two tracks: 1,935 ms | read 4, apply 2, delta 2, resolve 1, tracks 1 | E247 |
+| `duplicate_track` | 817–844 ms; 46 wire calls | Before: 1,176 ms; E239: 1,178–1,197 ms; E16: visible in 117–190 ms | tracks 2, read 4, apply 2, delta 2, resolve 1 | E247 |
+| `rename_track` | 381 ms | E239: 386 ms | tracks 1, resolve 1, read 2, apply 1, delta 1 | E247 |
+| `delete_track`, 3 and 4 tracks | 937 ms, 69 wire calls; 1,140 ms, 86 | Before (3): 2,009 ms; E239 (4): 2,517 ms | tracks 1, resolve 1, read 2, apply 1, delta 1 | E247 |
+| `list_changes` | 7 ms | No host call | none | E247 |
+| `check_revert`, a clip edit | 442 ms | E239: a rename, 42 ms | read 1, delta 1 | E247 |
+| `revert_change`, a targeted clip edit; a device enable | 1,581 ms; 775 ms | — | revert: read 3, delta 2, resolve 1, apply 1 | E247 |
+
+### Devices and modulation
+
+| Path | Current | Reference or earlier | Call budget | Source |
+|---|---:|---|---|---|
+| `read_devices`, by structure | 542–562 ms (one container); 652 ms (one device); 695–950 ms (a container and 1–3 devices) | E238: 460–495 ms (one container); before: 634 ms (one device) | devices 1, read 1 | E247 |
+| `read_device_controls`, new or same target (Polysynth) | 764–823 ms | E238: 701–731 ms | read 1 | E247 |
+| `read_device_controls`, Diva (CLAP, 281 IDs) | 3,919–4,011 ms (not remeasured) | — | read 1 | E238 |
+| `set_device_controls`, one write | 2,555–2,650 ms; 74 wire calls | E238: 2,324–2,398 ms (CLAP: 8,302 ms) | devices 1, read 2, apply 1, delta 1 | E247 |
+| `set_device_controls`, 27 controls (Polysynth) | 14,372–14,391 ms; 276 wire calls; 4,321 bytes | E239: 14,463–14,521 ms, 282 wire calls; `set_parameter` now 14,255–14,376 ms | as one write | E247 controls |
+| `set_device_enabled`, one device; its revert | 905 ms; 775 ms | E239: 770 ms; 665 ms | devices 1, resolve 1, read 2, apply 1, delta 1 | E247 |
+| `add_devices`, one native device | 1,447–1,544 ms; 67 wire calls | Before: 5,541 ms | devices 2, read 2, apply 1, delta 1 | E247 |
+| `compose_devices`, offline, 2 and 4 layer chains | 3,382–3,403 ms; 3,978–4,023 ms | E238: 7,199–7,330; 7,770–7,779 ms. E18a insertion: 463–465 ms | wire: 128 (2 layer chains) | E247 benchmark |
+| `compose_devices`, staged, 2 and 4 layer chains | 17,500–17,551 ms; 30,430–30,556 ms | E238: 36,525–37,145; 64,878–64,937 ms | — | E247 benchmark |
+| `revert_change` of a composition, offline; staged 2 and 4 | 1,428–1,454 ms; 12.6 s; 20.9–21.0 s | E238: 1.7 s; 21.3 s; 38.4 s | — | E247 benchmark |
+| `set_layer_chain_solo`; no-op | 957–973 ms; 216 ms | E238: 828–868 ms; 182 ms | read 4, apply 1, delta 1; no-op: read 1 | E247 recipes |
+| `rename_layer_chain` | 1,075 ms | E238: 953 ms | read 4, apply 1, delta 1 | E247 recipes |
+| `duplicate_layer_chain` | 1,421–1,756 ms | E238: 5,199 ms | read 4, apply 1, delta 1 | E247 |
+| `copy_devices`, one device | 2,472 ms; 107 wire calls | Before: 6,704 ms | devices 2, read 5, apply 1, delta 1 | E247 |
+| `move_devices`, one device | 1,254–2,311 ms | E238: 5,366–5,957 ms | devices 2, read 4, apply 1, delta 1 | E247 |
+| `delete_device`, one container | 3,055–3,296 ms; 116 wire calls | E238: 3,132 ms | read 3, devices 3, resolve 1, apply 1, delta 1 | E247 |
+| `wrap_existing_device_modulation`, one LFO; its reversal | 14,390 ms; 5,801 ms | Before: 26,073 ms; 6,515 ms | wire: 420; 197 | E247 |
+| `read_preset_modulation`; `list_modulator_types` | 1–3 ms; 1 ms | File and catalog reads only | none | E247 |
+| `edit_preset_modulation`, one LFO | 8,233 ms | Before: 11,937 ms | wire: 233 | E247 |
+| A/B audition and winner collapse, 2 layer chains (8 calls) | 11,877–12,084 ms; 447–450 wire calls | E239: 21,877–21,903 ms, 497 wire calls; `stable-v1` managed alternates: 20,191–20,247 ms (E239: 50.7 s) | — | E247 ab |
 
 ## Limits
 
@@ -108,42 +147,47 @@ of the measurement.
 | Heap at 4.2 million cells | 3,072 MiB maximum reached | E246 |
 | Heap failure | 8.4 million cells | E236 |
 | MCP client request timeout | 60 s | E45 |
-| Writer window | 2,048 steps | E236 |
+| Writer window (pool cursors, `fineSteps`) | 4,194,304 steps (the reader width; was 512); fixed at extension start. A writer parks after each write. The adapter refuses note writes on a narrower writer (`WriterWidthError`, `unhealthy`). The 2,048-step window is the separate `fine` read cursor (`noteReadSteps`, E52) | E44, E52, E248, D41 |
+| Add at the reader limit, ZGC used peak | 2,450–2,786 MiB of 3,072 (the read alone: 2,168–2,196) | E248 |
+| Dense `cursor.getNotes*` scan without `maxX` | 8,192 steps | E248 |
+| Longest direct call measured | Staged composition of 4 layer chains, 30.6 s | E247 |
 
-## Known costs for the 8h4g review
+## Known costs for later sessions
 
-- Planner time: 12.0 s for 16,384 notes. Each changed note is mapped twice
-  (default groups), and the planner validates and clones whole documents.
-- Each apply points a writer cursor (about 8 calls) and waits one
-  `gridChange` settle.
-- Each read borrows and restores the selection (2–4 calls).
-- `check_launcher_clips` takes two marks; the read tool's repeated read takes
-  one more delta for the prior ref; `tracks()` follows a mark that already
-  scanned the bank.
+Each item is a measured cost with a named cause. None needs a fix before 8i.
+
+- `read_launcher_clip` spends about 240 ms in 9 control turns around its
+  190 ms capture: the mark, the selection borrow (D6), three slot checks,
+  the post-read slot check, and the end mark and delta (D32). A repeated read
+  takes one more delta for the prior ref.
+- `check_launcher_clips` takes a mark for the registry sweep before its read
+  mark (one turn).
 - Whole-clip rewrites of notes with nondefault expression need one property
-  stage for each channel.
+  stage for each channel, each after a grid settle (1.9 s for the typical
+  clip, E248). This is now the part of a clip write that grows with the
+  content. E15-F forbids a shared
+  property stage across clips; a shared stage for the channels of one clip is
+  a candidate that needs its own live proof.
+- A device control write reads three complete parameter inventories: the
+  change record, the cohort integrity check, and the executor readback
+  (D15). This is the retained safeguard that costs the most (8h retrospective).
 - `add_launcher_clip` resolves twice (creation, then the edit limb) and is two
-  change records; reverting it takes two calls (4,707 and 1,518 ms).
-- A whole-clip reversal of the typical clip takes about 4.7–4.9 s (E237).
+  change records; reverting it takes two calls.
 - `launch_clip` on `agent-native-v1` checks the track and the occupancy
-  first: about 3 turns (+10 percent) over `stable-v1`.
-- A staged `compose_devices` of four layer chains takes about 65 s, more than
-  the 60 s MCP client timeout, and the tool has no background route (E238).
-- Each structural stage waits the fixed 4,000 ms `deviceInsert` budget; a
-  structural readback could replace the wait.
-- `read_devices`: the top-level bank read re-points the track cursor and reads
-  `device.list` twice; each limb reads the container before and after the
-  write, beside the executor's own preflight and readback.
-- `delete_device` of one container is about 100 wire calls (bank reads and two
-  parameter inventories for the change record).
+  first: about 3 turns over `stable-v1`.
+- `compose_devices` offline proves each layer chain and its device after the
+  insertion (about 100 turns); the staged backend pays one structural stage for
+  each device and relocation.
+- `delete_device` of one container is about 100 wire calls (bank reads and
+  two parameter inventories for the change record).
 - `read_device_controls` on a 281-ID plug-in takes about 4 s for each read,
   also for the same target.
-- `read_launcher_clip` returns all 16 channels (about 11 KB for the typical
+- `read_launcher_clip` returns all 16 channels (about 12 KB for the typical
   clip); an edit needs a read for its base.
-- A 27-control write takes 14.5 s and 282 wire calls (about 10 calls and
-  535 ms for each control), on both profiles. Its live result (4,321 bytes)
-  is above the 3,181-byte E126 figure because live parameter IDs are longer.
-- A structural track stage takes about 800 ms and 31 wire calls; the host
-  makes the track visible in 117–190 ms (E16).
+- `wrap_existing_device_modulation` takes 14 s: five structural stages and the
+  bounded modulation verification (E97).
+- `set_layer_chain_solo` and `rename_layer_chain` are 12–14 percent above
+  E238. The first E247 inventory, before the 8h4g changes, had the same
+  values; no 8h4g change touches their stage.
 - `rename_track` reads the bank once to refuse a missing track (+1 call): the
   executor records the rename of a missing track as a failed op.

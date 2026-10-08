@@ -4,6 +4,8 @@ import {
   type Document, type Event, type EventField, type SourceNote, type StateDocument,
 } from '../document/index.js';
 import { binary64, cmp, rational, spelling, sum } from '../document/rational.js';
+import { applyDesiredTo, applyPatchTo } from '../document/materialize.js';
+import { normalizedContentHash } from '../document/semantic.js';
 import { chooseStepSize } from '../contract/grid.js';
 import { orderedNoteProps, type NoteRecord } from '../contract/state.js';
 import {
@@ -101,8 +103,11 @@ function neutralRecurrence(recurrence: RawNote['recurrence']): RawNote['recurren
   return recurrence.enabled && recurrence.length === 1 && recurrence.mask === 1
     ? { enabled: false, length: 1, mask: 1 } : recurrence;
 }
-/** Project a raw note scan. Clip metadata is supplied as portable values. */
-export function projectRawClip(clip: StateDocument['clips'][number], notes: RawNote[]) {
+/**
+ * Project a raw note scan. Clip metadata is supplied as portable values. `reason: false` omits the coverage
+ * reason, for a caller that states the uncovered fields itself (8h4g: the projection is then validated once).
+ */
+export function projectRawClip(clip: StateDocument['clips'][number], notes: RawNote[], options: { reason?: boolean } = {}) {
   const source: SourceNote[] = notes.map(n => {
     if (!Number.isInteger(n.channel) || n.channel < 0 || n.channel > 15)
       refuse('channel', 'Host channel must be an integer from 0 through 15');
@@ -119,7 +124,7 @@ export function projectRawClip(clip: StateDocument['clips'][number], notes: RawN
     clips: [clip], events, overlays: [], coverage: [{
       clip: clip.id, from: '0', to: clip.length, channels: Array.from({ length: 16 }, (_, i) => i + 1),
       fields: RAW_FIELDS, status: 'complete',
-      reason: 'Full supplied raw scan; articulation and repeat are unavailable',
+      ...(options.reason === false ? {} : { reason: 'Full supplied raw scan; articulation and repeat are unavailable' }),
     }],
   }) as StateDocument;
   return { document, report };
@@ -168,6 +173,8 @@ export function resolvePartialProposal(input: {
     hostPreservationProved: boolean;
   };
   options?: AssessOptions;
+  /** The content hash of `original` when the caller has it (the projection's hash). */
+  originalHash?: string;
 }) {
   const { original, freshProjection, full, proposal, expected, fresh, resolution } = input;
   guardAuthority(expected, fresh);
@@ -181,15 +188,18 @@ export function resolvePartialProposal(input: {
     refuse('resolution', 'Partial resolution needs the retained binding reference');
   if (!resolution.hostPreservationProved)
     refuse('resolution', 'The caller must prove preservation of unmapped host values');
+  const declared = new Map<string, EventField[]>();
+  for (const d of resolution.declaredFields) declared.set(d.event, [...(declared.get(d.event) ?? []), ...d.fields]);
   for (const e of full.events) {
     const covered = original.coverage.find(c => c.clip === e.clip)?.fields;
     if (!covered) refuse('coverage', 'The full base has a clip outside the retained projection');
     if (covered !== 'all') for (const field of Object.keys(EVENT_DEFAULTS) as EventField[])
-      if (!covered.includes(field) && !resolution.declaredFields.some(d => d.event === e.id && d.fields.includes(field)))
+      if (!covered.includes(field) && !declared.get(e.id)?.includes(field))
         refuse('resolution', `Unknown ${field} needs an explicit declaration for ${e.id}`);
   }
-  const originalHash = contentHash(original);
-  if (!proposal.base || proposal.base.sha256 !== originalHash || contentHash(freshProjection) !== originalHash)
+  const originalHash = input.originalHash ?? contentHash(original);
+  const freshHash = freshProjection === original ? originalHash : contentHash(freshProjection);
+  if (!proposal.base || proposal.base.sha256 !== originalHash || freshHash !== originalHash)
     refuse('base', 'The retained partial guard does not match fresh projected state');
   const projected = structuredClone(full);
   projected.kind = original.kind;
@@ -202,16 +212,22 @@ export function resolvePartialProposal(input: {
   }
   if (contentHash(projected) !== originalHash)
     refuse('base', 'The full base does not reproduce the retained projection');
+  const normalizedFull = validate(full) as StateDocument;
+  const fullHash = normalizedContentHash(normalizedFull);
   const rebound = structuredClone(proposal);
-  rebound.base = { ...proposal.base, sha256: contentHash(full) };
-  const result = assessBindingProposal(full, rebound, expected, fresh, input.options);
-  return { ...result, guard: { originalHash, fullHash: contentHash(full), ref: proposal.base.ref,
+  rebound.base = { ...proposal.base, sha256: fullHash };
+  const result = assessBindingProposal(full, rebound, expected, fresh, input.options,
+    { normalized: normalizedFull, hash: fullHash });
+  return { ...result, guard: { originalHash, fullHash, ref: proposal.base.ref,
     sourceSha256: expected.snapshot.source.sha256 } };
 }
 function values(event: Event): Event {
   return { ...structuredClone(EVENT_DEFAULTS), ...event };
 }
 function equal(a: unknown, b: unknown): boolean {
+  // Strings, booleans, and finite numbers survive JSON unchanged, except -0, which becomes 0.
+  const scalar = (v: unknown) => typeof v === 'string' || typeof v === 'boolean' || Number.isFinite(v);
+  if (scalar(a) && scalar(b)) return a === b;
   const plain = (v: unknown) => v === undefined ? undefined : JSON.parse(JSON.stringify(v));
   return isDeepStrictEqual(plain(a), plain(b));
 }
@@ -223,17 +239,21 @@ export interface AssessOptions {
    */
   rawReplay?: boolean;
 }
-/** Assess a complete portable base. Reacquisition must retain the original guard. */
+/**
+ * Assess a complete portable base. Reacquisition must retain the original guard. `known` is the normalized base
+ * (`validate(base)`) and its content hash when the caller has just computed them (8h4g).
+ */
 export function assessBindingProposal(
   base: StateDocument, proposal: Document, expected: Authority, fresh: FreshAuthority, options: AssessOptions = {},
+  known?: { readonly normalized: StateDocument; readonly hash: string },
 ) {
   guardAuthority(expected, fresh);
-  if (!proposal.base || proposal.base.sha256 !== contentHash(base))
+  const normalizedBase = known?.normalized ?? validate(base) as StateDocument;
+  if (!proposal.base || proposal.base.sha256 !== (known?.hash ?? normalizedContentHash(normalizedBase)))
     refuse('base', 'Fresh base does not match the original portable guard');
-  const result = proposal.kind === 'patch' ? applyPatch(base, proposal)
-    : proposal.kind === 'desired' ? applyDesired(base, proposal)
+  const result = proposal.kind === 'patch' ? applyPatchTo(normalizedBase, proposal)
+    : proposal.kind === 'desired' ? applyDesiredTo(normalizedBase, proposal)
     : refuse('proposal', 'A snapshot is not a host edit proposal');
-  const normalizedBase = validate(base) as StateDocument;
   const oldClips = new Map(normalizedBase.clips.map(c => [c.id, c]));
   if (result.document.clips.length !== oldClips.size || result.document.clips.some(c => !oldClips.has(c.id)))
     refuse('clip-inventory', 'A portable inventory does not authorize host container changes');
@@ -286,13 +306,24 @@ export function assessBindingProposal(
   return result;
 }
 
-/** Map scalar fields to D9 inputs. This is not a complete insertion plan. */
-export function d9MappedFields(event: Event): { channel: number; note: NoteRecord; props: ReturnType<typeof orderedNoteProps> } {
-  const checked = validate({ format: 'ghostnote-document', version: '1.0', kind: 'patch',
-    base: { sha256: '0'.repeat(64) }, add: [event], remove: [], update: [],
-    clipUpdate: [], overlayPut: [], overlayRemove: [] });
-  if (checked.kind !== 'patch') refuse('event', 'The scalar mapper needs a valid portable event');
-  const e = values(checked.add[0]);
+/**
+ * Map scalar fields to D9 inputs. This is not a complete insertion plan. `validated`: the event is an event of a
+ * document that `validate` returned, so it is not validated again (8h4g: the planner maps each changed note).
+ */
+export function d9MappedFields(
+  event: Event, options: { validated?: boolean } = {},
+): { channel: number; note: NoteRecord; props: ReturnType<typeof orderedNoteProps> } {
+  let checked: Event;
+  if (options.validated === true) {
+    checked = event;
+  } else {
+    const patch = validate({ format: 'ghostnote-document', version: '1.0', kind: 'patch',
+      base: { sha256: '0'.repeat(64) }, add: [event], remove: [], update: [],
+      clipUpdate: [], overlayPut: [], overlayRemove: [] });
+    if (patch.kind !== 'patch') refuse('event', 'The scalar mapper needs a valid portable event');
+    checked = patch.add[0];
+  }
+  const e = values(checked);
   if (e.articulation !== 'normal') refuse('articulation', 'The host cannot write articulation labels');
   if (!equal(e.repeat, EVENT_DEFAULTS.repeat)) refuse('repeat', 'Host repeat controls need an explicit semantic converter');
   if (e.expression!.pressure !== 0) refuse('pressure', 'The host cannot write pressure');

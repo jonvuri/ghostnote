@@ -30,6 +30,7 @@
     "probe:phase8h4c2-ladder": "node --import tsx src/probes/phase8h4c2-ladder.ts",
     "probe:phase8h4f-tracks": "node --import tsx src/probes/phase8h4f-tracks.ts",
     "probe:phase8h4f-measure": "node --import tsx src/probes/phase8h4f-measure.ts",
+    "probe:phase8h4g-inventory": "node --import tsx src/probes/phase8h4g-inventory.ts",
     "benchmark:compact-bar": "python3 benchmarks/compact-bar-v0/benchmark.py --check benchmarks/compact-bar-v0/expected-deterministic.json",
     "benchmark:compact-format-dev": "python3 benchmarks/compact-format-v2/benchmark.py --check benchmarks/compact-format-v2/expected-deterministic.json",
     "benchmark:compact-format-holdout": "python3 benchmarks/compact-format-v2/holdout.py --check benchmarks/compact-format-v2/expected-holdout-deterministic.json",

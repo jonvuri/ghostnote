@@ -1,0 +1,71 @@
+{
+ "schema": "phase8h4g-writer-width-v1-heap",
+ "hello": [
+  "normal-v1",
+  89,
+  "0ef817f4bac8a8a7"
+ ],
+ "project": "New 6",
+ "fineSteps": 4194304,
+ "rigConstructMicros": 68434,
+ "initMicros": 69946,
+ "initEpochMs": 1791436154393,
+ "count": 3072,
+ "soundingCells": 1572864,
+ "before": {
+  "liveMb": 403,
+  "noteSteps": 32
+ },
+ "add": {
+  "step": "heap-add",
+  "tool": "add_launcher_clip",
+  "ms": 3041,
+  "status": "verified",
+  "route": "targeted",
+  "calls": 86,
+  "turns": 55,
+  "scrolls": 2,
+  "statusChecks": 3,
+  "stages": 2,
+  "timing": {
+   "readMs": 357.0742089999999,
+   "planMs": 152.50841599999967,
+   "writeMs": 1445.8242079999995,
+   "readbackMs": 122.00583299999926,
+   "totalMs": 3040.0361249999996
+  }
+ },
+ "peak": {
+  "peakUsedMb": 2468,
+  "maxMb": 3072,
+  "samples": 18
+ },
+ "held": {
+  "liveMb": 416,
+  "noteSteps": 30720
+ },
+ "read": {
+  "step": "heap-read",
+  "tool": "read_launcher_clip",
+  "ms": 601,
+  "calls": 14,
+  "turns": 10,
+  "scrolls": 0,
+  "statusChecks": 0,
+  "stages": 0,
+  "timing": {
+   "readMs": 523.4397909999998,
+   "totalMs": 600.5188750000007
+  }
+ },
+ "readPeak": {
+  "peakUsedMb": 1732,
+  "maxMb": 3072,
+  "samples": 4
+ },
+ "length": "193",
+ "released": {
+  "liveMb": 406,
+  "noteSteps": 32
+ }
+}

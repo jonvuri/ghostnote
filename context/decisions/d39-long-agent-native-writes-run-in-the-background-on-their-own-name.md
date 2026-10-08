@@ -50,3 +50,40 @@ already exist (session 2j, E48).
 - 8h4g tries to bring the worst case under 30 s, then decides whether to
   remove the route. The 60 s client timeout is the real ceiling, so removal
   is possible also above 30 s with a clear margin to 60 s.
+
+## 8h4g amendment: the background route leaves `agent-native-v1` — 2026-10-08
+
+[E247](../evidence/experiments/e247-performance-review-and-closeout.md) and
+[E248](../evidence/experiments/e248-writer-cursor-width.md) bring the worst
+case under the 30 s budget, with verification:
+
+- The write cost scales with distinct writer pages (about 210 ms for each
+  page check), not with the note count. At 512 steps one valid edit needed
+  512 pages: 111 s. [D41](d41-the-writer-window-is-the-reader-width.md) sets
+  the writer window to the reader width, so every admitted clip is one page.
+  That edit now takes 1.8 s. **The removal depends on D41.**
+- A whole-clip edit of 16,384 notes at the reader limit takes 6.6 s
+  (E246: 48.0 s). The write check before the batch confirms each writer view
+  once; the planner takes about 1.2 s (E246: 12.0 s).
+- `add_launcher_clip` of 16,384 notes takes 6.4 s.
+- What remains scales with the property stages (one for each channel with
+  nondefault expression), the notes (the planner), and the capture (bounded
+  by the reader limit). The margin to the 60 s MCP client timeout (E45) is
+  more than 50 s.
+
+The route had a cost for each agent: the agent had to choose the flag, poll
+`inspect_operation`, and read a second result envelope. With the worst case
+far under the timeout, the cost has no benefit. The rule changes:
+
+- `edit_launcher_clip` and `add_launcher_clip` have no `background` input in
+  `agent-native-v1`. A call with `background` fails input validation.
+- `inspect_operation` and `cancel_operation` leave `agent-native-v1`
+  (39 tools). Tool descriptions are at v33.
+- `stable-v1` keeps its clip music operations unchanged (the rollback
+  through 8i).
+- The operation registry stays in the workspace for the `stable-v1`
+  operations.
+
+The no-generic-start rule stays: a later long write gets a flag on its own
+tool name. The staged composition of four layer chains (30.5 s, E247) is the
+longest direct call; it never had a background route.

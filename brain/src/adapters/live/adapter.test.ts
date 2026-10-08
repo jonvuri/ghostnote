@@ -18,7 +18,7 @@ import assert from 'node:assert/strict';
 
 import {
   AddressUnresolvedError, CLIP_READ_SOUNDING_CELLS, CONTRACT_VERSION, ClipReadLimitError, GroupSlotError, InvalidOpError,
-  RuntimeProfileMismatchError,
+  RuntimeProfileMismatchError, WriterWidthError,
   StaleAddressError, addressKey, chain as chainAt, clip, clipLaunch, clipMetadata, clipPlay, device as deviceAt, deviceEnabled,
   deviceIn as deviceInAt, deviceSlot,
   drumPad, notes as notesAt, param, remote, remotes, scene, slot, snapshotAddresses, track,
@@ -103,6 +103,8 @@ class CursorModelTransport implements Transport {
   hidden = false;
   /** 8h4a5: `cursor.pointExpanded` refuses and leaves the cursor on row 0. */
   pointExpandedRefuses = false;
+  /** 8h4g: the `rig.info` writer width; the product width by default (D41). The paging tests set 512. */
+  fineSteps = 4_194_304;
 
   /** The one metadata reply shape, for `cursor.clipMetadata` and the `clip.read` block. */
   static metadataOf(model: SlotModel): Record<string, number | string | boolean> {
@@ -166,7 +168,7 @@ class CursorModelTransport implements Transport {
       case WIRE.rigInfo:
         return {
           gridSteps: 64,
-          fineSteps: 512,
+          fineSteps: this.fineSteps,
           clipReader: { width: 4_194_304, grid: 1 / 512, format: 'notes-v1', page: 131_072, soundingCells: CLIP_READ_SOUNDING_CELLS },
           cursorPool: 3,
           scenes: 8,
@@ -835,7 +837,7 @@ test('5d repair: selection changes do not re-point a verified held clip between 
     new Map([[0, { lengthBeats: 4, pitch: 60 }]]),
     selected,
   );
-  const adapter = new UntimedAdapter({ transport, cursorPool: 1, sceneBankSize: 8 });
+  const adapter = new UntimedAdapter({ transport, allowNarrowWriter: true, cursorPool: 1, sceneBankSize: 8 });
 
   await adapter.preserveSelection(async () => {
     await adapter.read([clipPlay(CLIP(0))]);
@@ -1257,7 +1259,7 @@ test('2h: a structural stage releases every physical writer cursor', async () =>
 
 test('2h: a clip-wide reconstruction verifies its cursor before the write turn', async () => {
   const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
-  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const adapter = new UntimedAdapter({ transport: wire, allowNarrowWriter: true, cursorPool: 3 });
 
   await adapter.apply({ ops: [
     { op: 'note.clear', clip: CLIP(0) },
@@ -1292,7 +1294,7 @@ async function collapsedChild(options: { hidden: boolean; groupPoint?: string; r
   wire.groupPoint = options.groupPoint;
   wire.pointExpandedRefuses = options.refuses === true;
   const trace: string[] = [];
-  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3, onTrace: (event) => trace.push(event.action) });
+  const adapter = new UntimedAdapter({ transport: wire, allowNarrowWriter: true, cursorPool: 3, onTrace: (event) => trace.push(event.action) });
   await adapter.hello();
   return { wire, adapter, trace };
 }
@@ -1384,7 +1386,7 @@ test('8h4a5: clip.launchSettings confirms its row before the turn and sends no p
 
 test('2i: an additive note write verifies and pins its exact clip before the write turn', async () => {
   const wire = new CursorModelTransport(new Map([[2, { lengthBeats: 32, pitch: 60 }]]));
-  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const adapter = new UntimedAdapter({ transport: wire, allowNarrowWriter: true, cursorPool: 3 });
 
   await adapter.apply({ ops: [{
     op: 'note.write', clip: CLIP(2), channel: 0,
@@ -1496,7 +1498,7 @@ test('2i: one note stage wider than the verified cursor pool is refused before m
   const wire = new CursorModelTransport(new Map(Array.from(
     { length: 4 }, (_, row) => [row, { lengthBeats: 4, pitch: 60 + row }] as const,
   )));
-  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const adapter = new UntimedAdapter({ transport: wire, allowNarrowWriter: true, cursorPool: 3 });
 
   await assert.rejects(adapter.apply({ ops: Array.from({ length: 4 }, (_, row) => ({
     op: 'note.write' as const,
@@ -1508,7 +1510,8 @@ test('2i: one note stage wider than the verified cursor pool is refused before m
 
 test('2i follow-up: a note beyond the first writer page uses a local step and restores page zero', async () => {
   const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 32, pitch: 60 }]]));
-  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  wire.fineSteps = 512;
+  const adapter = new UntimedAdapter({ transport: wire, allowNarrowWriter: true, cursorPool: 3 });
   await adapter.hello();
 
   await adapter.apply({ ops: [{
@@ -1528,15 +1531,17 @@ test('2i follow-up: a note beyond the first writer page uses a local step and re
   assert.equal(ops[1]?.params['step'], 512);
   assert.deepEqual(ops[2]?.params['notes'], [[64, 72, 90, 1 / 64]]);
   assert.equal(ops[3]?.params['step'], 0);
-  assert.equal(
-    wire.frames.filter((frame) => frame.method === WIRE.cursorScrollToStep).at(-1)?.params?.['step'],
-    0,
+  // The reset to page zero, then the 8h4g park (E248) at the reader width: 8,192 beats at the 1-beat park grid.
+  assert.deepEqual(
+    wire.frames.filter((frame) => frame.method === WIRE.cursorScrollToStep).slice(-2).map((frame) => frame.params?.['step']),
+    [0, 8_192],
   );
 });
 
 test('note.remove verifies its page and emits one page-local clearStep', async () => {
   const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 1024, pitch: 60 }]]));
-  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  wire.fineSteps = 512;
+  const adapter = new UntimedAdapter({ transport: wire, allowNarrowWriter: true, cursorPool: 3 });
   await adapter.hello();
 
   await adapter.apply({ ops: [{
@@ -1560,7 +1565,8 @@ test('note.remove verifies its page and emits one page-local clearStep', async (
 
 test('2i follow-up: property reads use separate settled page turns', async () => {
   const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 32, pitch: 60 }]]));
-  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  wire.fineSteps = 512;
+  const adapter = new UntimedAdapter({ transport: wire, allowNarrowWriter: true, cursorPool: 3 });
   await adapter.hello();
 
   await adapter.apply({ ops: [{
@@ -1591,10 +1597,122 @@ test('2i follow-up: property reads use separate settled page turns', async () =>
     { page: 0, methods: [WIRE.cursorSetStepSize, WIRE.cursorSetNoteProps], x: 64 },
     { page: 512, methods: [WIRE.cursorSetStepSize, WIRE.cursorSetNoteProps], x: 64 },
   ]);
-  assert.equal(
-    wire.frames.filter((frame) => frame.method === WIRE.cursorScrollToStep).at(-1)?.params?.['step'],
-    0,
+  // The reset to page zero, then the 8h4g park (E248) at the reader width: 8,192 beats at the 1-beat park grid.
+  assert.deepEqual(
+    wire.frames.filter((frame) => frame.method === WIRE.cursorScrollToStep).slice(-2).map((frame) => frame.params?.['step']),
+    [0, 8_192],
   );
+});
+
+test('8h4g: a write of two channels over two writer pages confirms each page once, before the write', async () => {
+  const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 32, pitch: 60 }]]));
+  wire.fineSteps = 512;
+  const adapter = new UntimedAdapter({ transport: wire, allowNarrowWriter: true, cursorPool: 3 });
+  await adapter.hello();
+  const notes = [{ startBeats: 1, pitch: 67, velocity: 90, durationBeats: 1 / 64 },
+    { startBeats: 9, pitch: 72, velocity: 90, durationBeats: 1 / 64 }];
+  await adapter.apply({ ops: [{ op: 'note.write', clip: CLIP(0), channel: 0, notes },
+    { op: 'note.write', clip: CLIP(0), channel: 1, notes }] });
+  const batchAt = wire.frames.findIndex((frame) => frame.method === WIRE.batchRun);
+  assert.ok(batchAt > 0);
+  // Each page view is confirmed once after its scroll, then the view resets to page zero before the write turn.
+  // The second channel adds no confirmation (E46, 8h4g); before 8h4g this was [0, 512, 0, 512, 0].
+  const before = wire.frames.slice(0, batchAt);
+  const pages = before.filter((frame) => frame.method === WIRE.cursorScrollToStep).map((frame) => frame.params?.['step']);
+  assert.deepEqual(pages, [0, 512, 0]);
+});
+
+/** 8h4g review case (E248): 512 notes on a 2,048-beat clip, four beats apart, duration 1/512 (the 1/512 grid). */
+const REVIEWER_NOTES = Array.from({ length: 512 }, (_, k) =>
+  ({ startBeats: k * 4, pitch: 36 + (k % 48), velocity: 90, durationBeats: 1 / 512 }));
+
+test('8h4g: the review case needs one writer page at the reader width and 512 pages at 512 steps', async () => {
+  // The write cost scales with distinct writer pages, not notes (E248). Each page check is a grid settle and a
+  // status read, about 210 ms live: 512 pages took 111 s, above the 60 s client timeout (E45).
+  const pages = async (fineSteps: number) => {
+    const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 2048, pitch: 60 }]]));
+    wire.fineSteps = fineSteps;
+    const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3, allowNarrowWriter: fineSteps !== 4_194_304 });
+    await adapter.hello();
+    await adapter.apply({ ops: [{ op: 'note.write', clip: CLIP(0), notes: REVIEWER_NOTES }] });
+    const batchAt = wire.frames.findIndex((frame) => frame.method === WIRE.batchRun);
+    // The distinct pages that the preflight scrolled to and confirmed before the write turn.
+    return new Set(wire.frames.slice(0, batchAt).filter((frame) => frame.method === WIRE.cursorScrollToStep)
+      .map((frame) => frame.params?.['step'])).size;
+  };
+  assert.equal(await pages(4_194_304), 1);
+  assert.equal(await pages(512), 512);
+});
+
+test('8h4g review P2: a narrow writer refuses every note write before mutation; other writes still run', async () => {
+  // D41 (E248): at 512 steps one valid edit needed 512 page checks (111 s). A rig.json fineSteps override or an
+  // adapter without hello must not reach a write turn.
+  for (const fineSteps of [512, 2048, undefined]) {
+    const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 2048, pitch: 60 }]]));
+    wire.fineSteps = fineSteps as number;
+    const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+    if (fineSteps !== undefined) await adapter.hello();
+    for (const op of [
+      { op: 'note.write' as const, clip: CLIP(0), notes: [{ startBeats: 0, pitch: 60, velocity: 90, durationBeats: 1 }] },
+      { op: 'note.remove' as const, clip: CLIP(0), notes: [{ startBeats: 0, pitch: 60, velocity: 90, durationBeats: 1 }] },
+    ]) {
+      const before = wire.frames.length;
+      await assert.rejects(adapter.apply({ ops: [op] }), (error: unknown) =>
+        error instanceof WriterWidthError && error.actual === fineSteps && error.required === 4_194_304);
+      assert.equal(wire.frames.slice(before).some((frame) => frame.method === WIRE.batchRun
+        || frame.method.startsWith('cursor.') || frame.method.startsWith('slot.select')), false);
+    }
+  }
+  const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 2048, pitch: 60 }]]));
+  wire.fineSteps = 512;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  await adapter.hello();
+  await adapter.apply({ ops: [{ op: 'note.clear', clip: CLIP(0) }] });
+  assert.ok(wire.frames.some((frame) => frame.method === WIRE.batchRun), 'a clip-wide clear has no writer page');
+});
+
+test('8h4g: a write ends with its writer parked on an empty window, in one turn and with no settle', async () => {
+  // A held writer keeps a host NoteStep for each sounding cell of its window (E225); at the reader width that is
+  // the whole clip (E248: 534,528 NoteSteps, 176 MiB, for 524,288 cells). The park window starts at 8,192 beats.
+  const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 2048, pitch: 60 }]]));
+  wire.fineSteps = 4_194_304;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  await adapter.hello();
+  await adapter.apply({ ops: [{ op: 'note.write', clip: CLIP(0), notes: REVIEWER_NOTES }] });
+  const batchAt = wire.frames.findIndex((frame) => frame.method === WIRE.batchRun);
+  const after = wire.frames.slice(batchAt + 1).filter((frame) => frame.method.startsWith('cursor.'));
+  assert.deepEqual(after.map((frame) => [frame.method, frame.params?.['stepSize'] ?? frame.params?.['step']]),
+    [[WIRE.cursorSetStepSize, 1], [WIRE.cursorScrollToStep, 8_192]]);
+});
+
+/** The physical (grid, step) of each writer scroll, in send order, with `batch.run` ops expanded. */
+function scrollPositions(frames: readonly Frame[], cursor: string): { stepSize: number; step: number }[] {
+  let stepSize = Number.NaN;
+  const out: { stepSize: number; step: number }[] = [];
+  const flat = frames.flatMap((frame) => frame.method === WIRE.batchRun
+    ? (frame.params?.['ops'] as Frame[]) : [frame]);
+  for (const frame of flat) {
+    if (frame.params?.['cursor'] !== cursor) continue;
+    if (frame.method === WIRE.cursorSetStepSize) stepSize = frame.params['stepSize'] as number;
+    if (frame.method === WIRE.cursorScrollToStep) out.push({ stepSize, step: frame.params['step'] as number });
+  }
+  return out;
+}
+
+test('8h4g: the park lands at the reader width after a mixed-grid write (1/512, 1/4, 1/512)', async () => {
+  // Review P1: the preflight confirms a repeated view once, so the last confirmed grid (1/4) is not the grid
+  // that the batch set last (1/512). A park computed from the confirmed grid landed at beat 64, inside the clip.
+  const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 2048, pitch: 60 }]]));
+  wire.fineSteps = 4_194_304;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  await adapter.hello();
+  await adapter.apply({ ops: [
+    { op: 'note.write', clip: CLIP(0), channel: 0, notes: [{ startBeats: 1 / 512, pitch: 60, velocity: 90, durationBeats: 1 / 512 }] },
+    { op: 'note.write', clip: CLIP(0), channel: 1, notes: [{ startBeats: 1, pitch: 62, velocity: 90, durationBeats: 1 / 4 }] },
+    { op: 'note.write', clip: CLIP(0), channel: 2, notes: [{ startBeats: 3 / 512, pitch: 64, velocity: 90, durationBeats: 1 / 512 }] },
+  ] });
+  const park = scrollPositions(wire.frames, '0').at(-1)!;
+  assert.equal(park.stepSize * park.step, 8_192, `parked at beat ${park.stepSize * park.step}`);
 });
 
 test('2i follow-up: a failed later page target check causes no partial write', async () => {
@@ -1604,7 +1722,8 @@ test('2i follow-up: a failed later page target check causes no partial write', a
     0,
     512,
   );
-  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  wire.fineSteps = 512;
+  const adapter = new UntimedAdapter({ transport: wire, allowNarrowWriter: true, cursorPool: 3 });
   await adapter.hello();
 
   await assert.rejects(adapter.apply({ ops: [{
@@ -1615,9 +1734,10 @@ test('2i follow-up: a failed later page target check causes no partial write', a
     ],
   }] }), AddressUnresolvedError);
   assert.equal(wire.frames.some((frame) => frame.method === WIRE.batchRun), false);
-  assert.equal(
-    wire.frames.filter((frame) => frame.method === WIRE.cursorScrollToStep).at(-1)?.params?.['step'],
-    0,
+  // The reset to page zero, then the 8h4g park (E248) at the reader width: 8,192 beats at the 1-beat park grid.
+  assert.deepEqual(
+    wire.frames.filter((frame) => frame.method === WIRE.cursorScrollToStep).slice(-2).map((frame) => frame.params?.['step']),
+    [0, 8_192],
   );
 });
 
@@ -1631,7 +1751,8 @@ test('2i follow-up: a later staged page failure leaves no earlier expressive wri
     0,
     512,
   );
-  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  wire.fineSteps = 512;
+  const adapter = new UntimedAdapter({ transport: wire, allowNarrowWriter: true, cursorPool: 3 });
   await adapter.hello();
 
   await assert.rejects(adapter.apply({ ops: [
@@ -4661,4 +4782,31 @@ test('8h4e cursor recovery: a one-track project points at no unlisted track and 
   assert.deepEqual([...new Set(pointedTracks(wire))], [0], 'only the listed track');
   const value = snapshot.entries[addressKey(deviceAt(TRACK, 0))]?.value;
   assert.equal(value?.of === 'device' && value.device.params !== undefined, false, 'no parameter inventory');
+});
+
+test('8h4g call budget: tracks() right after a mark uses the mark scan; a mark older than one turn is not reused', async () => {
+  const frames: Frame[] = [];
+  const bank = { tracks: [{ index: 0, name: 'A', position: 0, type: 'Instrument', channelId: 'track-a' }],
+    count: 1, itemCount: 1, bankSize: 256 };
+  const transport: Transport = {
+    async send(frame) {
+      frames.push(frame);
+      if (frame.method === WIRE.revisionGet) {
+        return { revision: 1, generation: 'g', sceneEpoch: 1, contentEpoch: 1, project: 'p', sceneCount: 4 };
+      }
+      return frame.method === WIRE.trackList ? bank : {};
+    },
+    async close() {},
+  };
+  const adapter = new LiveAdapter({ transport });
+  const scans = () => frames.filter((frame) => frame.method === WIRE.trackList).length;
+  await adapter.revision();
+  assert.equal(scans(), 1);
+  assert.deepEqual((await adapter.tracks()).map((item) => item.channelId), ['track-a']);
+  assert.equal(scans(), 1, 'the mark scan serves the next tracks()');
+  await adapter.contentSince(await adapter.revision());
+  assert.equal(scans(), 3);
+  await new Promise((resolve) => setTimeout(resolve, 60));
+  await adapter.tracks();
+  assert.equal(scans(), 4, 'a mark older than one turn is not reused');
 });

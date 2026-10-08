@@ -36,7 +36,6 @@ import {
 } from './agent-native-result.js';
 import { checkHealth, format } from './agent-native.js';
 import { editLauncherClip, parseProposal } from './agent-native-edit.js';
-import type { OperationStatus } from './operations.js';
 import type { ToolSpec } from './tools.js';
 import type { Workspace } from './workspace.js';
 
@@ -49,7 +48,6 @@ export const DELETE_SCHEMA = 'ghostnote-launcher-clip-delete/1';
 export const SHOW_SCHEMA = 'ghostnote-launcher-clip-show/1';
 export const LAUNCH_SCHEMA = 'ghostnote-launcher-clip-launch/1';
 export const SCENES_SCHEMA = 'ghostnote-scenes/1';
-export const OPERATION_SCHEMA = 'ghostnote-operation/1';
 
 const PROFILE = `Profile ${AGENT_NATIVE_TOOL_PROFILE}.`;
 const FAILURE_FIELDS = ['schema', 'failure.code', 'failure.stage', 'failure.effects', 'message', 'retryWhen', 'detail'];
@@ -190,11 +188,8 @@ const addInput = z.object({
   readback: z.enum(['summary', 'document']).optional().describe(
     'summary (default): the new base, IDs, and discrepancies. document: also the read-back document.',
   ),
-  background: z.boolean().optional().describe(
-    'Return an operation handle at once and run the call in the background. Use inspect_operation.',
-  ),
 }).strict();
-type AddInput = Omit<z.infer<typeof addInput>, 'background'>;
+type AddInput = z.infer<typeof addInput>;
 
 const ADD_DESCRIPTION = `${PROFILE} Create one Launcher clip in an empty slot from a Ghostnote Document 1.0 `
   + 'desired document without BASE (DOC ghostnote-document 1.0 desired, one CLIP). The CLIP length is the clip length '
@@ -275,7 +270,6 @@ const addLauncherClipTool: ToolSpec = {
   inputSchema: addInput.shape,
   inputValidator: addInput,
   emits: ['clip.create', 'clip.update', 'note.remove', 'note.insert', 'note.clear', 'note.write'],
-  background: true,
   resultContract: {
     schema: ADD_SCHEMA, profile: AGENT_NATIVE_TOOL_PROFILE, envelope: [...WRITE_FIELDS, 'plan'], failure: FAILURE_FIELDS,
     readbackStatus: ['verified', 'differs', 'unavailable', 'unchanged'],
@@ -917,62 +911,11 @@ export const AGENT_NATIVE_SCENE_TOOLS: readonly ToolSpec[] = [
   },
 ];
 
-// --- operations ------------------------------------------------------------------
-
-/** The operation envelope. A completed operation carries the result of the direct call. */
-export function startedOperation(status: OperationStatus): unknown {
-  return { schema: OPERATION_SCHEMA, operation: status };
-}
-
-const operationInput = z.object({
-  operationId: z.string().min(1).describe('The operationId of a call with background true.'),
-}).strict();
-type OperationInput = z.infer<typeof operationInput>;
-
-function operationOf(workspace: Workspace, args: OperationInput, act: 'status' | 'cancel'): unknown {
-  try {
-    return startedOperation(workspace.operations[act](args.operationId));
-  } catch (error) {
-    return failureResult(OPERATION_SCHEMA, 'resolve', new ToolFailure('absent', 'resolve',
-      'This server process holds no such operation.', { cause: error }), { operationId: args.operationId });
-  }
-}
-
-const OPERATION_STATES = ['accepted', 'running', 'cancelling', 'completed', 'cancelled', 'failed'];
-
-const inspectOperationTool: ToolSpec = {
-  name: 'inspect_operation',
-  kind: 'read',
-  title: 'Inspect a background operation',
-  description: `${PROFILE} Read the state of an operation that a call with background true started `
-    + '(edit_launcher_clip, add_launcher_clip). operation.state is accepted, running, cancelling, completed, '
-    + 'cancelled, or failed. A terminal state (terminal true) means that the operation makes no later project '
-    + 'change. completed has operation.result, the same result as the direct call. cancelled lists in '
-    + 'operation.changes each change that was recorded before the cancellation. Operations live in this server '
-    + 'process only.',
-  inputSchema: operationInput.shape,
-  inputValidator: operationInput,
-  emits: [],
-  resultContract: { schema: OPERATION_SCHEMA, profile: AGENT_NATIVE_TOOL_PROFILE, states: OPERATION_STATES },
-  run: async (workspace, input) => operationOf(workspace, input as OperationInput, 'status'),
-};
-
-const cancelOperationTool: ToolSpec = {
-  name: 'cancel_operation',
-  kind: 'write',
-  title: 'Cancel a background operation',
-  description: `${PROFILE} Request the cancellation of a background operation. The operation stops before its `
-    + 'next project write. A write that has started finishes its readback and its change record first, so the '
-    + 'first answer can be cancelling. Inspect the operation until it is terminal. A repeated call for a terminal '
-    + 'operation changes nothing.',
-  inputSchema: operationInput.shape,
-  inputValidator: operationInput,
-  emits: [],
-  resultContract: { schema: OPERATION_SCHEMA, profile: AGENT_NATIVE_TOOL_PROFILE, states: OPERATION_STATES },
-  run: async (workspace, input) => operationOf(workspace, input as OperationInput, 'cancel'),
-};
-
-/** The Launcher clip tools and the operation handle that `agent-native-v1` adds, in order. */
+/**
+ * The Launcher clip tools that `agent-native-v1` adds, in order. 8h4g (D39 amendment): the background route and
+ * its operation handle (`inspect_operation`, `cancel_operation`) leave the profile; the worst case finishes in a
+ * direct call (E247).
+ */
 export const AGENT_NATIVE_CLIP_TOOLS: readonly ToolSpec[] = [
   addLauncherClipTool,
   copyLauncherClipsTool,
@@ -981,6 +924,4 @@ export const AGENT_NATIVE_CLIP_TOOLS: readonly ToolSpec[] = [
   setPropertiesTool,
   deleteLauncherClipTool,
   showLauncherClipTool,
-  inspectOperationTool,
-  cancelOperationTool,
 ];

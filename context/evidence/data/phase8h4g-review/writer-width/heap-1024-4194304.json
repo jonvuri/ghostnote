@@ -1,0 +1,47 @@
+{
+ "schema": "phase8h4g-writer-width-v1-heap",
+ "hello": [
+  "normal-v1",
+  89,
+  "0ef817f4bac8a8a7"
+ ],
+ "project": "New 6",
+ "fineSteps": 4194304,
+ "rigConstructMicros": 68434,
+ "initMicros": 69946,
+ "initEpochMs": 1791436154393,
+ "count": 1024,
+ "soundingCells": 524288,
+ "before": {
+  "liveMb": 338,
+  "noteSteps": 2080
+ },
+ "add": {
+  "step": "heap-add",
+  "tool": "add_launcher_clip",
+  "ms": 2475,
+  "status": "verified",
+  "route": "targeted",
+  "calls": 85,
+  "turns": 54,
+  "scrolls": 1,
+  "statusChecks": 3,
+  "stages": 2,
+  "timing": {
+   "readMs": 362.303625,
+   "planMs": 83.6122919999998,
+   "writeMs": 1082.936083,
+   "readbackMs": 49.472749999999905,
+   "totalMs": 2474.1415420000003
+  }
+ },
+ "held": {
+  "liveMb": 514,
+  "noteSteps": 534528
+ },
+ "length": "65",
+ "released": {
+  "liveMb": 371,
+  "noteSteps": 2080
+ }
+}

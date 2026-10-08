@@ -1,0 +1,67 @@
+{
+ "schema": "phase8h4g-writer-width-v1-reviewer",
+ "hello": [
+  "normal-v1",
+  89,
+  "0ef817f4bac8a8a7"
+ ],
+ "project": "New 6",
+ "fineSteps": 4194304,
+ "rigConstructMicros": 68434,
+ "initMicros": 69946,
+ "initEpochMs": 1791436154393,
+ "rows": [
+  {
+   "step": "add",
+   "tool": "add_launcher_clip",
+   "ms": 2421,
+   "status": "verified",
+   "route": "targeted",
+   "calls": 86,
+   "turns": 55,
+   "scrolls": 2,
+   "statusChecks": 3,
+   "stages": 2,
+   "timing": {
+    "readMs": 358.7072079999998,
+    "planMs": 53.964208999999755,
+    "writeMs": 1014.9658749999999,
+    "readbackMs": 48.58595800000012,
+    "totalMs": 2419.6390840000004
+   }
+  },
+  {
+   "step": "read",
+   "tool": "read_launcher_clip",
+   "ms": 416,
+   "calls": 14,
+   "turns": 10,
+   "scrolls": 0,
+   "statusChecks": 0,
+   "stages": 0,
+   "timing": {
+    "readMs": 344.27312500000016,
+    "totalMs": 415.462125
+   }
+  },
+  {
+   "step": "edit",
+   "tool": "edit_launcher_clip",
+   "ms": 1859,
+   "status": "verified",
+   "route": "whole-clip",
+   "calls": 53,
+   "turns": 42,
+   "scrolls": 2,
+   "statusChecks": 3,
+   "stages": 1,
+   "timing": {
+    "readMs": 389.0487499999999,
+    "planMs": 60.7206670000005,
+    "writeMs": 1356.870833,
+    "readbackMs": 33.593041000000085,
+    "totalMs": 1858.3772920000001
+   }
+  }
+ ]
+}

@@ -1,0 +1,154 @@
+{
+ "schema": "phase8h4g-writer-width-v1-far",
+ "hello": [
+  "normal-v1",
+  89,
+  "0ef817f4bac8a8a7"
+ ],
+ "project": "New 6",
+ "fineSteps": 512,
+ "rig": {
+  "runtimeProfile": "normal-v1",
+  "tracks": 256,
+  "scenes": 128,
+  "gridSteps": 64,
+  "fineSteps": 512,
+  "noteReadSteps": 2048,
+  "gridKeys": 128,
+  "stepSize": 0.25,
+  "cursorPool": 8,
+  "deviceBank": 16,
+  "remotePages": 16,
+  "containerScopes": 3,
+  "containerEntryBank": 5,
+  "containerEntryDeviceBank": 4,
+  "parameterRouteDepth": 2,
+  "sceneCount": 8,
+  "clipReader": {
+   "revision": "clip-reader-v3",
+   "closeRule": "confirm-before-release-v1",
+   "openRule": "subscribe-before-unpin-v1",
+   "groupRule": "expand-collapsed-parent-v1",
+   "limitRule": "sounding-cell-limit-v1",
+   "format": "notes-v1",
+   "width": 4194304,
+   "grid": 0.001953125,
+   "page": 131072,
+   "deadlineMs": 2000,
+   "soundingCells": 2097152,
+   "reads": 467,
+   "refusals": 0,
+   "lastRefusal": "",
+   "lateCallbacks": 0,
+   "strayCallbacks": 121085312,
+   "releaseCallbacks": 56858304,
+   "releaseEmpty": 56858304,
+   "releaseSustain": 0,
+   "releaseOn": 0,
+   "subscribed": false,
+   "open": false,
+   "writeGate": {
+    "readOpen": false,
+    "waiting": 0,
+    "leases": 0,
+    "limit": 256,
+    "queuedTotal": 18,
+    "refusedTotal": 0
+   },
+   "groupPoint": {
+    "rule": "expand-collapsed-point-v1",
+    "points": 0,
+    "refusals": 0,
+    "lastRefusal": "",
+    "open": false
+   }
+  },
+  "writeGuard": "batch-scene-guard-v1",
+  "selectionRule": "selection-project-v1",
+  "cursorIdentity": "cursor-channel-id-v1",
+  "groupPoint": "expand-collapsed-point-v1",
+  "parameterSettle": "same-ids-switch-v1",
+  "trackCreateKinds": [
+   "instrument",
+   "audio"
+  ],
+  "contentFilter": "ALL_CHANNELS"
+ },
+ "rows": [
+  {
+   "step": "far-add",
+   "tool": "add_launcher_clip",
+   "ms": 3295,
+   "status": "verified",
+   "route": "targeted",
+   "calls": 99,
+   "turns": 68,
+   "scrolls": 6,
+   "statusChecks": 8,
+   "stages": 2,
+   "timing": {
+    "readMs": 357.18625,
+    "planMs": 13.478458000000046,
+    "writeMs": 2045.304459,
+    "readbackMs": 4.323875000000044,
+    "totalMs": 3293.6816249999997
+   }
+  },
+  {
+   "step": "far-read",
+   "tool": "read_launcher_clip",
+   "ms": 407,
+   "calls": 14,
+   "turns": 10,
+   "scrolls": 0,
+   "statusChecks": 0,
+   "stages": 0,
+   "timing": {
+    "readMs": 337.01666599999953,
+    "totalMs": 406.6732499999998
+   }
+  },
+  {
+   "step": "far-props",
+   "tool": "edit_launcher_clip",
+   "ms": 3835,
+   "status": "verified",
+   "route": "whole-clip",
+   "calls": 76,
+   "turns": 65,
+   "scrolls": 9,
+   "statusChecks": 11,
+   "stages": 3,
+   "timing": {
+    "readMs": 368.83449999999993,
+    "planMs": 7.092208000000028,
+    "writeMs": 3432.1276670000007,
+    "readbackMs": 4.036833000000115,
+    "totalMs": 3834.2595
+   }
+  },
+  {
+   "step": "far-remove",
+   "tool": "edit_launcher_clip",
+   "ms": 1559,
+   "status": "verified",
+   "route": "targeted",
+   "calls": 44,
+   "turns": 36,
+   "scrolls": 2,
+   "statusChecks": 4,
+   "stages": 1,
+   "timing": {
+    "readMs": 368.73099999999977,
+    "planMs": 4.627207999999882,
+    "writeMs": 1160.6848750000008,
+    "readbackMs": 2.0804580000003625,
+    "totalMs": 1559.0656249999993
+   }
+  }
+ ],
+ "pans": [
+  -0.25,
+  0.5
+ ]
+}

@@ -1,0 +1,583 @@
+{
+ "schema": "phase8h4d-workflow-v1",
+ "at": "2026-10-08T05:23:52.005Z",
+ "entry": {
+  "hello": {
+   "contractVersion": 0,
+   "extensionVersion": "0.0.1",
+   "runtimeProfile": "normal-v1",
+   "hostApiVersion": 25,
+   "methodCount": 89,
+   "methodsHash": "0ef817f4bac8a8a7"
+  },
+  "mark": {
+   "revision": 69,
+   "generation": "680e619d-f8d1-45d6-967c-20addd1432b8",
+   "project": "New 6",
+   "projectStatus": "marked",
+   "sceneEpoch": 4,
+   "sceneCount": 8,
+   "contentEpoch": 32798,
+   "contentEvents": [
+    {
+     "seq": 32775,
+     "channelId": "a657edd1-6358-43de-a28d-67e0f61fffba",
+     "trackIndex": 1,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32776,
+     "channelId": "39042f64-c654-4363-a2bc-692ee10b78c5",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32777,
+     "channelId": "8d00fb3e-e095-475d-a3ce-5dcae39fef14",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32778,
+     "channelId": "8d00fb3e-e095-475d-a3ce-5dcae39fef14",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32779,
+     "channelId": "a657edd1-6358-43de-a28d-67e0f61fffba",
+     "trackIndex": 1,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32780,
+     "channelId": "39042f64-c654-4363-a2bc-692ee10b78c5",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32781,
+     "channelId": "b15f1316-f694-48fa-86c2-6d74fe505462",
+     "trackIndex": 0,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32782,
+     "channelId": "b15f1316-f694-48fa-86c2-6d74fe505462",
+     "trackIndex": 0,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32783,
+     "channelId": "b15f1316-f694-48fa-86c2-6d74fe505462",
+     "trackIndex": 0,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32784,
+     "channelId": "b15f1316-f694-48fa-86c2-6d74fe505462",
+     "trackIndex": 0,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32785,
+     "channelId": "b15f1316-f694-48fa-86c2-6d74fe505462",
+     "trackIndex": 0,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32786,
+     "channelId": "b15f1316-f694-48fa-86c2-6d74fe505462",
+     "trackIndex": 0,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32787,
+     "channelId": "a657edd1-6358-43de-a28d-67e0f61fffba",
+     "trackIndex": 1,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32788,
+     "channelId": "39042f64-c654-4363-a2bc-692ee10b78c5",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32789,
+     "channelId": "a657edd1-6358-43de-a28d-67e0f61fffba",
+     "trackIndex": 1,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32790,
+     "channelId": "39042f64-c654-4363-a2bc-692ee10b78c5",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32791,
+     "channelId": "f7d4658e-c0a9-4c8b-99bf-671441f7c37d",
+     "trackIndex": 0,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32792,
+     "channelId": "f7d4658e-c0a9-4c8b-99bf-671441f7c37d",
+     "trackIndex": 0,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32793,
+     "channelId": "f7d4658e-c0a9-4c8b-99bf-671441f7c37d",
+     "trackIndex": 0,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32794,
+     "channelId": "f7d4658e-c0a9-4c8b-99bf-671441f7c37d",
+     "trackIndex": 0,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32795,
+     "channelId": "f7d4658e-c0a9-4c8b-99bf-671441f7c37d",
+     "trackIndex": 0,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32796,
+     "channelId": "f7d4658e-c0a9-4c8b-99bf-671441f7c37d",
+     "trackIndex": 0,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32797,
+     "channelId": "a657edd1-6358-43de-a28d-67e0f61fffba",
+     "trackIndex": 1,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32798,
+     "channelId": "39042f64-c654-4363-a2bc-692ee10b78c5",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": false
+    }
+   ]
+  }
+ },
+ "trackId": "fc129906-71b9-49a8-b682-7ee9f9002159",
+ "steps": [
+  {
+   "profile": "stable-v1",
+   "phase": "workflow",
+   "step": "read",
+   "tool": "read_clip",
+   "ms": 660,
+   "bytes": 3962,
+   "ok": true
+  },
+  {
+   "profile": "stable-v1",
+   "phase": "workflow",
+   "step": "copy",
+   "tool": "copy_clip_down",
+   "ms": 2558,
+   "bytes": 2135,
+   "ok": true
+  },
+  {
+   "profile": "stable-v1",
+   "phase": "workflow",
+   "step": "edit",
+   "tool": "write_notes",
+   "ms": 1224,
+   "bytes": 1498,
+   "ok": true
+  },
+  {
+   "profile": "stable-v1",
+   "phase": "workflow",
+   "step": "launch",
+   "tool": "launch_clip",
+   "ms": 699,
+   "bytes": 388,
+   "ok": true
+  },
+  {
+   "profile": "stable-v1",
+   "phase": "workflow",
+   "step": "show",
+   "tool": "show_changed_clip",
+   "ms": 576,
+   "bytes": 301,
+   "ok": true
+  },
+  {
+   "profile": "stable-v1",
+   "phase": "workflow",
+   "step": "revert",
+   "tool": "revert_change",
+   "ms": 4898,
+   "bytes": 2971,
+   "ok": true
+  },
+  {
+   "profile": "stable-v1",
+   "phase": "workflow",
+   "step": "revert",
+   "tool": "revert_change",
+   "ms": 2158,
+   "bytes": 3867,
+   "ok": true
+  },
+  {
+   "profile": "agent-native-v1",
+   "phase": "workflow",
+   "step": "read",
+   "tool": "read_launcher_clip",
+   "ms": 406,
+   "bytes": 10956,
+   "ok": true
+  },
+  {
+   "profile": "agent-native-v1",
+   "phase": "workflow",
+   "step": "copy",
+   "tool": "copy_launcher_clips",
+   "ms": 861,
+   "bytes": 687,
+   "ok": true
+  },
+  {
+   "profile": "agent-native-v1",
+   "phase": "workflow",
+   "step": "edit",
+   "tool": "read_launcher_clip",
+   "ms": 403,
+   "bytes": 11249,
+   "ok": true
+  },
+  {
+   "profile": "agent-native-v1",
+   "phase": "workflow",
+   "step": "edit",
+   "tool": "edit_launcher_clip",
+   "ms": 1376,
+   "bytes": 911,
+   "ok": true
+  },
+  {
+   "profile": "agent-native-v1",
+   "phase": "workflow",
+   "step": "launch",
+   "tool": "launch_clip",
+   "ms": 713,
+   "bytes": 439,
+   "ok": true
+  },
+  {
+   "profile": "agent-native-v1",
+   "phase": "workflow",
+   "step": "show",
+   "tool": "show_launcher_clip_in_detail_editor",
+   "ms": 239,
+   "bytes": 232,
+   "ok": true
+  },
+  {
+   "profile": "agent-native-v1",
+   "phase": "workflow",
+   "step": "revert",
+   "tool": "revert_change",
+   "ms": 1575,
+   "bytes": 1903,
+   "ok": true
+  },
+  {
+   "profile": "agent-native-v1",
+   "phase": "workflow",
+   "step": "revert",
+   "tool": "revert_change",
+   "ms": 1172,
+   "bytes": 1985,
+   "ok": true
+  },
+  {
+   "profile": "stable-v1",
+   "phase": "extra",
+   "step": "add",
+   "tool": "add_clip",
+   "ms": 1511,
+   "bytes": 1571,
+   "ok": true
+  },
+  {
+   "profile": "stable-v1",
+   "phase": "extra",
+   "step": "revert",
+   "tool": "revert_change",
+   "ms": 1176,
+   "bytes": 3648,
+   "ok": true
+  },
+  {
+   "profile": "agent-native-v1",
+   "phase": "extra",
+   "step": "add",
+   "tool": "add_launcher_clip",
+   "ms": 2247,
+   "bytes": 1171,
+   "ok": true
+  },
+  {
+   "profile": "agent-native-v1",
+   "phase": "extra",
+   "step": "add",
+   "tool": "read_launcher_clip",
+   "ms": 408,
+   "bytes": 1801,
+   "ok": true
+  },
+  {
+   "profile": "agent-native-v1",
+   "phase": "extra",
+   "step": "revert",
+   "tool": "revert_change",
+   "ms": 1786,
+   "bytes": 1903,
+   "ok": true
+  },
+  {
+   "profile": "agent-native-v1",
+   "phase": "extra",
+   "step": "revert",
+   "tool": "revert_change",
+   "ms": 1180,
+   "bytes": 1985,
+   "ok": true
+  },
+  {
+   "profile": "agent-native-v1",
+   "phase": "extra",
+   "step": "direct",
+   "tool": "read_launcher_clip",
+   "ms": 421,
+   "bytes": 10961,
+   "ok": true
+  },
+  {
+   "profile": "agent-native-v1",
+   "phase": "extra",
+   "step": "direct",
+   "tool": "edit_launcher_clip",
+   "ms": 1739,
+   "bytes": 1094,
+   "ok": true
+  },
+  {
+   "profile": "agent-native-v1",
+   "phase": "extra",
+   "step": "revert",
+   "tool": "revert_change",
+   "ms": 4935,
+   "bytes": 1903,
+   "ok": true
+  },
+  {
+   "profile": "stable-v1",
+   "phase": "extra",
+   "step": "launch-pair",
+   "tool": "launch_clip",
+   "ms": 703,
+   "bytes": 388,
+   "ok": true
+  },
+  {
+   "profile": "agent-native-v1",
+   "phase": "extra",
+   "step": "launch-pair",
+   "tool": "launch_clip",
+   "ms": 745,
+   "bytes": 438,
+   "ok": true
+  },
+  {
+   "profile": "stable-v1",
+   "phase": "extra",
+   "step": "launch-pair",
+   "tool": "launch_clip",
+   "ms": 699,
+   "bytes": 388,
+   "ok": true
+  },
+  {
+   "profile": "agent-native-v1",
+   "phase": "extra",
+   "step": "launch-pair",
+   "tool": "launch_clip",
+   "ms": 743,
+   "bytes": 438,
+   "ok": true
+  },
+  {
+   "profile": "stable-v1",
+   "phase": "extra",
+   "step": "launch-pair",
+   "tool": "launch_clip",
+   "ms": 696,
+   "bytes": 387,
+   "ok": true
+  },
+  {
+   "profile": "agent-native-v1",
+   "phase": "extra",
+   "step": "launch-pair",
+   "tool": "launch_clip",
+   "ms": 744,
+   "bytes": 438,
+   "ok": true
+  },
+  {
+   "profile": "stable-v1",
+   "phase": "extra",
+   "step": "launch-pair",
+   "tool": "launch_clip",
+   "ms": 691,
+   "bytes": 386,
+   "ok": true
+  },
+  {
+   "profile": "agent-native-v1",
+   "phase": "extra",
+   "step": "launch-pair",
+   "tool": "launch_clip",
+   "ms": 751,
+   "bytes": 438,
+   "ok": true
+  }
+ ],
+ "totals": {
+  "stable": {
+   "calls": 7,
+   "ms": 12773,
+   "bytes": 15122
+  },
+  "native": {
+   "calls": 8,
+   "ms": 6745,
+   "bytes": 28362
+  }
+ },
+ "native": {
+  "edit": {
+   "readMs": 356.2766670000019,
+   "planMs": 23.375166999998328,
+   "writeMs": 982.539332999997,
+   "readbackMs": 10.778916999999637,
+   "totalMs": 1375.2288329999974
+  },
+  "plan": {
+   "route": "targeted",
+   "added": 16,
+   "removed": 0,
+   "changed": 0,
+   "moved": 0
+  }
+ },
+ "add": {
+  "plan": {
+   "route": "targeted",
+   "added": 16,
+   "removed": 0,
+   "changed": 0,
+   "moved": 0
+  },
+  "timing": {
+   "readMs": 358.0664999999972,
+   "planMs": 2.3980000000010477,
+   "writeMs": 1013.802249999997,
+   "readbackMs": 1.236750000000029,
+   "totalMs": 2246.8445829999982
+  },
+  "clip": {
+   "id": "ceb",
+   "length": "8",
+   "loop": {
+    "from": "0",
+    "to": "8"
+   }
+  },
+  "events": 16
+ },
+ "direct": {
+  "route": "whole-clip",
+  "editTotalMs": 1739
+ },
+ "launches": {
+  "stable": [
+   703,
+   699,
+   696,
+   691
+  ],
+  "native": [
+   745,
+   743,
+   744,
+   751
+  ],
+  "stableMedian": 699,
+  "nativeMedian": 745
+ },
+ "baselines": [
+  {
+   "label": "stable-v1",
+   "sourceUnchanged": true,
+   "copyEmpty": true,
+   "addedEmpty": true
+  },
+  {
+   "label": "agent-native-v1",
+   "sourceUnchanged": true,
+   "copyEmpty": true,
+   "addedEmpty": true
+  },
+  {
+   "label": "add",
+   "sourceUnchanged": true,
+   "copyEmpty": true,
+   "addedEmpty": true
+  },
+  {
+   "label": "direct",
+   "sourceUnchanged": true,
+   "copyEmpty": true,
+   "addedEmpty": true
+  }
+ ]
+}

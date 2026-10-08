@@ -87,14 +87,15 @@ public final class NoteHandlers extends HandlerGroup {
         return ok();
     }
 
-    /** Pull-based scan over the full grid; lean format [x, y, vel, dur]. */
+    /** Pull-based scan of the grid through maxX; lean format [x, y, vel, dur]. */
     private JsonElement cursorGetNotes(JsonObject params) {
         String ref = params.get("cursor").getAsString();
         Clip clip = rig.clip(ref);
         int channel = params.has("channel") ? params.get("channel").getAsInt() : 0;
+        int maxX = boundedMaxX(params, ref);
         long start = System.nanoTime();
         JsonArray notes = new JsonArray();
-        for (int x = 0; x < rig.gridSteps(ref); x++) {
+        for (int x = 0; x < maxX; x++) {
             for (int y = 0; y < rig.config.gridKeys; y++) {
                 NoteStep step = clip.getStep(channel, x, y);
                 if (step.state() == NoteStep.State.NoteOn) {
@@ -367,8 +368,18 @@ public final class NoteHandlers extends HandlerGroup {
         return result;
     }
 
+    /**
+     * 8h4g (E248): a dense scan calls {@code getStep} for each cell of the window. The writer window is the reader
+     * width (4,194,304 steps), so a scan of a wider window than {@link #SCAN_STEPS} must name its {@code maxX}.
+     */
+    private static final int SCAN_STEPS = 8192;
+
     private int boundedMaxX(JsonObject params, String ref) {
         int limit = rig.gridSteps(ref);
+        if (!params.has("maxX") && limit > SCAN_STEPS) {
+            throw new IllegalArgumentException("a scan of cursor " + ref + " (" + limit
+                + " steps) needs maxX from 1 through " + limit);
+        }
         int maxX = params.has("maxX") ? params.get("maxX").getAsInt() : limit;
         if (maxX < 1 || maxX > limit) {
             throw new IllegalArgumentException("maxX must be from 1 through " + limit);

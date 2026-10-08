@@ -1,0 +1,1197 @@
+{
+ "schema": "phase8h4c-edit-v1-cost",
+ "entry": {
+  "hello": {
+   "contractVersion": 0,
+   "extensionVersion": "0.0.1",
+   "runtimeProfile": "normal-v1",
+   "hostApiVersion": 25,
+   "methodCount": 89,
+   "methodsHash": "0ef817f4bac8a8a7"
+  },
+  "mark": {
+   "revision": 658,
+   "generation": "ce95574b-538b-4a0f-8381-945ca18a12a8",
+   "project": "New 6",
+   "projectStatus": "marked",
+   "sceneEpoch": 14,
+   "sceneCount": 8,
+   "contentEpoch": 32874,
+   "contentEvents": [
+    {
+     "seq": 32851,
+     "channelId": "a657edd1-6358-43de-a28d-67e0f61fffba",
+     "trackIndex": 1,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32852,
+     "channelId": "39042f64-c654-4363-a2bc-692ee10b78c5",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32853,
+     "channelId": "a657edd1-6358-43de-a28d-67e0f61fffba",
+     "trackIndex": 1,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32854,
+     "channelId": "39042f64-c654-4363-a2bc-692ee10b78c5",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32855,
+     "channelId": "81d6b4bd-1c59-4a61-b903-2f567170ff8d",
+     "trackIndex": 0,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32856,
+     "channelId": "81d6b4bd-1c59-4a61-b903-2f567170ff8d",
+     "trackIndex": 0,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32857,
+     "channelId": "81d6b4bd-1c59-4a61-b903-2f567170ff8d",
+     "trackIndex": 1,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32858,
+     "channelId": "a657edd1-6358-43de-a28d-67e0f61fffba",
+     "trackIndex": 2,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32859,
+     "channelId": "39042f64-c654-4363-a2bc-692ee10b78c5",
+     "trackIndex": 4,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32860,
+     "channelId": "920e8b25-0bf7-447e-82ee-3c531beab06e",
+     "trackIndex": 0,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32861,
+     "channelId": "3ba47195-6dc1-48a1-9f40-901a669fc575",
+     "trackIndex": 5,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32862,
+     "channelId": "3ba47195-6dc1-48a1-9f40-901a669fc575",
+     "trackIndex": 5,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32863,
+     "channelId": "99d27df4-d5c6-4305-9a4d-d0653ea934b6",
+     "trackIndex": 5,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32864,
+     "channelId": "99d27df4-d5c6-4305-9a4d-d0653ea934b6",
+     "trackIndex": 5,
+     "slotIndex": 1,
+     "filled": true
+    },
+    {
+     "seq": 32865,
+     "channelId": "99d27df4-d5c6-4305-9a4d-d0653ea934b6",
+     "trackIndex": 5,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32866,
+     "channelId": "99d27df4-d5c6-4305-9a4d-d0653ea934b6",
+     "trackIndex": 5,
+     "slotIndex": 2,
+     "filled": true
+    },
+    {
+     "seq": 32867,
+     "channelId": "99d27df4-d5c6-4305-9a4d-d0653ea934b6",
+     "trackIndex": 5,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32868,
+     "channelId": "99d27df4-d5c6-4305-9a4d-d0653ea934b6",
+     "trackIndex": 5,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32869,
+     "channelId": "81d6b4bd-1c59-4a61-b903-2f567170ff8d",
+     "trackIndex": 1,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32870,
+     "channelId": "a657edd1-6358-43de-a28d-67e0f61fffba",
+     "trackIndex": 2,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32871,
+     "channelId": "39042f64-c654-4363-a2bc-692ee10b78c5",
+     "trackIndex": 4,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32872,
+     "channelId": "920e8b25-0bf7-447e-82ee-3c531beab06e",
+     "trackIndex": 0,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32873,
+     "channelId": "a657edd1-6358-43de-a28d-67e0f61fffba",
+     "trackIndex": 1,
+     "slotIndex": 0,
+     "filled": true
+    },
+    {
+     "seq": 32874,
+     "channelId": "39042f64-c654-4363-a2bc-692ee10b78c5",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": false
+    }
+   ]
+  },
+  "rig": {
+   "runtimeProfile": "normal-v1",
+   "tracks": 256,
+   "scenes": 128,
+   "gridSteps": 64,
+   "fineSteps": 512,
+   "noteReadSteps": 2048,
+   "gridKeys": 128,
+   "stepSize": 0.25,
+   "cursorPool": 8,
+   "deviceBank": 16,
+   "remotePages": 16,
+   "containerScopes": 3,
+   "containerEntryBank": 5,
+   "containerEntryDeviceBank": 4,
+   "parameterRouteDepth": 2,
+   "sceneCount": 8,
+   "clipReader": {
+    "revision": "clip-reader-v3",
+    "closeRule": "confirm-before-release-v1",
+    "openRule": "subscribe-before-unpin-v1",
+    "groupRule": "expand-collapsed-parent-v1",
+    "limitRule": "sounding-cell-limit-v1",
+    "format": "notes-v1",
+    "width": 4194304,
+    "grid": 0.001953125,
+    "page": 131072,
+    "deadlineMs": 2000,
+    "soundingCells": 2097152,
+    "reads": 335,
+    "refusals": 0,
+    "lastRefusal": "",
+    "lateCallbacks": 0,
+    "strayCallbacks": 83479168,
+    "releaseCallbacks": 38243648,
+    "releaseEmpty": 38243648,
+    "releaseSustain": 0,
+    "releaseOn": 0,
+    "subscribed": false,
+    "open": false,
+    "writeGate": {
+     "readOpen": false,
+     "waiting": 0,
+     "leases": 0,
+     "limit": 256,
+     "queuedTotal": 18,
+     "refusedTotal": 0
+    },
+    "groupPoint": {
+     "rule": "expand-collapsed-point-v1",
+     "points": 0,
+     "refusals": 0,
+     "lastRefusal": "",
+     "open": false
+    }
+   },
+   "writeGuard": "batch-scene-guard-v1",
+   "selectionRule": "selection-project-v1",
+   "cursorIdentity": "cursor-channel-id-v1",
+   "groupPoint": "expand-collapsed-point-v1",
+   "parameterSettle": "same-ids-switch-v1",
+   "trackCreateKinds": [
+    "instrument",
+    "audio"
+   ],
+   "contentFilter": "ALL_CHANNELS"
+  }
+ },
+ "trackId": "e3138baf-6423-4c41-badc-5161b3137adf",
+ "runs": [
+  {
+   "totalMs": 1866.6709580000002,
+   "readMs": 439.099917,
+   "timing": {
+    "readMs": 364.1469999999995,
+    "planMs": 35.67570799999976,
+    "writeMs": 982.802541,
+    "readbackMs": 27.37895800000024,
+    "totalMs": 1420.2693750000003
+   },
+   "phases": [
+    {
+     "phase": "stash",
+     "ms": 27,
+     "end": 922
+    },
+    {
+     "phase": "apply",
+     "ms": 532,
+     "end": 1455
+    },
+    {
+     "phase": "verification",
+     "ms": 288,
+     "end": 1770
+    },
+    {
+     "phase": "finalReconciliation",
+     "ms": 2,
+     "end": 1772
+    }
+   ],
+   "wire": [
+    {
+     "method": "revision.get",
+     "start": 2,
+     "ms": 21
+    },
+    {
+     "method": "track.list",
+     "start": 2,
+     "ms": 22
+    },
+    {
+     "method": "selection.status",
+     "start": 24,
+     "ms": 24
+    },
+    {
+     "method": "slot.status",
+     "start": 48,
+     "ms": 24
+    },
+    {
+     "method": "revision.get",
+     "start": 72,
+     "ms": 25
+    },
+    {
+     "method": "track.list",
+     "start": 72,
+     "ms": 25
+    },
+    {
+     "method": "slot.status",
+     "start": 97,
+     "ms": 25
+    },
+    {
+     "method": "slot.status",
+     "start": 122,
+     "ms": 24
+    },
+    {
+     "method": "clip.read",
+     "start": 146,
+     "ms": 215
+    },
+    {
+     "method": "slot.status",
+     "start": 362,
+     "ms": 21
+    },
+    {
+     "method": "revision.get",
+     "start": 386,
+     "ms": 21
+    },
+    {
+     "method": "track.list",
+     "start": 386,
+     "ms": 21
+    },
+    {
+     "method": "revision.get",
+     "start": 447,
+     "ms": 8
+    },
+    {
+     "method": "track.list",
+     "start": 447,
+     "ms": 9
+    },
+    {
+     "method": "selection.status",
+     "start": 456,
+     "ms": 22
+    },
+    {
+     "method": "slot.status",
+     "start": 478,
+     "ms": 25
+    },
+    {
+     "method": "revision.get",
+     "start": 503,
+     "ms": 26
+    },
+    {
+     "method": "track.list",
+     "start": 503,
+     "ms": 26
+    },
+    {
+     "method": "slot.status",
+     "start": 529,
+     "ms": 25
+    },
+    {
+     "method": "slot.status",
+     "start": 554,
+     "ms": 24
+    },
+    {
+     "method": "clip.read",
+     "start": 577,
+     "ms": 197
+    },
+    {
+     "method": "slot.status",
+     "start": 781,
+     "ms": 18
+    },
+    {
+     "method": "revision.get",
+     "start": 806,
+     "ms": 13
+    },
+    {
+     "method": "track.list",
+     "start": 806,
+     "ms": 14
+    },
+    {
+     "method": "selection.status",
+     "start": 856,
+     "ms": 13
+    },
+    {
+     "method": "slot.status",
+     "start": 868,
+     "ms": 26
+    },
+    {
+     "method": "revision.get",
+     "start": 895,
+     "ms": 27
+    },
+    {
+     "method": "track.list",
+     "start": 895,
+     "ms": 27
+    },
+    {
+     "method": "revision.get",
+     "start": 923,
+     "ms": 24
+    },
+    {
+     "method": "track.list",
+     "start": 923,
+     "ms": 24
+    },
+    {
+     "method": "cursor.pin",
+     "start": 948,
+     "ms": 24
+    },
+    {
+     "method": "cursor.pinTrack",
+     "start": 971,
+     "ms": 25
+    },
+    {
+     "method": "cursor.pointTrack",
+     "start": 996,
+     "ms": 25
+    },
+    {
+     "method": "slot.select",
+     "start": 1021,
+     "ms": 25
+    },
+    {
+     "method": "cursor.status",
+     "start": 1072,
+     "ms": 22
+    },
+    {
+     "method": "cursor.pinTrack",
+     "start": 1095,
+     "ms": 22
+    },
+    {
+     "method": "cursor.pin",
+     "start": 1117,
+     "ms": 23
+    },
+    {
+     "method": "cursor.status",
+     "start": 1166,
+     "ms": 23
+    },
+    {
+     "method": "cursor.setStepSize",
+     "start": 1189,
+     "ms": 23
+    },
+    {
+     "method": "cursor.scrollToStep",
+     "start": 1212,
+     "ms": 24
+    },
+    {
+     "method": "cursor.status",
+     "start": 1381,
+     "ms": 26
+    },
+    {
+     "method": "batch.run",
+     "start": 1408,
+     "ms": 23
+    },
+    {
+     "method": "revision.get",
+     "start": 1431,
+     "ms": 23
+    },
+    {
+     "method": "track.list",
+     "start": 1431,
+     "ms": 24
+    },
+    {
+     "method": "revision.get",
+     "start": 1482,
+     "ms": 21
+    },
+    {
+     "method": "track.list",
+     "start": 1482,
+     "ms": 22
+    },
+    {
+     "method": "slot.status",
+     "start": 1504,
+     "ms": 24
+    },
+    {
+     "method": "clip.read",
+     "start": 1528,
+     "ms": 193
+    },
+    {
+     "method": "slot.status",
+     "start": 1723,
+     "ms": 20
+    },
+    {
+     "method": "slot.status",
+     "start": 1742,
+     "ms": 24
+    },
+    {
+     "method": "revision.get",
+     "start": 1772,
+     "ms": 18
+    },
+    {
+     "method": "track.list",
+     "start": 1772,
+     "ms": 18
+    },
+    {
+     "method": "slot.select",
+     "start": 1791,
+     "ms": 25
+    },
+    {
+     "method": "selection.status",
+     "start": 1817,
+     "ms": 19
+    }
+   ]
+  },
+  {
+   "totalMs": 1951.4899169999999,
+   "readMs": 441.77708300000086,
+   "timing": {
+    "readMs": 387.88408400000117,
+    "planMs": 25.003499999998894,
+    "writeMs": 1055.7592080000013,
+    "readbackMs": 20.876749999999447,
+    "totalMs": 1502.3882080000003
+   },
+   "phases": [
+    {
+     "phase": "stash",
+     "ms": 24,
+     "end": 947
+    },
+    {
+     "phase": "apply",
+     "ms": 541,
+     "end": 1488
+    },
+    {
+     "phase": "verification",
+     "ms": 342,
+     "end": 1856
+    },
+    {
+     "phase": "finalReconciliation",
+     "ms": 1,
+     "end": 1857
+    }
+   ],
+   "wire": [
+    {
+     "method": "revision.get",
+     "start": 0,
+     "ms": 23
+    },
+    {
+     "method": "track.list",
+     "start": 0,
+     "ms": 24
+    },
+    {
+     "method": "selection.status",
+     "start": 24,
+     "ms": 23
+    },
+    {
+     "method": "slot.status",
+     "start": 47,
+     "ms": 25
+    },
+    {
+     "method": "revision.get",
+     "start": 72,
+     "ms": 25
+    },
+    {
+     "method": "track.list",
+     "start": 72,
+     "ms": 25
+    },
+    {
+     "method": "slot.status",
+     "start": 98,
+     "ms": 23
+    },
+    {
+     "method": "slot.status",
+     "start": 121,
+     "ms": 25
+    },
+    {
+     "method": "clip.read",
+     "start": 146,
+     "ms": 193
+    },
+    {
+     "method": "slot.status",
+     "start": 341,
+     "ms": 22
+    },
+    {
+     "method": "revision.get",
+     "start": 366,
+     "ms": 21
+    },
+    {
+     "method": "track.list",
+     "start": 366,
+     "ms": 22
+    },
+    {
+     "method": "revision.get",
+     "start": 388,
+     "ms": 25
+    },
+    {
+     "method": "track.list",
+     "start": 388,
+     "ms": 25
+    },
+    {
+     "method": "revision.get",
+     "start": 450,
+     "ms": 12
+    },
+    {
+     "method": "track.list",
+     "start": 450,
+     "ms": 12
+    },
+    {
+     "method": "selection.status",
+     "start": 462,
+     "ms": 24
+    },
+    {
+     "method": "slot.status",
+     "start": 486,
+     "ms": 25
+    },
+    {
+     "method": "revision.get",
+     "start": 511,
+     "ms": 24
+    },
+    {
+     "method": "track.list",
+     "start": 511,
+     "ms": 24
+    },
+    {
+     "method": "slot.status",
+     "start": 536,
+     "ms": 26
+    },
+    {
+     "method": "slot.status",
+     "start": 562,
+     "ms": 23
+    },
+    {
+     "method": "clip.read",
+     "start": 585,
+     "ms": 220
+    },
+    {
+     "method": "slot.status",
+     "start": 807,
+     "ms": 20
+    },
+    {
+     "method": "revision.get",
+     "start": 831,
+     "ms": 18
+    },
+    {
+     "method": "track.list",
+     "start": 831,
+     "ms": 18
+    },
+    {
+     "method": "selection.status",
+     "start": 875,
+     "ms": 23
+    },
+    {
+     "method": "slot.status",
+     "start": 898,
+     "ms": 24
+    },
+    {
+     "method": "revision.get",
+     "start": 922,
+     "ms": 24
+    },
+    {
+     "method": "track.list",
+     "start": 922,
+     "ms": 24
+    },
+    {
+     "method": "revision.get",
+     "start": 947,
+     "ms": 24
+    },
+    {
+     "method": "track.list",
+     "start": 947,
+     "ms": 24
+    },
+    {
+     "method": "cursor.pin",
+     "start": 971,
+     "ms": 24
+    },
+    {
+     "method": "cursor.pinTrack",
+     "start": 996,
+     "ms": 25
+    },
+    {
+     "method": "cursor.pointTrack",
+     "start": 1021,
+     "ms": 25
+    },
+    {
+     "method": "slot.select",
+     "start": 1046,
+     "ms": 25
+    },
+    {
+     "method": "cursor.status",
+     "start": 1097,
+     "ms": 22
+    },
+    {
+     "method": "cursor.pinTrack",
+     "start": 1119,
+     "ms": 24
+    },
+    {
+     "method": "cursor.pin",
+     "start": 1143,
+     "ms": 25
+    },
+    {
+     "method": "cursor.status",
+     "start": 1193,
+     "ms": 25
+    },
+    {
+     "method": "cursor.setStepSize",
+     "start": 1218,
+     "ms": 25
+    },
+    {
+     "method": "cursor.scrollToStep",
+     "start": 1244,
+     "ms": 26
+    },
+    {
+     "method": "cursor.status",
+     "start": 1415,
+     "ms": 23
+    },
+    {
+     "method": "batch.run",
+     "start": 1438,
+     "ms": 25
+    },
+    {
+     "method": "revision.get",
+     "start": 1463,
+     "ms": 25
+    },
+    {
+     "method": "track.list",
+     "start": 1463,
+     "ms": 25
+    },
+    {
+     "method": "revision.get",
+     "start": 1514,
+     "ms": 22
+    },
+    {
+     "method": "track.list",
+     "start": 1514,
+     "ms": 22
+    },
+    {
+     "method": "slot.status",
+     "start": 1537,
+     "ms": 26
+    },
+    {
+     "method": "clip.read",
+     "start": 1563,
+     "ms": 249
+    },
+    {
+     "method": "slot.status",
+     "start": 1814,
+     "ms": 17
+    },
+    {
+     "method": "slot.status",
+     "start": 1831,
+     "ms": 23
+    },
+    {
+     "method": "revision.get",
+     "start": 1857,
+     "ms": 21
+    },
+    {
+     "method": "track.list",
+     "start": 1857,
+     "ms": 21
+    },
+    {
+     "method": "slot.select",
+     "start": 1878,
+     "ms": 25
+    },
+    {
+     "method": "selection.status",
+     "start": 1903,
+     "ms": 25
+    }
+   ]
+  },
+  {
+   "totalMs": 1856.6625829999994,
+   "readMs": 443.90099999999984,
+   "timing": {
+    "readMs": 356.36325000000033,
+    "planMs": 36.01237500000025,
+    "writeMs": 974.7489580000001,
+    "readbackMs": 28.819790999999896,
+    "totalMs": 1406.0050420000007
+   },
+   "phases": [
+    {
+     "phase": "stash",
+     "ms": 25,
+     "end": 916
+    },
+    {
+     "phase": "apply",
+     "ms": 524,
+     "end": 1440
+    },
+    {
+     "phase": "verification",
+     "ms": 290,
+     "end": 1756
+    },
+    {
+     "phase": "finalReconciliation",
+     "ms": 2,
+     "end": 1758
+    }
+   ],
+   "wire": [
+    {
+     "method": "revision.get",
+     "start": 0,
+     "ms": 22
+    },
+    {
+     "method": "track.list",
+     "start": 0,
+     "ms": 22
+    },
+    {
+     "method": "selection.status",
+     "start": 23,
+     "ms": 19
+    },
+    {
+     "method": "slot.status",
+     "start": 42,
+     "ms": 30
+    },
+    {
+     "method": "revision.get",
+     "start": 72,
+     "ms": 25
+    },
+    {
+     "method": "track.list",
+     "start": 72,
+     "ms": 25
+    },
+    {
+     "method": "slot.status",
+     "start": 97,
+     "ms": 25
+    },
+    {
+     "method": "slot.status",
+     "start": 122,
+     "ms": 24
+    },
+    {
+     "method": "clip.read",
+     "start": 146,
+     "ms": 196
+    },
+    {
+     "method": "slot.status",
+     "start": 344,
+     "ms": 23
+    },
+    {
+     "method": "revision.get",
+     "start": 370,
+     "ms": 21
+    },
+    {
+     "method": "track.list",
+     "start": 370,
+     "ms": 21
+    },
+    {
+     "method": "revision.get",
+     "start": 392,
+     "ms": 23
+    },
+    {
+     "method": "track.list",
+     "start": 392,
+     "ms": 23
+    },
+    {
+     "method": "revision.get",
+     "start": 451,
+     "ms": 9
+    },
+    {
+     "method": "track.list",
+     "start": 451,
+     "ms": 9
+    },
+    {
+     "method": "selection.status",
+     "start": 460,
+     "ms": 23
+    },
+    {
+     "method": "slot.status",
+     "start": 484,
+     "ms": 23
+    },
+    {
+     "method": "revision.get",
+     "start": 507,
+     "ms": 25
+    },
+    {
+     "method": "track.list",
+     "start": 507,
+     "ms": 25
+    },
+    {
+     "method": "slot.status",
+     "start": 532,
+     "ms": 25
+    },
+    {
+     "method": "slot.status",
+     "start": 557,
+     "ms": 24
+    },
+    {
+     "method": "clip.read",
+     "start": 581,
+     "ms": 190
+    },
+    {
+     "method": "slot.status",
+     "start": 772,
+     "ms": 21
+    },
+    {
+     "method": "revision.get",
+     "start": 799,
+     "ms": 18
+    },
+    {
+     "method": "track.list",
+     "start": 799,
+     "ms": 18
+    },
+    {
+     "method": "selection.status",
+     "start": 853,
+     "ms": 14
+    },
+    {
+     "method": "slot.status",
+     "start": 866,
+     "ms": 25
+    },
+    {
+     "method": "revision.get",
+     "start": 891,
+     "ms": 24
+    },
+    {
+     "method": "track.list",
+     "start": 891,
+     "ms": 24
+    },
+    {
+     "method": "revision.get",
+     "start": 916,
+     "ms": 24
+    },
+    {
+     "method": "track.list",
+     "start": 916,
+     "ms": 24
+    },
+    {
+     "method": "cursor.pin",
+     "start": 940,
+     "ms": 25
+    },
+    {
+     "method": "cursor.pinTrack",
+     "start": 965,
+     "ms": 24
+    },
+    {
+     "method": "cursor.pointTrack",
+     "start": 989,
+     "ms": 26
+    },
+    {
+     "method": "slot.select",
+     "start": 1014,
+     "ms": 25
+    },
+    {
+     "method": "cursor.status",
+     "start": 1066,
+     "ms": 21
+    },
+    {
+     "method": "cursor.pinTrack",
+     "start": 1087,
+     "ms": 25
+    },
+    {
+     "method": "cursor.pin",
+     "start": 1112,
+     "ms": 23
+    },
+    {
+     "method": "cursor.status",
+     "start": 1160,
+     "ms": 22
+    },
+    {
+     "method": "cursor.setStepSize",
+     "start": 1182,
+     "ms": 24
+    },
+    {
+     "method": "cursor.scrollToStep",
+     "start": 1206,
+     "ms": 24
+    },
+    {
+     "method": "cursor.status",
+     "start": 1376,
+     "ms": 20
+    },
+    {
+     "method": "batch.run",
+     "start": 1396,
+     "ms": 23
+    },
+    {
+     "method": "revision.get",
+     "start": 1419,
+     "ms": 20
+    },
+    {
+     "method": "track.list",
+     "start": 1419,
+     "ms": 20
+    },
+    {
+     "method": "revision.get",
+     "start": 1466,
+     "ms": 23
+    },
+    {
+     "method": "track.list",
+     "start": 1466,
+     "ms": 23
+    },
+    {
+     "method": "slot.status",
+     "start": 1489,
+     "ms": 25
+    },
+    {
+     "method": "clip.read",
+     "start": 1514,
+     "ms": 196
+    },
+    {
+     "method": "slot.status",
+     "start": 1713,
+     "ms": 16
+    },
+    {
+     "method": "slot.status",
+     "start": 1729,
+     "ms": 24
+    },
+    {
+     "method": "revision.get",
+     "start": 1758,
+     "ms": 21
+    },
+    {
+     "method": "track.list",
+     "start": 1758,
+     "ms": 21
+    },
+    {
+     "method": "slot.select",
+     "start": 1779,
+     "ms": 22
+    },
+    {
+     "method": "selection.status",
+     "start": 1801,
+     "ms": 24
+    }
+   ]
+  }
+ ]
+}

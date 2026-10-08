@@ -3,11 +3,11 @@ title: Phase 8i — Agent-native hybrid dogfood
 kind: plan
 state: planned
 status: Final Phase 8 gate for the cache, compact-bar contract, and simplified surface.
-updated: 2026-10-01
+updated: 2026-10-08
 parent: README.md
 prev: 8h-cache-promotion-and-interface-simplification.md
 next: ../phase-9/README.md
-evidence: E120, E121, E127-E134, E209, E213; D25
+evidence: E120, E121, E127-E134, E209, E213, E247; D25, D39, D40
 ---
 
 # Phase 8i — Agent-native hybrid dogfood
@@ -21,6 +21,25 @@ and [risk policy](../../contracts/GHOSTNOTE_MIGRATION_AND_VERIFICATION.md).
 Include bounded desired/sparse edits, stale claims, ambiguous identity, a cache
 read, a structure change, and a fresh proposal after computer-use reacquisition.
 Use 8h's proved capabilities; pure binding fixtures do not supply live permission.
+
+## 8h inputs (E247)
+
+The [8h closeout](8h-cache-promotion-and-interface-simplification.md#closeout-8h4g-e247)
+names two facts for this charter:
+
+- The simplification that removed the most agent work is the document edit
+  limb (`read_launcher_clip` and `edit_launcher_clip`), with every edit a
+  direct call. Measure whether a fresh agent uses the pair without coaching.
+  The direct route depends on the D41 writer width (E248): record any clip
+  write that takes more than about 10 s, with its channels and property
+  stages.
+- The retained safeguard that costs the most is the complete parameter
+  inventory around each device control write (a 27-control write takes about
+  14.4 s). Record whether that cost limits real device work, and whether a
+  narrower readback is worth a later decision.
+
+The [performance ledger](../../contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md) has
+the cost of each tool for the comparison section.
 
 ## Purpose
 

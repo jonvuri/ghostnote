@@ -203,3 +203,22 @@ consumer and evidence required for each class.
 > reports note pressure as 0 on every read route. The strip-and-report path
 > stays as a defensive check; a clip replay loses human pressure without a
 > report.
+
+## 8h implemented surface — 2026-10-08 (8h4g closeout, E247)
+
+The executor is the one write path of `agent-native-v1`:
+
+- The shared preflight read is the stash only on the targeted note route
+  (D38). Every other route reads the clip again before the write.
+- The executor verify read after the write is the independent readback of
+  the edit tools (D15): a new `clip.read` capture, not the writer echo.
+- Section e stands: whole-clip replacement, clear, and property replay keep
+  all-channel protection; the targeted inverse (E128) protects the affected
+  cells.
+
+8h4g changed the adapter work around a stage, not the write set or the
+stash. The page check before a note stage confirms each writer view once
+(E46 rule, without the repeat for each channel). A device insertion and a
+layer-chain copy poll their structural proof up to the 4,000 ms budget,
+not a fixed 4,000 ms wait; a relocation uses its existing 8,000 ms proof
+poll. The post-stage mint and relocation checks are unchanged.

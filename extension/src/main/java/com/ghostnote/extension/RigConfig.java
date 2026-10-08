@@ -38,7 +38,12 @@ public class RigConfig {
      */
     public int sends = 4;
     public int deviceBank = 16;
-    public int fineSteps = 512; // pointable writer cursors (E44)
+    /**
+     * Pointable writer cursors (E44). 8h4g (E248): the reader width, so every admitted clip is one writer page
+     * at every grid. The write cost scales with distinct writer pages; at 512 steps a 2,048-beat clip at the
+     * 1/512 grid needed 512 page checks (111 s). The brain parks each writer on an empty window after a write.
+     */
+    public int fineSteps = 4_194_304;
     public int noteReadSteps = 2048; // independent exact-read cursor (E52)
     public int paramHandles = 64; // typed createParameter handles (E4/E50)
     public int remotePages = 16; // independent complete-page cursors (E61)

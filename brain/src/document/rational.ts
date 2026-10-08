@@ -4,8 +4,10 @@ export interface Rational {
     n: bigint;
     d: bigint;
 }
+/** The first magnitude with more than LIMITS.bits binary digits. */
+const BIT_LIMIT = 1n << BigInt(LIMITS.bits);
 export function boundedInteger(n: bigint, path = '$'): bigint {
-    if ((n < 0n ? -n : n).toString(2).length > LIMITS.bits)
+    if (n >= BIT_LIMIT || -n >= BIT_LIMIT)
         fail('R28', path, 'arithmetic exceeds 4096 bits');
     return n;
 }
@@ -27,7 +29,20 @@ export function fraction(n: bigint, d = 1n): Rational {
     const g = gcd(n, d);
     return { n: n / g, d: d / g };
 }
+/** Parsed rational text. The values are frozen; the cache is cleared when it is full. */
+const PARSED = new Map<string, Rational>();
+const PARSED_MAX = 1 << 16;
 export function rational(value: unknown, path = '$'): Rational {
+    const known = typeof value === 'string' ? PARSED.get(value) : undefined;
+    if (known !== undefined)
+        return known;
+    const parsed = Object.freeze(parseRational(value, path));
+    if (PARSED.size >= PARSED_MAX)
+        PARSED.clear();
+    PARSED.set(value as string, parsed);
+    return parsed;
+}
+function parseRational(value: unknown, path: string): Rational {
     if (typeof value !== 'string' || !/^-?(0|[1-9][0-9]*)(\/[1-9][0-9]*)?$/.test(value))
         fail('R05', path, 'expected exact rational text');
     const [n, d = '1'] = value.split('/');

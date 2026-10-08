@@ -34,7 +34,7 @@ test('8h4f: the default server profile is agent-native-v1, with its compact inst
   const client = await connected(t);
   assert.equal(client.getInstructions(), AGENT_NATIVE_INSTRUCTIONS);
   const names = (await client.listTools()).tools.map((item) => item.name);
-  assert.equal(names.length, 41);
+  assert.equal(names.length, 39);
   assert.equal(names[1], 'check_bitwig_connection');
 });
 
@@ -75,12 +75,12 @@ test('the agent-native-v1 server profile lists the kept stable tools, the docume
   t.after(async () => client.close());
 
   const names = (await client.listTools()).tools.map((item) => item.name);
-  assert.equal(names.length, 41);
-  assert.deepEqual(names.slice(-24, -21), ['read_launcher_clip', 'check_launcher_clips', 'edit_launcher_clip']);
+  assert.equal(names.length, 39);
+  assert.deepEqual(names.slice(-22, -19), ['read_launcher_clip', 'check_launcher_clips', 'edit_launcher_clip']);
   assert.deepEqual(names.slice(-12, -9), ['read_devices', 'read_device_controls', 'set_device_controls']);
   for (const retired of ['acquire_clip_note_source', 'read_clip', 'write_notes', 'record_observation', 'copy_clip_down',
     'create_device_alternates', 'keep_device_alternate', 'inspect_devices', 'set_parameter', 'compose_device_sources',
-    'check_connection', 'add_track', 'copy_track']) {
+    'check_connection', 'add_track', 'copy_track', 'inspect_operation', 'cancel_operation']) {
     assert.equal(names.includes(retired), false, retired);
   }
 });

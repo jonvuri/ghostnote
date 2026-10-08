@@ -1,0 +1,122 @@
+{
+ "schema": "phase8h4f-measure-v1",
+ "hello": {
+  "contractVersion": 0,
+  "extensionVersion": "0.0.1",
+  "runtimeProfile": "normal-v1",
+  "hostApiVersion": 25,
+  "methodCount": 89,
+  "methodsHash": "0ef817f4bac8a8a7"
+ },
+ "project": "New 6",
+ "steps": [
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "connection",
+   "tool": "check_bitwig_connection",
+   "ms": 26,
+   "bytes": 324,
+   "wire": 2
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "tracks",
+   "tool": "list_tracks",
+   "ms": 23,
+   "bytes": 772,
+   "wire": 2
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "add",
+   "tool": "add_tracks",
+   "ms": 1277,
+   "bytes": 835,
+   "wire": 66
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "duplicate-audio",
+   "tool": "duplicate_track",
+   "ms": 817,
+   "bytes": 808,
+   "wire": 46
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "duplicate-hybrid",
+   "tool": "duplicate_track",
+   "ms": 825,
+   "bytes": 811,
+   "wire": 46
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "rename",
+   "tool": "rename_track",
+   "ms": 383,
+   "bytes": 340,
+   "wire": 15
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "changes",
+   "tool": "list_changes",
+   "ms": 0,
+   "bytes": 1592,
+   "wire": 0
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "check",
+   "tool": "check_revert",
+   "ms": 49,
+   "bytes": 433,
+   "wire": 4
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "revert",
+   "tool": "revert_change",
+   "ms": 430,
+   "bytes": 458,
+   "wire": 19
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "enabled",
+   "tool": "set_device_enabled",
+   "ms": 814,
+   "bytes": 319,
+   "wire": 34
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "enabled-revert",
+   "tool": "revert_change",
+   "ms": 699,
+   "bytes": 478,
+   "wire": 33
+  },
+  {
+   "run": 1,
+   "profile": "agent-native-v1",
+   "step": "delete",
+   "tool": "delete_track",
+   "ms": 1140,
+   "bytes": 825,
+   "wire": 86
+  }
+ ]
+}

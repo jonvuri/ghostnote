@@ -1,0 +1,7 @@
+{"step":"heap-before","liveMb":428,"noteSteps":16}
+{"step":"heap-add","tool":"add_launcher_clip","ms":3341,"status":"verified","route":"targeted","calls":86,"turns":55,"scrolls":2,"statusChecks":3,"stages":2,"timing":{"readMs":355.64783400000033,"planMs":210.98462500000005,"writeMs":1656.2593339999994,"readbackMs":165.270125,"totalMs":3340.6656669999993}}
+{"step":"heap-peak","peakUsedMb":2450,"maxMb":3072,"samples":20}
+{"step":"heap-held","liveMb":502,"noteSteps":20480}
+{"step":"heap-read","tool":"read_launcher_clip","ms":795,"calls":14,"turns":10,"scrolls":0,"statusChecks":0,"stages":0,"timing":{"readMs":671.1916249999995,"totalMs":794.4841660000002}}
+{"step":"heap-read-peak","peakUsedMb":2196,"maxMb":3072,"samples":5}
+{"step":"heap-released","liveMb":495,"noteSteps":16}

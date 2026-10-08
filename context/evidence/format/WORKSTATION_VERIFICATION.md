@@ -2,11 +2,22 @@
 title: Workstation verification costs and operation rules
 kind: reference
 state: active
-updated: 2026-09-25
+updated: 2026-10-08
 scope: Phase 6j audit and Phase 7 verification rules
 ---
 
 # Workstation verification costs
+
+> **8h closeout (2026-10-08).** The current cost of each product path, its
+> reference, and its call budget are in the
+> [performance ledger](../../contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md). 8h4g
+> (E247) removed repeated work that this reference classed as reducible: the
+> writer page check of a note stage confirms each view once, a device
+> insertion polls its structural proof instead of a fixed 4,000 ms wait, and
+> the cursor release after a structural stage takes one turn. The 144 ms grid
+> settle stays for each confirmed view. The writer window is the reader width
+> (D41, E248): every admitted clip is one writer page, and a writer parks on
+> an empty window after each write.
 
 ## Scope and classification
 

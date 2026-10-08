@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v32';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v33';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -484,12 +484,8 @@ const ADDED_IN_V32: Readonly<Record<string, DescriptionCohortMember>> = {
     reason: 'Deletes scenes with every clip in them; a separate destructive name (D20).' },
 };
 
-/**
- * v32 (8h4f): agent-native-v1 is the default profile, and the cohort is its complete tool list in profile order.
- * Every retained tool is on the shared result module; check_connection, add_track, and copy_track take the names
- * check_bitwig_connection, add_tracks, and duplicate_track.
- */
-export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+/** The v32 tool list (8h4f), in profile order. */
+const COHORT_V32_NAMES = [
   'list_modulator_types', 'check_bitwig_connection', 'list_tracks', 'list_changes', 'check_revert', 'launch_clip',
   'add_tracks', 'duplicate_track', 'rename_track', 'add_scenes', 'wrap_existing_device_modulation',
   'reverse_existing_device_modulation_wrap', 'set_device_enabled', 'revert_change', 'delete_track', 'delete_scene',
@@ -499,11 +495,28 @@ export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
   'read_devices', 'read_device_controls', 'set_device_controls', 'read_preset_modulation', 'edit_preset_modulation',
   'add_devices', 'compose_devices', 'duplicate_layer_chain', 'rename_layer_chain', 'move_devices', 'copy_devices',
   'set_layer_chain_solo',
-].map((name) => {
+] as const;
+
+/**
+ * v32 (8h4f): agent-native-v1 is the default profile, and the cohort is its complete tool list in profile order.
+ * Every retained tool is on the shared result module; check_connection, add_track, and copy_track take the names
+ * check_bitwig_connection, add_tracks, and duplicate_track. Frozen in 8h4g.
+ */
+export const DESCRIPTION_COHORT_V32: readonly DescriptionCohortMember[] = COHORT_V32_NAMES.map((name) => {
   const member = DESCRIPTION_COHORT_V31.find((item) => item.name === name) ?? ADDED_IN_V32[name];
   if (member === undefined) throw new Error(`description v32 member has no reason: ${name}`);
   return member;
 });
+
+/** The v32 members that 8h4g retired from agent-native-v1: the background route ends (D39 amendment, E247). */
+const RETIRED_IN_V33 = new Set(['inspect_operation', 'cancel_operation']);
+
+/**
+ * v33 (8h4g): edit_launcher_clip and add_launcher_clip have no background flag, and inspect_operation and
+ * cancel_operation leave the list. The edit description states the measured worst case (about 7 s, E248).
+ */
+export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] =
+  DESCRIPTION_COHORT_V32.filter((member) => !RETIRED_IN_V33.has(member.name));
 
 interface ToolAnnotations {
   readonly readOnlyHint: boolean;
@@ -698,9 +711,13 @@ export const TOOL_DESCRIPTION_V30_SHA256 =
 export const TOOL_DESCRIPTION_V31_SHA256 =
   '4bb28d29ed289b3b10b58192d684ce9759fa2a0c9cc68102b5431ce2b0cf3781';
 
-/**
- * v32 (8h4f): the complete default agent-native-v1 list on the shared result module. Changing this fingerprint
- * requires a new description version.
- */
+/** v32 (8h4f): the complete default agent-native-v1 list on the shared result module. Frozen in 8h4g. */
 export const TOOL_DESCRIPTION_V32_SHA256 =
   'ab830bd293117fd58ac546c6f8748966ed18c51b3c604fe866fdec7860f5adbf';
+
+/**
+ * v33 (8h4g): the default agent-native-v1 list without the background route. Changing this fingerprint requires a
+ * new description version.
+ */
+export const TOOL_DESCRIPTION_V33_SHA256 =
+  '5c65c71e05feb2e4cdce54e65f04f87b71503e63d34e683e66d852dccc480213';

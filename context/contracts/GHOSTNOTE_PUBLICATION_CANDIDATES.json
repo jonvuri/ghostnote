@@ -896,7 +896,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "0b51d84e72b1c683aed1d7367f7d60925b9b4d9bcc9024edf88fad528c39dc30"
+        "value": "dcf6f544b6a3903718afab86196bc69285a7c8b1fa9c914a2f3345514c251d7e"
       },
       "dependencies": [
         "ES2022 or later",
@@ -911,7 +911,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "872b68491c42bd5ef7919a36294a4d1c385a808a5266d87b80f53c8a81c712b8"
+        "value": "df1d0b03c8e9a47d1770623eef47f70e03edc02a8cddbb60357f0723141ed21e"
       },
       "dependencies": [
         "ES2022 or later",
@@ -926,7 +926,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "f42c723f245a66e57a37f754bb4f82a47d95a524b19c6287f820449b889669d0"
+        "value": "39da2dd0f5af6bf88b722cb627842d143f936499bad228ded974a75ba89e3bcc"
       },
       "dependencies": [
         "ES2022 or later",
@@ -941,7 +941,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "f9f80c6e2e7b6f6673b75b20000eb386b6b0f7cf4b7c0a7dff85d8ead18081ec"
+        "value": "0518571b0a0931f0a3dc6dbffcf360a945d7a79c06de1cdcc59d058cea810b29"
       },
       "dependencies": [
         "ES2022 or later",
@@ -971,7 +971,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "3cb25e01ebd754e55e967f2b1277b9915fddb13b9a313b505b9adea2a3fde451"
+        "value": "a41c1e793bf028ccdee4a2e8faf99bc192ef3b1a1f4d0b059b8c134d8b4706d8"
       },
       "dependencies": [
         "ES2022 or later",
@@ -1016,7 +1016,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "a6593f59dedfa57914e58d96b75ad2903cf738ea283b83fe0ccb9cefa2d90d19"
+        "value": "fbb3d14d919a0c1f252c3f4d90fea5a57b018bf1a49b4644a69152dd6459f38c"
       },
       "dependencies": [
         "ES2022 or later",
@@ -1031,7 +1031,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "657e07701c056a5979659966efd8025cf54e8d04b8fed9f1f028d7529754dffa"
+        "value": "cf7d545053914e8662ddbb433ac2668b6b4550a014f994d3038f639a3eeb60fd"
       },
       "dependencies": [
         "ES2022 or later",
@@ -1046,7 +1046,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "5ea8d67e2272ad55f8bd80793cbe694ab789614b8db9b3c64da43b8022f5d142"
+        "value": "56bfe0b9b23e277232070cf9bffe6f33260584ff241473ffb7099cf08a3be095"
       },
       "dependencies": [
         "brain/src/document/",
@@ -1060,7 +1060,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "34dfcada0a50eb06641ca09c54fe7f8c686532233d9fcb3bd05b806071cd2f8a"
+        "value": "c054a3954f38a53f5c4f36f13ce5c5344efb88743daf8b0b80dc1caa66ef3e08"
       },
       "dependencies": [
         "brain/src/document/",
@@ -1116,7 +1116,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "86a53022c483bc6914ea73a1cd23954ba31b393ed0f2cd115d8bea78be6ac71e"
+        "value": "de63cf6c6fcd1f97443999c9ef40c31a41510f442a70b752e531d639af99ba33"
       },
       "dependencies": [
         "brain/src/document/",
@@ -1130,7 +1130,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "fc4a75336ef90d99bcd824f0c8fb138fe29e5130005ac9ec83c4303e09950e86"
+        "value": "b06d53ce750645010a2484713a49c2dd84819cf33c055bc3015ca93c995c4052"
       },
       "dependencies": [
         "brain/src/document/",
@@ -1174,7 +1174,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "54795f3ff6507774025e2574890491c8b2eed70d7c9e80f5d2d1c354bd358feb"
+        "value": "6f58b6900f28501b979a9d5aeb632752d5e73e1a0ce4c9f24c5cb505119b6ae2"
       },
       "dependencies": [
         "spec/ghostnote-document-v1/HOST-BINDING.md",
@@ -1203,7 +1203,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "53f5571b9c01d55c80a07a8428d0a025f207b1420dcdbf13d319dc8c8c3aeeb5"
+        "value": "bda0bb2fcdfb7d5eed3b2d7955700654fe2a589ccf988bd33f0d3d49c1f96f85"
       },
       "dependencies": [
         "9b package dependency/notice review"

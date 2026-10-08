@@ -167,9 +167,9 @@ on `agent-native-v1` that calls a removed name gets `no such tool`.
 | `write_notes` | `edit_launcher_clip` (patch `ADD`) | A guarded patch on a base ref; 1/512-beat cells; channels 1–16 |
 | `erase_notes` | `edit_launcher_clip` (desired document without events) | A note pressure that a person set is lost on the whole-clip route and named in a warning (D37) |
 | `inspect_clip_block` | `read_launcher_clip` and the occupancy of `copy_launcher_clips` and `move_launcher_clips` (`dryRun`) | Occupancy is reported for the rows that a copy or move names, not for an arbitrary range |
-| `start_clip_music_operation` | `background: true` on `edit_launcher_clip` or `add_launcher_clip` (D39) | No generic start; the tool name keeps the permission |
-| `inspect_clip_music_operation` | `inspect_operation` | Result envelope `ghostnote-operation/1` |
-| `cancel_clip_music_operation` | `cancel_operation` | Same cooperative cancellation |
+| `start_clip_music_operation` | A direct call of `edit_launcher_clip` or `add_launcher_clip` (D39 amendment, 8h4g) | No background route: the worst case at the reader limit finishes in about 7 s, and every admitted clip is one writer page (E247, E248, D41) |
+| `inspect_clip_music_operation` | None | A direct call returns the result; there is no operation handle (8h4g) |
+| `cancel_clip_music_operation` | None | A direct call returns the result; there is no operation handle (8h4g) |
 | `record_observation`, `read_observation_record`, `report_observations` | None | The observation workflow is retired from `agent-native-v1`; see the policy below |
 | `add_clip` | `add_launcher_clip` | One clip from a desired document without BASE; two change records (creation, then content). A content refusal after creation returns the creation as an effect |
 | `copy_clip_down` | `copy_launcher_clips` | Explicit source and destination pairs; the host copies only to the row below on the same track. Launch settings are a separate call (`set_launcher_clip_launch_settings`) |

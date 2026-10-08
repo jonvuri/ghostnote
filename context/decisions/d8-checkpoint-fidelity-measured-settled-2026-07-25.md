@@ -84,3 +84,21 @@ Unsupported durations still refuse before reconstruction.
 The 8f3 amendment above describes the prior E131 implementation. Product
 preflight now uses the complete cold reader, inside this stated cell boundary.
 The raw disabled-control preservation gate still applies.
+
+## 8h implemented surface — 2026-10-08 (8h4g closeout, E247)
+
+`agent-native-v1` (the default profile, D40) implements this decision with
+the 8f3 and 8h3c amendments:
+
+- `edit_launcher_clip` protects the affected owned cells on the targeted
+  route (E128) and all 16 channels on the whole-clip route and for a clip
+  property change. `add_launcher_clip` records the creation and the content
+  as two changes.
+- Each durable write result names its fidelity. `check_revert` reports what
+  a reversal restores and what it does not, before a write.
+- Checkpoints store the reported `1/512` cell start (D31). Bitwig reports
+  note pressure as 0, so a whole-clip replay loses human pressure and the
+  result names it in a warning (D37).
+
+The 8h4g performance work changed no stash, fidelity rule, or protection
+boundary.

@@ -39,6 +39,7 @@ import {
   type Document, type Event, type EventField, type Materialized, type StateDocument,
 } from '../document/index.js';
 import { cloneJson } from '../document/json.js';
+import { normalizedContentHash } from '../document/semantic.js';
 import { EVENT_DEFAULTS } from '../document/model.js';
 import { binary64, cmp, rational, spelling, sum } from '../document/rational.js';
 import {
@@ -177,21 +178,30 @@ function fullBase(original: StateDocument): StateDocument {
   return validate(full) as StateDocument;
 }
 
-/** Map changed fields of one event onto a raw note. Pressure is not written; the assessment proved it unchanged. */
+/**
+ * Map changed fields of one event onto a raw note. Pressure is not written; the assessment proved it unchanged.
+ * Each event is an event of the validated materialized document.
+ */
 function mappedNote(event: Event): { channel: number; note: NoteRecord } {
-  const writable = cloneJson(event) as Event;
-  if (writable.expression !== undefined) writable.expression = { ...writable.expression, pressure: 0 };
-  const { channel, note } = d9MappedFields(writable);
+  const writable = event.expression === undefined ? event : { ...event, expression: { ...event.expression, pressure: 0 } };
+  const { channel, note } = d9MappedFields(writable, { validated: true });
   return { channel, note };
 }
 
+/** The raw values of the default portable groups. They do not depend on the timing, pitch, or channel. */
+let defaultGroupValues: Record<string, unknown> | undefined;
+function defaultGroups(): Record<string, unknown> {
+  defaultGroupValues ??= d9MappedFields({ id: 'default', clip: 'default', at: '0', duration: '1', pitch: 60,
+    velocity: 100, ...DEFAULT_GROUPS } as Event).note as unknown as Record<string, unknown>;
+  return defaultGroupValues;
+}
+
 /**
- * The raw keys of `event` whose portable group has its default. The host insertion value projects to the same
- * portable value (D35), so a write can leave these keys to the host.
+ * The raw keys of a mapped note whose portable group has its default. The host insertion value projects to the
+ * same portable value (D35), so a write can leave these keys to the host.
  */
-function defaultKeys(event: Event): Set<string> {
-  const mapped = mappedNote(event).note as unknown as Record<string, unknown>;
-  const fallback = mappedNote({ ...event, ...DEFAULT_GROUPS }).note as unknown as Record<string, unknown>;
+function defaultKeys(mapped: Record<string, unknown>): Set<string> {
+  const fallback = defaultGroups();
   const keys = new Set<string>();
   for (const group of GROUPS) {
     if (group.every((key) => isDeepStrictEqual(mapped[key], fallback[key]))) for (const key of group) keys.add(key);
@@ -202,7 +212,7 @@ function defaultKeys(event: Event): Set<string> {
 /** A new note: the mapped raw note without the keys whose portable group has its default. */
 function addedNote(event: Event): { channel: number; note: NoteRecord } {
   const { channel, note } = mappedNote(event);
-  const omitted = defaultKeys(event);
+  const omitted = defaultKeys(note as unknown as Record<string, unknown>);
   return { channel, note: Object.fromEntries(Object.entries(note).filter(([key]) => !omitted.has(key))) as unknown as NoteRecord };
 }
 
@@ -214,7 +224,7 @@ function lean(note: NoteRecord): NoteRecord {
 
 function merged(raw: NoteRecord, event: Event, fields: readonly string[]): NoteRecord {
   const mapped = mappedNote(event).note as unknown as Record<string, unknown>;
-  const omitted = defaultKeys(event);
+  const omitted = defaultKeys(mapped);
   const next = { ...raw } as Record<string, unknown>;
   for (const field of fields) {
     for (const key of RAW_KEYS[field as EventField] ?? []) {
@@ -319,6 +329,7 @@ export function planLauncherClipEdit(input: EditPlanInput): EditPlan {
           hostPreservationProved: true,
         },
         options: { rawReplay: true },
+        originalHash: original.contentHash,
       });
     }
   } catch (error) {
@@ -376,10 +387,12 @@ export function planLauncherClipEdit(input: EditPlanInput): EditPlan {
   candidate.sort((a, b) => a.channel - b.channel || a.note.startBeats - b.note.startBeats || a.note.pitch - b.note.pitch);
 
   const removedIds = result.report.removed;
-  const fieldOnly = [...changed.keys()].filter((id) => !moved.some((item) => item.id === id));
+  const movedIds = new Set(moved.map((item) => item.id));
+  const fieldOnly = [...changed.keys()].filter((id) => !movedIds.has(id));
   const removedKeys = new Set([...removedIds.map((id) => cellKey(rawById.get(id)!.key)),
     ...moved.map((item) => cellKey(item.from))]);
-  const insertedKeys = [...[...added].map((id) => cellKey(cellOf(document.events.find((e) => e.id === id)!))),
+  const eventsById = new Map(document.events.map((event) => [event.id, event]));
+  const insertedKeys = [...[...added].map((id) => cellKey(cellOf(eventsById.get(id)!))),
     ...moved.map((item) => cellKey(item.to))];
   const noteChange = removedIds.length + added.size + changed.size > 0;
   const route: EditRoute = !noteChange ? 'none'
@@ -433,7 +446,7 @@ export function planLauncherClipEdit(input: EditPlanInput): EditPlan {
   const overlaysChanged = result.report.overlayChanges.length > 0;
   return {
     expected: expectedDocument,
-    expectedHash: contentHash(expectedDocument),
+    expectedHash: normalizedContentHash(expectedDocument),
     report: result.report,
     route,
     ops,

@@ -50,8 +50,9 @@ with the original decision heading and preserves its amendments and rationale.
 | D36 | The live writer replays raw repeat controls **[SETTLED 2026-10-07]** | [open](d36-the-live-writer-replays-raw-repeat-controls.md) |
 | D37 | Note pressure is a blind host limit **[SETTLED 2026-10-07]** | [open](d37-note-pressure-is-a-blind-host-limit.md) |
 | D38 | A shared preflight read is the stash only on the targeted route **[SETTLED 2026-10-07]** | [open](d38-a-shared-preflight-read-is-the-stash-only-on-the-targeted-route.md) |
-| D39 | Long agent-native writes run in the background on their own name **[SETTLED 2026-10-08]** | [open](d39-long-agent-native-writes-run-in-the-background-on-their-own-name.md) |
+| D39 | Long agent-native writes run in the background on their own name **[SETTLED 2026-10-08; AMENDED 8h4g: the route leaves `agent-native-v1`, with the D41 writer width]** | [open](d39-long-agent-native-writes-run-in-the-background-on-their-own-name.md) |
 | D40 | `agent-native-v1` is the default profile, with one result vocabulary **[SETTLED 2026-10-08]** | [open](d40-agent-native-v1-is-the-default-profile.md) |
+| D41 | The writer window is the reader width, and a writer parks after each write **[SETTLED 2026-10-08]** | [open](d41-the-writer-window-is-the-reader-width.md) |
 
 ## Phase 4 closeout audit
 

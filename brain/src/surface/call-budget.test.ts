@@ -235,3 +235,50 @@ const EXPECTED_RETAINED_BUDGETS: Record<string, Counts> = {
   enabled: { devices: 1, resolve: 1, read: 2, apply: 1, delta: 1 },
   delete: { tracks: 1, resolve: 1, read: 2, apply: 1, delta: 1 },
 };
+
+test('call budget: the 8h4g rows for the remaining tools', async () => {
+  const fx = await fixture();
+  const dev = (name: string) => ({ name, enabled: true, paramsLive: true, params: [{ id: `P-${name}`, name, value: 0.5 }] });
+  const counts: Record<string, Counts> = {};
+  const run = async (label: string, name: string, args: Wire): Promise<void> => {
+    const { result, counts: used } = await fx.call(name, args);
+    assert.equal(result.failure, undefined, `${label}: ${JSON.stringify(result).slice(0, 300)}`);
+    counts[label] = used;
+  };
+  fx.fake.model.visibleTracks()[0]!.devices.push(dev('Polysynth'), { ...dev('FX Layer'), params: [], chains: [
+    { name: 'A', solo: false, id: 'budget-a', devices: [dev('EQ+')] },
+    { name: 'B', solo: false, id: 'budget-b', devices: [dev('Delay+')] },
+  ] });
+  await run('launch-settings', 'set_launcher_clip_launch_settings', { clips: [{ trackId: fx.trackId, row: 0,
+    quantization: '1', mode: 'default' }] });
+  await run('move', 'move_launcher_clips', { trackId: fx.trackId, firstRow: 1, lastRow: 1, destinationFirstRow: 2 });
+  await run('delete-clip', 'delete_launcher_clip', { clips: [{ trackId: fx.trackId, row: 2 }] });
+  await run('add-scenes', 'add_scenes', { count: 1 });
+  await run('delete-scene', 'delete_scene', { rows: [4] });
+  await run('modulator-types', 'list_modulator_types', {});
+  await run('add-devices', 'add_devices', { trackId: fx.trackId, devices: [{ kind: 'native', name: 'Polysynth' }] });
+  await run('duplicate-chain', 'duplicate_layer_chain', { trackId: fx.trackId, containerPosition: 1, layerChain: 'A', name: 'C' });
+  await run('copy-devices', 'copy_devices', { trackId: fx.trackId, devices: [{ from: 'layer-chain', containerPosition: 1,
+    layerChain: 'A', devicePosition: 0 }], destination: { to: 'layer-chain', containerPosition: 1, layerChain: 'B' } });
+  await run('set-controls', 'set_device_controls', { settings: [{ kind: 'direct', device: { trackId: fx.trackId,
+    devicePosition: 0 }, parameterId: 'P-Polysynth', normalizedValue: 0.25 }] });
+  await run('delete-device', 'delete_device', { devices: [{ trackId: fx.trackId, devicePosition: 1 }] });
+  assert.deepEqual(counts, EXPECTED_8H4G_BUDGETS);
+});
+
+// 8h4g: the rows that the call-budget test did not have. compose_devices, wrap_existing_device_modulation, its
+// reversal, and edit_preset_modulation need a simulated host preset load; their budget is the live wire count in
+// the performance ledger (E247 inventory). read_preset_modulation and list_modulator_types make no adapter call.
+const EXPECTED_8H4G_BUDGETS: Record<string, Counts> = {
+  'launch-settings': { mark: 1, tracks: 1, read: 3, resolve: 1, apply: 1, delta: 1 },
+  move: { mark: 1, tracks: 1, read: 3, resolve: 1, apply: 1, delta: 1 },
+  'delete-clip': { mark: 1, tracks: 1, read: 3, resolve: 1, apply: 1, delta: 1 },
+  'add-scenes': { mark: 2, read: 2, apply: 1, delta: 1 },
+  'delete-scene': { mark: 2, resolve: 1, read: 2, apply: 1, delta: 1 },
+  'modulator-types': {},
+  'add-devices': { devices: 2, read: 2, apply: 1, delta: 1 },
+  'duplicate-chain': { read: 4, apply: 1, delta: 1 },
+  'copy-devices': { devices: 2, read: 5, apply: 1, delta: 1 },
+  'set-controls': { devices: 1, read: 2, apply: 1, delta: 1 },
+  'delete-device': { read: 3, devices: 3, resolve: 1, apply: 1, delta: 1 },
+};

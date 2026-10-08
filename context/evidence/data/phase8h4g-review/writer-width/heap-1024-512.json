@@ -1,0 +1,111 @@
+{
+ "schema": "phase8h4g-writer-width-v1-heap",
+ "hello": [
+  "normal-v1",
+  89,
+  "0ef817f4bac8a8a7"
+ ],
+ "project": "New 6",
+ "fineSteps": 512,
+ "rig": {
+  "runtimeProfile": "normal-v1",
+  "tracks": 256,
+  "scenes": 128,
+  "gridSteps": 64,
+  "fineSteps": 512,
+  "noteReadSteps": 2048,
+  "gridKeys": 128,
+  "stepSize": 0.25,
+  "cursorPool": 8,
+  "deviceBank": 16,
+  "remotePages": 16,
+  "containerScopes": 3,
+  "containerEntryBank": 5,
+  "containerEntryDeviceBank": 4,
+  "parameterRouteDepth": 2,
+  "sceneCount": 8,
+  "clipReader": {
+   "revision": "clip-reader-v3",
+   "closeRule": "confirm-before-release-v1",
+   "openRule": "subscribe-before-unpin-v1",
+   "groupRule": "expand-collapsed-parent-v1",
+   "limitRule": "sounding-cell-limit-v1",
+   "format": "notes-v1",
+   "width": 4194304,
+   "grid": 0.001953125,
+   "page": 131072,
+   "deadlineMs": 2000,
+   "soundingCells": 2097152,
+   "reads": 478,
+   "refusals": 0,
+   "lastRefusal": "",
+   "lateCallbacks": 0,
+   "strayCallbacks": 121086514,
+   "releaseCallbacks": 56858905,
+   "releaseEmpty": 56858905,
+   "releaseSustain": 0,
+   "releaseOn": 0,
+   "subscribed": false,
+   "open": false,
+   "writeGate": {
+    "readOpen": false,
+    "waiting": 0,
+    "leases": 0,
+    "limit": 256,
+    "queuedTotal": 18,
+    "refusedTotal": 0
+   },
+   "groupPoint": {
+    "rule": "expand-collapsed-point-v1",
+    "points": 0,
+    "refusals": 0,
+    "lastRefusal": "",
+    "open": false
+   }
+  },
+  "writeGuard": "batch-scene-guard-v1",
+  "selectionRule": "selection-project-v1",
+  "cursorIdentity": "cursor-channel-id-v1",
+  "groupPoint": "expand-collapsed-point-v1",
+  "parameterSettle": "same-ids-switch-v1",
+  "trackCreateKinds": [
+   "instrument",
+   "audio"
+  ],
+  "contentFilter": "ALL_CHANNELS"
+ },
+ "count": 1024,
+ "soundingCells": 524288,
+ "before": {
+  "liveMb": 401,
+  "noteSteps": 536
+ },
+ "add": {
+  "step": "heap-add",
+  "tool": "add_launcher_clip",
+  "ms": 16373,
+  "status": "verified",
+  "route": "targeted",
+  "calls": 276,
+  "turns": 245,
+  "scrolls": 65,
+  "statusChecks": 67,
+  "stages": 2,
+  "timing": {
+   "readMs": 363.80179199999975,
+   "planMs": 84.41845899999998,
+   "writeMs": 14924.242709,
+   "readbackMs": 72.56895799999984,
+   "totalMs": 16371.360916999998
+  }
+ },
+ "held": {
+  "liveMb": 408,
+  "noteSteps": 16368
+ },
+ "length": "65",
+ "released": {
+  "liveMb": 402,
+  "noteSteps": 536
+ }
+}

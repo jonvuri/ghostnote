@@ -1,0 +1,180 @@
+{
+ "issues": [],
+ "summary": {
+  "cost": {
+   "readWallMs": 413,
+   "edit": {
+    "wallMs": 1404,
+    "readMs": 357,
+    "planMs": 19,
+    "writeMs": 993,
+    "readbackMs": 14,
+    "totalMs": 1404
+   },
+   "totalMs": 1817,
+   "e121ApplyMs": 16044,
+   "targetMs": 8000
+  },
+  "steps": [
+   {
+    "name": "A1-add",
+    "route": "targeted",
+    "wallMs": 1405,
+    "readMs": 359,
+    "planMs": 24,
+    "writeMs": 983,
+    "readbackMs": 17,
+    "totalMs": 1404,
+    "resultBytes": 11202
+   },
+   {
+    "name": "A2-remove",
+    "route": "targeted",
+    "wallMs": 1401,
+    "readMs": 357,
+    "planMs": 20,
+    "writeMs": 988,
+    "readbackMs": 15,
+    "totalMs": 1400,
+    "resultBytes": 11166
+   },
+   {
+    "name": "A3-velocity",
+    "route": "whole-clip",
+    "wallMs": 1724,
+    "readMs": 357,
+    "planMs": 19,
+    "writeMs": 1316,
+    "readbackMs": 11,
+    "totalMs": 1724,
+    "resultBytes": 11346
+   },
+   {
+    "name": "A4-pitch",
+    "route": "targeted",
+    "wallMs": 1598,
+    "readMs": 363,
+    "planMs": 20,
+    "writeMs": 1182,
+    "readbackMs": 11,
+    "totalMs": 1598,
+    "resultBytes": 11159
+   },
+   {
+    "name": "A5-nudge",
+    "route": "targeted",
+    "wallMs": 1624,
+    "readMs": 358,
+    "planMs": 15,
+    "writeMs": 1213,
+    "readbackMs": 13,
+    "totalMs": 1624,
+    "resultBytes": 11173
+   },
+   {
+    "name": "A6-expression",
+    "route": "whole-clip",
+    "wallMs": 1929,
+    "readMs": 355,
+    "planMs": 18,
+    "writeMs": 1519,
+    "readbackMs": 15,
+    "totalMs": 1929,
+    "resultBytes": 11472
+   },
+   {
+    "name": "A6-gain",
+    "route": "whole-clip",
+    "wallMs": 1934,
+    "readMs": 359,
+    "planMs": 20,
+    "writeMs": 1518,
+    "readbackMs": 12,
+    "totalMs": 1934,
+    "resultBytes": 11813
+   },
+   {
+    "name": "A7-properties",
+    "route": "none",
+    "wallMs": 1523,
+    "readMs": 357,
+    "planMs": 17,
+    "writeMs": 1113,
+    "readbackMs": 14,
+    "totalMs": 1523,
+    "resultBytes": 11709
+   },
+   {
+    "name": "B-desired",
+    "route": "targeted",
+    "wallMs": 2006,
+    "readMs": 361,
+    "planMs": 11,
+    "writeMs": 1608,
+    "readbackMs": 2,
+    "totalMs": 2006,
+    "resultBytes": 2069
+   },
+   {
+    "name": "D-targeted",
+    "route": "targeted",
+    "wallMs": 1810,
+    "readMs": 361,
+    "planMs": 18,
+    "writeMs": 1396,
+    "readbackMs": 13,
+    "totalMs": 1810,
+    "resultBytes": 12079
+   },
+   {
+    "name": "D-whole",
+    "route": "whole-clip",
+    "wallMs": 1730,
+    "readMs": 367,
+    "planMs": 19,
+    "writeMs": 1311,
+    "readbackMs": 13,
+    "totalMs": 1730,
+    "resultBytes": 12265
+   }
+  ],
+  "refusals": [
+   [
+    "C-pressure-value",
+    "unsupported",
+    "pressure"
+   ],
+   [
+    "C-repeat",
+    "unsupported",
+    "repeat"
+   ],
+   [
+    "C-overlap",
+    "unsupported",
+    "overlap"
+   ],
+   [
+    "C-past-end",
+    "range",
+    "past-clip-end"
+   ],
+   [
+    "C-stale",
+    "stale",
+    null
+   ],
+   [
+    "C-scene",
+    "identity-changed",
+    null
+   ]
+  ],
+  "reversal": {
+   "targeted": true,
+   "whole": true,
+   "blocked": false,
+   "blockedReason": null
+  }
+ }
+}

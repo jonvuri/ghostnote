@@ -149,3 +149,19 @@ pure mappings and refusals. 8h must pass compatibility, live readback, reversal,
 and partial-effect gates before changing discovery or stable behavior. The
 [migration policy](../contracts/GHOSTNOTE_MIGRATION_AND_VERIFICATION.md) defines
 the order and rollback. This amendment changes no current encoder or golden.
+
+## 8h implemented surface — 2026-10-08 (8h4g closeout, E247)
+
+`agent-native-v1` implements the 8f3 target. `read_launcher_clip` reads one
+Launcher clip as a Document 1.0; `edit_launcher_clip` is the one guarded edit
+limb for a sparse patch or a desired document; `add_launcher_clip` creates a
+clip through the same limb. The agent owns generation and transformation.
+Musical patch version 1, its operations, seeds, variations, and overlap
+shortening stay on `stable-v1` only (E237).
+
+8h4g measured the worst case of the limb at the reader limit: a whole-clip
+edit of 16,384 notes takes 6.6 s with verification, and `add_launcher_clip`
+of 16,384 notes 6.4 s. With the writer window at the reader width (D41),
+no admitted clip needs more than one writer page, so the clip length does not
+add write time. Both are direct calls; the background route left
+`agent-native-v1` (D39 amendment).

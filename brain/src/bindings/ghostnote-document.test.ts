@@ -111,6 +111,21 @@ bindingCase('B04', () => {
   assert.throws(() => d9MappedFields({ ...base().events[0], velocity: 128 }));
   assert.throws(() => d9MappedFields({ ...base().events[0], duration: '1/1024' }));
 });
+test('8h4g: d9MappedFields of a validated document event equals the mapping through a new validation', () => {
+  const variants: Partial<Event>[] = [{}, { expression: { ...EVENT_DEFAULTS.expression, gain: 8, timbre: 0.25, transpose: -12 } },
+    { mute: true, releaseVelocity: 0.25 }, { chance: { enabled: true, value: 0.5 } },
+    { occurrence: { enabled: true, condition: portableOccurrence('FIRST') } }, { recurrence: { enabled: true, length: 4, mask: 5 } },
+    { at: '3/2', duration: '1/512', channel: 16, pitch: 0, velocity: 1 }];
+  for (const overrides of variants) {
+    const documents = [base(overrides), projectRawClip(fixture.clip, fixture.rawNotes).document];
+    for (const event of documents.flatMap((document) => document.events)) {
+      const outcome = (validated: boolean) => {
+        try { return d9MappedFields(event, { validated }); } catch (error) { return (error as BindingRefusal).code; }
+      };
+      assert.deepEqual(outcome(true), outcome(false), JSON.stringify(overrides));
+    }
+  }
+});
 bindingCase('B05', () => {
   const b = base();
   refusal('pressure', () => assess(b, patch(b, { expression: { ...EVENT_DEFAULTS.expression, pressure: 0.2 } })));

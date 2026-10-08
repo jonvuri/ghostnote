@@ -171,6 +171,21 @@ lifecycle tools as the rollback.
 - Recipes: the `read_devices` description states the A/B and collapse
   recipes. Both passed live.
 
+## Measured costs (8h4g, E247)
+
+A device insertion and a layer-chain copy now poll their structural proof
+(deadline 4,000 ms), and a relocation uses its own proof poll; each stage
+waited a fixed 4,000 ms before.
+
+- `compose_devices`: offline 3.4 s (2 layer chains) and 4.0 s (4); staged
+  17.5 s and 30.5 s (E238: 36.8 s and 64.9 s). The offline backend stays the
+  fast path: 5.2 and 7.6 times faster. Each reversal restores an empty track
+  (offline 1.4 s; staged 12.6 s and 21.0 s).
+- Branch and collapse limbs: `duplicate_layer_chain` 1.4 s (E238: 5.2 s),
+  `move_devices` 1.3–1.8 s (E238: 5.4–6.0 s), `delete_device` 3.1 s,
+  `set_layer_chain_solo` about 1.0 s.
+- The A/B recipe and the winner collapse pass live again.
+
 ## Superseded history
 
 The 2026-08-06 decision selected a three-mechanism hybrid. The 2026-08-14

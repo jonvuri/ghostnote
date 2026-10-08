@@ -76,12 +76,9 @@ async function guard(): Promise<Wire> {
 }
 
 async function newTrack(name: string): Promise<string> {
-  const before = new Set(((await call(`tracks-before-${name}`, 'list_tracks', {})).tracks as Wire[]).map((row) => row.trackId ?? row.channelId));
-  await call(`add-track-${name}`, 'add_track', { names: [name] });
-  const after = (await call(`tracks-after-${name}`, 'list_tracks', {})).tracks as Wire[];
-  const made = after.filter((row) => !before.has(row.trackId ?? row.channelId));
-  assert.equal(made.length, 1, 'one new track');
-  return made[0]!.trackId ?? made[0]!.channelId;
+  // 8h4f renamed add_track to add_tracks; its readback names the new trackId.
+  const added = await call(`add-track-${name}`, 'add_tracks', { tracks: [{ name }] });
+  return added.readback.tracks[0].trackId as string;
 }
 
 const save = async (dir: string, name: string, extra: Wire): Promise<void> => {

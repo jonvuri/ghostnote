@@ -32,7 +32,7 @@
  */
 import { BridgeError } from '../client.js';
 import {
-  AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, CLIP_READ_SOUNDING_CELLS, ClipReadLimitError,
+  AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, CLIP_READ_SOUNDING_CELLS, ClipReadLimitError, WriterWidthError,
   ClipSnapshotRefusedError, InvalidOpError, ParameterValueUnrepresentableError, SlotOccupiedError,
   CollapsedGroupRowError, ContractVersionError, GroupSlotError, RuntimeProfileMismatchError,
   StaleAddressError, WireDriftError,
@@ -244,6 +244,10 @@ export function classifyError(error: unknown): {
   if (error instanceof DocumentError) {
     return { code: error.rule === 'R28' ? 'outside-limit' : 'unavailable',
       message: `The host state is not a valid document (${error.rule}).` };
+  }
+  if (error instanceof WriterWidthError) {
+    return { code: 'unhealthy', message: 'The Bitwig extension\'s writer cursors are narrower than the reader width '
+      + '(a fineSteps override in rig.json, D41). Nothing was written.' };
   }
   if (error instanceof StaleExtensionError || error instanceof ContractVersionError
       || error instanceof WireDriftError || error instanceof RuntimeProfileMismatchError) {

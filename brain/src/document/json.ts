@@ -1,6 +1,19 @@
 import { DocumentError, fail } from './error.js';
 import { LIMITS } from './model.js';
+const SURROGATE = /[\ud800-\udfff]/;
+/** The Unicode scalar count of `text`. */
+export function scalarLength(text: string): number {
+    if (!SURROGATE.test(text))
+        return text.length;
+    let count = 0;
+    for (const _ of text)
+        count++;
+    return count;
+}
 export function scalarText(text: string, path: string): void {
+    // Fast path: no surrogate code unit, so each code unit is one scalar.
+    if (text.length <= LIMITS.string && !SURROGATE.test(text))
+        return;
     let count = 0;
     for (const c of text) {
         const n = c.codePointAt(0)!;
@@ -151,26 +164,37 @@ export function readJson(text: string): JsonSource {
         error('$', 'extra text after JSON');
     return { value: result, locations };
 }
+interface CloneBudget {
+    bytes: number;
+    max: number;
+}
+function charge(budget: CloneBudget, n: number, path: string): void {
+    budget.bytes += n;
+    if (budget.bytes > budget.max)
+        fail('R28', path, 'native JSON input exceeds 8 MiB');
+}
+/** Printable ASCII without a quote or a backslash: JSON adds only the two quotes. */
+const PLAIN = /^[\x20\x21\x23-\x5b\x5d-\x7e]*$/;
+const jsonBytes = (text: string): number => PLAIN.test(text) ? text.length + 2 : Buffer.byteLength(JSON.stringify(text));
+/** Checked object keys and their JSON byte cost, with the separator. */
+const KEY_COSTS = new Map<string, number>();
+const KEY_COSTS_MAX = 1 << 12;
+const INDEX_KEY = /^(0|[1-9][0-9]*)$/;
 /** Reject native data that JSON serialization would drop or alter. */
-export function cloneJson(input: unknown, path = '$', depth = 1, ancestors = new Set<object>(), budget = { bytes: 0, max: LIMITS.bytes as number }): any {
-    const charge = (n: number) => {
-        budget.bytes += n;
-        if (budget.bytes > budget.max)
-            fail('R28', path, 'native JSON input exceeds 8 MiB');
-    };
+export function cloneJson(input: unknown, path = '$', depth = 1, ancestors = new Set<object>(), budget: CloneBudget = { bytes: 0, max: LIMITS.bytes as number }): any {
     if (input === null || typeof input === 'boolean') {
-        charge(input === null || input === true ? 4 : 5);
+        charge(budget, input === null || input === true ? 4 : 5, path);
         return input;
     }
     if (typeof input === 'string') {
         scalarText(input, path);
-        charge(Buffer.byteLength(JSON.stringify(input)));
+        charge(budget, jsonBytes(input), path);
         return input;
     }
     if (typeof input === 'number') {
         if (!Number.isFinite(input))
             fail('R29', path, 'number must be finite');
-        charge(JSON.stringify(input).length);
+        charge(budget, JSON.stringify(input).length, path);
         return Object.is(input, -0) ? 0 : input;
     }
     if (typeof input !== 'object')
@@ -182,47 +206,79 @@ export function cloneJson(input: unknown, path = '$', depth = 1, ancestors = new
     ancestors.add(input);
     let out: any;
     if (Array.isArray(input)) {
-        for (const key of Reflect.ownKeys(input))
-            if (key !== 'length' && (typeof key !== 'string' || !/^(0|[1-9][0-9]*)$/.test(key) || Number(key) >= input.length))
-                fail('R29', path, 'extra native array property');
-        charge(2 + Math.max(0, input.length - 1));
+        const keys = Reflect.ownKeys(input);
+        // The loop below proves each index 0..length-1 an own data property. With length + 1 own keys, no other
+        // key exists; otherwise check each key.
+        if (keys.length !== input.length + 1)
+            for (const key of keys)
+                if (key !== 'length' && (typeof key !== 'string' || !INDEX_KEY.test(key) || Number(key) >= input.length))
+                    fail('R29', path, 'extra native array property');
+        charge(budget, 2 + Math.max(0, input.length - 1), path);
         out = [];
         for (let i = 0; i < input.length; i++) {
             const item = Object.getOwnPropertyDescriptor(input, i);
-            if (!item || !('value' in item))
+            if (!item || !('value' in item)) {
+                // Report an extra key first, as the complete key check does.
+                for (const key of keys)
+                    if (key !== 'length' && (typeof key !== 'string' || !INDEX_KEY.test(key) || Number(key) >= input.length))
+                        fail('R29', path, 'extra native array property');
                 fail('R29', `${path}[${i}]`, 'array hole or accessor');
+            }
             out.push(cloneJson(item.value, `${path}[${i}]`, depth + 1, ancestors, budget));
         }
     }
     else {
         if (Object.getPrototypeOf(input) !== Object.prototype && Object.getPrototypeOf(input) !== null)
             fail('R29', path, 'expected plain JSON object');
-        charge(2 + Math.max(0, Object.keys(input).length - 1));
+        charge(budget, 2 + Math.max(0, Object.keys(input).length - 1), path);
         out = Object.create(null);
         for (const k of Reflect.ownKeys(input)) {
             const property = Object.getOwnPropertyDescriptor(input, k)!;
             if (typeof k !== 'string' || !property.enumerable || !('value' in property))
                 fail('R29', path, 'unsupported native key');
-            scalarText(k, path);
-            charge(Buffer.byteLength(JSON.stringify(k)) + 1);
+            let cost = KEY_COSTS.get(k);
+            if (cost === undefined) {
+                scalarText(k, path);
+                cost = jsonBytes(k) + 1;
+                if (KEY_COSTS.size >= KEY_COSTS_MAX)
+                    KEY_COSTS.clear();
+                KEY_COSTS.set(k, cost);
+            }
+            charge(budget, cost, path);
             out[k] = cloneJson(property.value, `${path}.${k}`, depth + 1, ancestors, budget);
         }
     }
     ancestors.delete(input);
     return out;
 }
+/** Compare by Unicode scalar values. Only the sign of the result is defined. */
 export function scalarCompare(a: string, b: string): number {
-    const x = Array.from(a, c => c.codePointAt(0)!), y = Array.from(b, c => c.codePointAt(0)!);
-    for (let i = 0; i < Math.min(x.length, y.length); i++)
-        if (x[i] !== y[i])
-            return x[i] - y[i];
-    return x.length - y.length;
+    const n = Math.min(a.length, b.length);
+    for (let i = 0; i < n; i++) {
+        if (a.charCodeAt(i) === b.charCodeAt(i))
+            continue;
+        // At the first different code unit, codePointAt gives scalar order also inside a surrogate pair.
+        return a.codePointAt(i)! - b.codePointAt(i)!;
+    }
+    return a.length - b.length;
+}
+/** Quoted object keys with their colon. */
+const QUOTED_KEYS = new Map<string, string>();
+function quotedKey(key: string): string {
+    let quoted = QUOTED_KEYS.get(key);
+    if (quoted === undefined) {
+        quoted = JSON.stringify(key) + ':';
+        if (QUOTED_KEYS.size >= KEY_COSTS_MAX)
+            QUOTED_KEYS.clear();
+        QUOTED_KEYS.set(key, quoted);
+    }
+    return quoted;
 }
 /** Write keys directly. JSON.stringify reorders integer-like object keys. */
 export function canonicalJson(value: any): string {
     if (Array.isArray(value))
         return '[' + value.map(canonicalJson).join(',') + ']';
     if (value !== null && typeof value === 'object')
-        return '{' + Object.keys(value).sort(scalarCompare).map(k => JSON.stringify(k) + ':' + canonicalJson(value[k])).join(',') + '}';
+        return '{' + Object.keys(value).sort(scalarCompare).map(k => quotedKey(k) + canonicalJson(value[k])).join(',') + '}';
     return JSON.stringify(value);
 }

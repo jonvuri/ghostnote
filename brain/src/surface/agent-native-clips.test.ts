@@ -12,7 +12,7 @@ import { parse, type StateDocument } from '../document/index.js';
 import { Executor } from '../engine/index.js';
 import { FakeObservationStore, type StoredObservationRecord } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
-import { AGENT_NATIVE_RETIRED, AGENT_NATIVE_TOOL_PROFILE, STABLE_TOOL_PROFILE, callTool, toolsForProfile } from './tools.js';
+import { AGENT_NATIVE_RETIRED, AGENT_NATIVE_TOOLS, AGENT_NATIVE_TOOL_PROFILE, STABLE_TOOL_PROFILE, callTool, toolsForProfile } from './tools.js';
 import { workspaceOf } from './workspace.js';
 
 type Wire = Record<string, any>;
@@ -352,41 +352,18 @@ test('8h4d observation: the retired capture sites are not in agent-native-v1; th
   assert.equal(store.accesses, 0);
 });
 
-// --- background operations -------------------------------------------------------
+// --- direct calls only (8h4g, D39 amendment) ----------------------------------------
 
-test('8h4d operations: background edit returns a handle; inspect_operation returns the direct result', async () => {
+test('8h4g: agent-native-v1 has no background route; edit and add refuse a background flag', async () => {
   const fx = fixture();
   await fx.seed(0);
+  const names = AGENT_NATIVE_TOOLS.map((spec) => spec.name);
+  assert.equal(names.includes('inspect_operation'), false);
+  assert.equal(names.includes('cancel_operation'), false);
   const read = await fx.native('read_launcher_clip', { trackId: fx.trackId, row: 0 });
-  const clipId = (parse(read.data.document, 'fields') as StateDocument).clips[0]!.id;
-  const started = await fx.native('edit_launcher_clip', { trackId: fx.trackId, row: 0, background: true, document: [
-    'DOC ghostnote-document 1.0 patch', `BASE ${JSON.stringify(read.authority.base)}`,
-    'FIELDS id clip at duration pitch velocity channel', `ADD x1 ${clipId} 6 1 72 100 1`].join('\n') + '\n' });
-  assert.equal(started.schema, 'ghostnote-operation/1');
-  assert.equal(started.operation.operation, 'edit_launcher_clip');
-  assert.equal(started.operation.terminal, false);
-  await fx.workspace.operations.wait(started.operation.operationId);
-  const done = await fx.native('inspect_operation', { operationId: started.operation.operationId });
-  assert.equal(done.operation.state, 'completed');
-  assert.equal(done.operation.result.schema, 'ghostnote-launcher-clip-edit/1');
-  assert.equal(done.operation.result.readback.status, 'verified');
-  assert.deepEqual(done.operation.changes.map((item: Wire) => item.changeId),
-    done.operation.result.effects.map((item: Wire) => item.changeId));
-  const repeated = await fx.native('cancel_operation', { operationId: started.operation.operationId });
-  assert.equal(repeated.operation.state, 'completed', 'a terminal operation does not change');
-  const unknown = await fx.native('inspect_operation', { operationId: 'nope' });
-  assert.equal(unknown.failure.code, 'absent');
-});
-
-test('8h4d operations: a background add_launcher_clip cancelled before it starts makes no change', async () => {
-  const fx = fixture();
-  const before = fx.records();
-  const started = await fx.native('add_launcher_clip', { trackId: fx.trackId, row: 0, background: true,
-    document: desired(['n1 c1 0 1 60 100 1']) });
-  const cancelled = await fx.native('cancel_operation', { operationId: started.operation.operationId });
-  assert.equal(cancelled.operation.cancellationRequested, true);
-  const done = await fx.workspace.operations.wait(started.operation.operationId);
-  assert.equal(done.state, 'cancelled');
-  assert.equal(fx.records(), before);
-  assert.equal(fx.occupied(0), false);
+  await assert.rejects(fx.native('edit_launcher_clip', { trackId: fx.trackId, row: 0, background: true,
+    document: ['DOC ghostnote-document 1.0 patch', `BASE ${JSON.stringify(read.authority.base)}`,
+      'FIELDS id clip at duration pitch velocity channel'].join('\n') + '\n' }), /background/);
+  await assert.rejects(fx.native('add_launcher_clip', { trackId: fx.trackId, row: 1, background: true,
+    document: desired(['n1 c1 0 1 60 100 1']) }), /background/);
 });

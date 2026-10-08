@@ -11,7 +11,7 @@ import { IdentityRegistry } from '../bindings/identity-registry.js';
 import { LauncherClipReadError, launcherClipCells } from '../bindings/launcher-clip-document.js';
 import {
   CollapsedGroupRowError, GroupSlotError, StaleAddressError, addressKey, clip, notes, scene, slot, track,
-  type ClipSnapshot, type NoteRecord,
+  type ClipSnapshot, type NoteRecord, WriterWidthError,
 } from '../contract/index.js';
 import { contentHash, convert, parse, type StateDocument } from '../document/index.js';
 import { Executor } from '../engine/index.js';
@@ -188,13 +188,12 @@ test('8h4b profile: stable-v1 registration is byte-equal; agent-native-v1 keeps 
     ['add_launcher_clip', 'write'], ['copy_launcher_clips', 'write'], ['move_launcher_clips', 'write'],
     ['set_launcher_clip_launch_settings', 'write'], ['set_launcher_clip_properties', 'write'],
     ['delete_launcher_clip', 'destructive'], ['show_launcher_clip_in_detail_editor', 'focus'],
-    ['inspect_operation', 'read'], ['cancel_operation', 'write'],
     ['read_devices', 'read'], ['read_device_controls', 'read'], ['set_device_controls', 'write'],
     ['read_preset_modulation', 'read'], ['edit_preset_modulation', 'write'], ['add_devices', 'write'],
     ['compose_devices', 'write'], ['duplicate_layer_chain', 'write'], ['rename_layer_chain', 'write'],
     ['move_devices', 'write'], ['copy_devices', 'write'], ['set_layer_chain_solo', 'write'],
   ]);
-  assert.equal(native.length, 41);
+  assert.equal(native.length, 39);
   for (const spec of native.slice(kept.length, kept.length + 3)) {
     assert.deepEqual(spec.emits, spec.kind === 'read' ? []
       : ['clip.update', 'note.remove', 'note.insert', 'note.clear', 'note.write']);
@@ -234,6 +233,8 @@ test('8h4b vocabulary: each D32 verdict and each 8h4a refusal maps to one stable
   assert.equal(classifyError(new GroupSlotError(address, { channelId: 't' })).code, 'group-slot');
   assert.equal(classifyError(new CollapsedGroupRowError(address, 0)).code, 'collapsed-group-row');
   assert.equal(classifyError(new StaleAddressError(address, 0, 1)).code, 'stale-address');
+  // 8h4g review P2 (D41): a narrow writer is a rig configuration fault; nothing was written.
+  assert.equal(classifyError(new WriterWidthError(4_194_304, 512)).code, 'unhealthy');
   assert.equal(classifyError(new Error('anything')).code, 'internal');
   assert.doesNotMatch(classifyError(new GroupSlotError(address, { channelId: 't' })).message, /mirror the clips of its child tracks and are not/);
 });

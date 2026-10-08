@@ -89,7 +89,7 @@ import {
 } from './device-controls.js';
 import { AGENT_NATIVE_ADDITIONS } from './agent-native.js';
 import { editLauncherClipTool } from './agent-native-edit.js';
-import { AGENT_NATIVE_CLIP_TOOLS, AGENT_NATIVE_SCENE_TOOLS, startedOperation } from './agent-native-clips.js';
+import { AGENT_NATIVE_CLIP_TOOLS, AGENT_NATIVE_SCENE_TOOLS } from './agent-native-clips.js';
 import { AGENT_NATIVE_TOOL_PROFILE } from './agent-native-result.js';
 import { AGENT_NATIVE_DEVICE_RETIRED, agentNativeDeviceTools } from './agent-native-devices.js';
 import {
@@ -178,8 +178,6 @@ export interface ToolSpec {
   readonly observation?: ObservationOutcome;
   /** Product category shown after a confirmed, non-empty change. */
   readonly status?: readonly StatusCategory[];
-  /** 8h4d: the input has `background`; with `background: true` the call returns an operation handle at once. */
-  readonly background?: boolean;
   run(workspace: Workspace, args: never): Promise<unknown>;
 }
 
@@ -3817,9 +3815,9 @@ export const AGENT_NATIVE_RETIRED: Readonly<Record<string, string>> = {
   write_notes: 'edit_launcher_clip',
   erase_notes: 'edit_launcher_clip',
   inspect_clip_block: 'read_launcher_clip and the occupancy of copy_launcher_clips or move_launcher_clips',
-  inspect_clip_music_operation: 'inspect_operation',
-  start_clip_music_operation: 'background on edit_launcher_clip or add_launcher_clip',
-  cancel_clip_music_operation: 'cancel_operation',
+  inspect_clip_music_operation: 'none: edit_launcher_clip and add_launcher_clip finish in the direct call (8h4g)',
+  start_clip_music_operation: 'edit_launcher_clip or add_launcher_clip, as a direct call',
+  cancel_clip_music_operation: 'none: edit_launcher_clip and add_launcher_clip finish in the direct call (8h4g)',
   record_observation: 'none: the observation workflow is retired',
   read_observation_record: 'none: the observation workflow is retired',
   report_observations: 'none: the observation workflow is retired',
@@ -4082,14 +4080,6 @@ export async function callTool(
   const spec = toolNamed(name, profile);
   if (spec === undefined) throw new Error(`no such tool: ${name}`);
   const parsed = (spec.inputValidator ?? z.object(spec.inputSchema)).parse(args);
-  if (spec.background === true && (parsed as { background?: unknown }).background === true) {
-    const { background: _background, ...direct } = parsed as Record<string, unknown>;
-    return startedOperation(workspace.operations.start(spec.name, async ({ signal, record }) => {
-      const result = await executeTool(cancellableWorkspace(workspace, signal, record), spec, direct, profile);
-      signal.throwIfAborted();
-      return result;
-    }));
-  }
   return executeTool(workspace, spec, parsed, profile);
 }
 

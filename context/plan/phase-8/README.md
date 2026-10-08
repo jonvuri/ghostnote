@@ -3,7 +3,7 @@ title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
 status: D25 selects FIELDS and JSON. 8g is complete (E224). 8h is not entered.
-updated: 2026-10-06
+updated: 2026-10-08
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
 next: ../phase-9/README.md
@@ -356,8 +356,9 @@ owns the migration details.
    completes final shadow acceptance.
    E131 remains authoritative.
 28. [8h — Cache promotion and interface simplification](8h-cache-promotion-and-interface-simplification.md).
-   Reader promotion is complete (E230). Change awareness, cache machinery
-   trim, and interface simplification remain. The legacy writer loss of
+   Complete (E230–E247). Reader promotion, change awareness, the cache
+   machinery trim, interface simplification, and the performance review are
+   done; `agent-native-v1` is the default profile. The legacy writer loss of
    disabled expression state is fixed and verified in the owned E230 case.
    It is split into [8h1a](8h1a-cache-limit-knee-sweep.md) (limit knee sweep;
    first pass in [E225](../../evidence/experiments/e225-cache-limit-knee-sweep.md)),
@@ -383,9 +384,11 @@ owns the migration details.
    [8h4c](8h4c-document-edit-limb.md),
    [8h4c2](8h4c2-edit-cost-and-reader-heap.md),
    [8h4d](8h4d-musical-and-clip-surface-migration.md),
-   [8h4e](8h4e-device-structure-migration.md), and
-   [8h4f](8h4f-tracks-profile-cut-and-closeout.md). 8h3c and 8h3e replace the earlier 8h1
-   and 8h2b plans.
+   [8h4e](8h4e-device-structure-migration.md),
+   [8h4f](8h4f-tracks-profile-cut-and-closeout.md), and
+   [8h4g](8h4g-performance-review-and-closeout.md) (performance review and
+   closeout; complete in [E247](../../evidence/experiments/e247-performance-review-and-closeout.md)).
+   8h is complete. 8h3c and 8h3e replace the earlier 8h1 and 8h2b plans.
 29. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.

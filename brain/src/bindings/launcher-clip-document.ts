@@ -20,6 +20,7 @@ import {
   contentHash, LIMITS, serialize, type Coverage, type Encoding, type ImportReport, type Overlay, type StateDocument,
 } from '../document/index.js';
 import { binary64, spelling } from '../document/rational.js';
+import { normalizedContentHash } from '../document/semantic.js';
 import { projectRawClip, type RawNote } from './ghostnote-document.js';
 import { cellKey, type AcquisitionBoundary, type CellKey, type StoredEnvelope } from './identity-registry.js';
 import { carryOverlays, type CarriedOverlays } from './overlay-carry.js';
@@ -208,6 +209,42 @@ export function projectLauncherClip(
   priorOverlays: readonly Overlay[] = [],
   envelope: StoredEnvelope = {},
 ): LauncherClipProjection {
+  // 8h4g: an edit projects its fresh read again to check the base (R27). When the D32 source digest, the IDs, the
+  // overlays, and the envelope are the inputs of the last projection, the result is the same; reuse it. The
+  // source digest covers the clip metadata and every raw note field. The memo holds one frozen projection.
+  const source = snapshot.ref?.source?.sha256;
+  if (typeof source !== 'string') return projectOnce(snapshot, clipId, eventIds, priorOverlays, envelope);
+  const key = { source, clipId, eventIds, extra: JSON.stringify([priorOverlays, envelope]) };
+  const last = lastProjection;
+  if (last !== undefined && last.key.source === key.source && last.key.clipId === clipId && last.key.extra === key.extra
+      && last.key.eventIds.length === eventIds.length && last.key.eventIds.every((id, index) => id === eventIds[index])) {
+    return last.projection;
+  }
+  const projection = deepFreeze(projectOnce(snapshot, clipId, eventIds, priorOverlays, envelope));
+  lastProjection = { key: { ...key, eventIds: [...eventIds] }, projection };
+  return projection;
+}
+
+let lastProjection: {
+  readonly key: { readonly source: string; readonly clipId: string; readonly eventIds: readonly string[]; readonly extra: string };
+  readonly projection: LauncherClipProjection;
+} | undefined;
+
+function deepFreeze<T>(value: T): T {
+  if (value !== null && typeof value === 'object' && !Object.isFrozen(value)) {
+    Object.freeze(value);
+    for (const item of Object.values(value)) deepFreeze(item);
+  }
+  return value;
+}
+
+function projectOnce(
+  snapshot: ClipSnapshot,
+  clipId: string,
+  eventIds: readonly string[],
+  priorOverlays: readonly Overlay[],
+  envelope: StoredEnvelope,
+): LauncherClipProjection {
   const located = locate(snapshot);
   if (eventIds.length !== located.length) throw new Error('one event ID is needed for each acquired note');
   const { metadata } = snapshot;
@@ -219,15 +256,17 @@ export function projectLauncherClip(
     loop: metadata.loopEnabled ? { from: '0', to: length } : null,
   };
   const notes = located.map((item, index) => rawNote(eventIds[index]!, item.channel, item.note));
-  const { document, report } = projectRawClip(clip, notes);
   // Complete coverage needs no reason; the read wrapper states the uncovered fields.
-  const coverage = document.coverage.map(({ reason: _reason, ...item }) => item);
-  const bare: StateDocument = { ...document, ...envelope, coverage };
+  const { document, report } = projectRawClip(clip, notes, { reason: false });
+  const coverage = document.coverage;
+  const plain = envelope.meta === undefined && envelope.extensions === undefined;
+  const bare: StateDocument = plain ? document : { ...document, ...envelope };
   const overlays = priorOverlays.length === 0 ? undefined : carryOverlays(priorOverlays, bare);
   const projected: StateDocument = overlays === undefined ? bare : { ...bare, overlays: overlays.overlays };
   return {
     document: projected,
-    contentHash: contentHash(projected),
+    // A projection without envelope or overlays is the validated document itself (8h4g: one validation).
+    contentHash: projected === document ? normalizedContentHash(document) : contentHash(projected),
     coverage,
     boundary: { plane: 'D23-1/512-cell', channels: 16, from: '0', to: length },
     loss: lossFacts(report),

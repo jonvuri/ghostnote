@@ -1,16 +1,32 @@
 import { schema } from './schema-data.js';
 import { DocumentError, fail } from './error.js';
-import { canonicalJson } from './json.js';
+import { canonicalJson, scalarLength } from './json.js';
 import { rational, spelling } from './rational.js';
 import { LIMITS } from './model.js';
 const RULES: Record<string, string> = { id: 'R01', extensions: 'R01', stateDocument: 'R02', patch: 'R08', meta: 'R02', base: 'R02', clip: 'R03', range: 'R03', coverage: 'R03', event: 'R04', eventSet: 'R08', clipSet: 'R08', eventUpdate: 'R08', clipUpdate: 'R08', depends: 'R12', eventDependency: 'R21', clipDependency: 'R21', provenance: 'R12', overlay: 'R12', nominalData: 'R13', grooveData: 'R14', shape: 'R14', harmonyData: 'R17', roleData: 'R18', motifData: 'R18', meterData: 'R19', tempoData: 'R19', regionData: 'R20' };
+const TIMING_DEFS = new Set(['rational', 'nonnegative', 'positive']);
+const BRANCH_KEYWORDS = ['anyOf', 'oneOf'] as const;
+const REF_NAMES = new Map<string, string>();
+function refName(ref: string): string {
+    let name = REF_NAMES.get(ref);
+    if (name === undefined)
+        REF_NAMES.set(ref, name = ref.replace('#/$defs/', ''));
+    return name;
+}
+const PATTERNS = new Map<string, RegExp>();
+function patternOf(source: string): RegExp {
+    let pattern = PATTERNS.get(source);
+    if (pattern === undefined)
+        PATTERNS.set(source, pattern = new RegExp(source));
+    return pattern;
+}
 /** Execute only the local schema vocabulary. No external resolution is allowed. */
 function check(s: any, value: any, path: string, rule: string): void {
     if (s.$ref) {
-        const name = s.$ref.replace('#/$defs/', '');
+        const name = refName(s.$ref);
         if (!s.$ref.startsWith('#/$defs/') || !schema.$defs[name])
             fail('R32', path, 'unresolved local schema reference');
-        if (['rational', 'nonnegative', 'positive'].includes(name)) {
+        if (TIMING_DEFS.has(name)) {
             const r = rational(value, path);
             if (name === 'nonnegative' && r.n < 0n || name === 'positive' && r.n <= 0n)
                 fail('R05', path, 'timing has an invalid sign');
@@ -27,12 +43,12 @@ function check(s: any, value: any, path: string, rule: string): void {
             fail(rule, path, `expected ${s.type}`);
     }
     if (typeof value === 'string') {
-        const n = Array.from(value).length;
+        const n = scalarLength(value);
         if (s.maxLength !== undefined && n > s.maxLength)
             fail('R28', path, 'string exceeds field limit');
         if (s.minLength !== undefined && n < s.minLength)
             fail(rule, path, 'empty string is forbidden');
-        if (s.pattern && !new RegExp(s.pattern).test(value))
+        if (s.pattern && !patternOf(s.pattern).test(value))
             fail(rule, path, 'invalid field spelling');
     }
     if (typeof value === 'number') {
@@ -77,15 +93,15 @@ function check(s: any, value: any, path: string, rule: string): void {
             else if (s.additionalProperties && typeof s.additionalProperties === 'object')
                 check(s.additionalProperties, value[key], `${path}.${key}`, rule);
         }
-        for (const [key, required] of Object.entries(s.dependentRequired ?? {}))
+        if (s.dependentRequired) for (const [key, required] of Object.entries(s.dependentRequired))
             if (Object.hasOwn(value, key))
                 for (const other of required as string[])
                     if (!Object.hasOwn(value, other))
                         fail(rule, `${path}.${other}`, 'paired field is missing');
     }
-    for (const child of s.allOf ?? [])
+    if (s.allOf) for (const child of s.allOf)
         check(child, value, path, rule);
-    for (const keyword of ['anyOf', 'oneOf'])
+    for (const keyword of BRANCH_KEYWORDS)
         if (s[keyword]) {
             let successes = 0;
             const errors: DocumentError[] = [];

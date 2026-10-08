@@ -29,7 +29,7 @@ import { randomUUID } from 'node:crypto';
 
 import {
   AddressUnresolvedError, BankWindowOverflowError, CLIP_READ_SOUNDING_CELLS, CONTRACT_TAG, CONTRACT_VERSION,
-  ClipReadLimitError, InvalidOpError,
+  ClipReadLimitError, InvalidOpError, WriterWidthError,
   CollapsedGroupRowError, GROUP_TRACK_TYPE, GroupSlotError, OP_BUMPS_SCENE_EPOCH, assertNoGroupSlotAddresses, assertNoGroupSlotOps, sceneGuardError,
   type SceneGuard,
   ContractVersionError, RuntimeProfileMismatchError, StaleAddressError, WireDriftError,
@@ -157,6 +157,13 @@ interface WireInventory {
   trackName?: string;
   trackChannelId?: string;
 }
+
+/** 8h4g (E248): a parked writer window starts here. It is the reader width: 4,194,304 steps of 1/512. */
+const WRITER_PARK_BEATS = 8_192;
+/** D41: the writer width that bounds a note write to one page for each view. It is the reader width. */
+const WRITER_STEPS = 4_194_304;
+/** The grid of a parked writer, in beats. The park sets it, so the park step does not depend on the last write. */
+const WRITER_PARK_GRID = 1;
 
 interface WriterView {
   readonly clipKey: AddressKey;
@@ -379,6 +386,9 @@ interface WireDirectCompletion {
  * this must get stronger before that op ships — appending is what makes "the last
  * entry" identifiable at all when a chain holds two devices of the same name.
  */
+/** How long after a mark `tracks()` can use the mark's bank scan: one control-surface turn (8h4g). */
+const MARK_SCAN_REUSE_MS = 50;
+
 function mintedChainIndex(before: ChainSnapshot, after: ChainSnapshot): number | undefined {
   if (before.blind || after.blind) return undefined;
   if (after.devices.length !== before.devices.length + 1) return undefined;
@@ -608,6 +618,11 @@ export interface LiveOptions {
   readonly noteWake?: boolean;
   /** Optional ordered trace for selection and target diagnostics. */
   readonly onTrace?: (event: LiveTraceEvent) => void;
+  /**
+   * Accept note writes on writer cursors narrower than the reader width (D41). Only for focused tests of the
+   * multi-page writer path. A product adapter refuses them with `WriterWidthError` before any mutation.
+   */
+  readonly allowNarrowWriter?: boolean;
 }
 
 export interface MasterRecorderStatus {
@@ -831,6 +846,10 @@ export class LiveAdapter implements BitwigAdapter {
    * that happens to match is the failure this whole mechanism is about.
    */
   private lastMark: RevisionMark | undefined;
+  /** Wire requests sent so far. `tracks()` uses it to know that no request followed the last mark. */
+  private sent = 0;
+  /** The bank scan of the last mark, the request count after it, and its time (8h4g). */
+  private markScan: { readonly list: TrackListResult; readonly sent: number; readonly at: number } | undefined;
   /** The rig's cursor-clip width, learned at hello(); bounds the scan window. */
   private gridSteps: number | undefined;
   /** The writer cursor width, learned at hello(). */
@@ -878,17 +897,23 @@ export class LiveAdapter implements BitwigAdapter {
   /** One armed single-clip wake. Exact bulk readback remains the proof. */
   private pendingNoteWake: NoteWake | undefined;
   private readonly noteWake: boolean;
+  private readonly allowNarrowWriter: boolean;
   /** One confirmed device cursor is the complete DirectParameter route. */
   private parameterQueue: Promise<void> = Promise.resolve();
   /** Keep complete scalar write pipelines from interleaving on that cursor. */
   private parameterMutationQueue: Promise<void> = Promise.resolve();
 
   constructor(options: LiveOptions = {}) {
-    this.transport = options.transport ?? new BridgeTransport();
+    const transport = options.transport ?? new BridgeTransport();
+    this.transport = {
+      send: (frame) => { this.sent += 1; return transport.send(frame); },
+      close: () => transport.close(),
+    };
     this.expectMethodsHash = options.expectMethodsHash;
     this.expectRuntimeProfile = options.expectRuntimeProfile;
     this.onTiming = options.onTiming;
     this.noteWake = options.noteWake === true;
+    this.allowNarrowWriter = options.allowNarrowWriter === true;
     this.onTrace = options.onTrace;
     // A pool of one until `hello()` learns the rig's real size — which is the
     // Phase-0 behaviour exactly, so an adapter used before the handshake is no
@@ -2875,6 +2900,7 @@ export class LiveAdapter implements BitwigAdapter {
     // 8h4c2 (E246): both requests go out together. The bridge answers each in its own task, so the pair costs
     // one control-surface turn, not two. The scan is not part of the epoch and event atomicity (see above).
     const [revision, list] = await Promise.all([this.transport.send({ method: WIRE.revisionGet }), this.scanTracks()]);
+    this.markScan = { list, sent: this.sent, at: performance.now() };
     const r = revision as {
       revision: number;
       generation: string;
@@ -3182,6 +3208,8 @@ export class LiveAdapter implements BitwigAdapter {
    * whole output is positions and identities, so serving it from `this.bank`
    * would hand back the world as it was before whatever just happened — and the
    * caller most likely to ask is one that has no ids yet and no way to notice.
+   * The one exception (8h4g) is the scan of a mark with no request after it:
+   * that scan is as fresh as a second one would be.
    *
    * ⚠ It does not refuse an overflowing project, for the reason `hello()` records
    * at length: looking is how you find out. The tracks past the window are simply
@@ -3197,7 +3225,12 @@ export class LiveAdapter implements BitwigAdapter {
   }
 
   async tracks(): Promise<readonly TrackState[]> {
-    const list = await this.scanTracks();
+    // 8h4g: a mark scans the bank. Within one control-surface turn after that mark (MARK_SCAN_REUSE_MS), with no
+    // request after it, its scan is as current as a second scan: no Ghostnote write is between them. A later call
+    // scans again, so a mark of an earlier tool call is never reused. The reuse saves one turn (about 24 ms).
+    const scan = this.markScan;
+    const list = scan !== undefined && scan.sent === this.sent && performance.now() - scan.at < MARK_SCAN_REUSE_MS
+      ? scan.list : await this.scanTracks();
     return list.tracks.map((t) => ({
       channelId: t.channelId,
       name: t.name,
@@ -3808,6 +3841,9 @@ export class LiveAdapter implements BitwigAdapter {
     writerPageStart?: number,
   ): Promise<void> {
     const writerSteps = this.fineSteps ?? this.gridSteps ?? 64;
+    // A view (cursor, clip, step size, page) does not depend on the note channel. Confirm each view once: a
+    // whole-clip write of 16 channels over 8 pages confirms 8 views, not 128 (8h4g: 27 s of grid settles).
+    const confirmed = new Set<string>();
     for (const op of ops) {
       if ((op.op !== 'note.write' && op.op !== 'note.insert'
           && op.op !== 'note.remove' && op.op !== 'note.props') || op.notes.length === 0) continue;
@@ -3824,6 +3860,9 @@ export class LiveAdapter implements BitwigAdapter {
         ? requiredPages
         : requiredPages.filter((page) => page === writerPageStart);
       for (const page of pages) {
+        const view = `${cursor}\0${addressKey(op.clip)}\0${stepSize}\0${page}`;
+        if (confirmed.has(view)) continue;
+        confirmed.add(view);
         await this.confirmWriterPage(op.clip, cursor, stepSize, page, views);
       }
     }
@@ -3863,6 +3902,35 @@ export class LiveAdapter implements BitwigAdapter {
       clipRef,
       `writer cursor ${cursor} did not confirm the target at page ${page}`,
     );
+  }
+
+  /**
+   * 8h4g (E248): end a write with each used writer on an empty window. A held writer keeps one host NoteStep
+   * for each sounding cell in its window (E225, about 336 bytes live). With the clip-wide writer window, that is
+   * the whole clip at the write grid: up to about 700 MiB at the reader limit, for each of the 8 pool cursors.
+   * The park window starts at the reader width (8,192 beats), so no admitted clip has a cell in it. The park sets
+   * its own grid: the view records the last confirmed grid, and a batch can end on another one (a mixed-grid
+   * write of 1/512, 1/4, 1/512 confirms the repeated view once). The frames go out together (one turn; the
+   * extension runs them in send order) and need no settle: the next write confirms its own page
+   * (`confirmWriterPage`), and the park view differs from every write view.
+   */
+  private async parkWriterViews(views: Map<string, WriterView>): Promise<void> {
+    if (views.size === 0) return;
+    const step = WRITER_PARK_BEATS / WRITER_PARK_GRID;
+    const parked = [...views.entries()].flatMap(([cursor, view]) => {
+      views.set(cursor, { ...view, stepSize: WRITER_PARK_GRID, page: step });
+      return [
+        this.transport.send({ method: WIRE.cursorSetStepSize, params: { cursor, stepSize: WRITER_PARK_GRID } }),
+        this.transport.send({ method: WIRE.cursorScrollToStep, params: { cursor, step } }),
+      ];
+    });
+    await Promise.all(parked);
+  }
+
+  /** Reset, then park, the writers at the end of an apply. */
+  private async endWriterViews(views: Map<string, WriterView>): Promise<void> {
+    await this.resetWriterViews(views);
+    await this.parkWriterViews(views);
   }
 
   /** Restore every writer to page zero and verify the reset once. */
@@ -5082,6 +5150,59 @@ export class LiveAdapter implements BitwigAdapter {
     }
   }
 
+  /**
+   * 8h4g: the `deviceInsert` budget is a deadline, not a fixed wait. E89 measured up to 4,000 ms until the first
+   * complete device-chain readback after a cold plug-in insertion; each stage waited the full 4,000 ms.
+   *
+   * - A device insert polls the track's device chain until it shows the minted device (with its expected name)
+   *   in two equal consecutive complete readings. The post-stage mint check then reads the chain again.
+   * - A chain create polls its container until one new chain is identifiable. `finishChainCreate` then reads
+   *   the container again.
+   * - A device or chain relocation does not wait: `finishDeviceReorder` and `finishRelocation` poll a complete
+   *   structural proof for up to 8,000 ms.
+   * - Any other op (a drum pad insert) keeps the fixed budget.
+   *
+   * At the deadline the poll returns, and the post-stage check reports the failure as before.
+   */
+  private async settleStructure(
+    ops: readonly Op[],
+    chainBefore: ChainSnapshot | undefined,
+    containerBefore: ContainerScope | undefined,
+  ): Promise<void> {
+    const deadline = performance.now() + SETTLE_MS.deviceInsert;
+    const poll = async (proved: () => Promise<boolean>): Promise<void> => {
+      while (performance.now() < deadline) {
+        if (await proved()) return;
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      }
+    };
+    const insert = ops.find((op) => op.op === 'device.insert');
+    const create = ops.find((op) => op.op === 'chain.create');
+    if (insert?.op === 'device.insert' && chainBefore !== undefined) {
+      let prior: string | undefined;
+      await poll(async () => {
+        const after = await this.deviceChain(insert.track);
+        const at = after === undefined ? undefined : mintedChainIndex(chainBefore, after);
+        const name = at === undefined ? undefined : after!.devices.find((device) => device.index === at)?.name;
+        const reading = at === undefined || (insert.expectedDeviceName !== undefined && name !== insert.expectedDeviceName)
+          ? undefined : JSON.stringify(after!.devices);
+        const stable = reading !== undefined && reading === prior;
+        prior = reading;
+        return stable;
+      });
+      return;
+    }
+    if (create?.op === 'chain.create' && containerBefore?.ok === true) {
+      await poll(async () => {
+        const after = await this.containerScope(create.source.container.track, create.source.container.chainIndex, false);
+        return after.ok && mintedChain(containerBefore.container, after.container).ok;
+      });
+      return;
+    }
+    if (ops.every((op) => op.op === 'device.relocate' || op.op === 'chain.relocate')) return;
+    await this.settle('deviceInsert');
+  }
+
   async apply(batch: BatchRequest): Promise<BatchReceipt> {
     const scalar = batch.ops.length > 0
       && batch.ops.every((op) => op.op === 'param.set' || op.op === 'remote.set');
@@ -5184,6 +5305,13 @@ export class LiveAdapter implements BitwigAdapter {
         ? [stage]
         : pages.map((writerPageStart) => ({ ...stage, writerPageStart }));
     });
+    // D41 (E248): a narrower writer makes the page checks scale with the clip length (512 steps: 111 s for one
+    // valid edit). Refuse every note write on such a rig before the selection borrow and any stage, not only the
+    // long ones, so that a configuration error fails at once and not by clip shape.
+    if (!this.allowNarrowWriter && this.fineSteps !== WRITER_STEPS && batch.ops.some((op) =>
+      op.op === 'note.write' || op.op === 'note.insert' || op.op === 'note.remove' || op.op === 'note.props')) {
+      throw new WriterWidthError(WRITER_STEPS, this.fineSteps);
+    }
     for (const stage of stages) {
       const clips = new Set(stage.ops
         .filter((op) => op.op === 'clip.update' || op.op === 'note.clear' || op.op === 'clip.launchSettings'
@@ -5253,7 +5381,7 @@ export class LiveAdapter implements BitwigAdapter {
       await this.armNoteWake(batch.ops);
     } catch (error) {
       this.pendingNoteWake = undefined;
-      try { await this.resetWriterViews(writerViews); } catch {}
+      try { await this.endWriterViews(writerViews); } catch {}
       await this.restoreSelection(selection);
       throw error;
     }
@@ -5401,7 +5529,7 @@ export class LiveAdapter implements BitwigAdapter {
             revision: guard ?? 0,
           });
           this.pendingNoteWake = undefined;
-          try { await this.resetWriterViews(writerViews); } catch {}
+          try { await this.endWriterViews(writerViews); } catch {}
           await this.restoreSelection(selection);
           return {
             contract: CONTRACT_TAG,
@@ -5497,7 +5625,7 @@ export class LiveAdapter implements BitwigAdapter {
         }
       } catch (error) {
         this.pendingNoteWake = undefined;
-        try { await this.resetWriterViews(writerViews); } catch {}
+        try { await this.endWriterViews(writerViews); } catch {}
         await this.restoreSelection(selection);
         throw error;
       }
@@ -5613,7 +5741,7 @@ export class LiveAdapter implements BitwigAdapter {
         result = await this.sendStage(stage.ops, guard, writerViews, stage.writerPageStart, sceneGuard);
       } catch (error) {
         this.pendingNoteWake = undefined;
-        try { await this.resetWriterViews(writerViews); } catch {}
+        try { await this.endWriterViews(writerViews); } catch {}
         await this.restoreSelection(selection);
         if (parameterCohort !== undefined && receipts.length > 0) {
           const at = await this.revision();
@@ -5643,7 +5771,7 @@ export class LiveAdapter implements BitwigAdapter {
       // Restore the user's selection in both cases.
       if (result.rejected) {
         this.pendingNoteWake = undefined;
-        await this.resetWriterViews(writerViews);
+        await this.endWriterViews(writerViews);
         await this.restoreSelection(selection);
         const at = await this.revision();
         if (result.reason === 'stale-scene' && sceneGuard !== undefined) {
@@ -5688,7 +5816,11 @@ export class LiveAdapter implements BitwigAdapter {
       // write between stages is caught for free.
       guard = result.revision;
 
-      if (stage.settle !== undefined) await this.settle(stage.settle);
+      if (stage.settle === 'deviceInsert') {
+        await this.settleStructure(stage.ops, chainBefore, containerBefore);
+      } else if (stage.settle !== undefined) {
+        await this.settle(stage.settle);
+      }
 
       const cohortParameterOp = parameterCohort?.kind === 'direct'
         && stage.ops.length === 1 && stage.ops[0]?.op === 'param.set'
@@ -5994,17 +6126,13 @@ export class LiveAdapter implements BitwigAdapter {
         this.invalidateStructuralTargets();
         // Logical invalidation is not enough. Reads pin the physical writer
         // cursors, and a pinned cursor ignores later selection changes. Release
-        // every writer cursor and wait before the next stage.
-        for (const cursor of this.pool.references) {
-          await this.transport.send({
-            method: WIRE.cursorPin,
-            params: { cursor, pinned: false },
-          });
-          await this.transport.send({
-            method: WIRE.cursorPinTrack,
-            params: { cursor, pinned: false },
-          });
-        }
+        // every writer cursor and wait before the next stage. 8h4g: the release frames go out together, so the
+        // extension runs them in one control-surface turn in send order (E246: about 24 ms for each turn; it was
+        // 16 turns).
+        await Promise.all([...this.pool.references].flatMap((cursor) => [
+          this.transport.send({ method: WIRE.cursorPin, params: { cursor, pinned: false } }),
+          this.transport.send({ method: WIRE.cursorPinTrack, params: { cursor, pinned: false } }),
+        ]));
         await this.settle('cursorPoint');
         let after = (await this.scanTracks()).tracks;
         // E2c/C-minted: structural rows sometimes enter the observable bank
@@ -6060,7 +6188,7 @@ export class LiveAdapter implements BitwigAdapter {
       }
     }
 
-    await this.resetWriterViews(writerViews);
+    await this.endWriterViews(writerViews);
     await this.restoreSelection(selection);
     return { contract: CONTRACT_TAG, accepted: true, stages: receipts, minted, at: await this.revision() };
   }

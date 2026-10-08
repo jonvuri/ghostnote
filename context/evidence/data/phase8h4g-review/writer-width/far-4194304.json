@@ -1,0 +1,90 @@
+{
+ "schema": "phase8h4g-writer-width-v1-far",
+ "hello": [
+  "normal-v1",
+  89,
+  "0ef817f4bac8a8a7"
+ ],
+ "project": "New 6",
+ "fineSteps": 4194304,
+ "rigConstructMicros": 68434,
+ "initMicros": 69946,
+ "initEpochMs": 1791436154393,
+ "rows": [
+  {
+   "step": "far-add",
+   "tool": "add_launcher_clip",
+   "ms": 2368,
+   "status": "verified",
+   "route": "targeted",
+   "calls": 87,
+   "turns": 56,
+   "scrolls": 2,
+   "statusChecks": 4,
+   "stages": 2,
+   "timing": {
+    "readMs": 360.9551670000001,
+    "planMs": 5.013540999999805,
+    "writeMs": 1183.0514170000001,
+    "readbackMs": 2.337417000000187,
+    "totalMs": 2367.9182499999997
+   }
+  },
+  {
+   "step": "far-read",
+   "tool": "read_launcher_clip",
+   "ms": 403,
+   "calls": 14,
+   "turns": 10,
+   "scrolls": 0,
+   "statusChecks": 0,
+   "stages": 0,
+   "timing": {
+    "readMs": 335.644417,
+    "totalMs": 402.95787500000006
+   }
+  },
+  {
+   "step": "far-props",
+   "tool": "edit_launcher_clip",
+   "ms": 2116,
+   "status": "verified",
+   "route": "whole-clip",
+   "calls": 56,
+   "turns": 45,
+   "scrolls": 2,
+   "statusChecks": 4,
+   "stages": 2,
+   "timing": {
+    "readMs": 360.4305419999996,
+    "planMs": 3.999207999999271,
+    "writeMs": 1726.4306660000002,
+    "readbackMs": 1.4880000000002838,
+    "totalMs": 2116.083875
+   }
+  },
+  {
+   "step": "far-remove",
+   "tool": "edit_launcher_clip",
+   "ms": 1372,
+   "status": "verified",
+   "route": "targeted",
+   "calls": 42,
+   "turns": 34,
+   "scrolls": 1,
+   "statusChecks": 3,
+   "stages": 1,
+   "timing": {
+    "readMs": 358.85812499999975,
+    "planMs": 2.4793330000002243,
+    "writeMs": 984.9409159999996,
+    "readbackMs": 1.152208000000428,
+    "totalMs": 1371.5819170000004
+   }
+  }
+ ],
+ "pans": [
+  -0.25,
+  0.5
+ ]
+}
