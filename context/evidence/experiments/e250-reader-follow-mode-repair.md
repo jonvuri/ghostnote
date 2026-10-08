@@ -131,9 +131,9 @@ frames left.
 
 ## Open observations
 
-- Not run live: the collapsed-group routes (a read and a `cursor.pointExpanded`
-  of a child track), where the pinned finders climb with `selectParent`.
-  Neither "ice jungle" nor "New 2" has a group track.
+- The collapsed-group routes (a read and a `cursor.pointExpanded` of a child
+  track, with the pinned finders that climb with `selectParent`) passed live
+  in [E251](e251-collapsed-group-live-verification.md).
 - `createNewLauncherClip` makes Bitwig select the new clip, and the creation
   records no borrow. `add_launcher_clip` therefore leaves the slot selection
   on the new clip. This does not depend on the pins.

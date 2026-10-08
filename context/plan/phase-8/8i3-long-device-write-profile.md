@@ -2,7 +2,7 @@
 title: Phase 8i3 long device write profile
 kind: plan
 state: planned
-status: After 8i2. Measure the largest admitted device writes against the 60 s client timeout; optimize first, then bound or add a background flag only if a measured case stays over budget.
+status: Next (8i2 is complete, E251). Measure the largest admitted device writes against the 60 s client timeout; optimize first, then bound or add a background flag only if a measured case stays over budget.
 updated: 2026-10-08
 parent: README.md
 prev: 8i2-collapsed-group-live-verification.md

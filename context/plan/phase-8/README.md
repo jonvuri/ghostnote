@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: 8h, 8i0, and the 8i1 reader repair are complete (E247–E250). Next: 8i2, 8i3, and 8i4 from the Phase 8 review, then the 8i dogfood trials.
+status: 8h, 8i0, the 8i1 reader repair, and the 8i2 group verification are complete (E247–E251). Next: 8i3 and 8i4 from the Phase 8 review, then the 8i dogfood trials.
 updated: 2026-10-08
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -397,7 +397,8 @@ owns the migration details.
    D43): every owned cursor track stays pinned, because a saved project made
    unpinned cursors follow the selection and every read refuse.
    The Phase 8 review adds three sessions before the next trial:
-   [8i2 — Collapsed-group live verification](8i2-collapsed-group-live-verification.md),
+   [8i2 — Collapsed-group live verification](8i2-collapsed-group-live-verification.md)
+   (complete, E251),
    [8i3 — Long device write profile](8i3-long-device-write-profile.md), and
    [8i4 — Overlay basis sealing](8i4-overlay-basis-sealing.md).
    Test ordinary work in fresh agent sessions and decide whether the engine,

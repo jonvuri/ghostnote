@@ -1,0 +1,311 @@
+{
+ "schema": "phase8i2-groups-v1",
+ "mode": "switch",
+ "hello": {
+  "contractVersion": 0,
+  "extensionVersion": "0.0.1",
+  "runtimeProfile": "normal-v1",
+  "hostApiVersion": 25,
+  "methodCount": 89,
+  "methodsHash": "0ef817f4bac8a8a7"
+ },
+ "project": "gn-scale-test",
+ "entry": {
+  "selection": {
+   "track": "gn-A",
+   "slot": 0,
+   "mixer": "FX 1"
+  },
+  "hidden": [
+   "gn-E16",
+   "gn-8i2-a",
+   "Group 1",
+   "Group 1",
+   "gn-8i2-deep"
+  ],
+  "unpinned": [],
+  "repins": 51,
+  "untargeted": 6
+ },
+ "exit": {
+  "selection": {
+   "track": "gn-A",
+   "slot": 0,
+   "mixer": "FX 1"
+  },
+  "hidden": [
+   "gn-E16",
+   "gn-8i2-a",
+   "Group 1",
+   "Group 1",
+   "gn-8i2-deep"
+  ],
+  "unpinned": [],
+  "repins": 51,
+  "untargeted": 6
+ },
+ "rows": [
+  {
+   "step": "connection",
+   "tool": "check_bitwig_connection",
+   "ok": true,
+   "ms": 24,
+   "calls": 2,
+   "turns": 1,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1
+   },
+   "clipReadMs": [],
+   "groupPoints": 0,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": "gn-A",
+    "slot": 0,
+    "mixer": "FX 1"
+   },
+   "hidden": [
+    "gn-E16",
+    "gn-8i2-a",
+    "Group 1",
+    "Group 1",
+    "gn-8i2-deep"
+   ],
+   "unpinned": [],
+   "repins": 51,
+   "untargeted": 6,
+   "selectionKept": true,
+   "hiddenKept": true,
+   "repinDelta": 0,
+   "untargetedDelta": 0,
+   "sequence": [
+    "revision.get +0 23",
+    "track.list +-23 23"
+   ]
+  },
+  {
+   "step": "read-e16-1",
+   "tool": "read_launcher_clip",
+   "ok": true,
+   "ms": 478,
+   "calls": 12,
+   "turns": 9,
+   "methods": {
+    "revision.get": 3,
+    "track.list": 3,
+    "selection.status": 1,
+    "slot.status": 4,
+    "clip.read": 1
+   },
+   "clipReadMs": [
+    286
+   ],
+   "groupPoints": 0,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": "gn-A",
+    "slot": 0,
+    "mixer": "FX 1"
+   },
+   "hidden": [
+    "gn-E16",
+    "gn-8i2-a",
+    "Group 1",
+    "Group 1",
+    "gn-8i2-deep"
+   ],
+   "unpinned": [],
+   "repins": 51,
+   "untargeted": 6,
+   "selectionKept": true,
+   "hiddenKept": true,
+   "repinDelta": 0,
+   "untargetedDelta": 0,
+   "sequence": [
+    "revision.get +0 23",
+    "track.list +-23 23",
+    "selection.status +1 23",
+    "slot.status +0 22",
+    "revision.get +0 23",
+    "track.list +-23 24",
+    "slot.status +1 23",
+    "slot.status +0 24",
+    "clip.read +0 286",
+    "slot.status +1 23",
+    "revision.get +1 23",
+    "track.list +-23 24"
+   ]
+  },
+  {
+   "step": "read-a-1",
+   "tool": "read_launcher_clip",
+   "ok": true,
+   "ms": 473,
+   "calls": 12,
+   "turns": 9,
+   "methods": {
+    "revision.get": 3,
+    "track.list": 3,
+    "selection.status": 1,
+    "slot.status": 4,
+    "clip.read": 1
+   },
+   "clipReadMs": [
+    283
+   ],
+   "groupPoints": 0,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": "gn-A",
+    "slot": 0,
+    "mixer": "FX 1"
+   },
+   "hidden": [
+    "gn-E16",
+    "gn-8i2-a",
+    "Group 1",
+    "Group 1",
+    "gn-8i2-deep"
+   ],
+   "unpinned": [],
+   "repins": 51,
+   "untargeted": 6,
+   "selectionKept": true,
+   "hiddenKept": true,
+   "repinDelta": 0,
+   "untargetedDelta": 0,
+   "sequence": [
+    "revision.get +0 18",
+    "track.list +-18 18",
+    "selection.status +0 24",
+    "slot.status +0 24",
+    "revision.get +0 25",
+    "track.list +-25 25",
+    "slot.status +0 24",
+    "slot.status +0 24",
+    "clip.read +0 283",
+    "slot.status +0 25",
+    "revision.get +0 24",
+    "track.list +-24 24"
+   ]
+  },
+  {
+   "step": "read-deep-1",
+   "tool": "read_launcher_clip",
+   "ok": true,
+   "ms": 565,
+   "calls": 12,
+   "turns": 9,
+   "methods": {
+    "revision.get": 3,
+    "track.list": 3,
+    "selection.status": 1,
+    "slot.status": 4,
+    "clip.read": 1
+   },
+   "clipReadMs": [
+    373
+   ],
+   "groupPoints": 0,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": "gn-A",
+    "slot": 0,
+    "mixer": "FX 1"
+   },
+   "hidden": [
+    "gn-E16",
+    "gn-8i2-a",
+    "Group 1",
+    "Group 1",
+    "gn-8i2-deep"
+   ],
+   "unpinned": [],
+   "repins": 51,
+   "untargeted": 6,
+   "selectionKept": true,
+   "hiddenKept": true,
+   "repinDelta": 0,
+   "untargetedDelta": 0,
+   "sequence": [
+    "revision.get +0 22",
+    "track.list +-22 22",
+    "selection.status +0 25",
+    "slot.status +0 24",
+    "revision.get +0 24",
+    "track.list +-24 24",
+    "slot.status +0 24",
+    "slot.status +0 24",
+    "clip.read +0 373",
+    "slot.status +0 24",
+    "revision.get +0 23",
+    "track.list +-23 23"
+   ]
+  },
+  {
+   "step": "devices-a",
+   "tool": "read_devices",
+   "ok": true,
+   "ms": 565,
+   "calls": 21,
+   "turns": 20,
+   "methods": {
+    "selection.status": 4,
+    "slot.status": 2,
+    "track.list": 2,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 3,
+    "device.list": 2,
+    "slot.select": 2,
+    "revision.get": 1,
+    "devcursor.selectAt": 1,
+    "chain.inventory": 1
+   },
+   "clipReadMs": [],
+   "groupPoints": 0,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": "gn-A",
+    "slot": 0,
+    "mixer": "FX 1"
+   },
+   "hidden": [
+    "gn-E16",
+    "gn-8i2-a",
+    "Group 1",
+    "Group 1",
+    "gn-8i2-deep"
+   ],
+   "unpinned": [],
+   "repins": 51,
+   "untargeted": 6,
+   "selectionKept": true,
+   "hiddenKept": true,
+   "repinDelta": 0,
+   "untargetedDelta": 0,
+   "sequence": [
+    "selection.status +0 22",
+    "slot.status +0 25",
+    "track.list +0 23",
+    "devcursor.pin +0 22",
+    "cursor.pointTrack +0 23",
+    "device.list +26 21",
+    "devcursor.pin +26 22",
+    "cursor.pointTrack +0 24",
+    "device.list +26 21",
+    "slot.select +0 24",
+    "selection.status +0 23",
+    "revision.get +0 23",
+    "track.list +-23 23",
+    "selection.status +0 24",
+    "slot.status +0 23",
+    "devcursor.pin +0 24",
+    "cursor.pointTrack +0 23",
+    "devcursor.selectAt +0 24",
+    "chain.inventory +26 23",
+    "slot.select +0 24",
+    "selection.status +0 25"
+   ]
+  }
+ ]
+}

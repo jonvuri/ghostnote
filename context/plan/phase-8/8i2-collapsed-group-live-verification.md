@@ -1,16 +1,21 @@
 ---
 title: Phase 8i2 collapsed-group live verification
 kind: plan
-state: planned
-status: Next. Run the collapsed-group read and point routes live on the D43 build before the 8i trials rely on groups.
+state: done
+status: Complete (E251). The collapsed-group read and point routes pass live on the D43 build; no product path changed.
 updated: 2026-10-08
 parent: README.md
 prev: 8i0-clip-metadata-and-colour-tolerance.md
 next: 8i3-long-device-write-profile.md
-evidence: E240, E241, E242, E243, E250; D34, D43
+evidence: E240, E241, E242, E243, E250, E251; D34, D43
 ---
 
 # Phase 8i2 collapsed-group live verification
+
+**Complete.** [E251](../../evidence/experiments/e251-collapsed-group-live-verification.md):
+every arm passed with no product change. Correction to Work item 2: the
+device route on a collapsed child does not use `cursor.pointExpanded` (a clip
+point). It points a pinned pool cursor with `cursor.pointTrack`, and it passed.
 
 ## Cause
 

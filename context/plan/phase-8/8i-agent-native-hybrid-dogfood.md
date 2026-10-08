@@ -2,7 +2,7 @@
 title: Phase 8i — Agent-native hybrid dogfood
 kind: plan
 state: planned
-status: Final Phase 8 gate. 8i0 (E249, D42) and the 8i1 reader repair (E250, D43) are complete. The 8i review added 8i2, 8i3, and 8i4; resume the trials after them.
+status: Final Phase 8 gate. 8i0 (E249, D42), the 8i1 reader repair (E250, D43), and the 8i2 group verification (E251) are complete. Next: 8i3 and 8i4, then resume the trials.
 updated: 2026-10-08
 parent: README.md
 prev: 8i4-overlay-basis-sealing.md
@@ -32,6 +32,8 @@ Do them in this order before the next trial:
 
 1. [8i2 — Collapsed-group live verification](8i2-collapsed-group-live-verification.md):
    run the collapsed-group read and point routes live on the D43 build.
+   Complete ([E251](../../evidence/experiments/e251-collapsed-group-live-verification.md)):
+   every route passed; no product path changed.
 2. [8i3 — Long device write profile](8i3-long-device-write-profile.md):
    some admitted device writes (`compose_devices` staged at five chains,
    `set_device_controls` without a bound) can pass the 60 s client timeout.

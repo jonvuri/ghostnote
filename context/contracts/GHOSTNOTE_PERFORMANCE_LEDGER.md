@@ -117,6 +117,19 @@ these rows show no regression and fewer wire calls.
 | `add_devices`, one native device | 1,363 ms; 51 wire calls | E247: 1,447–1,544 ms, 67 | unchanged | E250 |
 | One read and one 16-note insert ("New 2") | 1,723–1,793 ms; 54–56 wire calls | E248: 1,790–1,832 ms | unchanged | E250 cost |
 
+### Collapsed-group rerun (E251)
+
+Live in `gn-scale-test` on the D43 build, every group collapsed. The rows
+above stay the reference for top-level tracks.
+
+| Path | Current | Reference or earlier | Call budget | Source |
+|---|---:|---|---|---|
+| Raw `clip.read`, child of one collapsed group | 281–287 ms | E241: median 262 ms | — | E251 |
+| Raw `clip.read`, three collapsed levels | 374–378 ms | E241: median 378 ms | — | E251 |
+| `read_launcher_clip`, one group; three levels | 466–474 ms; 565–567 ms; 12 wire calls | E250 top level: 365–403 ms | unchanged | E251 |
+| `edit_launcher_clip`, 16 inserts, collapsed child | 1,576 ms (one group); 1,862 ms (three); 36 wire calls | Expanded: 1,524; 1,698 ms, 43 | unchanged | E251 |
+| `read_devices`; `set_device_enabled`, collapsed child | 520 ms; 731 ms | E250: 524–697 ms; E247: 905 ms | unchanged | E251 |
+
 ### Tracks, changes, and connection
 
 | Path | Current | Reference or earlier | Call budget | Source |
