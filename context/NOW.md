@@ -4,25 +4,26 @@ kind: status
 state: active
 updated: 2026-10-08
 phase: phase-8-agent-native-live-engine
-session: 8h4e0-next
+session: 8h4e-next
 ---
 
 # Now
 
-8h4a through 8h4d are complete
+8h4a through 8h4e0 are complete
 ([E234](evidence/experiments/e234-write-boundary-and-reader-hardening.md),
 [E240](evidence/experiments/e240-collapsed-child-reader-routes.md)–[E243](evidence/experiments/e243-collapsed-cursor-and-parameter-settle.md),
 [E235](evidence/experiments/e235-document-read-and-identity-registry.md),
 [E245](evidence/experiments/e245-document-read-compactness-and-gain.md),
 [E236](evidence/experiments/e236-document-edit-limb.md),
 [E246](evidence/experiments/e246-edit-cost-and-reader-heap.md),
-[E237](evidence/experiments/e237-musical-and-clip-surface-migration.md)).
+[E237](evidence/experiments/e237-musical-and-clip-surface-migration.md),
+[E244](evidence/experiments/e244-direct-parameter-display-observer.md)).
 `agent-native-v1` lists 46 tools: it reads, checks, edits, adds, copies,
 moves, and deletes Launcher clips, sets their launch settings and properties,
 shows them, and launches them. Long edits can run in the background (D39). The
 old musical tools and the observation workflow are retired from it;
 `stable-v1` is unchanged. The next session is
-[8h4e0](plan/phase-8/8h4e0-direct-parameter-display-probe.md).
+[8h4e](plan/phase-8/8h4e-device-structure-migration.md).
 
 ## Sessions
 
@@ -36,13 +37,33 @@ old musical tools and the observation workflow are retired from it;
    E246; D36–D38).
 4. [8h4d](plan/phase-8/8h4d-musical-and-clip-surface-migration.md): complete
    (E237, D39).
-5. [8h4e0](plan/phase-8/8h4e0-direct-parameter-display-probe.md): next. Probe
-   of the DirectParameter display observer (E244).
-6. [8h4e](plan/phase-8/8h4e-device-structure-migration.md): device structure.
+5. [8h4e0](plan/phase-8/8h4e0-direct-parameter-display-probe.md): complete
+   (E244).
+6. [8h4e](plan/phase-8/8h4e-device-structure-migration.md): next. Device
+   structure; its parameter section now states the display rule (E244).
 7. [8h4f](plan/phase-8/8h4f-tracks-profile-cut-and-closeout.md): track-kind
    arms, the default profile cut, and measurements.
 8. [8h4g](plan/phase-8/8h4g-performance-review-and-closeout.md): performance
    review of every path, then the 8h closeout.
+
+## What 8h4e0 gives 8h4e
+
+- `Rig.directParamDisplayObserver` is the observer object; normal builds set
+  no ID on it. Set the listed IDs after each new-target settle: text for each
+  ID arrives one turn later, for any count. A switch sends no text; a write
+  sends the text of the written ID in the same turn.
+- CLAP callbacks use `CONTENTS/ROOT_GENERIC_MODULE/<id>`, not the listed ID.
+  A CLAP write lands but its completion never matches (product effect
+  inferred). 8h4e maps the form and verifies a CLAP write live.
+- With the audio engine off, a CLAP plug-in lists no IDs. Bitwig allows the
+  engine for one project at a time; the operator must turn it on in the
+  owned project for CLAP work.
+- `directparam.set` reads `value` as a step of `resolution - 1`; the handler
+  default is 128. Probe drivers must send `resolution: 1`, as the product
+  encoder does.
+- Probe methods `directparam.observeDisplay` and `directparam.log` (probe
+  profile, 105 methods, `513b2d6b4647bbbe`); driver
+  `brain/src/probes/phase8h4e0-display.ts`.
 
 ## What 8h4d gives the next sessions
 
@@ -66,7 +87,7 @@ old musical tools and the observation workflow are retired from it;
 - Tool descriptions are at v30 (`TOOL_DESCRIPTION_V30_SHA256`); v25 still
   reproduces from the stable tools; v26–v29 are frozen fingerprints.
 - The next free evidence number is E248 (E238–E239 stay reserved for 8h4e and
-  8h4f, E247 for 8h4g; E244 for 8h4e0). The next decision is D40.
+  8h4f, E247 for 8h4g). The next decision is D40.
 - Cost rules (AGENTS.md): read the
   [performance ledger](contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md), keep the
   call-budget tests current, and remeasure a changed live path.
@@ -74,11 +95,11 @@ old musical tools and the observation workflow are retired from it;
 ## Live baseline
 
 Normal `ghostnote` is loaded (archive SHA-256
-`34491a92d80ae2a037d274166fdda92717af5333c7cc8fb08f5e017fa82208f6`, the
-8h4c2 build; 8h4d changed no extension code); initialization
-`2026-10-07T14:49:01.524Z`. Fresh hello passes `normal-v1`, 88 methods,
-`68d457c4c4d1d7b3`. The 8h4d runs used the unsaved project `New 3`; it holds
-only its default tracks and is closed without saving. The active anchor is
+`fb8d797c199b35f4bc8a51eb92b50b2e773f3e810902cd4db50d20ba60f92cf4`, the
+8h4e0 build; the normal method set did not change); initialization
+`2026-10-08T00:11:05.547Z`. Fresh hello passes `normal-v1`, 88 methods,
+`68d457c4c4d1d7b3`. The 8h4e0 owned project was closed without saving. The
+audio engine is on for `gn-scale-test`. The active anchor is
 `gn-scale-test` with its 11 tracks
 ([baseline-final.json](evidence/data/phase8h4a5-cursor/baseline-final.json)).
 Rig config SHA-256:
@@ -102,6 +123,11 @@ when you estimate a live cost. `phase8h4c-edit.ts cost` prints executor
 phases and wire calls. `phase8h4d-workflow.ts workflow` compares the two
 profiles on one workflow. The Ghostnote revision does not count a person's
 note edit (8h4a): it cannot guard a read that the executor reuses.
+
+8h4e0 retrospective: the plan named no audio-engine precondition, and the
+first CLAP run read an empty ID list. A plan with plug-in work states that
+the operator turns the engine on in the owned project. The driver also sent
+the handler default resolution; probe writes copy the encoder parameters.
 
 8h4d retrospective: the cost model counted an occupancy read as one turn, but
 the live adapter reads an occupied `clip` address with its length (a

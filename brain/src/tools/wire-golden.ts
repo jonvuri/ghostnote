@@ -96,6 +96,8 @@ export interface Golden {
   addedInPhase8h3c?: string[];
   /** Phase 8h4a5 group point route and DirectParameter settle probes. */
   addedInPhase8h4a5?: string[];
+  /** Phase 8h4e0 DirectParameter display observer probes (E244). */
+  addedInPhase8h4e0?: string[];
   /** D03 internal plug-in preset file and popup-browser probe surface. */
   addedInD03?: string[];
   preSplitCount: number;

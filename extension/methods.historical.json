@@ -13,10 +13,10 @@
     "`rig.methods` during the Phase-0 sitting. methodsHash is sha256 of the sorted",
     "names joined by \\n, first 16 hex chars; contract.hello returns the same value."
   ],
-  "extractedAt": "2026-10-07",
+  "extractedAt": "2026-10-08",
   "extractedFrom": "handlers/*Handlers.java registration declarations",
-  "count": 163,
-  "methodsHash": "cbae51aa2e1d1d0d",
+  "count": 165,
+  "methodsHash": "4546c3c221c9233c",
   "addedInPhase0": [
     "api.runtimeMethods",
     "app.selectionNotifications",
@@ -57,6 +57,8 @@
     "directparam.callbacks",
     "directparam.completion",
     "directparam.hop",
+    "directparam.log",
+    "directparam.observeDisplay",
     "equals.status",
     "equals.tryCreate",
     "layer.delete",
@@ -203,6 +205,8 @@
     "directparam.completion",
     "directparam.hop",
     "directparam.list",
+    "directparam.log",
+    "directparam.observeDisplay",
     "directparam.set",
     "drumpad.duplicate",
     "drumpad.insertDevice",
@@ -514,5 +518,9 @@
     "cursor.pointExpanded",
     "directparam.callbacks",
     "directparam.hop"
+  ],
+  "addedInPhase8h4e0": [
+    "directparam.log",
+    "directparam.observeDisplay"
   ]
 }

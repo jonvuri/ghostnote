@@ -75,6 +75,9 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
     'cache.shadow',
     'directparam.callbacks',
     'directparam.hop',
+    // 8h4e0 (E244): the display observer ID set and the callback log.
+    'directparam.log',
+    'directparam.observeDisplay',
     'stepdata.observer.enrich',
     'stepdata.observer.prepare',
     'stepdata.observer.read',
@@ -85,7 +88,7 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
   );
   assert.equal(normalGolden.count, 88);
   assert.equal(captureGolden.count, 93);
-  assert.equal(probeGolden.count, 103);
+  assert.equal(probeGolden.count, 105);
 });
 
 test('8b: historical host objects are absent from active Rig construction', () => {
@@ -183,7 +186,8 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
       ...(golden.addedInD03 ?? []), ...(golden.addedInPhase6Session6a ?? []),
       ...(golden.addedInPhase7bE130 ?? []), ...(golden.addedInPhase7bE131 ?? []),
       ...(golden.addedInPhase8e ?? []), ...(golden.addedInPhase8g ?? []),
-      ...(golden.addedInPhase8h1a ?? []), ...(golden.addedInPhase8h4a5 ?? [])];
+      ...(golden.addedInPhase8h1a ?? []), ...(golden.addedInPhase8h4a5 ?? []),
+      ...(golden.addedInPhase8h4e0 ?? [])];
   assert.deepEqual(
     [...golden.addedInPhase0].sort(),
     historical.filter((method) => golden.methods.includes(method)).sort(),

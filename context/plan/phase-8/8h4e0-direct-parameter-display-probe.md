@@ -1,9 +1,9 @@
 ---
 title: Phase 8h4e0 — DirectParameter display probe
 kind: plan
-state: planned
-status: Planned. A probe session before 8h4e. Finds whether the DirectParameter display observer reports text when it is given the target's parameter IDs, and at what cost.
-updated: 2026-10-07
+state: done
+status: Complete (E244). With the IDs set, the display observer reports text for each ID in one turn; a switch sends no text; CLAP callbacks use another ID form.
+updated: 2026-10-08
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h4d-musical-and-clip-surface-migration.md
 next: 8h4e-device-structure-migration.md

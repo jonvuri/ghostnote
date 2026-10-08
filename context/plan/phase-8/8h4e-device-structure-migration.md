@@ -3,11 +3,11 @@ title: Phase 8h4e — Device structure migration
 kind: plan
 state: planned
 status: Planned. Replaces the device-alternate lifecycle with read_devices, compose_devices, and generic layer-chain limbs, and benchmarks the two composition backends.
-updated: 2026-10-07
+updated: 2026-10-08
 parent: 8h-cache-promotion-and-interface-simplification.md
 prev: 8h4e0-direct-parameter-display-probe.md
 next: 8h4f-tracks-profile-cut-and-closeout.md
-evidence: E17, E18a-h, E34, E59, E63, E73, E80, E126, E127, E135; D18, D20
+evidence: E17, E18a-h, E34, E59, E63, E73, E80, E126, E127, E135, E244; D18, D20
 ---
 
 # Phase 8h4e — Device structure migration
@@ -30,8 +30,27 @@ result module; it does not depend on 8h4c or 8h4d.
 - `inspect_device_parameters` → `read_device_controls`; `set_parameter` →
   `set_device_controls`. Keep cohort writes, domain checks, and selector
   kinds. A 27-control success stays at or below 3,181 bytes (E126).
-  Report DirectParameter display text as
-  [8h4e0](8h4e0-direct-parameter-display-probe.md) (E244) recommends.
+  Report DirectParameter display text for the full inventory (E244):
+  - After each settle of a new target, set the listed IDs on the display
+    observer that `Rig` keeps. A switch sends no text, so a set is
+    necessary for each new target.
+  - The text is part of the settle: one display callback for each listed ID
+    under the current target stamp. Clear the text at each target change.
+    The expected cost is one turn (about 24 ms) for each new target, for any
+    count (281 IDs measured). If the text does not arrive in a short budget,
+    report no `display` for that parameter and mark the read incomplete.
+    Never report text that has no callback under the current stamp.
+  - Keep the set while the target stays the same; a write readback then has
+    the text of the written ID in the same turn.
+  - Map the CLAP callback form `CONTENTS/ROOT_GENERIC_MODULE/<id>` to the
+    listed ID for values, text, and the write completion. Today a CLAP write
+    lands but cannot confirm (inferred in E244). Verify a product CLAP write
+    live.
+  - Report an empty CLAP ID list as "parameters unavailable (audio engine
+    off or plug-in not loaded)", not as "no parameters".
+  - Update the tool description (`display`) and bump
+    `TOOL_DESCRIPTION_VERSION`. Cost model: one extra wire call and one turn
+    for each new target of a parameter read.
 - `inspect_preset_modulation` → `read_preset_modulation`;
   `author_modulators` → `edit_preset_modulation`.
 - `add_native_devices` and `add_device` → one `add_devices` with explicit

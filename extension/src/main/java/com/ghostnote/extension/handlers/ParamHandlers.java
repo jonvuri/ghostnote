@@ -8,6 +8,7 @@ import com.bitwig.extension.controller.api.Parameter;
 import com.bitwig.extension.controller.api.RemoteControl;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 
 /**
@@ -41,6 +42,8 @@ public final class ParamHandlers extends HandlerGroup {
         r.on("directparam.completion", params -> directParamCompletion());
         r.on("directparam.callbacks", params -> directParamCallbacks());
         r.on("directparam.hop", params -> directParamHop(params));
+        r.on("directparam.observeDisplay", params -> directParamObserveDisplay(params));
+        r.on("directparam.log", params -> directParamLogRead(params));
         r.on("remote.list", params -> remoteList(params));
         r.on("remote.set", params -> remoteSet(params));
         r.on("remote.setMapping", params -> remoteSetMapping(params));
@@ -251,6 +254,46 @@ public final class ParamHandlers extends HandlerGroup {
         }
         JsonObject result = ok();
         result.addProperty("emptyIndex", count);
+        return result;
+    }
+
+    /**
+     * 8h4e0 probe (E244): set the IDs that the display observer reports. {@code ids} is an array, or null to stop.
+     * {@code page}, if present, selects that parameter page first (the E4b hypothesis). The callback log restarts
+     * before the set.
+     */
+    private JsonElement directParamObserveDisplay(JsonObject params) {
+        if (rig.directParamLog == null || rig.directParamDisplayObserver == null) {
+            throw new IllegalStateException("directparam.observeDisplay needs the probe profile and direct observers");
+        }
+        String[] ids = null;
+        JsonElement value = params.get("ids");
+        if (value != null && !value.isJsonNull()) {
+            JsonArray array = value.getAsJsonArray();
+            ids = new String[array.size()];
+            for (int i = 0; i < ids.length; i++) ids[i] = array.get(i).getAsString();
+        }
+        if (params.has("page")) rig.cursorDevice0.setParameterPage(params.get("page").getAsInt());
+        rig.directParamLog.restart();
+        rig.directParamDisplayObserver.setObservedParameterIds(ids);
+        rig.directParamDisplayIds = ids;
+        JsonObject result = ok();
+        if (ids != null) result.addProperty("observed", ids.length);
+        else result.add("observed", JsonNull.INSTANCE);
+        return result;
+    }
+
+    /**
+     * 8h4e0 probe (E244): the callback log. {@code mark} adds a driver event first; {@code restart} clears the log
+     * after the read.
+     */
+    private JsonElement directParamLogRead(JsonObject params) {
+        if (rig.directParamLog == null) throw new IllegalStateException("directparam.log needs the probe profile");
+        if (params.has("mark")) rig.directParamLog.add("mark", null, params.get("mark").getAsString());
+        JsonObject result = rig.directParamLog.toJson();
+        result.addProperty("observedDisplayIds", rig.directParamDisplayIds == null ? -1 : rig.directParamDisplayIds.length);
+        result.addProperty("displayCount", rig.directParamDisplays.size());
+        if (params.has("restart") && params.get("restart").getAsBoolean()) rig.directParamLog.restart();
         return result;
     }
 

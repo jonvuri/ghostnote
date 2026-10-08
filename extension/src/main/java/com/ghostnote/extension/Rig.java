@@ -8,6 +8,7 @@ import com.bitwig.extension.controller.api.ClipLauncherSlot;
 import com.bitwig.extension.controller.api.ClipLauncherSlotBank;
 import com.bitwig.extension.controller.api.ControllerHost;
 import com.bitwig.extension.controller.api.CursorTrack;
+import com.bitwig.extension.controller.api.DirectParameterValueDisplayObserver;
 import com.bitwig.extension.controller.api.ChainSelector;
 import com.bitwig.extension.controller.api.CursorDeviceFollowMode;
 import com.bitwig.extension.controller.api.CursorDeviceLayer;
@@ -333,6 +334,15 @@ public class Rig {
     public final DirectParameterSwitch directParamSwitch = new DirectParameterSwitch();
     /** How the current generation settled: {@code ids} (the ID observer), {@code switch}, or {@code target}. */
     public String directParamSettledBy = "";
+    /**
+     * 8h4e0 (E244): the object that {@code addDirectParameterValueDisplayObserver} returns. By default it observes
+     * no ID; only the probe method {@code directparam.observeDisplay} sets IDs. Null without direct observers.
+     */
+    public final DirectParameterValueDisplayObserver directParamDisplayObserver;
+    /** 8h4e0: the IDs that the probe set on the display observer, or null. */
+    public String[] directParamDisplayIds = null;
+    /** 8h4e0 probe (E244): the callbacks in arrival order. Null outside the probe profile. */
+    public final DirectParameterProbeLog directParamLog;
 
     // --- E16: mixer state + the audibility oracle ---
     /**
@@ -1391,9 +1401,11 @@ public class Rig {
 
         // Format-agnostic DirectParameter observers (E4b — CLAP access test).
         // Callbacks fire on the control-surface thread.
+        directParamLog = profile.hasProbeResources() ? new DirectParameterProbeLog() : null;
         if (config.directObservers) {
             cursorDevice0.addDirectParameterIdObserver(ids -> {
                 directParamCallbacks[0]++;
+                if (directParamLog != null) directParamLog.add("ids", null, ids != null ? ids.length : 0);
                 directParamIds = ids != null ? ids : new String[0];
                 directParamKnownIds = directParamIds;
                 directParamSettledBy = "ids";
@@ -1411,21 +1423,26 @@ public class Rig {
             });
             cursorDevice0.addDirectParameterNameObserver(48, (id, name) -> {
                 directParamCallbacks[1]++;
+                if (directParamLog != null) directParamLog.add("name", id, name);
                 directParamNames.put(id, name);
                 directParamSwitch.name(directParameterTargetStamp(), id, name);
                 settleDirectParameterSwitch();
             });
             cursorDevice0.addDirectParameterNormalizedValueObserver((id, value) -> {
                 directParamCallbacks[2]++;
+                if (directParamLog != null) directParamLog.add("value", id, value);
                 directParamValues.put(id, value);
                 directParamSwitch.value(directParameterTargetStamp(), id, value);
                 settleDirectParameterSwitch();
                 noteDirectParameterCompletion(id, value);
             });
-            cursorDevice0.addDirectParameterValueDisplayObserver(48, (id, display) -> {
+            directParamDisplayObserver = cursorDevice0.addDirectParameterValueDisplayObserver(48, (id, display) -> {
                 directParamCallbacks[3]++;
+                if (directParamLog != null) directParamLog.add("display", id, display);
                 directParamDisplays.put(id, display);
             });
+        } else {
+            directParamDisplayObserver = null;
         }
 
         // Current parameter settlement needs only the device-position equality

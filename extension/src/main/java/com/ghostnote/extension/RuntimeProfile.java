@@ -214,6 +214,8 @@ public enum RuntimeProfile {
             "cache.shadow",
             "directparam.callbacks",
             "directparam.hop",
+            "directparam.log",
+            "directparam.observeDisplay",
             "stepdata.observer.enrich",
             "stepdata.observer.prepare",
             "stepdata.observer.read"
@@ -356,9 +358,9 @@ public enum RuntimeProfile {
             if (!PRODUCT.containsAll(OPTIONAL_CAPTURE)
                     || PRODUCT.size() != 93
                     || NORMAL.size() != 88
-                    || PROBE.size() != 103
+                    || PROBE.size() != 105
                     || HISTORICAL.size() != 55
-                    || ALL_CLASSIFIED.size() != 163
+                    || ALL_CLASSIFIED.size() != 165
                     || !ALL_CLASSIFIED.containsAll(READS)
                     || !ALL_CLASSIFIED.containsAll(CLIP_READS)
                     || READS.stream().anyMatch(CLIP_READS::contains)) {

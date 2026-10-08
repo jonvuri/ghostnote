@@ -4,7 +4,7 @@ kind: reference
 state: active
 updated: 2026-10-08
 parent: ../plan/phase-8/8h-cache-promotion-and-interface-simplification.md
-evidence: E227, E229, E234, E236, E237, E246
+evidence: E227, E229, E234, E236, E237, E244, E246
 ---
 
 # Ghostnote performance ledger
@@ -47,6 +47,8 @@ session as a change that moves a number.
 | Bare replay read (the primitive) | 46–698 ms, by size | E227 |
 | `gridChange` settle | 144 ms | E15-D, `SETTLE_MS` |
 | `noteWrite` settle | 25 ms | `SETTLE_MS` |
+| DirectParameter display set (any count, 8–281 IDs) to text for each ID | One turn (22.6–25.4 ms); a switch sends no text | E244 |
+| DirectParameter same-type switch settle (driver: point and poll) | 165–174 ms, independent of the observed count | E244 |
 | Bound heap for each sounding cell | About 300 bytes live (ZGC "used" is higher) | E227, E246 |
 
 ## Product paths

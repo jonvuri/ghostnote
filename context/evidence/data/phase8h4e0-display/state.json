@@ -1,0 +1,301 @@
+{
+ "schema": "phase8h4e0-state-v1",
+ "entry": {
+  "hello": {
+   "contractVersion": 0,
+   "extensionVersion": "0.0.1",
+   "runtimeProfile": "phase-8-probe-v1",
+   "hostApiVersion": 25,
+   "methodCount": 105,
+   "methodsHash": "513b2d6b4647bbbe"
+  },
+  "mark": {
+   "revision": 0,
+   "generation": "36433402-b9c2-40dd-b75e-2ade29b74078",
+   "project": "New 4",
+   "projectStatus": "marked",
+   "sceneEpoch": 3,
+   "sceneCount": 8,
+   "contentEpoch": 32818,
+   "contentEvents": [
+    {
+     "seq": 32795,
+     "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+     "trackIndex": 0,
+     "slotIndex": 4,
+     "filled": false
+    },
+    {
+     "seq": 32796,
+     "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+     "trackIndex": 1,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32797,
+     "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+     "trackIndex": 1,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32798,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32799,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32800,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32801,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 3,
+     "filled": false
+    },
+    {
+     "seq": 32802,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 4,
+     "filled": false
+    },
+    {
+     "seq": 32803,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 5,
+     "filled": false
+    },
+    {
+     "seq": 32804,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 6,
+     "filled": false
+    },
+    {
+     "seq": 32805,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 7,
+     "filled": false
+    },
+    {
+     "seq": 32806,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 8,
+     "filled": false
+    },
+    {
+     "seq": 32807,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 9,
+     "filled": false
+    },
+    {
+     "seq": 32808,
+     "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32809,
+     "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+     "trackIndex": 3,
+     "slotIndex": 5,
+     "filled": false
+    },
+    {
+     "seq": 32810,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32811,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32812,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32813,
+     "channelId": "",
+     "trackIndex": 5,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32814,
+     "channelId": "",
+     "trackIndex": 5,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32815,
+     "channelId": "",
+     "trackIndex": 5,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32816,
+     "channelId": "",
+     "trackIndex": 6,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32817,
+     "channelId": "",
+     "trackIndex": 7,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32818,
+     "channelId": "",
+     "trackIndex": 8,
+     "slotIndex": 0,
+     "filled": false
+    }
+   ]
+  },
+  "rig": {
+   "runtimeProfile": "phase-8-probe-v1",
+   "tracks": 256,
+   "scenes": 128,
+   "gridSteps": 64,
+   "fineSteps": 512,
+   "noteReadSteps": 2048,
+   "gridKeys": 128,
+   "stepSize": 0.25,
+   "cursorPool": 8,
+   "deviceBank": 16,
+   "remotePages": 16,
+   "containerScopes": 3,
+   "containerEntryBank": 5,
+   "containerEntryDeviceBank": 4,
+   "parameterRouteDepth": 2,
+   "sceneCount": 8,
+   "clipReader": {
+    "revision": "clip-reader-v3",
+    "closeRule": "confirm-before-release-v1",
+    "openRule": "subscribe-before-unpin-v1",
+    "groupRule": "expand-collapsed-parent-v1",
+    "limitRule": "sounding-cell-limit-v1",
+    "format": "notes-v1",
+    "width": 4194304,
+    "grid": 0.001953125,
+    "page": 131072,
+    "deadlineMs": 2000,
+    "soundingCells": 2097152,
+    "reads": 0,
+    "refusals": 0,
+    "lastRefusal": "",
+    "lateCallbacks": 0,
+    "strayCallbacks": 0,
+    "releaseCallbacks": 0,
+    "releaseEmpty": 0,
+    "releaseSustain": 0,
+    "releaseOn": 0,
+    "subscribed": false,
+    "open": false,
+    "writeGate": {
+     "readOpen": false,
+     "waiting": 0,
+     "leases": 0,
+     "limit": 256,
+     "queuedTotal": 0,
+     "refusedTotal": 0
+    },
+    "groupPoint": {
+     "rule": "expand-collapsed-point-v1",
+     "points": 0,
+     "refusals": 0,
+     "lastRefusal": "",
+     "open": false
+    }
+   },
+   "writeGuard": "batch-scene-guard-v1",
+   "selectionRule": "selection-project-v1",
+   "cursorIdentity": "cursor-channel-id-v1",
+   "groupPoint": "expand-collapsed-point-v1",
+   "parameterSettle": "same-ids-switch-v1",
+   "contentFilter": "ALL_CHANNELS"
+  }
+ },
+ "entryTracks": [
+  {
+   "index": 0,
+   "name": "Inst 1",
+   "position": 0,
+   "type": "Instrument",
+   "channelId": "d853c111-f6f4-4365-b1e8-5b9093ee5679"
+  },
+  {
+   "index": 1,
+   "name": "Audio 2",
+   "position": 1,
+   "type": "Audio",
+   "channelId": "891809fd-2873-468d-bfc3-834a70f9df21"
+  },
+  {
+   "index": 2,
+   "name": "FX 1",
+   "position": 2,
+   "type": "Effect",
+   "channelId": "e93123c0-0900-452c-8745-b5dadf496f90"
+  },
+  {
+   "index": 3,
+   "name": "Master",
+   "position": 3,
+   "type": "Master",
+   "channelId": "6fb71de2-e30b-4982-8fb9-6093423b44ee"
+  }
+ ],
+ "tracks": {
+  "diva": "1490e5be-0c95-4a41-a581-ce9b13923b95",
+  "clap": "687d8ba8-03a8-4134-9f31-04d594324ad9",
+  "phase2": "ac544edc-29a4-41ba-8e53-c54bc375052a",
+  "phase1": "f3b8255b-ae4f-4511-9fff-df35b2e7e946",
+  "poly2": "a1da5bbf-310c-4ca7-a635-aba9b9aa224d",
+  "poly1": "4193cdb8-52f3-4ae5-a527-7d8b80ba0663"
+ },
+ "names": {
+  "diva": "Diva",
+  "clap": "Stochas",
+  "phase2": "Phase-4",
+  "phase1": "Phase-4",
+  "poly2": "Polysynth",
+  "poly1": "Polysynth"
+ }
+}
