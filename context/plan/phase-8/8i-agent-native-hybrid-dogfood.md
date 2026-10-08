@@ -2,10 +2,10 @@
 title: Phase 8i — Agent-native hybrid dogfood
 kind: plan
 state: planned
-status: Final Phase 8 gate. 8i0 (E249, D42) and the 8i1 reader repair (E250, D43) are complete; resume the dogfood trials.
+status: Final Phase 8 gate. 8i0 (E249, D42) and the 8i1 reader repair (E250, D43) are complete. The 8i review added 8i2, 8i3, and 8i4; resume the trials after them.
 updated: 2026-10-08
 parent: README.md
-prev: 8i0-clip-metadata-and-colour-tolerance.md
+prev: 8i4-overlay-basis-sealing.md
 next: ../phase-9/README.md
 evidence: E120, E121, E127-E134, E209, E213, E247; D25, D39, D40
 ---
@@ -25,7 +25,19 @@ The second trial failed: every `clip.read` in "ice jungle" refused
 unpinned cursors followed the selection. The 8i1 repair keeps every owned
 cursor track pinned ([E250](../../evidence/experiments/e250-reader-follow-mode-repair.md),
 [D43](../../decisions/d43-owned-cursor-tracks-stay-pinned.md)). Rerun the
-second trial in "ice jungle".
+second trial in "ice jungle" after the three review sessions below.
+
+The Phase 8 review (2026-10-08) found two problems and one verification gap.
+Do them in this order before the next trial:
+
+1. [8i2 — Collapsed-group live verification](8i2-collapsed-group-live-verification.md):
+   run the collapsed-group read and point routes live on the D43 build.
+2. [8i3 — Long device write profile](8i3-long-device-write-profile.md):
+   some admitted device writes (`compose_devices` staged at five chains,
+   `set_device_controls` without a bound) can pass the 60 s client timeout.
+   Measure, optimize, then bound or add a background flag.
+3. [8i4 — Overlay basis sealing](8i4-overlay-basis-sealing.md): an agent
+   cannot put an overlay claim, because no tool supplies the R22 basis.
 
 ## Accepted 8f3 inputs
 

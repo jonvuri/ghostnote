@@ -4,16 +4,34 @@ kind: status
 state: active
 updated: 2026-10-08
 phase: phase-8-agent-native-live-engine
-session: 8i-next
+session: 8i2
 ---
 
 ## Now
 
-The 8i1 reader repair is complete
+The 8i1 reader repair is complete and committed
 ([E250](evidence/experiments/e250-reader-follow-mode-repair.md),
-[D43](decisions/d43-owned-cursor-tracks-stay-pinned.md)) and staged, not
-committed. The next session reruns the second dogfood trial of
-[8i](plan/phase-8/8i-agent-native-hybrid-dogfood.md) in "ice jungle".
+[D43](decisions/d43-owned-cursor-tracks-stay-pinned.md)). A Phase 8 review
+(2026-10-08) added three sessions before the second dogfood trial of
+[8i](plan/phase-8/8i-agent-native-hybrid-dogfood.md). Do them in order:
+
+1. **Next:** [8i2 — Collapsed-group live verification](plan/phase-8/8i2-collapsed-group-live-verification.md)
+   in `gn-scale-test`: the D34 read and the `cursor.pointExpanded` route
+   with pinned finders and pool cursors.
+2. [8i3 — Long device write profile](plan/phase-8/8i3-long-device-write-profile.md):
+   staged `compose_devices` at five layer chains (estimate 60–110 s) and
+   `set_device_controls` without a bound (about 0.45 s for each control) can
+   pass the 60 s client timeout. Measure, optimize, then bound or add a
+   background flag (D39 rule).
+3. [8i4 — Overlay basis sealing](plan/phase-8/8i4-overlay-basis-sealing.md):
+   no tool supplies the R22 basis, so an agent cannot put an overlay claim
+   (offline check: omitted basis R12, wrong basis R22).
+
+Then rerun the second trial in "ice jungle". Minor review items for a
+session that already touches the files: the four measured-body device tools
+keep `stable-v1` wording (`tools.ts:1965`, `:2066`), and `README.md` has a
+stale status line and two missing probe scripts (`probe:e00`,
+`probe:conformance`).
 
 What 8i1 changed: in a project that was saved with the ghostnote cursor
 records, an unpinned owned cursor follows the selection, and its point
@@ -26,10 +44,7 @@ point no longer moves the mixer. A failed verify read after a write keeps
 the receipt: `add_launcher_clip` reports and records the creation.
 Descriptions are `ghostnote-description-v35` (`check_bitwig_connection`).
 
-Open from E250: the collapsed-group read and point routes, with pinned
-finders, were not run live (no group track in the projects used); run them
-in `gn-scale-test` or an owned project with a group before the trial relies
-on groups. `add_launcher_clip` leaves the slot selection on the new
+Open from E250 (the group routes are 8i2): `add_launcher_clip` leaves the slot selection on the new
 clip (Bitwig selects it; no borrow is recorded). A non-add tool whose verify
 read throws reports `differs`, not `unavailable`.
 
