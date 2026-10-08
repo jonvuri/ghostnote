@@ -64,8 +64,9 @@
  * merely stated.
  */
 import {
-  addressKey, addressScene, addressTrack, contentTouching, deltaComplete,
-  type Address, type AddressKey, type ClipAddress, type ContentDelta, type Fidelity, type Op,
+  addressKey, addressScene, addressTrack, clipColorWithinTolerance, clipMetadata as clipMetadataAt, contentTouching,
+  deltaComplete,
+  type Address, type AddressKey, type ClipAddress, type ClipMetadataState, type ContentDelta, type Fidelity, type Op,
   type Snapshot, type StateEntry, type TrackAddress,
 } from '../contract/index.js';
 import {
@@ -75,7 +76,7 @@ import {
 } from '../engine/index.js';
 import { ChangesetNotFoundError, DuplicateChangesetError } from './errors.js';
 import {
-  inBounds, sameValue,
+  inBounds, sameOwnedValue,
   type BoundaryCheck, type BoundaryVerdict, type ChangesetSummary, type StashedChangeset,
 } from './record.js';
 import { assertSelects, isWholeTake, selectClip, selectTrack, selects, type Slice } from './slice.js';
@@ -482,7 +483,10 @@ export class Stash implements StashLog, StashWriter {
         'still holds our work is unevaluated. Read `readSetFor(id)` and try again — an ' +
         'unchecked address is not an unchanged one.');
     }
-    if (!sameValue(current.entries[key]?.value, verify.entries[key]?.value)) {
+    // 8i0 (D42): a metadata target compares only its owned fields, so a later change to another field stays.
+    const owned = change.take.targets.find((target) => target.key === key)?.fields;
+    if (!sameOwnedValue(current.entries[key]?.value, verify.entries[key]?.value, owned)
+        && !this.colourRestoredByUs(key, change, current)) {
       if (lastWriter !== undefined && lastWriter !== change.take.id) {
         return verdict('superseded',
           `changeset ${lastWriter} wrote this address after ${change.take.id} did, so what is ` +
@@ -505,6 +509,41 @@ export class Stash implements StashLog, StashWriter {
       return verdict('undecidable', undecidableWhy(launcher));
     }
     return verdict('ours', '');
+  }
+
+  /**
+   * 8i0 (D42): the latest later changeset of ours that wrote this clip's colour restored exactly the colour that
+   * this changeset left, and the host stored it within the RGB tolerance. The colour now must equal that later
+   * readback exactly, so a person's colour change stays visible. Each other owned field must equal what this
+   * changeset left; an unowned field (for example a later name) is not compared. Without this rule, two
+   * reversals in order block on the conversion difference of the first.
+   */
+  private colourRestoredByUs(key: AddressKey, change: StashedChangeset, current: Snapshot): boolean {
+    const left = change.take.verify.entries[key]?.value;
+    const now = current.entries[key]?.value;
+    if (left?.of !== 'clipMetadata' || now?.of !== 'clipMetadata') return false;
+    const owned = change.take.targets.find((target) => target.key === key)?.fields;
+    if (owned !== undefined && !owned.includes('color')) return false;
+    const others = (owned ?? Object.keys(left.metadata) as (keyof typeof left.metadata)[])
+      .filter((field) => field !== 'color');
+    if (!sameOwnedValue(now, left, others)) return false;
+    const writesColour = (fields: readonly string[] | undefined): boolean => fields === undefined || fields.includes('color');
+    for (let i = this.order.length - 1; i >= 0 && this.order[i] !== change; i -= 1) {
+      const later = this.order[i]!.take;
+      if (!takeAppliedAnything(later)) continue;
+      const target = effectiveTargets(later).find((item) => item.key === key);
+      if (target === undefined || !writesColour(target.fields)) continue;
+      // The latest colour writer decides: an earlier one cannot explain the colour now.
+      const requested = [...later.ops].reverse().find((op) => op.op === 'clip.update'
+        && addressKey(clipMetadataAt(op.clip)) === key && writesColour(op.fields));
+      const seen = later.verify.entries[key]?.value;
+      if (requested?.op !== 'clip.update' || seen?.of !== 'clipMetadata') return false;
+      const same = (a: ClipMetadataState['color'], b: ClipMetadataState['color']): boolean =>
+        a.red === b.red && a.green === b.green && a.blue === b.blue;
+      return same(requested.metadata.color, left.metadata.color) && same(now.metadata.color, seen.metadata.color)
+        && clipColorWithinTolerance(requested.metadata.color, now.metadata.color);
+    }
+    return false;
   }
 
   /**
@@ -869,9 +908,10 @@ function effectiveTargets(take: Take): readonly WriteTarget[] {
     // An unread result cannot prove that an applied stage left this target
     // unchanged. Keep it so the boundary returns `unverified` and writes nothing.
     if (!observed(take.verify, target.key)) return true;
-    return !sameValue(
+    return !sameOwnedValue(
       take.stash.entries[target.key]?.value,
       take.verify.entries[target.key]?.value,
+      target.fields,
     );
   }).map((target) => target.key));
   // A note restore clears the complete clip. If one channel changed, retain all

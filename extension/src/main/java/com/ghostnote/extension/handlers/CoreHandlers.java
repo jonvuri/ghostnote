@@ -97,6 +97,8 @@ public final class CoreHandlers extends HandlerGroup {
         result.addProperty("parameterSettle", Rig.DIRECT_PARAMETER_SETTLE);
         // 8h4f deliberate build marker: the track kinds that track.create accepts.
         result.add("trackCreateKinds", TrackHandlers.createKinds());
+        // 8i0 deliberate build marker: the clip metadata writer writes only the owned fields (D42).
+        result.addProperty("clipMetadataWrite", CursorHandlers.CLIP_METADATA_WRITE);
         // 8h4a (D33): the track-bank content filter that init applied.
         result.addProperty("contentFilter", rig.contentFilterApplied);
         return result;

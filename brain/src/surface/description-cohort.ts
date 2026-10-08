@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v33';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v34';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -514,6 +514,8 @@ const RETIRED_IN_V33 = new Set(['inspect_operation', 'cancel_operation']);
 /**
  * v33 (8h4g): edit_launcher_clip and add_launcher_clip have no background flag, and inspect_operation and
  * cancel_operation leave the list. The edit description states the measured worst case (about 7 s, E248).
+ * v34 (8i0, D42) keeps this list. set_launcher_clip_properties and edit_launcher_clip accept any colour, write
+ * only the changed properties, and have no clip-colour refusal.
  */
 export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] =
   DESCRIPTION_COHORT_V32.filter((member) => !RETIRED_IN_V33.has(member.name));
@@ -715,9 +717,13 @@ export const TOOL_DESCRIPTION_V31_SHA256 =
 export const TOOL_DESCRIPTION_V32_SHA256 =
   'ab830bd293117fd58ac546c6f8748966ed18c51b3c604fe866fdec7860f5adbf';
 
-/**
- * v33 (8h4g): the default agent-native-v1 list without the background route. Changing this fingerprint requires a
- * new description version.
- */
+/** v33 (8h4g): the default agent-native-v1 list without the background route. Frozen in 8i0. */
 export const TOOL_DESCRIPTION_V33_SHA256 =
   '5c65c71e05feb2e4cdce54e65f04f87b71503e63d34e683e66d852dccc480213';
+
+/**
+ * v34 (8i0, D42): any clip colour within one byte, and owned clip property writes. Changing this fingerprint
+ * requires a new description version.
+ */
+export const TOOL_DESCRIPTION_V34_SHA256 =
+  '37d1f310b31f9d5c3ac9b4657d1f2fd9406f47c28d6f0280181fec75b011c702';

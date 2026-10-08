@@ -268,6 +268,54 @@ test('edit: a clip property change writes name, loop, and length through clip.up
   assert.deepEqual([clip.name, clip.length, clip.loop ?? null], ['verse', '8', null]);
 });
 
+test('8i0 edit: an off-palette clip extends and gains notes; only changed properties are written', async () => {
+  const fx = await fixture();
+  await fx.write(0, typical(), 4);
+  const slotState = fx.fake.model.visibleTracks()[0]!.slots[0]!;
+  slotState.color = { red: 145, green: 105, blue: 77 };
+  slotState.name = 'IcyShellStab01';
+  fx.fake.model.revision += 1;
+  const first = await fx.read();
+  const clipId = documentOf(first).clips[0]!.id;
+  const text = [
+    'DOC ghostnote-document 1.0 patch',
+    `BASE ${JSON.stringify(first.authority.base)}`,
+    'FIELDS id clip at duration pitch velocity channel mute',
+    `CLIP_UPDATE ${clipId} {"length":"32","loop":{"from":"0","to":"32"}}`,
+    `ADD x1 ${clipId} 20 1 72 90 1 false`,
+  ].join('\n') + '\n';
+  const result = await fx.editClip(text);
+  assert.equal(result.failure, undefined, JSON.stringify(result));
+  assert.equal(result.readback.status, 'verified', JSON.stringify(result.readback));
+  const ops = fx.stash.get(result.effects[0].changeId)!.take.ops;
+  const update = ops.find((op) => op.op === 'clip.update');
+  assert.deepEqual(update?.op === 'clip.update' ? update.fields : null, ['lengthBeats', 'loopEndBeats', 'playStartBeats']);
+  assert.deepEqual(slotState.color, { red: 145, green: 105, blue: 77 }, 'no colour setter: the colour is exact');
+  assert.equal(slotState.name, 'IcyShellStab01');
+  assert.equal(slotState.lengthBeats, 32);
+
+  const renamed = await fx.editClip([
+    'DOC ghostnote-document 1.0 patch',
+    `BASE ${JSON.stringify(result.readback.base)}`,
+    'FIELDS id clip at duration pitch velocity channel mute',
+    `CLIP_UPDATE ${clipId} {"name":"IcyShellStab02"}`,
+  ].join('\n') + '\n');
+  assert.equal(renamed.failure, undefined, JSON.stringify(renamed));
+  const named = fx.stash.get(renamed.effects[0].changeId)!.take.ops.find((op) => op.op === 'clip.update');
+  assert.deepEqual(named?.op === 'clip.update' ? named.fields : null, ['name'], 'a name-only edit has no marker setter');
+
+  // Reverse both in order. The length reversal keeps the later name until that change is reversed too.
+  const undoName = await callTool(fx.workspace, 'revert_change', { changeId: renamed.effects[0].changeId },
+    AGENT_NATIVE_TOOL_PROFILE) as Wire;
+  assert.equal(undoName.applied, true, JSON.stringify(undoName).slice(0, 400));
+  const undoEdit = await callTool(fx.workspace, 'revert_change', { changeId: result.effects[0].changeId },
+    AGENT_NATIVE_TOOL_PROFILE) as Wire;
+  assert.equal(undoEdit.applied, true, JSON.stringify(undoEdit).slice(0, 400));
+  assert.equal(slotState.lengthBeats, 4);
+  assert.equal(slotState.name, 'IcyShellStab01');
+  assert.deepEqual(slotState.color, { red: 145, green: 105, blue: 77 });
+});
+
 test('edit: a desired document replaces the clip; pressure on an untouched note survives on the targeted route', async () => {
   const fx = await fixture();
   await fx.write(0, { 0: [note({ pitch: 60, pressure: 0.4 }), note({ pitch: 64, startBeats: 1 })], 5: [note({ pitch: 40 })] });

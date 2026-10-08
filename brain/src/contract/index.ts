@@ -43,7 +43,15 @@ export type {
   ClipSourceDigest, RawSourceRecord, RawSourceValue,
 } from './clip-snapshot.js';
 
-export { EXACT_CLIP_COLORS, exactClipColor, supportedClipColors } from './clip-color.js';
+export {
+  CLIP_COLOR_TOLERANCE, EXACT_CLIP_COLORS, clipColorWireBytes, clipColorWithinTolerance, exactClipColor,
+  supportedClipColors,
+} from './clip-color.js';
+export {
+  CLIP_METADATA_FIELDS, assertClipMetadataFields, changedClipMetadataFields, clipMetadataDifferences,
+  ownedClipMetadata,
+} from './clip-metadata.js';
+export type { ClipMetadataDifference, ClipMetadataField } from './clip-metadata.js';
 export type { ClipColorBytes, ExactClipColor } from './clip-color.js';
 
 export { STEP_SIZES, chooseStepSize, stepSizeFor, noteReadCell, noteReadStart } from './grid.js';

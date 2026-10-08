@@ -1,4 +1,7 @@
-/** Exact public clip colours and their measured Bitwig wire encodings. */
+/**
+ * Clip colour encoding (E83, D42). The table holds the colours whose measured wire bytes read back exactly.
+ * Any other byte triple is sent as its own bytes; Bitwig can read it back one byte lower or higher.
+ */
 export interface ClipColorBytes {
   readonly red: number;
   readonly green: number;
@@ -55,3 +58,18 @@ export const supportedClipColors = (): readonly Readonly<{
   green: number;
   blue: number;
 }>[] => EXACT_CLIP_COLORS.map((item) => ({ name: item.name, ...item.color }));
+
+/** The accepted difference of each RGB component between a colour write and its readback (D42). */
+export const CLIP_COLOR_TOLERANCE = 1;
+
+/** The wire bytes for one colour: the measured bytes of a table colour, otherwise the requested bytes. No retry. */
+export function clipColorWireBytes(color: ClipColorBytes): readonly [number, number, number] {
+  return exactClipColor(color)?.wireBytes ?? [color.red, color.green, color.blue];
+}
+
+/** True when each component of the readback is within the tolerance of the requested colour. */
+export function clipColorWithinTolerance(requested: ClipColorBytes, observed: ClipColorBytes): boolean {
+  return Math.abs(requested.red - observed.red) <= CLIP_COLOR_TOLERANCE
+    && Math.abs(requested.green - observed.green) <= CLIP_COLOR_TOLERANCE
+    && Math.abs(requested.blue - observed.blue) <= CLIP_COLOR_TOLERANCE;
+}

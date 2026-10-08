@@ -85,8 +85,9 @@ const EDIT_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Edit one Launche
   + 'the result then has warning pressure-unobservable.\n'
   + 'Refusals before any write: code unsupported with detail.reason: pressure (the document sets a nonzero '
   + 'pressure; the host cannot write it), repeat and articulation (no host mapping), overlap (two notes of one channel and pitch overlap), transpose outside '
-  + '-96..96, recurrence length above 8, timing (no writable grid), play-range, loop (only null or 0..length), '
-  + 'clip-colour (a clip property change needs a palette colour). Code range: a note would start or end after '
+  + '-96..96, recurrence length above 8, timing (no writable grid), play-range, loop (only null or 0..length). '
+  + 'A clip name, length, or loop change writes only the changed properties; the clip colour stays. Code range: a '
+  + 'note would start or end after '
   + 'the clip length. Code invalid-input: the codec rejected the document (detail has rule and line), or BASE '
   + 'does not match. Code absent: no clip in the slot; add_launcher_clip creates one. Code outside-limit: the clip '
   + 'is above a reader limit (see read_launcher_clip).\n'
@@ -482,7 +483,7 @@ export const editLauncherClipTool: ToolSpec = {
     readbackStatus: ['verified', 'differs', 'unavailable', 'unchanged'],
     routes: ['none', 'targeted', 'whole-clip'],
     refusalReasons: ['pressure', 'repeat', 'articulation', 'overlap', 'transpose', 'recurrence', 'timing',
-      'play-range', 'loop', 'clip-colour', 'protection'],
+      'play-range', 'loop', 'protection'],
   },
   run: (workspace, input) => editLauncherClip(workspace, input as EditInput),
 };

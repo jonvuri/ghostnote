@@ -53,6 +53,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D39 | Long agent-native writes run in the background on their own name **[SETTLED 2026-10-08; AMENDED 8h4g: the route leaves `agent-native-v1`, with the D41 writer width]** | [open](d39-long-agent-native-writes-run-in-the-background-on-their-own-name.md) |
 | D40 | `agent-native-v1` is the default profile, with one result vocabulary **[SETTLED 2026-10-08]** | [open](d40-agent-native-v1-is-the-default-profile.md) |
 | D41 | The writer window is the reader width, and a writer parks after each write **[SETTLED 2026-10-08]** | [open](d41-the-writer-window-is-the-reader-width.md) |
+| D42 | A clip property write owns only its changed fields, and a written colour is verified within one byte **[SETTLED 2026-10-08]** | [open](d42-clip-colour-tolerance-and-metadata-ownership.md) |
 
 ## Phase 4 closeout audit
 

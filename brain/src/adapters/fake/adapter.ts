@@ -32,7 +32,7 @@ import { planStages } from '../../contract/index.js';
 import { VirtualClock } from './clock.js';
 import { ProjectModel, noteKey, type FakeDevice, type FakeTrack } from './model.js';
 import {
-  applyNotePropsInOrder, bankBlindSpot, gridChangePoisonsRead, noteOnReadback, pointAtSlot,
+  applyNotePropsInOrder, bankBlindSpot, clipColorOnReadback, gridChangePoisonsRead, noteOnReadback, pointAtSlot,
   propsReadsTurnStartClip, stepDataIsStale, writeNoteProps, type PointOrigin,
 } from './traps.js';
 
@@ -1320,13 +1320,17 @@ export class FakeAdapter implements BitwigAdapter {
         this.clock.stage(() => {
           const target = track.slots[sceneIndex];
           if (target === undefined || !target.hasContent) return;
-          target.name = op.metadata.name;
-          target.color = { ...op.metadata.color };
-          target.playStartBeats = op.metadata.playStartBeats;
-          target.playStopBeats = op.metadata.loopEndBeats;
-          target.loopEnabled = op.metadata.loopEnabled;
-          target.loopStartBeats = op.metadata.loopStartBeats;
-          target.lengthBeats = op.metadata.loopEndBeats - op.metadata.loopStartBeats;
+          // 8i0 (D42): only the owned fields. A missing list writes every field.
+          const owns = (field: string): boolean => op.fields === undefined || op.fields.some((item) => item === field);
+          if (owns('name')) target.name = op.metadata.name;
+          if (owns('color')) target.color = clipColorOnReadback(op.metadata.color);
+          if (owns('playStartBeats')) target.playStartBeats = op.metadata.playStartBeats;
+          if (owns('loopEnabled')) target.loopEnabled = op.metadata.loopEnabled;
+          if (owns('loopStartBeats')) target.loopStartBeats = op.metadata.loopStartBeats;
+          if (owns('lengthBeats')) {
+            target.playStopBeats = op.metadata.loopEndBeats;
+            target.lengthBeats = op.metadata.loopEndBeats - op.metadata.loopStartBeats;
+          }
         });
         return;
       }

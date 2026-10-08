@@ -1,16 +1,22 @@
 ---
 title: Phase 8i0 clip metadata and colour tolerance
 kind: plan
-state: planned
-status: Fix both colour barriers before more hybrid dogfood trials.
+state: done
+status: Complete (E249, D42). Property writes own their changed fields; any RGB is verified within one byte.
 updated: 2026-10-08
 parent: README.md
 prev: 8h4g-performance-review-and-closeout.md
 next: 8i-agent-native-hybrid-dogfood.md
-evidence: E43, E83, E247, E248; D15, D38, D40
+evidence: E43, E83, E247, E248, E249; D15, D38, D40, D42
 ---
 
 # Phase 8i0 clip metadata and colour tolerance
+
+**Complete.** [E249](../../evidence/experiments/e249-clip-metadata-and-colour-tolerance.md)
+records the implementation and the live checks;
+[D42](../../decisions/d42-clip-colour-tolerance-and-metadata-ownership.md)
+records the policy. The live sample found one more host rule: Bitwig makes a
+colour below about CIE L* 33 lighter. The tool reports that as a difference.
 
 Allow small RGB conversion differences and write only the clip properties that
 must change. A rename or length edit must not need a palette selection first.

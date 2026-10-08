@@ -53,6 +53,8 @@ check('the 8h4a5 build markers: the group point route and the DirectParameter se
 check('the 8h4f build marker: track.create makes instrument and audio tracks',
   JSON.stringify(rig['trackCreateKinds']) === JSON.stringify(['instrument', 'audio']),
   { trackCreateKinds: rig['trackCreateKinds'] });
+check('the 8i0 build marker: the clip metadata writer writes only the owned fields',
+  rig['clipMetadataWrite'] === 'owned-fields-v1', { clipMetadataWrite: rig['clipMetadataWrite'] });
 check('the track bank lists collapsed group children (ALL_CHANNELS, D33)',
   rig['contentFilter'] === 'ALL_CHANNELS', { contentFilter: rig['contentFilter'] });
 

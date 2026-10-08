@@ -203,7 +203,7 @@ test('8h4d move_launcher_clips: occupancy of source, destination, and boundary r
 
 // --- properties and launch settings ------------------------------------------------
 
-test('8h4d set_launcher_clip_properties: one writer, loop end follows length, palette guard, exact revert', async () => {
+test('8h4d set_launcher_clip_properties: one writer, loop end follows length, owned fields, revert', async () => {
   const fx = fixture();
   await fx.seed(0);
   const result = await fx.native('set_launcher_clip_properties', { clips: [{ trackId: fx.trackId, row: 0,
@@ -213,19 +213,186 @@ test('8h4d set_launcher_clip_properties: one writer, loop end follows length, pa
   const after = result.readback.clips[0].properties;
   assert.equal(after.name, 'verse');
   assert.equal(after.loopEndBeats, after.loopStartBeats + 4);
+  assert.deepEqual(fx.workspace.changes.get(result.effects[0].changeId)!.take.ops.map((op: Wire) => op.fields),
+    [['lengthBeats', 'loopEndBeats', 'playStartBeats', 'name']], 'no loop start, loop state, or colour setter');
 
-  const off = await fx.native('set_launcher_clip_properties', { clips: [{ trackId: fx.trackId, row: 0,
-    properties: { color: { red: 1, green: 2, blue: 3 } } }] });
-  assert.equal(off.failure.code, 'unsupported');
-  assert.equal(off.detail.reason, 'clip-colour');
-  assert.ok(Array.isArray(off.detail.supportedClipColors));
   const loop = await fx.native('set_launcher_clip_properties', { clips: [{ trackId: fx.trackId, row: 0,
     properties: { loopEndBeats: 99 } }] });
   assert.equal(loop.failure.code, 'invalid-input');
+  for (const color of [{ red: 256, green: 0, blue: 0 }, { red: -1, green: 0, blue: 0 }, { red: 1.5, green: 0, blue: 0 }]) {
+    const before = fx.records();
+    await assert.rejects(fx.native('set_launcher_clip_properties', { clips: [{ trackId: fx.trackId, row: 0,
+      properties: { color } }] }), /255|0|integer/, JSON.stringify(color));
+    assert.equal(fx.records(), before, 'invalid RGB input refuses before mutation');
+  }
+  const same = await fx.native('set_launcher_clip_properties', { clips: [{ trackId: fx.trackId, row: 0,
+    properties: { name: 'verse' } }] });
+  assert.equal(same.applied, false);
+  assert.equal(same.readback.status, 'unchanged');
 
   await fx.native('revert_change', { changeId: result.effects[0].changeId });
   const read = await fx.native('read_launcher_clip', { trackId: fx.trackId, row: 0 });
   assert.equal((parse(read.data.document, 'fields') as StateDocument).clips[0]!.length, '8');
+});
+
+test('8i0 set_launcher_clip_properties: any RGB colour verifies within one byte, without a palette', async () => {
+  const fx = fixture();
+  await fx.seed(0);
+  for (const color of [{ red: 145, green: 105, blue: 78 }, { red: 0, green: 0, blue: 0 },
+    { red: 255, green: 255, blue: 255 }, { red: 0, green: 255, blue: 7 }, { red: 87, green: 97, blue: 198 }]) {
+    const result = await fx.native('set_launcher_clip_properties', { clips: [{ trackId: fx.trackId, row: 0,
+      properties: { color } }] });
+    assert.equal(result.applied, true, JSON.stringify(result).slice(0, 300));
+    assert.equal(result.readback.status, 'verified', JSON.stringify(color));
+    assert.deepEqual(fx.workspace.changes.get(result.effects[0].changeId)!.take.ops.map((op: Wire) => op.fields),
+      [['color']], 'a colour-only call writes no marker');
+    const found = result.readback.clips[0].properties.color;
+    for (const part of ['red', 'green', 'blue'] as const) assert.ok(Math.abs(found[part] - color[part]) <= 1);
+  }
+});
+
+test('8i0: an off-palette clip can be renamed, extended, and reversed; its colour stays exact', async () => {
+  const fx = fixture();
+  await fx.seed(0);
+  const slotState = fx.fake.model.visibleTracks()[0]!.slots[0]!;
+  slotState.color = { red: 145, green: 105, blue: 77 };
+  fx.fake.model.revision += 1;
+  const renamed = await fx.native('set_launcher_clip_properties', { clips: [{ trackId: fx.trackId, row: 0,
+    properties: { name: 'IcyShellStab01' } }] });
+  assert.equal(renamed.readback.status, 'verified', JSON.stringify(renamed).slice(0, 300));
+  const extended = await fx.native('set_launcher_clip_properties', { clips: [{ trackId: fx.trackId, row: 0,
+    properties: { lengthBeats: 32 } }] });
+  assert.equal(extended.readback.status, 'verified', JSON.stringify(extended).slice(0, 300));
+  assert.deepEqual(slotState.color, { red: 145, green: 105, blue: 77 });
+
+  // A person renames the clip after the length change. The length reversal keeps that name.
+  slotState.name = 'person';
+  fx.fake.model.revision += 1;
+  const undo = await fx.native('revert_change', { changeId: extended.effects[0].changeId });
+  assert.equal(undo.applied, true, JSON.stringify(undo).slice(0, 400));
+  assert.equal(slotState.lengthBeats, 8);
+  assert.equal(slotState.name, 'person');
+  assert.deepEqual(slotState.color, { red: 145, green: 105, blue: 77 });
+
+  // A later change to an owned field still blocks the reversal.
+  const again = await fx.native('set_launcher_clip_properties', { clips: [{ trackId: fx.trackId, row: 0,
+    properties: { lengthBeats: 16 } }] });
+  slotState.lengthBeats = 12;
+  fx.fake.model.revision += 1;
+  const blocked = await fx.native('revert_change', { changeId: again.effects[0].changeId });
+  assert.notEqual(blocked.applied, true, JSON.stringify(blocked).slice(0, 400));
+  assert.equal(slotState.lengthBeats, 12);
+});
+
+test('8i0: a colour reversal restores the observed prior value, and the guard uses the observed readback', async () => {
+  const fx = fixture();
+  await fx.seed(0);
+  const slotState = fx.fake.model.visibleTracks()[0]!.slots[0]!;
+  slotState.color = { red: 145, green: 105, blue: 78 };
+  fx.fake.model.revision += 1;
+  const odd = await fx.native('set_launcher_clip_properties', { clips: [{ trackId: fx.trackId, row: 0,
+    properties: { color: { red: 1, green: 2, blue: 3 } } }] });
+  assert.equal(odd.readback.status, 'verified');
+  assert.deepEqual(slotState.color, { red: 1, green: 2, blue: 2 }, 'the fake stores the E83 conversion');
+  const red = await fx.native('set_launcher_clip_properties', { clips: [{ trackId: fx.trackId, row: 0,
+    properties: { color: PALETTE_RED } }] });
+  // The red reversal writes the observed [1,2,2] once; the host stores [1,2,1], inside the tolerance.
+  const back = await fx.native('revert_change', { changeId: red.effects[0].changeId });
+  assert.equal(back.applied, true, JSON.stringify(back).slice(0, 400));
+  assert.deepEqual(slotState.color, { red: 1, green: 2, blue: 1 });
+  // The first change's guard accepts that difference only because our own reversal explains it exactly.
+  const undo = await fx.native('revert_change', { changeId: odd.effects[0].changeId });
+  assert.equal(undo.applied, true, JSON.stringify(undo).slice(0, 400));
+  assert.deepEqual(slotState.color, { red: 145, green: 105, blue: 77 }, 'one write from the recorded prior value');
+  const take = fx.workspace.changes.get(undo.effects[0].changeId)!.take;
+  assert.deepEqual((take.ops[0] as Wire).metadata.color, { red: 145, green: 105, blue: 78 });
+});
+
+test('8i0: the colour tolerance does not hide a one-byte colour change by a person', async () => {
+  const fx = fixture();
+  await fx.seed(0);
+  const slotState = fx.fake.model.visibleTracks()[0]!.slots[0]!;
+  const odd = await fx.native('set_launcher_clip_properties', { clips: [{ trackId: fx.trackId, row: 0,
+    properties: { color: { red: 1, green: 2, blue: 3 } } }] });
+  const red = await fx.native('set_launcher_clip_properties', { clips: [{ trackId: fx.trackId, row: 0,
+    properties: { color: PALETTE_RED } }] });
+  await fx.native('revert_change', { changeId: red.effects[0].changeId });
+  slotState.color = { red: 1, green: 2, blue: 0 };
+  fx.fake.model.revision += 1;
+  const blocked = await fx.native('revert_change', { changeId: odd.effects[0].changeId });
+  assert.notEqual(blocked.applied, true, JSON.stringify(blocked).slice(0, 400));
+  assert.deepEqual(slotState.color, { red: 1, green: 2, blue: 0 });
+
+  // A direct one-byte change after one write also stays visible.
+  const fresh = fixture();
+  await fresh.seed(0);
+  const set = await fresh.native('set_launcher_clip_properties', { clips: [{ trackId: fresh.trackId, row: 0,
+    properties: { color: { red: 1, green: 2, blue: 3 } } }] });
+  const state = fresh.fake.model.visibleTracks()[0]!.slots[0]!;
+  state.color = { red: 1, green: 2, blue: 3 };
+  fresh.fake.model.revision += 1;
+  const refused = await fresh.native('revert_change', { changeId: set.effects[0].changeId });
+  assert.notEqual(refused.applied, true, JSON.stringify(refused).slice(0, 400));
+});
+
+test('8i0 review: repeated entries for one clip merge in order before the plan', async () => {
+  const fx = fixture();
+  await fx.seed(0);
+  const slotState = fx.fake.model.visibleTracks()[0]!.slots[0]!;
+  const original = slotState.name;
+  const back = await fx.native('set_launcher_clip_properties', { clips: [
+    { trackId: fx.trackId, row: 0, properties: { name: 'temporary' } },
+    { trackId: fx.trackId, row: 0, properties: { name: original } }] });
+  assert.equal(slotState.name, original, JSON.stringify(back).slice(0, 400));
+  assert.equal(back.readback.status, 'unchanged');
+  const both = await fx.native('set_launcher_clip_properties', { clips: [
+    { trackId: fx.trackId, row: 0, properties: { name: 'verse' } },
+    { trackId: fx.trackId, row: 0, properties: { color: { red: 1, green: 2, blue: 3 } } }] });
+  assert.equal(both.readback.status, 'verified', JSON.stringify(both.readback));
+  assert.equal(both.readback.clips.length, 1);
+  assert.equal(slotState.name, 'verse');
+  assert.deepEqual(fx.workspace.changes.get(both.effects[0].changeId)!.take.ops.map((op: Wire) => op.fields),
+    [['name', 'color']]);
+});
+
+test('8i0 review: an unrelated rename does not block a colour reversal in order', async () => {
+  for (const by of ['person', 'agent'] as const) {
+    const fx = fixture();
+    await fx.seed(0);
+    const slotState = fx.fake.model.visibleTracks()[0]!.slots[0]!;
+    const odd = await fx.native('set_launcher_clip_properties', { clips: [{ trackId: fx.trackId, row: 0,
+      properties: { color: { red: 1, green: 2, blue: 3 } } }] });
+    const red = await fx.native('set_launcher_clip_properties', { clips: [{ trackId: fx.trackId, row: 0,
+      properties: { color: PALETTE_RED } }] });
+    await fx.native('revert_change', { changeId: red.effects[0].changeId });
+    if (by === 'person') {
+      slotState.name = 'person';
+      fx.fake.model.revision += 1;
+    } else {
+      await fx.native('set_launcher_clip_properties', { clips: [{ trackId: fx.trackId, row: 0,
+        properties: { name: 'agent' } }] });
+    }
+    const undo = await fx.native('revert_change', { changeId: odd.effects[0].changeId });
+    assert.equal(undo.applied, true, `${by}: ${JSON.stringify(undo).slice(0, 400)}`);
+    assert.equal(slotState.name, by);
+  }
+});
+
+test('8i0: clip deletion restores off-palette metadata completely', async () => {
+  const fx = fixture();
+  await fx.seed(0);
+  const slotState = () => fx.fake.model.visibleTracks()[0]!.slots[0]!;
+  slotState().color = { red: 145, green: 105, blue: 78 };
+  slotState().name = 'kept';
+  fx.fake.model.revision += 1;
+  const deleted = await fx.native('delete_launcher_clip', { clips: [{ trackId: fx.trackId, row: 0 }] });
+  assert.equal(deleted.applied, true, JSON.stringify(deleted).slice(0, 300));
+  const undo = await fx.native('revert_change', { changeId: deleted.effects[0].changeId });
+  assert.equal(undo.applied, true, JSON.stringify(undo).slice(0, 400));
+  assert.equal(slotState().name, 'kept');
+  assert.deepEqual(slotState().color, { red: 145, green: 105, blue: 77 });
+  const update = fx.workspace.changes.get(undo.effects[0].changeId)!.take.ops.find((op: Wire) => op.op === 'clip.update');
+  assert.equal((update as Wire).fields, undefined, 'a recreated clip owns every field');
 });
 
 test('8h4d set_launcher_clip_launch_settings: verified readback and a recorded change', async () => {

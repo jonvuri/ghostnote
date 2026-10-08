@@ -794,6 +794,44 @@ test('X-report: an ignored clip metadata update reports every changed field', as
     addressKey(entry.address) === addressKey(clipMetadata(fx.clipA))));
 });
 
+test('8i0 X-report: repeated owned updates of one clip verify as one merged request', async () => {
+  const fx = await fixture();
+  const prior = await fx.fake.read([clipMetadata(fx.clipA)]);
+  const entry = prior.entries[addressKey(clipMetadata(fx.clipA))]!.value;
+  assert.equal(entry.of, 'clipMetadata');
+  const base = (entry as { metadata: ClipMetadataState }).metadata;
+  const take = await new Executor(fx.fake).run([
+    { op: 'clip.update', clip: fx.clipA, metadata: { ...base, name: 'first' }, fields: ['name'] },
+    { op: 'clip.update', clip: fx.clipA, metadata: { ...base, color: { red: 145, green: 105, blue: 78 } },
+      fields: ['color'] },
+    { op: 'clip.update', clip: fx.clipA, metadata: { ...base, name: 'second', lengthBeats: 8, loopEndBeats: base.loopStartBeats + 8 },
+      fields: ['lengthBeats', 'loopEndBeats', 'playStartBeats', 'name'] },
+  ]);
+  assert.deepEqual(take.report.disagreements, [], 'the colour reads back one byte low, inside the tolerance');
+  assert.deepEqual(take.targets.find((t) => t.address.kind === 'clipMetadata')!.fields,
+    ['lengthBeats', 'loopEndBeats', 'playStartBeats', 'name', 'color']);
+  const seen = take.verify.entries[addressKey(clipMetadata(fx.clipA))]!.value as { metadata: ClipMetadataState };
+  assert.deepEqual(seen.metadata.color, { red: 145, green: 105, blue: 77 }, 'the verify keeps the observed value');
+  assert.equal(seen.metadata.name, 'second');
+});
+
+test('8i0 X-report: a colour more than one byte off is a disagreement; an unowned field is not compared', async () => {
+  const fx = await fixture();
+  const lossy: BitwigAdapter = {
+    ...adapterOf(fx.fake),
+    apply: (batch) => fx.fake.apply({
+      ...batch,
+      ops: batch.ops.map((op) => op.op === 'clip.update'
+        ? { ...op, metadata: { ...op.metadata, color: { red: 10, green: 10, blue: 10 } } } : op),
+    }),
+  };
+  const take = await new Executor(lossy).run([{
+    op: 'clip.update', clip: fx.clipA, metadata: { ...CHANGED_METADATA, color: { red: 145, green: 105, blue: 78 } },
+    fields: ['color'],
+  }]);
+  assert.deepEqual(take.report.disagreements.map((entry) => entry.field), ['color.red', 'color.green', 'color.blue']);
+});
+
 test('X-report: missing clip metadata readback is a mismatch, not silent success', async () => {
   const fx = await fixture();
   let applied = false;

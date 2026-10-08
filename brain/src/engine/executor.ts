@@ -34,10 +34,11 @@ import {
   ParameterValueUnrepresentableError,
   StaleAddressError, addressKey, addressScene, addressTrack, assertDevicesRoutable, assertOpsWritable,
   ClipSnapshotRefusedError, GroupSlotError, blindSpotError, opsHaveSceneRows, sceneGuardOf, clipMetadata as clipMetadataAt, deltaComplete,
-  discreteNormalizedValues, discreteValueIsRepresentable, exactClipColor, failures, notes as notesAt,
+  discreteNormalizedValues, discreteValueIsRepresentable, clipMetadataDifferences, failures, ownedClipMetadata,
+  CLIP_METADATA_FIELDS, notes as notesAt,
   param as paramAt, noteReadCell, snapshotAddresses,
   type Address, type AdapterInfo, type BitwigAdapter, type ClipAddress, type ContentDelta, type NoteRecord,
-  type ClipMetadataState, type ClipSnapshotRef, type Op, type RevisionMark, type Snapshot,
+  type ClipMetadataField, type ClipMetadataState, type ClipSnapshotRef, type Op, type RevisionMark, type Snapshot,
 } from '../contract/index.js';
 import { readWithClipSnapshots } from './clip-snapshots.js';
 import { labelTarget, worstOf } from './fidelity.js';
@@ -265,7 +266,7 @@ export class Executor {
     this.assertVisible(stash);
     this.assertClipsExist(ops, stash);
     this.assertOwnedNotePreconditions(ops, stash);
-    this.assertClipColorsReversible(ops, stash);
+    this.assertClipMetadataRecorded(ops, stash);
     assertParameterDomains(ops, stash);
 
     // ⚠ THE FLOOR (D18c, §3.3.5). The labels are derived here rather than after
@@ -775,8 +776,11 @@ export class Executor {
     }
   }
 
-  /** Refuse a metadata edit whose prior colour cannot be restored exactly. */
-  private assertClipColorsReversible(ops: readonly Op[], stash: Snapshot): void {
+  /**
+   * Refuse a metadata edit without recorded prior metadata. 8i0 (D42): any prior colour is reversible; a restored
+   * colour is verified within the RGB tolerance.
+   */
+  private assertClipMetadataRecorded(ops: readonly Op[], stash: Snapshot): void {
     const created = new Set<string>();
     for (const op of ops) {
       if (op.op === 'clip.create') created.add(addressKey(op.slot));
@@ -788,13 +792,6 @@ export class Executor {
       const entry = stash.entries[addressKey(address)];
       if (entry?.value.of !== 'clipMetadata') {
         throw new AddressUnresolvedError(address, 'the prior clip metadata is unavailable');
-      }
-      if (exactClipColor(entry.value.metadata.color) === undefined) {
-        throw new InvalidOpError(
-          op.op,
-          'the prior clip colour is outside the exact supported Bitwig palette, '
-          + 'so this metadata edit cannot be reversed exactly',
-        );
       }
     }
   }
@@ -1036,7 +1033,7 @@ export function disagreementsOf(
       });
       continue;
     }
-    out.push(...compareClipMetadata(address, op.metadata, entry.value.metadata));
+    out.push(...compareClipMetadata(address, op, entry.value.metadata));
   }
 
   const parameterWrites = new Map<string, Extract<Op, { op: 'param.set' }>>();
@@ -1322,14 +1319,34 @@ function retryableMutationDifference(disagreement: Disagreement): boolean {
   return disagreement.field !== 'completeState.exists' || disagreement.readback === false;
 }
 
-/** Keep only metadata requests that still describe the clip at batch end. */
-function finalClipMetadataUpdates(
-  ops: readonly Op[],
-): ReadonlyMap<string, Extract<Op, { op: 'clip.update' }>> {
-  const updates = new Map<string, Extract<Op, { op: 'clip.update' }>>();
+/** One clip's final metadata request in a batch: the owned fields and their last requested values. */
+interface FinalClipMetadata {
+  readonly clip: ClipAddress;
+  readonly metadata: ClipMetadataState;
+  /** Undefined: every field. */
+  readonly fields?: readonly ClipMetadataField[];
+}
+
+/**
+ * Keep only metadata requests that still describe the clip at batch end. 8i0 (D42): repeated updates of one clip
+ * merge; each owned field takes the value of its last writer.
+ */
+function finalClipMetadataUpdates(ops: readonly Op[]): ReadonlyMap<string, FinalClipMetadata> {
+  const updates = new Map<string, FinalClipMetadata>();
   for (const op of ops) {
     if (op.op === 'clip.update') {
-      updates.set(addressKey(op.clip), op);
+      const key = addressKey(op.clip);
+      const prior = updates.get(key);
+      if (prior === undefined || op.fields === undefined) {
+        updates.set(key, { clip: op.clip, metadata: op.metadata, ...(op.fields === undefined ? {} : { fields: op.fields }) });
+        continue;
+      }
+      const owned = prior.fields === undefined ? undefined : new Set([...prior.fields, ...op.fields]);
+      updates.set(key, {
+        clip: op.clip,
+        metadata: ownedClipMetadata(prior.metadata, op.metadata, op.fields),
+        ...(owned === undefined ? {} : { fields: CLIP_METADATA_FIELDS.filter((field) => owned.has(field)) }),
+      });
       continue;
     }
     if (op.op === 'clip.delete') {
@@ -1341,31 +1358,24 @@ function finalClipMetadataUpdates(
   return updates;
 }
 
+/** Compare the owned fields. A written colour passes within the RGB tolerance (D42). */
 function compareClipMetadata(
   address: Address,
-  requested: ClipMetadataState,
+  requested: FinalClipMetadata,
   readback: ClipMetadataState,
 ): Disagreement[] {
-  const fields: readonly [string, unknown, unknown][] = [
-    ['name', requested.name, readback.name],
-    ['color.red', requested.color.red, readback.color.red],
-    ['color.green', requested.color.green, readback.color.green],
-    ['color.blue', requested.color.blue, readback.color.blue],
-    ['lengthBeats', requested.lengthBeats, readback.lengthBeats],
-    ['playStartBeats', requested.playStartBeats, readback.playStartBeats],
-    ['loopEnabled', requested.loopEnabled, readback.loopEnabled],
-    ['loopStartBeats', requested.loopStartBeats, readback.loopStartBeats],
-    ['loopEndBeats', requested.loopEndBeats, readback.loopEndBeats],
-  ];
-  return fields
-    .filter(([, asked, found]) => !equalEnough(asked, found))
-    .map(([field, asked, found]) => ({
-      address,
-      at: 'clip metadata',
-      field,
-      requested: asked,
-      readback: found,
-    }));
+  const fields = requested.fields;
+  return clipMetadataDifferences(requested.metadata, readback, {
+    ...(fields === undefined ? {} : { fields }),
+    colorWritten: fields === undefined || fields.includes('color'),
+    same: equalEnough,
+  }).map((item) => ({
+    address,
+    at: 'clip metadata',
+    field: item.field,
+    requested: item.requested,
+    readback: item.observed,
+  }));
 }
 
 const noteLabel = (n: NoteRecord): string => `pitch ${n.pitch} @ beat ${n.startBeats}`;

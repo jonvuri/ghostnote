@@ -159,8 +159,11 @@ coverage plus the raw range diagnostic in the wrapper. It is not a complete
 empty clip. A zero-length portable clip has no measured create/write path.
 
 For a supported metadata update, retain colour, launch settings, disabled loop
-markers, and writable play start from fresh authority. Set loop values first,
-then restore play start as the existing E43 writer does. Full desired omission
+markers, and writable play start from fresh authority. Write only the changed
+fields and their marker dependencies (D42): a length or loop-start change also
+writes the length and restores play start, after the loop values (E43). A name
+or loop-state change writes no marker and no colour. Reversal restores only the
+written fields. Full desired omission
 sets portable name/range defaults. If those defaults require an unwritable
 play-stop change, refuse. Metadata omission cannot delete automation or other
 unrepresented host state.
@@ -308,7 +311,6 @@ Each refusal happens before a host call. Code `unsupported` has
 | `transpose`, `recurrence`, `occurrence` | Outside the host range or label set |
 | `timing` | A written note does not fit a D9 grid (also an untouched raw note on the whole-clip route) |
 | `play-range`, `loop` | Play range changes; a loop other than null or `0..length` |
-| `clip-colour` | A clip property change on a clip whose colour is outside the exact palette. `set_launcher_clip_properties` uses the same writer and also refuses a requested colour outside the palette |
 | `protection` | The executor floor cannot record the prior state exactly |
 
 Code `range` (reason `past-clip-end`): a written note would start or end after
@@ -349,7 +351,7 @@ names each consumer and protection boundary.
 
 ## Source and handoff
 
-Existing evidence: E15-E pressure, E24 gain setter scale, E245 gain meaning and insertion defaults, E43 metadata, E116 precision,
+Existing evidence: E15-E pressure, E24 gain setter scale, E245 gain meaning and insertion defaults, E43 metadata, E249 metadata ownership and colour tolerance, E116 precision,
 E121 explicit insertion defaults, E128 targeted reversal, E129 range refusal,
 E131 acquisition, E230 cold reader, and E233 pull snapshot references. See the
 [interface audit](../../context/evidence/format/AGENT_NATIVE_INTERFACE_AUDIT.md)

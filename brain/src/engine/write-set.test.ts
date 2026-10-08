@@ -141,6 +141,25 @@ test('W-clipmeta: update protects metadata, and delete protects all reproducible
   ]);
 });
 
+test('8i0 W-clipmeta: owned fields are the union of one batch; a complete write owns every field', () => {
+  const metadata = {
+    name: 'take', color: { red: 145, green: 105, blue: 78 },
+    lengthBeats: 9, playStartBeats: 2, loopEnabled: true, loopStartBeats: 1, loopEndBeats: 10,
+  };
+  const owned = writeSetOf([
+    { op: 'clip.update', clip: CLIP, metadata, fields: ['color'] },
+    { op: 'clip.update', clip: CLIP, metadata, fields: ['name'] },
+  ]).targets;
+  assert.deepEqual(owned.map((t) => [t.address.kind, t.fields]), [['clipMetadata', ['name', 'color']]]);
+  const complete = writeSetOf([
+    { op: 'clip.update', clip: CLIP, metadata, fields: ['name'] },
+    { op: 'clip.update', clip: CLIP, metadata },
+  ]).targets;
+  assert.equal(complete[0]!.fields, undefined);
+  assert.equal(writeSetOf([{ op: 'clip.delete', slot: S0 }]).targets
+    .find((t) => t.address.kind === 'clipMetadata')!.fields, undefined);
+});
+
 test('W-identity: track.delete is `none` — a recreated track is a DIFFERENT track (E2f)', () => {
   const { targets } = writeSetOf([{ op: 'track.delete', track: T }]);
   assert.equal(targets[0]!.restore, 'none');

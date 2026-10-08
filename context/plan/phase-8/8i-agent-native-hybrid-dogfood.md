@@ -2,7 +2,7 @@
 title: Phase 8i — Agent-native hybrid dogfood
 kind: plan
 state: planned
-status: Final Phase 8 gate. Complete 8i0 before more dogfood trials.
+status: Final Phase 8 gate. 8i0 is complete (E249, D42); resume the dogfood trials.
 updated: 2026-10-08
 parent: README.md
 prev: 8i0-clip-metadata-and-colour-tolerance.md
@@ -12,10 +12,13 @@ evidence: E120, E121, E127-E134, E209, E213, E247; D25, D39, D40
 
 # Phase 8i — Agent-native hybrid dogfood
 
-Complete [8i0](8i0-clip-metadata-and-colour-tolerance.md) before more trials.
+[8i0](8i0-clip-metadata-and-colour-tolerance.md) is complete
+([E249](../../evidence/experiments/e249-clip-metadata-and-colour-tolerance.md),
+[D42](../../decisions/d42-clip-colour-tolerance-and-metadata-ownership.md)).
 The first musical trial passed after an operator-led revision, but a colour
-guard forced a UI palette change before the duplicate could be extended.
-Keep the accepted musical result and original clip intact during the repair.
+guard forced a UI palette change before the duplicate could be extended. A
+property or length edit now writes no colour and needs no palette. Keep the
+accepted musical result and original clip intact.
 
 ## Accepted 8f3 inputs
 

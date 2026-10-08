@@ -175,7 +175,7 @@ on `agent-native-v1` that calls a removed name gets `no such tool`.
 | `copy_clip_down` | `copy_launcher_clips` | Explicit source and destination pairs; the host copies only to the row below on the same track. Launch settings are a separate call (`set_launcher_clip_launch_settings`) |
 | `move_clip_block` | `move_launcher_clips` | Same range and guards; failure codes and an occupancy report |
 | `set_clip_launch` | `set_launcher_clip_launch_settings` | Every clip must exist (`absent`) |
-| `set_clip_metadata` | `set_launcher_clip_properties` | Partial properties; omitted properties keep their value. The writer of `edit_launcher_clip` |
+| `set_clip_metadata` | `set_launcher_clip_properties` | Partial properties; omitted properties keep their value and get no setter. Any RGB colour, verified within one byte; no palette refusal. Reversal restores only the written properties (D42). The writer of `edit_launcher_clip` |
 | `delete_clip` | `delete_launcher_clip` | A separate destructive name; an empty slot refuses |
 | `show_changed_clip` | `show_launcher_clip_in_detail_editor` | Addressed by track ID and row, not by change ID |
 

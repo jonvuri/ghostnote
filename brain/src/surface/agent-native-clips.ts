@@ -22,12 +22,12 @@ import { z } from 'zod';
 import {
   LAUNCH_MODES, LAUNCH_QUANTIZATIONS, addressKey, clip as clipAt, clipLaunch as launchAt,
   clipMetadata as metadataAt, clipPlay as playAt, isGroupTrack, scene as sceneAt, slot as slotAt,
-  supportedClipColors, track as trackAt,
+  changedClipMetadataFields, clipMetadataDifferences, track as trackAt,
   type Address, type ClipAddress, type ClipMetadataState, type Op, type RevisionMark, type Snapshot,
 } from '../contract/index.js';
 import { branchProtected, directedDestruction, takeAppliedAnything } from '../engine/index.js';
 import {
-  EditRefusal, completeClipProperties, documentClipLength, type ClipPropertyChanges,
+  EditRefusal, clipPropertyWrite, documentClipLength, type ClipPropertyChanges,
 } from '../bindings/launcher-clip-edit.js';
 import type { StashedChangeset } from '../stash/index.js';
 import {
@@ -576,7 +576,8 @@ const propertiesInput = z.object({
     row,
     properties: z.object({
       name: z.string().optional().describe('The clip name. An empty string is no name.'),
-      color: colour.optional().describe('A colour of the exact Bitwig clip palette, as red, green, and blue bytes.'),
+      color: colour.optional().describe('Any colour as red, green, and blue bytes. Bitwig can store a byte one off and '
+        + 'makes a very dark colour lighter.'),
       lengthBeats: z.number().positive().optional().describe('The loop length in beats.'),
       playStartBeats: z.number().min(0).optional(),
       loopEnabled: z.boolean().optional(),
@@ -588,19 +589,16 @@ const propertiesInput = z.object({
 type PropertiesInput = z.infer<typeof propertiesInput>;
 
 const PROPERTIES_DESCRIPTION = `${PROFILE} Set properties of Launcher clips: name, colour, length, play start, `
-  + 'and loop. An omitted property keeps its value. A length or loop start change without loopEndBeats moves the '
-  + 'loop end to loop start plus length; a loop end that differs from that refuses with code invalid-input. The '
-  + 'prior properties are recorded, so revert_change can put them back. edit_launcher_clip writes name, length, '
-  + 'and loop through the same writer.\n'
-  + 'The colour before and after must be in the exact Bitwig clip palette (code unsupported, detail.reason '
-  + 'clip-colour, detail.supportedClipColors), or the change could not be reversed exactly; do not retry with one '
-  + 'byte changed. Every clip must exist (code absent). The readback compares each property.';
-
-const sameMetadata = (left: ClipMetadataState, right: ClipMetadataState): boolean => left.name === right.name
-  && left.color.red === right.color.red && left.color.green === right.color.green && left.color.blue === right.color.blue
-  && left.lengthBeats === right.lengthBeats && left.playStartBeats === right.playStartBeats
-  && left.loopEnabled === right.loopEnabled && left.loopStartBeats === right.loopStartBeats
-  && left.loopEndBeats === right.loopEndBeats;
+  + 'and loop. An omitted property keeps its value and gets no host write. A length or loop start change without '
+  + 'loopEndBeats moves the loop end to loop start plus length; a loop end that differs from that refuses with code '
+  + 'invalid-input. A loop start or length change also writes the length and restores the play start. The prior '
+  + 'values of the written properties are recorded, so revert_change puts back only those properties; a later '
+  + 'change to another property stays. Entries for one clip apply in order as one write; readback.clips has one '
+  + 'entry for each clip. edit_launcher_clip writes name, length, and loop through the same writer.\n'
+  + 'Colour is any red, green, and blue bytes. Bitwig can store each byte one off; that readback is verified. Bitwig '
+  + 'makes a very dark colour lighter (black reads back as 81,81,81), so readback.status is then differs, with '
+  + 'readback.clips[].differences. Do not retry to chase exact bytes. Every clip must exist '
+  + '(code absent). When no property changes, nothing is written and readback.status is unchanged.';
 
 async function setProperties(workspace: Workspace, args: PropertiesInput): Promise<unknown> {
   const started = performance.now();
@@ -616,35 +614,50 @@ async function setProperties(workspace: Workspace, args: PropertiesInput): Promi
     if (empty.length > 0) throw new ToolFailure('absent', 'acquire', 'A slot holds no clip.', { detail: { clips: empty } });
 
     state.stage = 'plan';
-    const planned = args.clips.map((item) => {
-      const entry = read.entries[addressKey(metadataAt(clipOf(item, at)))];
+    // Entries for one clip apply in order to one plan (review P2): the final state is diffed with the fresh read.
+    const byClip = new Map<string, { item: PropertiesInput['clips'][number]; prior: ClipMetadataState;
+      metadata: ClipMetadataState }>();
+    for (const item of args.clips) {
+      const key = addressKey(metadataAt(clipOf(item, at)));
+      const entry = read.entries[key];
       if (entry?.value.of !== 'clipMetadata') {
         throw new ToolFailure('authority-unavailable', 'acquire', 'The fresh host read did not report the clip '
           + 'properties.', { retryWhen: 'once; then check the connection' });
       }
-      try {
-        return { item, metadata: completeClipProperties(entry.value.metadata, item.properties as ClipPropertyChanges) };
-      } catch (error) {
-        if (error instanceof EditRefusal && error.reason === 'clip-colour') {
-          throw new ToolFailure('unsupported', 'plan', error.message, { detail: { reason: 'clip-colour',
-            clip: { trackId: item.trackId, row: item.row }, supportedClipColors: supportedClipColors() } });
-        }
-        throw error;
-      }
-    });
+      const current = byClip.get(key) ?? { item, prior: entry.value.metadata, metadata: entry.value.metadata };
+      current.metadata = clipPropertyWrite(current.metadata, item.properties as ClipPropertyChanges).metadata;
+      byClip.set(key, current);
+    }
+    const planned = [...byClip.values()].map((plan) => ({
+      ...plan, fields: changedClipMetadataFields(plan.prior, plan.metadata) }));
+    const writes = planned.filter((plan) => plan.fields.length > 0);
+    if (writes.length === 0) {
+      const result: WriteResult<unknown> = {
+        schema: PROPERTIES_SCHEMA, applied: false, effects: [],
+        readback: { status: 'unchanged', clips: planned.map(({ item, prior }) => ({
+          trackId: item.trackId, row: item.row, properties: prior, verified: true })) },
+        warnings: [], timing: { totalMs: performance.now() - started },
+      };
+      return { ...result, target };
+    }
 
     state.stage = 'write';
-    const change = await workspace.apply(planned.map(({ item, metadata }): Op => ({
-      op: 'clip.update', clip: clipOf(item, at), metadata })));
+    const change = await workspace.apply(writes.map(({ item, metadata, fields }): Op => ({
+      op: 'clip.update', clip: clipOf(item, at), metadata, fields })));
     requireApplied(change);
-    state.effects.push(effectOf(change, target, `Set the properties of ${args.clips.length} clip(s).`));
+    state.effects.push(effectOf(change, target, `Set the properties of ${writes.length} clip(s).`));
 
     state.stage = 'readback';
     const after = await readbackOf(workspace, change, (at) => planned.map(({ item }) => metadataAt(clipOf(item, at))));
-    const clips = planned.map(({ item, metadata }) => {
+    const clips = planned.map(({ item, metadata, fields }) => {
       const entry = after.entries[addressKey(metadataAt(clipOf(item, after.at)))];
       const found = entry?.value.of === 'clipMetadata' ? entry.value.metadata : null;
-      return { trackId: item.trackId, row: item.row, properties: found, verified: found !== null && sameMetadata(found, metadata) };
+      // D42: a written colour passes within one byte; an unwritten colour must read back exactly.
+      const differences = found === null ? [] : clipMetadataDifferences(metadata, found,
+        { colorWritten: fields.includes('color') });
+      const verified = found !== null && differences.length === 0;
+      return { trackId: item.trackId, row: item.row, properties: found, verified,
+        ...(verified || found === null ? {} : { differences }) };
     });
     const result: WriteResult<unknown> = {
       schema: PROPERTIES_SCHEMA, applied: true, effects: state.effects,
@@ -665,7 +678,7 @@ const setPropertiesTool: ToolSpec = {
   inputValidator: propertiesInput,
   emits: ['clip.update'],
   resultContract: { schema: PROPERTIES_SCHEMA, profile: AGENT_NATIVE_TOOL_PROFILE, envelope: WRITE_FIELDS,
-    failure: FAILURE_FIELDS, readbackStatus: ['verified', 'differs'], refusalReasons: ['clip-colour'] },
+    failure: FAILURE_FIELDS, readbackStatus: ['verified', 'differs', 'unchanged'] },
   run: (workspace, input) => setProperties(workspace, input as PropertiesInput),
 };
 

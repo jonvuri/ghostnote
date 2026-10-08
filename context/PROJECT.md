@@ -43,6 +43,8 @@ surface without relying on the user's UI selection.
   grammar and its background operations stay on `stable-v1` only. In
   `agent-native-v1` every write is a direct call; the largest clip edit takes
   about 7 s (E247, E248). Writer cursors have the reader width (D41).
+- A clip property write sets only the changed fields. Any RGB colour is
+  accepted and verified within one byte (D42, E249).
 - The [performance ledger](contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md) holds
   the measured cost and the call budget of each tool.
 - The Phase 4 device surface discovers arbitrary DirectParameter ids, keeps

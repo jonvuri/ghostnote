@@ -19,7 +19,7 @@
  * that path — the op union cannot express any of them. Those are proven in
  * `live/encoder.test.ts` instead.
  */
-import { GAIN_READ_SCALE, orderedNoteProps, type NoteRecord } from '../../contract/index.js';
+import { GAIN_READ_SCALE, exactClipColor, orderedNoteProps, type ClipColorBytes, type NoteRecord } from '../../contract/index.js';
 import type { FakeSlot, FakeTrack, ProjectModel } from './model.js';
 
 /**
@@ -32,6 +32,16 @@ import type { FakeSlot, FakeTrack, ProjectModel } from './model.js';
  */
 export function gainOnReadback(written: number): number {
   return written * GAIN_READ_SCALE;
+}
+
+/**
+ * ⚠ E83: a colour outside the measured table can read back one byte off. `[145,105,78]` read back
+ * `[145,105,77]`. The fake lowers blue by one for such a colour, so tests see a difference inside the D42
+ * tolerance. A table colour reads back exactly.
+ */
+export function clipColorOnReadback(written: ClipColorBytes): ClipColorBytes {
+  if (exactClipColor(written) !== undefined) return { ...written };
+  return { red: written.red, green: written.green, blue: Math.max(0, written.blue - 1) };
 }
 
 /**

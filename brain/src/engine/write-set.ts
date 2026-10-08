@@ -24,7 +24,8 @@
 import {
   ADDRESS_IDENTITY, OP_BUMPS_SCENE_EPOCH, addressKey, assertNever, clip as clipAt,
   clipLaunch, clipMetadata, deviceEnabled, notes as notesAt,
-  type Address, type AddressKey, type Op, type OpKind,
+  CLIP_METADATA_FIELDS,
+  type Address, type AddressKey, type ClipMetadataField, type Op, type OpKind,
 } from '../contract/index.js';
 
 /**
@@ -51,6 +52,11 @@ export interface WriteTarget {
   readonly reason?: string;
   /** Op-shaped public label when the address kind alone would be ambiguous. */
   readonly unrestoredAs?: string;
+  /**
+   * 8i0 (D42): the clip metadata fields that the batch owns. The boundary compares and the reversal restores only
+   * these. Missing means every field, as for a clip deletion.
+   */
+  readonly fields?: readonly ClipMetadataField[];
 }
 
 /**
@@ -89,6 +95,7 @@ function targetsOf(op: Op): {
   restore: Restore;
   reason?: string;
   unrestoredAs?: string;
+  fields?: readonly ClipMetadataField[];
 }[] {
   const allClipChannels = (clip: ReturnType<typeof clipAt>) =>
     Array.from({ length: 16 }, (_, channel) => ({
@@ -136,7 +143,10 @@ function targetsOf(op: Op): {
       ];
 
     case 'clip.update':
-      return [{ address: clipMetadata(op.clip), restore: 'replay' }];
+      return [{
+        address: clipMetadata(op.clip), restore: 'replay',
+        ...(op.fields === undefined ? {} : { fields: op.fields }),
+      }];
 
     // The destination was verified empty before the host's copy call. Its
     // absence is an exact stash value, so the inverse is the same exact
@@ -329,6 +339,8 @@ export function writeSetOf(ops: readonly Op[]): WriteSet {
     restore: Restore;
     reason?: string;
     unrestoredAs?: string;
+    /** Undefined: every field. */
+    fields?: Set<ClipMetadataField>;
   }>();
   const unrevertable: UnrevertableOp[] = [];
 
@@ -346,10 +358,14 @@ export function writeSetOf(ops: readonly Op[]): WriteSet {
           restore: t.restore,
           ...(t.reason === undefined ? {} : { reason: t.reason }),
           ...(t.unrestoredAs === undefined ? {} : { unrestoredAs: t.unrestoredAs }),
+          ...(t.fields === undefined ? {} : { fields: new Set(t.fields) }),
         });
         continue;
       }
       existing.opIndices.push(opIndex);
+      // Owned metadata fields are the union. One complete write owns every field.
+      if (t.fields === undefined) delete existing.fields;
+      else if (existing.fields !== undefined) for (const field of t.fields) existing.fields.add(field);
       const rank: Record<Restore, number> = { inverse: 0, replay: 1, none: 2 };
       if (rank[t.restore] > rank[existing.restore]) {
         existing.restore = t.restore;
@@ -366,6 +382,7 @@ export function writeSetOf(ops: readonly Op[]): WriteSet {
     restore: v.restore,
     ...(v.reason === undefined ? {} : { reason: v.reason }),
     ...(v.unrestoredAs === undefined ? {} : { unrestoredAs: v.unrestoredAs }),
+    ...(v.fields === undefined ? {} : { fields: CLIP_METADATA_FIELDS.filter((field) => v.fields!.has(field)) }),
   }));
   return { targets, unrevertable };
 }

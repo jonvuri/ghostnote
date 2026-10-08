@@ -24,7 +24,7 @@ import {
   BlindSpotError, InvalidOpError, assertOpsWritable, chain as chainAt, clip, device, deviceIn,
   deviceSlot, drumPad, param,
   remote, scene, slot, track,
-  type NoteRecord, type Op, type TrackAddress,
+  type ClipMetadataField, type NoteRecord, type Op, type TrackAddress,
 } from '../../contract/index.js';
 import {
   chooseStepSize, encodeOp, encodeStage, sceneRowIn, type EncodeContext,
@@ -147,16 +147,36 @@ test('d02-s8: a supported clip colour uses its measured wire bytes', () => {
   assert.deepEqual(paramsOf(frames, WIRE.cursorSetClipMetadata)?.['colorBytes'], [217, 46, 37]);
 });
 
-test('d02-s8: an unsupported clip colour is refused before encoding', () => {
-  assert.throws(() => encodeOp({
-    op: 'clip.update', clip: CLIP_A,
-    metadata: {
-      name: 'Lossy', color: { red: 145, green: 105, blue: 78 },
-      lengthBeats: 8, playStartBeats: 0, loopEnabled: true,
-      loopStartBeats: 0, loopEndBeats: 8,
-    },
-  }, ctx), (error: unknown) => error instanceof InvalidOpError
-    && error.message.includes('exact supported palette'));
+test('8i0 (D42): any colour outside the table sends its own bytes, once', () => {
+  const metadata = {
+    name: 'Lossy', color: { red: 145, green: 105, blue: 78 },
+    lengthBeats: 8, playStartBeats: 0, loopEnabled: true, loopStartBeats: 0, loopEndBeats: 8,
+  };
+  const frames = encodeOp({ op: 'clip.update', clip: CLIP_A, metadata }, ctx);
+  assert.deepEqual(paramsOf(frames, WIRE.cursorSetClipMetadata)?.['colorBytes'], [145, 105, 78]);
+  assert.equal(frames.filter((frame) => frame.method === WIRE.cursorSetClipMetadata).length, 1);
+});
+
+test('8i0 (D42): owned fields send only their setters in one frame; loop end has no setter', () => {
+  const metadata = {
+    name: 'verse', color: { red: 145, green: 105, blue: 77 },
+    lengthBeats: 32, playStartBeats: 0, loopEnabled: true, loopStartBeats: 0, loopEndBeats: 32,
+  };
+  const encode = (fields: readonly ClipMetadataField[]) => {
+    const frames = encodeOp({ op: 'clip.update', clip: CLIP_A, metadata, fields }, ctx);
+    assert.equal(frames.filter((frame) => frame.method === WIRE.cursorSetClipMetadata).length, 1);
+    return paramsOf(frames, WIRE.cursorSetClipMetadata);
+  };
+  assert.deepEqual(encode(['name']), { cursor: '0', trackIndex: 3, slotIndex: 0, fields: ['name'], name: 'verse' });
+  assert.deepEqual(encode(['color']), { cursor: '0', trackIndex: 3, slotIndex: 0, fields: ['color'],
+    color: [145, 105, 77] });
+  assert.deepEqual(encode(['lengthBeats', 'loopEndBeats', 'playStartBeats']), { cursor: '0', trackIndex: 3,
+    slotIndex: 0, fields: ['lengthBeats', 'playStartBeats'], lengthBeats: 32, playStartBeats: 0 });
+  assert.deepEqual(encode(['lengthBeats', 'loopStartBeats', 'loopEndBeats', 'playStartBeats'])?.['fields'],
+    ['lengthBeats', 'loopStartBeats', 'playStartBeats']);
+  assert.throws(() => assertOpsWritable([{ op: 'clip.update', clip: CLIP_A, metadata, fields: ['loopStartBeats'] }]),
+    InvalidOpError, 'a loop start write needs its marker dependencies');
+  assertOpsWritable([{ op: 'clip.update', clip: CLIP_A, metadata, fields: ['color'] }]);
 });
 
 test('E-track-copy: duplication carries the source durable identity', () => {

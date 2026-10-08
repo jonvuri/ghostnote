@@ -20,7 +20,7 @@ readback REPORTED, never what was requested** (D5).
 | scalar device params and enabled state | **exact after independent readback** | E4/E4b and E59 |
 | agent-inserted device removal | **exact under the last accepted complete name-and-enabled chain** | E59; managed reversal uses the current observed owned position |
 | existing-device delete | **none** | E3 and E59; opaque state cannot be recreated |
-| launcher-clip metadata | **exact** | E43; independent reads of name, colour, play start, and loop fields |
+| launcher-clip metadata | **exact**; a written colour within one byte for each component (D42) | E43 and E249; independent reads of name, colour, play start, and loop fields |
 | launcher-clip delete/recreate | **lossy** | E43; exact metadata, launch settings and notes restore; play stop and automation do not |
 | track / scene create-delete | **low / none** | E3 — no readback that could recreate them |
 | anything via a named action | **none** | E6 — and banned outright (D13) |

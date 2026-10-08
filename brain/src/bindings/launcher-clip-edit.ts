@@ -30,8 +30,8 @@
 import { isDeepStrictEqual } from 'node:util';
 
 import {
-  chooseStepSize, exactClipColor, snapshotClip,
-  type ClipAddress, type ClipMetadataState, type ClipSnapshot, type NoteRecord, type Op,
+  changedClipMetadataFields, chooseStepSize, snapshotClip,
+  type ClipAddress, type ClipMetadataField, type ClipMetadataState, type ClipSnapshot, type NoteRecord, type Op,
 } from '../contract/index.js';
 import { NoteTimingUnrepresentableError } from '../contract/errors.js';
 import {
@@ -82,7 +82,10 @@ export interface EditPlan {
   readonly clip: ClipAddress;
   /** All candidate notes in channel, cell, and pitch order. */
   readonly candidate: readonly CandidateNote[];
+  /** The complete candidate metadata. */
   readonly metadata: ClipMetadataState;
+  /** The metadata fields that the plan writes (D42); empty when the clip properties do not change. */
+  readonly metadataFields: readonly ClipMetadataField[];
   /** `cellKey` to event ID for the readback. */
   readonly ids: ReadonlyMap<string, string>;
   readonly clipId: string;
@@ -238,20 +241,19 @@ function merged(raw: NoteRecord, event: Event, fields: readonly string[]): NoteR
 /** The requested change of one clip property write. Omitted properties keep their prior value. */
 export type ClipPropertyChanges = Partial<ClipMetadataState>;
 
+/** One clip property write: the complete candidate and the fields that change (8i0, D42). */
+export interface ClipPropertyWrite {
+  readonly metadata: ClipMetadataState;
+  readonly fields: readonly ClipMetadataField[];
+}
+
 /**
  * The one clip property writer (8h4d): `edit_launcher_clip` and `set_launcher_clip_properties` both complete a
- * `clip.update` here. A property change needs a palette colour before and after, so the change can be reversed
- * exactly. A length change without a loop end keeps the loop start and moves the loop end with the length.
+ * `clip.update` here. A length change without a loop end keeps the loop start and moves the loop end with the
+ * length. Any colour byte triple is accepted (D42); the result writes only the changed fields and their marker
+ * dependencies.
  */
-export function completeClipProperties(prior: ClipMetadataState, changes: ClipPropertyChanges): ClipMetadataState {
-  if (exactClipColor(prior.color) === undefined) {
-    throw new EditRefusal('unsupported', 'clip-colour', 'The clip colour is outside the exact Bitwig palette, so '
-      + 'a clip property change cannot be reversed exactly. Set a palette colour in Bitwig first.');
-  }
-  if (changes.color !== undefined && exactClipColor(changes.color) === undefined) {
-    throw new EditRefusal('unsupported', 'clip-colour', 'The requested clip colour is outside the exact Bitwig '
-      + 'palette. Use a colour of detail.supportedClipColors.');
-  }
+export function clipPropertyWrite(prior: ClipMetadataState, changes: ClipPropertyChanges): ClipPropertyWrite {
   const next = { ...prior, ...changes };
   if (changes.loopEndBeats === undefined
       && (changes.lengthBeats !== undefined || changes.loopStartBeats !== undefined)) {
@@ -260,7 +262,7 @@ export function completeClipProperties(prior: ClipMetadataState, changes: ClipPr
   if (next.loopEndBeats !== next.loopStartBeats + next.lengthBeats) {
     throw new EditRefusal('invalid-input', 'loop', 'The loop end must equal the loop start plus the length.');
   }
-  return next;
+  return { metadata: next, fields: changedClipMetadataFields(prior, next) };
 }
 
 /** The clip length of a document clip in beats. It must be an exact binary64 value. */
@@ -278,11 +280,10 @@ export function documentClipLength(clip: StateDocument['clips'][number]): number
 }
 
 /** Clip metadata after the portable clip fields; unrepresented raw fields stay. */
-function plannedMetadata(raw: ClipMetadataState, clip: StateDocument['clips'][number], fields: readonly string[]): ClipMetadataState {
-  if (fields.length === 0) return raw;
-  if (exactClipColor(raw.color) === undefined) completeClipProperties(raw, {});
+function plannedMetadata(raw: ClipMetadataState, clip: StateDocument['clips'][number], fields: readonly string[]): ClipPropertyWrite {
+  if (fields.length === 0) return { metadata: raw, fields: [] };
   const lengthBeats = documentClipLength(clip);
-  return completeClipProperties(raw, { name: clip.name ?? '', lengthBeats, loopEnabled: (clip.loop ?? null) !== null });
+  return clipPropertyWrite(raw, { name: clip.name ?? '', lengthBeats, loopEnabled: (clip.loop ?? null) !== null });
 }
 
 function eventEnd(event: Event): string {
@@ -340,7 +341,7 @@ export function planLauncherClipEdit(input: EditPlanInput): EditPlan {
   const clip = document.clips[0]!;
   const baseClip = original.document.clips[0]!;
   const clipFields = result.report.clipFields.find((item) => item.id === clip.id)?.fields ?? [];
-  const metadata = plannedMetadata(snapshot.metadata, clip, clipFields);
+  const { metadata, fields: metadataFields } = plannedMetadata(snapshot.metadata, clip, clipFields);
 
   const raw = rawNotes(snapshot);
   const rawById = new Map<string, { channel: number; note: NoteRecord; key: CellKey }>();
@@ -412,7 +413,7 @@ export function planLauncherClipEdit(input: EditPlanInput): EditPlan {
   const address = snapshotClip(snapshot.ref, fresh.read.at.sceneEpoch);
   const ops: Op[] = [];
   try {
-    if (clipFields.length > 0) ops.push({ op: 'clip.update', clip: address, metadata });
+    if (metadataFields.length > 0) ops.push({ op: 'clip.update', clip: address, metadata, fields: metadataFields });
     if (route === 'targeted') {
       const removed = [...removedIds.map((id) => rawById.get(id)!), ...moved.map((item) => rawById.get(item.id)!)];
       for (let channel = 0; channel < 16; channel += 1) {
@@ -453,6 +454,7 @@ export function planLauncherClipEdit(input: EditPlanInput): EditPlan {
     clip: address,
     candidate,
     metadata,
+    metadataFields,
     ids: new Map(candidate.map((item) => [cellKey({ channel: item.channel, pitch: item.note.pitch,
       cell: Math.floor(item.note.startBeats * 512) }), item.id])),
     clipId: baseClip.id,

@@ -28,7 +28,7 @@ import {
 } from './chains.js';
 import { unwritableProps, type ClipMetadataState, type LaunchMode, type LaunchQuantization, type NoteRecord } from './state.js';
 import type { SettleBudget } from './budgets.js';
-import { exactClipColor } from './clip-color.js';
+import { assertClipMetadataFields, type ClipMetadataField } from './clip-metadata.js';
 import {
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, InvalidOpError,
   NoteTimingUnrepresentableError, SlotOccupiedError,
@@ -82,7 +82,14 @@ export type Op =
   // silently lands the cursor on the WRONG clip, and status looks healthy (E2).
   | { readonly op: 'clip.create'; readonly slot: SlotAddress; readonly lengthBeats: number }
   | { readonly op: 'clip.delete'; readonly slot: SlotAddress }
-  | { readonly op: 'clip.update'; readonly clip: ClipAddress; readonly metadata: ClipMetadataState }
+  /**
+   * `metadata` is the complete candidate. `fields` names the fields to write (8i0, D42): the other fields get no
+   * setter, no readback comparison, and no reversal. A missing list writes every field.
+   */
+  | {
+    readonly op: 'clip.update'; readonly clip: ClipAddress; readonly metadata: ClipMetadataState;
+    readonly fields?: readonly ClipMetadataField[];
+  }
   | { readonly op: 'clip.duplicate'; readonly source: ClipAddress; readonly destination: SlotAddress }
   | { readonly op: 'clip.move'; readonly source: ClipAddress; readonly destination: SlotAddress }
   | { readonly op: 'clip.launch'; readonly clip: ClipAddress; readonly quantization: LaunchQuantization; readonly mode: LaunchMode }
@@ -457,11 +464,9 @@ export function assertOpsWritable(ops: readonly Op[]): void {
           throw new InvalidOpError(op.op, `${name} must be an integer from 0 to 255`);
         }
       }
-      if (exactClipColor(metadata.color) === undefined) {
-        throw new InvalidOpError(
-          op.op,
-          'clip colour must be one of the exact supported Bitwig palette colours',
-        );
+      if (op.fields !== undefined) {
+        const problem = assertClipMetadataFields(op.fields);
+        if (problem !== undefined) throw new InvalidOpError(op.op, problem);
       }
     }
     if (op.op === 'clip.duplicate') {

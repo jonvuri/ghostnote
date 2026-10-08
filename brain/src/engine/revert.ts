@@ -491,10 +491,12 @@ function restoreValue(target: WriteTarget, value: StateValue, sink: Sink): void 
 
     case 'clipMetadata':
       if (target.address.kind !== 'clipMetadata') return;
+      // 8i0 (D42): restore only the owned fields. A later change to another field stays.
       sink.scalarOps.push({
         op: 'clip.update',
         clip: target.address.clip,
         metadata: value.metadata,
+        ...(target.fields === undefined ? {} : { fields: target.fields }),
       });
       return;
 

@@ -4,28 +4,32 @@ kind: status
 state: active
 updated: 2026-10-08
 phase: phase-8-agent-native-live-engine
-session: 8i0-next
+session: 8i-next
 ---
 
-# Now
+## Now
 
-8h is complete. [8h4g](plan/phase-8/8h4g-performance-review-and-closeout.md)
-closed it ([E247](evidence/experiments/e247-performance-review-and-closeout.md),
-[E248](evidence/experiments/e248-writer-cursor-width.md),
-[D41](decisions/d41-the-writer-window-is-the-reader-width.md)). The 8h4g work
-is committed as `b40c6ce`. The next session is
-[8i0](plan/phase-8/8i0-clip-metadata-and-colour-tolerance.md): allow small RGB
-differences and write only changed clip metadata. Then resume
-[8i](plan/phase-8/8i-agent-native-hybrid-dogfood.md).
+[8i0](plan/phase-8/8i0-clip-metadata-and-colour-tolerance.md) is complete
+([E249](evidence/experiments/e249-clip-metadata-and-colour-tolerance.md),
+[D42](decisions/d42-clip-colour-tolerance-and-metadata-ownership.md)); it is
+staged, not committed. The next session resumes
+[8i](plan/phase-8/8i-agent-native-hybrid-dogfood.md) with the retained
+musical trial as input.
+
+What 8i0 changed: a `clip.update` names its owned fields. A rename, length,
+or loop edit writes no colour and needs no palette. Any RGB is accepted and
+verified within one byte; reversal restores only the owned fields, so a later
+change to another field stays. Live finding: Bitwig makes a colour below about
+CIE L* 33 lighter (black reads back `[81,81,81]`); the tool reports it as
+`differs`. Descriptions are `ghostnote-description-v34`. Property calls take
+1,414–1,436 ms (E247: 1,447); copy, extend, and 153 inserts take 1,760 ms.
 
 The first musical dogfood trial passed after one revision. The operator kept
 the eight-bar IcyShellStab01 duplicate in Scene 2 of "ice jungle" and its
-original in Scene 1. Preserve both. The exact-colour guard forced a palette
-change before the length edit; 8i0 removes that barrier. The operator accepts
-the generic pressure warning as a host limit, with no agent-behavior finding.
-The 8i0 plan is prepared; implementation and live checks are pending.
+original in Scene 1. Preserve both. The operator accepts the generic pressure
+warning as a host limit, with no agent-behavior finding.
 
-## What 8h gives 8i
+# What 8h gives 8i
 
 - `agent-native-v1` is the default profile (D40): 39 tools, descriptions
   `ghostnote-description-v33`. `stable-v1` is the frozen rollback through 8i.
@@ -45,26 +49,26 @@ The 8i0 plan is prepared; implementation and live checks are pending.
   parameter inventories around a device control write are the costliest
   safeguard (27 controls: 14.4 s).
 
-## Last 8h live baseline
+## Last live baseline (8i0)
 
-The last 8h normal `ghostnote` build had archive SHA-256
-`e030bfd6349f5acb3de4849a50a2b4b2784cf6d8ed33fff87e245b728f9bbea2`,
-89 methods, `0ef817f4bac8a8a7`, `fineSteps` 4,194,304 (the default; the rig
-config file is unchanged, SHA-256
-`256bbf07094cd654c372d0e5e050e494ef7783c9a0001a0a2a688331bcf643b0`).
-Probe: 107 methods, `a4c9dcd1499f498a`. The owned project "New 6" holds only
-the operator fixture (Inst 1, Audio 2, Polysynth (Hybrid), FX 1) and 8 scenes.
-The 8h4d workflow launched clips; the operator stops the transport. The
-8h anchor was `gn-scale-test` with its 11 tracks
+The normal `ghostnote` build has archive SHA-256
+`598428673b4a0c12f4e4a05a29ceb081594a0f510608905486a3b27092cee9c6`,
+89 methods, `0ef817f4bac8a8a7`, `fineSteps` 4,194,304, and the `rig.info`
+marker `clipMetadataWrite: owned-fields-v1` (`probe:hello` checks it). The
+probe build was not deployed in 8i0 (107 methods, `a4c9dcd1499f498a`). The
+8i0 live trials ran in the owned project "New 2" (Inst 1, Audio 2, FX 1;
+8 scenes), which is unchanged after them. "New 6" holds the earlier operator
+fixture. The 8h anchor is `gn-scale-test`
 ([baseline-final.json](evidence/data/phase8h4a5-cursor/baseline-final.json)).
-The next free evidence number is E249; the next decision is D42. Check the
-current project and anchor before live work; dogfood used another project.
+The next free evidence number is E250; the next decision is D43. Check the
+current project before live work; dogfood uses "ice jungle".
 
 ## Facts
 
-Add the index row in the same session as a new E or D record. Start a live edit
-matrix from a rewritten clip with a palette colour. Report note channels
-1-based to the operator. `context/check.rb` needs `LANG=en_US.UTF-8`. Bitwig
+Add the index row in the same session as a new E or D record. Clip colour no
+longer needs the palette (D42); a colour sample must include dark colours.
+Report note channels 1-based to the operator. `context/check.rb` needs
+`LANG=en_US.UTF-8`. Bitwig
 cannot insert a scene above row 0. The first write after an operator scene
 change can refuse in the cursor preflight (E3); retry once. Probe
 `WireTransport` throws plain `Error`, not `BridgeError`. Bitwig reports note
@@ -89,6 +93,16 @@ driver run: deleted tracks stay in the undo history.
 
 VU audibility oracle (E239): stop every clip and the transport, wait for VU 0,
 then launch one track and read the Master VU as well.
+
+## 8i0 retrospective
+
+- The plan modelled only the E83 byte conversion. The live sample found the
+  lightness floor because it included black and dark blues. Sample the
+  extremes of every dimension of a host conversion before a policy rests on
+  it.
+- A colour restore loses up to one byte, so the fake now models that loss.
+  It exposed that a second reversal in order blocked on our own conversion.
+  Model each measured host loss in the fake before testing reversal.
 
 ## 8h4g retrospective
 

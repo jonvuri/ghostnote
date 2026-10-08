@@ -34,7 +34,7 @@
 import { isAbsolute, extname } from 'node:path';
 
 import {
-  BlindSpotError, InvalidOpError, addressKey, assertNever, chainPath, chooseStepSize, exactClipColor, orderedNoteProps,
+  BlindSpotError, InvalidOpError, addressKey, assertNever, chainPath, chooseStepSize, clipColorWireBytes, orderedNoteProps,
   stepSizeFor,
   type ChainAddress, type ClipAddress, type DeviceAddress, type NoteRecord, type Op, type SceneAddress,
   type SceneGuard, type TrackAddress, type WindowCoverage,
@@ -502,24 +502,33 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       const t = ctx.trackIndex(op.clip.slot.track);
       const s = ctx.sceneRow(op.clip.slot.scene);
       const cursor = ctx.cursorFor(op.clip);
-      const encodedColor = exactClipColor(op.metadata.color);
-      if (encodedColor === undefined) {
-        throw new InvalidOpError(op.op, 'clip colour is outside the exact supported palette');
+      const point = pointFrames(cursor, t, s, ctx.shouldPointClip?.(op.clip, cursor) ?? true);
+      const colorBytes = clipColorWireBytes(op.metadata.color);
+      if (op.fields === undefined) {
+        return [
+          ...point,
+          frame(WIRE.cursorSetClipMetadata, {
+            cursor,
+            trackIndex: t,
+            slotIndex: s,
+            name: op.metadata.name,
+            colorBytes,
+            lengthBeats: op.metadata.lengthBeats,
+            playStartBeats: op.metadata.playStartBeats,
+            loopEnabled: op.metadata.loopEnabled,
+            loopStartBeats: op.metadata.loopStartBeats,
+            loopEndBeats: op.metadata.loopEndBeats,
+          }),
+        ];
       }
+      // 8i0 (D42): one frame with only the owned setters. Loop end has no setter; the host derives it.
+      const fields = op.fields;
+      const written = fields.filter((field) => field !== 'loopEndBeats');
+      const values: Record<string, unknown> = {};
+      for (const field of written) values[field] = field === 'color' ? colorBytes : op.metadata[field];
       return [
-        ...pointFrames(cursor, t, s, ctx.shouldPointClip?.(op.clip, cursor) ?? true),
-        frame(WIRE.cursorSetClipMetadata, {
-          cursor,
-          trackIndex: t,
-          slotIndex: s,
-          name: op.metadata.name,
-          colorBytes: encodedColor.wireBytes,
-          lengthBeats: op.metadata.lengthBeats,
-          playStartBeats: op.metadata.playStartBeats,
-          loopEnabled: op.metadata.loopEnabled,
-          loopStartBeats: op.metadata.loopStartBeats,
-          loopEndBeats: op.metadata.loopEndBeats,
-        }),
+        ...point,
+        frame(WIRE.cursorSetClipMetadata, { cursor, trackIndex: t, slotIndex: s, fields: written, ...values }),
       ];
     }
 

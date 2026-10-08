@@ -21,7 +21,7 @@
  * not ours, so there is nothing here to parse — but a caller comparing it is
  * doing the right thing.
  */
-import type { Address, AddressKey, Fidelity, NoteRecord, StateValue } from '../contract/index.js';
+import type { Address, AddressKey, ClipMetadataField, Fidelity, NoteRecord, StateValue } from '../contract/index.js';
 import type { Take } from '../engine/index.js';
 
 /** One batch this session ran, in the order it ran. */
@@ -137,6 +137,20 @@ export const inBounds = (check: BoundaryCheck): boolean => check.verdict === 'ou
  */
 export function sameValue(a: StateValue | undefined, b: StateValue | undefined): boolean {
   return stable(canonical(a)) === stable(canonical(b));
+}
+
+/**
+ * 8i0 (D42): compare only the owned clip metadata fields. Observed values compare exactly; the colour tolerance
+ * belongs to write verification, so a later colour change by a person stays visible.
+ */
+export function sameOwnedValue(
+  a: StateValue | undefined,
+  b: StateValue | undefined,
+  fields: readonly ClipMetadataField[] | undefined,
+): boolean {
+  if (fields === undefined || a?.of !== 'clipMetadata' || b?.of !== 'clipMetadata') return sameValue(a, b);
+  const pick = (value: typeof a) => Object.fromEntries(fields.map((field) => [field, value.metadata[field]]));
+  return stable(pick(a)) === stable(pick(b));
 }
 
 function canonical(value: StateValue | undefined): unknown {

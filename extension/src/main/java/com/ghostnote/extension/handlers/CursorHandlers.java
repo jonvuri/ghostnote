@@ -23,6 +23,8 @@ import com.google.gson.JsonObject;
 public final class CursorHandlers extends HandlerGroup {
     /** 8h4a4 build marker: `cursor.status` and `cursor.playState` report `trackChannelId`. */
     public static final String CURSOR_IDENTITY = "cursor-channel-id-v1";
+    /** 8i0 build marker: `cursor.setClipMetadata` accepts `fields` and any colour byte triple (D42). */
+    public static final String CLIP_METADATA_WRITE = "owned-fields-v1";
 
     public CursorHandlers(ControllerHost host, Rig rig, ExecState state) {
         super(host, rig, state);
@@ -57,6 +59,9 @@ public final class CursorHandlers extends HandlerGroup {
     /** Set candidate metadata fields independently for the live probe. */
     private JsonElement cursorSetClipMetadata(JsonObject params) {
         Clip clip = rig.clip(params.get("cursor").getAsString());
+        if (params.has("fields")) {
+            return setOwnedClipMetadata(clip, params);
+        }
         if (params.has("lengthBeats")) {
             String name = params.get("name").getAsString();
             double length = requireBeat(params, "lengthBeats", false);
@@ -130,6 +135,55 @@ public final class CursorHandlers extends HandlerGroup {
         }
         if (!touched) {
             throw new IllegalArgumentException("set at least one clip metadata field");
+        }
+        return ok();
+    }
+
+    /**
+     * 8i0 (D42): write only the named fields. The brain adds the marker
+     * dependencies: a loop-start write also writes the length and restores the
+     * play start (E43). Loop end has no setter. Colour is any byte triple.
+     */
+    private JsonElement setOwnedClipMetadata(Clip clip, JsonObject params) {
+        var fields = new java.util.HashSet<String>();
+        for (JsonElement field : params.getAsJsonArray("fields")) {
+            fields.add(field.getAsString());
+        }
+        if (fields.isEmpty()) {
+            throw new IllegalArgumentException("fields must name at least one clip metadata field");
+        }
+        for (String field : fields) {
+            if (!java.util.List.of("lengthBeats", "loopStartBeats", "playStartBeats", "loopEnabled", "name", "color")
+                    .contains(field)) {
+                throw new IllegalArgumentException("unknown clip metadata field " + field);
+            }
+        }
+        // Validate every value before the first setter.
+        double length = fields.contains("lengthBeats") ? requireBeat(params, "lengthBeats", false) : 0;
+        double loopStart = fields.contains("loopStartBeats") ? requireBeat(params, "loopStartBeats", true) : 0;
+        double playStart = fields.contains("playStartBeats") ? requireBeat(params, "playStartBeats", true) : 0;
+        int[] color = null;
+        if (fields.contains("color")) {
+            var bytes = params.getAsJsonArray("color");
+            if (bytes.size() != 3) {
+                throw new IllegalArgumentException("color must contain red, green, and blue bytes");
+            }
+            color = new int[] {
+                requireColorByte(bytes.get(0).getAsInt(), "red"),
+                requireColorByte(bytes.get(1).getAsInt(), "green"),
+                requireColorByte(bytes.get(2).getAsInt(), "blue"),
+            };
+        }
+        if (fields.contains("lengthBeats")) clip.getLoopLength().set(length);
+        if (fields.contains("loopStartBeats")) clip.getLoopStart().set(loopStart);
+        if (fields.contains("playStartBeats")) clip.getPlayStart().set(playStart);
+        if (fields.contains("loopEnabled")) clip.isLoopEnabled().set(params.get("loopEnabled").getAsBoolean());
+        if (fields.contains("name")) clip.setName(params.get("name").getAsString());
+        if (color != null) {
+            int trackIndex = params.get("trackIndex").getAsInt();
+            int slotIndex = params.get("slotIndex").getAsInt();
+            rig.trackBank.getItemAt(trackIndex).clipLauncherSlotBank().getItemAt(slotIndex)
+                .color().set(colorByteCenter(color[0]), colorByteCenter(color[1]), colorByteCenter(color[2]));
         }
         return ok();
     }
