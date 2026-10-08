@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: D25 selects FIELDS and JSON. 8g is complete (E224). 8h is not entered.
+status: 8h is complete (E247, E248). Complete 8i0 before more 8i dogfood trials.
 updated: 2026-10-08
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -390,6 +390,8 @@ owns the migration details.
    closeout; complete in [E247](../../evidence/experiments/e247-performance-review-and-closeout.md)).
    8h is complete. 8h3c and 8h3e replace the earlier 8h1 and 8h2b plans.
 29. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
+   First complete [8i0 — Clip metadata and colour tolerance](8i0-clip-metadata-and-colour-tolerance.md).
+   The first musical trial exposed a colour refusal before a length edit.
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.
 

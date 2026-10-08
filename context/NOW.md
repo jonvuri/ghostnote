@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-10-08
 phase: phase-8-agent-native-live-engine
-session: 8i-next
+session: 8i0-next
 ---
 
 # Now
@@ -12,9 +12,18 @@ session: 8i-next
 8h is complete. [8h4g](plan/phase-8/8h4g-performance-review-and-closeout.md)
 closed it ([E247](evidence/experiments/e247-performance-review-and-closeout.md),
 [E248](evidence/experiments/e248-writer-cursor-width.md),
-[D41](decisions/d41-the-writer-window-is-the-reader-width.md)). The next
-session is [8i](plan/phase-8/8i-agent-native-hybrid-dogfood.md): the
-agent-native hybrid dogfood. The 8h4g work is **staged, not committed**.
+[D41](decisions/d41-the-writer-window-is-the-reader-width.md)). The 8h4g work
+is committed as `b40c6ce`. The next session is
+[8i0](plan/phase-8/8i0-clip-metadata-and-colour-tolerance.md): allow small RGB
+differences and write only changed clip metadata. Then resume
+[8i](plan/phase-8/8i-agent-native-hybrid-dogfood.md).
+
+The first musical dogfood trial passed after one revision. The operator kept
+the eight-bar IcyShellStab01 duplicate in Scene 2 of "ice jungle" and its
+original in Scene 1. Preserve both. The exact-colour guard forced a palette
+change before the length edit; 8i0 removes that barrier. The operator accepts
+the generic pressure warning as a host limit, with no agent-behavior finding.
+The 8i0 plan is prepared; implementation and live checks are pending.
 
 ## What 8h gives 8i
 
@@ -36,9 +45,9 @@ agent-native hybrid dogfood. The 8h4g work is **staged, not committed**.
   parameter inventories around a device control write are the costliest
   safeguard (27 controls: 14.4 s).
 
-## Live baseline
+## Last 8h live baseline
 
-Normal `ghostnote` is loaded: archive SHA-256
+The last 8h normal `ghostnote` build had archive SHA-256
 `e030bfd6349f5acb3de4849a50a2b4b2784cf6d8ed33fff87e245b728f9bbea2`,
 89 methods, `0ef817f4bac8a8a7`, `fineSteps` 4,194,304 (the default; the rig
 config file is unchanged, SHA-256
@@ -46,9 +55,10 @@ config file is unchanged, SHA-256
 Probe: 107 methods, `a4c9dcd1499f498a`. The owned project "New 6" holds only
 the operator fixture (Inst 1, Audio 2, Polysynth (Hybrid), FX 1) and 8 scenes.
 The 8h4d workflow launched clips; the operator stops the transport. The
-active anchor is `gn-scale-test` with its 11 tracks
+8h anchor was `gn-scale-test` with its 11 tracks
 ([baseline-final.json](evidence/data/phase8h4a5-cursor/baseline-final.json)).
-The next free evidence number is E249; the next decision is D42.
+The next free evidence number is E249; the next decision is D42. Check the
+current project and anchor before live work; dogfood used another project.
 
 ## Facts
 

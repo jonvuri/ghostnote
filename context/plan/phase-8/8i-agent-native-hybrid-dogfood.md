@@ -2,15 +2,20 @@
 title: Phase 8i — Agent-native hybrid dogfood
 kind: plan
 state: planned
-status: Final Phase 8 gate for the cache, compact-bar contract, and simplified surface.
+status: Final Phase 8 gate. Complete 8i0 before more dogfood trials.
 updated: 2026-10-08
 parent: README.md
-prev: 8h-cache-promotion-and-interface-simplification.md
+prev: 8i0-clip-metadata-and-colour-tolerance.md
 next: ../phase-9/README.md
 evidence: E120, E121, E127-E134, E209, E213, E247; D25, D39, D40
 ---
 
 # Phase 8i — Agent-native hybrid dogfood
+
+Complete [8i0](8i0-clip-metadata-and-colour-tolerance.md) before more trials.
+The first musical trial passed after an operator-led revision, but a colour
+guard forced a UI palette change before the duplicate could be extended.
+Keep the accepted musical result and original clip intact during the repair.
 
 ## Accepted 8f3 inputs
 
