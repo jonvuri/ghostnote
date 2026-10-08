@@ -10,7 +10,7 @@ import { listChains, listModulators } from '../bwmod/index.js';
 import { Executor, fingerprintPreset, inspectPresetModulation } from '../engine/index.js';
 import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
-import { callTool, TOOLS } from './tools.js';
+import { AGENT_NATIVE_TOOL_PROFILE, callTool, TOOLS } from './tools.js';
 import {
   generalDeviceCompositionInputSchema,
 } from './general-device-composition.js';
@@ -1055,4 +1055,60 @@ test('5q-final: unexpected nested state cannot pass the complete witness', async
   assert.equal(result['complete'], false, JSON.stringify(result));
   assert.equal(result['failedStage'], 'final-witness');
   assert.equal(result['structure'], undefined);
+});
+
+test('8h4e compose_devices: the staged backend composes and revert_change reverses it by change ID', async () => {
+  const fx = fixture();
+  const request = fourSourceRequest(fx.trackId);
+  const result = await callTool(fx.workspace, 'compose_devices', {
+    trackId: fx.trackId,
+    containerKind: 'FX Layer',
+    layerChains: request.entries.map((entry) => ({
+      name: entry.entryName, devices: [{ source: entry.source, modulators: entry.modulators }],
+    })),
+  }, AGENT_NATIVE_TOOL_PROFILE) as {
+    applied: boolean; readback: { status: string; backend: string };
+    next: { revert: { tool: string; changeId: string } }; effects: { changeId: string }[];
+  };
+  assert.equal(result.applied, true, JSON.stringify(result).slice(0, 600));
+  assert.equal(result.readback.backend, 'staged');
+  assert.equal(result.readback.status, 'verified');
+  assert.equal(result.next.revert.tool, 'revert_change');
+  assert.ok(result.effects.length > 1);
+  const checked = await callTool(fx.workspace, 'check_revert', { changeId: result.next.revert.changeId },
+    AGENT_NATIVE_TOOL_PROFILE) as Record<string, unknown>;
+  assert.equal(checked['compositionReversal'], true);
+  const reversed = await callTool(fx.workspace, 'revert_change', { changeId: result.next.revert.changeId },
+    AGENT_NATIVE_TOOL_PROFILE) as Record<string, unknown>;
+  assert.equal(reversed['complete'], true, JSON.stringify(reversed).slice(0, 600));
+  assert.equal(reversed['undoOf'], result.next.revert.changeId);
+  assert.deepEqual(fx.row.devices.map((item) => [item.name, item.enabled]), [
+    ['Existing Twin', true], ['Tool', false],
+  ]);
+});
+
+test('8h4e check_revert: the composition preview runs the first reversal guards and agrees with revert_change', async () => {
+  const fx = fixture();
+  const request = fourSourceRequest(fx.trackId);
+  const result = await callTool(fx.workspace, 'compose_devices', {
+    trackId: fx.trackId, containerKind: 'FX Layer',
+    layerChains: request.entries.map((entry) => ({
+      name: entry.entryName, devices: [{ source: entry.source, modulators: entry.modulators }],
+    })),
+  }, AGENT_NATIVE_TOOL_PROFILE) as { next: { revert: { changeId: string } } };
+  const changeId = result.next.revert.changeId;
+  const before = await callTool(fx.workspace, 'check_revert', { changeId }, AGENT_NATIVE_TOOL_PROFILE) as Record<string, unknown>;
+  assert.equal(before['wouldWriteAnything'], true, JSON.stringify(before));
+  // An operator adds a device: the projected top-level order no longer holds.
+  fx.row.devices.push({ name: 'Operator EQ', enabled: true, paramsLive: true, params: [] });
+  fx.fake.model.revision += 1;
+  const after = await callTool(fx.workspace, 'check_revert', { changeId }, AGENT_NATIVE_TOOL_PROFILE) as Record<string, unknown>;
+  assert.equal(after['wouldWriteAnything'], false, JSON.stringify(after));
+  assert.equal(typeof after['why'], 'string');
+  assert.equal('wouldRestore' in after, false);
+  const devicesBefore = fx.row.devices.map((item) => item.name);
+  const reversed = await callTool(fx.workspace, 'revert_change', { changeId }, AGENT_NATIVE_TOOL_PROFILE) as Record<string, unknown>;
+  assert.equal(reversed['complete'], false);
+  assert.equal(reversed['failedStage'], 'reversal-boundary');
+  assert.deepEqual(fx.row.devices.map((item) => item.name), devicesBefore, 'the refused reversal wrote nothing');
 });

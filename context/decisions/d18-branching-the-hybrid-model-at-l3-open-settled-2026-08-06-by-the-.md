@@ -3,7 +3,7 @@ id: D18
 kind: decision
 state: active
 source: DECISIONS.md
-updated: 2026-09-25
+updated: 2026-10-08
 ---
 
 # D18 — Layer chains are composable structure, not managed device alternates **[REVISED 2026-09-25]**
@@ -149,6 +149,27 @@ D20 is unchanged. `delete_device` keeps a separate destructive name and zero
 initiative. Moving or copying devices does not authorize container deletion.
 D16 and D19 continue to own exact effects and guarded reversal. A layer-chain
 A/B layout is not general loss protection for unrelated edits.
+
+## Implemented surface (8h4e, E238)
+
+`agent-native-v1` implements this decision. `stable-v1` keeps the retired
+lifecycle tools as the rollback.
+
+- Read: `read_devices` (positions 0–2 expose layer chains).
+- Compose: `compose_devices`. The offline backend serves an Instrument Layer
+  of one through four layer chains, each with one native device and no outer
+  modulators, appended at position 2 or earlier. It was 5.0 and 8.4 times
+  faster than the staged backend for 2 and 4 layer chains. The staged backend
+  serves all other requests. `revert_change` with the returned change ID
+  reverses either backend.
+- Branch, name, move, copy, and audition: `duplicate_layer_chain`,
+  `rename_layer_chain`, `move_devices`, `copy_devices`, and
+  `set_layer_chain_solo`. Solo `on` and `off` use the new `chain.solo` op.
+- Remove container: `delete_device`. It reports the removed layer chains. An
+  entry with `layerChain` refuses before a write and directs the agent to
+  computer control.
+- Recipes: the `read_devices` description states the A/B and collapse
+  recipes. Both passed live.
 
 ## Superseded history
 

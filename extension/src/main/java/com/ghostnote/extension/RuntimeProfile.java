@@ -106,6 +106,7 @@ public enum RuntimeProfile {
             "chain.move",
             "chain.select",
             "chain.setName",
+            "chain.setSolo",
             "clip.create",
             "clip.read",
             "clip.readPage",
@@ -356,11 +357,11 @@ public enum RuntimeProfile {
             ALL_CLASSIFIED = Set.copyOf(classified);
 
             if (!PRODUCT.containsAll(OPTIONAL_CAPTURE)
-                    || PRODUCT.size() != 93
-                    || NORMAL.size() != 88
-                    || PROBE.size() != 105
+                    || PRODUCT.size() != 94
+                    || NORMAL.size() != 89
+                    || PROBE.size() != 106
                     || HISTORICAL.size() != 55
-                    || ALL_CLASSIFIED.size() != 165
+                    || ALL_CLASSIFIED.size() != 166
                     || !ALL_CLASSIFIED.containsAll(READS)
                     || !ALL_CLASSIFIED.containsAll(CLIP_READS)
                     || READS.stream().anyMatch(CLIP_READS::contains)) {

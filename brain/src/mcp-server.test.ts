@@ -38,7 +38,7 @@ test('the retired Phase 7b server profile refuses to start (8h4d)', async () => 
   await client.close().catch(() => undefined);
 });
 
-test('the agent-native-v1 server profile lists the kept stable tools, the document tools, and the clip tools', async (t) => {
+test('the agent-native-v1 server profile lists the kept stable tools, the document, clip, and device tools', async (t) => {
   const env = Object.fromEntries(Object.entries(process.env)
     .filter((entry): entry is [string, string] => entry[1] !== undefined));
   const transport = new StdioClientTransport({
@@ -51,9 +51,11 @@ test('the agent-native-v1 server profile lists the kept stable tools, the docume
   t.after(async () => client.close());
 
   const names = (await client.listTools()).tools.map((item) => item.name);
-  assert.equal(names.length, 46);
-  assert.deepEqual(names.slice(-12, -9), ['read_launcher_clip', 'check_launcher_clips', 'edit_launcher_clip']);
-  for (const retired of ['acquire_clip_note_source', 'read_clip', 'write_notes', 'record_observation', 'copy_clip_down']) {
+  assert.equal(names.length, 41);
+  assert.deepEqual(names.slice(-24, -21), ['read_launcher_clip', 'check_launcher_clips', 'edit_launcher_clip']);
+  assert.deepEqual(names.slice(-12, -9), ['read_devices', 'read_device_controls', 'set_device_controls']);
+  for (const retired of ['acquire_clip_note_source', 'read_clip', 'write_notes', 'record_observation', 'copy_clip_down',
+    'create_device_alternates', 'keep_device_alternate', 'inspect_devices', 'set_parameter', 'compose_device_sources']) {
     assert.equal(names.includes(retired), false, retired);
   }
 });

@@ -98,6 +98,8 @@ export interface Golden {
   addedInPhase8h4a5?: string[];
   /** Phase 8h4e0 DirectParameter display observer probes (E244). */
   addedInPhase8h4e0?: string[];
+  /** Phase 8h4e product layer-chain solo set (`set_layer_chain_solo` on and off). */
+  addedInPhase8h4e?: string[];
   /** D03 internal plug-in preset file and popup-browser probe surface. */
   addedInD03?: string[];
   preSplitCount: number;

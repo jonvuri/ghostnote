@@ -62,7 +62,7 @@ export {
   type SettlementProgress, type SettlementReport, type SettlementResult,
 } from './settlement.js';
 export {
-  composeGeneralDeviceSources, reverseGeneralDeviceSources,
+  composeGeneralDeviceSources, previewGeneralDeviceReversal, reverseGeneralDeviceSources,
 } from './general-device-composition.js';
 export type {
   GeneralDeviceCheckpointEntry, GeneralDeviceCompositionCheckpoint,

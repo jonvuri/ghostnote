@@ -1,0 +1,5696 @@
+{
+ "schema": "phase8h4e-devices-v1",
+ "steps": [
+  {
+   "step": "tracks-before-gn-8h4e-clap",
+   "tool": "list_tracks",
+   "ms": 53,
+   "bytes": 453,
+   "ok": true
+  },
+  {
+   "step": "add-track-gn-8h4e-clap",
+   "tool": "add_track",
+   "ms": 1145,
+   "bytes": 493,
+   "ok": true
+  },
+  {
+   "step": "tracks-after-gn-8h4e-clap",
+   "tool": "list_tracks",
+   "ms": 53,
+   "bytes": 559,
+   "ok": true
+  },
+  {
+   "step": "clap-add",
+   "tool": "add_devices",
+   "ms": 5425,
+   "bytes": 598,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "clap-controls",
+   "tool": "read_device_controls",
+   "ms": 4011,
+   "bytes": 22526,
+   "ok": true
+  },
+  {
+   "step": "clap-controls-same-target",
+   "tool": "read_device_controls",
+   "ms": 3943,
+   "bytes": 22526,
+   "ok": true
+  },
+  {
+   "step": "clap-set",
+   "tool": "set_device_controls",
+   "ms": 8302,
+   "bytes": 855,
+   "ok": true
+  },
+  {
+   "step": "clap-controls-after",
+   "tool": "read_device_controls",
+   "ms": 3919,
+   "bytes": 22532,
+   "ok": true
+  },
+  {
+   "step": "clap-revert",
+   "tool": "revert_change",
+   "ms": 2759,
+   "bytes": 441,
+   "ok": true
+  },
+  {
+   "step": "cleanup",
+   "tool": "delete_track",
+   "ms": 799,
+   "bytes": 436,
+   "ok": true
+  }
+ ],
+ "results": {
+  "tracks-before-gn-8h4e-clap": {
+   "tracks": [
+    {
+     "trackId": "71aa76d3-0379-45bb-98fc-a71a8a5614ad",
+     "name": "Inst 1",
+     "kind": "Instrument",
+     "position": 0
+    },
+    {
+     "trackId": "6378a96b-fb4d-4467-bc26-7e866e8204a3",
+     "name": "Audio 2",
+     "kind": "Audio",
+     "position": 1
+    },
+    {
+     "trackId": "188f5f4f-061c-4715-9946-9aad278099e4",
+     "name": "FX 1",
+     "kind": "Effect",
+     "position": 2
+    },
+    {
+     "trackId": "f0c594e3-ec19-4f7f-9115-934c91653af8",
+     "name": "Master",
+     "kind": "Master",
+     "position": 3
+    }
+   ],
+   "rows": {
+    "addressable": 128,
+    "inProject": 8
+   },
+   "notListed": 0
+  },
+  "add-track-gn-8h4e-clap": {
+   "changeId": "3920889d-b800-4b19-bfdc-6619ef35a969",
+   "applied": true,
+   "places": [],
+   "canBeUndone": false,
+   "cannotBeUndone": [],
+   "creationConfirmed": true,
+   "namesConfirmed": true,
+   "created": [
+    {
+     "what": "track",
+     "trackId": "8fd6ee46-6370-435f-95a0-0f3029fb9500",
+     "requestedName": "gn-8h4e-clap",
+     "nameConfirmed": true
+    }
+   ],
+   "namingChange": {
+    "changeId": "1b4efecb-879a-4266-8725-ca49a2da4c31",
+    "applied": true,
+    "places": [
+     {
+      "what": "track",
+      "trackId": "8fd6ee46-6370-435f-95a0-0f3029fb9500"
+     }
+    ],
+    "canBeUndone": true,
+    "cannotBeUndone": []
+   }
+  },
+  "tracks-after-gn-8h4e-clap": {
+   "tracks": [
+    {
+     "trackId": "71aa76d3-0379-45bb-98fc-a71a8a5614ad",
+     "name": "Inst 1",
+     "kind": "Instrument",
+     "position": 0
+    },
+    {
+     "trackId": "6378a96b-fb4d-4467-bc26-7e866e8204a3",
+     "name": "Audio 2",
+     "kind": "Audio",
+     "position": 1
+    },
+    {
+     "trackId": "8fd6ee46-6370-435f-95a0-0f3029fb9500",
+     "name": "gn-8h4e-clap",
+     "kind": "Instrument",
+     "position": 2
+    },
+    {
+     "trackId": "188f5f4f-061c-4715-9946-9aad278099e4",
+     "name": "FX 1",
+     "kind": "Effect",
+     "position": 3
+    },
+    {
+     "trackId": "f0c594e3-ec19-4f7f-9115-934c91653af8",
+     "name": "Master",
+     "kind": "Master",
+     "position": 4
+    }
+   ],
+   "rows": {
+    "addressable": 128,
+    "inProject": 8
+   },
+   "notListed": 0
+  },
+  "clap-add": {
+   "schema": "ghostnote-device-add/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "e4091084-e019-4306-b3a8-619757c508e9",
+     "target": {
+      "trackId": "8fd6ee46-6370-435f-95a0-0f3029fb9500",
+      "deviceIndex": 0
+     },
+     "summary": "Added device 0.",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "added": [
+     {
+      "deviceIndex": 0,
+      "source": "clap",
+      "position": 0
+     }
+    ],
+    "topLevel": [
+     {
+      "position": 0,
+      "name": "Diva",
+      "enabled": true
+     }
+    ]
+   },
+   "next": {
+    "revert": {
+     "tool": "revert_change",
+     "changeIds": [
+      "e4091084-e019-4306-b3a8-619757c508e9"
+     ]
+    }
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 5424.12475
+   },
+   "target": {
+    "trackId": "8fd6ee46-6370-435f-95a0-0f3029fb9500",
+    "devices": 1
+   }
+  },
+  "clap-controls": {
+   "device": {
+    "trackId": "8fd6ee46-6370-435f-95a0-0f3029fb9500",
+    "devicePosition": 0
+   },
+   "view": "direct",
+   "deviceName": "Diva",
+   "standing": "stable",
+   "displayComplete": true,
+   "parameters": [
+    {
+     "id": "CONTENTS/PID0",
+     "name": "Output",
+     "normalizedValue": 0.37,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID1",
+     "name": "Active #FX1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID2",
+     "name": "Active #FX2",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID3",
+     "name": "LED Colour",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID4",
+     "name": "Voices",
+     "normalizedValue": 0.5714285714285714,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID5",
+     "name": "Voice Stack",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID6",
+     "name": "Mode",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID7",
+     "name": "GlideMode",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID8",
+     "name": "Glide",
+     "normalizedValue": 0.08,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID9",
+     "name": "Glide2",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa",
+     "name": "GlideRange",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb",
+     "name": "PitchBend Up",
+     "normalizedValue": 0.1111111111111111,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc",
+     "name": "PitchBend Down",
+     "normalizedValue": 0.25925925925925924,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd",
+     "name": "TuningMode",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe",
+     "name": "Transpose",
+     "normalizedValue": 0.25,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf",
+     "name": "FineTuneCents",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID10",
+     "name": "Note Priority",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID11",
+     "name": "MultiCore",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID12",
+     "name": "Accuracy",
+     "normalizedValue": 0.6666666666666666,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID13",
+     "name": "OfflineAcc",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID14",
+     "name": "TuneSlop",
+     "normalizedValue": 0.25,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID15",
+     "name": "CutoffSlop",
+     "normalizedValue": 0.16,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID16",
+     "name": "GlideSlop",
+     "normalizedValue": 0.24,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID17",
+     "name": "PWSlop",
+     "normalizedValue": 0.33,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID18",
+     "name": "EnvrateSlop",
+     "normalizedValue": 0.26,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID19",
+     "name": "V1Mod",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID1a",
+     "name": "V2Mod",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID1b",
+     "name": "V3Mod",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID1c",
+     "name": "V4Mod",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID1d",
+     "name": "V5Mod",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID1e",
+     "name": "V6Mod",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID1f",
+     "name": "V7Mod",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID20",
+     "name": "V8Mod",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID21",
+     "name": "Attack",
+     "normalizedValue": 0.15,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID22",
+     "name": "Decay",
+     "normalizedValue": 0.335,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID23",
+     "name": "Sustain",
+     "normalizedValue": 0.8,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID24",
+     "name": "Release",
+     "normalizedValue": 0.35,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID25",
+     "name": "Velocity",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID26",
+     "name": "Model",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID27",
+     "name": "Trigger",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID28",
+     "name": "Quantise",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID29",
+     "name": "Curve",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID2a",
+     "name": "Release On",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID2b",
+     "name": "KeyFollow",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID2c",
+     "name": "Attack",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID2d",
+     "name": "Decay",
+     "normalizedValue": 0.45,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID2e",
+     "name": "Sustain",
+     "normalizedValue": 0.32,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID2f",
+     "name": "Release",
+     "normalizedValue": 0.37,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID30",
+     "name": "Velocity",
+     "normalizedValue": 0.85,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID31",
+     "name": "Model",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID32",
+     "name": "Trigger",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID33",
+     "name": "Quantise",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID34",
+     "name": "Curve",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID35",
+     "name": "Release On",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID36",
+     "name": "KeyFollow",
+     "normalizedValue": 0.24,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID37",
+     "name": "Sync",
+     "normalizedValue": 0.038461538461538464,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID38",
+     "name": "Restart",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID39",
+     "name": "Waveform",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID3a",
+     "name": "Phase",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID3b",
+     "name": "Delay",
+     "normalizedValue": 0.26,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID3c",
+     "name": "DepthMod Src1",
+     "normalizedValue": 0.043478260869565216,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID3d",
+     "name": "DepthMod Dpt1",
+     "normalizedValue": 0.9,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID3e",
+     "name": "Rate",
+     "normalizedValue": 0.6600000023841858,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID3f",
+     "name": "FreqMod Src1",
+     "normalizedValue": 0.043478260869565216,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID40",
+     "name": "FreqMod Dpt",
+     "normalizedValue": 0.5600000023841858,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID41",
+     "name": "Sync",
+     "normalizedValue": 0.038461538461538464,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID42",
+     "name": "Restart",
+     "normalizedValue": 0.3333333333333333,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID43",
+     "name": "Waveform",
+     "normalizedValue": 0.14285714285714285,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID44",
+     "name": "Phase",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID45",
+     "name": "Delay",
+     "normalizedValue": 0.6,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID46",
+     "name": "DepthMod Src1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID47",
+     "name": "DepthMod Dpt1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID48",
+     "name": "Rate",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID49",
+     "name": "FreqMod Src1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID4a",
+     "name": "FreqMod Dpt",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID4b",
+     "name": "Quantise",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID4c",
+     "name": "Slew Rate",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID4d",
+     "name": "RectifySource",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID4e",
+     "name": "InvertSource",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID4f",
+     "name": "QuantiseSource",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID50",
+     "name": "LagSource",
+     "normalizedValue": 0.6521739130434783,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID51",
+     "name": "AddSource1",
+     "normalizedValue": 0.2608695652173913,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID52",
+     "name": "AddSource2",
+     "normalizedValue": 0.30434782608695654,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID53",
+     "name": "MulSource1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID54",
+     "name": "MulSource2",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID55",
+     "name": "Model",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID56",
+     "name": "Tune1",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID57",
+     "name": "Tune2",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID58",
+     "name": "Tune3",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID59",
+     "name": "Vibrato",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID5a",
+     "name": "PulseWidth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID5b",
+     "name": "Shape1",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID5c",
+     "name": "Shape2",
+     "normalizedValue": 0.5249999761581421,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID5d",
+     "name": "Shape3",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID5e",
+     "name": "FM",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID5f",
+     "name": "Sync2",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID60",
+     "name": "OscMix",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID61",
+     "name": "Volume1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID62",
+     "name": "Volume2",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID63",
+     "name": "Volume3",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID64",
+     "name": "PulseShape",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID65",
+     "name": "SawShape",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID66",
+     "name": "SuboscShape",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID67",
+     "name": "Tune1ModSrc",
+     "normalizedValue": 0.6521739130434783,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID68",
+     "name": "Tune1ModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID69",
+     "name": "Tune2ModSrc",
+     "normalizedValue": 0.7391304347826086,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID6a",
+     "name": "Tune2ModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID6b",
+     "name": "PWModSrc",
+     "normalizedValue": 0.7391304347826086,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID6c",
+     "name": "PWModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID6d",
+     "name": "ShapeSrc",
+     "normalizedValue": 0.7391304347826086,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID6e",
+     "name": "ShapeDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID6f",
+     "name": "Triangle1On",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID70",
+     "name": "Sine2On",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID71",
+     "name": "Saw1On",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID72",
+     "name": "Pwm1On",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID73",
+     "name": "Triangle2On",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID74",
+     "name": "Saw2On",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID75",
+     "name": "Pulse2On",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID76",
+     "name": "PWM2On",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID77",
+     "name": "Noise1On",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID78",
+     "name": "ShapeModel",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID79",
+     "name": "Sync3",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID7a",
+     "name": "NoiseVol",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID7b",
+     "name": "NoiseColor",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID7c",
+     "name": "TuneModOsc1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID7d",
+     "name": "TuneModOsc2",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID7e",
+     "name": "TuneModOsc3",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID7f",
+     "name": "ShapeModOsc1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID80",
+     "name": "ShapeModOsc2",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID81",
+     "name": "ShapeModOsc3",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID82",
+     "name": "TuneModMode",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID83",
+     "name": "EcoWave1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID84",
+     "name": "EcoWave2",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID85",
+     "name": "RingmodPulse",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID86",
+     "name": "Drift",
+     "normalizedValue": 0.21,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID87",
+     "name": "FmModSrc",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID88",
+     "name": "FmModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID89",
+     "name": "NoiseVolModSrc",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID8a",
+     "name": "NoiseVolModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID8b",
+     "name": "Model",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID8c",
+     "name": "Frequency",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID8d",
+     "name": "Resonance",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID8e",
+     "name": "Revision",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID8f",
+     "name": "KeyFollow",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID90",
+     "name": "FreqModSrc",
+     "normalizedValue": 0.6521739130434783,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID91",
+     "name": "FreqModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID92",
+     "name": "Post-HPF Freq",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID93",
+     "name": "Model",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID94",
+     "name": "Frequency",
+     "normalizedValue": 0.09166666666666666,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID95",
+     "name": "Resonance",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID96",
+     "name": "FreqModSrc",
+     "normalizedValue": 0.9130434782608695,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID97",
+     "name": "FreqModDepth",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID98",
+     "name": "FreqMod2Src",
+     "normalizedValue": 0.9565217391304348,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID99",
+     "name": "FreqMod2Depth",
+     "normalizedValue": 0.5333333333333333,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID9a",
+     "name": "KeyFollow",
+     "normalizedValue": 0.4,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID9b",
+     "name": "FilterFM",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID9c",
+     "name": "LadderMode",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID9d",
+     "name": "LadderColor",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID9e",
+     "name": "SlnKyRevision",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID9f",
+     "name": "SvfMode",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa0",
+     "name": "Feedback",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa1",
+     "name": "ResModSrc",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa2",
+     "name": "ResModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa3",
+     "name": "FmAmountModSrc",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa4",
+     "name": "FmAmountModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa5",
+     "name": "FeedbackModSrc",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa6",
+     "name": "FeedbackModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa7",
+     "name": "Pan",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa8",
+     "name": "Volume",
+     "normalizedValue": 0.485,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa9",
+     "name": "VCA",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDaa",
+     "name": "Modulation",
+     "normalizedValue": 0.6956521739130435,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDab",
+     "name": "ModDepth",
+     "normalizedValue": 0.43,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDac",
+     "name": "PanModulation",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDad",
+     "name": "PanModDepth",
+     "normalizedValue": 0.51,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDae",
+     "name": "Mode",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDaf",
+     "name": "Offset",
+     "normalizedValue": 0.4400000013411045,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb0",
+     "name": "Frequency",
+     "normalizedValue": 0.1875,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb1",
+     "name": "Scale",
+     "normalizedValue": 0.6,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb2",
+     "name": "Module",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb3",
+     "name": "Type",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb4",
+     "name": "Rate",
+     "normalizedValue": 0.12,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb5",
+     "name": "Depth",
+     "normalizedValue": 0.155,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb6",
+     "name": "Wet",
+     "normalizedValue": 0.725,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb7",
+     "name": "Type",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb8",
+     "name": "Rate",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb9",
+     "name": "Feedback",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDba",
+     "name": "Stereo",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDbb",
+     "name": "Sync",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDbc",
+     "name": "Phase",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDbd",
+     "name": "Wet",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDbe",
+     "name": "PreDelay",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDbf",
+     "name": "Diffusion",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc0",
+     "name": "Damp",
+     "normalizedValue": 0.8,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc1",
+     "name": "Decay",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc2",
+     "name": "Size",
+     "normalizedValue": 0.7487437185929648,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc3",
+     "name": "Dry",
+     "normalizedValue": 0.9,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc4",
+     "name": "Wet",
+     "normalizedValue": 0.4,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc5",
+     "name": "Left Delay",
+     "normalizedValue": 0.06666666666666667,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc6",
+     "name": "Center Delay",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc7",
+     "name": "Right Delay",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc8",
+     "name": "Side Vol",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc9",
+     "name": "Center Vol",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDca",
+     "name": "Feedback",
+     "normalizedValue": 0.25,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDcb",
+     "name": "HP",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDcc",
+     "name": "LP",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDcd",
+     "name": "Dry",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDce",
+     "name": "Wow",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDcf",
+     "name": "Mode",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd0",
+     "name": "Mix",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd1",
+     "name": "Balance",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd2",
+     "name": "Drive",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd3",
+     "name": "Stereo",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd4",
+     "name": "Out",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd5",
+     "name": "Slow",
+     "normalizedValue": 0.3,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd6",
+     "name": "Fast",
+     "normalizedValue": 0.85,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd7",
+     "name": "RiseTime",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd8",
+     "name": "Controller",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd9",
+     "name": "Module",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDda",
+     "name": "Type",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDdb",
+     "name": "Rate",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDdc",
+     "name": "Depth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDdd",
+     "name": "Wet",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDde",
+     "name": "Type",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDdf",
+     "name": "Rate",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe0",
+     "name": "Feedback",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe1",
+     "name": "Stereo",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe2",
+     "name": "Sync",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe3",
+     "name": "Phase",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe4",
+     "name": "Wet",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe5",
+     "name": "PreDelay",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe6",
+     "name": "Diffusion",
+     "normalizedValue": 0.92,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe7",
+     "name": "Damp",
+     "normalizedValue": 0.86,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe8",
+     "name": "Decay",
+     "normalizedValue": 0.45,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe9",
+     "name": "Size",
+     "normalizedValue": 0.7688442211055276,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDea",
+     "name": "Dry",
+     "normalizedValue": 0.8,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDeb",
+     "name": "Wet",
+     "normalizedValue": 0.1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDec",
+     "name": "Left Delay",
+     "normalizedValue": 0.06666666666666667,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDed",
+     "name": "Center Delay",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDee",
+     "name": "Right Delay",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDef",
+     "name": "Side Vol",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf0",
+     "name": "Center Vol",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf1",
+     "name": "Feedback",
+     "normalizedValue": 0.25,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf2",
+     "name": "HP",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf3",
+     "name": "LP",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf4",
+     "name": "Dry",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf5",
+     "name": "Wow",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf6",
+     "name": "Mode",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf7",
+     "name": "Mix",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf8",
+     "name": "Balance",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf9",
+     "name": "Drive",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDfa",
+     "name": "Stereo",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDfb",
+     "name": "Out",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDfc",
+     "name": "Slow",
+     "normalizedValue": 0.3,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDfd",
+     "name": "Fast",
+     "normalizedValue": 0.85,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDfe",
+     "name": "RiseTime",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDff",
+     "name": "Controller",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID100",
+     "name": "Multiply",
+     "normalizedValue": 0.3333333333333333,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID101",
+     "name": "TimeBase",
+     "normalizedValue": 0.6666666666666666,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID102",
+     "name": "Swing",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID103",
+     "name": "Direction",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID104",
+     "name": "Octaves",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID105",
+     "name": "Multiply",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID106",
+     "name": "Restart",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID107",
+     "name": "OnOff",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID108",
+     "name": "DigitalShape2",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID109",
+     "name": "DigitalShape3",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID10a",
+     "name": "DigitalShape4",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID10b",
+     "name": "ShapeMix",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID10c",
+     "name": "ShapeModSrc",
+     "normalizedValue": 0.7391304347826086,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID10d",
+     "name": "ShapeModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID10e",
+     "name": "UhbieBandpass",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID10f",
+     "name": "Order",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID110",
+     "name": "Polarity",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID111",
+     "name": "Polarity",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID112",
+     "name": "Depth",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID113",
+     "name": "Center",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID114",
+     "name": "Depth",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID115",
+     "name": "Center",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID116",
+     "name": "DigitalType1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID117",
+     "name": "DigitalType2",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID118",
+     "name": "DigitalAntiAlias",
+     "normalizedValue": 0,
+     "display": ""
+    }
+   ],
+   "valueCapabilities": {
+    "normalized": {
+     "readable": true,
+     "writable": true,
+     "minimum": 0,
+     "maximum": 1
+    },
+    "displayed": {
+     "readable": "when-observed",
+     "writable": false,
+     "invertible": false,
+     "meaning": "Opaque host-formatted text for the current normalized value."
+    },
+    "discrete": {
+     "readable": "when-host-proved",
+     "writable": "returned-normalized-values-only"
+    },
+    "semantic": {
+     "readable": false,
+     "writable": false,
+     "reason": "API 25 has no text parser or exact displayed-value inverse conversion."
+    }
+   },
+   "warnings": [],
+   "elapsedMs": 4011
+  },
+  "clap-controls-summary": {
+   "count": 281,
+   "displayComplete": true,
+   "withDisplay": 281
+  },
+  "clap-controls-same-target": {
+   "device": {
+    "trackId": "8fd6ee46-6370-435f-95a0-0f3029fb9500",
+    "devicePosition": 0
+   },
+   "view": "direct",
+   "deviceName": "Diva",
+   "standing": "stable",
+   "displayComplete": true,
+   "parameters": [
+    {
+     "id": "CONTENTS/PID0",
+     "name": "Output",
+     "normalizedValue": 0.37,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID1",
+     "name": "Active #FX1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID2",
+     "name": "Active #FX2",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID3",
+     "name": "LED Colour",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID4",
+     "name": "Voices",
+     "normalizedValue": 0.5714285714285714,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID5",
+     "name": "Voice Stack",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID6",
+     "name": "Mode",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID7",
+     "name": "GlideMode",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID8",
+     "name": "Glide",
+     "normalizedValue": 0.08,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID9",
+     "name": "Glide2",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa",
+     "name": "GlideRange",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb",
+     "name": "PitchBend Up",
+     "normalizedValue": 0.1111111111111111,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc",
+     "name": "PitchBend Down",
+     "normalizedValue": 0.25925925925925924,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd",
+     "name": "TuningMode",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe",
+     "name": "Transpose",
+     "normalizedValue": 0.25,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf",
+     "name": "FineTuneCents",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID10",
+     "name": "Note Priority",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID11",
+     "name": "MultiCore",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID12",
+     "name": "Accuracy",
+     "normalizedValue": 0.6666666666666666,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID13",
+     "name": "OfflineAcc",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID14",
+     "name": "TuneSlop",
+     "normalizedValue": 0.25,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID15",
+     "name": "CutoffSlop",
+     "normalizedValue": 0.16,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID16",
+     "name": "GlideSlop",
+     "normalizedValue": 0.24,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID17",
+     "name": "PWSlop",
+     "normalizedValue": 0.33,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID18",
+     "name": "EnvrateSlop",
+     "normalizedValue": 0.26,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID19",
+     "name": "V1Mod",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID1a",
+     "name": "V2Mod",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID1b",
+     "name": "V3Mod",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID1c",
+     "name": "V4Mod",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID1d",
+     "name": "V5Mod",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID1e",
+     "name": "V6Mod",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID1f",
+     "name": "V7Mod",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID20",
+     "name": "V8Mod",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID21",
+     "name": "Attack",
+     "normalizedValue": 0.15,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID22",
+     "name": "Decay",
+     "normalizedValue": 0.335,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID23",
+     "name": "Sustain",
+     "normalizedValue": 0.8,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID24",
+     "name": "Release",
+     "normalizedValue": 0.35,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID25",
+     "name": "Velocity",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID26",
+     "name": "Model",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID27",
+     "name": "Trigger",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID28",
+     "name": "Quantise",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID29",
+     "name": "Curve",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID2a",
+     "name": "Release On",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID2b",
+     "name": "KeyFollow",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID2c",
+     "name": "Attack",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID2d",
+     "name": "Decay",
+     "normalizedValue": 0.45,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID2e",
+     "name": "Sustain",
+     "normalizedValue": 0.32,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID2f",
+     "name": "Release",
+     "normalizedValue": 0.37,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID30",
+     "name": "Velocity",
+     "normalizedValue": 0.85,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID31",
+     "name": "Model",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID32",
+     "name": "Trigger",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID33",
+     "name": "Quantise",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID34",
+     "name": "Curve",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID35",
+     "name": "Release On",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID36",
+     "name": "KeyFollow",
+     "normalizedValue": 0.24,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID37",
+     "name": "Sync",
+     "normalizedValue": 0.038461538461538464,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID38",
+     "name": "Restart",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID39",
+     "name": "Waveform",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID3a",
+     "name": "Phase",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID3b",
+     "name": "Delay",
+     "normalizedValue": 0.26,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID3c",
+     "name": "DepthMod Src1",
+     "normalizedValue": 0.043478260869565216,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID3d",
+     "name": "DepthMod Dpt1",
+     "normalizedValue": 0.9,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID3e",
+     "name": "Rate",
+     "normalizedValue": 0.6600000023841858,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID3f",
+     "name": "FreqMod Src1",
+     "normalizedValue": 0.043478260869565216,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID40",
+     "name": "FreqMod Dpt",
+     "normalizedValue": 0.5600000023841858,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID41",
+     "name": "Sync",
+     "normalizedValue": 0.038461538461538464,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID42",
+     "name": "Restart",
+     "normalizedValue": 0.3333333333333333,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID43",
+     "name": "Waveform",
+     "normalizedValue": 0.14285714285714285,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID44",
+     "name": "Phase",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID45",
+     "name": "Delay",
+     "normalizedValue": 0.6,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID46",
+     "name": "DepthMod Src1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID47",
+     "name": "DepthMod Dpt1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID48",
+     "name": "Rate",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID49",
+     "name": "FreqMod Src1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID4a",
+     "name": "FreqMod Dpt",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID4b",
+     "name": "Quantise",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID4c",
+     "name": "Slew Rate",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID4d",
+     "name": "RectifySource",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID4e",
+     "name": "InvertSource",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID4f",
+     "name": "QuantiseSource",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID50",
+     "name": "LagSource",
+     "normalizedValue": 0.6521739130434783,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID51",
+     "name": "AddSource1",
+     "normalizedValue": 0.2608695652173913,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID52",
+     "name": "AddSource2",
+     "normalizedValue": 0.30434782608695654,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID53",
+     "name": "MulSource1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID54",
+     "name": "MulSource2",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID55",
+     "name": "Model",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID56",
+     "name": "Tune1",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID57",
+     "name": "Tune2",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID58",
+     "name": "Tune3",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID59",
+     "name": "Vibrato",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID5a",
+     "name": "PulseWidth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID5b",
+     "name": "Shape1",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID5c",
+     "name": "Shape2",
+     "normalizedValue": 0.5249999761581421,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID5d",
+     "name": "Shape3",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID5e",
+     "name": "FM",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID5f",
+     "name": "Sync2",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID60",
+     "name": "OscMix",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID61",
+     "name": "Volume1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID62",
+     "name": "Volume2",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID63",
+     "name": "Volume3",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID64",
+     "name": "PulseShape",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID65",
+     "name": "SawShape",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID66",
+     "name": "SuboscShape",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID67",
+     "name": "Tune1ModSrc",
+     "normalizedValue": 0.6521739130434783,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID68",
+     "name": "Tune1ModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID69",
+     "name": "Tune2ModSrc",
+     "normalizedValue": 0.7391304347826086,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID6a",
+     "name": "Tune2ModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID6b",
+     "name": "PWModSrc",
+     "normalizedValue": 0.7391304347826086,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID6c",
+     "name": "PWModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID6d",
+     "name": "ShapeSrc",
+     "normalizedValue": 0.7391304347826086,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID6e",
+     "name": "ShapeDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID6f",
+     "name": "Triangle1On",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID70",
+     "name": "Sine2On",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID71",
+     "name": "Saw1On",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID72",
+     "name": "Pwm1On",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID73",
+     "name": "Triangle2On",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID74",
+     "name": "Saw2On",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID75",
+     "name": "Pulse2On",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID76",
+     "name": "PWM2On",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID77",
+     "name": "Noise1On",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID78",
+     "name": "ShapeModel",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID79",
+     "name": "Sync3",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID7a",
+     "name": "NoiseVol",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID7b",
+     "name": "NoiseColor",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID7c",
+     "name": "TuneModOsc1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID7d",
+     "name": "TuneModOsc2",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID7e",
+     "name": "TuneModOsc3",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID7f",
+     "name": "ShapeModOsc1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID80",
+     "name": "ShapeModOsc2",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID81",
+     "name": "ShapeModOsc3",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID82",
+     "name": "TuneModMode",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID83",
+     "name": "EcoWave1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID84",
+     "name": "EcoWave2",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID85",
+     "name": "RingmodPulse",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID86",
+     "name": "Drift",
+     "normalizedValue": 0.21,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID87",
+     "name": "FmModSrc",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID88",
+     "name": "FmModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID89",
+     "name": "NoiseVolModSrc",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID8a",
+     "name": "NoiseVolModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID8b",
+     "name": "Model",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID8c",
+     "name": "Frequency",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID8d",
+     "name": "Resonance",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID8e",
+     "name": "Revision",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID8f",
+     "name": "KeyFollow",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID90",
+     "name": "FreqModSrc",
+     "normalizedValue": 0.6521739130434783,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID91",
+     "name": "FreqModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID92",
+     "name": "Post-HPF Freq",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID93",
+     "name": "Model",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID94",
+     "name": "Frequency",
+     "normalizedValue": 0.09166666666666666,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID95",
+     "name": "Resonance",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID96",
+     "name": "FreqModSrc",
+     "normalizedValue": 0.9130434782608695,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID97",
+     "name": "FreqModDepth",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID98",
+     "name": "FreqMod2Src",
+     "normalizedValue": 0.9565217391304348,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID99",
+     "name": "FreqMod2Depth",
+     "normalizedValue": 0.5333333333333333,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID9a",
+     "name": "KeyFollow",
+     "normalizedValue": 0.4,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID9b",
+     "name": "FilterFM",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID9c",
+     "name": "LadderMode",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID9d",
+     "name": "LadderColor",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID9e",
+     "name": "SlnKyRevision",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID9f",
+     "name": "SvfMode",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa0",
+     "name": "Feedback",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa1",
+     "name": "ResModSrc",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa2",
+     "name": "ResModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa3",
+     "name": "FmAmountModSrc",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa4",
+     "name": "FmAmountModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa5",
+     "name": "FeedbackModSrc",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa6",
+     "name": "FeedbackModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa7",
+     "name": "Pan",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa8",
+     "name": "Volume",
+     "normalizedValue": 0.485,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa9",
+     "name": "VCA",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDaa",
+     "name": "Modulation",
+     "normalizedValue": 0.6956521739130435,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDab",
+     "name": "ModDepth",
+     "normalizedValue": 0.43,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDac",
+     "name": "PanModulation",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDad",
+     "name": "PanModDepth",
+     "normalizedValue": 0.51,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDae",
+     "name": "Mode",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDaf",
+     "name": "Offset",
+     "normalizedValue": 0.4400000013411045,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb0",
+     "name": "Frequency",
+     "normalizedValue": 0.1875,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb1",
+     "name": "Scale",
+     "normalizedValue": 0.6,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb2",
+     "name": "Module",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb3",
+     "name": "Type",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb4",
+     "name": "Rate",
+     "normalizedValue": 0.12,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb5",
+     "name": "Depth",
+     "normalizedValue": 0.155,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb6",
+     "name": "Wet",
+     "normalizedValue": 0.725,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb7",
+     "name": "Type",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb8",
+     "name": "Rate",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb9",
+     "name": "Feedback",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDba",
+     "name": "Stereo",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDbb",
+     "name": "Sync",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDbc",
+     "name": "Phase",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDbd",
+     "name": "Wet",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDbe",
+     "name": "PreDelay",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDbf",
+     "name": "Diffusion",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc0",
+     "name": "Damp",
+     "normalizedValue": 0.8,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc1",
+     "name": "Decay",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc2",
+     "name": "Size",
+     "normalizedValue": 0.7487437185929648,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc3",
+     "name": "Dry",
+     "normalizedValue": 0.9,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc4",
+     "name": "Wet",
+     "normalizedValue": 0.4,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc5",
+     "name": "Left Delay",
+     "normalizedValue": 0.06666666666666667,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc6",
+     "name": "Center Delay",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc7",
+     "name": "Right Delay",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc8",
+     "name": "Side Vol",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc9",
+     "name": "Center Vol",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDca",
+     "name": "Feedback",
+     "normalizedValue": 0.25,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDcb",
+     "name": "HP",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDcc",
+     "name": "LP",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDcd",
+     "name": "Dry",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDce",
+     "name": "Wow",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDcf",
+     "name": "Mode",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd0",
+     "name": "Mix",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd1",
+     "name": "Balance",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd2",
+     "name": "Drive",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd3",
+     "name": "Stereo",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd4",
+     "name": "Out",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd5",
+     "name": "Slow",
+     "normalizedValue": 0.3,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd6",
+     "name": "Fast",
+     "normalizedValue": 0.85,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd7",
+     "name": "RiseTime",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd8",
+     "name": "Controller",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd9",
+     "name": "Module",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDda",
+     "name": "Type",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDdb",
+     "name": "Rate",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDdc",
+     "name": "Depth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDdd",
+     "name": "Wet",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDde",
+     "name": "Type",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDdf",
+     "name": "Rate",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe0",
+     "name": "Feedback",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe1",
+     "name": "Stereo",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe2",
+     "name": "Sync",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe3",
+     "name": "Phase",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe4",
+     "name": "Wet",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe5",
+     "name": "PreDelay",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe6",
+     "name": "Diffusion",
+     "normalizedValue": 0.92,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe7",
+     "name": "Damp",
+     "normalizedValue": 0.86,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe8",
+     "name": "Decay",
+     "normalizedValue": 0.45,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe9",
+     "name": "Size",
+     "normalizedValue": 0.7688442211055276,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDea",
+     "name": "Dry",
+     "normalizedValue": 0.8,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDeb",
+     "name": "Wet",
+     "normalizedValue": 0.1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDec",
+     "name": "Left Delay",
+     "normalizedValue": 0.06666666666666667,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDed",
+     "name": "Center Delay",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDee",
+     "name": "Right Delay",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDef",
+     "name": "Side Vol",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf0",
+     "name": "Center Vol",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf1",
+     "name": "Feedback",
+     "normalizedValue": 0.25,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf2",
+     "name": "HP",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf3",
+     "name": "LP",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf4",
+     "name": "Dry",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf5",
+     "name": "Wow",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf6",
+     "name": "Mode",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf7",
+     "name": "Mix",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf8",
+     "name": "Balance",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf9",
+     "name": "Drive",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDfa",
+     "name": "Stereo",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDfb",
+     "name": "Out",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDfc",
+     "name": "Slow",
+     "normalizedValue": 0.3,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDfd",
+     "name": "Fast",
+     "normalizedValue": 0.85,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDfe",
+     "name": "RiseTime",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDff",
+     "name": "Controller",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID100",
+     "name": "Multiply",
+     "normalizedValue": 0.3333333333333333,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID101",
+     "name": "TimeBase",
+     "normalizedValue": 0.6666666666666666,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID102",
+     "name": "Swing",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID103",
+     "name": "Direction",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID104",
+     "name": "Octaves",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID105",
+     "name": "Multiply",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID106",
+     "name": "Restart",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID107",
+     "name": "OnOff",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID108",
+     "name": "DigitalShape2",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID109",
+     "name": "DigitalShape3",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID10a",
+     "name": "DigitalShape4",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID10b",
+     "name": "ShapeMix",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID10c",
+     "name": "ShapeModSrc",
+     "normalizedValue": 0.7391304347826086,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID10d",
+     "name": "ShapeModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID10e",
+     "name": "UhbieBandpass",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID10f",
+     "name": "Order",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID110",
+     "name": "Polarity",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID111",
+     "name": "Polarity",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID112",
+     "name": "Depth",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID113",
+     "name": "Center",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID114",
+     "name": "Depth",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID115",
+     "name": "Center",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID116",
+     "name": "DigitalType1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID117",
+     "name": "DigitalType2",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID118",
+     "name": "DigitalAntiAlias",
+     "normalizedValue": 0,
+     "display": ""
+    }
+   ],
+   "valueCapabilities": {
+    "normalized": {
+     "readable": true,
+     "writable": true,
+     "minimum": 0,
+     "maximum": 1
+    },
+    "displayed": {
+     "readable": "when-observed",
+     "writable": false,
+     "invertible": false,
+     "meaning": "Opaque host-formatted text for the current normalized value."
+    },
+    "discrete": {
+     "readable": "when-host-proved",
+     "writable": "returned-normalized-values-only"
+    },
+    "semantic": {
+     "readable": false,
+     "writable": false,
+     "reason": "API 25 has no text parser or exact displayed-value inverse conversion."
+    }
+   },
+   "warnings": [],
+   "elapsedMs": 3943
+  },
+  "clap-set": {
+   "applied": true,
+   "partialSuccess": false,
+   "verified": true,
+   "parameterChanges": [
+    {
+     "device": {
+      "trackId": "8fd6ee46-6370-435f-95a0-0f3029fb9500",
+      "devicePosition": 0
+     },
+     "changes": [
+      {
+       "settingIndex": 0,
+       "selector": {
+        "kind": "direct",
+        "parameterId": "CONTENTS/PID0"
+       },
+       "changeId": "e5fe6588-e78e-4d44-92c9-42e9832d2bbb"
+      }
+     ]
+    }
+   ],
+   "valueCapabilities": {
+    "normalized": {
+     "readable": true,
+     "writable": true,
+     "minimum": 0,
+     "maximum": 1
+    },
+    "displayed": {
+     "readable": "when-observed",
+     "writable": false,
+     "invertible": false,
+     "meaning": "Opaque host-formatted text for the current normalized value."
+    },
+    "discrete": {
+     "readable": "when-host-proved",
+     "writable": "returned-normalized-values-only"
+    },
+    "semantic": {
+     "readable": false,
+     "writable": false,
+     "reason": "API 25 has no text parser or exact displayed-value inverse conversion."
+    }
+   },
+   "warnings": [],
+   "reversal": "exact-base-value-while-the-device-route-remains-valid",
+   "elapsedMs": 8301
+  },
+  "clap-controls-after": {
+   "device": {
+    "trackId": "8fd6ee46-6370-435f-95a0-0f3029fb9500",
+    "devicePosition": 0
+   },
+   "view": "direct",
+   "deviceName": "Diva",
+   "standing": "stable",
+   "displayComplete": true,
+   "parameters": [
+    {
+     "id": "CONTENTS/PID0",
+     "name": "Output",
+     "normalizedValue": 0.75,
+     "display": "150.00"
+    },
+    {
+     "id": "CONTENTS/PID1",
+     "name": "Active #FX1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID2",
+     "name": "Active #FX2",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID3",
+     "name": "LED Colour",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID4",
+     "name": "Voices",
+     "normalizedValue": 0.5714285714285714,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID5",
+     "name": "Voice Stack",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID6",
+     "name": "Mode",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID7",
+     "name": "GlideMode",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID8",
+     "name": "Glide",
+     "normalizedValue": 0.08,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID9",
+     "name": "Glide2",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa",
+     "name": "GlideRange",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb",
+     "name": "PitchBend Up",
+     "normalizedValue": 0.1111111111111111,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc",
+     "name": "PitchBend Down",
+     "normalizedValue": 0.25925925925925924,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd",
+     "name": "TuningMode",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe",
+     "name": "Transpose",
+     "normalizedValue": 0.25,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf",
+     "name": "FineTuneCents",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID10",
+     "name": "Note Priority",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID11",
+     "name": "MultiCore",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID12",
+     "name": "Accuracy",
+     "normalizedValue": 0.6666666666666666,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID13",
+     "name": "OfflineAcc",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID14",
+     "name": "TuneSlop",
+     "normalizedValue": 0.25,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID15",
+     "name": "CutoffSlop",
+     "normalizedValue": 0.16,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID16",
+     "name": "GlideSlop",
+     "normalizedValue": 0.24,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID17",
+     "name": "PWSlop",
+     "normalizedValue": 0.33,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID18",
+     "name": "EnvrateSlop",
+     "normalizedValue": 0.26,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID19",
+     "name": "V1Mod",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID1a",
+     "name": "V2Mod",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID1b",
+     "name": "V3Mod",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID1c",
+     "name": "V4Mod",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID1d",
+     "name": "V5Mod",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID1e",
+     "name": "V6Mod",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID1f",
+     "name": "V7Mod",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID20",
+     "name": "V8Mod",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID21",
+     "name": "Attack",
+     "normalizedValue": 0.15,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID22",
+     "name": "Decay",
+     "normalizedValue": 0.335,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID23",
+     "name": "Sustain",
+     "normalizedValue": 0.8,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID24",
+     "name": "Release",
+     "normalizedValue": 0.35,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID25",
+     "name": "Velocity",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID26",
+     "name": "Model",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID27",
+     "name": "Trigger",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID28",
+     "name": "Quantise",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID29",
+     "name": "Curve",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID2a",
+     "name": "Release On",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID2b",
+     "name": "KeyFollow",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID2c",
+     "name": "Attack",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID2d",
+     "name": "Decay",
+     "normalizedValue": 0.45,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID2e",
+     "name": "Sustain",
+     "normalizedValue": 0.32,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID2f",
+     "name": "Release",
+     "normalizedValue": 0.37,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID30",
+     "name": "Velocity",
+     "normalizedValue": 0.85,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID31",
+     "name": "Model",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID32",
+     "name": "Trigger",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID33",
+     "name": "Quantise",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID34",
+     "name": "Curve",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID35",
+     "name": "Release On",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID36",
+     "name": "KeyFollow",
+     "normalizedValue": 0.24,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID37",
+     "name": "Sync",
+     "normalizedValue": 0.038461538461538464,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID38",
+     "name": "Restart",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID39",
+     "name": "Waveform",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID3a",
+     "name": "Phase",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID3b",
+     "name": "Delay",
+     "normalizedValue": 0.26,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID3c",
+     "name": "DepthMod Src1",
+     "normalizedValue": 0.043478260869565216,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID3d",
+     "name": "DepthMod Dpt1",
+     "normalizedValue": 0.9,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID3e",
+     "name": "Rate",
+     "normalizedValue": 0.6600000023841858,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID3f",
+     "name": "FreqMod Src1",
+     "normalizedValue": 0.043478260869565216,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID40",
+     "name": "FreqMod Dpt",
+     "normalizedValue": 0.5600000023841858,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID41",
+     "name": "Sync",
+     "normalizedValue": 0.038461538461538464,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID42",
+     "name": "Restart",
+     "normalizedValue": 0.3333333333333333,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID43",
+     "name": "Waveform",
+     "normalizedValue": 0.14285714285714285,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID44",
+     "name": "Phase",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID45",
+     "name": "Delay",
+     "normalizedValue": 0.6,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID46",
+     "name": "DepthMod Src1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID47",
+     "name": "DepthMod Dpt1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID48",
+     "name": "Rate",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID49",
+     "name": "FreqMod Src1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID4a",
+     "name": "FreqMod Dpt",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID4b",
+     "name": "Quantise",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID4c",
+     "name": "Slew Rate",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID4d",
+     "name": "RectifySource",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID4e",
+     "name": "InvertSource",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID4f",
+     "name": "QuantiseSource",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID50",
+     "name": "LagSource",
+     "normalizedValue": 0.6521739130434783,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID51",
+     "name": "AddSource1",
+     "normalizedValue": 0.2608695652173913,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID52",
+     "name": "AddSource2",
+     "normalizedValue": 0.30434782608695654,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID53",
+     "name": "MulSource1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID54",
+     "name": "MulSource2",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID55",
+     "name": "Model",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID56",
+     "name": "Tune1",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID57",
+     "name": "Tune2",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID58",
+     "name": "Tune3",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID59",
+     "name": "Vibrato",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID5a",
+     "name": "PulseWidth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID5b",
+     "name": "Shape1",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID5c",
+     "name": "Shape2",
+     "normalizedValue": 0.5249999761581421,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID5d",
+     "name": "Shape3",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID5e",
+     "name": "FM",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID5f",
+     "name": "Sync2",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID60",
+     "name": "OscMix",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID61",
+     "name": "Volume1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID62",
+     "name": "Volume2",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID63",
+     "name": "Volume3",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID64",
+     "name": "PulseShape",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID65",
+     "name": "SawShape",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID66",
+     "name": "SuboscShape",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID67",
+     "name": "Tune1ModSrc",
+     "normalizedValue": 0.6521739130434783,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID68",
+     "name": "Tune1ModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID69",
+     "name": "Tune2ModSrc",
+     "normalizedValue": 0.7391304347826086,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID6a",
+     "name": "Tune2ModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID6b",
+     "name": "PWModSrc",
+     "normalizedValue": 0.7391304347826086,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID6c",
+     "name": "PWModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID6d",
+     "name": "ShapeSrc",
+     "normalizedValue": 0.7391304347826086,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID6e",
+     "name": "ShapeDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID6f",
+     "name": "Triangle1On",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID70",
+     "name": "Sine2On",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID71",
+     "name": "Saw1On",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID72",
+     "name": "Pwm1On",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID73",
+     "name": "Triangle2On",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID74",
+     "name": "Saw2On",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID75",
+     "name": "Pulse2On",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID76",
+     "name": "PWM2On",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID77",
+     "name": "Noise1On",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID78",
+     "name": "ShapeModel",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID79",
+     "name": "Sync3",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID7a",
+     "name": "NoiseVol",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID7b",
+     "name": "NoiseColor",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID7c",
+     "name": "TuneModOsc1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID7d",
+     "name": "TuneModOsc2",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID7e",
+     "name": "TuneModOsc3",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID7f",
+     "name": "ShapeModOsc1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID80",
+     "name": "ShapeModOsc2",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID81",
+     "name": "ShapeModOsc3",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID82",
+     "name": "TuneModMode",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID83",
+     "name": "EcoWave1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID84",
+     "name": "EcoWave2",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID85",
+     "name": "RingmodPulse",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID86",
+     "name": "Drift",
+     "normalizedValue": 0.21,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID87",
+     "name": "FmModSrc",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID88",
+     "name": "FmModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID89",
+     "name": "NoiseVolModSrc",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID8a",
+     "name": "NoiseVolModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID8b",
+     "name": "Model",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID8c",
+     "name": "Frequency",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID8d",
+     "name": "Resonance",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID8e",
+     "name": "Revision",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID8f",
+     "name": "KeyFollow",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID90",
+     "name": "FreqModSrc",
+     "normalizedValue": 0.6521739130434783,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID91",
+     "name": "FreqModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID92",
+     "name": "Post-HPF Freq",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID93",
+     "name": "Model",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID94",
+     "name": "Frequency",
+     "normalizedValue": 0.09166666666666666,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID95",
+     "name": "Resonance",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID96",
+     "name": "FreqModSrc",
+     "normalizedValue": 0.9130434782608695,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID97",
+     "name": "FreqModDepth",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID98",
+     "name": "FreqMod2Src",
+     "normalizedValue": 0.9565217391304348,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID99",
+     "name": "FreqMod2Depth",
+     "normalizedValue": 0.5333333333333333,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID9a",
+     "name": "KeyFollow",
+     "normalizedValue": 0.4,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID9b",
+     "name": "FilterFM",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID9c",
+     "name": "LadderMode",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID9d",
+     "name": "LadderColor",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID9e",
+     "name": "SlnKyRevision",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID9f",
+     "name": "SvfMode",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa0",
+     "name": "Feedback",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa1",
+     "name": "ResModSrc",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa2",
+     "name": "ResModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa3",
+     "name": "FmAmountModSrc",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa4",
+     "name": "FmAmountModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa5",
+     "name": "FeedbackModSrc",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa6",
+     "name": "FeedbackModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa7",
+     "name": "Pan",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa8",
+     "name": "Volume",
+     "normalizedValue": 0.485,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDa9",
+     "name": "VCA",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDaa",
+     "name": "Modulation",
+     "normalizedValue": 0.6956521739130435,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDab",
+     "name": "ModDepth",
+     "normalizedValue": 0.43,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDac",
+     "name": "PanModulation",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDad",
+     "name": "PanModDepth",
+     "normalizedValue": 0.51,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDae",
+     "name": "Mode",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDaf",
+     "name": "Offset",
+     "normalizedValue": 0.4400000013411045,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb0",
+     "name": "Frequency",
+     "normalizedValue": 0.1875,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb1",
+     "name": "Scale",
+     "normalizedValue": 0.6,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb2",
+     "name": "Module",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb3",
+     "name": "Type",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb4",
+     "name": "Rate",
+     "normalizedValue": 0.12,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb5",
+     "name": "Depth",
+     "normalizedValue": 0.155,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb6",
+     "name": "Wet",
+     "normalizedValue": 0.725,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb7",
+     "name": "Type",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb8",
+     "name": "Rate",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDb9",
+     "name": "Feedback",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDba",
+     "name": "Stereo",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDbb",
+     "name": "Sync",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDbc",
+     "name": "Phase",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDbd",
+     "name": "Wet",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDbe",
+     "name": "PreDelay",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDbf",
+     "name": "Diffusion",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc0",
+     "name": "Damp",
+     "normalizedValue": 0.8,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc1",
+     "name": "Decay",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc2",
+     "name": "Size",
+     "normalizedValue": 0.7487437185929648,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc3",
+     "name": "Dry",
+     "normalizedValue": 0.9,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc4",
+     "name": "Wet",
+     "normalizedValue": 0.4,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc5",
+     "name": "Left Delay",
+     "normalizedValue": 0.06666666666666667,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc6",
+     "name": "Center Delay",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc7",
+     "name": "Right Delay",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc8",
+     "name": "Side Vol",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDc9",
+     "name": "Center Vol",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDca",
+     "name": "Feedback",
+     "normalizedValue": 0.25,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDcb",
+     "name": "HP",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDcc",
+     "name": "LP",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDcd",
+     "name": "Dry",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDce",
+     "name": "Wow",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDcf",
+     "name": "Mode",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd0",
+     "name": "Mix",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd1",
+     "name": "Balance",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd2",
+     "name": "Drive",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd3",
+     "name": "Stereo",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd4",
+     "name": "Out",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd5",
+     "name": "Slow",
+     "normalizedValue": 0.3,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd6",
+     "name": "Fast",
+     "normalizedValue": 0.85,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd7",
+     "name": "RiseTime",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd8",
+     "name": "Controller",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDd9",
+     "name": "Module",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDda",
+     "name": "Type",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDdb",
+     "name": "Rate",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDdc",
+     "name": "Depth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDdd",
+     "name": "Wet",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDde",
+     "name": "Type",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDdf",
+     "name": "Rate",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe0",
+     "name": "Feedback",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe1",
+     "name": "Stereo",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe2",
+     "name": "Sync",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe3",
+     "name": "Phase",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe4",
+     "name": "Wet",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe5",
+     "name": "PreDelay",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe6",
+     "name": "Diffusion",
+     "normalizedValue": 0.92,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe7",
+     "name": "Damp",
+     "normalizedValue": 0.86,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe8",
+     "name": "Decay",
+     "normalizedValue": 0.45,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDe9",
+     "name": "Size",
+     "normalizedValue": 0.7688442211055276,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDea",
+     "name": "Dry",
+     "normalizedValue": 0.8,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDeb",
+     "name": "Wet",
+     "normalizedValue": 0.1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDec",
+     "name": "Left Delay",
+     "normalizedValue": 0.06666666666666667,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDed",
+     "name": "Center Delay",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDee",
+     "name": "Right Delay",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDef",
+     "name": "Side Vol",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf0",
+     "name": "Center Vol",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf1",
+     "name": "Feedback",
+     "normalizedValue": 0.25,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf2",
+     "name": "HP",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf3",
+     "name": "LP",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf4",
+     "name": "Dry",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf5",
+     "name": "Wow",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf6",
+     "name": "Mode",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf7",
+     "name": "Mix",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf8",
+     "name": "Balance",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDf9",
+     "name": "Drive",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDfa",
+     "name": "Stereo",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDfb",
+     "name": "Out",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDfc",
+     "name": "Slow",
+     "normalizedValue": 0.3,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDfd",
+     "name": "Fast",
+     "normalizedValue": 0.85,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDfe",
+     "name": "RiseTime",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PIDff",
+     "name": "Controller",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID100",
+     "name": "Multiply",
+     "normalizedValue": 0.3333333333333333,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID101",
+     "name": "TimeBase",
+     "normalizedValue": 0.6666666666666666,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID102",
+     "name": "Swing",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID103",
+     "name": "Direction",
+     "normalizedValue": 0.2,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID104",
+     "name": "Octaves",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID105",
+     "name": "Multiply",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID106",
+     "name": "Restart",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID107",
+     "name": "OnOff",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID108",
+     "name": "DigitalShape2",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID109",
+     "name": "DigitalShape3",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID10a",
+     "name": "DigitalShape4",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID10b",
+     "name": "ShapeMix",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID10c",
+     "name": "ShapeModSrc",
+     "normalizedValue": 0.7391304347826086,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID10d",
+     "name": "ShapeModDepth",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID10e",
+     "name": "UhbieBandpass",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID10f",
+     "name": "Order",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID110",
+     "name": "Polarity",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID111",
+     "name": "Polarity",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID112",
+     "name": "Depth",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID113",
+     "name": "Center",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID114",
+     "name": "Depth",
+     "normalizedValue": 1,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID115",
+     "name": "Center",
+     "normalizedValue": 0.5,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID116",
+     "name": "DigitalType1",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID117",
+     "name": "DigitalType2",
+     "normalizedValue": 0,
+     "display": ""
+    },
+    {
+     "id": "CONTENTS/PID118",
+     "name": "DigitalAntiAlias",
+     "normalizedValue": 0,
+     "display": ""
+    }
+   ],
+   "valueCapabilities": {
+    "normalized": {
+     "readable": true,
+     "writable": true,
+     "minimum": 0,
+     "maximum": 1
+    },
+    "displayed": {
+     "readable": "when-observed",
+     "writable": false,
+     "invertible": false,
+     "meaning": "Opaque host-formatted text for the current normalized value."
+    },
+    "discrete": {
+     "readable": "when-host-proved",
+     "writable": "returned-normalized-values-only"
+    },
+    "semantic": {
+     "readable": false,
+     "writable": false,
+     "reason": "API 25 has no text parser or exact displayed-value inverse conversion."
+    }
+   },
+   "warnings": [],
+   "elapsedMs": 3919
+  },
+  "clap-written": {
+   "id": "CONTENTS/PID0",
+   "before": 0.37,
+   "after": {
+    "id": "CONTENTS/PID0",
+    "name": "Output",
+    "normalizedValue": 0.75,
+    "display": "150.00"
+   }
+  },
+  "clap-revert": {
+   "changeId": "0e433300-27ae-4fd4-bc10-66af214e28aa",
+   "applied": true,
+   "places": [
+    {
+     "what": "parameter",
+     "trackId": "8fd6ee46-6370-435f-95a0-0f3029fb9500",
+     "devicePosition": 0,
+     "parameter": "CONTENTS/PID0"
+    }
+   ],
+   "canBeUndone": true,
+   "cannotBeUndone": [],
+   "undoOf": "e5fe6588-e78e-4d44-92c9-42e9832d2bbb",
+   "restored": [
+    {
+     "what": "parameter",
+     "trackId": "8fd6ee46-6370-435f-95a0-0f3029fb9500",
+     "devicePosition": 0,
+     "parameter": "CONTENTS/PID0"
+    }
+   ],
+   "notRestored": [],
+   "caveats": []
+  },
+  "cleanup": {
+   "changeId": "350a52f4-6e9c-4533-854e-c6755dbfc2b2",
+   "applied": true,
+   "places": [
+    {
+     "what": "track",
+     "trackId": "8fd6ee46-6370-435f-95a0-0f3029fb9500"
+    }
+   ],
+   "canBeUndone": false,
+   "cannotBeUndone": [
+    {
+     "where": {
+      "what": "track",
+      "trackId": "8fd6ee46-6370-435f-95a0-0f3029fb9500"
+     },
+     "why": [
+      "a deleted track cannot be brought back. A newly created track gets a new id, so it is a different track and nothing recorded about the old one can be replayed onto it."
+     ]
+    }
+   ]
+  }
+ },
+ "guard": {
+  "hello": {
+   "contractVersion": 0,
+   "extensionVersion": "0.0.1",
+   "runtimeProfile": "normal-v1",
+   "hostApiVersion": 25,
+   "methodCount": 89,
+   "methodsHash": "0ef817f4bac8a8a7"
+  },
+  "mark": {
+   "revision": 377,
+   "generation": "236aa886-48a3-4267-b0f9-8c762d42e50b",
+   "project": "New 5",
+   "projectStatus": "marked",
+   "sceneEpoch": 3,
+   "sceneCount": 8,
+   "contentEpoch": 32818,
+   "contentEvents": [
+    {
+     "seq": 32795,
+     "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+     "trackIndex": 0,
+     "slotIndex": 4,
+     "filled": false
+    },
+    {
+     "seq": 32796,
+     "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+     "trackIndex": 1,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32797,
+     "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+     "trackIndex": 1,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32798,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32799,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32800,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32801,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 3,
+     "filled": false
+    },
+    {
+     "seq": 32802,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 4,
+     "filled": false
+    },
+    {
+     "seq": 32803,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 5,
+     "filled": false
+    },
+    {
+     "seq": 32804,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 6,
+     "filled": false
+    },
+    {
+     "seq": 32805,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 7,
+     "filled": false
+    },
+    {
+     "seq": 32806,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 8,
+     "filled": false
+    },
+    {
+     "seq": 32807,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 9,
+     "filled": false
+    },
+    {
+     "seq": 32808,
+     "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32809,
+     "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+     "trackIndex": 3,
+     "slotIndex": 5,
+     "filled": false
+    },
+    {
+     "seq": 32810,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32811,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32812,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32813,
+     "channelId": "",
+     "trackIndex": 5,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32814,
+     "channelId": "",
+     "trackIndex": 5,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32815,
+     "channelId": "",
+     "trackIndex": 5,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32816,
+     "channelId": "",
+     "trackIndex": 6,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32817,
+     "channelId": "",
+     "trackIndex": 7,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32818,
+     "channelId": "",
+     "trackIndex": 8,
+     "slotIndex": 0,
+     "filled": false
+    }
+   ]
+  }
+ }
+}

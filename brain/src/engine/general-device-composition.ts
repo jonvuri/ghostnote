@@ -641,6 +641,56 @@ async function addEntry(
 }
 
 /** Reverse completed source stages, then remove the proved empty owned container. */
+/**
+ * 8h4e: a read-only preview of `reverseGeneralDeviceSources`. It runs the same guards that the reversal checks
+ * before its first write, with the same functions, and writes nothing. Each later reversal stage checks its guards
+ * again, so a pass here is not a promise that every stage completes.
+ */
+export async function previewGeneralDeviceReversal(
+  host: GeneralDeviceCompositionHost,
+  checkpoint: GeneralDeviceCompositionCheckpoint,
+): Promise<{ readonly wouldWrite: boolean; readonly why?: string }> {
+  try {
+    if (checkpoint.reversalContainerRemoved === true) {
+      await stableTop(host, checkpoint.track, checkpoint.originalDeviceOrder);
+      return { wouldWrite: false, why: 'The owned container is already removed and the original order reads back.' };
+    }
+    if (checkpoint.pendingUnwitnessedSource !== undefined) {
+      const pending = checkpoint.pendingUnwitnessedSource;
+      const current = await stableTop(host, checkpoint.track);
+      const expected = projectedNestedTop(checkpoint, checkpoint.completedEntries);
+      const holds = current.at.revision === pending.at.revision
+        && current.at.generation === pending.at.generation
+        && current.at.project === pending.at.project
+        && pending.chainIndex === expected.length
+        && current.devices.length === expected.length + 1
+        && JSON.stringify(current.devices.slice(0, -1).map((item) => ({
+          name: item.name, enabled: item.enabled,
+        }))) === JSON.stringify(expected);
+      return holds ? { wouldWrite: true }
+        : { wouldWrite: false, why: 'The unwitnessed inserted source boundary changed.' };
+    }
+    const current = await stableTop(host, checkpoint.track, projectedTopFromCheckpoint(checkpoint));
+    if (checkpoint.seedUnchanged
+        && (checkpoint.state === 'container-inserted' || checkpoint.state === 'container-positioned')) {
+      const holds = current.at.revision === checkpoint.lastWriteAt.revision
+        && current.at.generation === checkpoint.lastWriteAt.generation
+        && current.at.project === checkpoint.lastWriteAt.project
+        && current.devices[checkpoint.currentContainerPosition]?.name === checkpoint.containerKind;
+      return holds ? { wouldWrite: true } : { wouldWrite: false, why: 'The untouched seed boundary changed.' };
+    }
+    const nestedEntries = checkpoint.reversalRemainingEntries ?? [
+      ...checkpoint.completedEntries,
+      ...(checkpoint.pendingEntry?.location === 'container-entry' ? [checkpoint.pendingEntry] : []),
+    ];
+    const exact = await exactEntries(host, device(checkpoint.track, checkpoint.currentContainerPosition),
+      checkpoint.preparedEntryNames, nestedEntries, checkpoint.containerKind);
+    return exact ? { wouldWrite: true } : { wouldWrite: false, why: 'The owned container structure changed.' };
+  } catch (error) {
+    return { wouldWrite: false, why: message(error) };
+  }
+}
+
 export async function reverseGeneralDeviceSources(
   host: GeneralDeviceCompositionHost,
   checkpoint: GeneralDeviceCompositionCheckpoint,

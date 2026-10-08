@@ -39,9 +39,9 @@ import {
   contentDelta, device as deviceAt, deviceIn,
   deviceSlot,
   hasUnverifiedProps, planStages,
-  lookupChain, lookupDevice, lookupDeviceSlot, lookupNestedDevice, mintedChain, nestingObservable, verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain, windowCovers,
+  lookupChain, lookupDevice, lookupDeviceSlot, lookupNestedDevice, mintedChain, nestingObservable, verifyChainSolo, verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain, windowCovers,
   type Address, type AddressKey, type AdapterInfo, type BatchReceipt, type BatchRequest,
-  type BitwigAdapter, type ChainAddress, type ChainMiss, type ClipAddress, type ClipSourceDigest, type ClipMetadataState, type ClipNavigationResult, type ContentDelta, type ContentEvent, type DeviceAddress, type DeviceSlotAddress, type Fidelity,
+  type BitwigAdapter, type ChainAddress, type ChainMiss, type DeviceState, type ClipAddress, type ClipSourceDigest, type ClipMetadataState, type ClipNavigationResult, type ContentDelta, type ContentEvent, type DeviceAddress, type DeviceSlotAddress, type Fidelity,
   type NoteRecord, type ObservedContainer, type ObservedDeviceSequence, type ObservedDrumPadBank, type Op, type ParamState, type ReadOptions, type ResolveResult, type ResolvedAddress, type RevisionMark,
   type LaunchMode, type LaunchQuantization, type SceneAddress, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
   type Stage, type TrackAddress, type TrackState, type WindowCoverage,
@@ -213,6 +213,14 @@ interface WireDirectInventory {
   readonly observedTrackChannelId?: string;
   readonly observedDeviceName?: string;
   readonly observedDeviceIndex?: number;
+  /** 8h4e: the generation that the display observer set is armed for, or -1. Absent on an older extension. */
+  readonly displayArmedGeneration?: number;
+  /** 8h4e: armed for this generation and each listed ID has current display text. */
+  readonly displayComplete?: boolean;
+  /** 8h4e: cursorDevice0 is a plug-in. */
+  readonly isPlugin?: boolean;
+  /** 8h4e: the size of the last ID list that the ID observer delivered (also across a target change). */
+  readonly knownIdCount?: number;
 }
 
 type ParameterInventory =
@@ -221,9 +229,20 @@ type ParameterInventory =
     readonly deviceName: string;
     readonly params: readonly ParamState[];
     readonly typed: readonly ParamState[];
+    /** 8h4e: each param has display text. Absent when the extension does not report the display arm. */
+    readonly displayComplete?: boolean;
+    readonly isPlugin?: boolean;
   }
   | { readonly standing: 'missing' | 'unreachable' | 'ambiguous' }
   | { readonly standing: 'unstable'; readonly deviceName?: string };
+
+/** 8h4e: the DeviceState fields that a stable parameter inventory adds beside `params`. */
+const inventoryDeviceFields = (
+  inventory: Extract<ParameterInventory, { readonly standing: 'stable' }>,
+): { readonly paramsDisplayComplete?: boolean; readonly isPlugin?: boolean } => ({
+  ...(inventory.displayComplete === undefined ? {} : { paramsDisplayComplete: inventory.displayComplete }),
+  ...(inventory.isPlugin === undefined ? {} : { isPlugin: inventory.isPlugin }),
+});
 
 type DeviceTarget =
   | { readonly standing: 'stable'; readonly deviceName: string }
@@ -423,6 +442,18 @@ const PARAMETER_WRITE_COMPLETION_ATTEMPTS = 160;
 const PARAMETER_WRITE_INVENTORY_ATTEMPTS = 40;
 /** Re-arm an observer that does not complete within its bounded generation. */
 const PARAMETER_INVENTORY_ACQUISITIONS = 3;
+/**
+ * 8h4e (E244): extra polls for the display text after the values are stable. The text arrives one turn after
+ * the arm, so the normal case uses none of them.
+ */
+const PARAMETER_DISPLAY_EXTRA_POLLS = 4;
+/**
+ * 8h4e (E244): a plug-in with an empty DirectParameter list (audio engine off, or the plug-in is not loaded)
+ * after an earlier empty list calls no ID observer, and the switch settle needs at least one ID. Accept the
+ * empty list after this many consecutive polls (about 0.5 s after `paramsLive`) that show the same target, a
+ * plug-in, and an empty known list.
+ */
+const PARAMETER_EMPTY_PLUGIN_POLLS = 20;
 /** Re-arm a remote observer that does not complete within one generation. */
 const REMOTE_INVENTORY_ACQUISITIONS = 3;
 
@@ -632,7 +663,7 @@ export interface LiveTraceEvent {
     | 'track-reuse'
     | 'device-retarget'
     | 'device-reuse'
-    | 'device-reuse-invalid'
+    | 'device-reuse-invalid' | 'device-cursor-recover'
     | 'selection-restore'
     | 'selection-restore-skipped'
     | 'selection-capture-skipped'
@@ -707,6 +738,7 @@ const borrowsSelection = (op: Op): boolean =>
   || op.op === 'chain.create'
   || op.op === 'chain.relocate'
   || op.op === 'chain.activate'
+  || op.op === 'chain.solo'
   || op.op === 'drumPad.insert'
   || op.op === 'clip.launchSettings';
 
@@ -1730,6 +1762,38 @@ export class LiveAdapter implements BitwigAdapter {
   }
 
   /** Point the serialized device cursor through one confirmed recursive path. */
+  /**
+   * 8h4e (E238): after a delete of the device under the cursor, the device cursor reports no device, and a selectAt
+   * on the same track does not move it. Pointing the track cursor at the same track is a no-op. A hop to another
+   * track and back, then the same selectAt, recovers it. Callers run this only when a status shows the cursor
+   * stranded, so the normal case pays nothing.
+   */
+  private async recoverStrandedDeviceCursor(key: string, trackIndex: number, deviceIndex: number): Promise<boolean> {
+    this.onTrace?.({ action: 'device-cursor-recover', target: key });
+    await this.transport.send({ method: WIRE.cursorPinTrack, params: { cursor: '0', pinned: false } });
+    await this.transport.send({ method: WIRE.deviceCursorPin, params: { pinned: false } });
+    // The hop needs another track that the extension accepts. Try the nearest listed tracks; a project with no
+    // other pointable track cannot recover here, and the read stays unstable.
+    const others = [...new Set(this.index.values())].filter((index) => index !== trackIndex)
+      .sort((left, right) => Math.abs(left - trackIndex) - Math.abs(right - trackIndex) || left - right)
+      .slice(0, 3);
+    let hopped = false;
+    for (const other of others) {
+      try {
+        await this.pointCursorTrack('0', other, false);
+        hopped = true;
+        break;
+      } catch {
+        this.onTrace?.({ action: 'device-cursor-recover', target: `${key}:refused:${other}` });
+      }
+    }
+    if (hopped) await this.settle('cursorPoint');
+    await this.pointCursorTrack('0', trackIndex, false);
+    await this.settle('cursorPoint');
+    await this.transport.send({ method: WIRE.deviceCursorSelectAt, params: { deviceIndex } });
+    return hopped;
+  }
+
   private async acquireDeviceTarget(device: DeviceAddress, row: WireTrack): Promise<DeviceTarget> {
     const path = chainPath(device);
     if (path.length > 2) return { standing: 'unreachable' };
@@ -1816,7 +1880,12 @@ export class LiveAdapter implements BitwigAdapter {
         return { standing: 'unstable', deviceName: targetName };
       }
       await this.settle('cursorPoint');
-      const parentStatus = await this.transport.send({ method: WIRE.deviceCursorStatus }) as DeviceCursorStatus;
+      let parentStatus = await this.transport.send({ method: WIRE.deviceCursorStatus }) as DeviceCursorStatus;
+      if (at === 0 && parentStatus.exists !== true && parentStatus.trackChannelId === device.track.channelId) {
+        await this.recoverStrandedDeviceCursor(key, row.index, topAddress.chainIndex);
+        await this.settle('cursorPoint');
+        parentStatus = await this.transport.send({ method: WIRE.deviceCursorStatus }) as DeviceCursorStatus;
+      }
       if (parentStatus.exists !== true || parentStatus.name !== targetName
           || parentStatus.trackChannelId !== device.track.channelId
           || parentStatus.deviceIndex !== step.container.chainIndex) {
@@ -1960,9 +2029,18 @@ export class LiveAdapter implements BitwigAdapter {
     await this.transport.send({ method: WIRE.deviceCursorPin, params: { pinned: true } });
     let pinned = false;
     let pinnedStatus: DeviceCursorStatus | undefined;
+    let recovered = false;
     for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
       await this.settle('cursorPoint');
       const status = await this.transport.send({ method: WIRE.deviceCursorStatus }) as DeviceCursorStatus;
+      if (!recovered && path.length === 0 && status.exists !== true
+          && status.trackChannelId === device.track.channelId) {
+        recovered = true;
+        await this.recoverStrandedDeviceCursor(key, row.index, topAddress.chainIndex);
+        await this.transport.send({ method: WIRE.cursorPinTrack, params: { cursor: '0', pinned: true } });
+        await this.transport.send({ method: WIRE.deviceCursorPin, params: { pinned: true } });
+        continue;
+      }
       pinned = status.exists === true && status.name === targetName
         && status.trackChannelId === device.track.channelId
         && status.isPinned === true && status.cursorTrackPinned === true
@@ -2030,13 +2108,37 @@ export class LiveAdapter implements BitwigAdapter {
       // its identity fields. Give them the measured live budget before polling.
       await this.settle('paramsLive');
 
+      // 8h4e (E244): the first poll that sees the settle also arms the display set in the extension, and the
+      // text arrives one turn later. The signature has only the IDs, names, and values, so the arm poll and the
+      // next poll (which has the text) are the two equal polls: the text adds no poll in the normal case.
       let prior: string | undefined;
+      let displayWaits = 0;
+      let emptyPluginPolls = 0;
       for (let attempt = 0; attempt < PARAMETER_INVENTORY_ATTEMPTS; attempt++) {
         const observed = await this.transport.send({
           method: WIRE.directParamList,
           params: { generation },
         }) as WireDirectInventory;
         const rows = observed.params ?? [];
+        const sameTarget = observed.generation === generation
+          && observed.deviceExists === true
+          && observed.deviceName === target.deviceName
+          && (device.chain !== undefined || observed.deviceIndex === device.chainIndex)
+          && observed.trackChannelId === device.track.channelId;
+        // E244: an empty list on a plug-in after an earlier empty list never settles in the extension (no ID
+        // callback, and the switch settle needs one ID). Accept it after a bounded number of equal polls.
+        if (sameTarget && observed.idsGeneration !== generation && observed.isPlugin === true
+            && observed.knownIdCount === 0 && rows.length === 0) {
+          emptyPluginPolls++;
+          if (emptyPluginPolls >= PARAMETER_EMPTY_PLUGIN_POLLS) {
+            return {
+              standing: 'stable', deviceName: target.deviceName, params: [], typed: [],
+              displayComplete: true, isPlugin: true,
+            };
+          }
+        } else {
+          emptyPluginPolls = 0;
+        }
         const complete = observed.generation === generation
           && observed.idsGeneration === generation
           && observed.deviceExists === true
@@ -2070,7 +2172,17 @@ export class LiveAdapter implements BitwigAdapter {
             },
             ...(typeof item.displayed === 'string' ? { display: item.displayed } : {}),
           }));
-          const signature = JSON.stringify(params);
+          const signature = JSON.stringify(rows.map((item) => [item.id, item.name, item.value]));
+          // An older extension reports no arm; it then has no display wait, as before.
+          const displayReported = typeof observed.displayArmedGeneration === 'number';
+          const displayArmed = observed.displayArmedGeneration === generation;
+          const displayDone = !displayArmed
+            || (observed.displayComplete === true && rows.every((item) => typeof item.displayed === 'string'));
+          if (signature === prior && !displayDone && displayWaits < PARAMETER_DISPLAY_EXTRA_POLLS) {
+            displayWaits++;
+            await this.settle('cursorPoint');
+            continue;
+          }
           if (signature === prior) {
             const typedReply = await this.transport.send({ method: WIRE.paramList }) as {
               readonly params?: readonly {
@@ -2148,7 +2260,15 @@ export class LiveAdapter implements BitwigAdapter {
                   ? {} : { discreteValueNames: supplement.discreteValueNames }),
               };
             });
-            return { standing: 'stable', deviceName: target.deviceName, params: enriched, typed };
+            return {
+              standing: 'stable',
+              deviceName: target.deviceName,
+              params: enriched,
+              typed,
+              ...(displayReported
+                ? { displayComplete: enriched.every((item) => item.display !== undefined) } : {}),
+              ...(typeof observed.isPlugin === 'boolean' ? { isPlugin: observed.isPlugin } : {}),
+            };
           }
           prior = signature;
         } else {
@@ -2430,6 +2550,13 @@ export class LiveAdapter implements BitwigAdapter {
   private async containerScope(
     trackRef: TrackAddress,
     containerIndex: number,
+    /**
+     * 8h4e (E238): false skips the named-slot descent. A layer-chain route needs only the fixed scope; the descent
+     * into an empty slot (the FX slot of an Instrument Layer) never settles and costs eight retries (about 3 s).
+     * Without the descent, `slotsComplete` is false, so a slot address still refuses. A container that already
+     * lists layer chains also skips it.
+     */
+    slots = true,
   ): Promise<ContainerScope> {
     const trackIndex = this.index.get(trackRef.channelId);
     if (trackIndex === undefined) return { ok: false, miss: 'absent' };
@@ -2473,7 +2600,10 @@ export class LiveAdapter implements BitwigAdapter {
       const fixedScope = (reply.scopes ?? [])[containerIndex];
       const slotName = fixedScope?.hasSlots === true && fixedScope.slotNames?.length === 1
         ? fixedScope.slotNames[0] : undefined;
-      if (slotName === undefined || fixedScope?.deviceExists !== true
+      // A layer container (the fixed scope already lists layer chains) needs no slot descent: no product route
+      // addresses its named slot, and the descent into an empty slot never settles (8h4e, E238).
+      const layerContainer = (fixedScope?.chains?.length ?? 0) > 0;
+      if (!slots || layerContainer || slotName === undefined || fixedScope?.deviceExists !== true
           || containerIndex >= this.containerScopeSize) break;
       await this.transport.send({
         method: WIRE.deviceCursorSelectFirstInSlot, params: { slot: slotName },
@@ -3458,6 +3588,7 @@ export class LiveAdapter implements BitwigAdapter {
       }
       const entry = await this.readOne(
         address, row, pointedAt, noteReads, parameterReads, remoteReads, metadataOf, occupancyOnly,
+        options.structure === true,
       );
       // ⚠ A chain-family address whose container has no observable scope is
       // UNREACHABLE, not missing — the same E5 distinction the track bank makes
@@ -3903,6 +4034,45 @@ export class LiveAdapter implements BitwigAdapter {
     });
   }
 
+  /**
+   * 8h4e: one `device` read with `ReadOptions.structure`. It reads no DirectParameter inventory and pins no
+   * parameter cursor. A top-level device in the container scopes costs one `containerScope` (one
+   * `chain.inventory` on a held track, plus the point and select frames); a device past the scopes costs one
+   * `device.list`. A nested device uses the one-level container-scope lookup.
+   */
+  private async readDeviceStructure(
+    address: DeviceAddress,
+  ): Promise<StateEntry | 'unreachable' | 'unstable' | undefined> {
+    const entry = (device: DeviceState): StateEntry => ({
+      address, fidelity: 'none', value: { of: 'device', device },
+    });
+    if (address.chain !== undefined) {
+      if (address.chain.kind === 'drumPad' || !nestingObservable(address)) return 'unreachable';
+      const scope = await this.containerScope(
+        address.chain.container.track, address.chain.container.chainIndex);
+      if (!scope.ok) return scope.miss === 'absent' ? undefined : 'unreachable';
+      const found = lookupNestedDevice(scope.container, address);
+      if (found.ok) return entry({ chainIndex: found.device.index, name: found.device.name });
+      return found.miss === 'outside-bank-window' || found.miss === 'unsupported' ? 'unreachable' : undefined;
+    }
+    if (address.chainIndex < this.containerScopeSize) {
+      const scope = await this.containerScope(address.track, address.chainIndex, false);
+      if (scope.ok) {
+        return scope.deviceName === undefined ? undefined : entry({
+          chainIndex: address.chainIndex, name: scope.deviceName, container: scope.container,
+        });
+      }
+      if (scope.miss === 'absent') return undefined;
+    }
+    // Past the container scopes (or a scope that did not hold): the device exists when the device bank has
+    // it. Its chains are not observable, so the entry has no `container`.
+    const chain = await this.deviceChain(address.track);
+    if (chain === undefined) return 'unreachable';
+    const found = chain.devices.find((item) => item.index === address.chainIndex);
+    if (found === undefined) return chain.blind ? 'unreachable' : undefined;
+    return entry({ chainIndex: address.chainIndex, name: found.name ?? '' });
+  }
+
   private async readOne(
     address: Address,
     row: WireTrack | undefined,
@@ -3912,6 +4082,7 @@ export class LiveAdapter implements BitwigAdapter {
     remoteReads: Map<AddressKey, Promise<RemoteInventory>>,
     metadataOf: (clip: ClipAddress, trackIndex: number) => Promise<ParsedClipMetadata>,
     occupancyOnly = false,
+    structureOnly = false,
   ): Promise<StateEntry | 'unreachable' | 'unstable' | undefined> {
     switch (address.kind) {
       case 'track':
@@ -4060,6 +4231,7 @@ export class LiveAdapter implements BitwigAdapter {
 
       case 'device': {
         if (row === undefined) return undefined;
+        if (structureOnly) return this.readDeviceStructure(address);
         // A nested device first uses the confirmed parameter cursor. The old
         // structural fallback remains bounded to the one level it can observe.
         if (address.chain !== undefined) {
@@ -4101,6 +4273,7 @@ export class LiveAdapter implements BitwigAdapter {
                 chainIndex: address.chainIndex,
                 name: inventory.deviceName,
                 params: inventory.params,
+                ...inventoryDeviceFields(inventory),
               },
             },
           };
@@ -4147,6 +4320,7 @@ export class LiveAdapter implements BitwigAdapter {
               chainIndex: address.chainIndex,
               name: inventory.deviceName,
               params: inventory.params,
+              ...inventoryDeviceFields(inventory),
               ...(scope.ok ? { container: scope.container } : {}),
             },
           },
@@ -4284,11 +4458,12 @@ export class LiveAdapter implements BitwigAdapter {
     this.chainIds.clear();
     const seen = new Map<AddressKey, ObservedContainer | undefined>();
     for (const op of ops) {
-      if (op.op !== 'chain.create' && op.op !== 'chain.rename' && op.op !== 'chain.activate') continue;
+      if (op.op !== 'chain.create' && op.op !== 'chain.rename' && op.op !== 'chain.activate'
+          && op.op !== 'chain.solo') continue;
       const container = op.op === 'chain.create' ? op.source.container : op.chain.container;
       const key = addressKey(container);
       if (seen.has(key)) continue;
-      const scope = await this.containerScope(container.track, container.chainIndex);
+      const scope = await this.containerScope(container.track, container.chainIndex, false);
       // ⚠ EVERY miss maps to `undefined`, deliberately — including `absent`. The
       // contract's refusal says "nothing could observe the chain this would
       // make", which is true of all four of them, and a create is the one moment
@@ -4553,7 +4728,7 @@ export class LiveAdapter implements BitwigAdapter {
     let last = 'container readback did not show the requested solo';
     do {
       const scope = await this.containerScope(
-        op.chain.container.track, op.chain.container.chainIndex);
+        op.chain.container.track, op.chain.container.chainIndex, false);
       if (scope.ok) {
         const proof = verifyExclusiveChain(scope.container, op.chain.name);
         if (proof.ok) return { ok: true };
@@ -4566,6 +4741,31 @@ export class LiveAdapter implements BitwigAdapter {
     return { ok: false, why: `exclusive switch was not proved by container readback: ${last}` };
   }
 
+  /**
+   * 8h4e: poll independent container readback until the addressed chain has the requested solo flag and each
+   * sibling keeps the flag of the pre-write reading.
+   */
+  private async finishChainSolo(
+    op: Extract<Op, { op: 'chain.solo' }>,
+    before: ObservedContainer,
+  ): Promise<{ readonly ok: true } | { readonly ok: false; readonly why: string }> {
+    const started = Date.now();
+    let last = 'container readback did not show the requested solo';
+    do {
+      const scope = await this.containerScope(
+        op.chain.container.track, op.chain.container.chainIndex, false);
+      if (scope.ok) {
+        const proof = verifyChainSolo(before, scope.container, op.chain.name, op.solo);
+        if (proof.ok) return { ok: true };
+        last = proof.why;
+      } else {
+        last = `the container became ${scope.miss}`;
+      }
+      if (Date.now() - started < 4000) await new Promise((resolve) => setTimeout(resolve, 100));
+    } while (Date.now() - started < 4000);
+    return { ok: false, why: `solo set was not proved by container readback: ${last}` };
+  }
+
   /** Prove a rename by resolving the new name to the identity observed before it. */
   private async finishChainRename(
     op: Extract<Op, { op: 'chain.rename' }>,
@@ -4575,7 +4775,7 @@ export class LiveAdapter implements BitwigAdapter {
     let last = 'the new name did not resolve';
     do {
       const scope = await this.containerScope(
-        op.chain.container.track, op.chain.container.chainIndex);
+        op.chain.container.track, op.chain.container.chainIndex, false);
       if (scope.ok) {
         const found = lookupChain(scope.container, op.name);
         if (found.ok && found.chain.id === id) return { ok: true };
@@ -4843,7 +5043,7 @@ export class LiveAdapter implements BitwigAdapter {
     // for one that held no chains — which would make the diff below see the
     // whole container as new.
     if (!before.ok) return unnamed(`the container was not observable before the copy (${before.miss})`);
-    const after = await this.containerScope(container.track, container.chainIndex);
+    const after = await this.containerScope(container.track, container.chainIndex, false);
     if (!after.ok) return unnamed(`the container became unobservable (${after.miss})`);
     const witness = mintedChain(before.container, after.container);
     if (!witness.ok) return unnamed(`the copy could not be identified: ${witness.why}`);
@@ -4866,7 +5066,7 @@ export class LiveAdapter implements BitwigAdapter {
       // budget `track.rename` already pays for the same class of change.
       await this.settle('trackStruct');
 
-      const settled = await this.containerScope(container.track, container.chainIndex);
+      const settled = await this.containerScope(container.track, container.chainIndex, false);
       if (!settled.ok) return unnamed(`the container became unobservable after the rename (${settled.miss})`);
       const found = lookupChain(settled.container, op.name);
       if (!found.ok) return unnamed(`the new name reads back as ${found.miss}`);
@@ -5108,7 +5308,7 @@ export class LiveAdapter implements BitwigAdapter {
       const createOp = createAt === -1 ? undefined : stage.ops[createAt];
       const containerBefore = createOp?.op === 'chain.create'
         ? await this.containerScope(
-          createOp.source.container.track, createOp.source.container.chainIndex)
+          createOp.source.container.track, createOp.source.container.chainIndex, false)
         : undefined;
       if (createOp?.op === 'chain.create' && containerBefore?.ok === true) {
         // ⚠ The positions the ENCODER will use come from THIS reading, not from
@@ -5124,7 +5324,7 @@ export class LiveAdapter implements BitwigAdapter {
       if (renameOp?.op === 'chain.rename') {
         try {
           const scope = await this.containerScope(
-            renameOp.chain.container.track, renameOp.chain.container.chainIndex);
+            renameOp.chain.container.track, renameOp.chain.container.chainIndex, false);
           assertChainRenamable([renameOp], () => scope.ok ? scope.container : undefined);
           if (scope.ok) this.recordChainPositions(renameOp.chain.container, scope.container);
           renameId = this.chainId(renameOp.chain);
@@ -5163,17 +5363,22 @@ export class LiveAdapter implements BitwigAdapter {
       }
       // A switch is also one settling op per stage. Re-read immediately before
       // encoding so its positional wire target comes from current structure.
-      const activateAt = stage.ops.findIndex((o) => o.op === 'chain.activate');
+      const activateAt = stage.ops.findIndex((o) => o.op === 'chain.activate' || o.op === 'chain.solo');
       const activateOp = activateAt === -1 ? undefined : stage.ops[activateAt];
-      if (activateOp?.op === 'chain.activate') {
+      // 8h4e: the pre-write reading of a `chain.solo` container. The readback compares each sibling flag with it.
+      let soloBefore: ObservedContainer | undefined;
+      if (activateOp?.op === 'chain.activate' || activateOp?.op === 'chain.solo') {
         try {
           const scope = await this.containerScope(
-            activateOp.chain.container.track, activateOp.chain.container.chainIndex);
+            activateOp.chain.container.track, activateOp.chain.container.chainIndex, false);
           assertChainActivatable(
             [activateOp],
             () => scope.ok ? scope.container : undefined,
           );
-          if (scope.ok) this.recordChainPositions(activateOp.chain.container, scope.container);
+          if (scope.ok) {
+            this.recordChainPositions(activateOp.chain.container, scope.container);
+            if (activateOp.op === 'chain.solo') soloBefore = scope.container;
+          }
         } catch (error) {
           await this.restoreSelection(selection);
           throw error;
@@ -5740,6 +5945,17 @@ export class LiveAdapter implements BitwigAdapter {
         if (!proved.ok) {
           const ops = receipts[receipts.length - 1]!.ops.map((entry) =>
             (entry.op === WIRE.deviceMoveTo || entry.op === 'device.relocate'
+              ? { ...entry, ok: false, error: proved.why }
+              : entry));
+          receipts[receipts.length - 1] = { ...receipts[receipts.length - 1]!, ops };
+        }
+      }
+      if (activateOp?.op === 'chain.solo' && soloBefore !== undefined
+          && receipts[receipts.length - 1]!.ops.every((entry) => entry.ok)) {
+        const proved = await this.finishChainSolo(activateOp, soloBefore);
+        if (!proved.ok) {
+          const ops = receipts[receipts.length - 1]!.ops.map((entry) =>
+            (entry.op === WIRE.chainSetSolo || entry.op === 'chain.solo'
               ? { ...entry, ok: false, error: proved.why }
               : entry));
           receipts[receipts.length - 1] = { ...receipts[receipts.length - 1]!, ops };

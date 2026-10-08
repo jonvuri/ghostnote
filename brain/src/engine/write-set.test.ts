@@ -16,7 +16,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { addressKey, clip, clipMetadata, device, notes as notesAt, param, scene, slot, track, type Op } from '../contract/index.js';
+import { addressKey, chain, clip, clipMetadata, device, notes as notesAt, param, scene, slot, track, type Op } from '../contract/index.js';
 import { isAtRisk, structuralRisk, writeSet, writeSetOf } from './write-set.js';
 
 const T = track('b07f6b06-8f4f-4f4f-802d-ddf1a5190515');
@@ -202,4 +202,11 @@ test('W-risk: a positional address degrades only when the batch can actually MOV
   const chains = structuralRisk([{ op: 'device.delete', device: device(T, 0) }]);
   assert.equal(isAtRisk(param(device(T, 0), 3), chains), true);
   assert.equal(isAtRisk(notesAt(CLIP), chains), false);
+});
+
+test('8h4e: chain.solo has no stash and is reported unrevertable, as chain.activate', () => {
+  const target = chain(device(T, 0), 'B');
+  const { targets, unrevertable } = writeSetOf([{ op: 'chain.solo', chain: target, solo: true }]);
+  assert.deepEqual(targets, []);
+  assert.deepEqual(unrevertable.map((u) => [u.op, u.unrestoredAs]), [['chain.solo', 'chain solo state']]);
 });

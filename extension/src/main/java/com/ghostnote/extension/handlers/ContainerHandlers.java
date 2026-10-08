@@ -64,6 +64,7 @@ public final class ContainerHandlers extends HandlerGroup {
         r.on("chain.duplicate", params -> chainDuplicate(params));
         r.on("chain.setName", params -> chainSetName(params));
         r.on("chain.activate", params -> chainActivate(params));
+        r.on("chain.setSolo", params -> chainSetSolo(params));
         r.on("drumpad.list", params -> drumPadList());
         r.on("drumpad.insertDevice", params -> drumPadInsertDevice(params));
         r.on("drumpad.duplicate", params -> drumPadDuplicate(params));
@@ -1630,6 +1631,31 @@ public final class ContainerHandlers extends HandlerGroup {
         if (!target.solo().get()) {
             target.solo().toggle(true);
         }
+        return r;
+    }
+
+    /**
+     * 8h4e: set the solo flag of one chain. It is not exclusive: the sibling flags do not change. The slot scope,
+     * the name guard, and the track identity check are the same as {@link #chainActivate}. The brain proves the
+     * result from a new container reading.
+     */
+    private JsonElement chainSetSolo(JsonObject params) {
+        if (!params.has("solo") || !params.get("solo").isJsonPrimitive()
+                || !params.get("solo").getAsJsonPrimitive().isBoolean()) {
+            throw new IllegalArgumentException("chain.setSolo needs a boolean solo");
+        }
+        boolean solo = params.get("solo").getAsBoolean();
+        DeviceLayer target = requireSlotLayer(params);
+        String expectedTrack = params.get("expectedTrackChannelId").getAsString();
+        String actualTrack = rig.cursorTracks[0].channelId().get();
+        if (!expectedTrack.equals(actualTrack)) {
+            throw new IllegalArgumentException(
+                "chain.setSolo track identity changed: expected " + expectedTrack + ", got " + actualTrack);
+        }
+        JsonObject r = describeSlotLayer(params, target);
+        r.addProperty("previousSolo", target.solo().get());
+        r.addProperty("requestedSolo", solo);
+        target.solo().set(solo);
         return r;
     }
 

@@ -22,7 +22,7 @@ import assert from 'node:assert/strict';
 
 import {
   assertChainActivatable, assertDeviceRelocatable, chain, device, deviceIn, lookupChain, lookupDevice, lookupNestedDevice, mintedChain,
-  nestingDepth, nestingObservable, track, verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain,
+  nestingDepth, nestingObservable, track, assertOpsWritable, verifyChainSolo, verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain,
   type ObservedChain, type ObservedContainer,
 } from './index.js';
 
@@ -383,4 +383,47 @@ test('N-solo: exclusive state requires a complete view and exact flags for every
     ),
     /not observed exactly/,
   );
+});
+
+test('8h4e N-solo-set: only the addressed chain may change, to the requested flag', () => {
+  const before = container([
+    { ...oneChain('A'), solo: true },
+    { ...oneChain('B', 1), solo: false },
+    { ...oneChain('C', 2), solo: false },
+  ]);
+  const on = container([
+    { ...oneChain('A'), solo: true },
+    { ...oneChain('B', 1), solo: true },
+    { ...oneChain('C', 2), solo: false },
+  ]);
+  assert.equal(verifyChainSolo(before, on, 'B', true).ok, true);
+  const notYet = verifyChainSolo(before, before, 'B', true);
+  assert.match(notYet.ok ? '' : notYet.why, /reads false, expected true/);
+  const sibling = verifyChainSolo(before, container([
+    { ...oneChain('A'), solo: false },
+    { ...oneChain('B', 1), solo: true },
+    { ...oneChain('C', 2), solo: false },
+  ]), 'B', true);
+  assert.match(sibling.ok ? '' : sibling.why, /sibling chains changed: A/);
+  const off = container([
+    { ...oneChain('A'), solo: false },
+    { ...oneChain('B', 1), solo: false },
+    { ...oneChain('C', 2), solo: false },
+  ]);
+  assert.equal(verifyChainSolo(before, off, 'A', false).ok, true);
+  const unknown = verifyChainSolo(before, container([oneChain('A'), { ...oneChain('B', 1), solo: true },
+    { ...oneChain('C', 2), solo: false }]), 'B', true);
+  assert.match(unknown.ok ? '' : unknown.why, /not observed/);
+  assert.equal(verifyChainSolo(before, container([...on.chains], false), 'B', true).ok, false);
+  assert.throws(
+    () => assertChainActivatable([{ op: 'chain.solo', chain: chain(CONTAINER, 'B'), solo: true }],
+      () => container([oneChain('A'), { ...oneChain('B', 1), solo: false }])),
+    /solo state was not observed exactly/,
+  );
+});
+
+test('8h4e: chain.solo refuses a chain deeper than the slot scopes', () => {
+  const inner = deviceIn(chain(CONTAINER, 'outer'), 0);
+  assert.throws(() => assertOpsWritable([{ op: 'chain.solo', chain: chain(inner, 'B'), solo: true }]),
+    /deeper than the measured one-chain slot scopes/);
 });

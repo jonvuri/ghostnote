@@ -53,6 +53,11 @@ public class Rig {
      * name and value callbacks (E243, {@link DirectParameterSwitch}).
      */
     public static final String DIRECT_PARAMETER_SETTLE = "same-ids-switch-v1";
+    /**
+     * 8h4e build marker: {@code directparam.list} sets the listed IDs on the display observer after each settle of
+     * a new target, and the CLAP callback form maps to the listed ID (E244, {@link DirectParameterDisplay}).
+     */
+    public static final String DIRECT_PARAMETER_DISPLAY = "display-settle-v1";
 
     /** Live scaffold sizes for this init. */
     public final RigConfig config;
@@ -305,7 +310,10 @@ public class Rig {
     public volatile String[] directParamIds = new String[0];
     public final java.util.Map<String, String> directParamNames = new java.util.LinkedHashMap<>();
     public final java.util.Map<String, Double> directParamValues = new java.util.LinkedHashMap<>();
-    public final java.util.Map<String, String> directParamDisplays = new java.util.LinkedHashMap<>();
+    /** 8h4e (E244): the display text under the current target stamp, and the arm of the display observer. */
+    public final DirectParameterDisplay directParamDisplay = new DirectParameterDisplay();
+    /** 8h4e: the last list that the ID observer delivered, as a set, for the CLAP callback ID mapping. */
+    private java.util.Set<String> directParamKnownIdSet = new java.util.HashSet<>();
     /** Target-bound generation for serialized DirectParameter reads. */
     public long directParamGeneration = 0;
     /** Generation in which the id observer last delivered a complete list. */
@@ -335,11 +343,12 @@ public class Rig {
     /** How the current generation settled: {@code ids} (the ID observer), {@code switch}, or {@code target}. */
     public String directParamSettledBy = "";
     /**
-     * 8h4e0 (E244): the object that {@code addDirectParameterValueDisplayObserver} returns. By default it observes
-     * no ID; only the probe method {@code directparam.observeDisplay} sets IDs. Null without direct observers.
+     * 8h4e0 (E244): the object that {@code addDirectParameterValueDisplayObserver} returns. It observes no ID until
+     * {@link #armDirectParameterDisplay()} (8h4e) or the probe method {@code directparam.observeDisplay} sets IDs.
+     * Null without direct observers.
      */
     public final DirectParameterValueDisplayObserver directParamDisplayObserver;
-    /** 8h4e0: the IDs that the probe set on the display observer, or null. */
+    /** The IDs that were last set on the display observer (by the product arm or the probe), or null. */
     public String[] directParamDisplayIds = null;
     /** 8h4e0 probe (E244): the callbacks in arrival order. Null outside the probe profile. */
     public final DirectParameterProbeLog directParamLog;
@@ -1058,6 +1067,9 @@ public class Rig {
         cursorDevice0.hasSlots().markInterested();
         cursorDevice0.slotNames().markInterested();
         cursorDevice0.isNested().markInterested();
+        // 8h4e: an empty DirectParameter list on a plug-in means the audio engine is off or the plug-in is not
+        // loaded (E244). The constructor runs in init(), so this markInterested call is legal.
+        cursorDevice0.isPlugin().markInterested();
 
         // A DeviceSlot is a DeviceChain. Build this cursor during init so a
         // handler can move a device into the selected slot without a lazy
@@ -1411,9 +1423,11 @@ public class Rig {
                 directParamSettledBy = "ids";
                 java.util.Set<String> current = new java.util.HashSet<>(
                     java.util.Arrays.asList(directParamIds));
+                directParamKnownIdSet = current;
                 directParamNames.keySet().retainAll(current);
                 directParamValues.keySet().retainAll(current);
-                directParamDisplays.keySet().retainAll(current);
+                // A new ID list needs a new display set: the next directparam.list arms it.
+                directParamDisplay.clear();
                 directParamIdsGeneration = directParamGeneration;
                 directParamObservedTrackId = cursorTracks[0].channelId().get();
                 directParamObservedDeviceName = cursorDevice0.name().get();
@@ -1421,16 +1435,20 @@ public class Rig {
                 directParamObservedNested = cursorDevice0.isNested().get();
                 directParamObservedRoute = directParameterRouteSignature();
             });
-            cursorDevice0.addDirectParameterNameObserver(48, (id, name) -> {
+            cursorDevice0.addDirectParameterNameObserver(48, (rawId, name) -> {
                 directParamCallbacks[1]++;
-                if (directParamLog != null) directParamLog.add("name", id, name);
+                if (directParamLog != null) directParamLog.add("name", rawId, name);
+                String id = DirectParameterDisplay.listedId(rawId, directParamKnownIdSet);
                 directParamNames.put(id, name);
                 directParamSwitch.name(directParameterTargetStamp(), id, name);
                 settleDirectParameterSwitch();
             });
-            cursorDevice0.addDirectParameterNormalizedValueObserver((id, value) -> {
+            cursorDevice0.addDirectParameterNormalizedValueObserver((rawId, value) -> {
                 directParamCallbacks[2]++;
-                if (directParamLog != null) directParamLog.add("value", id, value);
+                if (directParamLog != null) directParamLog.add("value", rawId, value);
+                // E244: a CLAP plug-in calls back with CONTENTS/ROOT_GENERIC_MODULE/<id> after a write. Map it to
+                // the listed ID, so the value map and the write completion see the listed ID.
+                String id = DirectParameterDisplay.listedId(rawId, directParamKnownIdSet);
                 directParamValues.put(id, value);
                 directParamSwitch.value(directParameterTargetStamp(), id, value);
                 settleDirectParameterSwitch();
@@ -1439,7 +1457,8 @@ public class Rig {
             directParamDisplayObserver = cursorDevice0.addDirectParameterValueDisplayObserver(48, (id, display) -> {
                 directParamCallbacks[3]++;
                 if (directParamLog != null) directParamLog.add("display", id, display);
-                directParamDisplays.put(id, display);
+                // Text counts only under the armed target stamp, for a listed ID (E244).
+                directParamDisplay.accept(directParameterTargetStamp(), id, display);
             });
         } else {
             directParamDisplayObserver = null;
@@ -1475,13 +1494,15 @@ public class Rig {
             directParamObservedDeviceIndex = currentDeviceIndex;
             directParamIdsGeneration = directParamGeneration;
             directParamSettledBy = "target";
+            // Same target: keep the display set and its text. A write refreshes the text of the written ID.
+            directParamDisplay.carry(directParamGeneration);
             return directParamGeneration;
         }
         directParamIdsGeneration = -1;
         directParamIds = new String[0];
         directParamNames.clear();
         directParamValues.clear();
-        directParamDisplays.clear();
+        directParamDisplay.clear();
         directParamObservedTrackId = null;
         directParamObservedDeviceName = null;
         directParamObservedDeviceIndex = -1;
@@ -1514,7 +1535,8 @@ public class Rig {
         directParamIds = directParamKnownIds;
         directParamNames.clear();
         directParamValues.clear();
-        directParamDisplays.clear();
+        // A switch sends no display text (E244 Q3). The next directparam.list sets the IDs again.
+        directParamDisplay.clear();
         for (String id : directParamIds) {
             directParamNames.put(id, directParamSwitch.nameOf(id));
             directParamValues.put(id, directParamSwitch.valueOf(id));
@@ -1526,6 +1548,32 @@ public class Rig {
         directParamObservedNested = cursorDevice0.isNested().get();
         directParamObservedRoute = directParameterRouteSignature();
         directParamSettledBy = "switch";
+    }
+
+    /**
+     * 8h4e (E244): set the listed IDs on the display observer when the current generation settled on a new target
+     * and the display is not armed for it. The text arrives one turn later, for each ID.
+     *
+     * <p>{@code directparam.list} calls this, not the ID observer or the switch settle. A request handler is the
+     * context that E244 measured. Also, the brain polls {@code directparam.list} until the values are stable, so
+     * the arm comes at the first poll that sees the settle, and the text is present at the next poll. A
+     * {@code target} settle carries the earlier arm (see {@link #beginDirectParameterObservation}).
+     *
+     * @return true when this call set the IDs
+     */
+    public boolean armDirectParameterDisplay() {
+        if (directParamDisplayObserver == null
+            || directParamIdsGeneration != directParamGeneration
+            || directParamDisplay.armedFor(directParamGeneration)) {
+            return false;
+        }
+        String[] ids = directParamIds;
+        directParamDisplay.arm(directParamGeneration, directParameterTargetStamp(), ids);
+        if (ids.length == 0) return false;
+        String[] observed = DirectParameterDisplay.observedIds(ids, cursorDevice0.isPlugin().get());
+        directParamDisplayObserver.setObservedParameterIds(observed);
+        directParamDisplayIds = observed;
+        return true;
     }
 
     private String directParameterRouteSignature() {

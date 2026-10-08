@@ -173,6 +173,8 @@ export const WIRE = {
   chainSetName: 'chain.setName',
   /** Container-local exclusive solo, addressed through the same slot scope as observation. */
   chainActivate: 'chain.activate',
+  /** 8h4e: set the solo flag of one chain (not exclusive), through the same slot scope as `chain.activate`. */
+  chainSetSolo: 'chain.setSolo',
   deviceInsertBitwig: 'device.insertBitwig',
   deviceInsertVst3: 'device.insertVst3',
   deviceInsertClap: 'device.insertClap',

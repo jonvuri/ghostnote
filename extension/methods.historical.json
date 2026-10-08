@@ -15,8 +15,8 @@
   ],
   "extractedAt": "2026-10-08",
   "extractedFrom": "handlers/*Handlers.java registration declarations",
-  "count": 165,
-  "methodsHash": "4546c3c221c9233c",
+  "count": 166,
+  "methodsHash": "c8b7534f9ea87ecf",
   "addedInPhase0": [
     "api.runtimeMethods",
     "app.selectionNotifications",
@@ -35,6 +35,7 @@
     "chain.move",
     "chain.select",
     "chain.setName",
+    "chain.setSolo",
     "contract.hello",
     "cursor.clearNote",
     "cursor.clipMetadata",
@@ -148,6 +149,7 @@
     "chain.move",
     "chain.select",
     "chain.setName",
+    "chain.setSolo",
     "chainselector.set",
     "chainselector.status",
     "clip.create",
@@ -522,5 +524,8 @@
   "addedInPhase8h4e0": [
     "directparam.log",
     "directparam.observeDisplay"
+  ],
+  "addedInPhase8h4e": [
+    "chain.setSolo"
   ]
 }

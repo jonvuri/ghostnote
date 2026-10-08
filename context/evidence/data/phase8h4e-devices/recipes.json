@@ -1,0 +1,5367 @@
+{
+ "schema": "phase8h4e-devices-v1",
+ "steps": [
+  {
+   "step": "tracks-before-gn-8h4e-ab",
+   "tool": "list_tracks",
+   "ms": 40,
+   "bytes": 453,
+   "ok": true
+  },
+  {
+   "step": "add-track-gn-8h4e-ab",
+   "tool": "add_track",
+   "ms": 1143,
+   "bytes": 491,
+   "ok": true
+  },
+  {
+   "step": "tracks-after-gn-8h4e-ab",
+   "tool": "list_tracks",
+   "ms": 47,
+   "bytes": 557,
+   "ok": true
+  },
+  {
+   "step": "ab-compose",
+   "tool": "compose_devices",
+   "ms": 7199,
+   "bytes": 1355,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "ab-read-1",
+   "tool": "read_devices",
+   "ms": 493,
+   "bytes": 1016,
+   "ok": true
+  },
+  {
+   "step": "ab-controls-A",
+   "tool": "read_device_controls",
+   "ms": 731,
+   "bytes": 10820,
+   "ok": true
+  },
+  {
+   "step": "ab-controls-A-same-target",
+   "tool": "read_device_controls",
+   "ms": 712,
+   "bytes": 10820,
+   "ok": true
+  },
+  {
+   "step": "ab-set-A",
+   "tool": "set_device_controls",
+   "ms": 2324,
+   "bytes": 920,
+   "ok": true
+  },
+  {
+   "step": "ab-controls-B",
+   "tool": "read_device_controls",
+   "ms": 701,
+   "bytes": 10513,
+   "ok": true
+  },
+  {
+   "step": "ab-controls-B-same-target",
+   "tool": "read_device_controls",
+   "ms": 714,
+   "bytes": 10513,
+   "ok": true
+  },
+  {
+   "step": "ab-set-B",
+   "tool": "set_device_controls",
+   "ms": 2398,
+   "bytes": 922,
+   "ok": true
+  },
+  {
+   "step": "ab-solo-A",
+   "tool": "set_layer_chain_solo",
+   "ms": 853,
+   "bytes": 578,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "ab-solo-A-read",
+   "tool": "read_devices",
+   "ms": 485,
+   "bytes": 1016,
+   "ok": true
+  },
+  {
+   "step": "ab-solo-B",
+   "tool": "set_layer_chain_solo",
+   "ms": 828,
+   "bytes": 578,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "ab-solo-B-read",
+   "tool": "read_devices",
+   "ms": 495,
+   "bytes": 1016,
+   "ok": true
+  },
+  {
+   "step": "ab-solo-B-again",
+   "tool": "set_layer_chain_solo",
+   "ms": 182,
+   "bytes": 344,
+   "ok": true,
+   "status": "already-set"
+  },
+  {
+   "step": "ab-solo-B-again-read",
+   "tool": "read_devices",
+   "ms": 490,
+   "bytes": 1016,
+   "ok": true
+  },
+  {
+   "step": "ab-solo-A-on",
+   "tool": "set_layer_chain_solo",
+   "ms": 868,
+   "bytes": 556,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "ab-solo-A-on-read",
+   "tool": "read_devices",
+   "ms": 493,
+   "bytes": 1015,
+   "ok": true
+  },
+  {
+   "step": "ab-solo-B-off",
+   "tool": "set_layer_chain_solo",
+   "ms": 863,
+   "bytes": 560,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "ab-solo-B-off-read",
+   "tool": "read_devices",
+   "ms": 475,
+   "bytes": 1016,
+   "ok": true
+  },
+  {
+   "step": "ab-solo-A-off",
+   "tool": "set_layer_chain_solo",
+   "ms": 846,
+   "bytes": 561,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "ab-solo-A-off-read",
+   "tool": "read_devices",
+   "ms": 482,
+   "bytes": 1017,
+   "ok": true
+  },
+  {
+   "step": "ab-duplicate",
+   "tool": "duplicate_layer_chain",
+   "ms": 5199,
+   "bytes": 822,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "ab-duplicate-read",
+   "tool": "read_devices",
+   "ms": 486,
+   "bytes": 1246,
+   "ok": true
+  },
+  {
+   "step": "ab-rename",
+   "tool": "rename_layer_chain",
+   "ms": 953,
+   "bytes": 515,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "ab-rename-read",
+   "tool": "read_devices",
+   "ms": 460,
+   "bytes": 1242,
+   "ok": true
+  },
+  {
+   "step": "delete-layer-chain-refusal",
+   "tool": "delete_device",
+   "ms": 1,
+   "bytes": 451,
+   "ok": false,
+   "code": "unsupported"
+  },
+  {
+   "step": "delete-layer-chain-refusal-read",
+   "tool": "read_devices",
+   "ms": 489,
+   "bytes": 1242,
+   "ok": true
+  },
+  {
+   "step": "collapse-add-tail",
+   "tool": "add_devices",
+   "ms": 5375,
+   "bytes": 678,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "collapse-read-1",
+   "tool": "read_devices",
+   "ms": 613,
+   "bytes": 1285,
+   "ok": true
+  },
+  {
+   "step": "collapse-move-out",
+   "tool": "move_devices",
+   "ms": 5957,
+   "bytes": 877,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "collapse-read-2",
+   "tool": "read_devices",
+   "ms": 750,
+   "bytes": 1301,
+   "ok": true
+  },
+  {
+   "step": "collapse-delete-container",
+   "tool": "delete_device",
+   "ms": 3132,
+   "bytes": 647,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "collapse-read-3",
+   "tool": "read_devices",
+   "ms": 614,
+   "bytes": 504,
+   "ok": true
+  },
+  {
+   "step": "collapse-restore",
+   "tool": "move_devices",
+   "ms": 5366,
+   "bytes": 650,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "collapse-read-final",
+   "tool": "read_devices",
+   "ms": 623,
+   "bytes": 504,
+   "ok": true
+  },
+  {
+   "step": "cleanup",
+   "tool": "delete_track",
+   "ms": 764,
+   "bytes": 436,
+   "ok": true
+  }
+ ],
+ "results": {
+  "tracks-before-gn-8h4e-ab": {
+   "tracks": [
+    {
+     "trackId": "71aa76d3-0379-45bb-98fc-a71a8a5614ad",
+     "name": "Inst 1",
+     "kind": "Instrument",
+     "position": 0
+    },
+    {
+     "trackId": "6378a96b-fb4d-4467-bc26-7e866e8204a3",
+     "name": "Audio 2",
+     "kind": "Audio",
+     "position": 1
+    },
+    {
+     "trackId": "188f5f4f-061c-4715-9946-9aad278099e4",
+     "name": "FX 1",
+     "kind": "Effect",
+     "position": 2
+    },
+    {
+     "trackId": "f0c594e3-ec19-4f7f-9115-934c91653af8",
+     "name": "Master",
+     "kind": "Master",
+     "position": 3
+    }
+   ],
+   "rows": {
+    "addressable": 128,
+    "inProject": 8
+   },
+   "notListed": 0
+  },
+  "add-track-gn-8h4e-ab": {
+   "changeId": "4ce6df49-173e-4cbe-90bd-00e7f8136b1f",
+   "applied": true,
+   "places": [],
+   "canBeUndone": false,
+   "cannotBeUndone": [],
+   "creationConfirmed": true,
+   "namesConfirmed": true,
+   "created": [
+    {
+     "what": "track",
+     "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+     "requestedName": "gn-8h4e-ab",
+     "nameConfirmed": true
+    }
+   ],
+   "namingChange": {
+    "changeId": "beec3deb-4538-4b6e-bfa8-bc5910dc610b",
+    "applied": true,
+    "places": [
+     {
+      "what": "track",
+      "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20"
+     }
+    ],
+    "canBeUndone": true,
+    "cannotBeUndone": []
+   }
+  },
+  "tracks-after-gn-8h4e-ab": {
+   "tracks": [
+    {
+     "trackId": "71aa76d3-0379-45bb-98fc-a71a8a5614ad",
+     "name": "Inst 1",
+     "kind": "Instrument",
+     "position": 0
+    },
+    {
+     "trackId": "6378a96b-fb4d-4467-bc26-7e866e8204a3",
+     "name": "Audio 2",
+     "kind": "Audio",
+     "position": 1
+    },
+    {
+     "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+     "name": "gn-8h4e-ab",
+     "kind": "Instrument",
+     "position": 2
+    },
+    {
+     "trackId": "188f5f4f-061c-4715-9946-9aad278099e4",
+     "name": "FX 1",
+     "kind": "Effect",
+     "position": 3
+    },
+    {
+     "trackId": "f0c594e3-ec19-4f7f-9115-934c91653af8",
+     "name": "Master",
+     "kind": "Master",
+     "position": 4
+    }
+   ],
+   "rows": {
+    "addressable": 128,
+    "inProject": 8
+   },
+   "notListed": 0
+  },
+  "ab-compose": {
+   "schema": "ghostnote-device-compose/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "86e203b7-a1a1-4461-b9e9-e195a5014a72",
+     "target": {
+      "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Inserted one Instrument Layer with 2 layer chains.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "d0199d60-2ef9-477e-90a6-2ce8134bde3f",
+     "target": {
+      "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Named 2 layer chain(s).",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "backend": "offline",
+    "containerPosition": 0,
+    "containerKind": "Instrument Layer",
+    "layerChains": [
+     {
+      "position": 0,
+      "name": "A",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.525,
+       "green": 0.537,
+       "blue": 0.667
+      },
+      "devices": [
+       {
+        "position": 0,
+        "name": "Polysynth"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     },
+     {
+      "position": 1,
+      "name": "B",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.525,
+       "green": 0.537,
+       "blue": 0.667
+      },
+      "devices": [
+       {
+        "position": 0,
+        "name": "Phase-4"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     }
+    ],
+    "complete": true,
+    "capacity": 5,
+    "modulation": []
+   },
+   "next": {
+    "revert": {
+     "tool": "revert_change",
+     "changeId": "86e203b7-a1a1-4461-b9e9-e195a5014a72"
+    }
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 7197.782417
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "containerKind": "Instrument Layer"
+   }
+  },
+  "ab-read-1": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "devices": [
+     {
+      "position": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "A",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "B",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 492.7239580000005
+   }
+  },
+  "ab-controls-A": {
+   "device": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "devicePosition": 0,
+    "route": [
+     {
+      "through": "layer-chain",
+      "name": "A",
+      "devicePosition": 0
+     }
+    ]
+   },
+   "view": "direct",
+   "deviceName": "Polysynth",
+   "standing": "stable",
+   "displayComplete": true,
+   "parameters": [
+    {
+     "id": "CONTENTS/PW1",
+     "name": "OSC1 Pulse Width",
+     "normalizedValue": 0.5000000000000001,
+     "display": "50.0 %",
+     "modulatedValue": 0.5000000000000001,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/A",
+     "name": "AEG Attack",
+     "normalizedValue": 0.065,
+     "display": "6.50 %",
+     "modulatedValue": 0.065,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/D",
+     "name": "AEG Decay",
+     "normalizedValue": 0.49999999999999956,
+     "display": "50.0 %",
+     "modulatedValue": 0.49999999999999956,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/S",
+     "name": "AEG Sustain",
+     "normalizedValue": 0.95,
+     "display": "95.0 %",
+     "modulatedValue": 0.95,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/R",
+     "name": "AEG Release",
+     "normalizedValue": 0.3,
+     "display": "30.0 %",
+     "modulatedValue": 0.3,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/F1FREQ",
+     "name": "Filter Frequency",
+     "normalizedValue": 0.6929126260433238,
+     "display": "2.59 kHz",
+     "modulatedValue": 0.6929126260433238,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/F1RESO",
+     "name": "Filter Resonance",
+     "normalizedValue": 0.3947619047619048,
+     "display": "39.5 %",
+     "modulatedValue": 0.3947619047619048,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/KEY > F",
+     "name": "Filter Keytracking",
+     "normalizedValue": 0.5,
+     "display": "50.0 %",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/FEGDEPTH",
+     "name": "Filter Envelope Depth",
+     "normalizedValue": 0.5,
+     "display": "0.00 st",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/NOISE",
+     "name": "Noise",
+     "normalizedValue": 0,
+     "display": "0.00 %",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/OSC2PITCH",
+     "name": "OSC2 Pitch",
+     "normalizedValue": 0.5,
+     "display": "0.00 st",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/OSCMIX",
+     "name": "OSC 1/2 Mix",
+     "normalizedValue": 0,
+     "display": "0.00 %",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/OSC2OCT",
+     "name": "OSC2 Octave",
+     "normalizedValue": 0.6,
+     "display": "4'",
+     "modulatedValue": 0.6,
+     "hasAutomation": false,
+     "origin": 0,
+     "discreteValueCount": 6,
+     "discreteNormalizedValues": [
+      0,
+      0.2,
+      0.4,
+      0.6,
+      0.8,
+      1
+     ],
+     "discreteValueNames": [
+      "32'",
+      "16'",
+      "8'",
+      "4'",
+      "2'",
+      "1'"
+     ]
+    },
+    {
+     "id": "CONTENTS/F1A",
+     "name": "FEG Attack",
+     "normalizedValue": 0,
+     "display": "0.00 %",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/F1D",
+     "name": "FEG Decay",
+     "normalizedValue": 0.8249999999999987,
+     "display": "82.5 %",
+     "modulatedValue": 0.8249999999999987,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/F1S",
+     "name": "FEG Sustain",
+     "normalizedValue": 0,
+     "display": "0.00 %",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/F1R",
+     "name": "FEG Release",
+     "normalizedValue": 0,
+     "display": "0.00 %",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/OSC1OCT",
+     "name": "OSC1 Octave",
+     "normalizedValue": 0.4,
+     "display": "8'",
+     "modulatedValue": 0.4,
+     "hasAutomation": false,
+     "origin": 0,
+     "discreteValueCount": 6,
+     "discreteNormalizedValues": [
+      0,
+      0.2,
+      0.4,
+      0.6,
+      0.8,
+      1
+     ],
+     "discreteValueNames": [
+      "32'",
+      "16'",
+      "8'",
+      "4'",
+      "2'",
+      "1'"
+     ]
+    },
+    {
+     "id": "CONTENTS/PW2",
+     "name": "OSC2 Pulse Width",
+     "normalizedValue": 0.48,
+     "display": "48.0 %",
+     "modulatedValue": 0.48,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/OSC_1_RETRIG",
+     "name": "OSC1 Retrig",
+     "normalizedValue": 0,
+     "display": "Off",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0,
+     "discreteValueCount": 2,
+     "discreteNormalizedValues": [
+      0,
+      1
+     ],
+     "discreteValueNames": [
+      "false",
+      "true"
+     ]
+    },
+    {
+     "id": "CONTENTS/OSC1_SHAPE",
+     "name": "OSC1 Shape",
+     "normalizedValue": 0.5,
+     "display": "0.00 %",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/OSC1_SUB_PW",
+     "name": "OSC1 Sub PW",
+     "normalizedValue": 0.5,
+     "display": "50.0 %",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/OSC1_SUB_LEVEL",
+     "name": "OSC1 Sub Level",
+     "normalizedValue": 0,
+     "display": "0.00 %",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/OSC1_SYNC",
+     "name": "OSC1 Sync",
+     "normalizedValue": 0,
+     "display": "0.00",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/OSC1_UNISON_SPREAD",
+     "name": "OSC1 Unison Spread",
+     "normalizedValue": 0.10953333333333334,
+     "display": "11 cents",
+     "modulatedValue": 0.10953333333333334,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/OSC1_UNISON_VOICES",
+     "name": "OSC1 Unison Voices",
+     "normalizedValue": 0,
+     "display": "1v",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0,
+     "discreteValueCount": 16,
+     "discreteNormalizedValues": [
+      0,
+      0.06666666666666667,
+      0.13333333333333333,
+      0.2,
+      0.26666666666666666,
+      0.3333333333333333,
+      0.4,
+      0.4666666666666667,
+      0.5333333333333333,
+      0.6,
+      0.6666666666666666,
+      0.7333333333333333,
+      0.8,
+      0.8666666666666667,
+      0.9333333333333333,
+      1
+     ]
+    },
+    {
+     "id": "CONTENTS/OSC1_PITCH",
+     "name": "OSC1 Pitch",
+     "normalizedValue": 0.5,
+     "display": "0.00 st",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/OSC2_SHAPE",
+     "name": "OSC2 Shape",
+     "normalizedValue": 0,
+     "display": "-100 %",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/OSC2_SUB_PW",
+     "name": "OSC2 Sub PW",
+     "normalizedValue": 0.5,
+     "display": "50.0 %",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/OSC2_SUB_LEVEL",
+     "name": "OSC2 Sub Level",
+     "normalizedValue": 0,
+     "display": "0.00 %",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/OSC2_SYNC",
+     "name": "OSC2 Sync",
+     "normalizedValue": 0,
+     "display": "0.00",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/OSC2_UNISON_SPREAD",
+     "name": "OSC2 Unison Spread",
+     "normalizedValue": 0.05600000000000001,
+     "display": "6 cents",
+     "modulatedValue": 0.05600000000000001,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/OSC2_UNISON_VOICES",
+     "name": "OSC2 Unison Voices",
+     "normalizedValue": 0,
+     "display": "1v",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0,
+     "discreteValueCount": 16,
+     "discreteNormalizedValues": [
+      0,
+      0.06666666666666667,
+      0.13333333333333333,
+      0.2,
+      0.26666666666666666,
+      0.3333333333333333,
+      0.4,
+      0.4666666666666667,
+      0.5333333333333333,
+      0.6,
+      0.6666666666666666,
+      0.7333333333333333,
+      0.8,
+      0.8666666666666667,
+      0.9333333333333333,
+      1
+     ]
+    },
+    {
+     "id": "CONTENTS/PRE-FITLER_GAIN",
+     "name": "Pre-Filter Drive",
+     "normalizedValue": 0.5,
+     "display": "0.0 dB",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/OSC2_RETRIG",
+     "name": "OSC2 Retrig",
+     "normalizedValue": 0,
+     "display": "Off",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0,
+     "discreteValueCount": 2,
+     "discreteNormalizedValues": [
+      0,
+      1
+     ],
+     "discreteValueNames": [
+      "false",
+      "true"
+     ]
+    },
+    {
+     "id": "CONTENTS/FILTER_OSCILLATOR_FM",
+     "name": "Filter Oscillator FM",
+     "normalizedValue": 0.5,
+     "display": "0.00 st",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/FITLER_EG_CURVE",
+     "name": "Filter EG Curve",
+     "normalizedValue": 0.5,
+     "display": "0.00",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/OUTPUT",
+     "name": "Output",
+     "normalizedValue": 0.8542811755361401,
+     "display": "+1.9 dB",
+     "modulatedValue": 0.8542811755361401,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/AMP_VELOCITY_SENSETIVITY",
+     "name": "Amp Velocity Sensitivity",
+     "normalizedValue": 0.5,
+     "display": "+15.0 dB",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/PITCH",
+     "name": "Pitch",
+     "normalizedValue": 0.5,
+     "display": "0.00 st",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/PAN",
+     "name": "Pan",
+     "normalizedValue": 0.5,
+     "display": "0.00 %",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/FILTER_TYPE",
+     "name": "Filter Type",
+     "normalizedValue": 0,
+     "display": "Low-pass (2-pole)",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0,
+     "discreteValueCount": 8,
+     "discreteNormalizedValues": [
+      0,
+      0.14285714285714285,
+      0.2857142857142857,
+      0.42857142857142855,
+      0.5714285714285714,
+      0.7142857142857143,
+      0.8571428571428571,
+      1
+     ],
+     "discreteValueNames": [
+      "Low-pass (2-pole)",
+      "Low-pass (4-pole)",
+      "Band-pass (2-pole)",
+      "Band-pass (4-pole)",
+      "High-pass (2-pole)",
+      "High-pass (4-pole)",
+      "Notch",
+      "Bypass"
+     ]
+    },
+    {
+     "id": "CONTENTS/OSC_BLEND_OPERATOR",
+     "name": "OSC Blend Mode",
+     "normalizedValue": 0,
+     "display": "MIX",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0,
+     "discreteValueCount": 6,
+     "discreteNormalizedValues": [
+      0,
+      0.2,
+      0.4,
+      0.6,
+      0.8,
+      1
+     ],
+     "discreteValueNames": [
+      "MIX",
+      "NEG",
+      "WIPE",
+      "AM",
+      "SIGN",
+      "MAX"
+     ]
+    },
+    {
+     "id": "CONTENTS/SHAPER",
+     "name": "Shaping Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/SHAPER_MODE",
+     "name": "Shaper Mode",
+     "normalizedValue": 0,
+     "display": "OFF",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0,
+     "discreteValueCount": 7,
+     "discreteNormalizedValues": [
+      0,
+      0.16666666666666666,
+      0.3333333333333333,
+      0.5,
+      0.6666666666666666,
+      0.8333333333333334,
+      1
+     ],
+     "discreteValueNames": [
+      "OFF",
+      "SOFT",
+      "SINE",
+      "2ND",
+      "HYST",
+      "RECT",
+      "FOLD"
+     ]
+    },
+    {
+     "id": "CONTENTS/HPF_TYPE",
+     "name": "HPF Type",
+     "normalizedValue": 0,
+     "display": "Bypass",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0,
+     "discreteValueCount": 3,
+     "discreteNormalizedValues": [
+      0,
+      0.5,
+      1
+     ],
+     "discreteValueNames": [
+      "Bypass",
+      "High-pass (2-pole)",
+      "High-pass (4-pole)"
+     ]
+    },
+    {
+     "id": "CONTENTS/HPFFREQ",
+     "name": "HPF Frequency",
+     "normalizedValue": 0.36934514394179,
+     "display": "50.0 Hz",
+     "modulatedValue": 0.36934514394179,
+     "hasAutomation": false,
+     "origin": 1
+    },
+    {
+     "id": "CONTENTS/HPF_RESONANCE",
+     "name": "HPF Resonance",
+     "normalizedValue": 0,
+     "display": "0.00 %",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/FEEDBACK",
+     "name": "Feedback",
+     "normalizedValue": 0,
+     "display": "0.00 %",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/OSC1_PAN",
+     "name": "OSC1 Pan",
+     "normalizedValue": 0.5,
+     "display": "0.00 %",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/OSC1_WIDTH",
+     "name": "OSC1 Width",
+     "normalizedValue": 1,
+     "display": "100 %",
+     "modulatedValue": 1,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/OSC2_PAN",
+     "name": "OSC2 Pan",
+     "normalizedValue": 0.5,
+     "display": "0.00 %",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/OSC2_WIDTH",
+     "name": "OSC2 Width",
+     "normalizedValue": 1,
+     "display": "100 %",
+     "modulatedValue": 1,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/GAIN",
+     "name": "Voice Gain",
+     "normalizedValue": 1,
+     "display": "0.0 dB",
+     "modulatedValue": 1,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/USE_LEGACY_RESONANCE_RANGE",
+     "name": "Use legacy resonance range",
+     "normalizedValue": 0,
+     "display": "Off",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0,
+     "discreteValueCount": 2,
+     "discreteNormalizedValues": [
+      0,
+      1
+     ],
+     "discreteValueNames": [
+      "false",
+      "true"
+     ]
+    }
+   ],
+   "valueCapabilities": {
+    "normalized": {
+     "readable": true,
+     "writable": true,
+     "minimum": 0,
+     "maximum": 1
+    },
+    "displayed": {
+     "readable": "when-observed",
+     "writable": false,
+     "invertible": false,
+     "meaning": "Opaque host-formatted text for the current normalized value."
+    },
+    "discrete": {
+     "readable": "when-host-proved",
+     "writable": "returned-normalized-values-only"
+    },
+    "semantic": {
+     "readable": false,
+     "writable": false,
+     "reason": "API 25 has no text parser or exact displayed-value inverse conversion."
+    }
+   },
+   "warnings": [],
+   "elapsedMs": 731
+  },
+  "ab-controls-A-summary": {
+   "count": 55,
+   "displayComplete": true,
+   "withDisplay": 55
+  },
+  "ab-controls-A-same-target": {
+   "device": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "devicePosition": 0,
+    "route": [
+     {
+      "through": "layer-chain",
+      "name": "A",
+      "devicePosition": 0
+     }
+    ]
+   },
+   "view": "direct",
+   "deviceName": "Polysynth",
+   "standing": "stable",
+   "displayComplete": true,
+   "parameters": [
+    {
+     "id": "CONTENTS/PW1",
+     "name": "OSC1 Pulse Width",
+     "normalizedValue": 0.5000000000000001,
+     "display": "50.0 %",
+     "modulatedValue": 0.5000000000000001,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/A",
+     "name": "AEG Attack",
+     "normalizedValue": 0.065,
+     "display": "6.50 %",
+     "modulatedValue": 0.065,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/D",
+     "name": "AEG Decay",
+     "normalizedValue": 0.49999999999999956,
+     "display": "50.0 %",
+     "modulatedValue": 0.49999999999999956,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/S",
+     "name": "AEG Sustain",
+     "normalizedValue": 0.95,
+     "display": "95.0 %",
+     "modulatedValue": 0.95,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/R",
+     "name": "AEG Release",
+     "normalizedValue": 0.3,
+     "display": "30.0 %",
+     "modulatedValue": 0.3,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/F1FREQ",
+     "name": "Filter Frequency",
+     "normalizedValue": 0.6929126260433238,
+     "display": "2.59 kHz",
+     "modulatedValue": 0.6929126260433238,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/F1RESO",
+     "name": "Filter Resonance",
+     "normalizedValue": 0.3947619047619048,
+     "display": "39.5 %",
+     "modulatedValue": 0.3947619047619048,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/KEY > F",
+     "name": "Filter Keytracking",
+     "normalizedValue": 0.5,
+     "display": "50.0 %",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/FEGDEPTH",
+     "name": "Filter Envelope Depth",
+     "normalizedValue": 0.5,
+     "display": "0.00 st",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/NOISE",
+     "name": "Noise",
+     "normalizedValue": 0,
+     "display": "0.00 %",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/OSC2PITCH",
+     "name": "OSC2 Pitch",
+     "normalizedValue": 0.5,
+     "display": "0.00 st",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/OSCMIX",
+     "name": "OSC 1/2 Mix",
+     "normalizedValue": 0,
+     "display": "0.00 %",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/OSC2OCT",
+     "name": "OSC2 Octave",
+     "normalizedValue": 0.6,
+     "display": "4'",
+     "modulatedValue": 0.6,
+     "hasAutomation": false,
+     "origin": 0,
+     "discreteValueCount": 6,
+     "discreteNormalizedValues": [
+      0,
+      0.2,
+      0.4,
+      0.6,
+      0.8,
+      1
+     ],
+     "discreteValueNames": [
+      "32'",
+      "16'",
+      "8'",
+      "4'",
+      "2'",
+      "1'"
+     ]
+    },
+    {
+     "id": "CONTENTS/F1A",
+     "name": "FEG Attack",
+     "normalizedValue": 0,
+     "display": "0.00 %",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/F1D",
+     "name": "FEG Decay",
+     "normalizedValue": 0.8249999999999987,
+     "display": "82.5 %",
+     "modulatedValue": 0.8249999999999987,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/F1S",
+     "name": "FEG Sustain",
+     "normalizedValue": 0,
+     "display": "0.00 %",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/F1R",
+     "name": "FEG Release",
+     "normalizedValue": 0,
+     "display": "0.00 %",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/OSC1OCT",
+     "name": "OSC1 Octave",
+     "normalizedValue": 0.4,
+     "display": "8'",
+     "modulatedValue": 0.4,
+     "hasAutomation": false,
+     "origin": 0,
+     "discreteValueCount": 6,
+     "discreteNormalizedValues": [
+      0,
+      0.2,
+      0.4,
+      0.6,
+      0.8,
+      1
+     ],
+     "discreteValueNames": [
+      "32'",
+      "16'",
+      "8'",
+      "4'",
+      "2'",
+      "1'"
+     ]
+    },
+    {
+     "id": "CONTENTS/PW2",
+     "name": "OSC2 Pulse Width",
+     "normalizedValue": 0.48,
+     "display": "48.0 %",
+     "modulatedValue": 0.48,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/OSC_1_RETRIG",
+     "name": "OSC1 Retrig",
+     "normalizedValue": 0,
+     "display": "Off",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0,
+     "discreteValueCount": 2,
+     "discreteNormalizedValues": [
+      0,
+      1
+     ],
+     "discreteValueNames": [
+      "false",
+      "true"
+     ]
+    },
+    {
+     "id": "CONTENTS/OSC1_SHAPE",
+     "name": "OSC1 Shape",
+     "normalizedValue": 0.5,
+     "display": "0.00 %",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/OSC1_SUB_PW",
+     "name": "OSC1 Sub PW",
+     "normalizedValue": 0.5,
+     "display": "50.0 %",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/OSC1_SUB_LEVEL",
+     "name": "OSC1 Sub Level",
+     "normalizedValue": 0,
+     "display": "0.00 %",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/OSC1_SYNC",
+     "name": "OSC1 Sync",
+     "normalizedValue": 0,
+     "display": "0.00",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/OSC1_UNISON_SPREAD",
+     "name": "OSC1 Unison Spread",
+     "normalizedValue": 0.10953333333333334,
+     "display": "11 cents",
+     "modulatedValue": 0.10953333333333334,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/OSC1_UNISON_VOICES",
+     "name": "OSC1 Unison Voices",
+     "normalizedValue": 0,
+     "display": "1v",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0,
+     "discreteValueCount": 16,
+     "discreteNormalizedValues": [
+      0,
+      0.06666666666666667,
+      0.13333333333333333,
+      0.2,
+      0.26666666666666666,
+      0.3333333333333333,
+      0.4,
+      0.4666666666666667,
+      0.5333333333333333,
+      0.6,
+      0.6666666666666666,
+      0.7333333333333333,
+      0.8,
+      0.8666666666666667,
+      0.9333333333333333,
+      1
+     ]
+    },
+    {
+     "id": "CONTENTS/OSC1_PITCH",
+     "name": "OSC1 Pitch",
+     "normalizedValue": 0.5,
+     "display": "0.00 st",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/OSC2_SHAPE",
+     "name": "OSC2 Shape",
+     "normalizedValue": 0,
+     "display": "-100 %",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/OSC2_SUB_PW",
+     "name": "OSC2 Sub PW",
+     "normalizedValue": 0.5,
+     "display": "50.0 %",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/OSC2_SUB_LEVEL",
+     "name": "OSC2 Sub Level",
+     "normalizedValue": 0,
+     "display": "0.00 %",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/OSC2_SYNC",
+     "name": "OSC2 Sync",
+     "normalizedValue": 0,
+     "display": "0.00",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/OSC2_UNISON_SPREAD",
+     "name": "OSC2 Unison Spread",
+     "normalizedValue": 0.05600000000000001,
+     "display": "6 cents",
+     "modulatedValue": 0.05600000000000001,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/OSC2_UNISON_VOICES",
+     "name": "OSC2 Unison Voices",
+     "normalizedValue": 0,
+     "display": "1v",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0,
+     "discreteValueCount": 16,
+     "discreteNormalizedValues": [
+      0,
+      0.06666666666666667,
+      0.13333333333333333,
+      0.2,
+      0.26666666666666666,
+      0.3333333333333333,
+      0.4,
+      0.4666666666666667,
+      0.5333333333333333,
+      0.6,
+      0.6666666666666666,
+      0.7333333333333333,
+      0.8,
+      0.8666666666666667,
+      0.9333333333333333,
+      1
+     ]
+    },
+    {
+     "id": "CONTENTS/PRE-FITLER_GAIN",
+     "name": "Pre-Filter Drive",
+     "normalizedValue": 0.5,
+     "display": "0.0 dB",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/OSC2_RETRIG",
+     "name": "OSC2 Retrig",
+     "normalizedValue": 0,
+     "display": "Off",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0,
+     "discreteValueCount": 2,
+     "discreteNormalizedValues": [
+      0,
+      1
+     ],
+     "discreteValueNames": [
+      "false",
+      "true"
+     ]
+    },
+    {
+     "id": "CONTENTS/FILTER_OSCILLATOR_FM",
+     "name": "Filter Oscillator FM",
+     "normalizedValue": 0.5,
+     "display": "0.00 st",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/FITLER_EG_CURVE",
+     "name": "Filter EG Curve",
+     "normalizedValue": 0.5,
+     "display": "0.00",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/OUTPUT",
+     "name": "Output",
+     "normalizedValue": 0.8542811755361401,
+     "display": "+1.9 dB",
+     "modulatedValue": 0.8542811755361401,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/AMP_VELOCITY_SENSETIVITY",
+     "name": "Amp Velocity Sensitivity",
+     "normalizedValue": 0.5,
+     "display": "+15.0 dB",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/PITCH",
+     "name": "Pitch",
+     "normalizedValue": 0.5,
+     "display": "0.00 st",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/PAN",
+     "name": "Pan",
+     "normalizedValue": 0.5,
+     "display": "0.00 %",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/FILTER_TYPE",
+     "name": "Filter Type",
+     "normalizedValue": 0,
+     "display": "Low-pass (2-pole)",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0,
+     "discreteValueCount": 8,
+     "discreteNormalizedValues": [
+      0,
+      0.14285714285714285,
+      0.2857142857142857,
+      0.42857142857142855,
+      0.5714285714285714,
+      0.7142857142857143,
+      0.8571428571428571,
+      1
+     ],
+     "discreteValueNames": [
+      "Low-pass (2-pole)",
+      "Low-pass (4-pole)",
+      "Band-pass (2-pole)",
+      "Band-pass (4-pole)",
+      "High-pass (2-pole)",
+      "High-pass (4-pole)",
+      "Notch",
+      "Bypass"
+     ]
+    },
+    {
+     "id": "CONTENTS/OSC_BLEND_OPERATOR",
+     "name": "OSC Blend Mode",
+     "normalizedValue": 0,
+     "display": "MIX",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0,
+     "discreteValueCount": 6,
+     "discreteNormalizedValues": [
+      0,
+      0.2,
+      0.4,
+      0.6,
+      0.8,
+      1
+     ],
+     "discreteValueNames": [
+      "MIX",
+      "NEG",
+      "WIPE",
+      "AM",
+      "SIGN",
+      "MAX"
+     ]
+    },
+    {
+     "id": "CONTENTS/SHAPER",
+     "name": "Shaping Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/SHAPER_MODE",
+     "name": "Shaper Mode",
+     "normalizedValue": 0,
+     "display": "OFF",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0,
+     "discreteValueCount": 7,
+     "discreteNormalizedValues": [
+      0,
+      0.16666666666666666,
+      0.3333333333333333,
+      0.5,
+      0.6666666666666666,
+      0.8333333333333334,
+      1
+     ],
+     "discreteValueNames": [
+      "OFF",
+      "SOFT",
+      "SINE",
+      "2ND",
+      "HYST",
+      "RECT",
+      "FOLD"
+     ]
+    },
+    {
+     "id": "CONTENTS/HPF_TYPE",
+     "name": "HPF Type",
+     "normalizedValue": 0,
+     "display": "Bypass",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0,
+     "discreteValueCount": 3,
+     "discreteNormalizedValues": [
+      0,
+      0.5,
+      1
+     ],
+     "discreteValueNames": [
+      "Bypass",
+      "High-pass (2-pole)",
+      "High-pass (4-pole)"
+     ]
+    },
+    {
+     "id": "CONTENTS/HPFFREQ",
+     "name": "HPF Frequency",
+     "normalizedValue": 0.36934514394179,
+     "display": "50.0 Hz",
+     "modulatedValue": 0.36934514394179,
+     "hasAutomation": false,
+     "origin": 1
+    },
+    {
+     "id": "CONTENTS/HPF_RESONANCE",
+     "name": "HPF Resonance",
+     "normalizedValue": 0,
+     "display": "0.00 %",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/FEEDBACK",
+     "name": "Feedback",
+     "normalizedValue": 0,
+     "display": "0.00 %",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/OSC1_PAN",
+     "name": "OSC1 Pan",
+     "normalizedValue": 0.5,
+     "display": "0.00 %",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/OSC1_WIDTH",
+     "name": "OSC1 Width",
+     "normalizedValue": 1,
+     "display": "100 %",
+     "modulatedValue": 1,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/OSC2_PAN",
+     "name": "OSC2 Pan",
+     "normalizedValue": 0.5,
+     "display": "0.00 %",
+     "modulatedValue": 0.5,
+     "hasAutomation": false,
+     "origin": 0.5
+    },
+    {
+     "id": "CONTENTS/OSC2_WIDTH",
+     "name": "OSC2 Width",
+     "normalizedValue": 1,
+     "display": "100 %",
+     "modulatedValue": 1,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/GAIN",
+     "name": "Voice Gain",
+     "normalizedValue": 1,
+     "display": "0.0 dB",
+     "modulatedValue": 1,
+     "hasAutomation": false,
+     "origin": 0
+    },
+    {
+     "id": "CONTENTS/USE_LEGACY_RESONANCE_RANGE",
+     "name": "Use legacy resonance range",
+     "normalizedValue": 0,
+     "display": "Off",
+     "modulatedValue": 0,
+     "hasAutomation": false,
+     "origin": 0,
+     "discreteValueCount": 2,
+     "discreteNormalizedValues": [
+      0,
+      1
+     ],
+     "discreteValueNames": [
+      "false",
+      "true"
+     ]
+    }
+   ],
+   "valueCapabilities": {
+    "normalized": {
+     "readable": true,
+     "writable": true,
+     "minimum": 0,
+     "maximum": 1
+    },
+    "displayed": {
+     "readable": "when-observed",
+     "writable": false,
+     "invertible": false,
+     "meaning": "Opaque host-formatted text for the current normalized value."
+    },
+    "discrete": {
+     "readable": "when-host-proved",
+     "writable": "returned-normalized-values-only"
+    },
+    "semantic": {
+     "readable": false,
+     "writable": false,
+     "reason": "API 25 has no text parser or exact displayed-value inverse conversion."
+    }
+   },
+   "warnings": [],
+   "elapsedMs": 712
+  },
+  "ab-set-A": {
+   "applied": true,
+   "partialSuccess": false,
+   "verified": true,
+   "parameterChanges": [
+    {
+     "device": {
+      "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+      "devicePosition": 0,
+      "route": [
+       {
+        "through": "layer-chain",
+        "name": "A",
+        "devicePosition": 0
+       }
+      ]
+     },
+     "changes": [
+      {
+       "settingIndex": 0,
+       "selector": {
+        "kind": "direct",
+        "parameterId": "CONTENTS/PW1"
+       },
+       "changeId": "c3ef46f0-ca1d-4240-b569-e09cb5ca4a4e"
+      }
+     ]
+    }
+   ],
+   "valueCapabilities": {
+    "normalized": {
+     "readable": true,
+     "writable": true,
+     "minimum": 0,
+     "maximum": 1
+    },
+    "displayed": {
+     "readable": "when-observed",
+     "writable": false,
+     "invertible": false,
+     "meaning": "Opaque host-formatted text for the current normalized value."
+    },
+    "discrete": {
+     "readable": "when-host-proved",
+     "writable": "returned-normalized-values-only"
+    },
+    "semantic": {
+     "readable": false,
+     "writable": false,
+     "reason": "API 25 has no text parser or exact displayed-value inverse conversion."
+    }
+   },
+   "warnings": [],
+   "reversal": "exact-base-value-while-the-device-route-remains-valid",
+   "elapsedMs": 2324
+  },
+  "ab-controls-B": {
+   "device": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "devicePosition": 0,
+    "route": [
+     {
+      "through": "layer-chain",
+      "name": "B",
+      "devicePosition": 0
+     }
+    ]
+   },
+   "view": "direct",
+   "deviceName": "Phase-4",
+   "standing": "stable",
+   "displayComplete": true,
+   "parameters": [
+    {
+     "id": "CONTENTS/PITCH",
+     "name": "Pitch",
+     "normalizedValue": 0.5,
+     "display": "0.00"
+    },
+    {
+     "id": "CONTENTS/OUTPUT",
+     "name": "Output",
+     "normalizedValue": 0.7942811755361399,
+     "display": "0.0 dB"
+    },
+    {
+     "id": "CONTENTS/AEG_ATTACK",
+     "name": "AEG Attack",
+     "normalizedValue": 0,
+     "display": "0.00 ms"
+    },
+    {
+     "id": "CONTENTS/AEG_DECAY",
+     "name": "AEG Decay",
+     "normalizedValue": 0.6644444444444446,
+     "display": "2.72 s"
+    },
+    {
+     "id": "CONTENTS/AEG_SUSTAIN",
+     "name": "AEG Sustain",
+     "normalizedValue": 0.6533333333333331,
+     "display": "65.3 %"
+    },
+    {
+     "id": "CONTENTS/AEG_RELEASE",
+     "name": "AEG Release",
+     "normalizedValue": 0.09500000000000008,
+     "display": "51.1 ms"
+    },
+    {
+     "id": "CONTENTS/VOICE_GAIN",
+     "name": "Voice Gain",
+     "normalizedValue": 0.5409054805401113,
+     "display": "-10.0 dB"
+    },
+    {
+     "id": "CONTENTS/PAN",
+     "name": "Pan",
+     "normalizedValue": 0.5,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PITCH_MOD_1",
+     "name": "R Pitch Offset",
+     "normalizedValue": 0.5,
+     "display": "0.00 st"
+    },
+    {
+     "id": "CONTENTS/NUMERATOR_1",
+     "name": "R Nominator",
+     "normalizedValue": 0.010101010101010102,
+     "display": "1"
+    },
+    {
+     "id": "CONTENTS/PHASE_1",
+     "name": "R Phase",
+     "normalizedValue": 0.5,
+     "display": "0 °"
+    },
+    {
+     "id": "CONTENTS/PM1M",
+     "name": "→R Modulation Amount",
+     "normalizedValue": 0.822500000000001,
+     "display": "445 %"
+    },
+    {
+     "id": "CONTENTS/PM2M",
+     "name": "→Y Modulation Amount",
+     "normalizedValue": 0.5,
+     "display": "100 %"
+    },
+    {
+     "id": "CONTENTS/PM4M",
+     "name": "→M Modulation Amount",
+     "normalizedValue": 0.8298033282904695,
+     "display": "457 %"
+    },
+    {
+     "id": "CONTENTS/PM3M",
+     "name": "→B Modulation Amount",
+     "normalizedValue": 0.45348837209302334,
+     "display": "74.6 %"
+    },
+    {
+     "id": "CONTENTS/PHASE_2",
+     "name": "Y Phase",
+     "normalizedValue": 0.5,
+     "display": "0 °"
+    },
+    {
+     "id": "CONTENTS/PHASE_3",
+     "name": "B Phase",
+     "normalizedValue": 0.5,
+     "display": "0 °"
+    },
+    {
+     "id": "CONTENTS/PHASE_4",
+     "name": "M Phase",
+     "normalizedValue": 0.5541666666666667,
+     "display": "39 °"
+    },
+    {
+     "id": "CONTENTS/PITCH_MOD_4",
+     "name": "M Pitch Offset",
+     "normalizedValue": 0.5,
+     "display": "0.00 st"
+    },
+    {
+     "id": "CONTENTS/PITCH_MOD_3",
+     "name": "B Pitch Offset",
+     "normalizedValue": 0.5,
+     "display": "0.00 st"
+    },
+    {
+     "id": "CONTENTS/PITCH_MOD_2",
+     "name": "Y Pitch Offset",
+     "normalizedValue": 0.5,
+     "display": "0.00 st"
+    },
+    {
+     "id": "CONTENTS/FREQ_OFFSET_1",
+     "name": "R Frequency Offset",
+     "normalizedValue": 0.5,
+     "display": "0.00 Hz"
+    },
+    {
+     "id": "CONTENTS/FREQ_OFFSET_2",
+     "name": "Y Frequency Offset",
+     "normalizedValue": 0.5,
+     "display": "0.00 Hz"
+    },
+    {
+     "id": "CONTENTS/FREQ_OFFSET_3",
+     "name": "B Frequency Offset",
+     "normalizedValue": 0.5,
+     "display": "0.00 Hz"
+    },
+    {
+     "id": "CONTENTS/FREQ_OFFSET_4",
+     "name": "M Frequency Offset",
+     "normalizedValue": 0.5,
+     "display": "0.00 Hz"
+    },
+    {
+     "id": "CONTENTS/STEREO4",
+     "name": "M Stereo Detuning",
+     "normalizedValue": 0,
+     "display": "Off"
+    },
+    {
+     "id": "CONTENTS/STEREO3",
+     "name": "B Stereo Detuning",
+     "normalizedValue": 1,
+     "display": "On"
+    },
+    {
+     "id": "CONTENTS/STEREO2",
+     "name": "Y Stereo Detuning",
+     "normalizedValue": 0,
+     "display": "Off"
+    },
+    {
+     "id": "CONTENTS/STEREO1",
+     "name": "R Stereo Detuning",
+     "normalizedValue": 0,
+     "display": "Off"
+    },
+    {
+     "id": "CONTENTS/KEYTRACK4",
+     "name": "M Keyboard Tracking",
+     "normalizedValue": 1,
+     "display": "On"
+    },
+    {
+     "id": "CONTENTS/FREQ_4",
+     "name": "M Fixed Frequency",
+     "normalizedValue": 0.5115384615384615,
+     "display": "13.0 Hz"
+    },
+    {
+     "id": "CONTENTS/KEYTRACK3",
+     "name": "B Keyboard Tracking",
+     "normalizedValue": 1,
+     "display": "On"
+    },
+    {
+     "id": "CONTENTS/FREQ_3",
+     "name": "B Fixed Frequency",
+     "normalizedValue": 0.43316801322193876,
+     "display": "4.00 Hz"
+    },
+    {
+     "id": "CONTENTS/FREQ_2",
+     "name": "Y Fixed Frequency",
+     "normalizedValue": 0.5115384615384615,
+     "display": "13.0 Hz"
+    },
+    {
+     "id": "CONTENTS/KEYTRACK2",
+     "name": "Y Keyboard Tracking",
+     "normalizedValue": 1,
+     "display": "On"
+    },
+    {
+     "id": "CONTENTS/FREQ_1",
+     "name": "R Fixed Frequency",
+     "normalizedValue": 0.5115384615384615,
+     "display": "13.0 Hz"
+    },
+    {
+     "id": "CONTENTS/KEYTRACK1",
+     "name": "R Keyboard Tracking",
+     "normalizedValue": 1,
+     "display": "On"
+    },
+    {
+     "id": "CONTENTS/GLOBAL_MODULATION",
+     "name": "Global Modulation Amount",
+     "normalizedValue": 1,
+     "display": "100 %"
+    },
+    {
+     "id": "CONTENTS/ENABLE_1",
+     "name": "R Enable",
+     "normalizedValue": 1,
+     "display": "On"
+    },
+    {
+     "id": "CONTENTS/ENABLE_2",
+     "name": "Y Enable",
+     "normalizedValue": 1,
+     "display": "On"
+    },
+    {
+     "id": "CONTENTS/ENABLE_3",
+     "name": "B Enable",
+     "normalizedValue": 1,
+     "display": "On"
+    },
+    {
+     "id": "CONTENTS/ENABLE_4",
+     "name": "M Enable",
+     "normalizedValue": 1,
+     "display": "On"
+    },
+    {
+     "id": "CONTENTS/DENOMINATOR_1",
+     "name": "R Denominator",
+     "normalizedValue": 0,
+     "display": "1"
+    },
+    {
+     "id": "CONTENTS/DENOMINATOR_2",
+     "name": "Y Denominator",
+     "normalizedValue": 0,
+     "display": "1"
+    },
+    {
+     "id": "CONTENTS/NUMERATOR_2",
+     "name": "Y Nominator",
+     "normalizedValue": 0.020202020202020204,
+     "display": "2"
+    },
+    {
+     "id": "CONTENTS/DENOMINATOR_4",
+     "name": "M Denominator",
+     "normalizedValue": 0,
+     "display": "1"
+    },
+    {
+     "id": "CONTENTS/NUMERATOR_4",
+     "name": "M Nominator",
+     "normalizedValue": 0.04040404040404041,
+     "display": "4"
+    },
+    {
+     "id": "CONTENTS/DENOMINATOR_3",
+     "name": "B Denominator",
+     "normalizedValue": 0.01020408163265306,
+     "display": "2"
+    },
+    {
+     "id": "CONTENTS/NUMERATOR_3",
+     "name": "B Nominator",
+     "normalizedValue": 0.010101010101010102,
+     "display": "1"
+    },
+    {
+     "id": "CONTENTS/MIX_1",
+     "name": "R Volume",
+     "normalizedValue": 1,
+     "display": "0.0 dB"
+    },
+    {
+     "id": "CONTENTS/MIX_2",
+     "name": "Y Volume",
+     "normalizedValue": 0,
+     "display": "-Inf dB"
+    },
+    {
+     "id": "CONTENTS/MIX_3",
+     "name": "B Volume",
+     "normalizedValue": 0,
+     "display": "-Inf dB"
+    },
+    {
+     "id": "CONTENTS/MIX_4",
+     "name": "M Volume",
+     "normalizedValue": 0,
+     "display": "-Inf dB"
+    },
+    {
+     "id": "CONTENTS/PM11",
+     "name": "R Feedback Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM21",
+     "name": "Y→R Modulation Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM31",
+     "name": "B→R Modulation Amount",
+     "normalizedValue": 0.2600000000000002,
+     "display": "1.76 %"
+    },
+    {
+     "id": "CONTENTS/PM41",
+     "name": "M→R Modulation Amount",
+     "normalizedValue": 0.0022222222222222222,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM42",
+     "name": "M→Y Modulation Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM32",
+     "name": "B→Y Modulation Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM22",
+     "name": "Y Feedback Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM12",
+     "name": "R→Y Modulation Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM43",
+     "name": "M→B Modulation Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM33",
+     "name": "B Feedback Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM23",
+     "name": "Y→B Modulation Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM13",
+     "name": "R→B Modulation Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM44",
+     "name": "M Feedback Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM34",
+     "name": "B→M Modulation Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM24",
+     "name": "Y→M Modulation Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM14",
+     "name": "R→M Modulation Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/SHAPE_AMOUNT_1",
+     "name": "R Shaping Amount",
+     "normalizedValue": 0.38400000000000023,
+     "display": "38.4 %"
+    },
+    {
+     "id": "CONTENTS/SHAPE_AMOUNT_2",
+     "name": "Y Shaping Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/SHAPE_AMOUNT_3",
+     "name": "B Shaping Amount",
+     "normalizedValue": 1,
+     "display": "100 %"
+    },
+    {
+     "id": "CONTENTS/SHAPE_AMOUNT_4",
+     "name": "M Shaping Amount",
+     "normalizedValue": 0.6113033448673587,
+     "display": "61.1 %"
+    },
+    {
+     "id": "CONTENTS/SHAPE1",
+     "name": "R Algorithm",
+     "normalizedValue": 0,
+     "display": "SAW"
+    },
+    {
+     "id": "CONTENTS/SHAPE2",
+     "name": "Y Algorithm",
+     "normalizedValue": 1,
+     "display": "SIN"
+    },
+    {
+     "id": "CONTENTS/SHAPE3",
+     "name": "B Algorithm",
+     "normalizedValue": 1,
+     "display": "SIN"
+    },
+    {
+     "id": "CONTENTS/SHAPE4",
+     "name": "M Algorithm",
+     "normalizedValue": 1,
+     "display": "SIN"
+    },
+    {
+     "id": "CONTENTS/FORMANT1",
+     "name": "R Formant",
+     "normalizedValue": 0,
+     "display": "1"
+    },
+    {
+     "id": "CONTENTS/FORMANT2",
+     "name": "Y Formant",
+     "normalizedValue": 0,
+     "display": "1"
+    },
+    {
+     "id": "CONTENTS/FORMANT3",
+     "name": "B Formant",
+     "normalizedValue": 0,
+     "display": "1"
+    },
+    {
+     "id": "CONTENTS/FORMANT4",
+     "name": "M Formant",
+     "normalizedValue": 0,
+     "display": "1"
+    },
+    {
+     "id": "CONTENTS/GLOBAL_SHAPE",
+     "name": "Global Shaping Amount",
+     "normalizedValue": 1,
+     "display": "100 %"
+    },
+    {
+     "id": "CONTENTS/PRE1",
+     "name": "R Processing Order Swap",
+     "normalizedValue": 0,
+     "display": "Off"
+    },
+    {
+     "id": "CONTENTS/PRE2",
+     "name": "Y Processing Order Swap",
+     "normalizedValue": 0,
+     "display": "Off"
+    },
+    {
+     "id": "CONTENTS/PRE3",
+     "name": "B Processing Order Swap",
+     "normalizedValue": 0,
+     "display": "Off"
+    },
+    {
+     "id": "CONTENTS/PRE4",
+     "name": "M Processing Order Swap",
+     "normalizedValue": 1,
+     "display": "On"
+    },
+    {
+     "id": "CONTENTS/FILTER_TYPE",
+     "name": "Filter Type",
+     "normalizedValue": 1,
+     "display": "Bypass"
+    },
+    {
+     "id": "CONTENTS/FEG_AMOUNT",
+     "name": "FEG Amount",
+     "normalizedValue": 0.5,
+     "display": "0.00"
+    },
+    {
+     "id": "CONTENTS/FILTER_FREQ",
+     "name": "Filter Frequency",
+     "normalizedValue": 1,
+     "display": "30.0 kHz"
+    },
+    {
+     "id": "CONTENTS/FILTER_RESO",
+     "name": "Filter Resonance",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/FCFM4",
+     "name": "M→Filter Modulation Amount",
+     "normalizedValue": 0.5,
+     "display": "0.00 Hz"
+    },
+    {
+     "id": "CONTENTS/FCFM3",
+     "name": "B→Filter Modulation Amount",
+     "normalizedValue": 0.5,
+     "display": "0.00 Hz"
+    },
+    {
+     "id": "CONTENTS/FCFM2",
+     "name": "Y→Filter Modulation Amount",
+     "normalizedValue": 0.5,
+     "display": "0.00 Hz"
+    },
+    {
+     "id": "CONTENTS/FCFM1",
+     "name": "R→Filter Modulation Amount",
+     "normalizedValue": 0.5,
+     "display": "0.00 Hz"
+    },
+    {
+     "id": "CONTENTS/FEG_DECAY",
+     "name": "FEG Decay",
+     "normalizedValue": 0.45945945945945943,
+     "display": "1.00 s"
+    },
+    {
+     "id": "CONTENTS/FEG_SUSTAIN",
+     "name": "FEG Sustain",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/FEG_RELEASE",
+     "name": "FEG Release",
+     "normalizedValue": 0,
+     "display": "8.00 ms"
+    },
+    {
+     "id": "CONTENTS/FEG_ATTACK",
+     "name": "FEG Attack",
+     "normalizedValue": 0.06,
+     "display": "1.73 ms"
+    },
+    {
+     "id": "CONTENTS/FEEDBACK",
+     "name": "Filter Feedback",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/FILTER_DRIVE",
+     "name": "Filter Drive",
+     "normalizedValue": 0.5,
+     "display": "0.0 dB"
+    },
+    {
+     "id": "CONTENTS/FILTER_KEYTRACK",
+     "name": "Filter Keytracking",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/FEG_VELOCITY",
+     "name": "FEG Velocity Sensitivity",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/AEG_VELOCITY",
+     "name": "AEG Velocity Sensitivity",
+     "normalizedValue": 0.6659999999999999,
+     "display": "66.6 %"
+    }
+   ],
+   "valueCapabilities": {
+    "normalized": {
+     "readable": true,
+     "writable": true,
+     "minimum": 0,
+     "maximum": 1
+    },
+    "displayed": {
+     "readable": "when-observed",
+     "writable": false,
+     "invertible": false,
+     "meaning": "Opaque host-formatted text for the current normalized value."
+    },
+    "discrete": {
+     "readable": "when-host-proved",
+     "writable": "returned-normalized-values-only"
+    },
+    "semantic": {
+     "readable": false,
+     "writable": false,
+     "reason": "API 25 has no text parser or exact displayed-value inverse conversion."
+    }
+   },
+   "warnings": [],
+   "elapsedMs": 701
+  },
+  "ab-controls-B-summary": {
+   "count": 103,
+   "displayComplete": true,
+   "withDisplay": 103
+  },
+  "ab-controls-B-same-target": {
+   "device": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "devicePosition": 0,
+    "route": [
+     {
+      "through": "layer-chain",
+      "name": "B",
+      "devicePosition": 0
+     }
+    ]
+   },
+   "view": "direct",
+   "deviceName": "Phase-4",
+   "standing": "stable",
+   "displayComplete": true,
+   "parameters": [
+    {
+     "id": "CONTENTS/PITCH",
+     "name": "Pitch",
+     "normalizedValue": 0.5,
+     "display": "0.00"
+    },
+    {
+     "id": "CONTENTS/OUTPUT",
+     "name": "Output",
+     "normalizedValue": 0.7942811755361399,
+     "display": "0.0 dB"
+    },
+    {
+     "id": "CONTENTS/AEG_ATTACK",
+     "name": "AEG Attack",
+     "normalizedValue": 0,
+     "display": "0.00 ms"
+    },
+    {
+     "id": "CONTENTS/AEG_DECAY",
+     "name": "AEG Decay",
+     "normalizedValue": 0.6644444444444446,
+     "display": "2.72 s"
+    },
+    {
+     "id": "CONTENTS/AEG_SUSTAIN",
+     "name": "AEG Sustain",
+     "normalizedValue": 0.6533333333333331,
+     "display": "65.3 %"
+    },
+    {
+     "id": "CONTENTS/AEG_RELEASE",
+     "name": "AEG Release",
+     "normalizedValue": 0.09500000000000008,
+     "display": "51.1 ms"
+    },
+    {
+     "id": "CONTENTS/VOICE_GAIN",
+     "name": "Voice Gain",
+     "normalizedValue": 0.5409054805401113,
+     "display": "-10.0 dB"
+    },
+    {
+     "id": "CONTENTS/PAN",
+     "name": "Pan",
+     "normalizedValue": 0.5,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PITCH_MOD_1",
+     "name": "R Pitch Offset",
+     "normalizedValue": 0.5,
+     "display": "0.00 st"
+    },
+    {
+     "id": "CONTENTS/NUMERATOR_1",
+     "name": "R Nominator",
+     "normalizedValue": 0.010101010101010102,
+     "display": "1"
+    },
+    {
+     "id": "CONTENTS/PHASE_1",
+     "name": "R Phase",
+     "normalizedValue": 0.5,
+     "display": "0 °"
+    },
+    {
+     "id": "CONTENTS/PM1M",
+     "name": "→R Modulation Amount",
+     "normalizedValue": 0.822500000000001,
+     "display": "445 %"
+    },
+    {
+     "id": "CONTENTS/PM2M",
+     "name": "→Y Modulation Amount",
+     "normalizedValue": 0.5,
+     "display": "100 %"
+    },
+    {
+     "id": "CONTENTS/PM4M",
+     "name": "→M Modulation Amount",
+     "normalizedValue": 0.8298033282904695,
+     "display": "457 %"
+    },
+    {
+     "id": "CONTENTS/PM3M",
+     "name": "→B Modulation Amount",
+     "normalizedValue": 0.45348837209302334,
+     "display": "74.6 %"
+    },
+    {
+     "id": "CONTENTS/PHASE_2",
+     "name": "Y Phase",
+     "normalizedValue": 0.5,
+     "display": "0 °"
+    },
+    {
+     "id": "CONTENTS/PHASE_3",
+     "name": "B Phase",
+     "normalizedValue": 0.5,
+     "display": "0 °"
+    },
+    {
+     "id": "CONTENTS/PHASE_4",
+     "name": "M Phase",
+     "normalizedValue": 0.5541666666666667,
+     "display": "39 °"
+    },
+    {
+     "id": "CONTENTS/PITCH_MOD_4",
+     "name": "M Pitch Offset",
+     "normalizedValue": 0.5,
+     "display": "0.00 st"
+    },
+    {
+     "id": "CONTENTS/PITCH_MOD_3",
+     "name": "B Pitch Offset",
+     "normalizedValue": 0.5,
+     "display": "0.00 st"
+    },
+    {
+     "id": "CONTENTS/PITCH_MOD_2",
+     "name": "Y Pitch Offset",
+     "normalizedValue": 0.5,
+     "display": "0.00 st"
+    },
+    {
+     "id": "CONTENTS/FREQ_OFFSET_1",
+     "name": "R Frequency Offset",
+     "normalizedValue": 0.5,
+     "display": "0.00 Hz"
+    },
+    {
+     "id": "CONTENTS/FREQ_OFFSET_2",
+     "name": "Y Frequency Offset",
+     "normalizedValue": 0.5,
+     "display": "0.00 Hz"
+    },
+    {
+     "id": "CONTENTS/FREQ_OFFSET_3",
+     "name": "B Frequency Offset",
+     "normalizedValue": 0.5,
+     "display": "0.00 Hz"
+    },
+    {
+     "id": "CONTENTS/FREQ_OFFSET_4",
+     "name": "M Frequency Offset",
+     "normalizedValue": 0.5,
+     "display": "0.00 Hz"
+    },
+    {
+     "id": "CONTENTS/STEREO4",
+     "name": "M Stereo Detuning",
+     "normalizedValue": 0,
+     "display": "Off"
+    },
+    {
+     "id": "CONTENTS/STEREO3",
+     "name": "B Stereo Detuning",
+     "normalizedValue": 1,
+     "display": "On"
+    },
+    {
+     "id": "CONTENTS/STEREO2",
+     "name": "Y Stereo Detuning",
+     "normalizedValue": 0,
+     "display": "Off"
+    },
+    {
+     "id": "CONTENTS/STEREO1",
+     "name": "R Stereo Detuning",
+     "normalizedValue": 0,
+     "display": "Off"
+    },
+    {
+     "id": "CONTENTS/KEYTRACK4",
+     "name": "M Keyboard Tracking",
+     "normalizedValue": 1,
+     "display": "On"
+    },
+    {
+     "id": "CONTENTS/FREQ_4",
+     "name": "M Fixed Frequency",
+     "normalizedValue": 0.5115384615384615,
+     "display": "13.0 Hz"
+    },
+    {
+     "id": "CONTENTS/KEYTRACK3",
+     "name": "B Keyboard Tracking",
+     "normalizedValue": 1,
+     "display": "On"
+    },
+    {
+     "id": "CONTENTS/FREQ_3",
+     "name": "B Fixed Frequency",
+     "normalizedValue": 0.43316801322193876,
+     "display": "4.00 Hz"
+    },
+    {
+     "id": "CONTENTS/FREQ_2",
+     "name": "Y Fixed Frequency",
+     "normalizedValue": 0.5115384615384615,
+     "display": "13.0 Hz"
+    },
+    {
+     "id": "CONTENTS/KEYTRACK2",
+     "name": "Y Keyboard Tracking",
+     "normalizedValue": 1,
+     "display": "On"
+    },
+    {
+     "id": "CONTENTS/FREQ_1",
+     "name": "R Fixed Frequency",
+     "normalizedValue": 0.5115384615384615,
+     "display": "13.0 Hz"
+    },
+    {
+     "id": "CONTENTS/KEYTRACK1",
+     "name": "R Keyboard Tracking",
+     "normalizedValue": 1,
+     "display": "On"
+    },
+    {
+     "id": "CONTENTS/GLOBAL_MODULATION",
+     "name": "Global Modulation Amount",
+     "normalizedValue": 1,
+     "display": "100 %"
+    },
+    {
+     "id": "CONTENTS/ENABLE_1",
+     "name": "R Enable",
+     "normalizedValue": 1,
+     "display": "On"
+    },
+    {
+     "id": "CONTENTS/ENABLE_2",
+     "name": "Y Enable",
+     "normalizedValue": 1,
+     "display": "On"
+    },
+    {
+     "id": "CONTENTS/ENABLE_3",
+     "name": "B Enable",
+     "normalizedValue": 1,
+     "display": "On"
+    },
+    {
+     "id": "CONTENTS/ENABLE_4",
+     "name": "M Enable",
+     "normalizedValue": 1,
+     "display": "On"
+    },
+    {
+     "id": "CONTENTS/DENOMINATOR_1",
+     "name": "R Denominator",
+     "normalizedValue": 0,
+     "display": "1"
+    },
+    {
+     "id": "CONTENTS/DENOMINATOR_2",
+     "name": "Y Denominator",
+     "normalizedValue": 0,
+     "display": "1"
+    },
+    {
+     "id": "CONTENTS/NUMERATOR_2",
+     "name": "Y Nominator",
+     "normalizedValue": 0.020202020202020204,
+     "display": "2"
+    },
+    {
+     "id": "CONTENTS/DENOMINATOR_4",
+     "name": "M Denominator",
+     "normalizedValue": 0,
+     "display": "1"
+    },
+    {
+     "id": "CONTENTS/NUMERATOR_4",
+     "name": "M Nominator",
+     "normalizedValue": 0.04040404040404041,
+     "display": "4"
+    },
+    {
+     "id": "CONTENTS/DENOMINATOR_3",
+     "name": "B Denominator",
+     "normalizedValue": 0.01020408163265306,
+     "display": "2"
+    },
+    {
+     "id": "CONTENTS/NUMERATOR_3",
+     "name": "B Nominator",
+     "normalizedValue": 0.010101010101010102,
+     "display": "1"
+    },
+    {
+     "id": "CONTENTS/MIX_1",
+     "name": "R Volume",
+     "normalizedValue": 1,
+     "display": "0.0 dB"
+    },
+    {
+     "id": "CONTENTS/MIX_2",
+     "name": "Y Volume",
+     "normalizedValue": 0,
+     "display": "-Inf dB"
+    },
+    {
+     "id": "CONTENTS/MIX_3",
+     "name": "B Volume",
+     "normalizedValue": 0,
+     "display": "-Inf dB"
+    },
+    {
+     "id": "CONTENTS/MIX_4",
+     "name": "M Volume",
+     "normalizedValue": 0,
+     "display": "-Inf dB"
+    },
+    {
+     "id": "CONTENTS/PM11",
+     "name": "R Feedback Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM21",
+     "name": "Y→R Modulation Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM31",
+     "name": "B→R Modulation Amount",
+     "normalizedValue": 0.2600000000000002,
+     "display": "1.76 %"
+    },
+    {
+     "id": "CONTENTS/PM41",
+     "name": "M→R Modulation Amount",
+     "normalizedValue": 0.0022222222222222222,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM42",
+     "name": "M→Y Modulation Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM32",
+     "name": "B→Y Modulation Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM22",
+     "name": "Y Feedback Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM12",
+     "name": "R→Y Modulation Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM43",
+     "name": "M→B Modulation Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM33",
+     "name": "B Feedback Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM23",
+     "name": "Y→B Modulation Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM13",
+     "name": "R→B Modulation Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM44",
+     "name": "M Feedback Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM34",
+     "name": "B→M Modulation Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM24",
+     "name": "Y→M Modulation Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/PM14",
+     "name": "R→M Modulation Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/SHAPE_AMOUNT_1",
+     "name": "R Shaping Amount",
+     "normalizedValue": 0.38400000000000023,
+     "display": "38.4 %"
+    },
+    {
+     "id": "CONTENTS/SHAPE_AMOUNT_2",
+     "name": "Y Shaping Amount",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/SHAPE_AMOUNT_3",
+     "name": "B Shaping Amount",
+     "normalizedValue": 1,
+     "display": "100 %"
+    },
+    {
+     "id": "CONTENTS/SHAPE_AMOUNT_4",
+     "name": "M Shaping Amount",
+     "normalizedValue": 0.6113033448673587,
+     "display": "61.1 %"
+    },
+    {
+     "id": "CONTENTS/SHAPE1",
+     "name": "R Algorithm",
+     "normalizedValue": 0,
+     "display": "SAW"
+    },
+    {
+     "id": "CONTENTS/SHAPE2",
+     "name": "Y Algorithm",
+     "normalizedValue": 1,
+     "display": "SIN"
+    },
+    {
+     "id": "CONTENTS/SHAPE3",
+     "name": "B Algorithm",
+     "normalizedValue": 1,
+     "display": "SIN"
+    },
+    {
+     "id": "CONTENTS/SHAPE4",
+     "name": "M Algorithm",
+     "normalizedValue": 1,
+     "display": "SIN"
+    },
+    {
+     "id": "CONTENTS/FORMANT1",
+     "name": "R Formant",
+     "normalizedValue": 0,
+     "display": "1"
+    },
+    {
+     "id": "CONTENTS/FORMANT2",
+     "name": "Y Formant",
+     "normalizedValue": 0,
+     "display": "1"
+    },
+    {
+     "id": "CONTENTS/FORMANT3",
+     "name": "B Formant",
+     "normalizedValue": 0,
+     "display": "1"
+    },
+    {
+     "id": "CONTENTS/FORMANT4",
+     "name": "M Formant",
+     "normalizedValue": 0,
+     "display": "1"
+    },
+    {
+     "id": "CONTENTS/GLOBAL_SHAPE",
+     "name": "Global Shaping Amount",
+     "normalizedValue": 1,
+     "display": "100 %"
+    },
+    {
+     "id": "CONTENTS/PRE1",
+     "name": "R Processing Order Swap",
+     "normalizedValue": 0,
+     "display": "Off"
+    },
+    {
+     "id": "CONTENTS/PRE2",
+     "name": "Y Processing Order Swap",
+     "normalizedValue": 0,
+     "display": "Off"
+    },
+    {
+     "id": "CONTENTS/PRE3",
+     "name": "B Processing Order Swap",
+     "normalizedValue": 0,
+     "display": "Off"
+    },
+    {
+     "id": "CONTENTS/PRE4",
+     "name": "M Processing Order Swap",
+     "normalizedValue": 1,
+     "display": "On"
+    },
+    {
+     "id": "CONTENTS/FILTER_TYPE",
+     "name": "Filter Type",
+     "normalizedValue": 1,
+     "display": "Bypass"
+    },
+    {
+     "id": "CONTENTS/FEG_AMOUNT",
+     "name": "FEG Amount",
+     "normalizedValue": 0.5,
+     "display": "0.00"
+    },
+    {
+     "id": "CONTENTS/FILTER_FREQ",
+     "name": "Filter Frequency",
+     "normalizedValue": 1,
+     "display": "30.0 kHz"
+    },
+    {
+     "id": "CONTENTS/FILTER_RESO",
+     "name": "Filter Resonance",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/FCFM4",
+     "name": "M→Filter Modulation Amount",
+     "normalizedValue": 0.5,
+     "display": "0.00 Hz"
+    },
+    {
+     "id": "CONTENTS/FCFM3",
+     "name": "B→Filter Modulation Amount",
+     "normalizedValue": 0.5,
+     "display": "0.00 Hz"
+    },
+    {
+     "id": "CONTENTS/FCFM2",
+     "name": "Y→Filter Modulation Amount",
+     "normalizedValue": 0.5,
+     "display": "0.00 Hz"
+    },
+    {
+     "id": "CONTENTS/FCFM1",
+     "name": "R→Filter Modulation Amount",
+     "normalizedValue": 0.5,
+     "display": "0.00 Hz"
+    },
+    {
+     "id": "CONTENTS/FEG_DECAY",
+     "name": "FEG Decay",
+     "normalizedValue": 0.45945945945945943,
+     "display": "1.00 s"
+    },
+    {
+     "id": "CONTENTS/FEG_SUSTAIN",
+     "name": "FEG Sustain",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/FEG_RELEASE",
+     "name": "FEG Release",
+     "normalizedValue": 0,
+     "display": "8.00 ms"
+    },
+    {
+     "id": "CONTENTS/FEG_ATTACK",
+     "name": "FEG Attack",
+     "normalizedValue": 0.06,
+     "display": "1.73 ms"
+    },
+    {
+     "id": "CONTENTS/FEEDBACK",
+     "name": "Filter Feedback",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/FILTER_DRIVE",
+     "name": "Filter Drive",
+     "normalizedValue": 0.5,
+     "display": "0.0 dB"
+    },
+    {
+     "id": "CONTENTS/FILTER_KEYTRACK",
+     "name": "Filter Keytracking",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/FEG_VELOCITY",
+     "name": "FEG Velocity Sensitivity",
+     "normalizedValue": 0,
+     "display": "0.00 %"
+    },
+    {
+     "id": "CONTENTS/AEG_VELOCITY",
+     "name": "AEG Velocity Sensitivity",
+     "normalizedValue": 0.6659999999999999,
+     "display": "66.6 %"
+    }
+   ],
+   "valueCapabilities": {
+    "normalized": {
+     "readable": true,
+     "writable": true,
+     "minimum": 0,
+     "maximum": 1
+    },
+    "displayed": {
+     "readable": "when-observed",
+     "writable": false,
+     "invertible": false,
+     "meaning": "Opaque host-formatted text for the current normalized value."
+    },
+    "discrete": {
+     "readable": "when-host-proved",
+     "writable": "returned-normalized-values-only"
+    },
+    "semantic": {
+     "readable": false,
+     "writable": false,
+     "reason": "API 25 has no text parser or exact displayed-value inverse conversion."
+    }
+   },
+   "warnings": [],
+   "elapsedMs": 714
+  },
+  "ab-set-B": {
+   "applied": true,
+   "partialSuccess": false,
+   "verified": true,
+   "parameterChanges": [
+    {
+     "device": {
+      "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+      "devicePosition": 0,
+      "route": [
+       {
+        "through": "layer-chain",
+        "name": "B",
+        "devicePosition": 0
+       }
+      ]
+     },
+     "changes": [
+      {
+       "settingIndex": 0,
+       "selector": {
+        "kind": "direct",
+        "parameterId": "CONTENTS/PITCH"
+       },
+       "changeId": "1ea56cba-3b8e-4e75-87ee-8a1b47d9b23e"
+      }
+     ]
+    }
+   ],
+   "valueCapabilities": {
+    "normalized": {
+     "readable": true,
+     "writable": true,
+     "minimum": 0,
+     "maximum": 1
+    },
+    "displayed": {
+     "readable": "when-observed",
+     "writable": false,
+     "invertible": false,
+     "meaning": "Opaque host-formatted text for the current normalized value."
+    },
+    "discrete": {
+     "readable": "when-host-proved",
+     "writable": "returned-normalized-values-only"
+    },
+    "semantic": {
+     "readable": false,
+     "writable": false,
+     "reason": "API 25 has no text parser or exact displayed-value inverse conversion."
+    }
+   },
+   "warnings": [],
+   "reversal": "exact-base-value-while-the-device-route-remains-valid",
+   "elapsedMs": 2398
+  },
+  "ab-solo-A": {
+   "schema": "ghostnote-layer-chain-solo/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "e3f2c046-62da-4754-bc9b-5b63f606f547",
+     "target": {
+      "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+      "containerPosition": 0,
+      "layerChain": "A",
+      "mode": "exclusive"
+     },
+     "summary": "Set layer chain \"A\" solo exclusive.",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "layerChains": [
+     {
+      "name": "A",
+      "solo": true
+     },
+     {
+      "name": "B",
+      "solo": false
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 852.4185419999994
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "containerPosition": 0,
+    "layerChain": "A",
+    "mode": "exclusive"
+   }
+  },
+  "ab-solo-A-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "devices": [
+     {
+      "position": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "A",
+         "solo": true,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "B",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 484.54983300000094
+   }
+  },
+  "ab-solo-B": {
+   "schema": "ghostnote-layer-chain-solo/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "d75c293c-fd7e-4153-aa70-d10ba64d4a68",
+     "target": {
+      "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+      "containerPosition": 0,
+      "layerChain": "B",
+      "mode": "exclusive"
+     },
+     "summary": "Set layer chain \"B\" solo exclusive.",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "layerChains": [
+     {
+      "name": "A",
+      "solo": false
+     },
+     {
+      "name": "B",
+      "solo": true
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 827.8230829999993
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "containerPosition": 0,
+    "layerChain": "B",
+    "mode": "exclusive"
+   }
+  },
+  "ab-solo-B-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "devices": [
+     {
+      "position": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "A",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "B",
+         "solo": true,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 494.75879200000054
+   }
+  },
+  "ab-solo-B-again": {
+   "schema": "ghostnote-layer-chain-solo/1",
+   "applied": false,
+   "effects": [],
+   "readback": {
+    "status": "already-set",
+    "layerChains": [
+     {
+      "name": "A",
+      "solo": false
+     },
+     {
+      "name": "B",
+      "solo": true
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 181.9057909999974
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "containerPosition": 0,
+    "layerChain": "B",
+    "mode": "exclusive"
+   }
+  },
+  "ab-solo-B-again-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "devices": [
+     {
+      "position": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "A",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "B",
+         "solo": true,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 489.65945799999827
+   }
+  },
+  "ab-solo-A-on": {
+   "schema": "ghostnote-layer-chain-solo/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "640fbb6d-5c7c-4932-8e0d-6966cf2e9286",
+     "target": {
+      "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+      "containerPosition": 0,
+      "layerChain": "A",
+      "mode": "on"
+     },
+     "summary": "Set layer chain \"A\" solo on.",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "layerChains": [
+     {
+      "name": "A",
+      "solo": true
+     },
+     {
+      "name": "B",
+      "solo": true
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 867.8387919999986
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "containerPosition": 0,
+    "layerChain": "A",
+    "mode": "on"
+   }
+  },
+  "ab-solo-A-on-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "devices": [
+     {
+      "position": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "A",
+         "solo": true,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "B",
+         "solo": true,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 492.64866699999766
+   }
+  },
+  "ab-solo-B-off": {
+   "schema": "ghostnote-layer-chain-solo/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "3fa974b4-f049-407b-9fbd-52b942bdfc2b",
+     "target": {
+      "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+      "containerPosition": 0,
+      "layerChain": "B",
+      "mode": "off"
+     },
+     "summary": "Set layer chain \"B\" solo off.",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "layerChains": [
+     {
+      "name": "A",
+      "solo": true
+     },
+     {
+      "name": "B",
+      "solo": false
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 862.4914580000004
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "containerPosition": 0,
+    "layerChain": "B",
+    "mode": "off"
+   }
+  },
+  "ab-solo-B-off-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "devices": [
+     {
+      "position": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "A",
+         "solo": true,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "B",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 474.60820899999817
+   }
+  },
+  "ab-solo-A-off": {
+   "schema": "ghostnote-layer-chain-solo/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "4ac56850-b556-49db-a2e7-1eff2e674c94",
+     "target": {
+      "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+      "containerPosition": 0,
+      "layerChain": "A",
+      "mode": "off"
+     },
+     "summary": "Set layer chain \"A\" solo off.",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "layerChains": [
+     {
+      "name": "A",
+      "solo": false
+     },
+     {
+      "name": "B",
+      "solo": false
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 846.3184170000022
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "containerPosition": 0,
+    "layerChain": "A",
+    "mode": "off"
+   }
+  },
+  "ab-solo-A-off-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "devices": [
+     {
+      "position": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "A",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "B",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 482.12033299999894
+   }
+  },
+  "ab-duplicate": {
+   "schema": "ghostnote-layer-chain-duplicate/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "8c948e34-8a8c-412c-b69d-bcd78f3fb9fb",
+     "target": {
+      "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+      "containerPosition": 0,
+      "layerChain": "B"
+     },
+     "summary": "Copied layer chain \"B\" to \"B copy\".",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "layerChain": {
+     "position": 2,
+     "name": "B copy",
+     "solo": false,
+     "mute": false,
+     "volume": 0.7937005259840999,
+     "pan": 0.5,
+     "color": {
+      "red": 0.525,
+      "green": 0.537,
+      "blue": 0.667
+     },
+     "devices": [
+      {
+       "position": 0,
+       "name": "Phase-4"
+      }
+     ],
+     "devicesComplete": true,
+     "deviceCapacity": 4
+    },
+    "layerChains": [
+     "A",
+     "B",
+     "B copy"
+    ]
+   },
+   "next": {
+    "remove": "computer control in Bitwig, then read_devices"
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 5198.901749999997
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "containerPosition": 0,
+    "layerChain": "B"
+   }
+  },
+  "ab-duplicate-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "devices": [
+     {
+      "position": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "A",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "B",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 2,
+         "name": "B copy",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 485.8088339999995
+   }
+  },
+  "ab-rename": {
+   "schema": "ghostnote-layer-chain-rename/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "c4240eae-da01-4ed2-99f9-0de0e9baafbb",
+     "target": {
+      "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+      "containerPosition": 0,
+      "layerChain": "B copy"
+     },
+     "summary": "Renamed layer chain \"B copy\" to \"C\".",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "layerChains": [
+     "A",
+     "B",
+     "C"
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 952.633332999998
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "containerPosition": 0,
+    "layerChain": "B copy"
+   }
+  },
+  "ab-rename-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "devices": [
+     {
+      "position": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "A",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "B",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 2,
+         "name": "C",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 459.59899999999834
+   }
+  },
+  "delete-layer-chain-refusal": {
+   "schema": "ghostnote-device-delete/1",
+   "failure": {
+    "code": "unsupported",
+    "stage": "input",
+    "effects": []
+   },
+   "message": "Bitwig has no typed deletion of one layer chain. Nothing was written. Remove the layer chain with computer control in Bitwig: confirm the focus and the target, delete it, then read_devices again.",
+   "target": {
+    "devices": 1
+   },
+   "detail": {
+    "reason": "layer-chain-delete",
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "position": 0,
+    "layerChain": "C"
+   }
+  },
+  "delete-layer-chain-refusal-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "devices": [
+     {
+      "position": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "A",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "B",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 2,
+         "name": "C",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 488.98191600000064
+   }
+  },
+  "collapse-add-tail": {
+   "schema": "ghostnote-device-add/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "a1486047-1acf-418a-9f1d-cf9124219cfa",
+     "target": {
+      "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+      "deviceIndex": 0
+     },
+     "summary": "Added device 0 (Tool).",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "added": [
+     {
+      "deviceIndex": 0,
+      "source": "native",
+      "position": 1,
+      "name": "Tool"
+     }
+    ],
+    "topLevel": [
+     {
+      "position": 0,
+      "name": "Instrument Layer",
+      "enabled": true
+     },
+     {
+      "position": 1,
+      "name": "Tool",
+      "enabled": true
+     }
+    ]
+   },
+   "next": {
+    "revert": {
+     "tool": "revert_change",
+     "changeIds": [
+      "a1486047-1acf-418a-9f1d-cf9124219cfa"
+     ]
+    }
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 5374.609417
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "devices": 1
+   }
+  },
+  "collapse-read-1": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "devices": [
+     {
+      "position": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "A",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "B",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 2,
+         "name": "C",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     },
+     {
+      "position": 1,
+      "name": "Tool",
+      "enabled": true
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 612.5610420000012
+   }
+  },
+  "collapse-move-out": {
+   "schema": "ghostnote-device-move/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "9573a184-b0f1-46c5-9a0a-07e571fd9701",
+     "target": {
+      "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+      "devices": 1,
+      "destination": {
+       "to": "track-end"
+      }
+     },
+     "summary": "Moved 1 device(s).",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "topLevel": [
+     {
+      "position": 0,
+      "name": "Instrument Layer",
+      "enabled": true
+     },
+     {
+      "position": 1,
+      "name": "Tool",
+      "enabled": true
+     },
+     {
+      "position": 2,
+      "name": "Phase-4",
+      "enabled": true
+     }
+    ],
+    "topLevelComplete": true,
+    "layerChains": [
+     {
+      "containerPosition": 0,
+      "position": 1,
+      "name": "B",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.525,
+       "green": 0.537,
+       "blue": 0.667
+      },
+      "devices": [],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 5956.958124999997
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "devices": 1,
+    "destination": {
+     "to": "track-end"
+    }
+   }
+  },
+  "collapse-read-2": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "devices": [
+     {
+      "position": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "A",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "B",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 2,
+         "name": "C",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.525,
+          "green": 0.537,
+          "blue": 0.667
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     },
+     {
+      "position": 1,
+      "name": "Tool",
+      "enabled": true
+     },
+     {
+      "position": 2,
+      "name": "Phase-4",
+      "enabled": true
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 750.3749590000007
+   }
+  },
+  "collapse-delete-container": {
+   "schema": "ghostnote-device-delete/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "338a4652-17b5-4783-bea0-bc4492a305d2",
+     "target": {
+      "devices": 1
+     },
+     "summary": "Removed one top-level device.",
+     "fidelity": "none"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "removed": [
+     {
+      "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+      "position": 0,
+      "name": "Instrument Layer"
+     }
+    ],
+    "removedLayerChains": [
+     {
+      "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+      "position": 0,
+      "containerKind": "Instrument Layer",
+      "layerChains": [
+       {
+        "name": "A",
+        "devices": [
+         "Polysynth"
+        ]
+       },
+       {
+        "name": "B",
+        "devices": []
+       },
+       {
+        "name": "C",
+        "devices": [
+         "Phase-4"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 3132.336457999998
+   },
+   "target": {
+    "devices": 1
+   }
+  },
+  "collapse-removed-layer-chains": [
+   {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "position": 0,
+    "containerKind": "Instrument Layer",
+    "layerChains": [
+     {
+      "name": "A",
+      "devices": [
+       "Polysynth"
+      ]
+     },
+     {
+      "name": "B",
+      "devices": []
+     },
+     {
+      "name": "C",
+      "devices": [
+       "Phase-4"
+      ]
+     }
+    ]
+   }
+  ],
+  "collapse-read-3": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20"
+   },
+   "coverage": {
+    "status": "partial",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "devices": [
+     {
+      "position": 0,
+      "name": "Tool",
+      "enabled": true
+     },
+     {
+      "position": 1,
+      "name": "Phase-4",
+      "enabled": true
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 614.0012499999939
+   }
+  },
+  "collapse-restore": {
+   "schema": "ghostnote-device-move/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "59dfb887-fcc4-482b-bc6e-11232d939969",
+     "target": {
+      "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+      "devices": 1,
+      "destination": {
+       "to": "top-level-position",
+       "position": 0
+      }
+     },
+     "summary": "Moved 1 device(s).",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "topLevel": [
+     {
+      "position": 0,
+      "name": "Phase-4",
+      "enabled": true
+     },
+     {
+      "position": 1,
+      "name": "Tool",
+      "enabled": true
+     }
+    ],
+    "topLevelComplete": true,
+    "layerChains": []
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 5365.997584000004
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "devices": 1,
+    "destination": {
+     "to": "top-level-position",
+     "position": 0
+    }
+   }
+  },
+  "collapse-read-final": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20"
+   },
+   "coverage": {
+    "status": "partial",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20",
+    "devices": [
+     {
+      "position": 0,
+      "name": "Phase-4",
+      "enabled": true
+     },
+     {
+      "position": 1,
+      "name": "Tool",
+      "enabled": true
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 623.2360420000041
+   }
+  },
+  "cleanup": {
+   "changeId": "cc34117a-0754-4d47-bf72-82a63286bed3",
+   "applied": true,
+   "places": [
+    {
+     "what": "track",
+     "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20"
+    }
+   ],
+   "canBeUndone": false,
+   "cannotBeUndone": [
+    {
+     "where": {
+      "what": "track",
+      "trackId": "ccf1262d-3ebc-4056-a035-eca82d56bd20"
+     },
+     "why": [
+      "a deleted track cannot be brought back. A newly created track gets a new id, so it is a different track and nothing recorded about the old one can be replayed onto it."
+     ]
+    }
+   ]
+  }
+ },
+ "guard": {
+  "hello": {
+   "contractVersion": 0,
+   "extensionVersion": "0.0.1",
+   "runtimeProfile": "normal-v1",
+   "hostApiVersion": 25,
+   "methodCount": 89,
+   "methodsHash": "0ef817f4bac8a8a7"
+  },
+  "mark": {
+   "revision": 358,
+   "generation": "236aa886-48a3-4267-b0f9-8c762d42e50b",
+   "project": "New 5",
+   "projectStatus": "marked",
+   "sceneEpoch": 3,
+   "sceneCount": 8,
+   "contentEpoch": 32818,
+   "contentEvents": [
+    {
+     "seq": 32795,
+     "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+     "trackIndex": 0,
+     "slotIndex": 4,
+     "filled": false
+    },
+    {
+     "seq": 32796,
+     "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+     "trackIndex": 1,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32797,
+     "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+     "trackIndex": 1,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32798,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32799,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32800,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32801,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 3,
+     "filled": false
+    },
+    {
+     "seq": 32802,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 4,
+     "filled": false
+    },
+    {
+     "seq": 32803,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 5,
+     "filled": false
+    },
+    {
+     "seq": 32804,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 6,
+     "filled": false
+    },
+    {
+     "seq": 32805,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 7,
+     "filled": false
+    },
+    {
+     "seq": 32806,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 8,
+     "filled": false
+    },
+    {
+     "seq": 32807,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 9,
+     "filled": false
+    },
+    {
+     "seq": 32808,
+     "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32809,
+     "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+     "trackIndex": 3,
+     "slotIndex": 5,
+     "filled": false
+    },
+    {
+     "seq": 32810,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32811,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32812,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32813,
+     "channelId": "",
+     "trackIndex": 5,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32814,
+     "channelId": "",
+     "trackIndex": 5,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32815,
+     "channelId": "",
+     "trackIndex": 5,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32816,
+     "channelId": "",
+     "trackIndex": 6,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32817,
+     "channelId": "",
+     "trackIndex": 7,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32818,
+     "channelId": "",
+     "trackIndex": 8,
+     "slotIndex": 0,
+     "filled": false
+    }
+   ]
+  }
+ }
+}

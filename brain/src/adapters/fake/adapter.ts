@@ -18,7 +18,7 @@ import {
   assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertClipSources, assertDeviceInsertable, assertDeviceRelocatable, assertDrumPadInsertable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, budgetTicks,
   chain as chainAt, chainCopyUnnamed, chainPath, clipSourceFingerprint, contentDelta, notes as notesAt,
   hasUnverifiedProps, lookupChain, lookupNestedDevice, mintedChain, nestingObservable, orderedNoteProps, stepSizeFor,
-  verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain,
+  verifyChainSolo, verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain,
   type Address, type AdapterInfo, type BatchReceipt, type BatchRequest, type BitwigAdapter,
   type ClipAddress, type ClipMetadataState, type ClipSourceDigest, type RawSourceRecord, type ClipNavigationResult, type ContentDelta, type DeviceAddress, type Fidelity, type NoteRecord, type ObservedContainer,
   type Op, type OpReceipt, type ReadOptions, type ResolveResult,
@@ -555,7 +555,8 @@ export class FakeAdapter implements BitwigAdapter {
         else missing.push(address);
         continue;
       }
-      const entry = this.readOne(address, hit?.track, hit?.index ?? -1, parameterReads);
+      const entry = this.readOne(
+        address, hit?.track, hit?.index ?? -1, parameterReads, options.structure === true);
       // ⚠ Same three-way answer the live adapter gives: an entry, "nothing is
       // there" (missing), or "we could not look" (unreachable). The third one is
       // what a chain-family address gets when its container has no scope.
@@ -614,6 +615,7 @@ export class FakeAdapter implements BitwigAdapter {
     track: FakeTrack | undefined,
     index: number,
     parameterReads: Map<string, readonly ParamState[] | 'unstable'>,
+    structureOnly = false,
   ): StateEntry | 'unreachable' | 'unstable' | undefined {
     switch (address.kind) {
       case 'track':
@@ -733,6 +735,14 @@ export class FakeAdapter implements BitwigAdapter {
           const found = this.deepDevice(track, address);
           if (!found.ok) return found.miss === 'absent' || found.miss === 'ambiguous'
             ? undefined : 'unreachable';
+          // 8h4e: a structure read has no parameter inventory, as live.
+          if (structureOnly) {
+            return {
+              address,
+              fidelity: 'none',
+              value: { of: 'device', device: { chainIndex: address.chainIndex, name: found.device.name } },
+            };
+          }
           const key = addressKey(address);
           let params = parameterReads.get(key);
           if (params === undefined) {
@@ -761,6 +771,25 @@ export class FakeAdapter implements BitwigAdapter {
         // here would certify a read live Bitwig has no route for, which is
         // PHASE-0 §Risks' named failure mode pointed the wrong way.
         const dev = track.devices[address.chainIndex];
+        if (structureOnly) {
+          // 8h4e: live reads a device past the container scopes through `device.list`: the name, with no
+          // container. A device inside the scopes also reports its container.
+          if (dev === undefined) return undefined;
+          const observed = address.chainIndex < this.model.containerScopes
+            ? this.model.observeContainer(track, address.chainIndex) : undefined;
+          return {
+            address,
+            fidelity: 'none',
+            value: {
+              of: 'device',
+              device: {
+                chainIndex: address.chainIndex,
+                name: dev.name,
+                ...(observed === undefined ? {} : { container: observed }),
+              },
+            },
+          };
+        }
         if (dev === undefined) {
           return address.chainIndex >= this.model.containerScopes ? 'unreachable' : undefined;
         }
@@ -1797,6 +1826,29 @@ export class FakeAdapter implements BitwigAdapter {
         const proof = observed === undefined
           ? { ok: false as const, why: 'the container became unobservable' }
           : verifyExclusiveChain(observed, op.chain.name);
+        if (!proof.ok) throw new UnsupportedOpError(`${op.op}: ${proof.why}`, 'fake');
+        return;
+      }
+
+      case 'chain.solo': {
+        const track = this.requireTrack(op.chain.container.track, op.op);
+        const container = track.devices[op.chain.container.chainIndex]?.chains;
+        if (container === undefined) {
+          throw new UnsupportedOpError(`${op.op}: the container is absent`, 'fake');
+        }
+        const matches = container.filter((item) => item.name === op.chain.name);
+        if (matches.length !== 1) {
+          throw new UnsupportedOpError(
+            `${op.op}: the addressed chain is ${matches.length === 0 ? 'absent' : 'ambiguous'}`,
+            'fake',
+          );
+        }
+        const before = this.model.observeContainer(track, op.chain.container.chainIndex);
+        matches[0]!.solo = op.solo;
+        const after = this.model.observeContainer(track, op.chain.container.chainIndex);
+        const proof = before === undefined || after === undefined
+          ? { ok: false as const, why: 'the container became unobservable' }
+          : verifyChainSolo(before, after, op.chain.name, op.solo);
         if (!proof.ok) throw new UnsupportedOpError(`${op.op}: ${proof.why}`, 'fake');
         return;
       }

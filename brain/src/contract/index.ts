@@ -24,7 +24,7 @@ export type {
 export {
   chainCopyUnnamed, lookupChain, lookupDevice, lookupDeviceSlot, lookupNestedDevice, mintedChain, nestingDepth,
   nestingObservable, projectedReorder, reorderIndistinguishable, verifyDeviceRelocation,
-  verifyDeviceReorder, verifyExclusiveChain,
+  verifyChainSolo, verifyDeviceReorder, verifyExclusiveChain,
 } from './chains.js';
 export type {
   ChainLookup, ChainMint, ChainMiss, DeviceLookup, DeviceSlotLookup, ObservedChain, ObservedContainer,

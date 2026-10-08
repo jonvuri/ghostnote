@@ -86,9 +86,9 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
     probeGolden.methods,
     [...new Set([...normalGolden.methods, ...probeOnly])].sort(),
   );
-  assert.equal(normalGolden.count, 88);
-  assert.equal(captureGolden.count, 93);
-  assert.equal(probeGolden.count, 105);
+  assert.equal(normalGolden.count, 89);
+  assert.equal(captureGolden.count, 94);
+  assert.equal(probeGolden.count, 106);
 });
 
 test('8b: historical host objects are absent from active Rig construction', () => {
@@ -187,7 +187,7 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
       ...(golden.addedInPhase7bE130 ?? []), ...(golden.addedInPhase7bE131 ?? []),
       ...(golden.addedInPhase8e ?? []), ...(golden.addedInPhase8g ?? []),
       ...(golden.addedInPhase8h1a ?? []), ...(golden.addedInPhase8h4a5 ?? []),
-      ...(golden.addedInPhase8h4e0 ?? [])];
+      ...(golden.addedInPhase8h4e0 ?? []), ...(golden.addedInPhase8h4e ?? [])];
   assert.deepEqual(
     [...golden.addedInPhase0].sort(),
     historical.filter((method) => golden.methods.includes(method)).sort(),
@@ -1055,4 +1055,10 @@ test('8h4a: the clip.read metadata block and cursor.clipMetadata are one functio
   for (const field of ['expectedGeneration', 'expectedProject', 'expectedSceneEpoch']) {
     assert.match(batch, new RegExp(`params\\.has\\("${field}"\\)`));
   }
+});
+
+test('8h4e: the layer-chain solo set is one normal product method', () => {
+  assert.deepEqual(golden.addedInPhase8h4e, ['chain.setSolo']);
+  assert.ok(WIRE_METHODS_USED.includes('chain.setSolo'));
+  assert.ok(normalGolden.methods.includes('chain.setSolo'));
 });

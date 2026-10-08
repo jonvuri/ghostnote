@@ -33,6 +33,7 @@ class CountingAdapter extends FakeAdapter {
   override async revision(...args: Parameters<FakeAdapter['revision']>) { this.count('mark'); return super.revision(...args); }
   override async contentSince(...args: Parameters<FakeAdapter['contentSince']>) { this.count('delta'); return super.contentSince(...args); }
   override async tracks(...args: Parameters<FakeAdapter['tracks']>) { this.count('tracks'); return super.tracks(...args); }
+  override async devices(...args: Parameters<FakeAdapter['devices']>) { this.count('devices'); return super.devices(...args); }
   override async resolve(...args: Parameters<FakeAdapter['resolve']>) { this.count('resolve'); return super.resolve(...args); }
   override async apply(...args: Parameters<FakeAdapter['apply']>) { this.count('apply'); return super.apply(...args); }
   override async read(...args: Parameters<FakeAdapter['read']>) {
@@ -73,7 +74,7 @@ async function fixture() {
     const result = await callTool(workspace, name, args, AGENT_NATIVE_TOOL_PROFILE) as Wire;
     return { result, counts: fake.counts };
   };
-  return { trackId, call, clip: (row: number) => clip(slot(track(trackId), scene(row, 1))) };
+  return { trackId, call, fake, clip: (row: number) => clip(slot(track(trackId), scene(row, 1))) };
 }
 
 const patch = (base: Wire, lines: string[]) => ['DOC ghostnote-document 1.0 patch',
@@ -157,3 +158,38 @@ test('call budget: the 8h4d Launcher clip tools', async () => {
   assert.equal(shown.result.failure, undefined);
   assert.deepEqual(shown.counts, { mark: 2, tracks: 1, read: 1, resolve: 1 });
 });
+
+test('call budget: the 8h4e device and layer-chain tools', async () => {
+  const fx = await fixture();
+  const dev = (name: string) => ({ name, enabled: true, paramsLive: true, params: [{ id: `P-${name}`, name, value: 0.5 }] });
+  fx.fake.model.visibleTracks()[0]!.devices.push(dev('Polysynth'), { ...dev('FX Layer'), params: [], chains: [
+    { name: 'A', solo: false, id: 'budget-a', devices: [dev('EQ+')] },
+    { name: 'B', solo: false, id: 'budget-b', devices: [dev('Delay+')] },
+  ] });
+  const counts: Record<string, Counts> = {};
+  const run = async (label: string, name: string, args: Wire) => {
+    const { result, counts: used } = await fx.call(name, args);
+    assert.equal(result.failure, undefined, `${label}: ${JSON.stringify(result).slice(0, 300)}`);
+    counts[label] = used;
+  };
+  // A structure read: one bank read and one read for the containers in positions 0 through 2.
+  await run('read', 'read_devices', { trackId: fx.trackId });
+  await run('solo', 'set_layer_chain_solo', { trackId: fx.trackId, containerPosition: 1, layerChain: 'A', mode: 'exclusive' });
+  await run('solo-noop', 'set_layer_chain_solo', { trackId: fx.trackId, containerPosition: 1, layerChain: 'A', mode: 'exclusive' });
+  await run('rename', 'rename_layer_chain', { trackId: fx.trackId, containerPosition: 1, layerChain: 'B', name: 'C' });
+  await run('move', 'move_devices', { trackId: fx.trackId,
+    devices: [{ from: 'layer-chain', containerPosition: 1, layerChain: 'C', devicePosition: 0 }], destination: { to: 'track-end' } });
+  await run('controls', 'read_device_controls', { device: { trackId: fx.trackId, devicePosition: 0 } });
+  assert.deepEqual(counts, EXPECTED_DEVICE_BUDGETS);
+});
+
+// Each limb reads the container before the write and once after it; the executor adds its own preflight and
+// readback reads and one delta. A no-op solo is one read.
+const EXPECTED_DEVICE_BUDGETS: Record<string, Counts> = {
+  read: { devices: 1, read: 1 },
+  solo: { read: 4, apply: 1, delta: 1 },
+  'solo-noop': { read: 1 },
+  rename: { read: 4, apply: 1, delta: 1 },
+  move: { devices: 2, read: 4, apply: 1, delta: 1 },
+  controls: { read: 1 },
+};

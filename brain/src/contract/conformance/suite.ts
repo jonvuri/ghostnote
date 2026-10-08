@@ -1479,7 +1479,7 @@ export function runConformance(h: AdapterHarness): void {
   );
 
   test(
-    label('C-chain-switch', 'exclusive solo is proved locally and leaves another track unchanged'),
+    label('C-chain-switch', 'exclusive solo and the solo set are proved locally and leave another track unchanged'),
     { skip: !h.capabilities.hasDeviceModel },
     async () => {
       const { adapter, trackA, trackB } = await h.create();
@@ -1548,6 +1548,17 @@ export function runConformance(h: AdapterHarness): void {
         const finalState = await observed(containerA);
         assert.deepEqual(finalState.chains.filter((item) => item.solo).map((item) => item.name),
           [alternate.name], 'the addressed alternate is active and every sibling is inactive');
+
+        // 8h4e: the non-exclusive solo set changes only the addressed chain.
+        const on = await adapter.apply({ ops: [{ op: 'chain.solo', chain: source, solo: true }] });
+        assert.equal(on.stages[0]?.ops[0]?.ok, true, JSON.stringify(on.stages[0]?.ops[0]));
+        assert.deepEqual((await observed(containerA)).chains.filter((item) => item.solo)
+          .map((item) => item.name).sort(), [alternate.name, source.name].sort(),
+        'solo on adds the addressed chain and keeps the sibling solo');
+        const off = await adapter.apply({ ops: [{ op: 'chain.solo', chain: alternate, solo: false }] });
+        assert.equal(off.stages[0]?.ops[0]?.ok, true, JSON.stringify(off.stages[0]?.ops[0]));
+        assert.deepEqual((await observed(containerA)).chains.filter((item) => item.solo)
+          .map((item) => item.name), [source.name], 'solo off removes only the addressed chain');
         assert.deepEqual(
           (await observed(containerB)).chains.map((item) => [item.name, item.solo]),
           unrelatedBefore,

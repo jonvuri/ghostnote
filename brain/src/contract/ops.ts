@@ -230,6 +230,11 @@ export type Op =
   }
   /** Make one named chain the sole soloed chain in its container. */
   | { readonly op: 'chain.activate'; readonly chain: ChainAddress }
+  /**
+   * 8h4e: set the solo flag of one named chain. It is not exclusive: the solo
+   * flags of the sibling chains do not change.
+   */
+  | { readonly op: 'chain.solo'; readonly chain: ChainAddress; readonly solo: boolean }
 
   /** Fill one empty pad in the Drum Machine inserted earlier in this batch. */
   | {
@@ -300,6 +305,7 @@ export const OP_SETTLE: Record<OpKind, SettleBudget | 'instant'> = {
   'chain.rename': 'trackStruct',
   'chain.relocate': 'deviceInsert',
   'chain.activate': 'tick',
+  'chain.solo': 'tick',
   'drumPad.insert': 'deviceInsert',
 };
 
@@ -543,8 +549,11 @@ export function assertOpsWritable(ops: readonly Op[]): void {
         throw new InvalidOpError(op.op, 'a container cannot be relocated into one of its own chains');
       }
     }
-    if (op.op === 'chain.activate' && !nestingObservable(op.chain)) {
+    if ((op.op === 'chain.activate' || op.op === 'chain.solo') && !nestingObservable(op.chain)) {
       throw new InvalidOpError(op.op, 'the addressed chain is deeper than the measured one-chain slot scopes');
+    }
+    if (op.op === 'chain.solo' && typeof op.solo !== 'boolean') {
+      throw new InvalidOpError(op.op, 'solo must be a boolean');
     }
     if (op.op === 'device.relocate') {
       if (op.before.chain !== undefined) {
@@ -623,6 +632,7 @@ export function sceneRowsOf(op: Op): readonly SceneAddress[] {
     case 'chain.rename':
     case 'chain.relocate':
     case 'chain.activate':
+    case 'chain.solo':
     case 'drumPad.insert':
     case 'notify':
       return [];
@@ -671,6 +681,7 @@ export function launcherSlotsOf(op: Op): readonly SlotAddress[] {
     case 'chain.rename':
     case 'chain.relocate':
     case 'chain.activate':
+    case 'chain.solo':
     case 'drumPad.insert':
     case 'notify':
       return [];
@@ -718,6 +729,7 @@ function deviceRefsOf(op: Op): readonly DeviceAddress[] {
     case 'chain.relocate':
       return [];
     case 'chain.activate':
+    case 'chain.solo':
       return [op.chain.container];
     case 'drumPad.insert':
       // This route owns the top-level container and pad checks.
@@ -793,13 +805,17 @@ export function assertDevicesRoutable(ops: readonly Op[]): void {
   }
 }
 
-/** Refuse a chain switch unless every sibling and its solo flag were observed. */
+/**
+ * Refuse a chain switch (`chain.activate`) or a solo set (`chain.solo`) unless
+ * every sibling and its solo flag were observed. The readback of both ops
+ * compares each sibling flag, so an unknown flag cannot be proved.
+ */
 export function assertChainActivatable(
   ops: readonly Op[],
   observe: (container: DeviceAddress) => ObservedContainer | undefined,
 ): void {
   for (const op of ops) {
-    if (op.op !== 'chain.activate') continue;
+    if (op.op !== 'chain.activate' && op.op !== 'chain.solo') continue;
     const observed = observe(op.chain.container);
     if (observed === undefined) {
       throw new InvalidOpError(op.op, 'the addressed container is not observable through a slot scope');

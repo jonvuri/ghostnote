@@ -18,7 +18,8 @@ const MIDI_NOTE_MIN = 36;
 const MIDI_NOTE_MAX = 51;
 const DRUM_MACHINE_NAME: 'Drum Machine' = 'Drum Machine';
 
-const pad = z.object({
+/** One pad assignment. `compose_devices` (8h4e) uses the same schema. */
+export const drumPadAssignment = z.object({
   midiNote: z.number().int().min(MIDI_NOTE_MIN).max(MIDI_NOTE_MAX).describe(
     'MIDI note from 36 (C1) through 51 (D-sharp 2). One note addresses one pad.',
   ),
@@ -27,7 +28,7 @@ const pad = z.object({
 
 export const drumMachineCompositionInputSchema = {
   trackId: z.string().min(1).describe('Durable track id from list_tracks.'),
-  pads: z.array(pad).min(1).max(16).describe(
+  pads: z.array(drumPadAssignment).min(1).max(16).describe(
     'One through 16 pad assignments. Each MIDI note must occur once.',
   ),
 } as const;

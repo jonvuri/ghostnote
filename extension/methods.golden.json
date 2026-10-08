@@ -5,8 +5,8 @@
   ],
   "profile": "normal",
   "identity": "normal-v1",
-  "count": 88,
-  "methodsHash": "68d457c4c4d1d7b3",
+  "count": 89,
+  "methodsHash": "0ef817f4bac8a8a7",
   "methods": [
     "batch.run",
     "branch.duplicateTrack",
@@ -16,6 +16,7 @@
     "chain.move",
     "chain.select",
     "chain.setName",
+    "chain.setSolo",
     "clip.create",
     "clip.read",
     "clip.readPage",

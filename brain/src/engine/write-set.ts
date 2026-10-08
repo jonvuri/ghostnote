@@ -206,6 +206,7 @@ function targetsOf(op: Op): {
     case 'chain.relocate':
     case 'device.relocate':
     case 'chain.activate':
+    case 'chain.solo':
     case 'drumPad.insert':
     case 'notify':
       return [];
@@ -293,6 +294,14 @@ function unrevertableOf(op: Op, opIndex: number): UnrevertableOp | undefined {
           'switching changes the addressed alternate and every sibling in its container, while '
           + 'the static write record cannot name that sibling set. The final state is proved by '
           + 'complete container readback, but automatic reversal does not guess the prior one.',
+      };
+    case 'chain.solo':
+      return {
+        opIndex, op: op.op, unrestoredAs: 'chain solo state',
+        why:
+          'the static write record does not hold the earlier solo flag, and a chain is addressed by a '
+          + 'name that can change later. Complete container readback proves the new flag and the '
+          + 'unchanged siblings, but automatic reversal does not guess the earlier flag.',
       };
     case 'drumPad.insert':
       // The owned top-level insertion is the inverse for all of its pad writes.

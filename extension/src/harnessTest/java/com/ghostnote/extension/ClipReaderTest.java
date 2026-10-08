@@ -30,6 +30,8 @@ public final class ClipReaderTest {
         run("the group point route unpins, finds the parents, binds, then pins (8h4a5)", ClipReaderTest::pointOrder);
         run("a same-type device settles on name and value callbacks under its own target (E243)",
             ClipReaderTest::directParameterSwitch);
+        run("display text counts only under the armed stamp; the CLAP callback form maps to the listed ID (E244)",
+            ClipReaderTest::directParameterDisplay);
         run("a second callback for one cell is a duplicate", ClipReaderTest::duplicates);
         run("sounding cells past the limit stop decoding and mark the capture (8h4c2)", ClipReaderTest::soundingLimit);
         run("a false clipExists value is no start signal", ClipReaderTest::falseExists);
@@ -258,6 +260,52 @@ public final class ClipReaderTest {
         check(sw.valueOf("A") == 0.5 && sw.valueOf("B") == 0.2 && "Res".equals(sw.nameOf("B")), "the new values");
         check(!sw.covers("t2", new String[0]), "an empty ID list never settles here");
         check(!sw.covers("t2", new String[] {"A", "B", "C"}), "a known ID without callbacks does not settle");
+    }
+
+    private static void directParameterDisplay() {
+        java.util.Set<String> listed = java.util.Set.of("CONTENTS/PID0", "CONTENTS/PID1", "F1FREQ");
+        check("CONTENTS/PID0".equals(DirectParameterDisplay.listedId("CONTENTS/ROOT_GENERIC_MODULE/PID0", listed)),
+            "the CLAP callback form maps to the listed ID");
+        check("CONTENTS/PID0".equals(DirectParameterDisplay.listedId("CONTENTS/PID0", listed)), "a listed ID stays");
+        check("CONTENTS/ROOT_GENERIC_MODULE/PID9".equals(
+            DirectParameterDisplay.listedId("CONTENTS/ROOT_GENERIC_MODULE/PID9", listed)),
+            "a callback form with no listed ID stays");
+        check("CONTENTS/ROOT_GENERIC_MODULE/X".equals(DirectParameterDisplay.listedId("CONTENTS/ROOT_GENERIC_MODULE/X",
+            java.util.Set.of("CONTENTS/X", "CONTENTS/ROOT_GENERIC_MODULE/X"))), "a listed callback form stays");
+        check(DirectParameterDisplay.listedId(null, listed) == null, "null stays null");
+
+        String[] ids = {"CONTENTS/PID0", "CONTENTS/PID1"};
+        check(java.util.Arrays.equals(DirectParameterDisplay.observedIds(ids, false), ids),
+            "a Bitwig device observes the listed IDs only");
+        check(java.util.Arrays.equals(DirectParameterDisplay.observedIds(ids, true), new String[] {
+            "CONTENTS/PID0", "CONTENTS/PID1",
+            "CONTENTS/ROOT_GENERIC_MODULE/PID0", "CONTENTS/ROOT_GENERIC_MODULE/PID1"}),
+            "a plug-in also observes the callback forms");
+        check(DirectParameterDisplay.observedIds(new String[] {"F1FREQ"}, true).length == 1,
+            "an ID without the CONTENTS prefix adds no form");
+
+        DirectParameterDisplay d = new DirectParameterDisplay();
+        check(!d.accept("t1", "CONTENTS/PID0", "74.00"), "no arm, no text");
+        check(!d.complete(3, ids), "not armed");
+        d.arm(3, "t1", ids);
+        check(d.armedFor(3) && !d.armedFor(4) && d.count() == 0, "armed for generation 3 with no text");
+        check(!d.complete(3, ids), "armed, still waiting");
+        check(!d.accept("t2", "CONTENTS/PID0", "1"), "text under another stamp does not count");
+        check(!d.accept("t1", "CONTENTS/PID7", "1"), "text for an ID that is not listed does not count");
+        check(d.accept("t1", "CONTENTS/PID0", "74.00"), "listed text counts");
+        check(!d.complete(3, ids), "one of two");
+        check(d.accept("t1", "CONTENTS/ROOT_GENERIC_MODULE/PID1", "1/8"), "the CLAP callback form counts");
+        check("1/8".equals(d.text("CONTENTS/PID1")) && d.complete(3, ids), "armed and complete");
+        d.carry(4);
+        check(d.complete(4, ids) && !d.armedFor(3), "the same target keeps the text for the new generation");
+        check(d.accept("t1", "CONTENTS/PID0", "75.00") && "75.00".equals(d.text("CONTENTS/PID0")),
+            "a write refreshes the text");
+        d.clear();
+        check(d.count() == 0 && d.armedGeneration() == -1 && !d.complete(4, ids), "a target change clears");
+        d.carry(5);
+        check(d.armedGeneration() == -1, "carry without an arm does nothing");
+        d.arm(6, "t3", new String[0]);
+        check(d.complete(6, new String[0]), "an empty list is complete when armed");
     }
 
     private static void duplicates() {

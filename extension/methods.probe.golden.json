@@ -5,8 +5,8 @@
   ],
   "profile": "probe",
   "identity": "phase-8-probe-v1",
-  "count": 105,
-  "methodsHash": "513b2d6b4647bbbe",
+  "count": 106,
+  "methodsHash": "582a1fa5cab5e3fb",
   "methods": [
     "api.runtimeMethods",
     "app.actions",
@@ -26,6 +26,7 @@
     "chain.move",
     "chain.select",
     "chain.setName",
+    "chain.setSolo",
     "clip.create",
     "clip.read",
     "clip.readPage",

@@ -176,11 +176,21 @@ public final class ParamHandlers extends HandlerGroup {
      * Format-agnostic DirectParameter enumeration for cursorDevice0 — the
      * path that reaches CLAP/VST/Bitwig without a typed specific-device.
      * Reads observer-populated maps (E4b).
+     *
+     * 8h4e (E244): when the current generation settled on a new target, this
+     * request sets the listed IDs on the display observer. The text arrives one
+     * turn later. {@code displayed} is present only for text under the current
+     * target stamp and arm. {@code displayArmedGeneration} equals
+     * {@code generation} when the display is armed for this generation;
+     * {@code displayComplete} is true when it is armed and each listed ID has
+     * text. The arm changes no project state.
      */
     private JsonElement directParamList(JsonObject request) {
         if (request.has("begin") && request.get("begin").getAsBoolean()) {
             rig.beginDirectParameterObservation();
         }
+        boolean displayArmedNow = rig.armDirectParameterDisplay();
+        boolean displayCurrent = rig.directParamDisplay.armedFor(rig.directParamGeneration);
         JsonArray params = new JsonArray();
         for (String id : rig.directParamIds) {
             JsonObject obj = new JsonObject();
@@ -190,7 +200,7 @@ public final class ParamHandlers extends HandlerGroup {
             if (v != null) {
                 obj.addProperty("value", v);
             }
-            obj.addProperty("displayed", rig.directParamDisplays.getOrDefault(id, null));
+            obj.addProperty("displayed", displayCurrent ? rig.directParamDisplay.text(id) : null);
             params.add(obj);
         }
         JsonObject result = new JsonObject();
@@ -203,6 +213,13 @@ public final class ParamHandlers extends HandlerGroup {
         // 8h4a5 build marker and diagnostic: how the generation settled (E243).
         result.addProperty("settleRule", Rig.DIRECT_PARAMETER_SETTLE);
         result.addProperty("settledBy", rig.directParamSettledBy);
+        result.addProperty("displayRule", Rig.DIRECT_PARAMETER_DISPLAY);
+        result.addProperty("displayArmedGeneration", rig.directParamDisplay.armedGeneration());
+        result.addProperty("displayArmedNow", displayArmedNow);
+        result.addProperty("displayCount", displayCurrent ? rig.directParamDisplay.count() : 0);
+        result.addProperty("displayComplete",
+            rig.directParamDisplay.complete(rig.directParamGeneration, rig.directParamIds));
+        result.addProperty("isPlugin", rig.cursorDevice0.isPlugin().get());
         result.addProperty("trackChannelId", rig.cursorTracks[0].channelId().get());
         result.addProperty("trackPosition", rig.cursorTracks[0].position().get());
         result.addProperty("deviceIndex", rig.currentDirectParameterDeviceIndex());
@@ -224,7 +241,7 @@ public final class ParamHandlers extends HandlerGroup {
         result.addProperty("idCount", rig.directParamIds.length);
         result.addProperty("nameCount", rig.directParamNames.size());
         result.addProperty("valueCount", rig.directParamValues.size());
-        result.addProperty("displayCount", rig.directParamDisplays.size());
+        result.addProperty("displayCount", rig.directParamDisplay.count());
         result.addProperty("generation", rig.directParamGeneration);
         result.addProperty("idsGeneration", rig.directParamIdsGeneration);
         result.addProperty("remoteGeneration", rig.remoteGeneration);
@@ -277,6 +294,8 @@ public final class ParamHandlers extends HandlerGroup {
         rig.directParamLog.restart();
         rig.directParamDisplayObserver.setObservedParameterIds(ids);
         rig.directParamDisplayIds = ids;
+        // The probe set replaces the product set. Remove the arm so that the next directparam.list sets it again.
+        rig.directParamDisplay.clear();
         JsonObject result = ok();
         if (ids != null) result.addProperty("observed", ids.length);
         else result.add("observed", JsonNull.INSTANCE);
@@ -292,7 +311,7 @@ public final class ParamHandlers extends HandlerGroup {
         if (params.has("mark")) rig.directParamLog.add("mark", null, params.get("mark").getAsString());
         JsonObject result = rig.directParamLog.toJson();
         result.addProperty("observedDisplayIds", rig.directParamDisplayIds == null ? -1 : rig.directParamDisplayIds.length);
-        result.addProperty("displayCount", rig.directParamDisplays.size());
+        result.addProperty("displayCount", rig.directParamDisplay.count());
         if (params.has("restart") && params.get("restart").getAsBoolean()) rig.directParamLog.restart();
         return result;
     }

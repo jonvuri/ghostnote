@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v30';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v31';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -362,7 +362,7 @@ const RETIRED_IN_V30 = new Set([
  * clip tools, moves launch_clip, add_scenes, and delete_scene to the shared result module, and adds the generic
  * operation handle. edit_launcher_clip gains background.
  */
-export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+export const DESCRIPTION_COHORT_V30: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V29.filter((member) => !RETIRED_IN_V30.has(member.name)),
   {
     name: 'add_launcher_clip', kind: 'write',
@@ -399,6 +399,72 @@ export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
   {
     name: 'cancel_operation', kind: 'write',
     reason: 'Cancels a background operation before its next project write.',
+  },
+] as const;
+
+/** The v30 members that 8h4e retired from agent-native-v1 (the device-alternate lifecycle and the old device names). */
+const RETIRED_IN_V31 = new Set([
+  'inspect_device_alternates', 'create_device_alternates', 'fill_device_alternate', 'switch_device_alternate',
+  'keep_device_alternate', 'remove_device_alternate', 'inspect_devices', 'inspect_device_parameters', 'add_device',
+  'set_parameter', 'author_modulators', 'compose_device_structure', 'compose_drum_machine', 'add_native_devices',
+  'inspect_preset_modulation', 'compose_device_sources', 'reverse_device_source_composition',
+]);
+
+/**
+ * v31 (8h4e): agent-native-v1 replaces the device-alternate lifecycle with read_devices and the generic layer-chain
+ * limbs (D18), renames the device control and preset modulation tools, merges device insertion and composition,
+ * and reports DirectParameter display text (E244). set_device_enabled, wrap_existing_device_modulation,
+ * delete_device, revert_change, and check_revert change in place.
+ */
+export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+  ...DESCRIPTION_COHORT_V30.filter((member) => !RETIRED_IN_V31.has(member.name)),
+  {
+    name: 'read_devices', kind: 'read',
+    reason: 'Reads the top-level devices and the layer chains of containers; replaces inspect_devices and inspect_device_alternates.',
+  },
+  {
+    name: 'read_device_controls', kind: 'read',
+    reason: 'Reads DirectParameters with display text, or remote pages; replaces inspect_device_parameters.',
+  },
+  {
+    name: 'set_device_controls', kind: 'write',
+    reason: 'Writes DirectParameters and remote controls in verified cohorts; replaces set_parameter.',
+  },
+  {
+    name: 'read_preset_modulation', kind: 'read',
+    reason: 'Reads the modulators of one saved preset; replaces inspect_preset_modulation.',
+  },
+  {
+    name: 'edit_preset_modulation', kind: 'write',
+    reason: 'Inserts an edited copy of one saved preset; replaces author_modulators.',
+  },
+  {
+    name: 'add_devices', kind: 'write',
+    reason: 'Appends devices from explicit sources; merges add_device and add_native_devices.',
+  },
+  {
+    name: 'compose_devices', kind: 'write',
+    reason: 'Creates one complete container through a private offline or staged backend; merges three composers.',
+  },
+  {
+    name: 'duplicate_layer_chain', kind: 'write',
+    reason: 'Copies one layer chain to a new unique name: the A/B branch limb.',
+  },
+  {
+    name: 'rename_layer_chain', kind: 'write',
+    reason: 'Gives one layer chain a new durable name.',
+  },
+  {
+    name: 'move_devices', kind: 'write',
+    reason: 'Moves devices between the track and layer chains; the winner-collapse limb.',
+  },
+  {
+    name: 'copy_devices', kind: 'write',
+    reason: 'Copies devices into a layer chain as new instances.',
+  },
+  {
+    name: 'set_layer_chain_solo', kind: 'write',
+    reason: 'Sets exclusive, on, or off layer-chain solo: the A/B audition limb.',
   },
 ] as const;
 
@@ -584,9 +650,13 @@ export const TOOL_DESCRIPTION_V28_SHA256 =
 export const TOOL_DESCRIPTION_V29_SHA256 =
   'bfaa24dbef2614da391aa9978dcab6eb155441b87ead37111f5fc7179a401740';
 
-/**
- * v30 (8h4d): the musical and clip surface migration of agent-native-v1. Changing
- * this fingerprint requires a new description version.
- */
+/** v30 (8h4d): the musical and clip surface migration of agent-native-v1. Frozen in 8h4e. */
 export const TOOL_DESCRIPTION_V30_SHA256 =
   '6a8752b90fed22060450e5021b4343cfe643daf59be9611b9135eb637f2e6ccc';
+
+/**
+ * v31 (8h4e): the device structure migration of agent-native-v1. Changing this fingerprint requires a new
+ * description version.
+ */
+export const TOOL_DESCRIPTION_V31_SHA256 =
+  '4bb28d29ed289b3b10b58192d684ce9759fa2a0c9cc68102b5431ce2b0cf3781';

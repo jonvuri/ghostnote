@@ -789,6 +789,15 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
         expectedTrackChannelId: op.chain.container.track.channelId,
       })];
 
+    case 'chain.solo':
+      return [frame(WIRE.chainSetSolo, {
+        slot: op.chain.container.chainIndex,
+        layerIndex: ctx.chainIndex(op.chain),
+        expectedName: op.chain.name,
+        expectedTrackChannelId: op.chain.container.track.channelId,
+        solo: op.solo,
+      })];
+
     case 'drumPad.insert':
       return [frame(WIRE.drumPadInsertDevice, {
         padIndex: op.pad.channel,

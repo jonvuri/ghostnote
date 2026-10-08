@@ -503,6 +503,20 @@ test('E-chain-activate: exclusive switching carries stable identity guards', () 
   assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId);
 });
 
+test('8h4e encoder: a solo set carries the identity guards and the requested flag', () => {
+  const target = chainAt(device(TRACK_A, 1), 'B take');
+  for (const solo of [true, false]) {
+    const frames = encodeOp({ op: 'chain.solo', chain: target, solo }, ctx);
+    assert.deepEqual(methods(frames), [WIRE.chainSetSolo]);
+    const params = paramsOf(frames, WIRE.chainSetSolo);
+    assert.equal(params?.['slot'], 1);
+    assert.equal(params?.['layerIndex'], 3);
+    assert.equal(params?.['expectedName'], 'B take');
+    assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId);
+    assert.equal(params?.['solo'], solo);
+  }
+});
+
 test('d02-s1-encoder: a pad insert uses only the guarded typed primitive', () => {
   const container = device(TRACK_A, 1);
   const frames = encodeOp({

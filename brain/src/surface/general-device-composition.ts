@@ -11,7 +11,7 @@ import {
 } from '../composition/index.js';
 import { track as trackAt } from '../contract/index.js';
 import {
-  composeGeneralDeviceSources, reverseGeneralDeviceSources,
+  composeGeneralDeviceSources, previewGeneralDeviceReversal, reverseGeneralDeviceSources,
   type GeneralDeviceCompositionCheckpoint, type GeneralDeviceCompositionOptions,
   type GeneralDeviceCompositionResult, type GeneralDeviceCompositionReversal,
 } from '../engine/index.js';
@@ -45,7 +45,8 @@ const presetPath = z.string().min(1).superRefine((path, context) => {
   if (!existsSync(path)) context.addIssue({ code: 'custom', message: 'The preset file does not exist.' });
 });
 
-const source = z.discriminatedUnion('kind', [
+/** One explicit device source. `compose_devices` (8h4e) uses the same schema. */
+export const source = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('native'), name: z.string().min(1) }).strict(),
   z.object({
     kind: z.literal('vst3'),
@@ -64,7 +65,8 @@ const source = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('existing-copy'), devicePosition: z.number().int().min(0) }).strict(),
 ]);
 
-const modulation = z.object({
+/** One outer or preset-local modulator. `compose_devices` (8h4e) uses the same schema. */
+export const modulation = z.object({
   location: z.enum(['container', 'device']).describe(
     'Container authors late-bound outer modulation. Device authors inside a preset source.',
   ),
@@ -380,6 +382,25 @@ function internalCheckpoint(
       reversalContainerRemoved: checkpoint.reversalContainerRemoved,
     }),
   };
+}
+
+/**
+ * 8h4e: the issued checkpoint of one composition, by its container insertion change ID. `revert_change` on
+ * `agent-native-v1` uses it, so the public reversal input is the change ID only.
+ */
+export function issuedCompositionCheckpoint(
+  workspace: Workspace, changeId: string,
+): GeneralDeviceCompositionReversalInput['checkpoint'] | undefined {
+  const issuedText = issued.get(workspace.changes)?.get(changeId);
+  return issuedText === undefined
+    ? undefined : JSON.parse(issuedText) as GeneralDeviceCompositionReversalInput['checkpoint'];
+}
+
+/** 8h4e: preview one issued reversal with the guards of its first stage. It writes nothing. */
+export async function previewGeneralDeviceCompositionReversal(
+  workspace: Workspace, checkpoint: GeneralDeviceCompositionReversalInput['checkpoint'],
+): Promise<{ readonly wouldWrite: boolean; readonly why?: string }> {
+  return previewGeneralDeviceReversal(workspace, internalCheckpoint(checkpoint));
 }
 
 function remember(workspace: Workspace, checkpoint: ReturnType<typeof externalCheckpoint>): void {

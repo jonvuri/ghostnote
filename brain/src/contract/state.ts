@@ -324,6 +324,20 @@ export interface DeviceState {
    */
   readonly params?: readonly ParamState[];
   /**
+   * 8h4e (E244): true when each param in `params` has display text that was
+   * observed under the current target. False when the text did not arrive in
+   * its budget; those params then have no `display`. Absent means not observed
+   * (no `params`, or an extension that does not report the display arm).
+   */
+  readonly paramsDisplayComplete?: boolean;
+  /**
+   * 8h4e: the device is a plug-in (VST or CLAP). With `params: []`, the
+   * parameter list is unavailable: the audio engine is off or the plug-in is
+   * not loaded (E244). It does not mean that the plug-in has no parameters.
+   * Absent means not observed.
+   */
+  readonly isPlugin?: boolean;
+  /**
    * The chains this device holds, when it is a CONTAINER we could look inside.
    *
    * ⚠⚠ This is the bootstrap, and without it the chain grammar is unusable.

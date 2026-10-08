@@ -1,0 +1,4157 @@
+{
+ "schema": "phase8h4e-devices-v1",
+ "steps": [
+  {
+   "step": "tracks-before-gn-8h4e-bench",
+   "tool": "list_tracks",
+   "ms": 50,
+   "bytes": 453,
+   "ok": true
+  },
+  {
+   "step": "add-track-gn-8h4e-bench",
+   "tool": "add_track",
+   "ms": 1184,
+   "bytes": 494,
+   "ok": true
+  },
+  {
+   "step": "tracks-after-gn-8h4e-bench",
+   "tool": "list_tracks",
+   "ms": 47,
+   "bytes": 560,
+   "ok": true
+  },
+  {
+   "step": "bench-2-offline-0",
+   "tool": "compose_devices",
+   "ms": 7330,
+   "bytes": 1363,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-2-offline-0-read",
+   "tool": "read_devices",
+   "ms": 509,
+   "bytes": 1018,
+   "ok": true
+  },
+  {
+   "step": "bench-2-offline-0-revert",
+   "tool": "revert_change",
+   "ms": 1754,
+   "bytes": 974,
+   "ok": true
+  },
+  {
+   "step": "bench-2-offline-0-after",
+   "tool": "read_devices",
+   "ms": 310,
+   "bytes": 416,
+   "ok": true
+  },
+  {
+   "step": "bench-2-staged-0",
+   "tool": "compose_devices",
+   "ms": 37145,
+   "bytes": 3826,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-2-staged-0-read",
+   "tool": "read_devices",
+   "ms": 464,
+   "bytes": 1018,
+   "ok": true
+  },
+  {
+   "step": "bench-2-staged-0-revert",
+   "tool": "revert_change",
+   "ms": 21264,
+   "bytes": 2420,
+   "ok": true
+  },
+  {
+   "step": "bench-2-staged-0-after",
+   "tool": "read_devices",
+   "ms": 279,
+   "bytes": 415,
+   "ok": true
+  },
+  {
+   "step": "bench-4-offline-0",
+   "tool": "compose_devices",
+   "ms": 7779,
+   "bytes": 1810,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-4-offline-0-read",
+   "tool": "read_devices",
+   "ms": 475,
+   "bytes": 1465,
+   "ok": true
+  },
+  {
+   "step": "bench-4-offline-0-revert",
+   "tool": "revert_change",
+   "ms": 1691,
+   "bytes": 974,
+   "ok": true
+  },
+  {
+   "step": "bench-4-offline-0-after",
+   "tool": "read_devices",
+   "ms": 304,
+   "bytes": 415,
+   "ok": true
+  },
+  {
+   "step": "bench-4-staged-0",
+   "tool": "compose_devices",
+   "ms": 64937,
+   "bytes": 7017,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-4-staged-0-read",
+   "tool": "read_devices",
+   "ms": 486,
+   "bytes": 1465,
+   "ok": true
+  },
+  {
+   "step": "bench-4-staged-0-revert",
+   "tool": "revert_change",
+   "ms": 38366,
+   "bytes": 4044,
+   "ok": true
+  },
+  {
+   "step": "bench-4-staged-0-after",
+   "tool": "read_devices",
+   "ms": 290,
+   "bytes": 415,
+   "ok": true
+  },
+  {
+   "step": "bench-2-offline-1",
+   "tool": "compose_devices",
+   "ms": 7250,
+   "bytes": 1363,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-2-offline-1-read",
+   "tool": "read_devices",
+   "ms": 493,
+   "bytes": 1018,
+   "ok": true
+  },
+  {
+   "step": "bench-2-offline-1-revert",
+   "tool": "revert_change",
+   "ms": 1695,
+   "bytes": 974,
+   "ok": true
+  },
+  {
+   "step": "bench-2-offline-1-after",
+   "tool": "read_devices",
+   "ms": 300,
+   "bytes": 416,
+   "ok": true
+  },
+  {
+   "step": "bench-2-staged-1",
+   "tool": "compose_devices",
+   "ms": 36525,
+   "bytes": 3827,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-2-staged-1-read",
+   "tool": "read_devices",
+   "ms": 483,
+   "bytes": 1018,
+   "ok": true
+  },
+  {
+   "step": "bench-2-staged-1-revert",
+   "tool": "revert_change",
+   "ms": 21256,
+   "bytes": 2420,
+   "ok": true
+  },
+  {
+   "step": "bench-2-staged-1-after",
+   "tool": "read_devices",
+   "ms": 289,
+   "bytes": 416,
+   "ok": true
+  },
+  {
+   "step": "bench-4-offline-1",
+   "tool": "compose_devices",
+   "ms": 7770,
+   "bytes": 1810,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-4-offline-1-read",
+   "tool": "read_devices",
+   "ms": 474,
+   "bytes": 1466,
+   "ok": true
+  },
+  {
+   "step": "bench-4-offline-1-revert",
+   "tool": "revert_change",
+   "ms": 1715,
+   "bytes": 974,
+   "ok": true
+  },
+  {
+   "step": "bench-4-offline-1-after",
+   "tool": "read_devices",
+   "ms": 301,
+   "bytes": 415,
+   "ok": true
+  },
+  {
+   "step": "bench-4-staged-1",
+   "tool": "compose_devices",
+   "ms": 64878,
+   "bytes": 7017,
+   "ok": true,
+   "status": "verified"
+  },
+  {
+   "step": "bench-4-staged-1-read",
+   "tool": "read_devices",
+   "ms": 466,
+   "bytes": 1465,
+   "ok": true
+  },
+  {
+   "step": "bench-4-staged-1-revert",
+   "tool": "revert_change",
+   "ms": 38510,
+   "bytes": 4044,
+   "ok": true
+  },
+  {
+   "step": "bench-4-staged-1-after",
+   "tool": "read_devices",
+   "ms": 298,
+   "bytes": 416,
+   "ok": true
+  },
+  {
+   "step": "cleanup",
+   "tool": "delete_track",
+   "ms": 811,
+   "bytes": 436,
+   "ok": true
+  }
+ ],
+ "results": {
+  "tracks-before-gn-8h4e-bench": {
+   "tracks": [
+    {
+     "trackId": "71aa76d3-0379-45bb-98fc-a71a8a5614ad",
+     "name": "Inst 1",
+     "kind": "Instrument",
+     "position": 0
+    },
+    {
+     "trackId": "6378a96b-fb4d-4467-bc26-7e866e8204a3",
+     "name": "Audio 2",
+     "kind": "Audio",
+     "position": 1
+    },
+    {
+     "trackId": "188f5f4f-061c-4715-9946-9aad278099e4",
+     "name": "FX 1",
+     "kind": "Effect",
+     "position": 2
+    },
+    {
+     "trackId": "f0c594e3-ec19-4f7f-9115-934c91653af8",
+     "name": "Master",
+     "kind": "Master",
+     "position": 3
+    }
+   ],
+   "rows": {
+    "addressable": 128,
+    "inProject": 8
+   },
+   "notListed": 0
+  },
+  "add-track-gn-8h4e-bench": {
+   "changeId": "83ba056d-4aa0-4f98-b18d-7372bc49f84e",
+   "applied": true,
+   "places": [],
+   "canBeUndone": false,
+   "cannotBeUndone": [],
+   "creationConfirmed": true,
+   "namesConfirmed": true,
+   "created": [
+    {
+     "what": "track",
+     "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+     "requestedName": "gn-8h4e-bench",
+     "nameConfirmed": true
+    }
+   ],
+   "namingChange": {
+    "changeId": "18e4b059-a0e6-4fea-8133-a9e2347de9fd",
+    "applied": true,
+    "places": [
+     {
+      "what": "track",
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2"
+     }
+    ],
+    "canBeUndone": true,
+    "cannotBeUndone": []
+   }
+  },
+  "tracks-after-gn-8h4e-bench": {
+   "tracks": [
+    {
+     "trackId": "71aa76d3-0379-45bb-98fc-a71a8a5614ad",
+     "name": "Inst 1",
+     "kind": "Instrument",
+     "position": 0
+    },
+    {
+     "trackId": "6378a96b-fb4d-4467-bc26-7e866e8204a3",
+     "name": "Audio 2",
+     "kind": "Audio",
+     "position": 1
+    },
+    {
+     "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+     "name": "gn-8h4e-bench",
+     "kind": "Instrument",
+     "position": 2
+    },
+    {
+     "trackId": "188f5f4f-061c-4715-9946-9aad278099e4",
+     "name": "FX 1",
+     "kind": "Effect",
+     "position": 3
+    },
+    {
+     "trackId": "f0c594e3-ec19-4f7f-9115-934c91653af8",
+     "name": "Master",
+     "kind": "Master",
+     "position": 4
+    }
+   ],
+   "rows": {
+    "addressable": 128,
+    "inProject": 8
+   },
+   "notListed": 0
+  },
+  "bench-2-offline-0": {
+   "schema": "ghostnote-device-compose/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "19bd2b89-74b1-4106-a1fe-5efab215478e",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Inserted one Instrument Layer with 2 layer chains.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "c5ac95c5-5202-462f-bfe1-9b8608becf92",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Named 2 layer chain(s).",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "backend": "offline",
+    "containerPosition": 0,
+    "containerKind": "Instrument Layer",
+    "layerChains": [
+     {
+      "position": 0,
+      "name": "L1",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.788,
+       "green": 0.788,
+       "blue": 0.788
+      },
+      "devices": [
+       {
+        "position": 0,
+        "name": "Polysynth"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     },
+     {
+      "position": 1,
+      "name": "L2",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.788,
+       "green": 0.788,
+       "blue": 0.788
+      },
+      "devices": [
+       {
+        "position": 0,
+        "name": "Phase-4"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     }
+    ],
+    "complete": true,
+    "capacity": 5,
+    "modulation": []
+   },
+   "next": {
+    "revert": {
+     "tool": "revert_change",
+     "changeId": "19bd2b89-74b1-4106-a1fe-5efab215478e"
+    }
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 7329.516375000001
+   },
+   "target": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+    "containerKind": "Instrument Layer"
+   }
+  },
+  "bench-2-offline-0-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+    "devices": [
+     {
+      "position": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "L1",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.788,
+          "green": 0.788,
+          "blue": 0.788
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "L2",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.788,
+          "green": 0.788,
+          "blue": 0.788
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 508.8111250000002
+   }
+  },
+  "bench-2-offline-0-revert": {
+   "changeId": "37e1e904-31ec-4f27-9654-d44538e0f2b2",
+   "applied": true,
+   "places": [
+    {
+     "what": "device",
+     "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+     "devicePosition": 0
+    }
+   ],
+   "canBeUndone": false,
+   "cannotBeUndone": [
+    {
+     "where": {
+      "what": "device",
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "devicePosition": 0
+     },
+     "why": [
+      "this change also added or removed rows, which moves every row below the edit. The place this was recorded at is a position, so it may no longer point at the same music.",
+      "a device carries settings that cannot be read back through this API, so nothing recorded here could rebuild it."
+     ]
+    }
+   ],
+   "undoOf": "19bd2b89-74b1-4106-a1fe-5efab215478e",
+   "restored": [],
+   "notRestored": [],
+   "caveats": [
+    "this removes a device at the position its insertion was seen to produce. A track's device list exposes names and order but no durable device identity. This generic reversal did not retain a full managed-chain witness, so a later rearrangement can make the position name a different device."
+   ]
+  },
+  "bench-2-offline-0-after": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+    "devices": []
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 309.60499999999956
+   }
+  },
+  "bench-2-staged-0": {
+   "schema": "ghostnote-device-compose/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "9fd28d53-902e-44ba-b9ec-81e59632244e",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Composition stage insert-container.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "1c28bb76-98e4-4aed-ba0d-7e1b7ff8749d",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage prepare-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "f29ce470-6deb-40e0-94d0-dff998b2a566",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage prepare-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "d4df9b61-6e69-4a24-bafa-bae9f5adb74b",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage confirm-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "c291072f-3c81-4b82-bebb-e3f7c71f8ce5",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage confirm-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "b32771f5-06a0-4da6-b777-0a22fdcbe756",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage insert-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "92fdbb96-3cfc-4172-9c11-3d3259a3aad1",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage relocate-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "ffdc7955-e8f8-4b51-b9d1-8737694f6e44",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage insert-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "73d62040-d7ca-4597-bbac-ba0b364c5bc1",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage relocate-source.",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "backend": "staged",
+    "containerPosition": 0,
+    "structure": [
+     {
+      "entryIndex": 0,
+      "entryName": "L1",
+      "devices": [
+       {
+        "position": 0,
+        "name": "Polysynth",
+        "enabled": true
+       }
+      ]
+     },
+     {
+      "entryIndex": 1,
+      "entryName": "L2",
+      "devices": [
+       {
+        "position": 0,
+        "name": "Phase-4",
+        "enabled": true
+       }
+      ]
+     }
+    ],
+    "layerChains": [
+     {
+      "entryIndex": 0,
+      "deviceIndex": 0,
+      "entryName": "L1",
+      "sourceKind": "native",
+      "sourceIdentity": {
+       "kind": "native",
+       "exactCatalogName": "Polysynth"
+      },
+      "observed": {
+       "deviceName": "Polysynth",
+       "enabled": true,
+       "position": 0
+      },
+      "instance": "new",
+      "stateClaim": "The source created a new device instance.",
+      "scalarFingerprint": {
+       "after": {
+        "algorithm": "sha256",
+        "sha256": "182dac11e829bc76378a693dfc1086e77e4fee2eb709a0350697f17206a55d42",
+        "parameterCount": 55
+       }
+      },
+      "pages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "containerPages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "behaviors": [],
+      "verified": true
+     },
+     {
+      "entryIndex": 1,
+      "deviceIndex": 0,
+      "entryName": "L2",
+      "sourceKind": "native",
+      "sourceIdentity": {
+       "kind": "native",
+       "exactCatalogName": "Phase-4"
+      },
+      "observed": {
+       "deviceName": "Phase-4",
+       "enabled": true,
+       "position": 0
+      },
+      "instance": "new",
+      "stateClaim": "The source created a new device instance.",
+      "scalarFingerprint": {
+       "after": {
+        "algorithm": "sha256",
+        "sha256": "db7336d70c108ef0b65eaf68924d0c5532e08444d9d4dae2474306d4684d6def",
+        "parameterCount": 103
+       }
+      },
+      "pages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "containerPages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "behaviors": [],
+      "verified": true
+     }
+    ]
+   },
+   "next": {
+    "revert": {
+     "tool": "revert_change",
+     "changeId": "9fd28d53-902e-44ba-b9ec-81e59632244e"
+    }
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 37144.64925
+   },
+   "target": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+    "containerKind": "Instrument Layer"
+   }
+  },
+  "bench-2-staged-0-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+    "devices": [
+     {
+      "position": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "L1",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.788,
+          "green": 0.788,
+          "blue": 0.788
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "L2",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.788,
+          "green": 0.788,
+          "blue": 0.788
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 463.5706250000003
+   }
+  },
+  "bench-2-staged-0-revert": {
+   "applied": true,
+   "complete": true,
+   "partialReversal": false,
+   "stages": [
+    {
+     "stage": "extract-source",
+     "entryIndex": 1,
+     "change": {
+      "changeId": "af835e47-fb5a-479b-bdfe-4ca884dc12a1",
+      "applied": true,
+      "places": [],
+      "canBeUndone": false,
+      "cannotBeUndone": []
+     }
+    },
+    {
+     "stage": "remove-source",
+     "entryIndex": 1,
+     "change": {
+      "changeId": "9f448599-5674-4851-8061-1c43d8e6e730",
+      "applied": true,
+      "places": [
+       {
+        "what": "device",
+        "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+        "devicePosition": 1
+       }
+      ],
+      "canBeUndone": false,
+      "cannotBeUndone": [
+       {
+        "where": {
+         "what": "device",
+         "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+         "devicePosition": 1
+        },
+        "why": [
+         "this change also added or removed rows, which moves every row below the edit. The place this was recorded at is a position, so it may no longer point at the same music.",
+         "a device carries settings that cannot be read back through this API, so nothing recorded here could rebuild it."
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "stage": "extract-source",
+     "entryIndex": 0,
+     "change": {
+      "changeId": "ba69c113-3758-43b4-8abc-0711dd693ffe",
+      "applied": true,
+      "places": [],
+      "canBeUndone": false,
+      "cannotBeUndone": []
+     }
+    },
+    {
+     "stage": "remove-source",
+     "entryIndex": 0,
+     "change": {
+      "changeId": "ec044466-1bfd-4dbb-be3e-1a19b6d3510e",
+      "applied": true,
+      "places": [
+       {
+        "what": "device",
+        "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+        "devicePosition": 1
+       }
+      ],
+      "canBeUndone": false,
+      "cannotBeUndone": [
+       {
+        "where": {
+         "what": "device",
+         "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+         "devicePosition": 1
+        },
+        "why": [
+         "this change also added or removed rows, which moves every row below the edit. The place this was recorded at is a position, so it may no longer point at the same music.",
+         "a device carries settings that cannot be read back through this API, so nothing recorded here could rebuild it."
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "stage": "remove-container",
+     "change": {
+      "changeId": "c510b2d9-4cb1-4026-aa51-739f79f06d12",
+      "applied": true,
+      "places": [
+       {
+        "what": "device",
+        "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+        "devicePosition": 0
+       }
+      ],
+      "canBeUndone": false,
+      "cannotBeUndone": [
+       {
+        "where": {
+         "what": "device",
+         "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+         "devicePosition": 0
+        },
+        "why": [
+         "this change also added or removed rows, which moves every row below the edit. The place this was recorded at is a position, so it may no longer point at the same music.",
+         "a device carries settings that cannot be read back through this API, so nothing recorded here could rebuild it."
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "containerRemoved": true,
+   "restoredDeviceOrder": true,
+   "undoOf": "9fd28d53-902e-44ba-b9ec-81e59632244e"
+  },
+  "bench-2-staged-0-after": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+    "devices": []
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 279.2370410000003
+   }
+  },
+  "bench-4-offline-0": {
+   "schema": "ghostnote-device-compose/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "fe501ea5-f820-4b89-929f-6be2e3cb4659",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Inserted one Instrument Layer with 4 layer chains.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "93d9c644-e5db-4a51-9302-f9e36f186258",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Named 4 layer chain(s).",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "backend": "offline",
+    "containerPosition": 0,
+    "containerKind": "Instrument Layer",
+    "layerChains": [
+     {
+      "position": 0,
+      "name": "L1",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.788,
+       "green": 0.788,
+       "blue": 0.788
+      },
+      "devices": [
+       {
+        "position": 0,
+        "name": "Polysynth"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     },
+     {
+      "position": 1,
+      "name": "L2",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.788,
+       "green": 0.788,
+       "blue": 0.788
+      },
+      "devices": [
+       {
+        "position": 0,
+        "name": "Phase-4"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     },
+     {
+      "position": 2,
+      "name": "L3",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.788,
+       "green": 0.788,
+       "blue": 0.788
+      },
+      "devices": [
+       {
+        "position": 0,
+        "name": "FM-4"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     },
+     {
+      "position": 3,
+      "name": "L4",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.788,
+       "green": 0.788,
+       "blue": 0.788
+      },
+      "devices": [
+       {
+        "position": 0,
+        "name": "Organ"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     }
+    ],
+    "complete": true,
+    "capacity": 5,
+    "modulation": []
+   },
+   "next": {
+    "revert": {
+     "tool": "revert_change",
+     "changeId": "fe501ea5-f820-4b89-929f-6be2e3cb4659"
+    }
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 7778.804541999998
+   },
+   "target": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+    "containerKind": "Instrument Layer"
+   }
+  },
+  "bench-4-offline-0-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+    "devices": [
+     {
+      "position": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "L1",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.788,
+          "green": 0.788,
+          "blue": 0.788
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "L2",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.788,
+          "green": 0.788,
+          "blue": 0.788
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 2,
+         "name": "L3",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.788,
+          "green": 0.788,
+          "blue": 0.788
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "FM-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 3,
+         "name": "L4",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.788,
+          "green": 0.788,
+          "blue": 0.788
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Organ"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 474.7222080000065
+   }
+  },
+  "bench-4-offline-0-revert": {
+   "changeId": "7ec7ab3d-2535-4f26-acef-f6b3fe1180bd",
+   "applied": true,
+   "places": [
+    {
+     "what": "device",
+     "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+     "devicePosition": 0
+    }
+   ],
+   "canBeUndone": false,
+   "cannotBeUndone": [
+    {
+     "where": {
+      "what": "device",
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "devicePosition": 0
+     },
+     "why": [
+      "this change also added or removed rows, which moves every row below the edit. The place this was recorded at is a position, so it may no longer point at the same music.",
+      "a device carries settings that cannot be read back through this API, so nothing recorded here could rebuild it."
+     ]
+    }
+   ],
+   "undoOf": "fe501ea5-f820-4b89-929f-6be2e3cb4659",
+   "restored": [],
+   "notRestored": [],
+   "caveats": [
+    "this removes a device at the position its insertion was seen to produce. A track's device list exposes names and order but no durable device identity. This generic reversal did not retain a full managed-chain witness, so a later rearrangement can make the position name a different device."
+   ]
+  },
+  "bench-4-offline-0-after": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+    "devices": []
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 303.6364579999936
+   }
+  },
+  "bench-4-staged-0": {
+   "schema": "ghostnote-device-compose/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "3e751002-fbe9-41f6-87b6-83ab51881276",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Composition stage insert-container.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "ecdf9315-c39f-4c4b-9479-8c026584a6f6",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage prepare-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "57c1906d-dff6-456d-bf4a-e1dd451f7abc",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage prepare-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "9c521f5f-73ea-4b76-8122-d0c222686f3b",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L3"
+     },
+     "summary": "Composition stage prepare-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "ec8c0655-7986-4dfd-9f91-2393d4ecd7ad",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L4"
+     },
+     "summary": "Composition stage prepare-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "ae9f1005-fd54-449c-abc7-2e4f9f4dcf66",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage confirm-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "e3d51fd6-57b1-4556-a201-7e1202c751e7",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage confirm-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "e0c67986-8898-4a55-856d-ba12d5664bee",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L3"
+     },
+     "summary": "Composition stage confirm-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "8baffbf9-775a-4d17-8e64-77464eb3957c",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L4"
+     },
+     "summary": "Composition stage confirm-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "e11d17be-c7c0-48c4-8028-58ef9f499a74",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage insert-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "c0b0eec7-eb1d-4d4b-9f39-53540c2582d4",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage relocate-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "f2781fc0-4033-4b08-be6d-01519cf122a0",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage insert-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "531f0562-d176-4b27-9c8d-5bd5d5dbe48f",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage relocate-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "6ed3f0e7-d83f-4e05-b084-00350eb238e2",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L3"
+     },
+     "summary": "Composition stage insert-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "80b929fa-0c5a-4a68-8125-d98aae957745",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L3"
+     },
+     "summary": "Composition stage relocate-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "aea260ca-e91f-4218-9b11-c36a35696477",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L4"
+     },
+     "summary": "Composition stage insert-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "53267ffe-1db1-416b-9e61-621be6e8f266",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L4"
+     },
+     "summary": "Composition stage relocate-source.",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "backend": "staged",
+    "containerPosition": 0,
+    "structure": [
+     {
+      "entryIndex": 0,
+      "entryName": "L1",
+      "devices": [
+       {
+        "position": 0,
+        "name": "Polysynth",
+        "enabled": true
+       }
+      ]
+     },
+     {
+      "entryIndex": 1,
+      "entryName": "L2",
+      "devices": [
+       {
+        "position": 0,
+        "name": "Phase-4",
+        "enabled": true
+       }
+      ]
+     },
+     {
+      "entryIndex": 2,
+      "entryName": "L3",
+      "devices": [
+       {
+        "position": 0,
+        "name": "FM-4",
+        "enabled": true
+       }
+      ]
+     },
+     {
+      "entryIndex": 3,
+      "entryName": "L4",
+      "devices": [
+       {
+        "position": 0,
+        "name": "Organ",
+        "enabled": true
+       }
+      ]
+     }
+    ],
+    "layerChains": [
+     {
+      "entryIndex": 0,
+      "deviceIndex": 0,
+      "entryName": "L1",
+      "sourceKind": "native",
+      "sourceIdentity": {
+       "kind": "native",
+       "exactCatalogName": "Polysynth"
+      },
+      "observed": {
+       "deviceName": "Polysynth",
+       "enabled": true,
+       "position": 0
+      },
+      "instance": "new",
+      "stateClaim": "The source created a new device instance.",
+      "scalarFingerprint": {
+       "after": {
+        "algorithm": "sha256",
+        "sha256": "182dac11e829bc76378a693dfc1086e77e4fee2eb709a0350697f17206a55d42",
+        "parameterCount": 55
+       }
+      },
+      "pages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "containerPages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "behaviors": [],
+      "verified": true
+     },
+     {
+      "entryIndex": 1,
+      "deviceIndex": 0,
+      "entryName": "L2",
+      "sourceKind": "native",
+      "sourceIdentity": {
+       "kind": "native",
+       "exactCatalogName": "Phase-4"
+      },
+      "observed": {
+       "deviceName": "Phase-4",
+       "enabled": true,
+       "position": 0
+      },
+      "instance": "new",
+      "stateClaim": "The source created a new device instance.",
+      "scalarFingerprint": {
+       "after": {
+        "algorithm": "sha256",
+        "sha256": "db7336d70c108ef0b65eaf68924d0c5532e08444d9d4dae2474306d4684d6def",
+        "parameterCount": 103
+       }
+      },
+      "pages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "containerPages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "behaviors": [],
+      "verified": true
+     },
+     {
+      "entryIndex": 2,
+      "deviceIndex": 0,
+      "entryName": "L3",
+      "sourceKind": "native",
+      "sourceIdentity": {
+       "kind": "native",
+       "exactCatalogName": "FM-4"
+      },
+      "observed": {
+       "deviceName": "FM-4",
+       "enabled": true,
+       "position": 0
+      },
+      "instance": "new",
+      "stateClaim": "The source created a new device instance.",
+      "scalarFingerprint": {
+       "after": {
+        "algorithm": "sha256",
+        "sha256": "2bf4446edd838b04228f3db9e8c0a09f33d220d4ed8b0e368e00bc06dbda53e8",
+        "parameterCount": 34
+       }
+      },
+      "pages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "containerPages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "behaviors": [],
+      "verified": true
+     },
+     {
+      "entryIndex": 3,
+      "deviceIndex": 0,
+      "entryName": "L4",
+      "sourceKind": "native",
+      "sourceIdentity": {
+       "kind": "native",
+       "exactCatalogName": "Organ"
+      },
+      "observed": {
+       "deviceName": "Organ",
+       "enabled": true,
+       "position": 0
+      },
+      "instance": "new",
+      "stateClaim": "The source created a new device instance.",
+      "scalarFingerprint": {
+       "after": {
+        "algorithm": "sha256",
+        "sha256": "e57fe620494c69e220fec70e8d0f84f55f045637f13eec729ef4eacad8b0ee69",
+        "parameterCount": 17
+       }
+      },
+      "pages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "containerPages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "behaviors": [],
+      "verified": true
+     }
+    ]
+   },
+   "next": {
+    "revert": {
+     "tool": "revert_change",
+     "changeId": "3e751002-fbe9-41f6-87b6-83ab51881276"
+    }
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 64936.98808299999
+   },
+   "target": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+    "containerKind": "Instrument Layer"
+   }
+  },
+  "bench-4-staged-0-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+    "devices": [
+     {
+      "position": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "L1",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.788,
+          "green": 0.788,
+          "blue": 0.788
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "L2",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.788,
+          "green": 0.788,
+          "blue": 0.788
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 2,
+         "name": "L3",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.788,
+          "green": 0.788,
+          "blue": 0.788
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "FM-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 3,
+         "name": "L4",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.788,
+          "green": 0.788,
+          "blue": 0.788
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Organ"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 486.2006659999897
+   }
+  },
+  "bench-4-staged-0-revert": {
+   "applied": true,
+   "complete": true,
+   "partialReversal": false,
+   "stages": [
+    {
+     "stage": "extract-source",
+     "entryIndex": 3,
+     "change": {
+      "changeId": "b17ad806-dd30-48c0-b4e2-58333e0bbe0e",
+      "applied": true,
+      "places": [],
+      "canBeUndone": false,
+      "cannotBeUndone": []
+     }
+    },
+    {
+     "stage": "remove-source",
+     "entryIndex": 3,
+     "change": {
+      "changeId": "c5a6a8cc-0919-4804-8dd7-43dd1948e7d2",
+      "applied": true,
+      "places": [
+       {
+        "what": "device",
+        "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+        "devicePosition": 1
+       }
+      ],
+      "canBeUndone": false,
+      "cannotBeUndone": [
+       {
+        "where": {
+         "what": "device",
+         "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+         "devicePosition": 1
+        },
+        "why": [
+         "this change also added or removed rows, which moves every row below the edit. The place this was recorded at is a position, so it may no longer point at the same music.",
+         "a device carries settings that cannot be read back through this API, so nothing recorded here could rebuild it."
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "stage": "extract-source",
+     "entryIndex": 2,
+     "change": {
+      "changeId": "85c6ab44-aafa-40e5-a485-17794026c121",
+      "applied": true,
+      "places": [],
+      "canBeUndone": false,
+      "cannotBeUndone": []
+     }
+    },
+    {
+     "stage": "remove-source",
+     "entryIndex": 2,
+     "change": {
+      "changeId": "8412ea30-2252-4a0e-a594-0679b266422f",
+      "applied": true,
+      "places": [
+       {
+        "what": "device",
+        "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+        "devicePosition": 1
+       }
+      ],
+      "canBeUndone": false,
+      "cannotBeUndone": [
+       {
+        "where": {
+         "what": "device",
+         "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+         "devicePosition": 1
+        },
+        "why": [
+         "this change also added or removed rows, which moves every row below the edit. The place this was recorded at is a position, so it may no longer point at the same music.",
+         "a device carries settings that cannot be read back through this API, so nothing recorded here could rebuild it."
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "stage": "extract-source",
+     "entryIndex": 1,
+     "change": {
+      "changeId": "5eef0680-a48e-4198-96a9-ae57a24208ad",
+      "applied": true,
+      "places": [],
+      "canBeUndone": false,
+      "cannotBeUndone": []
+     }
+    },
+    {
+     "stage": "remove-source",
+     "entryIndex": 1,
+     "change": {
+      "changeId": "ce9d7f53-82ad-4464-b275-52f4191f74b8",
+      "applied": true,
+      "places": [
+       {
+        "what": "device",
+        "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+        "devicePosition": 1
+       }
+      ],
+      "canBeUndone": false,
+      "cannotBeUndone": [
+       {
+        "where": {
+         "what": "device",
+         "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+         "devicePosition": 1
+        },
+        "why": [
+         "this change also added or removed rows, which moves every row below the edit. The place this was recorded at is a position, so it may no longer point at the same music.",
+         "a device carries settings that cannot be read back through this API, so nothing recorded here could rebuild it."
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "stage": "extract-source",
+     "entryIndex": 0,
+     "change": {
+      "changeId": "eb243aeb-068d-4867-b9e4-0adf599cc2a7",
+      "applied": true,
+      "places": [],
+      "canBeUndone": false,
+      "cannotBeUndone": []
+     }
+    },
+    {
+     "stage": "remove-source",
+     "entryIndex": 0,
+     "change": {
+      "changeId": "3dc01df4-3970-4815-a4b6-d55344eafb58",
+      "applied": true,
+      "places": [
+       {
+        "what": "device",
+        "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+        "devicePosition": 1
+       }
+      ],
+      "canBeUndone": false,
+      "cannotBeUndone": [
+       {
+        "where": {
+         "what": "device",
+         "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+         "devicePosition": 1
+        },
+        "why": [
+         "this change also added or removed rows, which moves every row below the edit. The place this was recorded at is a position, so it may no longer point at the same music.",
+         "a device carries settings that cannot be read back through this API, so nothing recorded here could rebuild it."
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "stage": "remove-container",
+     "change": {
+      "changeId": "4d75554d-3f81-4e6b-b2a7-d16bd8e157a7",
+      "applied": true,
+      "places": [
+       {
+        "what": "device",
+        "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+        "devicePosition": 0
+       }
+      ],
+      "canBeUndone": false,
+      "cannotBeUndone": [
+       {
+        "where": {
+         "what": "device",
+         "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+         "devicePosition": 0
+        },
+        "why": [
+         "this change also added or removed rows, which moves every row below the edit. The place this was recorded at is a position, so it may no longer point at the same music.",
+         "a device carries settings that cannot be read back through this API, so nothing recorded here could rebuild it."
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "containerRemoved": true,
+   "restoredDeviceOrder": true,
+   "undoOf": "3e751002-fbe9-41f6-87b6-83ab51881276"
+  },
+  "bench-4-staged-0-after": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+    "devices": []
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 289.7224999999744
+   }
+  },
+  "bench-2-offline-1": {
+   "schema": "ghostnote-device-compose/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "d8da2568-ddbe-4988-9d4b-88093065d832",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Inserted one Instrument Layer with 2 layer chains.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "c299c9d4-0e69-49c1-9c51-72d336d5764c",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Named 2 layer chain(s).",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "backend": "offline",
+    "containerPosition": 0,
+    "containerKind": "Instrument Layer",
+    "layerChains": [
+     {
+      "position": 0,
+      "name": "L1",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.788,
+       "green": 0.788,
+       "blue": 0.788
+      },
+      "devices": [
+       {
+        "position": 0,
+        "name": "Polysynth"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     },
+     {
+      "position": 1,
+      "name": "L2",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.788,
+       "green": 0.788,
+       "blue": 0.788
+      },
+      "devices": [
+       {
+        "position": 0,
+        "name": "Phase-4"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     }
+    ],
+    "complete": true,
+    "capacity": 5,
+    "modulation": []
+   },
+   "next": {
+    "revert": {
+     "tool": "revert_change",
+     "changeId": "d8da2568-ddbe-4988-9d4b-88093065d832"
+    }
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 7249.499625000026
+   },
+   "target": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+    "containerKind": "Instrument Layer"
+   }
+  },
+  "bench-2-offline-1-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+    "devices": [
+     {
+      "position": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "L1",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.788,
+          "green": 0.788,
+          "blue": 0.788
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "L2",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.788,
+          "green": 0.788,
+          "blue": 0.788
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 492.8713329999882
+   }
+  },
+  "bench-2-offline-1-revert": {
+   "changeId": "f62583e9-32d1-4d1c-a6d8-693115726a9b",
+   "applied": true,
+   "places": [
+    {
+     "what": "device",
+     "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+     "devicePosition": 0
+    }
+   ],
+   "canBeUndone": false,
+   "cannotBeUndone": [
+    {
+     "where": {
+      "what": "device",
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "devicePosition": 0
+     },
+     "why": [
+      "this change also added or removed rows, which moves every row below the edit. The place this was recorded at is a position, so it may no longer point at the same music.",
+      "a device carries settings that cannot be read back through this API, so nothing recorded here could rebuild it."
+     ]
+    }
+   ],
+   "undoOf": "d8da2568-ddbe-4988-9d4b-88093065d832",
+   "restored": [],
+   "notRestored": [],
+   "caveats": [
+    "this removes a device at the position its insertion was seen to produce. A track's device list exposes names and order but no durable device identity. This generic reversal did not retain a full managed-chain witness, so a later rearrangement can make the position name a different device."
+   ]
+  },
+  "bench-2-offline-1-after": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+    "devices": []
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 300.25554199999897
+   }
+  },
+  "bench-2-staged-1": {
+   "schema": "ghostnote-device-compose/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "7b3d8a75-90d6-4488-a5d5-c2619b3ddd15",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Composition stage insert-container.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "cbbe3c82-ed80-46c8-8c4f-396c0a54efe4",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage prepare-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "0837a06c-9735-4f28-9aba-5fc511d5823a",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage prepare-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "d636c408-7aea-4e81-8cb8-b35d62de560f",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage confirm-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "1938dcfb-8fd0-4d9f-9d88-965e60b6326d",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage confirm-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "3b79f4fd-8699-4293-9d31-08bea8a3d8ed",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage insert-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "f34e63da-ade3-4e1f-884b-b6f217cc4e46",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage relocate-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "599e243c-481e-4749-a43f-98577e27f25f",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage insert-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "97e0e3a0-5075-4be0-8d03-cfd245af33ec",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage relocate-source.",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "backend": "staged",
+    "containerPosition": 0,
+    "structure": [
+     {
+      "entryIndex": 0,
+      "entryName": "L1",
+      "devices": [
+       {
+        "position": 0,
+        "name": "Polysynth",
+        "enabled": true
+       }
+      ]
+     },
+     {
+      "entryIndex": 1,
+      "entryName": "L2",
+      "devices": [
+       {
+        "position": 0,
+        "name": "Phase-4",
+        "enabled": true
+       }
+      ]
+     }
+    ],
+    "layerChains": [
+     {
+      "entryIndex": 0,
+      "deviceIndex": 0,
+      "entryName": "L1",
+      "sourceKind": "native",
+      "sourceIdentity": {
+       "kind": "native",
+       "exactCatalogName": "Polysynth"
+      },
+      "observed": {
+       "deviceName": "Polysynth",
+       "enabled": true,
+       "position": 0
+      },
+      "instance": "new",
+      "stateClaim": "The source created a new device instance.",
+      "scalarFingerprint": {
+       "after": {
+        "algorithm": "sha256",
+        "sha256": "182dac11e829bc76378a693dfc1086e77e4fee2eb709a0350697f17206a55d42",
+        "parameterCount": 55
+       }
+      },
+      "pages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "containerPages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "behaviors": [],
+      "verified": true
+     },
+     {
+      "entryIndex": 1,
+      "deviceIndex": 0,
+      "entryName": "L2",
+      "sourceKind": "native",
+      "sourceIdentity": {
+       "kind": "native",
+       "exactCatalogName": "Phase-4"
+      },
+      "observed": {
+       "deviceName": "Phase-4",
+       "enabled": true,
+       "position": 0
+      },
+      "instance": "new",
+      "stateClaim": "The source created a new device instance.",
+      "scalarFingerprint": {
+       "after": {
+        "algorithm": "sha256",
+        "sha256": "db7336d70c108ef0b65eaf68924d0c5532e08444d9d4dae2474306d4684d6def",
+        "parameterCount": 103
+       }
+      },
+      "pages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "containerPages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "behaviors": [],
+      "verified": true
+     }
+    ]
+   },
+   "next": {
+    "revert": {
+     "tool": "revert_change",
+     "changeId": "7b3d8a75-90d6-4488-a5d5-c2619b3ddd15"
+    }
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 36524.490208
+   },
+   "target": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+    "containerKind": "Instrument Layer"
+   }
+  },
+  "bench-2-staged-1-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+    "devices": [
+     {
+      "position": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "L1",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.788,
+          "green": 0.788,
+          "blue": 0.788
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "L2",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.788,
+          "green": 0.788,
+          "blue": 0.788
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 483.3800420000043
+   }
+  },
+  "bench-2-staged-1-revert": {
+   "applied": true,
+   "complete": true,
+   "partialReversal": false,
+   "stages": [
+    {
+     "stage": "extract-source",
+     "entryIndex": 1,
+     "change": {
+      "changeId": "87e552b4-ace5-4e4d-82ea-07f0a400d922",
+      "applied": true,
+      "places": [],
+      "canBeUndone": false,
+      "cannotBeUndone": []
+     }
+    },
+    {
+     "stage": "remove-source",
+     "entryIndex": 1,
+     "change": {
+      "changeId": "7261a7eb-fa57-4087-8cf1-79ce8328b716",
+      "applied": true,
+      "places": [
+       {
+        "what": "device",
+        "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+        "devicePosition": 1
+       }
+      ],
+      "canBeUndone": false,
+      "cannotBeUndone": [
+       {
+        "where": {
+         "what": "device",
+         "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+         "devicePosition": 1
+        },
+        "why": [
+         "this change also added or removed rows, which moves every row below the edit. The place this was recorded at is a position, so it may no longer point at the same music.",
+         "a device carries settings that cannot be read back through this API, so nothing recorded here could rebuild it."
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "stage": "extract-source",
+     "entryIndex": 0,
+     "change": {
+      "changeId": "eb59dea3-a9e4-4020-8d0f-69794ff17ea2",
+      "applied": true,
+      "places": [],
+      "canBeUndone": false,
+      "cannotBeUndone": []
+     }
+    },
+    {
+     "stage": "remove-source",
+     "entryIndex": 0,
+     "change": {
+      "changeId": "243f5dd7-933b-47f1-a879-eba52217980f",
+      "applied": true,
+      "places": [
+       {
+        "what": "device",
+        "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+        "devicePosition": 1
+       }
+      ],
+      "canBeUndone": false,
+      "cannotBeUndone": [
+       {
+        "where": {
+         "what": "device",
+         "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+         "devicePosition": 1
+        },
+        "why": [
+         "this change also added or removed rows, which moves every row below the edit. The place this was recorded at is a position, so it may no longer point at the same music.",
+         "a device carries settings that cannot be read back through this API, so nothing recorded here could rebuild it."
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "stage": "remove-container",
+     "change": {
+      "changeId": "1d5c6fd6-c961-49e0-a0d9-3ce06299cb14",
+      "applied": true,
+      "places": [
+       {
+        "what": "device",
+        "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+        "devicePosition": 0
+       }
+      ],
+      "canBeUndone": false,
+      "cannotBeUndone": [
+       {
+        "where": {
+         "what": "device",
+         "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+         "devicePosition": 0
+        },
+        "why": [
+         "this change also added or removed rows, which moves every row below the edit. The place this was recorded at is a position, so it may no longer point at the same music.",
+         "a device carries settings that cannot be read back through this API, so nothing recorded here could rebuild it."
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "containerRemoved": true,
+   "restoredDeviceOrder": true,
+   "undoOf": "7b3d8a75-90d6-4488-a5d5-c2619b3ddd15"
+  },
+  "bench-2-staged-1-after": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+    "devices": []
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 289.05275000000256
+   }
+  },
+  "bench-4-offline-1": {
+   "schema": "ghostnote-device-compose/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "1297d14e-310e-41c5-af5b-df138a11a0e1",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Inserted one Instrument Layer with 4 layer chains.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "18f17111-e28d-40cd-a603-4e18c4c430bd",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Named 4 layer chain(s).",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "backend": "offline",
+    "containerPosition": 0,
+    "containerKind": "Instrument Layer",
+    "layerChains": [
+     {
+      "position": 0,
+      "name": "L1",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.788,
+       "green": 0.788,
+       "blue": 0.788
+      },
+      "devices": [
+       {
+        "position": 0,
+        "name": "Polysynth"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     },
+     {
+      "position": 1,
+      "name": "L2",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.788,
+       "green": 0.788,
+       "blue": 0.788
+      },
+      "devices": [
+       {
+        "position": 0,
+        "name": "Phase-4"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     },
+     {
+      "position": 2,
+      "name": "L3",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.788,
+       "green": 0.788,
+       "blue": 0.788
+      },
+      "devices": [
+       {
+        "position": 0,
+        "name": "FM-4"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     },
+     {
+      "position": 3,
+      "name": "L4",
+      "solo": false,
+      "mute": false,
+      "volume": 0.7937005259840999,
+      "pan": 0.5,
+      "color": {
+       "red": 0.788,
+       "green": 0.788,
+       "blue": 0.788
+      },
+      "devices": [
+       {
+        "position": 0,
+        "name": "Organ"
+       }
+      ],
+      "devicesComplete": true,
+      "deviceCapacity": 4
+     }
+    ],
+    "complete": true,
+    "capacity": 5,
+    "modulation": []
+   },
+   "next": {
+    "revert": {
+     "tool": "revert_change",
+     "changeId": "1297d14e-310e-41c5-af5b-df138a11a0e1"
+    }
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 7769.910375000007
+   },
+   "target": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+    "containerKind": "Instrument Layer"
+   }
+  },
+  "bench-4-offline-1-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+    "devices": [
+     {
+      "position": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "L1",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.788,
+          "green": 0.788,
+          "blue": 0.788
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "L2",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.788,
+          "green": 0.788,
+          "blue": 0.788
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 2,
+         "name": "L3",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.788,
+          "green": 0.788,
+          "blue": 0.788
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "FM-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 3,
+         "name": "L4",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.788,
+          "green": 0.788,
+          "blue": 0.788
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Organ"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 474.35933300000033
+   }
+  },
+  "bench-4-offline-1-revert": {
+   "changeId": "4973fb24-deb5-4276-8c10-45545b9b5aa9",
+   "applied": true,
+   "places": [
+    {
+     "what": "device",
+     "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+     "devicePosition": 0
+    }
+   ],
+   "canBeUndone": false,
+   "cannotBeUndone": [
+    {
+     "where": {
+      "what": "device",
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "devicePosition": 0
+     },
+     "why": [
+      "this change also added or removed rows, which moves every row below the edit. The place this was recorded at is a position, so it may no longer point at the same music.",
+      "a device carries settings that cannot be read back through this API, so nothing recorded here could rebuild it."
+     ]
+    }
+   ],
+   "undoOf": "1297d14e-310e-41c5-af5b-df138a11a0e1",
+   "restored": [],
+   "notRestored": [],
+   "caveats": [
+    "this removes a device at the position its insertion was seen to produce. A track's device list exposes names and order but no durable device identity. This generic reversal did not retain a full managed-chain witness, so a later rearrangement can make the position name a different device."
+   ]
+  },
+  "bench-4-offline-1-after": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+    "devices": []
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 300.6229170000297
+   }
+  },
+  "bench-4-staged-1": {
+   "schema": "ghostnote-device-compose/1",
+   "applied": true,
+   "effects": [
+    {
+     "changeId": "e20d6e9e-7b60-4718-a3dc-ea2f8c5eea64",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer"
+     },
+     "summary": "Composition stage insert-container.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "caf75a92-e577-4ad7-8527-605669e7efbd",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage prepare-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "9a5263f0-2907-40bd-9b3e-ffa91b26e689",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage prepare-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "f534c174-416f-44da-814e-2eb6165c367f",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L3"
+     },
+     "summary": "Composition stage prepare-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "91186ceb-865c-4a72-84bb-0fe526adbbcc",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L4"
+     },
+     "summary": "Composition stage prepare-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "110bf0f2-de72-4223-bbcb-0d46b1ee5e72",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage confirm-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "677e57c7-6e98-4bd4-8722-6186b70e55dd",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage confirm-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "569ad5ee-ee90-4306-885d-ded0446dd31a",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L3"
+     },
+     "summary": "Composition stage confirm-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "3de79093-c9e2-48f7-b1d8-9da841cf85be",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L4"
+     },
+     "summary": "Composition stage confirm-entry-name.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "fc09f26c-5e08-4a73-af3c-6063160a09b4",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage insert-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "84853ff9-5816-4edd-b75f-4eed4e215020",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L1"
+     },
+     "summary": "Composition stage relocate-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "21b89a82-f6c2-4176-99af-0b546d8bb090",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage insert-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "8e67d2bc-ae49-4d24-8eb8-f328549defac",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L2"
+     },
+     "summary": "Composition stage relocate-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "81c637b0-5b9c-4d3a-aa15-fd91d43d1e69",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L3"
+     },
+     "summary": "Composition stage insert-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "c2f5e7dd-fa44-4e52-b78c-51be1b6007ae",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L3"
+     },
+     "summary": "Composition stage relocate-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "c67cefcb-bb35-4f34-a5b5-6fa9849ef5c8",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L4"
+     },
+     "summary": "Composition stage insert-source.",
+     "fidelity": "exact"
+    },
+    {
+     "changeId": "06e92bf1-69a9-4d04-a2dd-b9c6c5bf8618",
+     "target": {
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+      "containerKind": "Instrument Layer",
+      "layerChain": "L4"
+     },
+     "summary": "Composition stage relocate-source.",
+     "fidelity": "exact"
+    }
+   ],
+   "readback": {
+    "status": "verified",
+    "backend": "staged",
+    "containerPosition": 0,
+    "structure": [
+     {
+      "entryIndex": 0,
+      "entryName": "L1",
+      "devices": [
+       {
+        "position": 0,
+        "name": "Polysynth",
+        "enabled": true
+       }
+      ]
+     },
+     {
+      "entryIndex": 1,
+      "entryName": "L2",
+      "devices": [
+       {
+        "position": 0,
+        "name": "Phase-4",
+        "enabled": true
+       }
+      ]
+     },
+     {
+      "entryIndex": 2,
+      "entryName": "L3",
+      "devices": [
+       {
+        "position": 0,
+        "name": "FM-4",
+        "enabled": true
+       }
+      ]
+     },
+     {
+      "entryIndex": 3,
+      "entryName": "L4",
+      "devices": [
+       {
+        "position": 0,
+        "name": "Organ",
+        "enabled": true
+       }
+      ]
+     }
+    ],
+    "layerChains": [
+     {
+      "entryIndex": 0,
+      "deviceIndex": 0,
+      "entryName": "L1",
+      "sourceKind": "native",
+      "sourceIdentity": {
+       "kind": "native",
+       "exactCatalogName": "Polysynth"
+      },
+      "observed": {
+       "deviceName": "Polysynth",
+       "enabled": true,
+       "position": 0
+      },
+      "instance": "new",
+      "stateClaim": "The source created a new device instance.",
+      "scalarFingerprint": {
+       "after": {
+        "algorithm": "sha256",
+        "sha256": "182dac11e829bc76378a693dfc1086e77e4fee2eb709a0350697f17206a55d42",
+        "parameterCount": 55
+       }
+      },
+      "pages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "containerPages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "behaviors": [],
+      "verified": true
+     },
+     {
+      "entryIndex": 1,
+      "deviceIndex": 0,
+      "entryName": "L2",
+      "sourceKind": "native",
+      "sourceIdentity": {
+       "kind": "native",
+       "exactCatalogName": "Phase-4"
+      },
+      "observed": {
+       "deviceName": "Phase-4",
+       "enabled": true,
+       "position": 0
+      },
+      "instance": "new",
+      "stateClaim": "The source created a new device instance.",
+      "scalarFingerprint": {
+       "after": {
+        "algorithm": "sha256",
+        "sha256": "db7336d70c108ef0b65eaf68924d0c5532e08444d9d4dae2474306d4684d6def",
+        "parameterCount": 103
+       }
+      },
+      "pages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "containerPages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "behaviors": [],
+      "verified": true
+     },
+     {
+      "entryIndex": 2,
+      "deviceIndex": 0,
+      "entryName": "L3",
+      "sourceKind": "native",
+      "sourceIdentity": {
+       "kind": "native",
+       "exactCatalogName": "FM-4"
+      },
+      "observed": {
+       "deviceName": "FM-4",
+       "enabled": true,
+       "position": 0
+      },
+      "instance": "new",
+      "stateClaim": "The source created a new device instance.",
+      "scalarFingerprint": {
+       "after": {
+        "algorithm": "sha256",
+        "sha256": "2bf4446edd838b04228f3db9e8c0a09f33d220d4ed8b0e368e00bc06dbda53e8",
+        "parameterCount": 34
+       }
+      },
+      "pages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "containerPages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "behaviors": [],
+      "verified": true
+     },
+     {
+      "entryIndex": 3,
+      "deviceIndex": 0,
+      "entryName": "L4",
+      "sourceKind": "native",
+      "sourceIdentity": {
+       "kind": "native",
+       "exactCatalogName": "Organ"
+      },
+      "observed": {
+       "deviceName": "Organ",
+       "enabled": true,
+       "position": 0
+      },
+      "instance": "new",
+      "stateClaim": "The source created a new device instance.",
+      "scalarFingerprint": {
+       "after": {
+        "algorithm": "sha256",
+        "sha256": "e57fe620494c69e220fec70e8d0f84f55f045637f13eec729ef4eacad8b0ee69",
+        "parameterCount": 17
+       }
+      },
+      "pages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "containerPages": {
+       "verified": true,
+       "actualPages": [],
+       "witnesses": []
+      },
+      "behaviors": [],
+      "verified": true
+     }
+    ]
+   },
+   "next": {
+    "revert": {
+     "tool": "revert_change",
+     "changeId": "e20d6e9e-7b60-4718-a3dc-ea2f8c5eea64"
+    }
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 64877.62495799997
+   },
+   "target": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+    "containerKind": "Instrument Layer"
+   }
+  },
+  "bench-4-staged-1-read": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+    "devices": [
+     {
+      "position": 0,
+      "name": "Instrument Layer",
+      "enabled": true,
+      "container": {
+       "containerKind": "Instrument Layer",
+       "layerChains": [
+        {
+         "position": 0,
+         "name": "L1",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.788,
+          "green": 0.788,
+          "blue": 0.788
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Polysynth"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 1,
+         "name": "L2",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.788,
+          "green": 0.788,
+          "blue": 0.788
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Phase-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 2,
+         "name": "L3",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.788,
+          "green": 0.788,
+          "blue": 0.788
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "FM-4"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        },
+        {
+         "position": 3,
+         "name": "L4",
+         "solo": false,
+         "mute": false,
+         "volume": 0.7937005259840999,
+         "pan": 0.5,
+         "color": {
+          "red": 0.788,
+          "green": 0.788,
+          "blue": 0.788
+         },
+         "devices": [
+          {
+           "position": 0,
+           "name": "Organ"
+          }
+         ],
+         "devicesComplete": true,
+         "deviceCapacity": 4
+        }
+       ],
+       "complete": true,
+       "capacity": 5
+      }
+     }
+    ]
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 466.3381250000093
+   }
+  },
+  "bench-4-staged-1-revert": {
+   "applied": true,
+   "complete": true,
+   "partialReversal": false,
+   "stages": [
+    {
+     "stage": "extract-source",
+     "entryIndex": 3,
+     "change": {
+      "changeId": "7eaaf454-35ea-429f-acb0-cfbf244554a3",
+      "applied": true,
+      "places": [],
+      "canBeUndone": false,
+      "cannotBeUndone": []
+     }
+    },
+    {
+     "stage": "remove-source",
+     "entryIndex": 3,
+     "change": {
+      "changeId": "743d8022-9da3-4999-b859-1a03431ba187",
+      "applied": true,
+      "places": [
+       {
+        "what": "device",
+        "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+        "devicePosition": 1
+       }
+      ],
+      "canBeUndone": false,
+      "cannotBeUndone": [
+       {
+        "where": {
+         "what": "device",
+         "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+         "devicePosition": 1
+        },
+        "why": [
+         "this change also added or removed rows, which moves every row below the edit. The place this was recorded at is a position, so it may no longer point at the same music.",
+         "a device carries settings that cannot be read back through this API, so nothing recorded here could rebuild it."
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "stage": "extract-source",
+     "entryIndex": 2,
+     "change": {
+      "changeId": "f638dc41-6841-45e0-b74e-70877d278eb9",
+      "applied": true,
+      "places": [],
+      "canBeUndone": false,
+      "cannotBeUndone": []
+     }
+    },
+    {
+     "stage": "remove-source",
+     "entryIndex": 2,
+     "change": {
+      "changeId": "fc35e7f9-4e6d-4a91-9010-f4c3dc1276fb",
+      "applied": true,
+      "places": [
+       {
+        "what": "device",
+        "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+        "devicePosition": 1
+       }
+      ],
+      "canBeUndone": false,
+      "cannotBeUndone": [
+       {
+        "where": {
+         "what": "device",
+         "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+         "devicePosition": 1
+        },
+        "why": [
+         "this change also added or removed rows, which moves every row below the edit. The place this was recorded at is a position, so it may no longer point at the same music.",
+         "a device carries settings that cannot be read back through this API, so nothing recorded here could rebuild it."
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "stage": "extract-source",
+     "entryIndex": 1,
+     "change": {
+      "changeId": "7ec5e359-cd8a-4c05-af95-0d51bd634aa9",
+      "applied": true,
+      "places": [],
+      "canBeUndone": false,
+      "cannotBeUndone": []
+     }
+    },
+    {
+     "stage": "remove-source",
+     "entryIndex": 1,
+     "change": {
+      "changeId": "eb72a0a2-760f-4885-9ee4-29afc70d67e1",
+      "applied": true,
+      "places": [
+       {
+        "what": "device",
+        "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+        "devicePosition": 1
+       }
+      ],
+      "canBeUndone": false,
+      "cannotBeUndone": [
+       {
+        "where": {
+         "what": "device",
+         "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+         "devicePosition": 1
+        },
+        "why": [
+         "this change also added or removed rows, which moves every row below the edit. The place this was recorded at is a position, so it may no longer point at the same music.",
+         "a device carries settings that cannot be read back through this API, so nothing recorded here could rebuild it."
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "stage": "extract-source",
+     "entryIndex": 0,
+     "change": {
+      "changeId": "e07c0265-e317-4be4-9a37-9b5323b4abc5",
+      "applied": true,
+      "places": [],
+      "canBeUndone": false,
+      "cannotBeUndone": []
+     }
+    },
+    {
+     "stage": "remove-source",
+     "entryIndex": 0,
+     "change": {
+      "changeId": "0a4dbe52-e0b9-4259-b471-47c031cdb90e",
+      "applied": true,
+      "places": [
+       {
+        "what": "device",
+        "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+        "devicePosition": 1
+       }
+      ],
+      "canBeUndone": false,
+      "cannotBeUndone": [
+       {
+        "where": {
+         "what": "device",
+         "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+         "devicePosition": 1
+        },
+        "why": [
+         "this change also added or removed rows, which moves every row below the edit. The place this was recorded at is a position, so it may no longer point at the same music.",
+         "a device carries settings that cannot be read back through this API, so nothing recorded here could rebuild it."
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "stage": "remove-container",
+     "change": {
+      "changeId": "541694e9-eb9f-4fe2-9818-e1c1372d6d8c",
+      "applied": true,
+      "places": [
+       {
+        "what": "device",
+        "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+        "devicePosition": 0
+       }
+      ],
+      "canBeUndone": false,
+      "cannotBeUndone": [
+       {
+        "where": {
+         "what": "device",
+         "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+         "devicePosition": 0
+        },
+        "why": [
+         "this change also added or removed rows, which moves every row below the edit. The place this was recorded at is a position, so it may no longer point at the same music.",
+         "a device carries settings that cannot be read back through this API, so nothing recorded here could rebuild it."
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "containerRemoved": true,
+   "restoredDeviceOrder": true,
+   "undoOf": "e20d6e9e-7b60-4718-a3dc-ea2f8c5eea64"
+  },
+  "bench-4-staged-1-after": {
+   "schema": "ghostnote-devices/1",
+   "source": {
+    "host": "bitwig-devices",
+    "read": "fresh-structure-read"
+   },
+   "target": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2"
+   },
+   "coverage": {
+    "status": "complete",
+    "devicesComplete": true,
+    "bankSize": 16,
+    "layerChainPositions": [
+     0,
+     1,
+     2
+    ]
+   },
+   "authority": {
+    "kind": "fresh-read"
+   },
+   "data": {
+    "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2",
+    "devices": []
+   },
+   "warnings": [],
+   "timing": {
+    "totalMs": 298.13683299999684
+   }
+  },
+  "cleanup": {
+   "changeId": "f9d4d20c-e359-44e2-b0b3-ff3796320ca4",
+   "applied": true,
+   "places": [
+    {
+     "what": "track",
+     "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2"
+    }
+   ],
+   "canBeUndone": false,
+   "cannotBeUndone": [
+    {
+     "where": {
+      "what": "track",
+      "trackId": "d1e3fbe8-91af-4ab1-802c-a7ec6ef0ffe2"
+     },
+     "why": [
+      "a deleted track cannot be brought back. A newly created track gets a new id, so it is a different track and nothing recorded about the old one can be replayed onto it."
+     ]
+    }
+   ]
+  }
+ },
+ "guard": {
+  "hello": {
+   "contractVersion": 0,
+   "extensionVersion": "0.0.1",
+   "runtimeProfile": "normal-v1",
+   "hostApiVersion": 25,
+   "methodCount": 89,
+   "methodsHash": "0ef817f4bac8a8a7"
+  },
+  "mark": {
+   "revision": 255,
+   "generation": "236aa886-48a3-4267-b0f9-8c762d42e50b",
+   "project": "New 5",
+   "projectStatus": "marked",
+   "sceneEpoch": 3,
+   "sceneCount": 8,
+   "contentEpoch": 32818,
+   "contentEvents": [
+    {
+     "seq": 32795,
+     "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+     "trackIndex": 0,
+     "slotIndex": 4,
+     "filled": false
+    },
+    {
+     "seq": 32796,
+     "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+     "trackIndex": 1,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32797,
+     "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+     "trackIndex": 1,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32798,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32799,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32800,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32801,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 3,
+     "filled": false
+    },
+    {
+     "seq": 32802,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 4,
+     "filled": false
+    },
+    {
+     "seq": 32803,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 5,
+     "filled": false
+    },
+    {
+     "seq": 32804,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 6,
+     "filled": false
+    },
+    {
+     "seq": 32805,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 7,
+     "filled": false
+    },
+    {
+     "seq": 32806,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 8,
+     "filled": false
+    },
+    {
+     "seq": 32807,
+     "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+     "trackIndex": 2,
+     "slotIndex": 9,
+     "filled": false
+    },
+    {
+     "seq": 32808,
+     "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+     "trackIndex": 3,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32809,
+     "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+     "trackIndex": 3,
+     "slotIndex": 5,
+     "filled": false
+    },
+    {
+     "seq": 32810,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32811,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32812,
+     "channelId": "",
+     "trackIndex": 4,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32813,
+     "channelId": "",
+     "trackIndex": 5,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32814,
+     "channelId": "",
+     "trackIndex": 5,
+     "slotIndex": 1,
+     "filled": false
+    },
+    {
+     "seq": 32815,
+     "channelId": "",
+     "trackIndex": 5,
+     "slotIndex": 2,
+     "filled": false
+    },
+    {
+     "seq": 32816,
+     "channelId": "",
+     "trackIndex": 6,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32817,
+     "channelId": "",
+     "trackIndex": 7,
+     "slotIndex": 0,
+     "filled": false
+    },
+    {
+     "seq": 32818,
+     "channelId": "",
+     "trackIndex": 8,
+     "slotIndex": 0,
+     "filled": false
+    }
+   ]
+  }
+ },
+ "runs": [
+  {
+   "chains": 2,
+   "backend": "offline",
+   "run": 0,
+   "ms": 7330,
+   "stages": 2,
+   "revertMs": 1754,
+   "revertComplete": true
+  },
+  {
+   "chains": 2,
+   "backend": "staged",
+   "run": 0,
+   "ms": 37145,
+   "stages": 9,
+   "revertMs": 21264,
+   "revertComplete": true
+  },
+  {
+   "chains": 4,
+   "backend": "offline",
+   "run": 0,
+   "ms": 7779,
+   "stages": 2,
+   "revertMs": 1691,
+   "revertComplete": true
+  },
+  {
+   "chains": 4,
+   "backend": "staged",
+   "run": 0,
+   "ms": 64937,
+   "stages": 17,
+   "revertMs": 38366,
+   "revertComplete": true
+  },
+  {
+   "chains": 2,
+   "backend": "offline",
+   "run": 1,
+   "ms": 7250,
+   "stages": 2,
+   "revertMs": 1695,
+   "revertComplete": true
+  },
+  {
+   "chains": 2,
+   "backend": "staged",
+   "run": 1,
+   "ms": 36525,
+   "stages": 9,
+   "revertMs": 21256,
+   "revertComplete": true
+  },
+  {
+   "chains": 4,
+   "backend": "offline",
+   "run": 1,
+   "ms": 7770,
+   "stages": 2,
+   "revertMs": 1715,
+   "revertComplete": true
+  },
+  {
+   "chains": 4,
+   "backend": "staged",
+   "run": 1,
+   "ms": 64878,
+   "stages": 17,
+   "revertMs": 38510,
+   "revertComplete": true
+  }
+ ]
+}

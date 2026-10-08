@@ -2652,6 +2652,15 @@ class ParameterTransport implements Transport {
   emptySlot = false;
   /** 8h4a4: the fixture is a group child at bank index 1 and sibling position 0. */
   groupChild = false;
+  /**
+   * 8h4e (E244): the display arm. Absent models an older extension. The first settled poll arms; the text
+   * arrives `lag` polls after the next poll, or never.
+   */
+  displaySim: { readonly lag: number; readonly never?: boolean; readonly isPlugin?: boolean } | undefined;
+  /** 8h4e: an empty plug-in list after an empty list: the generation never settles, and the known list is empty. */
+  emptyPluginPending = false;
+  private displayArmed = -1;
+  private pollsSinceArm = 0;
   private selected = 0;
   private depth = 0;
   private padSelected = false;
@@ -2825,9 +2834,38 @@ class ParameterTransport implements Transport {
           pads: [{ index: 3, name: 'Pad 4' }], itemCount: 1, bankSize: 16, hasDrumPads: true,
         };
       case WIRE.directParamList: {
-        if (params['begin'] === true) this.generation++;
+        if (params['begin'] === true) {
+          this.generation++;
+          this.displayArmed = -1;
+        }
         const stale = params['begin'] !== true && this.staleInventoryReads > 0;
         if (stale) this.staleInventoryReads--;
+        if (this.emptyPluginPending) {
+          return {
+            params: [], count: 0, generation: this.generation, idsGeneration: -1,
+            deviceExists: true, deviceName: this.devices[this.selected]?.name,
+            deviceIndex: this.selected, trackChannelId: CHANNEL_ID, trackPosition: 0,
+            displayArmedGeneration: -1, displayComplete: false, isPlugin: true, knownIdCount: 0,
+          };
+        }
+        const settledNow = params['begin'] !== true && !this.neverSettles && !stale;
+        let displayFields: Record<string, unknown> = {};
+        let textReady = false;
+        if (this.displaySim !== undefined) {
+          if (this.displayArmed === this.generation) this.pollsSinceArm++;
+          else if (settledNow) {
+            this.displayArmed = this.generation;
+            this.pollsSinceArm = 0;
+          }
+          textReady = this.displayArmed === this.generation && this.displaySim.never !== true
+            && this.pollsSinceArm >= 1 + this.displaySim.lag;
+          displayFields = {
+            displayArmedGeneration: this.displayArmed,
+            displayComplete: textReady,
+            isPlugin: this.displaySim.isPlugin === true,
+            knownIdCount: 12,
+          };
+        }
         const device = this.padSelected
           ? { name: this.selectedNestedName(), params: this.padParams }
           : this.depth === 2
@@ -2836,7 +2874,10 @@ class ParameterTransport implements Transport {
           ? { name: 'Inner container', params: this.level1Params }
           : this.devices[this.selected];
         return {
-          params: [...(device?.params ?? [])].map(([id, state]) => ({ id, ...state })),
+          ...displayFields,
+          params: [...(device?.params ?? [])].map(([id, state]) => ({
+            id, ...state, ...(textReady ? { displayed: `${state.name}:${state.value.toFixed(2)}` } : {}),
+          })),
           count: device?.params.size ?? 0,
           generation: this.generation,
           idsGeneration: this.neverSettles || stale ? this.generation - 1 : this.generation,
@@ -3082,6 +3123,95 @@ test('L-direct-param: stable inventories do not retain the prior device values',
   assert.equal(twoParams?.length, 10);
   assert.equal(twoParams?.some((item) => item.id.startsWith('P')), false);
   assert.equal(oneParams?.every((item) => item.observed.modulatedValue === false), true);
+});
+
+const directListPolls = (wire: ParameterTransport): number =>
+  wire.frames.filter((frame) => frame.method === WIRE.directParamList).length;
+
+test('8h4e display: the text adds no directparam.list poll when it arrives one turn after the arm', async () => {
+  const baseline = new ParameterTransport();
+  await new UntimedAdapter({ transport: baseline, cursorPool: 3 }).read([deviceAt(TRACK, 0)]);
+
+  const wire = new ParameterTransport();
+  wire.displaySim = { lag: 0 };
+  const target = deviceAt(TRACK, 0);
+  const snapshot = await new UntimedAdapter({ transport: wire, cursorPool: 3 }).read([target]);
+  const entry = snapshot.entries[addressKey(target)];
+  const state = entry?.value.of === 'device' ? entry.value.device : undefined;
+  assert.equal(directListPolls(wire), directListPolls(baseline));
+  assert.equal(directListPolls(wire), 3, 'begin, the arm poll, and the poll with the text');
+  assert.equal(state?.paramsDisplayComplete, true);
+  assert.equal(state?.isPlugin, false);
+  assert.equal(state?.params?.every((item) => typeof item.display === 'string'), true);
+  assert.equal(state?.params?.[0]?.display, 'Poly 1:0.00');
+});
+
+test('8h4e display: an older extension reports no completeness', async () => {
+  const wire = new ParameterTransport();
+  const target = deviceAt(TRACK, 0);
+  const snapshot = await new UntimedAdapter({ transport: wire, cursorPool: 3 }).read([target]);
+  const entry = snapshot.entries[addressKey(target)];
+  const state = entry?.value.of === 'device' ? entry.value.device : undefined;
+  assert.equal(state?.paramsDisplayComplete, undefined);
+  assert.equal(state?.isPlugin, undefined);
+  assert.equal(state?.params?.length, 12);
+});
+
+test('8h4e display: late text costs one poll for each late turn', async () => {
+  const wire = new ParameterTransport();
+  wire.displaySim = { lag: 2, isPlugin: true };
+  const target = deviceAt(TRACK, 0);
+  const snapshot = await new UntimedAdapter({ transport: wire, cursorPool: 3 }).read([target]);
+  const entry = snapshot.entries[addressKey(target)];
+  const state = entry?.value.of === 'device' ? entry.value.device : undefined;
+  assert.equal(directListPolls(wire), 5);
+  assert.equal(state?.paramsDisplayComplete, true);
+  assert.equal(state?.isPlugin, true);
+});
+
+test('8h4e display: text that does not arrive in the budget is absent and the read is incomplete', async () => {
+  const wire = new ParameterTransport();
+  wire.displaySim = { lag: 0, never: true };
+  const target = deviceAt(TRACK, 0);
+  const snapshot = await new UntimedAdapter({ transport: wire, cursorPool: 3 }).read([target]);
+  const entry = snapshot.entries[addressKey(target)];
+  const state = entry?.value.of === 'device' ? entry.value.device : undefined;
+  assert.equal(directListPolls(wire), 3 + 4, 'four extra polls, then the inventory');
+  assert.equal(state?.paramsDisplayComplete, false);
+  assert.equal(state?.params?.length, 12);
+  assert.equal(state?.params?.some((item) => item.display !== undefined), false);
+  assert.deepEqual(snapshot.unstable, []);
+});
+
+test('8h4e display: an empty plug-in list after an empty list reads as stable and empty', async () => {
+  const wire = new ParameterTransport();
+  wire.emptyPluginPending = true;
+  const target = deviceAt(TRACK, 0);
+  const snapshot = await new UntimedAdapter({ transport: wire, cursorPool: 3 }).read([target]);
+  const entry = snapshot.entries[addressKey(target)];
+  const state = entry?.value.of === 'device' ? entry.value.device : undefined;
+  assert.deepEqual(state?.params, []);
+  assert.equal(state?.isPlugin, true);
+  assert.equal(directListPolls(wire), 1 + 20, 'one begin and the confirmation polls, in one acquisition');
+});
+
+test('8h4e structure read: no DirectParameter frame and no parameter cursor pin', async () => {
+  const wire = new ParameterTransport();
+  const inScope = deviceAt(TRACK, 0);
+  const pastScope = deviceAt(TRACK, 1);
+  // The fixture holds one container scope (position 0), so position 1 reads through `device.list`.
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const snapshot = await adapter.read([inScope, pastScope], { structure: true });
+  const one = snapshot.entries[addressKey(inScope)];
+  const two = snapshot.entries[addressKey(pastScope)];
+  assert.equal(one?.value.of === 'device' ? one.value.device.name : undefined, 'Polysynth');
+  assert.equal(one?.value.of === 'device' ? one.value.device.params : 'x', undefined);
+  assert.equal(two?.value.of === 'device' ? two.value.device.name : undefined, 'Polymer');
+  assert.equal(two?.value.of === 'device' ? two.value.device.container : 'x', undefined);
+  assert.equal(wire.frames.some((frame) => frame.method.startsWith('directparam.')), false);
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.paramList), false);
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.deviceCursorPin
+    && frame.params?.['pinned'] === true), false);
 });
 
 test('5p live inventory: the generation starts after exact device acquisition', async () => {
@@ -4002,6 +4132,8 @@ class ChainCreateTransport implements Transport {
   private selected: number | undefined;
   private revision = 1;
   private minted = 1;
+  /** 8h4e: `chain.setSolo` also flips the solo of this sibling index (a host fault). */
+  soloSideEffect: number | undefined;
 
   constructor(
     /** ⚠ `stale` drops the per-chain ids, as an extension too old to send them. */
@@ -4109,6 +4241,20 @@ class ChainCreateTransport implements Transport {
         }
         if (params['expectedTrackChannelId'] !== CHANNEL_ID) throw new Error('stale track');
         for (const [index, item] of this.chains.entries()) item.solo = index === at;
+        this.revision++;
+        return {};
+      }
+
+      case WIRE.chainSetSolo: {
+        const at = params['layerIndex'] as number;
+        const target = this.chains[at];
+        if (target === undefined || target.name !== params['expectedName']) {
+          throw new Error('stale solo position');
+        }
+        if (params['expectedTrackChannelId'] !== CHANNEL_ID) throw new Error('stale track');
+        target.solo = params['solo'] as boolean;
+        // A fault for the readback test: the host also changes a sibling.
+        if (this.soloSideEffect !== undefined) this.chains[this.soloSideEffect]!.solo = !this.chains[this.soloSideEffect]!.solo;
         this.revision++;
         return {};
       }
@@ -4307,6 +4453,46 @@ test('L-chain-activate: exact independent readback proves one active sibling', a
   assert.equal(ops.some((frame) => frame.method === WIRE.chainActivate), true);
 });
 
+test('L-chain-solo: on and off change only the addressed chain, proved by readback', async () => {
+  const wire = new ChainCreateTransport();
+  wire.chains[0]!.solo = true;
+  wire.chains.push({ name: 'gn-B', channelId: 'chain-id-2', solo: false });
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const on = await adapter.apply({
+    ops: [{ op: 'chain.solo', chain: chainAt(deviceAt(TRACK, 0), 'gn-B'), solo: true }],
+  });
+  assert.equal(on.stages[0]?.ops[0]?.ok, true, JSON.stringify(on.stages[0]?.ops[0]));
+  assert.deepEqual(wire.chains.map((item) => [item.name, item.solo]), [
+    ['gn-shipped', true], ['gn-B', true],
+  ]);
+  const off = await adapter.apply({
+    ops: [{ op: 'chain.solo', chain: chainAt(deviceAt(TRACK, 0), 'gn-shipped'), solo: false }],
+  });
+  assert.equal(off.stages[0]?.ops[0]?.ok, true, JSON.stringify(off.stages[0]?.ops[0]));
+  assert.deepEqual(wire.chains.map((item) => [item.name, item.solo]), [
+    ['gn-shipped', false], ['gn-B', true],
+  ]);
+  const sent = wire.frames.flatMap((frame) => frame.method === WIRE.batchRun
+    ? ((frame.params as Record<string, unknown>)['ops'] as { method: string; params: Record<string, unknown> }[])
+    : [frame as { method: string; params: Record<string, unknown> }])
+    .filter((frame) => frame.method === WIRE.chainSetSolo);
+  assert.deepEqual(sent.map((frame) => [frame.params['layerIndex'], frame.params['solo']]), [[1, true], [0, false]]);
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.chainActivate), false);
+});
+
+test('L-chain-solo: a changed sibling flag fails the readback', async () => {
+  const wire = new ChainCreateTransport();
+  wire.chains.push({ name: 'gn-B', channelId: 'chain-id-2', solo: false });
+  wire.soloSideEffect = 0;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const receipt = await adapter.apply({
+    ops: [{ op: 'chain.solo', chain: chainAt(deviceAt(TRACK, 0), 'gn-B'), solo: true }],
+  });
+  assert.equal(receipt.stages[0]?.ops[0]?.ok, false);
+  assert.match(String(receipt.stages[0]?.ops[0]?.error), /sibling chains changed: gn-shipped/);
+});
+
 test('L-chain-activate: missing solo observation refuses before the write frame', async () => {
   const wire = new ChainCreateTransport(false, false, false, true);
   wire.chains.push({ name: 'gn-B', channelId: 'chain-id-2', solo: false });
@@ -4416,4 +4602,63 @@ test('8h4d call budget: an occupancy read of an occupied clip is one slot.status
   assert.deepEqual(model.frames.map((frame) => frame.method), [WIRE.revisionGet, WIRE.trackList, WIRE.slotStatus]);
   const entry = Object.values(read.entries)[0]!;
   assert.deepEqual(entry.value, { of: 'clip', exists: true });
+});
+
+/**
+ * 8h4e (E238): the device cursor of a deleted device stays stranded until the track cursor moves to another track
+ * and back. `refused` track indexes reject a point, as the extension does for a target that it cannot point at.
+ */
+class StrandedCursorTransport extends InventoryTransport {
+  stranded = true;
+  private away = false;
+  constructor(tracks: ReadonlyMap<number, string>, inventory: ReadonlyMap<string, unknown[]>,
+    private readonly home: number, private readonly refused: ReadonlySet<number> = new Set()) {
+    super(tracks, inventory);
+  }
+  override async send(frame: Frame): Promise<unknown> {
+    const params = (frame.params ?? {}) as Record<string, unknown>;
+    if (frame.method === WIRE.cursorPointTrack && params['cursor'] === '0') {
+      const index = params['trackIndex'] as number;
+      if (this.refused.has(index)) {
+        this.frames.push(frame);
+        throw new Error(`cursor.pointTrack refused track ${index}`);
+      }
+      if (index !== this.home) this.away = true;
+      else if (this.away) this.stranded = false;
+    }
+    const reply = await super.send(frame) as Record<string, unknown>;
+    return frame.method === WIRE.deviceCursorStatus && this.stranded ? { ...reply, exists: false, name: '' } : reply;
+  }
+}
+
+const strandedInventory = (id: string) => new Map([[id, [{ slot: 0, status: 'held', deviceExists: true,
+  deviceName: 'Polysynth', chains: [], chainBankSize: 5, deviceBankSize: 4 }]]]);
+const pointedTracks = (wire: StrandedCursorTransport) => wire.frames
+  .filter((frame) => frame.method === WIRE.cursorPointTrack).map((frame) => (frame.params as { trackIndex: number }).trackIndex);
+
+test('8h4e cursor recovery: a stranded device cursor recovers through another track', async () => {
+  const wire = new StrandedCursorTransport(new Map([[0, CHANNEL_ID], [1, OTHER_ID]]), strandedInventory(CHANNEL_ID), 0);
+  const snapshot = await new UntimedAdapter({ transport: wire, cursorPool: 3 }).read([deviceAt(TRACK, 0)]);
+  assert.equal(wire.stranded, false);
+  assert.ok(snapshot.entries[addressKey(deviceAt(TRACK, 0))] !== undefined, JSON.stringify(snapshot.unstable));
+  assert.ok(pointedTracks(wire).includes(1));
+});
+
+test('8h4e cursor recovery: a refused hop target tries the next listed track', async () => {
+  const third = 'cccccccc-0000-0000-0000-000000000003';
+  const wire = new StrandedCursorTransport(new Map([[0, CHANNEL_ID], [1, OTHER_ID], [2, third]]),
+    strandedInventory(CHANNEL_ID), 0, new Set([1]));
+  const snapshot = await new UntimedAdapter({ transport: wire, cursorPool: 3 }).read([deviceAt(TRACK, 0)]);
+  assert.equal(wire.stranded, false);
+  assert.ok(snapshot.entries[addressKey(deviceAt(TRACK, 0))] !== undefined);
+  assert.ok(pointedTracks(wire).includes(2));
+});
+
+test('8h4e cursor recovery: a one-track project points at no unlisted track and stays unstable', async () => {
+  const wire = new StrandedCursorTransport(new Map([[0, CHANNEL_ID]]), strandedInventory(CHANNEL_ID), 0);
+  const snapshot = await new UntimedAdapter({ transport: wire, cursorPool: 3 }).read([deviceAt(TRACK, 0)]);
+  assert.equal(wire.stranded, true);
+  assert.deepEqual([...new Set(pointedTracks(wire))], [0], 'only the listed track');
+  const value = snapshot.entries[addressKey(deviceAt(TRACK, 0))]?.value;
+  assert.equal(value?.of === 'device' && value.device.params !== undefined, false, 'no parameter inventory');
 });

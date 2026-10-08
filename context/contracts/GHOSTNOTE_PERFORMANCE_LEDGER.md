@@ -4,7 +4,7 @@ kind: reference
 state: active
 updated: 2026-10-08
 parent: ../plan/phase-8/8h-cache-promotion-and-interface-simplification.md
-evidence: E227, E229, E234, E236, E237, E244, E246
+evidence: E227, E229, E234, E236, E237, E238, E244, E246
 ---
 
 # Ghostnote performance ledger
@@ -49,6 +49,9 @@ session as a change that moves a number.
 | `noteWrite` settle | 25 ms | `SETTLE_MS` |
 | DirectParameter display set (any count, 8–281 IDs) to text for each ID | One turn (22.6–25.4 ms); a switch sends no text | E244 |
 | DirectParameter same-type switch settle (driver: point and poll) | 165–174 ms, independent of the observed count | E244 |
+| DirectParameter read of a new target, with display text (product) | No extra wire call: the set rides the poll that the settle needed | E238 |
+| `deviceInsert` settle after each `device.insert`, `device.relocate`, `chain.create`, `chain.relocate` stage | 4,000 ms fixed wait | `SETTLE_MS` |
+| One container read (`containerScope`, layer container, track not held) | About 8 turns (190 ms) | E238 trace |
 | Bound heap for each sounding cell | About 300 bytes live (ZGC "used" is higher) | E227, E246 |
 
 ## Product paths
@@ -74,6 +77,18 @@ of the measurement.
 | `show_launcher_clip_in_detail_editor` | 264 ms | `show_changed_clip`: 578 ms | mark 2, tracks 1, read 1, resolve 1 | E237 |
 | `set_launcher_clip_properties`, one clip | — | — | mark 1, tracks 1, read 3, resolve 1, apply 1, delta 1 | E237 (offline) |
 | Background edit handle (`background: true`) | Handle 1 ms; 64-note whole-clip edit completed at 2,057 ms | Direct call: same edit cost | as the tool | E237 |
+| `read_devices`, one container | 460–495 ms (two devices after it: 613–750 ms) | `inspect_devices` + `inspect_device_alternates`: before the E238 slot fix, 3.8 s | devices 1, read 1 | E238 |
+| `read_device_controls`, new or same target (55–103 IDs) | 701–731 ms | — | read 1 | E238 |
+| `read_device_controls`, Diva (CLAP, 281 IDs) | 3,919–4,011 ms | — | read 1 | E238 |
+| `set_device_controls`, one write in a layer chain | 2,324–2,398 ms (CLAP: 8,302 ms) | — | as `set_parameter` | E238 |
+| `set_layer_chain_solo` | 828–868 ms; no-op 182 ms | before the E238 slot fix: 16 s | read 4, apply 1, delta 1; no-op: read 1 | E238 |
+| `rename_layer_chain` | 953 ms | — | read 4, apply 1, delta 1 | E238 |
+| `duplicate_layer_chain` | 5,199 ms | — | — | E238 |
+| `move_devices`, one device | 5,366–5,957 ms | 4,000 ms settle | devices 2, read 4, apply 1, delta 1 | E238 |
+| `delete_device`, one container | 3,132 ms (about 100 wire calls) | — | — | E238 |
+| `compose_devices`, offline, 2 and 4 layer chains | 7,199–7,330 ms; 7,770–7,779 ms | E18a insertion 463–465 ms | — | E238 |
+| `compose_devices`, staged, 2 and 4 layer chains | 36,525–37,145 ms; 64,878–64,937 ms | 9 and 17 stages | — | E238 |
+| `revert_change` of a composition, offline; staged 2 and 4 | 1,691–1,754 ms; 21.3 s; 38.4–38.5 s | — | — | E238 |
 
 ## Limits
 
@@ -102,5 +117,16 @@ of the measurement.
 - A whole-clip reversal of the typical clip takes about 4.7–4.9 s (E237).
 - `launch_clip` on `agent-native-v1` checks the track and the occupancy
   first: about 3 turns (+10 percent) over `stable-v1`.
+- A staged `compose_devices` of four layer chains takes about 65 s, more than
+  the 60 s MCP client timeout, and the tool has no background route (E238).
+- Each structural stage waits the fixed 4,000 ms `deviceInsert` budget; a
+  structural readback could replace the wait.
+- `read_devices`: the top-level bank read re-points the track cursor and reads
+  `device.list` twice; each limb reads the container before and after the
+  write, beside the executor's own preflight and readback.
+- `delete_device` of one container is about 100 wire calls (bank reads and two
+  parameter inventories for the change record).
+- `read_device_controls` on a 281-ID plug-in takes about 4 s for each read,
+  also for the same target.
 - `read_launcher_clip` returns all 16 channels (about 11 KB for the typical
   clip); an edit needs a read for its base.

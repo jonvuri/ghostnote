@@ -182,6 +182,30 @@ on `agent-native-v1` that calls a removed name gets `no such tool`.
 `launch_clip`, `add_scenes`, and `delete_scene` keep their names on the shared
 result module. `launch_clip` creates no change record (D19).
 
+8h4e (E238) removes these device tools from `agent-native-v1`. `stable-v1`
+keeps them with their frozen wording.
+
+| Removed tool | Replacement in `agent-native-v1` | Incompatibility |
+|---|---|---|
+| `inspect_devices`, `inspect_device_alternates` | `read_devices` | One read envelope (`ghostnote-devices/1`) with the top-level order and the layer chains of each container at positions 0–2; `layer_chain` replaces `alternate`; no `exclusiveActive` or routing text |
+| `inspect_device_parameters` | `read_device_controls` | Display text is part of the read (`displayComplete`); an empty plug-in list is standing `unavailable`; the route step is `layer-chain`, not `named-container-entry` |
+| `set_parameter` | `set_device_controls` | Same cohorts, domain checks, selectors, and compact result; the route step is `layer-chain` |
+| `inspect_preset_modulation` | `read_preset_modulation` | Same result |
+| `author_modulators` | `edit_preset_modulation` | Same input and result; schema text names the new tools |
+| `add_native_devices`, `add_device` | `add_devices` | One track for each call; explicit `kind` sources (native name, Bitwig UUID, VST3, CLAP, preset); the write envelope with one effect for each insertion |
+| `compose_device_structure`, `compose_drum_machine`, `compose_device_sources` | `compose_devices` | One request shape (`containerKind`, named `layerChains` or `pads`); Ghostnote selects the offline, staged, or drum-machine backend; the write envelope with `next.revert` |
+| `reverse_device_source_composition` | `revert_change` with the `compose_devices` change ID | No public checkpoint document |
+| `create_device_alternates` | `compose_devices` or `duplicate_layer_chain` | No managed alternate object and no observation event |
+| `fill_device_alternate` | `move_devices` or `copy_devices` | Generic routes; sources from the top level or one layer chain |
+| `switch_device_alternate` | `set_layer_chain_solo` (`exclusive`) | Also `on` and `off`; idempotent (`already-set`) |
+| `remove_device_alternate` | None (computer control) | Bitwig has no typed deletion of one layer chain; `delete_device` with `layerChain` refuses before a write |
+| `keep_device_alternate` | The winner-collapse recipe | `move_devices`, `delete_device`, `move_devices`; not atomic; each step reads fresh structure |
+
+`set_device_enabled` and `wrap_existing_device_modulation` keep their behavior;
+their schema text names the new tools. `delete_device` returns the write
+envelope with `removedLayerChains`. `revert_change` and `check_revert` add the
+composition reversal.
+
 Observation compatibility policy: `agent-native-v1` captures nothing, so a
 storage failure cannot change its write results. The stored-record readers for
 observation JSON v1–v3 and the `observation.read` and `observation.replace`

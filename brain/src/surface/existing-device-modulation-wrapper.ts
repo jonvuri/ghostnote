@@ -29,40 +29,54 @@ const fingerprint = z.object({
   parameterCount: z.number().int().min(1),
 }).strict();
 
-const modulation = z.object({
-  modulator: z.enum(ADD_TYPES).describe('Manifest-backed modulator type from list_modulator_types.'),
-  target: z.object({
-    parameterId: z.string().min(1).describe('Exact DirectParameter id from inspect_device_parameters.'),
-    parameterName: z.string().min(1).describe('Exact name returned with parameterId.'),
-  }).strict(),
-  amount: z.number().finite().min(-1).max(1),
-}).strict();
+/** The tool names that the schema text uses (8h4e). The `stable-v1` text must not change. */
+export function existingDeviceModulationWrapperSchemas(names: {
+  readonly readControls: string;
+  readonly readDevices: string;
+}) {
+  const modulation = z.object({
+    modulator: z.enum(ADD_TYPES).describe('Manifest-backed modulator type from list_modulator_types.'),
+    target: z.object({
+      parameterId: z.string().min(1).describe(`Exact DirectParameter id from ${names.readControls}.`),
+      parameterName: z.string().min(1).describe('Exact name returned with parameterId.'),
+    }).strict(),
+    amount: z.number().finite().min(-1).max(1),
+  }).strict();
 
-export const existingDeviceModulationWrapperInputSchema = {
-  trackId: z.string().min(1).describe('Durable track id from list_tracks.'),
-  devicePosition: z.number().int().min(0).describe('Current top-level device position.'),
-  expectedDeviceOrder: z.array(orderItem).min(1).max(15).describe(
-    'Exact complete name and enabled-state order from the latest inspect_devices call.',
-  ),
-  containerKind: z.literal(EXISTING_DEVICE_WRAPPER_KIND).describe(
-    'The only container kind proved for empty-entry late binding.',
-  ),
-  entryName: z.literal(EXISTING_DEVICE_WRAPPER_ENTRY).describe(
-    'The exact empty entry supplied by the owned FX Layer source.',
-  ),
-  modulators: z.array(modulation).min(1).max(16),
-} as const;
+  const existingDeviceModulationWrapperInputSchema = {
+    trackId: z.string().min(1).describe('Durable track id from list_tracks.'),
+    devicePosition: z.number().int().min(0).describe('Current top-level device position.'),
+    expectedDeviceOrder: z.array(orderItem).min(1).max(15).describe(
+      `Exact complete name and enabled-state order from the latest ${names.readDevices} call.`,
+    ),
+    containerKind: z.literal(EXISTING_DEVICE_WRAPPER_KIND).describe(
+      'The only container kind proved for empty-entry late binding.',
+    ),
+    entryName: z.literal(EXISTING_DEVICE_WRAPPER_ENTRY).describe(
+      'The exact empty entry supplied by the owned FX Layer source.',
+    ),
+    modulators: z.array(modulation).min(1).max(16),
+  } as const;
 
-export const existingDeviceModulationWrapperInputValidator = z.object(
-  existingDeviceModulationWrapperInputSchema,
-).strict().superRefine((input, context) => {
-  if (input.devicePosition >= input.expectedDeviceOrder.length) {
-    context.addIssue({
-      code: 'custom', path: ['devicePosition'],
-      message: 'The device position must exist in expectedDeviceOrder.',
-    });
-  }
+  const existingDeviceModulationWrapperInputValidator = z.object(
+    existingDeviceModulationWrapperInputSchema,
+  ).strict().superRefine((input, context) => {
+    if (input.devicePosition >= input.expectedDeviceOrder.length) {
+      context.addIssue({
+        code: 'custom', path: ['devicePosition'],
+        message: 'The device position must exist in expectedDeviceOrder.',
+      });
+    }
+  });
+
+  return { schema: existingDeviceModulationWrapperInputSchema, validator: existingDeviceModulationWrapperInputValidator };
+}
+
+const STABLE_SCHEMAS = existingDeviceModulationWrapperSchemas({
+  readControls: 'inspect_device_parameters', readDevices: 'inspect_devices',
 });
+export const existingDeviceModulationWrapperInputSchema = STABLE_SCHEMAS.schema;
+export const existingDeviceModulationWrapperInputValidator = STABLE_SCHEMAS.validator;
 
 const publicCheckpoint = z.object({
   schemaVersion: z.literal(1),

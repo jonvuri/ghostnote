@@ -176,7 +176,9 @@ test('8h4b profile: stable-v1 registration is byte-equal; agent-native-v1 keeps 
   const native = toolsForProfile(AGENT_NATIVE_TOOL_PROFILE);
   const kept = TOOLS.filter((spec) => AGENT_NATIVE_RETIRED[spec.name] === undefined);
   // 8h4d: an unretired stable tool is the same spec, except the three scene tools on the shared result module.
-  const replaced = ['launch_clip', 'add_scenes', 'delete_scene'];
+  // 8h4e: five device and reversal tools also change in place.
+  const replaced = ['launch_clip', 'add_scenes', 'delete_scene', 'set_device_enabled',
+    'wrap_existing_device_modulation', 'delete_device', 'revert_change', 'check_revert'];
   assert.deepEqual(native.slice(0, kept.length).map((spec) => spec.name), kept.map((spec) => spec.name));
   for (const [index, spec] of kept.entries()) {
     assert.equal(native[index] === spec, !replaced.includes(spec.name), spec.name);
@@ -187,7 +189,12 @@ test('8h4b profile: stable-v1 registration is byte-equal; agent-native-v1 keeps 
     ['set_launcher_clip_launch_settings', 'write'], ['set_launcher_clip_properties', 'write'],
     ['delete_launcher_clip', 'destructive'], ['show_launcher_clip_in_detail_editor', 'focus'],
     ['inspect_operation', 'read'], ['cancel_operation', 'write'],
+    ['read_devices', 'read'], ['read_device_controls', 'read'], ['set_device_controls', 'write'],
+    ['read_preset_modulation', 'read'], ['edit_preset_modulation', 'write'], ['add_devices', 'write'],
+    ['compose_devices', 'write'], ['duplicate_layer_chain', 'write'], ['rename_layer_chain', 'write'],
+    ['move_devices', 'write'], ['copy_devices', 'write'], ['set_layer_chain_solo', 'write'],
   ]);
+  assert.equal(native.length, 41);
   for (const spec of native.slice(kept.length, kept.length + 3)) {
     assert.deepEqual(spec.emits, spec.kind === 'read' ? []
       : ['clip.update', 'note.remove', 'note.insert', 'note.clear', 'note.write']);

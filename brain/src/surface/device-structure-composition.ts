@@ -25,7 +25,8 @@ const replaceModulatorType = z.enum(COMPOSITION_MODULATOR_TYPES).describe(
   'Manifest-backed modulator type that supports structure composition.',
 );
 
-const modulatorEdit = z.discriminatedUnion('kind', [
+/** One named template modulator edit. `compose_devices` (8h4e) uses the same schema. */
+export const modulatorEdit = z.discriminatedUnion('kind', [
   z.object({
     kind: z.literal('add'),
     modulator: replaceModulatorType,

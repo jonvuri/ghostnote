@@ -158,6 +158,49 @@ export function verifyExclusiveChain(
 }
 
 /**
+ * Prove one non-exclusive solo set (`chain.solo`, 8h4e) from two complete
+ * container readings. The addressed chain has the requested flag, and each
+ * sibling has the flag of the reading before the write.
+ */
+export function verifyChainSolo(
+  before: ObservedContainer,
+  after: ObservedContainer,
+  name: string,
+  solo: boolean,
+): { readonly ok: true; readonly chain: ObservedChain } | { readonly ok: false; readonly why: string } {
+  if (!before.chainsComplete || !after.chainsComplete) {
+    return { ok: false, why: 'the container chain view is partial' };
+  }
+  const found = lookupChain(after, name);
+  if (!found.ok) return { ok: false, why: `the addressed chain is ${found.miss}` };
+  const unknown = [...before.chains, ...after.chains].filter((item) => typeof item.solo !== 'boolean');
+  if (unknown.length > 0) {
+    return {
+      ok: false,
+      why: `solo state was not observed for: ${[...new Set(unknown.map((item) => item.name))].join(', ')}`,
+    };
+  }
+  if (found.chain.solo !== solo) {
+    return { ok: false, why: `the solo of ${name} reads ${String(found.chain.solo)}, expected ${String(solo)}` };
+  }
+  const siblingsBefore = before.chains.filter((item) => item.name !== name);
+  const siblingsAfter = after.chains.filter((item) => item.name !== name);
+  if (siblingsBefore.length !== siblingsAfter.length) {
+    return { ok: false, why: 'the sibling chains changed between the two readings' };
+  }
+  const changed: string[] = [];
+  for (const sibling of siblingsBefore) {
+    const now = siblingsAfter.filter((item) => item.name === sibling.name);
+    if (now.length !== 1) return { ok: false, why: `the sibling ${sibling.name} is not in the readback` };
+    if (now[0]!.solo !== sibling.solo) changed.push(sibling.name);
+  }
+  if (changed.length > 0) {
+    return { ok: false, why: `the solo of sibling chains changed: ${changed.join(', ')}` };
+  }
+  return { ok: true, chain: found.chain };
+}
+
+/**
  * Check one relocation from structural readings taken on either side.
  * Acknowledgements and writer-held handles are intentionally absent.
  */

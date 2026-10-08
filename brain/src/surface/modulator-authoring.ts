@@ -61,138 +61,155 @@ const presetPath = z.string().min(1).superRefine((path, context) => {
   }
 }).describe('Absolute path to one human-saved Bitwig preset file.');
 
-const targetRecipe = z.enum(TARGET_RECIPE_IDS).describe(
-  'Compatibility name for one of the three original native-device targets.',
-);
+/** The tool names that the schema text uses (8h4e). The `stable-v1` text must not change. */
+export interface ModulatorAuthoringNames {
+  readonly readControls: string;
+  readonly readPresetModulation: string;
+}
 
-const directParameterTarget = z.object({
-  parameterId: z.string().min(1).describe(
-    'Exact DirectParameter id returned by inspect_device_parameters.',
-  ),
-  parameterName: z.string().min(1).describe(
-    'Exact parameter name returned with parameterId in the same stable inventory.',
-  ),
-}).strict();
+/** Build the authoring input schema with the tool names of one profile. */
+export function modulatorAuthoringSchemas(names: ModulatorAuthoringNames) {
+  const targetRecipe = z.enum(TARGET_RECIPE_IDS).describe(
+    'Compatibility name for one of the three original native-device targets.',
+  );
 
-const modulationTarget = z.union([directParameterTarget, targetRecipe]).describe(
-  'An exact DirectParameter id and name, or one original compatibility name.',
-);
+  const directParameterTarget = z.object({
+    parameterId: z.string().min(1).describe(
+      `Exact DirectParameter id returned by ${names.readControls}.`,
+    ),
+    parameterName: z.string().min(1).describe(
+      'Exact parameter name returned with parameterId in the same stable inventory.',
+    ),
+  }).strict();
 
-const fingerprint = z.object({
-  algorithm: z.literal('sha256'),
-  sha256: z.string().regex(/^[0-9a-f]{64}$/).describe(
-    'Exact SHA-256 returned by inspect_preset_modulation.',
-  ),
-  byteLength: z.number().int().min(1).describe(
-    'Exact byte length returned with the SHA-256.',
-  ),
-}).strict().describe('Exact preset fingerprint returned by inspect_preset_modulation.');
+  const modulationTarget = z.union([directParameterTarget, targetRecipe]).describe(
+    'An exact DirectParameter id and name, or one original compatibility name.',
+  );
 
-const semanticDeviceStep = z.object({
-  position: z.number().int().min(0),
-  name: z.string().min(1),
-}).strict();
+  const fingerprint = z.object({
+    algorithm: z.literal('sha256'),
+    sha256: z.string().regex(/^[0-9a-f]{64}$/).describe(
+      `Exact SHA-256 returned by ${names.readPresetModulation}.`,
+    ),
+    byteLength: z.number().int().min(1).describe(
+      'Exact byte length returned with the SHA-256.',
+    ),
+  }).strict().describe(`Exact preset fingerprint returned by ${names.readPresetModulation}.`);
 
-const semanticLocation = z.discriminatedUnion('kind', [
-  z.object({ kind: z.literal('self') }).strict(),
-  z.object({
-    kind: z.literal('container'),
+  const semanticDeviceStep = z.object({
+    position: z.number().int().min(0),
     name: z.string().min(1),
-  }).strict(),
-  z.object({
-    kind: z.literal('entry'),
-    entry: z.object({
-      position: z.number().int().min(0),
+  }).strict();
+
+  const semanticLocation = z.discriminatedUnion('kind', [
+    z.object({ kind: z.literal('self') }).strict(),
+    z.object({
+      kind: z.literal('container'),
       name: z.string().min(1),
     }).strict(),
-    devicePath: z.array(semanticDeviceStep).min(1),
-  }).strict(),
-]).describe('Exact semantic modulator location returned by inspect_preset_modulation.');
+    z.object({
+      kind: z.literal('entry'),
+      entry: z.object({
+        position: z.number().int().min(0),
+        name: z.string().min(1),
+      }).strict(),
+      devicePath: z.array(semanticDeviceStep).min(1),
+    }).strict(),
+  ]).describe(`Exact semantic modulator location returned by ${names.readPresetModulation}.`);
 
-const pageCheck = z.object({
-  pageName: z.string().min(1).describe('Exact remote page name.'),
-  expectedCount: z.number().int().min(0).describe('Required count for that exact page name.'),
-}).strict();
+  const pageCheck = z.object({
+    pageName: z.string().min(1).describe('Exact remote page name.'),
+    expectedCount: z.number().int().min(0).describe('Required count for that exact page name.'),
+  }).strict();
 
-const behaviorCheck = z.object({
-  expected: z.enum(['active', 'inactive']).describe(
-    'Active requires live base-to-modulated divergence. Inactive requires no divergence.',
-  ),
-  target: modulationTarget,
-}).strict();
-
-const structuralCheck = z.object({
-  kind: z.literal('inserted-host'),
-}).strict().describe('Require the exact inspected host name after insertion.');
-
-const operation = z.discriminatedUnion('kind', [
-  z.object({
-    kind: z.literal('add'),
-    modulator: z.enum(ROUTED_MODULATOR_TYPES).describe(
-      'Manifest-backed modulator type that supports add and safe target assignment.',
+  const behaviorCheck = z.object({
+    expected: z.enum(['active', 'inactive']).describe(
+      'Active requires live base-to-modulated divergence. Inactive requires no divergence.',
     ),
     target: modulationTarget,
-    amount: z.number().finite().min(-1).max(1).describe('Normalized modulation amount from -1 through 1.'),
-  }).strict(),
-  z.object({
-    kind: z.literal('replace'),
-    position: z.number().int().min(0).describe('Modulator position in the saved preset, from 0.'),
-    modulator: z.enum(REPLACE_MODULATOR_TYPES).describe(
-      'Manifest-backed modulator type that supports replace. Tier-1-only types refuse on sampled presets.',
+  }).strict();
+
+  const structuralCheck = z.object({
+    kind: z.literal('inserted-host'),
+  }).strict().describe('Require the exact inspected host name after insertion.');
+
+  const operation = z.discriminatedUnion('kind', [
+    z.object({
+      kind: z.literal('add'),
+      modulator: z.enum(ROUTED_MODULATOR_TYPES).describe(
+        'Manifest-backed modulator type that supports add and safe target assignment.',
+      ),
+      target: modulationTarget,
+      amount: z.number().finite().min(-1).max(1).describe('Normalized modulation amount from -1 through 1.'),
+    }).strict(),
+    z.object({
+      kind: z.literal('replace'),
+      position: z.number().int().min(0).describe('Modulator position in the saved preset, from 0.'),
+      modulator: z.enum(REPLACE_MODULATOR_TYPES).describe(
+        'Manifest-backed modulator type that supports replace. Tier-1-only types refuse on sampled presets.',
+      ),
+    }).strict(),
+    z.object({
+      kind: z.literal('retarget'),
+      position: z.number().int().min(0).describe('Modulator position in the saved preset, from 0.'),
+      target: modulationTarget,
+    }).strict(),
+    z.object({
+      kind: z.literal('delete'),
+      position: z.number().int().min(0).describe('Modulator position in the saved preset, from 0.'),
+    }).strict(),
+    z.object({
+      kind: z.literal('amount'),
+      position: z.number().int().min(0).describe('Modulator position in the saved preset, from 0.'),
+      amount: z.number().finite().min(-1).max(1).describe('Normalized modulation amount from -1 through 1.'),
+    }).strict(),
+  ]);
+
+  const modulatorAuthoringInputSchema = {
+    trackId: z.string().min(1).describe('Durable track id from list_tracks.'),
+    presetPath,
+    fingerprint,
+    location: semanticLocation,
+    operation,
+    structuralCheck: structuralCheck.optional(),
+    pageChecks: z.array(pageCheck).optional().describe(
+      'Exact remote page counts that must hold at the selected semantic location.',
     ),
-  }).strict(),
-  z.object({
-    kind: z.literal('retarget'),
-    position: z.number().int().min(0).describe('Modulator position in the saved preset, from 0.'),
-    target: modulationTarget,
-  }).strict(),
-  z.object({
-    kind: z.literal('delete'),
-    position: z.number().int().min(0).describe('Modulator position in the saved preset, from 0.'),
-  }).strict(),
-  z.object({
-    kind: z.literal('amount'),
-    position: z.number().int().min(0).describe('Modulator position in the saved preset, from 0.'),
-    amount: z.number().finite().min(-1).max(1).describe('Normalized modulation amount from -1 through 1.'),
-  }).strict(),
-]);
+    behaviorChecks: z.array(behaviorCheck).optional().describe(
+      'Exact DirectParameter controls that must prove active or inactive behavior after the edit.',
+    ),
+  } as const;
 
-export const modulatorAuthoringInputSchema = {
-  trackId: z.string().min(1).describe('Durable track id from list_tracks.'),
-  presetPath,
-  fingerprint,
-  location: semanticLocation,
-  operation,
-  structuralCheck: structuralCheck.optional(),
-  pageChecks: z.array(pageCheck).optional().describe(
-    'Exact remote page counts that must hold at the selected semantic location.',
-  ),
-  behaviorChecks: z.array(behaviorCheck).optional().describe(
-    'Exact DirectParameter controls that must prove active or inactive behavior after the edit.',
-  ),
-} as const;
+  const modulatorAuthoringInputValidator = z.object(modulatorAuthoringInputSchema)
+    .strict()
+    .superRefine((input, context) => {
+      const structuralOnly = input.structuralCheck !== undefined
+        && input.pageChecks === undefined
+        && input.behaviorChecks === undefined;
+      const derivedPageCount = input.operation.kind === 'add'
+        && input.pageChecks === undefined && !structuralOnly ? 1 : 0;
+      const derivedBehaviorCount = input.operation.kind === 'add'
+        && input.behaviorChecks === undefined && !structuralOnly ? 1 : 0;
+      const witnessCount = (input.structuralCheck === undefined ? 0 : 1)
+        + (input.pageChecks?.length ?? derivedPageCount)
+        + (input.behaviorChecks?.length ?? derivedBehaviorCount);
+      if (witnessCount === 0) {
+        context.addIssue({
+          code: 'custom',
+          path: ['structuralCheck'],
+          message: 'The operation requires an exact structural, page, or behavior check.',
+        });
+      }
+    });
 
-export const modulatorAuthoringInputValidator = z.object(modulatorAuthoringInputSchema)
-  .strict()
-  .superRefine((input, context) => {
-    const structuralOnly = input.structuralCheck !== undefined
-      && input.pageChecks === undefined
-      && input.behaviorChecks === undefined;
-    const derivedPageCount = input.operation.kind === 'add'
-      && input.pageChecks === undefined && !structuralOnly ? 1 : 0;
-    const derivedBehaviorCount = input.operation.kind === 'add'
-      && input.behaviorChecks === undefined && !structuralOnly ? 1 : 0;
-    const witnessCount = (input.structuralCheck === undefined ? 0 : 1)
-      + (input.pageChecks?.length ?? derivedPageCount)
-      + (input.behaviorChecks?.length ?? derivedBehaviorCount);
-    if (witnessCount === 0) {
-      context.addIssue({
-        code: 'custom',
-        path: ['structuralCheck'],
-        message: 'The operation requires an exact structural, page, or behavior check.',
-      });
-    }
-  });
+  return { schema: modulatorAuthoringInputSchema, validator: modulatorAuthoringInputValidator };
+}
+
+const STABLE_SCHEMAS = modulatorAuthoringSchemas({
+  readControls: 'inspect_device_parameters', readPresetModulation: 'inspect_preset_modulation',
+});
+export const modulatorAuthoringInputSchema = STABLE_SCHEMAS.schema;
+export const modulatorAuthoringInputValidator = STABLE_SCHEMAS.validator;
 
 export type ModulatorAuthoringInput = z.infer<typeof modulatorAuthoringInputValidator>;
 

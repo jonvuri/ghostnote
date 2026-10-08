@@ -1247,3 +1247,37 @@ test('4f: remote pages enumerate and one named control round-trips', async () =>
   const afterEntry = after.entries[addressKey(controlAddress)];
   assert.equal(afterEntry?.value.of === 'remote' ? afterEntry.value.remote.value : undefined, 0.7);
 });
+
+test('8h4e fake: a structure read reports names and containers with no parameter inventory', async () => {
+  const adapter = new FakeAdapter({ tracks: ['gn-A'] });
+  const first = (await adapter.tracks())[0]!;
+  const model = adapter.model.tracks.find((t) => t.channelId === first.channelId)!;
+  for (let i = 0; i <= adapter.model.containerScopes; i++) {
+    model.devices.push({
+      name: `dev-${i}`, paramsLive: true, params: [{ id: 'P1', name: 'Cutoff', value: 0.5 }],
+      chains: [someChain('A', [{ name: 'Inner', paramsLive: true, params: [] }])],
+    });
+  }
+  const inScope = deviceAddress(track(first.channelId), 0);
+  const pastScope = deviceAddress(track(first.channelId), adapter.model.containerScopes);
+  const nested = deviceInAddress(chainAddress(inScope, 'A'), 0);
+  const generation = adapter.model.parameterObservationGeneration;
+  const snapshot = await adapter.read([inScope, pastScope, nested], { structure: true });
+  const of = (address: typeof inScope) => {
+    const entry = snapshot.entries[addressKey(address)];
+    return entry?.value.of === 'device' ? entry.value.device : undefined;
+  };
+  assert.equal(of(inScope)?.name, 'dev-0');
+  assert.equal(of(inScope)?.params, undefined);
+  assert.equal(of(inScope)?.container?.chains[0]?.name, 'A');
+  assert.equal(of(pastScope)?.name, `dev-${adapter.model.containerScopes}`);
+  assert.equal(of(pastScope)?.container, undefined);
+  assert.deepEqual(snapshot.unreachable, []);
+  assert.equal(of(nested)?.name, 'Inner');
+  assert.equal(of(nested)?.params, undefined);
+  assert.equal(adapter.model.parameterObservationGeneration, generation, 'no parameter observation');
+
+  const full = await adapter.read([inScope]);
+  const entry = full.entries[addressKey(inScope)];
+  assert.equal(entry?.value.of === 'device' ? entry.value.device.params?.length : undefined, 1);
+});

@@ -4,12 +4,12 @@ kind: status
 state: active
 updated: 2026-10-08
 phase: phase-8-agent-native-live-engine
-session: 8h4e-next
+session: 8h4f-next
 ---
 
 # Now
 
-8h4a through 8h4e0 are complete
+8h4a through 8h4e are complete
 ([E234](evidence/experiments/e234-write-boundary-and-reader-hardening.md),
 [E240](evidence/experiments/e240-collapsed-child-reader-routes.md)–[E243](evidence/experiments/e243-collapsed-cursor-and-parameter-settle.md),
 [E235](evidence/experiments/e235-document-read-and-identity-registry.md),
@@ -17,13 +17,12 @@ session: 8h4e-next
 [E236](evidence/experiments/e236-document-edit-limb.md),
 [E246](evidence/experiments/e246-edit-cost-and-reader-heap.md),
 [E237](evidence/experiments/e237-musical-and-clip-surface-migration.md),
-[E244](evidence/experiments/e244-direct-parameter-display-observer.md)).
-`agent-native-v1` lists 46 tools: it reads, checks, edits, adds, copies,
-moves, and deletes Launcher clips, sets their launch settings and properties,
-shows them, and launches them. Long edits can run in the background (D39). The
-old musical tools and the observation workflow are retired from it;
-`stable-v1` is unchanged. The next session is
-[8h4e](plan/phase-8/8h4e-device-structure-migration.md).
+[E244](evidence/experiments/e244-direct-parameter-display-observer.md),
+[E238](evidence/experiments/e238-device-structure-migration.md)).
+`agent-native-v1` lists 41 tools. It has no device-alternate lifecycle:
+`read_devices`, `compose_devices`, and five layer-chain limbs replace it (D18),
+and the A/B and collapse recipes pass live. `stable-v1` is unchanged. The next
+session is [8h4f](plan/phase-8/8h4f-tracks-profile-cut-and-closeout.md).
 
 ## Sessions
 
@@ -37,70 +36,68 @@ old musical tools and the observation workflow are retired from it;
    E246; D36–D38).
 4. [8h4d](plan/phase-8/8h4d-musical-and-clip-surface-migration.md): complete
    (E237, D39).
-5. [8h4e0](plan/phase-8/8h4e0-direct-parameter-display-probe.md): complete
-   (E244).
-6. [8h4e](plan/phase-8/8h4e-device-structure-migration.md): next. Device
-   structure; its parameter section now states the display rule (E244).
-7. [8h4f](plan/phase-8/8h4f-tracks-profile-cut-and-closeout.md): track-kind
-   arms, the default profile cut, and measurements.
-8. [8h4g](plan/phase-8/8h4g-performance-review-and-closeout.md): performance
+5. [8h4e0](plan/phase-8/8h4e0-direct-parameter-display-probe.md) and
+   [8h4e](plan/phase-8/8h4e-device-structure-migration.md): complete (E244,
+   E238).
+6. [8h4f](plan/phase-8/8h4f-tracks-profile-cut-and-closeout.md): next.
+   Track-kind arms, the default profile cut, and measurements.
+7. [8h4g](plan/phase-8/8h4g-performance-review-and-closeout.md): performance
    review of every path, then the 8h closeout.
 
-## What 8h4e0 gives 8h4e
+## What 8h4e gives the next sessions
 
-- `Rig.directParamDisplayObserver` is the observer object; normal builds set
-  no ID on it. Set the listed IDs after each new-target settle: text for each
-  ID arrives one turn later, for any count. A switch sends no text; a write
-  sends the text of the written ID in the same turn.
-- CLAP callbacks use `CONTENTS/ROOT_GENERIC_MODULE/<id>`, not the listed ID.
-  A CLAP write lands but its completion never matches (product effect
-  inferred). 8h4e maps the form and verifies a CLAP write live.
-- With the audio engine off, a CLAP plug-in lists no IDs. Bitwig allows the
-  engine for one project at a time; the operator must turn it on in the
-  owned project for CLAP work.
-- `directparam.set` reads `value` as a step of `resolution - 1`; the handler
-  default is 128. Probe drivers must send `resolution: 1`, as the product
-  encoder does.
-- Probe methods `directparam.observeDisplay` and `directparam.log` (probe
-  profile, 105 methods, `513b2d6b4647bbbe`); driver
-  `brain/src/probes/phase8h4e0-display.ts`.
+- `brain/src/surface/agent-native-devices.ts` builds the device tools from
+  the stable specs (`agentNativeDeviceTools`): 12 additions and 5 in-place
+  replacements (`set_device_enabled`, `wrap_existing_device_modulation`,
+  `delete_device`, `revert_change`, `check_revert`).
+  `AGENT_NATIVE_DEVICE_RETIRED` holds the 17 retired names. Each has a
+  migration row.
+- Schema text is per profile. `deviceControlSchemas`,
+  `modulatorAuthoringSchemas`, and `existingDeviceModulationWrapperSchemas`
+  take the tool names. The `stable-v1` text must not change. A retained tool
+  whose schema names a retired tool needs an agent-native copy.
+- `compose_devices` selects a private backend (`compositionBackend`). For the
+  benchmark, `composeDevices(..., { backend })` forces one backend.
+- New contract pieces:
+  - the op `chain.solo` and its proof `verifyChainSolo`;
+  - the read option `ReadOptions.structure` (no parameter inventory);
+  - the `DeviceState` fields `paramsDisplayComplete` and `isPlugin`.
+- Normal profile: 89 methods, `0ef817f4bac8a8a7` (new: `chain.setSolo`).
+  Probe profile: 106 methods, `582a1fa5cab5e3fb`. The older probe drivers
+  (8h4a5, 8h4b, 8h4e0) still check 88 and 105, because they record past
+  runs.
+- Live adapter:
+  - `containerScope` skips the named-slot descent for a layer container.
+  - After a delete of the device under the cursor, the adapter recovers the
+    stranded device cursor with a hop to another listed track. In a project
+    with no other pointable track, the read stays `unstable`; that case is
+    not measured live.
+  - `check_revert` on a `compose_devices` change ID runs the guards of the
+    first reversal stage (`previewGeneralDeviceReversal`).
+- Open for 8h4g:
+  - A staged 4-chain `compose_devices` takes about 65 s, more than the 60 s
+    client timeout, and the tool has no background route.
+  - Each structural stage waits the fixed 4,000 ms `deviceInsert` budget.
+  - `delete_device` of one container is about 100 wire calls.
+  - A 281-ID plug-in read takes about 4 s.
 
-## What 8h4d gives the next sessions
-
-- The profile is composed in `brain/src/surface/tools.ts`:
-  `AGENT_NATIVE_TOOLS` drops the names in `AGENT_NATIVE_RETIRED` (each with a
-  migration contract row, "Tool migration") and replaces `launch_clip`,
-  `add_scenes`, and `delete_scene` in place. The clip tools and the operation
-  handle are in `brain/src/surface/agent-native-clips.ts`. 8h4e removes the
-  device tools the same way.
-- `agent-native-v1` captures no observation (`executeTool` records only on
-  `stable-v1`); the device-alternate outcome still gates the product status.
-- New pieces: failure code `occupied`; `ReadOptions.occupancy` (one
-  `slot.status` for a `clip` address); `Workspace.launch` (a launch with no
-  change record, D19); `completeClipProperties`, the one `clip.update` writer;
-  `background` on a tool spec (D39).
-- A plain read of an occupied `clip` address costs a `clip.read` capture and a
-  selection borrow in the live adapter. Use the occupancy option for an
-  occupancy check.
-- The 7b profile is retired; its tools are in
-  `brain/src/probes/phase7b-profile.ts` for the historical probes.
-- Tool descriptions are at v30 (`TOOL_DESCRIPTION_V30_SHA256`); v25 still
-  reproduces from the stable tools; v26–v29 are frozen fingerprints.
-- The next free evidence number is E248 (E238–E239 stay reserved for 8h4e and
-  8h4f, E247 for 8h4g). The next decision is D40.
+  The ledger lists each of these.
+- Tool descriptions are at v31 (`TOOL_DESCRIPTION_V31_SHA256`). v30 is
+  frozen.
+- The next free evidence number is E248 (E239 stays reserved for 8h4f, E247
+  for 8h4g). The next decision is D40.
 - Cost rules (AGENTS.md): read the
   [performance ledger](contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md), keep the
   call-budget tests current, and remeasure a changed live path.
 
 ## Live baseline
 
-Normal `ghostnote` is loaded (archive SHA-256
-`fb8d797c199b35f4bc8a51eb92b50b2e773f3e810902cd4db50d20ba60f92cf4`, the
-8h4e0 build; the normal method set did not change); initialization
-`2026-10-08T00:11:05.547Z`. Fresh hello passes `normal-v1`, 88 methods,
-`68d457c4c4d1d7b3`. The 8h4e0 owned project was closed without saving. The
-audio engine is on for `gn-scale-test`. The active anchor is
-`gn-scale-test` with its 11 tracks
+Normal `ghostnote` is loaded: archive SHA-256
+`dee27f1edd2755bc55f26b297c1a41f457c389ea18dc12485cedfdb2e3a7d89c` (the
+8h4e build), initialized at `2026-10-08T00:51:48.572Z`. A fresh hello passes
+`normal-v1`, 89 methods, `0ef817f4bac8a8a7`. The 8h4e owned project ("New 5")
+holds only the default tracks. The operator closes it without saving. The
+active anchor is `gn-scale-test` with its 11 tracks
 ([baseline-final.json](evidence/data/phase8h4a5-cursor/baseline-final.json)).
 Rig config SHA-256:
 `256bbf07094cd654c372d0e5e050e494ef7783c9a0001a0a2a688331bcf643b0`.
@@ -117,6 +114,8 @@ cursor window is 2,048 steps; page it with `cursor.scrollToStep`. Bitwig
 reports note pressure as 0 (D37). The normal profile has no `transport.stop`;
 a live launch leaves the transport playing for the operator to stop.
 `check-publication-candidates.py --write` after a reviewed spec change.
+For plug-in work, the operator turns the audio engine on in the owned project
+(a CLAP plug-in lists no parameters with it off, E244).
 
 Each wire call costs one control-surface turn (about 24 ms); count turns
 when you estimate a live cost. `phase8h4c-edit.ts cost` prints executor
@@ -124,13 +123,13 @@ phases and wire calls. `phase8h4d-workflow.ts workflow` compares the two
 profiles on one workflow. The Ghostnote revision does not count a person's
 note edit (8h4a): it cannot guard a read that the executor reuses.
 
-8h4e0 retrospective: the plan named no audio-engine precondition, and the
-first CLAP run read an empty ID list. A plan with plug-in work states that
-the operator turns the engine on in the owned project. The driver also sent
-the handler default resolution; probe writes copy the encoder parameters.
+8h4e retrospective: the cost model treated a container read as about 4
+turns, but the adapter moved into each empty named slot and retried 8 times
+(3 s). Also, a parameter read after a device delete found a stranded cursor.
+Neither showed in the fake adapter. Before the cost model is final, trace one
+live call of each new path, also after a delete of the device under the
+cursor. The 8h4d rule was correct, but a trace runs only on a route that the
+plan names.
 
-8h4d retrospective: the cost model counted an occupancy read as one turn, but
-the live adapter reads an occupied `clip` address with its length (a
-`clip.read` capture); `launch_clip` was 55 percent slower until a wire trace
-found it. Trace one call of each new live path before the cost model is
-final. The plan named no cost model; write it at the start of the session.
+8h4d retrospective: trace one call of each new live path before the cost
+model is final. Write the cost model at the start of the session.

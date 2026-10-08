@@ -127,7 +127,8 @@ Reader promotion and remaining sessions, in order:
       target's IDs, and at what cost (E244). Before 8h4e.
    6. [8h4e — Device structure migration](8h4e-device-structure-migration.md):
       `read_devices`, `compose_devices` with the backend benchmark, and the
-      layer-chain limbs. It depends only on 8h4b.
+      layer-chain limbs. Complete (E238); offline composition is 5.0 to 8.4
+      times faster than staged.
    7. [8h4f — Tracks, profile cut, and measurements](8h4f-tracks-profile-cut-and-closeout.md):
       the track-kind arms and names, the vocabulary on the retained tools,
       the default profile, and the measurements.
