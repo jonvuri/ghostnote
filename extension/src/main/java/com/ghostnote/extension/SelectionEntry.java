@@ -49,6 +49,7 @@ final class SelectionEntry {
             if (rig.selectionOwnerIs(token)) rig.clearSelectionOwnership();
             s.addProperty("restored", false);
             s.addProperty("reason", "lease-lost");
+            if (rig.lastLeaseClear != null) s.add("leaseClear", rig.lastLeaseClear);
             return s;
         }
         rig.clearSelectionOwnership();

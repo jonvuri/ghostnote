@@ -142,6 +142,24 @@ export interface RevisionMark {
 }
 
 /**
+ * D43 (E250): the owned cursor tracks that the extension reported unpinned with one mark. In a project that was
+ * saved with the ghostnote cursor records, an unpinned cursor follows the selection and drives it, so the health
+ * check refuses when one is listed.
+ *
+ * ⚠ A side table, not a mark field: a mark is part of the published snapshot reference, whose decoder accepts
+ * exactly its fields. A fake or an earlier extension build records nothing.
+ */
+const UNPINNED_CURSOR_TRACKS = new WeakMap<RevisionMark, readonly string[]>();
+
+export function recordUnpinnedCursorTracks(mark: RevisionMark, names: readonly string[]): void {
+  UNPINNED_CURSOR_TRACKS.set(mark, names);
+}
+
+export function unpinnedCursorTracksOf(mark: RevisionMark): readonly string[] | undefined {
+  return UNPINNED_CURSOR_TRACKS.get(mark);
+}
+
+/**
  * How exactly this entry can be restored.
  *
  *   exact — round-trips losslessly; a revert fully restores it.

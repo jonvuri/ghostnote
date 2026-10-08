@@ -22,11 +22,14 @@ import {
   StaleAddressError, addressKey, chain as chainAt, clip, clipLaunch, clipMetadata, clipPlay, device as deviceAt, deviceEnabled,
   deviceIn as deviceInAt, deviceSlot,
   drumPad, notes as notesAt, param, remote, remotes, scene, slot, snapshotAddresses, track,
+  clipSnapshotFrom, decodeClipSnapshotRef, encodeClipSnapshotRef, unpinnedCursorTracksOf,
   type ClipAddress, type NoteRecord, type RevisionMark, type TrackAddress,
   CollapsedGroupRowError,
 } from '../../contract/index.js';
 import { BridgeError } from '../../client.js';
 import { LiveAdapter } from './adapter.js';
+import { checkCursorPins } from '../../surface/agent-native.js';
+import { ToolFailure } from '../../surface/agent-native-result.js';
 import { readFileSync } from 'node:fs';
 import { decodeNoteFrame, type NoteFrame } from './clip-read.js';
 import type { Transport } from './transport.js';
@@ -73,6 +76,8 @@ class CursorModelTransport implements Transport {
   private readonly pinned = new Map<string, boolean>();
   /** Cursor ref -> whether its owning track no longer follows track selection. */
   private readonly trackPinned = new Map<string, boolean>();
+  /** D43: the `revision.get` list of unpinned owned cursor tracks. */
+  unpinnedCursorTracks: string[] = [];
   /** Pin writes that become visible only after the adapter settles. */
   private readonly pendingPins = new Map<string, number>();
   private readonly pendingTrackPins = new Map<string, number>();
@@ -229,7 +234,9 @@ class CursorModelTransport implements Transport {
         // the extension owns them (session 3). A stub that answers only
         // `revision` makes every scene-relative address read as stale, which is
         // the right failure — it is the adapter refusing an epoch it never saw.
-        return { revision: 1, generation: 'stub-gen', sceneEpoch: 1, contentEpoch: 0, contentEvents: [] };
+        // 8i1: the extension lists the owned cursor tracks that the host reports unpinned (D43).
+        return { revision: 1, generation: 'stub-gen', sceneEpoch: 1, contentEpoch: 0, contentEvents: [],
+          unpinnedCursorTracks: this.unpinnedCursorTracks };
 
       case WIRE.selectionStatus:
         return { ...this.selection, ...this.selectionProjects };
@@ -251,6 +258,9 @@ class CursorModelTransport implements Transport {
       case WIRE.cursorPointTrack:
         this.pending = params['cursor'] as string;
         this.selectionOwnerToken = params['selectionOwnerToken'] as string | undefined;
+        // D43: the extension pins the cursor track before it points it.
+        this.pendingTrackPins.delete(this.pending);
+        this.trackPinned.set(this.pending, true);
         return {};
 
       case WIRE.slotSelect: {
@@ -301,8 +311,7 @@ class CursorModelTransport implements Transport {
         const cursor = params['cursor'] as string;
         const value = params['pinned'] === true;
         if (!value) {
-          this.pendingTrackPins.delete(cursor);
-          this.trackPinned.set(cursor, false);
+          throw new BridgeError(-32602, `Invalid params: cursor track ${cursor} stays pinned (D43)`);
         } else if (this.pinSettleCount > 0) {
           this.pendingTrackPins.set(cursor, this.pinSettleCount);
         } else {
@@ -710,8 +719,8 @@ test('5g revert repair: slow pins are polled without restarting the confirmed po
   assert.equal(transport.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 1);
   assert.equal(transport.frames.filter((frame) =>
     frame.method === WIRE.cursorPin && frame.params?.['pinned'] === true).length, 1);
-  assert.equal(transport.frames.filter((frame) =>
-    frame.method === WIRE.cursorPinTrack && frame.params?.['pinned'] === true).length, 1);
+  // D43: the cursor track stays pinned, so the point sends no track pin frame.
+  assert.equal(transport.frames.filter((frame) => frame.method === WIRE.cursorPinTrack).length, 0);
 });
 
 test('5g revert repair: pins that never settle refuse within eight attempts', async () => {
@@ -724,7 +733,7 @@ test('5g revert repair: pins that never settle refuse within eight attempts', as
 
   await assert.rejects(
     adapter.read([clipPlay(CLIP(0))]),
-    /target track 0, row 0 confirmed, but clip pin false and track pin false did not both confirm after 8 attempts/,
+    /target track 0, row 0 confirmed, but clip pin false and track pin true did not both confirm after 8 attempts/,
   );
   assert.equal(transport.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 1);
   assert.equal(transport.frames.filter((frame) => frame.method === WIRE.cursorStatus).length, 9);
@@ -739,7 +748,6 @@ test('5g repair: a direct read does not reuse a hold after an out-of-band point'
 
   await adapter.read([clipPlay(CLIP(0))]);
   await transport.send({ method: WIRE.cursorPin, params: { cursor: '0', pinned: false } });
-  await transport.send({ method: WIRE.cursorPinTrack, params: { cursor: '0', pinned: false } });
   await transport.send({ method: WIRE.cursorPointTrack, params: { cursor: '0', trackIndex: 0 } });
   await transport.send({
     method: WIRE.slotSelect,
@@ -1245,16 +1253,8 @@ test('2h: a structural stage releases every physical writer cursor', async () =>
       { cursor: '2', pinned: false },
     ],
   );
-  assert.deepEqual(
-    after.slice(batchAt + 1)
-      .filter((frame) => frame.method === WIRE.cursorPinTrack)
-      .map((frame) => frame.params),
-    [
-      { cursor: '0', pinned: false },
-      { cursor: '1', pinned: false },
-      { cursor: '2', pinned: false },
-    ],
-  );
+  // D43: the cursor tracks stay pinned; only the clip pins are released.
+  assert.equal(after.some((frame) => frame.method === WIRE.cursorPinTrack), false);
 });
 
 test('2h: a clip-wide reconstruction verifies its cursor before the write turn', async () => {
@@ -2629,7 +2629,8 @@ class InventoryTransport implements Transport {
   private selectedDevice = 0;
   private directGeneration = 0;
   private devicePinned = false;
-  private trackPinned = false;
+  /** D43: the extension pins every owned cursor track at start. */
+  private trackPinned = true;
 
   constructor(
     /** bank index -> that track's channelId. */
@@ -2665,9 +2666,11 @@ class InventoryTransport implements Transport {
         if (params['cursor'] === '0' && this.stuckOn === undefined) {
           this.pointed = params['trackIndex'] as number;
         }
+        this.trackPinned = true;
         return {};
       case WIRE.cursorPinTrack:
-        this.trackPinned = params['pinned'] === true;
+        if (params['pinned'] !== true) throw new BridgeError(-32602, 'Invalid params: cursor track stays pinned (D43)');
+        this.trackPinned = true;
         return {};
       case WIRE.deviceCursorPin:
         this.devicePinned = params['pinned'] === true;
@@ -2808,7 +2811,8 @@ class ParameterTransport implements Transport {
   private completionId: string | undefined;
   private completionValue: number | undefined;
   private devicePinned = false;
-  private trackPinned = false;
+  /** D43: the extension pins every owned cursor track at start. */
+  private trackPinned = true;
   private cursorTrackChannelId = CHANNEL_ID;
   private cursorTrackPosition = 0;
   private revision = 1;
@@ -2855,9 +2859,11 @@ class ParameterTransport implements Transport {
       case WIRE.cursorPointTrack:
         this.cursorTrackChannelId = CHANNEL_ID;
         this.cursorTrackPosition = this.groupChild ? 0 : params['trackIndex'] as number;
+        this.trackPinned = true;
         return {};
       case WIRE.cursorPinTrack:
-        this.trackPinned = params['pinned'] === true;
+        if (params['pinned'] !== true) throw new BridgeError(-32602, 'Invalid params: cursor track stays pinned (D43)');
+        this.trackPinned = true;
         return {};
       case WIRE.deviceCursorPin:
         this.devicePinned = params['pinned'] === true;
@@ -3700,8 +3706,8 @@ test('4f live route: a selection change cannot retarget a pinned depth-2 write',
 
   const changed = await adapter.apply({ ops: [{ op: 'param.set', param: address, value: 0.7 }] });
   assert.equal(changed.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
-  assert.equal(wire.frames.some((frame) => frame.method === WIRE.cursorPinTrack
-    && (frame.params as Record<string, unknown>)['pinned'] === true), true);
+  // D43: the track stays pinned from the start; the route sends no track pin frame.
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.cursorPinTrack), false);
   assert.equal(wire.frames.some((frame) => frame.method === WIRE.deviceCursorPin
     && (frame.params as Record<string, unknown>)['pinned'] === true), true);
   const restored = await adapter.apply({ ops: [{ op: 'param.set', param: address, value: 0.2 }] });
@@ -4809,4 +4815,22 @@ test('8h4g call budget: tracks() right after a mark uses the mark scan; a mark o
   await new Promise((resolve) => setTimeout(resolve, 60));
   await adapter.tracks();
   assert.equal(scans(), 4, 'a mark older than one turn is not reused');
+});
+
+test('8i1 (D43): the unpinned cursor list rides beside the mark, so a snapshot reference still decodes', async () => {
+  const model = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
+  const adapter = new UntimedAdapter({ transport: model });
+  await adapter.hello();
+  const snapshot = await adapter.read(snapshotAddresses(CLIP(0)), { sources: [CLIP(0)] });
+  assert.equal(Object.hasOwn(snapshot.at, 'unpinnedCursorTracks'), false, 'the mark keeps its published fields');
+  const ref = clipSnapshotFrom(snapshot, CLIP(0)).ref;
+  assert.deepEqual(decodeClipSnapshotRef(encodeClipSnapshotRef(ref)), ref);
+  assert.deepEqual(unpinnedCursorTracksOf(snapshot.at), []);
+  checkCursorPins(snapshot.at);
+
+  model.unpinnedCursorTracks = ['GN_CLIP_READER'];
+  const mark = await adapter.revision();
+  assert.deepEqual(unpinnedCursorTracksOf(mark), ['GN_CLIP_READER']);
+  assert.throws(() => checkCursorPins(mark), (error: unknown) =>
+    error instanceof ToolFailure && error.code === 'unhealthy' && /GN_CLIP_READER/.test(error.message));
 });

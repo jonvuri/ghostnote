@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v34';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v35';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -515,7 +515,8 @@ const RETIRED_IN_V33 = new Set(['inspect_operation', 'cancel_operation']);
  * v33 (8h4g): edit_launcher_clip and add_launcher_clip have no background flag, and inspect_operation and
  * cancel_operation leave the list. The edit description states the measured worst case (about 7 s, E248).
  * v34 (8i0, D42) keeps this list. set_launcher_clip_properties and edit_launcher_clip accept any colour, write
- * only the changed properties, and have no clip-colour refusal.
+ * only the changed properties, and have no clip-colour refusal. v35 (8i1, D43) keeps this list;
+ * check_bitwig_connection refuses an unpinned Ghostnote cursor.
  */
 export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] =
   DESCRIPTION_COHORT_V32.filter((member) => !RETIRED_IN_V33.has(member.name));
@@ -721,9 +722,13 @@ export const TOOL_DESCRIPTION_V32_SHA256 =
 export const TOOL_DESCRIPTION_V33_SHA256 =
   '5c65c71e05feb2e4cdce54e65f04f87b71503e63d34e683e66d852dccc480213';
 
-/**
- * v34 (8i0, D42): any clip colour within one byte, and owned clip property writes. Changing this fingerprint
- * requires a new description version.
- */
+/** v34 (8i0, D42): any clip colour within one byte, and owned clip property writes. Frozen in 8i1. */
 export const TOOL_DESCRIPTION_V34_SHA256 =
   '37d1f310b31f9d5c3ac9b4657d1f2fd9406f47c28d6f0280181fec75b011c702';
+
+/**
+ * v35 (8i1, D43): check_bitwig_connection reports an unpinned Ghostnote cursor as unhealthy. Changing this
+ * fingerprint requires a new description version.
+ */
+export const TOOL_DESCRIPTION_V35_SHA256 =
+  '257d1edead8799bd8c58f4ad5e3c9eb3410ad56e69a2df07e88ec5456224119d';

@@ -35,7 +35,7 @@ import {
   AGENT_NATIVE_TOOL_PROFILE, REFUSAL_CODES, ToolFailure, classifyError, failureResult,
   type Effect, type FailureCode, type FailureStage, type ReadResult, type Warning, type WriteResult,
 } from './agent-native-result.js';
-import { checkHealth } from './agent-native.js';
+import { checkCursorPins, checkHealth } from './agent-native.js';
 import { completeDeviceBank, enabledFingerprint } from './device-controls.js';
 import {
   issuedCompositionCheckpoint, previewGeneralDeviceCompositionReversal, runGeneralDeviceCompositionReversal,
@@ -137,7 +137,8 @@ const CONNECTION_DESCRIPTION = `${PROFILE} Check that Bitwig runs with the match
   + 'which project is open and how many tracks and scenes this connection can address. data.health is healthy, '
   + 'or outside-limit when the project has more tracks or scenes than the connection can address: other tools then '
   + 'refuse, because a target outside the window is invisible, not empty. A stale or different extension build, '
-  + 'or no open project, is a failure with code unhealthy.';
+  + 'no open project, or an extension track handle that is not held in place is a failure with code unhealthy. '
+  + 'Such a handle can follow and change the selection, so every tool that checks health then refuses.';
 
 async function checkConnection(workspace: Workspace): Promise<unknown> {
   return guardedRun(CONNECTION_SCHEMA, undefined, async (state) => {
@@ -146,6 +147,7 @@ async function checkConnection(workspace: Workspace): Promise<unknown> {
     const over = at.window.tracks.count > at.window.tracks.bankSize || at.window.scenes.count > at.window.scenes.bankSize;
     if (!over) checkHealth(at);
     else if (at.project.length === 0) checkHealth(at);
+    else checkCursorPins(at);
     const result: ReadResult<unknown> = {
       schema: CONNECTION_SCHEMA,
       source: { host: 'bitwig', read: 'revision-mark' },

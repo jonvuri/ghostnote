@@ -4,6 +4,7 @@ import com.ghostnote.extension.ClipLaunch;
 import com.ghostnote.extension.ClipMetadata;
 import com.ghostnote.extension.Rig;
 import com.bitwig.extension.controller.api.Clip;
+import com.bitwig.extension.controller.api.CursorTrack;
 import com.bitwig.extension.controller.api.ControllerHost;
 import com.bitwig.extension.controller.api.PinnableCursorClip;
 import com.bitwig.extension.controller.api.Track;
@@ -228,9 +229,14 @@ public final class CursorHandlers extends HandlerGroup {
         return ok();
     }
 
+    /** D43: an owned cursor track stays pinned, so only {@code pinned: true} is accepted. */
     private JsonElement cursorPinTrack(JsonObject params) {
         String ref = params.get("cursor").getAsString();
-        rig.cursorTrack(ref).isPinned().set(params.get("pinned").getAsBoolean());
+        if (!params.get("pinned").getAsBoolean()) {
+            throw new IllegalArgumentException("cursor track " + ref + " stays pinned (D43): an unpinned cursor can "
+                + "follow and drive the selection; a pinned cursor track still moves when it is pointed");
+        }
+        rig.cursorTrack(ref).isPinned().set(true);
         return ok();
     }
 
@@ -244,7 +250,10 @@ public final class CursorHandlers extends HandlerGroup {
         } else {
             rig.clearSelectionOwnership();
         }
-        rig.cursorTrack(ref).selectChannel(target);
+        CursorTrack cursor = rig.cursorTrack(ref);
+        // D43: a pinned cursor track moves and leaves the selection. The set sends nothing when it is pinned.
+        cursor.isPinned().set(true);
+        cursor.selectChannel(target);
         return ok();
     }
 

@@ -1,0 +1,473 @@
+{
+ "schema": "phase8i1-follow-v1",
+ "hello": {
+  "contractVersion": 0,
+  "extensionVersion": "0.0.1",
+  "runtimeProfile": "normal-v1",
+  "hostApiVersion": 25,
+  "methodCount": 89,
+  "methodsHash": "0ef817f4bac8a8a7"
+ },
+ "project": "ice jungle",
+ "entry": {
+  "track": 1,
+  "slot": 1,
+  "mixer": 2
+ },
+ "rows": [
+  {
+   "step": "connection",
+   "tool": "check_bitwig_connection",
+   "ok": true,
+   "ms": 23,
+   "calls": 2,
+   "turns": 1,
+   "clipReads": 0,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": 1,
+    "slot": 1,
+    "mixer": 2
+   },
+   "selectionKept": true,
+   "unpinned": [],
+   "traces": []
+  },
+  {
+   "step": "read-Drum Machine-0",
+   "tool": "read_launcher_clip",
+   "ok": true,
+   "ms": 398,
+   "calls": 12,
+   "turns": 9,
+   "clipReads": 1,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": 1,
+    "slot": 1,
+    "mixer": 2
+   },
+   "selectionKept": true,
+   "unpinned": [],
+   "traces": [
+    "selection-restore-skipped 1:1"
+   ]
+  },
+  {
+   "step": "devices-Drum Machine",
+   "tool": "read_devices",
+   "ok": true,
+   "ms": 697,
+   "calls": 25,
+   "turns": 24,
+   "clipReads": 0,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": 1,
+    "slot": 1,
+    "mixer": 2
+   },
+   "selectionKept": true,
+   "unpinned": [],
+   "traces": [
+    "selection-restore 1:1",
+    "selection-restore 1:1"
+   ]
+  },
+  {
+   "step": "read-Ice Shells-0",
+   "tool": "read_launcher_clip",
+   "ok": true,
+   "ms": 371,
+   "calls": 12,
+   "turns": 9,
+   "clipReads": 1,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": 1,
+    "slot": 1,
+    "mixer": 2
+   },
+   "selectionKept": true,
+   "unpinned": [],
+   "traces": [
+    "selection-restore-skipped 1:1"
+   ]
+  },
+  {
+   "step": "read-Ice Shells-1",
+   "tool": "read_launcher_clip",
+   "ok": true,
+   "ms": 403,
+   "calls": 12,
+   "turns": 9,
+   "clipReads": 1,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": 1,
+    "slot": 1,
+    "mixer": 2
+   },
+   "selectionKept": true,
+   "unpinned": [],
+   "traces": [
+    "selection-restore-skipped 1:1"
+   ]
+  },
+  {
+   "step": "devices-Ice Shells",
+   "tool": "read_devices",
+   "ok": true,
+   "ms": 524,
+   "calls": 19,
+   "turns": 18,
+   "clipReads": 0,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": 1,
+    "slot": 1,
+    "mixer": 2
+   },
+   "selectionKept": true,
+   "unpinned": [],
+   "traces": [
+    "selection-restore 1:1",
+    "selection-restore 1:1"
+   ]
+  },
+  {
+   "step": "read-Undertow Bass-0",
+   "tool": "read_launcher_clip",
+   "ok": true,
+   "ms": 365,
+   "calls": 12,
+   "turns": 9,
+   "clipReads": 1,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": 1,
+    "slot": 1,
+    "mixer": 2
+   },
+   "selectionKept": true,
+   "unpinned": [],
+   "traces": [
+    "selection-restore-skipped 1:1"
+   ]
+  },
+  {
+   "step": "devices-Undertow Bass",
+   "tool": "read_devices",
+   "ok": true,
+   "ms": 531,
+   "calls": 19,
+   "turns": 18,
+   "clipReads": 0,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": 1,
+    "slot": 1,
+    "mixer": 2
+   },
+   "selectionKept": true,
+   "unpinned": [],
+   "traces": [
+    "selection-restore 1:1",
+    "selection-restore 1:1"
+   ]
+  },
+  {
+   "step": "add-track",
+   "tool": "add_tracks",
+   "ok": true,
+   "ms": 838,
+   "calls": 38,
+   "turns": 20,
+   "clipReads": 0,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": 1,
+    "slot": 1,
+    "mixer": 3
+   },
+   "selectionKept": false,
+   "unpinned": [],
+   "traces": []
+  },
+  {
+   "step": "add-clip",
+   "tool": "add_launcher_clip",
+   "ok": true,
+   "ms": 2158,
+   "calls": 77,
+   "turns": 53,
+   "clipReads": 3,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": 3,
+    "slot": 0,
+    "mixer": 3
+   },
+   "selectionKept": false,
+   "unpinned": [],
+   "traces": [
+    "selection-restore-skipped 1:1",
+    "selection-restore-skipped 3:0",
+    "selection-restore 3:0"
+   ]
+  },
+  {
+   "step": "read-scratch",
+   "tool": "read_launcher_clip",
+   "ok": true,
+   "ms": 408,
+   "calls": 14,
+   "turns": 10,
+   "clipReads": 1,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": 3,
+    "slot": 0,
+    "mixer": 3
+   },
+   "selectionKept": false,
+   "unpinned": [],
+   "traces": [
+    "selection-restore-skipped 3:0"
+   ]
+  },
+  {
+   "step": "edit",
+   "tool": "edit_launcher_clip",
+   "ok": true,
+   "ms": 1354,
+   "calls": 42,
+   "turns": 33,
+   "clipReads": 2,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": 3,
+    "slot": 0,
+    "mixer": 3
+   },
+   "selectionKept": false,
+   "unpinned": [],
+   "traces": [
+    "selection-restore-skipped 3:0",
+    "selection-restore 3:0"
+   ]
+  },
+  {
+   "step": "properties",
+   "tool": "set_launcher_clip_properties",
+   "ok": true,
+   "ms": 1365,
+   "calls": 42,
+   "turns": 34,
+   "clipReads": 3,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": 3,
+    "slot": 0,
+    "mixer": 3
+   },
+   "selectionKept": false,
+   "unpinned": [],
+   "traces": [
+    "selection-restore 3:0",
+    "selection-restore 3:0"
+   ]
+  },
+  {
+   "step": "add-device",
+   "tool": "add_devices",
+   "ok": true,
+   "ms": 1363,
+   "calls": 51,
+   "turns": 39,
+   "clipReads": 0,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": 3,
+    "slot": 0,
+    "mixer": 3
+   },
+   "selectionKept": false,
+   "unpinned": [],
+   "traces": [
+    "selection-restore 3:0",
+    "selection-restore-skipped 3:0",
+    "selection-restore 3:0"
+   ]
+  },
+  {
+   "step": "controls",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 744,
+   "calls": 20,
+   "turns": 19,
+   "clipReads": 0,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": 3,
+    "slot": 0,
+    "mixer": 3
+   },
+   "selectionKept": false,
+   "unpinned": [],
+   "traces": [
+    "selection-restore 3:0"
+   ]
+  },
+  {
+   "step": "set-control",
+   "tool": "set_device_controls",
+   "ok": true,
+   "ms": 2398,
+   "calls": 66,
+   "turns": 61,
+   "clipReads": 0,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": 3,
+    "slot": 0,
+    "mixer": 3
+   },
+   "selectionKept": false,
+   "unpinned": [],
+   "traces": [
+    "selection-restore 3:0",
+    "selection-restore 3:0",
+    "selection-restore 3:0"
+   ]
+  },
+  {
+   "step": "revert-set-control",
+   "tool": "revert_change",
+   "ok": true,
+   "ms": 2859,
+   "calls": 67,
+   "turns": 59,
+   "clipReads": 0,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": 3,
+    "slot": 0,
+    "mixer": 3
+   },
+   "selectionKept": false,
+   "unpinned": [],
+   "traces": [
+    "selection-restore 3:0",
+    "selection-restore 3:0"
+   ]
+  },
+  {
+   "step": "revert-add-device",
+   "tool": "revert_change",
+   "ok": true,
+   "ms": 1380,
+   "calls": 50,
+   "turns": 35,
+   "clipReads": 0,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": 3,
+    "slot": 0,
+    "mixer": 3
+   },
+   "selectionKept": false,
+   "unpinned": [],
+   "traces": [
+    "selection-restore 3:0"
+   ]
+  },
+  {
+   "step": "revert-properties",
+   "tool": "revert_change",
+   "ok": true,
+   "ms": 1350,
+   "calls": 41,
+   "turns": 33,
+   "clipReads": 3,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": 3,
+    "slot": 0,
+    "mixer": 3
+   },
+   "selectionKept": false,
+   "unpinned": [],
+   "traces": [
+    "selection-restore 3:0",
+    "selection-restore 3:0"
+   ]
+  },
+  {
+   "step": "revert-edit",
+   "tool": "revert_change",
+   "ok": true,
+   "ms": 1469,
+   "calls": 42,
+   "turns": 33,
+   "clipReads": 3,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": 3,
+    "slot": 0,
+    "mixer": 3
+   },
+   "selectionKept": false,
+   "unpinned": [],
+   "traces": [
+    "selection-restore 3:0",
+    "selection-restore 3:0"
+   ]
+  },
+  {
+   "step": "revert-add-clip",
+   "tool": "revert_change",
+   "ok": true,
+   "ms": 370,
+   "calls": 11,
+   "turns": 9,
+   "clipReads": 1,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": 3,
+    "slot": 0,
+    "mixer": 3
+   },
+   "selectionKept": false,
+   "unpinned": [],
+   "traces": [
+    "selection-restore 3:0"
+   ]
+  },
+  {
+   "step": "delete-track",
+   "tool": "delete_track",
+   "ok": true,
+   "ms": 476,
+   "calls": 25,
+   "turns": 12,
+   "clipReads": 0,
+   "pinTrackFrames": 0,
+   "selection": {
+    "track": 3,
+    "slot": 0,
+    "mixer": 2
+   },
+   "selectionKept": false,
+   "unpinned": [],
+   "traces": []
+  }
+ ],
+ "tracksRestored": true,
+ "exit": {
+  "track": 3,
+  "slot": 0,
+  "mixer": 2
+ }
+}

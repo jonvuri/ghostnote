@@ -2,7 +2,7 @@
 title: Phase 8i — Agent-native hybrid dogfood
 kind: plan
 state: planned
-status: Final Phase 8 gate. 8i0 is complete (E249, D42); resume the dogfood trials.
+status: Final Phase 8 gate. 8i0 (E249, D42) and the 8i1 reader repair (E250, D43) are complete; resume the dogfood trials.
 updated: 2026-10-08
 parent: README.md
 prev: 8i0-clip-metadata-and-colour-tolerance.md
@@ -19,6 +19,13 @@ The first musical trial passed after an operator-led revision, but a colour
 guard forced a UI palette change before the duplicate could be extended. A
 property or length edit now writes no colour and needs no palette. Keep the
 accepted musical result and original clip intact.
+
+The second trial failed: every `clip.read` in "ice jungle" refused
+`deadline`. The project was saved with the ghostnote cursor records, so the
+unpinned cursors followed the selection. The 8i1 repair keeps every owned
+cursor track pinned ([E250](../../evidence/experiments/e250-reader-follow-mode-repair.md),
+[D43](../../decisions/d43-owned-cursor-tracks-stay-pinned.md)). Rerun the
+second trial in "ice jungle".
 
 ## Accepted 8f3 inputs
 

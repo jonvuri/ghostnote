@@ -99,6 +99,8 @@ public final class CoreHandlers extends HandlerGroup {
         result.add("trackCreateKinds", TrackHandlers.createKinds());
         // 8i0 deliberate build marker: the clip metadata writer writes only the owned fields (D42).
         result.addProperty("clipMetadataWrite", CursorHandlers.CLIP_METADATA_WRITE);
+        // 8i1 deliberate build marker: every owned cursor track stays pinned (D43).
+        result.add("cursorTrackPins", rig.cursorTrackPins());
         // 8h4a (D33): the track-bank content filter that init applied.
         result.addProperty("contentFilter", rig.contentFilterApplied);
         return result;
@@ -120,6 +122,7 @@ public final class CoreHandlers extends HandlerGroup {
         result.addProperty("initEpochMs", state.initEpochMs);
         result.addProperty("upMs", state.initEpochMs < 0 ? -1 : System.currentTimeMillis() - state.initEpochMs);
         result.add("clipReader", ClipReadHandlers.status(rig, registry));
+        result.add("cursorTrackPins", rig.cursorTrackPins());
 
         // Derived scaffold volume — the thing that actually scales.
         long slots = (long) rig.config.tracks * rig.config.scenes;

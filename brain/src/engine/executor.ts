@@ -220,6 +220,32 @@ export class Executor {
   }
 
   /** Run inside the one selection scope that covers the complete pipeline. */
+  /**
+   * E250: the verify read after an apply that landed. A read that throws must not lose the receipt: the write is
+   * in the project. Return a snapshot with no entries, and mark each address unread and unverified with the read
+   * error, so the take records the change and states that its readback is unavailable.
+   */
+  private async verifyOrUnread(
+    read: () => Promise<Snapshot>,
+    at: RevisionMark,
+    addresses: readonly Address[],
+    unread: Set<string>,
+    unverified: Unverified[],
+  ): Promise<Snapshot> {
+    try {
+      return await read();
+    } catch (error) {
+      for (const address of addresses) {
+        const key = addressKey(address);
+        if (unread.has(key)) continue;
+        unread.add(key);
+        unverified.push({ address, why: 'the write was applied, but its verification read failed: '
+          + `${error instanceof Error ? error.message : String(error)}. Read the target again.` });
+      }
+      return { contract: CONTRACT_TAG, at, entries: {}, missing: [], unreachable: [], unstable: [] };
+    }
+  }
+
   private async runInside(ops: readonly Op[], options: RunOptions): Promise<Take> {
     // ⚠ E15-E, first and before anything reads: a batch asking for `pressure`
     // must be refused before we pay for a stash we are going to throw away.
@@ -312,7 +338,8 @@ export class Executor {
           }))
           : [];
         const unreadRows = new Set(unverifiedRows.map((item) => addressKey(item.address)));
-        const verify = await this.timed('verification', () => this.adapter.read(rowless));
+        const verify = await this.verifyOrUnread(() => this.timed('verification', () => this.adapter.read(rowless)),
+          receipt.at, rowless, unreadRows, unverifiedRows);
         const seen = await this.concurrent(stash.at, targets, true);
         const reconcileStarted = performance.now();
         const mutationConflicts = mutationStateDisagreementsOf(ops, stash, verify, unreadRows);
@@ -377,7 +404,9 @@ export class Executor {
       }))
       : [];
     const unread = new Set(unverified.map((item) => addressKey(item.address)));
-    let verify = await this.timed('verification', () => this.adapter.read(readable, verifyOptions));
+    let verify = await this.verifyOrUnread(
+      () => this.timed('verification', () => this.adapter.read(readable, verifyOptions)),
+      receipt.at, readable, unread, unverified);
     for (const address of verify.unstable) {
       unread.add(addressKey(address));
       unverified.push({
@@ -396,7 +425,9 @@ export class Executor {
       // second exact snapshot separates delayed visibility from a stable
       // conflict without risking a duplicate non-idempotent action.
       await this.adapter.settle('noteWrite');
-      verify = await this.timed('verificationRetry', () => this.adapter.read(readable, verifyOptions));
+      // E250: a retry that throws keeps the first verify read and its conflict.
+      verify = await this.timed('verificationRetry', () => this.adapter.read(readable, verifyOptions))
+        .catch(() => verify);
       reconcileStarted = performance.now();
       mutationConflicts = mutationStateDisagreementsOf(ops, stash, verify, unread);
       this.onTiming?.({

@@ -11,7 +11,7 @@ import com.google.gson.JsonObject;
  * The collapsed parent groups above one target track (8h4a3, D34). The clip reader and the cursor point route
  * (8h4a5) use one instance. The write gate lets only one of them run at a time, so they never share a finder.
  *
- * <p>Cursors that follow no selection find the parents (E240, E241). Finder 0 goes to the target; its parent
+ * <p>Pinned cursors find the parents (E240, E241, D43). Finder 0 goes to the target; its parent
  * handle is level 0. Finder i goes to level 0 and then climbs i levels with {@code selectParent}; it stays at
  * level i. The parent handle of a group track repeats the group itself, so it cannot find level 1 (E241).
  */
@@ -31,12 +31,13 @@ public final class ParentGroups {
     private final CursorTrack[] finders = new CursorTrack[DEPTH];
     private final Track parent0;
 
-    public ParentGroups(ControllerHost host, MasterTrack master) {
+    public ParentGroups(ControllerHost host, Rig rig, MasterTrack master) {
         this.host = host;
         this.master = master;
         for (int i = 0; i < DEPTH; i++) {
             finders[i] = host.createCursorTrack("GN_CLIP_READER_PARENT_" + i, "ghostnote clip reader parent " + i,
                 0, 0, false);
+            rig.ownCursorTrack("GN_CLIP_READER_PARENT_" + i, finders[i]);
             finders[i].channelId().markInterested();
             finders[i].exists().markInterested();
             finders[i].isGroup().markInterested();
@@ -128,6 +129,16 @@ public final class ParentGroups {
                 if (expanded[i] && level(i).isGroupExpanded().get()) return true;
             }
             return false;
+        }
+
+        /** The finder values that {@link #ready()} reads (E250). */
+        public JsonObject state() {
+            JsonObject s = new JsonObject();
+            s.addProperty("channelId", finders[0].channelId().get());
+            s.addProperty("parentExists", parent0.exists().get());
+            s.addProperty("parentChannelId", parent0.channelId().get());
+            s.addProperty("ready", ready());
+            return s;
         }
 
         /** True after {@link #start()}. */

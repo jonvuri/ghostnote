@@ -36,6 +36,8 @@ import com.bitwig.extension.controller.api.TrackBankContentFilter;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
 import com.ghostnote.extension.generated.NativeDeviceCatalog;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +55,12 @@ public class Rig {
      * name and value callbacks (E243, {@link DirectParameterSwitch}).
      */
     public static final String DIRECT_PARAMETER_SETTLE = "same-ids-switch-v1";
+    /**
+     * 8i1 build marker (D43, E250): every owned cursor track stays pinned. A project that was saved with the
+     * ghostnote cursor records makes an unpinned cursor follow the selection and drive it, also when it was made
+     * with {@code shouldFollowSelection=false}. A pinned cursor track still moves when it is pointed.
+     */
+    public static final String CURSOR_TRACK_PIN = "owned-tracks-pinned-v1";
     /**
      * 8h4e build marker: {@code directparam.list} sets the listed IDs on the display observer after each settle of
      * a new target, and the CLAP callback form maps to the listed ID (E244, {@link DirectParameterDisplay}).
@@ -131,6 +139,14 @@ public class Rig {
     public final GroupPoint groupPoint;
     /** 8h3c: orders Ghostnote writes behind an open clip read. */
     public final WriteGate writeGate;
+    /** D43: the owned cursor tracks that stay pinned, with their names for the report. */
+    private final List<CursorTrack> pinnedTracks = new ArrayList<>();
+    private final List<String> pinnedTrackNames = new ArrayList<>();
+    /** Schedules the D43 pins; set first in the constructor. */
+    private final ControllerHost pinHost;
+    /** D43: pins sent again after the host reported an owned cursor track unpinned (a track delete does it). */
+    private long cursorTrackRepins;
+    private boolean cursorTracksPinned;
 
     /** Arrangement cursor clip (follows arranger clip selection). */
     public final Clip arrangerClip;
@@ -423,17 +439,24 @@ public class Rig {
     private String selectionOwnerToken;
     private int selectionOwnerTrackIndex = -1;
     private int selectionOwnerSlotIndex = -1;
+    /**
+     * D43 (E250): the mixer track that was selected at the claim. A pinned cursor point leaves the mixer selection
+     * there, so the lease holds while the mixer shows this track or the target.
+     */
+    private int selectionOwnerMixerIndex = -1;
 
     /** One selection lease, saved so that the clip reader can reinstate it after its own restore. */
-    public record SelectionLease(String token, int trackIndex, int slotIndex) { }
+    public record SelectionLease(String token, int trackIndex, int slotIndex, int mixerIndex) { }
 
     public SelectionLease selectionLease() {
-        return selectionOwnerToken == null
-            ? null : new SelectionLease(selectionOwnerToken, selectionOwnerTrackIndex, selectionOwnerSlotIndex);
+        return selectionOwnerToken == null ? null : new SelectionLease(
+            selectionOwnerToken, selectionOwnerTrackIndex, selectionOwnerSlotIndex, selectionOwnerMixerIndex);
     }
 
     public void reinstateSelectionLease(SelectionLease lease) {
-        if (lease != null) claimSelectionOwnership(lease.token(), lease.trackIndex(), lease.slotIndex());
+        if (lease == null) return;
+        claimSelectionOwnership(lease.token(), lease.trackIndex(), lease.slotIndex());
+        selectionOwnerMixerIndex = lease.mixerIndex();
     }
 
     public boolean selectionOwnerIs(String token) {
@@ -442,6 +465,8 @@ public class Rig {
 
     /** Claim the current selection for one bounded brain workflow. */
     public void claimSelectionOwnership(String token, int trackIndex, int slotIndex) {
+        // A repeated claim by the same workflow keeps the mixer track of its first claim.
+        if (!token.equals(selectionOwnerToken)) selectionOwnerMixerIndex = selectedMixerTrackIndex;
         selectionOwnerToken = token;
         selectionOwnerTrackIndex = trackIndex;
         selectionOwnerSlotIndex = slotIndex;
@@ -452,14 +477,17 @@ public class Rig {
         selectionOwnerToken = null;
         selectionOwnerTrackIndex = -1;
         selectionOwnerSlotIndex = -1;
+        selectionOwnerMixerIndex = -1;
     }
 
-    /** Retain a lease only when the selected mixer track is its expected track. */
+    /** Retain a lease only when the selected mixer track is its target or the mixer track of its claim (D43). */
     public void observeMixerSelection(int trackIndex) {
         selectionRevision++;
         selectedMixerTrackIndex = trackIndex;
         mixerSelectionProject = currentProjectName();
-        if (selectionOwnerToken != null && selectionOwnerTrackIndex != trackIndex) {
+        if (selectionOwnerToken != null && selectionOwnerTrackIndex != trackIndex
+                && selectionOwnerMixerIndex != trackIndex) {
+            recordLeaseClear("mixer", trackIndex, -1);
             clearSelectionOwnership();
         }
     }
@@ -474,8 +502,25 @@ public class Rig {
         if (selectionOwnerToken != null
                 && (selectionOwnerTrackIndex != trackIndex
                     || selectionOwnerSlotIndex != slotIndex)) {
+            recordLeaseClear("slot", trackIndex, slotIndex);
             clearSelectionOwnership();
         }
+    }
+
+    /** E250: the last selection observation that cleared a lease, for the {@code lease-lost} reply. */
+    public JsonObject lastLeaseClear;
+
+    private void recordLeaseClear(String by, int trackIndex, int slotIndex) {
+        JsonObject c = new JsonObject();
+        c.addProperty("by", by);
+        c.addProperty("token", selectionOwnerToken);
+        c.addProperty("leaseTrack", selectionOwnerTrackIndex);
+        c.addProperty("leaseSlot", selectionOwnerSlotIndex);
+        c.addProperty("leaseMixer", selectionOwnerMixerIndex);
+        c.addProperty("track", trackIndex);
+        c.addProperty("slot", slotIndex);
+        c.addProperty("epochMs", System.currentTimeMillis());
+        lastLeaseClear = c;
     }
 
     /** The current project name, or empty when it cannot be read. */
@@ -531,7 +576,7 @@ public class Rig {
             && selectionOwnerToken.equals(token)
             && selectionOwnerTrackIndex == trackIndex
             && selectionOwnerSlotIndex == slotIndex
-            && selectedMixerTrackIndex == trackIndex
+            && (selectedMixerTrackIndex == trackIndex || selectedMixerTrackIndex == selectionOwnerMixerIndex)
             && (slotIndex < 0
                 || (selectedTrackIndex == trackIndex && selectedSlotIndex == slotIndex));
     }
@@ -771,6 +816,7 @@ public class Rig {
 
     public Rig(ControllerHost host, RigConfig config, RuntimeProfile profile) {
         long start = System.nanoTime();
+        this.pinHost = host;
         this.config = config;
         this.profile = profile;
 
@@ -1007,7 +1053,7 @@ public class Rig {
             cursorTracks[i].name().markInterested();
             cursorTracks[i].position().markInterested();
             cursorTracks[i].channelId().markInterested();
-            cursorTracks[i].isPinned().markInterested();
+            ownCursorTrack("GN_CT_" + i, cursorTracks[i]);
 
             // Musical writes can use a 1/64-beat grid across an eight-beat clip.
             // A 64-step writer silently drops every note after the first beat.
@@ -1047,7 +1093,7 @@ public class Rig {
 
         fineTrack = host.createCursorTrack("GN_CT_FINE", "ghostnote fine cursor", 0, config.scenes, false);
         fineTrack.position().markInterested();
-        fineTrack.isPinned().markInterested();
+        ownCursorTrack("GN_CT_FINE", fineTrack);
         fineClip = fineTrack.createLauncherCursorClip(config.noteReadSteps, config.gridKeys);
         markClip(fineClip);
         fineClip.isPinned().markInterested();
@@ -1062,7 +1108,7 @@ public class Rig {
         noteObserverTrack.name().markInterested();
         noteObserverTrack.position().markInterested();
         noteObserverTrack.channelId().markInterested();
-        noteObserverTrack.isPinned().markInterested();
+        ownCursorTrack("GN_CT_NOTE_OBSERVER", noteObserverTrack);
         noteObserverClip = noteObserverTrack.createLauncherCursorClip(
             config.noteReadSteps, config.gridKeys);
         markClip(noteObserverClip);
@@ -1502,7 +1548,61 @@ public class Rig {
         // proxies. The former track and clip matrix had no active owner.
         equalsStatus = buildDeviceEqualsProbes();
 
+        // D43: pin every owned cursor track in the first task, before any request runs.
+        host.scheduleTask(() -> {
+            for (CursorTrack track : pinnedTracks) track.isPinned().set(true);
+            cursorTracksPinned = true;
+        }, 0);
+
         constructNanos = System.nanoTime() - start;
+    }
+
+    /** D43: an owned cursor track stays pinned from the first task (E250). Call during init. */
+    void ownCursorTrack(String name, CursorTrack track) {
+        track.isPinned().markInterested();
+        track.channelId().markInterested();
+        // E250: the host removes the pin of a cursor on a deleted track, and a project switch brings the pins of
+        // that project. The host keeps no pin on a cursor without a track. Pin again when the pin goes, and when
+        // an unpinned cursor gets a track.
+        track.isPinned().addValueObserver(pinned -> { if (!pinned) repinLater(track); });
+        track.channelId().addValueObserver(id -> { if (!id.isEmpty()) repinLater(track); });
+        pinnedTracks.add(track);
+        pinnedTrackNames.add(name);
+    }
+
+    private void repinLater(CursorTrack track) {
+        if (!cursorTracksPinned) return;
+        pinHost.scheduleTask(() -> {
+            if (track.isPinned().get() || track.channelId().get().isEmpty()) return;
+            cursorTrackRepins++;
+            track.isPinned().set(true);
+        }, 0);
+    }
+
+    /**
+     * The names of the owned cursor tracks on a track that the host reports unpinned. Empty when D43 holds. A cursor
+     * without a track cannot hold a pin, and it neither follows nor drives the selection until it has a track.
+     */
+    public JsonArray unpinnedCursorTracks() {
+        JsonArray names = new JsonArray();
+        for (int i = 0; i < pinnedTracks.size(); i++) {
+            CursorTrack track = pinnedTracks.get(i);
+            if (!track.isPinned().get() && !track.channelId().get().isEmpty()) names.add(pinnedTrackNames.get(i));
+        }
+        return names;
+    }
+
+    /** The D43 report for {@code rig.info} and {@code rig.stats}. */
+    public JsonObject cursorTrackPins() {
+        JsonObject result = new JsonObject();
+        result.addProperty("rule", CURSOR_TRACK_PIN);
+        result.addProperty("tracks", pinnedTracks.size());
+        result.add("unpinned", unpinnedCursorTracks());
+        result.addProperty("repins", cursorTrackRepins);
+        int untargeted = 0;
+        for (CursorTrack track : pinnedTracks) if (track.channelId().get().isEmpty()) untargeted++;
+        result.addProperty("untargeted", untargeted);
+        return result;
     }
 
     /** Start one target-bound generation and discard rows from any prior target. */

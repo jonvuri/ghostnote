@@ -44,7 +44,8 @@ session as a change that moves a number.
 | Unit | Cost | Source |
 |---|---|---|
 | One sequential wire call | About 24 ms (one control-surface turn) | E246 trace |
-| Calls sent together | One turn: a mark (`revision.get` and `track.list`); the 16 cursor-release frames after a structural stage | E246, E247 |
+| Calls sent together | One turn: a mark (`revision.get` and `track.list`); the 8 clip-release frames after a structural stage (16 before D43) | E246, E247, E250 |
+| Cursor track pins (D43) | No frame: the extension keeps every owned cursor track pinned. A clip point sends no track unpin or pin (2 sequential calls fewer for each attempt); a device route sends up to 2 fewer | E250 |
 | A bank scan (`tracks()`) within 50 ms of a mark, with no request after it | No call: the mark's scan | E247 |
 | One `clip.read` capture, typical clip | About 190 ms | E246 trace |
 | One `clip.read` capture, 16,384 notes | About 970 ms | E247 worst trace |
@@ -100,6 +101,21 @@ live wire-call count of the E247 inventory.
 | `show_launcher_clip_in_detail_editor` | 238 ms | `show_changed_clip`: 578 ms | mark 2, tracks 1, read 1, resolve 1 | E247 |
 | `add_scenes`, one; `delete_scene`, one | 368 ms; 393 ms | Before: 676 ms; 726 ms | add: mark 2, read 2, apply 1, delta 1; delete: mark 2, resolve 1, read 2, apply 1, delta 1 | E247 |
 | E45/E48-style workflow (read, copy, read and edit, launch, show, two reverts) | 8 calls, 6,745 ms, 28,362 bytes | E247: 6,895 ms; E239: 7,411 ms; `stable-v1`: 7 calls, 12,773 ms, 15,122 bytes | — | E248 workflow |
+
+### Follow-mode project rerun (E250)
+
+Live in "ice jungle", a project saved with the cursor records, on the D43
+build, after a project switch. The ledger rows above stay the reference;
+these rows show no regression and fewer wire calls.
+
+| Path | Current | Reference or earlier | Call budget | Source |
+|---|---:|---|---|---|
+| `read_launcher_clip`, existing clips | 365–403 ms; 12 wire calls | E247: 415–477 ms, 14 | unchanged | E250 |
+| Raw `clip.read`, existing clips | 163–211 ms; park in 0–1 polls | Dogfood: 2,436 ms `deadline` | — | E250 |
+| `add_launcher_clip`, typical | 2,158 ms; 77 wire calls | E247: 2,323 ms, 85 | unchanged | E250 |
+| `set_device_controls`, one write | 2,398 ms; 66 wire calls | E247: 2,555–2,650 ms, 74 | unchanged | E250 |
+| `add_devices`, one native device | 1,363 ms; 51 wire calls | E247: 1,447–1,544 ms, 67 | unchanged | E250 |
+| One read and one 16-note insert ("New 2") | 1,723–1,793 ms; 54–56 wire calls | E248: 1,790–1,832 ms | unchanged | E250 cost |
 
 ### Tracks, changes, and connection
 

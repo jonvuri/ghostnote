@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: 8h and 8i0 are complete (E247, E248, E249). Resume the 8i dogfood trials.
+status: 8h, 8i0, and the 8i1 reader repair are complete (E247–E250). Resume the 8i dogfood trials.
 updated: 2026-10-08
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -392,7 +392,10 @@ owns the migration details.
 29. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
    [8i0 — Clip metadata and colour tolerance](8i0-clip-metadata-and-colour-tolerance.md)
    is complete (E249, D42). It removed the colour refusal that the first
-   musical trial exposed before a length edit.
+   musical trial exposed before a length edit. The 8i1 reader repair is
+   complete ([E250](../../evidence/experiments/e250-reader-follow-mode-repair.md),
+   D43): every owned cursor track stays pinned, because a saved project made
+   unpinned cursors follow the selection and every read refuse.
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.
 

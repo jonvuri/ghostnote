@@ -46,7 +46,7 @@ import {
   type LaunchMode, type LaunchQuantization, type SceneAddress, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
   type Stage, type TrackAddress, type TrackState, type WindowCoverage,
 } from '../../contract/index.js';
-import { LAUNCH_MODES, LAUNCH_QUANTIZATIONS, SETTLE_MS } from '../../contract/index.js';
+import { LAUNCH_MODES, LAUNCH_QUANTIZATIONS, recordUnpinnedCursorTracks, SETTLE_MS } from '../../contract/index.js';
 import { BridgeError } from '../../client.js';
 import {
   encodeStage, notePageStarts, notePropertyPageStarts,
@@ -1606,7 +1606,6 @@ export class LiveAdapter implements BitwigAdapter {
         await this.transport.send({ method: WIRE.deviceCursorPin, params: { pinned: false } });
         this.heldDeviceTarget = undefined;
       }
-      await this.transport.send({ method: WIRE.cursorPinTrack, params: { cursor, pinned: false } });
       await this.pointCursorTrack(cursor, trackIndex);
       await this.settle('cursorPoint');
     } else {
@@ -1795,7 +1794,6 @@ export class LiveAdapter implements BitwigAdapter {
    */
   private async recoverStrandedDeviceCursor(key: string, trackIndex: number, deviceIndex: number): Promise<boolean> {
     this.onTrace?.({ action: 'device-cursor-recover', target: key });
-    await this.transport.send({ method: WIRE.cursorPinTrack, params: { cursor: '0', pinned: false } });
     await this.transport.send({ method: WIRE.deviceCursorPin, params: { pinned: false } });
     // The hop needs another track that the extension accepts. Try the nearest listed tracks; a project with no
     // other pointable track cannot recover here, and the read stays unstable.
@@ -1857,7 +1855,6 @@ export class LiveAdapter implements BitwigAdapter {
     this.heldDeviceTarget = undefined;
     this.onTrace?.({ action: 'device-retarget', target: key });
 
-    await this.transport.send({ method: WIRE.cursorPinTrack, params: { cursor: '0', pinned: false } });
     await this.transport.send({ method: WIRE.deviceCursorPin, params: { pinned: false } });
     if (!this.cursorTrackHeld('0', row)) {
       await this.pointCursorTrack('0', row.index, false);
@@ -2050,7 +2047,6 @@ export class LiveAdapter implements BitwigAdapter {
       }
     }
 
-    await this.transport.send({ method: WIRE.cursorPinTrack, params: { cursor: '0', pinned: true } });
     await this.transport.send({ method: WIRE.deviceCursorPin, params: { pinned: true } });
     let pinned = false;
     let pinnedStatus: DeviceCursorStatus | undefined;
@@ -2062,7 +2058,6 @@ export class LiveAdapter implements BitwigAdapter {
           && status.trackChannelId === device.track.channelId) {
         recovered = true;
         await this.recoverStrandedDeviceCursor(key, row.index, topAddress.chainIndex);
-        await this.transport.send({ method: WIRE.cursorPinTrack, params: { cursor: '0', pinned: true } });
         await this.transport.send({ method: WIRE.deviceCursorPin, params: { pinned: true } });
         continue;
       }
@@ -2598,7 +2593,6 @@ export class LiveAdapter implements BitwigAdapter {
       this.heldDeviceTarget = undefined;
       if (!this.cursorTrackHeld('0', { channelId: trackRef.channelId, index: trackIndex })) {
         await this.transport.send({ method: WIRE.deviceCursorPin, params: { pinned: false } });
-        await this.transport.send({ method: WIRE.cursorPinTrack, params: { cursor: '0', pinned: false } });
         await this.pointCursorTrack('0', trackIndex);
       } else {
         this.onTrace?.({ action: 'track-reuse', target: `0:${trackIndex}` });
@@ -2909,6 +2903,7 @@ export class LiveAdapter implements BitwigAdapter {
       project?: string;
       sceneCount?: number;
       contentEvents?: readonly ContentEvent[];
+      unpinnedCursorTracks?: readonly string[];
     };
     const mark: RevisionMark = {
       revision: r.revision,
@@ -2928,6 +2923,7 @@ export class LiveAdapter implements BitwigAdapter {
         scenes: { count: r.sceneCount ?? -1, bankSize: this.sceneBankSize },
       },
     };
+    if (r.unpinnedCursorTracks !== undefined) recordUnpinnedCursorTracks(mark, r.unpinnedCursorTracks);
     this.lastMark = mark;
     return { mark, events: r.contentEvents ?? [] };
   }
@@ -3718,10 +3714,6 @@ export class LiveAdapter implements BitwigAdapter {
           method: WIRE.cursorPin,
           params: { cursor, pinned: false },
         });
-        await this.transport.send({
-          method: WIRE.cursorPinTrack,
-          params: { cursor, pinned: false },
-        });
         await this.pointCursorTrack(cursor, trackIndex);
         await this.transport.send({
           method: WIRE.slotSelect,
@@ -3755,10 +3747,6 @@ export class LiveAdapter implements BitwigAdapter {
         continue;
       }
       if (!confirmingPins) {
-        await this.transport.send({
-          method: WIRE.cursorPinTrack,
-          params: { cursor, pinned: true },
-        });
         await this.transport.send({
           method: WIRE.cursorPin,
           params: { cursor, pinned: true },
@@ -6125,14 +6113,12 @@ export class LiveAdapter implements BitwigAdapter {
         this.heldClips.clear();
         this.invalidateStructuralTargets();
         // Logical invalidation is not enough. Reads pin the physical writer
-        // cursors, and a pinned cursor ignores later selection changes. Release
-        // every writer cursor and wait before the next stage. 8h4g: the release frames go out together, so the
-        // extension runs them in one control-surface turn in send order (E246: about 24 ms for each turn; it was
-        // 16 turns).
-        await Promise.all([...this.pool.references].flatMap((cursor) => [
-          this.transport.send({ method: WIRE.cursorPin, params: { cursor, pinned: false } }),
-          this.transport.send({ method: WIRE.cursorPinTrack, params: { cursor, pinned: false } }),
-        ]));
+        // clips, and a pinned clip ignores later slot selection changes. Release
+        // every writer clip and wait before the next stage. The cursor tracks stay pinned (D43). 8h4g: the release
+        // frames go out together, so the extension runs them in one control-surface turn in send order (E246:
+        // about 24 ms for each turn).
+        await Promise.all([...this.pool.references].map((cursor) =>
+          this.transport.send({ method: WIRE.cursorPin, params: { cursor, pinned: false } })));
         await this.settle('cursorPoint');
         let after = (await this.scanTracks()).tracks;
         // E2c/C-minted: structural rows sometimes enter the observable bank

@@ -6,7 +6,10 @@ package com.ghostnote.extension;
  *
  * <p>The close pins the clip on its target track. The host keeps that pin for the cursor and track. A pin change
  * that is sent while the clip is unsubscribed has no effect on the host. A pinned clip then binds its earlier row
- * on each later visit to that track. Thus the open task subscribes on the prior target before it removes the pins.
+ * on each later visit to that track. Thus the open task subscribes on the prior target before it removes the pin.
+ *
+ * <p>The reader track stays pinned (D43, E250). A pinned cursor track still moves when it is pointed. An unpinned one
+ * follows the selection, and drives it, in a project that was saved with the ghostnote cursor records.
  */
 final class ClipReadRoute {
     private ClipReadRoute() {}
@@ -16,7 +19,6 @@ final class ClipReadRoute {
         boolean subscribed();
         void subscribe();
         void unpinClip();
-        void unpinTrack();
         boolean atPark();
         void park();
         void claimLease();
@@ -43,19 +45,13 @@ final class ClipReadRoute {
     static boolean reselects(String route) { return !route.equals("no-reselect"); }
 
     /**
-     * The open task. Subscribe on the prior target, then remove both pins, then go to park. The prior clip
+     * The open task. Subscribe on the prior target, then remove the clip pin, then go to park. The prior clip
      * replays to no capture; the park check starts after it.
      */
     static void open(Steps s, String route) {
         if (expands(route)) s.findParent();
-        if (route.equals("legacy-open")) {
-            s.unpinClip();
-            s.unpinTrack();
-        } else {
-            if (!s.subscribed()) s.subscribe();
-            s.unpinClip();
-            s.unpinTrack();
-        }
+        if (!route.equals("legacy-open") && !s.subscribed()) s.subscribe();
+        s.unpinClip();
         if (!s.atPark()) s.park();
     }
 

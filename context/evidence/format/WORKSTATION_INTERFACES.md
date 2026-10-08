@@ -14,7 +14,7 @@ The rows below record the Phase 7 boundary. After 8h, five rows have a
 current state that differs:
 
 - I01: two profiles. `agent-native-v1` is the default (D40) with 39 tools
-  and description cohort `ghostnote-description-v34` (8i0, D42); `stable-v1` keeps its
+  and description cohort `ghostnote-description-v35` (8i1, D43); `stable-v1` keeps its
   frozen cohort as the rollback through 8i.
 - I03: the normal profile has 89 methods (`0ef817f4bac8a8a7`).
 - I07: musical patch version 1 and its result are on `stable-v1` only. The

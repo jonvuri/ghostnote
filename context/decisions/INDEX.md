@@ -54,6 +54,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D40 | `agent-native-v1` is the default profile, with one result vocabulary **[SETTLED 2026-10-08]** | [open](d40-agent-native-v1-is-the-default-profile.md) |
 | D41 | The writer window is the reader width, and a writer parks after each write **[SETTLED 2026-10-08]** | [open](d41-the-writer-window-is-the-reader-width.md) |
 | D42 | A clip property write owns only its changed fields, and a written colour is verified within one byte **[SETTLED 2026-10-08]** | [open](d42-clip-colour-tolerance-and-metadata-ownership.md) |
+| D43 | Every owned cursor track stays pinned **[SETTLED 2026-10-08]** | [open](d43-owned-cursor-tracks-stay-pinned.md) |
 
 ## Phase 4 closeout audit
 

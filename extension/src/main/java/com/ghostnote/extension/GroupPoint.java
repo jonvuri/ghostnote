@@ -15,7 +15,8 @@ import com.google.gson.JsonObject;
  * E242). A pinned cursor keeps its row when the group collapses (E243 P1). Thus the route opens the groups only
  * for the point, in the D34 order of the clip reader:
  * <ol>
- *   <li>Remove the clip and track pins of the cursor. Point the parent finder at the target.</li>
+ *   <li>Remove the clip pin of the cursor. The cursor track stays pinned (D43). Point the parent finder at the
+ *       target.</li>
  *   <li>Expand each collapsed group above the target, up to {@link ParentGroups#DEPTH} levels
  *       ({@link ParentGroups}).</li>
  *   <li>When the host reports each expansion: claim the selection lease, select the target row, and point the
@@ -46,7 +47,6 @@ public final class GroupPoint {
     /** The host steps of one point, in route order. Tests record their order. */
     interface Steps {
         void unpinClip();
-        void unpinTrack();
         void findParent();
         void claimLease();
         void selectRow();
@@ -55,10 +55,9 @@ public final class GroupPoint {
         void pinClip();
     }
 
-    /** The open task: remove both pins, then find the parents. */
+    /** The open task: remove the clip pin, then find the parents. */
     static void open(Steps s) {
         s.unpinClip();
-        s.unpinTrack();
         s.findParent();
     }
 
@@ -102,7 +101,6 @@ public final class GroupPoint {
         }
 
         public void unpinClip() { clip.isPinned().set(false); }
-        public void unpinTrack() { track.isPinned().set(false); }
         public void findParent() { parents.find(target); }
         public void claimLease() { rig.claimSelectionOwnership(token, trackIndex, row); }
         public void selectRow() { target.selectSlot(row); }

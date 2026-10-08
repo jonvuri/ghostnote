@@ -1,0 +1,1217 @@
+{
+ "schema": "phase8h4c-edit-v1-cost",
+ "entry": {
+  "hello": {
+   "contractVersion": 0,
+   "extensionVersion": "0.0.1",
+   "runtimeProfile": "normal-v1",
+   "hostApiVersion": 25,
+   "methodCount": 89,
+   "methodsHash": "0ef817f4bac8a8a7"
+  },
+  "mark": {
+   "revision": 0,
+   "generation": "5fb7ed09-8d73-493c-8862-7e7e8aaa2813",
+   "project": "New 2",
+   "projectStatus": "marked",
+   "sceneEpoch": 2,
+   "sceneCount": 8,
+   "contentEpoch": 32768,
+   "unpinnedCursorTracks": [],
+   "contentEvents": [
+    {
+     "seq": 32745,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 104,
+     "filled": false
+    },
+    {
+     "seq": 32746,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 105,
+     "filled": false
+    },
+    {
+     "seq": 32747,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 106,
+     "filled": false
+    },
+    {
+     "seq": 32748,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 107,
+     "filled": false
+    },
+    {
+     "seq": 32749,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 108,
+     "filled": false
+    },
+    {
+     "seq": 32750,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 109,
+     "filled": false
+    },
+    {
+     "seq": 32751,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 110,
+     "filled": false
+    },
+    {
+     "seq": 32752,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 111,
+     "filled": false
+    },
+    {
+     "seq": 32753,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 112,
+     "filled": false
+    },
+    {
+     "seq": 32754,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 113,
+     "filled": false
+    },
+    {
+     "seq": 32755,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 114,
+     "filled": false
+    },
+    {
+     "seq": 32756,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 115,
+     "filled": false
+    },
+    {
+     "seq": 32757,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 116,
+     "filled": false
+    },
+    {
+     "seq": 32758,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 117,
+     "filled": false
+    },
+    {
+     "seq": 32759,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 118,
+     "filled": false
+    },
+    {
+     "seq": 32760,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 119,
+     "filled": false
+    },
+    {
+     "seq": 32761,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 120,
+     "filled": false
+    },
+    {
+     "seq": 32762,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 121,
+     "filled": false
+    },
+    {
+     "seq": 32763,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 122,
+     "filled": false
+    },
+    {
+     "seq": 32764,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 123,
+     "filled": false
+    },
+    {
+     "seq": 32765,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 124,
+     "filled": false
+    },
+    {
+     "seq": 32766,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 125,
+     "filled": false
+    },
+    {
+     "seq": 32767,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 126,
+     "filled": false
+    },
+    {
+     "seq": 32768,
+     "channelId": "",
+     "trackIndex": 255,
+     "slotIndex": 127,
+     "filled": false
+    }
+   ]
+  },
+  "rig": {
+   "runtimeProfile": "normal-v1",
+   "tracks": 256,
+   "scenes": 128,
+   "gridSteps": 64,
+   "fineSteps": 4194304,
+   "noteReadSteps": 2048,
+   "gridKeys": 128,
+   "stepSize": 0.25,
+   "cursorPool": 8,
+   "deviceBank": 16,
+   "remotePages": 16,
+   "containerScopes": 3,
+   "containerEntryBank": 5,
+   "containerEntryDeviceBank": 4,
+   "parameterRouteDepth": 2,
+   "sceneCount": 8,
+   "clipReader": {
+    "revision": "clip-reader-v3",
+    "closeRule": "confirm-before-release-v1",
+    "openRule": "subscribe-before-unpin-v1",
+    "groupRule": "expand-collapsed-parent-v1",
+    "limitRule": "sounding-cell-limit-v1",
+    "format": "notes-v1",
+    "width": 4194304,
+    "grid": 0.001953125,
+    "page": 131072,
+    "deadlineMs": 2000,
+    "soundingCells": 2097152,
+    "reads": 0,
+    "refusals": 0,
+    "lastRefusal": "",
+    "lateCallbacks": 0,
+    "strayCallbacks": 0,
+    "releaseCallbacks": 0,
+    "releaseEmpty": 0,
+    "releaseSustain": 0,
+    "releaseOn": 0,
+    "subscribed": false,
+    "open": false,
+    "state": {
+     "parkChannelId": "dfed7c00-caab-4496-808a-aac62092726f",
+     "trackChannelId": "",
+     "trackPinned": false,
+     "clipTrackChannelId": "",
+     "clipExists": false,
+     "clipPinned": false,
+     "sceneIndex": 0,
+     "subscribed": false,
+     "atPark": false
+    },
+    "writeGate": {
+     "readOpen": false,
+     "waiting": 0,
+     "leases": 0,
+     "limit": 256,
+     "queuedTotal": 0,
+     "refusedTotal": 0
+    },
+    "groupPoint": {
+     "rule": "expand-collapsed-point-v1",
+     "points": 0,
+     "refusals": 0,
+     "lastRefusal": "",
+     "open": false
+    }
+   },
+   "writeGuard": "batch-scene-guard-v1",
+   "selectionRule": "selection-project-v1",
+   "cursorIdentity": "cursor-channel-id-v1",
+   "groupPoint": "expand-collapsed-point-v1",
+   "parameterSettle": "same-ids-switch-v1",
+   "trackCreateKinds": [
+    "instrument",
+    "audio"
+   ],
+   "clipMetadataWrite": "owned-fields-v1",
+   "cursorTrackPins": {
+    "rule": "owned-tracks-pinned-v1",
+    "tracks": 14,
+    "unpinned": [],
+    "repins": 0,
+    "untargeted": 13
+   },
+   "contentFilter": "ALL_CHANNELS"
+  }
+ },
+ "trackId": "c02ccf1e-106e-4d39-afd4-158741cc54ae",
+ "runs": [
+  {
+   "totalMs": 1767.3295000000003,
+   "readMs": 396.4407500000002,
+   "timing": {
+    "readMs": 354.796875,
+    "planMs": 23.58895900000016,
+    "writeMs": 955.0379160000002,
+    "readbackMs": 13.873625000000175,
+    "totalMs": 1364.1127079999997
+   },
+   "phases": [
+    {
+     "phase": "stash",
+     "ms": 25,
+     "end": 870
+    },
+    {
+     "phase": "apply",
+     "ms": 503,
+     "end": 1373
+    },
+    {
+     "phase": "verification",
+     "ms": 281,
+     "end": 1680
+    },
+    {
+     "phase": "finalReconciliation",
+     "ms": 1,
+     "end": 1681
+    }
+   ],
+   "wire": [
+    {
+     "method": "revision.get",
+     "start": 1,
+     "ms": 16
+    },
+    {
+     "method": "track.list",
+     "start": 1,
+     "ms": 17
+    },
+    {
+     "method": "selection.status",
+     "start": 18,
+     "ms": 23
+    },
+    {
+     "method": "slot.status",
+     "start": 41,
+     "ms": 24
+    },
+    {
+     "method": "revision.get",
+     "start": 65,
+     "ms": 24
+    },
+    {
+     "method": "track.list",
+     "start": 65,
+     "ms": 24
+    },
+    {
+     "method": "slot.status",
+     "start": 89,
+     "ms": 23
+    },
+    {
+     "method": "slot.status",
+     "start": 112,
+     "ms": 23
+    },
+    {
+     "method": "clip.read",
+     "start": 135,
+     "ms": 194
+    },
+    {
+     "method": "slot.status",
+     "start": 330,
+     "ms": 17
+    },
+    {
+     "method": "revision.get",
+     "start": 350,
+     "ms": 22
+    },
+    {
+     "method": "track.list",
+     "start": 350,
+     "ms": 23
+    },
+    {
+     "method": "revision.get",
+     "start": 403,
+     "ms": 15
+    },
+    {
+     "method": "track.list",
+     "start": 404,
+     "ms": 16
+    },
+    {
+     "method": "selection.status",
+     "start": 419,
+     "ms": 24
+    },
+    {
+     "method": "slot.status",
+     "start": 444,
+     "ms": 23
+    },
+    {
+     "method": "revision.get",
+     "start": 467,
+     "ms": 24
+    },
+    {
+     "method": "track.list",
+     "start": 467,
+     "ms": 24
+    },
+    {
+     "method": "slot.status",
+     "start": 491,
+     "ms": 23
+    },
+    {
+     "method": "slot.status",
+     "start": 515,
+     "ms": 23
+    },
+    {
+     "method": "clip.read",
+     "start": 538,
+     "ms": 195
+    },
+    {
+     "method": "slot.status",
+     "start": 734,
+     "ms": 17
+    },
+    {
+     "method": "revision.get",
+     "start": 753,
+     "ms": 21
+    },
+    {
+     "method": "track.list",
+     "start": 753,
+     "ms": 22
+    },
+    {
+     "method": "selection.status",
+     "start": 798,
+     "ms": 24
+    },
+    {
+     "method": "slot.status",
+     "start": 822,
+     "ms": 23
+    },
+    {
+     "method": "revision.get",
+     "start": 846,
+     "ms": 24
+    },
+    {
+     "method": "track.list",
+     "start": 846,
+     "ms": 24
+    },
+    {
+     "method": "revision.get",
+     "start": 871,
+     "ms": 24
+    },
+    {
+     "method": "track.list",
+     "start": 871,
+     "ms": 24
+    },
+    {
+     "method": "cursor.pin",
+     "start": 895,
+     "ms": 24
+    },
+    {
+     "method": "cursor.pointTrack",
+     "start": 919,
+     "ms": 24
+    },
+    {
+     "method": "slot.select",
+     "start": 944,
+     "ms": 24
+    },
+    {
+     "method": "cursor.status",
+     "start": 994,
+     "ms": 22
+    },
+    {
+     "method": "cursor.pin",
+     "start": 1016,
+     "ms": 25
+    },
+    {
+     "method": "cursor.status",
+     "start": 1067,
+     "ms": 19
+    },
+    {
+     "method": "cursor.setStepSize",
+     "start": 1086,
+     "ms": 23
+    },
+    {
+     "method": "cursor.scrollToStep",
+     "start": 1110,
+     "ms": 25
+    },
+    {
+     "method": "cursor.status",
+     "start": 1280,
+     "ms": 22
+    },
+    {
+     "method": "batch.run",
+     "start": 1302,
+     "ms": 25
+    },
+    {
+     "method": "cursor.setStepSize",
+     "start": 1327,
+     "ms": 22
+    },
+    {
+     "method": "cursor.scrollToStep",
+     "start": 1327,
+     "ms": 23
+    },
+    {
+     "method": "revision.get",
+     "start": 1350,
+     "ms": 23
+    },
+    {
+     "method": "track.list",
+     "start": 1350,
+     "ms": 23
+    },
+    {
+     "method": "revision.get",
+     "start": 1399,
+     "ms": 21
+    },
+    {
+     "method": "track.list",
+     "start": 1399,
+     "ms": 22
+    },
+    {
+     "method": "slot.status",
+     "start": 1422,
+     "ms": 25
+    },
+    {
+     "method": "clip.read",
+     "start": 1446,
+     "ms": 191
+    },
+    {
+     "method": "slot.status",
+     "start": 1638,
+     "ms": 16
+    },
+    {
+     "method": "slot.status",
+     "start": 1655,
+     "ms": 24
+    },
+    {
+     "method": "revision.get",
+     "start": 1682,
+     "ms": 22
+    },
+    {
+     "method": "track.list",
+     "start": 1682,
+     "ms": 22
+    },
+    {
+     "method": "slot.select",
+     "start": 1704,
+     "ms": 24
+    },
+    {
+     "method": "selection.status",
+     "start": 1728,
+     "ms": 24
+    }
+   ]
+  },
+  {
+   "totalMs": 1722.9651250000006,
+   "readMs": 414.6009160000003,
+   "timing": {
+    "readMs": 328.9811669999999,
+    "planMs": 17.341458000000785,
+    "writeMs": 933.0702919999994,
+    "readbackMs": 17.633707999999388,
+    "totalMs": 1303.4181249999992
+   },
+   "phases": [
+    {
+     "phase": "stash",
+     "ms": 24,
+     "end": 826
+    },
+    {
+     "phase": "apply",
+     "ms": 496,
+     "end": 1321
+    },
+    {
+     "phase": "verification",
+     "ms": 284,
+     "end": 1631
+    },
+    {
+     "phase": "finalReconciliation",
+     "ms": 1,
+     "end": 1632
+    }
+   ],
+   "wire": [
+    {
+     "method": "revision.get",
+     "start": 0,
+     "ms": 17
+    },
+    {
+     "method": "track.list",
+     "start": 0,
+     "ms": 18
+    },
+    {
+     "method": "selection.status",
+     "start": 18,
+     "ms": 25
+    },
+    {
+     "method": "slot.status",
+     "start": 43,
+     "ms": 25
+    },
+    {
+     "method": "revision.get",
+     "start": 67,
+     "ms": 24
+    },
+    {
+     "method": "track.list",
+     "start": 67,
+     "ms": 25
+    },
+    {
+     "method": "slot.status",
+     "start": 92,
+     "ms": 24
+    },
+    {
+     "method": "slot.status",
+     "start": 116,
+     "ms": 23
+    },
+    {
+     "method": "clip.read",
+     "start": 139,
+     "ms": 188
+    },
+    {
+     "method": "slot.status",
+     "start": 328,
+     "ms": 23
+    },
+    {
+     "method": "revision.get",
+     "start": 352,
+     "ms": 23
+    },
+    {
+     "method": "track.list",
+     "start": 352,
+     "ms": 23
+    },
+    {
+     "method": "revision.get",
+     "start": 376,
+     "ms": 25
+    },
+    {
+     "method": "track.list",
+     "start": 376,
+     "ms": 25
+    },
+    {
+     "method": "revision.get",
+     "start": 420,
+     "ms": 5
+    },
+    {
+     "method": "track.list",
+     "start": 420,
+     "ms": 6
+    },
+    {
+     "method": "selection.status",
+     "start": 426,
+     "ms": 24
+    },
+    {
+     "method": "slot.status",
+     "start": 450,
+     "ms": 24
+    },
+    {
+     "method": "revision.get",
+     "start": 474,
+     "ms": 22
+    },
+    {
+     "method": "track.list",
+     "start": 474,
+     "ms": 22
+    },
+    {
+     "method": "slot.status",
+     "start": 497,
+     "ms": 26
+    },
+    {
+     "method": "slot.status",
+     "start": 522,
+     "ms": 23
+    },
+    {
+     "method": "clip.read",
+     "start": 546,
+     "ms": 168
+    },
+    {
+     "method": "slot.status",
+     "start": 714,
+     "ms": 17
+    },
+    {
+     "method": "revision.get",
+     "start": 732,
+     "ms": 22
+    },
+    {
+     "method": "track.list",
+     "start": 732,
+     "ms": 22
+    },
+    {
+     "method": "selection.status",
+     "start": 772,
+     "ms": 5
+    },
+    {
+     "method": "slot.status",
+     "start": 777,
+     "ms": 24
+    },
+    {
+     "method": "revision.get",
+     "start": 801,
+     "ms": 23
+    },
+    {
+     "method": "track.list",
+     "start": 801,
+     "ms": 24
+    },
+    {
+     "method": "revision.get",
+     "start": 826,
+     "ms": 24
+    },
+    {
+     "method": "track.list",
+     "start": 826,
+     "ms": 24
+    },
+    {
+     "method": "cursor.pin",
+     "start": 850,
+     "ms": 22
+    },
+    {
+     "method": "cursor.pointTrack",
+     "start": 872,
+     "ms": 23
+    },
+    {
+     "method": "slot.select",
+     "start": 895,
+     "ms": 25
+    },
+    {
+     "method": "cursor.status",
+     "start": 946,
+     "ms": 22
+    },
+    {
+     "method": "cursor.pin",
+     "start": 968,
+     "ms": 23
+    },
+    {
+     "method": "cursor.status",
+     "start": 1018,
+     "ms": 24
+    },
+    {
+     "method": "cursor.setStepSize",
+     "start": 1041,
+     "ms": 22
+    },
+    {
+     "method": "cursor.scrollToStep",
+     "start": 1064,
+     "ms": 24
+    },
+    {
+     "method": "cursor.status",
+     "start": 1233,
+     "ms": 17
+    },
+    {
+     "method": "batch.run",
+     "start": 1250,
+     "ms": 25
+    },
+    {
+     "method": "cursor.setStepSize",
+     "start": 1275,
+     "ms": 21
+    },
+    {
+     "method": "cursor.scrollToStep",
+     "start": 1275,
+     "ms": 21
+    },
+    {
+     "method": "revision.get",
+     "start": 1296,
+     "ms": 25
+    },
+    {
+     "method": "track.list",
+     "start": 1296,
+     "ms": 25
+    },
+    {
+     "method": "revision.get",
+     "start": 1348,
+     "ms": 20
+    },
+    {
+     "method": "track.list",
+     "start": 1348,
+     "ms": 21
+    },
+    {
+     "method": "slot.status",
+     "start": 1368,
+     "ms": 22
+    },
+    {
+     "method": "clip.read",
+     "start": 1391,
+     "ms": 197
+    },
+    {
+     "method": "slot.status",
+     "start": 1589,
+     "ms": 17
+    },
+    {
+     "method": "slot.status",
+     "start": 1606,
+     "ms": 24
+    },
+    {
+     "method": "revision.get",
+     "start": 1632,
+     "ms": 22
+    },
+    {
+     "method": "track.list",
+     "start": 1632,
+     "ms": 22
+    },
+    {
+     "method": "slot.select",
+     "start": 1654,
+     "ms": 25
+    },
+    {
+     "method": "selection.status",
+     "start": 1679,
+     "ms": 25
+    }
+   ]
+  },
+  {
+   "totalMs": 1793.0075830000005,
+   "readMs": 416.12387500000114,
+   "timing": {
+    "readMs": 354.87908400000015,
+    "planMs": 27.063125000000582,
+    "writeMs": 948.2976670000007,
+    "readbackMs": 19.26875000000109,
+    "totalMs": 1370.118042
+   },
+   "phases": [
+    {
+     "phase": "stash",
+     "ms": 25,
+     "end": 894
+    },
+    {
+     "phase": "apply",
+     "ms": 495,
+     "end": 1390
+    },
+    {
+     "phase": "verification",
+     "ms": 285,
+     "end": 1701
+    },
+    {
+     "phase": "finalReconciliation",
+     "ms": 1,
+     "end": 1702
+    }
+   ],
+   "wire": [
+    {
+     "method": "revision.get",
+     "start": 0,
+     "ms": 16
+    },
+    {
+     "method": "track.list",
+     "start": 0,
+     "ms": 17
+    },
+    {
+     "method": "selection.status",
+     "start": 17,
+     "ms": 24
+    },
+    {
+     "method": "slot.status",
+     "start": 40,
+     "ms": 25
+    },
+    {
+     "method": "revision.get",
+     "start": 66,
+     "ms": 24
+    },
+    {
+     "method": "track.list",
+     "start": 66,
+     "ms": 25
+    },
+    {
+     "method": "slot.status",
+     "start": 91,
+     "ms": 23
+    },
+    {
+     "method": "slot.status",
+     "start": 114,
+     "ms": 23
+    },
+    {
+     "method": "clip.read",
+     "start": 137,
+     "ms": 186
+    },
+    {
+     "method": "slot.status",
+     "start": 326,
+     "ms": 17
+    },
+    {
+     "method": "revision.get",
+     "start": 345,
+     "ms": 23
+    },
+    {
+     "method": "track.list",
+     "start": 345,
+     "ms": 23
+    },
+    {
+     "method": "revision.get",
+     "start": 368,
+     "ms": 23
+    },
+    {
+     "method": "track.list",
+     "start": 368,
+     "ms": 24
+    },
+    {
+     "method": "revision.get",
+     "start": 423,
+     "ms": 19
+    },
+    {
+     "method": "track.list",
+     "start": 423,
+     "ms": 20
+    },
+    {
+     "method": "selection.status",
+     "start": 443,
+     "ms": 24
+    },
+    {
+     "method": "slot.status",
+     "start": 467,
+     "ms": 24
+    },
+    {
+     "method": "revision.get",
+     "start": 492,
+     "ms": 25
+    },
+    {
+     "method": "track.list",
+     "start": 492,
+     "ms": 25
+    },
+    {
+     "method": "slot.status",
+     "start": 517,
+     "ms": 25
+    },
+    {
+     "method": "slot.status",
+     "start": 542,
+     "ms": 24
+    },
+    {
+     "method": "clip.read",
+     "start": 566,
+     "ms": 187
+    },
+    {
+     "method": "slot.status",
+     "start": 755,
+     "ms": 17
+    },
+    {
+     "method": "revision.get",
+     "start": 775,
+     "ms": 23
+    },
+    {
+     "method": "track.list",
+     "start": 775,
+     "ms": 23
+    },
+    {
+     "method": "selection.status",
+     "start": 825,
+     "ms": 20
+    },
+    {
+     "method": "slot.status",
+     "start": 845,
+     "ms": 24
+    },
+    {
+     "method": "revision.get",
+     "start": 869,
+     "ms": 25
+    },
+    {
+     "method": "track.list",
+     "start": 869,
+     "ms": 25
+    },
+    {
+     "method": "revision.get",
+     "start": 895,
+     "ms": 23
+    },
+    {
+     "method": "track.list",
+     "start": 895,
+     "ms": 23
+    },
+    {
+     "method": "cursor.pin",
+     "start": 918,
+     "ms": 22
+    },
+    {
+     "method": "cursor.pointTrack",
+     "start": 940,
+     "ms": 24
+    },
+    {
+     "method": "slot.select",
+     "start": 964,
+     "ms": 24
+    },
+    {
+     "method": "cursor.status",
+     "start": 1014,
+     "ms": 21
+    },
+    {
+     "method": "cursor.pin",
+     "start": 1035,
+     "ms": 24
+    },
+    {
+     "method": "cursor.status",
+     "start": 1086,
+     "ms": 21
+    },
+    {
+     "method": "cursor.setStepSize",
+     "start": 1107,
+     "ms": 24
+    },
+    {
+     "method": "cursor.scrollToStep",
+     "start": 1131,
+     "ms": 24
+    },
+    {
+     "method": "cursor.status",
+     "start": 1300,
+     "ms": 20
+    },
+    {
+     "method": "batch.run",
+     "start": 1321,
+     "ms": 26
+    },
+    {
+     "method": "cursor.setStepSize",
+     "start": 1347,
+     "ms": 19
+    },
+    {
+     "method": "cursor.scrollToStep",
+     "start": 1347,
+     "ms": 19
+    },
+    {
+     "method": "revision.get",
+     "start": 1365,
+     "ms": 24
+    },
+    {
+     "method": "track.list",
+     "start": 1365,
+     "ms": 25
+    },
+    {
+     "method": "revision.get",
+     "start": 1416,
+     "ms": 22
+    },
+    {
+     "method": "track.list",
+     "start": 1416,
+     "ms": 23
+    },
+    {
+     "method": "slot.status",
+     "start": 1439,
+     "ms": 23
+    },
+    {
+     "method": "clip.read",
+     "start": 1462,
+     "ms": 195
+    },
+    {
+     "method": "slot.status",
+     "start": 1659,
+     "ms": 15
+    },
+    {
+     "method": "slot.status",
+     "start": 1674,
+     "ms": 24
+    },
+    {
+     "method": "revision.get",
+     "start": 1702,
+     "ms": 20
+    },
+    {
+     "method": "track.list",
+     "start": 1702,
+     "ms": 20
+    },
+    {
+     "method": "slot.select",
+     "start": 1723,
+     "ms": 24
+    },
+    {
+     "method": "selection.status",
+     "start": 1747,
+     "ms": 25
+    }
+   ]
+  }
+ ]
+}

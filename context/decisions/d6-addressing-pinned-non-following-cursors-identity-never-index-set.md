@@ -32,6 +32,9 @@ outlives the request that resolved it.**
   at creation); pinning is belt-and-suspenders on top (E1). 3 cursors held 3
   different clips concurrently, and 20/20 write+readback cycles stayed correct
   through continuous user clicking (27 selection changes observed).
+  **Amended by D43 (E250):** a project that was saved with the cursor records
+  makes an unpinned cursor follow and drive the selection. Every owned cursor
+  track now stays pinned, and a point changes only the clip pin.
 - **Re-point after ANY structural op.** A held pin's `sceneIndex` goes permanently
   stale after scene compaction (E3), and bank indices drift under create/delete.
 - ⚠ **Pointing STEALS the user's clip selection** (E1, measured E14-F1). It can be

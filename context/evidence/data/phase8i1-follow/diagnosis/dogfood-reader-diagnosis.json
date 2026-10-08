@@ -1,0 +1,410 @@
+[
+  {
+    "method": "selection.status",
+    "params": {},
+    "wallMs": 19,
+    "response": {
+      "jsonrpc": "2.0",
+      "id": "1",
+      "result": {
+        "trackIndex": 2,
+        "slotIndex": 0,
+        "mixerTrackIndex": 1,
+        "changes": 4,
+        "revision": 18,
+        "slotProject": "ice jungle",
+        "mixerProject": "ice jungle",
+        "project": "ice jungle"
+      }
+    }
+  },
+  {
+    "method": "cursor.status",
+    "params": {
+      "cursor": "fine"
+    },
+    "wallMs": 33,
+    "response": {
+      "jsonrpc": "2.0",
+      "id": "2",
+      "result": {
+        "exists": true,
+        "loopLength": 8.0,
+        "trackExists": true,
+        "trackName": "Ice Shells",
+        "trackPosition": 1,
+        "trackChannelId": "498851e9-07a3-472c-866f-45f27a357ad9",
+        "slotExists": true,
+        "sceneIndex": 0,
+        "slotName": "Icy Shell Stabs 01",
+        "isPinned": true,
+        "cursorTrackPosition": 1,
+        "cursorTrackPinned": true
+      }
+    }
+  },
+  {
+    "method": "cursor.pointExpanded",
+    "params": {
+      "cursor": "fine",
+      "trackIndex": 0,
+      "row": 0,
+      "channelId": "97e07f49-54bb-472e-a6ac-c2e7b68137a5"
+    },
+    "wallMs": 198,
+    "response": {
+      "jsonrpc": "2.0",
+      "id": "3",
+      "result": {
+        "rule": "expand-collapsed-point-v1",
+        "pointId": 1,
+        "cursor": "fine",
+        "trackIndex": 0,
+        "row": 0,
+        "channelId": "97e07f49-54bb-472e-a6ac-c2e7b68137a5",
+        "finderPolls": 2,
+        "targetPolls": 0,
+        "pinPolls": 0,
+        "bindMs": 87.629,
+        "confirmMs": 112.781083,
+        "pinMs": 136.414458,
+        "parents": [
+          {
+            "channelId": "229ac3b2-a7f0-4465-9aec-4754eb0e87f5",
+            "isGroup": true,
+            "wasExpanded": false
+          }
+        ],
+        "expandPolls": 0,
+        "selection": {
+          "entry": [
+            2,
+            0,
+            1
+          ],
+          "restored": true,
+          "changed": true
+        },
+        "slotPolls": 2,
+        "slotRestored": true,
+        "status": {
+          "trackChannelId": "97e07f49-54bb-472e-a6ac-c2e7b68137a5",
+          "sceneIndex": 0,
+          "isPinned": true,
+          "cursorTrackPinned": true
+        },
+        "totalMs": 181.639375
+      }
+    }
+  },
+  {
+    "method": "cursor.pinTrack",
+    "params": {
+      "cursor": "fine",
+      "pinned": true
+    },
+    "wallMs": 25,
+    "response": {
+      "jsonrpc": "2.0",
+      "id": "4",
+      "result": {
+        "success": true
+      }
+    }
+  },
+  {
+    "method": "cursor.pin",
+    "params": {
+      "cursor": "fine",
+      "pinned": true
+    },
+    "wallMs": 25,
+    "response": {
+      "jsonrpc": "2.0",
+      "id": "5",
+      "result": {
+        "success": true
+      }
+    }
+  },
+  {
+    "method": "slot.select",
+    "params": {
+      "trackIndex": 2,
+      "slotIndex": 0,
+      "mechanism": "track"
+    },
+    "wallMs": 25,
+    "response": {
+      "jsonrpc": "2.0",
+      "id": "6",
+      "result": {
+        "success": true,
+        "selected": true
+      }
+    }
+  },
+  {
+    "method": "selection.status",
+    "params": {},
+    "wallMs": 25,
+    "response": {
+      "jsonrpc": "2.0",
+      "id": "7",
+      "result": {
+        "trackIndex": 2,
+        "slotIndex": 0,
+        "mixerTrackIndex": 1,
+        "changes": 6,
+        "revision": 22,
+        "slotProject": "ice jungle",
+        "mixerProject": "ice jungle",
+        "project": "ice jungle"
+      }
+    }
+  },
+  {
+    "method": "rig.stats",
+    "params": {},
+    "wallMs": 25,
+    "response": {
+      "jsonrpc": "2.0",
+      "id": "8",
+      "result": {
+        "runtimeProfile": "normal-v1",
+        "config": {
+          "tracks": 256,
+          "scenes": 128,
+          "gridSteps": 64,
+          "gridKeys": 128,
+          "cursorPool": 8,
+          "sends": 4,
+          "deviceBank": 16,
+          "fineSteps": 4194304,
+          "noteReadSteps": 2048,
+          "paramHandles": 64,
+          "remotePages": 16,
+          "cacheShadowSteps": 131072,
+          "cacheKneeResearch": false,
+          "changeWatchCursors": 0,
+          "contentFilter": "ALL_CHANNELS",
+          "directObservers": true,
+          "stamp": "default",
+          "fromFile": true
+        },
+        "rigConstructMicros": 124887,
+        "initMicros": 165146,
+        "initEpochMs": 1791444278336,
+        "upMs": 922758,
+        "clipReader": {
+          "revision": "clip-reader-v3",
+          "closeRule": "confirm-before-release-v1",
+          "openRule": "subscribe-before-unpin-v1",
+          "groupRule": "expand-collapsed-parent-v1",
+          "limitRule": "sounding-cell-limit-v1",
+          "format": "notes-v1",
+          "width": 4194304,
+          "grid": 0.001953125,
+          "page": 131072,
+          "deadlineMs": 2000,
+          "soundingCells": 2097152,
+          "reads": 8,
+          "refusals": 8,
+          "lastRefusal": "deadline",
+          "lateCallbacks": 0,
+          "strayCallbacks": 37248,
+          "releaseCallbacks": 0,
+          "releaseEmpty": 0,
+          "releaseSustain": 0,
+          "releaseOn": 0,
+          "subscribed": false,
+          "open": false,
+          "writeGate": {
+            "readOpen": false,
+            "waiting": 0,
+            "leases": 0,
+            "limit": 256,
+            "queuedTotal": 0,
+            "refusedTotal": 0
+          },
+          "groupPoint": {
+            "rule": "expand-collapsed-point-v1",
+            "points": 1,
+            "refusals": 0,
+            "lastRefusal": "",
+            "open": false
+          }
+        },
+        "slotObjects": 32768,
+        "markedValues": 197888,
+        "resources": {
+          "cursorDeviceBanks": 8,
+          "siblingDeviceBanks": 1,
+          "layerDeviceBanks": 8,
+          "slotDeviceBanks": 15,
+          "namedSlotDeviceBanks": 0,
+          "drumPadDeviceBanks": 16,
+          "deviceBanks": 48,
+          "cursorDeviceSlots": 128,
+          "cursorDeviceEnabledValues": 128,
+          "layerDeviceSlots": 32,
+          "slotDeviceSlots": 60,
+          "drumPadDeviceSlots": 256,
+          "namedSlotDeviceSlots": 0,
+          "deviceSlots": 492,
+          "cursorDevices": 1,
+          "specificDeviceViews": 4,
+          "typedParameterHandles": 75,
+          "remotePageCursors": 16,
+          "remoteParameterHandles": 128,
+          "directParameterObservers": 4,
+          "noteObserverCursors": 1,
+          "noteStepObservers": 1,
+          "stepDataObservers": 0,
+          "trackSendBanks": 0,
+          "trackSendHandles": 0,
+          "trackVuObservers": 0,
+          "historicalActionHandles": 0,
+          "historicalSelectionObservers": 0,
+          "equalsProxies": 32,
+          "transportProxies": 1,
+          "masterRecorderProxies": 0,
+          "cursorTracks": 11,
+          "cursorClips": 11,
+          "layerBanks": 4,
+          "layerHandles": 23,
+          "layerSendBanks": 0,
+          "layerSendHandles": 0,
+          "explicitHostObjects": 33893,
+          "observerCallbacks": 838
+        },
+        "heapUsedMb": 252,
+        "heapMaxMb": 3072
+      }
+    }
+  },
+  {
+    "method": "cursor.pointExpanded",
+    "params": {
+      "cursor": "fine",
+      "trackIndex": 1,
+      "row": 0,
+      "channelId": "498851e9-07a3-472c-866f-45f27a357ad9"
+    },
+    "wallMs": 138,
+    "response": {
+      "jsonrpc": "2.0",
+      "id": "1",
+      "result": {
+        "rule": "expand-collapsed-point-v1",
+        "pointId": 2,
+        "cursor": "fine",
+        "trackIndex": 1,
+        "row": 0,
+        "channelId": "498851e9-07a3-472c-866f-45f27a357ad9",
+        "finderPolls": 0,
+        "targetPolls": 0,
+        "pinPolls": 0,
+        "bindMs": 47.735041,
+        "confirmMs": 71.347708,
+        "pinMs": 96.297416,
+        "parents": [
+          {
+            "channelId": "229ac3b2-a7f0-4465-9aec-4754eb0e87f5",
+            "isGroup": true,
+            "wasExpanded": false
+          }
+        ],
+        "expandPolls": 0,
+        "selection": {
+          "entry": [
+            2,
+            0,
+            1
+          ],
+          "restored": true,
+          "changed": true
+        },
+        "slotPolls": 1,
+        "slotRestored": true,
+        "status": {
+          "trackChannelId": "498851e9-07a3-472c-866f-45f27a357ad9",
+          "sceneIndex": 0,
+          "isPinned": true,
+          "cursorTrackPinned": true
+        },
+        "totalMs": 121.291125
+      }
+    }
+  },
+  {
+    "method": "cursor.status",
+    "params": {
+      "cursor": "fine"
+    },
+    "wallMs": 23,
+    "response": {
+      "jsonrpc": "2.0",
+      "id": "2",
+      "result": {
+        "exists": true,
+        "loopLength": 8.0,
+        "trackExists": true,
+        "trackName": "Ice Shells",
+        "trackPosition": 1,
+        "trackChannelId": "498851e9-07a3-472c-866f-45f27a357ad9",
+        "slotExists": true,
+        "sceneIndex": 0,
+        "slotName": "Icy Shell Stabs 01",
+        "isPinned": true,
+        "cursorTrackPosition": 1,
+        "cursorTrackPinned": true
+      }
+    }
+  },
+  {
+    "method": "clip.read",
+    "params": {
+      "trackIndex": 0,
+      "row": 0,
+      "channelId": "97e07f49-54bb-472e-a6ac-c2e7b68137a5"
+    },
+    "wallMs": 2470,
+    "response": {
+      "jsonrpc": "2.0",
+      "id": "3",
+      "result": {
+        "revision": "clip-reader-v3",
+        "closeRule": "confirm-before-release-v1",
+        "openRule": "subscribe-before-unpin-v1",
+        "groupRule": "expand-collapsed-parent-v1",
+        "limitRule": "sounding-cell-limit-v1",
+        "readId": 9,
+        "priorReleaseCallbacks": 0,
+        "priorReleaseEmpty": 0,
+        "priorReleaseSustain": 0,
+        "priorReleaseOn": 0,
+        "trackIndex": 0,
+        "row": 0,
+        "channelId": "97e07f49-54bb-472e-a6ac-c2e7b68137a5",
+        "parkMs": -1.0,
+        "bindMs": -1.0,
+        "closeMs": -1.0,
+        "totalMs": 2445.612,
+        "parkPolls": 100,
+        "unpinCallbacks": 3968,
+        "heapBindMb": -1,
+        "heapCloseMb": -1,
+        "heapMaxMb": 3072,
+        "selection": {
+          "restored": false,
+          "reason": "refused-before-bind"
+        },
+        "lateCallbacks": 0,
+        "refused": "deadline",
+        "message": "the read did not close within its deadline",
+        "releaseMs": 2422.503875
+      }
+    }
+  }
+]

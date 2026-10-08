@@ -83,7 +83,9 @@ export type {
   RemoteControlState, RemoteControlsState, RemotePageState, TrackState,
 } from './state.js';
 
-export { blindCount, failures, fullyApplied, windowCovers } from './snapshot.js';
+export {
+  blindCount, failures, fullyApplied, recordUnpinnedCursorTracks, unpinnedCursorTracksOf, windowCovers,
+} from './snapshot.js';
 export type {
   BatchReceipt, Fidelity, OpReceipt, RevisionMark, Snapshot, StageReceipt, StateEntry, StateValue,
   WindowCoverage,

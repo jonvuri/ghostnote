@@ -16,7 +16,7 @@ import { z } from 'zod';
 
 import {
   CLIP_READ_SOUNDING_CELLS, addressKey, clipSnapshotFrom, contentTouching, deltaComplete, isGroupTrack, judgeClipSnapshot,
-  snapshotAddresses, snapshotClip, track as trackAt,
+  snapshotAddresses, snapshotClip, track as trackAt, unpinnedCursorTracksOf,
   type ClipSnapshot, type ClipSnapshotVerdict, type RevisionMark,
 } from '../contract/index.js';
 import { readWithClipSnapshots } from '../engine/index.js';
@@ -201,6 +201,19 @@ export function checkHealth(mark: RevisionMark): void {
   if (mark.window.tracks.count > mark.window.tracks.bankSize || mark.window.scenes.count > mark.window.scenes.bankSize) {
     throw new ToolFailure('outside-limit', 'resolve', 'The project has more tracks or scenes than the observed window.');
   }
+  checkCursorPins(mark);
+}
+
+/**
+ * D43 (E250): an unpinned Ghostnote cursor can follow and change the person's selection in a saved project. The
+ * extension pins every owned cursor track at start; a listed track means that the pin did not take.
+ */
+export function checkCursorPins(mark: RevisionMark): void {
+  const unpinned = unpinnedCursorTracksOf(mark) ?? [];
+  if (unpinned.length === 0) return;
+  throw new ToolFailure('unhealthy', 'resolve', `${unpinned.length} extension track handle(s) are not held in place `
+    + `(${unpinned.join(', ')}). Such a handle can follow the selection and change it.`, {
+    retryWhen: 'after the operator replaces the Ghostnote controller in Bitwig Settings' });
 }
 
 // --- read_launcher_clip --------------------------------------------------------

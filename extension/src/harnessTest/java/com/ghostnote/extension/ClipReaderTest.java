@@ -155,7 +155,6 @@ public final class ClipReaderTest {
         public boolean subscribed() { return subscribed; }
         public void subscribe() { subscribed = true; log.add("subscribe"); }
         public void unpinClip() { if (subscribed) hostClipPinned = false; log.add("unpinClip"); }
-        public void unpinTrack() { log.add("unpinTrack"); }
         public boolean atPark() { return atPark; }
         public void park() { log.add("park"); }
         public void claimLease() { log.add("claimLease"); }
@@ -169,22 +168,22 @@ public final class ClipReaderTest {
     private static void openOrder() {
         Steps released = new Steps();
         ClipReadRoute.open(released, "");
-        check(released.log.equals(List.of("findParent", "subscribe", "unpinClip", "unpinTrack", "park")),
+        check(released.log.equals(List.of("findParent", "subscribe", "unpinClip", "park")),
             "product open " + released.log);
         check(!released.hostClipPinned, "the unpin reaches the host");
         ClipReadRoute.parked(released, "");
-        check(released.log.equals(List.of("findParent", "subscribe", "unpinClip", "unpinTrack", "park",
+        check(released.log.equals(List.of("findParent", "subscribe", "unpinClip", "park",
             "expandParents")), "no second subscribe at park " + released.log);
 
         Steps open = new Steps();
         open.subscribed = true; open.atPark = true;
         ClipReadRoute.open(open, "");
-        check(open.log.equals(List.of("findParent", "unpinClip", "unpinTrack")), "already subscribed and parked " + open.log);
+        check(open.log.equals(List.of("findParent", "unpinClip")), "already subscribed and parked " + open.log);
 
         Steps legacy = new Steps();
         ClipReadRoute.open(legacy, "legacy-open");
         ClipReadRoute.parked(legacy, "legacy-open");
-        check(legacy.log.equals(List.of("findParent", "unpinClip", "unpinTrack", "park", "subscribe", "expandParents")),
+        check(legacy.log.equals(List.of("findParent", "unpinClip", "park", "subscribe", "expandParents")),
             "legacy open " + legacy.log);
         check(legacy.hostClipPinned, "the legacy unpin does not reach the host");
     }
@@ -201,14 +200,14 @@ public final class ClipReaderTest {
         ClipReadRoute.parked(s, "");
         ClipReadRoute.bind(s);
         ClipReadRoute.closed(s, "");
-        check(s.log.equals(List.of("findParent", "subscribe", "unpinClip", "unpinTrack", "park", "expandParents",
+        check(s.log.equals(List.of("findParent", "subscribe", "unpinClip", "park", "expandParents",
             "claimLease", "selectRow", "pointTarget", "collapseParents")), "product " + s.log);
         Steps none = new Steps();
         ClipReadRoute.open(none, "no-expand");
         ClipReadRoute.parked(none, "no-expand");
         ClipReadRoute.bind(none);
         ClipReadRoute.closed(none, "no-expand");
-        check(none.log.equals(List.of("subscribe", "unpinClip", "unpinTrack", "park", "claimLease", "selectRow",
+        check(none.log.equals(List.of("subscribe", "unpinClip", "park", "claimLease", "selectRow",
             "pointTarget")), "no-expand " + none.log);
         check(ClipReadRoute.isParentGroup(true, true, "g2", "track", "master"), "a group above the target");
         check(!ClipReadRoute.isParentGroup(true, true, "master", "track", "master"), "the project proxy (E241)");
@@ -222,7 +221,6 @@ public final class ClipReaderTest {
     private static final class PointSteps implements GroupPoint.Steps {
         final List<String> log = new ArrayList<>();
         public void unpinClip() { log.add("unpinClip"); }
-        public void unpinTrack() { log.add("unpinTrack"); }
         public void findParent() { log.add("findParent"); }
         public void claimLease() { log.add("claimLease"); }
         public void selectRow() { log.add("selectRow"); }
@@ -236,7 +234,7 @@ public final class ClipReaderTest {
         GroupPoint.open(s);
         GroupPoint.bind(s);
         GroupPoint.pin(s);
-        check(s.log.equals(List.of("unpinClip", "unpinTrack", "findParent", "claimLease", "selectRow", "pointTarget",
+        check(s.log.equals(List.of("unpinClip", "findParent", "claimLease", "selectRow", "pointTarget",
             "pinTrack", "pinClip")), "route " + s.log);
     }
 

@@ -263,6 +263,8 @@ public final class BatchHandlers extends HandlerGroup {
         r.addProperty("sceneEpoch", rig.sceneCountChanges);
         r.addProperty("sceneCount", rig.lastSceneCount);
         r.addProperty("contentEpoch", rig.launcherContentEpoch);
+        // D43 (E250): the owned cursor tracks that the host reports unpinned. The brain refuses when one is listed.
+        r.add("unpinnedCursorTracks", rig.unpinnedCursorTracks());
 
         // Oldest-first, each event carrying the epoch it produced, so the reader
         // slices `(since, now]` itself and can tell a dropped event from no event.

@@ -55,6 +55,9 @@ check('the 8h4f build marker: track.create makes instrument and audio tracks',
   { trackCreateKinds: rig['trackCreateKinds'] });
 check('the 8i0 build marker: the clip metadata writer writes only the owned fields',
   rig['clipMetadataWrite'] === 'owned-fields-v1', { clipMetadataWrite: rig['clipMetadataWrite'] });
+const pins = rig['cursorTrackPins'] as { rule?: string; tracks?: number; unpinned?: string[] } | undefined;
+check('the 8i1 build marker: every owned cursor track is pinned (D43)',
+  pins?.rule === 'owned-tracks-pinned-v1' && (pins.tracks ?? 0) > 0 && pins.unpinned?.length === 0, pins);
 check('the track bank lists collapsed group children (ALL_CHANNELS, D33)',
   rig['contentFilter'] === 'ALL_CHANNELS', { contentFilter: rig['contentFilter'] });
 

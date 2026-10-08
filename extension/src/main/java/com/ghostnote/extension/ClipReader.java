@@ -16,13 +16,14 @@ import com.google.gson.JsonObject;
  * <p>The route follows the 8h3a product rules (E228) and the 8h3c2 open order (E232, {@link ClipReadRoute}):
  * <ol>
  *   <li>Capture the slot track, slot row, and mixer track. Subscribe on the prior target, then remove the clip
- *       and track pins. Then move the reader to the empty park target, the master track, which has no launcher
- *       slots. Wait until the reader reports no clip there. A finder cursor goes to the target. At park,
+ *       pin. The reader track stays pinned (D43). Then move the reader to the empty park target, the master
+ *       track, which has no launcher slots. Wait until the reader reports no clip there; send the park again
+ *       while the reader is on another track (E250). A finder cursor goes to the target. At park,
  *       find each group above the target and expand it if it is collapsed (8h4a3, E241).</li>
  *   <li>In a later task, claim the E99 selection lease, select the target row, and point the reader at the
  *       target track in the same task.</li>
  *   <li>Close at the later of the first replay batch task and the target {@code clipExists} task. The close task
- *       copies the notes, pins the reader, restores all three entry selection values under the lease, and
+ *       copies the notes, pins the reader clip, restores all three entry selection values under the lease, and
  *       retains the subscription for confirmation. A lost lease refuses the restore.</li>
  *   <li>One confirmation task later, refuse a step callback after the close, a second replay batch, a duplicate
  *       cell, a different bound target, or a clip wider than the reader. Then unsubscribe. One release task
@@ -62,6 +63,8 @@ public final class ClipReader {
     /** 8h4c2 build marker: the sounding-cell limit and the heap samples in the reply. */
     public static final String LIMIT_RULE = "sounding-cell-limit-v1";
     private static final int KEYS = 128;
+    /** Park polls between two park sends while the reader is not on the park track (E250): about 100 ms. */
+    static final int PARK_RESEND_POLLS = 20;
 
     /** Receives the result of one read: a frame, or a refusal with {@code refused}. Called once. */
     public interface Done { void finish(JsonObject result); }
@@ -78,11 +81,13 @@ public final class ClipReader {
         long parkedNanos, boundNanos, closedNanos, releasedNanos;
         /** Used Java heap at the bind and at the close, in MiB (8h4c2). The close sample holds the bound steps. */
         long heapBindMb = -1, heapCloseMb = -1;
-        int parkPolls;
+        int parkPolls, parkResends;
         long openStray, parkStray;
         ClipReadCapture capture;
         boolean finished, faultInjected;
         JsonObject selection, bound, metadata, launch;
+        /** The reader host state before the open steps, and at the first slow park poll (E250). */
+        JsonObject stateAtOpen, stateAtPoll;
         /** The collapsed parent groups above the target (D34). */
         final ParentGroups.Expansion parents;
 
@@ -103,7 +108,6 @@ public final class ClipReader {
             public boolean subscribed() { return subscribed; }
             public void subscribe() { clip.subscribe(); subscribed = true; }
             public void unpinClip() { clip.isPinned().set(false); }
-            public void unpinTrack() { track.isPinned().set(false); }
             public boolean atPark() { return ClipReader.this.atPark(); }
             public void park() { track.selectChannel(park); }
             public void claimLease() { rig.claimSelectionOwnership(token, trackIndex, row); }
@@ -141,14 +145,16 @@ public final class ClipReader {
         park = host.createMasterTrack(0);
         park.channelId().markInterested();
         track.channelId().markInterested();
-        track.isPinned().markInterested();
+        rig.ownCursorTrack("GN_CLIP_READER", track);
         clip.isPinned().markInterested();
         clip.clipLauncherSlot().sceneIndex().markInterested();
+        clip.exists().markInterested();
+        clip.getTrack().channelId().markInterested();
         ClipMetadata.markInterested(clip);
         ClipLaunch.markInterested(clip);
         clip.addNoteStepObserver(this::onStep);
         clip.exists().addValueObserver(value -> { if (current != null) current.exists(value); });
-        groups = new ParentGroups(host, park);
+        groups = new ParentGroups(host, rig, park);
         // Hold no clip between reads. The first read parks before it subscribes again.
         host.scheduleTask(() -> {
             if (read == null && subscribed) { clip.unsubscribe(); subscribed = false; }
@@ -227,6 +233,10 @@ public final class ClipReader {
             throw new IllegalArgumentException("slot " + trackIndex + ":" + row + " holds no clip");
         }
         if (park.channelId().get().isEmpty()) throw new IllegalStateException("the park target is not available");
+        // D43: a reader on a track is pinned. A reader without a track holds no pin; the park gives it one.
+        if (!track.isPinned().get() && !track.channelId().get().isEmpty()) {
+            throw new IllegalStateException("the reader cursor track is not pinned (D43); retry the read");
+        }
         Read r = new Read(++reads, trackIndex, row, channelId, target, diagnosticFault, diagnosticRoute, done);
         read = r;
         if (current != null) {
@@ -239,6 +249,7 @@ public final class ClipReader {
         current = null;
         host.scheduleTask(() -> deadline(r), deadlineMs);
         r.openStray = strayCallbacks;
+        r.stateAtOpen = hostState(r);
         ClipReadRoute.open(r.steps, r.route);
         schedule(() -> awaitPark(r));
     }
@@ -246,6 +257,22 @@ public final class ClipReader {
     private boolean atPark() {
         String parkId = park.channelId().get();
         return !parkId.isEmpty() && parkId.equals(track.channelId().get()) && !clip.exists().get();
+    }
+
+    /** The reader values that the park and the bind depend on, as the extension last observed them (E250). */
+    private JsonObject hostState(Read r) {
+        JsonObject s = new JsonObject();
+        s.addProperty("parkChannelId", park.channelId().get());
+        s.addProperty("trackChannelId", track.channelId().get());
+        s.addProperty("trackPinned", track.isPinned().get());
+        s.addProperty("clipTrackChannelId", clip.getTrack().channelId().get());
+        s.addProperty("clipExists", clip.exists().get());
+        s.addProperty("clipPinned", clip.isPinned().get());
+        s.addProperty("sceneIndex", clip.clipLauncherSlot().sceneIndex().get());
+        s.addProperty("subscribed", subscribed);
+        s.addProperty("atPark", atPark());
+        if (r != null) s.add("finder", r.parents.state());
+        return s;
     }
 
     /** The finder is on the target and its parent handle exists. The {@code no-expand} route does not wait. */
@@ -257,6 +284,13 @@ public final class ClipReader {
         if (r.finished) return;
         if (!atPark() || !parentReady(r)) {
             r.parkPolls++;
+            if (r.parkPolls == 4) r.stateAtPoll = hostState(r);
+            // E250: a park that the host did not apply is sent again. The open does not park a reader that it
+            // observes at park, so a reader that leaves park after the open would otherwise wait to the deadline.
+            if (r.parkPolls % PARK_RESEND_POLLS == 0 && !park.channelId().get().equals(track.channelId().get())) {
+                r.parkResends++;
+                r.steps.park();
+            }
             host.scheduleTask(() -> awaitPark(r), r.parkPolls < 4 ? 0 : 5);
             return;
         }
@@ -354,7 +388,14 @@ public final class ClipReader {
 
     private void deadline(Read r) {
         if (r.finished) return;
-        refuse(r, "deadline", "the read did not close within its deadline");
+        // E250: name the phase and the reader state, so that the reduced refusal still locates the wait.
+        String phase = r.parkedNanos == 0 ? "park" : r.boundNanos == 0 ? "expand"
+            : r.closedNanos == 0 ? "close" : "confirm";
+        String state = phase.equals("park")
+            ? "; reader track " + track.channelId().get() + (atPark() ? " at park" : " not at park") + ", finder "
+                + (parentReady(r) ? "ready" : "not ready") + ", " + r.parkResends + " park resend(s)"
+            : "";
+        refuse(r, "deadline", "the read did not close within its deadline (phase " + phase + state + ")");
     }
 
     private void refuse(Read r, String reason, String message) {
@@ -449,6 +490,7 @@ public final class ClipReader {
         result.addProperty("closeMs", r.ms(r.closedNanos));
         result.addProperty("totalMs", r.ms(System.nanoTime()));
         result.addProperty("parkPolls", r.parkPolls);
+        result.addProperty("parkResends", r.parkResends);
         result.addProperty("unpinCallbacks", r.parkedNanos == 0 ? strayCallbacks - r.openStray : r.parkStray - r.openStray);
         if (r.capture != null) {
             result.addProperty("callbacks", r.capture.callbacks);
@@ -465,6 +507,9 @@ public final class ClipReader {
         if (r.metadata != null) result.add("metadata", r.metadata);
         if (r.launch != null) result.add("launch", r.launch);
         r.parents.report(result);
+        if (r.stateAtOpen != null) result.add("stateAtOpen", r.stateAtOpen);
+        if (r.stateAtPoll != null) result.add("stateAtPoll", r.stateAtPoll);
+        result.add("stateAtReport", hostState(r));
         result.add("selection", r.selection);
         result.addProperty("lateCallbacks", lateCallbacks);
         return result;
@@ -504,6 +549,7 @@ public final class ClipReader {
         result.addProperty("releaseOn", releaseOn + (current == null ? 0 : current.releaseOn));
         result.addProperty("subscribed", subscribed);
         result.addProperty("open", read != null);
+        result.add("state", hostState(null));
         return result;
     }
 }
