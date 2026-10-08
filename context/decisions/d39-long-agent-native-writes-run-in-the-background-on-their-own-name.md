@@ -87,3 +87,20 @@ far under the timeout, the cost has no benefit. The rule changes:
 The no-generic-start rule stays: a later long write gets a flag on its own
 tool name. The staged composition of four layer chains (30.5 s, E247) is the
 longest direct call; it never had a background route.
+
+## 8i3 amendment: the longest direct call — 2026-10-08
+
+The statement above was wrong for the admitted inputs.
+[E252](../evidence/experiments/e252-long-device-write-profile.md) measured
+the largest admitted input of each write: staged `compose_devices` of five
+layer chains of four devices took 102 s (its revert 89 s), a Drum Machine of
+16 pads 72 s, and `set_device_controls` had no bound (44 Polysynth controls:
+21.4 s; about 0.47 s for each control). These exceeded the 60 s client
+timeout or the 30 s budget.
+
+[D44](d44-long-writes-are-optimized-then-bounded.md) optimizes these paths,
+then bounds the input of each write whose cost still grows with it. No
+admitted call reaches 45 s, so the background route stays out of
+`agent-native-v1`. The longest admitted direct calls are now the property
+write of 8 clips of 16,384 notes and its revert (33.5 s and 32.8 s), and the
+staged composition at its 6-unit limit and its revert (up to 26.9 s, E252).

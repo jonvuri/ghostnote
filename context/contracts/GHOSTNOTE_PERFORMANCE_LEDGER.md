@@ -4,7 +4,7 @@ kind: reference
 state: active
 updated: 2026-10-08
 parent: ../plan/phase-8/8h-cache-promotion-and-interface-simplification.md
-evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248
+evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252
 ---
 
 # Ghostnote performance ledger
@@ -58,7 +58,10 @@ session as a change that moves a number.
 | DirectParameter display set (any count, 8–281 IDs) to text for each ID | One turn (22.6–25.4 ms); a switch sends no text | E244 |
 | DirectParameter same-type switch settle (driver: point and poll) | 165–174 ms, independent of the observed count | E244 |
 | DirectParameter inventory with the parameter settle | About 290 ms of settle and poll (the idle time of `read_device_controls`) | E247 inventory |
-| Device insertion, layer-chain copy (`deviceInsert`) | A poll of the structural proof, deadline 4,000 ms; a native device lands in about 1 s | E247 |
+| Cohort integrity read after a scalar stage that is not the last (D44) | Two equal polls of the live generation, about 50 ms; the last stage and a changed generation read the settled inventory (about 0.36 s) | E252 poll A/B |
+| Container proof of a composition (`structure` read) | The container scope only, no parameter inventory of the container (about 0.3 s less) | E252 |
+| Named-slot descent into an empty slot | Two misses, about 0.4 s, then the slots are incomplete (8 misses: about 3 s); a layer-chain move does not descend | E252 |
+| Device insertion, layer-chain copy (`deviceInsert`) | A poll of the structural proof, deadline 4,000 ms; a native device lands in about 1 s. A drum pad insertion polls its pad (was the fixed 4,000 ms) | E247, E252 |
 | Device or chain relocation | No fixed wait; its proof poll (deadline 8,000 ms) | E247 |
 | One container read (`containerScope`, layer container, track not held) | About 8 turns (190 ms) | E238 trace |
 | One structural track stage (`track.create`, `track.duplicate`, `track.delete`): cursor release, rescan, mint poll | About 420 ms, 23 wire calls | E247 |
@@ -97,6 +100,8 @@ live wire-call count of the E247 inventory.
 | `set_launcher_clip_properties`, one clip | Name, length, or colour: 1,423–1,436 ms; 3 captures, 1 stage, only the owned setters; no change: no write | E247: 1,447 ms | mark 1, tracks 1, read 3, resolve 1, apply 1, delta 1 | E249 |
 | Copy, extend 64 → 128 beats, and insert 153 notes (the dogfood path) | Copy 888 ms; read 422 ms; edit 1,760 ms, no colour setter; revert 2,082 ms | Dogfood edit: 2,190 ms for 153 inserts | as targeted edit | E249 |
 | `delete_launcher_clip` | 878 ms | Before: 1,233 ms | mark 1, tracks 1, read 3, resolve 1, apply 1, delta 1 | E247 |
+| Clip batches at the D44 limits, typical clip: copy 8 (revert); properties 8 (revert); launch settings 8; delete 4 (revert); move 8 | 5,221 (7,023); 8,146 (7,945); 5,627; 2,614 (18,413); 7,363 ms | Before 8i3: copy 64 38.5 s, not revertible (24 launcher content events); properties of 64 refused after 32.1 s; delete 16 not revertible (8 clips in one stage) | as one call | E252 |
+| Clip batches at the D44 limits, 16,384-note clips: copy 8 (revert); properties 8 (revert); launch settings 8; delete 4 (revert); move 8 | 13,192 (24,623); 33,471 (32,788); 23,124; 7,347 (23,044); 23,685 ms | Delete 8: revert 46,296 ms | as one call | E252 |
 | `launch_clip` | Median 752 ms (742–763) | `stable-v1`: median 703 ms; E237: 764 ms | mark 1, tracks 1, read 4, apply 1, delta 1 | E247 workflow |
 | `show_launcher_clip_in_detail_editor` | 238 ms | `show_changed_clip`: 578 ms | mark 2, tracks 1, read 1, resolve 1 | E247 |
 | `add_scenes`, one; `delete_scene`, one | 368 ms; 393 ms | Before: 676 ms; 726 ms | add: mark 2, read 2, apply 1, delta 1; delete: mark 2, resolve 1, read 2, apply 1, delta 1 | E247 |
@@ -139,6 +144,8 @@ above stay the reference for top-level tracks.
 | `add_tracks`, one track; two tracks | 835–841 ms, 46 wire calls; 1,277 ms, 66 | Before: 1,163 ms; E239 two tracks: 1,935 ms | read 4, apply 2, delta 2, resolve 1, tracks 1 | E247 |
 | `duplicate_track` | 817–844 ms; 46 wire calls | Before: 1,176 ms; E239: 1,178–1,197 ms; E16: visible in 117–190 ms | tracks 2, read 4, apply 2, delta 2, resolve 1 | E247 |
 | `rename_track` | 381 ms | E239: 386 ms | tracks 1, resolve 1, read 2, apply 1, delta 1 | E247 |
+| `add_tracks` 16 (schema maximum); `rename_track` 64; `delete_track` 64 (D44 limit 64) | 7,207–7,246 ms; 10,691 ms; 15,452 ms | E252 baseline: rename 16 2,723 ms; delete 16 3,819 ms | as one call | E252 |
+| `set_device_enabled`, 32 settings (D44 limit 32) | 21,695 ms | 16 settings: 9,752 ms | as one setting, for each | E252 |
 | `delete_track`, 3 and 4 tracks | 937 ms, 69 wire calls; 1,140 ms, 86 | Before (3): 2,009 ms; E239 (4): 2,517 ms | tracks 1, resolve 1, read 2, apply 1, delta 1 | E247 |
 | `list_changes` | 7 ms | No host call | none | E247 |
 | `check_revert`, a clip edit | 442 ms | E239: a rename, 42 ms | read 1, delta 1 | E247 |
@@ -150,13 +157,19 @@ above stay the reference for top-level tracks.
 |---|---:|---|---|---|
 | `read_devices`, by structure | 542–562 ms (one container); 652 ms (one device); 695–950 ms (a container and 1–3 devices) | E238: 460–495 ms (one container); before: 634 ms (one device) | devices 1, read 1 | E247 |
 | `read_device_controls`, new or same target (Polysynth) | 764–823 ms | E238: 701–731 ms | read 1 | E247 |
-| `read_device_controls`, Diva (CLAP, 281 IDs) | 3,919–4,011 ms (not remeasured) | — | read 1 | E238 |
+| `read_device_controls`, Diva (CLAP, 281 IDs) | 1,284–1,305 ms | E252 before the descent bound: 3,833–3,873 ms; E238: 3,919–4,011 ms | read 1 | E252 |
 | `set_device_controls`, one write | 2,555–2,650 ms; 74 wire calls | E238: 2,324–2,398 ms (CLAP: 8,302 ms) | devices 1, read 2, apply 1, delta 1 | E247 |
-| `set_device_controls`, 27 controls (Polysynth) | 14,372–14,391 ms; 276 wire calls; 4,321 bytes | E239: 14,463–14,521 ms, 282 wire calls; `set_parameter` now 14,255–14,376 ms | as one write | E247 controls |
+| `set_device_controls`, 27 controls (Polysynth) | 6,612 ms; 190 wire calls | E247: 14,372–14,391 ms, 276 wire calls (a settled inventory after each control) | as one write | E252 |
+| `set_device_controls`, 44 controls (every continuous Polysynth control); 64 remote controls | 9,442 ms, 275 wire calls; 4,616 ms | Before 8i3: 21,415 ms, 401 wire calls | as one write | E252 |
+| `set_device_controls`, Diva (CLAP, 281 IDs): 1, 27, 64 settings; 16 settings on each of 4 Divas (D44 limit 64 on 4 routes) | 3,447; 7,740; 13,905 ms; 22,465 ms | E238: 8,302 ms (one write) | as one write | E252 |
 | `set_device_enabled`, one device; its revert | 905 ms; 775 ms | E239: 770 ms; 665 ms | devices 1, resolve 1, read 2, apply 1, delta 1 | E247 |
 | `add_devices`, one native device | 1,447–1,544 ms; 67 wire calls | Before: 5,541 ms | devices 2, read 2, apply 1, delta 1 | E247 |
+| `add_devices`, 16 native devices (schema maximum); 6 Divas | 16,811 ms; 6,426 ms | E252 baseline: 15,497 ms | as one device, for each | E252 |
 | `compose_devices`, offline, 2 and 4 layer chains | 3,382–3,403 ms; 3,978–4,023 ms | E238: 7,199–7,330; 7,770–7,779 ms. E18a insertion: 463–465 ms | wire: 128 (2 layer chains) | E247 benchmark |
 | `compose_devices`, staged, 2 and 4 layer chains | 17,500–17,551 ms; 30,430–30,556 ms | E238: 36,525–37,145; 64,878–64,937 ms | — | E247 benchmark |
+| `compose_devices`, staged at the D44 limit (6 units): 5×1, 3×2, 2×3; their reverts | 20,993; 23,540; 23,247 ms; revert 22,499; 26,301; 26,912 ms | Before 8i3: 5×1 31,475 (revert 21,456); 5×2 50,292 (39,392); 5×4 102,095 (89,355) | — | E252 |
+| `compose_devices`, staged: 3 Diva chains; 2 devices with modulators; 4 devices, 1 with 4 modulators | 13,616 (revert 15,941); 25,282 (10,623); 24,188 (18,679) ms | 6 devices with modulators on 3: 45,609 ms (now refused) | — | E252 |
+| `compose_devices`, Drum Machine, 16 pads; its revert | 12,504 ms; 1,550 ms | Before 8i3: 71,843 ms (a fixed 4,000 ms for each pad) | — | E252 |
 | `revert_change` of a composition, offline; staged 2 and 4 | 1,428–1,454 ms; 12.6 s; 20.9–21.0 s | E238: 1.7 s; 21.3 s; 38.4 s | — | E247 benchmark |
 | `set_layer_chain_solo`; no-op | 957–973 ms; 216 ms | E238: 828–868 ms; 182 ms | read 4, apply 1, delta 1; no-op: read 1 | E247 recipes |
 | `rename_layer_chain` | 1,075 ms | E238: 953 ms | read 4, apply 1, delta 1 | E247 recipes |
@@ -164,12 +177,22 @@ above stay the reference for top-level tracks.
 | `copy_devices`, one device | 2,472 ms; 107 wire calls | Before: 6,704 ms | devices 2, read 5, apply 1, delta 1 | E247 |
 | `move_devices`, one device | 1,254–2,311 ms | E238: 5,366–5,957 ms | devices 2, read 4, apply 1, delta 1 | E247 |
 | `delete_device`, one container | 3,055–3,296 ms; 116 wire calls | E238: 3,132 ms | read 3, devices 3, resolve 1, apply 1, delta 1 | E247 |
+| `delete_device`, 10 native devices; 10 Divas (D44 limit 10) | 25,191 ms; 20,739 ms | 6 native 14,709 ms; 6 Divas 13,619 ms (before the slot fixes); before 8i3: 16 native devices 30,710 ms | as one removal, for each | E252 |
 | `wrap_existing_device_modulation`, one LFO; its reversal | 14,390 ms; 5,801 ms | Before: 26,073 ms; 6,515 ms | wire: 420; 197 | E247 |
+| `wrap_existing_device_modulation`, 1, 8, and 15 LFOs (D44 limit 15: the 16-page window) | 13,557; 13,600; 13,586 ms; reversal 5,260–5,511 ms | 16 LFOs: the pages never settle (9.2 s, fails) | — | E252 |
 | `read_preset_modulation`; `list_modulator_types` | 1–3 ms; 1 ms | File and catalog reads only | none | E247 |
-| `edit_preset_modulation`, one LFO | 8,233 ms | Before: 11,937 ms | wire: 233 | E247 |
+| `edit_preset_modulation`, one LFO; with 8 behavior checks | 7,092 ms; 7,044 ms (one shared sampling session) | E247: 8,233 ms; before 8i3, 8 checks: 44,786 ms | wire: 179 | E252 |
 | A/B audition and winner collapse, 2 layer chains (8 calls) | 11,877–12,084 ms; 447–450 wire calls | E239: 21,877–21,903 ms, 497 wire calls; `stable-v1` managed alternates: 20,191–20,247 ms (E239: 50.7 s) | — | E247 ab |
 
 ## Limits
+
+8i3 review rerun (E252): Polysynth 44 controls 9,481 ms; Diva 64 controls
+13,912 ms; staged 5×1 / 3×2 / 2×3 compositions 20,975 / 23,642 / 23,278 ms,
+with reversals 21,922 / 26,028 / 26,764 ms. No time regressed by more than
+2 percent. Call budgets stay unchanged. The observer-index guard adds no
+call on success; a failed rename batch now uses proved receipts and removes
+one structure read. E252 records the wire-count differences from host proof
+polls and links the full traces.
 
 | Limit | Value | Source |
 |---|---:|---|
@@ -180,7 +203,10 @@ above stay the reference for top-level tracks.
 | Writer window (pool cursors, `fineSteps`) | 4,194,304 steps (the reader width; was 512); fixed at extension start. A writer parks after each write. The adapter refuses note writes on a narrower writer (`WriterWidthError`, `unhealthy`). The 2,048-step window is the separate `fine` read cursor (`noteReadSteps`, E52) | E44, E52, E248, D41 |
 | Add at the reader limit, ZGC used peak | 2,450–2,786 MiB of 3,072 (the read alone: 2,168–2,196) | E248 |
 | Dense `cursor.getNotes*` scan without `maxX` | 8,192 steps | E248 |
-| Longest direct call measured | Staged composition of 4 layer chains, 30.6 s | E247 |
+| Longest admitted direct call | `set_launcher_clip_properties` of 8 clips of 16,384 notes, 33.5 s (its revert 32.8 s); E247 stated the staged composition of 4 layer chains (30.6 s), but 5×4 took 102 s | E252, D44 |
+| D44 write limits | `compose_devices` 6 device units (plug-in 2, a device with modulators 2 more) and 4 modulators; `set_device_controls` 64 settings on 4 routes; `delete_device` 10; `set_device_enabled` 32; `rename_track` and `delete_track` 64; clip properties and launch settings 8 (host); copy 8; delete 4; move 8 rows; wrap 15 modulators (host). Refusal: `outside-limit` before any read or write; each bounded input states its limit in its schema text | D44 |
+| Launcher content events (`Rig.CONTENT_LOG`) | 24; a revert compares across them | E252 |
+| Remote-page window (`remotePages`) | 16 pages | E252 |
 
 ## Known costs for later sessions
 
@@ -198,20 +224,26 @@ Each item is a measured cost with a named cause. None needs a fix before 8i.
   content. E15-F forbids a shared
   property stage across clips; a shared stage for the channels of one clip is
   a candidate that needs its own live proof.
-- A device control write reads three complete parameter inventories: the
-  change record, the cohort integrity check, and the executor readback
-  (D15). This is the retained safeguard that costs the most (8h retrospective).
+- A device control route reads three complete settled parameter inventories:
+  the change record, the integrity check after the last stage, and the
+  executor readback (D15). The stages before the last read the live
+  generation (two polls, E252). The fixed cost is about 2 s for each native
+  route and 3.4 s for a 281-ID plug-in.
 - `add_launcher_clip` resolves twice (creation, then the edit limb) and is two
   change records; reverting it takes two calls.
 - `launch_clip` on `agent-native-v1` checks the track and the occupancy
   first: about 3 turns over `stable-v1`.
 - `compose_devices` offline proves each layer chain and its device after the
-  insertion (about 100 turns); the staged backend pays one structural stage for
-  each device and relocation.
+  insertion (about 100 turns); the staged backend pays one insertion and one
+  relocation for each device, about 3.5 s each way, and its revert as much
+  (D44 bounds it at 6 units).
 - `delete_device` of one container is about 100 wire calls (bank reads and
   two parameter inventories for the change record).
-- `read_device_controls` on a 281-ID plug-in takes about 4 s for each read,
-  also for the same target.
+- `read_device_controls` on a 281-ID plug-in takes about 1.3 s for each read,
+  also for the same target. The cost of a plug-in route or removal grows with
+  its DirectParameter count, which Ghostnote cannot know before it reads.
+- `set_launcher_clip_properties` captures each clip twice; at the reader limit
+  8 clips take 33.5 s.
 - `read_launcher_clip` returns all 16 channels (about 12 KB for the typical
   clip); an edit needs a read for its base.
 - `wrap_existing_device_modulation` takes 14 s: five structural stages and the

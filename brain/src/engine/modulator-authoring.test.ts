@@ -604,6 +604,29 @@ test('5b-retarget: proves modulation left the old control and reached the new co
     ['CONTENTS/F1FREQ', 'CONTENTS/F1RESO']);
 });
 
+test('8i3 behavior checks: the witnesses of one device share each sample round', async () => {
+  const fx = topologyFixture();
+  const reads: number[] = [];
+  const host = { ...fx.host, read: async (...args: Parameters<typeof fx.host.read>) => {
+    reads.push(args[0].length);
+    return fx.host.read(...args);
+  } } as typeof fx.host;
+  const result = await authorModulatorEdit(host, topologyRequest(fx.track, {
+    kind: 'retarget', index: 2, target: 'CONTENTS/F1RESO',
+  }, {
+    behaviorWitnesses: [
+      { expected: 'inactive', parameterId: 'CONTENTS/F1FREQ', parameterName: 'Filter Frequency', samples: 3, sampleIntervalMs: 0 },
+      { expected: 'active', parameterId: 'CONTENTS/F1RESO', parameterName: 'Filter Resonance', samples: 3, sampleIntervalMs: 0 },
+    ],
+  }), { wait: async () => undefined });
+
+  assert.equal(result.verification.verified, true);
+  assert.deepEqual(result.verification.behaviors.map((behavior) => behavior.verified), [true, true]);
+  // The inserted-device read, then one inventory read and three sample rounds with both witnesses. One session
+  // for each witness read nine times.
+  assert.deepEqual(reads, [1, 2, 2, 2, 2]);
+});
+
 test('5d-container: selects one list and proves the route on one nested device', async () => {
   const fx = containerFixture();
   const templatePath = join(FIXTURE_DIR, 'InstrumentLayer', 'gn_layer_4chain.bwpreset');

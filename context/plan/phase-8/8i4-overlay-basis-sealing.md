@@ -2,7 +2,7 @@
 title: Phase 8i4 overlay basis sealing
 kind: plan
 state: planned
-status: After 8i3. Let an agent put a new or revised overlay claim without a hand-computed R22 basis; then resume the 8i trials.
+status: Next (8i3 is complete, E252). Let an agent put a new or revised overlay claim without a hand-computed R22 basis; then resume the 8i trials.
 updated: 2026-10-08
 parent: README.md
 prev: 8i3-long-device-write-profile.md

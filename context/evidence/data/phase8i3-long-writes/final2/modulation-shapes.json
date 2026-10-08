@@ -1,0 +1,76 @@
+{
+ "schema": "phase8i3-long-writes-v1",
+ "rows": [
+  {
+   "step": "add",
+   "tool": "add_tracks",
+   "ms": 835,
+   "calls": 38,
+   "status": "verified"
+  },
+  {
+   "step": "offline-4-edits",
+   "tool": "compose_devices",
+   "ms": 582,
+   "calls": 18,
+   "status": "unsupported"
+  },
+  {
+   "step": "add-poly",
+   "tool": "add_devices",
+   "ms": 1306,
+   "calls": 49,
+   "status": "verified"
+  },
+  {
+   "step": "read",
+   "tool": "read_device_controls",
+   "ms": 693,
+   "calls": 18
+  },
+  {
+   "step": "clear",
+   "tool": "delete_device",
+   "ms": 2335,
+   "calls": 79,
+   "status": "verified"
+  },
+  {
+   "step": "staged-2-modulated",
+   "tool": "compose_devices",
+   "ms": 25282,
+   "calls": 737,
+   "status": "verified",
+   "backend": "staged"
+  },
+  {
+   "step": "revert-staged-2-modulated",
+   "tool": "revert_change",
+   "ms": 10623,
+   "calls": 381,
+   "status": "verified"
+  },
+  {
+   "step": "staged-4-devices-1-modulated",
+   "tool": "compose_devices",
+   "ms": 24188,
+   "calls": 801,
+   "status": "verified",
+   "backend": "staged"
+  },
+  {
+   "step": "revert-staged-4-devices-1-modulated",
+   "tool": "revert_change",
+   "ms": 18679,
+   "calls": 662,
+   "status": "verified"
+  },
+  {
+   "step": "cleanup",
+   "tool": "delete_track",
+   "ms": 452,
+   "calls": 24,
+   "status": "verified"
+  }
+ ]
+}

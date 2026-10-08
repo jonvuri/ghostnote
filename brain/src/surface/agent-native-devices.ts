@@ -40,7 +40,7 @@ import {
   type Effect, type FailureStage, type ReadResult, type WriteResult,
 } from './agent-native-result.js';
 import {
-  deviceControlSchemas, enabledFingerprint, readDeviceControls, setDeviceControls,
+  deviceControlSchemas, enabledFingerprint, parameterCohorts, readDeviceControls, setDeviceControls,
   type DeviceControlNames, type ParameterSetting,
 } from './device-controls.js';
 import {
@@ -61,6 +61,7 @@ import {
 } from './preset-modulation-inspection.js';
 import { causeOf, receiptOf } from './report.js';
 import type { ToolSpec } from './tools.js';
+import { atMost, requireWithinLimit, WRITE_LIMITS } from './write-limits.js';
 import type { Workspace } from './workspace.js';
 
 export const DEVICES_SCHEMA = 'ghostnote-devices/1';
@@ -543,7 +544,7 @@ type CopyInput = z.infer<typeof copyInput>;
 const MOVE_DESCRIPTION = `${PROFILE} Move devices, with their device state, on one track. Routes: top-level devices `
   + 'into a layer chain, devices from one layer chain into another layer chain, devices from a layer chain to the '
   + 'track end, and top-level devices to an earlier top-level position (the extracted devices of a winner '
-  + 'collapse). Each device is the same instance after the move. Each move is a separate host stage of about 4 '
+  + 'collapse). Each device is the same instance after the move. Each move is a separate host stage of about 2 '
   + 's. The complete source and destination structure is read first; an unsupported or unprovable route, or a '
   + 'move that no reading could tell from no move (two devices with one name), refuses before a write. readback '
   + 'gives the final top-level order and each touched layer chain. A move changes the signal path and can be '
@@ -552,7 +553,7 @@ const MOVE_DESCRIPTION = `${PROFILE} Move devices, with their device state, on o
 
 const COPY_DESCRIPTION = `${PROFILE} Copy devices into a layer chain on the same track: top-level devices, or the `
   + 'devices of another layer chain. Each copy is a new device instance with the device state of its source; '
-  + 'it loads another instance and can add engine load. Each copy is a separate host stage of about 4 s. The '
+  + 'it loads another instance and can add engine load. Each copy is a separate host stage of about 2.5 s. The '
   + 'complete source and destination structure is read first, and an unsupported route refuses before a write. '
   + 'readback gives the destination layer chain. revert_change does not remove a copy: delete it with computer '
   + 'control or move it out and delete_device it.';
@@ -810,7 +811,8 @@ const ADD_DESCRIPTION = `${PROFILE} Append devices at the end of the top-level d
   + 'refuses with every failed name in detail.failedDeviceNames. A relative preset path, another extension, or a '
   + 'missing file refuses before a write, because the host accepts all three and does nothing. Each insertion '
   + 'reads the complete order first (expectedDeviceOrder from read_devices replaces the first read) and is proved '
-  + 'by readback; each takes about 4 s. A plug-in loads a new instance and can add engine load. Each effect has a '
+  + 'by readback; each takes about 1 s (16 native devices: 15.5 s). A plug-in loads a new instance and can add '
+  + 'engine load. Each effect has a '
   + 'changeId; revert_change removes that device while its position and the order are unchanged. This tool does '
   + 'not create a container: use compose_devices.';
 
@@ -914,10 +916,12 @@ async function addDevices(workspace: Workspace, args: AddInput, options: AddDevi
 const composeDevice = z.object({
   source: compositionSource,
   modulators: z.array(modulation).max(16).optional().describe(
-    'Outer container or preset-local modulators with exact DirectParameter targets.',
+    'Outer container or preset-local modulators with exact DirectParameter targets. '
+    + atMost('compositionModulators', 'modulators and modulator edits in all devices'),
   ),
   modulatorEdits: z.array(modulatorEdit).optional().describe(
-    'Named template modulator edits. Only the offline Instrument Layer path accepts them.',
+    'Named template modulator edits. Only the offline Instrument Layer path accepts them. '
+    + atMost('compositionModulators', 'modulators and modulator edits in all devices'),
   ),
 }).strict();
 
@@ -935,7 +939,9 @@ const composeInput = z.object({
   layerChains: z.array(z.object({
     name: newLayerChainName,
     devices: z.array(composeDevice).min(1).max(4),
-  }).strict()).min(1).max(5).optional().describe('One through five named layer chains (layer containers only).'),
+  }).strict()).min(1).max(5).optional().describe('One through five named layer chains (layer containers only). '
+    + atMost('stagedCompositionDevices', 'device units in all layer chains (a VST3 or CLAP source counts as two, and '
+      + 'a device with modulators or modulator edits counts two more)')),
   pads: z.array(drumPadAssignment).min(1).max(16).optional().describe('Drum Machine pads only.'),
 }).strict().superRefine((input, context) => {
   if (input.containerKind === 'Drum Machine') {
@@ -991,7 +997,12 @@ const COMPOSE_DESCRIPTION = `${PROFILE} Create one complete container with expli
   + 'Ghostnote selects a private backend. An Instrument Layer of one through four layer chains with one native '
   + 'device each, appended at the end, is built offline from a validated preset in one insertion (modulatorEdits '
   + 'are only for this path); each layer chain is then renamed. Every other shape runs as guarded host stages: '
-  + 'container insertion, layer-chain naming, and one insertion and one move for each device, each about 4 s. '
+  + 'container insertion, one layer-chain naming stage, and one insertion and one move for each device: about 3.5 '
+  + 's for each native device and 6.5 s for each plug-in, and revert_change takes about as long. One composition '
+  + 'admits at most 6 device units (a VST3 or CLAP source counts as two, and a device with modulators or modulator '
+  + 'edits counts two more: its proof takes about 7 s) and 4 modulators and modulator edits; a '
+  + 'larger request refuses before any read or write (code outside-limit, the limit in detail). Add more devices '
+  + 'later with add_devices and move_devices. '
   + 'The final container position must be 0 through 2 (layer chains are not observable later). Every request is '
   + 'validated before the first write; a later failure returns the completed effects.\n'
   + 'Result: effects with change IDs, readback with the complete structure, and next.revert. revert_change with '
@@ -1010,6 +1021,14 @@ export async function composeDevices(
   const started = performance.now();
   const target = { trackId: args.trackId, containerKind: args.containerKind };
   return guardedRun(COMPOSE_SCHEMA, target, async (state) => {
+    // D44 (E252): the offline backend has at most four devices, so a larger request is always staged.
+    const composed = (args.layerChains ?? []).flatMap((item) => item.devices);
+    requireWithinLimit('stagedCompositionDevices', composed.reduce((sum, item) =>
+      sum + (item.source.kind === 'vst3' || item.source.kind === 'clap' ? 2 : 1)
+        + ((item.modulators?.length ?? 0) + (item.modulatorEdits?.length ?? 0) > 0 ? 2 : 0), 0),
+    'device units in one composition (a VST3 or CLAP source counts as two, and a device with modulators two more)');
+    requireWithinLimit('compositionModulators', composed.reduce((sum, item) => sum + (item.modulators?.length ?? 0)
+      + (item.modulatorEdits?.length ?? 0), 0), 'modulators and modulator edits in one composition');
     state.stage = 'acquire';
     const track = trackAt(args.trackId);
     const bank = await completeBank(workspace, track);
@@ -1218,7 +1237,7 @@ const deleteInput = z.object({
       'A layer chain inside the container at devicePosition. Typed deletion of one layer chain is unavailable: this '
       + 'always refuses before a write.',
     ),
-  }).strict()).min(1),
+  }).strict()).min(1).describe(atMost('deviceDeletions', 'devices')),
 }).strict();
 type DeleteInput = z.infer<typeof deleteInput>;
 
@@ -1226,7 +1245,8 @@ const DELETE_DESCRIPTION = `${PROFILE} Remove top-level devices by current posit
   + 'the device order. Removing a container removes every layer chain and device in it: readback lists the layer '
   + 'chains that were inside each removed container. This cannot be undone here: presets, internal state, '
   + 'modulation, and plug-in state cannot be rebuilt. In one call the higher positions are removed first, so all '
-  + 'positions refer to the same starting order. Across calls, read_devices again.\n'
+  + 'positions refer to the same starting order. Across calls, read_devices again. One call removes at most 10 '
+  + 'devices (about 2.5 s each). A larger request refuses before any read or write (code outside-limit, the limit in detail): split it into more calls.\n'
   + 'Bitwig has no typed deletion of one layer chain. An entry with layerChain refuses before a write (code '
   + 'unsupported): remove the layer chain with computer control in Bitwig (confirm the focus and the target), then '
   + 'read_devices again. Ghostnote does not record or reverse that action.';
@@ -1249,6 +1269,7 @@ async function deleteDevices(workspace: Workspace, args: DeleteInput, stable: To
   const started = performance.now();
   const target = { devices: args.devices.length };
   return guardedRun(DELETE_DEVICE_SCHEMA, target, async (state) => {
+    requireWithinLimit('deviceDeletions', args.devices.length, 'devices to remove');
     const chainEntry = args.devices.find((item) => item.layerChain !== undefined);
     if (chainEntry !== undefined) {
       throw new ToolFailure('unsupported', 'input', 'Bitwig has no typed deletion of one layer chain. Nothing was '
@@ -1332,13 +1353,18 @@ const SET_CONTROLS_DESCRIPTION = `${PROFILE} Set DirectParameters by ids from re
   + 'refuses its same-route cohort before the first write. Each DirectParameter write has complete inventory '
   + 'readback; on a CLAP plug-in the readback maps the host callback form to the listed id. An unrequested '
   + 'parameter change stops the cohort and stays unattributed, because the host does not identify its author. '
+  + 'One call admits at most 64 settings on at most 4 device routes (a run of settings on one device is one route; '
+  + 'a repeated control starts another). A larger request refuses before any read or write (code outside-limit, the limit in detail): split it into more calls. The first setting of a route takes '
+  + 'about 2 s on a native device and 3.5 s on a plug-in with 281 controls; each further setting takes about 0.2 s. '
   + 'Modulation and automation warnings state when a static base value can differ from the value heard. A '
   + 'complete success groups change IDs and selectors under each device route; a failure or partial result keeps '
   + 'the full receipts. list_changes keeps the complete records; revert_change restores the base value while the '
   + 'device route is valid.';
 
 function controlsTools(stable: { read: ToolSpec; set: ToolSpec }): ToolSpec[] {
-  const setInput = z.object({ settings: z.array(parameterSetting).min(1) }).strict();
+  const setInput = z.object({ settings: z.array(parameterSetting).min(1).describe(
+    `${atMost('deviceControlSettings', 'settings')} At most ${WRITE_LIMITS.deviceControlCohorts} device routes: a run of `
+    + 'settings on one device is one route, and a repeated control starts another.') }).strict();
   return [
     {
       name: 'read_device_controls',
@@ -1362,16 +1388,37 @@ function controlsTools(stable: { read: ToolSpec; set: ToolSpec }): ToolSpec[] {
       description: SET_CONTROLS_DESCRIPTION,
       inputSchema: setInput.shape,
       inputValidator: setInput,
-      run: (workspace, input) => setDeviceControls(workspace, input as { settings: ParameterSetting[] }),
+      run: (workspace, input) => {
+        const settings = (input as { settings: ParameterSetting[] }).settings;
+        requireWithinLimit('deviceControlSettings', settings.length, 'settings');
+        requireWithinLimit('deviceControlCohorts', parameterCohorts(settings).length,
+          'device routes (a run of settings on one device route is one route; a repeated control starts another)');
+        return setDeviceControls(workspace, { settings });
+      },
     },
   ];
 }
+
+const WRAP_DESCRIPTION = `${PROFILE} Place one current top-level device inside one owned FX Layer without creating `
+  + 'a replacement device instance. Supply the exact complete top-level name and enabled-state order from '
+  + 'read_devices, the proved Layer 1 entry, and 1 through 15 manifest-backed modulators with exact DirectParameter '
+  + 'ids and names from read_device_controls. The workflow reads the complete stable parameter inventory before '
+  + 'writing, inserts and positions the owned container, marks its entry name as explicit, verifies its modulator '
+  + 'pages, moves the device, and proves the parent-child edge, enabled state, parameter-base fingerprint, and '
+  + 'active modulation. Results list each completed stage in order. A failed post-move witness reports the device '
+  + 'location and a reversal checkpoint. Relocation preserves opaque device state because the same instance moves; '
+  + 'Ghostnote does not claim byte-exact opaque-state readback. A call takes about 14 s for 1 through 15 modulators: '
+  + 'the modulation proofs share one sampling session. Each modulator adds one remote page to the container page, '
+  + 'and the remote-page window is 16, so 16 modulators refuse before any read or write (code outside-limit). The '
+  + 'audio engine must run for the active-modulation proof.';
 
 function modulationTools(stable: { inspect: ToolSpec; author: ToolSpec; wrap: ToolSpec }): ToolSpec[] {
   const authoring = modulatorAuthoringSchemas({
     readControls: 'read_device_controls', readPresetModulation: 'read_preset_modulation' });
   const wrapping = existingDeviceModulationWrapperSchemas({
-    readControls: 'read_device_controls', readDevices: 'read_devices' });
+    readControls: 'read_device_controls', readDevices: 'read_devices',
+    modulators: 'Each modulator adds one remote page to the container page, and the remote-page window is 16. '
+      + atMost('wrapModulators', 'modulators') });
   return [
     {
       ...stable.inspect,
@@ -1395,8 +1442,13 @@ function modulationTools(stable: { inspect: ToolSpec; author: ToolSpec; wrap: To
     },
     {
       ...stable.wrap,
+      description: WRAP_DESCRIPTION,
       inputSchema: wrapping.schema,
       inputValidator: wrapping.validator,
+      run: (workspace, input) => {
+        requireWithinLimit('wrapModulators', (input as { modulators: unknown[] }).modulators.length, 'modulators');
+        return stable.wrap.run(workspace, input);
+      },
     },
   ];
 }

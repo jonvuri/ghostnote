@@ -679,7 +679,86 @@ test('5q-partial: a bad later plug-in keeps earlier completed stages reversible'
   assert.deepEqual(fx.row.devices.map((item) => item.name), ['Existing Twin', 'Tool']);
 });
 
-test('5r-partial: prepared entry names stay exact after a later seed rename fails', async () => {
+test('8i3 names: all entry names are one guarded stage', async () => {
+  const fx = fixture();
+  const renames: number[] = [];
+  const workspace: Workspace = Object.freeze({
+    ...fx.workspace,
+    async apply(
+      ops: Parameters<Workspace['apply']>[0],
+      run?: Parameters<Workspace['apply']>[1],
+    ) {
+      if (ops.some((op) => op.op === 'chain.rename')) renames.push(ops.length);
+      return fx.workspace.apply(ops, run);
+    },
+  });
+  const request = fourSourceRequest(fx.trackId);
+  const result = await callTool(workspace, 'compose_device_sources', {
+    ...request, entries: request.entries.slice(0, 3),
+  }) as Record<string, unknown>;
+  assert.equal(result['complete'], true, JSON.stringify(result));
+  assert.deepEqual(renames, [3]);
+  assert.deepEqual((result['stages'] as { stage: string }[]).filter((item) => item.stage.endsWith('entry-name'))
+    .map((item) => item.stage), ['confirm-entry-name']);
+});
+
+test('8i3 proofs: each container proof is a structure read with no parameter inventory', async () => {
+  const fx = fixture();
+  const reads: { readonly topLevel: boolean; readonly structure: boolean }[] = [];
+  const workspace: Workspace = Object.freeze({
+    ...fx.workspace,
+    async read(
+      addresses: Parameters<Workspace['read']>[0],
+      options?: Parameters<Workspace['read']>[1],
+    ) {
+      for (const address of addresses) {
+        if (address.kind === 'device') {
+          reads.push({ topLevel: address.chain === undefined, structure: options?.structure === true });
+        }
+      }
+      return fx.workspace.read(addresses, options);
+    },
+  });
+  const request = fourSourceRequest(fx.trackId);
+  const result = await callTool(workspace, 'compose_device_sources', {
+    ...request, entries: request.entries.slice(0, 3),
+  }) as Record<string, unknown>;
+  assert.equal(result['complete'], true, JSON.stringify(result));
+  const containerReads = reads.filter((item) => item.topLevel);
+  assert.ok(containerReads.length >= 4);
+  assert.equal(containerReads.every((item) => item.structure), true);
+  assert.ok(reads.some((item) => !item.topLevel && !item.structure), 'each nested source keeps its inventory');
+});
+
+test('8i3 names: a requested name that is another seed name takes temporary names first', async () => {
+  const fx = fixture();
+  const renames: string[][] = [];
+  const workspace: Workspace = Object.freeze({
+    ...fx.workspace,
+    async apply(
+      ops: Parameters<Workspace['apply']>[0],
+      run?: Parameters<Workspace['apply']>[1],
+    ) {
+      if (ops.some((op) => op.op === 'chain.rename')) {
+        renames.push(ops.map((op) => (op.op === 'chain.rename' ? op.name : '')));
+      }
+      return fx.workspace.apply(ops, run);
+    },
+  });
+  const request = fourSourceRequest(fx.trackId);
+  const entries = request.entries.slice(0, 2);
+  const result = await callTool(workspace, 'compose_device_sources', {
+    ...request, entries: [{ ...entries[0]!, entryName: 'Observed seed 2' }, { ...entries[1]!, entryName: 'Observed seed 1' }],
+  }) as Record<string, unknown>;
+  assert.equal(result['complete'], true, JSON.stringify(result));
+  assert.equal(renames.length, 2);
+  assert.match(renames[0]![0]!, /^ghostnote pending general entry 1/);
+  assert.deepEqual(renames[1], ['Observed seed 2', 'Observed seed 1']);
+  assert.deepEqual((result['structure'] as { entryName: string }[]).map((item) => item.entryName),
+    ['Observed seed 2', 'Observed seed 1']);
+});
+
+test('8i3 names: a refused name stage keeps the seed names, and the untouched seed reverses', async () => {
   const fx = fixture();
   const workspace: Workspace = Object.freeze({
     ...fx.workspace,
@@ -687,8 +766,8 @@ test('5r-partial: prepared entry names stay exact after a later seed rename fail
       ops: Parameters<Workspace['apply']>[0],
       run?: Parameters<Workspace['apply']>[1],
     ) {
-      if (ops[0]?.op === 'chain.rename' && ops[0].name === 'VST3') {
-        throw new Error('the later seed entry could not be renamed');
+      if (ops.some((op) => op.op === 'chain.rename' && op.name === 'VST3')) {
+        throw new Error('the seed entries could not be renamed');
       }
       return fx.workspace.apply(ops, run);
     },
@@ -698,10 +777,9 @@ test('5r-partial: prepared entry names stay exact after a later seed rename fail
     ...request, entries: request.entries.slice(0, 3),
   }) as Record<string, unknown>;
   assert.equal(result['complete'], false);
-  const checkpoint = result['reversalCheckpoint'] as { preparedEntryNames: string[] };
-  assert.equal(checkpoint.preparedEntryNames[0], 'Native');
-  assert.match(checkpoint.preparedEntryNames[1]!, /^ghostnote pending general entry 2/);
-  assert.match(checkpoint.preparedEntryNames[2]!, /^ghostnote pending general entry 3/);
+  const checkpoint = result['reversalCheckpoint'] as { preparedEntryNames: string[]; seedUnchanged: boolean };
+  assert.equal(checkpoint.seedUnchanged, true);
+  assert.equal(checkpoint.preparedEntryNames.includes('VST3'), false);
 
   const reversed = await callTool(fx.workspace, 'reverse_device_source_composition', {
     checkpoint,
@@ -709,6 +787,51 @@ test('5r-partial: prepared entry names stay exact after a later seed rename fail
   assert.equal(reversed['complete'], true, JSON.stringify(reversed));
   assert.deepEqual(fx.row.devices.map((item) => item.name), ['Existing Twin', 'Tool']);
 });
+
+for (const disturbance of ['none', 'operator-rename', 'unproved-rename'] as const) {
+  test(`8i3 names: partial receipts preserve only proved names (${disturbance})`, async () => {
+    const fx = fixture();
+    const workspace: Workspace = Object.freeze({
+      ...fx.workspace,
+      async apply(ops: Parameters<Workspace['apply']>[0], run?: Parameters<Workspace['apply']>[1]) {
+        if (!ops.some((op) => op.op === 'chain.rename')) return fx.workspace.apply(ops, run);
+        // The first rename is proved. The second stage fails before its proof.
+        const first = await fx.workspace.apply(ops.slice(0, 1), run);
+        const container = fx.row.devices.find((item) => item.chains?.length)!;
+        if (disturbance === 'operator-rename') container.chains![0]!.name = 'Operator edit';
+        if (disturbance === 'unproved-rename') container.chains![2]!.name = 'CLAP';
+        const failed = { op: 'chain.rename', ok: false, error: 'The rename was not proved.' };
+        return {
+          ...first,
+          take: {
+            ...first.take, ops,
+            receipt: { ...first.take.receipt, stages: [...first.take.receipt.stages,
+              { index: 1, applied: true, ops: [failed], revision: first.take.verify.at.revision }] },
+            report: { ...first.take.report, failed: [failed] },
+          },
+        };
+      },
+    });
+    const request = fourSourceRequest(fx.trackId);
+    const entries = request.entries.slice(0, 3);
+    // The unchanged first entry has no op. Receipt indices refer to the remaining rename ops.
+    entries[0] = { ...entries[0]!, entryName: 'Observed seed 1' };
+    const result = await callTool(workspace, 'compose_device_sources', { ...request, entries }) as Record<string, unknown>;
+    assert.equal(result['complete'], false);
+    const checkpoint = result['reversalCheckpoint'] as { preparedEntryNames: string[]; seedUnchanged: boolean };
+    assert.deepEqual(checkpoint.preparedEntryNames, ['Observed seed 1', 'VST3', 'Observed seed 3']);
+    assert.equal(checkpoint.seedUnchanged, false);
+    const before = structuredClone(fx.row.devices);
+    const reversed = await callTool(fx.workspace, 'reverse_device_source_composition', { checkpoint }) as Record<string, unknown>;
+    assert.equal(reversed['complete'], disturbance === 'none', JSON.stringify(reversed));
+    if (disturbance === 'none') {
+      assert.deepEqual(fx.row.devices.map((item) => item.name), ['Existing Twin', 'Tool']);
+    } else {
+      assert.equal((reversed['stages'] as unknown[]).length, 0, 'reversal refuses before a write');
+      assert.deepEqual(fx.row.devices, before, 'reversal preserves the changed container');
+    }
+  });
+}
 
 test('5q-partial: an inserted source is checkpointed before relocation', async () => {
   const fx = fixture();
@@ -1063,7 +1186,8 @@ test('8h4e compose_devices: the staged backend composes and revert_change revers
   const result = await callTool(fx.workspace, 'compose_devices', {
     trackId: fx.trackId,
     containerKind: 'FX Layer',
-    layerChains: request.entries.map((entry) => ({
+    // D44: the CLAP source would make 8 device units; the limit is 6.
+    layerChains: request.entries.filter((entry) => entry.entryName !== 'CLAP').map((entry) => ({
       name: entry.entryName, devices: [{ source: entry.source, modulators: entry.modulators }],
     })),
   }, AGENT_NATIVE_TOOL_PROFILE) as {
@@ -1098,7 +1222,8 @@ test('8h4e check_revert: the composition preview runs the first reversal guards 
   const request = fourSourceRequest(fx.trackId);
   const result = await callTool(fx.workspace, 'compose_devices', {
     trackId: fx.trackId, containerKind: 'FX Layer',
-    layerChains: request.entries.map((entry) => ({
+    // D44: the CLAP source would make 8 device units; the limit is 6.
+    layerChains: request.entries.filter((entry) => entry.entryName !== 'CLAP').map((entry) => ({
       name: entry.entryName, devices: [{ source: entry.source, modulators: entry.modulators }],
     })),
   }, AGENT_NATIVE_TOOL_PROFILE) as { next: { revert: { changeId: string } } };

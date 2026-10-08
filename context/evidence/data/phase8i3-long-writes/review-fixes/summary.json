@@ -1,0 +1,253 @@
+{
+  "schema": "phase8i3-review-fixes-v1",
+  "measurements": [
+    {
+      "step": "set-1",
+      "tool": "set_device_controls",
+      "ok": true,
+      "ms": 2283,
+      "calls": 60,
+      "turns": 55,
+      "priorMs": 2247,
+      "priorCalls": 60
+    },
+    {
+      "step": "set-27",
+      "tool": "set_device_controls",
+      "ok": true,
+      "ms": 6642,
+      "calls": 190,
+      "turns": 185,
+      "priorMs": 6612,
+      "priorCalls": 190
+    },
+    {
+      "step": "set-44",
+      "tool": "set_device_controls",
+      "ok": true,
+      "ms": 9481,
+      "calls": 275,
+      "turns": 270,
+      "priorMs": 9442,
+      "priorCalls": 275
+    },
+    {
+      "step": "set-remote-64",
+      "tool": "set_device_controls",
+      "ok": true,
+      "ms": 4593,
+      "calls": 108,
+      "turns": 103,
+      "priorMs": 4616,
+      "priorCalls": 108
+    },
+    {
+      "step": "compose-5x1",
+      "tool": "compose_devices",
+      "ok": true,
+      "ms": 20975,
+      "calls": 762,
+      "turns": 584,
+      "priorMs": 20993,
+      "priorCalls": 762
+    },
+    {
+      "step": "revert-5x1",
+      "tool": "revert_change",
+      "ok": true,
+      "ms": 21922,
+      "calls": 795,
+      "turns": 614,
+      "priorMs": 22499,
+      "priorCalls": 804
+    },
+    {
+      "step": "compose-3x2",
+      "tool": "compose_devices",
+      "ok": true,
+      "ms": 23642,
+      "calls": 873,
+      "turns": 665,
+      "priorMs": 23540,
+      "priorCalls": 873
+    },
+    {
+      "step": "revert-3x2",
+      "tool": "revert_change",
+      "ok": true,
+      "ms": 26028,
+      "calls": 937,
+      "turns": 724,
+      "priorMs": 26301,
+      "priorCalls": 943
+    },
+    {
+      "step": "compose-2x3",
+      "tool": "compose_devices",
+      "ok": true,
+      "ms": 23278,
+      "calls": 868,
+      "turns": 660,
+      "priorMs": 23247,
+      "priorCalls": 868
+    },
+    {
+      "step": "revert-2x3",
+      "tool": "revert_change",
+      "ok": true,
+      "ms": 26764,
+      "calls": 946,
+      "turns": 733,
+      "priorMs": 26912,
+      "priorCalls": 946
+    },
+    {
+      "step": "diva-set-1",
+      "tool": "set_device_controls",
+      "ok": true,
+      "ms": 3429,
+      "calls": 74,
+      "turns": 69,
+      "priorMs": 3447,
+      "priorCalls": 74
+    },
+    {
+      "step": "diva-set-27",
+      "tool": "set_device_controls",
+      "ok": true,
+      "ms": 7776,
+      "calls": 204,
+      "turns": 199,
+      "priorMs": 7740,
+      "priorCalls": 204
+    },
+    {
+      "step": "diva-set-64",
+      "tool": "set_device_controls",
+      "ok": true,
+      "ms": 13912,
+      "calls": 389,
+      "turns": 384,
+      "priorMs": 13905,
+      "priorCalls": 389
+    },
+    {
+      "step": "compose-diva-3",
+      "tool": "compose_devices",
+      "ok": true,
+      "ms": 13643,
+      "calls": 509,
+      "turns": 391,
+      "priorMs": 13616,
+      "priorCalls": 507
+    },
+    {
+      "step": "revert-compose-diva-3",
+      "tool": "revert_change",
+      "ok": true,
+      "ms": 15828,
+      "calls": 535,
+      "turns": 418,
+      "priorMs": 15941,
+      "priorCalls": 535
+    }
+  ],
+  "before": {
+    "project": "New 3",
+    "generation": "5fb7ed09-8d73-493c-8862-7e7e8aaa2813",
+    "scenes": 8,
+    "tracks": [
+      {
+        "index": 0,
+        "name": "Inst 1",
+        "position": 0,
+        "type": "Instrument",
+        "channelId": "7f124549-13ca-4d15-9cda-36ce64e02c1c"
+      },
+      {
+        "index": 1,
+        "name": "Audio 2",
+        "position": 1,
+        "type": "Audio",
+        "channelId": "e5ab447a-29c6-4fcd-8553-b05ad1e54324"
+      },
+      {
+        "index": 2,
+        "name": "FX 1",
+        "position": 2,
+        "type": "Effect",
+        "channelId": "3775451a-92ce-431a-8a12-987bd835402b"
+      },
+      {
+        "index": 3,
+        "name": "Master",
+        "position": 3,
+        "type": "Master",
+        "channelId": "9fb80e65-ff9a-48a9-94b0-534a39de0153"
+      }
+    ],
+    "selection": {
+      "trackIndex": 2,
+      "slotIndex": 15,
+      "mixerTrackIndex": 1,
+      "changes": 2358,
+      "revision": 2672,
+      "slotProject": "New 3",
+      "mixerProject": "New 3",
+      "project": "New 3"
+    },
+    "unpinnedCursorTracks": [],
+    "runtimeProfile": "normal-v1",
+    "initEpochMs": 1791450984981,
+    "heapUsedMb": 1040
+  },
+  "after": {
+    "project": "New 3",
+    "generation": "5fb7ed09-8d73-493c-8862-7e7e8aaa2813",
+    "scenes": 8,
+    "tracks": [
+      {
+        "index": 0,
+        "name": "Inst 1",
+        "position": 0,
+        "type": "Instrument",
+        "channelId": "7f124549-13ca-4d15-9cda-36ce64e02c1c"
+      },
+      {
+        "index": 1,
+        "name": "Audio 2",
+        "position": 1,
+        "type": "Audio",
+        "channelId": "e5ab447a-29c6-4fcd-8553-b05ad1e54324"
+      },
+      {
+        "index": 2,
+        "name": "FX 1",
+        "position": 2,
+        "type": "Effect",
+        "channelId": "3775451a-92ce-431a-8a12-987bd835402b"
+      },
+      {
+        "index": 3,
+        "name": "Master",
+        "position": 3,
+        "type": "Master",
+        "channelId": "9fb80e65-ff9a-48a9-94b0-534a39de0153"
+      }
+    ],
+    "selection": {
+      "trackIndex": 2,
+      "slotIndex": 15,
+      "mixerTrackIndex": 1,
+      "changes": 2358,
+      "revision": 2678,
+      "slotProject": "New 3",
+      "mixerProject": "New 3",
+      "project": "New 3"
+    },
+    "unpinnedCursorTracks": [],
+    "runtimeProfile": "normal-v1",
+    "initEpochMs": 1791450984981,
+    "heapUsedMb": 840
+  }
+}

@@ -1,16 +1,29 @@
 ---
 title: Phase 8i3 long device write profile
 kind: plan
-state: planned
-status: Next (8i2 is complete, E251). Measure the largest admitted device writes against the 60 s client timeout; optimize first, then bound or add a background flag only if a measured case stays over budget.
+state: done
+status: Complete (E252, D44). Nine guard-keeping optimizations, then D44 limits; the longest admitted call is 33.5 s, and no admitted call reaches 45 s. Next: 8i4.
 updated: 2026-10-08
 parent: README.md
 prev: 8i2-collapsed-group-live-verification.md
 next: 8i4-overlay-basis-sealing.md
-evidence: E45, E47, E238, E244, E247, E248; D15, D18, D39, D41
+evidence: E45, E47, E238, E244, E247, E248, E252; D15, D18, D39, D41, D44
 ---
 
 # Phase 8i3 long device write profile
+
+## Result
+
+Complete ([E252](../../evidence/experiments/e252-long-device-write-profile.md),
+[D44](../../decisions/d44-long-writes-are-optimized-then-bounded.md), D39
+amendment). Every write has a measured largest admitted case. The changes:
+a live-generation cohort integrity poll, one layer-chain naming stage,
+structure-only container proofs, a drum pad poll, shared modulation sample
+rounds, no slot descent on layer-chain moves, and two empty-slot descents
+instead of eight. Then the D44 limits refuse a larger request before any
+read or write (`outside-limit`). No background flag was needed. Tool
+descriptions are `ghostnote-description-v36`; the limit follow-up made
+them v37 (4 control routes, 10 removals, limits in the schema text).
 
 ## Cause
 
@@ -130,6 +143,19 @@ Heap: plug-in instances add engine load in Bitwig, not extension heap. The
 parameter inventories are transient. The live heap grows about 100 MiB over
 a long driver run (undo history); restart Bitwig before the run if it is
 already high, and record the heap at the start and the end.
+
+### Review fixes: cost model
+
+The two review fixes keep the successful path's host turns, cold reads,
+write stages, and heap unchanged. This applies to one control and one
+rename, and to the D44 limits of 64 settings on two routes and six device
+units. The parameter poll adds one scalar identity comparison. A mismatch
+uses the existing settled-inventory fallback (about 0.36 s on a native
+device, versus about 50 ms for two polls). A failed name stage derives its
+checkpoint from proved rename receipts. It removes the extra structure read
+(about eight host turns, 190 ms) and allocates at most five entry names.
+E252 remains the cost reference. Rerun the controls and composition arms
+after the fixes; use offline fault injection for the two failure paths.
 
 ## Live procedure
 

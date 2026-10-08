@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v35';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v37';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -516,7 +516,10 @@ const RETIRED_IN_V33 = new Set(['inspect_operation', 'cancel_operation']);
  * cancel_operation leave the list. The edit description states the measured worst case (about 7 s, E248).
  * v34 (8i0, D42) keeps this list. set_launcher_clip_properties and edit_launcher_clip accept any colour, write
  * only the changed properties, and have no clip-colour refusal. v35 (8i1, D43) keeps this list;
- * check_bitwig_connection refuses an unpinned Ghostnote cursor.
+ * check_bitwig_connection refuses an unpinned Ghostnote cursor. v36 (8i3, D44) keeps this list; the long writes
+ * state their measured costs and D44 limits, and the clip batch schemas have no maxItems (the limit refuses with
+ * code outside-limit). wrap_existing_device_modulation has its own agent-native-v1 text. v37 (8i3 limit
+ * follow-up) keeps this list; each bounded input states its D44 limit in its schema text.
  */
 export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] =
   DESCRIPTION_COHORT_V32.filter((member) => !RETIRED_IN_V33.has(member.name));
@@ -732,3 +735,15 @@ export const TOOL_DESCRIPTION_V34_SHA256 =
  */
 export const TOOL_DESCRIPTION_V35_SHA256 =
   '257d1edead8799bd8c58f4ad5e3c9eb3410ad56e69a2df07e88ec5456224119d';
+
+/** v36 (8i3, D44): the long writes state their measured costs and limits. Frozen in the 8i3 limit follow-up. */
+export const TOOL_DESCRIPTION_V36_SHA256 =
+  'c6cca5b30f68f9770e6a241dc1e85a1553c2a813e60930c45cb9eaf00983f158';
+
+/**
+ * v37 (8i3 limit follow-up, D44): set_device_controls admits 4 device routes and delete_device 10 devices; each
+ * bounded input states its limit in its schema text; move_launcher_clips states its 8-row limit. Changing this
+ * fingerprint requires a new description version.
+ */
+export const TOOL_DESCRIPTION_V37_SHA256 =
+  '1919de648c039ef1592ae3ec3f1510ea7f16793f36ecd2dbda9cee62f26b9a6e';

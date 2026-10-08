@@ -517,15 +517,24 @@ export async function authorModulatorEdit(
       : await verifyPages(host, device, request.pageWitnesses ?? [], pause);
   const behaviors: ModulationVerification[] = [];
   if (device !== undefined) {
-    for (const witness of request.behaviorWitnesses ?? []) {
-      behaviors.push(await verifyModulation(
-        host,
-        witnessDevice(device, witness),
-        witness,
-        pause,
-        witness.expected,
-      ));
+    // 8i3 (E252): the witnesses of one device share each sample round (one read), and each keeps its own samples
+    // and verdict. One sampling session for each device, not one for each witness (8 checks: 44.8 s).
+    const witnesses = request.behaviorWitnesses ?? [];
+    const groups = new Map<string, { address: DeviceAddress; indices: number[] }>();
+    witnesses.forEach((witness, index) => {
+      const address = witnessDevice(device, witness);
+      const key = addressKey(address);
+      const group = groups.get(key) ?? { address, indices: [] };
+      group.indices.push(index);
+      groups.set(key, group);
+    });
+    const results: ModulationVerification[] = [];
+    for (const group of groups.values()) {
+      const verified = await verifyModulations(host, group.address, group.indices.map((index) => ({
+        ...witnesses[index]!, expected: witnesses[index]!.expected ?? 'active' })), pause);
+      group.indices.forEach((index, position) => { results[index] = verified[position]!; });
     }
+    behaviors.push(...results);
   }
   const allBehaviorsVerified = device !== undefined
     && behaviors.length === (request.behaviorWitnesses?.length ?? 0)

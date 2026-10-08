@@ -2,12 +2,12 @@
 title: Phase 8i — Agent-native hybrid dogfood
 kind: plan
 state: planned
-status: Final Phase 8 gate. 8i0 (E249, D42), the 8i1 reader repair (E250, D43), and the 8i2 group verification (E251) are complete. Next: 8i3 and 8i4, then resume the trials.
+status: Final Phase 8 gate. 8i0 (E249, D42), the 8i1 reader repair (E250, D43), the 8i2 group verification (E251), and the 8i3 long-write profile (E252, D44) are complete. Next: 8i4, then resume the trials.
 updated: 2026-10-08
 parent: README.md
 prev: 8i4-overlay-basis-sealing.md
 next: ../phase-9/README.md
-evidence: E120, E121, E127-E134, E209, E213, E247; D25, D39, D40
+evidence: E120, E121, E127-E134, E209, E213, E247, E252; D25, D39, D40, D44
 ---
 
 # Phase 8i — Agent-native hybrid dogfood
@@ -38,6 +38,8 @@ Do them in this order before the next trial:
    some admitted device writes (`compose_devices` staged at five chains,
    `set_device_controls` without a bound) can pass the 60 s client timeout.
    Measure, optimize, then bound or add a background flag.
+   Complete ([E252](../../evidence/experiments/e252-long-device-write-profile.md),
+   D44): optimized, then bounded; the longest admitted call is 33.5 s.
 3. [8i4 — Overlay basis sealing](8i4-overlay-basis-sealing.md): an agent
    cannot put an overlay claim, because no tool supplies the R22 basis.
 

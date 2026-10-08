@@ -37,6 +37,7 @@ import {
 import { checkHealth, format } from './agent-native.js';
 import { editLauncherClip, parseProposal } from './agent-native-edit.js';
 import type { ToolSpec } from './tools.js';
+import { atMost, requireWithinLimit } from './write-limits.js';
 import type { Workspace } from './workspace.js';
 
 export const ADD_SCHEMA = 'ghostnote-launcher-clip-add/1';
@@ -280,8 +281,8 @@ const addLauncherClipTool: ToolSpec = {
 // --- copy_launcher_clips -------------------------------------------------------
 
 const copyInput = z.object({
-  copies: z.array(z.object({ source: address, destination: address }).strict()).min(1).max(64).describe(
-    'Each copy names its source clip and its destination slot.',
+  copies: z.array(z.object({ source: address, destination: address }).strict()).min(1).describe(
+    `Each copy names its source clip and its destination slot. ${atMost('clipCopyBatch', 'copies')}`,
   ),
   dryRun: z.boolean().optional().describe('Return the occupancy and make no write.'),
 }).strict();
@@ -295,6 +296,7 @@ const COPY_DESCRIPTION = `${PROFILE} Copy Launcher clips. Each copy names a sour
   + 'Bitwig replaces an occupied destination without an occupancy event. A missing row refuses with code absent; '
   + 'add scenes at the end with add_scenes. Every result, also a refusal and a dry run, has occupancy: the '
   + 'state of each slot that the preflight read.\n'
+  + 'One call copies at most 8 clips (8 clips of 16,384 notes: about 12 s). A larger request refuses before any read or write (code outside-limit, the limit in detail): split it into more calls.\n'
   + 'Result: one effect with a changeId; revert_change removes the copies while they are unchanged.';
 
 async function copyLauncherClips(workspace: Workspace, args: CopyInput): Promise<unknown> {
@@ -302,6 +304,7 @@ async function copyLauncherClips(workspace: Workspace, args: CopyInput): Promise
   const target = { copies: args.copies.length };
   let occupancyReport: Record<string, unknown>[] | undefined;
   const result = await guardedRun(COPY_SCHEMA, target, async (state) => {
+    requireWithinLimit('clipCopyBatch', args.copies.length, 'copies');
     const sources = args.copies.map((item) => item.source);
     const destinations = args.copies.map((item) => item.destination);
     const unsupported = args.copies.filter((item) => item.destination.trackId !== item.source.trackId
@@ -384,7 +387,7 @@ const copyLauncherClipsTool: ToolSpec = {
 const moveInput = z.object({
   trackId,
   firstRow: row.describe('First source row, inclusive.'),
-  lastRow: row.describe('Last source row, inclusive.'),
+  lastRow: row.describe(`Last source row, inclusive. ${atMost('clipMoveRows', 'rows from firstRow through lastRow')}`),
   destinationFirstRow: row.describe('The row where the first source clip lands.'),
   dryRun: z.boolean().optional().describe('Return the occupancy and make no write.'),
 }).strict();
@@ -396,7 +399,8 @@ const MOVE_DESCRIPTION = `${PROFILE} Move a contiguous range of Launcher clips o
   + '(code occupied); the slot above row 0 is the project edge. The scene below the destination range must exist '
   + '(code absent); add scenes at the end with add_scenes. An overlapping move runs from the far edge inward, so '
   + 'no clip is replaced. Every result, also a refusal and a dry run, has occupancy: the state of each row that '
-  + 'the preflight read.\n'
+  + 'the preflight read. One call moves at most 8 rows (8 clips of 16,384 notes: about 24 s). A larger range '
+  + 'refuses before any read or write (code outside-limit, the limit in detail): split it into more calls.\n'
   + 'revert_change does not move clips back: a clip has no durable identity. next.reverse is the exact reverse '
   + 'call; it is safe while the old source rows stay empty and the new rows hold these clips.';
 
@@ -412,6 +416,7 @@ async function moveLauncherClips(workspace: Workspace, args: MoveInput): Promise
     if (args.destinationFirstRow === args.firstRow) {
       throw new ToolFailure('invalid-input', 'input', 'The source and destination ranges are the same.');
     }
+    requireWithinLimit('clipMoveRows', args.lastRow - args.firstRow + 1, 'rows in one range');
     const length = args.lastRow - args.firstRow + 1;
     const destinationLastRow = args.destinationFirstRow + length - 1;
     const sourceRows = Array.from({ length }, (_, offset) => args.firstRow + offset);
@@ -501,19 +506,21 @@ const launchSettingsInput = z.object({
     trackId, row, quantization, mode,
     useLoopStartAsQuantizationReference: z.boolean().optional().describe(
       'The clip loop start, not the project grid, is the quantization reference. Default false.'),
-  }).strict()).min(1).max(64),
+  }).strict()).min(1).describe(atMost('clipCursorBatch', 'clips')),
 }).strict();
 type LaunchSettingsInput = z.infer<typeof launchSettingsInput>;
 
 const LAUNCH_SETTINGS_DESCRIPTION = `${PROFILE} Set the launch grid and mode of Launcher clips: the settings that `
   + 'a person who clicks the clip in Bitwig uses. The prior values are recorded, so revert_change can put them '
   + 'back. This does not start playback and does not configure Next Actions. continue_or_synced keeps the '
-  + 'position only when the outgoing clip is on the same grid. Every clip must exist (code absent).';
+  + 'position only when the outgoing clip is on the same grid. Every clip must exist (code absent). One call sets at '
+  + 'most 8 clips: the connection confirms at most 8 clips in one write. A larger request refuses before any read or write (code outside-limit, the limit in detail): split it into more calls.';
 
 async function setLaunchSettings(workspace: Workspace, args: LaunchSettingsInput): Promise<unknown> {
   const started = performance.now();
   const target = { clips: args.clips.length };
   return guardedRun(LAUNCH_SETTINGS_SCHEMA, target, async (state) => {
+    requireWithinLimit('clipCursorBatch', args.clips.length, 'clips');
     state.stage = 'resolve';
     const at = await markFor(workspace, args.clips.map((item) => item.row));
     await requireTracks(workspace, args.clips.map((item) => item.trackId));
@@ -584,7 +591,7 @@ const propertiesInput = z.object({
       loopStartBeats: z.number().min(0).optional(),
       loopEndBeats: z.number().positive().optional().describe('Must equal loopStartBeats plus lengthBeats.'),
     }).strict().refine((value) => Object.keys(value).length > 0, { message: 'name at least one property' }),
-  }).strict()).min(1).max(64),
+  }).strict()).min(1).describe(atMost('clipCursorBatch', 'clips')),
 }).strict();
 type PropertiesInput = z.infer<typeof propertiesInput>;
 
@@ -598,12 +605,15 @@ const PROPERTIES_DESCRIPTION = `${PROFILE} Set properties of Launcher clips: nam
   + 'Colour is any red, green, and blue bytes. Bitwig can store each byte one off; that readback is verified. Bitwig '
   + 'makes a very dark colour lighter (black reads back as 81,81,81), so readback.status is then differs, with '
   + 'readback.clips[].differences. Do not retry to chase exact bytes. Every clip must exist '
-  + '(code absent). When no property changes, nothing is written and readback.status is unchanged.';
+  + '(code absent). When no property changes, nothing is written and readback.status is unchanged. One call sets at '
+  + 'most 8 clips: the connection confirms at most 8 clips in one write (8 clips of '
+  + '16,384 notes: about 34 s). A larger request refuses before any read or write (code outside-limit, the limit in detail): split it into more calls.';
 
 async function setProperties(workspace: Workspace, args: PropertiesInput): Promise<unknown> {
   const started = performance.now();
   const target = { clips: args.clips.length };
   return guardedRun(PROPERTIES_SCHEMA, target, async (state) => {
+    requireWithinLimit('clipCursorBatch', args.clips.length, 'clips');
     state.stage = 'resolve';
     const at = await markFor(workspace, args.clips.map((item) => item.row));
     await requireTracks(workspace, args.clips.map((item) => item.trackId));
@@ -684,18 +694,20 @@ const setPropertiesTool: ToolSpec = {
 
 // --- delete_launcher_clip --------------------------------------------------------
 
-const deleteInput = z.object({ clips: z.array(address).min(1).max(64) }).strict();
+const deleteInput = z.object({ clips: z.array(address).min(1).describe(atMost('clipDeleteBatch', 'clips')) }).strict();
 type DeleteInput = z.infer<typeof deleteInput>;
 
 const DELETE_DESCRIPTION = `${PROFILE} Delete Launcher clips. The slot stays empty and the scene stays. Each clip's `
   + 'notes, length, name, colour, loop properties, and launch settings are recorded first, so revert_change can '
   + 'put a new clip with that state back. Its play-stop marker and automation lanes do not come back. Every slot '
-  + 'must hold a clip (code absent).';
+  + 'must hold a clip (code absent). One call deletes at most 4 clips, because revert_change writes each clip again '
+  + '(8 clips of 16,384 notes: 46 s). A larger request refuses before any read or write (code outside-limit, the limit in detail): split it into more calls.';
 
 async function deleteLauncherClips(workspace: Workspace, args: DeleteInput): Promise<unknown> {
   const started = performance.now();
   const target = { clips: args.clips.length };
   return guardedRun(DELETE_SCHEMA, target, async (state) => {
+    requireWithinLimit('clipDeleteBatch', args.clips.length, 'clips');
     if (new Set(args.clips.map((item) => `${item.trackId}:${item.row}`)).size !== args.clips.length) {
       throw new ToolFailure('invalid-input', 'input', 'Each clip can appear only once.');
     }

@@ -1,0 +1,1230 @@
+{
+ "schema": "ghostnote-revert/1",
+ "applied": false,
+ "effects": [],
+ "readback": {
+  "status": "nothing-to-revert",
+  "notRestored": [
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 1
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 1,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 3
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 3,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 5
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 5,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 7
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 7,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 9
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 9,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 11
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 11,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 13
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 13,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 15
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 15,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 17
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 17,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 19
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 19,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 21
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 21,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 23
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 23,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 25
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 25,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 27
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 27,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 29
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 29,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 31
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a829c3e1-0398-43d2-bd2e-0df9db0ca3ad",
+     "row": 31,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 1
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 1,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 3
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 3,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 5
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 5,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 7
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 7,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 9
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 9,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 11
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 11,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 13
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 13,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 15
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 15,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 17
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 17,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 19
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 19,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 21
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 21,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 23
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 23,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 25
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 25,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 27
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 27,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 29
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 29,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 31
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "a1a5ccb6-5112-4159-a0b3-f21e5818b125",
+     "row": 31,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 1
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 1,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 3
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 3,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 5
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 5,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 7
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 7,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 9
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 9,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 11
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 11,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 13
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 13,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 15
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 15,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 17
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 17,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 19
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 19,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 21
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 21,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 23
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 23,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 25
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 25,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 27
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 27,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 29
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 29,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 31
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "192536b7-54bd-477f-9f6e-a229b7bc205c",
+     "row": 31,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 1
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 1,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 3
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 3,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 5
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 5,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 7
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 7,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 9
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 9,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 11
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 11,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 13
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 13,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 15
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 15,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 17
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 17,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 19
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 19,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 21
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 21,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 23
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 23,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 25
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 25,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 27
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 27,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 29
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 29,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 31
+    },
+    "what": "clip",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   },
+   {
+    "where": {
+     "what": "launcher_clip",
+     "trackId": "dbd1317d-5772-4a86-940a-eb900c05e2cc",
+     "row": 31,
+     "channel": 1
+    },
+    "what": "notes",
+    "why": "whether this slot moved since the change ran cannot be established — the record of launcher edits could not be compared across it. Contents matching is not enough to settle it, because a clip that moved can leave an identical-looking one behind. Read the slot again before writing to it."
+   }
+  ]
+ },
+ "warnings": [],
+ "target": {
+  "changeId": "9219d9e3-d183-41cd-8c49-6746c2d5ae1b"
+ }
+}

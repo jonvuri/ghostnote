@@ -33,6 +33,8 @@ const fingerprint = z.object({
 export function existingDeviceModulationWrapperSchemas(names: {
   readonly readControls: string;
   readonly readDevices: string;
+  /** agent-native-v1 only (8i3 follow-up): the D44 limit text. `stable-v1` passes none. */
+  readonly modulators?: string;
 }) {
   const modulation = z.object({
     modulator: z.enum(ADD_TYPES).describe('Manifest-backed modulator type from list_modulator_types.'),
@@ -55,7 +57,9 @@ export function existingDeviceModulationWrapperSchemas(names: {
     entryName: z.literal(EXISTING_DEVICE_WRAPPER_ENTRY).describe(
       'The exact empty entry supplied by the owned FX Layer source.',
     ),
-    modulators: z.array(modulation).min(1).max(16),
+    modulators: names.modulators === undefined
+      ? z.array(modulation).min(1).max(16)
+      : z.array(modulation).min(1).max(16).describe(names.modulators),
   } as const;
 
   const existingDeviceModulationWrapperInputValidator = z.object(

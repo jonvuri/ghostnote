@@ -4,44 +4,68 @@ kind: status
 state: active
 updated: 2026-10-08
 phase: phase-8-agent-native-live-engine
-session: 8i3
+session: 8i4
 ---
 
 ## Now
 
-8i2 is complete ([E251](evidence/experiments/e251-collapsed-group-live-verification.md)).
-On the D43 build, the collapsed-group routes pass live in `gn-scale-test`
-at one and three group levels: the D34 read, `check_launcher_clips`, the
-`cursor.pointExpanded` edit and its revert, and the device route. No product
-path or tool description changed (`ghostnote-description-v35`). Two
-remaining review sessions come before the second dogfood trial of
-[8i](plan/phase-8/8i-agent-native-hybrid-dogfood.md):
+8i3 and its limit follow-up are complete and staged, not committed
+([E252](evidence/experiments/e252-long-device-write-profile.md),
+[D44](decisions/d44-long-writes-are-optimized-then-bounded.md), D39
+amendment). Every `agent-native-v1` write has a measured largest admitted
+case. Nine guard-keeping changes removed the cost that grew with the input
+(staged 5×4 compose 102 s, Drum Machine 16 pads 72 s → 12.5 s, 44 control
+writes 21 s → 9.4 s, 8 preset checks 45 s → 7 s). Then the D44 limits in
+`brain/src/surface/write-limits.ts` refuse a larger request before any
+read or write (`outside-limit`, the limit in `detail`). The longest admitted
+call is 33.5 s (properties of 8 clips of 16,384 notes). No background flag.
+No extension change. Descriptions are `ghostnote-description-v37` (v36
+frozen).
 
-1. **Next:** [8i3 — Long device write profile](plan/phase-8/8i3-long-device-write-profile.md):
-   staged `compose_devices` at five layer chains (estimate 60–110 s) and
-   `set_device_controls` without a bound (about 0.45 s for each control) can
-   pass the 60 s client timeout. Measure, optimize, then bound or add a
-   background flag (D39 rule).
-2. [8i4 — Overlay basis sealing](plan/phase-8/8i4-overlay-basis-sealing.md):
+The limit follow-up (E252 "Limit follow-up", `final3/`): `set_device_controls`
+admits 4 device routes (4 Diva routes of 16 settings: 22.5 s) and
+`delete_device` 10 devices (10 native 25.2 s, 10 Divas 20.7 s). The plug-in
+weight in `compose_devices` stays 2 (6 Diva chains would revert in about
+32 s, estimate). Each bounded input states "At most N … in one call" in its
+schema text, with no `maxItems`; `write-limits.test.ts` checks the JSON
+schema text, the description, and the refusal. `move_launcher_clips` now
+states its 8-row limit. All 2,127 brain tests pass; "New 3" is at its
+baseline.
+
+Agent impact to keep in mind (8i3 review): with the limits, the agent splits
+larger work into more calls. A split is not atomic; `revert_change` does not
+reverse `move_devices` or clip moves; overlapping clip moves split from the
+far edge. A container with 3 or more modulated layer chains cannot be built
+(container modulators come only from `compose_devices`); this is the one
+shape that the limits remove.
+
+### Next
+
+1. [8i4 — Overlay basis sealing](plan/phase-8/8i4-overlay-basis-sealing.md):
    no tool supplies the R22 basis, so an agent cannot put an overlay claim
-   (offline check: omitted basis R12, wrong basis R22).
+   (offline check: omitted basis R12, wrong basis R22). Commit the staged
+   8i3 change first, or continue on top of it.
 
 Then rerun the second trial in "ice jungle". Minor review items for a
-session that already touches the files: the four measured-body device tools
-keep `stable-v1` wording (`tools.ts:1965`, `:2066`), and `README.md` has a
-stale status line and two missing probe scripts (`probe:e00`,
-`probe:conformance`).
+session that already touches the files: `README.md` has a stale status line
+and two missing probe scripts (`probe:e00`, `probe:conformance`).
+`reverse_existing_device_modulation_wrap` and `read_preset_modulation` keep
+`stable-v1` wording (8i3 gave the wrap its own text).
 
-What 8i2 found: the device route on a collapsed child does not use
-`cursor.pointExpanded` (a clip point only). It points a pinned pool cursor
-with `cursor.pointTrack`, and it passes. A track delete moves the mixer
-selection in Bitwig also when no owned cursor is on the track (control arm);
-`delete_track` does not report it. A project switch is visible only to the
-operator: Bitwig gives no switch counter.
+What 8i3 found besides the cost: a copy of more than about 20 clips cannot
+be reverted (24 launcher content events); clip property and launch-setting
+writes of more than 8 clips always refused after reading (8 writer cursors);
+a delete of more than 8 clips could not be reverted; a wrap with 16
+modulators never proves its pages (16-page window). D44 turns each into an
+early `outside-limit`. The behavior proof needs the audio engine, and some
+controls (Polysynth filter frequency, filter envelope depth) move less than
+the proof divergence for an LFO. A plug-in with many more parameters than
+Diva (281) has a higher fixed cost; that dimension stays unbounded.
 
-Open from E250: `add_launcher_clip` leaves the slot selection on the new
-clip (Bitwig selects it; no borrow is recorded). A non-add tool whose verify
-read throws reports `differs`, not `unavailable`.
+Open from E250/E251: `add_launcher_clip` leaves the slot selection on the new
+clip; a non-add tool whose verify read throws reports `differs`, not
+`unavailable`; `delete_track` does not report that Bitwig moves the mixer
+selection.
 
 "ice jungle" holds the Undertow Bass track and clip from the failed trial
 (the clip can hold notes from the stopped piano-roll input); the operator
@@ -70,32 +94,31 @@ the generic pressure warning as a host limit.
   parameter inventories around a device control write are the costliest
   safeguard (27 controls: 14.4 s).
 
-## Last live baseline (8i2)
+## Last live baseline (8i3)
 
 The deployed normal `ghostnote` archive is unchanged since 8i1: SHA-256
 `aae2c7e346c413dc409c572a3e52dc44f983f08ac232ea302e4c0b14f0bc1fb0`, 89
 methods, `0ef817f4bac8a8a7`, `fineSteps` 4,194,304, and the `rig.info`
 markers `clipMetadataWrite: owned-fields-v1` and `cursorTrackPins.rule:
-owned-tracks-pinned-v1` (`probe:hello` checks both; `rig.stats` has the
-re-pin count). The probe build was not deployed (107 methods,
-`a4c9dcd1499f498a`). `gn-scale-test` is open and matches its baseline
-([baseline-final.json](evidence/data/phase8h4a5-cursor/baseline-final.json)),
-with `Group 5` collapsed; the 8i2 fixtures are deleted. "New 2" (Inst 1,
-Audio 2, FX 1; 8 scenes) and "New 6" are unchanged. The next free evidence
-number is E252; the next decision is D44. Check the current project before
-live work; dogfood uses "ice jungle". `phase8i1-follow.ts follow` checks
-every tool route in "ice jungle"; `phase8i2-groups.ts` runs the group
-matrix (operator steps between modes).
+owned-tracks-pinned-v1`. The 8i3 changes are brain-only. Bitwig has the
+owned project "New 3" open (Inst 1, Audio 2, FX 1; 8 scenes; the audio
+engine is on), at its baseline; `gn-scale-test`, "New 2", and "New 6" are
+unchanged. The next free evidence number is E253; the next decision is D45.
+Check the current project before live work; dogfood uses "ice jungle".
+`phase8i3-long-writes.ts` measures each long write at its D44 limit (one
+command for each arm; `plugins` and `modulation` need the audio engine).
 
 ## Facts
 
 Add the index row in the same session as a new E or D record. Clip colour no
 longer needs the palette (D42); a colour sample must include dark colours.
-Report note channels 1-based to the operator. `context/check.rb` needs
+Report note channels 1-based to the operator. A long write has a D44 limit
+in `write-limits.ts`; a new or changed long path measures its largest
+admitted case and its revert, and adds or moves a limit with a test. `context/check.rb` needs
 `LANG=en_US.UTF-8`. Bitwig
 cannot insert a scene above row 0. The first write after an operator scene
 change can refuse in the cursor preflight (E3); retry once. Probe
-`WireTransport` throws plain `Error`, not `BridgeError`. Bitwig reports note
+`WireTransport` throws `BridgeError` with the reply code (8i3). Bitwig reports note
 pressure as 0 (D37). The normal profile has no `transport.stop`; a live
 launch leaves the transport playing for the operator to stop.
 `check-publication-candidates.py --write` after a reviewed spec, codec, or
@@ -127,6 +150,31 @@ driver run: deleted tracks stay in the undo history.
 VU audibility oracle (E239): stop every clip and the transport, wait for VU 0,
 then launch one track and read the Master VU as well.
 
+## 8i3 limit follow-up retrospective
+
+- The plan asked for a weight-1 trial of 6 Diva chains, but `compose_devices`
+  admits at most 5 layer chains. When a plan proposes a trial input, check
+  it against the tool schema first.
+
+## 8i3 retrospective
+
+- Review fix: test a fast path against every identity field in its settled
+  reference. Test partial recovery with an operator edit as well as an
+  interrupted owned write; derive expected state from proved receipts.
+- The plan's inventory listed device tools and the clip batches "from the
+  ledger". The ledger had only one-clip costs, and the clip limits came
+  from host limits (8 writer cursors, 24 content events, 16 remote pages)
+  that no plan named. When a plan bounds a batch tool, list the host
+  windows that the batch crosses (`RigConfig`, `Rig.CONTENT_LOG`) first.
+- Four driver reruns came from inputs, not from the product: Diva switches
+  with no discrete domain, LFO targets below the proof divergence, a move
+  boundary row, and an early `exit` that skipped cleanup. A live driver
+  writes values every control can hold (endpoints), measures time without
+  asserting a per-control proof, and cleans up in `finally` only.
+- A `git stash` of `adapter.ts` during a running live chain removed the
+  edits for a few seconds. Do not stash a file that a running driver can
+  load; test the old code in a worktree.
+
 ## 8i2 retrospective
 
 - The plan expected the device route to use `cursor.pointExpanded`. One
@@ -137,19 +185,3 @@ then launch one track and read the Master VU as well.
   delete, and document clip IDs that each process assigns. A driver that
   compares across a host event or a process resets its expected state after
   the event and compares content without document IDs.
-
-## 8i1 retrospective
-
-- The diagnosis named the follow mode but not that a point *drives* the
-  selection. One raw A/B (pinned and unpinned `pointTrack` on one pool
-  cursor) settled the design in two calls. Test the smallest host primitive
-  with a control arm before designing around a host behaviour.
-- Three later failures came from host pin behaviour that the first fix did
-  not model: a delete removes a pin, a project switch brings other pins, and
-  a cursor without a track holds none. Each cost a controller replacement.
-  Before a deploy, list the host events that can change the state that a fix
-  depends on (delete, project switch, reload, no target) and test each one.
-- A new field on `RevisionMark` broke every guarded edit live, because the
-  mark is inside the published snapshot reference. The fakes did not send
-  the field. When an extension reply gains a field, add it to the fake reply
-  in the same change.

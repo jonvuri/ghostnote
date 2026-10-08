@@ -35,6 +35,7 @@ import {
   AGENT_NATIVE_TOOL_PROFILE, REFUSAL_CODES, ToolFailure, classifyError, failureResult,
   type Effect, type FailureCode, type FailureStage, type ReadResult, type Warning, type WriteResult,
 } from './agent-native-result.js';
+import { atMost, requireWithinLimit } from './write-limits.js';
 import { checkCursorPins, checkHealth } from './agent-native.js';
 import { completeDeviceBank, enabledFingerprint } from './device-controls.js';
 import {
@@ -492,16 +493,19 @@ async function duplicateTrack(workspace: Workspace, args: DuplicateInput): Promi
 }
 
 const renameInput = z.object({
-  tracks: z.array(z.object({ trackId, name: trackName.describe('The new exact name.') }).strict()).min(1),
+  tracks: z.array(z.object({ trackId, name: trackName.describe('The new exact name.') }).strict()).min(1)
+    .describe(atMost('trackBatch', 'tracks')),
 }).strict();
 type RenameInput = z.infer<typeof renameInput>;
 
 const RENAME_DESCRIPTION = `${PROFILE} Rename tracks. The trackId does not change with the name, so every address `
-  + 'stays valid. The change records each previous name; revert_change puts it back.';
+  + 'stays valid. The change records each previous name; revert_change puts it back. One call renames at most 64 '
+  + 'tracks. A larger request refuses before any read or write (code outside-limit, the limit in detail): split it into more calls.';
 
 async function renameTracks(workspace: Workspace, args: RenameInput): Promise<unknown> {
   const target = { trackIds: args.tracks.map((item) => item.trackId) };
   return guardedRun(TRACK_RENAME_SCHEMA, target, async (state) => {
+    requireWithinLimit('trackBatch', args.tracks.length, 'tracks');
     // 8h4f: one track read first. The executor records a rename of a missing track as a failed op, not a refusal.
     state.stage = 'resolve';
     await tracksNamed(workspace, args.tracks.map((item) => item.trackId));
@@ -519,17 +523,19 @@ async function renameTracks(workspace: Workspace, args: RenameInput): Promise<un
 }
 
 const deleteTracksInput = z.object({
-  trackIds: z.array(trackId).min(1).describe('Each track to delete, once.'),
+  trackIds: z.array(trackId).min(1).describe(`Each track to delete, once. ${atMost('trackBatch', 'tracks')}`),
 }).strict();
 type DeleteTracksInput = z.infer<typeof deleteTracksInput>;
 
 const DELETE_TRACK_DESCRIPTION = `${PROFILE} Delete tracks with everything on them: every clip, device, and `
   + 'setting. A group track deletes the tracks inside it too. Nothing here can undo it: a track made again has a '
-  + 'new trackId, so no record of the old track applies to it. readback.removed names each deleted trackId.';
+  + 'new trackId, so no record of the old track applies to it. readback.removed names each deleted trackId. One call '
+  + 'deletes at most 64 tracks. A larger request refuses before any read or write (code outside-limit, the limit in detail): split it into more calls.';
 
 async function deleteTracks(workspace: Workspace, args: DeleteTracksInput): Promise<unknown> {
   const target = { trackIds: args.trackIds };
   return guardedRun(TRACK_DELETE_SCHEMA, target, async (state) => {
+    requireWithinLimit('trackBatch', args.trackIds.length, 'tracks');
     if (new Set(args.trackIds).size !== args.trackIds.length) {
       throw new ToolFailure('invalid-input', 'input', 'Each trackId can appear only once. Nothing was deleted.');
     }
@@ -561,7 +567,7 @@ const enabledInput = z.object({
     trackId,
     devicePosition: z.number().int().min(0).describe('Current top-level position from read_devices.'),
     enabled: z.boolean().describe('False bypasses the device.'),
-  }).strict()).min(1),
+  }).strict()).min(1).describe(atMost('deviceEnabledSettings', 'settings')),
 }).strict();
 type EnabledInput = z.infer<typeof enabledInput>;
 
@@ -569,11 +575,13 @@ const ENABLED_DESCRIPTION = `${PROFILE} Enable or bypass top-level devices. Each
   + 'order first, and refuses when the device at the position is not the one that the order guard expects. A '
   + 'position is valid only until the next device-order edit; read_devices again after one. Independent readback '
   + 'proves each state. revert_change restores the previous state while the device position is valid. A failure '
-  + 'after an earlier setting keeps that setting and lists its effect.';
+  + 'after an earlier setting keeps that setting and lists its effect. One call admits at most 32 settings (about '
+  + '0.6 s each). A larger request refuses before any read or write (code outside-limit, the limit in detail): split it into more calls.';
 
 async function setDeviceEnabled(workspace: Workspace, args: EnabledInput): Promise<unknown> {
   const target = { settings: args.settings.length };
   return guardedRun(DEVICE_ENABLED_SCHEMA, target, async (state) => {
+    requireWithinLimit('deviceEnabledSettings', args.settings.length, 'settings');
     let verified = true;
     for (const setting of args.settings) {
       state.stage = 'acquire';

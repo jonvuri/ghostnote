@@ -1,0 +1,5618 @@
+{
+ "schema": "phase8i3-long-writes-v1",
+ "hello": {
+  "contractVersion": 0,
+  "extensionVersion": "0.0.1",
+  "runtimeProfile": "normal-v1",
+  "hostApiVersion": 25,
+  "methodCount": 89,
+  "methodsHash": "0ef817f4bac8a8a7"
+ },
+ "project": "New 3",
+ "heapStart": {
+  "runtimeProfile": "normal-v1",
+  "config": {
+   "tracks": 256,
+   "scenes": 128,
+   "gridSteps": 64,
+   "gridKeys": 128,
+   "cursorPool": 8,
+   "sends": 4,
+   "deviceBank": 16,
+   "fineSteps": 4194304,
+   "noteReadSteps": 2048,
+   "paramHandles": 64,
+   "remotePages": 16,
+   "cacheShadowSteps": 131072,
+   "cacheKneeResearch": false,
+   "changeWatchCursors": 0,
+   "contentFilter": "ALL_CHANNELS",
+   "directObservers": true,
+   "stamp": "default",
+   "fromFile": true
+  },
+  "rigConstructMicros": 35533,
+  "initMicros": 52120,
+  "initEpochMs": 1791450984981,
+  "upMs": 12977458,
+  "clipReader": {
+   "revision": "clip-reader-v3",
+   "closeRule": "confirm-before-release-v1",
+   "openRule": "subscribe-before-unpin-v1",
+   "groupRule": "expand-collapsed-parent-v1",
+   "limitRule": "sounding-cell-limit-v1",
+   "format": "notes-v1",
+   "width": 4194304,
+   "grid": 0.001953125,
+   "page": 131072,
+   "deadlineMs": 2000,
+   "soundingCells": 2097152,
+   "reads": 124,
+   "refusals": 0,
+   "lastRefusal": "",
+   "lateCallbacks": 0,
+   "strayCallbacks": 1325696,
+   "releaseCallbacks": 661728,
+   "releaseEmpty": 661728,
+   "releaseSustain": 0,
+   "releaseOn": 0,
+   "subscribed": false,
+   "open": false,
+   "state": {
+    "parkChannelId": "9fb80e65-ff9a-48a9-94b0-534a39de0153",
+    "trackChannelId": "",
+    "trackPinned": false,
+    "clipTrackChannelId": "",
+    "clipExists": false,
+    "clipPinned": false,
+    "sceneIndex": 0,
+    "subscribed": false,
+    "atPark": false
+   },
+   "writeGate": {
+    "readOpen": false,
+    "waiting": 0,
+    "leases": 0,
+    "limit": 256,
+    "queuedTotal": 2,
+    "refusedTotal": 0
+   },
+   "groupPoint": {
+    "rule": "expand-collapsed-point-v1",
+    "points": 4,
+    "refusals": 0,
+    "lastRefusal": "",
+    "open": false
+   }
+  },
+  "cursorTrackPins": {
+   "rule": "owned-tracks-pinned-v1",
+   "tracks": 14,
+   "unpinned": [],
+   "repins": 68,
+   "untargeted": 14
+  },
+  "slotObjects": 32768,
+  "markedValues": 197888,
+  "resources": {
+   "cursorDeviceBanks": 8,
+   "siblingDeviceBanks": 1,
+   "layerDeviceBanks": 8,
+   "slotDeviceBanks": 15,
+   "namedSlotDeviceBanks": 0,
+   "drumPadDeviceBanks": 16,
+   "deviceBanks": 48,
+   "cursorDeviceSlots": 128,
+   "cursorDeviceEnabledValues": 128,
+   "layerDeviceSlots": 32,
+   "slotDeviceSlots": 60,
+   "drumPadDeviceSlots": 256,
+   "namedSlotDeviceSlots": 0,
+   "deviceSlots": 492,
+   "cursorDevices": 1,
+   "specificDeviceViews": 4,
+   "typedParameterHandles": 75,
+   "remotePageCursors": 16,
+   "remoteParameterHandles": 128,
+   "directParameterObservers": 4,
+   "noteObserverCursors": 1,
+   "noteStepObservers": 1,
+   "stepDataObservers": 0,
+   "trackSendBanks": 0,
+   "trackSendHandles": 0,
+   "trackVuObservers": 0,
+   "historicalActionHandles": 0,
+   "historicalSelectionObservers": 0,
+   "equalsProxies": 32,
+   "transportProxies": 1,
+   "masterRecorderProxies": 0,
+   "cursorTracks": 11,
+   "cursorClips": 11,
+   "layerBanks": 4,
+   "layerHandles": 23,
+   "layerSendBanks": 0,
+   "layerSendHandles": 0,
+   "explicitHostObjects": 33893,
+   "observerCallbacks": 838
+  },
+  "heapUsedMb": 524,
+  "heapMaxMb": 3072
+ },
+ "heapEnd": {
+  "runtimeProfile": "normal-v1",
+  "config": {
+   "tracks": 256,
+   "scenes": 128,
+   "gridSteps": 64,
+   "gridKeys": 128,
+   "cursorPool": 8,
+   "sends": 4,
+   "deviceBank": 16,
+   "fineSteps": 4194304,
+   "noteReadSteps": 2048,
+   "paramHandles": 64,
+   "remotePages": 16,
+   "cacheShadowSteps": 131072,
+   "cacheKneeResearch": false,
+   "changeWatchCursors": 0,
+   "contentFilter": "ALL_CHANNELS",
+   "directObservers": true,
+   "stamp": "default",
+   "fromFile": true
+  },
+  "rigConstructMicros": 35533,
+  "initMicros": 52120,
+  "initEpochMs": 1791450984981,
+  "upMs": 13020071,
+  "clipReader": {
+   "revision": "clip-reader-v3",
+   "closeRule": "confirm-before-release-v1",
+   "openRule": "subscribe-before-unpin-v1",
+   "groupRule": "expand-collapsed-parent-v1",
+   "limitRule": "sounding-cell-limit-v1",
+   "format": "notes-v1",
+   "width": 4194304,
+   "grid": 0.001953125,
+   "page": 131072,
+   "deadlineMs": 2000,
+   "soundingCells": 2097152,
+   "reads": 124,
+   "refusals": 0,
+   "lastRefusal": "",
+   "lateCallbacks": 0,
+   "strayCallbacks": 1325696,
+   "releaseCallbacks": 661728,
+   "releaseEmpty": 661728,
+   "releaseSustain": 0,
+   "releaseOn": 0,
+   "subscribed": false,
+   "open": false,
+   "state": {
+    "parkChannelId": "9fb80e65-ff9a-48a9-94b0-534a39de0153",
+    "trackChannelId": "",
+    "trackPinned": false,
+    "clipTrackChannelId": "",
+    "clipExists": false,
+    "clipPinned": false,
+    "sceneIndex": 0,
+    "subscribed": false,
+    "atPark": false
+   },
+   "writeGate": {
+    "readOpen": false,
+    "waiting": 0,
+    "leases": 0,
+    "limit": 256,
+    "queuedTotal": 2,
+    "refusedTotal": 0
+   },
+   "groupPoint": {
+    "rule": "expand-collapsed-point-v1",
+    "points": 4,
+    "refusals": 0,
+    "lastRefusal": "",
+    "open": false
+   }
+  },
+  "cursorTrackPins": {
+   "rule": "owned-tracks-pinned-v1",
+   "tracks": 14,
+   "unpinned": [],
+   "repins": 71,
+   "untargeted": 13
+  },
+  "slotObjects": 32768,
+  "markedValues": 197888,
+  "resources": {
+   "cursorDeviceBanks": 8,
+   "siblingDeviceBanks": 1,
+   "layerDeviceBanks": 8,
+   "slotDeviceBanks": 15,
+   "namedSlotDeviceBanks": 0,
+   "drumPadDeviceBanks": 16,
+   "deviceBanks": 48,
+   "cursorDeviceSlots": 128,
+   "cursorDeviceEnabledValues": 128,
+   "layerDeviceSlots": 32,
+   "slotDeviceSlots": 60,
+   "drumPadDeviceSlots": 256,
+   "namedSlotDeviceSlots": 0,
+   "deviceSlots": 492,
+   "cursorDevices": 1,
+   "specificDeviceViews": 4,
+   "typedParameterHandles": 75,
+   "remotePageCursors": 16,
+   "remoteParameterHandles": 128,
+   "directParameterObservers": 4,
+   "noteObserverCursors": 1,
+   "noteStepObservers": 1,
+   "stepDataObservers": 0,
+   "trackSendBanks": 0,
+   "trackSendHandles": 0,
+   "trackVuObservers": 0,
+   "historicalActionHandles": 0,
+   "historicalSelectionObservers": 0,
+   "equalsProxies": 32,
+   "transportProxies": 1,
+   "masterRecorderProxies": 0,
+   "cursorTracks": 11,
+   "cursorClips": 11,
+   "layerBanks": 4,
+   "layerHandles": 23,
+   "layerSendBanks": 0,
+   "layerSendHandles": 0,
+   "explicitHostObjects": 33893,
+   "observerCallbacks": 838
+  },
+  "heapUsedMb": 644,
+  "heapMaxMb": 3072
+ },
+ "rows": [
+  {
+   "step": "add-track-gn-8i3-controls",
+   "tool": "add_tracks",
+   "ok": true,
+   "status": "verified",
+   "ms": 788,
+   "bytes": 671,
+   "calls": 36,
+   "turns": 18,
+   "wireMs": 411,
+   "brainMs": 13,
+   "idleMs": 364,
+   "methods": {
+    "selection.status": 2,
+    "revision.get": 11,
+    "track.list": 13,
+    "batch.run": 2,
+    "cursor.pin": 8
+   },
+   "methodMs": {
+    "selection.status": 48,
+    "revision.get": 246,
+    "track.list": 294,
+    "batch.run": 46,
+    "cursor.pin": 184
+   },
+   "gaps": [
+    [
+     "batch.run",
+     "cursor.pin",
+     145
+    ],
+    [
+     "batch.run",
+     "revision.get",
+     145
+    ]
+   ],
+   "gapMs": 290,
+   "sequence": [
+    [
+     "selection.status",
+     1,
+     25
+    ],
+    [
+     "revision.get",
+     26,
+     24
+    ],
+    [
+     "track.list",
+     26,
+     24
+    ],
+    [
+     "revision.get",
+     52,
+     24
+    ],
+    [
+     "track.list",
+     52,
+     24
+    ],
+    [
+     "track.list",
+     77,
+     25
+    ],
+    [
+     "batch.run",
+     102,
+     23
+    ],
+    [
+     "cursor.pin",
+     271,
+     23
+    ],
+    [
+     "cursor.pin",
+     271,
+     23
+    ],
+    [
+     "cursor.pin",
+     271,
+     23
+    ],
+    [
+     "cursor.pin",
+     271,
+     23
+    ],
+    [
+     "cursor.pin",
+     271,
+     23
+    ],
+    [
+     "cursor.pin",
+     271,
+     23
+    ],
+    [
+     "cursor.pin",
+     271,
+     23
+    ],
+    [
+     "cursor.pin",
+     271,
+     23
+    ],
+    [
+     "track.list",
+     320,
+     21
+    ],
+    [
+     "revision.get",
+     341,
+     23
+    ],
+    [
+     "track.list",
+     341,
+     24
+    ],
+    [
+     "revision.get",
+     391,
+     19
+    ],
+    [
+     "track.list",
+     391,
+     19
+    ],
+    [
+     "revision.get",
+     411,
+     23
+    ],
+    [
+     "track.list",
+     411,
+     23
+    ],
+    [
+     "selection.status",
+     435,
+     23
+    ],
+    [
+     "revision.get",
+     458,
+     23
+    ],
+    [
+     "track.list",
+     458,
+     24
+    ],
+    [
+     "revision.get",
+     481,
+     24
+    ],
+    [
+     "track.list",
+     481,
+     24
+    ],
+    [
+     "revision.get",
+     506,
+     24
+    ],
+    [
+     "track.list",
+     506,
+     24
+    ],
+    [
+     "batch.run",
+     530,
+     23
+    ],
+    [
+     "revision.get",
+     699,
+     18
+    ],
+    [
+     "track.list",
+     699,
+     18
+    ],
+    [
+     "revision.get",
+     743,
+     21
+    ],
+    [
+     "track.list",
+     743,
+     21
+    ],
+    [
+     "revision.get",
+     764,
+     23
+    ],
+    [
+     "track.list",
+     764,
+     23
+    ]
+   ]
+  },
+  {
+   "step": "add-device",
+   "tool": "add_devices",
+   "ok": true,
+   "status": "verified",
+   "ms": 1344,
+   "bytes": 656,
+   "calls": 47,
+   "turns": 35,
+   "wireMs": 776,
+   "brainMs": 13,
+   "idleMs": 554,
+   "methods": {
+    "selection.status": 3,
+    "track.list": 8,
+    "devcursor.pin": 5,
+    "cursor.pointTrack": 5,
+    "device.list": 12,
+    "revision.get": 5,
+    "batch.run": 1,
+    "cursor.pin": 8
+   },
+   "methodMs": {
+    "selection.status": 69,
+    "track.list": 188,
+    "devcursor.pin": 111,
+    "cursor.pointTrack": 115,
+    "device.list": 244,
+    "revision.get": 118,
+    "batch.run": 24,
+    "cursor.pin": 192
+   },
+   "gaps": [
+    [
+     "device.list",
+     "device.list",
+     101
+    ],
+    [
+     "device.list",
+     "device.list",
+     101
+    ],
+    [
+     "device.list",
+     "device.list",
+     100
+    ]
+   ],
+   "gapMs": 302,
+   "sequence": [
+    [
+     "selection.status",
+     1,
+     22
+    ],
+    [
+     "track.list",
+     23,
+     24
+    ],
+    [
+     "devcursor.pin",
+     48,
+     24
+    ],
+    [
+     "cursor.pointTrack",
+     72,
+     23
+    ],
+    [
+     "device.list",
+     121,
+     19
+    ],
+    [
+     "devcursor.pin",
+     167,
+     20
+    ],
+    [
+     "cursor.pointTrack",
+     187,
+     23
+    ],
+    [
+     "device.list",
+     236,
+     21
+    ],
+    [
+     "selection.status",
+     257,
+     23
+    ],
+    [
+     "revision.get",
+     280,
+     24
+    ],
+    [
+     "track.list",
+     281,
+     24
+    ],
+    [
+     "revision.get",
+     305,
+     24
+    ],
+    [
+     "track.list",
+     305,
+     24
+    ],
+    [
+     "devcursor.pin",
+     329,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     352,
+     23
+    ],
+    [
+     "device.list",
+     401,
+     20
+    ],
+    [
+     "device.list",
+     447,
+     23
+    ],
+    [
+     "device.list",
+     470,
+     23
+    ],
+    [
+     "batch.run",
+     494,
+     24
+    ],
+    [
+     "device.list",
+     517,
+     20
+    ],
+    [
+     "device.list",
+     639,
+     17
+    ],
+    [
+     "device.list",
+     756,
+     19
+    ],
+    [
+     "device.list",
+     876,
+     19
+    ],
+    [
+     "device.list",
+     895,
+     23
+    ],
+    [
+     "cursor.pin",
+     919,
+     24
+    ],
+    [
+     "cursor.pin",
+     919,
+     24
+    ],
+    [
+     "cursor.pin",
+     919,
+     24
+    ],
+    [
+     "cursor.pin",
+     919,
+     24
+    ],
+    [
+     "cursor.pin",
+     919,
+     24
+    ],
+    [
+     "cursor.pin",
+     919,
+     24
+    ],
+    [
+     "cursor.pin",
+     919,
+     24
+    ],
+    [
+     "cursor.pin",
+     919,
+     24
+    ],
+    [
+     "track.list",
+     969,
+     21
+    ],
+    [
+     "revision.get",
+     991,
+     25
+    ],
+    [
+     "track.list",
+     991,
+     25
+    ],
+    [
+     "revision.get",
+     1042,
+     21
+    ],
+    [
+     "track.list",
+     1042,
+     21
+    ],
+    [
+     "revision.get",
+     1063,
+     24
+    ],
+    [
+     "track.list",
+     1063,
+     24
+    ],
+    [
+     "selection.status",
+     1087,
+     24
+    ],
+    [
+     "track.list",
+     1112,
+     25
+    ],
+    [
+     "devcursor.pin",
+     1136,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     1160,
+     23
+    ],
+    [
+     "device.list",
+     1209,
+     19
+    ],
+    [
+     "devcursor.pin",
+     1253,
+     21
+    ],
+    [
+     "cursor.pointTrack",
+     1274,
+     23
+    ],
+    [
+     "device.list",
+     1322,
+     21
+    ]
+   ]
+  },
+  {
+   "step": "read-controls",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 660,
+   "bytes": 10793,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 358,
+   "brainMs": 6,
+   "idleMs": 296,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 22,
+    "track.list": 22,
+    "selection.status": 23,
+    "devcursor.pin": 71,
+    "cursor.pointTrack": 47,
+    "device.list": 21,
+    "devcursor.selectAt": 47,
+    "devcursor.status": 22,
+    "directparam.list": 61,
+    "param.list": 25,
+    "chain.inventory": 21
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ]
+   ],
+   "gapMs": 195,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     22
+    ],
+    [
+     "track.list",
+     1,
+     22
+    ],
+    [
+     "selection.status",
+     23,
+     23
+    ],
+    [
+     "devcursor.pin",
+     47,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     69,
+     24
+    ],
+    [
+     "device.list",
+     119,
+     21
+    ],
+    [
+     "devcursor.selectAt",
+     140,
+     24
+    ],
+    [
+     "devcursor.pin",
+     164,
+     25
+    ],
+    [
+     "devcursor.status",
+     215,
+     22
+    ],
+    [
+     "directparam.list",
+     237,
+     23
+    ],
+    [
+     "directparam.list",
+     455,
+     17
+    ],
+    [
+     "directparam.list",
+     498,
+     21
+    ],
+    [
+     "param.list",
+     519,
+     25
+    ],
+    [
+     "devcursor.pin",
+     544,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     567,
+     23
+    ],
+    [
+     "devcursor.selectAt",
+     590,
+     23
+    ],
+    [
+     "chain.inventory",
+     639,
+     21
+    ]
+   ]
+  },
+  {
+   "step": "read-before-1",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 661,
+   "bytes": 10793,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 360,
+   "brainMs": 4,
+   "idleMs": 297,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 23,
+    "track.list": 24,
+    "selection.status": 25,
+    "devcursor.pin": 70,
+    "cursor.pointTrack": 47,
+    "device.list": 20,
+    "devcursor.selectAt": 46,
+    "devcursor.status": 21,
+    "directparam.list": 62,
+    "param.list": 25,
+    "chain.inventory": 23
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ]
+   ],
+   "gapMs": 195,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     23
+    ],
+    [
+     "track.list",
+     0,
+     24
+    ],
+    [
+     "selection.status",
+     24,
+     25
+    ],
+    [
+     "devcursor.pin",
+     49,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     72,
+     24
+    ],
+    [
+     "device.list",
+     122,
+     20
+    ],
+    [
+     "devcursor.selectAt",
+     142,
+     23
+    ],
+    [
+     "devcursor.pin",
+     165,
+     23
+    ],
+    [
+     "devcursor.status",
+     214,
+     21
+    ],
+    [
+     "directparam.list",
+     235,
+     23
+    ],
+    [
+     "directparam.list",
+     453,
+     18
+    ],
+    [
+     "directparam.list",
+     497,
+     21
+    ],
+    [
+     "param.list",
+     518,
+     25
+    ],
+    [
+     "devcursor.pin",
+     542,
+     24
+    ],
+    [
+     "cursor.pointTrack",
+     566,
+     23
+    ],
+    [
+     "devcursor.selectAt",
+     589,
+     23
+    ],
+    [
+     "chain.inventory",
+     638,
+     23
+    ]
+   ]
+  },
+  {
+   "step": "set-1",
+   "tool": "set_device_controls",
+   "ok": true,
+   "ms": 2168,
+   "bytes": 897,
+   "calls": 57,
+   "turns": 52,
+   "wireMs": 1164,
+   "brainMs": 18,
+   "idleMs": 986,
+   "methods": {
+    "selection.status": 3,
+    "track.list": 6,
+    "devcursor.pin": 8,
+    "cursor.pointTrack": 5,
+    "device.list": 5,
+    "revision.get": 5,
+    "devcursor.selectAt": 4,
+    "devcursor.status": 4,
+    "directparam.list": 9,
+    "param.list": 3,
+    "chain.inventory": 2,
+    "batch.run": 1,
+    "directparam.completion": 2
+   },
+   "methodMs": {
+    "selection.status": 72,
+    "track.list": 139,
+    "devcursor.pin": 190,
+    "cursor.pointTrack": 119,
+    "device.list": 107,
+    "revision.get": 113,
+    "devcursor.selectAt": 94,
+    "devcursor.status": 86,
+    "directparam.list": 174,
+    "param.list": 74,
+    "chain.inventory": 40,
+    "batch.run": 24,
+    "directparam.completion": 45
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     194
+    ]
+   ],
+   "gapMs": 584,
+   "sequence": [
+    [
+     "selection.status",
+     1,
+     23
+    ],
+    [
+     "track.list",
+     23,
+     25
+    ],
+    [
+     "devcursor.pin",
+     48,
+     24
+    ],
+    [
+     "cursor.pointTrack",
+     72,
+     24
+    ],
+    [
+     "device.list",
+     121,
+     22
+    ],
+    [
+     "devcursor.pin",
+     169,
+     20
+    ],
+    [
+     "cursor.pointTrack",
+     189,
+     24
+    ],
+    [
+     "device.list",
+     239,
+     21
+    ],
+    [
+     "revision.get",
+     260,
+     23
+    ],
+    [
+     "track.list",
+     260,
+     23
+    ],
+    [
+     "selection.status",
+     283,
+     25
+    ],
+    [
+     "devcursor.pin",
+     308,
+     24
+    ],
+    [
+     "cursor.pointTrack",
+     333,
+     24
+    ],
+    [
+     "device.list",
+     382,
+     21
+    ],
+    [
+     "devcursor.selectAt",
+     403,
+     24
+    ],
+    [
+     "devcursor.pin",
+     428,
+     25
+    ],
+    [
+     "devcursor.status",
+     479,
+     19
+    ],
+    [
+     "directparam.list",
+     498,
+     24
+    ],
+    [
+     "directparam.list",
+     717,
+     16
+    ],
+    [
+     "directparam.list",
+     759,
+     21
+    ],
+    [
+     "param.list",
+     780,
+     25
+    ],
+    [
+     "devcursor.pin",
+     805,
+     24
+    ],
+    [
+     "cursor.pointTrack",
+     829,
+     23
+    ],
+    [
+     "devcursor.selectAt",
+     852,
+     24
+    ],
+    [
+     "chain.inventory",
+     902,
+     21
+    ],
+    [
+     "selection.status",
+     923,
+     24
+    ],
+    [
+     "revision.get",
+     947,
+     24
+    ],
+    [
+     "track.list",
+     947,
+     24
+    ],
+    [
+     "devcursor.pin",
+     971,
+     25
+    ],
+    [
+     "cursor.pointTrack",
+     996,
+     24
+    ],
+    [
+     "device.list",
+     1046,
+     22
+    ],
+    [
+     "devcursor.pin",
+     1068,
+     23
+    ],
+    [
+     "device.list",
+     1117,
+     21
+    ],
+    [
+     "devcursor.selectAt",
+     1138,
+     23
+    ],
+    [
+     "devcursor.pin",
+     1162,
+     25
+    ],
+    [
+     "devcursor.status",
+     1213,
+     22
+    ],
+    [
+     "batch.run",
+     1235,
+     24
+    ],
+    [
+     "directparam.completion",
+     1285,
+     24
+    ],
+    [
+     "directparam.completion",
+     1335,
+     21
+    ],
+    [
+     "devcursor.status",
+     1356,
+     23
+    ],
+    [
+     "directparam.list",
+     1379,
+     22
+    ],
+    [
+     "directparam.list",
+     1596,
+     11
+    ],
+    [
+     "directparam.list",
+     1634,
+     19
+    ],
+    [
+     "param.list",
+     1653,
+     24
+    ],
+    [
+     "revision.get",
+     1678,
+     23
+    ],
+    [
+     "track.list",
+     1678,
+     23
+    ],
+    [
+     "revision.get",
+     1727,
+     20
+    ],
+    [
+     "track.list",
+     1727,
+     20
+    ],
+    [
+     "devcursor.status",
+     1747,
+     22
+    ],
+    [
+     "directparam.list",
+     1769,
+     24
+    ],
+    [
+     "directparam.list",
+     1988,
+     14
+    ],
+    [
+     "directparam.list",
+     2027,
+     23
+    ],
+    [
+     "param.list",
+     2051,
+     25
+    ],
+    [
+     "devcursor.selectAt",
+     2076,
+     23
+    ],
+    [
+     "chain.inventory",
+     2124,
+     19
+    ],
+    [
+     "revision.get",
+     2144,
+     23
+    ],
+    [
+     "track.list",
+     2144,
+     24
+    ]
+   ]
+  },
+  {
+   "step": "read-before-27",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 668,
+   "bytes": 10765,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 368,
+   "brainMs": 4,
+   "idleMs": 296,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 24,
+    "track.list": 24,
+    "selection.status": 25,
+    "devcursor.pin": 70,
+    "cursor.pointTrack": 49,
+    "device.list": 23,
+    "devcursor.selectAt": 47,
+    "devcursor.status": 21,
+    "directparam.list": 66,
+    "param.list": 25,
+    "chain.inventory": 19
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ]
+   ],
+   "gapMs": 195,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     24
+    ],
+    [
+     "track.list",
+     0,
+     24
+    ],
+    [
+     "selection.status",
+     24,
+     25
+    ],
+    [
+     "devcursor.pin",
+     49,
+     22
+    ],
+    [
+     "cursor.pointTrack",
+     72,
+     24
+    ],
+    [
+     "device.list",
+     122,
+     23
+    ],
+    [
+     "devcursor.selectAt",
+     145,
+     24
+    ],
+    [
+     "devcursor.pin",
+     168,
+     25
+    ],
+    [
+     "devcursor.status",
+     219,
+     21
+    ],
+    [
+     "directparam.list",
+     240,
+     24
+    ],
+    [
+     "directparam.list",
+     459,
+     18
+    ],
+    [
+     "directparam.list",
+     503,
+     24
+    ],
+    [
+     "param.list",
+     527,
+     25
+    ],
+    [
+     "devcursor.pin",
+     552,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     575,
+     25
+    ],
+    [
+     "devcursor.selectAt",
+     600,
+     23
+    ],
+    [
+     "chain.inventory",
+     649,
+     19
+    ]
+   ]
+  },
+  {
+   "step": "set-27",
+   "tool": "set_device_controls",
+   "ok": true,
+   "ms": 13799,
+   "bytes": 4321,
+   "calls": 265,
+   "turns": 260,
+   "wireMs": 5708,
+   "brainMs": 87,
+   "idleMs": 8005,
+   "methods": {
+    "selection.status": 3,
+    "track.list": 6,
+    "devcursor.pin": 8,
+    "cursor.pointTrack": 5,
+    "device.list": 5,
+    "revision.get": 5,
+    "devcursor.selectAt": 4,
+    "devcursor.status": 30,
+    "directparam.list": 87,
+    "param.list": 29,
+    "chain.inventory": 2,
+    "batch.run": 27,
+    "directparam.completion": 54
+   },
+   "methodMs": {
+    "selection.status": 70,
+    "track.list": 138,
+    "devcursor.pin": 185,
+    "cursor.pointTrack": 117,
+    "device.list": 104,
+    "revision.get": 112,
+    "devcursor.selectAt": 91,
+    "devcursor.status": 704,
+    "directparam.list": 1776,
+    "param.list": 700,
+    "chain.inventory": 45,
+    "batch.run": 625,
+    "directparam.completion": 1159
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     194
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ]
+   ],
+   "gapMs": 5654,
+   "sequence": [
+    [
+     "selection.status",
+     0,
+     23
+    ],
+    [
+     "track.list",
+     24,
+     25
+    ],
+    [
+     "devcursor.pin",
+     48,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     71,
+     24
+    ],
+    [
+     "device.list",
+     121,
+     22
+    ],
+    [
+     "devcursor.pin",
+     170,
+     20
+    ],
+    [
+     "cursor.pointTrack",
+     190,
+     23
+    ],
+    [
+     "device.list",
+     239,
+     20
+    ],
+    [
+     "revision.get",
+     259,
+     23
+    ],
+    [
+     "track.list",
+     259,
+     23
+    ],
+    [
+     "selection.status",
+     283,
+     24
+    ],
+    [
+     "devcursor.pin",
+     307,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     330,
+     23
+    ],
+    [
+     "device.list",
+     379,
+     22
+    ],
+    [
+     "devcursor.selectAt",
+     401,
+     22
+    ],
+    [
+     "devcursor.pin",
+     423,
+     24
+    ],
+    [
+     "devcursor.status",
+     473,
+     21
+    ],
+    [
+     "directparam.list",
+     494,
+     24
+    ],
+    [
+     "directparam.list",
+     713,
+     13
+    ],
+    [
+     "directparam.list",
+     753,
+     22
+    ],
+    [
+     "param.list",
+     775,
+     25
+    ],
+    [
+     "devcursor.pin",
+     799,
+     24
+    ],
+    [
+     "cursor.pointTrack",
+     823,
+     24
+    ],
+    [
+     "devcursor.selectAt",
+     848,
+     23
+    ],
+    [
+     "chain.inventory",
+     897,
+     22
+    ],
+    [
+     "selection.status",
+     919,
+     23
+    ],
+    [
+     "revision.get",
+     942,
+     23
+    ],
+    [
+     "track.list",
+     942,
+     23
+    ],
+    [
+     "devcursor.pin",
+     965,
+     24
+    ],
+    [
+     "cursor.pointTrack",
+     989,
+     23
+    ],
+    [
+     "device.list",
+     1038,
+     20
+    ],
+    [
+     "devcursor.pin",
+     1059,
+     24
+    ],
+    [
+     "device.list",
+     1109,
+     20
+    ],
+    [
+     "devcursor.selectAt",
+     1129,
+     23
+    ],
+    [
+     "devcursor.pin",
+     1152,
+     23
+    ],
+    [
+     "devcursor.status",
+     1201,
+     22
+    ],
+    [
+     "batch.run",
+     1223,
+     23
+    ],
+    [
+     "directparam.completion",
+     1271,
+     23
+    ],
+    [
+     "directparam.completion",
+     1320,
+     20
+    ],
+    [
+     "devcursor.status",
+     1340,
+     23
+    ],
+    [
+     "directparam.list",
+     1363,
+     22
+    ],
+    [
+     "directparam.list",
+     1580,
+     16
+    ],
+    [
+     "directparam.list",
+     1623,
+     21
+    ],
+    [
+     "param.list",
+     1644,
+     25
+    ],
+    [
+     "batch.run",
+     1669,
+     23
+    ],
+    [
+     "directparam.completion",
+     1717,
+     21
+    ],
+    [
+     "directparam.completion",
+     1764,
+     19
+    ],
+    [
+     "devcursor.status",
+     1783,
+     23
+    ],
+    [
+     "directparam.list",
+     1806,
+     24
+    ],
+    [
+     "directparam.list",
+     2025,
+     18
+    ],
+    [
+     "directparam.list",
+     2069,
+     21
+    ],
+    [
+     "param.list",
+     2091,
+     25
+    ],
+    [
+     "batch.run",
+     2116,
+     23
+    ],
+    [
+     "directparam.completion",
+     2164,
+     22
+    ],
+    [
+     "directparam.completion",
+     2212,
+     23
+    ],
+    [
+     "devcursor.status",
+     2235,
+     24
+    ],
+    [
+     "directparam.list",
+     2259,
+     24
+    ],
+    [
+     "directparam.list",
+     2479,
+     17
+    ],
+    [
+     "directparam.list",
+     2521,
+     23
+    ],
+    [
+     "param.list",
+     2544,
+     25
+    ],
+    [
+     "batch.run",
+     2569,
+     19
+    ],
+    [
+     "directparam.completion",
+     2613,
+     24
+    ],
+    [
+     "directparam.completion",
+     2663,
+     22
+    ],
+    [
+     "devcursor.status",
+     2685,
+     23
+    ],
+    [
+     "directparam.list",
+     2708,
+     25
+    ],
+    [
+     "directparam.list",
+     2928,
+     15
+    ],
+    [
+     "directparam.list",
+     2969,
+     21
+    ],
+    [
+     "param.list",
+     2990,
+     25
+    ],
+    [
+     "batch.run",
+     3015,
+     23
+    ],
+    [
+     "directparam.completion",
+     3063,
+     24
+    ],
+    [
+     "directparam.completion",
+     3114,
+     21
+    ],
+    [
+     "devcursor.status",
+     3135,
+     24
+    ],
+    [
+     "directparam.list",
+     3159,
+     24
+    ],
+    [
+     "directparam.list",
+     3378,
+     20
+    ],
+    [
+     "directparam.list",
+     3424,
+     22
+    ],
+    [
+     "param.list",
+     3446,
+     25
+    ],
+    [
+     "batch.run",
+     3471,
+     22
+    ],
+    [
+     "directparam.completion",
+     3519,
+     20
+    ],
+    [
+     "directparam.completion",
+     3565,
+     22
+    ],
+    [
+     "devcursor.status",
+     3587,
+     23
+    ],
+    [
+     "directparam.list",
+     3610,
+     23
+    ],
+    [
+     "directparam.list",
+     3828,
+     16
+    ],
+    [
+     "directparam.list",
+     3870,
+     22
+    ],
+    [
+     "param.list",
+     3892,
+     24
+    ],
+    [
+     "batch.run",
+     3916,
+     24
+    ],
+    [
+     "directparam.completion",
+     3965,
+     22
+    ],
+    [
+     "directparam.completion",
+     4012,
+     20
+    ],
+    [
+     "devcursor.status",
+     4033,
+     23
+    ],
+    [
+     "directparam.list",
+     4055,
+     24
+    ],
+    [
+     "directparam.list",
+     4274,
+     15
+    ],
+    [
+     "directparam.list",
+     4316,
+     21
+    ],
+    [
+     "param.list",
+     4337,
+     23
+    ],
+    [
+     "batch.run",
+     4361,
+     23
+    ],
+    [
+     "directparam.completion",
+     4408,
+     21
+    ],
+    [
+     "directparam.completion",
+     4455,
+     20
+    ],
+    [
+     "devcursor.status",
+     4476,
+     23
+    ],
+    [
+     "directparam.list",
+     4499,
+     24
+    ],
+    [
+     "directparam.list",
+     4718,
+     13
+    ],
+    [
+     "directparam.list",
+     4757,
+     19
+    ],
+    [
+     "param.list",
+     4776,
+     23
+    ],
+    [
+     "batch.run",
+     4800,
+     23
+    ],
+    [
+     "directparam.completion",
+     4847,
+     20
+    ],
+    [
+     "directparam.completion",
+     4894,
+     20
+    ],
+    [
+     "devcursor.status",
+     4914,
+     23
+    ],
+    [
+     "directparam.list",
+     4937,
+     25
+    ],
+    [
+     "directparam.list",
+     5156,
+     16
+    ],
+    [
+     "directparam.list",
+     5199,
+     21
+    ],
+    [
+     "param.list",
+     5220,
+     23
+    ],
+    [
+     "batch.run",
+     5243,
+     24
+    ],
+    [
+     "directparam.completion",
+     5292,
+     22
+    ],
+    [
+     "directparam.completion",
+     5340,
+     19
+    ],
+    [
+     "devcursor.status",
+     5359,
+     24
+    ],
+    [
+     "directparam.list",
+     5383,
+     25
+    ],
+    [
+     "directparam.list",
+     5602,
+     15
+    ],
+    [
+     "directparam.list",
+     5644,
+     19
+    ],
+    [
+     "param.list",
+     5663,
+     24
+    ],
+    [
+     "batch.run",
+     5687,
+     23
+    ],
+    [
+     "directparam.completion",
+     5734,
+     23
+    ],
+    [
+     "directparam.completion",
+     5783,
+     23
+    ],
+    [
+     "devcursor.status",
+     5806,
+     24
+    ],
+    [
+     "directparam.list",
+     5830,
+     24
+    ],
+    [
+     "directparam.list",
+     6049,
+     13
+    ],
+    [
+     "directparam.list",
+     6088,
+     19
+    ],
+    [
+     "param.list",
+     6107,
+     23
+    ],
+    [
+     "batch.run",
+     6131,
+     23
+    ],
+    [
+     "directparam.completion",
+     6179,
+     22
+    ],
+    [
+     "directparam.completion",
+     6227,
+     20
+    ],
+    [
+     "devcursor.status",
+     6246,
+     23
+    ],
+    [
+     "directparam.list",
+     6269,
+     23
+    ],
+    [
+     "directparam.list",
+     6487,
+     15
+    ],
+    [
+     "directparam.list",
+     6528,
+     21
+    ],
+    [
+     "param.list",
+     6549,
+     24
+    ],
+    [
+     "batch.run",
+     6573,
+     25
+    ],
+    [
+     "directparam.completion",
+     6623,
+     21
+    ],
+    [
+     "directparam.completion",
+     6671,
+     21
+    ],
+    [
+     "devcursor.status",
+     6692,
+     24
+    ],
+    [
+     "directparam.list",
+     6716,
+     24
+    ],
+    [
+     "directparam.list",
+     6934,
+     21
+    ],
+    [
+     "directparam.list",
+     6981,
+     20
+    ],
+    [
+     "param.list",
+     7001,
+     23
+    ],
+    [
+     "batch.run",
+     7024,
+     22
+    ],
+    [
+     "directparam.completion",
+     7072,
+     20
+    ],
+    [
+     "directparam.completion",
+     7118,
+     21
+    ],
+    [
+     "devcursor.status",
+     7139,
+     22
+    ],
+    [
+     "directparam.list",
+     7161,
+     24
+    ],
+    [
+     "directparam.list",
+     7380,
+     17
+    ],
+    [
+     "directparam.list",
+     7423,
+     21
+    ],
+    [
+     "param.list",
+     7444,
+     23
+    ],
+    [
+     "batch.run",
+     7468,
+     23
+    ],
+    [
+     "directparam.completion",
+     7516,
+     21
+    ],
+    [
+     "directparam.completion",
+     7562,
+     21
+    ],
+    [
+     "devcursor.status",
+     7584,
+     23
+    ],
+    [
+     "directparam.list",
+     7607,
+     24
+    ],
+    [
+     "directparam.list",
+     7825,
+     20
+    ],
+    [
+     "directparam.list",
+     7871,
+     21
+    ],
+    [
+     "param.list",
+     7892,
+     24
+    ],
+    [
+     "batch.run",
+     7917,
+     23
+    ],
+    [
+     "directparam.completion",
+     7965,
+     23
+    ],
+    [
+     "directparam.completion",
+     8014,
+     20
+    ],
+    [
+     "devcursor.status",
+     8034,
+     24
+    ],
+    [
+     "directparam.list",
+     8059,
+     24
+    ],
+    [
+     "directparam.list",
+     8278,
+     15
+    ],
+    [
+     "directparam.list",
+     8319,
+     20
+    ],
+    [
+     "param.list",
+     8339,
+     23
+    ],
+    [
+     "batch.run",
+     8363,
+     24
+    ],
+    [
+     "directparam.completion",
+     8412,
+     22
+    ],
+    [
+     "directparam.completion",
+     8459,
+     21
+    ],
+    [
+     "devcursor.status",
+     8480,
+     24
+    ],
+    [
+     "directparam.list",
+     8504,
+     24
+    ],
+    [
+     "directparam.list",
+     8722,
+     18
+    ],
+    [
+     "directparam.list",
+     8766,
+     22
+    ],
+    [
+     "param.list",
+     8789,
+     23
+    ],
+    [
+     "batch.run",
+     8812,
+     23
+    ],
+    [
+     "directparam.completion",
+     8859,
+     26
+    ],
+    [
+     "directparam.completion",
+     8910,
+     21
+    ],
+    [
+     "devcursor.status",
+     8932,
+     24
+    ],
+    [
+     "directparam.list",
+     8956,
+     23
+    ],
+    [
+     "directparam.list",
+     9174,
+     18
+    ],
+    [
+     "directparam.list",
+     9218,
+     21
+    ],
+    [
+     "param.list",
+     9239,
+     24
+    ],
+    [
+     "batch.run",
+     9263,
+     23
+    ],
+    [
+     "directparam.completion",
+     9311,
+     22
+    ],
+    [
+     "directparam.completion",
+     9359,
+     21
+    ],
+    [
+     "devcursor.status",
+     9380,
+     24
+    ],
+    [
+     "directparam.list",
+     9404,
+     23
+    ],
+    [
+     "directparam.list",
+     9622,
+     14
+    ],
+    [
+     "directparam.list",
+     9662,
+     22
+    ],
+    [
+     "param.list",
+     9684,
+     24
+    ],
+    [
+     "batch.run",
+     9708,
+     24
+    ],
+    [
+     "directparam.completion",
+     9756,
+     22
+    ],
+    [
+     "directparam.completion",
+     9804,
+     20
+    ],
+    [
+     "devcursor.status",
+     9824,
+     24
+    ],
+    [
+     "directparam.list",
+     9848,
+     24
+    ],
+    [
+     "directparam.list",
+     10067,
+     19
+    ],
+    [
+     "directparam.list",
+     10111,
+     22
+    ],
+    [
+     "param.list",
+     10133,
+     26
+    ],
+    [
+     "batch.run",
+     10159,
+     23
+    ],
+    [
+     "directparam.completion",
+     10208,
+     21
+    ],
+    [
+     "directparam.completion",
+     10255,
+     21
+    ],
+    [
+     "devcursor.status",
+     10276,
+     24
+    ],
+    [
+     "directparam.list",
+     10300,
+     23
+    ],
+    [
+     "directparam.list",
+     10518,
+     21
+    ],
+    [
+     "directparam.list",
+     10565,
+     23
+    ],
+    [
+     "param.list",
+     10588,
+     23
+    ],
+    [
+     "batch.run",
+     10611,
+     25
+    ],
+    [
+     "directparam.completion",
+     10661,
+     21
+    ],
+    [
+     "directparam.completion",
+     10708,
+     22
+    ],
+    [
+     "devcursor.status",
+     10730,
+     24
+    ],
+    [
+     "directparam.list",
+     10753,
+     24
+    ],
+    [
+     "directparam.list",
+     10973,
+     16
+    ],
+    [
+     "directparam.list",
+     11014,
+     19
+    ],
+    [
+     "param.list",
+     11033,
+     24
+    ],
+    [
+     "batch.run",
+     11058,
+     23
+    ],
+    [
+     "directparam.completion",
+     11105,
+     23
+    ],
+    [
+     "directparam.completion",
+     11154,
+     21
+    ],
+    [
+     "devcursor.status",
+     11176,
+     24
+    ],
+    [
+     "directparam.list",
+     11199,
+     25
+    ],
+    [
+     "directparam.list",
+     11419,
+     18
+    ],
+    [
+     "directparam.list",
+     11463,
+     21
+    ],
+    [
+     "param.list",
+     11485,
+     24
+    ],
+    [
+     "batch.run",
+     11509,
+     25
+    ],
+    [
+     "directparam.completion",
+     11559,
+     22
+    ],
+    [
+     "directparam.completion",
+     11607,
+     20
+    ],
+    [
+     "devcursor.status",
+     11628,
+     24
+    ],
+    [
+     "directparam.list",
+     11652,
+     23
+    ],
+    [
+     "directparam.list",
+     11871,
+     16
+    ],
+    [
+     "directparam.list",
+     11913,
+     21
+    ],
+    [
+     "param.list",
+     11933,
+     24
+    ],
+    [
+     "batch.run",
+     11957,
+     23
+    ],
+    [
+     "directparam.completion",
+     12005,
+     23
+    ],
+    [
+     "directparam.completion",
+     12054,
+     21
+    ],
+    [
+     "devcursor.status",
+     12076,
+     24
+    ],
+    [
+     "directparam.list",
+     12099,
+     23
+    ],
+    [
+     "directparam.list",
+     12317,
+     15
+    ],
+    [
+     "directparam.list",
+     12359,
+     21
+    ],
+    [
+     "param.list",
+     12380,
+     24
+    ],
+    [
+     "batch.run",
+     12404,
+     24
+    ],
+    [
+     "directparam.completion",
+     12453,
+     23
+    ],
+    [
+     "directparam.completion",
+     12501,
+     22
+    ],
+    [
+     "devcursor.status",
+     12523,
+     24
+    ],
+    [
+     "directparam.list",
+     12547,
+     24
+    ],
+    [
+     "directparam.list",
+     12766,
+     18
+    ],
+    [
+     "directparam.list",
+     12810,
+     22
+    ],
+    [
+     "param.list",
+     12832,
+     26
+    ],
+    [
+     "batch.run",
+     12858,
+     22
+    ],
+    [
+     "directparam.completion",
+     12905,
+     22
+    ],
+    [
+     "directparam.completion",
+     12953,
+     21
+    ],
+    [
+     "devcursor.status",
+     12973,
+     24
+    ],
+    [
+     "directparam.list",
+     12997,
+     24
+    ],
+    [
+     "directparam.list",
+     13216,
+     14
+    ],
+    [
+     "directparam.list",
+     13256,
+     19
+    ],
+    [
+     "param.list",
+     13275,
+     25
+    ],
+    [
+     "revision.get",
+     13300,
+     22
+    ],
+    [
+     "track.list",
+     13300,
+     22
+    ],
+    [
+     "revision.get",
+     13349,
+     21
+    ],
+    [
+     "track.list",
+     13349,
+     22
+    ],
+    [
+     "devcursor.status",
+     13370,
+     24
+    ],
+    [
+     "directparam.list",
+     13394,
+     24
+    ],
+    [
+     "directparam.list",
+     13613,
+     14
+    ],
+    [
+     "directparam.list",
+     13654,
+     22
+    ],
+    [
+     "param.list",
+     13676,
+     26
+    ],
+    [
+     "devcursor.selectAt",
+     13702,
+     23
+    ],
+    [
+     "chain.inventory",
+     13751,
+     23
+    ],
+    [
+     "revision.get",
+     13775,
+     23
+    ],
+    [
+     "track.list",
+     13775,
+     23
+    ]
+   ]
+  },
+  {
+   "step": "read-before-44",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 658,
+   "bytes": 10700,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 358,
+   "brainMs": 39,
+   "idleMs": 261,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 23,
+    "track.list": 23,
+    "selection.status": 24,
+    "devcursor.pin": 71,
+    "cursor.pointTrack": 47,
+    "device.list": 22,
+    "devcursor.selectAt": 45,
+    "devcursor.status": 22,
+    "directparam.list": 59,
+    "param.list": 23,
+    "chain.inventory": 22
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ]
+   ],
+   "gapMs": 195,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     23
+    ],
+    [
+     "track.list",
+     0,
+     23
+    ],
+    [
+     "selection.status",
+     23,
+     24
+    ],
+    [
+     "devcursor.pin",
+     47,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     71,
+     24
+    ],
+    [
+     "device.list",
+     121,
+     22
+    ],
+    [
+     "devcursor.selectAt",
+     143,
+     22
+    ],
+    [
+     "devcursor.pin",
+     165,
+     24
+    ],
+    [
+     "devcursor.status",
+     215,
+     22
+    ],
+    [
+     "directparam.list",
+     237,
+     24
+    ],
+    [
+     "directparam.list",
+     456,
+     15
+    ],
+    [
+     "directparam.list",
+     497,
+     20
+    ],
+    [
+     "param.list",
+     518,
+     23
+    ],
+    [
+     "devcursor.pin",
+     541,
+     24
+    ],
+    [
+     "cursor.pointTrack",
+     564,
+     23
+    ],
+    [
+     "devcursor.selectAt",
+     588,
+     23
+    ],
+    [
+     "chain.inventory",
+     636,
+     22
+    ]
+   ]
+  },
+  {
+   "step": "set-44",
+   "tool": "set_device_controls",
+   "ok": true,
+   "ms": 21415,
+   "bytes": 6626,
+   "calls": 401,
+   "turns": 396,
+   "wireMs": 8692,
+   "brainMs": 111,
+   "idleMs": 12612,
+   "methods": {
+    "selection.status": 3,
+    "track.list": 6,
+    "devcursor.pin": 8,
+    "cursor.pointTrack": 5,
+    "device.list": 5,
+    "revision.get": 5,
+    "devcursor.selectAt": 4,
+    "devcursor.status": 47,
+    "directparam.list": 138,
+    "param.list": 46,
+    "chain.inventory": 2,
+    "batch.run": 44,
+    "directparam.completion": 88
+   },
+   "methodMs": {
+    "selection.status": 72,
+    "track.list": 139,
+    "devcursor.pin": 182,
+    "cursor.pointTrack": 116,
+    "device.list": 109,
+    "revision.get": 116,
+    "devcursor.selectAt": 95,
+    "devcursor.status": 1099,
+    "directparam.list": 2798,
+    "param.list": 1110,
+    "chain.inventory": 40,
+    "batch.run": 1036,
+    "directparam.completion": 1890
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     194
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     194
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ],
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ]
+   ],
+   "gapMs": 8968,
+   "sequence": [
+    [
+     "selection.status",
+     0,
+     23
+    ],
+    [
+     "track.list",
+     24,
+     23
+    ],
+    [
+     "devcursor.pin",
+     47,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     70,
+     22
+    ],
+    [
+     "device.list",
+     118,
+     23
+    ],
+    [
+     "devcursor.pin",
+     167,
+     20
+    ],
+    [
+     "cursor.pointTrack",
+     188,
+     23
+    ],
+    [
+     "device.list",
+     237,
+     21
+    ],
+    [
+     "revision.get",
+     258,
+     23
+    ],
+    [
+     "track.list",
+     258,
+     23
+    ],
+    [
+     "selection.status",
+     281,
+     24
+    ],
+    [
+     "devcursor.pin",
+     305,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     328,
+     23
+    ],
+    [
+     "device.list",
+     377,
+     21
+    ],
+    [
+     "devcursor.selectAt",
+     399,
+     23
+    ],
+    [
+     "devcursor.pin",
+     422,
+     23
+    ],
+    [
+     "devcursor.status",
+     471,
+     19
+    ],
+    [
+     "directparam.list",
+     490,
+     24
+    ],
+    [
+     "directparam.list",
+     709,
+     15
+    ],
+    [
+     "directparam.list",
+     751,
+     23
+    ],
+    [
+     "param.list",
+     774,
+     25
+    ],
+    [
+     "devcursor.pin",
+     800,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     822,
+     24
+    ],
+    [
+     "devcursor.selectAt",
+     846,
+     24
+    ],
+    [
+     "chain.inventory",
+     896,
+     20
+    ],
+    [
+     "selection.status",
+     916,
+     25
+    ],
+    [
+     "revision.get",
+     941,
+     23
+    ],
+    [
+     "track.list",
+     941,
+     23
+    ],
+    [
+     "devcursor.pin",
+     965,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     988,
+     24
+    ],
+    [
+     "device.list",
+     1037,
+     23
+    ],
+    [
+     "devcursor.pin",
+     1060,
+     24
+    ],
+    [
+     "device.list",
+     1109,
+     21
+    ],
+    [
+     "devcursor.selectAt",
+     1130,
+     24
+    ],
+    [
+     "devcursor.pin",
+     1154,
+     23
+    ],
+    [
+     "devcursor.status",
+     1204,
+     21
+    ],
+    [
+     "batch.run",
+     1225,
+     23
+    ],
+    [
+     "directparam.completion",
+     1273,
+     21
+    ],
+    [
+     "directparam.completion",
+     1320,
+     22
+    ],
+    [
+     "devcursor.status",
+     1342,
+     22
+    ],
+    [
+     "directparam.list",
+     1364,
+     23
+    ],
+    [
+     "directparam.list",
+     1583,
+     18
+    ],
+    [
+     "directparam.list",
+     1626,
+     21
+    ],
+    [
+     "param.list",
+     1648,
+     25
+    ],
+    [
+     "batch.run",
+     1673,
+     24
+    ],
+    [
+     "directparam.completion",
+     1722,
+     21
+    ],
+    [
+     "directparam.completion",
+     1770,
+     22
+    ],
+    [
+     "devcursor.status",
+     1791,
+     23
+    ],
+    [
+     "directparam.list",
+     1814,
+     23
+    ],
+    [
+     "directparam.list",
+     2033,
+     17
+    ],
+    [
+     "directparam.list",
+     2076,
+     23
+    ],
+    [
+     "param.list",
+     2099,
+     24
+    ],
+    [
+     "batch.run",
+     2123,
+     23
+    ],
+    [
+     "directparam.completion",
+     2171,
+     21
+    ],
+    [
+     "directparam.completion",
+     2217,
+     20
+    ],
+    [
+     "devcursor.status",
+     2237,
+     24
+    ],
+    [
+     "directparam.list",
+     2261,
+     24
+    ],
+    [
+     "directparam.list",
+     2480,
+     14
+    ],
+    [
+     "directparam.list",
+     2521,
+     20
+    ],
+    [
+     "param.list",
+     2540,
+     24
+    ],
+    [
+     "batch.run",
+     2564,
+     24
+    ],
+    [
+     "directparam.completion",
+     2613,
+     20
+    ],
+    [
+     "directparam.completion",
+     2660,
+     19
+    ],
+    [
+     "devcursor.status",
+     2679,
+     24
+    ],
+    [
+     "directparam.list",
+     2703,
+     24
+    ],
+    [
+     "directparam.list",
+     2922,
+     14
+    ],
+    [
+     "directparam.list",
+     2961,
+     21
+    ],
+    [
+     "param.list",
+     2982,
+     24
+    ],
+    [
+     "batch.run",
+     3007,
+     23
+    ],
+    [
+     "directparam.completion",
+     3055,
+     23
+    ],
+    [
+     "directparam.completion",
+     3104,
+     22
+    ],
+    [
+     "devcursor.status",
+     3125,
+     25
+    ],
+    [
+     "directparam.list",
+     3150,
+     24
+    ],
+    [
+     "directparam.list",
+     3368,
+     17
+    ],
+    [
+     "directparam.list",
+     3412,
+     22
+    ],
+    [
+     "param.list",
+     3433,
+     24
+    ],
+    [
+     "batch.run",
+     3458,
+     23
+    ],
+    [
+     "directparam.completion",
+     3506,
+     22
+    ],
+    [
+     "directparam.completion",
+     3554,
+     21
+    ],
+    [
+     "devcursor.status",
+     3575,
+     24
+    ],
+    [
+     "directparam.list",
+     3599,
+     23
+    ],
+    [
+     "directparam.list",
+     3817,
+     21
+    ],
+    [
+     "directparam.list",
+     3865,
+     22
+    ],
+    [
+     "param.list",
+     3887,
+     24
+    ],
+    [
+     "batch.run",
+     3911,
+     24
+    ],
+    [
+     "directparam.completion",
+     3960,
+     22
+    ],
+    [
+     "directparam.completion",
+     4007,
+     19
+    ],
+    [
+     "devcursor.status",
+     4027,
+     24
+    ],
+    [
+     "directparam.list",
+     4051,
+     22
+    ],
+    [
+     "directparam.list",
+     4268,
+     13
+    ],
+    [
+     "directparam.list",
+     4307,
+     20
+    ],
+    [
+     "param.list",
+     4328,
+     23
+    ],
+    [
+     "batch.run",
+     4351,
+     22
+    ],
+    [
+     "directparam.completion",
+     4398,
+     23
+    ],
+    [
+     "directparam.completion",
+     4448,
+     21
+    ],
+    [
+     "devcursor.status",
+     4469,
+     24
+    ],
+    [
+     "directparam.list",
+     4493,
+     23
+    ],
+    [
+     "directparam.list",
+     4711,
+     16
+    ],
+    [
+     "directparam.list",
+     4753,
+     21
+    ],
+    [
+     "param.list",
+     4774,
+     24
+    ],
+    [
+     "batch.run",
+     4798,
+     24
+    ],
+    [
+     "directparam.completion",
+     4847,
+     21
+    ],
+    [
+     "directparam.completion",
+     4894,
+     22
+    ],
+    [
+     "devcursor.status",
+     4917,
+     24
+    ],
+    [
+     "directparam.list",
+     4940,
+     24
+    ],
+    [
+     "directparam.list",
+     5160,
+     16
+    ],
+    [
+     "directparam.list",
+     5202,
+     21
+    ],
+    [
+     "param.list",
+     5223,
+     25
+    ],
+    [
+     "batch.run",
+     5247,
+     24
+    ],
+    [
+     "directparam.completion",
+     5296,
+     22
+    ],
+    [
+     "directparam.completion",
+     5344,
+     22
+    ],
+    [
+     "devcursor.status",
+     5366,
+     24
+    ],
+    [
+     "directparam.list",
+     5390,
+     23
+    ],
+    [
+     "directparam.list",
+     5609,
+     15
+    ],
+    [
+     "directparam.list",
+     5650,
+     22
+    ],
+    [
+     "param.list",
+     5672,
+     24
+    ],
+    [
+     "batch.run",
+     5696,
+     24
+    ],
+    [
+     "directparam.completion",
+     5745,
+     21
+    ],
+    [
+     "directparam.completion",
+     5793,
+     23
+    ],
+    [
+     "devcursor.status",
+     5816,
+     23
+    ],
+    [
+     "directparam.list",
+     5838,
+     24
+    ],
+    [
+     "directparam.list",
+     6057,
+     16
+    ],
+    [
+     "directparam.list",
+     6099,
+     21
+    ],
+    [
+     "param.list",
+     6120,
+     24
+    ],
+    [
+     "batch.run",
+     6144,
+     23
+    ],
+    [
+     "directparam.completion",
+     6193,
+     22
+    ],
+    [
+     "directparam.completion",
+     6241,
+     22
+    ],
+    [
+     "devcursor.status",
+     6263,
+     23
+    ],
+    [
+     "directparam.list",
+     6286,
+     24
+    ],
+    [
+     "directparam.list",
+     6505,
+     17
+    ],
+    [
+     "directparam.list",
+     6548,
+     22
+    ],
+    [
+     "param.list",
+     6570,
+     24
+    ],
+    [
+     "batch.run",
+     6594,
+     24
+    ],
+    [
+     "directparam.completion",
+     6643,
+     24
+    ],
+    [
+     "directparam.completion",
+     6693,
+     20
+    ],
+    [
+     "devcursor.status",
+     6713,
+     24
+    ],
+    [
+     "directparam.list",
+     6737,
+     23
+    ],
+    [
+     "directparam.list",
+     6955,
+     17
+    ],
+    [
+     "directparam.list",
+     6998,
+     22
+    ],
+    [
+     "param.list",
+     7019,
+     25
+    ],
+    [
+     "batch.run",
+     7045,
+     24
+    ],
+    [
+     "directparam.completion",
+     7094,
+     22
+    ],
+    [
+     "directparam.completion",
+     7141,
+     23
+    ],
+    [
+     "devcursor.status",
+     7165,
+     23
+    ],
+    [
+     "directparam.list",
+     7188,
+     24
+    ],
+    [
+     "directparam.list",
+     7407,
+     17
+    ],
+    [
+     "directparam.list",
+     7450,
+     22
+    ],
+    [
+     "param.list",
+     7472,
+     24
+    ],
+    [
+     "batch.run",
+     7496,
+     25
+    ],
+    [
+     "directparam.completion",
+     7547,
+     21
+    ],
+    [
+     "directparam.completion",
+     7593,
+     22
+    ],
+    [
+     "devcursor.status",
+     7615,
+     24
+    ],
+    [
+     "directparam.list",
+     7640,
+     24
+    ],
+    [
+     "directparam.list",
+     7859,
+     15
+    ],
+    [
+     "directparam.list",
+     7900,
+     22
+    ],
+    [
+     "param.list",
+     7922,
+     23
+    ],
+    [
+     "batch.run",
+     7945,
+     23
+    ],
+    [
+     "directparam.completion",
+     7993,
+     21
+    ],
+    [
+     "directparam.completion",
+     8040,
+     22
+    ],
+    [
+     "devcursor.status",
+     8063,
+     24
+    ],
+    [
+     "directparam.list",
+     8087,
+     25
+    ],
+    [
+     "directparam.list",
+     8307,
+     17
+    ],
+    [
+     "directparam.list",
+     8349,
+     21
+    ],
+    [
+     "param.list",
+     8370,
+     25
+    ],
+    [
+     "batch.run",
+     8395,
+     23
+    ],
+    [
+     "directparam.completion",
+     8443,
+     21
+    ],
+    [
+     "directparam.completion",
+     8491,
+     22
+    ],
+    [
+     "devcursor.status",
+     8512,
+     23
+    ],
+    [
+     "directparam.list",
+     8536,
+     23
+    ],
+    [
+     "directparam.list",
+     8754,
+     16
+    ],
+    [
+     "directparam.list",
+     8796,
+     22
+    ],
+    [
+     "param.list",
+     8818,
+     24
+    ],
+    [
+     "batch.run",
+     8842,
+     24
+    ],
+    [
+     "directparam.completion",
+     8891,
+     22
+    ],
+    [
+     "directparam.completion",
+     8939,
+     21
+    ],
+    [
+     "devcursor.status",
+     8960,
+     23
+    ],
+    [
+     "directparam.list",
+     8984,
+     24
+    ],
+    [
+     "directparam.list",
+     9202,
+     17
+    ],
+    [
+     "directparam.list",
+     9245,
+     21
+    ],
+    [
+     "param.list",
+     9267,
+     23
+    ],
+    [
+     "batch.run",
+     9290,
+     24
+    ],
+    [
+     "directparam.completion",
+     9339,
+     22
+    ],
+    [
+     "directparam.completion",
+     9387,
+     19
+    ],
+    [
+     "devcursor.status",
+     9407,
+     24
+    ],
+    [
+     "directparam.list",
+     9431,
+     23
+    ],
+    [
+     "directparam.list",
+     9649,
+     15
+    ],
+    [
+     "directparam.list",
+     9690,
+     21
+    ],
+    [
+     "param.list",
+     9712,
+     24
+    ],
+    [
+     "batch.run",
+     9735,
+     25
+    ],
+    [
+     "directparam.completion",
+     9785,
+     23
+    ],
+    [
+     "directparam.completion",
+     9834,
+     21
+    ],
+    [
+     "devcursor.status",
+     9855,
+     23
+    ],
+    [
+     "directparam.list",
+     9878,
+     23
+    ],
+    [
+     "directparam.list",
+     10097,
+     16
+    ],
+    [
+     "directparam.list",
+     10139,
+     20
+    ],
+    [
+     "param.list",
+     10159,
+     25
+    ],
+    [
+     "batch.run",
+     10183,
+     24
+    ],
+    [
+     "directparam.completion",
+     10232,
+     21
+    ],
+    [
+     "directparam.completion",
+     10280,
+     20
+    ],
+    [
+     "devcursor.status",
+     10300,
+     23
+    ],
+    [
+     "directparam.list",
+     10323,
+     22
+    ],
+    [
+     "directparam.list",
+     10541,
+     14
+    ],
+    [
+     "directparam.list",
+     10581,
+     20
+    ],
+    [
+     "param.list",
+     10601,
+     25
+    ],
+    [
+     "batch.run",
+     10626,
+     24
+    ],
+    [
+     "directparam.completion",
+     10675,
+     22
+    ],
+    [
+     "directparam.completion",
+     10723,
+     21
+    ],
+    [
+     "devcursor.status",
+     10744,
+     25
+    ],
+    [
+     "directparam.list",
+     10769,
+     24
+    ],
+    [
+     "directparam.list",
+     10988,
+     17
+    ],
+    [
+     "directparam.list",
+     11030,
+     22
+    ],
+    [
+     "param.list",
+     11052,
+     25
+    ],
+    [
+     "batch.run",
+     11077,
+     24
+    ],
+    [
+     "directparam.completion",
+     11126,
+     23
+    ],
+    [
+     "directparam.completion",
+     11175,
+     22
+    ],
+    [
+     "devcursor.status",
+     11197,
+     23
+    ],
+    [
+     "directparam.list",
+     11220,
+     25
+    ],
+    [
+     "directparam.list",
+     11440,
+     12
+    ],
+    [
+     "directparam.list",
+     11479,
+     21
+    ],
+    [
+     "param.list",
+     11500,
+     23
+    ],
+    [
+     "batch.run",
+     11523,
+     25
+    ],
+    [
+     "directparam.completion",
+     11573,
+     21
+    ],
+    [
+     "directparam.completion",
+     11620,
+     20
+    ],
+    [
+     "devcursor.status",
+     11640,
+     23
+    ],
+    [
+     "directparam.list",
+     11663,
+     24
+    ],
+    [
+     "directparam.list",
+     11883,
+     20
+    ],
+    [
+     "directparam.list",
+     11928,
+     21
+    ],
+    [
+     "param.list",
+     11949,
+     24
+    ],
+    [
+     "batch.run",
+     11974,
+     24
+    ],
+    [
+     "directparam.completion",
+     12023,
+     20
+    ],
+    [
+     "directparam.completion",
+     12069,
+     21
+    ],
+    [
+     "devcursor.status",
+     12091,
+     23
+    ],
+    [
+     "directparam.list",
+     12114,
+     23
+    ],
+    [
+     "directparam.list",
+     12332,
+     15
+    ],
+    [
+     "directparam.list",
+     12373,
+     21
+    ],
+    [
+     "param.list",
+     12394,
+     24
+    ],
+    [
+     "batch.run",
+     12419,
+     24
+    ],
+    [
+     "directparam.completion",
+     12468,
+     24
+    ],
+    [
+     "directparam.completion",
+     12518,
+     20
+    ],
+    [
+     "devcursor.status",
+     12538,
+     24
+    ],
+    [
+     "directparam.list",
+     12563,
+     23
+    ],
+    [
+     "directparam.list",
+     12781,
+     15
+    ],
+    [
+     "directparam.list",
+     12822,
+     21
+    ],
+    [
+     "param.list",
+     12843,
+     25
+    ],
+    [
+     "batch.run",
+     12869,
+     23
+    ],
+    [
+     "directparam.completion",
+     12916,
+     21
+    ],
+    [
+     "directparam.completion",
+     12964,
+     19
+    ],
+    [
+     "devcursor.status",
+     12983,
+     22
+    ],
+    [
+     "directparam.list",
+     13005,
+     23
+    ],
+    [
+     "directparam.list",
+     13223,
+     13
+    ],
+    [
+     "directparam.list",
+     13262,
+     21
+    ],
+    [
+     "param.list",
+     13284,
+     24
+    ],
+    [
+     "batch.run",
+     13308,
+     24
+    ],
+    [
+     "directparam.completion",
+     13357,
+     21
+    ],
+    [
+     "directparam.completion",
+     13404,
+     21
+    ],
+    [
+     "devcursor.status",
+     13426,
+     23
+    ],
+    [
+     "directparam.list",
+     13449,
+     23
+    ],
+    [
+     "directparam.list",
+     13667,
+     19
+    ],
+    [
+     "directparam.list",
+     13712,
+     20
+    ],
+    [
+     "param.list",
+     13732,
+     24
+    ],
+    [
+     "batch.run",
+     13756,
+     24
+    ],
+    [
+     "directparam.completion",
+     13805,
+     21
+    ],
+    [
+     "directparam.completion",
+     13853,
+     21
+    ],
+    [
+     "devcursor.status",
+     13873,
+     23
+    ],
+    [
+     "directparam.list",
+     13896,
+     24
+    ],
+    [
+     "directparam.list",
+     14116,
+     18
+    ],
+    [
+     "directparam.list",
+     14160,
+     20
+    ],
+    [
+     "param.list",
+     14179,
+     24
+    ],
+    [
+     "batch.run",
+     14203,
+     23
+    ],
+    [
+     "directparam.completion",
+     14251,
+     25
+    ],
+    [
+     "directparam.completion",
+     14302,
+     21
+    ],
+    [
+     "devcursor.status",
+     14323,
+     24
+    ],
+    [
+     "directparam.list",
+     14347,
+     23
+    ],
+    [
+     "directparam.list",
+     14565,
+     17
+    ],
+    [
+     "directparam.list",
+     14608,
+     19
+    ],
+    [
+     "param.list",
+     14627,
+     25
+    ],
+    [
+     "batch.run",
+     14652,
+     22
+    ],
+    [
+     "directparam.completion",
+     14699,
+     22
+    ],
+    [
+     "directparam.completion",
+     14747,
+     21
+    ],
+    [
+     "devcursor.status",
+     14769,
+     24
+    ],
+    [
+     "directparam.list",
+     14792,
+     25
+    ],
+    [
+     "directparam.list",
+     15012,
+     16
+    ],
+    [
+     "directparam.list",
+     15055,
+     19
+    ],
+    [
+     "param.list",
+     15074,
+     25
+    ],
+    [
+     "batch.run",
+     15099,
+     24
+    ],
+    [
+     "directparam.completion",
+     15148,
+     24
+    ],
+    [
+     "directparam.completion",
+     15198,
+     22
+    ],
+    [
+     "devcursor.status",
+     15219,
+     23
+    ],
+    [
+     "directparam.list",
+     15243,
+     24
+    ],
+    [
+     "directparam.list",
+     15462,
+     18
+    ],
+    [
+     "directparam.list",
+     15506,
+     24
+    ],
+    [
+     "param.list",
+     15530,
+     25
+    ],
+    [
+     "batch.run",
+     15556,
+     23
+    ],
+    [
+     "directparam.completion",
+     15604,
+     21
+    ],
+    [
+     "directparam.completion",
+     15651,
+     23
+    ],
+    [
+     "devcursor.status",
+     15674,
+     24
+    ],
+    [
+     "directparam.list",
+     15698,
+     24
+    ],
+    [
+     "directparam.list",
+     15916,
+     18
+    ],
+    [
+     "directparam.list",
+     15960,
+     22
+    ],
+    [
+     "param.list",
+     15982,
+     24
+    ],
+    [
+     "batch.run",
+     16006,
+     23
+    ],
+    [
+     "directparam.completion",
+     16054,
+     21
+    ],
+    [
+     "directparam.completion",
+     16101,
+     21
+    ],
+    [
+     "devcursor.status",
+     16122,
+     23
+    ],
+    [
+     "directparam.list",
+     16145,
+     24
+    ],
+    [
+     "directparam.list",
+     16364,
+     12
+    ],
+    [
+     "directparam.list",
+     16402,
+     21
+    ],
+    [
+     "param.list",
+     16424,
+     24
+    ],
+    [
+     "batch.run",
+     16448,
+     22
+    ],
+    [
+     "directparam.completion",
+     16494,
+     22
+    ],
+    [
+     "directparam.completion",
+     16543,
+     22
+    ],
+    [
+     "devcursor.status",
+     16565,
+     23
+    ],
+    [
+     "directparam.list",
+     16588,
+     23
+    ],
+    [
+     "directparam.list",
+     16807,
+     16
+    ],
+    [
+     "directparam.list",
+     16849,
+     21
+    ],
+    [
+     "param.list",
+     16870,
+     24
+    ],
+    [
+     "batch.run",
+     16894,
+     23
+    ],
+    [
+     "directparam.completion",
+     16942,
+     22
+    ],
+    [
+     "directparam.completion",
+     16990,
+     21
+    ],
+    [
+     "devcursor.status",
+     17011,
+     24
+    ],
+    [
+     "directparam.list",
+     17034,
+     23
+    ],
+    [
+     "directparam.list",
+     17253,
+     18
+    ],
+    [
+     "directparam.list",
+     17296,
+     19
+    ],
+    [
+     "param.list",
+     17315,
+     23
+    ],
+    [
+     "batch.run",
+     17339,
+     24
+    ],
+    [
+     "directparam.completion",
+     17388,
+     22
+    ],
+    [
+     "directparam.completion",
+     17437,
+     21
+    ],
+    [
+     "devcursor.status",
+     17457,
+     23
+    ],
+    [
+     "directparam.list",
+     17481,
+     24
+    ],
+    [
+     "directparam.list",
+     17700,
+     14
+    ],
+    [
+     "directparam.list",
+     17739,
+     20
+    ],
+    [
+     "param.list",
+     17760,
+     24
+    ],
+    [
+     "batch.run",
+     17784,
+     23
+    ],
+    [
+     "directparam.completion",
+     17832,
+     22
+    ],
+    [
+     "directparam.completion",
+     17880,
+     20
+    ],
+    [
+     "devcursor.status",
+     17900,
+     24
+    ],
+    [
+     "directparam.list",
+     17924,
+     24
+    ],
+    [
+     "directparam.list",
+     18144,
+     17
+    ],
+    [
+     "directparam.list",
+     18187,
+     21
+    ],
+    [
+     "param.list",
+     18208,
+     25
+    ],
+    [
+     "batch.run",
+     18233,
+     24
+    ],
+    [
+     "directparam.completion",
+     18282,
+     21
+    ],
+    [
+     "directparam.completion",
+     18329,
+     22
+    ],
+    [
+     "devcursor.status",
+     18351,
+     22
+    ],
+    [
+     "directparam.list",
+     18373,
+     25
+    ],
+    [
+     "directparam.list",
+     18593,
+     13
+    ],
+    [
+     "directparam.list",
+     18632,
+     23
+    ],
+    [
+     "param.list",
+     18655,
+     23
+    ],
+    [
+     "batch.run",
+     18678,
+     23
+    ],
+    [
+     "directparam.completion",
+     18726,
+     21
+    ],
+    [
+     "directparam.completion",
+     18774,
+     20
+    ],
+    [
+     "devcursor.status",
+     18794,
+     24
+    ],
+    [
+     "directparam.list",
+     18817,
+     23
+    ],
+    [
+     "directparam.list",
+     19036,
+     18
+    ],
+    [
+     "directparam.list",
+     19079,
+     21
+    ],
+    [
+     "param.list",
+     19099,
+     23
+    ],
+    [
+     "batch.run",
+     19123,
+     24
+    ],
+    [
+     "directparam.completion",
+     19172,
+     22
+    ],
+    [
+     "directparam.completion",
+     19220,
+     20
+    ],
+    [
+     "devcursor.status",
+     19241,
+     24
+    ],
+    [
+     "directparam.list",
+     19264,
+     23
+    ],
+    [
+     "directparam.list",
+     19482,
+     10
+    ],
+    [
+     "directparam.list",
+     19518,
+     21
+    ],
+    [
+     "param.list",
+     19540,
+     25
+    ],
+    [
+     "batch.run",
+     19565,
+     23
+    ],
+    [
+     "directparam.completion",
+     19613,
+     23
+    ],
+    [
+     "directparam.completion",
+     19662,
+     22
+    ],
+    [
+     "devcursor.status",
+     19684,
+     25
+    ],
+    [
+     "directparam.list",
+     19709,
+     24
+    ],
+    [
+     "directparam.list",
+     19928,
+     16
+    ],
+    [
+     "directparam.list",
+     19970,
+     23
+    ],
+    [
+     "param.list",
+     19993,
+     24
+    ],
+    [
+     "batch.run",
+     20017,
+     22
+    ],
+    [
+     "directparam.completion",
+     20064,
+     23
+    ],
+    [
+     "directparam.completion",
+     20113,
+     21
+    ],
+    [
+     "devcursor.status",
+     20134,
+     24
+    ],
+    [
+     "directparam.list",
+     20158,
+     24
+    ],
+    [
+     "directparam.list",
+     20377,
+     16
+    ],
+    [
+     "directparam.list",
+     20418,
+     21
+    ],
+    [
+     "param.list",
+     20440,
+     24
+    ],
+    [
+     "batch.run",
+     20464,
+     24
+    ],
+    [
+     "directparam.completion",
+     20513,
+     22
+    ],
+    [
+     "directparam.completion",
+     20561,
+     21
+    ],
+    [
+     "devcursor.status",
+     20582,
+     24
+    ],
+    [
+     "directparam.list",
+     20606,
+     24
+    ],
+    [
+     "directparam.list",
+     20826,
+     19
+    ],
+    [
+     "directparam.list",
+     20871,
+     21
+    ],
+    [
+     "param.list",
+     20892,
+     24
+    ],
+    [
+     "revision.get",
+     20916,
+     24
+    ],
+    [
+     "track.list",
+     20916,
+     24
+    ],
+    [
+     "revision.get",
+     20966,
+     22
+    ],
+    [
+     "track.list",
+     20966,
+     22
+    ],
+    [
+     "devcursor.status",
+     20988,
+     23
+    ],
+    [
+     "directparam.list",
+     21011,
+     23
+    ],
+    [
+     "directparam.list",
+     21230,
+     19
+    ],
+    [
+     "directparam.list",
+     21275,
+     21
+    ],
+    [
+     "param.list",
+     21296,
+     23
+    ],
+    [
+     "devcursor.selectAt",
+     21320,
+     24
+    ],
+    [
+     "chain.inventory",
+     21370,
+     20
+    ],
+    [
+     "revision.get",
+     21389,
+     24
+    ],
+    [
+     "track.list",
+     21389,
+     24
+    ]
+   ]
+  },
+  {
+   "step": "cleanup",
+   "tool": "delete_track",
+   "ok": true,
+   "status": "verified",
+   "ms": 426,
+   "bytes": 474,
+   "calls": 23,
+   "turns": 10,
+   "wireMs": 228,
+   "brainMs": 3,
+   "idleMs": 195,
+   "methods": {
+    "selection.status": 1,
+    "revision.get": 6,
+    "track.list": 7,
+    "batch.run": 1,
+    "cursor.pin": 8
+   },
+   "methodMs": {
+    "selection.status": 21,
+    "revision.get": 139,
+    "track.list": 161,
+    "batch.run": 23,
+    "cursor.pin": 168
+   },
+   "gaps": [
+    [
+     "batch.run",
+     "cursor.pin",
+     145
+    ]
+   ],
+   "gapMs": 145,
+   "sequence": [
+    [
+     "selection.status",
+     0,
+     21
+    ],
+    [
+     "revision.get",
+     22,
+     22
+    ],
+    [
+     "track.list",
+     22,
+     23
+    ],
+    [
+     "revision.get",
+     44,
+     24
+    ],
+    [
+     "track.list",
+     44,
+     24
+    ],
+    [
+     "revision.get",
+     69,
+     23
+    ],
+    [
+     "track.list",
+     69,
+     23
+    ],
+    [
+     "batch.run",
+     92,
+     23
+    ],
+    [
+     "cursor.pin",
+     260,
+     21
+    ],
+    [
+     "cursor.pin",
+     260,
+     21
+    ],
+    [
+     "cursor.pin",
+     260,
+     21
+    ],
+    [
+     "cursor.pin",
+     260,
+     21
+    ],
+    [
+     "cursor.pin",
+     261,
+     21
+    ],
+    [
+     "cursor.pin",
+     261,
+     21
+    ],
+    [
+     "cursor.pin",
+     261,
+     21
+    ],
+    [
+     "cursor.pin",
+     261,
+     21
+    ],
+    [
+     "track.list",
+     308,
+     21
+    ],
+    [
+     "revision.get",
+     329,
+     24
+    ],
+    [
+     "track.list",
+     329,
+     24
+    ],
+    [
+     "revision.get",
+     379,
+     22
+    ],
+    [
+     "track.list",
+     379,
+     22
+    ],
+    [
+     "revision.get",
+     401,
+     24
+    ],
+    [
+     "track.list",
+     401,
+     24
+    ]
+   ]
+  }
+ ],
+ "deviceName": "Polysynth",
+ "counts": [
+  1,
+  27,
+  44
+ ]
+}

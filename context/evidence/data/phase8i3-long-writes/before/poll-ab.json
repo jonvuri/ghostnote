@@ -1,0 +1,3864 @@
+{
+ "schema": "phase8i3-long-writes-v1",
+ "hello": {
+  "contractVersion": 0,
+  "extensionVersion": "0.0.1",
+  "runtimeProfile": "normal-v1",
+  "hostApiVersion": 25,
+  "methodCount": 89,
+  "methodsHash": "0ef817f4bac8a8a7"
+ },
+ "project": "New 3",
+ "heapStart": {
+  "runtimeProfile": "normal-v1",
+  "config": {
+   "tracks": 256,
+   "scenes": 128,
+   "gridSteps": 64,
+   "gridKeys": 128,
+   "cursorPool": 8,
+   "sends": 4,
+   "deviceBank": 16,
+   "fineSteps": 4194304,
+   "noteReadSteps": 2048,
+   "paramHandles": 64,
+   "remotePages": 16,
+   "cacheShadowSteps": 131072,
+   "cacheKneeResearch": false,
+   "changeWatchCursors": 0,
+   "contentFilter": "ALL_CHANNELS",
+   "directObservers": true,
+   "stamp": "default",
+   "fromFile": true
+  },
+  "rigConstructMicros": 35533,
+  "initMicros": 52120,
+  "initEpochMs": 1791450984981,
+  "upMs": 13268156,
+  "clipReader": {
+   "revision": "clip-reader-v3",
+   "closeRule": "confirm-before-release-v1",
+   "openRule": "subscribe-before-unpin-v1",
+   "groupRule": "expand-collapsed-parent-v1",
+   "limitRule": "sounding-cell-limit-v1",
+   "format": "notes-v1",
+   "width": 4194304,
+   "grid": 0.001953125,
+   "page": 131072,
+   "deadlineMs": 2000,
+   "soundingCells": 2097152,
+   "reads": 124,
+   "refusals": 0,
+   "lastRefusal": "",
+   "lateCallbacks": 0,
+   "strayCallbacks": 1325696,
+   "releaseCallbacks": 661728,
+   "releaseEmpty": 661728,
+   "releaseSustain": 0,
+   "releaseOn": 0,
+   "subscribed": false,
+   "open": false,
+   "state": {
+    "parkChannelId": "9fb80e65-ff9a-48a9-94b0-534a39de0153",
+    "trackChannelId": "",
+    "trackPinned": false,
+    "clipTrackChannelId": "",
+    "clipExists": false,
+    "clipPinned": false,
+    "sceneIndex": 0,
+    "subscribed": false,
+    "atPark": false
+   },
+   "writeGate": {
+    "readOpen": false,
+    "waiting": 0,
+    "leases": 0,
+    "limit": 256,
+    "queuedTotal": 2,
+    "refusedTotal": 0
+   },
+   "groupPoint": {
+    "rule": "expand-collapsed-point-v1",
+    "points": 4,
+    "refusals": 0,
+    "lastRefusal": "",
+    "open": false
+   }
+  },
+  "cursorTrackPins": {
+   "rule": "owned-tracks-pinned-v1",
+   "tracks": 14,
+   "unpinned": [],
+   "repins": 75,
+   "untargeted": 13
+  },
+  "slotObjects": 32768,
+  "markedValues": 197888,
+  "resources": {
+   "cursorDeviceBanks": 8,
+   "siblingDeviceBanks": 1,
+   "layerDeviceBanks": 8,
+   "slotDeviceBanks": 15,
+   "namedSlotDeviceBanks": 0,
+   "drumPadDeviceBanks": 16,
+   "deviceBanks": 48,
+   "cursorDeviceSlots": 128,
+   "cursorDeviceEnabledValues": 128,
+   "layerDeviceSlots": 32,
+   "slotDeviceSlots": 60,
+   "drumPadDeviceSlots": 256,
+   "namedSlotDeviceSlots": 0,
+   "deviceSlots": 492,
+   "cursorDevices": 1,
+   "specificDeviceViews": 4,
+   "typedParameterHandles": 75,
+   "remotePageCursors": 16,
+   "remoteParameterHandles": 128,
+   "directParameterObservers": 4,
+   "noteObserverCursors": 1,
+   "noteStepObservers": 1,
+   "stepDataObservers": 0,
+   "trackSendBanks": 0,
+   "trackSendHandles": 0,
+   "trackVuObservers": 0,
+   "historicalActionHandles": 0,
+   "historicalSelectionObservers": 0,
+   "equalsProxies": 32,
+   "transportProxies": 1,
+   "masterRecorderProxies": 0,
+   "cursorTracks": 11,
+   "cursorClips": 11,
+   "layerBanks": 4,
+   "layerHandles": 23,
+   "layerSendBanks": 0,
+   "layerSendHandles": 0,
+   "explicitHostObjects": 33893,
+   "observerCallbacks": 838
+  },
+  "heapUsedMb": 538,
+  "heapMaxMb": 3072
+ },
+ "heapEnd": {
+  "runtimeProfile": "normal-v1",
+  "config": {
+   "tracks": 256,
+   "scenes": 128,
+   "gridSteps": 64,
+   "gridKeys": 128,
+   "cursorPool": 8,
+   "sends": 4,
+   "deviceBank": 16,
+   "fineSteps": 4194304,
+   "noteReadSteps": 2048,
+   "paramHandles": 64,
+   "remotePages": 16,
+   "cacheShadowSteps": 131072,
+   "cacheKneeResearch": false,
+   "changeWatchCursors": 0,
+   "contentFilter": "ALL_CHANNELS",
+   "directObservers": true,
+   "stamp": "default",
+   "fromFile": true
+  },
+  "rigConstructMicros": 35533,
+  "initMicros": 52120,
+  "initEpochMs": 1791450984981,
+  "upMs": 13285396,
+  "clipReader": {
+   "revision": "clip-reader-v3",
+   "closeRule": "confirm-before-release-v1",
+   "openRule": "subscribe-before-unpin-v1",
+   "groupRule": "expand-collapsed-parent-v1",
+   "limitRule": "sounding-cell-limit-v1",
+   "format": "notes-v1",
+   "width": 4194304,
+   "grid": 0.001953125,
+   "page": 131072,
+   "deadlineMs": 2000,
+   "soundingCells": 2097152,
+   "reads": 124,
+   "refusals": 0,
+   "lastRefusal": "",
+   "lateCallbacks": 0,
+   "strayCallbacks": 1325696,
+   "releaseCallbacks": 661728,
+   "releaseEmpty": 661728,
+   "releaseSustain": 0,
+   "releaseOn": 0,
+   "subscribed": false,
+   "open": false,
+   "state": {
+    "parkChannelId": "9fb80e65-ff9a-48a9-94b0-534a39de0153",
+    "trackChannelId": "",
+    "trackPinned": false,
+    "clipTrackChannelId": "",
+    "clipExists": false,
+    "clipPinned": false,
+    "sceneIndex": 0,
+    "subscribed": false,
+    "atPark": false
+   },
+   "writeGate": {
+    "readOpen": false,
+    "waiting": 0,
+    "leases": 0,
+    "limit": 256,
+    "queuedTotal": 2,
+    "refusedTotal": 0
+   },
+   "groupPoint": {
+    "rule": "expand-collapsed-point-v1",
+    "points": 4,
+    "refusals": 0,
+    "lastRefusal": "",
+    "open": false
+   }
+  },
+  "cursorTrackPins": {
+   "rule": "owned-tracks-pinned-v1",
+   "tracks": 14,
+   "unpinned": [],
+   "repins": 77,
+   "untargeted": 13
+  },
+  "slotObjects": 32768,
+  "markedValues": 197888,
+  "resources": {
+   "cursorDeviceBanks": 8,
+   "siblingDeviceBanks": 1,
+   "layerDeviceBanks": 8,
+   "slotDeviceBanks": 15,
+   "namedSlotDeviceBanks": 0,
+   "drumPadDeviceBanks": 16,
+   "deviceBanks": 48,
+   "cursorDeviceSlots": 128,
+   "cursorDeviceEnabledValues": 128,
+   "layerDeviceSlots": 32,
+   "slotDeviceSlots": 60,
+   "drumPadDeviceSlots": 256,
+   "namedSlotDeviceSlots": 0,
+   "deviceSlots": 492,
+   "cursorDevices": 1,
+   "specificDeviceViews": 4,
+   "typedParameterHandles": 75,
+   "remotePageCursors": 16,
+   "remoteParameterHandles": 128,
+   "directParameterObservers": 4,
+   "noteObserverCursors": 1,
+   "noteStepObservers": 1,
+   "stepDataObservers": 0,
+   "trackSendBanks": 0,
+   "trackSendHandles": 0,
+   "trackVuObservers": 0,
+   "historicalActionHandles": 0,
+   "historicalSelectionObservers": 0,
+   "equalsProxies": 32,
+   "transportProxies": 1,
+   "masterRecorderProxies": 0,
+   "cursorTracks": 11,
+   "cursorClips": 11,
+   "layerBanks": 4,
+   "layerHandles": 23,
+   "layerSendBanks": 0,
+   "layerSendHandles": 0,
+   "explicitHostObjects": 33893,
+   "observerCallbacks": 838
+  },
+  "heapUsedMb": 596,
+  "heapMaxMb": 3072
+ },
+ "rows": [
+  {
+   "step": "add-track-gn-8i3-poll",
+   "tool": "add_tracks",
+   "ok": true,
+   "status": "verified",
+   "ms": 778,
+   "bytes": 667,
+   "calls": 36,
+   "turns": 18,
+   "wireMs": 402,
+   "brainMs": 14,
+   "idleMs": 362,
+   "methods": {
+    "selection.status": 2,
+    "revision.get": 11,
+    "track.list": 13,
+    "batch.run": 2,
+    "cursor.pin": 8
+   },
+   "methodMs": {
+    "selection.status": 47,
+    "revision.get": 238,
+    "track.list": 286,
+    "batch.run": 49,
+    "cursor.pin": 168
+   },
+   "gaps": [
+    [
+     "batch.run",
+     "cursor.pin",
+     145
+    ],
+    [
+     "batch.run",
+     "revision.get",
+     145
+    ]
+   ],
+   "gapMs": 290,
+   "sequence": [
+    [
+     "selection.status",
+     1,
+     24
+    ],
+    [
+     "revision.get",
+     26,
+     24
+    ],
+    [
+     "track.list",
+     26,
+     24
+    ],
+    [
+     "revision.get",
+     51,
+     23
+    ],
+    [
+     "track.list",
+     51,
+     23
+    ],
+    [
+     "track.list",
+     75,
+     23
+    ],
+    [
+     "batch.run",
+     99,
+     24
+    ],
+    [
+     "cursor.pin",
+     267,
+     21
+    ],
+    [
+     "cursor.pin",
+     267,
+     21
+    ],
+    [
+     "cursor.pin",
+     267,
+     21
+    ],
+    [
+     "cursor.pin",
+     267,
+     21
+    ],
+    [
+     "cursor.pin",
+     267,
+     21
+    ],
+    [
+     "cursor.pin",
+     267,
+     21
+    ],
+    [
+     "cursor.pin",
+     267,
+     21
+    ],
+    [
+     "cursor.pin",
+     267,
+     21
+    ],
+    [
+     "track.list",
+     314,
+     22
+    ],
+    [
+     "revision.get",
+     336,
+     25
+    ],
+    [
+     "track.list",
+     336,
+     25
+    ],
+    [
+     "revision.get",
+     388,
+     18
+    ],
+    [
+     "track.list",
+     388,
+     19
+    ],
+    [
+     "revision.get",
+     407,
+     23
+    ],
+    [
+     "track.list",
+     407,
+     23
+    ],
+    [
+     "selection.status",
+     430,
+     23
+    ],
+    [
+     "revision.get",
+     454,
+     22
+    ],
+    [
+     "track.list",
+     454,
+     23
+    ],
+    [
+     "revision.get",
+     476,
+     23
+    ],
+    [
+     "track.list",
+     477,
+     23
+    ],
+    [
+     "revision.get",
+     500,
+     22
+    ],
+    [
+     "track.list",
+     500,
+     22
+    ],
+    [
+     "batch.run",
+     523,
+     25
+    ],
+    [
+     "revision.get",
+     693,
+     15
+    ],
+    [
+     "track.list",
+     693,
+     15
+    ],
+    [
+     "revision.get",
+     734,
+     20
+    ],
+    [
+     "track.list",
+     734,
+     20
+    ],
+    [
+     "revision.get",
+     754,
+     23
+    ],
+    [
+     "track.list",
+     754,
+     24
+    ]
+   ]
+  },
+  {
+   "step": "add-device",
+   "tool": "add_devices",
+   "ok": true,
+   "status": "verified",
+   "ms": 1216,
+   "bytes": 656,
+   "calls": 46,
+   "turns": 34,
+   "wireMs": 751,
+   "brainMs": 12,
+   "idleMs": 453,
+   "methods": {
+    "selection.status": 3,
+    "track.list": 8,
+    "devcursor.pin": 5,
+    "cursor.pointTrack": 5,
+    "device.list": 11,
+    "revision.get": 5,
+    "batch.run": 1,
+    "cursor.pin": 8
+   },
+   "methodMs": {
+    "selection.status": 65,
+    "track.list": 180,
+    "devcursor.pin": 115,
+    "cursor.pointTrack": 118,
+    "device.list": 229,
+    "revision.get": 112,
+    "batch.run": 22,
+    "cursor.pin": 184
+   },
+   "gaps": [
+    [
+     "device.list",
+     "device.list",
+     101
+    ],
+    [
+     "device.list",
+     "device.list",
+     101
+    ]
+   ],
+   "gapMs": 202,
+   "sequence": [
+    [
+     "selection.status",
+     1,
+     20
+    ],
+    [
+     "track.list",
+     22,
+     24
+    ],
+    [
+     "devcursor.pin",
+     46,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     70,
+     24
+    ],
+    [
+     "device.list",
+     119,
+     20
+    ],
+    [
+     "devcursor.pin",
+     165,
+     21
+    ],
+    [
+     "cursor.pointTrack",
+     186,
+     23
+    ],
+    [
+     "device.list",
+     235,
+     20
+    ],
+    [
+     "selection.status",
+     256,
+     23
+    ],
+    [
+     "revision.get",
+     279,
+     23
+    ],
+    [
+     "track.list",
+     279,
+     23
+    ],
+    [
+     "revision.get",
+     302,
+     22
+    ],
+    [
+     "track.list",
+     302,
+     22
+    ],
+    [
+     "devcursor.pin",
+     324,
+     24
+    ],
+    [
+     "cursor.pointTrack",
+     348,
+     24
+    ],
+    [
+     "device.list",
+     397,
+     23
+    ],
+    [
+     "device.list",
+     446,
+     20
+    ],
+    [
+     "device.list",
+     467,
+     22
+    ],
+    [
+     "batch.run",
+     489,
+     22
+    ],
+    [
+     "device.list",
+     511,
+     22
+    ],
+    [
+     "device.list",
+     633,
+     18
+    ],
+    [
+     "device.list",
+     752,
+     17
+    ],
+    [
+     "device.list",
+     769,
+     23
+    ],
+    [
+     "cursor.pin",
+     793,
+     23
+    ],
+    [
+     "cursor.pin",
+     793,
+     23
+    ],
+    [
+     "cursor.pin",
+     793,
+     23
+    ],
+    [
+     "cursor.pin",
+     793,
+     23
+    ],
+    [
+     "cursor.pin",
+     793,
+     23
+    ],
+    [
+     "cursor.pin",
+     793,
+     23
+    ],
+    [
+     "cursor.pin",
+     793,
+     23
+    ],
+    [
+     "cursor.pin",
+     793,
+     23
+    ],
+    [
+     "track.list",
+     842,
+     20
+    ],
+    [
+     "revision.get",
+     862,
+     23
+    ],
+    [
+     "track.list",
+     862,
+     23
+    ],
+    [
+     "revision.get",
+     911,
+     19
+    ],
+    [
+     "track.list",
+     911,
+     20
+    ],
+    [
+     "revision.get",
+     931,
+     25
+    ],
+    [
+     "track.list",
+     931,
+     25
+    ],
+    [
+     "selection.status",
+     956,
+     22
+    ],
+    [
+     "track.list",
+     978,
+     23
+    ],
+    [
+     "devcursor.pin",
+     1001,
+     24
+    ],
+    [
+     "cursor.pointTrack",
+     1025,
+     23
+    ],
+    [
+     "device.list",
+     1074,
+     21
+    ],
+    [
+     "devcursor.pin",
+     1120,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     1143,
+     24
+    ],
+    [
+     "device.list",
+     1193,
+     23
+    ]
+   ]
+  },
+  {
+   "step": "read-controls",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 661,
+   "bytes": 10793,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 359,
+   "brainMs": 6,
+   "idleMs": 296,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 24,
+    "track.list": 24,
+    "selection.status": 23,
+    "devcursor.pin": 71,
+    "cursor.pointTrack": 47,
+    "device.list": 22,
+    "devcursor.selectAt": 48,
+    "devcursor.status": 21,
+    "directparam.list": 61,
+    "param.list": 23,
+    "chain.inventory": 20
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ]
+   ],
+   "gapMs": 195,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     24
+    ],
+    [
+     "track.list",
+     1,
+     24
+    ],
+    [
+     "selection.status",
+     24,
+     23
+    ],
+    [
+     "devcursor.pin",
+     48,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     71,
+     23
+    ],
+    [
+     "device.list",
+     120,
+     22
+    ],
+    [
+     "devcursor.selectAt",
+     142,
+     23
+    ],
+    [
+     "devcursor.pin",
+     165,
+     24
+    ],
+    [
+     "devcursor.status",
+     215,
+     21
+    ],
+    [
+     "directparam.list",
+     236,
+     23
+    ],
+    [
+     "directparam.list",
+     455,
+     17
+    ],
+    [
+     "directparam.list",
+     498,
+     21
+    ],
+    [
+     "param.list",
+     518,
+     23
+    ],
+    [
+     "devcursor.pin",
+     542,
+     24
+    ],
+    [
+     "cursor.pointTrack",
+     566,
+     24
+    ],
+    [
+     "devcursor.selectAt",
+     590,
+     25
+    ],
+    [
+     "chain.inventory",
+     641,
+     20
+    ]
+   ]
+  },
+  {
+   "step": "settled-0",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 649,
+   "bytes": 10793,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 349,
+   "brainMs": 4,
+   "idleMs": 295,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 23,
+    "track.list": 23,
+    "selection.status": 23,
+    "devcursor.pin": 68,
+    "cursor.pointTrack": 45,
+    "device.list": 21,
+    "devcursor.selectAt": 47,
+    "devcursor.status": 22,
+    "directparam.list": 56,
+    "param.list": 23,
+    "chain.inventory": 23
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ]
+   ],
+   "gapMs": 195,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     23
+    ],
+    [
+     "track.list",
+     0,
+     23
+    ],
+    [
+     "selection.status",
+     23,
+     23
+    ],
+    [
+     "devcursor.pin",
+     46,
+     22
+    ],
+    [
+     "cursor.pointTrack",
+     68,
+     22
+    ],
+    [
+     "device.list",
+     116,
+     21
+    ],
+    [
+     "devcursor.selectAt",
+     138,
+     23
+    ],
+    [
+     "devcursor.pin",
+     161,
+     23
+    ],
+    [
+     "devcursor.status",
+     209,
+     22
+    ],
+    [
+     "directparam.list",
+     231,
+     23
+    ],
+    [
+     "directparam.list",
+     449,
+     12
+    ],
+    [
+     "directparam.list",
+     487,
+     21
+    ],
+    [
+     "param.list",
+     508,
+     23
+    ],
+    [
+     "devcursor.pin",
+     531,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     554,
+     23
+    ],
+    [
+     "devcursor.selectAt",
+     577,
+     24
+    ],
+    [
+     "chain.inventory",
+     626,
+     23
+    ]
+   ]
+  },
+  {
+   "step": "control-0",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 660,
+   "bytes": 10765,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 359,
+   "brainMs": 5,
+   "idleMs": 296,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 24,
+    "track.list": 24,
+    "selection.status": 23,
+    "devcursor.pin": 71,
+    "cursor.pointTrack": 47,
+    "device.list": 21,
+    "devcursor.selectAt": 47,
+    "devcursor.status": 21,
+    "directparam.list": 62,
+    "param.list": 23,
+    "chain.inventory": 19
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ]
+   ],
+   "gapMs": 195,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     24
+    ],
+    [
+     "track.list",
+     0,
+     24
+    ],
+    [
+     "selection.status",
+     24,
+     23
+    ],
+    [
+     "devcursor.pin",
+     48,
+     24
+    ],
+    [
+     "cursor.pointTrack",
+     72,
+     24
+    ],
+    [
+     "device.list",
+     122,
+     21
+    ],
+    [
+     "devcursor.selectAt",
+     143,
+     23
+    ],
+    [
+     "devcursor.pin",
+     166,
+     23
+    ],
+    [
+     "devcursor.status",
+     216,
+     21
+    ],
+    [
+     "directparam.list",
+     237,
+     24
+    ],
+    [
+     "directparam.list",
+     456,
+     17
+    ],
+    [
+     "directparam.list",
+     499,
+     21
+    ],
+    [
+     "param.list",
+     520,
+     23
+    ],
+    [
+     "devcursor.pin",
+     544,
+     24
+    ],
+    [
+     "cursor.pointTrack",
+     568,
+     23
+    ],
+    [
+     "devcursor.selectAt",
+     590,
+     24
+    ],
+    [
+     "chain.inventory",
+     641,
+     19
+    ]
+   ]
+  },
+  {
+   "step": "settled-1",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 658,
+   "bytes": 10765,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 358,
+   "brainMs": 5,
+   "idleMs": 295,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 22,
+    "track.list": 23,
+    "selection.status": 24,
+    "devcursor.pin": 71,
+    "cursor.pointTrack": 46,
+    "device.list": 21,
+    "devcursor.selectAt": 47,
+    "devcursor.status": 22,
+    "directparam.list": 60,
+    "param.list": 23,
+    "chain.inventory": 22
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     194
+    ]
+   ],
+   "gapMs": 194,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     22
+    ],
+    [
+     "track.list",
+     0,
+     23
+    ],
+    [
+     "selection.status",
+     23,
+     24
+    ],
+    [
+     "devcursor.pin",
+     47,
+     24
+    ],
+    [
+     "cursor.pointTrack",
+     71,
+     23
+    ],
+    [
+     "device.list",
+     121,
+     21
+    ],
+    [
+     "devcursor.selectAt",
+     142,
+     23
+    ],
+    [
+     "devcursor.pin",
+     164,
+     24
+    ],
+    [
+     "devcursor.status",
+     214,
+     22
+    ],
+    [
+     "directparam.list",
+     237,
+     23
+    ],
+    [
+     "directparam.list",
+     454,
+     16
+    ],
+    [
+     "directparam.list",
+     497,
+     21
+    ],
+    [
+     "param.list",
+     518,
+     23
+    ],
+    [
+     "devcursor.pin",
+     541,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     563,
+     23
+    ],
+    [
+     "devcursor.selectAt",
+     587,
+     24
+    ],
+    [
+     "chain.inventory",
+     636,
+     22
+    ]
+   ]
+  },
+  {
+   "step": "control-1",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 662,
+   "bytes": 10767,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 361,
+   "brainMs": 5,
+   "idleMs": 296,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 22,
+    "track.list": 22,
+    "selection.status": 23,
+    "devcursor.pin": 71,
+    "cursor.pointTrack": 48,
+    "device.list": 22,
+    "devcursor.selectAt": 47,
+    "devcursor.status": 20,
+    "directparam.list": 63,
+    "param.list": 24,
+    "chain.inventory": 21
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ]
+   ],
+   "gapMs": 195,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     22
+    ],
+    [
+     "track.list",
+     0,
+     22
+    ],
+    [
+     "selection.status",
+     23,
+     23
+    ],
+    [
+     "devcursor.pin",
+     46,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     69,
+     25
+    ],
+    [
+     "device.list",
+     120,
+     22
+    ],
+    [
+     "devcursor.selectAt",
+     142,
+     23
+    ],
+    [
+     "devcursor.pin",
+     165,
+     25
+    ],
+    [
+     "devcursor.status",
+     216,
+     20
+    ],
+    [
+     "directparam.list",
+     236,
+     24
+    ],
+    [
+     "directparam.list",
+     455,
+     19
+    ],
+    [
+     "directparam.list",
+     500,
+     20
+    ],
+    [
+     "param.list",
+     521,
+     24
+    ],
+    [
+     "devcursor.pin",
+     545,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     568,
+     23
+    ],
+    [
+     "devcursor.selectAt",
+     590,
+     24
+    ],
+    [
+     "chain.inventory",
+     641,
+     21
+    ]
+   ]
+  },
+  {
+   "step": "settled-2",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 659,
+   "bytes": 10767,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 359,
+   "brainMs": 5,
+   "idleMs": 296,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 24,
+    "track.list": 24,
+    "selection.status": 24,
+    "devcursor.pin": 70,
+    "cursor.pointTrack": 46,
+    "device.list": 22,
+    "devcursor.selectAt": 46,
+    "devcursor.status": 22,
+    "directparam.list": 61,
+    "param.list": 24,
+    "chain.inventory": 20
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ]
+   ],
+   "gapMs": 195,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     24
+    ],
+    [
+     "track.list",
+     0,
+     24
+    ],
+    [
+     "selection.status",
+     24,
+     24
+    ],
+    [
+     "devcursor.pin",
+     48,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     70,
+     22
+    ],
+    [
+     "device.list",
+     119,
+     22
+    ],
+    [
+     "devcursor.selectAt",
+     141,
+     24
+    ],
+    [
+     "devcursor.pin",
+     165,
+     23
+    ],
+    [
+     "devcursor.status",
+     214,
+     22
+    ],
+    [
+     "directparam.list",
+     237,
+     23
+    ],
+    [
+     "directparam.list",
+     455,
+     16
+    ],
+    [
+     "directparam.list",
+     497,
+     22
+    ],
+    [
+     "param.list",
+     519,
+     24
+    ],
+    [
+     "devcursor.pin",
+     544,
+     24
+    ],
+    [
+     "cursor.pointTrack",
+     568,
+     24
+    ],
+    [
+     "devcursor.selectAt",
+     591,
+     22
+    ],
+    [
+     "chain.inventory",
+     639,
+     20
+    ]
+   ]
+  },
+  {
+   "step": "control-2",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 659,
+   "bytes": 10773,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 358,
+   "brainMs": 4,
+   "idleMs": 296,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 23,
+    "track.list": 23,
+    "selection.status": 23,
+    "devcursor.pin": 70,
+    "cursor.pointTrack": 47,
+    "device.list": 22,
+    "devcursor.selectAt": 45,
+    "devcursor.status": 20,
+    "directparam.list": 63,
+    "param.list": 23,
+    "chain.inventory": 23
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ]
+   ],
+   "gapMs": 195,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     23
+    ],
+    [
+     "track.list",
+     0,
+     23
+    ],
+    [
+     "selection.status",
+     23,
+     23
+    ],
+    [
+     "devcursor.pin",
+     46,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     69,
+     23
+    ],
+    [
+     "device.list",
+     118,
+     22
+    ],
+    [
+     "devcursor.selectAt",
+     140,
+     23
+    ],
+    [
+     "devcursor.pin",
+     163,
+     24
+    ],
+    [
+     "devcursor.status",
+     213,
+     20
+    ],
+    [
+     "directparam.list",
+     233,
+     24
+    ],
+    [
+     "directparam.list",
+     452,
+     18
+    ],
+    [
+     "directparam.list",
+     496,
+     21
+    ],
+    [
+     "param.list",
+     517,
+     23
+    ],
+    [
+     "devcursor.pin",
+     540,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     563,
+     24
+    ],
+    [
+     "devcursor.selectAt",
+     588,
+     22
+    ],
+    [
+     "chain.inventory",
+     636,
+     23
+    ]
+   ]
+  },
+  {
+   "step": "settled-3",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 659,
+   "bytes": 10773,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 359,
+   "brainMs": 4,
+   "idleMs": 296,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 23,
+    "track.list": 24,
+    "selection.status": 23,
+    "devcursor.pin": 71,
+    "cursor.pointTrack": 49,
+    "device.list": 18,
+    "devcursor.selectAt": 48,
+    "devcursor.status": 20,
+    "directparam.list": 64,
+    "param.list": 23,
+    "chain.inventory": 20
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ]
+   ],
+   "gapMs": 195,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     23
+    ],
+    [
+     "track.list",
+     0,
+     24
+    ],
+    [
+     "selection.status",
+     24,
+     23
+    ],
+    [
+     "devcursor.pin",
+     47,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     70,
+     24
+    ],
+    [
+     "device.list",
+     120,
+     18
+    ],
+    [
+     "devcursor.selectAt",
+     138,
+     24
+    ],
+    [
+     "devcursor.pin",
+     162,
+     23
+    ],
+    [
+     "devcursor.status",
+     210,
+     20
+    ],
+    [
+     "directparam.list",
+     231,
+     24
+    ],
+    [
+     "directparam.list",
+     450,
+     17
+    ],
+    [
+     "directparam.list",
+     493,
+     23
+    ],
+    [
+     "param.list",
+     515,
+     23
+    ],
+    [
+     "devcursor.pin",
+     538,
+     25
+    ],
+    [
+     "cursor.pointTrack",
+     563,
+     25
+    ],
+    [
+     "devcursor.selectAt",
+     588,
+     24
+    ],
+    [
+     "chain.inventory",
+     639,
+     20
+    ]
+   ]
+  },
+  {
+   "step": "control-3",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 657,
+   "bytes": 10743,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 354,
+   "brainMs": 6,
+   "idleMs": 297,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 25,
+    "track.list": 25,
+    "selection.status": 21,
+    "devcursor.pin": 70,
+    "cursor.pointTrack": 42,
+    "device.list": 24,
+    "devcursor.selectAt": 48,
+    "devcursor.status": 20,
+    "directparam.list": 62,
+    "param.list": 26,
+    "chain.inventory": 18
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     196
+    ]
+   ],
+   "gapMs": 196,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     25
+    ],
+    [
+     "track.list",
+     0,
+     25
+    ],
+    [
+     "selection.status",
+     25,
+     21
+    ],
+    [
+     "devcursor.pin",
+     46,
+     24
+    ],
+    [
+     "cursor.pointTrack",
+     71,
+     22
+    ],
+    [
+     "device.list",
+     118,
+     24
+    ],
+    [
+     "devcursor.selectAt",
+     141,
+     21
+    ],
+    [
+     "devcursor.pin",
+     162,
+     21
+    ],
+    [
+     "devcursor.status",
+     209,
+     20
+    ],
+    [
+     "directparam.list",
+     230,
+     21
+    ],
+    [
+     "directparam.list",
+     446,
+     20
+    ],
+    [
+     "directparam.list",
+     493,
+     21
+    ],
+    [
+     "param.list",
+     514,
+     26
+    ],
+    [
+     "devcursor.pin",
+     540,
+     25
+    ],
+    [
+     "cursor.pointTrack",
+     565,
+     20
+    ],
+    [
+     "devcursor.selectAt",
+     585,
+     27
+    ],
+    [
+     "chain.inventory",
+     639,
+     18
+    ]
+   ]
+  },
+  {
+   "step": "settled-4",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 662,
+   "bytes": 10743,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 357,
+   "brainMs": 5,
+   "idleMs": 301,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 20,
+    "track.list": 20,
+    "selection.status": 20,
+    "devcursor.pin": 69,
+    "cursor.pointTrack": 50,
+    "device.list": 21,
+    "devcursor.selectAt": 46,
+    "devcursor.status": 22,
+    "directparam.list": 59,
+    "param.list": 25,
+    "chain.inventory": 24
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     196
+    ]
+   ],
+   "gapMs": 196,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     20
+    ],
+    [
+     "track.list",
+     0,
+     20
+    ],
+    [
+     "selection.status",
+     20,
+     20
+    ],
+    [
+     "devcursor.pin",
+     40,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     64,
+     25
+    ],
+    [
+     "device.list",
+     116,
+     21
+    ],
+    [
+     "devcursor.selectAt",
+     137,
+     26
+    ],
+    [
+     "devcursor.pin",
+     163,
+     26
+    ],
+    [
+     "devcursor.status",
+     217,
+     22
+    ],
+    [
+     "directparam.list",
+     239,
+     26
+    ],
+    [
+     "directparam.list",
+     460,
+     9
+    ],
+    [
+     "directparam.list",
+     497,
+     24
+    ],
+    [
+     "param.list",
+     521,
+     25
+    ],
+    [
+     "devcursor.pin",
+     546,
+     20
+    ],
+    [
+     "cursor.pointTrack",
+     566,
+     25
+    ],
+    [
+     "devcursor.selectAt",
+     591,
+     20
+    ],
+    [
+     "chain.inventory",
+     638,
+     24
+    ]
+   ]
+  },
+  {
+   "step": "control-4",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 667,
+   "bytes": 10747,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 362,
+   "brainMs": 5,
+   "idleMs": 300,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 25,
+    "track.list": 25,
+    "selection.status": 26,
+    "devcursor.pin": 77,
+    "cursor.pointTrack": 46,
+    "device.list": 13,
+    "devcursor.selectAt": 46,
+    "devcursor.status": 20,
+    "directparam.list": 64,
+    "param.list": 25,
+    "chain.inventory": 20
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     196
+    ]
+   ],
+   "gapMs": 196,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     25
+    ],
+    [
+     "track.list",
+     0,
+     25
+    ],
+    [
+     "selection.status",
+     25,
+     26
+    ],
+    [
+     "devcursor.pin",
+     51,
+     25
+    ],
+    [
+     "cursor.pointTrack",
+     76,
+     21
+    ],
+    [
+     "device.list",
+     124,
+     13
+    ],
+    [
+     "devcursor.selectAt",
+     137,
+     21
+    ],
+    [
+     "devcursor.pin",
+     159,
+     27
+    ],
+    [
+     "devcursor.status",
+     213,
+     20
+    ],
+    [
+     "directparam.list",
+     233,
+     24
+    ],
+    [
+     "directparam.list",
+     453,
+     21
+    ],
+    [
+     "directparam.list",
+     501,
+     19
+    ],
+    [
+     "param.list",
+     521,
+     25
+    ],
+    [
+     "devcursor.pin",
+     545,
+     25
+    ],
+    [
+     "cursor.pointTrack",
+     570,
+     25
+    ],
+    [
+     "devcursor.selectAt",
+     596,
+     25
+    ],
+    [
+     "chain.inventory",
+     647,
+     20
+    ]
+   ]
+  },
+  {
+   "step": "settled-5",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 656,
+   "bytes": 10747,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 351,
+   "brainMs": 4,
+   "idleMs": 301,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 20,
+    "track.list": 20,
+    "selection.status": 25,
+    "devcursor.pin": 65,
+    "cursor.pointTrack": 51,
+    "device.list": 18,
+    "devcursor.selectAt": 48,
+    "devcursor.status": 19,
+    "directparam.list": 62,
+    "param.list": 22,
+    "chain.inventory": 21
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     196
+    ]
+   ],
+   "gapMs": 196,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     20
+    ],
+    [
+     "track.list",
+     0,
+     20
+    ],
+    [
+     "selection.status",
+     20,
+     25
+    ],
+    [
+     "devcursor.pin",
+     46,
+     26
+    ],
+    [
+     "cursor.pointTrack",
+     71,
+     25
+    ],
+    [
+     "device.list",
+     123,
+     18
+    ],
+    [
+     "devcursor.selectAt",
+     141,
+     27
+    ],
+    [
+     "devcursor.pin",
+     169,
+     20
+    ],
+    [
+     "devcursor.status",
+     216,
+     19
+    ],
+    [
+     "directparam.list",
+     234,
+     24
+    ],
+    [
+     "directparam.list",
+     454,
+     16
+    ],
+    [
+     "directparam.list",
+     497,
+     22
+    ],
+    [
+     "param.list",
+     520,
+     22
+    ],
+    [
+     "devcursor.pin",
+     542,
+     19
+    ],
+    [
+     "cursor.pointTrack",
+     561,
+     26
+    ],
+    [
+     "devcursor.selectAt",
+     588,
+     21
+    ],
+    [
+     "chain.inventory",
+     636,
+     21
+    ]
+   ]
+  },
+  {
+   "step": "control-5",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 657,
+   "bytes": 10753,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 351,
+   "brainMs": 4,
+   "idleMs": 302,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 20,
+    "track.list": 20,
+    "selection.status": 24,
+    "devcursor.pin": 68,
+    "cursor.pointTrack": 45,
+    "device.list": 21,
+    "devcursor.selectAt": 46,
+    "devcursor.status": 26,
+    "directparam.list": 59,
+    "param.list": 26,
+    "chain.inventory": 14
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     196
+    ]
+   ],
+   "gapMs": 196,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     20
+    ],
+    [
+     "track.list",
+     0,
+     20
+    ],
+    [
+     "selection.status",
+     20,
+     24
+    ],
+    [
+     "devcursor.pin",
+     45,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     68,
+     20
+    ],
+    [
+     "device.list",
+     116,
+     21
+    ],
+    [
+     "devcursor.selectAt",
+     136,
+     25
+    ],
+    [
+     "devcursor.pin",
+     162,
+     21
+    ],
+    [
+     "devcursor.status",
+     210,
+     26
+    ],
+    [
+     "directparam.list",
+     236,
+     25
+    ],
+    [
+     "directparam.list",
+     458,
+     18
+    ],
+    [
+     "directparam.list",
+     503,
+     16
+    ],
+    [
+     "param.list",
+     518,
+     26
+    ],
+    [
+     "devcursor.pin",
+     545,
+     24
+    ],
+    [
+     "cursor.pointTrack",
+     569,
+     25
+    ],
+    [
+     "devcursor.selectAt",
+     594,
+     21
+    ],
+    [
+     "chain.inventory",
+     642,
+     14
+    ]
+   ]
+  },
+  {
+   "step": "settled-6",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 647,
+   "bytes": 10753,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 343,
+   "brainMs": 4,
+   "idleMs": 300,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 20,
+    "track.list": 20,
+    "selection.status": 26,
+    "devcursor.pin": 71,
+    "cursor.pointTrack": 45,
+    "device.list": 19,
+    "devcursor.selectAt": 42,
+    "devcursor.status": 24,
+    "directparam.list": 49,
+    "param.list": 26,
+    "chain.inventory": 21
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     195
+    ]
+   ],
+   "gapMs": 195,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     20
+    ],
+    [
+     "track.list",
+     0,
+     20
+    ],
+    [
+     "selection.status",
+     20,
+     26
+    ],
+    [
+     "devcursor.pin",
+     46,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     69,
+     21
+    ],
+    [
+     "device.list",
+     117,
+     19
+    ],
+    [
+     "devcursor.selectAt",
+     136,
+     20
+    ],
+    [
+     "devcursor.pin",
+     156,
+     21
+    ],
+    [
+     "devcursor.status",
+     204,
+     24
+    ],
+    [
+     "directparam.list",
+     228,
+     25
+    ],
+    [
+     "directparam.list",
+     448,
+     4
+    ],
+    [
+     "directparam.list",
+     479,
+     20
+    ],
+    [
+     "param.list",
+     499,
+     26
+    ],
+    [
+     "devcursor.pin",
+     525,
+     27
+    ],
+    [
+     "cursor.pointTrack",
+     552,
+     24
+    ],
+    [
+     "devcursor.selectAt",
+     576,
+     22
+    ],
+    [
+     "chain.inventory",
+     626,
+     21
+    ]
+   ]
+  },
+  {
+   "step": "control-6",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 652,
+   "bytes": 10760,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 348,
+   "brainMs": 4,
+   "idleMs": 301,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 22,
+    "track.list": 22,
+    "selection.status": 25,
+    "devcursor.pin": 73,
+    "cursor.pointTrack": 40,
+    "device.list": 17,
+    "devcursor.selectAt": 46,
+    "devcursor.status": 18,
+    "directparam.list": 59,
+    "param.list": 25,
+    "chain.inventory": 23
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     196
+    ]
+   ],
+   "gapMs": 196,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     22
+    ],
+    [
+     "track.list",
+     0,
+     22
+    ],
+    [
+     "selection.status",
+     22,
+     25
+    ],
+    [
+     "devcursor.pin",
+     47,
+     21
+    ],
+    [
+     "cursor.pointTrack",
+     68,
+     20
+    ],
+    [
+     "device.list",
+     116,
+     17
+    ],
+    [
+     "devcursor.selectAt",
+     132,
+     24
+    ],
+    [
+     "devcursor.pin",
+     156,
+     26
+    ],
+    [
+     "devcursor.status",
+     208,
+     18
+    ],
+    [
+     "directparam.list",
+     226,
+     21
+    ],
+    [
+     "directparam.list",
+     444,
+     17
+    ],
+    [
+     "directparam.list",
+     487,
+     21
+    ],
+    [
+     "param.list",
+     509,
+     25
+    ],
+    [
+     "devcursor.pin",
+     534,
+     26
+    ],
+    [
+     "cursor.pointTrack",
+     560,
+     20
+    ],
+    [
+     "devcursor.selectAt",
+     580,
+     22
+    ],
+    [
+     "chain.inventory",
+     630,
+     23
+    ]
+   ]
+  },
+  {
+   "step": "settled-7",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 662,
+   "bytes": 10760,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 358,
+   "brainMs": 5,
+   "idleMs": 299,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 26,
+    "track.list": 26,
+    "selection.status": 22,
+    "devcursor.pin": 72,
+    "cursor.pointTrack": 53,
+    "device.list": 17,
+    "devcursor.selectAt": 46,
+    "devcursor.status": 14,
+    "directparam.list": 68,
+    "param.list": 21,
+    "chain.inventory": 19
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     196
+    ]
+   ],
+   "gapMs": 196,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     26
+    ],
+    [
+     "track.list",
+     0,
+     26
+    ],
+    [
+     "selection.status",
+     26,
+     22
+    ],
+    [
+     "devcursor.pin",
+     48,
+     21
+    ],
+    [
+     "cursor.pointTrack",
+     69,
+     27
+    ],
+    [
+     "device.list",
+     123,
+     17
+    ],
+    [
+     "devcursor.selectAt",
+     140,
+     26
+    ],
+    [
+     "devcursor.pin",
+     166,
+     27
+    ],
+    [
+     "devcursor.status",
+     220,
+     14
+    ],
+    [
+     "directparam.list",
+     234,
+     24
+    ],
+    [
+     "directparam.list",
+     454,
+     24
+    ],
+    [
+     "directparam.list",
+     505,
+     20
+    ],
+    [
+     "param.list",
+     525,
+     21
+    ],
+    [
+     "devcursor.pin",
+     545,
+     24
+    ],
+    [
+     "cursor.pointTrack",
+     570,
+     26
+    ],
+    [
+     "devcursor.selectAt",
+     596,
+     20
+    ],
+    [
+     "chain.inventory",
+     642,
+     19
+    ]
+   ]
+  },
+  {
+   "step": "control-7",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 673,
+   "bytes": 10731,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 369,
+   "brainMs": 5,
+   "idleMs": 299,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 26,
+    "track.list": 26,
+    "selection.status": 24,
+    "devcursor.pin": 66,
+    "cursor.pointTrack": 44,
+    "device.list": 26,
+    "devcursor.selectAt": 49,
+    "devcursor.status": 24,
+    "directparam.list": 68,
+    "param.list": 27,
+    "chain.inventory": 17
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     196
+    ]
+   ],
+   "gapMs": 196,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     26
+    ],
+    [
+     "track.list",
+     0,
+     26
+    ],
+    [
+     "selection.status",
+     26,
+     24
+    ],
+    [
+     "devcursor.pin",
+     50,
+     21
+    ],
+    [
+     "cursor.pointTrack",
+     71,
+     22
+    ],
+    [
+     "device.list",
+     119,
+     26
+    ],
+    [
+     "devcursor.selectAt",
+     145,
+     24
+    ],
+    [
+     "devcursor.pin",
+     169,
+     25
+    ],
+    [
+     "devcursor.status",
+     221,
+     24
+    ],
+    [
+     "directparam.list",
+     245,
+     27
+    ],
+    [
+     "directparam.list",
+     468,
+     21
+    ],
+    [
+     "directparam.list",
+     515,
+     20
+    ],
+    [
+     "param.list",
+     534,
+     27
+    ],
+    [
+     "devcursor.pin",
+     561,
+     20
+    ],
+    [
+     "cursor.pointTrack",
+     581,
+     22
+    ],
+    [
+     "devcursor.selectAt",
+     603,
+     25
+    ],
+    [
+     "chain.inventory",
+     655,
+     17
+    ]
+   ]
+  },
+  {
+   "step": "settled-8",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 663,
+   "bytes": 10731,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 359,
+   "brainMs": 4,
+   "idleMs": 300,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 25,
+    "track.list": 25,
+    "selection.status": 20,
+    "devcursor.pin": 66,
+    "cursor.pointTrack": 45,
+    "device.list": 24,
+    "devcursor.selectAt": 48,
+    "devcursor.status": 15,
+    "directparam.list": 64,
+    "param.list": 24,
+    "chain.inventory": 25
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     196
+    ]
+   ],
+   "gapMs": 196,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     25
+    ],
+    [
+     "track.list",
+     0,
+     25
+    ],
+    [
+     "selection.status",
+     25,
+     20
+    ],
+    [
+     "devcursor.pin",
+     46,
+     20
+    ],
+    [
+     "cursor.pointTrack",
+     66,
+     20
+    ],
+    [
+     "device.list",
+     113,
+     24
+    ],
+    [
+     "devcursor.selectAt",
+     137,
+     23
+    ],
+    [
+     "devcursor.pin",
+     160,
+     22
+    ],
+    [
+     "devcursor.status",
+     209,
+     15
+    ],
+    [
+     "directparam.list",
+     225,
+     27
+    ],
+    [
+     "directparam.list",
+     448,
+     18
+    ],
+    [
+     "directparam.list",
+     494,
+     19
+    ],
+    [
+     "param.list",
+     513,
+     24
+    ],
+    [
+     "devcursor.pin",
+     537,
+     24
+    ],
+    [
+     "cursor.pointTrack",
+     561,
+     25
+    ],
+    [
+     "devcursor.selectAt",
+     586,
+     25
+    ],
+    [
+     "chain.inventory",
+     638,
+     25
+    ]
+   ]
+  },
+  {
+   "step": "control-8",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 642,
+   "bytes": 10737,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 337,
+   "brainMs": 4,
+   "idleMs": 301,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 27,
+    "track.list": 27,
+    "selection.status": 21,
+    "devcursor.pin": 68,
+    "cursor.pointTrack": 44,
+    "device.list": 21,
+    "devcursor.selectAt": 46,
+    "devcursor.status": 15,
+    "directparam.list": 61,
+    "param.list": 21,
+    "chain.inventory": 13
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     196
+    ]
+   ],
+   "gapMs": 196,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     27
+    ],
+    [
+     "track.list",
+     0,
+     27
+    ],
+    [
+     "selection.status",
+     27,
+     21
+    ],
+    [
+     "devcursor.pin",
+     48,
+     26
+    ],
+    [
+     "cursor.pointTrack",
+     74,
+     24
+    ],
+    [
+     "device.list",
+     125,
+     21
+    ],
+    [
+     "devcursor.selectAt",
+     146,
+     25
+    ],
+    [
+     "devcursor.pin",
+     171,
+     22
+    ],
+    [
+     "devcursor.status",
+     220,
+     15
+    ],
+    [
+     "directparam.list",
+     234,
+     25
+    ],
+    [
+     "directparam.list",
+     455,
+     12
+    ],
+    [
+     "directparam.list",
+     495,
+     24
+    ],
+    [
+     "param.list",
+     519,
+     21
+    ],
+    [
+     "devcursor.pin",
+     540,
+     20
+    ],
+    [
+     "cursor.pointTrack",
+     560,
+     20
+    ],
+    [
+     "devcursor.selectAt",
+     581,
+     21
+    ],
+    [
+     "chain.inventory",
+     629,
+     13
+    ]
+   ]
+  },
+  {
+   "step": "settled-9",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 662,
+   "bytes": 10737,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 359,
+   "brainMs": 4,
+   "idleMs": 300,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 25,
+    "track.list": 25,
+    "selection.status": 21,
+    "devcursor.pin": 69,
+    "cursor.pointTrack": 50,
+    "device.list": 18,
+    "devcursor.selectAt": 47,
+    "devcursor.status": 15,
+    "directparam.list": 64,
+    "param.list": 25,
+    "chain.inventory": 24
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     196
+    ]
+   ],
+   "gapMs": 196,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     25
+    ],
+    [
+     "track.list",
+     0,
+     25
+    ],
+    [
+     "selection.status",
+     25,
+     21
+    ],
+    [
+     "devcursor.pin",
+     46,
+     20
+    ],
+    [
+     "cursor.pointTrack",
+     66,
+     26
+    ],
+    [
+     "device.list",
+     120,
+     18
+    ],
+    [
+     "devcursor.selectAt",
+     138,
+     26
+    ],
+    [
+     "devcursor.pin",
+     164,
+     25
+    ],
+    [
+     "devcursor.status",
+     214,
+     15
+    ],
+    [
+     "directparam.list",
+     229,
+     26
+    ],
+    [
+     "directparam.list",
+     451,
+     18
+    ],
+    [
+     "directparam.list",
+     496,
+     20
+    ],
+    [
+     "param.list",
+     516,
+     25
+    ],
+    [
+     "devcursor.pin",
+     541,
+     24
+    ],
+    [
+     "cursor.pointTrack",
+     566,
+     24
+    ],
+    [
+     "devcursor.selectAt",
+     589,
+     21
+    ],
+    [
+     "chain.inventory",
+     638,
+     24
+    ]
+   ]
+  },
+  {
+   "step": "control-9",
+   "tool": "read_device_controls",
+   "ok": true,
+   "ms": 665,
+   "bytes": 10743,
+   "calls": 17,
+   "turns": 16,
+   "wireMs": 360,
+   "brainMs": 4,
+   "idleMs": 301,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1,
+    "selection.status": 1,
+    "devcursor.pin": 3,
+    "cursor.pointTrack": 2,
+    "device.list": 1,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 1,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 1
+   },
+   "methodMs": {
+    "revision.get": 20,
+    "track.list": 20,
+    "selection.status": 21,
+    "devcursor.pin": 76,
+    "cursor.pointTrack": 46,
+    "device.list": 26,
+    "devcursor.selectAt": 42,
+    "devcursor.status": 19,
+    "directparam.list": 65,
+    "param.list": 22,
+    "chain.inventory": 23
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     196
+    ]
+   ],
+   "gapMs": 196,
+   "sequence": [
+    [
+     "revision.get",
+     0,
+     20
+    ],
+    [
+     "track.list",
+     0,
+     20
+    ],
+    [
+     "selection.status",
+     20,
+     21
+    ],
+    [
+     "devcursor.pin",
+     41,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     64,
+     25
+    ],
+    [
+     "device.list",
+     116,
+     26
+    ],
+    [
+     "devcursor.selectAt",
+     142,
+     21
+    ],
+    [
+     "devcursor.pin",
+     163,
+     26
+    ],
+    [
+     "devcursor.status",
+     216,
+     19
+    ],
+    [
+     "directparam.list",
+     235,
+     25
+    ],
+    [
+     "directparam.list",
+     456,
+     20
+    ],
+    [
+     "directparam.list",
+     504,
+     20
+    ],
+    [
+     "param.list",
+     524,
+     22
+    ],
+    [
+     "devcursor.pin",
+     546,
+     27
+    ],
+    [
+     "cursor.pointTrack",
+     572,
+     21
+    ],
+    [
+     "devcursor.selectAt",
+     594,
+     21
+    ],
+    [
+     "chain.inventory",
+     642,
+     23
+    ]
+   ]
+  },
+  {
+   "step": "cleanup",
+   "tool": "delete_track",
+   "ok": true,
+   "status": "verified",
+   "ms": 460,
+   "bytes": 474,
+   "calls": 24,
+   "turns": 11,
+   "wireMs": 259,
+   "brainMs": 7,
+   "idleMs": 194,
+   "methods": {
+    "track.list": 8,
+    "selection.status": 1,
+    "revision.get": 6,
+    "batch.run": 1,
+    "cursor.pin": 8
+   },
+   "methodMs": {
+    "track.list": 193,
+    "selection.status": 20,
+    "revision.get": 144,
+    "batch.run": 26,
+    "cursor.pin": 160
+   },
+   "gaps": [
+    [
+     "batch.run",
+     "cursor.pin",
+     145
+    ]
+   ],
+   "gapMs": 145,
+   "sequence": [
+    [
+     "track.list",
+     0,
+     26
+    ],
+    [
+     "selection.status",
+     26,
+     20
+    ],
+    [
+     "revision.get",
+     46,
+     26
+    ],
+    [
+     "track.list",
+     46,
+     26
+    ],
+    [
+     "revision.get",
+     73,
+     25
+    ],
+    [
+     "track.list",
+     73,
+     25
+    ],
+    [
+     "revision.get",
+     98,
+     22
+    ],
+    [
+     "track.list",
+     98,
+     22
+    ],
+    [
+     "batch.run",
+     120,
+     26
+    ],
+    [
+     "cursor.pin",
+     290,
+     20
+    ],
+    [
+     "cursor.pin",
+     290,
+     20
+    ],
+    [
+     "cursor.pin",
+     290,
+     20
+    ],
+    [
+     "cursor.pin",
+     290,
+     20
+    ],
+    [
+     "cursor.pin",
+     290,
+     20
+    ],
+    [
+     "cursor.pin",
+     290,
+     20
+    ],
+    [
+     "cursor.pin",
+     290,
+     20
+    ],
+    [
+     "cursor.pin",
+     290,
+     20
+    ],
+    [
+     "track.list",
+     337,
+     23
+    ],
+    [
+     "revision.get",
+     361,
+     21
+    ],
+    [
+     "track.list",
+     361,
+     21
+    ],
+    [
+     "revision.get",
+     409,
+     24
+    ],
+    [
+     "track.list",
+     409,
+     24
+    ],
+    [
+     "revision.get",
+     433,
+     26
+    ],
+    [
+     "track.list",
+     433,
+     26
+    ]
+   ]
+  }
+ ],
+ "results": [
+  {
+   "trial": 0,
+   "id": "CONTENTS/PW1",
+   "value": 0.25,
+   "visible": true,
+   "polls": 1,
+   "visibleMs": 46,
+   "stableSignature": true,
+   "sameIds": true,
+   "differences": [],
+   "changed": [
+    "CONTENTS/PW1"
+   ]
+  },
+  {
+   "trial": 1,
+   "id": "CONTENTS/KEY > F",
+   "value": 0.75,
+   "visible": true,
+   "polls": 1,
+   "visibleMs": 48,
+   "stableSignature": true,
+   "sameIds": true,
+   "differences": [],
+   "changed": [
+    "CONTENTS/KEY > F"
+   ]
+  },
+  {
+   "trial": 2,
+   "id": "CONTENTS/F1S",
+   "value": 0.75,
+   "visible": true,
+   "polls": 1,
+   "visibleMs": 49,
+   "stableSignature": true,
+   "sameIds": true,
+   "differences": [],
+   "changed": [
+    "CONTENTS/F1S"
+   ]
+  },
+  {
+   "trial": 3,
+   "id": "CONTENTS/OSC1_UNISON_SPREAD",
+   "value": 0.75,
+   "visible": true,
+   "polls": 1,
+   "visibleMs": 48,
+   "stableSignature": true,
+   "sameIds": true,
+   "differences": [],
+   "changed": [
+    "CONTENTS/OSC1_UNISON_SPREAD"
+   ]
+  },
+  {
+   "trial": 4,
+   "id": "CONTENTS/PRE-FITLER_GAIN",
+   "value": 0.75,
+   "visible": true,
+   "polls": 1,
+   "visibleMs": 46,
+   "stableSignature": true,
+   "sameIds": true,
+   "differences": [],
+   "changed": [
+    "CONTENTS/PRE-FITLER_GAIN"
+   ]
+  },
+  {
+   "trial": 5,
+   "id": "CONTENTS/SHAPER",
+   "value": 0.75,
+   "visible": true,
+   "polls": 1,
+   "visibleMs": 48,
+   "stableSignature": true,
+   "sameIds": true,
+   "differences": [],
+   "changed": [
+    "CONTENTS/SHAPER"
+   ]
+  },
+  {
+   "trial": 6,
+   "id": "CONTENTS/OSC2_WIDTH",
+   "value": 0.25,
+   "visible": true,
+   "polls": 1,
+   "visibleMs": 48,
+   "stableSignature": true,
+   "sameIds": true,
+   "differences": [],
+   "changed": [
+    "CONTENTS/OSC2_WIDTH"
+   ]
+  },
+  {
+   "trial": 7,
+   "id": "CONTENTS/F1FREQ",
+   "value": 0.25,
+   "visible": true,
+   "polls": 1,
+   "visibleMs": 42,
+   "stableSignature": true,
+   "sameIds": true,
+   "differences": [],
+   "changed": [
+    "CONTENTS/F1FREQ"
+   ]
+  },
+  {
+   "trial": 8,
+   "id": "CONTENTS/F1A",
+   "value": 0.75,
+   "visible": true,
+   "polls": 1,
+   "visibleMs": 45,
+   "stableSignature": true,
+   "sameIds": true,
+   "differences": [],
+   "changed": [
+    "CONTENTS/F1A"
+   ]
+  },
+  {
+   "trial": 9,
+   "id": "CONTENTS/OSC1_SUB_LEVEL",
+   "value": 0.75,
+   "visible": true,
+   "polls": 1,
+   "visibleMs": 43,
+   "stableSignature": true,
+   "sameIds": true,
+   "differences": [],
+   "changed": [
+    "CONTENTS/OSC1_SUB_LEVEL"
+   ]
+  }
+ ]
+}

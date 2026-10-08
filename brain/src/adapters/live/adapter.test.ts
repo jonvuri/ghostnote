@@ -2079,6 +2079,37 @@ test('d02-s1-live-adapter: a new Drum Machine settles before its guarded pad ins
   assert.ok(methods.includes(WIRE.drumPadInsertDevice));
 });
 
+test('8i3 drum pad: a pad insert polls the pad bank and does not wait the fixed insert budget', async () => {
+  class SettleRecordingAdapter extends LiveAdapter {
+    readonly settles: string[] = [];
+    override async settle(name: Parameters<LiveAdapter['settle']>[0]): Promise<void> { this.settles.push(name); }
+  }
+  const wire = new DrumMachineTransport();
+  const adapter = new SettleRecordingAdapter({ transport: wire, cursorPool: 3 });
+  const container = deviceAt(TRACK, 1);
+  const started = performance.now();
+  const receipt = await adapter.apply({ ops: [
+    {
+      op: 'device.insert', track: TRACK,
+      source: { from: 'bitwig', uuid: '8ea97e45-0255-40fd-bc7e-94419741e9d1' },
+      expectedChain: ['Polysynth'], expectedEnabledChain: [true],
+    },
+    {
+      op: 'drumPad.insert', pad: drumPad(container, 0),
+      source: { from: 'bitwig', uuid: 'c6d5de18-a6f1-4daa-90a9-d9254527601a' },
+      expectedDeviceName: 'v1 Kick', expectedContainerName: 'Drum Machine',
+      expectedChain: ['Polysynth', 'Drum Machine'], expectedEnabledChain: [true, true],
+    },
+  ] });
+
+  assert.equal(receipt.stages.every((stage) => stage.applied), true);
+  assert.equal(adapter.settles.includes('deviceInsert'), false);
+  assert.ok(performance.now() - started < 2000, 'the pad proof returns before the 4,000 ms budget');
+  const padWrite = wire.frames.map((frame) => frame.method).lastIndexOf(WIRE.batchRun);
+  assert.ok(wire.frames.slice(padWrite).filter((frame) => frame.method === WIRE.drumPadList).length >= 2,
+    'two equal pad readings');
+});
+
 test('d02-s1-live-adapter: a late occupied pad returns a recorded partial receipt', async () => {
   const wire = new OccupiedSecondPadTransport();
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
@@ -2772,6 +2803,8 @@ class ParameterTransport implements Transport {
   typedMetadata = false;
   typedPluginMetadata = false;
   collateralAfterWrite: { readonly id: string; readonly value: number } | undefined;
+  /** 8i3: a new observer generation after each direct write, as if another reader began one. */
+  generationAfterWrite = false;
   failRemoteIndex: number | undefined;
   emptySlot = false;
   /** 8h4a4: the fixture is a group child at bank index 1 and sibling position 0. */
@@ -3047,6 +3080,7 @@ class ParameterTransport implements Transport {
           target.value = params['value'] as number;
           this.completionValue = target.value;
           this.completionObservedGeneration = this.completionGeneration;
+          if (this.generationAfterWrite) this.generation++;
           const collateral = this.collateralAfterWrite;
           if (collateral !== undefined) {
             const unrelated = this.devices[this.selected]?.params.get(collateral.id);
@@ -3825,6 +3859,83 @@ test('d02-s3 concurrency: scalar cohorts do not interleave one device cursor', a
   assert.deepEqual(wire.frames.filter((frame) => frame.method === WIRE.directParamSet)
     .map((frame) => frame.params?.['value']), [...firstValues, ...secondValues]);
 });
+
+test('8i3 cohort poll: stages before the last read the live generation; the last reads the settled inventory', async () => {
+  const wire = new ParameterTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const device = deviceAt(TRACK, 0);
+  const addresses = ['P1', 'P2', 'P3'].map((id) => param(device, id));
+  const preflight = await adapter.read([device, ...addresses]);
+  const from = wire.frames.length;
+
+  const receipt = await adapter.apply({
+    ops: addresses.map((address, index) => ({ op: 'param.set', param: address, value: 0.6 + index / 10 })),
+    parameterPreflight: preflight,
+  });
+
+  assert.equal(receipt.stages.length, 3);
+  assert.equal(receipt.stages.every((stage) => stage.ops.every((op) => op.ok)), true);
+  const frames = wire.frames.slice(from);
+  assert.equal(frames.filter((frame) => frame.method === WIRE.directParamList
+    && frame.params?.['begin'] === true).length, 1);
+  const lastWrite = frames.map((frame) => frame.method).lastIndexOf(WIRE.batchRun);
+  assert.ok(frames.slice(lastWrite).some((frame) => frame.method === WIRE.directParamList
+    && frame.params?.['begin'] === true), 'the last stage reads the settled inventory');
+});
+
+test('8i3 cohort poll: another observer generation falls back to the settled inventory', async () => {
+  const wire = new ParameterTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const device = deviceAt(TRACK, 0);
+  const addresses = ['P1', 'P2', 'P3'].map((id) => param(device, id));
+  const preflight = await adapter.read([device, ...addresses]);
+  wire.generationAfterWrite = true;
+  const from = wire.frames.length;
+
+  const receipt = await adapter.apply({
+    ops: addresses.map((address, index) => ({ op: 'param.set', param: address, value: 0.6 + index / 10 })),
+    parameterPreflight: preflight,
+  });
+
+  assert.equal(receipt.stages.every((stage) => stage.ops.every((op) => op.ok)), true);
+  assert.equal(wire.frames.slice(from).filter((frame) => frame.method === WIRE.directParamList
+    && frame.params?.['begin'] === true).length, 3);
+});
+
+for (const recovers of [true, false]) {
+  test(`8i3 cohort poll: a wrong observer index ${recovers ? 'recovers through a settled read' : 'stops later writes'}`, async () => {
+    class WrongIndexTransport extends ParameterTransport {
+      wrongIndex = false;
+      override async send(frame: Frame): Promise<unknown> {
+        if (recovers && frame.method === WIRE.directParamList && frame.params?.['begin'] === true) {
+          this.wrongIndex = false;
+        }
+        const result = await super.send(frame);
+        if (frame.method === WIRE.directParamSet) this.wrongIndex = true;
+        if (this.wrongIndex && frame.method === WIRE.directParamList) {
+          return { ...result as Record<string, unknown>, observedDeviceIndex: 1 };
+        }
+        return result;
+      }
+    }
+    const wire = new WrongIndexTransport();
+    const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+    const device = deviceAt(TRACK, 0);
+    const addresses = ['P1', 'P2', 'P3'].map((id) => param(device, id));
+    const preflight = await adapter.read([device, ...addresses]);
+    const from = wire.frames.length;
+    const receipt = await adapter.apply({
+      ops: addresses.map((address, index) => ({ op: 'param.set', param: address, value: 0.6 + index / 10 })),
+      parameterPreflight: preflight,
+    });
+    const frames = wire.frames.slice(from);
+    assert.equal(frames.filter((frame) => frame.method === WIRE.directParamList
+      && frame.params?.['begin'] === true).length, 3, 'a stale observer requires a settled inventory');
+    assert.equal(frames.filter((frame) => frame.method === WIRE.directParamSet).length, recovers ? 3 : 1);
+    assert.equal(receipt.stages.every((stage) => stage.ops.every((op) => op.ok)), recovers);
+    if (!recovers) assert.match(receipt.stages[0]!.ops[0]!.error ?? '', /inventory was unstable/);
+  });
+}
 
 test('d02-s3 failure: a changed shared target stops later cohort settings', async () => {
   const wire = new ParameterTransport();
@@ -4833,4 +4944,57 @@ test('8i1 (D43): the unpinned cursor list rides beside the mark, so a snapshot r
   assert.deepEqual(unpinnedCursorTracksOf(mark), ['GN_CLIP_READER']);
   assert.throws(() => checkCursorPins(mark), (error: unknown) =>
     error instanceof ToolFailure && error.code === 'unhealthy' && /GN_CLIP_READER/.test(error.message));
+});
+
+test('8i3 relocation preflight: a layer-chain route skips the named-slot descent; a slot route keeps it', async () => {
+  // The preflight reads each top-level container scope. The descent into an empty device slot (Delay+) never
+  // settles (about 3 s, E252), and only a device-slot endpoint uses it.
+  class ScopeRecordingAdapter extends LiveAdapter {
+    readonly slots: boolean[] = [];
+    preflight(ops: readonly Parameters<LiveAdapter['apply']>[0]['ops'][number][]): Promise<void> {
+      return (this as unknown as { assertRelocationsPreflight(o: typeof ops): Promise<void> })
+        .assertRelocationsPreflight(ops);
+    }
+  }
+  const adapter = new ScopeRecordingAdapter({ transport: { send: async () => ({}), close: async () => undefined } as unknown as Transport });
+  const internals = adapter as unknown as Record<string, unknown>;
+  internals['relocationSequence'] = async () => ({ devices: [{ index: 0, name: 'Instrument Layer' },
+    { index: 1, name: 'Delay+' }], devicesComplete: true, bankSize: 16 });
+  internals['containerScope'] = async (_track: unknown, _index: number, slots = true) => {
+    adapter.slots.push(slots);
+    return { ok: false, miss: 'absent' };
+  };
+  const layer = deviceAt(TRACK, 0);
+  const move = (destination: Parameters<LiveAdapter['apply']>[0]['ops'][number]) => destination;
+  await adapter.preflight([move({ op: 'chain.relocate', source: deviceAt(TRACK, 1), destination: chainAt(layer, 'A'),
+    mode: 'move' })]).catch(() => undefined);
+  assert.deepEqual(adapter.slots, [false, false]);
+  adapter.slots.length = 0;
+  await adapter.preflight([move({ op: 'chain.relocate', source: deviceAt(TRACK, 1), destination: deviceSlot(layer, 'FX'),
+    mode: 'move' })]).catch(() => undefined);
+  assert.deepEqual(adapter.slots, [true, true]);
+});
+
+test('8i3 container scope: an empty-slot descent gives up after two misses with the slots incomplete', async () => {
+  const frames: string[] = [];
+  const scope = { deviceExists: true, deviceName: 'Delay+', hasSlots: true, slotNames: ['FX'], chains: [] };
+  const transport = {
+    async send(frame: Frame) {
+      frames.push(frame.method);
+      if (frame.method === WIRE.chainInventory) {
+        // The cursor stays on the parent: the slot is empty, so the descent never settles.
+        return { trackChannelId: CHANNEL_ID, scopes: [scope], cursorScope: { status: 'held', deviceExists: true,
+          isNested: false, deviceName: 'Delay+' } };
+      }
+      return {};
+    },
+    async close() {},
+  } as unknown as Transport;
+  const adapter = new UntimedAdapter({ transport });
+  const internals = adapter as unknown as Record<string, any>;
+  internals['index'] = new Map([[CHANNEL_ID, 0]]);
+  internals['cursorTrackHeld'] = () => true;
+  const result = await internals['containerScope'](TRACK, 0);
+  assert.equal(frames.filter((method) => method === WIRE.deviceCursorSelectFirstInSlot).length, 2);
+  assert.equal(result.ok ? result.container.slotsComplete === true : false, false, 'the slots stay incomplete');
 });

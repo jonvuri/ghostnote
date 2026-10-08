@@ -457,6 +457,38 @@ export async function readDeviceControls(
   };
 }
 
+/**
+ * Group consecutive settings of one route into cohorts. A setting that repeats a target of the open cohort starts
+ * a new one. Each cohort is one pipeline with its own complete inventories (8i3: `WRITE_LIMITS` counts them).
+ */
+export function parameterCohorts<T extends ParameterSetting>(
+  settings: readonly T[],
+): Array<Array<{ settingIndex: number; setting: T }>> {
+  const cohorts: Array<Array<{ settingIndex: number; setting: T }>> = [];
+  for (const [settingIndex, setting] of settings.entries()) {
+    const prior = cohorts.at(-1);
+    const routeKey = JSON.stringify({ kind: setting.kind, device: setting.device });
+    const targetKey = setting.kind === 'direct'
+      ? setting.parameterId
+      : `${setting.pagePosition}:${setting.pageName}:${setting.controlPosition}:${setting.controlName}`;
+    const priorRouteKey = prior === undefined ? undefined : JSON.stringify({
+      kind: prior[0]!.setting.kind,
+      device: prior[0]!.setting.device,
+    });
+    const repeatsTarget = prior?.some((item) => setting.kind === 'direct'
+      ? item.setting.kind === 'direct' && item.setting.parameterId === targetKey
+      : item.setting.kind === 'remote'
+        && `${item.setting.pagePosition}:${item.setting.pageName}:`
+          + `${item.setting.controlPosition}:${item.setting.controlName}` === targetKey) ?? false;
+    if (prior === undefined || priorRouteKey !== routeKey || repeatsTarget) {
+      cohorts.push([{ settingIndex, setting }]);
+    } else {
+      prior.push({ settingIndex, setting });
+    }
+  }
+  return cohorts;
+}
+
 /** Write DirectParameters or remote controls in same-route cohorts, with readback for each scalar. */
 export async function setDeviceControls(
   workspace: Workspace,
@@ -490,31 +522,7 @@ export async function setDeviceControls(
   const normalizedSettings = args.settings as NormalizedParameterSetting[];
   try {
     let verified = true;
-    const cohorts: Array<Array<{
-      settingIndex: number;
-      setting: NormalizedParameterSetting;
-    }>> = [];
-    for (const [settingIndex, setting] of normalizedSettings.entries()) {
-      const prior = cohorts.at(-1);
-      const routeKey = JSON.stringify({ kind: setting.kind, device: setting.device });
-      const targetKey = setting.kind === 'direct'
-        ? setting.parameterId
-        : `${setting.pagePosition}:${setting.pageName}:${setting.controlPosition}:${setting.controlName}`;
-      const priorRouteKey = prior === undefined ? undefined : JSON.stringify({
-        kind: prior[0]!.setting.kind,
-        device: prior[0]!.setting.device,
-      });
-      const repeatsTarget = prior?.some((item) => setting.kind === 'direct'
-        ? item.setting.kind === 'direct' && item.setting.parameterId === targetKey
-        : item.setting.kind === 'remote'
-          && `${item.setting.pagePosition}:${item.setting.pageName}:`
-            + `${item.setting.controlPosition}:${item.setting.controlName}` === targetKey) ?? false;
-      if (prior === undefined || priorRouteKey !== routeKey || repeatsTarget) {
-        cohorts.push([{ settingIndex, setting }]);
-      } else {
-        prior.push({ settingIndex, setting });
-      }
-    }
+    const cohorts = parameterCohorts(normalizedSettings);
 
     for (const cohort of cohorts) {
       const first = cohort[0]!.setting;

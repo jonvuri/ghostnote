@@ -452,6 +452,10 @@ const PARAMETER_WRITE_COMPLETION_ATTEMPTS = 160;
 const PARAMETER_WRITE_INVENTORY_ATTEMPTS = 40;
 /** Re-arm an observer that does not complete within its bounded generation. */
 const PARAMETER_INVENTORY_ACQUISITIONS = 3;
+/** 8i3: equal-signature polls for one cohort integrity read before the settled inventory takes over. */
+const PARAMETER_COHORT_POLLS = 4;
+/** 8i3: named-slot descents of one container scope read before it answers with the slots incomplete. */
+const CONTAINER_SLOT_DESCENTS = 2;
 /**
  * 8h4e (E244): extra polls for the display text after the values are stable. The text arrives one turn after
  * the arm, so the normal case uses none of them.
@@ -902,6 +906,13 @@ export class LiveAdapter implements BitwigAdapter {
   private parameterQueue: Promise<void> = Promise.resolve();
   /** Keep complete scalar write pipelines from interleaving on that cursor. */
   private parameterMutationQueue: Promise<void> = Promise.resolve();
+  /**
+   * 8i3 (E252): the observer generation of the last complete settled inventory and its target. A cohort
+   * integrity poll is valid only while the extension still reports this generation for this target.
+   */
+  private settledParameterGeneration: {
+    readonly key: AddressKey; readonly generation: number; readonly deviceName: string;
+  } | undefined;
 
   constructor(options: LiveOptions = {}) {
     const transport = options.transport ?? new BridgeTransport();
@@ -2117,6 +2128,7 @@ export class LiveAdapter implements BitwigAdapter {
   ): Promise<ParameterInventory> {
       const target = await this.acquireDeviceTarget(device, row);
       if (target.standing !== 'stable') return target;
+      this.settledParameterGeneration = undefined;
       const begun = await this.transport.send({
         method: WIRE.directParamList,
         params: { begin: true },
@@ -2280,6 +2292,9 @@ export class LiveAdapter implements BitwigAdapter {
                   ? {} : { discreteValueNames: supplement.discreteValueNames }),
               };
             });
+            this.settledParameterGeneration = {
+              key: addressKey(device), generation, deviceName: target.deviceName,
+            };
             return {
               standing: 'stable',
               deviceName: target.deviceName,
@@ -2297,6 +2312,62 @@ export class LiveAdapter implements BitwigAdapter {
         await this.settle('cursorPoint');
       }
       return { standing: 'unstable', deviceName: target.deviceName };
+  }
+
+  /**
+   * 8i3 (E252): the cohort integrity read after one scalar stage, without a new observer generation. The device
+   * cursor does not move inside a cohort, so the `begin` and its `paramsLive` settle (the switch budget, E243) have
+   * nothing to wait for: an unawaited write is visible in the first poll, and the settled inventory agrees on
+   * every ID, name, and value (E252 poll A/B). Two equal polls under the generation of the last settled inventory
+   * of this target are the stable reading. Any other generation, target, or an incomplete reply returns undefined,
+   * and the caller reads the complete settled inventory.
+   */
+  private parameterCohortPoll(
+    device: DeviceAddress,
+    deviceName: string,
+  ): Promise<readonly ParamState[] | undefined> {
+    return this.withParameterCursor(async () => {
+      const settled = this.settledParameterGeneration;
+      if (settled === undefined || settled.key !== addressKey(device) || settled.deviceName !== deviceName) {
+        return undefined;
+      }
+      let prior: string | undefined;
+      for (let attempt = 0; attempt < PARAMETER_COHORT_POLLS; attempt++) {
+        const observed = await this.transport.send({
+          method: WIRE.directParamList,
+          params: { generation: settled.generation },
+        }) as WireDirectInventory;
+        const rows = observed.params ?? [];
+        const complete = observed.generation === settled.generation
+          && observed.idsGeneration === settled.generation
+          && observed.deviceExists === true
+          && observed.deviceName === deviceName
+          && (device.chain !== undefined || observed.deviceIndex === device.chainIndex)
+          && observed.trackChannelId === device.track.channelId
+          && observed.observedTrackChannelId === device.track.channelId
+          && observed.observedDeviceName === deviceName
+          && (observed.observedDeviceIndex === undefined
+            || observed.observedDeviceIndex < 0
+            || observed.observedDeviceIndex === device.chainIndex)
+          && new Set(rows.map((item) => item.id)).size === rows.length
+          && rows.every((item) => typeof item.id === 'string' && typeof item.name === 'string'
+            && typeof item.value === 'number' && Number.isFinite(item.value)
+            && item.value >= 0 && item.value <= 1);
+        if (!complete) return undefined;
+        const signature = JSON.stringify(rows.map((item) => [item.id, item.name, item.value]));
+        if (signature === prior) {
+          return rows.map((item): ParamState => ({
+            id: item.id!, name: item.name!, value: item.value!,
+            observed: {
+              display: false, modulatedValue: false, hasAutomation: false, origin: false,
+              discreteValueCount: false, discreteValueNames: false,
+            },
+          }));
+        }
+        prior = signature;
+      }
+      return undefined;
+    });
   }
 
   private parameterState(
@@ -2588,6 +2659,7 @@ export class LiveAdapter implements BitwigAdapter {
     // against a measured need of ~100ms.
     let reply: WireInventory | undefined;
     let trackReply: WireInventory | undefined;
+    let descents = 0;
     for (let attempt = 0; attempt < 8; attempt += 1) {
       this.heldClips.delete('0');
       this.heldDeviceTarget = undefined;
@@ -2648,6 +2720,9 @@ export class LiveAdapter implements BitwigAdapter {
         break;
       }
       reply = undefined;
+      // 8i3 (E252): a descent into an empty slot never settles, and every miss ends as the fixed scope with the
+      // slots incomplete. Two misses give that answer; eight cost about 3 s on each read of such a device (Delay+).
+      if (++descents >= CONTAINER_SLOT_DESCENTS) break;
     }
     reply ??= trackReply;
     if (reply === undefined) return { ok: false, miss: 'unsupported' };
@@ -4657,13 +4732,16 @@ export class LiveAdapter implements BitwigAdapter {
 
     const tracks = new Map<string, RelocationSequence>();
     const containers = new Map<string, ObservedContainer | undefined>();
+    // 8i3 (E252): only a device-slot endpoint needs the named-slot descent. For a layer-chain route the fixed scope
+    // proves the chains; the descent into the empty slot of a device such as Delay+ never settles (about 3 s).
+    const slots = relocations.some((op) => op.destination.kind === 'deviceSlot' || op.source.chain?.kind === 'deviceSlot');
     for (const trackRef of new Map(relocations.map((op) =>
       [op.source.track.channelId, op.source.track])).values()) {
       const observed = await this.relocationSequence(trackRef);
       tracks.set(trackRef.channelId, observed);
       for (const item of observed.devices) {
         const at = deviceAt(trackRef, item.index);
-        const scope = await this.containerScope(trackRef, item.index);
+        const scope = await this.containerScope(trackRef, item.index, slots);
         containers.set(addressKey(at), scope.ok ? scope.container : undefined);
       }
     }
@@ -5148,7 +5226,10 @@ export class LiveAdapter implements BitwigAdapter {
    *   the container again.
    * - A device or chain relocation does not wait: `finishDeviceReorder` and `finishRelocation` poll a complete
    *   structural proof for up to 8,000 ms.
-   * - Any other op (a drum pad insert) keeps the fixed budget.
+   * - A drum pad insert polls the pad bank until the target pad shows exactly the expected device in two equal
+   *   consecutive readings (8i3, E252: the fixed budget made 16 pads take 72 s). The composition readback is
+   *   still the proof.
+   * - Any other op keeps the fixed budget.
    *
    * At the deadline the poll returns, and the post-stage check reports the failure as before.
    */
@@ -5184,6 +5265,28 @@ export class LiveAdapter implements BitwigAdapter {
       await poll(async () => {
         const after = await this.containerScope(create.source.container.track, create.source.container.chainIndex, false);
         return after.ok && mintedChain(containerBefore.container, after.container).ok;
+      });
+      return;
+    }
+    const pad = ops.length === 1 && ops[0]?.op === 'drumPad.insert' ? ops[0] : undefined;
+    if (pad !== undefined && pad.expectedChain !== undefined && pad.expectedEnabledChain !== undefined) {
+      let prior: string | undefined;
+      await poll(async () => {
+        let reading: string | undefined;
+        try {
+          const inventory = await this.drumPadInventory(pad.pad.container, pad.expectedContainerName,
+            pad.expectedChain!, pad.expectedEnabledChain!, pad.op);
+          const target = (inventory.pads ?? []).find((item) => item.index === pad.pad.channel);
+          const devices = target?.devices ?? [];
+          reading = target !== undefined && target.deviceCount === 1 && devices.length === 1
+              && devices[0]?.name === pad.expectedDeviceName
+            ? JSON.stringify(inventory.pads) : undefined;
+        } catch {
+          reading = undefined;
+        }
+        const stable = reading !== undefined && reading === prior;
+        prior = reading;
+        return stable;
       });
       return;
     }
@@ -5923,9 +6026,16 @@ export class LiveAdapter implements BitwigAdapter {
           && receipts[receipts.length - 1]!.ops.every((entry) => entry.ok)) {
         const row = this.bank.find((item) =>
           item.channelId === parameterCohort.device.track.channelId);
-        const after = row === undefined
-          ? { standing: 'missing' as const }
-          : await this.parameterInventory(parameterCohort.device, row);
+        // 8i3 (E252): a stage before the last one reads the live generation (two equal polls). The last stage,
+        // and any poll that does not hold, reads the complete settled inventory, as before.
+        const polled = i < stages.length - 1 && row !== undefined
+          ? await this.parameterCohortPoll(parameterCohort.device, parameterCohort.deviceName)
+          : undefined;
+        const after = polled !== undefined
+          ? { standing: 'stable' as const, deviceName: parameterCohort.deviceName, params: polled }
+          : row === undefined
+            ? { standing: 'missing' as const }
+            : await this.parameterInventory(parameterCohort.device, row);
         const applied = batch.ops.slice(0, receipts.length)
           .filter((op): op is Extract<Op, { op: 'param.set' }> => op.op === 'param.set');
         const why = after.standing !== 'stable'

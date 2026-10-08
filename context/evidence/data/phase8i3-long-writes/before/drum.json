@@ -1,0 +1,3075 @@
+{
+ "schema": "phase8i3-long-writes-v1",
+ "hello": {
+  "contractVersion": 0,
+  "extensionVersion": "0.0.1",
+  "runtimeProfile": "normal-v1",
+  "hostApiVersion": 25,
+  "methodCount": 89,
+  "methodsHash": "0ef817f4bac8a8a7"
+ },
+ "project": "New 3",
+ "heapStart": {
+  "runtimeProfile": "normal-v1",
+  "config": {
+   "tracks": 256,
+   "scenes": 128,
+   "gridSteps": 64,
+   "gridKeys": 128,
+   "cursorPool": 8,
+   "sends": 4,
+   "deviceBank": 16,
+   "fineSteps": 4194304,
+   "noteReadSteps": 2048,
+   "paramHandles": 64,
+   "remotePages": 16,
+   "cacheShadowSteps": 131072,
+   "cacheKneeResearch": false,
+   "changeWatchCursors": 0,
+   "contentFilter": "ALL_CHANNELS",
+   "directObservers": true,
+   "stamp": "default",
+   "fromFile": true
+  },
+  "rigConstructMicros": 35533,
+  "initMicros": 52120,
+  "initEpochMs": 1791450984981,
+  "upMs": 13937591,
+  "clipReader": {
+   "revision": "clip-reader-v3",
+   "closeRule": "confirm-before-release-v1",
+   "openRule": "subscribe-before-unpin-v1",
+   "groupRule": "expand-collapsed-parent-v1",
+   "limitRule": "sounding-cell-limit-v1",
+   "format": "notes-v1",
+   "width": 4194304,
+   "grid": 0.001953125,
+   "page": 131072,
+   "deadlineMs": 2000,
+   "soundingCells": 2097152,
+   "reads": 124,
+   "refusals": 0,
+   "lastRefusal": "",
+   "lateCallbacks": 0,
+   "strayCallbacks": 1325696,
+   "releaseCallbacks": 661728,
+   "releaseEmpty": 661728,
+   "releaseSustain": 0,
+   "releaseOn": 0,
+   "subscribed": false,
+   "open": false,
+   "state": {
+    "parkChannelId": "9fb80e65-ff9a-48a9-94b0-534a39de0153",
+    "trackChannelId": "",
+    "trackPinned": false,
+    "clipTrackChannelId": "",
+    "clipExists": false,
+    "clipPinned": false,
+    "sceneIndex": 0,
+    "subscribed": false,
+    "atPark": false
+   },
+   "writeGate": {
+    "readOpen": false,
+    "waiting": 0,
+    "leases": 0,
+    "limit": 256,
+    "queuedTotal": 2,
+    "refusedTotal": 0
+   },
+   "groupPoint": {
+    "rule": "expand-collapsed-point-v1",
+    "points": 4,
+    "refusals": 0,
+    "lastRefusal": "",
+    "open": false
+   }
+  },
+  "cursorTrackPins": {
+   "rule": "owned-tracks-pinned-v1",
+   "tracks": 14,
+   "unpinned": [],
+   "repins": 81,
+   "untargeted": 13
+  },
+  "slotObjects": 32768,
+  "markedValues": 197888,
+  "resources": {
+   "cursorDeviceBanks": 8,
+   "siblingDeviceBanks": 1,
+   "layerDeviceBanks": 8,
+   "slotDeviceBanks": 15,
+   "namedSlotDeviceBanks": 0,
+   "drumPadDeviceBanks": 16,
+   "deviceBanks": 48,
+   "cursorDeviceSlots": 128,
+   "cursorDeviceEnabledValues": 128,
+   "layerDeviceSlots": 32,
+   "slotDeviceSlots": 60,
+   "drumPadDeviceSlots": 256,
+   "namedSlotDeviceSlots": 0,
+   "deviceSlots": 492,
+   "cursorDevices": 1,
+   "specificDeviceViews": 4,
+   "typedParameterHandles": 75,
+   "remotePageCursors": 16,
+   "remoteParameterHandles": 128,
+   "directParameterObservers": 4,
+   "noteObserverCursors": 1,
+   "noteStepObservers": 1,
+   "stepDataObservers": 0,
+   "trackSendBanks": 0,
+   "trackSendHandles": 0,
+   "trackVuObservers": 0,
+   "historicalActionHandles": 0,
+   "historicalSelectionObservers": 0,
+   "equalsProxies": 32,
+   "transportProxies": 1,
+   "masterRecorderProxies": 0,
+   "cursorTracks": 11,
+   "cursorClips": 11,
+   "layerBanks": 4,
+   "layerHandles": 23,
+   "layerSendBanks": 0,
+   "layerSendHandles": 0,
+   "explicitHostObjects": 33893,
+   "observerCallbacks": 838
+  },
+  "heapUsedMb": 526,
+  "heapMaxMb": 3072
+ },
+ "heapEnd": {
+  "runtimeProfile": "normal-v1",
+  "config": {
+   "tracks": 256,
+   "scenes": 128,
+   "gridSteps": 64,
+   "gridKeys": 128,
+   "cursorPool": 8,
+   "sends": 4,
+   "deviceBank": 16,
+   "fineSteps": 4194304,
+   "noteReadSteps": 2048,
+   "paramHandles": 64,
+   "remotePages": 16,
+   "cacheShadowSteps": 131072,
+   "cacheKneeResearch": false,
+   "changeWatchCursors": 0,
+   "contentFilter": "ALL_CHANNELS",
+   "directObservers": true,
+   "stamp": "default",
+   "fromFile": true
+  },
+  "rigConstructMicros": 35533,
+  "initMicros": 52120,
+  "initEpochMs": 1791450984981,
+  "upMs": 14012366,
+  "clipReader": {
+   "revision": "clip-reader-v3",
+   "closeRule": "confirm-before-release-v1",
+   "openRule": "subscribe-before-unpin-v1",
+   "groupRule": "expand-collapsed-parent-v1",
+   "limitRule": "sounding-cell-limit-v1",
+   "format": "notes-v1",
+   "width": 4194304,
+   "grid": 0.001953125,
+   "page": 131072,
+   "deadlineMs": 2000,
+   "soundingCells": 2097152,
+   "reads": 124,
+   "refusals": 0,
+   "lastRefusal": "",
+   "lateCallbacks": 0,
+   "strayCallbacks": 1325696,
+   "releaseCallbacks": 661728,
+   "releaseEmpty": 661728,
+   "releaseSustain": 0,
+   "releaseOn": 0,
+   "subscribed": false,
+   "open": false,
+   "state": {
+    "parkChannelId": "9fb80e65-ff9a-48a9-94b0-534a39de0153",
+    "trackChannelId": "",
+    "trackPinned": false,
+    "clipTrackChannelId": "",
+    "clipExists": false,
+    "clipPinned": false,
+    "sceneIndex": 0,
+    "subscribed": false,
+    "atPark": false
+   },
+   "writeGate": {
+    "readOpen": false,
+    "waiting": 0,
+    "leases": 0,
+    "limit": 256,
+    "queuedTotal": 2,
+    "refusedTotal": 0
+   },
+   "groupPoint": {
+    "rule": "expand-collapsed-point-v1",
+    "points": 4,
+    "refusals": 0,
+    "lastRefusal": "",
+    "open": false
+   }
+  },
+  "cursorTrackPins": {
+   "rule": "owned-tracks-pinned-v1",
+   "tracks": 14,
+   "unpinned": [],
+   "repins": 83,
+   "untargeted": 13
+  },
+  "slotObjects": 32768,
+  "markedValues": 197888,
+  "resources": {
+   "cursorDeviceBanks": 8,
+   "siblingDeviceBanks": 1,
+   "layerDeviceBanks": 8,
+   "slotDeviceBanks": 15,
+   "namedSlotDeviceBanks": 0,
+   "drumPadDeviceBanks": 16,
+   "deviceBanks": 48,
+   "cursorDeviceSlots": 128,
+   "cursorDeviceEnabledValues": 128,
+   "layerDeviceSlots": 32,
+   "slotDeviceSlots": 60,
+   "drumPadDeviceSlots": 256,
+   "namedSlotDeviceSlots": 0,
+   "deviceSlots": 492,
+   "cursorDevices": 1,
+   "specificDeviceViews": 4,
+   "typedParameterHandles": 75,
+   "remotePageCursors": 16,
+   "remoteParameterHandles": 128,
+   "directParameterObservers": 4,
+   "noteObserverCursors": 1,
+   "noteStepObservers": 1,
+   "stepDataObservers": 0,
+   "trackSendBanks": 0,
+   "trackSendHandles": 0,
+   "trackVuObservers": 0,
+   "historicalActionHandles": 0,
+   "historicalSelectionObservers": 0,
+   "equalsProxies": 32,
+   "transportProxies": 1,
+   "masterRecorderProxies": 0,
+   "cursorTracks": 11,
+   "cursorClips": 11,
+   "layerBanks": 4,
+   "layerHandles": 23,
+   "layerSendBanks": 0,
+   "layerSendHandles": 0,
+   "explicitHostObjects": 33893,
+   "observerCallbacks": 838
+  },
+  "heapUsedMb": 1022,
+  "heapMaxMb": 3072
+ },
+ "rows": [
+  {
+   "step": "add-track-gn-8i3-drum",
+   "tool": "add_tracks",
+   "ok": true,
+   "status": "verified",
+   "ms": 783,
+   "bytes": 667,
+   "calls": 36,
+   "turns": 18,
+   "wireMs": 403,
+   "brainMs": 12,
+   "idleMs": 368,
+   "methods": {
+    "selection.status": 2,
+    "revision.get": 11,
+    "track.list": 13,
+    "batch.run": 2,
+    "cursor.pin": 8
+   },
+   "methodMs": {
+    "selection.status": 48,
+    "revision.get": 244,
+    "track.list": 291,
+    "batch.run": 46,
+    "cursor.pin": 136
+   },
+   "gaps": [
+    [
+     "batch.run",
+     "cursor.pin",
+     146
+    ],
+    [
+     "batch.run",
+     "revision.get",
+     146
+    ]
+   ],
+   "gapMs": 292,
+   "sequence": [
+    [
+     "selection.status",
+     1,
+     22
+    ],
+    [
+     "revision.get",
+     23,
+     24
+    ],
+    [
+     "track.list",
+     23,
+     24
+    ],
+    [
+     "revision.get",
+     48,
+     24
+    ],
+    [
+     "track.list",
+     48,
+     24
+    ],
+    [
+     "track.list",
+     73,
+     24
+    ],
+    [
+     "batch.run",
+     98,
+     24
+    ],
+    [
+     "cursor.pin",
+     269,
+     17
+    ],
+    [
+     "cursor.pin",
+     269,
+     17
+    ],
+    [
+     "cursor.pin",
+     269,
+     17
+    ],
+    [
+     "cursor.pin",
+     269,
+     17
+    ],
+    [
+     "cursor.pin",
+     269,
+     17
+    ],
+    [
+     "cursor.pin",
+     269,
+     17
+    ],
+    [
+     "cursor.pin",
+     269,
+     17
+    ],
+    [
+     "cursor.pin",
+     269,
+     17
+    ],
+    [
+     "track.list",
+     313,
+     21
+    ],
+    [
+     "revision.get",
+     334,
+     21
+    ],
+    [
+     "track.list",
+     334,
+     21
+    ],
+    [
+     "revision.get",
+     383,
+     17
+    ],
+    [
+     "track.list",
+     383,
+     18
+    ],
+    [
+     "revision.get",
+     400,
+     22
+    ],
+    [
+     "track.list",
+     400,
+     22
+    ],
+    [
+     "selection.status",
+     423,
+     26
+    ],
+    [
+     "revision.get",
+     450,
+     22
+    ],
+    [
+     "track.list",
+     450,
+     22
+    ],
+    [
+     "revision.get",
+     472,
+     21
+    ],
+    [
+     "track.list",
+     472,
+     21
+    ],
+    [
+     "revision.get",
+     493,
+     26
+    ],
+    [
+     "track.list",
+     494,
+     26
+    ],
+    [
+     "batch.run",
+     520,
+     22
+    ],
+    [
+     "revision.get",
+     688,
+     24
+    ],
+    [
+     "track.list",
+     688,
+     24
+    ],
+    [
+     "revision.get",
+     739,
+     19
+    ],
+    [
+     "track.list",
+     739,
+     19
+    ],
+    [
+     "revision.get",
+     758,
+     24
+    ],
+    [
+     "track.list",
+     758,
+     25
+    ]
+   ]
+  },
+  {
+   "step": "drum-16",
+   "tool": "compose_devices",
+   "ok": true,
+   "status": "verified",
+   "ms": 71843,
+   "bytes": 2769,
+   "calls": 378,
+   "turns": 254,
+   "wireMs": 5366,
+   "brainMs": 72,
+   "idleMs": 66404,
+   "methods": {
+    "selection.status": 4,
+    "track.list": 25,
+    "devcursor.pin": 61,
+    "cursor.pointTrack": 27,
+    "device.list": 49,
+    "revision.get": 5,
+    "batch.run": 17,
+    "cursor.pin": 136,
+    "devcursor.selectAt": 18,
+    "devcursor.status": 18,
+    "drumpad.list": 18
+   },
+   "methodMs": {
+    "selection.status": 90,
+    "track.list": 521,
+    "devcursor.pin": 1397,
+    "cursor.pointTrack": 633,
+    "device.list": 932,
+    "revision.get": 113,
+    "batch.run": 387,
+    "cursor.pin": 1680,
+    "devcursor.selectAt": 421,
+    "devcursor.status": 330,
+    "drumpad.list": 440
+   },
+   "gaps": [
+    [
+     "device.list",
+     "device.list",
+     102
+    ],
+    [
+     "device.list",
+     "device.list",
+     102
+    ],
+    [
+     "batch.run",
+     "cursor.pin",
+     4002
+    ],
+    [
+     "batch.run",
+     "cursor.pin",
+     4002
+    ],
+    [
+     "batch.run",
+     "cursor.pin",
+     4001
+    ],
+    [
+     "batch.run",
+     "cursor.pin",
+     4002
+    ],
+    [
+     "batch.run",
+     "cursor.pin",
+     4002
+    ],
+    [
+     "batch.run",
+     "cursor.pin",
+     4002
+    ],
+    [
+     "batch.run",
+     "cursor.pin",
+     4001
+    ],
+    [
+     "batch.run",
+     "cursor.pin",
+     4002
+    ],
+    [
+     "batch.run",
+     "cursor.pin",
+     4002
+    ],
+    [
+     "batch.run",
+     "cursor.pin",
+     4002
+    ],
+    [
+     "batch.run",
+     "cursor.pin",
+     4002
+    ],
+    [
+     "batch.run",
+     "cursor.pin",
+     4002
+    ],
+    [
+     "batch.run",
+     "cursor.pin",
+     4001
+    ],
+    [
+     "batch.run",
+     "cursor.pin",
+     4002
+    ],
+    [
+     "batch.run",
+     "cursor.pin",
+     4002
+    ],
+    [
+     "batch.run",
+     "cursor.pin",
+     4001
+    ]
+   ],
+   "gapMs": 64232,
+   "sequence": [
+    [
+     "selection.status",
+     0,
+     25
+    ],
+    [
+     "track.list",
+     26,
+     22
+    ],
+    [
+     "devcursor.pin",
+     48,
+     20
+    ],
+    [
+     "cursor.pointTrack",
+     68,
+     26
+    ],
+    [
+     "device.list",
+     122,
+     22
+    ],
+    [
+     "devcursor.pin",
+     171,
+     24
+    ],
+    [
+     "cursor.pointTrack",
+     196,
+     25
+    ],
+    [
+     "device.list",
+     248,
+     19
+    ],
+    [
+     "selection.status",
+     268,
+     20
+    ],
+    [
+     "track.list",
+     288,
+     20
+    ],
+    [
+     "devcursor.pin",
+     308,
+     25
+    ],
+    [
+     "cursor.pointTrack",
+     334,
+     22
+    ],
+    [
+     "device.list",
+     383,
+     17
+    ],
+    [
+     "devcursor.pin",
+     427,
+     15
+    ],
+    [
+     "cursor.pointTrack",
+     443,
+     21
+    ],
+    [
+     "device.list",
+     491,
+     13
+    ],
+    [
+     "selection.status",
+     504,
+     25
+    ],
+    [
+     "revision.get",
+     530,
+     20
+    ],
+    [
+     "track.list",
+     530,
+     20
+    ],
+    [
+     "revision.get",
+     551,
+     20
+    ],
+    [
+     "track.list",
+     551,
+     20
+    ],
+    [
+     "devcursor.pin",
+     571,
+     21
+    ],
+    [
+     "cursor.pointTrack",
+     592,
+     26
+    ],
+    [
+     "device.list",
+     645,
+     14
+    ],
+    [
+     "device.list",
+     686,
+     14
+    ],
+    [
+     "device.list",
+     700,
+     23
+    ],
+    [
+     "batch.run",
+     723,
+     26
+    ],
+    [
+     "device.list",
+     749,
+     26
+    ],
+    [
+     "device.list",
+     877,
+     18
+    ],
+    [
+     "device.list",
+     997,
+     19
+    ],
+    [
+     "device.list",
+     1016,
+     26
+    ],
+    [
+     "cursor.pin",
+     1042,
+     20
+    ],
+    [
+     "cursor.pin",
+     1042,
+     20
+    ],
+    [
+     "cursor.pin",
+     1042,
+     20
+    ],
+    [
+     "cursor.pin",
+     1042,
+     20
+    ],
+    [
+     "cursor.pin",
+     1042,
+     20
+    ],
+    [
+     "cursor.pin",
+     1042,
+     20
+    ],
+    [
+     "cursor.pin",
+     1042,
+     20
+    ],
+    [
+     "cursor.pin",
+     1042,
+     20
+    ],
+    [
+     "track.list",
+     1089,
+     21
+    ],
+    [
+     "devcursor.pin",
+     1110,
+     26
+    ],
+    [
+     "cursor.pointTrack",
+     1136,
+     27
+    ],
+    [
+     "device.list",
+     1189,
+     21
+    ],
+    [
+     "devcursor.pin",
+     1211,
+     24
+    ],
+    [
+     "device.list",
+     1262,
+     18
+    ],
+    [
+     "devcursor.selectAt",
+     1280,
+     27
+    ],
+    [
+     "devcursor.pin",
+     1308,
+     24
+    ],
+    [
+     "devcursor.status",
+     1359,
+     17
+    ],
+    [
+     "drumpad.list",
+     1376,
+     27
+    ],
+    [
+     "batch.run",
+     1404,
+     20
+    ],
+    [
+     "cursor.pin",
+     5426,
+     22
+    ],
+    [
+     "cursor.pin",
+     5426,
+     22
+    ],
+    [
+     "cursor.pin",
+     5426,
+     22
+    ],
+    [
+     "cursor.pin",
+     5426,
+     22
+    ],
+    [
+     "cursor.pin",
+     5426,
+     22
+    ],
+    [
+     "cursor.pin",
+     5426,
+     22
+    ],
+    [
+     "cursor.pin",
+     5426,
+     22
+    ],
+    [
+     "cursor.pin",
+     5426,
+     22
+    ],
+    [
+     "track.list",
+     5475,
+     17
+    ],
+    [
+     "devcursor.pin",
+     5492,
+     22
+    ],
+    [
+     "cursor.pointTrack",
+     5515,
+     27
+    ],
+    [
+     "device.list",
+     5569,
+     17
+    ],
+    [
+     "devcursor.pin",
+     5586,
+     25
+    ],
+    [
+     "device.list",
+     5638,
+     18
+    ],
+    [
+     "devcursor.selectAt",
+     5656,
+     22
+    ],
+    [
+     "devcursor.pin",
+     5679,
+     26
+    ],
+    [
+     "devcursor.status",
+     5730,
+     26
+    ],
+    [
+     "drumpad.list",
+     5757,
+     26
+    ],
+    [
+     "batch.run",
+     5783,
+     20
+    ],
+    [
+     "cursor.pin",
+     9805,
+     10
+    ],
+    [
+     "cursor.pin",
+     9805,
+     10
+    ],
+    [
+     "cursor.pin",
+     9805,
+     10
+    ],
+    [
+     "cursor.pin",
+     9805,
+     10
+    ],
+    [
+     "cursor.pin",
+     9805,
+     10
+    ],
+    [
+     "cursor.pin",
+     9805,
+     10
+    ],
+    [
+     "cursor.pin",
+     9805,
+     10
+    ],
+    [
+     "cursor.pin",
+     9805,
+     10
+    ],
+    [
+     "track.list",
+     9843,
+     20
+    ],
+    [
+     "devcursor.pin",
+     9863,
+     21
+    ],
+    [
+     "cursor.pointTrack",
+     9884,
+     26
+    ],
+    [
+     "device.list",
+     9938,
+     19
+    ],
+    [
+     "devcursor.pin",
+     9957,
+     23
+    ],
+    [
+     "device.list",
+     10005,
+     21
+    ],
+    [
+     "devcursor.selectAt",
+     10026,
+     25
+    ],
+    [
+     "devcursor.pin",
+     10051,
+     21
+    ],
+    [
+     "devcursor.status",
+     10100,
+     14
+    ],
+    [
+     "drumpad.list",
+     10114,
+     24
+    ],
+    [
+     "batch.run",
+     10138,
+     24
+    ],
+    [
+     "cursor.pin",
+     14164,
+     13
+    ],
+    [
+     "cursor.pin",
+     14164,
+     13
+    ],
+    [
+     "cursor.pin",
+     14164,
+     13
+    ],
+    [
+     "cursor.pin",
+     14164,
+     13
+    ],
+    [
+     "cursor.pin",
+     14164,
+     13
+    ],
+    [
+     "cursor.pin",
+     14164,
+     13
+    ],
+    [
+     "cursor.pin",
+     14164,
+     13
+    ],
+    [
+     "cursor.pin",
+     14164,
+     13
+    ],
+    [
+     "track.list",
+     14204,
+     24
+    ],
+    [
+     "devcursor.pin",
+     14228,
+     26
+    ],
+    [
+     "cursor.pointTrack",
+     14255,
+     24
+    ],
+    [
+     "device.list",
+     14306,
+     17
+    ],
+    [
+     "devcursor.pin",
+     14323,
+     21
+    ],
+    [
+     "device.list",
+     14371,
+     20
+    ],
+    [
+     "devcursor.selectAt",
+     14391,
+     26
+    ],
+    [
+     "devcursor.pin",
+     14417,
+     26
+    ],
+    [
+     "devcursor.status",
+     14470,
+     14
+    ],
+    [
+     "drumpad.list",
+     14484,
+     21
+    ],
+    [
+     "batch.run",
+     14505,
+     24
+    ],
+    [
+     "cursor.pin",
+     18530,
+     12
+    ],
+    [
+     "cursor.pin",
+     18531,
+     12
+    ],
+    [
+     "cursor.pin",
+     18531,
+     12
+    ],
+    [
+     "cursor.pin",
+     18531,
+     12
+    ],
+    [
+     "cursor.pin",
+     18531,
+     12
+    ],
+    [
+     "cursor.pin",
+     18531,
+     12
+    ],
+    [
+     "cursor.pin",
+     18531,
+     12
+    ],
+    [
+     "cursor.pin",
+     18531,
+     12
+    ],
+    [
+     "track.list",
+     18570,
+     21
+    ],
+    [
+     "devcursor.pin",
+     18591,
+     20
+    ],
+    [
+     "cursor.pointTrack",
+     18611,
+     21
+    ],
+    [
+     "device.list",
+     18657,
+     22
+    ],
+    [
+     "devcursor.pin",
+     18679,
+     21
+    ],
+    [
+     "device.list",
+     18726,
+     1
+    ],
+    [
+     "devcursor.selectAt",
+     18728,
+     25
+    ],
+    [
+     "devcursor.pin",
+     18753,
+     22
+    ],
+    [
+     "devcursor.status",
+     18802,
+     20
+    ],
+    [
+     "drumpad.list",
+     18822,
+     25
+    ],
+    [
+     "batch.run",
+     18847,
+     20
+    ],
+    [
+     "cursor.pin",
+     22870,
+     1
+    ],
+    [
+     "cursor.pin",
+     22870,
+     1
+    ],
+    [
+     "cursor.pin",
+     22870,
+     1
+    ],
+    [
+     "cursor.pin",
+     22870,
+     1
+    ],
+    [
+     "cursor.pin",
+     22870,
+     1
+    ],
+    [
+     "cursor.pin",
+     22870,
+     1
+    ],
+    [
+     "cursor.pin",
+     22870,
+     1
+    ],
+    [
+     "cursor.pin",
+     22870,
+     1
+    ],
+    [
+     "track.list",
+     22897,
+     21
+    ],
+    [
+     "devcursor.pin",
+     22918,
+     21
+    ],
+    [
+     "cursor.pointTrack",
+     22939,
+     21
+    ],
+    [
+     "device.list",
+     22986,
+     20
+    ],
+    [
+     "devcursor.pin",
+     23005,
+     25
+    ],
+    [
+     "device.list",
+     23055,
+     23
+    ],
+    [
+     "devcursor.selectAt",
+     23079,
+     20
+    ],
+    [
+     "devcursor.pin",
+     23099,
+     26
+    ],
+    [
+     "devcursor.status",
+     23152,
+     23
+    ],
+    [
+     "drumpad.list",
+     23175,
+     22
+    ],
+    [
+     "batch.run",
+     23197,
+     26
+    ],
+    [
+     "cursor.pin",
+     27225,
+     4
+    ],
+    [
+     "cursor.pin",
+     27225,
+     4
+    ],
+    [
+     "cursor.pin",
+     27225,
+     4
+    ],
+    [
+     "cursor.pin",
+     27225,
+     4
+    ],
+    [
+     "cursor.pin",
+     27225,
+     4
+    ],
+    [
+     "cursor.pin",
+     27225,
+     4
+    ],
+    [
+     "cursor.pin",
+     27225,
+     4
+    ],
+    [
+     "cursor.pin",
+     27225,
+     4
+    ],
+    [
+     "track.list",
+     27256,
+     19
+    ],
+    [
+     "devcursor.pin",
+     27275,
+     25
+    ],
+    [
+     "cursor.pointTrack",
+     27300,
+     20
+    ],
+    [
+     "device.list",
+     27347,
+     21
+    ],
+    [
+     "devcursor.pin",
+     27368,
+     20
+    ],
+    [
+     "device.list",
+     27414,
+     24
+    ],
+    [
+     "devcursor.selectAt",
+     27437,
+     27
+    ],
+    [
+     "devcursor.pin",
+     27464,
+     28
+    ],
+    [
+     "devcursor.status",
+     27519,
+     19
+    ],
+    [
+     "drumpad.list",
+     27537,
+     24
+    ],
+    [
+     "batch.run",
+     27562,
+     26
+    ],
+    [
+     "cursor.pin",
+     31589,
+     20
+    ],
+    [
+     "cursor.pin",
+     31589,
+     20
+    ],
+    [
+     "cursor.pin",
+     31589,
+     20
+    ],
+    [
+     "cursor.pin",
+     31589,
+     20
+    ],
+    [
+     "cursor.pin",
+     31589,
+     20
+    ],
+    [
+     "cursor.pin",
+     31589,
+     20
+    ],
+    [
+     "cursor.pin",
+     31589,
+     20
+    ],
+    [
+     "cursor.pin",
+     31589,
+     20
+    ],
+    [
+     "track.list",
+     31636,
+     24
+    ],
+    [
+     "devcursor.pin",
+     31660,
+     26
+    ],
+    [
+     "cursor.pointTrack",
+     31686,
+     27
+    ],
+    [
+     "device.list",
+     31740,
+     23
+    ],
+    [
+     "devcursor.pin",
+     31763,
+     23
+    ],
+    [
+     "device.list",
+     31812,
+     16
+    ],
+    [
+     "devcursor.selectAt",
+     31828,
+     21
+    ],
+    [
+     "devcursor.pin",
+     31849,
+     20
+    ],
+    [
+     "devcursor.status",
+     31897,
+     14
+    ],
+    [
+     "drumpad.list",
+     31910,
+     20
+    ],
+    [
+     "batch.run",
+     31930,
+     26
+    ],
+    [
+     "cursor.pin",
+     35958,
+     4
+    ],
+    [
+     "cursor.pin",
+     35958,
+     4
+    ],
+    [
+     "cursor.pin",
+     35958,
+     4
+    ],
+    [
+     "cursor.pin",
+     35958,
+     4
+    ],
+    [
+     "cursor.pin",
+     35958,
+     4
+    ],
+    [
+     "cursor.pin",
+     35958,
+     4
+    ],
+    [
+     "cursor.pin",
+     35958,
+     4
+    ],
+    [
+     "cursor.pin",
+     35958,
+     4
+    ],
+    [
+     "track.list",
+     35990,
+     14
+    ],
+    [
+     "devcursor.pin",
+     36004,
+     23
+    ],
+    [
+     "cursor.pointTrack",
+     36027,
+     24
+    ],
+    [
+     "device.list",
+     36078,
+     15
+    ],
+    [
+     "devcursor.pin",
+     36093,
+     26
+    ],
+    [
+     "device.list",
+     36147,
+     20
+    ],
+    [
+     "devcursor.selectAt",
+     36166,
+     21
+    ],
+    [
+     "devcursor.pin",
+     36187,
+     25
+    ],
+    [
+     "devcursor.status",
+     36239,
+     21
+    ],
+    [
+     "drumpad.list",
+     36260,
+     22
+    ],
+    [
+     "batch.run",
+     36282,
+     20
+    ],
+    [
+     "cursor.pin",
+     40304,
+     18
+    ],
+    [
+     "cursor.pin",
+     40304,
+     18
+    ],
+    [
+     "cursor.pin",
+     40304,
+     18
+    ],
+    [
+     "cursor.pin",
+     40304,
+     18
+    ],
+    [
+     "cursor.pin",
+     40304,
+     18
+    ],
+    [
+     "cursor.pin",
+     40304,
+     18
+    ],
+    [
+     "cursor.pin",
+     40304,
+     18
+    ],
+    [
+     "cursor.pin",
+     40304,
+     18
+    ],
+    [
+     "track.list",
+     40349,
+     14
+    ],
+    [
+     "devcursor.pin",
+     40363,
+     20
+    ],
+    [
+     "cursor.pointTrack",
+     40383,
+     20
+    ],
+    [
+     "device.list",
+     40430,
+     17
+    ],
+    [
+     "devcursor.pin",
+     40447,
+     26
+    ],
+    [
+     "device.list",
+     40500,
+     17
+    ],
+    [
+     "devcursor.selectAt",
+     40518,
+     21
+    ],
+    [
+     "devcursor.pin",
+     40538,
+     24
+    ],
+    [
+     "devcursor.status",
+     40588,
+     2
+    ],
+    [
+     "drumpad.list",
+     40590,
+     25
+    ],
+    [
+     "batch.run",
+     40614,
+     26
+    ],
+    [
+     "cursor.pin",
+     44642,
+     22
+    ],
+    [
+     "cursor.pin",
+     44642,
+     22
+    ],
+    [
+     "cursor.pin",
+     44643,
+     22
+    ],
+    [
+     "cursor.pin",
+     44643,
+     22
+    ],
+    [
+     "cursor.pin",
+     44643,
+     22
+    ],
+    [
+     "cursor.pin",
+     44643,
+     22
+    ],
+    [
+     "cursor.pin",
+     44643,
+     22
+    ],
+    [
+     "cursor.pin",
+     44643,
+     22
+    ],
+    [
+     "track.list",
+     44692,
+     18
+    ],
+    [
+     "devcursor.pin",
+     44710,
+     22
+    ],
+    [
+     "cursor.pointTrack",
+     44731,
+     20
+    ],
+    [
+     "device.list",
+     44779,
+     14
+    ],
+    [
+     "devcursor.pin",
+     44793,
+     25
+    ],
+    [
+     "device.list",
+     44845,
+     26
+    ],
+    [
+     "devcursor.selectAt",
+     44871,
+     26
+    ],
+    [
+     "devcursor.pin",
+     44896,
+     26
+    ],
+    [
+     "devcursor.status",
+     44950,
+     19
+    ],
+    [
+     "drumpad.list",
+     44968,
+     25
+    ],
+    [
+     "batch.run",
+     44993,
+     21
+    ],
+    [
+     "cursor.pin",
+     49017,
+     10
+    ],
+    [
+     "cursor.pin",
+     49017,
+     10
+    ],
+    [
+     "cursor.pin",
+     49017,
+     10
+    ],
+    [
+     "cursor.pin",
+     49017,
+     10
+    ],
+    [
+     "cursor.pin",
+     49017,
+     10
+    ],
+    [
+     "cursor.pin",
+     49017,
+     10
+    ],
+    [
+     "cursor.pin",
+     49017,
+     10
+    ],
+    [
+     "cursor.pin",
+     49017,
+     10
+    ],
+    [
+     "track.list",
+     49054,
+     26
+    ],
+    [
+     "devcursor.pin",
+     49080,
+     21
+    ],
+    [
+     "cursor.pointTrack",
+     49100,
+     21
+    ],
+    [
+     "device.list",
+     49148,
+     14
+    ],
+    [
+     "devcursor.pin",
+     49162,
+     27
+    ],
+    [
+     "device.list",
+     49216,
+     19
+    ],
+    [
+     "devcursor.selectAt",
+     49235,
+     20
+    ],
+    [
+     "devcursor.pin",
+     49256,
+     23
+    ],
+    [
+     "devcursor.status",
+     49305,
+     17
+    ],
+    [
+     "drumpad.list",
+     49322,
+     26
+    ],
+    [
+     "batch.run",
+     49348,
+     20
+    ],
+    [
+     "cursor.pin",
+     53371,
+     22
+    ],
+    [
+     "cursor.pin",
+     53371,
+     22
+    ],
+    [
+     "cursor.pin",
+     53371,
+     22
+    ],
+    [
+     "cursor.pin",
+     53371,
+     22
+    ],
+    [
+     "cursor.pin",
+     53371,
+     22
+    ],
+    [
+     "cursor.pin",
+     53371,
+     22
+    ],
+    [
+     "cursor.pin",
+     53371,
+     22
+    ],
+    [
+     "cursor.pin",
+     53371,
+     22
+    ],
+    [
+     "track.list",
+     53418,
+     19
+    ],
+    [
+     "devcursor.pin",
+     53437,
+     21
+    ],
+    [
+     "cursor.pointTrack",
+     53459,
+     24
+    ],
+    [
+     "device.list",
+     53510,
+     17
+    ],
+    [
+     "devcursor.pin",
+     53527,
+     22
+    ],
+    [
+     "device.list",
+     53576,
+     19
+    ],
+    [
+     "devcursor.selectAt",
+     53595,
+     25
+    ],
+    [
+     "devcursor.pin",
+     53620,
+     24
+    ],
+    [
+     "devcursor.status",
+     53671,
+     15
+    ],
+    [
+     "drumpad.list",
+     53686,
+     26
+    ],
+    [
+     "batch.run",
+     53713,
+     24
+    ],
+    [
+     "cursor.pin",
+     57738,
+     10
+    ],
+    [
+     "cursor.pin",
+     57738,
+     10
+    ],
+    [
+     "cursor.pin",
+     57738,
+     10
+    ],
+    [
+     "cursor.pin",
+     57738,
+     10
+    ],
+    [
+     "cursor.pin",
+     57738,
+     10
+    ],
+    [
+     "cursor.pin",
+     57738,
+     10
+    ],
+    [
+     "cursor.pin",
+     57738,
+     10
+    ],
+    [
+     "cursor.pin",
+     57738,
+     10
+    ],
+    [
+     "track.list",
+     57775,
+     26
+    ],
+    [
+     "devcursor.pin",
+     57801,
+     21
+    ],
+    [
+     "cursor.pointTrack",
+     57822,
+     24
+    ],
+    [
+     "device.list",
+     57873,
+     21
+    ],
+    [
+     "devcursor.pin",
+     57894,
+     25
+    ],
+    [
+     "device.list",
+     57946,
+     21
+    ],
+    [
+     "devcursor.selectAt",
+     57968,
+     20
+    ],
+    [
+     "devcursor.pin",
+     57988,
+     21
+    ],
+    [
+     "devcursor.status",
+     58036,
+     20
+    ],
+    [
+     "drumpad.list",
+     58056,
+     27
+    ],
+    [
+     "batch.run",
+     58083,
+     22
+    ],
+    [
+     "cursor.pin",
+     62107,
+     1
+    ],
+    [
+     "cursor.pin",
+     62107,
+     1
+    ],
+    [
+     "cursor.pin",
+     62107,
+     1
+    ],
+    [
+     "cursor.pin",
+     62107,
+     1
+    ],
+    [
+     "cursor.pin",
+     62107,
+     1
+    ],
+    [
+     "cursor.pin",
+     62107,
+     1
+    ],
+    [
+     "cursor.pin",
+     62107,
+     1
+    ],
+    [
+     "cursor.pin",
+     62107,
+     1
+    ],
+    [
+     "track.list",
+     62136,
+     24
+    ],
+    [
+     "devcursor.pin",
+     62160,
+     21
+    ],
+    [
+     "cursor.pointTrack",
+     62181,
+     24
+    ],
+    [
+     "device.list",
+     62232,
+     14
+    ],
+    [
+     "devcursor.pin",
+     62246,
+     21
+    ],
+    [
+     "device.list",
+     62292,
+     23
+    ],
+    [
+     "devcursor.selectAt",
+     62315,
+     22
+    ],
+    [
+     "devcursor.pin",
+     62337,
+     25
+    ],
+    [
+     "devcursor.status",
+     62389,
+     17
+    ],
+    [
+     "drumpad.list",
+     62406,
+     25
+    ],
+    [
+     "batch.run",
+     62431,
+     22
+    ],
+    [
+     "cursor.pin",
+     66455,
+     8
+    ],
+    [
+     "cursor.pin",
+     66455,
+     8
+    ],
+    [
+     "cursor.pin",
+     66455,
+     8
+    ],
+    [
+     "cursor.pin",
+     66455,
+     8
+    ],
+    [
+     "cursor.pin",
+     66455,
+     8
+    ],
+    [
+     "cursor.pin",
+     66455,
+     8
+    ],
+    [
+     "cursor.pin",
+     66455,
+     8
+    ],
+    [
+     "cursor.pin",
+     66455,
+     8
+    ],
+    [
+     "track.list",
+     66490,
+     19
+    ],
+    [
+     "devcursor.pin",
+     66510,
+     21
+    ],
+    [
+     "cursor.pointTrack",
+     66531,
+     21
+    ],
+    [
+     "device.list",
+     66579,
+     22
+    ],
+    [
+     "devcursor.pin",
+     66600,
+     20
+    ],
+    [
+     "device.list",
+     66647,
+     25
+    ],
+    [
+     "devcursor.selectAt",
+     66672,
+     27
+    ],
+    [
+     "devcursor.pin",
+     66699,
+     26
+    ],
+    [
+     "devcursor.status",
+     66752,
+     23
+    ],
+    [
+     "drumpad.list",
+     66775,
+     26
+    ],
+    [
+     "batch.run",
+     66801,
+     20
+    ],
+    [
+     "cursor.pin",
+     70822,
+     13
+    ],
+    [
+     "cursor.pin",
+     70822,
+     13
+    ],
+    [
+     "cursor.pin",
+     70822,
+     13
+    ],
+    [
+     "cursor.pin",
+     70822,
+     13
+    ],
+    [
+     "cursor.pin",
+     70822,
+     13
+    ],
+    [
+     "cursor.pin",
+     70822,
+     13
+    ],
+    [
+     "cursor.pin",
+     70822,
+     13
+    ],
+    [
+     "cursor.pin",
+     70822,
+     13
+    ],
+    [
+     "track.list",
+     70862,
+     14
+    ],
+    [
+     "revision.get",
+     70876,
+     26
+    ],
+    [
+     "track.list",
+     70876,
+     26
+    ],
+    [
+     "revision.get",
+     70929,
+     21
+    ],
+    [
+     "track.list",
+     70929,
+     21
+    ],
+    [
+     "revision.get",
+     70950,
+     26
+    ],
+    [
+     "track.list",
+     70950,
+     26
+    ],
+    [
+     "selection.status",
+     70977,
+     20
+    ],
+    [
+     "track.list",
+     70997,
+     25
+    ],
+    [
+     "devcursor.pin",
+     71022,
+     25
+    ],
+    [
+     "cursor.pointTrack",
+     71047,
+     25
+    ],
+    [
+     "device.list",
+     71099,
+     23
+    ],
+    [
+     "devcursor.pin",
+     71148,
+     19
+    ],
+    [
+     "cursor.pointTrack",
+     71167,
+     25
+    ],
+    [
+     "device.list",
+     71219,
+     27
+    ],
+    [
+     "devcursor.pin",
+     71246,
+     21
+    ],
+    [
+     "cursor.pointTrack",
+     71267,
+     25
+    ],
+    [
+     "device.list",
+     71319,
+     18
+    ],
+    [
+     "devcursor.pin",
+     71337,
+     20
+    ],
+    [
+     "cursor.pointTrack",
+     71357,
+     21
+    ],
+    [
+     "device.list",
+     71405,
+     20
+    ],
+    [
+     "devcursor.selectAt",
+     71425,
+     21
+    ],
+    [
+     "devcursor.pin",
+     71446,
+     20
+    ],
+    [
+     "devcursor.status",
+     71493,
+     26
+    ],
+    [
+     "drumpad.list",
+     71519,
+     22
+    ],
+    [
+     "devcursor.pin",
+     71541,
+     20
+    ],
+    [
+     "cursor.pointTrack",
+     71561,
+     21
+    ],
+    [
+     "device.list",
+     71609,
+     14
+    ],
+    [
+     "devcursor.pin",
+     71623,
+     24
+    ],
+    [
+     "cursor.pointTrack",
+     71648,
+     25
+    ],
+    [
+     "device.list",
+     71700,
+     14
+    ],
+    [
+     "devcursor.selectAt",
+     71715,
+     25
+    ],
+    [
+     "devcursor.pin",
+     71740,
+     25
+    ],
+    [
+     "devcursor.status",
+     71792,
+     23
+    ],
+    [
+     "drumpad.list",
+     71815,
+     27
+    ]
+   ]
+  },
+  {
+   "step": "revert-drum-16",
+   "tool": "revert_change",
+   "ok": true,
+   "status": "verified",
+   "ms": 1427,
+   "bytes": 392,
+   "calls": 54,
+   "turns": 39,
+   "wireMs": 789,
+   "brainMs": 14,
+   "idleMs": 624,
+   "methods": {
+    "revision.get": 8,
+    "track.list": 9,
+    "selection.status": 1,
+    "devcursor.pin": 6,
+    "cursor.pointTrack": 2,
+    "device.list": 6,
+    "devcursor.selectAt": 4,
+    "devcursor.status": 2,
+    "directparam.list": 3,
+    "param.list": 1,
+    "chain.inventory": 2,
+    "drumpad.list": 1,
+    "batch.run": 1,
+    "cursor.pin": 8
+   },
+   "methodMs": {
+    "revision.get": 178,
+    "track.list": 201,
+    "selection.status": 22,
+    "devcursor.pin": 136,
+    "cursor.pointTrack": 40,
+    "device.list": 131,
+    "devcursor.selectAt": 85,
+    "devcursor.status": 30,
+    "directparam.list": 29,
+    "param.list": 27,
+    "chain.inventory": 27,
+    "drumpad.list": 22,
+    "batch.run": 20,
+    "cursor.pin": 152
+   },
+   "gaps": [
+    [
+     "directparam.list",
+     "directparam.list",
+     196
+    ],
+    [
+     "batch.run",
+     "cursor.pin",
+     146
+    ]
+   ],
+   "gapMs": 342,
+   "sequence": [
+    [
+     "revision.get",
+     1,
+     18
+    ],
+    [
+     "track.list",
+     1,
+     18
+    ],
+    [
+     "revision.get",
+     19,
+     25
+    ],
+    [
+     "track.list",
+     19,
+     26
+    ],
+    [
+     "selection.status",
+     46,
+     22
+    ],
+    [
+     "revision.get",
+     67,
+     20
+    ],
+    [
+     "track.list",
+     67,
+     20
+    ],
+    [
+     "devcursor.pin",
+     88,
+     25
+    ],
+    [
+     "cursor.pointTrack",
+     113,
+     20
+    ],
+    [
+     "device.list",
+     160,
+     20
+    ],
+    [
+     "revision.get",
+     180,
+     26
+    ],
+    [
+     "track.list",
+     180,
+     26
+    ],
+    [
+     "devcursor.pin",
+     207,
+     21
+    ],
+    [
+     "device.list",
+     253,
+     16
+    ],
+    [
+     "devcursor.selectAt",
+     269,
+     22
+    ],
+    [
+     "devcursor.pin",
+     291,
+     20
+    ],
+    [
+     "devcursor.status",
+     337,
+     16
+    ],
+    [
+     "directparam.list",
+     352,
+     25
+    ],
+    [
+     "directparam.list",
+     573,
+     3
+    ],
+    [
+     "directparam.list",
+     602,
+     1
+    ],
+    [
+     "param.list",
+     604,
+     27
+    ],
+    [
+     "devcursor.selectAt",
+     631,
+     21
+    ],
+    [
+     "chain.inventory",
+     679,
+     26
+    ],
+    [
+     "revision.get",
+     705,
+     22
+    ],
+    [
+     "track.list",
+     705,
+     23
+    ],
+    [
+     "device.list",
+     728,
+     24
+    ],
+    [
+     "device.list",
+     752,
+     27
+    ],
+    [
+     "devcursor.pin",
+     779,
+     27
+    ],
+    [
+     "device.list",
+     833,
+     20
+    ],
+    [
+     "devcursor.selectAt",
+     853,
+     21
+    ],
+    [
+     "devcursor.pin",
+     874,
+     21
+    ],
+    [
+     "devcursor.status",
+     923,
+     14
+    ],
+    [
+     "drumpad.list",
+     936,
+     22
+    ],
+    [
+     "batch.run",
+     959,
+     20
+    ],
+    [
+     "cursor.pin",
+     1125,
+     19
+    ],
+    [
+     "cursor.pin",
+     1125,
+     19
+    ],
+    [
+     "cursor.pin",
+     1125,
+     19
+    ],
+    [
+     "cursor.pin",
+     1125,
+     19
+    ],
+    [
+     "cursor.pin",
+     1125,
+     19
+    ],
+    [
+     "cursor.pin",
+     1125,
+     19
+    ],
+    [
+     "cursor.pin",
+     1125,
+     19
+    ],
+    [
+     "cursor.pin",
+     1125,
+     19
+    ],
+    [
+     "track.list",
+     1171,
+     19
+    ],
+    [
+     "revision.get",
+     1190,
+     20
+    ],
+    [
+     "track.list",
+     1190,
+     21
+    ],
+    [
+     "revision.get",
+     1238,
+     21
+    ],
+    [
+     "track.list",
+     1238,
+     22
+    ],
+    [
+     "devcursor.pin",
+     1260,
+     22
+    ],
+    [
+     "cursor.pointTrack",
+     1281,
+     20
+    ],
+    [
+     "device.list",
+     1329,
+     24
+    ],
+    [
+     "devcursor.selectAt",
+     1352,
+     21
+    ],
+    [
+     "chain.inventory",
+     1399,
+     1
+    ],
+    [
+     "revision.get",
+     1400,
+     26
+    ],
+    [
+     "track.list",
+     1400,
+     26
+    ]
+   ]
+  },
+  {
+   "step": "after-drum-16",
+   "tool": "read_devices",
+   "ok": true,
+   "ms": 252,
+   "bytes": 416,
+   "calls": 8,
+   "turns": 8,
+   "wireMs": 170,
+   "brainMs": 2,
+   "idleMs": 80,
+   "methods": {
+    "selection.status": 1,
+    "track.list": 1,
+    "devcursor.pin": 2,
+    "cursor.pointTrack": 2,
+    "device.list": 2
+   },
+   "methodMs": {
+    "selection.status": 25,
+    "track.list": 21,
+    "devcursor.pin": 48,
+    "cursor.pointTrack": 41,
+    "device.list": 35
+   },
+   "gaps": [],
+   "gapMs": 0,
+   "sequence": [
+    [
+     "selection.status",
+     0,
+     25
+    ],
+    [
+     "track.list",
+     26,
+     21
+    ],
+    [
+     "devcursor.pin",
+     46,
+     21
+    ],
+    [
+     "cursor.pointTrack",
+     68,
+     21
+    ],
+    [
+     "device.list",
+     116,
+     14
+    ],
+    [
+     "devcursor.pin",
+     157,
+     27
+    ],
+    [
+     "cursor.pointTrack",
+     184,
+     20
+    ],
+    [
+     "device.list",
+     231,
+     21
+    ]
+   ]
+  },
+  {
+   "step": "cleanup",
+   "tool": "delete_track",
+   "ok": true,
+   "status": "verified",
+   "ms": 449,
+   "bytes": 474,
+   "calls": 24,
+   "turns": 11,
+   "wireMs": 249,
+   "brainMs": 4,
+   "idleMs": 196,
+   "methods": {
+    "track.list": 8,
+    "selection.status": 1,
+    "revision.get": 6,
+    "batch.run": 1,
+    "cursor.pin": 8
+   },
+   "methodMs": {
+    "track.list": 181,
+    "selection.status": 25,
+    "revision.get": 135,
+    "batch.run": 21,
+    "cursor.pin": 184
+   },
+   "gaps": [
+    [
+     "batch.run",
+     "cursor.pin",
+     146
+    ]
+   ],
+   "gapMs": 146,
+   "sequence": [
+    [
+     "track.list",
+     0,
+     24
+    ],
+    [
+     "selection.status",
+     25,
+     25
+    ],
+    [
+     "revision.get",
+     49,
+     22
+    ],
+    [
+     "track.list",
+     50,
+     22
+    ],
+    [
+     "revision.get",
+     72,
+     21
+    ],
+    [
+     "track.list",
+     72,
+     22
+    ],
+    [
+     "revision.get",
+     94,
+     22
+    ],
+    [
+     "track.list",
+     94,
+     22
+    ],
+    [
+     "batch.run",
+     115,
+     21
+    ],
+    [
+     "cursor.pin",
+     283,
+     23
+    ],
+    [
+     "cursor.pin",
+     283,
+     23
+    ],
+    [
+     "cursor.pin",
+     283,
+     23
+    ],
+    [
+     "cursor.pin",
+     283,
+     23
+    ],
+    [
+     "cursor.pin",
+     283,
+     23
+    ],
+    [
+     "cursor.pin",
+     283,
+     23
+    ],
+    [
+     "cursor.pin",
+     283,
+     23
+    ],
+    [
+     "cursor.pin",
+     283,
+     23
+    ],
+    [
+     "track.list",
+     332,
+     20
+    ],
+    [
+     "revision.get",
+     351,
+     25
+    ],
+    [
+     "track.list",
+     351,
+     25
+    ],
+    [
+     "revision.get",
+     404,
+     21
+    ],
+    [
+     "track.list",
+     404,
+     21
+    ],
+    [
+     "revision.get",
+     424,
+     24
+    ],
+    [
+     "track.list",
+     424,
+     25
+    ]
+   ]
+  }
+ ]
+}

@@ -7,6 +7,7 @@ import { dirname, join } from 'node:path';
 import { gzipSync, gunzipSync } from 'node:zlib';
 import { pathToFileURL } from 'node:url';
 import { LiveAdapter } from '../adapters/live/adapter.js';
+import { BridgeError } from '../client.js';
 import type { Transport } from '../adapters/live/transport.js';
 import type { Frame } from '../adapters/live/wiremap.js';
 import { decodeNoteFrame, notesByChannel, type NoteFrame, type RawNoteFields } from '../adapters/live/clip-read.js';
@@ -47,7 +48,8 @@ export class WireTransport implements Transport {
         clearTimeout(pending.timer); this.pending.delete(String(reply.id));
         pending.call.received = performance.now(); pending.call.bytes = Buffer.byteLength(line + '\n');
         pending.call.reply = reply; pending.call.wire = line;
-        if (reply.error) pending.reject(new Error(reply.error.message));
+        // 8i3: the product transport throws BridgeError with the reply code; the adapter classifies some codes.
+        if (reply.error) pending.reject(new BridgeError(Number(reply.error.code), String(reply.error.message)));
         else pending.resolve(reply.result);
       }
     });

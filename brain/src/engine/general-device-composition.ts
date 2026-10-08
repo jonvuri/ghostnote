@@ -9,10 +9,10 @@ import {
   type GeneralDeviceContainerKind, type GeneralDeviceContainerModulation,
 } from '../composition/index.js';
 import {
-  addressKey, chain, device, deviceIn,
+  addressKey, chain, device, deviceIn, planStages,
   type Address, type DeviceAddress, type DeviceSource, type ObservedDevice,
   type ObservedContainer, type ObservedDeviceBank, type ObservedDeviceSequence,
-  type Op, type ParamState, type RevisionMark,
+  type Op, type ParamState, type ReadOptions, type RevisionMark,
   type Snapshot, type TrackAddress,
 } from '../contract/index.js';
 import {
@@ -22,7 +22,7 @@ import {
 import type { RunOptions } from './executor.js';
 import { ownChangesetReversal } from './floor.js';
 import {
-  authorSemanticPreset, verifyModulation, verifyPages,
+  authorSemanticPreset, verifyModulation, verifyModulations, verifyPages,
   type ModulationVerification, type ModulatorPageVerification,
 } from './modulator-authoring.js';
 import { settleObservation } from './settlement.js';
@@ -33,7 +33,7 @@ import type { Take } from './take.js';
 export interface GeneralDeviceCompositionHost {
   readonly throwIfCancelled?: () => void;
   devices(track: TrackAddress): Promise<ObservedDeviceBank>;
-  read(addresses: readonly Address[]): Promise<Snapshot>;
+  read(addresses: readonly Address[], options?: ReadOptions): Promise<Snapshot>;
   apply(ops: readonly Op[], options?: RunOptions): Promise<{ readonly take: Take }>;
 }
 
@@ -286,40 +286,43 @@ export async function composeGeneralDeviceSources(
       checkpoint = { ...checkpoint, preparedEntryNames: initialNames };
       const requestedNames = request.entries.map((item) => item.entryName);
       if (JSON.stringify(initialNames) !== JSON.stringify(requestedNames)) {
-        const temporaryNames = uniqueTemporaryNames(
-          [...initialNames, ...requestedNames], request.entries.length,
-        );
+        // 8i3 (E252): all entry names in one guarded stage, as the offline path does. A requested name that is
+        // another seed entry's name needs unique temporary names first, in a stage of its own.
+        const clash = requestedNames.some((name, index) =>
+          initialNames.some((initial, other) => other !== index && initial === name));
+        const temporaryNames = clash
+          ? uniqueTemporaryNames([...initialNames, ...requestedNames], request.entries.length) : [];
+        const passes: { stage: 'prepare-entry-name' | 'confirm-entry-name'; from: readonly string[];
+          to: readonly string[] }[] = clash
+          ? [{ stage: 'prepare-entry-name', from: initialNames, to: temporaryNames },
+            { stage: 'confirm-entry-name', from: temporaryNames, to: requestedNames }]
+          : [{ stage: 'confirm-entry-name', from: initialNames, to: requestedNames }];
         failedStage = 'prepare-entries';
-        for (const [index, initialName] of initialNames.entries()) {
-          const prepare = (await host.apply([{
-            op: 'chain.rename', chain: chain(container, initialName), name: temporaryNames[index]!,
-          }], { ...options.run, ifRevision: current.at.revision })).take;
-          stages.push(receipt('prepare-entry-name', prepare, index));
-          if (!accepted(prepare)) {
-            return failure('prepare-entries', `Temporary entry ${index} was not proved.`, stages, verified, checkpoint);
+        for (const pass of passes) {
+          const ops: Op[] = pass.from.flatMap((name, index): Op[] => name === pass.to[index] ? []
+            : [{ op: 'chain.rename', chain: chain(container, name), name: pass.to[index]! }]);
+          const renamed = (await host.apply(ops, { ...options.run, ifRevision: current.at.revision })).take;
+          stages.push(receipt(pass.stage, renamed));
+          if (!accepted(renamed)) {
+            // Keep only requested names with a proved receipt. A later read can contain an operator edit;
+            // it must not supply the expected state for reversal.
+            const preparedEntryNames = [...pass.from];
+            for (const [index, stage] of planStages(ops).entries()) {
+              const proof = renamed.receipt.stages.find((item) => item.index === index);
+              if (proof?.applied !== true || proof.ops.length === 0 || !proof.ops.every((item) => item.ok)) continue;
+              for (const op of stage.ops) {
+                if (op.op === 'chain.rename') preparedEntryNames[pass.from.indexOf(op.chain.name)] = op.name;
+              }
+            }
+            checkpoint = {
+              ...checkpoint, preparedEntryNames,
+              seedUnchanged: checkpoint.seedUnchanged && !renamed.receipt.stages.some((item) => item.applied),
+            };
+            return failure('prepare-entries', 'The entry names were not proved.', stages, verified, checkpoint);
           }
           checkpoint = {
-            ...checkpoint,
-            seedUnchanged: false,
-            lastWriteAt: minimalMark(prepare.verify.at),
-            preparedEntryNames: checkpoint.preparedEntryNames.map((name, entryIndex) =>
-              entryIndex === index ? temporaryNames[index]! : name),
-          };
-          current = await stableTop(host, request.track);
-        }
-        for (const [index, temporaryName] of temporaryNames.entries()) {
-          const confirm = (await host.apply([{
-            op: 'chain.rename', chain: chain(container, temporaryName),
-            name: requestedNames[index]!,
-          }], { ...options.run, ifRevision: current.at.revision })).take;
-          stages.push(receipt('confirm-entry-name', confirm, index));
-          if (!accepted(confirm)) {
-            return failure('prepare-entries', `Explicit entry ${index} was not proved.`, stages, verified, checkpoint);
-          }
-          checkpoint = {
-            ...checkpoint,
-            preparedEntryNames: checkpoint.preparedEntryNames.map((name, entryIndex) =>
-              entryIndex === index ? requestedNames[index]! : name),
+            ...checkpoint, seedUnchanged: false, lastWriteAt: minimalMark(renamed.verify.at),
+            preparedEntryNames: [...pass.to],
           };
           current = await stableTop(host, request.track);
         }
@@ -522,7 +525,9 @@ async function addEntry(
     }
   }
 
-  top = await stableTop(host, request.track);
+  // 8i3 (E252): an inserted source has the fresh read just above, with no stage after it. An existing source
+  // reads again: its inventory read came after the first read.
+  if (source.kind === 'existing-move' || source.kind === 'existing-copy') top = await stableTop(host, request.track);
   const relocation = (await host.apply([{
     op: 'chain.relocate', source: device(request.track, sourcePosition),
     destination: chain(container, entryName),
@@ -578,12 +583,17 @@ async function addEntry(
     : await verifyPages(
       host, deviceWitness.address, pageWitnesses(relevantPages), options.wait ?? wait,
     );
+  // 8i3 (E252): the active witnesses of one device share each sample round, and each keeps its own verdict.
+  const active = entryDevice.modulators.filter((modulator) => modulator.behaviorCheck === 'active');
   const behaviors: ModulationVerification[] = [];
-  for (const item of entryDevice.modulators.filter((modulator) => modulator.behaviorCheck === 'active')) {
-    behaviors.push(await verifyActiveModulation(
-      host, item.location === 'device' ? deviceWitness.address : nested,
-      item.target, options.wait ?? wait,
-    ));
+  for (const address of [deviceWitness.address, nested]) {
+    const indices = active.flatMap((item, index) =>
+      (item.location === 'device' ? deviceWitness.address : nested) === address ? [index] : []);
+    if (indices.length === 0) continue;
+    const verified = await verifyModulations(host, address, indices.map((index) => ({
+      ...active[index]!.target, expected: 'active' as const })), options.wait ?? wait);
+    indices.forEach((index, position) => { behaviors[index] = verified[position]!; });
+    if (deviceWitness.address === nested) break;
   }
   let containerPages: ModulatorPageVerification = {
     verified: true, actualPages: [], witnesses: [],
@@ -1134,7 +1144,9 @@ async function observedContainer(
   container: DeviceAddress,
   containerKind: GeneralDeviceContainerKind,
 ): Promise<ObservedContainer | undefined> {
-  const snapshot = await host.read([container]);
+  // 8i3 (E252): the proof compares the layer chains and their devices only. A structure read is the container scope
+  // without the settled DirectParameter inventory of the container (about 0.3 s for each proof).
+  const snapshot = await host.read([container], { structure: true });
   const value = snapshot.entries[addressKey(container)]?.value;
   if (value?.of !== 'device' || value.device.name !== containerKind) return undefined;
   return value.device.container;
