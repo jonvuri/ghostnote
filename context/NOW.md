@@ -13,6 +13,13 @@ Next: resume the [8i trial set](plan/phase-8/8i-agent-native-hybrid-dogfood.md).
 A groove task and an overlay dependency change remain. Preserve the accepted
 "ice jungle" material.
 
+Two focused follow-ups are planned after the fresh-project trial:
+[8i6](plan/phase-8/8i6-document-format-discovery.md) tests local format
+examples, repair guidance, and reference access without a live clip;
+[8i7](plan/phase-8/8i7-track-mixer.md) checks probe reuse and exact dB units
+before adding bounded mixer tools. Neither requires a skill. These plans
+do not close the groove or overlay gates.
+
 8i5 is complete
 ([E254](evidence/experiments/e254-device-control-identity-and-route-claims.md),
 [D46](decisions/d46-modulation-writers-claim-the-route-not-the-sound.md)).

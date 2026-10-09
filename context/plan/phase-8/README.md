@@ -409,6 +409,10 @@ owns the migration details.
    device failures. The groove and overlay dependency trials remain. The
    [interface review](8i-trial-2-interface-review.md) records the causes of
    extra calls and separate improvement candidates.
+   The fresh-project trial adds two planned follow-ups:
+   [8i6 — Document format discovery and repair](8i6-document-format-discovery.md)
+   and [8i7 — Bounded track mixer controls](8i7-track-mixer.md).
+   Neither requires a skill. Keep the groove and overlay gates open.
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.
 
