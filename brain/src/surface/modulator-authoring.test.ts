@@ -12,7 +12,7 @@ import { FIXTURE_DIR } from '../bwmod/fixtures.js';
 import { Executor, fingerprintPreset } from '../engine/index.js';
 import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
-import { callTool, TOOLS } from './tools.js';
+import { AGENT_NATIVE_TOOL_PROFILE, AGENT_NATIVE_TOOLS, callTool, TOOLS } from './tools.js';
 import {
   modulatorAuthoringInputSchema,
   modulatorAuthoringInputValidator,
@@ -491,4 +491,61 @@ test('5f-cancellation: an abort after a recorded insert cannot claim that nothin
   );
   assert.equal(fx.fake.model.findByChannelId(fx.trackId)!.track.devices.length, 1);
   assert.equal(fx.workspace.changes.list().length, 1);
+});
+
+test('8i5 D46: agent-native authoring has no behavior input and runs no behavior samples', async () => {
+  const spec = AGENT_NATIVE_TOOLS.find((item) => item.name === 'edit_preset_modulation')!;
+  assert.equal('behaviorChecks' in spec.inputSchema, false);
+  assert.ok('behaviorChecks' in modulatorAuthoringInputSchema, 'stable-v1 keeps its frozen input');
+
+  const fx = fixture();
+  const result = await callTool(fx.workspace, 'edit_preset_modulation', {
+    trackId: fx.trackId, presetPath: poly('mp_bare'), ...semanticSelf(poly('mp_bare')),
+    operation: { kind: 'add', modulator: 'lfo',
+      target: { parameterId: 'CONTENTS/F1RESO', parameterName: 'Filter Resonance' }, amount: 0 },
+  }, AGENT_NATIVE_TOOL_PROFILE) as Record<string, any>;
+  const text = JSON.stringify(result).slice(0, 800);
+  assert.equal(result['failure'], undefined, text);
+  assert.equal(result['verified'].passed, true, 'amount 0 leaves the target inactive; no witness can object');
+  assert.deepEqual(result['observed'].behaviors.map((item: any) => [item.check, item.samples]), [['identity', []]],
+    'only the exact id and name are checked');
+  assert.equal(result['modulation'].behaviorWitness, 'not-run');
+  assert.ok(result['observed'].pages.verified, 'the page check stays');
+
+  await assert.rejects(callTool(fx.workspace, 'edit_preset_modulation', {
+    trackId: fx.trackId, presetPath: poly('mp_bare'), ...semanticSelf(poly('mp_bare')),
+    operation: { kind: 'add', modulator: 'lfo', target: 'polysynth-filter-frequency', amount: 1 },
+    behaviorChecks: [{ expected: 'active', target: 'polysynth-filter-frequency' }],
+  }, AGENT_NATIVE_TOOL_PROFILE), /no behavior witness \(D46\)/);
+});
+
+test('8i5 D46: agent-native authoring refuses an unproved route form before the project write', async () => {
+  const fx = fixture();
+  const result = await callTool(fx.workspace, 'edit_preset_modulation', {
+    trackId: fx.trackId, presetPath: poly('mp_bare'), ...semanticSelf(poly('mp_bare')),
+    operation: { kind: 'add', modulator: 'lfo',
+      target: { parameterId: 'CONTENTS/OSC1/PITCH', parameterName: 'Pitch' }, amount: 1 },
+  }, AGENT_NATIVE_TOOL_PROFILE) as Record<string, any>;
+  assert.equal(result['failure']?.code, 'unsupported', JSON.stringify(result).slice(0, 400));
+  assert.equal(result['reason'], 'unproved-route-form');
+  assert.equal(fx.appliedPresets.length, 0, 'nothing was written');
+});
+
+test('8i5 review: agent-native authoring keeps the exact target identity check', async () => {
+  for (const target of [
+    { parameterId: 'CONTENTS/DOES_NOT_EXIST', parameterName: 'Nothing' },
+    { parameterId: 'CONTENTS/F1FREQ', parameterName: 'Wrong Name' },
+  ]) {
+    const fx = fixture();
+    const result = await callTool(fx.workspace, 'edit_preset_modulation', {
+      trackId: fx.trackId, presetPath: poly('mp_bare'), ...semanticSelf(poly('mp_bare')),
+      operation: { kind: 'add', modulator: 'lfo', target, amount: 1 },
+    }, AGENT_NATIVE_TOOL_PROFILE) as Record<string, any>;
+    const text = JSON.stringify(result).slice(0, 600);
+    assert.equal(result['verified']?.passed, false, text);
+    assert.equal(result['failure']?.code, 'unavailable', text);
+    assert.equal(result['failure']?.stage, 'readback', text);
+    assert.equal(result['failure']?.effects.length, 1, text);
+    assert.ok(result['change']?.changeId, 'the insertion stays recorded for revert_change');
+  }
 });

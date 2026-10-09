@@ -9,9 +9,10 @@ import { track as trackAt } from '../contract/index.js';
 import { donorType, listDonorTypes } from '../bwmod/index.js';
 import {
   ModulatorAuthoringError, authorSemanticModulatorEdit, inspectPresetModulation, modulationRoute,
+  unprovedRouteTargets,
   type ModulationVerification, type ModulatorPageVerification,
 } from '../engine/index.js';
-import { receiptOf, withCause } from './report.js';
+import { MODULATION_ACTIVITY_CLAIM, receiptOf, unprovedRouteRefusal, withCause } from './report.js';
 import type { Workspace } from './workspace.js';
 
 const ROUTED_MODULATOR_TYPES = listDonorTypes()
@@ -65,6 +66,8 @@ const presetPath = z.string().min(1).superRefine((path, context) => {
 export interface ModulatorAuthoringNames {
   readonly readControls: string;
   readonly readPresetModulation: string;
+  /** D46: `agent-native-v1` passes false; its schema has no behaviorChecks. Default true (`stable-v1`). */
+  readonly behaviorChecks?: boolean;
 }
 
 /** Build the authoring input schema with the tool names of one profile. */
@@ -179,16 +182,26 @@ export function modulatorAuthoringSchemas(names: ModulatorAuthoringNames) {
       'Exact DirectParameter controls that must prove active or inactive behavior after the edit.',
     ),
   } as const;
+  const sampled = names.behaviorChecks !== false;
+  const { behaviorChecks: _omitted, ...routeOnlySchema } = modulatorAuthoringInputSchema;
+  const schema = sampled ? modulatorAuthoringInputSchema : routeOnlySchema;
 
   const modulatorAuthoringInputValidator = z.object(modulatorAuthoringInputSchema)
     .strict()
     .superRefine((input, context) => {
+      if (!sampled && input.behaviorChecks !== undefined) {
+        context.addIssue({
+          code: 'custom',
+          path: ['behaviorChecks'],
+          message: 'This profile runs no behavior witness (D46). Use structuralCheck or pageChecks.',
+        });
+      }
       const structuralOnly = input.structuralCheck !== undefined
         && input.pageChecks === undefined
         && input.behaviorChecks === undefined;
       const derivedPageCount = input.operation.kind === 'add'
         && input.pageChecks === undefined && !structuralOnly ? 1 : 0;
-      const derivedBehaviorCount = input.operation.kind === 'add'
+      const derivedBehaviorCount = sampled && input.operation.kind === 'add'
         && input.behaviorChecks === undefined && !structuralOnly ? 1 : 0;
       const witnessCount = (input.structuralCheck === undefined ? 0 : 1)
         + (input.pageChecks?.length ?? derivedPageCount)
@@ -202,7 +215,7 @@ export function modulatorAuthoringSchemas(names: ModulatorAuthoringNames) {
       }
     });
 
-  return { schema: modulatorAuthoringInputSchema, validator: modulatorAuthoringInputValidator };
+  return { schema, validator: modulatorAuthoringInputValidator };
 }
 
 const STABLE_SCHEMAS = modulatorAuthoringSchemas({
@@ -217,6 +230,7 @@ function publicBehavior(verification: ModulationVerification): Record<string, un
   const selector = verification.selector;
   return {
     verified: verification.verified,
+    ...(verification.verified && verification.identityOnly === true ? { check: 'identity' } : {}),
     ...(verification.verified ? {} : { why: verification.why }),
     ...(selector === undefined ? {} : {
       selector: {
@@ -306,7 +320,13 @@ function authoringRefusal(error: unknown): Record<string, unknown> {
 export async function runModulatorAuthoring(
   workspace: Workspace,
   input: ModulatorAuthoringInput,
+  options: { readonly behaviorWitness?: 'sample' | 'skip' } = {},
 ): Promise<Record<string, unknown>> {
+  const sampled = options.behaviorWitness !== 'skip';
+  if (!sampled && 'target' in input.operation && input.operation.target !== undefined) {
+    const unproved = unprovedRouteTargets([resolveTarget(input.operation.target)]);
+    if (unproved.length > 0) return unprovedRouteRefusal(unproved);
+  }
   // A new record proves that execution crossed the project-write boundary.
   const priorChangeIds = new Set(workspace.changes.list().map((change) => change.id));
   try {
@@ -360,9 +380,14 @@ export async function runModulatorAuthoring(
       ...check,
       ...(nestedDevice === undefined ? {} : { nestedDevice }),
     })) ?? [];
-    const behaviorInputs = input.behaviorChecks ?? (input.operation.kind === 'add' && !structuralOnly
-      ? [{ expected: 'active' as const, target: input.operation.target }]
-      : []);
+    // D46: without sampling, the exact id and name of an add or retarget target are still checked after the
+    // insertion (an identity witness), so a missing or renamed target is a recorded post-write failure.
+    const operationTarget = 'target' in input.operation ? input.operation.target : undefined;
+    const behaviorInputs = !sampled
+      ? operationTarget === undefined ? [] : [{ expected: 'identity' as const, target: operationTarget }]
+      : input.behaviorChecks ?? (input.operation.kind === 'add' && !structuralOnly
+        ? [{ expected: 'active' as const, target: input.operation.target }]
+        : []);
     const behaviorWitnesses = behaviorInputs.map((check) => {
       const target = resolveTarget(check.target);
       return {
@@ -428,6 +453,7 @@ export async function runModulatorAuthoring(
           ...(!item.verified && 'why' in item ? { why: item.why } : {}),
         })),
       },
+      ...(sampled ? {} : { modulation: MODULATION_ACTIVITY_CLAIM }),
       change,
       reversal: 'revert_change removes the inserted device while its last proved position remains valid.',
     };

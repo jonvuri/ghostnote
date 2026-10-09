@@ -103,6 +103,11 @@ export interface OwnedTemplateCompositionOptions {
   readonly manifestPath?: string;
   readonly catalogPath?: string;
   readonly compose?: ComposeTemplateOptions;
+  /**
+   * D46: `identity` (`agent-native-v1`) checks each target id and name and samples no behavior. Default `sample`
+   * (`stable-v1`).
+   */
+  readonly behaviorWitness?: 'sample' | 'identity';
   /** Observe a private copy after all validation and before project write. */
   readonly onValidated?: (preset: Buffer) => void;
 }
@@ -163,7 +168,7 @@ export async function buildOwnedTemplateComposition(
         : await verifyModulation(host, nested, {
           parameterId: edit.behavior.parameterId,
           parameterName: edit.behavior.parameterName,
-        }, pause, edit.behavior.expected);
+        }, pause, options.behaviorWitness === 'identity' ? 'identity' : edit.behavior.expected);
       witnesses.push({
         request: edit,
         pages,

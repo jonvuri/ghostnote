@@ -223,7 +223,8 @@ const readInput = z.object({
   row: z.number().int().min(0).describe('Zero-based Launcher row (scene).'),
   format,
   reference: z.array(z.enum(OPTIONAL_REFERENCE_SECTIONS)).max(4).optional().describe(
-    'Optional model reference sections to return in the result. The Core section is in this description.',
+    'Optional model reference sections to return in the result, with the same document and authority.base. The '
+    + 'Core section is in this description. Before a planned patch edit, request Patch on the first fresh read.',
   ),
   diagnostic: z.boolean().optional().describe('Also return the exact host source of the read. Use only to diagnose a problem.'),
 }).strict();
@@ -245,6 +246,10 @@ const READ_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Read one Launche
   + 'ID (identity stale). A scene insert or delete, a project change, or a missing clip retires the '
   + 'ref; the next read mints new IDs. Give refs to check_launcher_clips. Refs live in this server '
   + 'process only and a restart retires them.\n'
+  + 'reference returns the requested sections in the same result as the complete document and authority.base. '
+  + 'For a planned patch edit, request reference ["Patch"] on the first fresh read, and keep data.document, '
+  + 'authority.base, and reference together: another read only for the help or the base is not necessary. Read '
+  + 'again when the clip can have changed.\n'
   + 'Overlays, META, and EXTENSIONS that edit_launcher_clip stored come back with the document while the clip '
   + 'ID stays. When notes change, authority.overlays names the claims that became stale or were removed.\n'
   + 'A failure has failure.code: absent, outside-limit, unhealthy, authority-unavailable, '

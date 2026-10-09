@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: 8h and 8i0–8i4 are complete (E247–E253). The second musical trial passed. Next: 8i5 device control identity, then the remaining 8i trial gates.
+status: 8h and 8i0–8i5 are complete (E247–E254). The second musical trial passed. Next: the remaining 8i trial gates.
 updated: 2026-10-09
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -402,10 +402,11 @@ owns the migration details.
    [8i3 — Long device write profile](8i3-long-device-write-profile.md)
    (complete, E252, D44), and
    [8i4 — Overlay basis sealing](8i4-overlay-basis-sealing.md) (complete,
-   E253, D45).
-   The second musical trial passed on 2026-10-09. Its review routes to
-   [8i5 device control identity](8i5-device-control-identity.md) before the
-   remaining groove and overlay dependency trials. The
+   E253, D45), and
+   [8i5 — Device control identity](8i5-device-control-identity.md)
+   (complete, E254, D46).
+   The second musical trial passed on 2026-10-09; 8i5 repaired its two
+   device failures. The groove and overlay dependency trials remain. The
    [interface review](8i-trial-2-interface-review.md) records the causes of
    extra calls and separate improvement candidates.
    Test ordinary work in fresh agent sessions and decide whether the engine,

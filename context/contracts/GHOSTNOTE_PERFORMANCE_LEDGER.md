@@ -4,7 +4,7 @@ kind: reference
 state: active
 updated: 2026-10-09
 parent: ../plan/phase-8/8h-cache-promotion-and-interface-simplification.md
-evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252, E253
+evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252, E253, E254
 ---
 
 # Ghostnote performance ledger
@@ -164,6 +164,7 @@ above stay the reference for top-level tracks.
 | `set_device_controls`, 27 controls (Polysynth) | 6,612 ms; 190 wire calls | E247: 14,372–14,391 ms, 276 wire calls (a settled inventory after each control) | as one write | E252 |
 | `set_device_controls`, 44 controls (every continuous Polysynth control); 64 remote controls | 9,442 ms, 275 wire calls; 4,616 ms | Before 8i3: 21,415 ms, 401 wire calls | as one write | E252 |
 | `set_device_controls`, Diva (CLAP, 281 IDs): 1, 27, 64 settings; 16 settings on each of 4 Divas (D44 limit 64 on 4 routes) | 3,447; 7,740; 13,905 ms; 22,465 ms | E238: 8,302 ms (one write) | as one write | E252 |
+| `set_device_controls`, one remote control at a sparse host position (Blur `Common/7/Mix`); its revert. Direct-ID arm | 1,561–1,623 ms, 42–45 wire calls; 2,503 ms. Direct: 2,196–2,271 ms, 57–60 | Before 8i5: refused `internal` | as one write; the selector lookup adds no call | E254 |
 | `set_device_enabled`, one device; its revert | 905 ms; 775 ms | E239: 770 ms; 665 ms | devices 1, resolve 1, read 2, apply 1, delta 1 | E247 |
 | `add_devices`, one native device | 1,447–1,544 ms; 67 wire calls | Before: 5,541 ms | devices 2, read 2, apply 1, delta 1 | E247 |
 | `add_devices`, 16 native devices (schema maximum); 6 Divas | 16,811 ms; 6,426 ms | E252 baseline: 15,497 ms | as one device, for each | E252 |
@@ -171,6 +172,7 @@ above stay the reference for top-level tracks.
 | `compose_devices`, staged, 2 and 4 layer chains | 17,500–17,551 ms; 30,430–30,556 ms | E238: 36,525–37,145; 64,878–64,937 ms | — | E247 benchmark |
 | `compose_devices`, staged at the D44 limit (6 units): 5×1, 3×2, 2×3; their reverts | 20,993; 23,540; 23,247 ms; revert 22,499; 26,301; 26,912 ms | Before 8i3: 5×1 31,475 (revert 21,456); 5×2 50,292 (39,392); 5×4 102,095 (89,355) | — | E252 |
 | `compose_devices`, staged: 3 Diva chains; 2 devices with modulators; 4 devices, 1 with 4 modulators | 13,616 (revert 15,941); 25,282 (10,623); 24,188 (18,679) ms | 6 devices with modulators on 3: 45,609 ms (now refused) | — | E252 |
+| `compose_devices`, staged, 2 devices with 2 container modulators each (6 units, D46: identity check, no samples); its revert | 12,449 ms, 446 wire calls; 10,102 ms | E252: 25,282 ms; 10,623 ms. E254 without the identity check: 10,921 ms, 386 | — | E254 |
 | `compose_devices`, Drum Machine, 16 pads; its revert | 12,504 ms; 1,550 ms | Before 8i3: 71,843 ms (a fixed 4,000 ms for each pad) | — | E252 |
 | `revert_change` of a composition, offline; staged 2 and 4 | 1,428–1,454 ms; 12.6 s; 20.9–21.0 s | E238: 1.7 s; 21.3 s; 38.4 s | — | E247 benchmark |
 | `set_layer_chain_solo`; no-op | 957–973 ms; 216 ms | E238: 828–868 ms; 182 ms | read 4, apply 1, delta 1; no-op: read 1 | E247 recipes |
@@ -182,8 +184,11 @@ above stay the reference for top-level tracks.
 | `delete_device`, 10 native devices; 10 Divas (D44 limit 10) | 25,191 ms; 20,739 ms | 6 native 14,709 ms; 6 Divas 13,619 ms (before the slot fixes); before 8i3: 16 native devices 30,710 ms | as one removal, for each | E252 |
 | `wrap_existing_device_modulation`, one LFO; its reversal | 14,390 ms; 5,801 ms | Before: 26,073 ms; 6,515 ms | wire: 420; 197 | E247 |
 | `wrap_existing_device_modulation`, 1, 8, and 15 LFOs (D44 limit 15: the 16-page window) | 13,557; 13,600; 13,586 ms; reversal 5,260–5,511 ms | 16 LFOs: the pages never settle (9.2 s, fails) | — | E252 |
+| `wrap_existing_device_modulation` (D46: no behavior witness), 1 and 15 LFOs; Sampler ADSR; reversals | 9,306–9,455 ms; reversal 5,078–5,102 ms | E252: 13,557–13,586 ms | wire: 297; 163 | E254 |
 | `read_preset_modulation`; `list_modulator_types` | 1–3 ms; 1 ms | File and catalog reads only | none | E247 |
 | `edit_preset_modulation`, one LFO; with 8 behavior checks | 7,092 ms; 7,044 ms (one shared sampling session) | E247: 8,233 ms; before 8i3, 8 checks: 44,786 ms | wire: 179 | E252 |
+| `edit_preset_modulation` (D46: identity check, no samples), one LFO; its revert | 2,055 ms; 1,287 ms | E252: 7,092 ms. E254 without the identity check: 1,510 ms, 50 | wire: 67 | E254 |
+| Modulation route suite (`probe:modulation-routes`, `stable-v1` witnesses; not a product call) | 160 s for 18 checks | — | — | E254 |
 | A/B audition and winner collapse, 2 layer chains (8 calls) | 11,877–12,084 ms; 447–450 wire calls | E239: 21,877–21,903 ms, 497 wire calls; `stable-v1` managed alternates: 20,191–20,247 ms (E239: 50.7 s) | — | E247 ab |
 
 ## Limits
@@ -248,8 +253,9 @@ Each item is a measured cost with a named cause. None needs a fix before 8i.
   8 clips take 33.5 s.
 - `read_launcher_clip` returns all 16 channels (about 12 KB for the typical
   clip); an edit needs a read for its base.
-- `wrap_existing_device_modulation` takes 14 s: five structural stages and the
-  bounded modulation verification (E97).
+- `wrap_existing_device_modulation` takes about 10 s: five structural stages,
+  the fingerprint, and the page checks. D46 removed the behavior witness
+  (E254); `stable-v1` keeps it (14 s).
 - `set_layer_chain_solo` and `rename_layer_chain` are 12–14 percent above
   E238. The first E247 inventory, before the 8h4g changes, had the same
   values; no 8h4g change touches their stage.

@@ -17,7 +17,11 @@
  *                            delete 10, a 3-chain staged composition and its revert. The operator turns the audio engine on in the owned project first.
  *   clips <dir>              the clip batch tools at the D44 limits (typical clips), each with its revert
  *   clips-large <dir>        the clip batch limits with 16,384-note clips, each with its revert
- *   modulation <dir>         preset behavior checks 1 and 8, wrap modulators 1/8/15, a 6-device composition with 0 and 4 modulators
+ *   modulation <dir>         one preset edit, wrap modulators 1/8/15, a 6-device composition with 0 and 4 modulators
+ *                            (8i5, D46: agent-native-v1 has no behaviorChecks input; the 8-check case left)
+ *   identity <dir>           8i5: the sparse Blur remote write and its direct-ID control arm; the Sampler ADSR wrap
+ *                            of Filter Frequency (the 2026-10-09 failure) and its reversal; wrap 15, one preset edit,
+ *                            and a composition with 4 modulators under D46, each with its reversal
  *   poll-ab <dir>            the host primitive of the cohort integrity poll, with a settled-inventory control arm
  *   summary <dir>            print the rows of every retained file
  *
@@ -455,16 +459,8 @@ async function modulation(dir: string): Promise<void> {
     const add = { kind: 'add', modulator: 'lfo', target: 'polysynth-filter-frequency', amount: 0.3 };
     const edit1 = await call('edit-preset-1', 'edit_preset_modulation', { trackId, presetPath: POLY_BARE,
       fingerprint: bare.fingerprint, location: { kind: 'self' }, operation: add });
-    const controls = writable((await call('read-controls', 'read_device_controls', {
-      device: { trackId, devicePosition: 0 } })).parameters as Wire[]);
-    const filter = controls.find((item) => item.id === 'CONTENTS/F1FREQ') ?? controls[0]!;
-    const others = controls.filter((item) => item.id !== filter.id).slice(0, 7);
     const target = (item: Wire) => ({ parameterId: item.id, parameterName: item.name });
-    const edit8 = await call('edit-preset-8', 'edit_preset_modulation', { trackId, presetPath: POLY_BARE,
-      fingerprint: bare.fingerprint, location: { kind: 'self' }, operation: add,
-      behaviorChecks: [{ expected: 'active', target: target(filter) },
-        ...others.map((item) => ({ expected: 'inactive', target: target(item) }))] });
-    for (const [step, result] of [['edit-preset-8', edit8], ['edit-preset-1', edit1]] as const) {
+    for (const [step, result] of [['edit-preset-1', edit1]] as const) {
       const changeId = result.effects?.[0]?.changeId ?? result.next?.revert?.changeId;
       if (changeId !== undefined) await call(`revert-${step}`, 'revert_change', { changeId });
     }
@@ -509,6 +505,95 @@ async function modulation(dir: string): Promise<void> {
     await call('cleanup', 'delete_track', { trackIds: [trackId] });
   }
   await save(dir, 'modulation.json', guarded, { wrapProofs });
+}
+
+/**
+ * 8i5 (E254). Blur `Common` lists controls at host positions 0, 1, 2, 3, and 7: the returned selector of the last
+ * control is not its array position. The direct-ID write of the same parameter is the control arm. Then the D46
+ * modulation writers, which run no behavior witness: the Sampler ADSR wrap of `Filter Frequency` (its remote label
+ * is `Filt Freq`), wrap at the 15-modulator limit, one preset edit, and a composition with 4 modulators. Each write
+ * is reversed. The audio engine can be off: no step samples behavior.
+ */
+async function identity(dir: string): Promise<void> {
+  const guarded = await guard();
+  const sparse: Wire = {};
+  const trackId = await newTrack('gn-8i5-identity');
+  const target = (item: Wire) => ({ parameterId: item.id, parameterName: item.name });
+  const order = async (step: string) => (await call(step, 'read_devices', { trackId })).data.devices
+    .map((item: Wire) => ({ name: item.name, enabled: item.enabled }));
+  try {
+    await call('add-blur', 'add_devices', { trackId, devices: [{ kind: 'native', name: 'Blur' }] });
+    const remotes = await call('read-blur-remotes', 'read_device_controls', {
+      device: { trackId, devicePosition: 0 }, view: 'remote-controls' });
+    const pages = remotes.remotePages as Wire[];
+    sparse['pages'] = pages.map((page) => [page.position, page.name, page.controls.map((item: Wire) =>
+      [item.position, item.name])]);
+    const page = pages.find((item) => item.controls.some((control: Wire, index: number) => control.position !== index));
+    assert(page !== undefined, `Blur has no sparse page: ${JSON.stringify(sparse['pages'])}`);
+    const control = page.controls.find((item: Wire, index: number) => item.position !== index)!;
+    sparse['selector'] = [page.position, page.name, control.position, control.name, control.normalizedValue];
+    const remoteSet = await call('set-blur-remote', 'set_device_controls', { settings: [{ kind: 'remote',
+      device: { trackId, devicePosition: 0 }, pagePosition: page.position, pageName: page.name,
+      controlPosition: control.position, controlName: control.name,
+      normalizedValue: nextValue(control.normalizedValue) }] });
+    await call('revert-blur-remote', 'revert_change',
+      { changeId: remoteSet.parameterChanges[0].changes[0].changeId });
+    const direct = writable((await call('read-blur-direct', 'read_device_controls', {
+      device: { trackId, devicePosition: 0 } })).parameters as Wire[]);
+    const same = direct.find((item) => item.name === control.name) ?? direct[0]!;
+    sparse['directArm'] = [same.id, same.name];
+    const directSet = await call('set-blur-direct', 'set_device_controls', { settings: [{ kind: 'direct',
+      device: { trackId, devicePosition: 0 }, parameterId: same.id, normalizedValue: nextValue(same.normalizedValue) }] });
+    await call('revert-blur-direct', 'revert_change',
+      { changeId: directSet.parameterChanges[0].changes[0].changeId });
+    await call('clear-blur', 'delete_device', { devices: [{ trackId, devicePosition: 0 }] });
+
+    await call('add-sampler', 'add_devices', { trackId, devices: [{ kind: 'native', name: 'Sampler' }] });
+    const sampler = (await call('read-sampler', 'read_device_controls', {
+      device: { trackId, devicePosition: 0 } })).parameters as Wire[];
+    const filter = sampler.find((item) => item.id === 'CONTENTS/FILT_FREQ');
+    assert(filter !== undefined, 'Sampler has no CONTENTS/FILT_FREQ');
+    const wrapped = await call('wrap-sampler-adsr', 'wrap_existing_device_modulation', { trackId, devicePosition: 0,
+      expectedDeviceOrder: await order('order-sampler'), containerKind: 'FX Layer', entryName: 'Layer 1',
+      modulators: [{ modulator: 'adsr', target: target(filter), amount: 0.5 }] });
+    sparse['samplerWrap'] = { complete: wrapped.complete, why: wrapped.why ?? null, modulation: wrapped.modulation,
+      behaviors: wrapped.verification?.behaviors?.length ?? null };
+    await call('unwrap-sampler-adsr', 'reverse_existing_device_modulation_wrap',
+      { checkpoint: wrapped.reversalCheckpoint });
+    await call('clear-sampler', 'delete_device', { devices: [{ trackId, devicePosition: 0 }] });
+
+    await call('add-poly', 'add_devices', { trackId, devices: [{ kind: 'native', name: 'Polysynth' }] });
+    const poly = writable((await call('read-poly', 'read_device_controls', {
+      device: { trackId, devicePosition: 0 } })).parameters as Wire[]);
+    for (const count of [1, 15]) {
+      const wrap = await call(`wrap-${count}`, 'wrap_existing_device_modulation', { trackId, devicePosition: 0,
+        expectedDeviceOrder: await order(`order-${count}`), containerKind: 'FX Layer', entryName: 'Layer 1',
+        modulators: poly.slice(0, count).map((item) => ({ modulator: 'lfo', target: target(item), amount: 1 })) });
+      await call(`unwrap-${count}`, 'reverse_existing_device_modulation_wrap', { checkpoint: wrap.reversalCheckpoint });
+    }
+    await call('clear-poly', 'delete_device', { devices: [{ trackId, devicePosition: 0 }] });
+
+    const bare = await call('read-preset-bare', 'read_preset_modulation', { presetPath: POLY_BARE });
+    const edit = await call('edit-preset-1', 'edit_preset_modulation', { trackId, presetPath: POLY_BARE,
+      fingerprint: bare.fingerprint, location: { kind: 'self' },
+      operation: { kind: 'add', modulator: 'lfo', target: 'polysynth-filter-frequency', amount: 0.3 } });
+    await call('revert-edit-preset-1', 'revert_change', { changeId: edit.change.changeId });
+    const left = await call('after-preset', 'read_devices', { trackId });
+    for (let index = left.data.devices.length - 1; index >= 0; index -= 1) {
+      await call(`clear-${index}`, 'delete_device', { devices: [{ trackId, devicePosition: index }] });
+    }
+
+    // The D44 limits: 6 device units (a device with modulators counts 3) and 4 modulators.
+    const composed = await call('compose-2x1-mod-4', 'compose_devices', { trackId, containerKind: 'Instrument Layer',
+      layerChains: [0, 1].map((index) => ({ name: `M${index + 1}`, devices: [
+        { source: { kind: 'native', name: 'Polysynth' }, modulators: poly.slice(2 * index, 2 * index + 2)
+          .map((item) => ({ location: 'container', modulator: 'lfo', target: target(item), amount: 1 })) }] })) });
+    assert.equal(composed.readback.backend, 'staged');
+    await call('revert-compose-2x1-mod-4', 'revert_change', { changeId: composed.next.revert.changeId });
+  } finally {
+    await call('cleanup', 'delete_track', { trackIds: [trackId] });
+  }
+  await save(dir, 'identity.json', guarded, { sparse });
 }
 
 /**
@@ -579,7 +664,8 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {
   const commands: Record<string, () => Promise<void>> = {
     controls: () => controls(dir, arg), compose: () => compose(dir, arg), drum: () => drum(dir), add: () => add(dir),
     tracks: () => tracks(dir), 'tracks-max': () => tracksMax(dir), plugins: () => plugins(dir),
-    clips: () => clips(dir), 'clips-large': () => clipsLarge(dir), modulation: () => modulation(dir), 'poll-ab': () => pollAb(dir), summary: () => summary(dir),
+    clips: () => clips(dir), 'clips-large': () => clipsLarge(dir), modulation: () => modulation(dir),
+    identity: () => identity(dir), 'poll-ab': () => pollAb(dir), summary: () => summary(dir),
   };
   const run = commands[command ?? ''] ?? (() => Promise.reject(new Error(`unknown command ${command}`)));
   run().then(() => process.exit(0), (error) => { console.error(error); process.exit(1); });

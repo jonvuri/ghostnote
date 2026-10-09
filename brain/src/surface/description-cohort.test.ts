@@ -15,6 +15,8 @@ import {
   TOOL_DESCRIPTION_V36_SHA256,
   TOOL_DESCRIPTION_V37_SHA256,
   TOOL_DESCRIPTION_V38_SHA256,
+  TOOL_DESCRIPTION_V39_SHA256,
+  TOOL_DESCRIPTION_V40_SHA256,
   TOOL_DESCRIPTION_V29_SHA256,
   TOOL_DESCRIPTION_V28_SHA256,
   TOOL_DESCRIPTION_V27_SHA256,
@@ -48,7 +50,7 @@ import {
 } from './description-cohort.js';
 import { AGENT_NATIVE_TOOLS, ANNOTATIONS, TOOLS } from './tools.js';
 
-/** v38 (8i4): the complete default agent-native-v1 list, in profile order (unchanged since v33). */
+/** v40 (8i5 review): the complete default agent-native-v1 list, in profile order (unchanged since v33). */
 const EXPECTED_COHORT = [
   'list_modulator_types', 'check_bitwig_connection', 'list_tracks', 'list_changes', 'check_revert', 'launch_clip',
   'add_tracks', 'duplicate_track', 'rename_track', 'add_scenes', 'wrap_existing_device_modulation',
@@ -61,8 +63,8 @@ const EXPECTED_COHORT = [
   'set_layer_chain_solo',
 ] as const;
 
-test('description v38 names one complete and explicit cohort: the default agent-native-v1 list', () => {
-  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v38');
+test('description v40 names one complete and explicit cohort: the default agent-native-v1 list', () => {
+  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v40');
   assert.deepEqual(DESCRIPTION_COHORT.map((member) => member.name), EXPECTED_COHORT);
   assert.deepEqual(AGENT_NATIVE_TOOLS.map((spec) => spec.name), EXPECTED_COHORT);
   assert.equal(new Set(EXPECTED_COHORT).size, EXPECTED_COHORT.length);
@@ -82,13 +84,23 @@ test('description v1 stays frozen as its original 15-tool artifact', () => {
   );
 });
 
-test('description v38 matches its public artifact', () => {
+test('description v40 matches its public artifact', () => {
   const artifact = descriptionCohortArtifact(AGENT_NATIVE_TOOLS, ANNOTATIONS);
   assert.equal(
     fingerprintDescriptionCohort(artifact),
-    TOOL_DESCRIPTION_V38_SHA256,
-    'the v38 public wording or schema changed',
+    TOOL_DESCRIPTION_V40_SHA256,
+    'the v40 public wording or schema changed',
   );
+});
+
+test('description v39 keeps its frozen public artifact', () => {
+  assert.equal(TOOL_DESCRIPTION_V39_SHA256,
+    'ce0220421765f2ae41c6e27ee70b7b7a4884299dddf83313b846a61e4b2bccbd');
+});
+
+test('description v38 keeps its frozen public artifact', () => {
+  assert.equal(TOOL_DESCRIPTION_V38_SHA256,
+    'e0b209ebc81b481b82f25c7dd2e387f430b688310430bebee263ec059d58d14b');
 });
 
 test('description v37 keeps its frozen public artifact', () => {

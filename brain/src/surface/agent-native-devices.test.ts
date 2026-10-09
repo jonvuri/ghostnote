@@ -2,6 +2,8 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
+import { z } from 'zod';
+
 import { FakeAdapter } from '../adapters/fake/adapter.js';
 import type { FakeDevice } from '../adapters/fake/model.js';
 import { IdentityRegistry } from '../bindings/identity-registry.js';
@@ -9,7 +11,7 @@ import { Executor } from '../engine/index.js';
 import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
 import { compositionBackend } from './agent-native-devices.js';
-import { AGENT_NATIVE_TOOL_PROFILE, callTool } from './tools.js';
+import { AGENT_NATIVE_TOOL_PROFILE, AGENT_NATIVE_TOOLS, callTool } from './tools.js';
 import { workspaceOf } from './workspace.js';
 
 type Wire = Record<string, any>;
@@ -206,6 +208,19 @@ test('8h4e compose_devices: offline-only edits refuse on the staged path before 
       modulatorEdits: [{ kind: 'delete', modulator: 'LFO' }] }] }] });
   assert.equal(result.failure.code, 'unsupported', JSON.stringify(result));
   assert.equal(result.detail.reason, 'offline-only-edits');
+  assert.equal(fx.stash.log.list().length, 0);
+});
+
+test('8i5 D46 compose_devices: no behavior input; an unproved route form refuses before any read', async () => {
+  const spec = AGENT_NATIVE_TOOLS.find((item) => item.name === 'compose_devices')!;
+  assert.doesNotMatch(JSON.stringify(z.toJSONSchema(spec.inputValidator!)), /behaviorCheck/);
+  const fx = abFixture();
+  const result = await fx.native('compose_devices', { trackId: fx.trackId, containerKind: 'FX Layer',
+    containerPosition: 2, layerChains: [{ name: 'A', devices: [{ source: { kind: 'native', name: 'EQ+' },
+      modulators: [{ location: 'container', modulator: 'lfo',
+        target: { parameterId: 'CONTENTS/BAND1/GAIN', parameterName: 'Gain' }, amount: 0.5 }] }] }] });
+  assert.equal(result.failure.code, 'unsupported', JSON.stringify(result));
+  assert.equal(result.detail.reason, 'unproved-route-form');
   assert.equal(fx.stash.log.list().length, 0);
 });
 

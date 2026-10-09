@@ -60,7 +60,8 @@ export interface GeneralDeviceModulationRequest {
   readonly pageName: string;
   readonly target: ModulationTarget;
   readonly amount: number;
-  readonly behaviorCheck: 'active' | 'page-only';
+  /** `identity` (D46): the exact target id and name, with no behavior samples. */
+  readonly behaviorCheck: 'active' | 'page-only' | 'identity';
 }
 
 export interface GeneralDeviceEntryDeviceRequest {
@@ -584,14 +585,16 @@ async function addEntry(
       host, deviceWitness.address, pageWitnesses(relevantPages), options.wait ?? wait,
     );
   // 8i3 (E252): the active witnesses of one device share each sample round, and each keeps its own verdict.
-  const active = entryDevice.modulators.filter((modulator) => modulator.behaviorCheck === 'active');
+  const active = entryDevice.modulators.filter((modulator) => modulator.behaviorCheck !== 'page-only');
   const behaviors: ModulationVerification[] = [];
   for (const address of [deviceWitness.address, nested]) {
     const indices = active.flatMap((item, index) =>
       (item.location === 'device' ? deviceWitness.address : nested) === address ? [index] : []);
     if (indices.length === 0) continue;
     const verified = await verifyModulations(host, address, indices.map((index) => ({
-      ...active[index]!.target, expected: 'active' as const })), options.wait ?? wait);
+      ...active[index]!.target,
+      expected: active[index]!.behaviorCheck === 'identity' ? 'identity' as const : 'active' as const })),
+    options.wait ?? wait);
     indices.forEach((index, position) => { behaviors[index] = verified[position]!; });
     if (deviceWitness.address === nested) break;
   }
@@ -634,7 +637,7 @@ async function addEntry(
     },
     pages, containerPages, behaviors,
     verified: (preserved ?? true) && pages.verified && containerPages.verified
-      && behaviors.length === entryDevice.modulators.filter((item) => item.behaviorCheck === 'active').length
+      && behaviors.length === entryDevice.modulators.filter((item) => item.behaviorCheck !== 'page-only').length
       && behaviors.every((item) => item.verified),
   };
   return {

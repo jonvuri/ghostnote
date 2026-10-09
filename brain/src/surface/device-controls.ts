@@ -11,7 +11,8 @@ import { z } from 'zod';
 import {
   chain as chainAt, param as paramAt, remote as remoteAt, remotes as remotesAt,
   track as trackAt, device as deviceAt, deviceIn, drumPad as drumPadAt,
-  addressKey, discreteNormalizedValues, hasMeaningfulBaseToModulatedDivergence,
+  addressKey, discreteNormalizedValues, hasMeaningfulBaseToModulatedDivergence, resolveRemoteSelector,
+  RemoteSelectorError,
   type DeviceAddress, type ObservedDeviceBank, type Op, type ParamState,
 } from '../contract/index.js';
 import { receiptOf, refusalOf } from './report.js';
@@ -593,11 +594,23 @@ export async function setDeviceControls(
         for (const item of cohort) {
           const setting = item.setting;
           if (setting.kind !== 'remote') throw new Error('the parameter cohort view changed');
-          const page = entry.value.remotes.pages[setting.pagePosition];
-          const control = page?.controls[setting.controlPosition];
-          if (page?.name !== setting.pageName || control?.name !== setting.controlName) {
-            throw new Error('the remote page or control does not match the fresh inventory');
+          // 8i5: a page lists only existing controls. Resolve the host positions by index, never by array position.
+          const resolved = resolveRemoteSelector(entry.value.remotes.pages, {
+            pageIndex: setting.pagePosition,
+            pageName: setting.pageName,
+            controlIndex: setting.controlPosition,
+            controlName: setting.controlName,
+          });
+          if (!resolved.found) {
+            throw new RemoteSelectorError(remoteAt(
+              target,
+              setting.pagePosition,
+              setting.pageName,
+              setting.controlPosition,
+              setting.controlName,
+            ), resolved.reason);
           }
+          const control = resolved.control;
           if (hasMeaningfulBaseToModulatedDivergence(
             control.value,
             control.modulatedValue,

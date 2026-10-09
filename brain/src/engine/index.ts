@@ -33,7 +33,7 @@ export {
   authorSemanticPreset, ModulatorAuthoringError,
 } from './modulator-authoring.js';
 
-export { modulationRoute } from './modulation-target.js';
+export { PROVED_ROUTE_FORMS, modulationRoute, provedRouteForm, unprovedRouteTargets } from './modulation-target.js';
 export type {
   ModulationTarget, ResolvedModulationTargetLocation,
 } from './modulation-target.js';

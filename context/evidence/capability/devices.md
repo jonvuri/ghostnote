@@ -2,9 +2,9 @@
 title: Devices — type UUIDs, parameters and observables
 kind: capability
 state: active
-updated: 2026-09-12
+updated: 2026-10-09
 scope: device identification, parameter access and the observable surface
-evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E73; D2; reference/BitX
+evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E73, E254; D2, D46; reference/BitX
 ---
 
 # Devices
@@ -126,6 +126,16 @@ module segment. Bitwig DirectParameter observers do not expose
 `modulatedValue`; an exact remote control or a typed VST3 handle supplies the
 internal behavior witness [K,
 [E85](../experiments/e85-general-directparameter-modulation-targets-are-live.md)].
+A `RemoteControl` has no ID, so an equal remote label does not prove the
+parameter: Sampler labels `CONTENTS/FILT_FREQ` (`Filter Frequency`) as
+`Filt Freq`. Since [D46](../../decisions/d46-modulation-writers-claim-the-route-not-the-sound.md), `agent-native-v1` runs no behavior witness. It admits
+only route forms that the modulation route suite proves live, and its
+results claim the authored route, not target activity [K,
+[E254](../experiments/e254-device-control-identity-and-route-claims.md)].
+
+A remote page lists only the slots that hold a control. A control position is
+its host slot, not its array index: Blur `Common` has controls at 0, 1, 2, 3,
+and 7. Selectors resolve by host index and both names [K, E254].
 
 The live Sampler returned 32 unique named parameters. `Pitch Transpose` moved
 from `0.5` to `0.55`, independent readback agreed, and exact replay restored
@@ -431,6 +441,7 @@ to a replacement [K, E90].
 
 | Date | Change |
 |---|---|
+| 2026-10-09 | E254 adds sparse remote positions, the remote-label limit, and the D46 route claim of the live product. |
 | 2026-09-12 | E101 proves direct VSTPRESET, indexed-direct H2P, one FXP no-op, the FXB fixture gap, and the API 25 popup transaction limit. |
 | 2026-09-01 | E96 proves compact relocation for 12 supported donor types, exact ordinal page families, complete fresh remote-inventory retry, and 31 pre-write catalog refusals. |
 | 2026-08-29 | E90 proves owned FX Layer late binding for native and VST3 devices, records the wrong-position control, and limits Chain and Instrument Layer. |

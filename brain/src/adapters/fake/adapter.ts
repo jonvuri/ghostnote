@@ -28,7 +28,7 @@ import {
 } from '../../contract/index.js';
 import { INSTRUMENT_LAYER_SEED_BASENAME } from '../../device-alternates/assets.js';
 import { basename } from 'node:path';
-import { planStages } from '../../contract/index.js';
+import { planStages, resolveRemoteSelector } from '../../contract/index.js';
 import { VirtualClock } from './clock.js';
 import { ProjectModel, noteKey, type FakeDevice, type FakeTrack } from './model.js';
 import {
@@ -287,7 +287,7 @@ export class FakeAdapter implements BitwigAdapter {
         index: pageIndex,
         name: page.name,
         controls: page.controls.map((control, index): RemoteControlState => ({
-          index,
+          index: control.index ?? index,
           name: control.name,
           value: control.value,
           ...(control.display === undefined ? {} : { display: control.display }),
@@ -302,6 +302,17 @@ export class FakeAdapter implements BitwigAdapter {
         })),
       })),
     };
+  }
+
+  /** The mutable model control at one host page and control index (8i5: a page can skip indices). */
+  private fakeRemoteControl(
+    device: FakeDevice,
+    address: import('../../contract/index.js').RemoteAddress,
+  ): NonNullable<FakeDevice['remotePages']>[number]['controls'][number] | undefined {
+    const page = device.remotePages?.[address.pageIndex];
+    if (page?.name !== address.pageName) return undefined;
+    const matches = page.controls.filter((control, index) => (control.index ?? index) === address.controlIndex);
+    return matches.length === 1 && matches[0]!.name === address.controlName ? matches[0] : undefined;
   }
 
   async revision(): Promise<RevisionMark> {
@@ -409,9 +420,7 @@ export class FakeAdapter implements BitwigAdapter {
           }
           if (address.kind === 'remotes') return { address, found: true, index: address.device.chainIndex };
           if (address.kind === 'remote') {
-            const page = device.remotePages?.[address.pageIndex];
-            const control = page?.controls[address.controlIndex];
-            const found = page?.name === address.pageName && control?.name === address.controlName;
+            const found = this.fakeRemoteControl(device, address) !== undefined;
             return found
               ? { address, found: true, index: address.device.chainIndex }
               : { address, found: false, reason: 'absent' as const };
@@ -872,10 +881,9 @@ export class FakeAdapter implements BitwigAdapter {
         if (!target.ok) return target.miss === 'absent' || target.miss === 'ambiguous'
           ? undefined : 'unreachable';
         const inventory = this.fakeRemoteInventory(target.device);
-        const page = inventory.pages[address.pageIndex];
-        const control = page?.controls[address.controlIndex];
-        if (page?.name !== address.pageName || control?.name !== address.controlName) return undefined;
-        return { address, fidelity: 'exact', value: { of: 'remote', remote: control } };
+        const resolved = resolveRemoteSelector(inventory.pages, address);
+        if (!resolved.found) return undefined;
+        return { address, fidelity: 'exact', value: { of: 'remote', remote: resolved.control } };
       }
       case 'drumPad':
       case 'deviceSlot':
@@ -1006,9 +1014,7 @@ export class FakeAdapter implements BitwigAdapter {
             `remote device is "${target.device.name}", expected "${op.expectedName}"`,
           );
         }
-        const page = target.device.remotePages?.[op.remote.pageIndex];
-        const control = page?.controls[op.remote.controlIndex];
-        if (page?.name !== op.remote.pageName || control?.name !== op.remote.controlName) {
+        if (this.fakeRemoteControl(target.device, op.remote) === undefined) {
           throw new AddressUnresolvedError(op.remote, 'remote target is absent or stale');
         }
       }
@@ -1867,9 +1873,8 @@ export class FakeAdapter implements BitwigAdapter {
         const track = this.requireTrack(op.remote.device.track, op.op);
         const target = this.deepDevice(track, op.remote.device);
         if (!target.ok) throw new UnsupportedOpError(`remote.set target is ${target.miss}`, 'fake');
-        const page = target.device.remotePages?.[op.remote.pageIndex];
-        const control = page?.controls[op.remote.controlIndex];
-        if (page?.name !== op.remote.pageName || control?.name !== op.remote.controlName) {
+        const control = this.fakeRemoteControl(target.device, op.remote);
+        if (control === undefined) {
           throw new UnsupportedOpError('remote.set target is absent or stale', 'fake');
         }
         this.clock.stage(() => {

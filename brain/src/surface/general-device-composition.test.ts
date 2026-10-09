@@ -1247,3 +1247,29 @@ test('8h4e check_revert: the composition preview runs the first reversal guards 
   assert.equal(reversed.detail.failedStage, 'reversal-boundary');
   assert.deepEqual(fx.row.devices.map((item) => item.name), devicesBefore, 'the refused reversal wrote nothing');
 });
+
+test('8i5 review: agent-native compose_devices keeps the exact target identity check', async () => {
+  for (const target of [
+    { parameterId: 'CONTENTS/DOES_NOT_EXIST', parameterName: 'Nothing' },
+    { parameterId: 'CONTENTS/F1FREQ', parameterName: 'Wrong Name' },
+  ]) {
+    const fx = fixture();
+    const result = await callTool(fx.workspace, 'compose_devices', {
+      trackId: fx.trackId, containerKind: 'FX Layer', containerPosition: 2,
+      layerChains: [{ name: 'Copy', devices: [{ source: { kind: 'existing-copy', devicePosition: 0 },
+        modulators: [{ ...outer, target }] }] }],
+    }, AGENT_NATIVE_TOOL_PROFILE) as Record<string, any>;
+    const text = JSON.stringify(result).slice(0, 800);
+    assert.notEqual(result['readback']?.status, 'verified', text);
+    assert.ok(result['failure'] !== undefined, text);
+    assert.ok(result['failure'].effects.length > 0, `${text}: the recorded stages stay reversible`);
+  }
+  const fx = fixture();
+  const valid = await callTool(fx.workspace, 'compose_devices', {
+    trackId: fx.trackId, containerKind: 'FX Layer', containerPosition: 2,
+    layerChains: [{ name: 'Copy', devices: [{ source: { kind: 'existing-copy', devicePosition: 0 },
+      modulators: [outer] }] }],
+  }, AGENT_NATIVE_TOOL_PROFILE) as Record<string, any>;
+  assert.equal(valid['readback']?.status, 'verified', JSON.stringify(valid).slice(0, 800));
+  assert.equal(valid['readback'].modulationClaim.behaviorWitness, 'not-run');
+});

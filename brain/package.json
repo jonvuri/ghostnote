@@ -101,6 +101,7 @@
     "probe:phase5n-authoring": "tsx src/probes/phase5n-general-public-authoring.ts",
     "probe:phase5p-wrapper": "tsx src/probes/phase5p-existing-device-wrapper.ts",
     "probe:phase5q-composition": "tsx src/probes/phase5q-general-device-composition.ts",
+    "probe:modulation-routes": "tsx src/probes/modulation-route-suite.ts",
     "probe:phase5r-capacity": "tsx src/probes/phase5r-container-shape-and-capacity.ts",
     "probe:phase5t-grid": "tsx src/probes/phase5t-grid-generalization.ts",
     "probe:phase5u-settlement": "tsx src/probes/phase5u-settlement.ts",

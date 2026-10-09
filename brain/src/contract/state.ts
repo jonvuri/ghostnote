@@ -308,6 +308,37 @@ export interface RemoteControlsState {
   readonly pages: readonly RemotePageState[];
 }
 
+export type RemoteSelectorResolution =
+  | { readonly found: true; readonly page: RemotePageState; readonly control: RemoteControlState }
+  | { readonly found: false; readonly reason: 'absent' | 'changed' | 'ambiguous' };
+
+/**
+ * Find one remote control by its host page and control indices (8i5). A page lists only the controls that exist,
+ * so `controls` is compact and a host index is not an array position. The page and control names must match,
+ * and each index must name exactly one entry.
+ */
+export function resolveRemoteSelector(
+  pages: readonly RemotePageState[],
+  selector: {
+    readonly pageIndex: number;
+    readonly pageName: string;
+    readonly controlIndex: number;
+    readonly controlName: string;
+  },
+): RemoteSelectorResolution {
+  const pageMatches = pages.filter((page) => page.index === selector.pageIndex);
+  if (pageMatches.length > 1) return { found: false, reason: 'ambiguous' };
+  const page = pageMatches[0];
+  if (page === undefined) return { found: false, reason: 'absent' };
+  if (page.name !== selector.pageName) return { found: false, reason: 'changed' };
+  const controlMatches = page.controls.filter((control) => control.index === selector.controlIndex);
+  if (controlMatches.length > 1) return { found: false, reason: 'ambiguous' };
+  const control = controlMatches[0];
+  if (control === undefined) return { found: false, reason: 'absent' };
+  if (control.name !== selector.controlName) return { found: false, reason: 'changed' };
+  return { found: true, page, control };
+}
+
 export interface DeviceState {
   readonly chainIndex: number;
   readonly name: string;

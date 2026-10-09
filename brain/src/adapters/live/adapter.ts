@@ -46,7 +46,7 @@ import {
   type LaunchMode, type LaunchQuantization, type SceneAddress, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
   type Stage, type TrackAddress, type TrackState, type WindowCoverage,
 } from '../../contract/index.js';
-import { LAUNCH_MODES, LAUNCH_QUANTIZATIONS, recordUnpinnedCursorTracks, SETTLE_MS } from '../../contract/index.js';
+import { LAUNCH_MODES, LAUNCH_QUANTIZATIONS, recordUnpinnedCursorTracks, resolveRemoteSelector, SETTLE_MS } from '../../contract/index.js';
 import { BridgeError } from '../../client.js';
 import {
   encodeStage, notePageStarts, notePropertyPageStarts,
@@ -2584,10 +2584,8 @@ export class LiveAdapter implements BitwigAdapter {
     address: import('../../contract/index.js').RemoteAddress,
     inventory: Extract<RemoteInventory, { standing: 'stable' }>,
   ): import('../../contract/index.js').RemoteControlState | undefined {
-    const page = inventory.remotes.pages[address.pageIndex];
-    if (page?.name !== address.pageName) return undefined;
-    const control = page.controls.find((item) => item.index === address.controlIndex);
-    return control?.name === address.controlName ? control : undefined;
+    const resolved = resolveRemoteSelector(inventory.remotes.pages, address);
+    return resolved.found ? resolved.control : undefined;
   }
 
   /**

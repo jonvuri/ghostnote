@@ -4,60 +4,59 @@ kind: status
 state: active
 updated: 2026-10-09
 phase: phase-8-agent-native-live-engine
-session: 8i5-device-control-identity
+session: 8i-trial-set
 ---
 
 ## Now
 
-Next: [8i5 device control identity](plan/phase-8/8i5-device-control-identity.md).
-The 2026-10-09 dogfood session completed the bass revision and sound task.
-The operator accepted both. Review found two failures: a valid Blur remote
-at host position 7 was indexed as a compact array position; the Sampler
-wrapper completed its structural writes but its behavior witness could not
-match `Filter Frequency` to remote `Filt Freq`. Both reproduce offline.
-The plan fixes selectors, proves an ID-bound behavior witness, and makes
-witness failure results clear. It also includes Patch help with the first
-edit read. Keep the accepted material. The remaining 8i groove and overlay
-dependency trials are still open.
+Next: resume the [8i trial set](plan/phase-8/8i-agent-native-hybrid-dogfood.md).
+A groove task and an overlay dependency change remain. Preserve the accepted
+"ice jungle" material.
 
-The [interface review](plan/phase-8/8i-trial-2-interface-review.md) separates
-extra calls caused by product recovery from agent-side output choices.
-The first two priorities are in 8i5, with a fresh agent trial. Later
-candidates cover discovery output, saved preset scope, and supported
-authoring types. Test improvements before adding a sampling or discovery tool.
+8i5 is complete
+([E254](evidence/experiments/e254-device-control-identity-and-route-claims.md),
+[D46](decisions/d46-modulation-writers-claim-the-route-not-the-sound.md)).
 
-8i4 is complete
-([E253](evidence/experiments/e253-overlay-basis-sealing.md),
-[D45](decisions/d45-the-edit-limb-seals-explicit-overlay-claims.md)).
-`edit_launcher_clip` is the supplied dependency-basis utility: a current
-claim that the call states (each `OVERLAY_PUT`, and each `OVERLAY` of a
-desired document that omits `basis` or differs from the stored claim) can
-omit `basis`. The tool computes it on the state after the note changes of
-the same call. A supplied basis that does not match refuses with reason R22
-and `detail.expectedBasis`. Retained and stale claims are never sealed. The
-code is `brain/src/bindings/overlay-seal.ts`; the rule is in
-`HOST-BINDING.md` ("Overlay basis sealing"). No grammar, codec API, or model
-reference change. No host turn; no extension change. Descriptions are
-`ghostnote-description-v38` (v37 frozen).
+- Remote selectors resolve by host index and both names
+  (`resolveRemoteSelector`, `contract/state.ts`). A page lists only the slots
+  that hold a control (Blur `Common`: 0, 1, 2, 3, 7). A stale, missing, or
+  ambiguous selector refuses before a write (`absent` or `target-changed`,
+  reason `remote-selector-*`).
+- D46 (operator decision during the session): `wrap_existing_device_modulation`,
+  `edit_preset_modulation`, and `compose_devices` run no behavior witness in
+  `agent-native-v1` and have no behavior input. They refuse a target ID
+  outside the proved route forms (`unproved-route-form`) and claim the
+  authored route, not the sound. Native modulation work needs no audio
+  engine. `stable-v1` keeps the witness. `npm run probe:modulation-routes`
+  is the live route proof: run it after a route-path change and after each
+  Bitwig upgrade (18/18 pass, 160 s; audio engine on, Zebra3 installed).
+- Live in "New 2": the Sampler ADSR wrap that failed on 2026-10-09 completes;
+  wrap 13.6 to 9.4 s, preset edit 7.1 to 2.1 s, composition with 4
+  modulators 25.3 to 12.4 s. The ledger has the rows.
+- Review fix: authoring and composition still check each target's exact ID
+  and name in the new device inventory (an `identity` witness, no samples).
+  A miss fails at readback with the change recorded.
+- `read_launcher_clip` asks for Patch help on the first read before a patch
+  edit. A fresh Codex agent did that and made no repeat read (one read, one
+  edit, 24 s).
+- Descriptions `ghostnote-description-v40` (v39, used in the trial, frozen). Result schemas
+  `ghostnote-device-modulation-wrap/2`, `ghostnote-preset-modulation-edit/2`,
+  `ghostnote-device-compose/2`. No extension change. 2,148 brain tests pass.
 
-Live in "New 3" (HEAD refused the same agent-shaped put with R12): a nominal
-and a dependent groove put in the call that moves their note sealed and
-verified; an unrelated edit kept them current; a dependency edit made them
-stale with the sealed basis; a remove had no effect. All writes were
-reverted; the track list equals the baseline. All 2,134 brain tests pass.
+Open from 8i5:
+
+- No ID-bound CLAP witness in the route suite.
+- No tool reports the description version; the operator could not have the
+  trial agent confirm v39. Candidate: add it to `check_bitwig_connection`.
+- The `phase8i3-long-writes.ts modulation` mode still asks for a 3-chain
+  composition with modulators (12 units), which D44 refuses. `identity`
+  uses the 6-unit shape.
+- Interface review candidates 3 to 5 (discovery output, preset read scope,
+  authoring type names) need their own scope.
 
 Open from E253: the codec structure check builds a `DocumentError` for each
 failed `oneOf` branch; at 16,384 claims the planner takes 6.3 s (a
-publication candidate change to fix). The first E253 run had slow
-post-write captures (whole-clip edits 2.3 s); the inventory (1,666 ms) and
-a rerun (1,686 ms) on the same code did not, so the ledger stands.
-
-### Next
-
-1. Complete [8i5](plan/phase-8/8i5-device-control-identity.md) on owned
-   fixtures. Preserve the accepted "ice jungle" bass and chord clips.
-2. Resume the [8i trial set](plan/phase-8/8i-agent-native-hybrid-dogfood.md):
-   a groove task and an overlay dependency change remain.
+publication candidate change to fix).
 
 Agent impact from 8i3 to keep in mind: with the D44 limits, the agent splits
 larger work into more calls. A split is not atomic; `revert_change` does not
@@ -102,24 +101,23 @@ pressure warning as a host limit.
   parameter inventories around a device control write are the costliest
   safeguard (27 controls: 14.4 s).
 
-## Last live baseline (8i4)
+## Last live baseline (8i5)
 
 The deployed normal `ghostnote` archive is unchanged since 8i1: SHA-256
 `aae2c7e346c413dc409c572a3e52dc44f983f08ac232ea302e4c0b14f0bc1fb0`, 89
 methods, `0ef817f4bac8a8a7`, `fineSteps` 4,194,304, and the `rig.info`
 markers `clipMetadataWrite: owned-fields-v1` and `cursorTrackPins.rule:
-owned-tracks-pinned-v1`. The 8i3 and 8i4 changes are brain-only. The last
-fixture verification used "New 3" (Inst 1, Audio 2, FX 1; 8 scenes; audio
-engine on), at baseline; `gn-scale-test`, "New 2", and "New 6" were unchanged.
-The later dogfood session used "ice jungle". The next free evidence number
-is E254; the next decision is D46.
-Check the current project before live work; dogfood uses "ice jungle".
-`phase8i4-overlay-seal.ts seal` checks the claim lifecycle live on its own
-track.
+owned-tracks-pinned-v1`. The 8i3 to 8i5 changes are brain-only. The last
+fixture verification used "New 2" (Inst 1, Audio 2, FX 1; 8 scenes; audio
+engine on), at baseline after the 8i5 runs and the trial. "ice jungle" was
+not touched. The next free evidence number is E255; the next decision is
+D47. Check the current project before live work; dogfood uses "ice jungle".
+`phase8i3-long-writes.ts identity` checks the selector and the D46 writers;
+`probe:modulation-routes` checks the route forms.
 
 ## Facts
 
-Add the index row in the same session as a new E or D record. An agent claim can omit `basis`; `edit_launcher_clip` seals it (D45). Clip colour no
+Add the index row in the same session as a new E or D record. A remote control position is its host slot, not an array index (E254). The modulation writers claim the route, not the sound (D46); a new route form needs a route-suite case first. An agent claim can omit `basis`; `edit_launcher_clip` seals it (D45). Clip colour no
 longer needs the palette (D42); a colour sample must include dark colours.
 Report note channels 1-based to the operator. A long write has a D44 limit
 in `write-limits.ts`; a new or changed long path measures its largest
@@ -158,6 +156,18 @@ driver run: deleted tracks stay in the undo history.
 
 VU audibility oracle (E239): stop every clip and the transport, wait for VU 0,
 then launch one track and read the Master VU as well.
+
+## 8i5 retrospective
+
+- The plan prescribed a typed Sampler family as the fix. Checking the API
+  first (no ID on `RemoteControl`, no CLAP typed route) showed that the
+  per-call witness was the problem, and the operator removed it from the
+  product (D46). A plan that adds a per-call proof states what the proof
+  needs (audio engine, notes, handles) and which risk it covers.
+- Fakes with dense remote pages and labels equal to parameter names hid both
+  failures. Fixtures use host indices and real host labels.
+- A driver mode copied from 8i3 asked for a shape that D44 refuses. Check a
+  reused driver input against the current limits before the live run.
 
 ## 8i4 retrospective
 

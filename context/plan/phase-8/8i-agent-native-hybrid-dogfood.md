@@ -2,7 +2,7 @@
 title: Phase 8i — Agent-native hybrid dogfood
 kind: plan
 state: planned
-status: Final Phase 8 gate. 8i0–8i4 are complete (E249–E253, D42–D45). The second musical trial passed. Next: 8i5 device control identity, then the remaining groove and overlay dependency trials.
+status: Final Phase 8 gate. 8i0–8i5 are complete (E249–E254, D42–D46). The second musical trial passed. Next: the remaining groove and overlay dependency trials.
 updated: 2026-10-09
 parent: README.md
 prev: 8i5-device-control-identity.md
@@ -46,12 +46,19 @@ The following sessions completed them before the 2026-10-09 trial:
    [D45](../../decisions/d45-the-edit-limb-seals-explicit-overlay-claims.md)):
    `edit_launcher_clip` computes the basis of each claim that the call
    states.
+6. [8i5 — Device control identity](8i5-device-control-identity.md).
+   Complete ([E254](../../evidence/experiments/e254-device-control-identity-and-route-claims.md),
+   [D46](../../decisions/d46-modulation-writers-claim-the-route-not-the-sound.md)):
+   remote selectors resolve by host index; the modulation writers claim the
+   authored route and run no behavior witness; `npm run
+   probe:modulation-routes` keeps the live route proof. A fresh agent asked
+   for Patch help on its first read and made no repeat read.
 
 ## Second musical trial
 
 The second musical trial passed on 2026-10-09: the operator accepted the
-bass rhythm revision and sound. Preserve that result. Two device failures
-from the session are scoped in [8i5](8i5-device-control-identity.md).
+bass rhythm revision and sound. Preserve that result. 8i5 repaired the two
+device failures from the session ([E254](../../evidence/experiments/e254-device-control-identity-and-route-claims.md)).
 The [interface review](8i-trial-2-interface-review.md) records extra calls
 and their causes. This trial did not use overlays. Groove interpretation
 and overlay dependency changes remain open gates.

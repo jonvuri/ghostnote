@@ -110,6 +110,8 @@ export interface FakeDevice {
   remotePages?: {
     name: string;
     controls: {
+      /** Host control index. Absent: the array position. A sparse page sets it (8i5). */
+      index?: number;
       name: string;
       value: number;
       display?: string;

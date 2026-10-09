@@ -33,7 +33,7 @@
 import { BridgeError } from '../client.js';
 import {
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, CLIP_READ_SOUNDING_CELLS, ClipReadLimitError, WriterWidthError,
-  ClipSnapshotRefusedError, InvalidOpError, ParameterValueUnrepresentableError, SlotOccupiedError,
+  ClipSnapshotRefusedError, InvalidOpError, ParameterValueUnrepresentableError, RemoteSelectorError, SlotOccupiedError,
   CollapsedGroupRowError, ContractVersionError, GroupSlotError, RuntimeProfileMismatchError,
   StaleAddressError, WireDriftError,
   type ClipSnapshotVerdictKind,
@@ -226,6 +226,14 @@ export function classifyError(error: unknown): {
   if (error instanceof ParameterValueUnrepresentableError) {
     return { code: 'range', message: 'The normalized value is not in the host-proved discrete domain of the '
       + 'control. Use one of the returned normalized values.' };
+  }
+  if (error instanceof RemoteSelectorError) {
+    // 8i5: a remote selector names a host page and control index. A compact inventory lists only existing
+    // controls, so the selector is resolved by index and name, never by array position.
+    return { code: error.reason === 'absent' ? 'absent' : 'target-changed', message: error.reason === 'ambiguous'
+      ? 'The fresh remote inventory has more than one control at the selector index. Nothing was written.'
+      : 'The remote page or control at the selector positions is absent or has another name in the fresh '
+        + 'inventory. Nothing was written.', retryWhen: 'after read_device_controls with view remote-controls' };
   }
   if (error instanceof UnprotectedWriteError) {
     return { code: 'unsupported', message: 'The write would replace state that cannot be recorded exactly first. '

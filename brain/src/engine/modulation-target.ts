@@ -32,3 +32,24 @@ export function modulationRoute(
   return `CONTENTS/DEVICE_CHAIN/${location.containerName}/DEVICE_CHAIN/`
     + `${location.deviceIndex}:${parameterRoute}`;
 }
+
+/**
+ * D46: the DirectParameter id forms whose derived route the modulation conformance suite proves live. A native id
+ * is `CONTENTS/` and one segment; a plug-in id is `CONTENTS/PID` and a hex number. Another form (for example a
+ * deeper module path) can load as a silent route (E10), so the live product refuses it before mutation.
+ */
+export const PROVED_ROUTE_FORMS = Object.freeze([
+  { form: 'native', pattern: /^CONTENTS\/[^/]+$/ },
+  { form: 'plug-in', pattern: /^CONTENTS\/PID[0-9a-f]+$/i },
+] as const);
+
+/** The proved route form of one DirectParameter id, or undefined. */
+export function provedRouteForm(parameterId: string): 'native' | 'plug-in' | undefined {
+  if (PROVED_ROUTE_FORMS[1].pattern.test(parameterId)) return 'plug-in';
+  return PROVED_ROUTE_FORMS[0].pattern.test(parameterId) ? 'native' : undefined;
+}
+
+/** The targets whose id has no proved route form (D46). */
+export function unprovedRouteTargets<T extends ModulationTarget>(targets: readonly T[]): T[] {
+  return targets.filter((target) => provedRouteForm(target.parameterId) === undefined);
+}

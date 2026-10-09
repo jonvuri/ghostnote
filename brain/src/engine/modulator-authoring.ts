@@ -63,13 +63,18 @@ export interface ModulatorParameterWitness {
   };
 }
 
+/**
+ * `active` requires divergence. `inactive` requires its absence. `identity` (D46) requires only the exact
+ * DirectParameter id and name in the stable inventory: it takes no samples and claims no behavior.
+ */
+export type ModulationExpectation = 'active' | 'inactive' | 'identity';
+
 export interface ModulatorBehaviorWitness extends ModulatorParameterWitness {
-  /** `active` requires divergence. `inactive` requires its absence. */
-  readonly expected: 'active' | 'inactive';
+  readonly expected: ModulationExpectation;
 }
 
 export interface ModulationBatchWitness extends ModulatorParameterWitness {
-  readonly expected?: 'active' | 'inactive';
+  readonly expected?: ModulationExpectation;
 }
 
 export interface ModulatorPageWitness {
@@ -114,6 +119,8 @@ export type ModulationVerification =
   | {
     readonly verified: true;
     readonly selector: ParamAddress;
+    /** D46: only the exact id and name were checked; no behavior was sampled. */
+    readonly identityOnly?: true;
     readonly samples: readonly ModulationSample[];
     readonly maximumDivergence: number;
     readonly baseSpread: number;
@@ -654,7 +661,7 @@ export async function verifyModulation(
   device: DeviceAddress,
   witness: ModulatorParameterWitness,
   pause: (milliseconds: number) => Promise<void>,
-  expected: 'active' | 'inactive' = 'active',
+  expected: ModulationExpectation = 'active',
   settlementOptions: SettlementOptions = {},
 ): Promise<ModulationVerification> {
   return (await verifyModulations(
@@ -718,9 +725,10 @@ export async function verifyModulations(
       + `${JSON.stringify(selected?.name ?? 'missing')}, not ${JSON.stringify(witness.parameterName)}`;
   });
 
+  const identityOnly = (index: number): boolean => witnesses[index]!.expected === 'identity';
   const fallbackIndices = originals.flatMap((selected, index) =>
     selected !== undefined && (!selected.observed.modulatedValue || selected.modulatedValue === undefined)
-      && failures[index] === undefined ? [index] : []);
+      && failures[index] === undefined && !identityOnly(index) ? [index] : []);
   const reports = witnesses.map(() => initial.report);
   if (fallbackIndices.length > 0) {
     const inventoryAddress = remotes(device);
@@ -770,7 +778,7 @@ export async function verifyModulations(
   let samples = witnesses.map((): ModulationSample[] => []);
   const maximumSamples = max(witnesses.map((witness) => witness.samples ?? DEFAULT_SAMPLES));
   const sampledIndices = witnesses.flatMap((_, index) =>
-    failures[index] === undefined ? [index] : []);
+    failures[index] === undefined && !identityOnly(index) ? [index] : []);
   if (sampledIndices.length > 0) {
     const sampled = await settleObservation<readonly ModulationSample[][]>(async () => {
       const attemptSamples = witnesses.map((): ModulationSample[] => []);
@@ -835,11 +843,17 @@ export async function verifyModulations(
     }
   }
 
-  return witnesses.map((witness, index) => failures[index] === undefined
-    ? evaluateSamples(
-      witness, witness.expected ?? 'active', selectors[index]!, samples[index]!, reports[index],
-    )
-    : failedVerification(failures[index]!, selectors[index], samples[index], reports[index]));
+  return witnesses.map((witness, index) => failures[index] !== undefined
+    ? failedVerification(failures[index]!, selectors[index], samples[index], reports[index])
+    : identityOnly(index)
+      ? {
+        verified: true as const, identityOnly: true as const, selector: selectors[index]!, samples: [],
+        maximumDivergence: 0, baseSpread: 0, ...(reports[index] === undefined ? {} : { settlement: reports[index] }),
+      }
+      : evaluateSamples(
+        witness, witness.expected === 'inactive' ? 'inactive' : 'active', selectors[index]!, samples[index]!,
+        reports[index],
+      ));
 }
 
 function evaluateSamples(

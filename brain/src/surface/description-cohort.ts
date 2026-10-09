@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v38';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v40';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -520,7 +520,9 @@ const RETIRED_IN_V33 = new Set(['inspect_operation', 'cancel_operation']);
  * state their measured costs and D44 limits, and the clip batch schemas have no maxItems (the limit refuses with
  * code outside-limit). wrap_existing_device_modulation has its own agent-native-v1 text. v37 (8i3 limit
  * follow-up) keeps this list; each bounded input states its D44 limit in its schema text. v38 (8i4, D45) keeps
- * this list; edit_launcher_clip computes the dependency basis of each claim that the call states.
+ * this list; edit_launcher_clip computes the dependency basis of each claim that the call states. v39 (8i5, D46)
+ * keeps this list; the modulation writers claim the authored route, not observed activity. v40 (8i5 review) keeps
+ * this list; they check the target id and name after the write.
  */
 export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] =
   DESCRIPTION_COHORT_V32.filter((member) => !RETIRED_IN_V33.has(member.name));
@@ -750,8 +752,23 @@ export const TOOL_DESCRIPTION_V37_SHA256 =
 
 /**
  * v38 (8i4, D45): edit_launcher_clip is the dependency-basis utility. A current claim that the call states can omit
- * basis; a supplied basis that does not match refuses with the expected basis. Changing this fingerprint requires a
- * new description version.
+ * basis; a supplied basis that does not match refuses with the expected basis. Frozen in 8i5.
  */
 export const TOOL_DESCRIPTION_V38_SHA256 =
   'e0b209ebc81b481b82f25c7dd2e387f430b688310430bebee263ec059d58d14b';
+
+/**
+ * v39 (8i5, D46): the three modulation writers run no behavior witness and refuse an unproved route form;
+ * edit_preset_modulation and compose_devices have no behavior input; a remote control position is its host slot;
+ * read_launcher_clip asks for Patch help on the first read before a patch edit. Frozen in the 8i5 review (the
+ * fresh agent trial used it).
+ */
+export const TOOL_DESCRIPTION_V39_SHA256 =
+  'ce0220421765f2ae41c6e27ee70b7b7a4884299dddf83313b846a61e4b2bccbd';
+
+/**
+ * v40 (8i5 review, D46): the modulation writers check the exact target id and name after the write; a missing or
+ * renamed target fails at readback. Changing this fingerprint requires a new description version.
+ */
+export const TOOL_DESCRIPTION_V40_SHA256 =
+  '4ed97c6716c4c6bb5ab9301010891ff93d11205ea4237a906bd92e3447566779';

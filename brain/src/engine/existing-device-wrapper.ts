@@ -124,6 +124,11 @@ export interface ExistingDeviceWrapperOptions {
   readonly tempRoot?: string;
   readonly templatePath?: string;
   readonly manifestPath?: string;
+  /**
+   * D46: `sample` (default, `stable-v1` and the conformance suite) proves active modulation with live samples.
+   * `skip` (`agent-native-v1`) runs no behavior witness; the result has no behavior claim.
+   */
+  readonly behaviorWitness?: 'sample' | 'skip';
 }
 
 class WrapperError extends Error {
@@ -419,18 +424,22 @@ async function wrapExistingDeviceModulationInside(
     const afterPages = await verifyPages(
       host, currentContainer, pageChecks, options.wait ?? wait,
     );
-    const behaviors = await verifyModulations(
-      host,
-      nested,
-      request.modulators.map((item) => item.target),
-      options.wait ?? wait,
-    );
-    const checked = verification(beforeFingerprint, afterFingerprint, afterPages, behaviors);
+    const sampled = options.behaviorWitness !== 'skip';
+    const behaviors = sampled
+      ? await verifyModulations(
+        host,
+        nested,
+        request.modulators.map((item) => item.target),
+        options.wait ?? wait,
+      )
+      : [];
+    const checked = verification(beforeFingerprint, afterFingerprint, afterPages, behaviors, sampled);
     return {
       complete: checked.verified,
       ...(checked.verified ? {} : {
         failedStage: 'post-move-witness' as const,
-        why: 'The existing device remains inside the owned container, but a post-move witness failed.',
+        why: 'The existing device remains inside the owned container, but a post-move witness failed: '
+          + postMoveFailures(checked).join('; ') + '.',
       }),
       stages,
       checkpoint: wrappedCheckpoint,
@@ -809,17 +818,28 @@ function verification(
   after: DeviceParameterFingerprint | undefined,
   pages: ModulatorPageVerification,
   behaviors: readonly ModulationVerification[],
+  sampled = true,
 ): ExistingDeviceWrapperVerification {
   const preserved = after !== undefined && sameFingerprint(before, after);
   return {
-    verified: preserved && pages.verified && behaviors.length > 0
-      && behaviors.every((item) => item.verified),
+    verified: preserved && pages.verified
+      && (!sampled || (behaviors.length > 0 && behaviors.every((item) => item.verified))),
     preservedOpaqueState: true,
     opaqueStateQualification: 'The workflow does not replace the existing device. Relocation moves the same instance. Opaque state is not read back byte for byte.',
     scalarFingerprint: { before, ...(after === undefined ? {} : { after }), preserved },
     pages,
     behaviors,
   };
+}
+
+/** Name each failed post-move witness, so the top-level result states the cause (8i5). */
+function postMoveFailures(checked: ExistingDeviceWrapperVerification): string[] {
+  const failures: string[] = [];
+  if (!checked.scalarFingerprint.preserved) failures.push('the parameter-base fingerprint changed');
+  if (!checked.pages.verified) failures.push(`the modulator pages did not read back (${checked.pages.why ?? 'no cause'})`);
+  const behaviors = checked.behaviors.filter((item) => !item.verified);
+  if (behaviors.length > 0) failures.push(`${behaviors.length} behavior witness(es) failed`);
+  return failures.length === 0 ? ['no witness failed'] : failures;
 }
 
 function pageWitnesses(pages: readonly string[]): { pageName: string; expectedCount: number }[] {

@@ -75,12 +75,12 @@ export {
   GAIN_READ_SCALE, LAUNCH_MODES, LAUNCH_QUANTIZATIONS, NOTE_PROP_FIDELITY, NOTE_PROP_WRITE_ORDER, UNVERIFIED_NOTE_PROPS,
   UNWRITABLE_NOTE_PROPS, hasUnverifiedProps, orderedNoteProps, unwritableProps,
   BASE_TO_MODULATED_WARNING_TOLERANCE, discreteNormalizedValues, discreteValueIsRepresentable,
-  hasMeaningfulBaseToModulatedDivergence,
+  hasMeaningfulBaseToModulatedDivergence, resolveRemoteSelector,
 } from './state.js';
 export type {
   ClipColor, ClipLaunchState, ClipMetadataState, ClipPlayState, DeviceState, LaunchMode,
   LaunchQuantization, NoteProp, NoteRecord, ParamState, PropFidelity, Recurrence,
-  RemoteControlState, RemoteControlsState, RemotePageState, TrackState,
+  RemoteControlState, RemoteControlsState, RemotePageState, RemoteSelectorResolution, TrackState,
 } from './state.js';
 
 export {
@@ -100,7 +100,7 @@ export type { AdapterCapabilities, AdapterInfo, BankLimits, ContractTag } from '
 export {
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, CLIP_READ_SOUNDING_CELLS, ClipReadLimitError, ContractError,
   ContractVersionError, InvalidOpError, NoteTimingUnrepresentableError, SlotOccupiedError,
-  ParameterValueUnrepresentableError, StaleAddressError, UnsupportedOpError, WireDriftError,
+  ParameterValueUnrepresentableError, RemoteSelectorError, StaleAddressError, UnsupportedOpError, WireDriftError,
   RuntimeProfileMismatchError, WriterWidthError, blindSpotError,
 } from './errors.js';
 export type { BankDimension, OccupiedSlotHazard } from './errors.js';

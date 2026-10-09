@@ -43,7 +43,7 @@ const CASES: Readonly<Record<string, { readonly input: Wire; readonly expect: 's
   add_scenes: { input: { count: 1 }, expect: 'success' },
   wrap_existing_device_modulation: { input: { ...deviceAt, expectedDeviceOrder: [{ name: 'X', enabled: true }],
     containerKind: 'FX Layer', entryName: 'Layer 1',
-    modulators: [{ modulator: 'lfo', target: { parameterId: 'P1', parameterName: 'P' }, amount: 0.5 }] }, expect: 'failure' },
+    modulators: [{ modulator: 'lfo', target: { parameterId: 'CONTENTS/P1', parameterName: 'P' }, amount: 0.5 }] }, expect: 'failure' },
   reverse_existing_device_modulation_wrap: { input: { checkpoint: { schemaVersion: 1, state: 'wrapped', trackId: MISSING,
     containerKind: 'FX Layer', entryName: 'Layer 1', currentEntryName: 'Layer 1', containerInsertChangeId: 'none',
     insertedContainerPosition: 0, currentContainerPosition: 0, originalDeviceOrder: [{ name: 'X', enabled: true }],
@@ -198,7 +198,7 @@ test('8h4f add_tracks makes an audio track; duplicate_track refuses an unproved 
 test('8h4f review P2: a wrap stage that the revision guard rejects returns target-changed with no effect', async () => {
   const fake = new FakeAdapter({ tracks: ['gn-wrap'], scenes: 1 });
   const row = fake.model.visibleTracks()[0]!;
-  row.devices.push({ name: 'Polysynth', enabled: true, paramsLive: true, params: [{ id: 'P1', name: 'Cutoff', value: 0.5 }] });
+  row.devices.push({ name: 'Polysynth', enabled: true, paramsLive: true, params: [{ id: 'CONTENTS/P1', name: 'Cutoff', value: 0.5 }] });
   let id = 0;
   const base = workspaceOf({
     ready: async () => undefined, adapter: fake,
@@ -210,7 +210,7 @@ test('8h4f review P2: a wrap stage that the revision guard rejects returns targe
     base.apply(ops, { ...run, ifRevision: -1 }) };
   const result = await callTool(ws, 'wrap_existing_device_modulation', { trackId: row.channelId, devicePosition: 0,
     expectedDeviceOrder: [{ name: 'Polysynth', enabled: true }], containerKind: 'FX Layer', entryName: 'Layer 1',
-    modulators: [{ modulator: 'lfo', target: { parameterId: 'P1', parameterName: 'Cutoff' }, amount: 0.5 }] },
+    modulators: [{ modulator: 'lfo', target: { parameterId: 'CONTENTS/P1', parameterName: 'Cutoff' }, amount: 0.5 }] },
   AGENT_NATIVE_TOOL_PROFILE) as Wire;
   const text = JSON.stringify(result).slice(0, 600);
   assert.equal(result['complete'], false, text);

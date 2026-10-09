@@ -30,6 +30,20 @@ export class ParameterValueUnrepresentableError extends ContractError {
 }
 
 /**
+ * A remote control selector does not name exactly one control in the fresh inventory (8i5). Nothing was written.
+ * `absent`: no page or control has the host index. `changed`: the name at the index differs. `ambiguous`: the
+ * inventory has more than one entry with the index.
+ */
+export class RemoteSelectorError extends ContractError {
+  constructor(
+    readonly address: RemoteAddress,
+    readonly reason: 'absent' | 'changed' | 'ambiguous',
+  ) {
+    super(`the remote control selector is ${reason} in the fresh inventory`);
+  }
+}
+
+/**
  * The brain and the deployed extension disagree about the contract version.
  * Overwhelmingly the cause is a stale `.bwextension`, so the message says so.
  */

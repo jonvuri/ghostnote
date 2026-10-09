@@ -1,13 +1,13 @@
 ---
 title: Phase 8i5 device control identity
 kind: plan
-state: planned
-status: Fix sparse remote selectors, the Sampler witness, and recovery results. Clarify first-read Patch guidance. Then resume the remaining 8i trials.
+state: done
+status: Complete (E254, D46). Remote selectors resolve by host index; the modulation writers claim the route and the route suite keeps the live proof; first-read Patch guidance removed repeat reads. Next: the remaining 8i trials.
 updated: 2026-10-09
 parent: README.md
 prev: 8i4-overlay-basis-sealing.md
 next: 8i-agent-native-hybrid-dogfood.md
-evidence: E85, E97, E244, E252; D15, D44
+evidence: E85, E97, E244, E252, E254; D15, D44, D46
 ---
 
 # Phase 8i5 device control identity
@@ -41,6 +41,37 @@ to response limits, recovery work, and agent-side output choices. Include
 its first two priorities in this session: clear witness failure results and
 Patch help with the first edit read. Keep preset, discovery output, and
 modulator type guidance as separate candidates.
+
+## Operator decision (2026-10-09, session start)
+
+Review of item 2 changed the scope. The API has no ID on a `RemoteControl`
+and no `modulatedValue` on a DirectParameter observer. An ID-bound witness
+needs a typed handle for each device type. Plug-ins have no general typed
+route (no CLAP variant). The witness also needs the audio engine and, for
+an envelope, sounding notes. For native work it is the only reason the
+product needs the audio engine.
+
+The silent failures that the witness guards against (E10 `CONTENTS/GAIN`,
+E11e) came from guessed route paths. Since E85 the route is derived from
+the exact DirectParameter ID and a structurally proved location, through a
+route form that was proved live. The operator therefore removed the
+behavior witness from the live product path:
+
+- `agent-native-v1` wrapper, `compose_devices`, and `edit_preset_modulation`
+  run no behavior witness. They refuse before mutation when the target ID
+  is not in the fresh inventory or the route form is not a suite-proved
+  form. Results state the authored route and state that activity is not
+  observed in the product.
+- The public `behaviorCheck` and `behaviorChecks` inputs leave the
+  agent-native schemas. `stable-v1` stays frozen: the engine keeps the
+  witness behind an option that `stable-v1` and the suite use.
+- A live conformance suite proves each admitted route form with ID-bound
+  handles on a note-driven fixture. Run it for Ghostnote changes to the
+  route path and for each Bitwig upgrade. The labelled equal-name remote
+  match stays a suite-only weak witness.
+- The typed Sampler family and the extension change are not needed in
+  this session. Work items 2 through 4 below are replaced by this decision;
+  items 1, 5 (selector cases), 6, and 7 stand.
 
 ## Entry reads
 
@@ -179,6 +210,21 @@ by operator changes or stale state. Report the result without assuming savings.
   8i charter. State the new description version or that no description changed.
   Stage only session changes; do not commit.
 - Route NOW to the remaining 8i groove and overlay dependency trials.
+
+## Outcome
+
+- Selectors: met. Blur `Common/7/Mix` writes and reverts live; invalid,
+  changed, and ambiguous selectors refuse before mutation (E254).
+- Sampler identity, witness preflight, and activity claims: replaced by D46.
+  The live product runs no witness, so no witness can be unavailable or
+  attribute existing modulation. An unproved route form refuses before
+  mutation; a later post-move failure names its cause and keeps the
+  checkpoint. The Sampler wrap completes live.
+- Patch guidance: met. A fresh agent requested Patch on its first read and
+  made no repeat read.
+- Review fix: the exact target ID and name check stays on every path.
+- Checks: 2,148 brain tests, extension tests, publication inventory, route
+  suite 18/18, live cleanup. Descriptions `ghostnote-description-v40`.
 
 ## Retrospective
 

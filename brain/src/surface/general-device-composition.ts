@@ -189,6 +189,8 @@ export type GeneralDeviceCompositionReversalInput = z.infer<
 
 export interface GeneralDeviceCompositionSurfaceOptions extends GeneralDeviceCompositionOptions {
   readonly catalogPath?: string;
+  /** D46: `identity` (`agent-native-v1`) checks each target id and name and samples no behavior. */
+  readonly behaviorWitness?: 'sample' | 'identity';
 }
 
 const issued = new WeakMap<object, Map<string, string>>();
@@ -231,7 +233,8 @@ export async function runGeneralDeviceComposition(
               const type = TYPES.find((candidate) => candidate.id === item.modulator)!;
               return {
                 ...item, donorId: type.donorId, pageName: type.publicName,
-                behaviorCheck: item.behaviorCheck ?? 'active',
+                behaviorCheck: options.behaviorWitness === 'identity' ? 'identity' as const
+                  : item.behaviorCheck ?? 'active',
               };
             }),
           };

@@ -30,7 +30,7 @@ import {
   type ChainAddress, type DeviceAddress, type DeviceSource, type DeviceState, type ObservedChain,
   type ObservedContainer, type ObservedDeviceBank, type Op, type TrackAddress,
 } from '../contract/index.js';
-import { takeAppliedAnything } from '../engine/index.js';
+import { takeAppliedAnything, unprovedRouteTargets } from '../engine/index.js';
 import {
   isNativeDeviceUuid, NativeNameResolutionError, resolveExactNativeDevices, type NativeCatalog,
 } from '../native-catalog/catalog.js';
@@ -49,7 +49,9 @@ import {
 import {
   drumMachineCompositionInputValidator, drumPadAssignment, runDrumMachineComposition,
 } from './drum-machine-composition.js';
-import { existingDeviceModulationWrapperSchemas } from './existing-device-modulation-wrapper.js';
+import {
+  existingDeviceModulationWrapperSchemas, runExistingDeviceModulationWrapper,
+} from './existing-device-modulation-wrapper.js';
 import {
   generalDeviceCompositionInputValidator, modulation, runGeneralDeviceComposition,
   source as compositionSource,
@@ -59,14 +61,14 @@ import {
   presetModulationInspectionInputSchema, presetModulationInspectionInputValidator,
   runPresetModulationInspection,
 } from './preset-modulation-inspection.js';
-import { causeOf, receiptOf } from './report.js';
+import { MODULATION_ACTIVITY_CLAIM, causeOf, receiptOf, unprovedRouteRefusal } from './report.js';
 import type { ToolSpec } from './tools.js';
 import { atMost, requireWithinLimit, WRITE_LIMITS } from './write-limits.js';
 import type { Workspace } from './workspace.js';
 
 export const DEVICES_SCHEMA = 'ghostnote-devices/1';
 export const ADD_DEVICES_SCHEMA = 'ghostnote-device-add/1';
-export const COMPOSE_SCHEMA = 'ghostnote-device-compose/1';
+export const COMPOSE_SCHEMA = 'ghostnote-device-compose/2';
 export const DUPLICATE_SCHEMA = 'ghostnote-layer-chain-duplicate/1';
 export const RENAME_SCHEMA = 'ghostnote-layer-chain-rename/1';
 export const MOVE_SCHEMA = 'ghostnote-device-move/1';
@@ -78,6 +80,15 @@ export const DELETE_DEVICE_SCHEMA = 'ghostnote-device-delete/1';
 export const LAYER_CHAIN_POSITIONS = 3;
 
 const PROFILE = `Profile ${AGENT_NATIVE_TOOL_PROFILE}.`;
+
+/** D46: shared text for the three modulation writers. */
+const ROUTE_TEXT = 'Ghostnote writes each route from the exact DirectParameter id through a route form that its '
+  + 'modulation conformance suite proves live: CONTENTS/ and one segment (native) or CONTENTS/PID and a hex number '
+  + '(plug-in). Another id form refuses before any write (code unsupported, reason unproved-route-form). After the '
+  + 'write, the exact id and name must be in the new device inventory; a missing or renamed target fails at readback '
+  + 'and the recorded change stays for revert_change. Ghostnote does not observe target activity and needs no audio engine or playing notes for native devices: the result '
+  + 'claims the authored route and its structure, not the sound. Listen to confirm it.';
+
 const FAILURE_FIELDS = ['schema', 'failure.code', 'failure.stage', 'failure.effects', 'message', 'retryWhen', 'detail'];
 const WRITE_FIELDS = ['schema', 'applied', 'effects', 'readback', 'next', 'warnings', 'timing', 'target'];
 const READ_FIELDS = ['schema', 'source', 'target', 'coverage', 'authority', 'data', 'warnings', 'timing'];
@@ -915,7 +926,7 @@ async function addDevices(workspace: Workspace, args: AddInput, options: AddDevi
 
 const composeDevice = z.object({
   source: compositionSource,
-  modulators: z.array(modulation).max(16).optional().describe(
+  modulators: z.array(modulation.omit({ behaviorCheck: true })).max(16).optional().describe(
     'Outer container or preset-local modulators with exact DirectParameter targets. '
     + atMost('compositionModulators', 'modulators and modulator edits in all devices'),
   ),
@@ -964,6 +975,10 @@ const composeInput = z.object({
 });
 type ComposeInput = z.infer<typeof composeInput>;
 
+/** True when the request authors or edits a modulator. */
+const modulates = (input: ComposeInput): boolean => (input.layerChains ?? []).some((item) => item.devices.some(
+  (device) => (device.modulators?.length ?? 0) + (device.modulatorEdits?.length ?? 0) > 0));
+
 export type CompositionBackend = 'offline' | 'staged' | 'drum-machine';
 
 /**
@@ -993,14 +1008,14 @@ const COMPOSE_DESCRIPTION = `${PROFILE} Create one complete container with expli
   + '51 to one pad. Device sources: an exact native catalog name, a VST3 class UID, a CLAP id, an absolute preset '
   + 'path, or an existing top-level device (existing-move keeps the same instance; existing-copy makes a new '
   + 'one). modulators adds outer container or preset-local modulators with exact DirectParameter targets from '
-  + 'read_device_controls and types from list_modulator_types.\n'
+  + `read_device_controls and types from list_modulator_types. ${ROUTE_TEXT}\n'`
   + 'Ghostnote selects a private backend. An Instrument Layer of one through four layer chains with one native '
   + 'device each, appended at the end, is built offline from a validated preset in one insertion (modulatorEdits '
   + 'are only for this path); each layer chain is then renamed. Every other shape runs as guarded host stages: '
   + 'container insertion, one layer-chain naming stage, and one insertion and one move for each device: about 3.5 '
   + 's for each native device and 6.5 s for each plug-in, and revert_change takes about as long. One composition '
   + 'admits at most 6 device units (a VST3 or CLAP source counts as two, and a device with modulators or modulator '
-  + 'edits counts two more: its proof takes about 7 s) and 4 modulators and modulator edits; a '
+  + 'edits counts two more: its checks add about 2 s) and 4 modulators and modulator edits; a '
   + 'larger request refuses before any read or write (code outside-limit, the limit in detail). Add more devices '
   + 'later with add_devices and move_devices. '
   + 'The final container position must be 0 through 2 (layer chains are not observable later). Every request is '
@@ -1029,6 +1044,20 @@ export async function composeDevices(
     'device units in one composition (a VST3 or CLAP source counts as two, and a device with modulators two more)');
     requireWithinLimit('compositionModulators', composed.reduce((sum, item) => sum + (item.modulators?.length ?? 0)
       + (item.modulatorEdits?.length ?? 0), 0), 'modulators and modulator edits in one composition');
+    // D46: no behavior witness runs here, so each route must use a suite-proved form. Refuse before any read.
+    const unproved = unprovedRouteTargets(composed.flatMap((item) => [
+      ...(item.modulators ?? []).map((modulator) => modulator.target),
+      // A recipe id names one of three proved native targets.
+      ...(item.modulatorEdits ?? []).flatMap((edit) => {
+        const editTarget = (edit as { target?: unknown }).target;
+        return typeof editTarget === 'object' && editTarget !== null
+          ? [editTarget as { parameterId: string; parameterName: string }] : [];
+      }),
+    ]));
+    if (unproved.length > 0) {
+      throw new ToolFailure('unsupported', 'input', String(unprovedRouteRefusal(unproved)['why']),
+        { detail: { reason: 'unproved-route-form', unprovedTargets: unproved } });
+    }
     state.stage = 'acquire';
     const track = trackAt(args.trackId);
     const bank = await completeBank(workspace, track);
@@ -1140,7 +1169,7 @@ async function composeOffline(
         ...(device.modulatorEdits === undefined ? {} : { modulators: device.modulatorEdits }),
       };
     }),
-  }));
+  }), { behaviorWitness: 'identity' });
   if (result['refused'] === true) refusedComposition(result);
   const change = result['change'] as ReturnType<typeof receiptOf>;
   requireBackendWrite(state, workspace, change, target, `Inserted one Instrument Layer with ${chains.length} layer chains.`);
@@ -1180,6 +1209,7 @@ async function composeOffline(
       status: verification.verified && sameNames(names, chains.map((item) => item.name)) ? 'verified' : 'differs',
       backend: 'offline', containerPosition: position, ...publicContainer(after.device),
       modulation: verification.witnesses,
+      ...(modulates(args) ? { modulationClaim: MODULATION_ACTIVITY_CLAIM } : {}),
     },
     next: { revert: { tool: 'revert_change', changeId: change.changeId } },
     warnings: [], timing: { totalMs: performance.now() - started },
@@ -1200,7 +1230,7 @@ async function composeStaged(
       entryName: item.name,
       devices: item.devices.map((device) => ({ source: device.source, modulators: device.modulators ?? [] })),
     })),
-  }));
+  }), { behaviorWitness: 'identity' });
   if (result['refused'] === true) refusedComposition(result);
   const stages = (result['stages'] as { stage: string; entryIndex?: number; change: ReturnType<typeof receiptOf> }[]);
   for (const stage of stages) {
@@ -1220,7 +1250,8 @@ async function composeStaged(
   const outcome: WriteResult<unknown> = {
     schema: COMPOSE_SCHEMA, applied: true, effects: state.effects,
     readback: { status: 'verified', backend: 'staged', containerPosition: args.containerPosition ?? bank.devices.length,
-      structure: structure ?? null, layerChains: result['entries'] },
+      structure: structure ?? null, layerChains: result['entries'],
+      ...(modulates(args) ? { modulationClaim: MODULATION_ACTIVITY_CLAIM } : {}) },
     next: { revert: { tool: 'revert_change', changeId } },
     warnings: [], timing: { totalMs: performance.now() - started },
   };
@@ -1341,7 +1372,8 @@ const READ_CONTROLS_DESCRIPTION = `${PROFILE} Read the controls of one device: t
   + 'a parameter has no display. Typed discrete values, origin, automation, and modulatedValue appear only when '
   + 'Bitwig observed them. An empty list on a plug-in is standing unavailable: the audio engine is off or the '
   + 'plug-in is not loaded. Turn the engine on for this project in Bitwig and read again. Remote controls use the '
-  + 'returned page and control names and positions. The result distinguishes a missing target, an unreachable '
+  + 'returned page and control names and positions. A control position is its host slot: a page lists only the '
+  + 'slots that hold a control, so positions can skip numbers. The result distinguishes a missing target, an unreachable '
   + 'bank window, and an unstable host reading. route goes into named layer chains from read_devices or drum pads.';
 
 const SET_CONTROLS_DESCRIPTION = `${PROFILE} Set DirectParameters by ids from read_device_controls, or set returned `
@@ -1357,6 +1389,8 @@ const SET_CONTROLS_DESCRIPTION = `${PROFILE} Set DirectParameters by ids from re
   + 'a repeated control starts another). A larger request refuses before any read or write (code outside-limit, the limit in detail): split it into more calls. The first setting of a route takes '
   + 'about 2 s on a native device and 3.5 s on a plug-in with 281 controls; each further setting takes about 0.2 s. '
   + 'Modulation and automation warnings state when a static base value can differ from the value heard. A '
+  + 'A remote selector that no longer names exactly one control with that page name, position, and control name '
+  + 'refuses before the first write (code absent or target-changed); read the remote controls again. A '
   + 'complete success groups change IDs and selectors under each device route; a failure or partial result keeps '
   + 'the full receipts. list_changes keeps the complete records; revert_change restores the base value while the '
   + 'device route is valid.';
@@ -1399,22 +1433,36 @@ function controlsTools(stable: { read: ToolSpec; set: ToolSpec }): ToolSpec[] {
   ];
 }
 
+const EDIT_PRESET_DESCRIPTION = `${PROFILE} Create an edited copy of one human-saved preset and append it as a new `
+  + 'device. The saved preset is not changed, and no device already in the project is changed. Supply the exact '
+  + 'fingerprint and semantic modulator location from read_preset_modulation. Changed bytes, a missing location, or '
+  + 'an ambiguous location refuse before a project write. Add, replace, retarget, amount, and delete use the '
+  + 'selected location. Add and retarget accept the exact DirectParameter id and name returned by '
+  + 'read_device_controls on native, VST3, and CLAP devices. The three original named targets remain compatible. '
+  + 'The caller cannot provide a binary selector. Each operation runs complete pre-write checks and must pass an '
+  + 'exact inserted-host or remote-page check after insertion; an add without checks gets its page check. '
+  + `${ROUTE_TEXT} Add and replace accept each matching type from list_modulator_types. A type marked tier-1-only `
+  + 'refuses on a sampled preset because it has no exact measured adjustment. A sampled delete also refuses when its '
+  + 'resident modulator has no exact measurement. The result separates requested, decoded, edited, observed, and '
+  + 'verified facts. It includes one recorded change id even when a post-write check fails. Reversal removes only '
+  + 'the inserted device while its last proved position remains valid.';
+
 const WRAP_DESCRIPTION = `${PROFILE} Place one current top-level device inside one owned FX Layer without creating `
   + 'a replacement device instance. Supply the exact complete top-level name and enabled-state order from '
   + 'read_devices, the proved Layer 1 entry, and 1 through 15 manifest-backed modulators with exact DirectParameter '
   + 'ids and names from read_device_controls. The workflow reads the complete stable parameter inventory before '
   + 'writing, inserts and positions the owned container, marks its entry name as explicit, verifies its modulator '
-  + 'pages, moves the device, and proves the parent-child edge, enabled state, parameter-base fingerprint, and '
-  + 'active modulation. Results list each completed stage in order. A failed post-move witness reports the device '
-  + 'location and a reversal checkpoint. Relocation preserves opaque device state because the same instance moves; '
-  + 'Ghostnote does not claim byte-exact opaque-state readback. A call takes about 14 s for 1 through 15 modulators: '
-  + 'the modulation proofs share one sampling session. Each modulator adds one remote page to the container page, '
-  + 'and the remote-page window is 16, so 16 modulators refuse before any read or write (code outside-limit). The '
-  + 'audio engine must run for the active-modulation proof.';
+  + 'pages, moves the device, and proves the parent-child edge, enabled state, and parameter-base fingerprint. '
+  + `${ROUTE_TEXT} Results list each completed stage in order. A failed post-move check names its cause in why and `
+  + 'returns the device location and a reversal checkpoint: pass it to reverse_existing_device_modulation_wrap, or '
+  + 'read_devices and keep the result. Relocation preserves opaque device state because the same instance moves; '
+  + 'Ghostnote does not claim byte-exact opaque-state readback. A call takes about 10 s for 1 through 15 '
+  + 'modulators. Each modulator adds one remote page to the container page, and the remote-page window is 16, so 16 '
+  + 'modulators refuse before any read or write (code outside-limit).';
 
 function modulationTools(stable: { inspect: ToolSpec; author: ToolSpec; wrap: ToolSpec }): ToolSpec[] {
   const authoring = modulatorAuthoringSchemas({
-    readControls: 'read_device_controls', readPresetModulation: 'read_preset_modulation' });
+    readControls: 'read_device_controls', readPresetModulation: 'read_preset_modulation', behaviorChecks: false });
   const wrapping = existingDeviceModulationWrapperSchemas({
     readControls: 'read_device_controls', readDevices: 'read_devices',
     modulators: 'Each modulator adds one remote page to the container page, and the remote-page window is 16. '
@@ -1433,21 +1481,32 @@ function modulationTools(stable: { inspect: ToolSpec; author: ToolSpec; wrap: To
       ...stable.author,
       name: 'edit_preset_modulation',
       title: 'Edit preset modulation',
-      description: stable.author.description
-        .replaceAll('inspect_preset_modulation', 'read_preset_modulation')
-        .replaceAll('inspect_device_parameters', 'read_device_controls'),
+      description: EDIT_PRESET_DESCRIPTION,
       inputSchema: authoring.schema,
       inputValidator: authoring.validator,
-      run: (workspace, input) => runModulatorAuthoring(workspace, input as never),
+      resultContract: {
+        ...(stable.author.resultContract as Record<string, unknown>),
+        observed: 'The inserted host position and remote pages. No behavior samples (D46).',
+        verified: 'Separate inserted-host and page verdicts with one combined pass value.',
+        modulation: 'The route claim: behaviorWitness not-run; target activity is not observed.',
+      },
+      run: (workspace, input) => runModulatorAuthoring(workspace, input as never, { behaviorWitness: 'skip' }),
     },
     {
       ...stable.wrap,
       description: WRAP_DESCRIPTION,
       inputSchema: wrapping.schema,
       inputValidator: wrapping.validator,
+      resultContract: {
+        ...(stable.wrap.resultContract as Record<string, unknown>),
+        complete: 'True only after insertion, positioning, relocation, parameter-base fingerprint, and page proof. '
+          + 'No behavior witness runs (D46).',
+        verification: 'Scalar fingerprints, opaque-state qualification, and pages. behaviors is empty.',
+        modulation: 'The route claim: behaviorWitness not-run; target activity is not observed.',
+      },
       run: (workspace, input) => {
         requireWithinLimit('wrapModulators', (input as { modulators: unknown[] }).modulators.length, 'modulators');
-        return stable.wrap.run(workspace, input);
+        return runExistingDeviceModulationWrapper(workspace, input as never, { behaviorWitness: 'skip' });
       },
     },
   ];

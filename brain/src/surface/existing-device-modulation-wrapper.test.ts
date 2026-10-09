@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import { z } from 'zod';
 
 import { FakeAdapter } from '../adapters/fake/adapter.js';
+import type { FakeDevice } from '../adapters/fake/model.js';
 import { control } from '../adapters/fake/control.js';
 import { listModulators } from '../bwmod/index.js';
 import { Executor } from '../engine/index.js';
@@ -13,17 +14,18 @@ import { Stash } from '../stash/index.js';
 import {
   existingDeviceModulationWrapperInputSchema,
 } from './existing-device-modulation-wrapper.js';
-import { callTool, TOOLS } from './tools.js';
+import { AGENT_NATIVE_TOOL_PROFILE, callTool, TOOLS } from './tools.js';
 import { workspaceOf, type Workspace } from './workspace.js';
 
-function fixture() {
+/** `observable: false` models a target with no modulated-value observer (the 8i5 Sampler case). */
+function fixture({ observable = true }: { readonly observable?: boolean } = {}) {
   const fake = new FakeAdapter({ tracks: ['Wrapper'], scenes: 1 });
   const row = fake.model.visibleTracks()[0]!;
-  const target = {
+  const target: FakeDevice = {
     name: 'Polysynth', enabled: true, paramsLive: true,
     params: [{
       id: 'CONTENTS/F1FREQ', name: 'Filter Frequency', value: 0.31,
-      modulatedValue: 0.31, hasAutomation: false,
+      ...(observable ? { modulatedValue: 0.31 } : {}), hasAutomation: false,
     }],
   };
   row.devices.push(target, {
@@ -72,7 +74,7 @@ function fixture() {
       if (op?.op === 'chain.relocate' && op.destination.kind === 'chain') {
         const container = row.devices.find((item) => item.name === 'FX Layer')!;
         const nested = container.chains![0]!.devices[0]!;
-        nested.params[0]!.modulatedValue = 0.7;
+        if (observable) nested.params[0]!.modulatedValue = 0.7;
       }
       return change;
     },
@@ -278,4 +280,73 @@ test('8h4a: a selection from another project makes neither wrapper tool refuse, 
   assert.equal(reversed['complete'], true, JSON.stringify(reversed));
   assert.equal(fx.fake.model.selectionRestores, 0);
   assert.equal(fx.fake.model.selection, stale);
+});
+
+test('8i5 D46: agent-native wraps a target with no modulated-value observer; stable-v1 still samples', async () => {
+  const stable = fixture({ observable: false });
+  const sampled = await callTool(
+    stable.workspace, 'wrap_existing_device_modulation', request(stable.trackId),
+  ) as Record<string, any>;
+  assert.equal(sampled['complete'], false, 'stable-v1 keeps the behavior witness');
+  assert.equal(sampled['failedStage'], 'post-move-witness');
+  assert.match(sampled['why'], /1 behavior witness\(es\) failed/);
+  assert.ok(sampled['reversalCheckpoint'] !== undefined, 'a later witness failure keeps the checkpoint');
+
+  const fx = fixture({ observable: false });
+  const wrapped = await callTool(
+    fx.workspace, 'wrap_existing_device_modulation', request(fx.trackId), AGENT_NATIVE_TOOL_PROFILE,
+  ) as Record<string, any>;
+  const text = JSON.stringify(wrapped).slice(0, 800);
+  assert.equal(wrapped['complete'], true, text);
+  assert.equal(wrapped['failure'], undefined, text);
+  assert.deepEqual(wrapped['verification'].behaviors, [], 'no behavior sample runs');
+  assert.equal(wrapped['verification'].verified, true);
+  assert.equal(wrapped['modulation'].behaviorWitness, 'not-run');
+  assert.doesNotMatch(wrapped['modulation'].claim, /active|proves the sound/i);
+  assert.equal(fx.row.devices[0]!.chains![0]!.devices[0], fx.target, 'the same instance moved');
+
+  const reversed = await callTool(fx.workspace, 'reverse_existing_device_modulation_wrap', {
+    checkpoint: wrapped['reversalCheckpoint'],
+  }, AGENT_NATIVE_TOOL_PROFILE) as Record<string, unknown>;
+  assert.equal(reversed['complete'], true, JSON.stringify(reversed));
+  assert.deepEqual(fx.row.devices.map((item) => item.name), ['Polysynth', 'Tool']);
+});
+
+test('8i5 D46: an unproved route form refuses before any read or write', async () => {
+  const fx = fixture();
+  fx.target.params[0]!.id = 'CONTENTS/OSC1/PITCH';
+  const before = fx.workspace.changes.list().length;
+  const refused = await callTool(fx.workspace, 'wrap_existing_device_modulation', {
+    ...request(fx.trackId),
+    modulators: [{ modulator: 'lfo', target: { parameterId: 'CONTENTS/OSC1/PITCH', parameterName: 'Pitch' },
+      amount: 1 }],
+  }, AGENT_NATIVE_TOOL_PROFILE) as Record<string, any>;
+  assert.equal(refused['failure']?.code, 'unsupported', JSON.stringify(refused));
+  assert.equal(refused['reason'], 'unproved-route-form');
+  assert.deepEqual(refused['unprovedTargets'], [{ parameterId: 'CONTENTS/OSC1/PITCH', parameterName: 'Pitch' }]);
+  assert.equal(fx.workspace.changes.list().length, before, 'nothing was written');
+  assert.deepEqual(fx.row.devices.map((item) => item.name), ['Polysynth', 'Tool']);
+});
+
+test('8i5: a post-move witness failure names its cause and keeps the reversal checkpoint', async () => {
+  const fx = fixture();
+  const workspace: Workspace = Object.freeze({
+    ...fx.workspace,
+    async apply(ops: Parameters<Workspace['apply']>[0], run?: Parameters<Workspace['apply']>[1]) {
+      const change = await fx.workspace.apply(ops, run);
+      // An operator edit during the move changes one base value.
+      if (ops[0]?.op === 'chain.relocate') fx.target.params[0]!.value = 0.9;
+      return change;
+    },
+  });
+  const wrapped = await callTool(
+    workspace, 'wrap_existing_device_modulation', request(fx.trackId), AGENT_NATIVE_TOOL_PROFILE,
+  ) as Record<string, any>;
+  const text = JSON.stringify(wrapped).slice(0, 800);
+  assert.equal(wrapped['complete'], false, text);
+  assert.equal(wrapped['failure']?.code, 'partial', text);
+  assert.match(wrapped['why'], /parameter-base fingerprint changed/);
+  assert.doesNotMatch(wrapped['why'], /behavior/);
+  assert.equal(wrapped['currentLocation'].kind, 'container-entry');
+  assert.ok(wrapped['reversalCheckpoint'] !== undefined);
 });

@@ -7,11 +7,11 @@ import {
 } from '../composition/index.js';
 import { track as trackAt } from '../contract/index.js';
 import {
-  reverseExistingDeviceModulation, wrapExistingDeviceModulation,
+  reverseExistingDeviceModulation, unprovedRouteTargets, wrapExistingDeviceModulation,
   type ExistingDeviceWrapperCheckpoint, type ExistingDeviceWrapperOptions,
   type ExistingDeviceWrapperResult, type ExistingDeviceWrapperReversal,
 } from '../engine/index.js';
-import { receiptOf, withCause } from './report.js';
+import { MODULATION_ACTIVITY_CLAIM, receiptOf, unprovedRouteRefusal, withCause } from './report.js';
 import type { Workspace } from './workspace.js';
 
 const ADD_TYPES = listDonorTypes()
@@ -126,6 +126,10 @@ export async function runExistingDeviceModulationWrapper(
   input: ExistingDeviceModulationWrapperInput,
   options: ExistingDeviceWrapperOptions = {},
 ): Promise<Record<string, unknown>> {
+  if (options.behaviorWitness === 'skip') {
+    const unproved = unprovedRouteTargets(input.modulators.map((item) => item.target));
+    if (unproved.length > 0) return unprovedRouteRefusal(unproved);
+  }
   const before = new Set(workspace.changes.list().map((item) => item.id));
   try {
     const result = await wrapExistingDeviceModulation(workspace, {
@@ -136,7 +140,8 @@ export async function runExistingDeviceModulationWrapper(
       entryName: input.entryName,
       modulators: input.modulators,
     }, options);
-    return publicWrap(workspace, input, result);
+    const body = publicWrap(workspace, input, result);
+    return options.behaviorWitness === 'skip' ? { ...body, modulation: MODULATION_ACTIVITY_CLAIM } : body;
   } catch (error) {
     workspace.throwIfCancelled?.();
     const recorded = workspace.changes.list().filter((item) => !before.has(item.id));

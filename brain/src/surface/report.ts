@@ -36,7 +36,7 @@ import {
   NOTE_PROP_FIDELITY, UNVERIFIED_NOTE_PROPS, UNWRITABLE_NOTE_PROPS,
   addressKey, addressTrack, assertNever, chainPath, stepSizeFor,
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, ContractVersionError,
-  InvalidOpError, NoteTimingUnrepresentableError, ParameterValueUnrepresentableError,
+  InvalidOpError, NoteTimingUnrepresentableError, ParameterValueUnrepresentableError, RemoteSelectorError,
   CollapsedGroupRowError, GroupSlotError, SlotOccupiedError, StaleAddressError,
   WireDriftError,
   type Address, type ChainAddress, type DeviceAddress, type NoteRecord, type StateValue,
@@ -661,13 +661,48 @@ export function withCause<T extends object>(body: T, error: unknown): T {
 export const causeOf = (body: unknown): unknown =>
   body !== null && typeof body === 'object' ? (body as { cause?: unknown }).cause : undefined;
 
+/**
+ * D46: the live product runs no behavior witness. It authors a route only from an id with a suite-proved route
+ * form, because another form can load as a silent route (E10). The refusal comes before any project write.
+ */
+export function unprovedRouteRefusal(
+  targets: readonly { readonly parameterId: string; readonly parameterName: string }[],
+): Record<string, unknown> {
+  return {
+    refused: true,
+    nothingWasWritten: true,
+    reason: 'unproved-route-form',
+    why: 'Nothing was written. A modulation target id has a route form that the modulation conformance suite '
+      + 'has not proved live, and a wrong route loads without any error. Supported forms: CONTENTS/ and one '
+      + 'segment (native), or CONTENTS/PID and a hex number (plug-in). Choose a target with a supported id.',
+    unprovedTargets: targets.map((item) => ({ parameterId: item.parameterId, parameterName: item.parameterName })),
+  };
+}
+
+/**
+ * D46: the claim of a live-product modulation write. The route is authored and its structure is proved; target
+ * activity is not observed, and existing modulation on a target is not attributed to the new route.
+ */
+export const MODULATION_ACTIVITY_CLAIM = Object.freeze({
+  behaviorWitness: 'not-run',
+  claim: 'Each route was written from the exact DirectParameter id through a route form that the conformance '
+    + 'suite proves live. Ghostnote does not observe target activity in this profile. Listen to confirm the sound.',
+});
+
 export interface Refusal {
   readonly refused: true;
   readonly nothingWasWritten: true;
   readonly why: string;
   readonly where?: readonly Where[];
-  /** A machine-readable refusal reason, where one exists (8h4a `group-slot`). */
-  readonly reason?: 'group-slot' | 'collapsed-group-row';
+  /** A machine-readable refusal reason, where one exists (8h4a `group-slot`, 8i5 remote selector). */
+  readonly reason?: 'group-slot' | 'collapsed-group-row'
+    | 'remote-selector-absent' | 'remote-selector-changed' | 'remote-selector-ambiguous';
+  readonly remoteSelector?: {
+    readonly pagePosition: number;
+    readonly pageName: string;
+    readonly controlPosition: number;
+    readonly controlName: string;
+  };
   readonly inTheWay?: readonly { readonly where: Where; readonly why: readonly string[] }[];
   readonly allowedParameterDomain?: ({
     readonly parameterId: string | number;
@@ -827,6 +862,23 @@ export function refusalOf(error: unknown): Refusal {
           normalizedValues: error.normalizedValues,
           ...(error.discreteValueNames === undefined
             ? {} : { discreteValueNames: error.discreteValueNames }),
+        },
+      },
+    );
+  }
+  if (error instanceof RemoteSelectorError) {
+    return refusal(
+      'nothing was written. The remote page or control position does not name exactly one control with that '
+      + 'name in the fresh inventory. Positions are host positions; a page can skip positions. Read the remote '
+      + 'controls again and use the returned page and control names and positions.',
+      {
+        reason: `remote-selector-${error.reason}`,
+        where: [describeAddress(error.address)],
+        remoteSelector: {
+          pagePosition: error.address.pageIndex,
+          pageName: error.address.pageName,
+          controlPosition: error.address.controlIndex,
+          controlName: error.address.controlName,
         },
       },
     );

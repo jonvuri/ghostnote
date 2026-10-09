@@ -66,8 +66,9 @@ export const MEASURED_BODY_SCHEMAS: Readonly<Record<string, string>> = {
   read_device_controls: 'ghostnote-device-controls/1',
   set_device_controls: 'ghostnote-device-controls-set/1',
   read_preset_modulation: 'ghostnote-preset-modulation/1',
-  edit_preset_modulation: 'ghostnote-preset-modulation-edit/1',
-  wrap_existing_device_modulation: 'ghostnote-device-modulation-wrap/1',
+  // /2 (8i5, D46): no behavior witness; `modulation` states the route claim.
+  edit_preset_modulation: 'ghostnote-preset-modulation-edit/2',
+  wrap_existing_device_modulation: 'ghostnote-device-modulation-wrap/2',
   reverse_existing_device_modulation_wrap: 'ghostnote-device-modulation-unwrap/1',
 };
 
@@ -699,6 +700,9 @@ export function measuredBody(stable: ToolSpec, schema: string): ToolSpec {
         stage: 'guard' as FailureStage }
         : body['partialSuccess'] === true || body['partialCompletion'] === true || body['partialReversal'] === true
           ? { code: 'partial' as FailureCode, stage: 'write' as FailureStage }
+          // A post-write check that did not pass (edit_preset_modulation `verified.passed`): the write stays.
+          : (body['verified'] as { passed?: unknown } | undefined)?.passed === false && effects.length > 0
+            ? { code: 'unavailable' as FailureCode, stage: 'readback' as FailureStage }
           : body['complete'] === false
             ? effects.length > 0 ? { code: 'partial' as FailureCode, stage: 'write' as FailureStage }
               : { code: (rejected ? 'target-changed' : 'authority-unavailable') as FailureCode,
