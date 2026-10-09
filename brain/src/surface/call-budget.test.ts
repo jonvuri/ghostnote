@@ -127,6 +127,17 @@ test('call budget: edit_launcher_clip on the targeted, whole-clip, and property 
     document: patch(read.authority.base, [`CLIP_UPDATE ${clipId} {"name":"budget"}`]) });
   assert.equal(named.result.readback?.status, 'verified');
   assert.deepEqual(named.counts, { mark: 2, tracks: 1, clipRead: 3, delta: 3, resolve: 1, apply: 1 });
+
+  // A claim put without basis (8i4, D45): the seal is brain work. No write; the readback is a new read.
+  read = (await fx.call('read_launcher_clip', { trackId: fx.trackId, row: 0 })).result;
+  const claim = { id: 'nom1', type: 'nominal', state: 'current',
+    provenance: { kind: 'declared', source: 'agent', method: 'author' },
+    depends: { events: [{ id, fields: ['clip', 'at', 'duration'] }], clips: [], overlays: [], membership: [] },
+    data: { event: id, at: '0', duration: '1', division: '1/4' } };
+  const put = await fx.call('edit_launcher_clip', { trackId: fx.trackId, row: 0,
+    document: patch(read.authority.base, [`OVERLAY_PUT ${JSON.stringify(claim)}`]) });
+  assert.equal(put.result.plan?.route, 'none', JSON.stringify(put.result).slice(0, 300));
+  assert.deepEqual(put.counts, { mark: 2, tracks: 1, clipRead: 2, delta: 2 });
 });
 
 test('call budget: the 8h4d Launcher clip tools', async () => {

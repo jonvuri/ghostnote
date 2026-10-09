@@ -2,8 +2,8 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: 8h, 8i0, the 8i1 reader repair, and the 8i2 group verification are complete (E247–E251). Next: 8i3 and 8i4 from the Phase 8 review, then the 8i dogfood trials.
-updated: 2026-10-08
+status: 8h, 8i0, the 8i1 reader repair, the 8i2 group verification, the 8i3 long-write profile, and the 8i4 overlay basis sealing are complete (E247–E253). Next: the 8i dogfood trials.
+updated: 2026-10-09
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
 next: ../phase-9/README.md
@@ -399,8 +399,10 @@ owns the migration details.
    The Phase 8 review adds three sessions before the next trial:
    [8i2 — Collapsed-group live verification](8i2-collapsed-group-live-verification.md)
    (complete, E251),
-   [8i3 — Long device write profile](8i3-long-device-write-profile.md), and
-   [8i4 — Overlay basis sealing](8i4-overlay-basis-sealing.md).
+   [8i3 — Long device write profile](8i3-long-device-write-profile.md)
+   (complete, E252, D44), and
+   [8i4 — Overlay basis sealing](8i4-overlay-basis-sealing.md) (complete,
+   E253, D45).
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.
 

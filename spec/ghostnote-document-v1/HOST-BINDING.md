@@ -2,7 +2,7 @@
 title: Ghostnote Document 1.0 host binding
 kind: reference
 state: active
-updated: 2026-10-08
+updated: 2026-10-09
 owner: phase-8f3
 ---
 
@@ -298,6 +298,28 @@ change would overwrite such an edit, so the executor reads the clip again
 before the write. A targeted edit reads the clip twice; every other edit three
 times.
 
+### Overlay basis sealing
+
+The edit limb is the supplied dependency-basis utility of the model reference
+(8i4, [D45](../../context/decisions/d45-the-edit-limb-seals-explicit-overlay-claims.md)).
+This is a host input rule. The portable grammar does not change.
+
+1. A current claim that the call states can omit `basis`. A stated claim is
+   each `OVERLAY_PUT` of a patch, and each `OVERLAY` of a desired document that
+   omits `basis` or differs from the stored claim.
+2. The limb computes the R22 basis of each stated current claim on the
+   proposed state: the base after the event and clip changes of the same call,
+   with the claims of the call. It checks the references first (R21).
+3. A supplied basis on a stated current claim must match. A mismatch refuses
+   with `invalid-input`, `detail.reason` `R22`, and `detail.expectedBasis`.
+4. The limb never computes a basis for a retained claim (a desired claim equal
+   to the stored claim) or a stale claim. A stale claim needs its prior basis
+   (R12). The codec lifecycle (R23) and its R22 check apply to every claim.
+
+The stored and returned document is a valid Document 1.0 with the computed
+bases. `add_launcher_clip` parses the same way; a replacement with overlays
+must still use the clip ID of a read.
+
 ### Edit refusals
 
 Each refusal happens before a host call. Code `unsupported` has
@@ -314,8 +336,9 @@ Each refusal happens before a host call. Code `unsupported` has
 | `protection` | The executor floor cannot record the prior state exactly |
 
 Code `range` (reason `past-clip-end`): a written note would start or end after
-the clip length. Code `invalid-input`: codec errors and a BASE sha256 that does
-not match the ref. Non-`current` verdicts use their verdict codes; `stale`
+the clip length. Code `invalid-input`: codec errors, a BASE sha256 that does
+not match the ref, and a supplied basis that does not match (reason `R22`, with
+`detail.expectedBasis` for a stated claim). Non-`current` verdicts use their verdict codes; `stale`
 returns the new document and base in `detail`.
 
 ## D9 writes, loss, and readback

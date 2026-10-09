@@ -7,6 +7,7 @@
  *   inventory <dir>       the typical case of each tool; writes inventory.json
  *   add-worst <dir> [notes]   add_launcher_clip of the largest admitted clip (default 16,384 notes)
  *   plan-bench <notes>    offline: the 8h4g planner profile of a whole-clip velocity edit on the fake adapter
+ *   seal-bench <notes>    offline: plan-bench as a patch that also puts one claim without basis on each note (8i4)
  *   verify-offline <dir>  recompute the per-tool rows from inventory.json
  *
  * A turn is a group of wire calls that are in flight together (E246: a mark sends two calls in one turn).
@@ -278,8 +279,12 @@ async function addWorst(dir: string, count: number): Promise<void> {
   }
 }
 
-/** Offline planner profile on the fake adapter: the read and a whole-clip velocity edit of `count` notes. */
-export async function planBench(count: number, dryRun = true): Promise<Wire> {
+/**
+ * Offline planner profile on the fake adapter: the read and a whole-clip velocity edit of `count` notes. With
+ * `claims` (8i4), the edit is a patch that also puts one nominal claim without basis on each note, so the tool
+ * seals `count` claims after the note changes.
+ */
+export async function planBench(count: number, dryRun = true, claims = false): Promise<Wire> {
   const fake = new FakeAdapter({ tracks: ['gn-bench'], scenes: 2 });
   const trackId = (await fake.tracks())[0]!.channelId;
   let id = 0;
@@ -306,9 +311,18 @@ export async function planBench(count: number, dryRun = true): Promise<Wire> {
   const desired: StateDocument = { ...document, kind: 'desired', base: first.authority.base,
     coverage: document.coverage.map((item) => ({ ...item, fields: 'all' })),
     events: document.events.map((event) => ({ ...event, velocity: event.velocity === 100 ? 90 : 100 })) };
-  const edited = await callTool(workspace, 'edit_launcher_clip', { trackId, row: 0, document: serialize(desired, 'fields'),
-    dryRun }, AGENT_NATIVE_TOOL_PROFILE) as Wire;
-  return { count, readMs: Math.round(readMs), route: edited.plan?.route, code: edited.failure?.code, timing: edited.timing };
+  const text = !claims ? serialize(desired, 'fields') : [
+    'DOC ghostnote-document 1.0 patch', `BASE ${JSON.stringify(first.authority.base)}`, 'FIELDS id clip at duration pitch velocity channel mute',
+    ...document.events.map((event) => `UPDATE ${event.id} {"velocity":${event.velocity === 100 ? 90 : 100}}`),
+    ...document.events.map((event, index) => `OVERLAY_PUT ${JSON.stringify({ id: `nom${index}`, type: 'nominal',
+      state: 'current', provenance: { kind: 'declared', source: 'bench', method: 'author' },
+      depends: { events: [{ id: event.id, fields: ['clip', 'at', 'duration'] }], clips: [], overlays: [], membership: [] },
+      data: { event: event.id, at: event.at, duration: event.duration, division: '1/4' } })}`),
+  ].join('\n') + '\n';
+  const edited = await callTool(workspace, 'edit_launcher_clip', { trackId, row: 0, document: text, dryRun },
+    AGENT_NATIVE_TOOL_PROFILE) as Wire;
+  return { count, readMs: Math.round(readMs), route: edited.plan?.route, code: edited.failure?.code,
+    ...(edited.failure === undefined ? {} : { message: edited.message, detail: edited.detail }), timing: edited.timing };
 }
 
 async function verifyOffline(dir: string): Promise<Wire> {
@@ -326,7 +340,8 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {
   const run = command === 'inventory' ? inventory(arg!)
     : command === 'add-worst' ? addWorst(arg!, Number(process.argv[4] ?? 16_384))
     : command === 'plan-bench' ? planBench(Number(arg ?? 16_384)).then(say)
+    : command === 'seal-bench' ? planBench(Number(arg ?? 16_384), true, true).then(say)
       : command === 'verify-offline' ? verifyOffline(arg!).then(say)
-        : Promise.reject(new Error('usage: phase8h4g-inventory inventory|plan-bench|verify-offline <arg>'));
+        : Promise.reject(new Error('usage: phase8h4g-inventory inventory|plan-bench|seal-bench|verify-offline <arg>'));
   run.then(() => process.exit(0), (error) => { console.error(error); process.exit(1); });
 }

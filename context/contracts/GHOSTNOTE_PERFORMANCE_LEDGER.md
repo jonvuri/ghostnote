@@ -2,9 +2,9 @@
 title: Ghostnote performance ledger
 kind: reference
 state: active
-updated: 2026-10-08
+updated: 2026-10-09
 parent: ../plan/phase-8/8h-cache-promotion-and-interface-simplification.md
-evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252
+evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252, E253
 ---
 
 # Ghostnote performance ledger
@@ -85,11 +85,13 @@ live wire-call count of the E247 inventory.
 | `check_launcher_clips`, one ref | 409 ms | E234: 16 clips 4.6 s | mark 2, clipRead 1, delta 1 (refs with one mark share one delta) | E247 |
 | `edit_launcher_clip`, 16-note insert (targeted) | 1,367–1,428 ms | E247: 1,406–1,502 ms; E246: 1,449–1,470 ms; E236: 6,610 ms | mark 1, tracks 1, clipRead 2, delta 3, apply 1 | E248 cost |
 | One read and one 16-note insert | 1,790–1,832 ms | E247: 1,857–1,951 ms, 54–56 wire calls; E236: 7,176 ms | as above | E248 cost |
-| `edit_launcher_clip`, whole-clip velocity, typical | 1,725–1,740 ms | E246: 1,772 ms | mark 2, tracks 1, clipRead 3, delta 3, resolve 1, apply 1 | E247 |
+| `edit_launcher_clip`, whole-clip velocity, typical | 1,666–1,740 ms (E253 inventory 1,666; one E253 run 2.3 s from a slow host capture, not reproduced) | E246: 1,772 ms | mark 2, tracks 1, clipRead 3, delta 3, resolve 1, apply 1 | E247 |
 | Whole-clip edit, notes with nondefault expression | 1,929–1,934 ms | E247: 5,683–6,913 ms (a page for each property stage) | as whole-clip | E248 accept |
 | Whole-clip edit, 16,384 notes (reader limit) | 6,588 ms (plan 1,195, write 3,710, readback 637) | E247: 8,337 ms, 75 wire calls; E246: 47,977 ms (plan 12,003, write 31,609) | as whole-clip | E248 worst |
 | Whole-clip edit, 512 notes on 2,048 beats at the 1/512 grid (the review case) | 1,781 ms; 53 wire calls | 512 steps: 110,838 ms, 512 page checks | as whole-clip | E248 reviewer |
 | Edit planner, 16,384 notes, offline | 1.2 s (4,096 notes: 0.5 s); budget 4,000 ms | E246: 12.0 s live | `phase8h4g-inventory.test.ts` | E247 |
+| Edit planner with claims, offline (`seal-bench`: every velocity and one claim without basis on each note) | 4,096 claims 1.55 s; 16,384 claims 6.3 s; budget 4,000 ms at 4,096 | HEAD, helper bases: 1.39 s; 5.8 s (the codec structure check of each overlay) | `phase8h4g-inventory.test.ts` | E253 |
+| `edit_launcher_clip`, claims only (put or remove, no note change) | 806 ms (read 357, readback 409); no write | Edit refusal about 400 ms (E246) | mark 2, tracks 1, clipRead 2, delta 2 (the seal adds no call; new test) | E253 |
 | Edit refusal before a write | About 400 ms | E236: 560 ms | — | E246 |
 | `add_launcher_clip`, typical (256 notes) | 2,323 ms; 85 wire calls | 16 notes, E237: 2,611 ms; `add_clip` 1,827 ms | mark 3, tracks 2, read 3, resolve 2, apply 2, delta 4, clipRead 3 | E247 |
 | `add_launcher_clip`, 16,384 notes | 6,418 ms (plan 778, write 3,352) | E247: 8,172 ms | as typical | E248 add-worst |

@@ -39,7 +39,8 @@ import {
 import {
   EditRefusal, compareReadback, planLauncherClipEdit, type EditPlan,
 } from '../bindings/launcher-clip-edit.js';
-import { DocumentError, parse, type Document, type Encoding } from '../document/index.js';
+import { DocumentError, type Document, type Encoding } from '../document/index.js';
+import { parseSealable, type SealRequest } from '../bindings/overlay-seal.js';
 import {
   AGENT_NATIVE_TOOL_PROFILE, ToolFailure, VERDICT_CODES, failureResult,
   type Effect, type FailureStage, type Warning, type WriteResult,
@@ -96,17 +97,22 @@ const EDIT_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Edit one Launche
   + 'readback document returns the new document too. dryRun returns the plan and writes nothing. A failed write '
   + 'states its effects and is not retried; read the clip before another edit.\n'
   + 'Overlays in the document are stored with the base ref in this server process. A later read returns them, '
-  + 'stale or removed when their notes changed.\n'
+  + 'stale or removed when their notes changed. This tool is the dependency-basis utility: a current claim that '
+  + 'the call states (OVERLAY_PUT, or a new or changed OVERLAY of a desired document) can omit basis, and the tool '
+  + 'computes it on the state after the note changes of the same call. A supplied basis that does not match refuses '
+  + 'with code invalid-input, detail.reason R22, and detail.expectedBasis. The tool does not compute a basis for a '
+  + 'claim that the call does not state; a stale claim keeps its basis.\n'
   + 'A whole-clip rewrite at the reader limit (16,384 notes) takes about 7 s.';
 
-export function parseProposal(args: Pick<EditInput, 'document' | 'format'>): Document {
+/** Parse the proposal. A current claim can omit its basis: the planner seals it (D45). */
+export function parseProposal(args: Pick<EditInput, 'document' | 'format'>): { document: Document; seal: SealRequest } {
   const encoding: Encoding = args.format ?? 'fields';
   if (typeof args.document !== 'string' && encoding !== 'json') {
     throw new ToolFailure('invalid-input', 'input', 'A JSON object document needs format json.');
   }
   try {
     const text = typeof args.document === 'string' ? args.document : JSON.stringify(args.document);
-    return parse(text, encoding);
+    return parseSealable(text, encoding);
   } catch (error) {
     if (error instanceof DocumentError) {
       throw new ToolFailure('invalid-input', 'input', `The document is not valid (${error.rule}).`, {
@@ -273,7 +279,7 @@ export async function editLauncherClip(workspace: Workspace, args: EditInput): P
   let stage: FailureStage = 'input';
   let effects: Effect[] = [];
   try {
-    const proposal = parseProposal(args);
+    const { document: proposal, seal } = parseProposal(args);
     if (proposal.kind === 'snapshot') {
       throw new ToolFailure('invalid-input', 'input', 'A snapshot is not an edit. Send a patch or a desired document.');
     }
@@ -357,7 +363,7 @@ export async function editLauncherClip(workspace: Workspace, args: EditInput): P
     const planStarted = performance.now();
     let plan: EditPlan;
     try {
-      plan = planLauncherClipEdit({ snapshot, entry, proposal, mode: replace ? 'replace' : 'guarded', fresh });
+      plan = planLauncherClipEdit({ snapshot, entry, proposal, seal, mode: replace ? 'replace' : 'guarded', fresh });
     } catch (error) {
       throw planFailure(error);
     }

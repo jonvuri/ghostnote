@@ -2,7 +2,7 @@
 title: Decision index
 kind: index
 state: active
-updated: 2026-10-08
+updated: 2026-10-09
 ---
 
 # Decision index
@@ -56,6 +56,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D42 | A clip property write owns only its changed fields, and a written colour is verified within one byte **[SETTLED 2026-10-08]** | [open](d42-clip-colour-tolerance-and-metadata-ownership.md) |
 | D43 | Every owned cursor track stays pinned **[SETTLED 2026-10-08]** | [open](d43-owned-cursor-tracks-stay-pinned.md) |
 | D44 | Long writes are optimized first, then bounded on their own input **[SETTLED 2026-10-08]** | [open](d44-long-writes-are-optimized-then-bounded.md) |
+| D45 | The edit limb seals explicit overlay claims **[SETTLED 2026-10-09]** | [open](d45-the-edit-limb-seals-explicit-overlay-claims.md) |
 
 ## Phase 4 closeout audit
 

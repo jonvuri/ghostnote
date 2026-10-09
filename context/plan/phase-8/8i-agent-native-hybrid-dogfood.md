@@ -2,12 +2,12 @@
 title: Phase 8i — Agent-native hybrid dogfood
 kind: plan
 state: planned
-status: Final Phase 8 gate. 8i0 (E249, D42), the 8i1 reader repair (E250, D43), the 8i2 group verification (E251), and the 8i3 long-write profile (E252, D44) are complete. Next: 8i4, then resume the trials.
-updated: 2026-10-08
+status: Final Phase 8 gate. 8i0 (E249, D42), the 8i1 reader repair (E250, D43), the 8i2 group verification (E251), the 8i3 long-write profile (E252, D44), and the 8i4 overlay basis sealing (E253, D45) are complete. Next: resume the second trial in "ice jungle".
+updated: 2026-10-09
 parent: README.md
 prev: 8i4-overlay-basis-sealing.md
 next: ../phase-9/README.md
-evidence: E120, E121, E127-E134, E209, E213, E247, E252; D25, D39, D40, D44
+evidence: E120, E121, E127-E134, E209, E213, E247, E252, E253; D25, D39, D40, D44, D45
 ---
 
 # Phase 8i — Agent-native hybrid dogfood
@@ -42,6 +42,10 @@ Do them in this order before the next trial:
    D44): optimized, then bounded; the longest admitted call is 33.5 s.
 3. [8i4 — Overlay basis sealing](8i4-overlay-basis-sealing.md): an agent
    cannot put an overlay claim, because no tool supplies the R22 basis.
+   Complete ([E253](../../evidence/experiments/e253-overlay-basis-sealing.md),
+   [D45](../../decisions/d45-the-edit-limb-seals-explicit-overlay-claims.md)):
+   `edit_launcher_clip` computes the basis of each claim that the call
+   states.
 
 ## Accepted 8f3 inputs
 

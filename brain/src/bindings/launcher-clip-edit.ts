@@ -48,6 +48,7 @@ import {
 } from './ghostnote-document.js';
 import { cellKey, type BaseEntry, type CellKey } from './identity-registry.js';
 import { launcherClipCells, projectLauncherClip, type LauncherClipProjection } from './launcher-clip-document.js';
+import { NO_SEAL, SealRefusal, sealProposal, type SealRequest } from './overlay-seal.js';
 
 /** A planner refusal. `code` is a stable failure code of the result module. */
 export class EditRefusal extends Error {
@@ -103,6 +104,8 @@ export interface EditPlanInput {
   /** `replace`: an unguarded desired document replaces the clip. The entry is a fresh acquisition. */
   readonly mode: 'guarded' | 'replace';
   readonly fresh: FreshAuthority;
+  /** The claims that the parse left to seal (`parseSealable`). Omitted: none. */
+  readonly seal?: SealRequest;
 }
 
 /** The raw note keys that one portable event field maps to. Channel moves the note between channel lists. */
@@ -146,6 +149,7 @@ function refusalOf(error: unknown): never {
   if (error instanceof DocumentError) {
     throw new EditRefusal('invalid-input', error.rule, error.message, { rule: error.rule, path: error.path });
   }
+  if (error instanceof SealRefusal) throw new EditRefusal('invalid-input', 'R22', error.message, error.detail);
   if (error instanceof NoteTimingUnrepresentableError) {
     throw new EditRefusal('unsupported', 'timing', 'A note start or duration does not fit a supported writable '
       + 'grid. Binary grids extend through 1/512 beat; the triplet family through 1/768 beat.');
@@ -308,10 +312,13 @@ export function planLauncherClipEdit(input: EditPlanInput): EditPlan {
   }
   const expected: Authority = { snapshot: entry.snapshot };
   const full = fullBase(original.document);
-  const proposal = replace ? rebindReplacement(input.proposal, original, full) : input.proposal;
+  const seal = input.seal ?? NO_SEAL;
 
   let result: Materialized;
   try {
+    // A replacement has no stored claim; its claims are sealed against the desired document before the rebind.
+    const proposal = replace ? rebindReplacement(sealProposal(input.proposal, seal, undefined), original, full)
+      : input.proposal;
     if (replace) {
       result = assessBindingProposal(full, proposal, expected, fresh, { rawReplay: true });
     } else {
@@ -323,7 +330,8 @@ export function planLauncherClipEdit(input: EditPlanInput): EditPlan {
           + 'and ref of the same read.');
       }
       result = resolvePartialProposal({
-        original: original.document, freshProjection: original.document, full, proposal, expected, fresh,
+        original: original.document, freshProjection: original.document, full,
+        proposal: sealProposal(proposal, seal, full), expected, fresh,
         resolution: {
           ref: proposal.base.ref ?? '',
           declaredFields: full.events.map((event) => ({ event: event.id, fields: UNCOVERED })),

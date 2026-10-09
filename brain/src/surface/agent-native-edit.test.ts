@@ -580,7 +580,16 @@ test('edit overlays: a put claim is stored with the base, survives an unrelated 
   assert.deepEqual(stored.overlays.map((item) => [item.id, item.state]), [['nom1', 'current']]);
 
   // An unrelated velocity edit keeps the claim current.
+  // A desired document that retains the current claim and changes its dependency is not resealed: the codec R22
+  // check refuses it, with no basis to copy.
   const second = await fx.read();
+  const base = documentOf(second);
+  const retained = { ...base, kind: 'desired', base: second.authority.base,
+    coverage: base.coverage.map((item) => ({ ...item, fields: 'all' as const })),
+    events: base.events.map((event) => event.id === subject ? { ...event, duration: '1/4' } : event) };
+  const kept = await refused(fx, retained, 'invalid-input', 'R22', { format: 'json' });
+  assert.equal(kept.detail.expectedBasis, undefined, JSON.stringify(kept));
+
   const unrelated = await fx.editClip(patch(second.authority.base, [`UPDATE ${other} {"velocity":40}`]));
   assert.equal(unrelated.readback.status, 'verified', JSON.stringify(unrelated));
   assert.deepEqual(documentOf(await fx.read()).overlays.map((item) => item.state), ['current']);
@@ -679,4 +688,148 @@ test('edit corpus: the complete example and its patch pass through the edit path
   assert.deepEqual(json(observed.overlays), json(expected.overlays));
   assert.deepEqual(observed.overlays.filter((item) => item.state === 'stale').map((item) => item.id).sort(),
     expected.overlays.filter((item) => item.state === 'stale').map((item) => item.id).sort());
+});
+
+// --- 8i4: the tool seals explicit claims (D45). Agent-shaped input: literal claim JSON, no repository helper. ---
+
+/** A literal nominal claim with no basis, as an agent writes it. */
+const nominalText = (eventId: string, at: string, duration: string, id = 'nom1', state = 'current') => JSON.stringify({
+  id, type: 'nominal', state,
+  provenance: { kind: 'declared', source: 'agent', method: 'author' },
+  depends: { events: [{ id: eventId, fields: ['clip', 'at', 'duration'] }], clips: [], overlays: [], membership: [] },
+  data: { event: eventId, at, duration, division: '1/4' },
+});
+
+/** A literal groove claim with no basis: the event sits `late` after its nominal onset, with unknown source. */
+const grooveText = (eventId: string, nominalId: string, late: string, durationDelta: string) => JSON.stringify({
+  id: 'groove1', type: 'groove', state: 'current',
+  provenance: { kind: 'declared', source: 'agent', method: 'author' },
+  depends: { events: [{ id: eventId, fields: ['clip', 'at', 'duration'] }], clips: [], overlays: [nominalId], membership: [] },
+  data: {
+    event: eventId, nominal: nominalId, atDelta: null, durationDelta: null, intent: 'unresolved',
+    phase: '0', template: '0', cross: '0', local: '0', unassigned: late,
+    durationIntent: '0', durationUnassigned: durationDelta,
+  },
+});
+
+/** Each current claim of a read document has the basis that the codec utility computes. */
+function assertSealed(document: StateDocument): void {
+  for (const claim of document.overlays.filter((item) => item.state === 'current')) {
+    assert.equal(claim.basis, dependencyBasis(document, claim), `${claim.id} has the R22 basis`);
+  }
+}
+
+test('edit seal: a nominal and a dependent groove put without basis are sealed after the note change of the call', async () => {
+  const fx = await fixture();
+  await fx.write(0, { 0: [note({ pitch: 60 }), note({ pitch: 64, startBeats: 1 })] });
+  const first = await fx.read();
+  const byKey = ids(documentOf(first));
+  const subject = byKey.get('1:64:1')!;
+  // The same call moves the subject late by 1/16 and shortens it; the claims describe the new timing.
+  const result = await fx.editClip(patch(first.authority.base, [
+    `UPDATE ${subject} {"at":"17/16","duration":"3/4"}`,
+    `OVERLAY_PUT ${nominalText(subject, '1', '1')}`,
+    `OVERLAY_PUT ${grooveText(subject, 'nom1', '1/16', '-1/4')}`,
+  ]), { readback: 'document' });
+  assert.equal(result.failure, undefined, JSON.stringify(result));
+  assert.equal(result.readback.status, 'verified', JSON.stringify(result.readback));
+  const written = parse(result.readback.document, 'fields') as StateDocument;
+  assert.deepEqual(written.overlays.map((item) => [item.id, item.state]), [['groove1', 'current'], ['nom1', 'current']]);
+  assertSealed(written);
+  // A later read returns the sealed claims in a valid document.
+  const later = documentOf(await fx.read());
+  assert.deepEqual(json(later.overlays), json(written.overlays));
+  assertSealed(later);
+});
+
+test('edit seal: a desired document with a new claim without basis is sealed', async () => {
+  const fx = await fixture();
+  await fx.write(0, { 0: [note({ pitch: 60 }), note({ pitch: 64, startBeats: 1 })] });
+  const first = await fx.read();
+  const document = documentOf(first);
+  const subject = ids(document).get('1:64:1')!;
+  const desired = serialize({ ...document, kind: 'desired', base: first.authority.base,
+    coverage: document.coverage.map((item) => ({ ...item, fields: 'all' as const })) } as StateDocument, 'fields');
+  const result = await fx.editClip(`${desired}OVERLAY ${nominalText(subject, '1', '1')}\n`, { readback: 'document' });
+  assert.equal(result.failure, undefined, JSON.stringify(result));
+  assert.equal(result.plan.route, 'none');
+  const written = parse(result.readback.document, 'fields') as StateDocument;
+  assert.deepEqual(written.overlays.map((item) => [item.id, item.state]), [['nom1', 'current']]);
+  assertSealed(written);
+});
+
+test('edit seal: a supplied wrong basis refuses with the expected basis; a stale claim needs its basis', async () => {
+  const fx = await fixture();
+  await fx.write(0, { 0: [note({ pitch: 60 }), note({ pitch: 64, startBeats: 1 })] });
+  const first = await fx.read();
+  const document = documentOf(first);
+  const subject = ids(document).get('1:64:1')!;
+  const wrong = { ...JSON.parse(nominalText(subject, '1', '1')), basis: '0'.repeat(64) };
+  const refusal = await refused(fx, patch(first.authority.base, [`OVERLAY_PUT ${JSON.stringify(wrong)}`]),
+    'invalid-input', 'R22');
+  assert.equal(refusal.detail.overlay, "nom1", JSON.stringify(refusal));
+  assert.equal(refusal.detail.expectedBasis, dependencyBasis(document, wrong as Overlay));
+  // A stale claim keeps the basis of its prior projection: the codec requires it (R12).
+  const stale = await refused(fx, patch(first.authority.base, [`OVERLAY_PUT ${nominalText(subject, '1', '1', 'nom1', 'stale')}`]),
+    'invalid-input');
+  assert.equal(stale.detail.rule, 'R12', JSON.stringify(stale));
+});
+
+test('edit seal: a put on an event that the same patch removes refuses', async () => {
+  const fx = await fixture();
+  await fx.write(0, { 0: [note({ pitch: 60 }), note({ pitch: 64, startBeats: 1 })] });
+  const first = await fx.read();
+  const subject = ids(documentOf(first)).get('1:64:1')!;
+  const result = await refused(fx, patch(first.authority.base, [`REMOVE ${subject}`,
+    `OVERLAY_PUT ${nominalText(subject, '1', '1')}`]), 'invalid-input', 'R21');
+  assert.match(result.message, /dangling event/);
+});
+
+test('edit seal: a sealed claim stays current on an unrelated edit and goes stale, not resealed, on a dependency edit', async () => {
+  const fx = await fixture();
+  await fx.write(0, { 0: [note({ pitch: 60 }), note({ pitch: 64, startBeats: 1 })] });
+  const first = await fx.read();
+  const byKey = ids(documentOf(first));
+  const subject = byKey.get('1:64:1')!;
+  const other = byKey.get('1:60:0')!;
+  const put = await fx.editClip(patch(first.authority.base, [`OVERLAY_PUT ${nominalText(subject, '1', '1')}`]));
+  assert.equal(put.failure, undefined, JSON.stringify(put));
+  const sealed = documentOf(await fx.read()).overlays[0]!;
+
+  // A desired document that retains the current claim and changes its dependency is not resealed: the codec R22
+  // check refuses it, with no basis to copy.
+  const second = await fx.read();
+  const base = documentOf(second);
+  const retained = { ...base, kind: 'desired', base: second.authority.base,
+    coverage: base.coverage.map((item) => ({ ...item, fields: 'all' as const })),
+    events: base.events.map((event) => event.id === subject ? { ...event, duration: '1/4' } : event) };
+  const kept = await refused(fx, retained, 'invalid-input', 'R22', { format: 'json' });
+  assert.equal(kept.detail.expectedBasis, undefined, JSON.stringify(kept));
+
+  const unrelated = await fx.editClip(patch(second.authority.base, [`UPDATE ${other} {"velocity":40}`]));
+  assert.equal(unrelated.readback.status, 'verified', JSON.stringify(unrelated));
+  assert.deepEqual(json(documentOf(await fx.read()).overlays), json([sealed]));
+
+  const third = await fx.read();
+  const dependency = await fx.editClip(patch(third.authority.base, [`UPDATE ${subject} {"duration":"1/2"}`]));
+  assert.equal(dependency.readback.status, 'verified', JSON.stringify(dependency));
+  const after = documentOf(await fx.read()).overlays[0]!;
+  assert.equal(after.state, 'stale');
+  assert.equal(after.basis, sealed.basis, 'a stale claim keeps its prior basis');
+
+  // A desired document that sends the stale claim as current again is explicit: R22 names the expected basis.
+  const fourth = await fx.read();
+  const current = documentOf(fourth);
+  const reaffirmed = { ...current, kind: 'desired', base: fourth.authority.base,
+    coverage: current.coverage.map((item) => ({ ...item, fields: 'all' as const })), overlays: [{ ...sealed }] };
+  const refusal = await refused(fx, reaffirmed, 'invalid-input', 'R22', { format: 'json' });
+  assert.equal(typeof refusal.detail.expectedBasis, 'string');
+
+  // A remove of the claim changes no note.
+  const before = json(await fx.raw());
+  const removed = await fx.editClip(patch(fourth.authority.base, ['OVERLAY_REMOVE nom1']));
+  assert.equal(removed.failure, undefined, JSON.stringify(removed));
+  assert.deepEqual(removed.effects, []);
+  assert.deepEqual(json(await fx.raw()), before);
+  assert.deepEqual(documentOf(await fx.read()).overlays, []);
 });

@@ -209,7 +209,7 @@ async function addLauncherClip(workspace: Workspace, args: AddInput): Promise<un
   const started = performance.now();
   const target = { trackId: args.trackId, row: args.row };
   return guardedRun(ADD_SCHEMA, target, async (state) => {
-    const proposal = parseProposal(args);
+    const proposal = parseProposal(args).document;
     if (proposal.kind !== 'desired' || proposal.base !== undefined) {
       throw new ToolFailure('invalid-input', 'input', 'add_launcher_clip takes a desired document without BASE.');
     }

@@ -2,65 +2,55 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-10-08
+updated: 2026-10-09
 phase: phase-8-agent-native-live-engine
-session: 8i4
+session: 8i-trial-2
 ---
 
 ## Now
 
-8i3 and its limit follow-up are complete and staged, not committed
-([E252](evidence/experiments/e252-long-device-write-profile.md),
-[D44](decisions/d44-long-writes-are-optimized-then-bounded.md), D39
-amendment). Every `agent-native-v1` write has a measured largest admitted
-case. Nine guard-keeping changes removed the cost that grew with the input
-(staged 5×4 compose 102 s, Drum Machine 16 pads 72 s → 12.5 s, 44 control
-writes 21 s → 9.4 s, 8 preset checks 45 s → 7 s). Then the D44 limits in
-`brain/src/surface/write-limits.ts` refuse a larger request before any
-read or write (`outside-limit`, the limit in `detail`). The longest admitted
-call is 33.5 s (properties of 8 clips of 16,384 notes). No background flag.
-No extension change. Descriptions are `ghostnote-description-v37` (v36
-frozen).
+8i4 is complete and staged, not committed
+([E253](evidence/experiments/e253-overlay-basis-sealing.md),
+[D45](decisions/d45-the-edit-limb-seals-explicit-overlay-claims.md)).
+`edit_launcher_clip` is the supplied dependency-basis utility: a current
+claim that the call states (each `OVERLAY_PUT`, and each `OVERLAY` of a
+desired document that omits `basis` or differs from the stored claim) can
+omit `basis`. The tool computes it on the state after the note changes of
+the same call. A supplied basis that does not match refuses with reason R22
+and `detail.expectedBasis`. Retained and stale claims are never sealed. The
+code is `brain/src/bindings/overlay-seal.ts`; the rule is in
+`HOST-BINDING.md` ("Overlay basis sealing"). No grammar, codec API, or model
+reference change. No host turn; no extension change. Descriptions are
+`ghostnote-description-v38` (v37 frozen).
 
-The limit follow-up (E252 "Limit follow-up", `final3/`): `set_device_controls`
-admits 4 device routes (4 Diva routes of 16 settings: 22.5 s) and
-`delete_device` 10 devices (10 native 25.2 s, 10 Divas 20.7 s). The plug-in
-weight in `compose_devices` stays 2 (6 Diva chains would revert in about
-32 s, estimate). Each bounded input states "At most N … in one call" in its
-schema text, with no `maxItems`; `write-limits.test.ts` checks the JSON
-schema text, the description, and the refusal. `move_launcher_clips` now
-states its 8-row limit. All 2,127 brain tests pass; "New 3" is at its
-baseline.
+Live in "New 3" (HEAD refused the same agent-shaped put with R12): a nominal
+and a dependent groove put in the call that moves their note sealed and
+verified; an unrelated edit kept them current; a dependency edit made them
+stale with the sealed basis; a remove had no effect. All writes were
+reverted; the track list equals the baseline. All 2,134 brain tests pass.
 
-Agent impact to keep in mind (8i3 review): with the limits, the agent splits
-larger work into more calls. A split is not atomic; `revert_change` does not
-reverse `move_devices` or clip moves; overlapping clip moves split from the
-far edge. A container with 3 or more modulated layer chains cannot be built
-(container modulators come only from `compose_devices`); this is the one
-shape that the limits remove.
+Open from E253: the codec structure check builds a `DocumentError` for each
+failed `oneOf` branch; at 16,384 claims the planner takes 6.3 s (a
+publication candidate change to fix). The first E253 run had slow
+post-write captures (whole-clip edits 2.3 s); the inventory (1,666 ms) and
+a rerun (1,686 ms) on the same code did not, so the ledger stands.
 
 ### Next
 
-1. [8i4 — Overlay basis sealing](plan/phase-8/8i4-overlay-basis-sealing.md):
-   no tool supplies the R22 basis, so an agent cannot put an overlay claim
-   (offline check: omitted basis R12, wrong basis R22). Commit the staged
-   8i3 change first, or continue on top of it.
+1. Rerun the second 8i trial in "ice jungle"
+   ([8i charter](plan/phase-8/8i-agent-native-hybrid-dogfood.md)). The trial
+   set needs a groove task and an overlay dependency change; both are now
+   possible without a repository helper.
 
-Then rerun the second trial in "ice jungle". Minor review items for a
-session that already touches the files: `README.md` has a stale status line
-and two missing probe scripts (`probe:e00`, `probe:conformance`).
-`reverse_existing_device_modulation_wrap` and `read_preset_modulation` keep
-`stable-v1` wording (8i3 gave the wrap its own text).
+Agent impact from 8i3 to keep in mind: with the D44 limits, the agent splits
+larger work into more calls. A split is not atomic; `revert_change` does not
+reverse `move_devices` or clip moves; overlapping clip moves split from the
+far edge. A container with 3 or more modulated layer chains cannot be built.
 
-What 8i3 found besides the cost: a copy of more than about 20 clips cannot
-be reverted (24 launcher content events); clip property and launch-setting
-writes of more than 8 clips always refused after reading (8 writer cursors);
-a delete of more than 8 clips could not be reverted; a wrap with 16
-modulators never proves its pages (16-page window). D44 turns each into an
-early `outside-limit`. The behavior proof needs the audio engine, and some
-controls (Polysynth filter frequency, filter envelope depth) move less than
-the proof divergence for an LFO. A plug-in with many more parameters than
-Diva (281) has a higher fixed cost; that dimension stays unbounded.
+Minor review items for a session that already touches the files: `README.md`
+has a stale status line and two missing probe scripts (`probe:e00`,
+`probe:conformance`). `reverse_existing_device_modulation_wrap` and
+`read_preset_modulation` keep `stable-v1` wording.
 
 Open from E250/E251: `add_launcher_clip` leaves the slot selection on the new
 clip; a non-add tool whose verify read throws reports `differs`, not
@@ -94,23 +84,23 @@ the generic pressure warning as a host limit.
   parameter inventories around a device control write are the costliest
   safeguard (27 controls: 14.4 s).
 
-## Last live baseline (8i3)
+## Last live baseline (8i4)
 
 The deployed normal `ghostnote` archive is unchanged since 8i1: SHA-256
 `aae2c7e346c413dc409c572a3e52dc44f983f08ac232ea302e4c0b14f0bc1fb0`, 89
 methods, `0ef817f4bac8a8a7`, `fineSteps` 4,194,304, and the `rig.info`
 markers `clipMetadataWrite: owned-fields-v1` and `cursorTrackPins.rule:
-owned-tracks-pinned-v1`. The 8i3 changes are brain-only. Bitwig has the
-owned project "New 3" open (Inst 1, Audio 2, FX 1; 8 scenes; the audio
+owned-tracks-pinned-v1`. The 8i3 and 8i4 changes are brain-only. Bitwig has
+the owned project "New 3" open (Inst 1, Audio 2, FX 1; 8 scenes; the audio
 engine is on), at its baseline; `gn-scale-test`, "New 2", and "New 6" are
-unchanged. The next free evidence number is E253; the next decision is D45.
+unchanged. The next free evidence number is E254; the next decision is D46.
 Check the current project before live work; dogfood uses "ice jungle".
-`phase8i3-long-writes.ts` measures each long write at its D44 limit (one
-command for each arm; `plugins` and `modulation` need the audio engine).
+`phase8i4-overlay-seal.ts seal` checks the claim lifecycle live on its own
+track.
 
 ## Facts
 
-Add the index row in the same session as a new E or D record. Clip colour no
+Add the index row in the same session as a new E or D record. An agent claim can omit `basis`; `edit_launcher_clip` seals it (D45). Clip colour no
 longer needs the palette (D42); a colour sample must include dark colours.
 Report note channels 1-based to the operator. A long write has a D44 limit
 in `write-limits.ts`; a new or changed long path measures its largest
@@ -150,6 +140,17 @@ driver run: deleted tracks stay in the undo history.
 VU audibility oracle (E239): stop every clip and the transport, wait for VU 0,
 then launch one track and read the Master VU as well.
 
+## 8i4 retrospective
+
+- A live number 30 percent above the ledger came from slow host captures
+  in one run, not from the code. Compare per-call durations in the wire
+  sequence with the inventory, and rerun once, before you attribute a
+  regression.
+- The codec checks R22 at parse for a desired document but not for a patch
+  (it checks a patch at apply). A plan that changes a codec rule at the
+  host boundary names the stage of each check (`parse`, `validateSemantics`,
+  `finish`).
+
 ## 8i3 limit follow-up retrospective
 
 - The plan asked for a weight-1 trial of 6 Diva chains, but `compose_devices`
@@ -174,14 +175,3 @@ then launch one track and read the Master VU as well.
 - A `git stash` of `adapter.ts` during a running live chain removed the
   edits for a few seconds. Do not stash a file that a running driver can
   load; test the old code in a worktree.
-
-## 8i2 retrospective
-
-- The plan expected the device route to use `cursor.pointExpanded`. One
-  grep of `adapter.ts` shows that it is a clip route. When a plan names the
-  wire route of a tool, cite the adapter function that sends it.
-- Three driver reruns came from the comparison, not from the product: a
-  `-0` against `0`, a collapse state compared with the entry after a
-  delete, and document clip IDs that each process assigns. A driver that
-  compares across a host event or a process resets its expected state after
-  the event and compares content without document IDs.

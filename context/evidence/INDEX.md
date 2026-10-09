@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-10-08
+updated: 2026-10-09
 ---
 
 # Evidence index
@@ -16,6 +16,7 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E253 | Overlay basis sealing: `edit_launcher_clip` computes the R22 basis of each current claim that the call states (D45). Before (HEAD, live): an agent-shaped `OVERLAY_PUT` without basis refused R12. After, live in "New 3": a nominal and a dependent groove put in the call that moves their note seal and verify (1,584 ms, targeted); an unrelated edit keeps them current; a dependency edit makes them stale with the sealed basis; a remove has no effect. A supplied wrong basis refuses with `detail.expectedBasis`; retained and stale claims are never sealed. No host turn; the seal adds about 10 percent of planner time with claims (16,384 claims 6.3 s, 5.8 s before, mostly the codec structure check) | [open](experiments/e253-overlay-basis-sealing.md) |
 | E252 | Long device write profile: the largest admitted input of every `agent-native-v1` write, live in "New 3". Before: staged 5×4 102 s (revert 89 s), Drum Machine 16 pads 72 s, 44 control writes 21 s, 8 preset checks 45 s; copy of 64 clips unrevertable (24 content events), properties of more than 8 clips refused after 32 s. Nine guard-keeping changes (cohort poll, one name stage, structure proofs, pad poll, shared modulation rounds, no slot descent on chain moves, two empty-slot descents) and the D44 limits: the longest admitted call is 33.5 s | [open](experiments/e252-long-device-write-profile.md) |
 | E251 | Collapsed-group live verification on the D43 build in `gn-scale-test`: the D34 read and the `cursor.pointExpanded` edit pass with pinned finders and pool cursors at one and three group levels; every collapsed document equals the expanded control, every write verifies and reverts, the selection and collapse state stay; the device route points a pinned pool cursor with `cursor.pointTrack` (not `pointExpanded`); a track delete and a project switch leave no cursor unpinned; Bitwig moves the mixer selection on any track delete (control arm). Raw grouped reads 281–287 ms, three levels 374–378 ms (E241: 262, 378) | [open](experiments/e251-collapsed-group-live-verification.md) |
 | E250 | Reader follow-mode repair: in a project saved with the cursor records, an unpinned owned cursor follows the selection and its point drives it; a pinned track still moves and binds the row. Every owned cursor track stays pinned and is pinned again after a delete or project switch; `revision.get` lists unpinned cursors and the health check refuses; the lease accepts the mixer of the claim; a failed verify read keeps the receipt. Live in "ice jungle": reads 163–211 ms (raw) and 365–403 ms (tool), every write route passes with the selection kept; edit cost 1,723–1,793 ms (E248: 1,790–1,832) | [open](experiments/e250-reader-follow-mode-repair.md) |

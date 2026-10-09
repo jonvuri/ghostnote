@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v37';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v38';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -519,7 +519,8 @@ const RETIRED_IN_V33 = new Set(['inspect_operation', 'cancel_operation']);
  * check_bitwig_connection refuses an unpinned Ghostnote cursor. v36 (8i3, D44) keeps this list; the long writes
  * state their measured costs and D44 limits, and the clip batch schemas have no maxItems (the limit refuses with
  * code outside-limit). wrap_existing_device_modulation has its own agent-native-v1 text. v37 (8i3 limit
- * follow-up) keeps this list; each bounded input states its D44 limit in its schema text.
+ * follow-up) keeps this list; each bounded input states its D44 limit in its schema text. v38 (8i4, D45) keeps
+ * this list; edit_launcher_clip computes the dependency basis of each claim that the call states.
  */
 export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] =
   DESCRIPTION_COHORT_V32.filter((member) => !RETIRED_IN_V33.has(member.name));
@@ -742,8 +743,15 @@ export const TOOL_DESCRIPTION_V36_SHA256 =
 
 /**
  * v37 (8i3 limit follow-up, D44): set_device_controls admits 4 device routes and delete_device 10 devices; each
- * bounded input states its limit in its schema text; move_launcher_clips states its 8-row limit. Changing this
- * fingerprint requires a new description version.
+ * bounded input states its limit in its schema text; move_launcher_clips states its 8-row limit. Frozen in 8i4.
  */
 export const TOOL_DESCRIPTION_V37_SHA256 =
   '1919de648c039ef1592ae3ec3f1510ea7f16793f36ecd2dbda9cee62f26b9a6e';
+
+/**
+ * v38 (8i4, D45): edit_launcher_clip is the dependency-basis utility. A current claim that the call states can omit
+ * basis; a supplied basis that does not match refuses with the expected basis. Changing this fingerprint requires a
+ * new description version.
+ */
+export const TOOL_DESCRIPTION_V38_SHA256 =
+  'e0b209ebc81b481b82f25c7dd2e387f430b688310430bebee263ec059d58d14b';

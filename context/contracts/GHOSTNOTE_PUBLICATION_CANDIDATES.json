@@ -78,7 +78,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "e0efedf47d55425fe1fd09d373cf3075acdf4fd8df93f49d3128d66bb956438a"
+        "value": "bd89d7d79dc2f02b6ba834585e816c13455b1f8b69bb81735666bf2c47ed6cda"
       },
       "dependencies": [
         "brain/src/bindings/ghostnote-document.ts",
@@ -1130,7 +1130,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "4d5668b22f57d4cab686e70de870cb3936be3db54392590d36f9fa11929afe9b"
+        "value": "f8e14072113b29a337b512275adf53385866fe9d932b3ab5ce32159126fef127"
       },
       "dependencies": [
         "brain/src/document/",
@@ -1145,6 +1145,20 @@
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
         "value": "2a416c01ae10abf4af0f313113b471bee904bbae716fe8809a5a251d379b2648"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "brain/src/contract/"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "brain/src/bindings/overlay-seal.ts",
+      "version": "ghostnote-binding/1",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "14635709787052ccccae4332c7dcc3fbe134dbc63bd959c8878765ad82283208"
       },
       "dependencies": [
         "brain/src/document/",

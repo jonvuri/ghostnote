@@ -25,6 +25,19 @@ test('8h4g planner budget: a whole-clip edit of 16,384 notes plans within the of
   assert.ok(ratio < 6, `4x the notes cost ${ratio.toFixed(1)}x the planning time`);
 });
 
+test('8i4 planner budget: sealing one claim on each of 4,096 notes plans within the budget, and scales linearly', async () => {
+  // E253: 16,384 claims plan in about 6.3 s (5.8 s with helper bases before 8i4); the codec structure check of each
+  // overlay is most of it. The seal adds about 10 percent.
+  const small = await planBench(1_024, true, true);
+  const large = await planBench(4_096, true, true);
+  assert.equal(large.route, 'whole-clip', JSON.stringify(large));
+  assert.equal(large.code, undefined, JSON.stringify(large));
+  const planMs = large.timing.planMs as number;
+  assert.ok(planMs < LARGEST_PLAN_MS, `4,096-claim plan took ${Math.round(planMs)} ms (budget ${LARGEST_PLAN_MS} ms)`);
+  const ratio = planMs / Math.max(1, small.timing.planMs as number);
+  assert.ok(ratio < 6, `4x the claims cost ${ratio.toFixed(1)}x the planning time`);
+});
+
 test('8h4g inventory: calls in flight together are one host turn', () => {
   const summary = wireSummary([
     { method: 'revision.get', sent: 0, received: 24 }, { method: 'track.list', sent: 0, received: 25 },
