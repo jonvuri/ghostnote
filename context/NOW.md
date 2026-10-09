@@ -51,6 +51,10 @@ Open from 8i5:
 - The `phase8i3-long-writes.ts modulation` mode still asks for a 3-chain
   composition with modulators (12 units), which D44 refuses. `identity`
   uses the 6-unit shape.
+- [9c](plan/phase-9/9c-release-and-upgrade-live-suite.md) plans the
+  release and Bitwig upgrade live suite. It keeps the route suite and
+  evaluates every other probe fresh; E40 is out of date and
+  `probe:conformance` has no script.
 - Interface review candidates 3 to 5 (discovery output, preset read scope,
   authoring type names) need their own scope.
 

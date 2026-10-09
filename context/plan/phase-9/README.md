@@ -3,7 +3,7 @@ title: Phase 9 — Breadth and release
 kind: plan
 state: planned
 status: Start after Phase 8 accepts the agent-native engine and publication candidates.
-updated: 2026-10-01
+updated: 2026-10-09
 parent: ../ROADMAP.md
 prev: ../phase-8/README.md
 ---
@@ -30,6 +30,11 @@ is the first selected backlog item after the Phase 8 dogfood gate closes. The
 first Phase 5 closeout settled the internal asset policy and deferred external
 redistribution review. Session 9a checks that boundary before it prepares the
 standalone package. It does not publish externally without explicit approval.
+
+Before a release candidate,
+[9c — Release and Bitwig upgrade live suite](9c-release-and-upgrade-live-suite.md)
+selects the occasional live checks that prove the host assumptions of the
+live product path. It runs for release candidates and Bitwig upgrades.
 
 ## Candidate items
 
