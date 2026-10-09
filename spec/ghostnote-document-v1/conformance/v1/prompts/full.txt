@@ -1,6 +1,6 @@
 # Model format reference
 
-Format: `ghostnote-document/1.0`. Reference revision: `4`.
+Format: `ghostnote-document/1.0`. Reference revision: `5`.
 The [identity file](MODEL-REFERENCE.identity.json) gives the SHA-256 of this
 maintained source. Select the Core section and the optional sections needed
 for the task. Examples use generated MIT fixture music.
@@ -171,7 +171,9 @@ timing feel.
    claims unless the task changes the rhythm. Write the moved notes and
    their new claims, with new IDs, in one edit. The earlier claims become
    stale and keep their values as previous context: a later step uses the
-   current claims, and the stale ones for an earlier state.
+   current claims, and the stale ones for an earlier state. A note that the
+   edit does not move keeps its current claims, or gets new values under the
+   same IDs.
 
 ## Groups
 

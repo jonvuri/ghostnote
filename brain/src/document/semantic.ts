@@ -216,6 +216,9 @@ function currentOverlay(index: StateIndex, o: Overlay, path: string, checkBasis:
         const intentional = ['phase', 'template', 'cross', 'local', 'durationIntent'] as const;
         if (g.sourceAt !== undefined) {
             const norm = normalizeTiming(g.sourceAt, g.sourceDuration!);
+            // A balanced sum on another cell than the floor: name the import floor, not a sum fault.
+            if (g.atDelta !== null && g.atDelta !== undefined && cmp(e.at, norm.at) !== 0 && cmp(sum(g.sourceAt, g.atDelta), e.at) === 0)
+                fail('R15', `${path}.data.atDelta`, 'event onset is the floor of sourceAt to the 1/512-beat cell, so atDelta is in (-1/512, 0]');
             equation(e.at, norm.at, 'sourceAt', 'R15');
             equation(e.duration, norm.duration, 'sourceDuration', 'R15');
             equation(g.atDelta, norm.atDelta, 'atDelta', 'R15');
@@ -317,21 +320,26 @@ export function validateSemantics(doc: Document, checkBasis = true): void {
             fail('R04', path, 'duplicate normalized event address');
         addresses.add(address);
     });
-    const currentKeys = new Set<string>(), positions = new Map(doc.overlays.map((o, i) => [o.id, i]));
+    const currentKeys = new Map<string, string>(), positions = new Map(doc.overlays.map((o, i) => [o.id, i]));
     for (const o of overlayOrder(doc.overlays)) {
         const path = `$.overlays[${positions.get(o.id)}]`;
         checkReferences(index, o, path);
         if (o.state === 'stale')
             continue;
-        let key: string | undefined;
-        if (o.type === 'nominal' || o.type === 'groove')
+        let key: string | undefined, subject = '';
+        if (o.type === 'nominal' || o.type === 'groove') {
             key = o.type + '\0' + o.data.event;
-        if (o.type === 'meter' || o.type === 'tempo')
+            subject = `event ${o.data.event}`;
+        }
+        if (o.type === 'meter' || o.type === 'tempo') {
             key = o.type + '\0' + o.data.clip + '\0' + o.data.at;
+            subject = `clip ${o.data.clip} at ${o.data.at}`;
+        }
         if (key) {
-            if (currentKeys.has(key))
-                fail(o.type === 'nominal' ? 'R13' : o.type === 'groove' ? 'R14' : 'R19', path, 'duplicate current claim');
-            currentKeys.add(key);
+            const other = currentKeys.get(key);
+            if (other !== undefined)
+                fail(o.type === 'nominal' ? 'R13' : o.type === 'groove' ? 'R14' : 'R19', path, `duplicate current claim: ${o.type} claims ${other} and ${o.id} of ${subject}`);
+            currentKeys.set(key, o.id);
         }
         currentOverlay(index, o, path, checkBasis);
     }

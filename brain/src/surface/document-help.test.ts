@@ -429,7 +429,8 @@ const timingMethod = () => /Method for timing feel[\s\S]*$/.exec(readFileSync(ne
 test('8i10 method: the Timing overlays section has the method note; it names no undefined groove term', async () => {
   const method = timingMethod();
   for (const text of ['shortest', 'push at the end of each phrase', 'about `1/128` beat', 'dense part',
-    'provenance `inferred`', 'intent\n   `unresolved`', 'Keep the nominal\n   claims', 'keep their values']) {
+    'provenance `inferred`', 'intent\n   `unresolved`', 'Keep the nominal\n   claims', 'keep their values',
+    'edit does not move keeps its current claims', 'new values under the\n   same IDs']) {
     assert.ok(method.includes(text), text);
   }
   // R14-R16 give phase, cross, and local no musical meaning; the method does not either.

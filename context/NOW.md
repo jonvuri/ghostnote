@@ -4,24 +4,25 @@ kind: status
 state: active
 updated: 2026-10-09
 phase: phase-8-agent-native-live-engine
-session: 8i10-unprompted-overlay-trials
+session: 8i11-claim-replacement-repair
 ---
 
 ## Now
 
-Next: [8i11](plan/phase-8/8i11-claim-replacement-repair.md): a repair for
-a duplicate current claim, the onset floor in the `groove-timing` repair, and
-method step 7 for notes that an edit does not move; then one operator rerun
-of T1 steps 1 and 2. [9c](plan/phase-9/9c-release-and-upgrade-live-suite.md)
-is the release and Bitwig upgrade live suite.
+Next: the 8i gate close-out
+([8i plan](plan/phase-8/8i-agent-native-hybrid-dogfood.md), item 13):
+check the 8i acceptance criteria against E249–E260, give each Phase 8
+interface a verdict, and write the Phase 9 handoff with the 9b artifact
+inventory. [9c](plan/phase-9/9c-release-and-upgrade-live-suite.md) is the
+release and Bitwig upgrade live suite.
 
-8i10 is complete ([E259](evidence/experiments/e259-unprompted-overlay-trials.md)).
-With descriptions v44, no fresh agent made timing claims without a leading
-prompt. Descriptions v45 (42 tools) route timing-feel tasks (swing, groove,
-pocket, ahead of or behind the beat) to Timing overlays, and model reference
-revision 4 adds an analysis method. In the reruns, both timing tasks made and
-used claims without a request; the claim edits cost 5 refusals. No extension
-change.
+8i11 is complete ([E260](evidence/experiments/e260-claim-replacement-repair.md)).
+A duplicate current claim (R13, R14) names both IDs and the event and
+returns repair `duplicate-claim`; a balanced R15 claim with a positive
+`atDelta` names the 1/512-cell onset floor. Model reference revision 5 adds
+step 7 for unmoved notes; descriptions v46. In the operator rerun of T1
+steps 1 and 2, the agent made and used claims with no refusal. No extension
+change; the new repairs were not exercised live.
 
 Keep in mind for the trials: with the D44 limits, an agent splits larger
 work into more calls. A split is not atomic; `revert_change` does not
@@ -37,13 +38,12 @@ operator accepts the generic pressure warning as a host limit.
 
 Night Glass is the operator's testbed for the trials. Preserve the Rain
 Steps drums and the Scene 1 bass clip `Rain Steps • Pocket Bass` (32 notes,
-with the operator's two hand edits; no claims). The Scene 1 shaker clip is in
-the 8i10 T2 rerun state; the operator's backup copy of the original shaker
-clip is in a lower scene. Scene 2 holds the T1 rerun bass clip
-`Undertow • Rain Steps II` and copies of the Scene 1 drums, pad, chords, and
-shaker clips. For the 8i11 rerun, reset as for the 8i10 reruns (E259): the
-original shaker in Scene 1 and an empty Scene 2. Check current state before
-live work.
+with the operator's two hand edits; no claims). After the 8i11 rerun
+(E260), the Scene 1 shaker clip has the original timing, and the operator's
+backup copy is in a lower scene. Scene 2 holds the bass clip `Rain Steps •
+Scene 2 Bass` (step-2 state) and the agent's copies of the Scene 1 drums,
+pad, chords, and shaker clips. The agent launched Scene 2; the operator
+stops the transport. Check current state before live work.
 
 ## Last live baseline (8i8)
 
@@ -55,7 +55,7 @@ track-mixer-raw-v1`, `clipMetadataWrite: owned-fields-v1`, and
 `cursorTrackPins.rule: owned-tracks-pinned-v1`. The 8i8 runs used
 `gn-scale-test` with scratch tracks only; it is at its E234 baseline, with
 slot `gn-A` row 0 and mixer `gn-sel` selected. "New 3" (8i7) was not opened
-in 8i8. The next free evidence number is E260; the next decision is D49.
+in 8i8. The next free evidence number is E261; the next decision is D49.
 `phase8i8-selection.ts accept` runs the selection arms; the current drivers
 accept the 8i8 build (`NORMAL_8I8`, `assertCurrentNormal`).
 `phase8i7-mixer.ts`, `phase8i9-overlay-add.ts`, `phase8i3-long-writes.ts
@@ -67,7 +67,9 @@ Codex Desktop starts one Ghostnote server for each thread, from the brain
 source: a new thread loads changed descriptions with no deploy, and claims do
 not cross threads. A trial's first prompt ends with "Use Ghostnote and
 computer use as you see fit." (without it, the agent used only computer use).
-Agents request the reference sections that a description names. The Codex
+Agents request the reference sections that a description names. A
+duplicate current claim names both IDs (repair `duplicate-claim`); R15 at
+`.data.atDelta` is the onset floor: atDelta is in (−1/512, 0]. The Codex
 rollout log cuts tool results over about 24,000 characters; take numbers
 from the event rows or the agents' script output. A `codex://threads/<id>`
 link is `~/.codex/sessions/<date>/rollout-*-<id>.jsonl`; Ghostnote calls are

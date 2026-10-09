@@ -2,7 +2,7 @@
 title: Phase 8i — Agent-native hybrid dogfood
 kind: plan
 state: planned
-status: Final Phase 8 gate. 8i0–8i9 are complete (E249–E258, D42–D48); the groove and overlay trials passed (E256). Next: 8i10.
+status: Final Phase 8 gate. 8i0–8i11 are complete (E249–E260, D42–D48); the groove and overlay trials passed (E256), and timing claims are used without a leading prompt (E259, E260). Next: the gate close-out.
 updated: 2026-10-09
 parent: README.md
 prev: 8i5-device-control-identity.md
@@ -85,8 +85,14 @@ The following sessions completed them before the 2026-10-09 trial:
     revision 4 route timing-feel tasks to Timing overlays and add an
     analysis method; in the reruns, both timing tasks made and used claims
     without a request.
-12. Next: [8i11 — Claim replacement repair](8i11-claim-replacement-repair.md)
-    repairs the five claim refusals of the 8i10 reruns.
+12. [8i11 — Claim replacement repair](8i11-claim-replacement-repair.md).
+    Complete ([E260](../../evidence/experiments/e260-claim-replacement-repair.md)):
+    the duplicate-claim and onset-floor refusals return a repair; reference
+    revision 5, descriptions v46; the operator rerun of T1 steps 1 and 2 had
+    no refusal.
+13. Next: the gate close-out. Check the [acceptance criteria](#acceptance-criteria)
+    against E249–E260, give each Phase 8 interface a verdict, and write the
+    [Phase 9 handoff](#phase-9-handoff) with the 9b artifact inventory.
 
 ## Fresh agent trials
 

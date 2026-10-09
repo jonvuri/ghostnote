@@ -798,6 +798,70 @@ test('edit seal: an unknown-source groove with a wrong residual refuses at the p
   assert.deepEqual(result.detail.repair.reference.sections, ['Core', 'Timing overlays']);
 });
 
+test('edit seal: new claim IDs for a note that the edit does not move refuse with the duplicate-claim repair (8i11)', async () => {
+  const fx = await fixture();
+  await fx.write(0, { 0: [note({ pitch: 60 }), note({ pitch: 64, startBeats: 1 })] });
+  const first = await fx.read();
+  const byKey = ids(documentOf(first));
+  const subject = byKey.get('1:64:1')!, other = byKey.get('1:60:0')!;
+  const put = await fx.editClip(patch(first.authority.base, [`OVERLAY_PUT ${nominalText(subject, '1', '1')}`,
+    `OVERLAY_PUT ${grooveText(subject, 'nom1', '0', '0')}`]));
+  assert.equal(put.failure, undefined, JSON.stringify(put));
+
+  // The E259 shape: the edit moves another note and puts new claims with new IDs for the unmoved subject.
+  const second = await fx.read();
+  const moveOther = `UPDATE ${other} {"at":"1/2"}`;
+  const renamedGroove = grooveText(subject, 'nom1', '0', '0').replace('"groove1"', '"groove1-v2"');
+  for (const [lines, rule, type, ids_] of [
+    [[`OVERLAY_PUT ${nominalText(subject, '1', '1', 'nom1-v2')}`], 'R13', 'nominal', ['nom1', 'nom1-v2']],
+    [[`OVERLAY_PUT ${renamedGroove}`], 'R14', 'groove', ['groove1', 'groove1-v2']],
+  ] as const) {
+    const result = await refused(fx, patch(second.authority.base, [moveOther, ...lines]), 'invalid-input', rule);
+    assert.equal(result.failure.stage, 'plan');
+    const repair = result.detail.repair;
+    assert.equal(repair?.case, 'duplicate-claim', JSON.stringify(result));
+    assert.deepEqual(repair.reference.sections, ['Core', 'Timing overlays']);
+    assert.ok(repair.correction.includes(`Event ${subject} has two current ${type} claims`), repair.correction);
+    for (const id of ids_) assert.match(result.message, new RegExp(`\\b${id}\\b`));
+    assert.match(repair.correction, /existing ID[\s\S]*OVERLAY_REMOVE/);
+  }
+
+  // Both corrections apply: OVERLAY_REMOVE of the existing claim in the same patch, or the existing ID.
+  const removed = await fx.editClip(patch(second.authority.base, [moveOther, 'OVERLAY_REMOVE groove1',
+    `OVERLAY_PUT ${renamedGroove}`]), { dryRun: true });
+  assert.equal(removed.failure, undefined, JSON.stringify(removed));
+  const replaced = await fx.editClip(patch(second.authority.base, [moveOther,
+    `OVERLAY_PUT ${grooveText(subject, 'nom1', '0', '0')}`]), { readback: 'document' });
+  assert.equal(replaced.failure, undefined, JSON.stringify(replaced));
+  const written = parse(replaced.readback.document, 'fields') as StateDocument;
+  assert.deepEqual(written.overlays.map((item) => [item.id, item.state]), [['groove1', 'current'], ['nom1', 'current']]);
+  assertSealed(written);
+});
+
+test('edit seal: a balanced known-source groove with a positive atDelta names the onset floor (8i11)', async () => {
+  const fx = await fixture();
+  await fx.write(0, { 0: [note({ pitch: 60 }), note({ pitch: 64, startBeats: 1 })] });
+  const first = await fx.read();
+  const subject = ids(documentOf(first)).get('1:64:1')!;
+  // The E259 shape: sourceAt 1/1024 below the cell, and atDelta +1/1024 rounds the onset up to the event.
+  const known = (sourceAt: string, atDelta: string, template: string) => JSON.stringify({
+    ...JSON.parse(grooveText(subject, 'nom1', '0', '0')), provenance: { kind: 'declared', source: 'agent', method: 'author' },
+    data: { event: subject, nominal: 'nom1', intent: 'resolved', phase: '0', template, cross: '0', local: '0',
+      unassigned: '0', durationIntent: '0', durationUnassigned: '0', sourceAt, sourceDuration: '1', atDelta,
+      durationDelta: '0' } });
+  const result = await refused(fx, patch(first.authority.base, [`OVERLAY_PUT ${nominalText(subject, '1', '1')}`,
+    `OVERLAY_PUT ${known('1023/1024', '1/1024', '-1/1024')}`]), 'invalid-input', 'R15');
+  assert.match(result.detail.path, /\.data\.atDelta$/);
+  assert.match(result.message, /floor of sourceAt to the 1\/512-beat cell/);
+  assert.equal(result.detail.repair?.case, 'groove-timing');
+  assert.match(result.detail.repair.correction, /atDelta = event\.at - sourceAt is in \(-1\/512, 0\]/);
+  // The corrected claim: sourceAt 1/1024 above the cell floors to the event, with atDelta -1/1024.
+  const corrected = await fx.editClip(patch(first.authority.base, [`OVERLAY_PUT ${nominalText(subject, '1', '1')}`,
+    `OVERLAY_PUT ${known('1025/1024', '-1/1024', '1/1024')}`]), { readback: 'document' });
+  assert.equal(corrected.failure, undefined, JSON.stringify(corrected));
+  assertSealed(parse(corrected.readback.document, 'fields') as StateDocument);
+});
+
 test('edit seal: a sealed claim stays current on an unrelated edit and goes stale, not resealed, on a dependency edit', async () => {
   const fx = await fixture();
   await fx.write(0, { 0: [note({ pitch: 60 }), note({ pitch: 64, startBeats: 1 })] });

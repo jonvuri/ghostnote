@@ -1,6 +1,6 @@
 # Model format reference
 
-Format: `ghostnote-document/1.0`. Reference revision: `4`.
+Format: `ghostnote-document/1.0`. Reference revision: `5`.
 The [identity file](MODEL-REFERENCE.identity.json) gives the SHA-256 of this
 maintained source. Select the Core section and the optional sections needed
 for the task. Examples use generated MIT fixture music.

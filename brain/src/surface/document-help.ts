@@ -230,7 +230,8 @@ export type RepairCase =
   | 'exact-timing' | 'integer-value' | 'json-syntax' | 'json-envelope' | 'missing-coverage' | 'desired-coverage'
   | 'document-kind' | ClaimRepairCase;
 export type ClaimRepairCase =
-  | 'overlay-depends' | 'dependency-entry' | 'dependency-minimum' | 'overlay-envelope' | 'overlay-data' | 'groove-timing';
+  | 'overlay-depends' | 'dependency-entry' | 'dependency-minimum' | 'overlay-envelope' | 'overlay-data' | 'groove-timing'
+  | 'duplicate-claim';
 
 const RECORDS = new Set(['DOC', 'META', 'BASE', 'EXTENSIONS', 'CLIP', 'COVERAGE', 'FIELDS', 'EVENT', 'ADD', 'REMOVE',
   'UPDATE', 'CLIP_UPDATE', 'OVERLAY', 'OVERLAY_PUT', 'OVERLAY_REMOVE']);
@@ -341,8 +342,9 @@ const CLAIM = /^\$\.(?:overlays|overlayPut)\[\d+\]/;
 
 /**
  * The known correction for a refused overlay claim (8i9), from the codec rule, path, and reason only. The codec
- * reports a structure fault at the parse, and a timing equation (R15, R16) when the claim meets its event: at the
- * apply of an edit, or at the creation check of an add. Undefined when no known correction applies.
+ * reports a structure fault at the parse. It reports a timing equation (R15, R16) and a duplicate current claim (R13,
+ * R14; 8i11) when the claim meets its event: at the apply of an edit, or at the creation check of an add. Undefined
+ * when no known correction applies.
  */
 function claimRepair(rule: string, path: string, reason: string): Repair | undefined {
   const reference = { tool: REFERENCE_TOOL, sections: ['Core', 'Timing overlays'] };
@@ -354,7 +356,18 @@ function claimRepair(rule: string, path: string, reason: string): Repair | undef
       + 'sourceDuration + durationDelta; resolved intent has zero unassigned terms. Unknown source (no sourceAt or '
       + 'sourceDuration): atDelta and durationDelta are null, intent is unresolved, phase, template, cross, local, '
       + 'and durationIntent are 0, unassigned = event.at - nominal.at, and durationUnassigned = event.duration - '
-      + 'nominal.duration. Measured provenance has unresolved intent and zero intentional terms.');
+      + 'nominal.duration. Measured provenance has unresolved intent and zero intentional terms. With a known '
+      + 'source, event.at is the floor of sourceAt to the 1/512-beat cell, so atDelta = event.at - sourceAt is in '
+      + '(-1/512, 0]; claim values can be finer than a cell.');
+  }
+  const duplicate = /^duplicate current claim: (nominal|groove) claims (\S+) and (\S+) of event (\S+)$/.exec(reason);
+  if ((rule === 'R13' || rule === 'R14') && duplicate !== null) {
+    const [, type, first, second, event] = duplicate;
+    return repair('duplicate-claim', `Event ${event} has two current ${type} claims: ${first} and ${second}. An `
+      + 'event has one current claim of each type. A claim stays current when the edit does not move its note. To '
+      + 'replace it, put the new claim under the existing ID (OVERLAY_PUT replaces the claim with that ID), or remove '
+      + 'the existing claim with OVERLAY_REMOVE in the same patch. Use new IDs only for notes that the same edit '
+      + 'moves: their earlier claims become stale.');
   }
   if (rule === 'R22' || rule === 'R28' || !CLAIM.test(path)) return undefined;
   const tail = path.replace(CLAIM, '');

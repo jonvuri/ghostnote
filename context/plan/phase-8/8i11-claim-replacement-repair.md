@@ -1,13 +1,13 @@
 ---
 title: Phase 8i11 claim replacement repair
 kind: plan
-state: planned
-status: After 8i10. A refused duplicate current claim returns a repair, the groove-timing repair names the onset floor, and the method note says how to replace the claims of a note that does not move.
+state: done
+status: Complete (E260). A duplicate current claim returns repair duplicate-claim, R15 names the onset floor, reference revision 5 states step 7 for unmoved notes, descriptions v46; the operator rerun had no refusal.
 updated: 2026-10-09
 parent: README.md
 prev: 8i10-unprompted-overlay-trials.md
 next: 8i-agent-native-hybrid-dogfood.md
-evidence: E256, E259; D45, D47
+evidence: E256, E259, E260; D45, D47
 ---
 
 # Phase 8i11 claim replacement repair
@@ -70,3 +70,13 @@ refusal, as in 8i9 (E256). The reference grows by about one sentence.
 
 Changes to the codec rules, claim persistence across threads, and
 request-to-term guidance.
+
+## Result
+
+Complete ([E260](../../evidence/experiments/e260-claim-replacement-repair.md)).
+The codec message of a duplicate current claim names both IDs and the
+event; the repair case is `duplicate-claim`. A balanced R15 claim with a
+positive `atDelta` refuses at `.data.atDelta` with the floor message. Model
+reference revision 5, descriptions v46. In the operator rerun of T1 steps 1
+and 2, the agent put new claims only for the moved notes, with no refusal
+(E259: 4 in step 2). The new repairs were not exercised live.

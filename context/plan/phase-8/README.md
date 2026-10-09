@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: 8h and 8i0–8i10 are complete (E247–E259); the groove and overlay trials passed, and timing claims are used without a leading prompt. Next: 8i11.
+status: 8h and 8i0–8i11 are complete (E247–E260); the groove and overlay trials passed, and timing claims are used without a leading prompt or a claim refusal. Next: the 8i gate close-out.
 updated: 2026-10-09
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -426,7 +426,8 @@ owns the migration details.
    note in the reference (revision 4), fresh agents made and used timing
    claims without a leading prompt.
    [8i11 — Claim replacement repair](8i11-claim-replacement-repair.md)
-   (next) repairs the duplicate-claim and onset-floor refusals of the reruns.
+   (complete, E260) repairs the duplicate-claim and onset-floor refusals of
+   the reruns. Next: the 8i gate close-out (verdicts and the 9b handoff).
    None requires a skill.
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.
