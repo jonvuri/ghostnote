@@ -103,6 +103,8 @@ public final class CoreHandlers extends HandlerGroup {
         result.add("cursorTrackPins", rig.cursorTrackPins());
         // 8i7 deliberate build marker: the raw track mixer route (E257).
         result.addProperty("trackMixer", MixerHandlers.RULE);
+        // 8i8 deliberate build marker: the guarded mixer-selection restore and the clip-create lease.
+        result.addProperty("selectionEffects", CursorHandlers.SELECTION_EFFECTS);
         // 8h4a (D33): the track-bank content filter that init applied.
         result.addProperty("contentFilter", rig.contentFilterApplied);
         return result;

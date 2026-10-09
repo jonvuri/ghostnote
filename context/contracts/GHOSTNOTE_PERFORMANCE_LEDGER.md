@@ -4,7 +4,7 @@ kind: reference
 state: active
 updated: 2026-10-09
 parent: ../plan/phase-8/8h-cache-promotion-and-interface-simplification.md
-evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252, E253, E254, E256, E257
+evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252, E253, E254, E256, E257, E258
 ---
 
 # Ghostnote performance ledger
@@ -29,7 +29,8 @@ session as a change that moves a number.
    route) and the call-budget tests in
    `brain/src/adapters/live/adapter.test.ts` (the wire frames of a mark, a
    snapshot read, a bank scan after a mark, the writer page check, the
-   writer park, and the mixer read and write). When a
+   writer park, the mixer read and write, and the mixer-selection restore
+   after a track create, delete, or duplicate). When a
    budget changes on purpose, update the test and this ledger, and state the
    cost in the E record. `phase8h4g-inventory.test.ts` holds the offline time
    budget of the edit planner.
@@ -133,6 +134,23 @@ these rows show no regression and fewer wire calls.
 | `add_devices`, one native device | 1,363 ms; 51 wire calls | E247: 1,447–1,544 ms, 67 | unchanged | E250 |
 | One read and one 16-note insert ("New 2") | 1,723–1,793 ms; 54–56 wire calls | E248: 1,790–1,832 ms | unchanged | E250 cost |
 | One read and one 16-note insert, 8i7 build with the mixer observers ("New 3") | 1,789–1,812 ms; 54–56 wire calls | E250: 1,723–1,793 ms | unchanged | E257 rerun |
+
+### Selection restore (E258)
+
+Live in `gn-scale-test` on the 8i8 build. The restore after a track create,
+delete, or duplicate is one `selection.status` turn; when Bitwig moved the
+mixer selection, it adds `selection.restoreMixer` and one confirming poll
+(three turns). The outer selection scope of a two-change tool saves one
+entry capture (two calls). Item 1 (unavailable readback) adds no call.
+
+| Path | Current | Reference or earlier | Call budget | Source |
+|---|---:|---|---|---|
+| `add_tracks`, one track | 889–935 ms; 41 wire calls, 23 turns | E247: 835–841 ms, 46 | unchanged (fake); adapter frame test | E258 |
+| `add_launcher_clip`, typical | 2,037–2,039 ms; 73 wire calls, 49 turns | E250: 2,158 ms, 77 | unchanged | E258 |
+| `delete_track`, one track, the host moved the mixer | 594 ms; 29 wire calls, 16 turns | E250: 476 ms, 25 | unchanged (fake); +3 turns live | E258 |
+| `delete_track`, one track, the mixer did not move | 492–508 ms; 26 wire calls, 13 turns | E250: 476 ms, 25 | unchanged (fake); +1 turn live | E258 |
+| `duplicate_track` | 948 ms; 42 wire calls, 24 turns | E247: 817–844 ms, 46 | unchanged (fake); +3 turns live | E258 |
+| `rename_track` | 378–384 ms; 15 wire calls | E247: 381 ms | unchanged | E258 |
 
 ### Collapsed-group rerun (E251)
 

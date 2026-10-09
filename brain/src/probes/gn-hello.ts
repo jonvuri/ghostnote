@@ -58,6 +58,8 @@ check('the 8i0 build marker: the clip metadata writer writes only the owned fiel
 const pins = rig['cursorTrackPins'] as { rule?: string; tracks?: number; unpinned?: string[] } | undefined;
 check('the 8i1 build marker: every owned cursor track is pinned (D43)',
   pins?.rule === 'owned-tracks-pinned-v1' && (pins.tracks ?? 0) > 0 && pins.unpinned?.length === 0, pins);
+check('the 8i8 build marker: the guarded mixer-selection restore and the clip-create lease',
+  rig['selectionEffects'] === 'mixer-restore-v1', { selectionEffects: rig['selectionEffects'] });
 check('the track bank lists collapsed group children (ALL_CHANNELS, D33)',
   rig['contentFilter'] === 'ALL_CHANNELS', { contentFilter: rig['contentFilter'] });
 

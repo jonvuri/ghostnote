@@ -5,8 +5,8 @@
   ],
   "profile": "normal",
   "identity": "normal-v1",
-  "count": 91,
-  "methodsHash": "64d13fa7b66ad7f9",
+  "count": 92,
+  "methodsHash": "0bafdd963fa9f5da",
   "methods": [
     "batch.run",
     "branch.duplicateTrack",
@@ -83,6 +83,7 @@
     "scene.count",
     "scene.create",
     "scene.delete",
+    "selection.restoreMixer",
     "selection.status",
     "slot.delete",
     "slot.duplicateClip",

@@ -332,8 +332,9 @@ test('8h4a: a selection from another project makes no experimental tool refuse, 
     acceptedPreviewSha256: preview.preview.previewDigest.value,
   }) as { applied: boolean };
   assert.equal(applied.applied, true);
-  assert.equal(fake.model.selectionRestores, 0, 'the stale selection was never restored');
-  assert.equal(fake.model.selection, stale);
+  // 8i8 (E250): a clip create selects the new clip in the current project. The stale selection never comes back.
+  assert.ok(!fake.model.restoredSelections.includes(stale!), 'the stale selection was never restored');
+  assert.ok(fake.model.selection === stale || fake.model.selection?.project === fake.model.project);
 
   // A selection in the current project is restored.
   control(fake).selectSlot(0, 0);

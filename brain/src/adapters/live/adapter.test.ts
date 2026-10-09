@@ -23,12 +23,13 @@ import {
   deviceIn as deviceInAt, deviceSlot,
   drumPad, mixer, notes as notesAt, param, remote, remotes, scene, slot, snapshotAddresses, track,
   clipSnapshotFrom, decodeClipSnapshotRef, encodeClipSnapshotRef, unpinnedCursorTracksOf,
-  type ClipAddress, type NoteRecord, type RevisionMark, type TrackAddress,
+  type ClipAddress, type NoteRecord, type RevisionMark, type SelectionOutcome, type TrackAddress,
   CollapsedGroupRowError,
 } from '../../contract/index.js';
 import { BridgeError } from '../../client.js';
 import { LiveAdapter } from './adapter.js';
 import { Executor } from '../../engine/executor.js';
+import { directedDestruction } from '../../engine/index.js';
 import { checkCursorPins } from '../../surface/agent-native.js';
 import { ToolFailure } from '../../surface/agent-native-result.js';
 import { readFileSync } from 'node:fs';
@@ -5079,4 +5080,143 @@ test('8i7: a bank row whose channelId moved before track.mixer reads unstable, n
   assert.ok(snapshot.entries[addressKey(mixer(track('track-a'), 'mute'))] !== undefined);
   assert.deepEqual(snapshot.unstable.map(addressKey), [addressKey(mixer(track('track-b'), 'mute'))]);
   assert.deepEqual(snapshot.missing, []);
+});
+
+/**
+ * 8i8 (E250, E251): a transport with three tracks whose host moves the selection as Bitwig does. A track delete or
+ * create moves the mixer selection; a clip create selects the new slot. `operatorAfterMove` is a person who selects
+ * another mixer track after the host move and before the restore.
+ */
+function selectionTransport(frames: Frame[], options: { operatorAfterMove?: boolean } = {}): Transport {
+  const ids = ['track-a', 'track-b', 'track-c'];
+  const sel = { trackIndex: -1, slotIndex: -1, mixer: 'track-a', revision: 10, owner: undefined as string | undefined };
+  let revision = 1;
+  let created = 0;
+  const select = (mixerId: string) => { sel.mixer = mixerId; sel.revision += 1; };
+  return {
+    async send(frame: Frame): Promise<unknown> {
+      frames.push(frame);
+      const params = (frame.params ?? {}) as Record<string, any>;
+      switch (frame.method) {
+        case WIRE.revisionGet:
+          return { revision, generation: 'g', sceneEpoch: 1, contentEpoch: 1, project: 'p', sceneCount: 4 };
+        case WIRE.trackList:
+          return { tracks: ids.map((channelId, index) => ({ index, name: channelId, position: index, type: 'Instrument',
+            channelId })), count: ids.length, itemCount: ids.length, bankSize: 256 };
+        case WIRE.selectionStatus:
+          return { trackIndex: sel.trackIndex, slotIndex: sel.slotIndex, mixerTrackIndex: ids.indexOf(sel.mixer),
+            mixerChannelId: sel.mixer, revision: sel.revision, slotProject: 'p', mixerProject: 'p', project: 'p' };
+        case WIRE.selectionRestoreMixer: {
+          if (params['expectedRevision'] !== sel.revision || params['expectedChannelId'] !== sel.mixer) {
+            return { restored: false, reason: 'selection-changed' };
+          }
+          if (!ids.includes(params['channelId'])) return { restored: false, reason: 'absent' };
+          select(params['channelId']);
+          return { restored: true, trackIndex: ids.indexOf(params['channelId']) };
+        }
+        case WIRE.slotStatus:
+          return { hasContent: false, isSelected: sel.trackIndex === params['trackIndex'] && sel.slotIndex === params['slotIndex'] };
+        case WIRE.batchRun: {
+          for (const op of params['ops'] as Frame[]) {
+            const opParams = (op.params ?? {}) as Record<string, any>;
+            if (op.method === WIRE.trackDelete) {
+              const at = opParams['trackIndex'] as number;
+              ids.splice(at, 1);
+              select(ids[Math.min(at, ids.length - 1)]!);
+            } else if (op.method === WIRE.trackCreate) {
+              ids.push(`track-new-${++created}`);
+              select(ids[ids.length - 1]!);
+            }
+          }
+          if (options.operatorAfterMove === true) select('track-c');
+          revision += 1;
+          return { applied: true, revision, count: params['ops'].length, failures: 0,
+            results: params['ops'].map((op: Frame) => ({ method: op.method, ok: true })) };
+        }
+        default:
+          return {};
+      }
+    },
+    async close() {},
+  };
+}
+
+test('8i8 call budget: after a track delete, one selection read and one guarded restore put back the mixer track', async () => {
+  const frames: Frame[] = [];
+  const adapter = new LiveAdapter({ transport: selectionTransport(frames) });
+  await adapter.tracks();
+  frames.length = 0;
+  const outcomes: SelectionOutcome[] = [];
+  await adapter.preserveSelection(() => new Executor(adapter).run([{ op: 'track.delete', track: track('track-b') }],
+    { clearance: directedDestruction('delete_track') }), (outcome) => outcomes.push(outcome));
+  assert.deepEqual(outcomes, [{ slot: 'kept', mixer: { status: 'restored', before: 'track-a', now: 'track-a' } }]);
+  // When this list grows, update the performance ledger (GHOSTNOTE_PERFORMANCE_LEDGER.md): the restore adds the
+  // last three frames, about three turns, only after a track create or delete.
+  const tail = frames.slice(-3);
+  assert.deepEqual(tail.map((frame) => frame.method), [WIRE.selectionStatus, WIRE.selectionRestoreMixer,
+    WIRE.selectionStatus]);
+  assert.deepEqual(tail[1]!.params, { channelId: 'track-a', expectedChannelId: 'track-c', expectedRevision: 11 });
+  assert.equal(frames.filter((frame) => frame.method === WIRE.selectionStatus).length, 3, 'the entry read, the '
+    + 'read after the move, and the confirming poll');
+});
+
+test('8i8 limit: a person\'s mixer click inside the write turn looks like the host move, and is restored', async () => {
+  const adapter = new LiveAdapter({ transport: selectionTransport([], { operatorAfterMove: true }) });
+  await adapter.tracks();
+  const outcomes: SelectionOutcome[] = [];
+  await adapter.preserveSelection(() => new Executor(adapter).run([{ op: 'track.create', name: 'gn-new' }]),
+    (outcome) => outcomes.push(outcome));
+  assert.equal(outcomes[0]!.mixer?.status, 'restored');
+});
+
+test('8i8: a person who selects another mixer track after the read keeps it; the outcome names the move', async () => {
+  const racing = selectionTransport([]);
+  const send = racing.send.bind(racing);
+  racing.send = async (frame: Frame) => frame.method === WIRE.selectionRestoreMixer
+    // The person clicks between the read after the move and the restore: the guard refuses.
+    ? { restored: false, reason: 'selection-changed' } : send(frame);
+  const adapter = new LiveAdapter({ transport: racing });
+  await adapter.tracks();
+  const outcomes: SelectionOutcome[] = [];
+  await adapter.preserveSelection(() => new Executor(adapter).run([{ op: 'track.create', name: 'gn-new' }]),
+    (outcome) => outcomes.push(outcome));
+  assert.deepEqual(outcomes[0]!.mixer, { status: 'moved', before: 'track-a', now: 'track-new-1',
+    reason: 'selection-changed' });
+});
+
+test('8i8: a clip create claims the lease on the new slot with the scope token', async () => {
+  const frames: Frame[] = [];
+  const adapter = new LiveAdapter({ transport: selectionTransport(frames) });
+  await adapter.tracks();
+  const at = await adapter.revision();
+  await adapter.preserveSelection(() => new Executor(adapter).run([{ op: 'clip.create',
+    slot: slot(track('track-a'), scene(2, at.sceneEpoch)), lengthBeats: 4 }]));
+  const batch = frames.find((frame) => frame.method === WIRE.batchRun)!;
+  const create = (batch.params as { ops: Frame[] }).ops.find((op) => op.method === WIRE.clipCreate)!;
+  assert.equal(typeof (create.params as Record<string, unknown>)['selectionOwnerToken'], 'string');
+  assert.equal(frames.some((frame) => frame.method === WIRE.selectionRestoreMixer), false,
+    'a clip create does not move the mixer selection, so no mixer read follows');
+});
+
+test('8i8 review: a slot restore that the observer never confirms reports unconfirmed, not restored', async () => {
+  const base = selectionTransport([]);
+  const send = base.send.bind(base);
+  // The person had row 1 of track-a selected. The restore is accepted, but the observer stays on the new clip.
+  base.send = async (frame: Frame) => {
+    if (frame.method === WIRE.selectionStatus) {
+      const status = await send(frame) as Record<string, unknown>;
+      return { ...status, trackIndex: 0, slotIndex: frame.params === undefined && restored ? 2 : 1 };
+    }
+    if (frame.method === WIRE.slotStatus) return { hasContent: false, isSelected: true };
+    if (frame.method === WIRE.slotSelect) { restored = true; return { selected: true }; }
+    return send(frame);
+  };
+  let restored = false;
+  const adapter = new LiveAdapter({ transport: base });
+  await adapter.tracks();
+  const at = await adapter.revision();
+  const outcomes: SelectionOutcome[] = [];
+  await adapter.preserveSelection(() => new Executor(adapter).run([{ op: 'clip.create',
+    slot: slot(track('track-a'), scene(2, at.sceneEpoch)), lengthBeats: 4 }]), (outcome) => outcomes.push(outcome));
+  assert.deepEqual(outcomes, [{ slot: 'unconfirmed' }]);
 });

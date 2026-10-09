@@ -2,7 +2,7 @@
 title: Phase 8i — Agent-native hybrid dogfood
 kind: plan
 state: planned
-status: Final Phase 8 gate. 8i0–8i7 and 8i9 are complete (E249–E257, D42–D48); the groove and overlay trials passed (E256). Next: 8i8, then 8i10.
+status: Final Phase 8 gate. 8i0–8i9 are complete (E249–E258, D42–D48); the groove and overlay trials passed (E256). Next: 8i10.
 updated: 2026-10-09
 parent: README.md
 prev: 8i5-device-control-identity.md
@@ -63,8 +63,11 @@ The following sessions completed them before the 2026-10-09 trial:
    ([E257](../../evidence/experiments/e257-track-mixer.md),
    [D48](../../decisions/d48-track-mixer-writes-host-raw-values.md)):
    `read_track_mixer` and `set_track_mixer` set exact dB, pan, mute, and
-   solo with field-level reversal. Descriptions v43, 42 tools. Planned:
+   solo with field-level reversal. Descriptions v43, 42 tools.
    [8i8 — Selection effects and unavailable readback](8i8-selection-and-readback-results.md).
+   Complete ([E258](../../evidence/experiments/e258-selection-effects-and-unavailable-readback.md)):
+   a failed verification read is `unavailable` on every write tool, and
+   clip and track writes restore the selection or warn. Descriptions v44.
 9. [8i9 — Overlay authoring and creation](8i9-overlay-authoring-and-creation.md).
    Complete ([E256](../../evidence/experiments/e256-overlay-authoring-and-creation.md),
    [D47](../../decisions/d47-clip-creation-binds-claims-to-the-live-clip.md)):
@@ -76,7 +79,7 @@ The following sessions completed them before the 2026-10-09 trial:
     ([E256](../../evidence/experiments/e256-overlay-authoring-and-creation.md#operator-trial)).
     It closes the groove task and the overlay dependency change of the trial
     set.
-11. Planned after 8i8:
+11. Next:
     [8i10 — Unprompted overlay trials](8i10-unprompted-overlay-trials.md).
     The 8i9 prompt described the claims it wanted. 8i10 tests whether an
     agent reaches for timing overlays when a task only benefits from them.

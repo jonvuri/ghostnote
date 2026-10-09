@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v43';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v44';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -542,7 +542,8 @@ export const DESCRIPTION_COHORT_V42: readonly DescriptionCohortMember[] = DESCRI
 /**
  * v43 (8i7, E257) adds read_track_mixer and set_track_mixer at the end. The document inputs state the pitch-name
  * convention; read_preset_modulation and reverse_existing_device_modulation_wrap have agent-native-v1 text; and
- * revert_change names the mixer fields.
+ * revert_change names the mixer fields. v44 (8i8) keeps this list: each write result contract lists readback status
+ * unavailable, and three descriptions state their selection effects.
  */
 export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V42,
@@ -811,7 +812,15 @@ export const TOOL_DESCRIPTION_V42_SHA256 =
 
 /**
  * v43 (8i7, E257): the track mixer tools, the pitch-name convention, and the agent-native-v1 text of two
- * modulation tools. Changing this fingerprint requires a new description version.
+ * modulation tools. Frozen in 8i8.
  */
 export const TOOL_DESCRIPTION_V43_SHA256 =
   '7ba0be9f7829f2fdab3b98b3ba66cdea8533a85fac4b03d01e0d6e18ae8aefe7';
+
+/**
+ * v44 (8i8, E258): readback status unavailable in every write result contract and in set_track_mixer, and the
+ * selection effects of add_launcher_clip, add_tracks, duplicate_track, and delete_track. Changing this fingerprint requires a new
+ * description version.
+ */
+export const TOOL_DESCRIPTION_V44_SHA256 =
+  '8c7f1ae9a3a26bba2da52a984a072f3bdd013cc4b3ad9ca324bbb63b94964d4b';

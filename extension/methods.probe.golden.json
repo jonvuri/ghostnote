@@ -5,8 +5,8 @@
   ],
   "profile": "probe",
   "identity": "phase-8-probe-v1",
-  "count": 109,
-  "methodsHash": "82a7f9e8207286f1",
+  "count": 110,
+  "methodsHash": "522928cf70b01a35",
   "methods": [
     "api.runtimeMethods",
     "app.actions",
@@ -98,6 +98,7 @@
     "scene.count",
     "scene.create",
     "scene.delete",
+    "selection.restoreMixer",
     "selection.status",
     "slot.delete",
     "slot.duplicateClip",

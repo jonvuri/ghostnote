@@ -31,7 +31,7 @@ import {
   AddressUnresolvedError, BankWindowOverflowError, CLIP_READ_SOUNDING_CELLS, CONTRACT_TAG, CONTRACT_VERSION,
   ClipReadLimitError, InvalidOpError, WriterWidthError,
   CollapsedGroupRowError, GROUP_TRACK_TYPE, GroupSlotError, OP_BUMPS_SCENE_EPOCH, assertNoGroupSlotAddresses, assertNoGroupSlotOps, sceneGuardError,
-  type SceneGuard,
+  type SceneGuard, type SelectionOutcome,
   ContractVersionError, RuntimeProfileMismatchError, StaleAddressError, WireDriftError,
   addressKey, addressScene, addressTrack, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDeviceInsertable, assertDeviceRelocatable, assertDrumPadInsertable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
   assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, chain as chainAt, chainCopyUnnamed,
@@ -443,6 +443,37 @@ interface SelectionState {
   readonly slotIndex: number;
 }
 
+/** 8i8: the entry slot selection and the channelId of the entry mixer track, from one `selection.status` reply. */
+interface CapturedSelection {
+  readonly slot: SelectionState | undefined;
+  readonly mixer: string | undefined;
+}
+
+/** The `selection.status` reply. `mixerChannelId` is from 8i8. */
+interface SelectionStatusReply {
+  readonly trackIndex: number;
+  readonly slotIndex: number;
+  readonly mixerTrackIndex?: number;
+  readonly mixerChannelId?: string;
+  readonly revision?: number;
+  readonly slotProject?: string;
+  readonly mixerProject?: string;
+  readonly project?: string;
+}
+
+/** The mixer track of one reply, when it was observed in the current project. */
+const mixerOf = (status: SelectionStatusReply): string | undefined =>
+  status.mixerChannelId !== undefined && status.mixerChannelId !== ''
+    && (status.project === undefined || (status.project !== '' && status.mixerProject === status.project))
+    ? status.mixerChannelId : undefined;
+
+/**
+ * 8i8 (E251, E258): ops after which Bitwig moves the mixer selection, also when no owned cursor is on the track. A
+ * create or a duplicate selects the new track.
+ */
+const movesMixerSelection = (op: Op): boolean =>
+  op.op === 'track.create' || op.op === 'track.delete' || op.op === 'track.duplicate';
+
 interface HeldCursorTrack {
   readonly channelId: string;
   readonly trackIndex: number;
@@ -701,6 +732,8 @@ export interface LiveTraceEvent {
     | 'device-reuse-invalid' | 'device-cursor-recover'
     | 'selection-restore'
     | 'selection-restore-skipped'
+    | 'mixer-restore'
+    | 'mixer-restore-skipped'
     | 'selection-capture-skipped'
     | 'structural-invalidation'
     /** 8h4a5: a clip point through `cursor.pointExpanded`, for a child of a collapsed group (E243). */
@@ -775,7 +808,9 @@ const borrowsSelection = (op: Op): boolean =>
   || op.op === 'chain.activate'
   || op.op === 'chain.solo'
   || op.op === 'drumPad.insert'
-  || op.op === 'clip.launchSettings';
+  || op.op === 'clip.launchSettings'
+  // 8i8 (E250): `createNewLauncherClip` selects the new clip. The create claims the lease on that slot.
+  || op.op === 'clip.create';
 
 /** Does reading or resolving this address move a pool cursor? */
 const addressBorrowsSelection = (address: Address): boolean =>
@@ -897,11 +932,17 @@ export class LiveAdapter implements BitwigAdapter {
     | {
       saved: SelectionState | undefined;
       borrowed: boolean;
-      capture: Promise<SelectionState | undefined> | undefined;
+      capture: Promise<CapturedSelection> | undefined;
       users: number;
       token: string;
       lastBorrowedTrackIndex: number | undefined;
       lastBorrowedSlotIndex: number | undefined;
+      /** 8i8: the channelId of the mixer track at entry, from the same `selection.status` reply. */
+      savedMixer: string | undefined;
+      /** 8i8: an op of this scope makes Bitwig move the mixer selection (E251). */
+      mixerAtRisk: boolean;
+      /** 8i8: the callers that want the outcome when the outermost scope ends. */
+      outcomes: Array<(outcome: SelectionOutcome) => void>;
     }
     | undefined;
   /** A completed scope must finish its UI restore before a new scope can start. */
@@ -1509,6 +1550,11 @@ export class LiveAdapter implements BitwigAdapter {
   private get ctx(): EncodeContext {
     return {
       cursorFor: (clipRef) => this.pool.cursorFor(clipRef),
+      claimSelection: (trackIndex, slotIndex) => {
+        if (this.selectionScope === undefined) return undefined;
+        this.recordSelectionBorrow(trackIndex, slotIndex);
+        return this.selectionScope.token;
+      },
       shouldPointClip: (clipRef, cursor) => {
         const held = this.heldClips.get(cursor) === addressKey(clipRef);
         if (!held) this.heldClips.delete(cursor);
@@ -3078,12 +3124,16 @@ export class LiveAdapter implements BitwigAdapter {
    * itself.
    */
   private async captureSelection(): Promise<SelectionState | undefined> {
-    const status = (await this.transport.send({ method: WIRE.selectionStatus })) as {
-      trackIndex: number;
-      slotIndex: number;
-      slotProject?: string;
-      project?: string;
-    };
+    return (await this.captureSelectionStatus()).slot;
+  }
+
+  /** The entry slot selection, and the entry mixer track from the same reply (8i8: no added call). */
+  private async captureSelectionStatus(): Promise<CapturedSelection> {
+    const status = (await this.transport.send({ method: WIRE.selectionStatus })) as SelectionStatusReply;
+    return { slot: await this.slotSelectionOf(status), mixer: mixerOf(status) };
+  }
+
+  private async slotSelectionOf(status: SelectionStatusReply): Promise<SelectionState | undefined> {
     if (status.trackIndex < 0 || status.slotIndex < 0 || status.slotIndex >= this.sceneBankSize) {
       return undefined;
     }
@@ -3129,14 +3179,14 @@ export class LiveAdapter implements BitwigAdapter {
   private async restoreSelection(
     saved: SelectionState | undefined,
     scope?: NonNullable<LiveAdapter['selectionScope']>,
-  ): Promise<void> {
-    await this.timed('selectionRestoration', () => this.restoreSelectionNow(saved, scope));
+  ): Promise<SelectionOutcome['slot']> {
+    return await this.timed('selectionRestoration', () => this.restoreSelectionNow(saved, scope));
   }
 
   private async restoreSelectionNow(
     saved: SelectionState | undefined,
     scope?: NonNullable<LiveAdapter['selectionScope']>,
-  ): Promise<void> {
+  ): Promise<SelectionOutcome['slot']> {
     // A direct call has no ownership across its return boundary. Another adapter
     // or probe can move the same physical cursor before the next call. Keep a
     // hold only inside `preserveSelection`, where this adapter owns the complete
@@ -3146,13 +3196,13 @@ export class LiveAdapter implements BitwigAdapter {
       this.heldCursorTracks.clear();
       this.heldDeviceTarget = undefined;
     }
-    if (saved === undefined) return;
+    if (saved === undefined) return 'no-prior';
     if (scope !== undefined && scope.lastBorrowedTrackIndex === undefined) {
       this.onTrace?.({
         action: 'selection-restore-skipped',
         target: `${saved.trackIndex}:${saved.slotIndex}`,
       });
-      return;
+      return 'kept';
     }
     let reply: { selected?: boolean };
     try {
@@ -3177,7 +3227,7 @@ export class LiveAdapter implements BitwigAdapter {
         || error.message === `Invalid params: trackIndex out of bank range: ${saved.trackIndex}`
       )) {
         this.onTrace?.({ action: 'selection-restore-skipped', target: `${saved.trackIndex}:${saved.slotIndex}` });
-        return;
+        return 'absent';
       }
       throw error;
     }
@@ -3186,7 +3236,7 @@ export class LiveAdapter implements BitwigAdapter {
         action: 'selection-restore-skipped',
         target: `${saved.trackIndex}:${saved.slotIndex}`,
       });
-      return;
+      return 'operator';
     }
     this.onTrace?.({
       action: 'selection-restore',
@@ -3204,9 +3254,53 @@ export class LiveAdapter implements BitwigAdapter {
         trackIndex: number;
         slotIndex: number;
       };
-      if (status.trackIndex === saved.trackIndex && status.slotIndex === saved.slotIndex) return;
+      if (status.trackIndex === saved.trackIndex && status.slotIndex === saved.slotIndex) return 'restored';
       await new Promise((resolve) => setTimeout(resolve, 25));
     }
+    // 8i8 review: the observer never showed the entry slot. Do not claim the restore.
+    this.onTrace?.({ action: 'selection-restore-skipped', target: `${saved.trackIndex}:${saved.slotIndex}:unconfirmed` });
+    return 'unconfirmed';
+  }
+
+  /**
+   * 8i8 (E251): put back the entry mixer track after a track create or delete. Bitwig moves the mixer selection on
+   * these ops, also for a track that no owned cursor holds. One `selection.status` read finds the move. The guarded
+   * `selection.restoreMixer` selects the entry track only while the selection is still the one that the read saw:
+   * a newer selection is the person's, and it stays. The poll confirms the restore before the next scope can
+   * capture (D15). A UI-only miss never refuses the operation.
+   */
+  private async restoreMixerSelection(saved: string | undefined): Promise<NonNullable<SelectionOutcome['mixer']>> {
+    return await this.timed('selectionRestoration', async () => {
+      try {
+        const status = (await this.transport.send({ method: WIRE.selectionStatus })) as SelectionStatusReply;
+        const now = mixerOf(status);
+        if (saved === undefined) {
+          return now === undefined ? { status: 'unchanged' } : { status: 'moved', now, reason: 'no-prior' };
+        }
+        if (now === saved) return { status: 'unchanged', before: saved, now };
+        const reply = (await this.transport.send({
+          method: WIRE.selectionRestoreMixer,
+          params: { channelId: saved, expectedChannelId: now ?? '', expectedRevision: status.revision ?? -1 },
+        })) as { restored?: boolean; reason?: string };
+        if (reply.restored !== true) {
+          const reason = reply.reason === 'absent' ? 'absent' : 'selection-changed';
+          this.onTrace?.({ action: 'mixer-restore-skipped', target: `${saved}:${reason}` });
+          return { status: 'moved', before: saved, ...(now === undefined ? {} : { now }), reason };
+        }
+        const started = Date.now();
+        while (Date.now() - started < 1000) {
+          const after = (await this.transport.send({ method: WIRE.selectionStatus })) as SelectionStatusReply;
+          if (mixerOf(after) === saved) {
+            this.onTrace?.({ action: 'mixer-restore', target: saved });
+            return { status: 'restored', before: saved, now: saved };
+          }
+          await new Promise((resolve) => setTimeout(resolve, 25));
+        }
+        return { status: 'moved', before: saved, ...(now === undefined ? {} : { now }), reason: 'unconfirmed' };
+      } catch {
+        return { status: 'moved', ...(saved === undefined ? {} : { before: saved }), reason: 'unconfirmed' };
+      }
+    });
   }
 
   /**
@@ -3217,17 +3311,20 @@ export class LiveAdapter implements BitwigAdapter {
    * once after verify and concurrent-edit reporting finish. A nested scope uses
    * the same capture, which keeps reversal composition from adding flicker.
    */
-  async preserveSelection<T>(work: () => Promise<T>): Promise<T> {
+  async preserveSelection<T>(work: () => Promise<T>, onOutcome?: (outcome: SelectionOutcome) => void): Promise<T> {
     if (this.selectionRestore !== undefined) {
       await this.selectionRestore;
-      return this.preserveSelection(work);
+      return this.preserveSelection(work, onOutcome);
     }
 
     const active = this.selectionScope;
     if (active !== undefined) {
       active.users += 1;
+      if (onOutcome !== undefined) active.outcomes.push(onOutcome);
       try {
-        active.saved = await active.capture;
+        const captured = await active.capture!;
+        active.saved = captured.slot;
+        active.savedMixer = captured.mixer;
         return await work();
       } finally {
         await this.finishSelectionScope(active);
@@ -3239,15 +3336,20 @@ export class LiveAdapter implements BitwigAdapter {
       borrowed: false,
       // Start the wire read before any resolve, stash, or other asynchronous
       // work can let a human selection replace the pipeline-entry state.
-      capture: this.captureSelection(),
+      capture: this.captureSelectionStatus(),
       users: 1,
       token: randomUUID(),
       lastBorrowedTrackIndex: undefined as number | undefined,
       lastBorrowedSlotIndex: undefined as number | undefined,
+      savedMixer: undefined as string | undefined,
+      mixerAtRisk: false,
+      outcomes: onOutcome === undefined ? [] : [onOutcome],
     };
     this.selectionScope = scope;
     try {
-      scope.saved = await scope.capture;
+      const captured = await scope.capture;
+      scope.saved = captured.slot;
+      scope.savedMixer = captured.mixer;
       return await work();
     } finally {
       await this.finishSelectionScope(scope);
@@ -3264,13 +3366,22 @@ export class LiveAdapter implements BitwigAdapter {
     this.heldClips.clear();
     this.heldCursorTracks.clear();
     this.heldDeviceTarget = undefined;
-    if (!scope.borrowed) return;
-    const restore = this.restoreSelection(scope.saved, scope);
-    this.selectionRestore = restore;
+    if (!scope.borrowed && !scope.mixerAtRisk) {
+      for (const report of scope.outcomes) report({ slot: 'kept' });
+      return;
+    }
+    // The slot restore runs first: it consumes the lease. Then the mixer restore (8i8).
+    const restore = (async (): Promise<SelectionOutcome> => {
+      const slot = scope.borrowed ? await this.restoreSelection(scope.saved, scope) : 'kept';
+      return scope.mixerAtRisk ? { slot, mixer: await this.restoreMixerSelection(scope.savedMixer) } : { slot };
+    })();
+    this.selectionRestore = restore.then(() => undefined, () => undefined);
+    const tracked = this.selectionRestore;
     try {
-      await restore;
+      const outcome = await restore;
+      for (const report of scope.outcomes) report(outcome);
     } finally {
-      if (this.selectionRestore === restore) this.selectionRestore = undefined;
+      if (this.selectionRestore === tracked) this.selectionRestore = undefined;
     }
   }
 
@@ -3279,7 +3390,7 @@ export class LiveAdapter implements BitwigAdapter {
     if (!needed) return undefined;
     if (this.selectionScope !== undefined) {
       const scope = this.selectionScope;
-      scope.saved = await scope.capture;
+      scope.saved = (await scope.capture!).slot;
       scope.borrowed = true;
       return undefined;
     }
@@ -5502,6 +5613,9 @@ export class LiveAdapter implements BitwigAdapter {
     // suffices. Captured before the first stage, because by the end the cursor
     // has already moved.
     const selection = await this.beginSelectionBorrow(batch.ops.some(borrowsSelection));
+    if (this.selectionScope !== undefined && batch.ops.some(movesMixerSelection)) {
+      this.selectionScope.mixerAtRisk = true;
+    }
 
     try {
       // Validate every note grid before any stage can mutate the project. Then

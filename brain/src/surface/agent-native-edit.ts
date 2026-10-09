@@ -46,7 +46,7 @@ import {
   type DocumentUse,
 } from './document-help.js';
 import {
-  AGENT_NATIVE_TOOL_PROFILE, ToolFailure, VERDICT_CODES, failureResult,
+  AGENT_NATIVE_TOOL_PROFILE, ToolFailure, VERDICT_CODES, failureResult, readbackUnavailableWarning, unavailableReadback,
   type Effect, type FailureStage, type Warning, type WriteResult,
 } from './agent-native-result.js';
 import {
@@ -479,10 +479,8 @@ export async function editLauncherClip(workspace: Workspace, args: EditInput, cr
         ...(args.readback === 'document' ? { format: encoding, document: encoded(projection!.document, encoding) } : {}),
       };
     } catch (error) {
-      const failure = failureResult(EDIT_SCHEMA, 'readback', asToolFailure(error));
-      readback = { status: 'unavailable', code: failure.failure.code, message: failure.message };
-      warnings.push({ code: 'readback-unavailable', message: 'The write applied, but the independent readback '
-        + 'failed. Read the clip before another edit. Do not repeat the edit.' });
+      readback = unavailableReadback(EDIT_SCHEMA, asToolFailure(error));
+      warnings.push(readbackUnavailableWarning('the clip'));
     }
     timing.readbackMs = performance.now() - readbackStarted;
     const result: WriteResult<Record<string, unknown>> = {

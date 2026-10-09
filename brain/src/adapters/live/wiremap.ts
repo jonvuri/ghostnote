@@ -64,6 +64,7 @@ export const WIRE = {
    * carries one revision for measured mixer-track and launcher-slot events.
    */
   selectionStatus: 'selection.status',
+  selectionRestoreMixer: 'selection.restoreMixer',
 
   cursorPin: 'cursor.pin',
   cursorPinTrack: 'cursor.pinTrack',

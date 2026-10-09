@@ -36,8 +36,9 @@ import {
 } from '../native-catalog/catalog.js';
 import type { StashedChangeset } from '../stash/index.js';
 import {
-  AGENT_NATIVE_TOOL_PROFILE, ToolFailure, failureResult,
-  type Effect, type FailureStage, type ReadResult, type WriteResult,
+  AGENT_NATIVE_TOOL_PROFILE, ToolFailure, failureResult, readbackOrUnavailable, readbackStatusOf,
+  readbackUnavailableWarning,
+  type Effect, type FailureStage, type ReadResult, type Warning, type WriteResult,
 } from './agent-native-result.js';
 import {
   deviceControlSchemas, enabledFingerprint, parameterCohorts, readDeviceControls, setDeviceControls,
@@ -143,7 +144,9 @@ function effectOf(change: StashedChangeset, target: Readonly<Record<string, unkn
 
 /**
  * Record the effect of one recorded change and require complete readback. A change that the guard refused
- * whole wrote nothing. A change that wrote and then failed its readback keeps its effect.
+ * whole wrote nothing. A change that wrote and then failed its readback keeps its effect. 8i8: a failed
+ * verification read is not a difference. It does not throw: the tool's own fresh read after the write decides
+ * the status, and is `unavailable` when it fails too.
  */
 function requireProved(
   state: RunState, change: StashedChangeset, target: Readonly<Record<string, unknown>>, summary: string,
@@ -155,8 +158,7 @@ function requireProved(
         ...(receipt.failed === undefined ? {} : { failed: receipt.failed }) } });
   }
   state.effects.push(effectOf(change, target, summary));
-  if (!receipt.applied || receipt.failed !== undefined || receipt.mismatches !== undefined
-      || receipt.notReadBack !== undefined) {
+  if (readbackStatusOf(receipt) === 'differs') {
     throw new ToolFailure('unavailable', 'readback', `${summary} The write was not proved by readback. `
       + 'Read the structure again with read_devices before the next write.', { detail: {
         ...(receipt.failed === undefined ? {} : { failed: receipt.failed }),
@@ -164,6 +166,19 @@ function requireProved(
         ...(receipt.notReadBack === undefined ? {} : { notReadBack: receipt.notReadBack }),
       } });
   }
+}
+
+/** The fresh structure read after a write (8i8): its failure makes the readback unavailable, not the call. */
+const deviceReadback = <T>(schema: string, read: () => Promise<T>) =>
+  readbackOrUnavailable(schema, 'the devices with read_devices', read);
+
+/** The write result of an applied device write whose readback failed (8i8). */
+function unreadDevices(
+  schema: string, state: RunState, read: { readonly readback: Record<string, unknown>; readonly warning: Warning },
+  started: number, next?: Record<string, unknown>,
+): WriteResult<unknown> {
+  return { schema, applied: true, effects: state.effects, readback: read.readback,
+    ...(next === undefined ? {} : { next }), warnings: [read.warning], timing: { totalMs: performance.now() - started } };
 }
 
 /** The complete top-level bank with every enabled state. */
@@ -403,7 +418,9 @@ async function setLayerChainSolo(workspace: Workspace, args: SoloInput): Promise
     const change = await workspace.apply([op]);
     requireProved(state, change, target, `Set layer chain "${args.layerChain}" solo ${args.mode}.`);
     state.stage = 'readback';
-    const after = await readContainer(workspace, args.trackId, args.containerPosition);
+    const read = await deviceReadback(SOLO_SCHEMA, () => readContainer(workspace, args.trackId, args.containerPosition));
+    if (!read.ok) return { ...unreadDevices(SOLO_SCHEMA, state, read, started), target };
+    const after = read.value;
     const result: WriteResult<unknown> = {
       schema: SOLO_SCHEMA, applied: true, effects: state.effects,
       readback: { status: matches(after.container) ? 'verified' : 'differs', layerChains: solos(after.container) },
@@ -440,7 +457,9 @@ async function renameLayerChain(workspace: Workspace, args: RenameInput): Promis
       op: 'chain.rename', chain: chainAt(before.address, args.layerChain), name: args.name }]);
     requireProved(state, change, target, `Renamed layer chain "${args.layerChain}" to "${args.name}".`);
     state.stage = 'readback';
-    const after = await readContainer(workspace, args.trackId, args.containerPosition);
+    const read = await deviceReadback(RENAME_SCHEMA, () => readContainer(workspace, args.trackId, args.containerPosition));
+    if (!read.ok) return { ...unreadDevices(RENAME_SCHEMA, state, read, started), target };
+    const after = read.value;
     const found = lookupChain(after.container, args.name);
     const result: WriteResult<unknown> = {
       schema: RENAME_SCHEMA, applied: true, effects: state.effects,
@@ -489,7 +508,13 @@ async function duplicateLayerChain(workspace: Workspace, args: DuplicateInput): 
       op: 'chain.create', source: chainAt(before.address, args.layerChain), name: args.name }]);
     requireProved(state, change, target, `Copied layer chain "${args.layerChain}" to "${args.name}".`);
     state.stage = 'readback';
-    const after = await readContainer(workspace, args.trackId, args.containerPosition);
+    const read = await deviceReadback(DUPLICATE_SCHEMA,
+      () => readContainer(workspace, args.trackId, args.containerPosition));
+    if (!read.ok) {
+      return { ...unreadDevices(DUPLICATE_SCHEMA, state, read, started,
+        { remove: 'computer control in Bitwig, then read_devices' }), target };
+    }
+    const after = read.value;
     const copy = lookupChain(after.container, args.name);
     const sourceNames = source.devices.map((item) => item.name);
     const result: WriteResult<unknown> = {
@@ -757,22 +782,27 @@ async function relocateDevices(
     requireProved(state, change, target, `${mode === 'move' ? 'Moved' : 'Copied'} ${args.devices.length} device(s).`);
     state.stage = 'readback';
     const track = trackAt(args.trackId);
-    const after = await workspace.devices(track);
-    const topLevel = after.devices.map((item) => item.name);
-    const touched: Array<Record<string, unknown>> = [];
-    let verified = after.devicesComplete && sameNames(topLevel, plan.topLevel);
-    for (const expected of plan.chains.values()) {
-      // A container can change its position only on a top-level move into a layer chain.
-      const position = expected.containerPosition
-        - (mode === 'move' && args.devices[0]!.from === 'top-level'
-          ? args.devices.filter((item) => item.devicePosition < expected.containerPosition).length : 0);
-      const read = await readContainer(workspace, args.trackId, position);
-      const found = lookupChain(read.container, expected.name);
-      const names = found.ok ? found.chain.devices.map((item) => item.name) : [];
-      verified &&= found.ok && found.chain.devicesComplete && sameNames(names, expected.devices);
-      touched.push({ containerPosition: position, ...(found.ok ? publicLayerChain(found.chain)
-        : { name: expected.name, devices: null }) });
-    }
+    const read = await deviceReadback(schema, async () => {
+      const after = await workspace.devices(track);
+      const topLevel = after.devices.map((item) => item.name);
+      const touched: Array<Record<string, unknown>> = [];
+      let verified = after.devicesComplete && sameNames(topLevel, plan.topLevel);
+      for (const expected of plan.chains.values()) {
+        // A container can change its position only on a top-level move into a layer chain.
+        const position = expected.containerPosition
+          - (mode === 'move' && args.devices[0]!.from === 'top-level'
+            ? args.devices.filter((item) => item.devicePosition < expected.containerPosition).length : 0);
+        const container = await readContainer(workspace, args.trackId, position);
+        const found = lookupChain(container.container, expected.name);
+        const names = found.ok ? found.chain.devices.map((item) => item.name) : [];
+        verified &&= found.ok && found.chain.devicesComplete && sameNames(names, expected.devices);
+        touched.push({ containerPosition: position, ...(found.ok ? publicLayerChain(found.chain)
+          : { name: expected.name, devices: null }) });
+      }
+      return { after, touched, verified };
+    });
+    if (!read.ok) return { ...unreadDevices(schema, state, read, started), target };
+    const { after, touched, verified } = read.value;
     const result: WriteResult<unknown> = {
       schema, applied: true, effects: state.effects,
       readback: {
@@ -871,7 +901,7 @@ async function addDevices(workspace: Workspace, args: AddInput, options: AddDevi
       }
     }
     const track = trackAt(args.trackId);
-    const added: Array<Record<string, unknown>> = [];
+    const added: Array<{ deviceIndex: number; source: string; devicePosition: number; name?: string }> = [];
     let expected = args.expectedDeviceOrder;
     for (const [index, item] of args.devices.entries()) {
       state.stage = 'acquire';
@@ -907,15 +937,24 @@ async function addDevices(workspace: Workspace, args: AddInput, options: AddDevi
         ...(deviceName === undefined ? {} : { name: deviceName }) });
     }
     state.stage = 'readback';
-    const after = await workspace.devices(track);
+    const revert = { revert: { tool: 'revert_change', changeIds: state.effects.map((item) => item.changeId).reverse() } };
+    const read = await deviceReadback(ADD_DEVICES_SCHEMA, () => workspace.devices(track));
+    if (!read.ok) {
+      return { ...unreadDevices(ADD_DEVICES_SCHEMA, state, { ...read, readback: { ...read.readback, added } }, started,
+        revert), target };
+    }
+    const after = read.value;
     const result: WriteResult<unknown> = {
       schema: ADD_DEVICES_SCHEMA, applied: true, effects: state.effects,
       readback: {
-        status: after.devicesComplete ? 'verified' : 'differs',
+        // 8i8: each added device must read back at its position, not only a complete bank.
+        status: after.devicesComplete && added.every((item) => item.name === undefined
+          ? after.devices[item.devicePosition] !== undefined
+          : after.devices[item.devicePosition]?.name === item.name) ? 'verified' : 'differs',
         added,
         topLevel: after.devices.map((entry) => ({ devicePosition: entry.index, name: entry.name, enabled: entry.enabled ?? null })),
       },
-      next: { revert: { tool: 'revert_change', changeIds: state.effects.map((item) => item.changeId).reverse() } },
+      next: revert,
       warnings: [], timing: { totalMs: performance.now() - started },
     };
     return { ...result, target };
@@ -1201,7 +1240,12 @@ async function composeOffline(
     requireProved(state, renamed, target, `Named ${renames.length} layer chain(s).`);
   }
   state.stage = 'readback';
-  const after = await readContainer(workspace, args.trackId, position);
+  const read = await deviceReadback(COMPOSE_SCHEMA, () => readContainer(workspace, args.trackId, position));
+  if (!read.ok) {
+    return { ...unreadDevices(COMPOSE_SCHEMA, state, { ...read, readback: { ...read.readback, backend: 'offline',
+      containerPosition: position } }, started, { revert: { tool: 'revert_change', changeId: change.changeId } }), target };
+  }
+  const after = read.value;
   const names = after.container.chains.map((item) => item.name);
   const outcome: WriteResult<unknown> = {
     schema: COMPOSE_SCHEMA, applied: true, effects: state.effects,
@@ -1290,6 +1334,7 @@ function deviceDeletionTool(stable: ToolSpec): ToolSpec {
     inputValidator: deleteInput,
     resultContract: {
       schema: DELETE_DEVICE_SCHEMA, profile: AGENT_NATIVE_TOOL_PROFILE, envelope: WRITE_FIELDS, failure: FAILURE_FIELDS,
+      readbackStatus: ['verified', 'differs', 'unavailable'],
       unsupported: 'layer-chain-delete: typed deletion of one layer chain is unavailable.',
     },
     run: (workspace, input) => deleteDevices(workspace, input as DeleteInput, stable),
@@ -1328,22 +1373,34 @@ async function deleteDevices(workspace: Workspace, args: DeleteInput, stable: To
     const cause = causeOf(stableResult);
     if (stableResult['refused'] === true && cause !== undefined) throw cause;
     const receipts = (stableResult['changes'] as ReturnType<typeof receiptOf>[] | undefined) ?? [];
-    for (const receipt of receipts) {
+    // 8i8 review: only a change that applied something is an effect. A change that the revision guard refused whole
+    // removed nothing.
+    const applied = receipts.filter((receipt) => takeAppliedAnything(workspace.changes.require(receipt.changeId).take));
+    for (const receipt of applied) {
       state.effects.push({ changeId: receipt.changeId, target, summary: 'Removed one top-level device.',
         fidelity: workspace.changes.require(receipt.changeId).take.fidelity });
     }
-    if (stableResult['applied'] !== true) {
-      throw new ToolFailure(receipts.length === 0 ? 'target-changed' : 'unavailable', receipts.length === 0 ? 'guard' : 'readback',
-        typeof stableResult['why'] === 'string' ? stableResult['why'] : receipts.length === 0
-          ? 'The device order changed. Nothing was written.'
-          : 'A removal was not proved by readback. Read the device order again.',
-        { detail: { removed: stableResult['removed'] ?? [] } });
+    if (applied.length === 0) {
+      throw new ToolFailure('target-changed', 'guard', receipts.length === 0 && typeof stableResult['why'] === 'string'
+        ? stableResult['why'] : 'The device order changed. Nothing was written.',
+      { retryWhen: 'after a fresh read_devices', detail: { removed: [] } });
+    }
+    // 8i8: a removal whose read after it failed is unavailable; a completed read with another order is differs.
+    // A later removal that did not run, or a later removal that the guard refused, makes the call partial.
+    const notAttempted = typeof stableResult['notAttempted'] === 'number' ? stableResult['notAttempted'] : 0;
+    const unread = stableResult['readback'] === 'unavailable';
+    if (applied.length < receipts.length || (stableResult['applied'] !== true && !unread && notAttempted > 0)
+        || stableResult['partialSuccess'] === true || (unread && notAttempted > 0)) {
+      throw new ToolFailure('partial', 'readback', typeof stableResult['why'] === 'string' ? stableResult['why']
+        : 'A removal was not proved by readback, and the later removals did not run. Read the device order again.',
+      { detail: { removed: stableResult['removed'] ?? [], notAttempted } });
     }
     const result: WriteResult<unknown> = {
       schema: DELETE_DEVICE_SCHEMA, applied: true, effects: state.effects,
-      readback: { status: stableResult['verified'] === true ? 'verified' : 'differs', removed: stableResult['removed'],
-        removedLayerChains: inside },
-      warnings: [], timing: { totalMs: performance.now() - started },
+      readback: { status: unread ? 'unavailable' : stableResult['verified'] === true ? 'verified' : 'differs',
+        removed: stableResult['removed'], removedLayerChains: inside },
+      warnings: unread ? [readbackUnavailableWarning('the devices with read_devices')] : [],
+      timing: { totalMs: performance.now() - started },
     };
     return { ...result, target };
   });
@@ -1562,7 +1619,9 @@ const spec = (
 ): ToolSpec => ({
   name, kind, title, description, inputSchema: input.shape, inputValidator: input, emits,
   resultContract: { schema, profile: AGENT_NATIVE_TOOL_PROFILE,
-    envelope: kind === 'read' ? READ_FIELDS : WRITE_FIELDS, failure: FAILURE_FIELDS, ...extra },
+    envelope: kind === 'read' ? READ_FIELDS : WRITE_FIELDS, failure: FAILURE_FIELDS,
+    // 8i8: unavailable is an applied write whose readback read failed (E250).
+    ...(kind === 'read' ? {} : { readbackStatus: ['verified', 'differs', 'unavailable'] }), ...extra },
   run,
 });
 
@@ -1606,7 +1665,7 @@ export function agentNativeDeviceTools(stable: readonly ToolSpec[]): {
       ['chain.relocate'], (workspace, input) => relocateDevices(workspace, input as CopyInput, 'copy')),
     spec('set_layer_chain_solo', 'write', 'Set layer-chain solo', SOLO_DESCRIPTION, soloInput, SOLO_SCHEMA,
       ['chain.activate', 'chain.solo'], (workspace, input) => setLayerChainSolo(workspace, input as SoloInput),
-      { readback: ['verified', 'differs', 'already-set'] }),
+      { readbackStatus: ['verified', 'differs', 'unavailable', 'already-set'] }),
   ];
   // 8h4f: set_device_enabled, revert_change, and check_revert moved to agent-native-retained.ts.
   const replacements = new Map<string, ToolSpec>([

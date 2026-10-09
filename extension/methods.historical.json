@@ -15,8 +15,8 @@
   ],
   "extractedAt": "2026-10-09",
   "extractedFrom": "handlers/*Handlers.java registration declarations",
-  "count": 168,
-  "methodsHash": "78f6c2be2371c28b",
+  "count": 169,
+  "methodsHash": "28bbb9f8ce6540a5",
   "addedInPhase0": [
     "api.runtimeMethods",
     "app.selectionNotifications",
@@ -88,6 +88,7 @@
     "observation.read",
     "observation.replace",
     "rig.methods",
+    "selection.restoreMixer",
     "slot.duplicateClip",
     "slot.duplicateObject",
     "slot.epoch",
@@ -270,6 +271,7 @@
     "scene.count",
     "scene.create",
     "scene.delete",
+    "selection.restoreMixer",
     "selection.status",
     "slot.delete",
     "slot.duplicateClip",
@@ -535,5 +537,8 @@
   "addedInPhase8i7": [
     "track.mixer",
     "track.setMixer"
+  ],
+  "addedInPhase8i8": [
+    "selection.restoreMixer"
   ]
 }

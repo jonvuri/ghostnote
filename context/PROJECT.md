@@ -35,6 +35,9 @@ surface without relying on the user's UI selection.
 - Track mixers are read and set in exact dB, pan, mute, and nonexclusive
   solo on durable track IDs (`read_track_mixer`, `set_track_mixer`, D48).
   The volume unit is the host raw value; automation refuses before a write.
+- A write whose readback read fails reports `unavailable` and keeps its
+  effect; clip and track writes restore the person's selection or warn
+  (E258).
 - Device branching uses ordinary layer-chain operations (`compose_devices`,
   `duplicate_layer_chain`, `set_layer_chain_solo`, `move_devices`, D18). There
   is no managed device-alternate lifecycle in the default profile.

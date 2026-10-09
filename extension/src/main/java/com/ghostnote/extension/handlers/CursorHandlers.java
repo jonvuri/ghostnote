@@ -26,6 +26,8 @@ public final class CursorHandlers extends HandlerGroup {
     public static final String CURSOR_IDENTITY = "cursor-channel-id-v1";
     /** 8i0 build marker: `cursor.setClipMetadata` accepts `fields` and any colour byte triple (D42). */
     public static final String CLIP_METADATA_WRITE = "owned-fields-v1";
+    /** 8i8 deliberate build marker: the guarded mixer-selection restore and the clip-create lease (E250, E251). */
+    public static final String SELECTION_EFFECTS = "mixer-restore-v1";
 
     public CursorHandlers(ControllerHost host, Rig rig, ExecState state) {
         super(host, rig, state);
@@ -45,6 +47,7 @@ public final class CursorHandlers extends HandlerGroup {
         r.on("cursor.setClipMetadata", params -> cursorSetClipMetadata(params));
         r.on("cursor.duplicateContent", params -> cursorDuplicateContent(params));
         r.on("selection.status", params -> selectionStatus());
+        r.on("selection.restoreMixer", params -> selectionRestoreMixer(params));
         r.on("equals.status", params -> equalsStatus(params));
         r.on("equals.tryCreate", params -> equalsTryCreate());
     }
@@ -498,6 +501,8 @@ public final class CursorHandlers extends HandlerGroup {
         result.addProperty("trackIndex", rig.selectedTrackIndex);
         result.addProperty("slotIndex", rig.selectedSlotIndex);
         result.addProperty("mixerTrackIndex", rig.selectedMixerTrackIndex);
+        // 8i8: the channelId of the mixer track, so that a restore after a track create or delete is by identity.
+        result.addProperty("mixerChannelId", channelIdAt(rig.selectedMixerTrackIndex));
         result.addProperty("changes", rig.selectionChanges);
         result.addProperty("revision", rig.selectionRevision);
         // 8h4a: the project in which each value was observed, and the current project. A value from
@@ -505,6 +510,48 @@ public final class CursorHandlers extends HandlerGroup {
         result.addProperty("slotProject", rig.slotSelectionProject);
         result.addProperty("mixerProject", rig.mixerSelectionProject);
         result.addProperty("project", rig.currentProjectName());
+        return result;
+    }
+
+    /** The channelId of the bank track at an index, or empty when there is none. */
+    private String channelIdAt(int trackIndex) {
+        if (trackIndex < 0 || trackIndex >= rig.config.tracks) return "";
+        Track track = rig.trackBank.getItemAt(trackIndex);
+        if (!track.exists().get()) return "";
+        String id = track.channelId().get();
+        return id == null ? "" : id;
+    }
+
+    /**
+     * 8i8 (E251): select the entry mixer track again after a track create or delete moved the mixer selection.
+     *
+     * <p>Guarded: the restore selects only while the selection revision and the mixer track are the ones that the
+     * brain read after the move. A newer selection is the person's, and it stays (D43). The track is found by its
+     * channelId, because a create or delete moves the bank indices. {@code Track.selectInEditor} is the mixer
+     * restore of {@link SelectionEntry} (E241).
+     */
+    private JsonElement selectionRestoreMixer(JsonObject params) {
+        String channelId = params.get("channelId").getAsString();
+        String expected = params.get("expectedChannelId").getAsString();
+        long revision = params.get("expectedRevision").getAsLong();
+        JsonObject result = new JsonObject();
+        if (rig.selectionRevision != revision || !expected.equals(channelIdAt(rig.selectedMixerTrackIndex))) {
+            result.addProperty("restored", false);
+            result.addProperty("reason", "selection-changed");
+            return result;
+        }
+        for (int i = 0; i < rig.config.tracks; i++) {
+            if (!channelId.isEmpty() && channelId.equals(channelIdAt(i))) {
+                // An unowned selection command: a prior workflow lease does not survive it.
+                rig.clearSelectionOwnership();
+                rig.trackBank.getItemAt(i).selectInEditor();
+                result.addProperty("restored", true);
+                result.addProperty("trackIndex", i);
+                return result;
+            }
+        }
+        result.addProperty("restored", false);
+        result.addProperty("reason", "absent");
         return result;
     }
 }

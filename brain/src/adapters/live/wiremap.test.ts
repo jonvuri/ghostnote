@@ -88,9 +88,9 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
     probeGolden.methods,
     [...new Set([...normalGolden.methods, ...probeOnly])].sort(),
   );
-  assert.equal(normalGolden.count, 91);
-  assert.equal(captureGolden.count, 96);
-  assert.equal(probeGolden.count, 109);
+  assert.equal(normalGolden.count, 92);
+  assert.equal(captureGolden.count, 97);
+  assert.equal(probeGolden.count, 110);
 });
 
 test('8b: historical host objects are absent from active Rig construction', () => {
@@ -193,7 +193,7 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
       ...(golden.addedInPhase8e ?? []), ...(golden.addedInPhase8g ?? []),
       ...(golden.addedInPhase8h1a ?? []), ...(golden.addedInPhase8h4a5 ?? []),
       ...(golden.addedInPhase8h4e0 ?? []), ...(golden.addedInPhase8h4e ?? []),
-      ...(golden.addedInPhase8i7 ?? [])];
+      ...(golden.addedInPhase8i7 ?? []), ...(golden.addedInPhase8i8 ?? [])];
   assert.deepEqual(
     [...golden.addedInPhase0].sort(),
     historical.filter((method) => golden.methods.includes(method)).sort(),
@@ -1094,4 +1094,21 @@ test('8i7: the track mixer read and write are normal product methods with guards
   const block = rig.slice(rig.indexOf('// 8i7 (E257)'), rig.indexOf("// D13's Group regression"));
   assert.equal(block.match(/markInterested\(\)/g)?.length, 7, 'seven product mixer values for each track');
   assert.doesNotMatch(block, /sendBank|addVuMeterObserver|sourceSelector/);
+});
+
+test('8i8: the mixer-selection restore is one normal product method, guarded before it selects', () => {
+  assert.deepEqual(golden.addedInPhase8i8, ['selection.restoreMixer']);
+  assert.ok(WIRE_METHODS_USED.includes('selection.restoreMixer'));
+  assert.ok(normalGolden.methods.includes('selection.restoreMixer'));
+  const profile = readFileSync(join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+    'extension', 'RuntimeProfile.java'), 'utf8');
+  const reads = profile.slice(profile.indexOf('Set<String> READS = methods('));
+  assert.doesNotMatch(reads.slice(0, reads.indexOf(');')), /"selection\.restoreMixer"/, 'a UI selection command is a write');
+  const source = readFileSync(join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+    'extension', 'handlers', 'CursorHandlers.java'), 'utf8');
+  const body = source.slice(source.indexOf('private JsonElement selectionRestoreMixer'));
+  const select = body.indexOf('.selectInEditor()');
+  for (const guard of ['rig.selectionRevision != revision', 'expected.equals(channelIdAt(rig.selectedMixerTrackIndex))']) {
+    assert.ok(body.indexOf(guard) > 0 && body.indexOf(guard) < select, `${guard} runs before the select`);
+  }
 });

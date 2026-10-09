@@ -73,6 +73,11 @@ export interface EncodeContext {
    */
   readonly cursorFor: (clip: ClipAddress) => string;
   /**
+   * 8i8 (E250): a clip create selects the new slot. Inside a selection scope, record the borrow and return the
+   * scope token, so that the create claims the lease on that slot and the scope can restore the entry selection.
+   */
+  readonly claimSelection?: (trackIndex: number, slotIndex: number) => string | undefined;
+  /**
    * Whether this op must send the UI-selection-changing point frames.
    *
    * The live adapter can omit them when a prior independent read verified that
@@ -481,14 +486,19 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       ];
     }
 
-    case 'clip.create':
+    case 'clip.create': {
+      const trackIndex = ctx.trackIndex(op.slot.track);
+      const slotIndex = ctx.sceneRow(op.slot.scene);
+      const token = ctx.claimSelection?.(trackIndex, slotIndex);
       return [
         frame(WIRE.clipCreate, {
-          trackIndex: ctx.trackIndex(op.slot.track),
-          slotIndex: ctx.sceneRow(op.slot.scene),
+          trackIndex,
+          slotIndex,
           lengthBeats: op.lengthBeats,
+          ...(token === undefined ? {} : { selectionOwnerToken: token }),
         }),
       ];
+    }
 
     case 'clip.delete':
       return [

@@ -242,7 +242,7 @@ export class Executor {
         const key = addressKey(address);
         if (unread.has(key)) continue;
         unread.add(key);
-        unverified.push({ address, why: 'the write was applied, but its verification read failed: '
+        unverified.push({ address, cause: 'read-failed', why: 'the write was applied, but its verification read failed: '
           + `${error instanceof Error ? error.message : String(error)}. Read the target again.` });
       }
       return { contract: CONTRACT_TAG, at, entries: {}, missing: [], unreachable: [], unstable: [] };
@@ -339,6 +339,7 @@ export class Executor {
         const unverifiedRows: Unverified[] = rowsMoved
           ? addresses.filter((a) => addressScene(a) !== undefined).map((address) => ({
             address,
+            cause: 'rows-moved',
             why: 'the scene layout or the project changed during this batch, so this row address is no '
               + 'longer trusted (E3). Re-resolve and re-read.',
           }))
@@ -403,6 +404,7 @@ export class Executor {
     const unverified: Unverified[] = staled
       ? addresses.filter((a) => addressScene(a) !== undefined).map((address) => ({
         address,
+        cause: 'rows-moved',
         why:
           'this batch changed the scene layout, which compacts rows and invalidates every ' +
           'scene-relative address minted before it (E3). The write may well have landed; we ' +
@@ -417,6 +419,7 @@ export class Executor {
       unread.add(addressKey(address));
       unverified.push({
         address,
+        cause: 'observer-unstable',
         why: 'the target device was confirmed, but its parameter observer inventory did not settle',
       });
     }
@@ -1178,6 +1181,31 @@ export function disagreementsOf(
         address: op.mixer, at: 'track mixer', field: op.mixer.field, requested: op.value,
         readback: entry.value.mixer.value,
       });
+    }
+  }
+
+  // 8i8: the last name of each renamed track, and each deleted track. A completed read that shows another name, or
+  // a deleted track that is still there, is a difference. Before 8i8 neither was compared, so a rename or a delete
+  // that did not land read back as verified.
+  const deletedTracks = new Set(ops.flatMap((op) => op.op === 'track.delete' ? [addressKey(op.track)] : []));
+  const renames = new Map<string, Extract<Op, { op: 'track.rename' }>>();
+  for (const op of ops) {
+    if (op.op === 'track.rename') renames.set(addressKey(op.track), op);
+  }
+  for (const op of renames.values()) {
+    const key = addressKey(op.track);
+    if (unread.has(key) || deletedTracks.has(key)) continue;
+    const entry = verify.entries[key];
+    if (entry?.value.of !== 'track') {
+      out.push({ address: op.track, at: 'track', field: 'exists', requested: true, readback: false });
+    } else if (entry.value.track.name !== op.name) {
+      out.push({ address: op.track, at: 'track', field: 'name', requested: op.name, readback: entry.value.track.name });
+    }
+  }
+  for (const op of ops) {
+    if (op.op !== 'track.delete' || unread.has(addressKey(op.track))) continue;
+    if (verify.entries[addressKey(op.track)] !== undefined) {
+      out.push({ address: op.track, at: 'track', field: 'exists', requested: false, readback: true });
     }
   }
 

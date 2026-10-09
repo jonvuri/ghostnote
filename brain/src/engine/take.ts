@@ -81,7 +81,16 @@ export interface Disagreement {
 export interface Unverified {
   readonly address: Address;
   readonly why: string;
+  /**
+   * 8i8: why the verify did not cover the address. `read-failed`: the verification read threw after the write
+   * applied (E250). `rows-moved`: the scene layout or the project changed, so the row address is no longer
+   * trusted (E3). `observer-unstable`: the parameter observer inventory did not settle. A caller branches on this
+   * field, never on `why`.
+   */
+  readonly cause: UnverifiedCause;
 }
+
+export type UnverifiedCause = 'read-failed' | 'rows-moved' | 'observer-unstable';
 
 /**
  * ⚠ Something in the clip launcher changed while this batch was running, and the

@@ -99,7 +99,7 @@ export type { InsertBatch, RevertInput, RevertPlan, Unrestored } from './revert.
 
 export { takeAppliedAnything, takeWriteSet } from './take.js';
 export type {
-  ApplyReport, ConcurrentEdit, Disagreement, Take, TakeValue, Unverified,
+  ApplyReport, ConcurrentEdit, Disagreement, Take, TakeValue, Unverified, UnverifiedCause,
 } from './take.js';
 
 export { isAtRisk, structuralRisk, writeSet, writeSetOf } from './write-set.js';

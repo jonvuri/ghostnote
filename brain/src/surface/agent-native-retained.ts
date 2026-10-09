@@ -32,11 +32,12 @@ import {
 import { directedDestruction, takeAppliedAnything, type RunOptions } from '../engine/index.js';
 import { selectClip, selectTrack, type Slice, type StashedChangeset } from '../stash/index.js';
 import {
-  AGENT_NATIVE_TOOL_PROFILE, REFUSAL_CODES, ToolFailure, classifyError, failureResult,
+  AGENT_NATIVE_TOOL_PROFILE, REFUSAL_CODES, ToolFailure, classifyError, combinedReadbackStatus, failureResult,
+  readbackOrUnavailable, readbackStatusOf, readbackUnavailableWarning, type ReadbackStatus,
   type Effect, type FailureCode, type FailureStage, type ReadResult, type Warning, type WriteResult,
 } from './agent-native-result.js';
 import { atMost, requireWithinLimit } from './write-limits.js';
-import { checkCursorPins, checkHealth } from './agent-native.js';
+import { checkCursorPins, checkHealth, selectionWarnings, withSelection } from './agent-native.js';
 import { completeDeviceBank, enabledFingerprint } from './device-controls.js';
 import {
   issuedCompositionCheckpoint, previewGeneralDeviceCompositionReversal, runGeneralDeviceCompositionReversal,
@@ -116,10 +117,12 @@ export function placeOf(where: Where): Readonly<Record<string, unknown>> {
   return { what: noun, ...rest, ...(channel === undefined ? {} : { channel: channel + 1 }) };
 }
 
-/** `verified` when the executor's independent readback agrees with every op (D15); `differs` otherwise. */
-const statusOf = (receipt: Receipt): 'verified' | 'differs' =>
-  receipt.applied && receipt.failed === undefined && receipt.mismatches === undefined
-    && receipt.notReadBack === undefined ? 'verified' : 'differs';
+/** The executor's independent readback (D15): `verified`, `differs`, or `unavailable` when its read failed (8i8). */
+const statusOf = (receipt: Receipt): ReadbackStatus => readbackStatusOf(receipt);
+
+/** The `readback-unavailable` warning when the status is `unavailable` (8i8). */
+const unavailableWarnings = (status: ReadbackStatus, subject: string): Warning[] =>
+  status === 'unavailable' ? [readbackUnavailableWarning(subject)] : [];
 
 /** A change that the revision guard refused whole wrote nothing. */
 function requireApplied(change: StashedChangeset): void {
@@ -360,12 +363,13 @@ async function revertChange(workspace: Workspace, args: RevertInput): Promise<un
     requireApplied(change);
     state.effects.push(effectOf(change, { undoOf: args.changeId }, `Reverted change ${args.changeId}.`));
     const receipt = receiptOf(change);
+    const status = statusOf(receipt);
     const result: WriteResult<unknown> = {
       schema: REVERT_SCHEMA, applied: true, effects: state.effects,
-      readback: { status: statusOf(receipt), restored: report.wouldRestore.map(placeOf), notRestored,
+      readback: { status, restored: report.wouldRestore.map(placeOf), notRestored,
         ...(report.caveats.length === 0 ? {} : { caveats: report.caveats }),
         ...(receipt.mismatches === undefined ? {} : { mismatches: receipt.mismatches }) },
-      warnings: [],
+      warnings: unavailableWarnings(status, 'the restored places'),
     };
     return { ...result, target };
   });
@@ -400,31 +404,50 @@ const ADD_TRACKS_DESCRIPTION = `${PROFILE} Create instrument or audio tracks, ea
   + 'named in a second change. readback.tracks gives each trackId, name, and kind. A new track is empty, unmuted, '
   + 'and audible when it gets content; an audio track takes audio input. Bitwig has no route that makes a Hybrid, '
   + 'Group, or Effect track. More tracks than this connection can address refuse before a write (code '
-  + 'outside-limit). revert_change does not remove a new track: delete it with delete_track.';
+  + 'outside-limit). revert_change does not remove a new track: delete it with delete_track. Bitwig selects a new '
+  + 'track in the mixer; the tool then selects the mixer track that was selected before. When that is not possible, '
+  + 'warning mixer-selection-moved names the selected track.';
 
 async function addTracks(workspace: Workspace, args: AddTracksInput): Promise<unknown> {
   const target = { tracks: args.tracks.length };
   return guardedRun(TRACK_ADD_SCHEMA, target, async (state) => {
     // The adapter refuses a batch that would put a track past the window (assertTrackRoom, outside-limit).
     state.stage = 'write';
-    const created = await workspace.apply(args.tracks.map((item): Op => ({ op: 'track.create', name: item.name,
-      ...(item.kind === undefined || item.kind === 'instrument' ? {} : { kind: item.kind }) })));
-    requireApplied(created);
-    const minted = args.tracks.map((_, index) => created.take.receipt.minted[index]);
-    const ids = minted.filter((item): item is TrackAddress => item?.kind === 'track');
-    state.effects.push(effectOf(created, { trackIds: ids.map((item) => item.channelId) },
-      `Created ${ids.length} track(s).`));
-    if (ids.length !== args.tracks.length) {
-      throw new ToolFailure('unavailable', 'readback', 'Bitwig acknowledged the creation, but not every fresh '
-        + 'trackId appeared in the bounded readback. Read list_tracks before any cleanup.',
-      { detail: { created: ids.map((item) => item.channelId) } });
-    }
-    const named = await workspace.apply(ids.map((item, index): Op => ({
-      op: 'track.rename', track: item, name: args.tracks[index]!.name })));
-    requireApplied(named);
-    state.effects.push(effectOf(named, { trackIds: ids.map((item) => item.channelId) }, 'Named the new track(s).'));
+    // 8i8 (E251): Bitwig selects the new track in the mixer. One scope covers both changes and restores the entry
+    // mixer track once, at its end.
+    const { value: ids, selection } = await withSelection(workspace, async () => {
+      const created = await workspace.apply(args.tracks.map((item): Op => ({ op: 'track.create', name: item.name,
+        ...(item.kind === undefined || item.kind === 'instrument' ? {} : { kind: item.kind }) })));
+      requireApplied(created);
+      const minted = args.tracks.map((_, index) => created.take.receipt.minted[index]);
+      const fresh = minted.filter((item): item is TrackAddress => item?.kind === 'track');
+      state.effects.push(effectOf(created, { trackIds: fresh.map((item) => item.channelId) },
+        `Created ${fresh.length} track(s).`));
+      if (fresh.length !== args.tracks.length) {
+        throw new ToolFailure('unavailable', 'readback', 'Bitwig acknowledged the creation, but not every fresh '
+          + 'trackId appeared in the bounded readback. Read list_tracks before any cleanup.',
+        { detail: { created: fresh.map((item) => item.channelId) } });
+      }
+      const named = await workspace.apply(fresh.map((item, index): Op => ({
+        op: 'track.rename', track: item, name: args.tracks[index]!.name })));
+      requireApplied(named);
+      state.effects.push(effectOf(named, { trackIds: fresh.map((item) => item.channelId) }, 'Named the new track(s).'));
+      return fresh;
+    });
     state.stage = 'readback';
-    const rows = await workspace.tracks();
+    const notReversible: Warning = { code: 'not-reversible', message: 'revert_change does not remove a new track; '
+      + 'use delete_track.' };
+    const moved = selectionWarnings(selection);
+    const read = await readbackOrUnavailable(TRACK_ADD_SCHEMA, 'the tracks with list_tracks', () => workspace.tracks());
+    if (!read.ok) {
+      const unread: WriteResult<unknown> = {
+        schema: TRACK_ADD_SCHEMA, applied: true, effects: state.effects,
+        readback: { ...read.readback, tracks: ids.map((item) => ({ trackId: item.channelId, name: null, kind: null })) },
+        warnings: [notReversible, read.warning, ...moved],
+      };
+      return { ...unread, target };
+    }
+    const rows = read.value;
     const tracks = ids.map((item, index) => {
       const row = rows.find((candidate) => candidate.channelId === item.channelId);
       const kind = args.tracks[index]!.kind ?? 'instrument';
@@ -435,7 +458,7 @@ async function addTracks(workspace: Workspace, args: AddTracksInput): Promise<un
       schema: TRACK_ADD_SCHEMA, applied: true, effects: state.effects,
       readback: { status: tracks.every((item) => item.verified) ? 'verified' : 'differs',
         tracks: tracks.map(({ verified: _verified, ...rest }) => rest) },
-      warnings: [{ code: 'not-reversible', message: 'revert_change does not remove a new track; use delete_track.' }],
+      warnings: [notReversible, ...moved],
     };
     return { ...result, target };
   });
@@ -453,7 +476,8 @@ const DUPLICATE_DESCRIPTION = `${PROFILE} Duplicate one Instrument, Audio, or Hy
   + 'at once when the source is; loading its devices can glitch the audio and adds engine load. Group, Effect, and '
   + 'Master tracks refuse before a write (code unsupported): their copy is not proved. A full track window '
   + 'refuses before a write (code outside-limit). revert_change does not remove the copy: delete it with '
-  + 'delete_track.';
+  + 'delete_track. Bitwig selects the copy in the mixer; the tool then selects the mixer track that was selected '
+  + 'before. When that is not possible, warning mixer-selection-moved names the selected track.';
 
 async function duplicateTrack(workspace: Workspace, args: DuplicateInput): Promise<unknown> {
   const target = { trackId: args.trackId };
@@ -467,27 +491,36 @@ async function duplicateTrack(workspace: Workspace, args: DuplicateInput): Promi
       { detail: { reason: 'track-kind', kind: source!.type, supported: DUPLICABLE_TRACK_KINDS } });
     }
     state.stage = 'write';
-    const copied = await workspace.apply([{ op: 'track.duplicate', track: trackAt(args.trackId) }]);
-    requireApplied(copied);
-    const minted = copied.take.receipt.minted[0];
-    state.effects.push(effectOf(copied, target, `Duplicated one ${source!.type} track.`));
-    if (minted?.kind !== 'track') {
-      throw new ToolFailure('unavailable', 'readback', 'Bitwig acknowledged the copy, but no fresh trackId appeared '
-        + 'in the bounded readback. Read list_tracks before any cleanup.');
-    }
-    const named = await workspace.apply([{ op: 'track.rename', track: minted, name: args.name }]);
-    requireApplied(named);
-    state.effects.push(effectOf(named, { trackId: minted.channelId }, 'Named the copy.'));
+    // 8i8 (E258): Bitwig selects the copy in the mixer. One scope covers both changes and restores the entry track.
+    const { value: minted, selection } = await withSelection(workspace, async () => {
+      const copied = await workspace.apply([{ op: 'track.duplicate', track: trackAt(args.trackId) }]);
+      requireApplied(copied);
+      const fresh = copied.take.receipt.minted[0];
+      state.effects.push(effectOf(copied, target, `Duplicated one ${source!.type} track.`));
+      if (fresh?.kind !== 'track') {
+        throw new ToolFailure('unavailable', 'readback', 'Bitwig acknowledged the copy, but no fresh trackId appeared '
+          + 'in the bounded readback. Read list_tracks before any cleanup.');
+      }
+      const named = await workspace.apply([{ op: 'track.rename', track: fresh, name: args.name }]);
+      requireApplied(named);
+      state.effects.push(effectOf(named, { trackId: fresh.channelId }, 'Named the copy.'));
+      return fresh;
+    });
     state.stage = 'readback';
-    const row = (await workspace.tracks()).find((item) => item.channelId === minted.channelId);
+    const read = await readbackOrUnavailable(TRACK_DUPLICATE_SCHEMA, 'the tracks with list_tracks',
+      () => workspace.tracks());
+    const row = read.ok ? read.value.find((item) => item.channelId === minted.channelId) : undefined;
     const result: WriteResult<unknown> = {
       schema: TRACK_DUPLICATE_SCHEMA, applied: true, effects: state.effects,
-      readback: { status: row?.name === args.name && row.type === source!.type ? 'verified' : 'differs',
-        copy: { trackId: minted.channelId, name: row?.name ?? null, kind: row?.type ?? null,
-          position: row?.position ?? null } },
+      readback: { ...(read.ok
+        ? { status: row?.name === args.name && row.type === source!.type ? 'verified' : 'differs' } : read.readback),
+      copy: { trackId: minted.channelId, name: row?.name ?? null, kind: row?.type ?? null,
+        position: row?.position ?? null } },
       warnings: [
         { code: 'audible-copy', message: 'The copy plays with the source when the source is audible.' },
         { code: 'not-reversible', message: 'revert_change does not remove the copy; use delete_track.' },
+        ...(read.ok ? [] : [read.warning]),
+        ...selectionWarnings(selection),
       ],
     };
     return { ...result, target };
@@ -516,9 +549,10 @@ async function renameTracks(workspace: Workspace, args: RenameInput): Promise<un
       op: 'track.rename', track: trackAt(item.trackId), name: item.name })));
     requireApplied(change);
     state.effects.push(effectOf(change, target, `Renamed ${args.tracks.length} track(s).`));
+    const status = statusOf(receiptOf(change));
     const result: WriteResult<unknown> = {
       schema: TRACK_RENAME_SCHEMA, applied: true, effects: state.effects,
-      readback: { status: statusOf(receiptOf(change)) }, warnings: [],
+      readback: { status }, warnings: unavailableWarnings(status, 'the tracks with list_tracks'),
     };
     return { ...result, target };
   });
@@ -531,8 +565,10 @@ type DeleteTracksInput = z.infer<typeof deleteTracksInput>;
 
 const DELETE_TRACK_DESCRIPTION = `${PROFILE} Delete tracks with everything on them: every clip, device, and `
   + 'setting. A group track deletes the tracks inside it too. Nothing here can undo it: a track made again has a '
-  + 'new trackId, so no record of the old track applies to it. readback.removed names each deleted trackId. One call '
-  + 'deletes at most 64 tracks. A larger request refuses before any read or write (code outside-limit, the limit in detail): split it into more calls.';
+  + 'new trackId, so no record of the old track applies to it. readback.removed names each deleted trackId. Bitwig '
+  + 'moves the mixer selection on a delete; the tool then selects the mixer track that was selected before. When '
+  + 'that track was deleted, or the selection changed again, warning mixer-selection-moved names the selected track. '
+  + 'One call deletes at most 64 tracks. A larger request refuses before any read or write (code outside-limit, the limit in detail): split it into more calls.';
 
 async function deleteTracks(workspace: Workspace, args: DeleteTracksInput): Promise<unknown> {
   const target = { trackIds: args.trackIds };
@@ -547,8 +583,10 @@ async function deleteTracks(workspace: Workspace, args: DeleteTracksInput): Prom
     const order = rows.map((row) => ({ id: row.channelId, position: row.position }))
       .sort((left, right) => right.position - left.position);
     state.stage = 'write';
-    const change = await workspace.apply(order.map((item): Op => ({ op: 'track.delete', track: trackAt(item.id) })),
-      { clearance: directedDestruction('delete_track') });
+    // 8i8 (E251): Bitwig moves the mixer selection on a delete. The scope restores the entry mixer track.
+    const { value: change, selection } = await withSelection(workspace, () => workspace.apply(
+      order.map((item): Op => ({ op: 'track.delete', track: trackAt(item.id) })),
+      { clearance: directedDestruction('delete_track') }));
     requireApplied(change);
     state.effects.push(effectOf(change, target, `Deleted ${args.trackIds.length} track(s).`));
     // The executor's structural readback after the write is the independent evidence (D15).
@@ -556,7 +594,8 @@ async function deleteTracks(workspace: Workspace, args: DeleteTracksInput): Prom
     const result: WriteResult<unknown> = {
       schema: TRACK_DELETE_SCHEMA, applied: true, effects: state.effects,
       readback: { status, removed: status === 'verified' ? args.trackIds : [] },
-      warnings: [{ code: 'not-reversible', message: 'revert_change cannot put a deleted track back.' }],
+      warnings: [{ code: 'not-reversible', message: 'revert_change cannot put a deleted track back.' },
+        ...unavailableWarnings(status, 'the tracks with list_tracks'), ...selectionWarnings(selection)],
     };
     return { ...result, target };
   });
@@ -584,7 +623,7 @@ async function setDeviceEnabled(workspace: Workspace, args: EnabledInput): Promi
   const target = { settings: args.settings.length };
   return guardedRun(DEVICE_ENABLED_SCHEMA, target, async (state) => {
     requireWithinLimit('deviceEnabledSettings', args.settings.length, 'settings');
-    let verified = true;
+    const statuses: ReadbackStatus[] = [];
     for (const setting of args.settings) {
       state.stage = 'acquire';
       const track = trackAt(setting.trackId);
@@ -607,11 +646,12 @@ async function setDeviceEnabled(workspace: Workspace, args: EnabledInput): Promi
       requireApplied(change);
       state.effects.push(effectOf(change, { trackId: setting.trackId, devicePosition: setting.devicePosition },
         `${setting.enabled ? 'Enabled' : 'Bypassed'} ${observed.name}.`));
-      if (statusOf(receiptOf(change)) !== 'verified') verified = false;
+      statuses.push(statusOf(receiptOf(change)));
     }
+    const status = combinedReadbackStatus(statuses);
     const result: WriteResult<unknown> = {
       schema: DEVICE_ENABLED_SCHEMA, applied: true, effects: state.effects,
-      readback: { status: verified ? 'verified' : 'differs' }, warnings: [],
+      readback: { status }, warnings: unavailableWarnings(status, 'the devices with read_devices'),
     };
     return { ...result, target };
   });
@@ -701,6 +741,9 @@ export function measuredBody(stable: ToolSpec, schema: string): ToolSpec {
         stage: 'guard' as FailureStage }
         : body['partialSuccess'] === true || body['partialCompletion'] === true || body['partialReversal'] === true
           ? { code: 'partial' as FailureCode, stage: 'write' as FailureStage }
+          // 8i8: a recorded change whose verification read failed. The write stays; its readback is unavailable.
+          : effects.length > 0 && changes.some((change) => receiptOf(change).readbackUnavailable === true)
+            ? { code: 'unavailable' as FailureCode, stage: 'readback' as FailureStage }
           // A post-write check that did not pass (edit_preset_modulation `verified.passed`): the write stays.
           : (body['verified'] as { passed?: unknown } | undefined)?.passed === false && effects.length > 0
             ? { code: 'unavailable' as FailureCode, stage: 'readback' as FailureStage }
@@ -735,7 +778,10 @@ const spec = (
 ): ToolSpec => ({
   name, kind, title, description, inputSchema: input.shape, inputValidator: input, emits,
   resultContract: { schema, profile: AGENT_NATIVE_TOOL_PROFILE,
-    envelope: kind === 'read' ? READ_FIELDS : WRITE_FIELDS, failure: FAILURE_FIELDS },
+    envelope: kind === 'read' ? READ_FIELDS : WRITE_FIELDS, failure: FAILURE_FIELDS,
+    // 8i8: unavailable is an applied write whose readback read failed (E250).
+    ...(kind === 'read' ? {} : { readbackStatus: name === 'revert_change'
+      ? ['verified', 'differs', 'unavailable', 'nothing-to-revert'] : ['verified', 'differs', 'unavailable'] }) },
   run, ...extra,
 });
 

@@ -1,0 +1,344 @@
+{
+  "schema": "phase8i8-selection-v1",
+  "hello": {
+    "contractVersion": 0,
+    "extensionVersion": "0.0.1",
+    "runtimeProfile": "normal-v1",
+    "hostApiVersion": 25,
+    "methodCount": 92,
+    "methodsHash": "0bafdd963fa9f5da"
+  },
+  "project": "gn-scale-test",
+  "entry": {
+    "track": 2,
+    "slot": 0,
+    "mixer": "6fb96670-abde-4958-9147-f573a4b43918",
+    "revision": 21
+  },
+  "rows": [
+    {
+      "step": "add-a",
+      "tool": "add_tracks",
+      "ok": true,
+      "status": "verified",
+      "warnings": [
+        "not-reversible"
+      ],
+      "ms": 935,
+      "calls": 41,
+      "turns": 23,
+      "selectionCalls": [
+        "selection.status",
+        "selection.status",
+        "selection.restoreMixer",
+        "selection.status",
+        "selection.status"
+      ],
+      "selection": {
+        "track": 2,
+        "slot": 0,
+        "mixer": "6fb96670-abde-4958-9147-f573a4b43918",
+        "revision": 23
+      },
+      "kept": true,
+      "traces": [
+        "mixer-restore 6fb96670-abde-4958-9147-f573a4b43918"
+      ]
+    },
+    {
+      "step": "add-clip",
+      "tool": "add_launcher_clip",
+      "ok": true,
+      "status": "verified",
+      "warnings": [],
+      "ms": 2039,
+      "calls": 73,
+      "turns": 49,
+      "selectionCalls": [
+        "selection.status",
+        "selection.status"
+      ],
+      "selection": {
+        "track": 2,
+        "slot": 0,
+        "mixer": "6fb96670-abde-4958-9147-f573a4b43918",
+        "revision": 25
+      },
+      "kept": true,
+      "traces": [
+        "selection-restore 2:0"
+      ]
+    },
+    {
+      "step": "read-clip",
+      "tool": "read_launcher_clip",
+      "ok": true,
+      "warnings": [],
+      "ms": 386,
+      "calls": 14,
+      "turns": 10,
+      "selectionCalls": [
+        "selection.status"
+      ],
+      "selection": {
+        "track": 2,
+        "slot": 0,
+        "mixer": "6fb96670-abde-4958-9147-f573a4b43918",
+        "revision": 27
+      },
+      "kept": true,
+      "traces": [
+        "selection-restore-skipped 2:0"
+      ]
+    },
+    {
+      "step": "rename",
+      "tool": "rename_track",
+      "ok": true,
+      "status": "verified",
+      "warnings": [],
+      "ms": 378,
+      "calls": 15,
+      "turns": 9,
+      "selectionCalls": [
+        "selection.status"
+      ],
+      "selection": {
+        "track": 2,
+        "slot": 0,
+        "mixer": "6fb96670-abde-4958-9147-f573a4b43918",
+        "revision": 27
+      },
+      "kept": true,
+      "traces": []
+    },
+    {
+      "step": "revert-rename",
+      "tool": "revert_change",
+      "ok": true,
+      "status": "verified",
+      "warnings": [],
+      "ms": 428,
+      "calls": 19,
+      "turns": 11,
+      "selectionCalls": [
+        "selection.status"
+      ],
+      "selection": {
+        "track": 2,
+        "slot": 0,
+        "mixer": "6fb96670-abde-4958-9147-f573a4b43918",
+        "revision": 27
+      },
+      "kept": true,
+      "traces": []
+    },
+    {
+      "step": "add-quiet",
+      "tool": "add_tracks",
+      "ok": true,
+      "status": "verified",
+      "warnings": [
+        "not-reversible"
+      ],
+      "ms": 889,
+      "calls": 41,
+      "turns": 23,
+      "selectionCalls": [
+        "selection.status",
+        "selection.status",
+        "selection.restoreMixer",
+        "selection.status",
+        "selection.status"
+      ],
+      "selection": {
+        "track": 2,
+        "slot": 0,
+        "mixer": "6fb96670-abde-4958-9147-f573a4b43918",
+        "revision": 29
+      },
+      "kept": true,
+      "traces": [
+        "mixer-restore 6fb96670-abde-4958-9147-f573a4b43918"
+      ]
+    },
+    {
+      "step": "delete-quiet",
+      "tool": "delete_track",
+      "ok": true,
+      "status": "verified",
+      "warnings": [
+        "not-reversible"
+      ],
+      "ms": 594,
+      "calls": 29,
+      "turns": 16,
+      "selectionCalls": [
+        "selection.status",
+        "selection.status",
+        "selection.restoreMixer",
+        "selection.status",
+        "selection.status"
+      ],
+      "selection": {
+        "track": 2,
+        "slot": 0,
+        "mixer": "6fb96670-abde-4958-9147-f573a4b43918",
+        "revision": 31
+      },
+      "kept": true,
+      "traces": [
+        "mixer-restore 6fb96670-abde-4958-9147-f573a4b43918"
+      ]
+    },
+    {
+      "step": "delete-pointed",
+      "tool": "delete_track",
+      "ok": true,
+      "status": "verified",
+      "warnings": [
+        "not-reversible"
+      ],
+      "ms": 506,
+      "calls": 26,
+      "turns": 13,
+      "selectionCalls": [
+        "selection.status",
+        "selection.status"
+      ],
+      "selection": {
+        "track": 2,
+        "slot": 0,
+        "mixer": "6fb96670-abde-4958-9147-f573a4b43918",
+        "revision": 31
+      },
+      "kept": true,
+      "traces": []
+    },
+    {
+      "step": "add-b",
+      "tool": "add_tracks",
+      "ok": true,
+      "status": "verified",
+      "warnings": [
+        "not-reversible"
+      ],
+      "ms": 933,
+      "calls": 41,
+      "turns": 23,
+      "selectionCalls": [
+        "selection.status",
+        "selection.status",
+        "selection.restoreMixer",
+        "selection.status",
+        "selection.status"
+      ],
+      "selection": {
+        "track": 2,
+        "slot": 0,
+        "mixer": "6fb96670-abde-4958-9147-f573a4b43918",
+        "revision": 33
+      },
+      "kept": true,
+      "traces": [
+        "mixer-restore 6fb96670-abde-4958-9147-f573a4b43918"
+      ]
+    },
+    {
+      "step": "duplicate-b",
+      "tool": "duplicate_track",
+      "ok": true,
+      "status": "verified",
+      "warnings": [
+        "audible-copy",
+        "not-reversible"
+      ],
+      "ms": 948,
+      "calls": 42,
+      "turns": 24,
+      "selectionCalls": [
+        "selection.status",
+        "selection.status",
+        "selection.restoreMixer",
+        "selection.status",
+        "selection.status"
+      ],
+      "selection": {
+        "track": 2,
+        "slot": 0,
+        "mixer": "6fb96670-abde-4958-9147-f573a4b43918",
+        "revision": 35
+      },
+      "kept": true,
+      "traces": [
+        "mixer-restore 6fb96670-abde-4958-9147-f573a4b43918"
+      ]
+    },
+    {
+      "step": "delete-selected",
+      "tool": "delete_track",
+      "ok": true,
+      "status": "verified",
+      "warnings": [
+        "not-reversible",
+        "mixer-selection-moved"
+      ],
+      "ms": 508,
+      "calls": 27,
+      "turns": 14,
+      "selectionCalls": [
+        "selection.status",
+        "selection.status",
+        "selection.restoreMixer"
+      ],
+      "selection": {
+        "track": 2,
+        "slot": 0,
+        "mixer": "ca1c4a0a-f030-44b7-bed0-c19330c771c3",
+        "revision": 37
+      },
+      "traces": [
+        "mixer-restore-skipped b252beab-0f28-427f-a75c-54d79e1afbb4:absent"
+      ]
+    },
+    {
+      "step": "delete-b",
+      "tool": "delete_track",
+      "ok": true,
+      "status": "verified",
+      "warnings": [
+        "not-reversible"
+      ],
+      "ms": 492,
+      "calls": 26,
+      "turns": 13,
+      "selectionCalls": [
+        "selection.status",
+        "selection.status"
+      ],
+      "selection": {
+        "track": 2,
+        "slot": 0,
+        "mixer": "6fb96670-abde-4958-9147-f573a4b43918",
+        "revision": 38
+      },
+      "kept": true,
+      "traces": []
+    }
+  ],
+  "selectedDelete": {
+    "warning": {
+      "code": "mixer-selection-moved",
+      "message": "Bitwig moved the mixer selection to trackId ca1c4a0a-f030-44b7-bed0-c19330c771c3, and it was not restored: the track that was selected before the call is gone."
+    },
+    "mixerAfter": "ca1c4a0a-f030-44b7-bed0-c19330c771c3"
+  },
+  "tracksRestored": true,
+  "exit": {
+    "track": 2,
+    "slot": 0,
+    "mixer": "6fb96670-abde-4958-9147-f573a4b43918",
+    "revision": 38
+  },
+  "selectionRestored": true
+}

@@ -19,7 +19,7 @@ import {
   chain as chainAt, chainCopyUnnamed, chainPath, clipSourceFingerprint, contentDelta, notes as notesAt,
   hasUnverifiedProps, lookupChain, lookupNestedDevice, mintedChain, nestingObservable, orderedNoteProps, stepSizeFor,
   verifyChainSolo, verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain,
-  type Address, type AdapterInfo, type BatchReceipt, type BatchRequest, type BitwigAdapter,
+  type Address, type AdapterInfo, type BatchReceipt, type BatchRequest, type BitwigAdapter, type SelectionOutcome,
   type ClipAddress, type ClipMetadataState, type ClipSourceDigest, type RawSourceRecord, type ClipNavigationResult, type ContentDelta, type DeviceAddress, type Fidelity, type NoteRecord, type ObservedContainer,
   type Op, type OpReceipt, type ReadOptions, type ResolveResult,
   type ParamState, type RemoteControlState, type RemoteControlsState, type ResolvedAddress,
@@ -339,24 +339,60 @@ export class FakeAdapter implements BitwigAdapter {
     return contentDelta(since, this.mark(), this.model.contentRing);
   }
 
-  /** The fake has no UI selection, but shares the executor's pipeline shape. */
+  /** 8i8: the outermost selection scope, shared by nested scopes as on the live adapter. */
+  private selectionScope: {
+    readonly outcomes: Array<(outcome: SelectionOutcome) => void>;
+    mixerAtRisk: boolean;
+    slotMoved: boolean;
+  } | undefined;
+
   /**
-   * The fake has no UI, so `work` borrows nothing. It still applies the 8h4a
+   * The fake has no UI, so a cursor point borrows nothing. It still applies the 8h4a
    * live rule: a selection observed in another project is no selection and is
    * never restored. A current selection is restored once, unless its track is
-   * gone.
+   * gone. 8i8: a clip create selects the new slot, and a track create or delete
+   * moves the mixer selection (the host moves, E250 and E251). The outermost
+   * scope restores both and reports the outcome, as the live adapter does.
    */
-  async preserveSelection<T>(work: () => Promise<T>): Promise<T> {
+  async preserveSelection<T>(work: () => Promise<T>, onOutcome?: (outcome: SelectionOutcome) => void): Promise<T> {
+    const active = this.selectionScope;
+    if (active !== undefined) {
+      if (onOutcome !== undefined) active.outcomes.push(onOutcome);
+      return await work();
+    }
     const saved = this.model.selection;
     const current = saved !== undefined && saved.project === this.model.project ? saved : undefined;
+    const savedMixer = this.model.mixerSelection;
+    const scope = { outcomes: onOutcome === undefined ? [] : [onOutcome], mixerAtRisk: false, slotMoved: false };
+    this.selectionScope = scope;
     try {
       return await work();
     } finally {
+      this.selectionScope = undefined;
+      let slot: SelectionOutcome['slot'] = 'kept';
       if (current !== undefined && this.model.visibleTracks()[current.trackIndex] !== undefined) {
         this.model.selection = current;
         this.model.selectionRestores += 1;
+        this.model.restoredSelections.push(current);
+        if (scope.slotMoved) slot = 'restored';
+      } else if (scope.slotMoved) {
+        slot = current === undefined ? 'no-prior' : 'absent';
       }
+      const outcome: SelectionOutcome = scope.mixerAtRisk ? { slot, mixer: this.restoreMixer(savedMixer) } : { slot };
+      for (const report of scope.outcomes) report(outcome);
     }
+  }
+
+  /** The guarded mixer restore of the live adapter (8i8). */
+  private restoreMixer(saved: string | undefined): NonNullable<SelectionOutcome['mixer']> {
+    const now = this.model.mixerSelection;
+    if (saved === undefined) return now === undefined ? { status: 'unchanged' } : { status: 'moved', now, reason: 'no-prior' };
+    if (now === saved) return { status: 'unchanged', before: saved, now };
+    const moved = { status: 'moved' as const, before: saved, ...(now === undefined ? {} : { now }) };
+    if (this.model.mixerRestoreRefused) return { ...moved, reason: 'selection-changed' };
+    if (!this.model.tracks.some((item) => item.channelId === saved)) return { ...moved, reason: 'absent' };
+    this.model.mixerSelection = saved;
+    return { status: 'restored', before: saved, now: saved };
   }
 
   /**
@@ -1310,6 +1346,10 @@ export class FakeAdapter implements BitwigAdapter {
           // Through the model, so the launcher-content observer fires exactly
           // where Bitwig's would — see `ProjectModel.setSlotContent`.
           this.model.setSlotContent(track, sceneIndex, true);
+          // 8i8 (E250): `createNewLauncherClip` selects the new clip.
+          this.model.selection = { trackIndex: this.model.visibleTracks().indexOf(track), slotIndex: sceneIndex,
+            project: this.model.project };
+          if (this.selectionScope !== undefined) this.selectionScope.slotMoved = true;
           slotState.lengthBeats = length;
           slotState.name = '';
           slotState.color = { red: 87, green: 97, blue: 198 };
@@ -1449,6 +1489,9 @@ export class FakeAdapter implements BitwigAdapter {
         // reading back what was actually created — never from an assumption.
         const created = this.model.createTrack(op.name, op.kind);
         minted[opIndex] = { kind: 'track', channelId: created.channelId };
+        // 8i8 (E251): Bitwig selects the new track in the mixer.
+        this.model.mixerSelection = created.channelId;
+        if (this.selectionScope !== undefined) this.selectionScope.mixerAtRisk = true;
         return;
       }
 
@@ -1457,6 +1500,9 @@ export class FakeAdapter implements BitwigAdapter {
         const copy = this.model.duplicateTrack(op.track.channelId);
         if (copy === undefined) throw new AddressUnresolvedError(op.track, 'track.duplicate target disappeared');
         minted[opIndex] = { kind: 'track', channelId: copy.channelId };
+        // 8i8 (E258): Bitwig selects the copy in the mixer.
+        this.model.mixerSelection = copy.channelId;
+        if (this.selectionScope !== undefined) this.selectionScope.mixerAtRisk = true;
         return;
       }
 
@@ -1467,10 +1513,15 @@ export class FakeAdapter implements BitwigAdapter {
         return;
       }
 
-      case 'track.delete':
+      case 'track.delete': {
         this.requireTrack(op.track, op.op);
+        const at = this.model.tracks.findIndex((item) => item.channelId === op.track.channelId);
         this.model.deleteTrack(op.track.channelId);
+        // 8i8 (E251): Bitwig moves the mixer selection on a delete, also from an unrelated track.
+        this.model.mixerSelection = this.model.tracks[Math.min(at, this.model.tracks.length - 1)]?.channelId;
+        if (this.selectionScope !== undefined) this.selectionScope.mixerAtRisk = true;
         return;
+      }
 
       case 'scene.create':
         this.model.createScenes(op.count);

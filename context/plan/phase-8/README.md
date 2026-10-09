@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: 8h, 8i0–8i7, and 8i9 are complete (E247–E257); the groove and overlay trials passed. Next: 8i8, then 8i10.
+status: 8h and 8i0–8i9 are complete (E247–E258); the groove and overlay trials passed. Next: 8i10.
 updated: 2026-10-09
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -415,14 +415,14 @@ owns the migration details.
    (complete, E255) and [8i7 — Bounded track mixer controls](8i7-track-mixer.md)
    (complete, E257, D48).
    [8i8 — Selection effects and unavailable readback](8i8-selection-and-readback-results.md)
-   fixes the result defects of E250 and E251.
+   fixes the result defects of E250 and E251 (complete, E258).
    [8i9 — Overlay authoring and creation](8i9-overlay-authoring-and-creation.md)
    (complete, E256, D47) adds the timing example and templates, claim repair,
    and claims on clip creation. The operator's fresh-client
    [overlay trial](8i-agent-native-hybrid-dogfood.md#operator-overlay-trial)
    passed; it closes the groove and overlay trials.
    [8i10 — Unprompted overlay trials](8i10-unprompted-overlay-trials.md)
-   (planned after 8i8) tests overlay use without a leading prompt.
+   (next) tests overlay use without a leading prompt.
    None requires a skill.
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.

@@ -29,6 +29,11 @@
  * `failure.effects` lists each completed change. The retained tools map a
  * missing change record to `absent` and a value outside a host-proved domain
  * to `range`.
+ *
+ * 8i8 (E250): a write that applied and whose independent readback failed is a
+ * write result, not a failure: `readback.status` is `unavailable`, with the
+ * warning `readback-unavailable`, and the change ID stays in `effects`.
+ * `differs` means that a completed read found other values.
  */
 import { BridgeError } from '../client.js';
 import {
@@ -162,6 +167,65 @@ export class ToolFailure extends Error {
   ) {
     super(message);
     this.name = 'ToolFailure';
+  }
+}
+
+/** 8i8: the readback status of an applied write. `unavailable`: the readback read failed, so nothing was compared. */
+export type ReadbackStatus = 'verified' | 'differs' | 'unavailable';
+
+/** The receipt fields that decide the readback status (`report.ts` `Receipt`). */
+export interface ReadbackFacts {
+  readonly applied: boolean;
+  readonly failed?: readonly unknown[];
+  readonly mismatches?: readonly unknown[];
+  readonly notReadBack?: readonly unknown[];
+  readonly readbackUnavailable?: true;
+}
+
+/**
+ * The status of one recorded change from the executor's independent readback (D15). A failed op or a completed
+ * read with other values is `differs`. A verification read that failed is `unavailable` (the structured cause,
+ * never the reason text). An address that a scene change made untrusted (E3) stays `differs`.
+ */
+export function readbackStatusOf(receipt: ReadbackFacts): ReadbackStatus {
+  if (!receipt.applied || receipt.failed !== undefined || receipt.mismatches !== undefined) return 'differs';
+  if (receipt.readbackUnavailable === true) return 'unavailable';
+  return receipt.notReadBack === undefined ? 'verified' : 'differs';
+}
+
+/** The combined status of several changes or checks: `differs` first, then `unavailable`. */
+export function combinedReadbackStatus(statuses: readonly ReadbackStatus[]): ReadbackStatus {
+  return statuses.includes('differs') ? 'differs' : statuses.includes('unavailable') ? 'unavailable' : 'verified';
+}
+
+export const READBACK_UNAVAILABLE = 'readback-unavailable';
+
+/** The warning of an applied write whose readback failed. `subject` names what to read again. */
+export function readbackUnavailableWarning(subject = 'the target'): Warning {
+  return { code: READBACK_UNAVAILABLE, message: `The write applied, but the independent readback failed. Read ${subject} `
+    + 'again before another write. Do not repeat the write.' };
+}
+
+/** The readback body of an applied write whose readback read threw: the code and message of the read failure. */
+export function unavailableReadback(schema: string, error: unknown): {
+  readonly status: 'unavailable'; readonly code: FailureCode; readonly message: string;
+} {
+  const failure = failureResult(schema, 'readback', error);
+  return { status: 'unavailable', code: failure.failure.code, message: failure.message };
+}
+
+/**
+ * Run the readback read of an applied write. A throw is not a failure of the write: it returns the `unavailable`
+ * readback and its warning. Use it only after the write applied and its effect is recorded.
+ */
+export async function readbackOrUnavailable<T>(
+  schema: string, subject: string, read: () => Promise<T>,
+): Promise<{ readonly ok: true; readonly value: T }
+  | { readonly ok: false; readonly readback: ReturnType<typeof unavailableReadback>; readonly warning: Warning }> {
+  try {
+    return { ok: true, value: await read() };
+  } catch (error) {
+    return { ok: false, readback: unavailableReadback(schema, error), warning: readbackUnavailableWarning(subject) };
   }
 }
 

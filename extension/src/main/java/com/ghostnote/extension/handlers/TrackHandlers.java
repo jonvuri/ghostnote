@@ -211,9 +211,15 @@ public final class TrackHandlers extends HandlerGroup {
     }
 
     private JsonElement clipCreate(JsonObject params) {
-        Track track = requireTrack(params.get("trackIndex").getAsInt());
+        int trackIndex = params.get("trackIndex").getAsInt();
+        Track track = requireTrack(trackIndex);
         int slotIndex = params.get("slotIndex").getAsInt();
         int lengthBeats = params.has("lengthBeats") ? params.get("lengthBeats").getAsInt() : 4;
+        // 8i8 (E250): createNewLauncherClip selects the new clip. Inside a brain selection scope, claim the lease
+        // on that slot first, so that the host selection keeps the lease and the scope can restore the entry slot.
+        if (params.has("selectionOwnerToken")) {
+            rig.claimSelectionOwnership(params.get("selectionOwnerToken").getAsString(), trackIndex, slotIndex);
+        }
         track.createNewLauncherClip(slotIndex, lengthBeats);
         return ok();
     }

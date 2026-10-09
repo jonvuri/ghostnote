@@ -34,10 +34,13 @@ const SCHEMA = 'phase8h4f-measure-v1';
 export const NORMAL_8H4F = ['normal-v1', 89, '0ef817f4bac8a8a7'] as const;
 /** 8i7 (E257): the normal build with `track.mixer` and `track.setMixer`. The current drivers accept both builds. */
 export const NORMAL_8I7 = ['normal-v1', 91, '64d13fa7b66ad7f9'] as const;
-/** The current-driver guard: the 8h4f normal build or a later one with the 8i7 mixer methods. */
+/** 8i8 (E258): the normal build with `selection.restoreMixer`. */
+export const NORMAL_8I8 = ['normal-v1', 92, '0bafdd963fa9f5da'] as const;
+/** The current-driver guard: the 8h4f normal build or a later one (8i7 mixer methods, 8i8 mixer-selection restore). */
 export function assertCurrentNormal(hello: Readonly<Record<string, unknown>>): void {
   const live = JSON.stringify([hello['runtimeProfile'], hello['methodCount'], hello['methodsHash']]);
-  assert.ok([NORMAL_8H4F, NORMAL_8I7].some((pin) => JSON.stringify(pin) === live), `unexpected normal build: ${live}`);
+  assert.ok([NORMAL_8H4F, NORMAL_8I7, NORMAL_8I8].some((pin) => JSON.stringify(pin) === live),
+    `unexpected normal build: ${live}`);
 }
 const ANCHOR = 'gn-scale-test';
 const CONTROLS = 27;

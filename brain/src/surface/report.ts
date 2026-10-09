@@ -422,6 +422,11 @@ const NOT_READ_BACK =
   + 'places it wrote could not be read back afterwards to confirm. The write may well have '
   + 'landed; claiming so from an address we can no longer trust would be a guess.';
 
+/** 8i8: the verification read failed after the write applied (E250). */
+const READ_FAILED =
+  'the write applied, but the verification read after it failed, so the places it wrote were not read '
+  + 'back. Read them again before another write. Do not repeat the write.';
+
 export interface Receipt {
   readonly changeId: string;
   readonly applied: boolean;
@@ -433,6 +438,8 @@ export interface Receipt {
   readonly mismatches?: readonly Mismatch[];
   readonly notReadBack?: readonly Where[];
   readonly notReadBackWhy?: string;
+  /** 8i8: set when a verification read failed after the write applied. The readback is unavailable, not different. */
+  readonly readbackUnavailable?: true;
   readonly otherEdits?: readonly OtherEdit[];
   readonly otherEditsWhy?: string;
   readonly otherEditsUnknown?: string;
@@ -486,7 +493,8 @@ export function receiptOf(change: StashedChangeset): Receipt {
       ? {}
       : {
         notReadBack: report.unverified.map((u) => describeAddress(u.address)),
-        notReadBackWhy: NOT_READ_BACK,
+        notReadBackWhy: report.unverified.some((u) => u.cause === 'read-failed') ? READ_FAILED : NOT_READ_BACK,
+        ...(report.unverified.some((u) => u.cause === 'read-failed') ? { readbackUnavailable: true as const } : {}),
       }),
     ...(report.concurrent.length === 0
       ? {}

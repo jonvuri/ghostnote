@@ -108,6 +108,31 @@ export interface ClipNavigationResult {
   readonly why?: string;
 }
 
+/**
+ * 8i8: what one selection scope did with the person's UI selection. The outermost scope reports it when it ends.
+ *
+ * `slot` is the Launcher slot selection. `kept`: nothing borrowed it. `restored`: the entry slot is selected again.
+ * `no-prior`: no slot was selected at entry, so the slot stays where the host put it (a new clip, E250).
+ * `absent`: the entry track is gone. `operator`: the person changed the selection during the call; the restore
+ * yields to it. `unconfirmed`: the restore was sent, but the observer did not show the entry slot in time.
+ *
+ * `mixer` is present when an op of the scope makes Bitwig move the mixer selection (a track create or delete,
+ * E251). `unchanged`: the mixer shows the entry track. `restored`: the entry track is selected again. `moved`: it
+ * shows another track (`now`), for `reason`: no track was selected at entry, the entry track is gone, the
+ * selection changed after the host move (the person's action wins), or the restore did not confirm.
+ */
+export interface SelectionOutcome {
+  readonly slot: 'kept' | 'restored' | 'no-prior' | 'absent' | 'operator' | 'unconfirmed';
+  readonly mixer?: {
+    readonly status: 'unchanged' | 'restored' | 'moved';
+    /** The channelId of the mixer track at entry. */
+    readonly before?: string;
+    /** The channelId of the mixer track now. */
+    readonly now?: string;
+    readonly reason?: 'no-prior' | 'absent' | 'selection-changed' | 'unconfirmed';
+  };
+}
+
 export interface BitwigAdapter {
   /**
    * Version handshake and capability report. Called once, before anything else;
@@ -195,7 +220,7 @@ export interface BitwigAdapter {
    * boundary, so it owns this scope. Direct adapter calls still preserve the
    * selection within each call. The fake runs `work` with no UI side effect.
    */
-  preserveSelection<T>(work: () => Promise<T>): Promise<T>;
+  preserveSelection<T>(work: () => Promise<T>, onOutcome?: (outcome: SelectionOutcome) => void): Promise<T>;
 
   /**
    * Focus one launcher clip in Bitwig's editor.

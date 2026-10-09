@@ -40,7 +40,7 @@
  * track that is no longer there. The dependencies are therefore getters.
  */
 import type {
-  Address, BitwigAdapter, ClipAddress, ClipNavigationResult, ContentDelta, DeviceAddress, ObservedDeviceBank, ObservedDrumPadBank, Op, ReadOptions, RevisionMark, Snapshot, TrackAddress, TrackState,
+  Address, BitwigAdapter, ClipAddress, ClipNavigationResult, ContentDelta, DeviceAddress, ObservedDeviceBank, ObservedDrumPadBank, Op, ReadOptions, RevisionMark, SelectionOutcome, Snapshot, TrackAddress, TrackState,
 } from '../contract/index.js';
 import type { Executor, RunOptions, Take } from '../engine/index.js';
 import type { ReversalPlan, Slice, Stash, StashLog, StashedChangeset } from '../stash/index.js';
@@ -77,8 +77,8 @@ export interface Workspace {
   /** Complete top-level and reachable-pad structure for one Drum Machine. */
   drumPads(container: DeviceAddress): Promise<ObservedDrumPadBank>;
   read(addresses: readonly Address[], options?: ReadOptions): Promise<Snapshot>;
-  /** Preserve one UI selection across a composed workflow. */
-  preserveSelection?<T>(work: () => Promise<T>): Promise<T>;
+  /** Preserve one UI selection across a composed workflow. 8i8: `onOutcome` gets what the outermost scope did. */
+  preserveSelection?<T>(work: () => Promise<T>, onOutcome?: (outcome: SelectionOutcome) => void): Promise<T>;
   /**
    * ⚠ The ONLY write, and it records what it did. See the header for why that is
    * one function rather than two calls.
@@ -255,9 +255,9 @@ export function workspaceOf(deps: WorkspaceDeps): Workspace {
       return deps.adapter.read(addresses, options);
     },
 
-    async preserveSelection<T>(work: () => Promise<T>): Promise<T> {
+    async preserveSelection<T>(work: () => Promise<T>, onOutcome?: (outcome: SelectionOutcome) => void): Promise<T> {
       await deps.ready();
-      return deps.adapter.preserveSelection(work);
+      return deps.adapter.preserveSelection(work, onOutcome);
     },
 
     async contentSince(since: RevisionMark): Promise<ContentDelta> {

@@ -118,5 +118,5 @@ export {
 export type { SceneGuard, SceneGuardField } from './write-boundary.js';
 
 export type {
-  BatchRequest, BitwigAdapter, ClipNavigationResult, ReadOptions, ResolveResult, ResolvedAddress,
+  BatchRequest, BitwigAdapter, ClipNavigationResult, ReadOptions, ResolveResult, ResolvedAddress, SelectionOutcome,
 } from './adapter.js';

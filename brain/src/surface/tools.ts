@@ -3742,7 +3742,25 @@ export const TOOLS: readonly ToolSpec[] = [
             }], { clearance: directedDestruction('delete_device') });
             const receipt = receiptOf(change);
             changes.push(receipt);
-            const after = await workspace.devices(track);
+            let after: Awaited<ReturnType<Workspace['devices']>>;
+            try {
+              after = await workspace.devices(track);
+            } catch (error) {
+              // 8i8: the removal applied, but the read after it failed. Remove nothing more.
+              return {
+                applied: true,
+                verified: false,
+                readback: 'unavailable',
+                partialSuccess: false,
+                notAttempted: args.devices.length - removed.length - 1,
+                why: `The removal applied, but the read after it failed: ${error instanceof Error ? error.message
+                  : String(error)}. Read the device order again before another write.`,
+                changes,
+                removed,
+                reversal: 'none-existing-device-cannot-be-reconstructed',
+                elapsedMs: Math.round(performance.now() - started),
+              };
+            }
             const matches = completeDeviceBank(after)
               && after.devices.length === expectedAfter.length
               && after.devices.every((entry, index) => {
@@ -3756,6 +3774,7 @@ export const TOOLS: readonly ToolSpec[] = [
                 applied: false,
                 verified: false,
                 partialSuccess: removed.length > 0,
+                notAttempted: args.devices.length - removed.length - 1,
                 changes,
                 removed,
                 reversal: 'none-existing-device-cannot-be-reconstructed',

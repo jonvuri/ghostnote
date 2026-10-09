@@ -296,6 +296,15 @@ export class ProjectModel {
   selection: { readonly trackIndex: number; readonly slotIndex: number; readonly project: string } | undefined;
   /** 8h4a: how many times a selection scope restored a selection. */
   selectionRestores = 0;
+  /** 8i8: each selection that a scope restored, in order. */
+  readonly restoredSelections: NonNullable<ProjectModel['selection']>[] = [];
+  /**
+   * 8i8: the channelId of the mixer track (the action-facing track selection). Bitwig selects a new track, and moves
+   * the selection on a track delete (E251).
+   */
+  mixerSelection: string | undefined;
+  /** 8i8: the person selects another mixer track before the restore, so the guarded restore yields. */
+  mixerRestoreRefused = false;
 
   /**
    * The ONE place a slot changes occupancy — so every route into that state

@@ -220,14 +220,15 @@ test('8i7 partial: a field that Bitwig refuses at execution keeps the other writ
   assert.equal(fakeMixerOf(rows[1]!).volume, 0.6812920690579614);
 });
 
-test('8i7 readback: a verify read that fails keeps the write and reports the field unavailable', async () => {
+test('8i8 readback: a verify read that fails keeps the write and reports readback unavailable', async () => {
   const { fake, rows, ids, call } = fixture();
   fake.failReadAfterApply = true;
   const result = await call('set_track_mixer', { tracks: [{ trackId: ids[0], volumeDb: -18 }] });
-  assert.equal(result.failure.code, 'partial', JSON.stringify(result).slice(0, 800));
-  assert.equal(result.failure.stage, 'readback');
-  assert.equal(result.failure.effects.length, 1);
-  assert.equal(result.detail.tracks[0].fields.volume.status, 'unavailable');
+  assert.equal(result.failure, undefined, JSON.stringify(result).slice(0, 800));
+  assert.equal(result.readback.status, 'unavailable');
+  assert.equal(result.effects.length, 1);
+  assert.ok(result.warnings.some((item: Wire) => item.code === 'readback-unavailable'));
+  assert.equal(result.readback.tracks[0].fields.volume.status, 'unavailable');
   assert.equal(fakeMixerOf(rows[0]!).volume, 10 ** (-18 / 60), 'the write is in the project');
 });
 

@@ -1,19 +1,23 @@
 ---
 title: Phase 8i8 selection effects and unavailable readback
 kind: plan
-state: planned
-status: Report a failed verification read as unavailable, and keep or report the selection effects of clip and track writes. From E250 and E251.
+state: done
+status: Complete (E258). A failed verification read reports unavailable on every write tool; clip and track writes restore the selection or warn. Descriptions v44.
 updated: 2026-10-09
 parent: README.md
 prev: 8i7-track-mixer.md
 next: 8i10-unprompted-overlay-trials.md
-evidence: E250, E251; D43
+evidence: E250, E251, E258; D43
 ---
 
 # Phase 8i8 selection effects and unavailable readback
 
 Close three result defects that E250 and E251 found live. Each one makes a
 result state less than, or other than, what happened.
+
+Complete: [E258](../../evidence/experiments/e258-selection-effects-and-unavailable-readback.md).
+The live run also showed that `duplicate_track` moves the mixer selection; the
+same restore covers it.
 
 ## Evidence and scope
 

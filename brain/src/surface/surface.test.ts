@@ -3508,8 +3508,10 @@ test('8h4a: a selection from another project makes no write or revert tool refus
   });
   assert.equal(written['applied'], true);
   assert.equal((await call(fx, 'revert_change', { changeId: written['changeId'] }))['applied'], true);
-  assert.equal(fx.fake.model.selectionRestores, 0);
-  assert.equal(fx.fake.model.selection, stale);
+  // 8i8 (E250): the clip create selects the new clip in the current project. The stale selection never comes back.
+  assert.ok(!fx.fake.model.restoredSelections.includes(stale!), 'the stale selection was never restored');
+  assert.notEqual(fx.fake.model.selection, stale);
+  assert.equal(fx.fake.model.selection?.project, 'fake-project-Q');
 });
 
 test('8h4a: list_tracks marks a group track, and clip tools refuse its own slots with group-slot', async () => {

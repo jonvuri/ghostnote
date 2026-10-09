@@ -16,6 +16,7 @@ import {
   type DeviceAddress, type ObservedDeviceBank, type Op, type ParamState,
 } from '../contract/index.js';
 import { receiptOf, refusalOf } from './report.js';
+import { readbackStatusOf } from './agent-native-result.js';
 import type { Workspace } from './workspace.js';
 
 /** The tool names and the layer-chain route step that the schema text uses. */
@@ -649,9 +650,27 @@ export async function setDeviceControls(
       });
       const receipts = cohortChanges.map(receiptOf);
       changes.push(...receipts);
-      if (receipts.length !== ops.length || receipts.some((receipt) =>
-        !receipt.applied || receipt.failed !== undefined || receipt.mismatches !== undefined
-          || receipt.notReadBack !== undefined)) {
+      const statuses = receipts.map(readbackStatusOf);
+      if (receipts.length === ops.length && statuses.includes('unavailable') && !statuses.includes('differs')) {
+        // 8i8: the cohort applied, but its verification read failed. Do not write the next cohort.
+        const remaining = cohorts.length - cohorts.indexOf(cohort) - 1;
+        return {
+          applied: true,
+          partialSuccess: remaining > 0,
+          verified: false,
+          readback: 'unavailable',
+          why: `The write applied, but the independent readback failed${remaining > 0
+            ? `; ${remaining} later route(s) were not written` : ''}. Read the controls again with `
+            + 'read_device_controls before another write. Do not repeat the write.',
+          parameterChanges: compactParameterChanges(normalizedSettings, changes),
+          changes,
+          valueCapabilities: parameterValueCapabilities,
+          warnings: groupedParameterWarnings(warnings),
+          reversal: 'exact-base-value-while-the-device-route-remains-valid',
+          elapsedMs: Math.round(performance.now() - started),
+        };
+      }
+      if (receipts.length !== ops.length || statuses.some((status) => status !== 'verified')) {
         verified = false;
         throw new Error('the parameter cohort did not complete and verify every scalar target');
       }

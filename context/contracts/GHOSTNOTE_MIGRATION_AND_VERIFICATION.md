@@ -237,6 +237,21 @@ agent set track gain only through computer control.
 | `read_track_mixer` | read | `ghostnote-track-mixer/1`: volume in dB (`-inf` is silence, at most +6.0206) with the host display and the automation flag, pan -1..1 with its flag, mute, and solo, for at most 8 trackIds. A Master track refuses (`unsupported`) |
 | `set_track_mixer` | write | `ghostnote-track-mixer-set/1`: volumeDb, pan, mute, and nonexclusive solo for at most 8 tracks; omitted fields get no setter. Range, duplicate, empty-entry, kind, and automation refusals come before any write. Each field is `verified`, `differs`, `unchanged`, or `unavailable`; a refusal at execution after a written field is `partial`. `revert_change` restores each field that still holds what the change left |
 
+8i8 (E258) changes result states on `agent-native-v1` only. A write that
+applied and whose readback read failed is a write result with
+`readback.status` `unavailable`, the warning `readback-unavailable`, and its
+change in `effects`; before, most tools reported `differs`, and some returned
+a failure. `differs` now means a completed read with other values: a track
+rename or delete that did not land is `differs`, not `verified`. Every write
+contract lists `unavailable` in `readbackStatus`. `set_track_mixer` with a
+failed readback is a write result, not `partial`. `delete_device` reports a
+completed read with another order as `differs`, a failed read as
+`unavailable`, and a stop before later removals as `partial`. The measured
+bodies report failure code `unavailable` at stage `readback`.
+`add_launcher_clip`, `add_tracks`, `duplicate_track`, and `delete_track`
+restore the person's selection; a move that stays is the warning
+`slot-selection-moved` or `mixer-selection-moved`.
+
 Observation compatibility policy: `agent-native-v1` captures nothing, so a
 storage failure cannot change its write results. The stored-record readers for
 observation JSON v1–v3 and the `observation.read` and `observation.replace`

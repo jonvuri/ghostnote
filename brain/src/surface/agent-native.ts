@@ -14,7 +14,7 @@ import { z } from 'zod';
 import {
   CLIP_READ_SOUNDING_CELLS, addressKey, clipSnapshotFrom, contentTouching, deltaComplete, isGroupTrack, judgeClipSnapshot,
   snapshotAddresses, snapshotClip, track as trackAt, unpinnedCursorTracksOf,
-  type ClipSnapshot, type ClipSnapshotVerdict, type RevisionMark,
+  type ClipSnapshot, type ClipSnapshotVerdict, type RevisionMark, type SelectionOutcome,
 } from '../contract/index.js';
 import { readWithClipSnapshots } from '../engine/index.js';
 import { IdentityRegistry, type Acquired, type BaseEntry, type Retirement } from '../bindings/identity-registry.js';
@@ -154,6 +154,51 @@ export function asToolFailure(error: unknown): unknown {
 
 export async function guarded<T>(workspace: Workspace, work: () => Promise<T>): Promise<T> {
   return workspace.preserveSelection === undefined ? work() : workspace.preserveSelection(work);
+}
+
+/**
+ * 8i8: run the writes of one tool in one selection scope, and return what the scope did with the person's
+ * selection. The scope restores once, at its end; `selection` is undefined on a workspace without a scope.
+ */
+export async function withSelection<T>(
+  workspace: Workspace, work: () => Promise<T>,
+): Promise<{ readonly value: T; readonly selection: SelectionOutcome | undefined }> {
+  let selection: SelectionOutcome | undefined;
+  const value = workspace.preserveSelection === undefined ? await work()
+    : await workspace.preserveSelection(work, (outcome) => { selection = outcome; });
+  return { value, selection };
+}
+
+const MIXER_REASONS: Readonly<Record<NonNullable<NonNullable<SelectionOutcome['mixer']>['reason']>, string>> = {
+  'no-prior': 'no mixer track was selected before the call',
+  absent: 'the track that was selected before the call is gone',
+  'selection-changed': 'the selection changed again after the move, and a newer selection is not changed',
+  unconfirmed: 'the restore did not confirm',
+};
+
+/**
+ * 8i8: the warnings for a selection that the call left changed. A restored or unchanged selection has no warning.
+ * D43: only the person changes the selection, so each move that stays is stated.
+ */
+export function selectionWarnings(outcome: SelectionOutcome | undefined): Warning[] {
+  const warnings: Warning[] = [];
+  const slotReasons: Partial<Record<SelectionOutcome['slot'], string>> = {
+    'no-prior': 'no slot was selected before the call',
+    absent: 'the track of the earlier slot selection is gone',
+    unconfirmed: 'the restore did not confirm',
+  };
+  const slotReason = outcome === undefined ? undefined : slotReasons[outcome.slot];
+  if (slotReason !== undefined) {
+    warnings.push({ code: 'slot-selection-moved', message: 'Bitwig selected the new clip, and the earlier Launcher '
+      + `slot selection was not restored: ${slotReason}.` });
+  }
+  const mixer = outcome?.mixer;
+  if (mixer?.status === 'moved') {
+    warnings.push({ code: 'mixer-selection-moved', message: 'Bitwig moved the mixer selection'
+      + `${mixer.now === undefined ? '' : ` to trackId ${mixer.now}`}, and it was not restored: `
+      + `${MIXER_REASONS[mixer.reason ?? 'unconfirmed']}.` });
+  }
+  return warnings;
 }
 
 export function checkHealth(mark: RevisionMark): void {

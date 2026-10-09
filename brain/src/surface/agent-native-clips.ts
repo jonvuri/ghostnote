@@ -33,10 +33,10 @@ import { NO_SEAL, dependencyExpansion, type SealRequest } from '../bindings/over
 import type { Document } from '../document/index.js';
 import type { StashedChangeset } from '../stash/index.js';
 import {
-  AGENT_NATIVE_TOOL_PROFILE, ToolFailure, failureResult, isFailureResult,
-  type Effect, type FailureStage, type WriteResult,
+  AGENT_NATIVE_TOOL_PROFILE, ToolFailure, failureResult, isFailureResult, readbackOrUnavailable,
+  type Effect, type FailureStage, type Warning, type WriteResult,
 } from './agent-native-result.js';
-import { checkHealth, format } from './agent-native.js';
+import { checkHealth, format, selectionWarnings, withSelection } from './agent-native.js';
 import { documentText, editLauncherClip, parseProposal } from './agent-native-edit.js';
 import {
   DESIRED_EXAMPLE_TEXT, FORMAT_STATEMENT, claimRepairOf, documentParameter, kindRepair,
@@ -161,20 +161,40 @@ async function readSlots(workspace: Workspace, targets: readonly Target[], at: R
   return { read, occupancy };
 }
 
+type Readback =
+  | { readonly ok: true; readonly entries: Snapshot['entries']; readonly at: RevisionMark }
+  | { readonly ok: false; readonly readback: Record<string, unknown>; readonly warning: Warning };
+
 /**
  * The readback of a write: the executor verify read when it covers every address (it is a new host read after the
- * write, not the writer echo; D15, D38), otherwise one more plain read.
+ * write, not the writer echo; D15, D38), otherwise one more plain read. 8i8: when that read also fails, the
+ * readback is unavailable; the write and its effect stay.
  */
 async function readbackOf(
-  workspace: Workspace, change: StashedChangeset, addresses: (at: RevisionMark) => readonly Address[],
-): Promise<{ entries: Snapshot['entries']; at: RevisionMark }> {
+  schema: string, workspace: Workspace, change: StashedChangeset, addresses: (at: RevisionMark) => readonly Address[],
+): Promise<Readback> {
   const verify = change.take.verify;
   if (addresses(verify.at).every((item) => verify.entries[addressKey(item)] !== undefined)) {
-    return { entries: verify.entries, at: verify.at };
+    return { ok: true, entries: verify.entries, at: verify.at };
   }
-  const at = await workspace.mark();
-  const read = await workspace.read(addresses(at));
-  return { entries: read.entries, at };
+  const read = await readbackOrUnavailable(schema, 'the slots', async () => {
+    const at = await workspace.mark();
+    return { entries: (await workspace.read(addresses(at))).entries, at };
+  });
+  return read.ok ? { ok: true, ...read.value } : read;
+}
+
+/** The write result of an applied write whose readback failed (8i8). */
+function unreadResult(
+  schema: string, state: RunState, read: Extract<Readback, { ok: false }>, readback: Record<string, unknown>,
+  extra: { readonly next?: Record<string, unknown>; readonly started?: number } = {},
+): WriteResult<unknown> {
+  return {
+    schema, applied: true, effects: state.effects, readback: { ...read.readback, ...readback },
+    ...(extra.next === undefined ? {} : { next: extra.next }),
+    warnings: [read.warning],
+    ...(extra.started === undefined ? {} : { timing: { totalMs: performance.now() - extra.started } }),
+  };
 }
 
 const occupancyIn = (entries: Snapshot['entries'], target: Target, at: RevisionMark): Occupancy | 'unread' => {
@@ -217,7 +237,9 @@ const ADD_DESCRIPTION = `${PROFILE} Create one Launcher clip in an empty slot fr
   + 'readback from an independent read with the base sha256 and ref for read_launcher_clip, '
   + 'check_launcher_clips, and edit_launcher_clip. A refusal of the content after the clip exists returns the '
   + 'creation in failure.effects; revert_change with its changeId removes the empty clip. To undo a complete '
-  + 'add, revert the content change, then the creation (next.revert has both, in order).';
+  + 'add, revert the content change, then the creation (next.revert has both, in order).\n'
+  + 'Bitwig selects the new clip; the tool then selects the Launcher slot that was selected before. With no slot '
+  + 'selected before, the new clip stays selected (warning slot-selection-moved).';
 
 /** The creation check (`checkCreation`) as an input refusal: no read, no write, and the known repair. */
 function checkedCreation(proposal: Document, seal: SealRequest): { document: Document; seal: SealRequest } {
@@ -260,24 +282,32 @@ async function addLauncherClip(workspace: Workspace, args: AddInput): Promise<un
     }
 
     state.stage = 'write';
-    const created = await workspace.apply([{ op: 'clip.create', slot: clipOf(target, at).slot, lengthBeats }]);
-    requireApplied(created);
-    const creation = effectOf(created, target, `Created an empty clip of ${lengthBeats} beats.`);
-    state.effects.push(creation);
+    // 8i8 (E250): `createNewLauncherClip` selects the new clip. One selection scope covers the creation and the
+    // content: the creation claims the lease on the new slot, and the scope restores the entry slot once.
+    const { value: written, selection } = await withSelection(workspace, async () => {
+      const created = await workspace.apply([{ op: 'clip.create', slot: clipOf(target, at).slot, lengthBeats }]);
+      requireApplied(created);
+      const made = effectOf(created, target, `Created an empty clip of ${lengthBeats} beats.`);
+      state.effects.push(made);
 
-    // The content goes through the edit limb: an unguarded replacement of the new, empty clip.
-    state.stage = 'plan';
-    const content = await editLauncherClip(workspace, {
-      trackId: args.trackId, row: args.row, document: args.document, intent: 'replace', format: args.format ?? 'fields',
-      ...(args.readback === undefined ? {} : { readback: args.readback }),
-    }, { parsed: checked }) as Record<string, any>;
+      // The content goes through the edit limb: an unguarded replacement of the new, empty clip.
+      state.stage = 'plan';
+      const edited = await editLauncherClip(workspace, {
+        trackId: args.trackId, row: args.row, document: args.document, intent: 'replace', format: args.format ?? 'fields',
+        ...(args.readback === undefined ? {} : { readback: args.readback }),
+      }, { parsed: checked }) as Record<string, any>;
+      return { creation: made, content: edited };
+    });
+    const { creation, content } = written;
+    const moved = selectionWarnings(selection);
     if (isFailureResult(content)) {
       return {
         ...content,
         schema: ADD_SCHEMA,
         failure: { ...content.failure, effects: [creation, ...content.failure.effects] },
         message: `The empty clip exists; its content was refused. ${content.message}`,
-        detail: { ...(content.detail ?? {}), revert: { tool: 'revert_change', changeId: creation.changeId } },
+        detail: { ...(content.detail ?? {}), revert: { tool: 'revert_change', changeId: creation.changeId },
+          ...(moved.length === 0 ? {} : { selection: moved }) },
       };
     }
     const effects: Effect[] = [creation, ...(content['effects'] as Effect[])];
@@ -287,7 +317,7 @@ async function addLauncherClip(workspace: Workspace, args: AddInput): Promise<un
       effects,
       readback: content['readback'],
       next: { revert: [...effects].reverse().map((effect) => ({ tool: 'revert_change', changeId: effect.changeId })) },
-      warnings: content['warnings'] ?? [],
+      warnings: [...(content['warnings'] ?? []), ...moved],
       timing: { ...(content['timing'] ?? {}), totalMs: performance.now() - started },
     };
     return { ...result, target, ...(content['plan'] === undefined ? {} : { plan: content['plan'] }) };
@@ -380,7 +410,12 @@ async function copyLauncherClips(workspace: Workspace, args: CopyInput): Promise
     state.effects.push(effectOf(change, target, `Copied ${args.copies.length} clip(s).`));
 
     state.stage = 'readback';
-    const after = await readbackOf(workspace, change, (at) => destinations.map((item) => clipOf(item, at)));
+    const after = await readbackOf(COPY_SCHEMA, workspace, change, (at) => destinations.map((item) => clipOf(item, at)));
+    if (!after.ok) {
+      return { ...unreadResult(COPY_SCHEMA, state, after, { copies: destinations.map((item) => ({ ...item,
+        occupancy: 'unread' })) }, { next: { revert: { tool: 'revert_change', changeId: state.effects[0]!.changeId } },
+        started }), target };
+    }
     const copied = (item: Target) => occupancyIn(after.entries, item, after.at);
     const missing = destinations.filter((item) => copied(item) !== 'occupied');
     const outcome: WriteResult<unknown> = {
@@ -408,6 +443,7 @@ const copyLauncherClipsTool: ToolSpec = {
   emits: ['clip.duplicate'],
   resultContract: {
     schema: COPY_SCHEMA, profile: AGENT_NATIVE_TOOL_PROFILE, envelope: [...WRITE_FIELDS, 'occupancy', 'dryRun'],
+    readbackStatus: ['verified', 'differs', 'unavailable'],
     failure: [...FAILURE_FIELDS, 'occupancy'], occupancy: ['occupied', 'empty'],
   },
   run: (workspace, input) => copyLauncherClips(workspace, input as CopyInput),
@@ -496,7 +532,14 @@ async function moveLauncherClips(workspace: Workspace, args: MoveInput): Promise
       + `-${destinationLastRow}.`));
 
     state.stage = 'readback';
-    const after = await readbackOf(workspace, change, (now) => destinationRows.map((index) => clipOf(at$(index), now)));
+    const after = await readbackOf(MOVE_SCHEMA, workspace, change,
+      (now) => destinationRows.map((index) => clipOf(at$(index), now)));
+    const reverse = { reverse: { tool: 'move_launcher_clips', trackId: args.trackId, firstRow: args.destinationFirstRow,
+      lastRow: destinationLastRow, destinationFirstRow: args.firstRow } };
+    if (!after.ok) {
+      return { ...unreadResult(MOVE_SCHEMA, state, after, { firstRow: args.destinationFirstRow,
+        lastRow: destinationLastRow }, { next: reverse, started }), target };
+    }
     const missing = destinationRows.filter((index) => occupancyIn(after.entries, at$(index), after.at) !== 'occupied');
     const outcome: WriteResult<unknown> = {
       schema: MOVE_SCHEMA,
@@ -504,8 +547,7 @@ async function moveLauncherClips(workspace: Workspace, args: MoveInput): Promise
       effects: state.effects,
       readback: { status: missing.length === 0 ? 'verified' : 'differs', firstRow: args.destinationFirstRow,
         lastRow: destinationLastRow },
-      next: { reverse: { tool: 'move_launcher_clips', trackId: args.trackId, firstRow: args.destinationFirstRow,
-        lastRow: destinationLastRow, destinationFirstRow: args.firstRow } },
+      next: reverse,
       warnings: [],
       timing: { totalMs: performance.now() - started },
     };
@@ -524,6 +566,7 @@ const moveLauncherClipsTool: ToolSpec = {
   emits: ['clip.move'],
   resultContract: {
     schema: MOVE_SCHEMA, profile: AGENT_NATIVE_TOOL_PROFILE, envelope: [...WRITE_FIELDS, 'occupancy', 'dryRun'],
+    readbackStatus: ['verified', 'differs', 'unavailable'],
     failure: [...FAILURE_FIELDS, 'occupancy'], occupancy: ['occupied', 'empty', 'project-edge'],
     roles: ['source', 'destination', 'boundary'],
   },
@@ -571,7 +614,13 @@ async function setLaunchSettings(workspace: Workspace, args: LaunchSettingsInput
     state.effects.push(effectOf(change, target, `Set the launch settings of ${args.clips.length} clip(s).`));
 
     state.stage = 'readback';
-    const after = await readbackOf(workspace, change, (at) => settings.map((item) => launchAt(clipOf(item, at))));
+    const after = await readbackOf(LAUNCH_SETTINGS_SCHEMA, workspace, change,
+      (at) => settings.map((item) => launchAt(clipOf(item, at))));
+    if (!after.ok) {
+      return { ...unreadResult(LAUNCH_SETTINGS_SCHEMA, state, after, { clips: settings.map((item) => ({
+        trackId: item.trackId, row: item.row, launch: null })) },
+      { next: { revert: { tool: 'revert_change', changeId: state.effects[0]!.changeId } }, started }), target };
+    }
     const clips = settings.map((item) => {
       const entry = after.entries[addressKey(launchAt(clipOf(item, after.at)))];
       const launch = entry?.value.of === 'clipLaunch' ? entry.value.launch : null;
@@ -598,7 +647,7 @@ const setLaunchSettingsTool: ToolSpec = {
   inputValidator: launchSettingsInput,
   emits: ['clip.launchSettings'],
   resultContract: { schema: LAUNCH_SETTINGS_SCHEMA, profile: AGENT_NATIVE_TOOL_PROFILE, envelope: WRITE_FIELDS,
-    failure: FAILURE_FIELDS, readbackStatus: ['verified', 'differs'] },
+    failure: FAILURE_FIELDS, readbackStatus: ['verified', 'differs', 'unavailable'] },
   run: (workspace, input) => setLaunchSettings(workspace, input as LaunchSettingsInput),
 };
 
@@ -689,7 +738,13 @@ async function setProperties(workspace: Workspace, args: PropertiesInput): Promi
     state.effects.push(effectOf(change, target, `Set the properties of ${writes.length} clip(s).`));
 
     state.stage = 'readback';
-    const after = await readbackOf(workspace, change, (at) => planned.map(({ item }) => metadataAt(clipOf(item, at))));
+    const after = await readbackOf(PROPERTIES_SCHEMA, workspace, change,
+      (at) => planned.map(({ item }) => metadataAt(clipOf(item, at))));
+    if (!after.ok) {
+      return { ...unreadResult(PROPERTIES_SCHEMA, state, after, { clips: planned.map(({ item }) => ({
+        trackId: item.trackId, row: item.row, properties: null })) },
+      { next: { revert: { tool: 'revert_change', changeId: state.effects[0]!.changeId } }, started }), target };
+    }
     const clips = planned.map(({ item, metadata, fields }) => {
       const entry = after.entries[addressKey(metadataAt(clipOf(item, after.at)))];
       const found = entry?.value.of === 'clipMetadata' ? entry.value.metadata : null;
@@ -719,7 +774,7 @@ const setPropertiesTool: ToolSpec = {
   inputValidator: propertiesInput,
   emits: ['clip.update'],
   resultContract: { schema: PROPERTIES_SCHEMA, profile: AGENT_NATIVE_TOOL_PROFILE, envelope: WRITE_FIELDS,
-    failure: FAILURE_FIELDS, readbackStatus: ['verified', 'differs', 'unchanged'] },
+    failure: FAILURE_FIELDS, readbackStatus: ['verified', 'differs', 'unavailable', 'unchanged'] },
   run: (workspace, input) => setProperties(workspace, input as PropertiesInput),
 };
 
@@ -757,7 +812,12 @@ async function deleteLauncherClips(workspace: Workspace, args: DeleteInput): Pro
     state.effects.push(effectOf(change, target, `Deleted ${args.clips.length} clip(s).`));
 
     state.stage = 'readback';
-    const after = await readbackOf(workspace, change, (at) => args.clips.map((item) => clipOf(item, at)));
+    const after = await readbackOf(DELETE_SCHEMA, workspace, change, (at) => args.clips.map((item) => clipOf(item, at)));
+    if (!after.ok) {
+      return { ...unreadResult(DELETE_SCHEMA, state, after, { clips: args.clips.map((item) => ({ ...item,
+        occupancy: 'unread' })) }, { next: { revert: { tool: 'revert_change', changeId: state.effects[0]!.changeId } },
+        started }), target };
+    }
     const now = (item: Target) => occupancyIn(after.entries, item, after.at);
     const remaining = args.clips.filter((item) => now(item) !== 'empty');
     const result: WriteResult<unknown> = {
@@ -780,7 +840,7 @@ const deleteLauncherClipTool: ToolSpec = {
   inputValidator: deleteInput,
   emits: ['clip.delete'],
   resultContract: { schema: DELETE_SCHEMA, profile: AGENT_NATIVE_TOOL_PROFILE, envelope: WRITE_FIELDS,
-    failure: FAILURE_FIELDS, readbackStatus: ['verified', 'differs'] },
+    failure: FAILURE_FIELDS, readbackStatus: ['verified', 'differs', 'unavailable'] },
   run: (workspace, input) => deleteLauncherClips(workspace, input as DeleteInput),
 };
 
@@ -862,12 +922,13 @@ async function launchClip(workspace: Workspace, args: LaunchInput): Promise<unkn
         retryWhen: 'after the project stops changing' });
     }
     state.stage = 'readback';
-    const read = await workspace.read([playAt(clip)]);
-    const entry = read.entries[addressKey(playAt(clip))];
+    const read = await readbackOrUnavailable(LAUNCH_SCHEMA, 'the clip', () => workspace.read([playAt(clip)]));
+    const entry = read.ok ? read.value.entries[addressKey(playAt(clip))] : undefined;
     const result: WriteResult<unknown> = {
       schema: LAUNCH_SCHEMA, applied: true, effects: [],
-      readback: { playback: entry?.value.of === 'clipPlay' ? entry.value.play : null },
-      warnings: [{ code: 'transport-started', message: 'The launch started the transport. No change record exists.' }],
+      readback: { ...(read.ok ? {} : read.readback), playback: entry?.value.of === 'clipPlay' ? entry.value.play : null },
+      warnings: [{ code: 'transport-started', message: 'The launch started the transport. No change record exists.' },
+        ...(read.ok ? [] : [read.warning])],
     };
     return { ...result, target };
   });
@@ -882,7 +943,7 @@ const launchClipTool: ToolSpec = {
   inputValidator: launchInput,
   emits: ['clip.launch'],
   resultContract: { schema: LAUNCH_SCHEMA, profile: AGENT_NATIVE_TOOL_PROFILE, envelope: WRITE_FIELDS,
-    failure: FAILURE_FIELDS, effects: 'none: ephemeral (D19)' },
+    failure: FAILURE_FIELDS, effects: 'none: ephemeral (D19)', readbackStatus: ['unavailable'] },
   run: (workspace, input) => launchClip(workspace, input as LaunchInput),
 };
 
@@ -904,12 +965,12 @@ async function addScenes(workspace: Workspace, args: AddScenesInput): Promise<un
     requireApplied(change);
     state.effects.push(effectOf(change, target, `Added ${args.count} scene(s).`));
     state.stage = 'readback';
-    const after = await workspace.mark();
+    const after = await readbackOrUnavailable(SCENES_SCHEMA, 'the scene count', () => workspace.mark());
     const result: WriteResult<unknown> = {
       schema: SCENES_SCHEMA, applied: true, effects: state.effects,
-      readback: { status: after.window.scenes.count === at.window.scenes.count + args.count ? 'verified' : 'differs',
-        scenes: after.window.scenes.count },
-      warnings: [],
+      readback: after.ok ? { status: after.value.window.scenes.count === at.window.scenes.count + args.count
+        ? 'verified' : 'differs', scenes: after.value.window.scenes.count } : { ...after.readback, scenes: null },
+      warnings: after.ok ? [] : [after.warning],
     };
     return { ...result, target };
   });
@@ -937,12 +998,12 @@ async function deleteScenes(workspace: Workspace, args: DeleteScenesInput): Prom
     requireApplied(change);
     state.effects.push(effectOf(change, target, `Deleted ${rows.length} scene(s).`));
     state.stage = 'readback';
-    const after = await workspace.mark();
+    const after = await readbackOrUnavailable(SCENES_SCHEMA, 'the scene count', () => workspace.mark());
     const result: WriteResult<unknown> = {
       schema: SCENES_SCHEMA, applied: true, effects: state.effects,
-      readback: { status: after.window.scenes.count === at.window.scenes.count - rows.length ? 'verified' : 'differs',
-        scenes: after.window.scenes.count },
-      warnings: [],
+      readback: after.ok ? { status: after.value.window.scenes.count === at.window.scenes.count - rows.length
+        ? 'verified' : 'differs', scenes: after.value.window.scenes.count } : { ...after.readback, scenes: null },
+      warnings: after.ok ? [] : [after.warning],
     };
     return { ...result, target };
   });
@@ -955,14 +1016,14 @@ export const AGENT_NATIVE_SCENE_TOOLS: readonly ToolSpec[] = [
     name: 'add_scenes', kind: 'write', title: 'Add scenes', description: ADD_SCENES_DESCRIPTION,
     inputSchema: addScenesInput.shape, inputValidator: addScenesInput, emits: ['scene.create'],
     resultContract: { schema: SCENES_SCHEMA, profile: AGENT_NATIVE_TOOL_PROFILE, envelope: WRITE_FIELDS,
-      failure: FAILURE_FIELDS },
+      failure: FAILURE_FIELDS, readbackStatus: ['verified', 'differs', 'unavailable'] },
     run: (workspace, input) => addScenes(workspace, input as AddScenesInput),
   },
   {
     name: 'delete_scene', kind: 'destructive', title: 'Delete scenes', description: DELETE_SCENE_DESCRIPTION,
     inputSchema: deleteScenesInput.shape, inputValidator: deleteScenesInput, emits: ['scene.delete'],
     resultContract: { schema: SCENES_SCHEMA, profile: AGENT_NATIVE_TOOL_PROFILE, envelope: WRITE_FIELDS,
-      failure: FAILURE_FIELDS },
+      failure: FAILURE_FIELDS, readbackStatus: ['verified', 'differs', 'unavailable'] },
     run: (workspace, input) => deleteScenes(workspace, input as DeleteScenesInput),
   },
 ];

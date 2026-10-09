@@ -24,8 +24,8 @@ import {
 import { takeAppliedAnything } from '../engine/index.js';
 import type { StashedChangeset } from '../stash/index.js';
 import {
-  AGENT_NATIVE_TOOL_PROFILE, ToolFailure, failureResult,
-  type Effect, type FailureStage, type ReadResult, type Warning, type WriteResult,
+  AGENT_NATIVE_TOOL_PROFILE, ToolFailure, combinedReadbackStatus, failureResult, readbackUnavailableWarning,
+  type Effect, type FailureStage, type ReadbackStatus, type ReadResult, type Warning, type WriteResult,
 } from './agent-native-result.js';
 import type { ToolSpec } from './tools.js';
 import { atMost, requireWithinLimit } from './write-limits.js';
@@ -198,7 +198,8 @@ const SET_DESCRIPTION = `${PROFILE} Set the mixer of tracks: volume in dB, pan, 
   + 'field is checked before the first write; a value outside its range refuses (code range). A project or scene '
   + 'change after the read refuses with no write (code stale-address); call again. A field that '
   + 'already holds the requested value is not written (readback status unchanged). Independent readback proves '
-  + 'each written field (verified or differs). revert_change restores each field that still holds what this '
+  + 'each written field (verified or differs; unavailable, with warning readback-unavailable, when the readback '
+  + 'read failed: the write stays, so read_track_mixer before another write). revert_change restores each field that still holds what this '
   + 'change left; a field that a person changed since stays. Instrument, Audio, Hybrid, Effect, and Group tracks '
   + 'are supported. Selection and group folding do not change. One call sets at most 8 tracks; a larger request '
   + 'refuses (code outside-limit).';
@@ -301,23 +302,25 @@ async function setTrackMixer(workspace: Workspace, args: SetInput): Promise<unkn
     });
     const statuses = tracks.flatMap((item) => Object.values(item.fields).map((field) => (field as { status: FieldStatus }).status));
     const changedSome = statuses.includes('verified') || statuses.includes('differs');
-    if (failedOps.length > 0 || statuses.includes('unavailable')) {
-      throw new ToolFailure(changedSome || statuses.includes('unavailable') ? 'partial' : 'target-changed',
-        failedOps.length > 0 ? 'write' : 'readback',
-        failedOps.length > 0
-          ? 'Bitwig refused a field write at execution, after the checks of this call. The other fields stay as '
-            + 'readback.tracks shows. failure.effects lists the change; revert_change reverses its written fields.'
-          : 'A written field did not read back. Read read_track_mixer before any further change.',
+    if (failedOps.length > 0) {
+      throw new ToolFailure(changedSome || statuses.includes('unavailable') ? 'partial' : 'target-changed', 'write',
+        'Bitwig refused a field write at execution, after the checks of this call. The other fields stay as '
+          + 'readback.tracks shows. failure.effects lists the change; revert_change reverses its written fields.',
         { detail: { tracks, failed: failedOps.map((item) => item.error ?? item.op) } });
     }
-    const warnings: Warning[] = ops.length === 0 ? [] : [{ code: 'immediate-playback',
-      message: 'Each mixer change is audible at once if the transport plays.' }];
+    // 8i8: a written field that did not read back is unavailable, not a failure of the write. The change stays.
+    const warnings: Warning[] = [
+      ...(ops.length === 0 ? [] : [{ code: 'immediate-playback',
+        message: 'Each mixer change is audible at once if the transport plays.' }]),
+      ...(statuses.includes('unavailable') ? [readbackUnavailableWarning('the mixer with read_track_mixer')] : []),
+    ];
     const result: WriteResult<unknown> = {
       schema: TRACK_MIXER_SET_SCHEMA,
       applied: ops.length > 0,
       effects: state.effects,
-      readback: { status: statuses.includes('differs') ? 'differs' : ops.length === 0 ? 'unchanged' : 'verified',
-        tracks },
+      readback: { status: ops.length === 0 ? 'unchanged'
+        : combinedReadbackStatus(statuses.filter((item): item is ReadbackStatus => item !== 'unchanged')),
+      tracks },
       ...(change === undefined ? {} : { next: { revert: { tool: 'revert_change', changeId: change.take.id } } }),
       warnings,
       timing: { totalMs: Math.round(performance.now() - started) },
@@ -334,7 +337,8 @@ const spec = (
 ): ToolSpec => ({
   name, kind, title, description, inputSchema: input.shape, inputValidator: input, emits,
   resultContract: { schema, profile: AGENT_NATIVE_TOOL_PROFILE,
-    envelope: kind === 'read' ? READ_FIELDS : WRITE_FIELDS, failure: FAILURE_FIELDS },
+    envelope: kind === 'read' ? READ_FIELDS : WRITE_FIELDS, failure: FAILURE_FIELDS,
+    ...(kind === 'read' ? {} : { readbackStatus: ['verified', 'differs', 'unavailable', 'unchanged'] }) },
   run,
 });
 

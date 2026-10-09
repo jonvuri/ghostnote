@@ -4,27 +4,23 @@ kind: status
 state: active
 updated: 2026-10-09
 phase: phase-8-agent-native-live-engine
-session: 8i8-selection-and-readback-results
+session: 8i10-unprompted-overlay-trials
 ---
 
 ## Now
 
-Next: [8i8](plan/phase-8/8i8-selection-and-readback-results.md) (E250/E251
-result defects), then [8i10](plan/phase-8/8i10-unprompted-overlay-trials.md)
-(operator trials: do agents reach for timing overlays without a leading
-prompt?). [9c](plan/phase-9/9c-release-and-upgrade-live-suite.md) is the
-release and Bitwig upgrade live suite.
+Next: [8i10](plan/phase-8/8i10-unprompted-overlay-trials.md) (operator
+trials: do agents reach for timing overlays without a leading prompt?).
+[9c](plan/phase-9/9c-release-and-upgrade-live-suite.md) is the release and
+Bitwig upgrade live suite.
 
-8i7 is complete ([E257](evidence/experiments/e257-track-mixer.md),
-[D48](decisions/d48-track-mixer-writes-host-raw-values.md)):
-`read_track_mixer` and `set_track_mixer` read and set exact volume dB, pan,
-mute, and nonexclusive solo on up to 8 tracks, with field-level guarded
-reversal. Read 2 turns (about 50 ms), write 10 turns (about 270 ms),
-reversal 14 turns (about 365 ms), for 1 or 8 tracks. A fresh Codex agent
-set Pad -18 dB and Chords -12 dB in one write. Descriptions v43, 42 tools;
-v43 also states the pitch names (60 is C3) and gives two modulation tools
-`agent-native-v1` text. 8i9 closed the charter's groove and overlay trials
-(E256).
+8i8 is complete ([E258](evidence/experiments/e258-selection-effects-and-unavailable-readback.md)):
+a write whose verification read fails reports readback `unavailable` with
+warning `readback-unavailable` and keeps its effect, on every write tool.
+`differs` now means a completed read (the verify compares a track rename and
+delete). `add_launcher_clip` restores the slot selection; `add_tracks`,
+`delete_track`, and `duplicate_track` restore the mixer selection, or warn
+`slot-selection-moved` / `mixer-selection-moved`. Descriptions v44, 42 tools.
 
 Keep in mind for the trials: with the D44 limits, an agent splits larger
 work into more calls. A split is not atomic; `revert_change` does not
@@ -45,29 +41,31 @@ restart clears them). The earlier `Rain Pocket • 8 bars` clip is no longer in
 Scene 1. Check
 current state before live work.
 
-## Last live baseline (8i7)
+## Last live baseline (8i8)
 
-The deployed normal `ghostnote` archive is the 8i7 build: SHA-256
-`f1e9cc407ea16905f0abd24da9c7d91cc237889883f7a4839322a1f22d5e82c5`, 91
-methods, `64d13fa7b66ad7f9`, `fineSteps` 4,194,304, and the `rig.info`
-markers `trackMixer: track-mixer-raw-v1`, `clipMetadataWrite:
-owned-fields-v1`, and `cursorTrackPins.rule: owned-tracks-pinned-v1`. Init
-110 ms. The 8i7 runs used the owned unsaved project "New 3": Inst 1 (a
-launcher clip with volume automation), Audio 2, Hybrid 3, Group 4
-(collapsed, child Audio 1), FX 1 (arranger volume automation), Master. The
-operator made the clip, the automation, Hybrid 3, and Group 4 for the
-kind and refusal tests; they can go. It was at that baseline after the
-runs, with no driver track left. Bitwig heap 750 of 3,072 MiB after the
-runs. The next free evidence number is E258; the next decision is D49.
-`phase8i7-mixer.ts measure|hold|release|trial-*` measures the mixer tools
-and manages the UI and trial tracks; `phase8i7-mixer-gate.ts` (probe
-profile) holds the unit gate; `phase8i9-overlay-add.ts bench|live`,
-`phase8i3-long-writes.ts identity`, and `probe:modulation-routes` stay as
-before. The current drivers accept the 8i7 build (`NORMAL_8I7`).
+The deployed normal `ghostnote` archive is the 8i8 build: SHA-256
+`72ce96cb3185ad5930dc3159c6a7dcb9ec36b393fad5d201b70a70d049877893`, 92
+methods, `0bafdd963fa9f5da`, `fineSteps` 4,194,304, and the `rig.info`
+markers `selectionEffects: mixer-restore-v1`, `trackMixer:
+track-mixer-raw-v1`, `clipMetadataWrite: owned-fields-v1`, and
+`cursorTrackPins.rule: owned-tracks-pinned-v1`. The 8i8 runs used
+`gn-scale-test` with scratch tracks only; it is at its E234 baseline, with
+slot `gn-A` row 0 and mixer `gn-sel` selected. "New 3" (8i7) was not opened
+in 8i8. The next free evidence number is E259; the next decision is D49.
+`phase8i8-selection.ts accept` runs the selection arms; the current drivers
+accept the 8i8 build (`NORMAL_8I8`, `assertCurrentNormal`).
+`phase8i7-mixer.ts`, `phase8i9-overlay-add.ts`, `phase8i3-long-writes.ts
+identity`, and `probe:modulation-routes` stay as before.
 
 ## Facts
 
-Add the index row in the same session as a new E or D record. A track
+Add the index row in the same session as a new E or D record. A readback
+status is `unavailable` only for a failed read (`Unverified.cause`
+`read-failed`); use `readbackStatusOf` and `readbackOrUnavailable` in a new
+write tool, and add its case to `readback-unavailable.test.ts`. An op that
+makes Bitwig move the mixer selection goes in `movesMixerSelection`
+(live adapter) and in the fake; a two-change tool runs in one
+`withSelection` scope. A track
 volume is the host raw value: dB = 60·log10(raw), so -18 dB is raw
 10^(-18/60) (D48); `setRaw` lands, a plain `set` does not. A mixer field with
 automation refuses; a mixer reversal restores each field that the readback proved
@@ -93,7 +91,7 @@ makes Bitwig rename the track after the device. Owned cursor tracks stay
 pinned (D43): a new owned cursor goes through `Rig.ownCursorTrack`, and
 `cursor.pinTrack` refuses `pinned: false`. A cursor without a track holds no
 pin. A pinned point leaves the mixer selection alone; only the operator
-changes it. A track delete moves the mixer selection (host, E251). The
+changes it. A track delete, create, or duplicate moves the mixer selection (host, E251); the tools restore it (E258). The
 device routes point a hidden child with `cursor.pointTrack`; only clip
 points use `cursor.pointExpanded`. Print the wire call sequence with its
 gaps. Run live drivers as one foreground chain, and check `pgrep -f phase8`
