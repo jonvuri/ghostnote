@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v40';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v41';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -522,10 +522,20 @@ const RETIRED_IN_V33 = new Set(['inspect_operation', 'cancel_operation']);
  * follow-up) keeps this list; each bounded input states its D44 limit in its schema text. v38 (8i4, D45) keeps
  * this list; edit_launcher_clip computes the dependency basis of each claim that the call states. v39 (8i5, D46)
  * keeps this list; the modulation writers claim the authored route, not observed activity. v40 (8i5 review) keeps
- * this list; they check the target id and name after the write.
+ * this list; they check the target id and name after the write. Frozen in 8i6.
  */
-export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] =
+export const DESCRIPTION_COHORT_V40: readonly DescriptionCohortMember[] =
   DESCRIPTION_COHORT_V32.filter((member) => !RETIRED_IN_V33.has(member.name));
+
+/**
+ * v41 (8i6) adds get_document_reference before read_launcher_clip. The document inputs state the custom format,
+ * carry a minimal valid example, and name the reference tool; a refused document input returns detail.repair.
+ */
+export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = DESCRIPTION_COHORT_V40.flatMap((member) =>
+  member.name !== 'read_launcher_clip' ? [member] : [{
+    name: 'get_document_reference', kind: 'read' as const,
+    reason: 'Returns the document format reference and templates without a host call.',
+  }, member]);
 
 interface ToolAnnotations {
   readonly readOnlyHint: boolean;
@@ -768,7 +778,14 @@ export const TOOL_DESCRIPTION_V39_SHA256 =
 
 /**
  * v40 (8i5 review, D46): the modulation writers check the exact target id and name after the write; a missing or
- * renamed target fails at readback. Changing this fingerprint requires a new description version.
+ * renamed target fails at readback. Frozen in 8i6.
  */
 export const TOOL_DESCRIPTION_V40_SHA256 =
   '4ed97c6716c4c6bb5ab9301010891ff93d11205ea4237a906bd92e3447566779';
+
+/**
+ * v41 (8i6): get_document_reference, the format statement and examples of the document inputs, and repair
+ * guidance. Changing this fingerprint requires a new description version.
+ */
+export const TOOL_DESCRIPTION_V41_SHA256 =
+  '0fd8b5fa3f73f3b0c3093b3e2e4cc784721ff172fc54e0f77c1d16be30c2bb74';

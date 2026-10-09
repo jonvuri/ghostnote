@@ -2,7 +2,7 @@
 title: Phase 8i — Agent-native hybrid dogfood
 kind: plan
 state: planned
-status: Final Phase 8 gate. 8i0–8i5 are complete (E249–E254, D42–D46). The second musical trial passed. Next: the remaining groove and overlay dependency trials.
+status: Final Phase 8 gate. 8i0–8i6 are complete (E249–E255, D42–D46). The second musical trial passed. Next: the remaining groove and overlay dependency trials.
 updated: 2026-10-09
 parent: README.md
 prev: 8i5-device-control-identity.md
@@ -53,6 +53,33 @@ The following sessions completed them before the 2026-10-09 trial:
    authored route and run no behavior witness; `npm run
    probe:modulation-routes` keeps the live route proof. A fresh agent asked
    for Patch help on its first read and made no repeat read.
+7. [8i6 — Document format discovery and repair](8i6-document-format-discovery.md).
+   Complete ([E255](../../evidence/experiments/e255-document-format-discovery.md)):
+   the document inputs carry a valid example and name
+   `get_document_reference`, which needs no host; a refused document returns
+   `detail.repair`. Five fresh agents created and patched clips with no
+   format rejection in the normal trials.
+8. Planned: [8i7 — Bounded track mixer controls](8i7-track-mixer.md) and
+   [8i8 — Selection effects and unavailable readback](8i8-selection-and-readback-results.md).
+   Neither closes the groove or overlay gates.
+
+## Fresh agent trials
+
+Run a fresh agent with Codex from an empty directory, so that it has no
+repository files and no instructions (E255):
+
+```sh
+mkdir -p /tmp/gn-trial && cd /tmp/gn-trial
+codex exec --json --skip-git-repo-check -s read-only \
+  -c 'mcp_servers.ghostnote.tools.read_launcher_clip.approval_mode="approve"' \
+  -o last.txt "<task>" > trial.jsonl
+```
+
+Pre-approve each read tool that the task needs in the same way.
+`-c 'mcp_servers.ghostnote.enabled_tools=["add_launcher_clip"]'` limits the
+tool list. The session file in `~/.codex/sessions` has the timestamps. Use
+an owned track, and delete it after the trial. Give the task only; do not
+name tools or a sequence.
 
 ## Second musical trial
 

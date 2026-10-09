@@ -6,7 +6,7 @@ status: Check probe reuse and exact gain units first. Add bounded public mixer t
 updated: 2026-10-09
 parent: README.md
 prev: 8i6-document-format-discovery.md
-next: 8i-agent-native-hybrid-dogfood.md
+next: 8i8-selection-and-readback-results.md
 ---
 
 # Phase 8i7 bounded track mixer controls
@@ -96,6 +96,22 @@ publish a normalized-only substitute as completion of the dB task.
    silence, unity, maximum, -18 dB, and -12 dB. Confirm values through an
    independent host read and UI inspection. Restore the fixture in finally.
    Then run a fresh-agent mixing task without a skill or tool coaching.
+
+## Description items from 8i6
+
+This session bumps the description version, so it also carries two small
+description changes (E255):
+
+- State the pitch-name convention in `add_launcher_clip` and
+  `edit_launcher_clip`: pitch is a MIDI number, and Bitwig shows 60 as C3.
+  A person who names a note from the Bitwig piano roll otherwise gets an
+  agent that can be one octave off.
+- Replace the `stable-v1` wording in
+  `reverse_existing_device_modulation_wrap` and `read_preset_modulation`
+  with `agent-native-v1` wording.
+
+If the feasibility gate stops the session before a description change, move
+these items to 8i8.
 
 ## Provisional cost model
 

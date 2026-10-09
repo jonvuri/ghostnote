@@ -92,6 +92,20 @@ test('call budget: read_launcher_clip, first and repeated', async () => {
   assert.deepEqual(again.counts, { mark: 1, tracks: 1, clipRead: 1, delta: 2 });
 });
 
+test('call budget: get_document_reference and a refused document input make no adapter call (8i6)', async () => {
+  const fx = await fixture();
+  const reference = await fx.call('get_document_reference', { sections: ['Patch', 'Timing overlays', 'Groups', 'Meter and tempo'] });
+  assert.equal(reference.result.failure, undefined);
+  assert.deepEqual(reference.counts, {});
+  for (const name of ['add_launcher_clip', 'edit_launcher_clip']) {
+    const refused = await fx.call(name, { trackId: fx.trackId, row: 3,
+      document: 'DOC ghostnote-document 1.0 desired\nFIELDS id clip at duration pitch velocity channel mute\n'
+        + 'NOTE n1 part 0 1 60 100 1 false\n' });
+    assert.equal(refused.result.detail?.repair?.case, 'record-keyword', name);
+    assert.deepEqual(refused.counts, {}, name);
+  }
+});
+
 test('call budget: check_launcher_clips reads all refs in one adapter read', async () => {
   const fx = await fixture();
   const refs = [];

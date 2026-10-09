@@ -93,6 +93,9 @@ live wire-call count of the E247 inventory.
 | Edit planner with claims, offline (`seal-bench`: every velocity and one claim without basis on each note) | 4,096 claims 1.55 s; 16,384 claims 6.3 s; budget 4,000 ms at 4,096 | HEAD, helper bases: 1.39 s; 5.8 s (the codec structure check of each overlay) | `phase8h4g-inventory.test.ts` | E253 |
 | `edit_launcher_clip`, claims only (put or remove, no note change) | 806 ms (read 357, readback 409); no write | Edit refusal about 400 ms (E246) | mark 2, tracks 1, clipRead 2, delta 2 (the seal adds no call; new test) | E253 |
 | Edit refusal before a write | About 400 ms | E236: 560 ms | — | E246 |
+| Document input refused by the codec (add or edit), with `detail.repair` | 1 ms; 0 wire calls | Before 8i6: the same refusal without repair | none (new test) | E255 |
+| `get_document_reference`, Core and the desired template; all sections and both templates | 0.3 ms, 4,469 bytes; 0.1 ms, 9,192 bytes | Reference source 7,980 bytes | none (new test) | E255 |
+| `add_launcher_clip` with the desired template (1 note); a template-form patch (1 ADD, 1 UPDATE) after a read with Patch help | 2,460 ms, 87 wire calls; 1,546 ms, 45 wire calls (read 389 ms) | E250 add typical 2,158 ms; targeted insert 1,367–1,428 ms | unchanged | E255 |
 | `add_launcher_clip`, typical (256 notes) | 2,323 ms; 85 wire calls | 16 notes, E237: 2,611 ms; `add_clip` 1,827 ms | mark 3, tracks 2, read 3, resolve 2, apply 2, delta 4, clipRead 3 | E247 |
 | `add_launcher_clip`, 16,384 notes | 6,418 ms (plan 778, write 3,352) | E247: 8,172 ms | as typical | E248 add-worst |
 | `add_launcher_clip`, the review case; 2,097,152 cells (4,096 one-beat 1/512 notes) | 2,293 ms; 3,341 ms, ZGC used peak 2,450 MiB | 512 steps: 111,419 ms; about 54 s (257 pages) | as typical | E248 |

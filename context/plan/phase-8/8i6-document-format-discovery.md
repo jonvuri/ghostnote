@@ -1,12 +1,13 @@
 ---
 title: Phase 8i6 document format discovery and repair
 kind: plan
-state: planned
-status: Test local examples, useful format errors, and reference access without a live clip. No skill is required.
+state: done
+status: Complete (E255). Document inputs state the format and carry a valid example; get_document_reference returns the reference and templates with no host call; a refused document returns detail.repair. Five fresh agents had no format rejection in the normal trials. Descriptions v41.
 updated: 2026-10-09
 parent: README.md
 prev: 8i5-device-control-identity.md
 next: 8i7-track-mixer.md
+evidence: E255
 ---
 
 # Phase 8i6 document format discovery and repair
@@ -149,3 +150,22 @@ access were each used. Revise instructions only when a trial shows a gap.
 
 Skills, a generic tool-discovery API, broad description shortening, codec
 grammar changes, mixer controls, and the remaining groove/overlay gates.
+
+## Outcome
+
+- Format statement and local examples: met. Each document consumer names
+  Ghostnote Document 1.0 and `get_document_reference`; add and edit carry a
+  valid desired or patch example that the codec checks (E255).
+- Reference access: met. `get_document_reference` returns Core and the
+  selected sections, the identity, and the templates in FIELDS or JSON, with
+  no host call (tested with a host that refuses every call).
+- Repair: met for every listed case, with no host call and the rule and
+  location kept. A repair names the first codec error only.
+- Fresh agents: five `codex exec` trials, no skill or tool-sequence coaching.
+  No format rejection in the normal trials; T2 created a clip with only the
+  add declaration; the repair trial needed one retry. No UI edit and no
+  filesystem search.
+- Live: the templates write and read back through the unchanged add and
+  edit paths; valid budgets unchanged.
+- Checks: 2,182 brain tests, `npm run check`, description artifact v41,
+  `context/check.rb`, and `git diff --check`.

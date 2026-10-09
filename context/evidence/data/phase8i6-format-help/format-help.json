@@ -1,0 +1,152 @@
+{
+ "schema": "phase8i6-format-help-v1",
+ "project": "New 1",
+ "rows": [
+  {
+   "step": "reference-typical",
+   "tool": "get_document_reference",
+   "ok": true,
+   "ms": 1,
+   "bytes": 4469,
+   "calls": 0,
+   "turns": 0,
+   "methods": {}
+  },
+  {
+   "step": "reference-largest",
+   "tool": "get_document_reference",
+   "ok": true,
+   "ms": 0,
+   "bytes": 9192,
+   "calls": 0,
+   "turns": 0,
+   "methods": {}
+  },
+  {
+   "step": "add-track",
+   "tool": "add_tracks",
+   "ok": true,
+   "status": "verified",
+   "ms": 768,
+   "bytes": 669,
+   "calls": 36,
+   "turns": 18,
+   "methods": {
+    "selection.status": 2,
+    "revision.get": 11,
+    "track.list": 13,
+    "batch.run": 2,
+    "cursor.pin": 8
+   }
+  },
+  {
+   "step": "add-template",
+   "tool": "add_launcher_clip",
+   "ok": true,
+   "status": "verified",
+   "ms": 2460,
+   "bytes": 1194,
+   "calls": 87,
+   "turns": 60,
+   "methods": {
+    "revision.get": 19,
+    "track.list": 20,
+    "slot.status": 18,
+    "selection.status": 4,
+    "batch.run": 2,
+    "cursor.pin": 10,
+    "clip.read": 4,
+    "cursor.pointTrack": 1,
+    "slot.select": 2,
+    "cursor.status": 3,
+    "cursor.setStepSize": 2,
+    "cursor.scrollToStep": 2
+   }
+  },
+  {
+   "step": "read-with-patch",
+   "tool": "read_launcher_clip",
+   "ok": true,
+   "ms": 389,
+   "bytes": 2314,
+   "calls": 14,
+   "turns": 10,
+   "methods": {
+    "revision.get": 4,
+    "track.list": 4,
+    "selection.status": 1,
+    "slot.status": 4,
+    "clip.read": 1
+   }
+  },
+  {
+   "step": "edit-template-form",
+   "tool": "edit_launcher_clip",
+   "ok": true,
+   "status": "verified",
+   "ms": 1546,
+   "bytes": 909,
+   "calls": 45,
+   "turns": 36,
+   "methods": {
+    "revision.get": 8,
+    "track.list": 8,
+    "selection.status": 3,
+    "slot.status": 8,
+    "clip.read": 2,
+    "cursor.pin": 2,
+    "cursor.pointTrack": 1,
+    "slot.select": 2,
+    "cursor.status": 4,
+    "cursor.setStepSize": 3,
+    "cursor.scrollToStep": 3,
+    "batch.run": 1
+   }
+  },
+  {
+   "step": "edit-malformed",
+   "tool": "edit_launcher_clip",
+   "ok": false,
+   "code": "invalid-input",
+   "ms": 1,
+   "bytes": 658,
+   "calls": 0,
+   "turns": 0,
+   "methods": {}
+  },
+  {
+   "step": "read-after",
+   "tool": "read_launcher_clip",
+   "ok": true,
+   "ms": 384,
+   "bytes": 1230,
+   "calls": 14,
+   "turns": 10,
+   "methods": {
+    "revision.get": 4,
+    "track.list": 4,
+    "selection.status": 1,
+    "slot.status": 4,
+    "clip.read": 1
+   }
+  },
+  {
+   "step": "delete-track",
+   "tool": "delete_track",
+   "ok": true,
+   "status": "verified",
+   "ms": 457,
+   "bytes": 474,
+   "calls": 24,
+   "turns": 11,
+   "methods": {
+    "selection.status": 1,
+    "slot.status": 1,
+    "revision.get": 6,
+    "track.list": 7,
+    "batch.run": 1,
+    "cursor.pin": 8
+   }
+  }
+ ]
+}

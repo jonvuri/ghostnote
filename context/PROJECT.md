@@ -21,13 +21,15 @@ surface without relying on the user's UI selection.
   addressing for clips/scenes, which have no durable identity.
 - Writes pass through one executor and stash boundary with readback verification,
   concurrency reporting, and fidelity-aware reversal.
-- The default tool profile is `agent-native-v1` (D40): 39 tools on one
+- The default tool profile is `agent-native-v1` (D40): 40 tools on one
   address, health, result, and error vocabulary. `stable-v1` is the frozen
   rollback through 8i.
 - Launcher clips are read and edited as Ghostnote Document 1.0 documents:
   `read_launcher_clip` returns a base ref, and `edit_launcher_clip` takes a
   sparse patch or a desired document against it (D21, D25). Every read is a
   fresh `clip.read` capture; a reference that is not `current` refuses (D32).
+  `get_document_reference` returns the format reference and templates with
+  no host call, and a refused document returns a repair (E255).
 - Device branching uses ordinary layer-chain operations (`compose_devices`,
   `duplicate_layer_chain`, `set_layer_chain_solo`, `move_devices`, D18). There
   is no managed device-alternate lifecycle in the default profile.

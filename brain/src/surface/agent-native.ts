@@ -9,9 +9,6 @@
  * This module imports only types from `tools.ts`; `tools.ts` composes the
  * profile, so there is no import cycle.
  */
-import { createHash } from 'node:crypto';
-import { readFileSync } from 'node:fs';
-
 import { z } from 'zod';
 
 import {
@@ -30,46 +27,16 @@ import {
   AGENT_NATIVE_TOOL_PROFILE, ToolFailure, VERDICT_CODES, failureResult,
   type FailureCode, type ReadResult, type Warning,
 } from './agent-native-result.js';
+import {
+  CORE_REFERENCE, MODEL_REFERENCE, OPTIONAL_REFERENCE_SECTIONS, getDocumentReferenceTool, selectedReference,
+} from './document-help.js';
 import type { ToolSpec } from './tools.js';
 import type { Workspace } from './workspace.js';
 
+export { CORE_REFERENCE, MODEL_REFERENCE, OPTIONAL_REFERENCE_SECTIONS };
+
 export const READ_SCHEMA = 'ghostnote-launcher-clip-read/1';
 export const CHECK_SCHEMA = 'ghostnote-launcher-clip-check/1';
-
-// --- model reference -----------------------------------------------------------
-
-const SPEC = new URL('../../../spec/ghostnote-document-v1/', import.meta.url);
-const REFERENCE_SOURCE = readFileSync(new URL('MODEL-REFERENCE.md', SPEC), 'utf8');
-const REFERENCE_IDENTITY = JSON.parse(readFileSync(new URL('MODEL-REFERENCE.identity.json', SPEC), 'utf8')) as {
-  formatVersion: string; referenceRevision: number; sha256: string;
-};
-if (createHash('sha256').update(REFERENCE_SOURCE, 'utf8').digest('hex') !== REFERENCE_IDENTITY.sha256) {
-  throw new Error('MODEL-REFERENCE.md does not match its identity file; run npm run document:artifacts');
-}
-
-/** The reference identity that the read names. */
-export const MODEL_REFERENCE = Object.freeze({
-  format: `ghostnote-document/${REFERENCE_IDENTITY.formatVersion}`,
-  revision: REFERENCE_IDENTITY.referenceRevision,
-  sha256: REFERENCE_IDENTITY.sha256,
-});
-
-export const OPTIONAL_REFERENCE_SECTIONS = ['Patch', 'Timing overlays', 'Groups', 'Meter and tempo'] as const;
-type OptionalSection = typeof OPTIONAL_REFERENCE_SECTIONS[number];
-
-/** The maintained reference split into its `## ` sections, without the title block. */
-function referenceSections(): ReadonlyMap<string, string> {
-  const pieces = REFERENCE_SOURCE.split(/(?=^## )/m).slice(1);
-  return new Map(pieces.map((piece) => [piece.split('\n')[0]!.slice(3), piece.trimEnd()]));
-}
-const SECTIONS = referenceSections();
-
-/** The Core section, as the read tool description carries it. */
-export const CORE_REFERENCE = SECTIONS.get('Core')!;
-
-function selectedReference(sections: readonly OptionalSection[]): string {
-  return [...new Set(sections)].map((name) => SECTIONS.get(name)!).join('\n\n') + '\n';
-}
 
 // --- registry ------------------------------------------------------------------
 
@@ -224,7 +191,8 @@ const readInput = z.object({
   format,
   reference: z.array(z.enum(OPTIONAL_REFERENCE_SECTIONS)).max(4).optional().describe(
     'Optional model reference sections to return in the result, with the same document and authority.base. The '
-    + 'Core section is in this description. Before a planned patch edit, request Patch on the first fresh read.',
+    + 'Core section is in this description. Before a planned patch edit, request Patch on the first fresh read. '
+    + 'get_document_reference returns the sections and templates without a clip.',
   ),
   diagnostic: z.boolean().optional().describe('Also return the exact host source of the read. Use only to diagnose a problem.'),
 }).strict();
@@ -249,7 +217,8 @@ const READ_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Read one Launche
   + 'reference returns the requested sections in the same result as the complete document and authority.base. '
   + 'For a planned patch edit, request reference ["Patch"] on the first fresh read, and keep data.document, '
   + 'authority.base, and reference together: another read only for the help or the base is not necessary. Read '
-  + 'again when the clip can have changed.\n'
+  + 'again when the clip can have changed. get_document_reference returns the reference and templates without a '
+  + 'read.\n'
   + 'Overlays, META, and EXTENSIONS that edit_launcher_clip stored come back with the document while the clip '
   + 'ID stays. When notes change, authority.overlays names the claims that became stale or were removed.\n'
   + 'A failure has failure.code: absent, outside-limit, unhealthy, authority-unavailable, '
@@ -407,7 +376,8 @@ const CHECK_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Check base refs
   + 'the project changed or the extension reloaded. uncovered: the clip is outside the observed window. '
   + 'Every verdict other than current and stale retires the ref; read the clip again. A ref that this '
   + 'server process does not hold has code expired-ref; a malformed ref has code invalid-ref. A current '
-  + 'verdict states equal content at the same address, not the same host clip object.';
+  + 'verdict states equal content at the same address, not the same host clip object. A stale document is '
+  + 'Ghostnote Document 1.0, as in read_launcher_clip; get_document_reference has the format.';
 
 interface CheckItem {
   readonly ref: string;
@@ -510,5 +480,7 @@ const checkLauncherClipsTool: ToolSpec = {
   run: (workspace, input) => checkLauncherClips(workspace, input as CheckInput),
 };
 
-/** The tools that `agent-native-v1` adds to the stable list, in order. */
-export const AGENT_NATIVE_ADDITIONS: readonly ToolSpec[] = [readLauncherClipTool, checkLauncherClipsTool];
+/** The tools that `agent-native-v1` adds to the stable list, in order. The pure format help comes first (8i6). */
+export const AGENT_NATIVE_ADDITIONS: readonly ToolSpec[] = [
+  getDocumentReferenceTool, readLauncherClipTool, checkLauncherClipsTool,
+];

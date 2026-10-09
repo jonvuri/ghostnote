@@ -51,7 +51,11 @@ and deliberate build markers before live work.
      not defer a description change to a later or dogfood session. Report the
      new version, or state that no description changed.
 4. Update the relevant context documents. Make `context/NOW.md` a short,
-   accurate handoff for the next session.
+   accurate handoff for the next session: the next step, material to
+   preserve, live state, and facts. Do not keep open items in NOW. Plan
+   each item worth doing as an explicit session, or add it to a planned
+   session, with a source link. Record any other item as a limit in its E
+   record only.
 5. Stage only the session changes for review. Do not commit them. End with a
    concise result summary, verification results, and a short suggested commit
    message.

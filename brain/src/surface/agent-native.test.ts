@@ -184,7 +184,7 @@ test('8h4b profile: stable-v1 registration is byte-equal; agent-native-v1 keeps 
     kept.map((spec) => renamed[spec.name] ?? spec.name));
   for (const [index, spec] of kept.entries()) assert.notEqual(native[index], spec, spec.name);
   assert.deepEqual(native.slice(kept.length).map((spec) => [spec.name, spec.kind]), [
-    ['read_launcher_clip', 'read'], ['check_launcher_clips', 'read'], ['edit_launcher_clip', 'write'],
+    ['get_document_reference', 'read'], ['read_launcher_clip', 'read'], ['check_launcher_clips', 'read'], ['edit_launcher_clip', 'write'],
     ['add_launcher_clip', 'write'], ['copy_launcher_clips', 'write'], ['move_launcher_clips', 'write'],
     ['set_launcher_clip_launch_settings', 'write'], ['set_launcher_clip_properties', 'write'],
     ['delete_launcher_clip', 'destructive'], ['show_launcher_clip_in_detail_editor', 'focus'],
@@ -193,8 +193,8 @@ test('8h4b profile: stable-v1 registration is byte-equal; agent-native-v1 keeps 
     ['compose_devices', 'write'], ['duplicate_layer_chain', 'write'], ['rename_layer_chain', 'write'],
     ['move_devices', 'write'], ['copy_devices', 'write'], ['set_layer_chain_solo', 'write'],
   ]);
-  assert.equal(native.length, 39);
-  for (const spec of native.slice(kept.length, kept.length + 3)) {
+  assert.equal(native.length, 40);
+  for (const spec of native.slice(kept.length, kept.length + 4)) {
     assert.deepEqual(spec.emits, spec.kind === 'read' ? []
       : ['clip.update', 'note.remove', 'note.insert', 'note.clear', 'note.write']);
   }

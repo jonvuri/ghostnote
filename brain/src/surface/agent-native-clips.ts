@@ -35,7 +35,8 @@ import {
   type Effect, type FailureStage, type WriteResult,
 } from './agent-native-result.js';
 import { checkHealth, format } from './agent-native.js';
-import { editLauncherClip, parseProposal } from './agent-native-edit.js';
+import { documentText, editLauncherClip, parseProposal } from './agent-native-edit.js';
+import { DESIRED_EXAMPLE_TEXT, FORMAT_STATEMENT, documentParameter, kindRepair } from './document-help.js';
 import type { ToolSpec } from './tools.js';
 import { atMost, requireWithinLimit } from './write-limits.js';
 import type { Workspace } from './workspace.js';
@@ -183,7 +184,7 @@ const addInput = z.object({
   trackId,
   row,
   document: z.union([z.string().min(1), z.record(z.string(), z.unknown())]).describe(
-    'A desired Document 1.0 without BASE: one CLIP and its notes. FIELDS text, or JSON when format is json.',
+    documentParameter('A desired document without BASE (one CLIP and its notes)'),
   ),
   format,
   readback: z.enum(['summary', 'document']).optional().describe(
@@ -193,9 +194,12 @@ const addInput = z.object({
 type AddInput = z.infer<typeof addInput>;
 
 const ADD_DESCRIPTION = `${PROFILE} Create one Launcher clip in an empty slot from a Ghostnote Document 1.0 `
-  + 'desired document without BASE (DOC ghostnote-document 1.0 desired, one CLIP). The CLIP length is the clip length '
-  + 'in beats. A CLIP without loop makes a clip that does not loop; loop {"from":"0","to":<length>} makes it loop '
-  + 'over its length. The notes are written through the edit_launcher_clip path, with its rules and refusals.\n'
+  + `desired document without BASE (DOC ghostnote-document 1.0 desired, one CLIP). ${FORMAT_STATEMENT}\n`
+  + `${DESIRED_EXAMPLE_TEXT}\n`
+  + 'The CLIP length is the clip length in beats. A CLIP without loop makes a clip that does not loop; loop '
+  + '{"from":"0","to":<length>} makes it loop over its length. The notes are written through the '
+  + 'edit_launcher_clip path, with its rules and refusals. A refused document returns code invalid-input before '
+  + 'any write; detail.repair has the known correction.\n'
   + 'The slot must exist and be empty. An occupied slot refuses with code occupied: Bitwig would put the new clip '
   + 'on a new scene past the reachable rows. A missing row refuses with code absent; add scenes at the end with '
   + 'add_scenes.\n'
@@ -209,9 +213,10 @@ async function addLauncherClip(workspace: Workspace, args: AddInput): Promise<un
   const started = performance.now();
   const target = { trackId: args.trackId, row: args.row };
   return guardedRun(ADD_SCHEMA, target, async (state) => {
-    const proposal = parseProposal(args).document;
+    const proposal = parseProposal(args, 'add').document;
     if (proposal.kind !== 'desired' || proposal.base !== undefined) {
-      throw new ToolFailure('invalid-input', 'input', 'add_launcher_clip takes a desired document without BASE.');
+      throw new ToolFailure('invalid-input', 'input', 'add_launcher_clip takes a desired document without BASE.', {
+        detail: { repair: kindRepair('add', args.format ?? 'fields', documentText(args.document)) } });
     }
     if (proposal.clips.length !== 1) {
       throw new ToolFailure('invalid-input', 'input', 'A desired document for one Launcher clip has exactly one CLIP.');

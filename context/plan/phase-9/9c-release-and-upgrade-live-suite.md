@@ -91,7 +91,8 @@ that the extension uses. A Bitwig upgrade can change the API version.
    path), the commands, preconditions, baselines, cleanup, and expected time.
    State what to do when a member fails on an upgrade.
 4. Add one entry command if the members can run unattended in sequence.
-   Restore or remove `probe:conformance` in `package.json` and the README.
+   Restore or remove `probe:conformance` and `probe:e00` in `package.json`
+   and the README, and correct the stale README status line.
 5. Mark the E40 table as superseded. Point D46, NOW, the README, and the
    performance ledger to the new reference.
 6. Run the complete suite once. Record the result as a new E record.

@@ -42,6 +42,9 @@ import {
 import { DocumentError, type Document, type Encoding } from '../document/index.js';
 import { parseSealable, type SealRequest } from '../bindings/overlay-seal.js';
 import {
+  FORMAT_STATEMENT, PATCH_EXAMPLE_TEXT, documentParameter, encodingRepair, kindRepair, repairOf, type DocumentUse,
+} from './document-help.js';
+import {
   AGENT_NATIVE_TOOL_PROFILE, ToolFailure, VERDICT_CODES, failureResult,
   type Effect, type FailureStage, type Warning, type WriteResult,
 } from './agent-native-result.js';
@@ -58,7 +61,7 @@ const editInput = z.object({
   trackId: z.string().min(1).describe('Durable track ID from list_tracks.'),
   row: z.number().int().min(0).describe('Zero-based Launcher row (scene).'),
   document: z.union([z.string().min(1), z.record(z.string(), z.unknown())]).describe(
-    'The patch or desired document: FIELDS text, or JSON (an object or JSON text) when format is json.',
+    documentParameter('The patch or desired document'),
   ),
   format,
   intent: z.literal('replace').optional().describe(
@@ -72,10 +75,12 @@ const editInput = z.object({
 export type EditInput = z.infer<typeof editInput>;
 
 const EDIT_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Edit one Launcher clip with a Ghostnote Document 1.0 `
-  + 'patch or desired document. Address it by trackId and row, as in read_launcher_clip. A patch or a desired '
+  + `patch or desired document. ${FORMAT_STATEMENT} Address the clip by trackId and row, as in read_launcher_clip. `
+  + 'A patch or a desired '
   + 'document needs BASE with the sha256 and the ref of a read of this clip. A patch changes only what it names. '
   + 'A desired document is the complete new state: omitted notes are removed and omitted fields have their '
   + 'defaults. With intent replace, a desired document without BASE replaces the whole clip; it keeps no event IDs.\n'
+  + `${PATCH_EXAMPLE_TEXT}\n`
   + 'Each call reads the clip again and checks the base ref. A change since the read refuses with no write; '
   + 'code stale returns the new document and base in detail. The edit keeps every unnamed note and every host '
   + 'value that the document does not show. A new note gets the stated values; a field at its default keeps the host '
@@ -89,7 +94,8 @@ const EDIT_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Edit one Launche
   + '-96..96, recurrence length above 8, timing (no writable grid), play-range, loop (only null or 0..length). '
   + 'A clip name, length, or loop change writes only the changed properties; the clip colour stays. Code range: a '
   + 'note would start or end after '
-  + 'the clip length. Code invalid-input: the codec rejected the document (detail has rule and line), or BASE '
+  + 'the clip length. Code invalid-input: the codec rejected the document (detail has rule, path, and line; '
+  + 'detail.repair has the known correction, the reference section, and a template when one helps), or BASE '
   + 'does not match. Code absent: no clip in the slot; add_launcher_clip creates one. Code outside-limit: the clip '
   + 'is above a reader limit (see read_launcher_clip).\n'
   + 'Result: applied, effects (each with a changeId for revert_change), and readback from an independent read of '
@@ -104,21 +110,33 @@ const EDIT_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Edit one Launche
   + 'claim that the call does not state; a stale claim keeps its basis.\n'
   + 'A whole-clip rewrite at the reader limit (16,384 notes) takes about 7 s.';
 
-/** Parse the proposal. A current claim can omit its basis: the planner seals it (D45). */
-export function parseProposal(args: Pick<EditInput, 'document' | 'format'>): { document: Document; seal: SealRequest } {
+/** The input document as text. */
+export const documentText = (document: EditInput['document']): string =>
+  typeof document === 'string' ? document : JSON.stringify(document);
+
+/**
+ * Parse the proposal. A current claim can omit its basis: the planner seals it (D45). A codec refusal keeps its
+ * rule and location and adds the known repair (8i6). Nothing reaches the host before this parse.
+ */
+export function parseProposal(
+  args: Pick<EditInput, 'document' | 'format'>, use: DocumentUse = 'edit',
+): { document: Document; seal: SealRequest } {
   const encoding: Encoding = args.format ?? 'fields';
   if (typeof args.document !== 'string' && encoding !== 'json') {
-    throw new ToolFailure('invalid-input', 'input', 'A JSON object document needs format json.');
+    throw new ToolFailure('invalid-input', 'input', 'A JSON object document needs format json.', {
+      detail: { repair: encodingRepair('fields') } });
   }
+  const text = documentText(args.document);
   try {
-    const text = typeof args.document === 'string' ? args.document : JSON.stringify(args.document);
     return parseSealable(text, encoding);
   } catch (error) {
     if (error instanceof DocumentError) {
+      const repair = repairOf(error, text, encoding, use);
       throw new ToolFailure('invalid-input', 'input', `The document is not valid (${error.rule}).`, {
         detail: {
           rule: error.rule, path: error.path, message: error.message,
           ...(error.line === undefined ? {} : { line: error.line, column: error.column }),
+          ...(repair === undefined ? {} : { repair }),
         },
       });
     }
@@ -281,7 +299,8 @@ export async function editLauncherClip(workspace: Workspace, args: EditInput): P
   try {
     const { document: proposal, seal } = parseProposal(args);
     if (proposal.kind === 'snapshot') {
-      throw new ToolFailure('invalid-input', 'input', 'A snapshot is not an edit. Send a patch or a desired document.');
+      throw new ToolFailure('invalid-input', 'input', 'A snapshot is not an edit. Send a patch or a desired document.', {
+        detail: { repair: kindRepair('edit', encoding, documentText(args.document)) } });
     }
     const replace = args.intent === 'replace';
     if (replace && (proposal.kind !== 'desired' || proposal.base !== undefined)) {

@@ -13,8 +13,10 @@ scope: Formats that cross the implemented Phase 7 boundary
 The rows below record the Phase 7 boundary. After 8h, five rows have a
 current state that differs:
 
-- I01: two profiles. `agent-native-v1` is the default (D40) with 39 tools
-  and description cohort `ghostnote-description-v40` (8i5, D46: the
+- I01: two profiles. `agent-native-v1` is the default (D40) with 40 tools
+  and description cohort `ghostnote-description-v41` (8i6:
+  `get_document_reference` and the format examples and repair of the
+  document inputs; v40, 8i5, D46: the
   modulation writers claim the authored route and run no behavior witness;
   v38, 8i4, D45: `edit_launcher_clip` computes the basis of each claim that
   the call states; v37, 8i3, D44: the long writes state their limits and costs);
