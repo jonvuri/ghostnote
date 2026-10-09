@@ -88,9 +88,9 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
     probeGolden.methods,
     [...new Set([...normalGolden.methods, ...probeOnly])].sort(),
   );
-  assert.equal(normalGolden.count, 89);
-  assert.equal(captureGolden.count, 94);
-  assert.equal(probeGolden.count, 107);
+  assert.equal(normalGolden.count, 91);
+  assert.equal(captureGolden.count, 96);
+  assert.equal(probeGolden.count, 109);
 });
 
 test('8b: historical host objects are absent from active Rig construction', () => {
@@ -99,9 +99,10 @@ test('8b: historical host objects are absent from active Rig construction', () =
       'extension', 'Rig.java'),
     'utf8',
   );
-  // 8h4f (E239): the send bank and the VU observer exist only in the probe profile.
+  // 8h4f (E239): the send bank and the VU observer exist only in the probe profile. 8i7 (E257): the product mixer
+  // values come first, outside the probe block.
   assert.match(rigSource,
-    /if \(profile\.hasProbeResources\(\)\) \{\s*track\.volume\(\)[\s\S]*sendBanks\[i\] = track\.sendBank\(\)[\s\S]*track\.addVuMeterObserver\(/);
+    /if \(profile\.hasProbeResources\(\)\) \{\s*\/\/ 8i7[^\n]*\n\s*track\.pan\(\)[\s\S]*sendBanks\[i\] = track\.sendBank\(\)[\s\S]*track\.addVuMeterObserver\(/);
   assert.equal(rigSource.match(/track\.addVuMeterObserver\(/g)?.length, 1);
   assert.doesNotMatch(rigSource, /createCursorTrack\("GN_CT_BARE"/);
   assert.doesNotMatch(rigSource, /createCursorLayer\(\)/);
@@ -191,7 +192,8 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
       ...(golden.addedInPhase7bE130 ?? []), ...(golden.addedInPhase7bE131 ?? []),
       ...(golden.addedInPhase8e ?? []), ...(golden.addedInPhase8g ?? []),
       ...(golden.addedInPhase8h1a ?? []), ...(golden.addedInPhase8h4a5 ?? []),
-      ...(golden.addedInPhase8h4e0 ?? []), ...(golden.addedInPhase8h4e ?? [])];
+      ...(golden.addedInPhase8h4e0 ?? []), ...(golden.addedInPhase8h4e ?? []),
+      ...(golden.addedInPhase8i7 ?? [])];
   assert.deepEqual(
     [...golden.addedInPhase0].sort(),
     historical.filter((method) => golden.methods.includes(method)).sort(),
@@ -1065,4 +1067,31 @@ test('8h4e: the layer-chain solo set is one normal product method', () => {
   assert.deepEqual(golden.addedInPhase8h4e, ['chain.setSolo']);
   assert.ok(WIRE_METHODS_USED.includes('chain.setSolo'));
   assert.ok(normalGolden.methods.includes('chain.setSolo'));
+});
+
+test('8i7: the track mixer read and write are normal product methods with guards before the setters', () => {
+  assert.deepEqual(golden.addedInPhase8i7, ['track.mixer', 'track.setMixer']);
+  for (const method of ['track.mixer', 'track.setMixer']) {
+    assert.ok(WIRE_METHODS_USED.includes(method));
+    assert.ok(normalGolden.methods.includes(method));
+  }
+  const profile = readFileSync(join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+    'extension', 'RuntimeProfile.java'), 'utf8');
+  const reads = profile.slice(profile.indexOf('Set<String> READS = methods('));
+  const readBlock = reads.slice(0, reads.indexOf(');'));
+  assert.match(readBlock, /"track\.mixer"/);
+  assert.doesNotMatch(readBlock, /"track\.setMixer"/);
+  const source = readFileSync(join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+    'extension', 'handlers', 'MixerHandlers.java'), 'utf8');
+  const body = source.slice(source.indexOf('private JsonElement setMixer'));
+  const firstSetter = body.indexOf('.setRaw(');
+  for (const guard of ['expected.equals(actual)', '"Master".equals', 'VOLUME_RAW_MAX', 'hasAutomation().get()']) {
+    assert.ok(body.indexOf(guard) > 0 && body.indexOf(guard) < firstSetter, `${guard} runs before the first setter`);
+  }
+  assert.doesNotMatch(body, /setImmediately|\.toggle\(/);
+  const rig = readFileSync(join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+    'extension', 'Rig.java'), 'utf8');
+  const block = rig.slice(rig.indexOf('// 8i7 (E257)'), rig.indexOf("// D13's Group regression"));
+  assert.equal(block.match(/markInterested\(\)/g)?.length, 7, 'seven product mixer values for each track');
+  assert.doesNotMatch(block, /sendBank|addVuMeterObserver|sourceSelector/);
 });

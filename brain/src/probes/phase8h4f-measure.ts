@@ -32,6 +32,13 @@ import { WireTransport } from './phase8h3c-promotion.js';
 type Wire = Record<string, any>;
 const SCHEMA = 'phase8h4f-measure-v1';
 export const NORMAL_8H4F = ['normal-v1', 89, '0ef817f4bac8a8a7'] as const;
+/** 8i7 (E257): the normal build with `track.mixer` and `track.setMixer`. The current drivers accept both builds. */
+export const NORMAL_8I7 = ['normal-v1', 91, '64d13fa7b66ad7f9'] as const;
+/** The current-driver guard: the 8h4f normal build or a later one with the 8i7 mixer methods. */
+export function assertCurrentNormal(hello: Readonly<Record<string, unknown>>): void {
+  const live = JSON.stringify([hello['runtimeProfile'], hello['methodCount'], hello['methodsHash']]);
+  assert.ok([NORMAL_8H4F, NORMAL_8I7].some((pin) => JSON.stringify(pin) === live), `unexpected normal build: ${live}`);
+}
 const ANCHOR = 'gn-scale-test';
 const CONTROLS = 27;
 const RUNS = 2;
@@ -65,7 +72,7 @@ async function call(run: number, profile: ToolProfile, step: string, tool: strin
 
 async function guard(): Promise<Wire> {
   const hello = await request('contract.hello');
-  assert.deepEqual([hello.runtimeProfile, hello.methodCount, hello.methodsHash], [...NORMAL_8H4F]);
+  assertCurrentNormal(hello);
   const mark = await request('revision.get');
   assert(/^New \d+$/.test(mark.project) && mark.project !== ANCHOR, `use an owned unsaved project, got ${mark.project}`);
   await adapter.hello();

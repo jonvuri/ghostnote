@@ -530,6 +530,11 @@ function restoreValue(target: WriteTarget, value: StateValue, sink: Sink): void 
     case 'remotes':
       return;
 
+    case 'mixer':
+      if (target.address.kind !== 'mixer') return;
+      sink.scalarOps.push({ op: 'mixer.set', mixer: target.address, value: value.mixer.value });
+      return;
+
     case 'device':
       sink.unrestored.push({
         address: target.address,

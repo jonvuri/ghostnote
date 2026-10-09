@@ -33,7 +33,7 @@ import {
   AddressUnresolvedError, CONTRACT_TAG, InvalidOpError, NOTE_PROP_FIDELITY,
   ParameterValueUnrepresentableError,
   StaleAddressError, addressKey, addressScene, addressTrack, assertDevicesRoutable, assertOpsWritable,
-  ClipSnapshotRefusedError, GroupSlotError, blindSpotError, opsHaveSceneRows, sceneGuardOf, clipMetadata as clipMetadataAt, deltaComplete,
+  ClipSnapshotRefusedError, GroupSlotError, blindSpotError, opsHaveSceneRows, sceneGuardOf, clipMetadata as clipMetadataAt, deltaComplete, sameMixerValue,
   discreteNormalizedValues, discreteValueIsRepresentable, clipMetadataDifferences, failures, ownedClipMetadata,
   CLIP_METADATA_FIELDS, notes as notesAt,
   param as paramAt, noteReadCell, snapshotAddresses,
@@ -83,7 +83,10 @@ export interface RunOptions {
   readonly clearance?: Clearance;
   /** Refuse if the project changed after a caller's content preflight. */
   readonly ifRevision?: number;
-  /** Fresh scalar cohort state. It replaces duplicate resolve and stash reads. */
+  /**
+   * Fresh scalar cohort state. It replaces duplicate resolve and stash reads. 8i7: `set_track_mixer` passes its
+   * prior read of the mixer fields, so its revision guard starts at that read.
+   */
   readonly parameterPreflight?: Snapshot;
   /**
    * D32 snapshot references. The stash read reads each referenced clip, and
@@ -315,7 +318,10 @@ export class Executor {
     const receipt = await this.timed('apply', () => this.adapter.apply({
       ops,
       ifRevision: options.ifRevision ?? stash.at.revision,
-      ...(opsHaveSceneRows(ops) ? { ifScene: sceneGuardOf(stash.at) } : {}),
+      // 8i7 review: a mixer write also carries the scene guard. Its stash can be the tool's earlier read, and the
+      // revision does not change on a project switch: the extension checks the project and the generation of that
+      // read before the first setter.
+      ...(opsHaveSceneRows(ops) || ops.some((op) => op.op === 'mixer.set') ? { ifScene: sceneGuardOf(stash.at) } : {}),
       ...(supplied === undefined ? {} : { parameterPreflight: supplied }),
     }));
 
@@ -1151,6 +1157,26 @@ export function disagreementsOf(
         field: 'value',
         requested: op.value,
         readback: entry.value.remote.value,
+      });
+    }
+  }
+
+  // 8i7: the last write of each mixer field. The raw readback must hold the requested value (E257).
+  const mixerWrites = new Map<string, Extract<Op, { op: 'mixer.set' }>>();
+  for (const op of ops) {
+    if (op.op === 'mixer.set') mixerWrites.set(addressKey(op.mixer), op);
+  }
+  for (const op of mixerWrites.values()) {
+    if (unread.has(addressKey(op.mixer))) continue;
+    const entry = verify.entries[addressKey(op.mixer)];
+    if (entry?.value.of !== 'mixer') {
+      out.push({ address: op.mixer, at: 'track mixer', field: 'exists', requested: true, readback: false });
+      continue;
+    }
+    if (!sameMixerValue(op.value, entry.value.mixer.value)) {
+      out.push({
+        address: op.mixer, at: 'track mixer', field: op.mixer.field, requested: op.value,
+        readback: entry.value.mixer.value,
       });
     }
   }

@@ -24,7 +24,7 @@ import { AGENT_NATIVE_TOOL_PROFILE, callTool } from '../surface/tools.js';
 import { workspaceOf } from '../surface/workspace.js';
 import { WireTransport } from './phase8h3c-promotion.js';
 import { typicalDesired, wireSummary } from './phase8h4g-inventory.js';
-import { NORMAL_8H4F } from './phase8h4f-measure.js';
+import { assertCurrentNormal } from './phase8h4f-measure.js';
 
 type Wire = Record<string, any>;
 const SCHEMA = 'phase8i4-overlay-seal-v1';
@@ -87,7 +87,7 @@ async function seal(dir: string): Promise<void> {
   };
 
   const hello = await request('contract.hello');
-  assert.deepEqual([hello.runtimeProfile, hello.methodCount, hello.methodsHash], [...NORMAL_8H4F]);
+  assertCurrentNormal(hello);
   const mark = await request('revision.get');
   assert(/^New \d+$/.test(mark.project) && mark.project !== ANCHOR, `use an owned unsaved project, got ${mark.project}`);
   await adapter.hello();

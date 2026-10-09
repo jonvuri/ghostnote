@@ -309,7 +309,8 @@ const REVERT_DESCRIPTION = `${PROFILE} Reverse one change that this server proce
   + 'recorded before it ran. Use it when the person asks for it. Only places that still hold exactly what the '
   + 'change left are written: a place that a person edited since, or a slot that a clip moved into or out of, stays '
   + 'and is reported in readback.notRestored. A rebuilt clip gets its recorded notes, length, name, colour, loop, '
-  + 'and launch settings back; its play-stop marker and automation do not come back. A compose_devices change ID '
+  + 'and launch settings back; its play-stop marker and automation do not come back. A set_track_mixer change puts '
+  + 'back each mixer field that still holds what it left; a field that has automation now refuses. A compose_devices change ID '
   + '(next.revert) reverses the whole composition: moved existing devices go back, and only the owned sources and '
   + 'the owned container are removed, each stage after its guards. The reversal is a change of its own: its effect '
   + 'has the new change ID. When nothing is ours to put back, applied is false and readback.status is '
@@ -763,7 +764,7 @@ export function agentNativeRetainedTools(): {
       revertInput, REVERT_CHECK_SCHEMA, [], (workspace, input) => checkRevert(workspace, input as RevertInput))],
     ['revert_change', spec('revert_change', 'write', 'Reverse one change', REVERT_DESCRIPTION, revertInput,
       REVERT_SCHEMA, ['clip.create', 'clip.delete', 'note.clear', 'note.write', 'track.rename', 'param.set',
-        'device.delete', 'device.relocate', 'chain.relocate'],
+        'device.delete', 'device.relocate', 'chain.relocate', 'mixer.set'],
       (workspace, input) => revertChange(workspace, input as RevertInput), { status: ['reversal'] })],
     ['rename_track', spec('rename_track', 'write', 'Rename tracks', RENAME_DESCRIPTION, renameInput,
       TRACK_RENAME_SCHEMA, ['track.rename'], (workspace, input) => renameTracks(workspace, input as RenameInput))],

@@ -193,7 +193,8 @@ export const documentParameter = (kind: string): string => `${kind} in Ghostnote
 export const DESIRED_EXAMPLE_TEXT = 'Minimal valid document (one 4-beat clip, one note):\n'
   + TEMPLATES.desired.fields
   + 'Each EVENT row has one value for each FIELDS name: id, clip ID, at and duration in beats as exact integers or '
-  + 'fractions (1/2, not 0.5), pitch, velocity (integer 0..127), channel (1..16), mute. COVERAGE must state complete state: fields "all", all 16 channels, '
+  + 'fractions (1/2, not 0.5), pitch (MIDI note number; Bitwig shows 60 as C3), velocity (integer 0..127), '
+  + 'channel (1..16), mute. COVERAGE must state complete state: fields "all", all 16 channels, '
   + 'from 0 to the clip length, status complete. Do not copy the COVERAGE of a read: it lists only the observed '
   + 'fields.';
 
@@ -202,7 +203,8 @@ export const PATCH_EXAMPLE_TEXT = 'Minimal valid patch:\n'
   + TEMPLATES.patch.fields
   + 'BASE is authority.base of a fresh read_launcher_clip of this clip (sha256 and ref, as JSON); the clip ID and '
   + `the event IDs come from data.document of that read. ADD has the EVENT row form and a new ID: ${ADD_EXAMPLE_ROW}. `
-  + 'REMOVE names an event ID. UPDATE takes an event ID and a JSON object of fields. read_launcher_clip with '
+  + 'REMOVE names an event ID. UPDATE takes an event ID and a JSON object of fields. pitch is a MIDI note number; '
+  + 'Bitwig shows 60 as C3. read_launcher_clip with '
   + 'reference ["Patch"] returns the Patch rules with the base.';
 
 // --- repair guidance -----------------------------------------------------------

@@ -1,8 +1,8 @@
 ---
 title: Phase 8i7 bounded track mixer controls
 kind: plan
-state: planned
-status: Check probe reuse and exact gain units first. Add bounded public mixer tools if the small route passes.
+state: done
+status: Complete (E257, D48). The raw volume unit passed the gate; read_track_mixer and set_track_mixer ship in descriptions v43.
 updated: 2026-10-09
 parent: README.md
 prev: 8i6-document-format-discovery.md

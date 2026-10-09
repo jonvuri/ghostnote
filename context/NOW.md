@@ -4,29 +4,27 @@ kind: status
 state: active
 updated: 2026-10-09
 phase: phase-8-agent-native-live-engine
-session: 8i7-track-mixer
+session: 8i8-selection-and-readback-results
 ---
 
 ## Now
 
-Next: [8i7](plan/phase-8/8i7-track-mixer.md) (bounded mixer tools, plus two
-description items from 8i6), then
-[8i8](plan/phase-8/8i8-selection-and-readback-results.md) (E250/E251 result
-defects), then [8i10](plan/phase-8/8i10-unprompted-overlay-trials.md)
+Next: [8i8](plan/phase-8/8i8-selection-and-readback-results.md) (E250/E251
+result defects), then [8i10](plan/phase-8/8i10-unprompted-overlay-trials.md)
 (operator trials: do agents reach for timing overlays without a leading
 prompt?). [9c](plan/phase-9/9c-release-and-upgrade-live-suite.md) is the
 release and Bitwig upgrade live suite.
 
-8i9 is complete ([E256](evidence/experiments/e256-overlay-authoring-and-creation.md),
-[D47](decisions/d47-clip-creation-binds-claims-to-the-live-clip.md)):
-Timing overlays help has a complete example and `templates.timing` with the
-host basis rule; a refused claim returns `detail.repair`;
-`add_launcher_clip` takes claims with the document's clip ID in one call,
-under a D44 expansion limit (largest admitted add 22.2 s). Descriptions v42,
-reference revision 3, 40 tools. The operator overlay trial passed: one add
-of 32 notes and 64 claims with no refusal; after hand edits, a moved note
-lost its claims, a lengthened note's claims went stale, and 60 stayed
-current; musical pass. This closes the charter's groove and overlay trials.
+8i7 is complete ([E257](evidence/experiments/e257-track-mixer.md),
+[D48](decisions/d48-track-mixer-writes-host-raw-values.md)):
+`read_track_mixer` and `set_track_mixer` read and set exact volume dB, pan,
+mute, and nonexclusive solo on up to 8 tracks, with field-level guarded
+reversal. Read 2 turns (about 50 ms), write 10 turns (about 270 ms),
+reversal 14 turns (about 365 ms), for 1 or 8 tracks. A fresh Codex agent
+set Pad -18 dB and Chords -12 dB in one write. Descriptions v43, 42 tools;
+v43 also states the pitch names (60 is C3) and gives two modulation tools
+`agent-native-v1` text. 8i9 closed the charter's groove and overlay trials
+(E256).
 
 Keep in mind for the trials: with the D44 limits, an agent splits larger
 work into more calls. A split is not atomic; `revert_change` does not
@@ -47,25 +45,37 @@ restart clears them). The earlier `Rain Pocket • 8 bars` clip is no longer in
 Scene 1. Check
 current state before live work.
 
-## Last live baseline (8i9)
+## Last live baseline (8i7)
 
-The deployed normal `ghostnote` archive is unchanged since 8i1: SHA-256
-`aae2c7e346c413dc409c572a3e52dc44f983f08ac232ea302e4c0b14f0bc1fb0`, 89
-methods, `0ef817f4bac8a8a7`, `fineSteps` 4,194,304, and the `rig.info`
-markers `clipMetadataWrite: owned-fields-v1` and `cursorTrackPins.rule:
-owned-tracks-pinned-v1`. The 8i3 to 8i9 changes are brain-only. The 8i9
-runs used the owned unsaved project "New 2" (Inst 1, Audio 2, FX 1); it was
-at baseline after the runs (the track `gn-8i9-overlay` deleted). Bitwig heap
-1,096 of 3,072 MiB after the runs. The next free evidence number is E257;
-the next decision is D48.
-`phase8i9-overlay-add.ts bench|live` measures the overlay add and its
-lifecycle; `phase8i3-long-writes.ts identity` checks the selector and the D46
-writers; `probe:modulation-routes` checks the route forms;
-`phase8i6-format-help.ts` checks the templates and manages a trial track.
+The deployed normal `ghostnote` archive is the 8i7 build: SHA-256
+`f1e9cc407ea16905f0abd24da9c7d91cc237889883f7a4839322a1f22d5e82c5`, 91
+methods, `64d13fa7b66ad7f9`, `fineSteps` 4,194,304, and the `rig.info`
+markers `trackMixer: track-mixer-raw-v1`, `clipMetadataWrite:
+owned-fields-v1`, and `cursorTrackPins.rule: owned-tracks-pinned-v1`. Init
+110 ms. The 8i7 runs used the owned unsaved project "New 3": Inst 1 (a
+launcher clip with volume automation), Audio 2, Hybrid 3, Group 4
+(collapsed, child Audio 1), FX 1 (arranger volume automation), Master. The
+operator made the clip, the automation, Hybrid 3, and Group 4 for the
+kind and refusal tests; they can go. It was at that baseline after the
+runs, with no driver track left. Bitwig heap 750 of 3,072 MiB after the
+runs. The next free evidence number is E258; the next decision is D49.
+`phase8i7-mixer.ts measure|hold|release|trial-*` measures the mixer tools
+and manages the UI and trial tracks; `phase8i7-mixer-gate.ts` (probe
+profile) holds the unit gate; `phase8i9-overlay-add.ts bench|live`,
+`phase8i3-long-writes.ts identity`, and `probe:modulation-routes` stay as
+before. The current drivers accept the 8i7 build (`NORMAL_8I7`).
 
 ## Facts
 
-Add the index row in the same session as a new E or D record. A remote control position is its host slot, not an array index (E254). The modulation writers claim the route, not the sound (D46); a new route form needs a route-suite case first. An agent claim can omit `basis`; `edit_launcher_clip` seals it (D45), and `add_launcher_clip` seals it in the document's clip ID space, then binds it to the live clip (D47). A claim's basis covers the full envelope of each claim it depends on: a revised nominal makes its groove stale. Check many claim bases with one `sealOverlays`, not `dependencyBasis` for each claim. A generated 16,384-note clip uses quarter-beat notes (the reader cell limit). Clip colour no
+Add the index row in the same session as a new E or D record. A track
+volume is the host raw value: dB = 60·log10(raw), so -18 dB is raw
+10^(-18/60) (D48); `setRaw` lands, a plain `set` does not. A mixer field with
+automation refuses; a mixer reversal restores each field that the readback proved
+and that still holds what the change left; a mixer batch carries the
+scene guard of the tool's prior read. A Codex trial that uses a new write tool needs its
+approval (`-c mcp_servers.ghostnote.tools.<tool>.approval_mode="approve"`)
+and `< /dev/null`; the operator's Codex has a computer-use plugin
+(`cua_repl`) that agents call first. A remote control position is its host slot, not an array index (E254). The modulation writers claim the route, not the sound (D46); a new route form needs a route-suite case first. An agent claim can omit `basis`; `edit_launcher_clip` seals it (D45), and `add_launcher_clip` seals it in the document's clip ID space, then binds it to the live clip (D47). A claim's basis covers the full envelope of each claim it depends on: a revised nominal makes its groove stale. Check many claim bases with one `sealOverlays`, not `dependencyBasis` for each claim. A generated 16,384-note clip uses quarter-beat notes (the reader cell limit). Clip colour no
 longer needs the palette (D42); a colour sample must include dark colours.
 Report note channels 1-based to the operator. A long write has a D44 limit
 in `write-limits.ts`; a new or changed long path measures its largest

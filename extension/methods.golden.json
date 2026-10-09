@@ -5,8 +5,8 @@
   ],
   "profile": "normal",
   "identity": "normal-v1",
-  "count": 89,
-  "methodsHash": "0ef817f4bac8a8a7",
+  "count": 91,
+  "methodsHash": "64d13fa7b66ad7f9",
   "methods": [
     "batch.run",
     "branch.duplicateTrack",
@@ -95,7 +95,9 @@
     "track.create",
     "track.delete",
     "track.list",
+    "track.mixer",
     "track.resolveByChannelId",
+    "track.setMixer",
     "track.setName"
   ]
 }

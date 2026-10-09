@@ -13,6 +13,7 @@
  * to survive. Storing the request would make a revert restore a state that never
  * existed.
  */
+import type { MixerFieldState } from './mixer.js';
 import type { Address, AddressKey } from './address.js';
 import type { ObservedChain } from './chains.js';
 import type { ClipSourceDigest } from './clip-snapshot.js';
@@ -210,7 +211,9 @@ export type StateValue =
   | { readonly of: 'chain'; readonly chain: ObservedChain }
   | { readonly of: 'param'; readonly param: ParamState }
   | { readonly of: 'remotes'; readonly remotes: RemoteControlsState }
-  | { readonly of: 'remote'; readonly remote: RemoteControlState };
+  | { readonly of: 'remote'; readonly remote: RemoteControlState }
+  /** 8i7: one track mixer field, in host raw units (`mixer.ts`). */
+  | { readonly of: 'mixer'; readonly mixer: MixerFieldState };
 
 export interface StateEntry {
   readonly address: Address;

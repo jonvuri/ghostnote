@@ -12,12 +12,12 @@
 export {
   ADDRESS_IDENTITY, addressKey, addressScene, addressTrack, chainPath, isNestedDevice,
   chain, clip, clipLaunch, clipMetadata, clipPlay, device, deviceEnabled, deviceIn, deviceSlot, drumPad, notes, param,
-  remote, remotes, scene, slot, track,
+  mixer, remote, remotes, scene, slot, track,
 } from './address.js';
 export type {
   Address, AddressKey, AddressKind, BeatRange, ChainAddress, ClipAddress, ClipLaunchAddress,
   ClipMetadataAddress, ClipPlayAddress, DeviceAddress, DeviceEnabledAddress, DeviceParentAddress, DeviceSlotAddress,
-  DrumPadAddress,
+  DrumPadAddress, MixerAddress,
   NotesAddress, ParamAddress, RemoteAddress, RemotesAddress, SceneAddress, SlotAddress, TrackAddress,
 } from './address.js';
 
@@ -53,6 +53,12 @@ export {
 } from './clip-metadata.js';
 export type { ClipMetadataDifference, ClipMetadataField } from './clip-metadata.js';
 export type { ClipColorBytes, ExactClipColor } from './clip-color.js';
+
+export {
+  MIXER_FIELDS, MIXER_RAW_TOLERANCE, MIXER_TRACK_KINDS, VOLUME_DB_MAX, VOLUME_DB_MIN, VOLUME_RAW_MAX,
+  mixerValueProblem, sameMixerValue, volumeDbOfRaw, volumeDbProblem, volumeRawOfDb,
+} from './mixer.js';
+export type { MixerField, MixerFieldState, VolumeDb } from './mixer.js';
 
 export { STEP_SIZES, chooseStepSize, stepSizeFor, noteReadCell, noteReadStart } from './grid.js';
 

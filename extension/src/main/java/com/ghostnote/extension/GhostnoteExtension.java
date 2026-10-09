@@ -5,6 +5,7 @@ import com.bitwig.extension.controller.api.ControllerHost;
 import com.ghostnote.extension.handlers.AppHandlers;
 import com.ghostnote.extension.handlers.ApiInventoryHandlers;
 import com.ghostnote.extension.handlers.BatchHandlers;
+import com.ghostnote.extension.handlers.MixerHandlers;
 import com.ghostnote.extension.handlers.BranchHandlers;
 import com.ghostnote.extension.handlers.ClipReadHandlers;
 import com.ghostnote.extension.handlers.ShadowCacheHandlers;
@@ -63,6 +64,7 @@ public class GhostnoteExtension extends ControllerExtension {
         registry.register(
             new CoreHandlers(host, rig, state, registry),
             new TrackHandlers(host, rig, state),
+            new MixerHandlers(host, rig, state),
             new CursorHandlers(host, rig, state),
             new NoteHandlers(host, rig, state),
             new StructureHandlers(host, rig, state),

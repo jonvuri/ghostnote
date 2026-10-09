@@ -13,10 +13,10 @@
     "`rig.methods` during the Phase-0 sitting. methodsHash is sha256 of the sorted",
     "names joined by \\n, first 16 hex chars; contract.hello returns the same value."
   ],
-  "extractedAt": "2026-10-08",
+  "extractedAt": "2026-10-09",
   "extractedFrom": "handlers/*Handlers.java registration declarations",
-  "count": 166,
-  "methodsHash": "c8b7534f9ea87ecf",
+  "count": 168,
+  "methodsHash": "78f6c2be2371c28b",
   "addedInPhase0": [
     "api.runtimeMethods",
     "app.selectionNotifications",
@@ -99,6 +99,8 @@
     "stepdata.observer.prepare",
     "stepdata.observer.read",
     "track.deleteViaAction",
+    "track.mixer",
+    "track.setMixer",
     "transport.play"
   ],
   "addedInSession1": [
@@ -287,7 +289,9 @@
     "track.delete",
     "track.deleteViaAction",
     "track.list",
+    "track.mixer",
     "track.resolveByChannelId",
+    "track.setMixer",
     "track.setName",
     "transport.play",
     "transport.status",
@@ -527,5 +531,9 @@
   ],
   "addedInPhase8h4e": [
     "chain.setSolo"
+  ],
+  "addedInPhase8i7": [
+    "track.mixer",
+    "track.setMixer"
   ]
 }

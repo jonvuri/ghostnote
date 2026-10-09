@@ -30,7 +30,15 @@ import { INSTRUMENT_LAYER_SEED_BASENAME } from '../../device-alternates/assets.j
 import { basename } from 'node:path';
 import { planStages, resolveRemoteSelector } from '../../contract/index.js';
 import { VirtualClock } from './clock.js';
-import { ProjectModel, noteKey, type FakeDevice, type FakeTrack } from './model.js';
+import { ProjectModel, fakeMixerOf, noteKey, type FakeDevice, type FakeTrack } from './model.js';
+
+/** The Bitwig volume display of a raw value (E257): 60 * log10(raw) dB, one decimal, -Inf at silence. */
+export function fakeVolumeDisplay(raw: number): string {
+  if (raw <= 0.001) return '-Inf dB';
+  const db = 60 * Math.log10(raw);
+  const text = Math.abs(db) >= 100 ? db.toFixed(0) : db.toFixed(1);
+  return `${db > 0.05 ? '+' : ''}${text} dB`;
+}
 import {
   applyNotePropsInOrder, bankBlindSpot, clipColorOnReadback, gridChangePoisonsRead, noteOnReadback, pointAtSlot,
   propsReadsTurnStartClip, stepDataIsStale, writeNoteProps, type PointOrigin,
@@ -884,6 +892,19 @@ export class FakeAdapter implements BitwigAdapter {
         const resolved = resolveRemoteSelector(inventory.pages, address);
         if (!resolved.found) return undefined;
         return { address, fidelity: 'exact', value: { of: 'remote', remote: resolved.control } };
+      }
+      case 'mixer': {
+        if (track === undefined) return undefined;
+        const mixer = fakeMixerOf(track);
+        const value = mixer[address.field];
+        return {
+          address,
+          fidelity: 'exact',
+          value: { of: 'mixer', mixer: address.field === 'volume'
+            ? { field: 'volume', value, automated: mixer.volumeAutomated, display: fakeVolumeDisplay(mixer.volume) }
+            : address.field === 'pan' ? { field: 'pan', value, automated: mixer.panAutomated }
+              : { field: address.field, value } },
+        };
       }
       case 'drumPad':
       case 'deviceSlot':
@@ -1880,6 +1901,20 @@ export class FakeAdapter implements BitwigAdapter {
         this.clock.stage(() => {
           if (this.model.parameterWritesTake) control.value = op.value;
         });
+        return;
+      }
+
+      case 'mixer.set': {
+        // The live handler checks: the channelId, the master kind, the automation flag, before any setter.
+        const track = this.requireTrack(op.mixer.track, op.op);
+        if (track.type === 'Master') throw new UnsupportedOpError('mixer.set: the master track is not a target', 'fake');
+        const mixer = fakeMixerOf(track);
+        if ((op.mixer.field === 'volume' && mixer.volumeAutomated) || (op.mixer.field === 'pan' && mixer.panAutomated)) {
+          throw new UnsupportedOpError(`mixer.set: the track ${op.mixer.field} has automation`, 'fake');
+        }
+        const field = op.mixer.field;
+        const value = op.value;
+        this.clock.stage(() => { (mixer as unknown as Record<string, number | boolean>)[field] = value; });
         return;
       }
 

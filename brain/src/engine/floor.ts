@@ -249,6 +249,8 @@ function damagePrecedesTheStash(op: Op): string | undefined {
     case 'chain.solo':
     case 'drumPad.insert':
     case 'notify':
+    // The stash reads the prior field value before the write (8i7).
+    case 'mixer.set':
       return undefined;
     default:
       // ⚠ Not a fallthrough — a Phase-4/5 variant must be classified here before

@@ -72,6 +72,8 @@ export interface Where {
   readonly toBeat?: number;
   readonly devicePosition?: number;
   readonly parameter?: number | string;
+  /** 8i7: one track mixer field. */
+  readonly mixerField?: string;
 }
 
 /**
@@ -153,6 +155,8 @@ export function describeAddress(address: Address): Where {
         devicePosition: trackLevelDevice(address.device).chainIndex,
         parameter: address.controlIndex,
       };
+    case 'mixer':
+      return { what: 'track', trackId: address.track.channelId, mixerField: address.field };
   }
 }
 
@@ -312,6 +316,7 @@ function valueLosses(value: StateValue): string[] {
     case 'clipLaunch':
     case 'clipMetadata':
     case 'clipPlay':
+    case 'mixer':
       return [];
   }
 }

@@ -428,6 +428,12 @@ public final class BranchHandlers extends HandlerGroup {
         r.addProperty("volume", track.volume().value().get());
         r.addProperty("volumeDisplayed", track.volume().value().displayedValue().get());
         r.addProperty("pan", track.pan().value().get());
+        // 8i7 unit gate: the raw values and the automation flags, beside the normalized values.
+        r.addProperty("volumeRaw", track.volume().value().getRaw());
+        r.addProperty("panRaw", track.pan().value().getRaw());
+        r.addProperty("panDisplayed", track.pan().value().displayedValue().get());
+        r.addProperty("volumeHasAutomation", track.volume().hasAutomation().get());
+        r.addProperty("panHasAutomation", track.pan().hasAutomation().get());
         r.addProperty("mute", track.mute().get());
         r.addProperty("solo", track.solo().get());
         r.addProperty("mutedBySolo", track.isMutedBySolo().get());
@@ -485,6 +491,16 @@ public final class BranchHandlers extends HandlerGroup {
         }
         if (params.has("pan")) {
             track.pan().value().setImmediately(params.get("pan").getAsDouble());
+        }
+        // 8i7 unit gate: the raw setters. The API leaves the raw range undefined; the gate measures it.
+        if (params.has("volumeRaw")) {
+            track.volume().value().setRaw(params.get("volumeRaw").getAsDouble());
+        }
+        if (params.has("panRaw")) {
+            track.pan().value().setRaw(params.get("panRaw").getAsDouble());
+        }
+        if (params.has("volumeSet")) {
+            track.volume().value().set(params.get("volumeSet").getAsDouble());
         }
         if (params.has("mute")) {
             track.mute().set(params.get("mute").getAsBoolean());

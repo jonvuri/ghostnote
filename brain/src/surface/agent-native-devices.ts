@@ -1460,6 +1460,24 @@ const WRAP_DESCRIPTION = `${PROFILE} Place one current top-level device inside o
   + 'modulators. Each modulator adds one remote page to the container page, and the remote-page window is 16, so 16 '
   + 'modulators refuse before any read or write (code outside-limit).';
 
+/** 8i7 (E255 item): the agent-native-v1 text of read_preset_modulation. */
+const READ_PRESET_DESCRIPTION = `${PROFILE} Read one human-saved Bitwig preset from an explicit absolute path. The `
+  + 'result has its SHA-256 fingerprint, host tier and format, container kind, ordered entries, device positions and '
+  + 'names, modulator locations, and complete modulator inventories. A location names the plain device, the '
+  + 'container, or one ordered entry and device path; repeated names stay distinct through their positions. A '
+  + 'target has an exact DirectParameter id and name only when both resolve; an unresolved target is marked. An '
+  + 'ambiguous or incomplete structure is unsupported (code unsupported) and is never guessed. The result has no '
+  + 'binary selector. Nothing changes in Bitwig or in the preset file. Give the fingerprint to '
+  + 'edit_preset_modulation: it refuses changed file bytes.';
+
+/** 8i7 (E255 item): the agent-native-v1 text of reverse_existing_device_modulation_wrap. */
+const UNWRAP_DESCRIPTION = `${PROFILE} Reverse one checkpoint that wrap_existing_device_modulation returned. The `
+  + 'tool checks the checkpoint against the FX Layer insertion that this server process recorded, the complete '
+  + 'current top-level device order, the parent-child edge, the enabled state, and the parameter-base fingerprint '
+  + 'of the device. It then moves the same device out to its exact prior top-level position, and removes only the '
+  + 'empty owned container. A change by another writer refuses before the affected stage. A partial reversal '
+  + '(code partial) returns each completed stage and never removes a container that still holds the device.';
+
 function modulationTools(stable: { inspect: ToolSpec; author: ToolSpec; wrap: ToolSpec }): ToolSpec[] {
   const authoring = modulatorAuthoringSchemas({
     readControls: 'read_device_controls', readPresetModulation: 'read_preset_modulation', behaviorChecks: false });
@@ -1472,7 +1490,7 @@ function modulationTools(stable: { inspect: ToolSpec; author: ToolSpec; wrap: To
       ...stable.inspect,
       name: 'read_preset_modulation',
       title: 'Read preset modulation',
-      description: stable.inspect.description.replace('the later semantic write', 'edit_preset_modulation'),
+      description: READ_PRESET_DESCRIPTION,
       inputSchema: presetModulationInspectionInputSchema,
       inputValidator: presetModulationInspectionInputValidator,
       run: (_workspace, input) => runPresetModulationInspection(input as never),
@@ -1593,6 +1611,8 @@ export function agentNativeDeviceTools(stable: readonly ToolSpec[]): {
   // 8h4f: set_device_enabled, revert_change, and check_revert moved to agent-native-retained.ts.
   const replacements = new Map<string, ToolSpec>([
     ['wrap_existing_device_modulation', wrap!],
+    ['reverse_existing_device_modulation_wrap', { ...named('reverse_existing_device_modulation_wrap'),
+      description: UNWRAP_DESCRIPTION }],
     ['delete_device', deviceDeletionTool(named('delete_device'))],
   ]);
   return { additions, replacements };

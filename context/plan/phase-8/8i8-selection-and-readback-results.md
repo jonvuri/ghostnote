@@ -63,8 +63,8 @@ result state less than, or other than, what happened.
    moved selection. Do not change the selection of an unrelated operator
    action.
 4. Update the descriptions and result contracts that change, bump
-   `TOOL_DESCRIPTION_VERSION`, and keep `stable-v1` frozen. If 8i7 ran
-   first and its description items are still open, include them here.
+   `TOOL_DESCRIPTION_VERSION`, and keep `stable-v1` frozen. 8i7 shipped its
+   description items in v43 (E257).
 
 ## Cost model
 

@@ -1,0 +1,953 @@
+{
+  "schema": "phase8i7-mixer-v1",
+  "project": "New 3",
+  "stats": {
+    "profile": "normal-v1",
+    "rigConstructMicros": 78705,
+    "initMicros": 110149,
+    "heapUsedMb": 928,
+    "heapMaxMb": 3072,
+    "tracks": 256
+  },
+  "before": {
+    "selection": {
+      "trackIndex": 0,
+      "slotIndex": 0,
+      "mixerTrackIndex": 12,
+      "changes": 1,
+      "revision": 17
+    },
+    "tracks": [
+      {
+        "id": "7a3cb88e-d451-479b-a943-3c317a26e3ea",
+        "name": "Inst 1",
+        "type": "Instrument",
+        "position": 0,
+        "hidden": false
+      },
+      {
+        "id": "5b8d718e-1ca3-4449-a0af-e798cb2d1be6",
+        "name": "Audio 2",
+        "type": "Audio",
+        "position": 1,
+        "hidden": false
+      },
+      {
+        "id": "23ba624c-3366-4f48-af43-a90141bcd623",
+        "name": "Hybrid 3",
+        "type": "Hybrid",
+        "position": 2,
+        "hidden": false
+      },
+      {
+        "id": "24acbc0f-3d1a-4460-a592-831c7b1ce6a6",
+        "name": "Group 4",
+        "type": "Group",
+        "position": 3,
+        "hidden": false
+      },
+      {
+        "id": "20e6b48b-d850-4617-bbcc-9882cef9d6b0",
+        "name": "Audio 1",
+        "type": "Audio",
+        "position": 4,
+        "hidden": true
+      },
+      {
+        "id": "e0125e74-cde8-4bde-b764-40498f7fd2bf",
+        "name": "gn-8i7-m0",
+        "type": "Instrument",
+        "position": 5,
+        "hidden": false
+      },
+      {
+        "id": "122afb5a-8bcc-4f2e-8e17-e03fe1c7d740",
+        "name": "gn-8i7-m1",
+        "type": "Instrument",
+        "position": 6,
+        "hidden": false
+      },
+      {
+        "id": "a636ab81-3f2c-4a34-8ed2-870701e7c7fd",
+        "name": "gn-8i7-m2",
+        "type": "Instrument",
+        "position": 7,
+        "hidden": false
+      },
+      {
+        "id": "b9d3e402-6087-4c2e-a584-824d5f789396",
+        "name": "gn-8i7-m3",
+        "type": "Instrument",
+        "position": 8,
+        "hidden": false
+      },
+      {
+        "id": "a42457ce-04a1-4cc2-9a8c-44e101e84856",
+        "name": "gn-8i7-m4",
+        "type": "Instrument",
+        "position": 9,
+        "hidden": false
+      },
+      {
+        "id": "e31b8c86-194b-4eaf-91c3-cc4d0a3b8f7d",
+        "name": "gn-8i7-m5",
+        "type": "Instrument",
+        "position": 10,
+        "hidden": false
+      },
+      {
+        "id": "41c6a5a5-0f17-4dac-823f-b2a52795efaa",
+        "name": "gn-8i7-m6",
+        "type": "Instrument",
+        "position": 11,
+        "hidden": false
+      },
+      {
+        "id": "7f376a40-d780-4c58-b9ad-0461ac77331f",
+        "name": "gn-8i7-m7",
+        "type": "Instrument",
+        "position": 12,
+        "hidden": false
+      },
+      {
+        "id": "f0609e4d-9874-4e0c-a8a0-86be09b48683",
+        "name": "FX 1",
+        "type": "Effect",
+        "position": 13,
+        "hidden": false
+      },
+      {
+        "id": "9d080fc4-d624-4aaf-8d30-a39f99897ff1",
+        "name": "Master",
+        "type": "Master",
+        "position": 14,
+        "hidden": false
+      }
+    ]
+  },
+  "one": {
+    "read": {
+      "ms": 46,
+      "wire": {
+        "turns": 2,
+        "wireMs": 42,
+        "methods": {
+          "revision.get": 1,
+          "track.list": 1,
+          "track.mixer": 1
+        },
+        "clipReads": 0,
+        "stages": 0
+      },
+      "sequence": [
+        "revision.get@2+22",
+        "track.list@2+24",
+        "track.mixer@27+18"
+      ],
+      "timing": {
+        "totalMs": 44
+      },
+      "status": null
+    },
+    "set": {
+      "ms": 268,
+      "wire": {
+        "turns": 10,
+        "wireMs": 235,
+        "methods": {
+          "revision.get": 5,
+          "track.list": 5,
+          "track.mixer": 2,
+          "selection.status": 1,
+          "slot.status": 1,
+          "batch.run": 1
+        },
+        "clipReads": 0,
+        "stages": 1
+      },
+      "sequence": [
+        "revision.get@1+21",
+        "track.list@1+22",
+        "track.mixer@23+25",
+        "selection.status@50+24",
+        "slot.status@73+24",
+        "revision.get@98+25",
+        "track.list@98+26",
+        "batch.run@126+19",
+        "revision.get@144+25",
+        "track.list@144+26",
+        "revision.get@197+22",
+        "track.list@197+23",
+        "track.mixer@221+25",
+        "revision.get@246+20",
+        "track.list@246+20"
+      ],
+      "timing": {
+        "totalMs": 267
+      },
+      "status": "verified"
+    },
+    "revert": {
+      "ms": 369,
+      "wire": {
+        "turns": 14,
+        "wireMs": 336,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 8,
+          "track.mixer": 3,
+          "selection.status": 1,
+          "slot.status": 1,
+          "batch.run": 1
+        },
+        "clipReads": 0,
+        "stages": 1
+      },
+      "sequence": [
+        "revision.get@1+24",
+        "track.list@1+24",
+        "track.mixer@26+25",
+        "revision.get@51+23",
+        "track.list@51+24",
+        "selection.status@78+20",
+        "slot.status@98+25",
+        "revision.get@124+24",
+        "track.list@124+26",
+        "revision.get@149+19",
+        "track.list@149+20",
+        "track.mixer@170+24",
+        "revision.get@194+24",
+        "track.list@194+25",
+        "batch.run@219+25",
+        "revision.get@244+25",
+        "track.list@244+26",
+        "revision.get@296+22",
+        "track.list@296+23",
+        "track.mixer@319+24",
+        "revision.get@343+24",
+        "track.list@343+25"
+      ],
+      "timing": null,
+      "status": "verified"
+    },
+    "host": {
+      "volumeRaw": 0.5011872336272722,
+      "display": "-18.0 dB"
+    }
+  },
+  "eight": {
+    "read": {
+      "ms": 51,
+      "wire": {
+        "turns": 2,
+        "wireMs": 50,
+        "methods": {
+          "revision.get": 1,
+          "track.list": 1,
+          "track.mixer": 1
+        },
+        "clipReads": 0,
+        "stages": 0
+      },
+      "sequence": [
+        "revision.get@0+24",
+        "track.list@0+25",
+        "track.mixer@25+25"
+      ],
+      "timing": {
+        "totalMs": 51
+      },
+      "status": null
+    },
+    "set": {
+      "ms": 272,
+      "wire": {
+        "turns": 10,
+        "wireMs": 241,
+        "methods": {
+          "revision.get": 5,
+          "track.list": 5,
+          "track.mixer": 2,
+          "selection.status": 1,
+          "slot.status": 1,
+          "batch.run": 1
+        },
+        "clipReads": 0,
+        "stages": 1
+      },
+      "sequence": [
+        "revision.get@0+23",
+        "track.list@1+24",
+        "track.mixer@25+24",
+        "selection.status@49+23",
+        "slot.status@73+24",
+        "revision.get@97+25",
+        "track.list@97+25",
+        "batch.run@123+28",
+        "revision.get@151+21",
+        "track.list@151+25",
+        "revision.get@202+17",
+        "track.list@202+17",
+        "track.mixer@220+25",
+        "revision.get@245+25",
+        "track.list@245+25"
+      ],
+      "timing": {
+        "totalMs": 271
+      },
+      "status": "verified"
+    },
+    "revert": {
+      "ms": 364,
+      "wire": {
+        "turns": 14,
+        "wireMs": 331,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 8,
+          "track.mixer": 3,
+          "selection.status": 1,
+          "slot.status": 1,
+          "batch.run": 1
+        },
+        "clipReads": 0,
+        "stages": 1
+      },
+      "sequence": [
+        "revision.get@1+22",
+        "track.list@1+24",
+        "track.mixer@25+19",
+        "revision.get@44+25",
+        "track.list@44+26",
+        "selection.status@73+22",
+        "slot.status@95+25",
+        "revision.get@120+25",
+        "track.list@120+26",
+        "revision.get@146+24",
+        "track.list@146+25",
+        "track.mixer@171+19",
+        "revision.get@191+24",
+        "track.list@191+25",
+        "batch.run@216+24",
+        "revision.get@241+24",
+        "track.list@241+25",
+        "revision.get@292+21",
+        "track.list@292+21",
+        "track.mixer@313+25",
+        "revision.get@338+25",
+        "track.list@338+25"
+      ],
+      "timing": null,
+      "status": "verified"
+    },
+    "observed": [
+      {
+        "volumeDb": "-inf",
+        "volumeRaw": 0,
+        "volumeNormalized": 0,
+        "display": "-Inf dB",
+        "pan": -1
+      },
+      {
+        "volumeDb": -120,
+        "volumeRaw": 0.01,
+        "volumeNormalized": 0.007937005259840998,
+        "display": "-120 dB",
+        "pan": 1
+      },
+      {
+        "volumeDb": -18,
+        "volumeRaw": 0.5011872336272722,
+        "volumeNormalized": 0.3977925709464819,
+        "display": "-18.0 dB",
+        "pan": -0.5
+      },
+      {
+        "volumeDb": -12,
+        "volumeRaw": 0.6309573444801932,
+        "volumeNormalized": 0.5007911761874603,
+        "display": "-12.0 dB",
+        "pan": 0.5
+      },
+      {
+        "volumeDb": 0,
+        "volumeRaw": 1,
+        "volumeNormalized": 0.7937005259840999,
+        "display": "0.0 dB",
+        "pan": 0.25
+      },
+      {
+        "volumeDb": 6.0206,
+        "volumeRaw": 1.259921049894873,
+        "volumeNormalized": 1,
+        "display": "+6.0 dB",
+        "pan": -0.25
+      },
+      {
+        "volumeDb": -6,
+        "volumeRaw": 0.7943282347242815,
+        "volumeNormalized": 0.6304587377046837,
+        "display": "-6.0 dB",
+        "pan": 0.1
+      },
+      {
+        "volumeDb": -3,
+        "volumeRaw": 0.8912509381337456,
+        "volumeNormalized": 0.7073863383805763,
+        "display": "-3.0 dB",
+        "pan": -0.1
+      }
+    ],
+    "selectionWhileSolo": {
+      "trackIndex": 0,
+      "slotIndex": 0,
+      "mixerTrackIndex": 12,
+      "changes": 1,
+      "revision": 17
+    }
+  },
+  "noop": {
+    "ms": 47,
+    "wire": {
+      "turns": 2,
+      "wireMs": 46,
+      "methods": {
+        "revision.get": 1,
+        "track.list": 1,
+        "track.mixer": 1
+      },
+      "clipReads": 0,
+      "stages": 0
+    },
+    "sequence": [
+      "revision.get@0+22",
+      "track.list@0+22",
+      "track.mixer@23+24"
+    ],
+    "timing": {
+      "totalMs": 46
+    },
+    "status": "unchanged"
+  },
+  "guarded": {
+    "check": {
+      "wouldWriteAnything": true,
+      "fullyRestorable": false,
+      "wouldRestore": [
+        {
+          "what": "track",
+          "trackId": "122afb5a-8bcc-4f2e-8e17-e03fe1c7d740",
+          "mixerField": "volume"
+        }
+      ],
+      "wouldNotRestore": [
+        {
+          "where": {
+            "what": "track",
+            "trackId": "122afb5a-8bcc-4f2e-8e17-e03fe1c7d740",
+            "mixerField": "pan"
+          },
+          "what": "mixer",
+          "why": "what is here now is not what this change left, and nothing this session did explains the difference — so a person edited it. Overwriting it would destroy somebody else's work, which is never ours to decide."
+        }
+      ],
+      "caveats": []
+    },
+    "revert": {
+      "ms": 356,
+      "wire": {
+        "turns": 14,
+        "wireMs": 326,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 8,
+          "track.mixer": 3,
+          "selection.status": 1,
+          "slot.status": 1,
+          "batch.run": 1
+        },
+        "clipReads": 0,
+        "stages": 1
+      },
+      "sequence": [
+        "revision.get@0+18",
+        "track.list@1+18",
+        "track.mixer@19+25",
+        "revision.get@45+24",
+        "track.list@45+25",
+        "selection.status@71+18",
+        "slot.status@89+25",
+        "revision.get@115+24",
+        "track.list@115+24",
+        "revision.get@140+23",
+        "track.list@140+23",
+        "track.mixer@163+24",
+        "revision.get@187+25",
+        "track.list@187+27",
+        "batch.run@214+19",
+        "revision.get@234+25",
+        "track.list@234+26",
+        "revision.get@286+21",
+        "track.list@286+20",
+        "track.mixer@307+25",
+        "revision.get@332+23",
+        "track.list@332+24"
+      ],
+      "timing": null,
+      "status": "verified"
+    },
+    "after": {
+      "trackIndex": 6,
+      "channelId": "122afb5a-8bcc-4f2e-8e17-e03fe1c7d740",
+      "matches": true,
+      "type": "Instrument",
+      "volumeRaw": 0.6812920690579614,
+      "volumeNormalized": 0.5407418735600996,
+      "volumeDisplayed": "-10.0 dB",
+      "volumeAutomated": false,
+      "panRaw": 0.75,
+      "panAutomated": false,
+      "mute": false,
+      "solo": false
+    }
+  },
+  "kinds": [
+    {
+      "name": "Inst 1",
+      "type": "Instrument",
+      "hidden": false,
+      "volumeAutomated": true,
+      "panAutomated": false,
+      "read": {
+        "ms": 48,
+        "data": {
+          "trackId": "7a3cb88e-d451-479b-a943-3c317a26e3ea",
+          "name": "Inst 1",
+          "kind": "Instrument",
+          "volume": {
+            "db": -10,
+            "display": "-10.0 dB",
+            "automated": true
+          },
+          "pan": {
+            "value": 0,
+            "automated": false
+          },
+          "mute": false,
+          "solo": false
+        }
+      },
+      "automationRefusal": {
+        "ms": 50,
+        "turns": 2,
+        "detail": {
+          "reason": "automation",
+          "fields": [
+            {
+              "trackId": "7a3cb88e-d451-479b-a943-3c317a26e3ea",
+              "field": "volume"
+            }
+          ]
+        }
+      },
+      "set": {
+        "field": {
+          "pan": 0.5
+        },
+        "ms": 274,
+        "turns": 10
+      },
+      "revert": {
+        "ms": 368,
+        "turns": 14
+      }
+    },
+    {
+      "name": "Audio 2",
+      "type": "Audio",
+      "hidden": false,
+      "volumeAutomated": false,
+      "panAutomated": false,
+      "read": {
+        "ms": 50,
+        "data": {
+          "trackId": "5b8d718e-1ca3-4449-a0af-e798cb2d1be6",
+          "name": "Audio 2",
+          "kind": "Audio",
+          "volume": {
+            "db": -10,
+            "display": "-10.0 dB",
+            "automated": false
+          },
+          "pan": {
+            "value": 0,
+            "automated": false
+          },
+          "mute": false,
+          "solo": false
+        }
+      },
+      "set": {
+        "field": {
+          "pan": 0.5
+        },
+        "ms": 270,
+        "turns": 10
+      },
+      "revert": {
+        "ms": 366,
+        "turns": 14
+      }
+    },
+    {
+      "name": "Hybrid 3",
+      "type": "Hybrid",
+      "hidden": false,
+      "volumeAutomated": false,
+      "panAutomated": false,
+      "read": {
+        "ms": 49,
+        "data": {
+          "trackId": "23ba624c-3366-4f48-af43-a90141bcd623",
+          "name": "Hybrid 3",
+          "kind": "Hybrid",
+          "volume": {
+            "db": -10,
+            "display": "-10.0 dB",
+            "automated": false
+          },
+          "pan": {
+            "value": 0,
+            "automated": false
+          },
+          "mute": false,
+          "solo": false
+        }
+      },
+      "set": {
+        "field": {
+          "pan": 0.5
+        },
+        "ms": 274,
+        "turns": 10
+      },
+      "revert": {
+        "ms": 373,
+        "turns": 14
+      }
+    },
+    {
+      "name": "Group 4",
+      "type": "Group",
+      "hidden": false,
+      "volumeAutomated": false,
+      "panAutomated": false,
+      "read": {
+        "ms": 51,
+        "data": {
+          "trackId": "24acbc0f-3d1a-4460-a592-831c7b1ce6a6",
+          "name": "Group 4",
+          "kind": "Group",
+          "volume": {
+            "db": 0,
+            "display": "0.0 dB",
+            "automated": false
+          },
+          "pan": {
+            "value": 0,
+            "automated": false
+          },
+          "mute": false,
+          "solo": false
+        }
+      },
+      "set": {
+        "field": {
+          "pan": 0.5
+        },
+        "ms": 261,
+        "turns": 10
+      },
+      "revert": {
+        "ms": 363,
+        "turns": 14
+      }
+    },
+    {
+      "name": "Audio 1",
+      "type": "Audio",
+      "hidden": true,
+      "volumeAutomated": false,
+      "panAutomated": false,
+      "read": {
+        "ms": 47,
+        "data": {
+          "trackId": "20e6b48b-d850-4617-bbcc-9882cef9d6b0",
+          "name": "Audio 1",
+          "kind": "Audio",
+          "volume": {
+            "db": -10,
+            "display": "-10.0 dB",
+            "automated": false
+          },
+          "pan": {
+            "value": 0,
+            "automated": false
+          },
+          "mute": false,
+          "solo": false
+        }
+      },
+      "set": {
+        "field": {
+          "pan": 0.5
+        },
+        "ms": 261,
+        "turns": 10
+      },
+      "revert": {
+        "ms": 366,
+        "turns": 14
+      }
+    },
+    {
+      "name": "FX 1",
+      "type": "Effect",
+      "hidden": false,
+      "volumeAutomated": true,
+      "panAutomated": false,
+      "read": {
+        "ms": 47,
+        "data": {
+          "trackId": "f0609e4d-9874-4e0c-a8a0-86be09b48683",
+          "name": "FX 1",
+          "kind": "Effect",
+          "volume": {
+            "db": 0,
+            "display": "0.0 dB",
+            "automated": true
+          },
+          "pan": {
+            "value": 0,
+            "automated": false
+          },
+          "mute": false,
+          "solo": false
+        }
+      },
+      "automationRefusal": {
+        "ms": 48,
+        "turns": 2,
+        "detail": {
+          "reason": "automation",
+          "fields": [
+            {
+              "trackId": "f0609e4d-9874-4e0c-a8a0-86be09b48683",
+              "field": "volume"
+            }
+          ]
+        }
+      },
+      "set": {
+        "field": {
+          "pan": 0.5
+        },
+        "ms": 264,
+        "turns": 10
+      },
+      "revert": {
+        "ms": 364,
+        "turns": 14
+      }
+    }
+  ],
+  "after": {
+    "selection": {
+      "trackIndex": 0,
+      "slotIndex": 0,
+      "mixerTrackIndex": 12,
+      "changes": 1,
+      "revision": 17
+    },
+    "tracks": [
+      {
+        "id": "7a3cb88e-d451-479b-a943-3c317a26e3ea",
+        "name": "Inst 1",
+        "type": "Instrument",
+        "position": 0,
+        "hidden": false
+      },
+      {
+        "id": "5b8d718e-1ca3-4449-a0af-e798cb2d1be6",
+        "name": "Audio 2",
+        "type": "Audio",
+        "position": 1,
+        "hidden": false
+      },
+      {
+        "id": "23ba624c-3366-4f48-af43-a90141bcd623",
+        "name": "Hybrid 3",
+        "type": "Hybrid",
+        "position": 2,
+        "hidden": false
+      },
+      {
+        "id": "24acbc0f-3d1a-4460-a592-831c7b1ce6a6",
+        "name": "Group 4",
+        "type": "Group",
+        "position": 3,
+        "hidden": false
+      },
+      {
+        "id": "20e6b48b-d850-4617-bbcc-9882cef9d6b0",
+        "name": "Audio 1",
+        "type": "Audio",
+        "position": 4,
+        "hidden": true
+      },
+      {
+        "id": "e0125e74-cde8-4bde-b764-40498f7fd2bf",
+        "name": "gn-8i7-m0",
+        "type": "Instrument",
+        "position": 5,
+        "hidden": false
+      },
+      {
+        "id": "122afb5a-8bcc-4f2e-8e17-e03fe1c7d740",
+        "name": "gn-8i7-m1",
+        "type": "Instrument",
+        "position": 6,
+        "hidden": false
+      },
+      {
+        "id": "a636ab81-3f2c-4a34-8ed2-870701e7c7fd",
+        "name": "gn-8i7-m2",
+        "type": "Instrument",
+        "position": 7,
+        "hidden": false
+      },
+      {
+        "id": "b9d3e402-6087-4c2e-a584-824d5f789396",
+        "name": "gn-8i7-m3",
+        "type": "Instrument",
+        "position": 8,
+        "hidden": false
+      },
+      {
+        "id": "a42457ce-04a1-4cc2-9a8c-44e101e84856",
+        "name": "gn-8i7-m4",
+        "type": "Instrument",
+        "position": 9,
+        "hidden": false
+      },
+      {
+        "id": "e31b8c86-194b-4eaf-91c3-cc4d0a3b8f7d",
+        "name": "gn-8i7-m5",
+        "type": "Instrument",
+        "position": 10,
+        "hidden": false
+      },
+      {
+        "id": "41c6a5a5-0f17-4dac-823f-b2a52795efaa",
+        "name": "gn-8i7-m6",
+        "type": "Instrument",
+        "position": 11,
+        "hidden": false
+      },
+      {
+        "id": "7f376a40-d780-4c58-b9ad-0461ac77331f",
+        "name": "gn-8i7-m7",
+        "type": "Instrument",
+        "position": 12,
+        "hidden": false
+      },
+      {
+        "id": "f0609e4d-9874-4e0c-a8a0-86be09b48683",
+        "name": "FX 1",
+        "type": "Effect",
+        "position": 13,
+        "hidden": false
+      },
+      {
+        "id": "9d080fc4-d624-4aaf-8d30-a39f99897ff1",
+        "name": "Master",
+        "type": "Master",
+        "position": 14,
+        "hidden": false
+      }
+    ]
+  },
+  "final": {
+    "selection": {
+      "trackIndex": 0,
+      "slotIndex": 0,
+      "mixerTrackIndex": 5,
+      "changes": 1,
+      "revision": 24
+    },
+    "tracks": [
+      {
+        "id": "7a3cb88e-d451-479b-a943-3c317a26e3ea",
+        "name": "Inst 1",
+        "type": "Instrument",
+        "position": 0,
+        "hidden": false
+      },
+      {
+        "id": "5b8d718e-1ca3-4449-a0af-e798cb2d1be6",
+        "name": "Audio 2",
+        "type": "Audio",
+        "position": 1,
+        "hidden": false
+      },
+      {
+        "id": "23ba624c-3366-4f48-af43-a90141bcd623",
+        "name": "Hybrid 3",
+        "type": "Hybrid",
+        "position": 2,
+        "hidden": false
+      },
+      {
+        "id": "24acbc0f-3d1a-4460-a592-831c7b1ce6a6",
+        "name": "Group 4",
+        "type": "Group",
+        "position": 3,
+        "hidden": false
+      },
+      {
+        "id": "20e6b48b-d850-4617-bbcc-9882cef9d6b0",
+        "name": "Audio 1",
+        "type": "Audio",
+        "position": 4,
+        "hidden": true
+      },
+      {
+        "id": "f0609e4d-9874-4e0c-a8a0-86be09b48683",
+        "name": "FX 1",
+        "type": "Effect",
+        "position": 5,
+        "hidden": false
+      },
+      {
+        "id": "9d080fc4-d624-4aaf-8d30-a39f99897ff1",
+        "name": "Master",
+        "type": "Master",
+        "position": 6,
+        "hidden": false
+      }
+    ]
+  },
+  "unchanged": {
+    "selection": true,
+    "tracks": true,
+    "leftover": 0
+  },
+  "statsAfter": {
+    "profile": "normal-v1",
+    "rigConstructMicros": 78705,
+    "initMicros": 110149,
+    "heapUsedMb": 1102,
+    "heapMaxMb": 3072,
+    "tracks": 256
+  }
+}

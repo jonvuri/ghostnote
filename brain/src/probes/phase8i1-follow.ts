@@ -19,7 +19,7 @@ import { AGENT_NATIVE_TOOL_PROFILE, callTool } from '../surface/tools.js';
 import { workspaceOf } from '../surface/workspace.js';
 import { WireTransport } from './phase8h3c-promotion.js';
 import { typicalDesired, wireSummary } from './phase8h4g-inventory.js';
-import { NORMAL_8H4F } from './phase8h4f-measure.js';
+import { assertCurrentNormal } from './phase8h4f-measure.js';
 
 type Wire = Record<string, any>;
 const SCHEMA = 'phase8i1-follow-v1';
@@ -52,7 +52,7 @@ async function follow(dir: string): Promise<void> {
   const pins = async (): Promise<string[]> => (await request('revision.get')).unpinnedCursorTracks as string[];
 
   const hello = await request('contract.hello');
-  assert.deepEqual([hello.runtimeProfile, hello.methodCount, hello.methodsHash], [...NORMAL_8H4F]);
+  assertCurrentNormal(hello);
   const rig = await request('rig.info');
   assert.equal(rig.cursorTrackPins?.rule, 'owned-tracks-pinned-v1', 'deploy the 8i1 build');
   const mark = await request('revision.get');

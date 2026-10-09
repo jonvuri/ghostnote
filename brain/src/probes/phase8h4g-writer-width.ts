@@ -29,7 +29,7 @@ import { AGENT_NATIVE_TOOL_PROFILE, callTool } from '../surface/tools.js';
 import { workspaceOf } from '../surface/workspace.js';
 import { WireTransport } from './phase8h3c-promotion.js';
 import { wireSummary } from './phase8h4g-inventory.js';
-import { NORMAL_8H4F } from './phase8h4f-measure.js';
+import { assertCurrentNormal } from './phase8h4f-measure.js';
 
 type Wire = Record<string, any>;
 const SCHEMA = 'phase8h4g-writer-width-v1';
@@ -80,7 +80,7 @@ function sampleHeap(): { stop: () => Promise<{ peakUsedMb: number; maxMb: number
 
 async function guard(): Promise<Wire> {
   const hello = await transport.send({ method: 'contract.hello' }) as Wire;
-  assert.deepEqual([hello.runtimeProfile, hello.methodCount, hello.methodsHash], [...NORMAL_8H4F]);
+  assertCurrentNormal(hello);
   const mark = await transport.send({ method: 'revision.get' }) as Wire;
   assert(/^New \d+$/.test(mark.project) && mark.project !== ANCHOR, `use an owned unsaved project, got ${mark.project}`);
   const rig = await transport.send({ method: 'rig.info' }) as Wire;

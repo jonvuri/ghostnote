@@ -328,3 +328,39 @@ const EXPECTED_8H4G_BUDGETS: Record<string, Counts> = {
   'set-controls': { devices: 1, read: 2, apply: 1, delta: 1 },
   'delete-device': { read: 3, devices: 3, resolve: 1, apply: 1, delta: 1 },
 };
+
+test('call budget: read_track_mixer, set_track_mixer, and the mixer reversal (8i7)', async () => {
+  const fx = await fixture();
+  const tracks = await fx.call('add_tracks', { tracks: Array.from({ length: 7 }, (_, index) => ({ name: `gn-m${index}` })) });
+  const ids = [fx.trackId, ...(tracks.result.readback.tracks as Wire[]).map((item) => item.trackId as string)];
+  const counts: Record<string, Counts> = {};
+  const run = async (label: string, name: string, args: Wire): Promise<Wire> => {
+    const { result, counts: used } = await fx.call(name, args);
+    assert.equal(result.failure, undefined, `${label}: ${JSON.stringify(result).slice(0, 300)}`);
+    counts[label] = used;
+    return result;
+  };
+  await run('read1', 'read_track_mixer', { trackIds: [fx.trackId] });
+  await run('read8', 'read_track_mixer', { trackIds: ids });
+  const one = await run('set1', 'set_track_mixer', { tracks: [{ trackId: fx.trackId, volumeDb: -18 }] });
+  const all = await run('set8', 'set_track_mixer', { tracks: ids.map((trackId, index) => ({
+    trackId, volumeDb: -12 - index, pan: 0.5, mute: true, solo: true })) });
+  await run('unchanged', 'set_track_mixer', { tracks: [{ trackId: fx.trackId, volumeDb: -12 }] });
+  await run('revert8', 'revert_change', { changeId: all.effects[0].changeId });
+  await run('revert1', 'revert_change', { changeId: one.effects[0].changeId });
+  assert.deepEqual(counts, EXPECTED_MIXER_BUDGETS);
+});
+
+// One adapter read is one mark turn and one `track.mixer` turn on the live adapter, for 1 or 8 tracks. A write
+// reads the prior fields once in the tool; that read is the executor stash (no resolve, no second stash read).
+// The executor applies (one stage for all fields), verifies, and asks for the launcher delta. An unchanged
+// request stops after the tool read. A reversal uses the generic revert path.
+const EXPECTED_MIXER_BUDGETS: Record<string, Counts> = {
+  read1: { read: 1 },
+  read8: { read: 1 },
+  set1: { read: 2, apply: 1, delta: 1 },
+  set8: { read: 2, apply: 1, delta: 1 },
+  unchanged: { read: 1 },
+  revert8: { read: 3, delta: 2, resolve: 1, apply: 1 },
+  revert1: { read: 3, delta: 2, resolve: 1, apply: 1 },
+};

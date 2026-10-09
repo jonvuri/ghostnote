@@ -5,8 +5,8 @@
   ],
   "profile": "probe",
   "identity": "phase-8-probe-v1",
-  "count": 107,
-  "methodsHash": "a4c9dcd1499f498a",
+  "count": 109,
+  "methodsHash": "82a7f9e8207286f1",
   "methods": [
     "api.runtimeMethods",
     "app.actions",
@@ -113,7 +113,9 @@
     "track.create",
     "track.delete",
     "track.list",
+    "track.mixer",
     "track.resolveByChannelId",
+    "track.setMixer",
     "track.setName"
   ]
 }

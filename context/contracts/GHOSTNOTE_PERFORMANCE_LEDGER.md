@@ -4,7 +4,7 @@ kind: reference
 state: active
 updated: 2026-10-09
 parent: ../plan/phase-8/8h-cache-promotion-and-interface-simplification.md
-evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252, E253, E254, E256
+evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252, E253, E254, E256, E257
 ---
 
 # Ghostnote performance ledger
@@ -28,8 +28,8 @@ session as a change that moves a number.
    `brain/src/surface/call-budget.test.ts` (adapter calls for each tool and
    route) and the call-budget tests in
    `brain/src/adapters/live/adapter.test.ts` (the wire frames of a mark, a
-   snapshot read, a bank scan after a mark, the writer page check, and the
-   writer park). When a
+   snapshot read, a bank scan after a mark, the writer page check, the
+   writer park, and the mixer read and write). When a
    budget changes on purpose, update the test and this ledger, and state the
    cost in the E record. `phase8h4g-inventory.test.ts` holds the offline time
    budget of the edit planner.
@@ -66,6 +66,9 @@ session as a change that moves a number.
 | One container read (`containerScope`, layer container, track not held) | About 8 turns (190 ms) | E238 trace |
 | One structural track stage (`track.create`, `track.duplicate`, `track.delete`): cursor release, rescan, mint poll | About 420 ms, 23 wire calls | E247 |
 | Bound heap for each sounding cell | About 300 bytes live (ZGC "used" is higher); 336 bytes in a held writer | E227, E246, E248 |
+| `track.mixer`, 1 or 8 tracks | One turn (18–25 ms) after the mark; every field of every named track | E257 |
+| Mixer write stage (`track.setMixer` frames, any count, in one `batch.run`) | One turn (19–28 ms); `setRaw` is visible to the next read (gate: 0 polls) | E257 |
+| Mixer observers (normal profile) | 7 values for each track, 1,792 at the 256-track window: init 110 ms, Rig construction 79 ms. The probe profile (the 7, the pan display, sends, input kinds, VU) on the same project: 102 ms, 86 ms | E257 |
 
 ## Product paths
 
@@ -129,6 +132,7 @@ these rows show no regression and fewer wire calls.
 | `set_device_controls`, one write | 2,398 ms; 66 wire calls | E247: 2,555–2,650 ms, 74 | unchanged | E250 |
 | `add_devices`, one native device | 1,363 ms; 51 wire calls | E247: 1,447–1,544 ms, 67 | unchanged | E250 |
 | One read and one 16-note insert ("New 2") | 1,723–1,793 ms; 54–56 wire calls | E248: 1,790–1,832 ms | unchanged | E250 cost |
+| One read and one 16-note insert, 8i7 build with the mixer observers ("New 3") | 1,789–1,812 ms; 54–56 wire calls | E250: 1,723–1,793 ms | unchanged | E257 rerun |
 
 ### Collapsed-group rerun (E251)
 
@@ -156,6 +160,11 @@ above stay the reference for top-level tracks.
 | `set_device_enabled`, 32 settings (D44 limit 32) | 21,695 ms | 16 settings: 9,752 ms | as one setting, for each | E252 |
 | `delete_track`, 3 and 4 tracks | 937 ms, 69 wire calls; 1,140 ms, 86 | Before (3): 2,009 ms; E239 (4): 2,517 ms | tracks 1, resolve 1, read 2, apply 1, delta 1 | E247 |
 | `list_changes` | 7 ms | No host call | none | E247 |
+| `read_track_mixer`, 1 track; 8 tracks | 46 ms; 51 ms; 2 turns (mark, `track.mixer`) | Plan: 4 turns (96 ms); 28 turns for 8 tracks | read 1 | E257 |
+| `set_track_mixer`, 1 field on 1 track; 4 fields on 8 tracks | 268 ms; 272 ms; 10 turns, 1 stage (the tool read is the stash) | Plan: 6–10 turns (144–240 ms); 54 turns for 8 tracks | read 2, apply 1, delta 1 | E257 |
+| `set_track_mixer`, every field already holds its value | 47 ms; 2 turns, no write | — | read 1 | E257 |
+| `set_track_mixer`, automation refusal | About 50 ms; 2 turns, no write | — | read 1 | E257 |
+| `revert_change` of a mixer change, 1 field; 32 fields on 8 tracks | 369 ms; 364 ms; 14 turns | E247 device enable revert: 775 ms | read 3, delta 2, resolve 1, apply 1 | E257 |
 | `check_revert`, a clip edit | 442 ms | E239: a rename, 42 ms | read 1, delta 1 | E247 |
 | `revert_change`, a targeted clip edit; a device enable | 1,581 ms; 775 ms | — | revert: read 3, delta 2, resolve 1, apply 1 | E247 |
 
@@ -217,6 +226,7 @@ polls and links the full traces.
 | Add at the reader limit, ZGC used peak | 2,450–2,786 MiB of 3,072 (the read alone: 2,168–2,196) | E248 |
 | Dense `cursor.getNotes*` scan without `maxX` | 8,192 steps | E248 |
 | Longest admitted direct call | `set_launcher_clip_properties` of 8 clips of 16,384 notes, 33.5 s (its revert 32.8 s); E247 stated the staged composition of 4 layer chains (30.6 s), but 5×4 took 102 s | E252, D44 |
+| Track mixer tracks in one call (`read_track_mixer`, `set_track_mixer`) | 8 (a plan bound: 8 tracks cost the same turns as 1) | E257, D48 |
 | D44 write limits | `compose_devices` 6 device units (plug-in 2, a device with modulators 2 more) and 4 modulators; `set_device_controls` 64 settings on 4 routes; `delete_device` 10; `set_device_enabled` 32; `rename_track` and `delete_track` 64; clip properties and launch settings 8 (host); copy 8; delete 4; move 8 rows; wrap 15 modulators (host). Refusal: `outside-limit` before any read or write; each bounded input states its limit in its schema text | D44 |
 | Launcher content events (`Rig.CONTENT_LOG`) | 24; a revert compares across them | E252 |
 | Remote-page window (`remotePages`) | 16 pages | E252 |

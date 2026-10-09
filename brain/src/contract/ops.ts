@@ -21,13 +21,14 @@
  * expressible. That is the point of a typed seam over a string wire.
  */
 import { addressKey, chainPath, clip, device } from './address.js';
-import type { ChainAddress, ClipAddress, DeviceAddress, DeviceSlotAddress, DrumPadAddress, ParamAddress, RemoteAddress, SceneAddress, SlotAddress, TrackAddress } from './address.js';
+import type { ChainAddress, ClipAddress, DeviceAddress, DeviceSlotAddress, DrumPadAddress, MixerAddress, ParamAddress, RemoteAddress, SceneAddress, SlotAddress, TrackAddress } from './address.js';
 import {
   lookupChain, lookupDeviceSlot, nestingObservable, projectedReorder, reorderIndistinguishable,
   type ObservedChain, type ObservedContainer, type ObservedDevice, type ObservedDeviceSequence,
 } from './chains.js';
 import { unwritableProps, type ClipMetadataState, type LaunchMode, type LaunchQuantization, type NoteRecord } from './state.js';
 import type { SettleBudget } from './budgets.js';
+import { mixerValueProblem } from './mixer.js';
 import { assertClipMetadataFields, type ClipMetadataField } from './clip-metadata.js';
 import {
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, InvalidOpError,
@@ -260,6 +261,13 @@ export type Op =
     readonly expectedEnabledChain: readonly boolean[];
   }
 
+  // --- track mixer (8i7, E257) ------------------------------------------------
+  /**
+   * Set one mixer field of one track to a host raw value (`mixer.ts`). The handler checks the channelId and the
+   * automation flag at execution, before any setter. The fields of one track share one stage.
+   */
+  | { readonly op: 'mixer.set'; readonly mixer: MixerAddress; readonly value: number | boolean }
+
   // --- progress signal ------------------------------------------------------
   // Free: E8-C interleaved notify ops into a paced batch and all fired, spaced
   // across it, without stalling it. Under optimistic apply this is not politeness
@@ -319,6 +327,8 @@ export const OP_SETTLE: Record<OpKind, SettleBudget | 'instant'> = {
   'chain.activate': 'tick',
   'chain.solo': 'tick',
   'drumPad.insert': 'deviceInsert',
+  // One turn: `setRaw` and the boolean setters land for the next read (8i7 gate, E257).
+  'mixer.set': 'instant',
 };
 
 /**
@@ -468,6 +478,10 @@ export function assertOpsWritable(ops: readonly Op[]): void {
         const problem = assertClipMetadataFields(op.fields);
         if (problem !== undefined) throw new InvalidOpError(op.op, problem);
       }
+    }
+    if (op.op === 'mixer.set') {
+      const problem = mixerValueProblem(op.mixer.field, op.value);
+      if (problem !== undefined) throw new InvalidOpError(op.op, problem);
     }
     if (op.op === 'clip.duplicate') {
       const source = op.source.slot;
@@ -645,6 +659,7 @@ export function sceneRowsOf(op: Op): readonly SceneAddress[] {
     case 'chain.solo':
     case 'drumPad.insert':
     case 'notify':
+    case 'mixer.set':
       return [];
     default:
       return assertNever(op, 'sceneRowsOf');
@@ -694,6 +709,7 @@ export function launcherSlotsOf(op: Op): readonly SlotAddress[] {
     case 'chain.solo':
     case 'drumPad.insert':
     case 'notify':
+    case 'mixer.set':
       return [];
     default:
       return assertNever(op, 'launcherSlotsOf');
@@ -767,6 +783,7 @@ function deviceRefsOf(op: Op): readonly DeviceAddress[] {
     case 'scene.create':
     case 'scene.delete':
     case 'notify':
+    case 'mixer.set':
       return [];
     default:
       return assertNever(op, 'deviceRefsOf');

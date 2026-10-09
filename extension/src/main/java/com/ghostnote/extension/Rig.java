@@ -938,6 +938,17 @@ public class Rig {
             track.trackType().markInterested();
             track.channelId().markInterested();
 
+            // 8i7 (E257): the product track mixer fields, in every profile. Seven values for each track: the
+            // raw and normalized volume share one value, the display is the unit check, and the two automation
+            // flags guard the write. No send, input, or VU observer.
+            track.volume().value().markInterested();
+            track.volume().value().displayedValue().markInterested();
+            track.volume().hasAutomation().markInterested();
+            track.pan().value().markInterested();
+            track.pan().hasAutomation().markInterested();
+            track.mute().markInterested();
+            track.solo().markInterested();
+
             // D13's Group regression reads these two values. The normal and
             // capture runtimes do not allocate the regression-only observers.
             if (profile.hasProbeResources()) {
@@ -959,11 +970,8 @@ public class Rig {
             // Use only the modern accessors (standing rule 9). sendBank() throws
             // at size 0, so the guard on config.sends stays (E16).
             if (profile.hasProbeResources()) {
-                track.volume().value().markInterested();
-                track.volume().value().displayedValue().markInterested();
-                track.pan().value().markInterested();
-                track.mute().markInterested();
-                track.solo().markInterested();
+                // 8i7: the product mixer values above cover volume, pan, mute, and solo.
+                track.pan().value().displayedValue().markInterested();
                 track.isMutedBySolo().markInterested();
                 track.isActivated().markInterested();
                 track.color().markInterested();

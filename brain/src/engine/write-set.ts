@@ -194,6 +194,10 @@ function targetsOf(op: Op): {
     case 'remote.set':
       return [{ address: op.remote, restore: 'replay' }];
 
+    // 8i7: one durable target for each field, so a later edit of another field does not block this one.
+    case 'mixer.set':
+      return [{ address: op.mixer, restore: 'replay' }];
+
     // No prior address exists for these.
     //
     // `track.create` and `scene.create` reach the take through `unrevertableOf`.

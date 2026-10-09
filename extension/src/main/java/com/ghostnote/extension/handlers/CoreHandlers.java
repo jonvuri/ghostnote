@@ -101,6 +101,8 @@ public final class CoreHandlers extends HandlerGroup {
         result.addProperty("clipMetadataWrite", CursorHandlers.CLIP_METADATA_WRITE);
         // 8i1 deliberate build marker: every owned cursor track stays pinned (D43).
         result.add("cursorTrackPins", rig.cursorTrackPins());
+        // 8i7 deliberate build marker: the raw track mixer route (E257).
+        result.addProperty("trackMixer", MixerHandlers.RULE);
         // 8h4a (D33): the track-bank content filter that init applied.
         result.addProperty("contentFilter", rig.contentFilterApplied);
         return result;

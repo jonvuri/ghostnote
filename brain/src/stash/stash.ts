@@ -65,7 +65,7 @@
  */
 import {
   addressKey, addressScene, addressTrack, clipColorWithinTolerance, clipMetadata as clipMetadataAt, contentTouching,
-  deltaComplete,
+  deltaComplete, sameMixerValue,
   type Address, type AddressKey, type ClipAddress, type ClipMetadataState, type ContentDelta, type Fidelity, type Op,
   type Snapshot, type StateEntry, type TrackAddress,
 } from '../contract/index.js';
@@ -900,9 +900,22 @@ function observed(snapshot: Snapshot, key: AddressKey): boolean {
     || snapshot.missing.some((a) => addressKey(a) === key);
 }
 
+/**
+ * 8i7 review: a mixer field is ours only when the readback holds the value that this take requested. A setter
+ * that refused at execution changed nothing, and a person's edit before the readback is theirs; a reversal of
+ * either would overwrite that person's value. An unread field stays, so the boundary returns `unverified`.
+ */
+function ownsMixerField(take: Take, target: WriteTarget): boolean {
+  if (target.address.kind !== 'mixer') return true;
+  if (!observed(take.verify, target.key)) return true;
+  const requested = [...take.ops].reverse().find((op) => op.op === 'mixer.set' && addressKey(op.mixer) === target.key);
+  const seen = take.verify.entries[target.key]?.value;
+  return requested?.op === 'mixer.set' && seen?.of === 'mixer' && sameMixerValue(requested.value, seen.mixer.value);
+}
+
 /** Targets that a complete or partially rejected request can still own. */
 function effectiveTargets(take: Take): readonly WriteTarget[] {
-  if (take.report.applied) return take.targets;
+  if (take.report.applied) return take.targets.filter((target) => ownsMixerField(take, target));
   if (!takeAppliedAnything(take)) return [];
   const direct = new Set(take.targets.filter((target) => {
     // An unread result cannot prove that an applied stage left this target
@@ -920,8 +933,9 @@ function effectiveTargets(take: Take): readonly WriteTarget[] {
     .filter((target) => direct.has(target.key) && target.address.kind === 'notes'
       && target.restore === 'replay')
     .map((target) => target.address.kind === 'notes' ? addressKey(target.address.clip) : ''));
-  return take.targets.filter((target) => direct.has(target.key)
-    || (target.address.kind === 'notes' && noteClips.has(addressKey(target.address.clip))));
+  return take.targets.filter((target) => (direct.has(target.key)
+    || (target.address.kind === 'notes' && noteClips.has(addressKey(target.address.clip))))
+    && ownsMixerField(take, target));
 }
 
 function summarize(change: StashedChangeset): ChangesetSummary {

@@ -229,6 +229,14 @@ The retained tools keep their names and change their result shape:
 A failure code changes on every tool: an unresolved trackId is `absent`, not
 `authority-unavailable`.
 
+8i7 (E257, D48) adds two tools with no `stable-v1` counterpart. Before 8i7, an
+agent set track gain only through computer control.
+
+| New tool | Class | Contract |
+|---|---|---|
+| `read_track_mixer` | read | `ghostnote-track-mixer/1`: volume in dB (`-inf` is silence, at most +6.0206) with the host display and the automation flag, pan -1..1 with its flag, mute, and solo, for at most 8 trackIds. A Master track refuses (`unsupported`) |
+| `set_track_mixer` | write | `ghostnote-track-mixer-set/1`: volumeDb, pan, mute, and nonexclusive solo for at most 8 tracks; omitted fields get no setter. Range, duplicate, empty-entry, kind, and automation refusals come before any write. Each field is `verified`, `differs`, `unchanged`, or `unavailable`; a refusal at execution after a written field is `partial`. `revert_change` restores each field that still holds what the change left |
+
 Observation compatibility policy: `agent-native-v1` captures nothing, so a
 storage failure cannot change its write results. The stored-record readers for
 observation JSON v1–v3 and the `observation.read` and `observation.replace`

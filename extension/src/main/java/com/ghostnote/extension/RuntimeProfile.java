@@ -188,7 +188,9 @@ public enum RuntimeProfile {
             "track.create",
             "track.delete",
             "track.list",
+            "track.mixer",
             "track.resolveByChannelId",
+            "track.setMixer",
             "track.setName",
             "transport.status",
             "transport.stop"
@@ -323,6 +325,7 @@ public enum RuntimeProfile {
             "slot.status",
             "stepdata.observer.read",
             "track.list",
+            "track.mixer",
             "track.resolveByChannelId",
             "transport.status"
         );
@@ -357,11 +360,11 @@ public enum RuntimeProfile {
             ALL_CLASSIFIED = Set.copyOf(classified);
 
             if (!PRODUCT.containsAll(OPTIONAL_CAPTURE)
-                    || PRODUCT.size() != 94
-                    || NORMAL.size() != 89
-                    || PROBE.size() != 107
+                    || PRODUCT.size() != 96
+                    || NORMAL.size() != 91
+                    || PROBE.size() != 109
                     || HISTORICAL.size() != 54
-                    || ALL_CLASSIFIED.size() != 166
+                    || ALL_CLASSIFIED.size() != 168
                     || !ALL_CLASSIFIED.containsAll(READS)
                     || !ALL_CLASSIFIED.containsAll(CLIP_READS)
                     || READS.stream().anyMatch(CLIP_READS::contains)) {

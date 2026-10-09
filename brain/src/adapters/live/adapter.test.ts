@@ -21,13 +21,14 @@ import {
   RuntimeProfileMismatchError, WriterWidthError,
   StaleAddressError, addressKey, chain as chainAt, clip, clipLaunch, clipMetadata, clipPlay, device as deviceAt, deviceEnabled,
   deviceIn as deviceInAt, deviceSlot,
-  drumPad, notes as notesAt, param, remote, remotes, scene, slot, snapshotAddresses, track,
+  drumPad, mixer, notes as notesAt, param, remote, remotes, scene, slot, snapshotAddresses, track,
   clipSnapshotFrom, decodeClipSnapshotRef, encodeClipSnapshotRef, unpinnedCursorTracksOf,
   type ClipAddress, type NoteRecord, type RevisionMark, type TrackAddress,
   CollapsedGroupRowError,
 } from '../../contract/index.js';
 import { BridgeError } from '../../client.js';
 import { LiveAdapter } from './adapter.js';
+import { Executor } from '../../engine/executor.js';
 import { checkCursorPins } from '../../surface/agent-native.js';
 import { ToolFailure } from '../../surface/agent-native-result.js';
 import { readFileSync } from 'node:fs';
@@ -4997,4 +4998,85 @@ test('8i3 container scope: an empty-slot descent gives up after two misses with 
   const result = await internals['containerScope'](TRACK, 0);
   assert.equal(frames.filter((method) => method === WIRE.deviceCursorSelectFirstInSlot).length, 2);
   assert.equal(result.ok ? result.container.slotsComplete === true : false, false, 'the slots stay incomplete');
+});
+
+/** 8i7: a bank of two tracks with raw mixer fields; `batch.run` applies `track.setMixer` frames to them. */
+function mixerTransport(frames: Frame[], moved: ReadonlySet<string> = new Set()): Transport {
+  const ids = ['track-a', 'track-b'];
+  const state: Record<string, Record<string, unknown>> = Object.fromEntries(ids.map((id) => [id,
+    { volumeRaw: 0.6812920690579614, panRaw: 0, mute: false, solo: false }]));
+  let revision = 1;
+  return {
+    async send(frame: Frame): Promise<unknown> {
+      frames.push(frame);
+      const params = (frame.params ?? {}) as Record<string, any>;
+      switch (frame.method) {
+        case WIRE.revisionGet:
+          return { revision, generation: 'g', sceneEpoch: 1, contentEpoch: 1, project: 'p', sceneCount: 4 };
+        case WIRE.trackList:
+          return { tracks: ids.map((channelId, index) => ({ index, name: channelId, position: index, type: 'Instrument',
+            channelId })), count: 2, itemCount: 2, bankSize: 256 };
+        case WIRE.trackMixer:
+          return { tracks: (params['tracks'] as { trackIndex: number; channelId: string }[]).map((row) =>
+            moved.has(row.channelId) ? { ...row, matches: false } : { ...row, matches: true, type: 'Instrument',
+              ...state[row.channelId], volumeNormalized: 0.54, volumeDisplayed: '-10.0 dB', volumeAutomated: false,
+              panAutomated: false }) };
+        case WIRE.batchRun: {
+          for (const op of params['ops'] as { params: Record<string, unknown> }[]) {
+            const target = state[op.params['expectedChannelId'] as string]!;
+            for (const key of ['volumeRaw', 'panRaw', 'mute', 'solo']) {
+              if (key in op.params) target[key] = op.params[key];
+            }
+          }
+          revision += 1;
+          return { applied: true, revision, count: params['ops'].length, failures: 0,
+            results: params['ops'].map((op: Frame) => ({ method: op.method, ok: true })) };
+        }
+        default:
+          return {};
+      }
+    },
+    async close() {},
+  };
+}
+
+test('8i7 call budget: a mixer read is one mark and one track.mixer for every track; a write is one batch.run', async () => {
+  const frames: Frame[] = [];
+  const adapter = new LiveAdapter({ transport: mixerTransport(frames) });
+  const fields = (id: string) => [track(id), ...(['volume', 'pan', 'mute', 'solo'] as const).map((f) => mixer(track(id), f))];
+  // When a list grows, update the performance ledger (GHOSTNOTE_PERFORMANCE_LEDGER.md).
+  const prior = await adapter.read([...fields('track-a'), ...fields('track-b')]);
+  assert.deepEqual(frames.map((frame) => frame.method), [WIRE.revisionGet, WIRE.trackList, WIRE.trackMixer]);
+  assert.deepEqual(frames[2]!.params, { tracks: [{ trackIndex: 0, channelId: 'track-a' },
+    { trackIndex: 1, channelId: 'track-b' }] });
+  assert.deepEqual(prior.entries[addressKey(mixer(track('track-a'), 'volume'))]?.value, { of: 'mixer',
+    mixer: { field: 'volume', value: 0.6812920690579614, automated: false, display: '-10.0 dB' } });
+  frames.length = 0;
+  const take = await new Executor(adapter).run([
+    { op: 'mixer.set', mixer: mixer(track('track-a'), 'volume'), value: 10 ** (-18 / 60) },
+    { op: 'mixer.set', mixer: mixer(track('track-a'), 'pan'), value: -0.5 },
+    { op: 'mixer.set', mixer: mixer(track('track-b'), 'solo'), value: true },
+  ], { parameterPreflight: prior });
+  assert.equal(take.report.applied, true);
+  assert.deepEqual(take.report.disagreements, []);
+  assert.deepEqual(frames.map((frame) => frame.method), [WIRE.selectionStatus, WIRE.slotStatus,
+    WIRE.revisionGet, WIRE.trackList, WIRE.batchRun, WIRE.revisionGet, WIRE.trackList,
+    WIRE.revisionGet, WIRE.trackList, WIRE.trackMixer, WIRE.revisionGet, WIRE.trackList]);
+  const batch = frames.find((frame) => frame.method === WIRE.batchRun)!;
+  // 8i7 review: the guard of the prior read (project and generation) goes with the stage.
+  assert.deepEqual(['expectedGeneration', 'expectedProject', 'expectedSceneEpoch']
+    .map((key) => (batch.params as Record<string, unknown>)[key]), ['g', 'p', 1]);
+  assert.deepEqual((batch.params as { ops: Frame[] }).ops, [
+    { method: WIRE.trackSetMixer, params: { trackIndex: 0, expectedChannelId: 'track-a', volumeRaw: 10 ** (-18 / 60) } },
+    { method: WIRE.trackSetMixer, params: { trackIndex: 0, expectedChannelId: 'track-a', panRaw: -0.5 } },
+    { method: WIRE.trackSetMixer, params: { trackIndex: 1, expectedChannelId: 'track-b', solo: true } },
+  ]);
+});
+
+test('8i7: a bank row whose channelId moved before track.mixer reads unstable, not absent', async () => {
+  const adapter = new LiveAdapter({ transport: mixerTransport([], new Set(['track-b'])) });
+  const snapshot = await adapter.read([mixer(track('track-a'), 'mute'), mixer(track('track-b'), 'mute')]);
+  assert.ok(snapshot.entries[addressKey(mixer(track('track-a'), 'mute'))] !== undefined);
+  assert.deepEqual(snapshot.unstable.map(addressKey), [addressKey(mixer(track('track-b'), 'mute'))]);
+  assert.deepEqual(snapshot.missing, []);
 });

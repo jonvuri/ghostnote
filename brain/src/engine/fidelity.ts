@@ -242,6 +242,10 @@ function valueCaveats(value: StateValue): string[] {
     }
     case 'remotes':
       return [];
+    case 'mixer':
+      return value.mixer.automated === true
+        ? ['the mixer field has automation, so a reversal write refuses until the automation is removed']
+        : [];
   }
 }
 

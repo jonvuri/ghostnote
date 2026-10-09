@@ -32,6 +32,11 @@ export const WRITE_LIMITS = Object.freeze({
   deviceDeletions: 10,
   /** set_device_enabled: settings in one call. */
   deviceEnabledSettings: 32,
+  /**
+   * read_track_mixer and set_track_mixer: tracks in one call (8i7). A plan bound, not a time limit: the 8-track
+   * read and write each take one `track.mixer` turn for each snapshot (E257).
+   */
+  trackMixerTracks: 8,
   /** rename_track and delete_track: tracks in one call. */
   trackBatch: 64,
   /** set_launcher_clip_properties and set_launcher_clip_launch_settings: one stage confirms 8 writer cursors. */

@@ -133,6 +133,26 @@ export interface FakeTrack {
   /** Indexed by scene. */
   slots: FakeSlot[];
   devices: FakeDevice[];
+  /** 8i7: host raw mixer values. Absent means the fresh-track defaults (`fakeMixerOf`). */
+  mixer?: FakeMixer;
+}
+
+/** 8i7: the raw mixer fields of one fake track, with the automation flags (E257 units). */
+export interface FakeMixer {
+  volume: number;
+  pan: number;
+  mute: boolean;
+  solo: boolean;
+  volumeAutomated: boolean;
+  panAutomated: boolean;
+}
+
+/** The mixer of a track, made with the measured fresh-track values (-10 dB, centre) on first use. */
+export function fakeMixerOf(track: FakeTrack): FakeMixer {
+  track.mixer ??= {
+    volume: 0.6812920690579614, pan: 0, mute: false, solo: false, volumeAutomated: false, panAutomated: false,
+  };
+  return track.mixer;
 }
 
 export const noteKey = (channel: number, pitch: number, startBeats: number): string =>

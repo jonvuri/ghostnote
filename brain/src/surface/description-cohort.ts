@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v42';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v43';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -531,13 +531,24 @@ export const DESCRIPTION_COHORT_V40: readonly DescriptionCohortMember[] =
  * v41 (8i6) adds get_document_reference before read_launcher_clip. The document inputs state the custom format,
  * carry a minimal valid example, and name the reference tool; a refused document input returns detail.repair.
  * v42 (8i9) keeps this list: get_document_reference names the timing templates, add_launcher_clip takes claims
- * with the document clip ID and no basis, and edit_launcher_clip names the claim templates.
+ * with the document clip ID and no basis, and edit_launcher_clip names the claim templates. Frozen in 8i7.
  */
-export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = DESCRIPTION_COHORT_V40.flatMap((member) =>
+export const DESCRIPTION_COHORT_V42: readonly DescriptionCohortMember[] = DESCRIPTION_COHORT_V40.flatMap((member) =>
   member.name !== 'read_launcher_clip' ? [member] : [{
     name: 'get_document_reference', kind: 'read' as const,
     reason: 'Returns the document format reference and templates without a host call.',
   }, member]);
+
+/**
+ * v43 (8i7, E257) adds read_track_mixer and set_track_mixer at the end. The document inputs state the pitch-name
+ * convention; read_preset_modulation and reverse_existing_device_modulation_wrap have agent-native-v1 text; and
+ * revert_change names the mixer fields.
+ */
+export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+  ...DESCRIPTION_COHORT_V42,
+  { name: 'read_track_mixer', kind: 'read', reason: 'Reads the track volume in dB, pan, mute, and solo.' },
+  { name: 'set_track_mixer', kind: 'write', reason: 'Sets the track volume in dB, pan, mute, and solo with readback.' },
+];
 
 interface ToolAnnotations {
   readonly readOnlyHint: boolean;
@@ -793,8 +804,14 @@ export const TOOL_DESCRIPTION_V41_SHA256 =
   '0fd8b5fa3f73f3b0c3093b3e2e4cc784721ff172fc54e0f77c1d16be30c2bb74';
 
 /**
- * v42 (8i9): the timing templates of get_document_reference, and claims on clip creation. Changing this
- * fingerprint requires a new description version.
+ * v42 (8i9): the timing templates of get_document_reference, and claims on clip creation. Frozen in 8i7.
  */
 export const TOOL_DESCRIPTION_V42_SHA256 =
   'b477591bae62de3845d0dd5cf200b030c57504d58e1855260f6dc84778983b00';
+
+/**
+ * v43 (8i7, E257): the track mixer tools, the pitch-name convention, and the agent-native-v1 text of two
+ * modulation tools. Changing this fingerprint requires a new description version.
+ */
+export const TOOL_DESCRIPTION_V43_SHA256 =
+  '7ba0be9f7829f2fdab3b98b3ba66cdea8533a85fac4b03d01e0d6e18ae8aefe7';

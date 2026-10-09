@@ -59,6 +59,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D45 | The edit limb seals explicit overlay claims **[SETTLED 2026-10-09]** | [open](d45-the-edit-limb-seals-explicit-overlay-claims.md) |
 | D46 | Modulation writers claim the route, not the sound **[SETTLED 2026-10-09]** | [open](d46-modulation-writers-claim-the-route-not-the-sound.md) |
 | D47 | Clip creation binds claims to the live clip **[SETTLED 2026-10-09]** | [open](d47-clip-creation-binds-claims-to-the-live-clip.md) |
+| D48 | The track mixer writes host raw values **[SETTLED 2026-10-09]** | [open](d48-track-mixer-writes-host-raw-values.md) |
 
 ## Phase 4 closeout audit
 

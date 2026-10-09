@@ -1,0 +1,952 @@
+{
+  "project": "New 3",
+  "track": "6eff5baa-51d0-446a-a68e-da272c665939",
+  "fresh": {
+    "volume": 0.5407418735600996,
+    "volumeRaw": 0.6812920690579614,
+    "volumeDisplayed": "-10.0 dB",
+    "pan": 0.5,
+    "panRaw": 0,
+    "panDisplayed": "0.00 %",
+    "volumeHasAutomation": false,
+    "panHasAutomation": false
+  },
+  "plainSet": {
+    "params": {
+      "volumeSet": 0.3
+    },
+    "before": 0.5407418735600996,
+    "after": {
+      "volume": 0.5407418735600996,
+      "volumeRaw": 0.6812920690579614,
+      "volumeDisplayed": "-10.0 dB",
+      "pan": 0.5,
+      "panRaw": 0,
+      "panDisplayed": "0.00 %",
+      "volumeHasAutomation": false,
+      "panHasAutomation": false
+    },
+    "landed": false,
+    "polls": 80,
+    "settleMs": 5818
+  },
+  "normalized": [
+    {
+      "params": {
+        "volume": 0
+      },
+      "before": 0.5407418735600996,
+      "after": {
+        "volume": 0,
+        "volumeRaw": 0,
+        "volumeDisplayed": "-Inf dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 72
+    },
+    {
+      "params": {
+        "volume": 0.01
+      },
+      "before": 0,
+      "after": {
+        "volume": 0.01,
+        "volumeRaw": 0.012599210498948729,
+        "volumeDisplayed": "-114 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 74
+    },
+    {
+      "params": {
+        "volume": 0.05
+      },
+      "before": 0.01,
+      "after": {
+        "volume": 0.049999999999999996,
+        "volumeRaw": 0.06299605249474365,
+        "volumeDisplayed": "-72.0 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 76
+    },
+    {
+      "params": {
+        "volume": 0.1
+      },
+      "before": 0.049999999999999996,
+      "after": {
+        "volume": 0.09999999999999999,
+        "volumeRaw": 0.1259921049894873,
+        "volumeDisplayed": "-54.0 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 74
+    },
+    {
+      "params": {
+        "volume": 0.2
+      },
+      "before": 0.09999999999999999,
+      "after": {
+        "volume": 0.19999999999999998,
+        "volumeRaw": 0.2519842099789746,
+        "volumeDisplayed": "-35.9 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 72
+    },
+    {
+      "params": {
+        "volume": 0.3
+      },
+      "before": 0.19999999999999998,
+      "after": {
+        "volume": 0.3,
+        "volumeRaw": 0.3779763149684619,
+        "volumeDisplayed": "-25.4 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 73
+    },
+    {
+      "params": {
+        "volume": 0.4
+      },
+      "before": 0.3,
+      "after": {
+        "volume": 0.39999999999999997,
+        "volumeRaw": 0.5039684199579492,
+        "volumeDisplayed": "-17.9 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 73
+    },
+    {
+      "params": {
+        "volume": 0.5
+      },
+      "before": 0.39999999999999997,
+      "after": {
+        "volume": 0.5,
+        "volumeRaw": 0.6299605249474365,
+        "volumeDisplayed": "-12.0 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 71
+    },
+    {
+      "params": {
+        "volume": 0.6
+      },
+      "before": 0.5,
+      "after": {
+        "volume": 0.6,
+        "volumeRaw": 0.7559526299369238,
+        "volumeDisplayed": "-7.3 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 73
+    },
+    {
+      "params": {
+        "volume": 0.7
+      },
+      "before": 0.6,
+      "after": {
+        "volume": 0.7,
+        "volumeRaw": 0.881944734926411,
+        "volumeDisplayed": "-3.3 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 73
+    },
+    {
+      "params": {
+        "volume": 0.75
+      },
+      "before": 0.7,
+      "after": {
+        "volume": 0.75,
+        "volumeRaw": 0.9449407874211547,
+        "volumeDisplayed": "-1.5 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 73
+    },
+    {
+      "params": {
+        "volume": 0.8
+      },
+      "before": 0.75,
+      "after": {
+        "volume": 0.7999999999999999,
+        "volumeRaw": 1.0079368399158983,
+        "volumeDisplayed": "+0.2 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 70
+    },
+    {
+      "params": {
+        "volume": 0.9
+      },
+      "before": 0.7999999999999999,
+      "after": {
+        "volume": 0.9,
+        "volumeRaw": 1.1339289449053858,
+        "volumeDisplayed": "+3.3 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 74
+    },
+    {
+      "params": {
+        "volume": 0.95
+      },
+      "before": 0.9,
+      "after": {
+        "volume": 0.95,
+        "volumeRaw": 1.1969249974001293,
+        "volumeDisplayed": "+4.7 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 73
+    },
+    {
+      "params": {
+        "volume": 1
+      },
+      "before": 0.95,
+      "after": {
+        "volume": 1,
+        "volumeRaw": 1.259921049894873,
+        "volumeDisplayed": "+6.0 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 70
+    }
+  ],
+  "raw": [
+    {
+      "db": -120,
+      "params": {
+        "volumeRaw": 0.000001
+      },
+      "before": 1.259921049894873,
+      "after": {
+        "volume": 7.937005259840998e-7,
+        "volumeRaw": 0.000001,
+        "volumeDisplayed": "-Inf dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 70
+    },
+    {
+      "db": -60,
+      "params": {
+        "volumeRaw": 0.001
+      },
+      "before": 0.000001,
+      "after": {
+        "volume": 0.0007937005259840999,
+        "volumeRaw": 0.001,
+        "volumeDisplayed": "-Inf dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 72
+    },
+    {
+      "db": -40,
+      "params": {
+        "volumeRaw": 0.01
+      },
+      "before": 0.001,
+      "after": {
+        "volume": 0.007937005259840998,
+        "volumeRaw": 0.01,
+        "volumeDisplayed": "-120 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 72
+    },
+    {
+      "db": -24,
+      "params": {
+        "volumeRaw": 0.06309573444801933
+      },
+      "before": 0.01,
+      "after": {
+        "volume": 0.05007911761874603,
+        "volumeRaw": 0.06309573444801933,
+        "volumeDisplayed": "-72.0 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 74
+    },
+    {
+      "db": -18,
+      "params": {
+        "volumeRaw": 0.12589254117941673
+      },
+      "before": 0.06309573444801933,
+      "after": {
+        "volume": 0.09992097615157801,
+        "volumeRaw": 0.12589254117941673,
+        "volumeDisplayed": "-54.0 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 72
+    },
+    {
+      "db": -12,
+      "params": {
+        "volumeRaw": 0.251188643150958
+      },
+      "before": 0.12589254117941673,
+      "after": {
+        "volume": 0.19936855819014773,
+        "volumeRaw": 0.251188643150958,
+        "volumeDisplayed": "-36.0 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 72
+    },
+    {
+      "db": -6,
+      "params": {
+        "volumeRaw": 0.5011872336272722
+      },
+      "before": 0.251188643150958,
+      "after": {
+        "volume": 0.3977925709464819,
+        "volumeRaw": 0.5011872336272722,
+        "volumeDisplayed": "-18.0 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 73
+    },
+    {
+      "db": -3,
+      "params": {
+        "volumeRaw": 0.7079457843841379
+      },
+      "before": 0.5011872336272722,
+      "after": {
+        "volume": 0.5618969414339164,
+        "volumeRaw": 0.7079457843841379,
+        "volumeDisplayed": "-9.0 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 71
+    },
+    {
+      "db": -1,
+      "params": {
+        "volumeRaw": 0.8912509381337456
+      },
+      "before": 0.7079457843841379,
+      "after": {
+        "volume": 0.7073863383805763,
+        "volumeRaw": 0.8912509381337456,
+        "volumeDisplayed": "-3.0 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 72
+    },
+    {
+      "db": 0,
+      "params": {
+        "volumeRaw": 1
+      },
+      "before": 0.8912509381337456,
+      "after": {
+        "volume": 0.7937005259840999,
+        "volumeRaw": 1,
+        "volumeDisplayed": "0.0 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 72
+    },
+    {
+      "db": 1,
+      "params": {
+        "volumeRaw": 1.1220184543019633
+      },
+      "before": 1,
+      "after": {
+        "volume": 0.8905466373433351,
+        "volumeRaw": 1.1220184543019633,
+        "volumeDisplayed": "+3.0 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 71
+    },
+    {
+      "db": 3,
+      "params": {
+        "volumeRaw": 1.4125375446227544
+      },
+      "before": 1.1220184543019633,
+      "after": {
+        "volume": 1,
+        "volumeRaw": 1.259921049894873,
+        "volumeDisplayed": "+6.0 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": false,
+      "polls": 80,
+      "settleMs": 5840
+    },
+    {
+      "db": 6,
+      "params": {
+        "volumeRaw": 1.9952623149688795
+      },
+      "before": 1.259921049894873,
+      "after": {
+        "volume": 1,
+        "volumeRaw": 1.259921049894873,
+        "volumeDisplayed": "+6.0 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": false,
+      "polls": 80,
+      "settleMs": 5822
+    },
+    {
+      "db": 6.0206,
+      "params": {
+        "volumeRaw": 2.0000000199681045
+      },
+      "before": 1.259921049894873,
+      "after": {
+        "volume": 1,
+        "volumeRaw": 1.259921049894873,
+        "volumeDisplayed": "+6.0 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": false,
+      "polls": 80,
+      "settleMs": 5828
+    },
+    {
+      "db": null,
+      "params": {
+        "volumeRaw": 0
+      },
+      "before": 1.259921049894873,
+      "after": {
+        "volume": 0,
+        "volumeRaw": 0,
+        "volumeDisplayed": "-Inf dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 64
+    },
+    {
+      "db": null,
+      "params": {
+        "volumeRaw": -0.5
+      },
+      "before": 0,
+      "after": {
+        "volume": 0,
+        "volumeRaw": 0,
+        "volumeDisplayed": "-Inf dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": false,
+      "polls": 80,
+      "settleMs": 5822
+    },
+    {
+      "db": null,
+      "params": {
+        "volumeRaw": 2.5
+      },
+      "before": 0,
+      "after": {
+        "volume": 1,
+        "volumeRaw": 1.259921049894873,
+        "volumeDisplayed": "+6.0 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 72
+    },
+    {
+      "db": null,
+      "params": {
+        "volumeRaw": 10
+      },
+      "before": 1.259921049894873,
+      "after": {
+        "volume": 1,
+        "volumeRaw": 1.259921049894873,
+        "volumeDisplayed": "+6.0 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": false,
+      "polls": 80,
+      "settleMs": 5780
+    }
+  ],
+  "pan": [
+    {
+      "params": {
+        "pan": 0
+      },
+      "before": 0.5,
+      "after": {
+        "volume": 1,
+        "volumeRaw": 1.259921049894873,
+        "volumeDisplayed": "+6.0 dB",
+        "pan": 0,
+        "panRaw": -1,
+        "panDisplayed": "-100 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 73
+    },
+    {
+      "params": {
+        "pan": 0.25
+      },
+      "before": 0,
+      "after": {
+        "volume": 1,
+        "volumeRaw": 1.259921049894873,
+        "volumeDisplayed": "+6.0 dB",
+        "pan": 0.25,
+        "panRaw": -0.5,
+        "panDisplayed": "-50.0 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 73
+    },
+    {
+      "params": {
+        "pan": 0.5
+      },
+      "before": 0.25,
+      "after": {
+        "volume": 1,
+        "volumeRaw": 1.259921049894873,
+        "volumeDisplayed": "+6.0 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 73
+    },
+    {
+      "params": {
+        "pan": 0.75
+      },
+      "before": 0.5,
+      "after": {
+        "volume": 1,
+        "volumeRaw": 1.259921049894873,
+        "volumeDisplayed": "+6.0 dB",
+        "pan": 0.75,
+        "panRaw": 0.5,
+        "panDisplayed": "50.0 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 71
+    },
+    {
+      "params": {
+        "pan": 1
+      },
+      "before": 0.75,
+      "after": {
+        "volume": 1,
+        "volumeRaw": 1.259921049894873,
+        "volumeDisplayed": "+6.0 dB",
+        "pan": 1,
+        "panRaw": 1,
+        "panDisplayed": "100 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 74
+    },
+    {
+      "params": {
+        "panRaw": -1
+      },
+      "before": 1,
+      "after": {
+        "volume": 1,
+        "volumeRaw": 1.259921049894873,
+        "volumeDisplayed": "+6.0 dB",
+        "pan": 0,
+        "panRaw": -1,
+        "panDisplayed": "-100 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 75
+    },
+    {
+      "params": {
+        "panRaw": -0.5
+      },
+      "before": -1,
+      "after": {
+        "volume": 1,
+        "volumeRaw": 1.259921049894873,
+        "volumeDisplayed": "+6.0 dB",
+        "pan": 0.25,
+        "panRaw": -0.5,
+        "panDisplayed": "-50.0 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 71
+    },
+    {
+      "params": {
+        "panRaw": 0
+      },
+      "before": -0.5,
+      "after": {
+        "volume": 1,
+        "volumeRaw": 1.259921049894873,
+        "volumeDisplayed": "+6.0 dB",
+        "pan": 0.5,
+        "panRaw": 0,
+        "panDisplayed": "0.00 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 73
+    },
+    {
+      "params": {
+        "panRaw": 0.5
+      },
+      "before": 0,
+      "after": {
+        "volume": 1,
+        "volumeRaw": 1.259921049894873,
+        "volumeDisplayed": "+6.0 dB",
+        "pan": 0.75,
+        "panRaw": 0.5,
+        "panDisplayed": "50.0 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 74
+    },
+    {
+      "params": {
+        "panRaw": 1
+      },
+      "before": 0.5,
+      "after": {
+        "volume": 1,
+        "volumeRaw": 1.259921049894873,
+        "volumeDisplayed": "+6.0 dB",
+        "pan": 1,
+        "panRaw": 1,
+        "panDisplayed": "100 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 75
+    },
+    {
+      "params": {
+        "panRaw": 2
+      },
+      "before": 1,
+      "after": {
+        "volume": 1,
+        "volumeRaw": 1.259921049894873,
+        "volumeDisplayed": "+6.0 dB",
+        "pan": 1,
+        "panRaw": 1,
+        "panDisplayed": "100 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": false,
+      "polls": 80,
+      "settleMs": 5818
+    }
+  ],
+  "settle": [
+    {
+      "params": {
+        "volumeRaw": 0.12589254117941673
+      },
+      "before": 1.259921049894873,
+      "after": {
+        "volume": 0.09992097615157801,
+        "volumeRaw": 0.12589254117941673,
+        "volumeDisplayed": "-54.0 dB",
+        "pan": 1,
+        "panRaw": 1,
+        "panDisplayed": "100 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 72
+    },
+    {
+      "params": {
+        "volumeRaw": 0.251188643150958
+      },
+      "before": 0.12589254117941673,
+      "after": {
+        "volume": 0.19936855819014773,
+        "volumeRaw": 0.251188643150958,
+        "volumeDisplayed": "-36.0 dB",
+        "pan": 1,
+        "panRaw": 1,
+        "panDisplayed": "100 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 71
+    },
+    {
+      "params": {
+        "volumeRaw": 1
+      },
+      "before": 0.251188643150958,
+      "after": {
+        "volume": 0.7937005259840999,
+        "volumeRaw": 1,
+        "volumeDisplayed": "0.0 dB",
+        "pan": 1,
+        "panRaw": 1,
+        "panDisplayed": "100 %",
+        "volumeHasAutomation": false,
+        "panHasAutomation": false
+      },
+      "landed": true,
+      "polls": 0,
+      "settleMs": 75
+    }
+  ]
+}

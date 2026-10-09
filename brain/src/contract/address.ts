@@ -29,6 +29,7 @@
  * document load while the chain's NAME survives (E17ad, E18b). `ChainAddress`
  * therefore addresses by name, and says why where it is declared.
  */
+import type { MixerField } from './mixer.js';
 
 export interface TrackAddress {
   readonly kind: 'track';
@@ -179,6 +180,16 @@ export interface ParamAddress {
   readonly index?: number;
 }
 
+/**
+ * 8i7: one mixer field of one track. Durable: the track's channelId is the key, and a field has no position.
+ * One address for each field, so that a later edit of one field blocks the reversal of that field only.
+ */
+export interface MixerAddress {
+  readonly kind: 'mixer';
+  readonly track: TrackAddress;
+  readonly field: MixerField;
+}
+
 /** Explicit remote-control inventory for one confirmed device target. */
 export interface RemotesAddress {
   readonly kind: 'remotes';
@@ -211,7 +222,8 @@ export type Address =
   | DeviceEnabledAddress
   | ParamAddress
   | RemotesAddress
-  | RemoteAddress;
+  | RemoteAddress
+  | MixerAddress;
 
 export type AddressKind = Address['kind'];
 
@@ -241,6 +253,7 @@ export const ADDRESS_IDENTITY: Record<AddressKind, 'durable' | 'positional'> = {
   param: 'positional',
   remotes: 'positional',
   remote: 'positional',
+  mixer: 'durable',
 };
 
 /** Canonical string form, for write-set diffing and partial-revert slicing. */
@@ -368,6 +381,8 @@ export function addressKey(a: Address): AddressKey {
     case 'remote':
       return `remote:${deviceBody(a.device)}:${a.pageIndex}:${encodeURIComponent(a.pageName)}`
         + `:${a.controlIndex}:${encodeURIComponent(a.controlName)}`;
+    case 'mixer':
+      return `mixer:${a.track.channelId}:${a.field}`;
   }
 }
 
@@ -408,6 +423,8 @@ export function addressTrack(a: Address): TrackAddress | undefined {
     case 'remotes':
     case 'remote':
       return a.device.track;
+    case 'mixer':
+      return a.track;
   }
 }
 
@@ -522,6 +539,9 @@ export function param(d: DeviceAddress, key: number | string, directId?: string)
     ? { kind: 'param', device: d, index: key }
     : { kind: 'param', device: d, index: key, directId };
 }
+
+/** One mixer field of one track (8i7). */
+export const mixer = (t: TrackAddress, field: MixerField): MixerAddress => ({ kind: 'mixer', track: t, field });
 
 export const remotes = (d: DeviceAddress): RemotesAddress => ({ kind: 'remotes', device: d });
 

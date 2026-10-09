@@ -593,6 +593,14 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
     case 'track.delete':
       return [frame(WIRE.trackDelete, { trackIndex: ctx.trackIndex(op.track) })];
 
+    // 8i7 (E257): the handler checks the channelId and the automation flag immediately before the setter.
+    case 'mixer.set': {
+      const key = op.mixer.field === 'volume' ? 'volumeRaw' : op.mixer.field === 'pan' ? 'panRaw' : op.mixer.field;
+      return [frame(WIRE.trackSetMixer, {
+        trackIndex: ctx.trackIndex(op.mixer.track), expectedChannelId: op.mixer.track.channelId, [key]: op.value,
+      })];
+    }
+
     case 'scene.create':
       return [frame(WIRE.sceneCreate, { count: op.count })];
 

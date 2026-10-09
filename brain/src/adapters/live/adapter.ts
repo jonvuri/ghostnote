@@ -42,7 +42,7 @@ import {
   lookupChain, lookupDevice, lookupDeviceSlot, lookupNestedDevice, mintedChain, nestingObservable, verifyChainSolo, verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain, windowCovers,
   type Address, type AddressKey, type AdapterInfo, type BatchReceipt, type BatchRequest,
   type BitwigAdapter, type ChainAddress, type ChainMiss, type DeviceState, type ClipAddress, type ClipSourceDigest, type ClipMetadataState, type ClipNavigationResult, type ContentDelta, type ContentEvent, type DeviceAddress, type DeviceSlotAddress, type Fidelity,
-  type NoteRecord, type ObservedContainer, type ObservedDeviceSequence, type ObservedDrumPadBank, type Op, type ParamState, type ReadOptions, type ResolveResult, type ResolvedAddress, type RevisionMark,
+  type MixerAddress, type NoteRecord, type ObservedContainer, type ObservedDeviceSequence, type ObservedDrumPadBank, type Op, type ParamState, type ReadOptions, type ResolveResult, type ResolvedAddress, type RevisionMark,
   type LaunchMode, type LaunchQuantization, type SceneAddress, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
   type Stage, type TrackAddress, type TrackState, type WindowCoverage,
 } from '../../contract/index.js';
@@ -66,6 +66,22 @@ interface WireTrack {
   channelId: string;
   /** 8h4a5: inside a collapsed group. The mixer does not show the track (E243). */
   hidden?: boolean;
+}
+
+/** 8i7: one `track.mixer` row. The values are present only when the bank row still has the channelId. */
+interface WireMixerRow {
+  readonly trackIndex: number;
+  readonly channelId: string;
+  readonly matches: boolean;
+  readonly type?: string;
+  readonly volumeRaw?: number;
+  readonly volumeNormalized?: number;
+  readonly volumeDisplayed?: string;
+  readonly volumeAutomated?: boolean;
+  readonly panRaw?: number;
+  readonly panAutomated?: boolean;
+  readonly mute?: boolean;
+  readonly solo?: boolean;
 }
 
 interface BatchRunResult {
@@ -3658,6 +3674,13 @@ export class LiveAdapter implements BitwigAdapter {
       return reading;
     };
 
+    // 8i7: every mixer field of every named track in one `track.mixer` call, on the rows of this mark.
+    let mixerReading: Promise<ReadonlyMap<string, WireMixerRow>> | undefined;
+    const mixerOf = (row: WireTrack): Promise<WireMixerRow | undefined> => {
+      mixerReading ??= this.readMixerRows(sel, list);
+      return mixerReading.then((rows) => rows.get(row.channelId));
+    };
+
     for (const address of sel) {
       const sceneRef = addressScene(address);
       if (sceneRef !== undefined && sceneRef.epoch !== at.sceneEpoch) {
@@ -3688,10 +3711,12 @@ export class LiveAdapter implements BitwigAdapter {
         else missing.push(address);
         continue;
       }
-      const entry = await this.readOne(
-        address, row, pointedAt, noteReads, parameterReads, remoteReads, metadataOf, occupancyOnly,
-        options.structure === true,
-      );
+      const entry = address.kind === 'mixer'
+        ? await this.readMixerField(address, row, mixerOf)
+        : await this.readOne(
+          address, row, pointedAt, noteReads, parameterReads, remoteReads, metadataOf, occupancyOnly,
+          options.structure === true,
+        );
       // ⚠ A chain-family address whose container has no observable scope is
       // UNREACHABLE, not missing — the same E5 distinction the track bank makes
       // one level up. The layer banks are init-allocated and narrow (D7), so
@@ -4527,7 +4552,56 @@ export class LiveAdapter implements BitwigAdapter {
         return undefined;
       case 'scene':
         return undefined;
+      case 'mixer':
+        // `read` reads mixer fields with one call for the whole snapshot (`readMixerField`).
+        return undefined;
     }
+  }
+
+  /** 8i7: one `track.mixer` call for the distinct tracks of the mixer addresses, on the rows of the mark. */
+  private async readMixerRows(
+    sel: readonly Address[],
+    list: readonly WireTrack[],
+  ): Promise<ReadonlyMap<string, WireMixerRow>> {
+    const wanted = new Map<string, WireTrack>();
+    for (const address of sel) {
+      if (address.kind !== 'mixer') continue;
+      const row = list.find((item) => item.channelId === address.track.channelId);
+      if (row !== undefined) wanted.set(row.channelId, row);
+    }
+    if (wanted.size === 0) return new Map();
+    const reply = await this.transport.send({
+      method: WIRE.trackMixer,
+      params: { tracks: [...wanted.values()].map((row) => ({ trackIndex: row.index, channelId: row.channelId })) },
+    }) as { readonly tracks: readonly WireMixerRow[] };
+    return new Map(reply.tracks.map((row) => [row.channelId, row]));
+  }
+
+  /**
+   * 8i7: one mixer field from the snapshot's `track.mixer` reply. A row whose channelId moved in the turn between
+   * the mark and the read is `unstable`: the field was not observed, which is not the same as absent.
+   */
+  private async readMixerField(
+    address: MixerAddress,
+    row: WireTrack | undefined,
+    mixerOf: (row: WireTrack) => Promise<WireMixerRow | undefined>,
+  ): Promise<StateEntry | 'unstable' | undefined> {
+    if (row === undefined) return undefined;
+    const found = await mixerOf(row);
+    if (found === undefined || !found.matches) return 'unstable';
+    const value = (() => {
+      switch (address.field) {
+        case 'volume': return found.volumeRaw === undefined ? undefined
+          : { field: 'volume' as const, value: found.volumeRaw, automated: found.volumeAutomated === true,
+            display: found.volumeDisplayed ?? '' };
+        case 'pan': return found.panRaw === undefined ? undefined
+          : { field: 'pan' as const, value: found.panRaw, automated: found.panAutomated === true };
+        case 'mute': return found.mute === undefined ? undefined : { field: 'mute' as const, value: found.mute };
+        case 'solo': return found.solo === undefined ? undefined : { field: 'solo' as const, value: found.solo };
+      }
+    })();
+    if (value === undefined) return 'unstable';
+    return { address, fidelity: 'exact', value: { of: 'mixer', mixer: value } };
   }
 
 
