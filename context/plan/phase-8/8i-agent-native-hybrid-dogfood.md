@@ -79,10 +79,14 @@ The following sessions completed them before the 2026-10-09 trial:
     ([E256](../../evidence/experiments/e256-overlay-authoring-and-creation.md#operator-trial)).
     It closes the groove task and the overlay dependency change of the trial
     set.
-11. Next:
-    [8i10 — Unprompted overlay trials](8i10-unprompted-overlay-trials.md).
-    The 8i9 prompt described the claims it wanted. 8i10 tests whether an
-    agent reaches for timing overlays when a task only benefits from them.
+11. [8i10 — Unprompted overlay trials](8i10-unprompted-overlay-trials.md).
+    Complete ([E259](../../evidence/experiments/e259-unprompted-overlay-trials.md)):
+    the first runs made no claims; descriptions v45 and model reference
+    revision 4 route timing-feel tasks to Timing overlays and add an
+    analysis method; in the reruns, both timing tasks made and used claims
+    without a request.
+12. Next: [8i11 — Claim replacement repair](8i11-claim-replacement-repair.md)
+    repairs the five claim refusals of the 8i10 reruns.
 
 ## Fresh agent trials
 
@@ -227,6 +231,18 @@ The fresh agent must:
 - avoid bypassing a refusal through a lower-level tool without a stated reason;
   and
 - recover from one stale or changed state without corrupting the project.
+
+8i10 result
+([E259](../../evidence/experiments/e259-unprompted-overlay-trials.md)):
+without a mention of Ghostnote, a fresh Codex Desktop agent used only
+computer use (a client tool-exposure limit, not a description fault). With
+v44, no agent made timing claims without a leading prompt. With v45 and
+reference revision 4, the timing gates pass for this cohort: both timing
+tasks requested Timing overlays, separated nominal rhythm from groove in
+claims, and changed only the timing part that the task named. Stale-claim
+recognition is only partly shown: T1 step 3 named the hand-edited notes
+correctly but did not name their stale or removed claims. Timing overlays
+are a default path when the descriptions route to them, not an expert path.
 
 ## Acceptance criteria
 

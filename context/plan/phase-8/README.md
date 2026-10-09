@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: 8h and 8i0–8i9 are complete (E247–E258); the groove and overlay trials passed. Next: 8i10.
+status: 8h and 8i0–8i10 are complete (E247–E259); the groove and overlay trials passed, and timing claims are used without a leading prompt. Next: 8i11.
 updated: 2026-10-09
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -422,7 +422,11 @@ owns the migration details.
    [overlay trial](8i-agent-native-hybrid-dogfood.md#operator-overlay-trial)
    passed; it closes the groove and overlay trials.
    [8i10 — Unprompted overlay trials](8i10-unprompted-overlay-trials.md)
-   (next) tests overlay use without a leading prompt.
+   (complete, E259): after routing in the descriptions (v45) and a method
+   note in the reference (revision 4), fresh agents made and used timing
+   claims without a leading prompt.
+   [8i11 — Claim replacement repair](8i11-claim-replacement-repair.md)
+   (next) repairs the duplicate-claim and onset-floor refusals of the reruns.
    None requires a skill.
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.

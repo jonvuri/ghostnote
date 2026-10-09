@@ -1,13 +1,13 @@
 ---
 title: Phase 8i10 unprompted overlay trials
 kind: plan
-state: planned
-status: After 8i7 and 8i8. Fresh-client trials with minimal, natural prompts that benefit from timing overlays but do not ask for them. Measures whether an agent reaches for overlays unprompted.
+state: done
+status: Complete (E259). First runs made no timing claims; descriptions v45 route timing-feel tasks to Timing overlays and reference revision 4 adds an analysis method; in the reruns, both timing tasks made and used claims without a request.
 updated: 2026-10-09
 parent: README.md
 prev: 8i8-selection-and-readback-results.md
-next: 8i-agent-native-hybrid-dogfood.md
-evidence: E256; D45, D47
+next: 8i11-claim-replacement-repair.md
+evidence: E256, E259; D45, D47
 ---
 
 # Phase 8i10 unprompted overlay trials
@@ -58,11 +58,18 @@ access, no instructions other than the global "Stay concise and to the point").
 Send each step exactly as written; do not add hints after a step. A hand
 edit between steps is the operator's.
 
+The first step of each trial ends with "Use Ghostnote and computer use as you
+see fit." Without it, a fresh Codex Desktop agent used only computer use
+([E259](../../evidence/experiments/e259-unprompted-overlay-trials.md#tool-discovery-first-attempt)).
+The sentence names the tool, not overlays.
+
+T1 is recorded in [E259](../../evidence/experiments/e259-unprompted-overlay-trials.md#t1-write-then-revise).
+
 **T1, write then revise (one thread, three steps).**
 
 1. "In the open Bitwig project, write a bass part for Scene 2 that sits in
    the same pocket as the Rain Steps drums. Use the existing bass sound, then
-   start Scene 2."
+   start Scene 2. Use Ghostnote and computer use as you see fit."
 2. After listening: "Nice. Make it a touch less laid back, about half as
    much, without changing the rhythm."
 3. The operator moves two bass notes by hand (one onset, one length). Then:
@@ -76,18 +83,20 @@ shifted notes.
 
 **T2, clean up existing timing (one thread, two steps).**
 
-1. "The shaker in Scene 1 is a bit sloppy. Clean it up but keep its swing."
+1. "The shaker in Scene 1 of the open Bitwig project is a bit sloppy. Clean
+   it up but keep its swing. Use Ghostnote and computer use as you see fit."
 2. "Bring back a little of the looseness, maybe a third of what it had."
 
 Benefit: step 1 must separate the intended swing from the residual timing of
 the existing part (measured, unresolved claims); step 2 needs the removed
-residuals. Use an owned duplicate of the shaker clip, so that the original
-stays.
+residuals. Before the trial, the operator copies the Scene 1 shaker clip to
+an empty slot as a backup; the trial edits the Scene 1 clip.
 
 **T3, control (one thread, one step).**
 
-"Add a simple pad line in Scene 2 that follows the chords, then start the
-scene."
+"In the open Bitwig project, add a simple pad line in Scene 2 that follows
+the chords, then start the scene. Use Ghostnote and computer use as you see
+fit."
 
 A plain line on the grid has no feel to keep. Claims here are not an error,
 but record them.
@@ -120,6 +129,37 @@ removed or kept by operator choice.
 - T3 with claims that cost a refusal or a slower call: record it as overuse
   and include it in the same change, or name it as a limit.
 
+### Scope change after T3 (operator decision)
+
+The third case applied
+([E259](../../evidence/experiments/e259-unprompted-overlay-trials.md#decision-rule)).
+T2 showed that the agent's timing analysis, not a lost record, caused the
+error, and that neither T1 nor T2 requested the Timing overlays section
+(both requested only Patch, which the edit description names). The operator
+put the analysis method in scope and lifted the 200-byte limit to what the
+change needs. The change has two parts:
+
+1. Routing in the descriptions: `add_launcher_clip`, `edit_launcher_clip`,
+   and the `reference` input of `read_launcher_clip` state when to request
+   Timing overlays. The text names timing feel by its musical terms (swing,
+   groove, pocket, notes ahead of or behind the beat), not "feel" alone.
+2. A method note in the Timing overlays section of `MODEL-REFERENCE.md`
+   (reference revision 4): fit a step pattern over the shortest repeating
+   cycle that explains the offsets, find a common shift of a bar or phrase,
+   ignore differences below audibility, borrow the pattern from a dense part
+   for a sparse part, and store the pattern as `template` and the rest as
+   `unassigned` in an inferred, unresolved groove claim (R15). The note uses
+   only the terms that R14–R16 define; it gives no new meaning to phase,
+   cross, or local. It is guidance, not a format rule.
+
+Then bump the description version, regenerate the reference artifacts, and
+repeat T1 and T2 once each in fresh threads (T2 from the original shaker
+timing). Report the before and after. For a direct comparison, each rerun
+sends the prompts as sent in the first run (E259), including the T1 step-3
+wording "I nudged three notes by hand. Bring the rest of the bass back in
+line with the feel you set before.", with the same kind of hand edits (one
+length, two onsets).
+
 ## Cost model
 
 No new live path. Each trial uses the existing read, add, edit, and launch
@@ -136,10 +176,12 @@ claims where both routes occur.
 - The decision rule is applied and its outcome stated in the charter
   ("Agent-behavior gates": groove and stale-overlay recognition).
 - If a description changes: tests, the cohort version and artifact, the byte
-  change, and the T1 rerun.
+  change, and the T1 rerun. After the scope change: also the reference
+  revision, its regenerated artifacts and measurements, and the T2 rerun.
 - NOW routes to the next step; fixtures are at the operator's chosen state.
 
 ## Out of scope
 
 Overlay persistence across server restarts, new tools, a scene-launch tool,
-changes to the format or the reference, and a coached tool sequence.
+changes to the format (rules, grammar, codec), and a coached tool sequence.
+The reference changes only by the method note of the scope change.

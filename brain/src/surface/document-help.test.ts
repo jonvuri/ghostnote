@@ -17,7 +17,7 @@ import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
 import {
   ADD_EXAMPLE_ROW, EXAMPLE_REF, MODEL_REFERENCE, OPTIONAL_REFERENCE_SECTIONS, REFERENCE_SCHEMA, REFERENCE_TOOL,
-  TIMING_FIXTURE, TIMING_TEMPLATE_NOTE, template, timingTemplate,
+  TIMING_FEEL_ROUTE, TIMING_FIXTURE, TIMING_TEMPLATE_NOTE, template, timingTemplate,
 } from './document-help.js';
 import { AGENT_NATIVE_TOOL_PROFILE, AGENT_NATIVE_TOOLS, callTool } from './tools.js';
 import { workspaceOf, type Workspace } from './workspace.js';
@@ -406,4 +406,68 @@ test('8i9 claim repair: known-source and unknown-source timing faults name the e
     assert.ok(Buffer.byteLength(JSON.stringify(result['detail'].repair)) < 2_048);
   }
   assert.deepEqual(calls, []);
+});
+
+// --- timing-feel routing and method (8i10) -------------------------------------------
+
+test('8i10 routing: add, edit, and the read reference input say when to request Timing overlays', () => {
+  for (const name of ['add_launcher_clip', 'edit_launcher_clip']) {
+    assert.ok(spec(name).description.includes(TIMING_FEEL_ROUTE), name);
+  }
+  // The route names timing feel by its musical terms, not "feel" alone (E259).
+  for (const term of ['swing', 'groove', 'pocket', 'ahead of or behind the beat', 'Timing overlays']) {
+    assert.ok(TIMING_FEEL_ROUTE.includes(term), term);
+  }
+  const reference = String((spec('read_launcher_clip').inputSchema['reference'] as { description?: string }).description);
+  assert.match(reference, /swing, groove, pocket, or notes ahead of or behind the beat, also request Timing overlays/);
+});
+
+/** The method note of the Timing overlays section. */
+const timingMethod = () => /Method for timing feel[\s\S]*$/.exec(readFileSync(new URL('MODEL-REFERENCE.md', SPEC), 'utf8')
+  .split(/(?=^## )/m).find((piece) => piece.startsWith('## Timing overlays\n'))!)![0];
+
+test('8i10 method: the Timing overlays section has the method note; it names no undefined groove term', async () => {
+  const method = timingMethod();
+  for (const text of ['shortest', 'push at the end of each phrase', 'about `1/128` beat', 'dense part',
+    'provenance `inferred`', 'intent\n   `unresolved`', 'Keep the nominal\n   claims', 'keep their values']) {
+    assert.ok(method.includes(text), text);
+  }
+  // R14-R16 give phase, cross, and local no musical meaning; the method does not either.
+  assert.doesNotMatch(method, /\b(phase|cross|local)\b/);
+  // The method states thresholds in beats, not milliseconds: no tempo arithmetic.
+  assert.doesNotMatch(method, /\bms\b|bpm/i);
+  const { workspace, calls } = hostless();
+  const timing = await call(workspace, REFERENCE_TOOL, { sections: ['Timing overlays'] });
+  assert.ok(timing['data'].reference.includes(method.trimEnd()));
+  assert.deepEqual(calls, []);
+});
+
+test('8i10 method: an inferred step-pattern claim seals; a cleanup keeps the earlier claims stale with their values', () => {
+  const known = timingTemplate('known', 'json') as Wire;
+  const nominal = known['overlayPut'].find((claim: Wire) => claim.type === 'nominal');
+  const groove = known['overlayPut'].find((claim: Wire) => claim.type === 'groove');
+  // n1 is at 17/32 with duration 3/16 on the nominal 1/2 and 1/4: template 1/64 and unassigned 1/64 (step 6).
+  const inferred = {
+    ...groove, provenance: { kind: 'inferred', source: 'agent', method: 'step-pattern' },
+    data: { ...groove.data, intent: 'unresolved', template: '1/64', unassigned: '1/64', durationIntent: '0',
+      durationUnassigned: '-1/16' },
+  };
+  const sealApply = (patch: Wire, base: StateDocument) => {
+    const { document, seal } = parseSealable(JSON.stringify(patch), 'json');
+    return applyPatch(base, sealProposal(document, seal, base) as Patch).document;
+  };
+  const before = sealApply({ ...known, overlayPut: [nominal, inferred] }, TIMING_FIXTURE);
+  // The cleanup moves n1 to the template and puts new claims with new IDs in the same patch (step 8).
+  const nominal2 = { ...nominal, id: 'nom1-v2' };
+  const groove2 = {
+    ...inferred, id: 'groove1-v2', depends: { ...inferred.depends, overlays: ['nom1-v2'] },
+    data: { ...inferred.data, nominal: 'nom1-v2', sourceAt: '33/64', unassigned: '0' },
+  };
+  const after = sealApply({
+    ...known, base: { sha256: contentHash(before), ref: EXAMPLE_REF },
+    update: [{ id: 'n1', set: { at: '33/64' } }], overlayPut: [nominal2, groove2],
+  }, before);
+  assert.deepEqual(after.overlays.map((claim) => [claim.id, claim.state, (claim.data as Wire).unassigned ?? null]), [
+    ['groove1', 'stale', '1/64'], ['groove1-v2', 'current', '0'], ['nom1', 'stale', null], ['nom1-v2', 'current', null],
+  ]);
 });

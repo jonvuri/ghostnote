@@ -39,7 +39,7 @@ import {
 import { checkHealth, format, selectionWarnings, withSelection } from './agent-native.js';
 import { documentText, editLauncherClip, parseProposal } from './agent-native-edit.js';
 import {
-  DESIRED_EXAMPLE_TEXT, FORMAT_STATEMENT, claimRepairOf, documentParameter, kindRepair,
+  DESIRED_EXAMPLE_TEXT, FORMAT_STATEMENT, TIMING_FEEL_ROUTE, claimRepairOf, documentParameter, kindRepair,
 } from './document-help.js';
 import type { ToolSpec } from './tools.js';
 import { WRITE_LIMITS, atMost, requireWithinLimit } from './write-limits.js';
@@ -230,6 +230,7 @@ const ADD_DESCRIPTION = `${PROFILE} Create one Launcher clip in an empty slot fr
   + 'basis: the tool checks them before any write, binds them to the new clip, and computes each basis. It takes at '
   + `most ${WRITE_LIMITS.claimDependencyExpansion} claim dependency units (see document). A refused `
   + 'document returns code invalid-input before any write; detail.repair has the known correction.\n'
+  + `${TIMING_FEEL_ROUTE}\n`
   + 'The slot must exist and be empty. An occupied slot refuses with code occupied: Bitwig would put the new clip '
   + 'on a new scene past the reachable rows. A missing row refuses with code absent; add scenes at the end with '
   + 'add_scenes.\n'

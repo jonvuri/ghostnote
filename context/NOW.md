@@ -9,18 +9,19 @@ session: 8i10-unprompted-overlay-trials
 
 ## Now
 
-Next: [8i10](plan/phase-8/8i10-unprompted-overlay-trials.md) (operator
-trials: do agents reach for timing overlays without a leading prompt?).
-[9c](plan/phase-9/9c-release-and-upgrade-live-suite.md) is the release and
-Bitwig upgrade live suite.
+Next: [8i11](plan/phase-8/8i11-claim-replacement-repair.md): a repair for
+a duplicate current claim, the onset floor in the `groove-timing` repair, and
+method step 7 for notes that an edit does not move; then one operator rerun
+of T1 steps 1 and 2. [9c](plan/phase-9/9c-release-and-upgrade-live-suite.md)
+is the release and Bitwig upgrade live suite.
 
-8i8 is complete ([E258](evidence/experiments/e258-selection-effects-and-unavailable-readback.md)):
-a write whose verification read fails reports readback `unavailable` with
-warning `readback-unavailable` and keeps its effect, on every write tool.
-`differs` now means a completed read (the verify compares a track rename and
-delete). `add_launcher_clip` restores the slot selection; `add_tracks`,
-`delete_track`, and `duplicate_track` restore the mixer selection, or warn
-`slot-selection-moved` / `mixer-selection-moved`. Descriptions v44, 42 tools.
+8i10 is complete ([E259](evidence/experiments/e259-unprompted-overlay-trials.md)).
+With descriptions v44, no fresh agent made timing claims without a leading
+prompt. Descriptions v45 (42 tools) route timing-feel tasks (swing, groove,
+pocket, ahead of or behind the beat) to Timing overlays, and model reference
+revision 4 adds an analysis method. In the reruns, both timing tasks made and
+used claims without a request; the claim edits cost 5 refusals. No extension
+change.
 
 Keep in mind for the trials: with the D44 limits, an agent splits larger
 work into more calls. A split is not atomic; `revert_change` does not
@@ -34,12 +35,15 @@ Scene 2 and its original in Scene 1. The last fresh track read there had no
 Undertow Bass. Check current state and selection before live work. The
 operator accepts the generic pressure warning as a host limit.
 
-Preserve in "Night Glass": the Rain Steps drums and the Scene 1 bass clip
-`Rain Steps • Pocket Bass` (32 notes, with the operator's two hand edits; its
-60 current and 2 stale claims are in the running server process only, and a
-restart clears them). The earlier `Rain Pocket • 8 bars` clip is no longer in
-Scene 1. Check
-current state before live work.
+Night Glass is the operator's testbed for the trials. Preserve the Rain
+Steps drums and the Scene 1 bass clip `Rain Steps • Pocket Bass` (32 notes,
+with the operator's two hand edits; no claims). The Scene 1 shaker clip is in
+the 8i10 T2 rerun state; the operator's backup copy of the original shaker
+clip is in a lower scene. Scene 2 holds the T1 rerun bass clip
+`Undertow • Rain Steps II` and copies of the Scene 1 drums, pad, chords, and
+shaker clips. For the 8i11 rerun, reset as for the 8i10 reruns (E259): the
+original shaker in Scene 1 and an empty Scene 2. Check current state before
+live work.
 
 ## Last live baseline (8i8)
 
@@ -51,13 +55,23 @@ track-mixer-raw-v1`, `clipMetadataWrite: owned-fields-v1`, and
 `cursorTrackPins.rule: owned-tracks-pinned-v1`. The 8i8 runs used
 `gn-scale-test` with scratch tracks only; it is at its E234 baseline, with
 slot `gn-A` row 0 and mixer `gn-sel` selected. "New 3" (8i7) was not opened
-in 8i8. The next free evidence number is E259; the next decision is D49.
+in 8i8. The next free evidence number is E260; the next decision is D49.
 `phase8i8-selection.ts accept` runs the selection arms; the current drivers
 accept the 8i8 build (`NORMAL_8I8`, `assertCurrentNormal`).
 `phase8i7-mixer.ts`, `phase8i9-overlay-add.ts`, `phase8i3-long-writes.ts
 identity`, and `probe:modulation-routes` stay as before.
 
 ## Facts
+
+Codex Desktop starts one Ghostnote server for each thread, from the brain
+source: a new thread loads changed descriptions with no deploy, and claims do
+not cross threads. A trial's first prompt ends with "Use Ghostnote and
+computer use as you see fit." (without it, the agent used only computer use).
+Agents request the reference sections that a description names. The Codex
+rollout log cuts tool results over about 24,000 characters; take numbers
+from the event rows or the agents' script output. A `codex://threads/<id>`
+link is `~/.codex/sessions/<date>/rollout-*-<id>.jsonl`; Ghostnote calls are
+its `McpToolCall` items. Copy the E259 extract format.
 
 Add the index row in the same session as a new E or D record. A readback
 status is `unavailable` only for a failed read (`Unverified.cause`

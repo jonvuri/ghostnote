@@ -1,6 +1,6 @@
 # Model format reference
 
-Format: `ghostnote-document/1.0`. Reference revision: `3`.
+Format: `ghostnote-document/1.0`. Reference revision: `4`.
 The [identity file](MODEL-REFERENCE.identity.json) gives the SHA-256 of this
 maintained source. Select the Core section and the optional sections needed
 for the task. Examples use generated MIT fixture music.
@@ -121,3 +121,30 @@ OVERLAY {"basis":"8f891dbb31be2875653bcddfb4b06fe222882d2403b502f33f3222a36ea76d
 For `n1`: sourceAt `17/32` = `1/2` + template `1/32`; source duration `3/16`
 = `1/4` + durationIntent `-1/16`; both deltas are zero. For `n2`: unassigned
 `1/128` = `129/128` - `1`; durationUnassigned `-1/32` = `15/32` - `1/2`.
+
+Method for timing feel (guidance, not a rule). Use it when a task makes,
+keeps, cleans, transfers, or revises swing, groove, pocket, or the position of
+notes ahead of or behind the beat. Skip it for notes on the grid with no
+timing feel.
+
+1. Put a nominal claim on each note at its grid position.
+2. Find the step pattern: the typical offset of each step position over the
+   repetitions of a cycle. Try cycles of 1, 2, and 4 bars; use the shortest
+   cycle that explains the offsets. A step that is early or late in each
+   repetition, such as a push at the end of each phrase, is part of the
+   pattern. One center for all on-beats and one for all off-beats is not
+   sufficient.
+3. Find a shift that all notes of one bar or phrase share. The task tells if
+   it is feel or error.
+4. Ignore differences below about `1/128` beat (4 cells).
+5. For a sparse part, or fewer than three repetitions of each step, take the
+   pattern from a dense part that plays with it, such as the hi-hats.
+6. Put a groove claim on each note: provenance `inferred`, intent
+   `unresolved`, sourceAt and sourceDuration equal to the note, both deltas
+   `0`, template the step pattern, unassigned the remainder, and
+   durationUnassigned the note duration minus the nominal duration (R15).
+7. Make a timing change as a change to the claim terms. Keep the nominal
+   claims unless the task changes the rhythm. Write the moved notes and
+   their new claims, with new IDs, in one edit. The earlier claims become
+   stale and keep their values as previous context: a later step uses the
+   current claims, and the stale ones for an earlier state.

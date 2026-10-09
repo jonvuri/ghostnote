@@ -237,6 +237,8 @@ const readInput = z.object({
   reference: z.array(z.enum(OPTIONAL_REFERENCE_SECTIONS)).max(4).optional().describe(
     'Optional model reference sections to return in the result, with the same document and authority.base. The '
     + 'Core section is in this description. Before a planned patch edit, request Patch on the first fresh read. '
+    + 'When the task makes, keeps, cleans, or revises swing, groove, pocket, or notes ahead of or behind the beat, '
+    + 'also request Timing overlays. '
     + 'get_document_reference returns the sections and templates without a clip.',
   ),
   diagnostic: z.boolean().optional().describe('Also return the exact host source of the read. Use only to diagnose a problem.'),

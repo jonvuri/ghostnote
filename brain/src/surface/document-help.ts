@@ -183,6 +183,15 @@ export const FORMAT_STATEMENT = 'The document is Ghostnote Document 1.0: Ghostno
   + 'MusicXML, or a free note list. FIELDS text is the default encoding; format json takes the same schema as a '
   + `JSON object. ${REFERENCE_TOOL} returns the rules and templates with no Bitwig call.`;
 
+/**
+ * When to request Timing overlays (8i10). It names timing feel by its musical terms: in the 8i10 trials, agents
+ * requested only the sections that a description named, and never Timing overlays (E259).
+ */
+export const TIMING_FEEL_ROUTE = 'Timing feel (swing, groove, pocket, or notes ahead of or behind the beat): to '
+  + 'make, keep, clean, or revise it, first request the Timing overlays section (read_launcher_clip reference, or '
+  + `${REFERENCE_TOOL} sections). It has the analysis method; nominal and groove claims keep the rhythm and its `
+  + 'offsets apart for a later change.';
+
 /** The parameter text of a document input. */
 export const documentParameter = (kind: string): string => `${kind} in Ghostnote Document 1.0: FIELDS text (default), `
   + 'or the same schema as a JSON object or JSON text when format is json. Beat values are exact integers or '
@@ -416,7 +425,7 @@ export function kindRepair(use: DocumentUse, encoding: Encoding, text: string): 
 const referenceInput = z.object({
   sections: z.array(z.enum(OPTIONAL_REFERENCE_SECTIONS)).max(4).optional().describe(
     'Optional sections to add to Core: Patch, Timing overlays, Groups, Meter and tempo. Patch also adds the patch '
-    + 'template; Timing overlays adds the timing templates.',
+    + 'template; Timing overlays adds the timing-feel method and the timing templates.',
   ),
   format: z.enum(['fields', 'json']).default('fields').describe(
     'Template encoding: fields (FIELDS text, default) or json (the same schema as a JSON object).',

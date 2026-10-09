@@ -98,7 +98,7 @@ live wire-call count of the E247 inventory.
 | `edit_launcher_clip`, claims only (put or remove, no note change) | 806 ms (read 357, readback 409); no write | Edit refusal about 400 ms (E246) | mark 2, tracks 1, clipRead 2, delta 2 (the seal adds no call; new test) | E253 |
 | Edit refusal before a write | About 400 ms | E236: 560 ms | — | E246 |
 | Document input refused by the codec (add or edit), with `detail.repair` | 1 ms; 0 wire calls | Before 8i6: the same refusal without repair | none (new test) | E255 |
-| `get_document_reference`, Core and the desired template; Timing overlays; all sections and all templates | 4,469 bytes; 13,347 bytes; 15,733 bytes (FIELDS) | E255: 4,469; 6,806; 9,192 bytes. Reference source 7,980 → 10,736 bytes (the timing example) | none | E255, E256 |
+| `get_document_reference`, Core and the desired template; Timing overlays; all sections and all templates | 4,469 bytes; 14,997 bytes; 17,383 bytes (FIELDS) | E256: 4,469; 13,347; 15,733 bytes (E255: 4,469; 6,806; 9,192). Reference source 7,980 → 10,736 bytes (the timing example) → 12,359 bytes (the timing-feel method, E259) | none | E255, E256, E259 |
 | `add_launcher_clip` with the desired template (1 note); a template-form patch (1 ADD, 1 UPDATE) after a read with Patch help | 2,460 ms, 87 wire calls; 1,546 ms, 45 wire calls (read 389 ms) | E250 add typical 2,158 ms; targeted insert 1,367–1,428 ms | unchanged | E255 |
 | `add_launcher_clip`, typical (256 notes) | 2,323 ms; 85 wire calls | 16 notes, E237: 2,611 ms; `add_clip` 1,827 ms | mark 3, tracks 2, read 3, resolve 2, apply 2, delta 4, clipRead 3 | E247 |
 | `add_launcher_clip`, 16,384 notes | 6,418 ms (plan 778, write 3,352) | E247: 8,172 ms | as typical | E248 add-worst |

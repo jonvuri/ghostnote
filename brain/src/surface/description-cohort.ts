@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v44';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v45';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -543,7 +543,8 @@ export const DESCRIPTION_COHORT_V42: readonly DescriptionCohortMember[] = DESCRI
  * v43 (8i7, E257) adds read_track_mixer and set_track_mixer at the end. The document inputs state the pitch-name
  * convention; read_preset_modulation and reverse_existing_device_modulation_wrap have agent-native-v1 text; and
  * revert_change names the mixer fields. v44 (8i8) keeps this list: each write result contract lists readback status
- * unavailable, and three descriptions state their selection effects.
+ * unavailable, and three descriptions state their selection effects. v45 (8i10) keeps this list:
+ * add_launcher_clip, edit_launcher_clip, and the read reference input state when to request Timing overlays.
  */
 export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V42,
@@ -819,8 +820,15 @@ export const TOOL_DESCRIPTION_V43_SHA256 =
 
 /**
  * v44 (8i8, E258): readback status unavailable in every write result contract and in set_track_mixer, and the
- * selection effects of add_launcher_clip, add_tracks, duplicate_track, and delete_track. Changing this fingerprint requires a new
- * description version.
+ * selection effects of add_launcher_clip, add_tracks, duplicate_track, and delete_track. Frozen in 8i10.
  */
 export const TOOL_DESCRIPTION_V44_SHA256 =
   '8c7f1ae9a3a26bba2da52a984a072f3bdd013cc4b3ad9ca324bbb63b94964d4b';
+
+/**
+ * v45 (8i10, E259): when to request Timing overlays, in add_launcher_clip, edit_launcher_clip, and the read
+ * reference input, with timing feel named by its musical terms. Changing this fingerprint requires a new
+ * description version.
+ */
+export const TOOL_DESCRIPTION_V45_SHA256 =
+  'cc847ad7688f7fdda4dff2c39f839ecf84a890107529636334e0dc2b751093af';

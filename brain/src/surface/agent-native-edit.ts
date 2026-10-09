@@ -42,7 +42,8 @@ import {
 import { DocumentError, type Document, type Encoding } from '../document/index.js';
 import { parseSealable, type SealRequest } from '../bindings/overlay-seal.js';
 import {
-  FORMAT_STATEMENT, PATCH_EXAMPLE_TEXT, claimRepairOf, documentParameter, encodingRepair, kindRepair, repairOf,
+  FORMAT_STATEMENT, PATCH_EXAMPLE_TEXT, TIMING_FEEL_ROUTE, claimRepairOf, documentParameter, encodingRepair, kindRepair,
+  repairOf,
   type DocumentUse,
 } from './document-help.js';
 import {
@@ -109,6 +110,7 @@ const EDIT_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Edit one Launche
   + 'computes it on the state after the note changes of the same call. A supplied basis that does not match refuses '
   + 'with code invalid-input, detail.reason R22, and detail.expectedBasis. Retained and stale claims keep their '
   + 'basis. get_document_reference with Timing overlays has claim templates.\n'
+  + `${TIMING_FEEL_ROUTE}\n`
   + 'A whole-clip rewrite at the reader limit (16,384 notes) takes about 7 s.';
 
 /** The input document as text. */

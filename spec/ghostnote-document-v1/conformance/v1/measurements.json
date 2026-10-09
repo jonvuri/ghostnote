@@ -1,7 +1,7 @@
 {
   "owner": "8f2 reference codec",
   "formatVersion": "1.0",
-  "referenceSha256": "e7107465a833beed277bca7c1f696c932dacde27787a8e8bfcbb71a7e2b62490",
+  "referenceSha256": "d259b79cafc3df0f8bf752e2bdf97db236f07c73182e4517059b1df42bd3d9e2",
   "scope": "Complete selected reference plus its examples and source identity preface. No task, input document, or provider wrapper.",
   "providerTokensReason": "No tokenizer for these provider models is bundled. No token-count or generation request was made. Bytes are not tokens.",
   "baseline": {
@@ -59,7 +59,7 @@
         "Core"
       ],
       "bytes": 3639,
-      "sha256": "aba03f8f6f25e5d3d1404e5115384e95cac97db8a7dcee64ebe5cd622ba6033b",
+      "sha256": "be884a603bcb3e3e1eaa6cd95d20864fa5d55f8456ae3fa10697a082d03ccb56",
       "ratioToRetainedReference": 4.9918,
       "providerTokens": null
     },
@@ -70,7 +70,7 @@
         "Patch"
       ],
       "bytes": 4714,
-      "sha256": "e47cb5b485305445a193895ea6f137047c74935b2ed1d0766f2cac8fe42fe14e",
+      "sha256": "50173f341607ddf201d40073f4c741080d233e5cefe62a9cd3026081f1caed44",
       "ratioToRetainedReference": 6.4664,
       "providerTokens": null
     },
@@ -80,9 +80,9 @@
         "Core",
         "Timing overlays"
       ],
-      "bytes": 8676,
-      "sha256": "aa5830654693e242dbc5b49928fe0f171fccc935ace42b9a1226b4df63f8877f",
-      "ratioToRetainedReference": 11.9012,
+      "bytes": 10299,
+      "sha256": "5cd516defdc955eb8da9dddae7fc3e1cca3ff522459f776c97b8aab352162059",
+      "ratioToRetainedReference": 14.1276,
       "providerTokens": null
     },
     {
@@ -94,9 +94,9 @@
         "Groups",
         "Meter and tempo"
       ],
-      "bytes": 10736,
-      "sha256": "e7107465a833beed277bca7c1f696c932dacde27787a8e8bfcbb71a7e2b62490",
-      "ratioToRetainedReference": 14.727,
+      "bytes": 12359,
+      "sha256": "d259b79cafc3df0f8bf752e2bdf97db236f07c73182e4517059b1df42bd3d9e2",
+      "ratioToRetainedReference": 16.9534,
       "providerTokens": null
     }
   ]
