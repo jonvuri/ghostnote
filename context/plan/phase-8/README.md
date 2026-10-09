@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: 8h, 8i0, the 8i1 reader repair, the 8i2 group verification, the 8i3 long-write profile, and the 8i4 overlay basis sealing are complete (E247–E253). Next: the 8i dogfood trials.
+status: 8h and 8i0–8i4 are complete (E247–E253). The second musical trial passed. Next: 8i5 device control identity, then the remaining 8i trial gates.
 updated: 2026-10-09
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -403,6 +403,11 @@ owns the migration details.
    (complete, E252, D44), and
    [8i4 — Overlay basis sealing](8i4-overlay-basis-sealing.md) (complete,
    E253, D45).
+   The second musical trial passed on 2026-10-09. Its review routes to
+   [8i5 device control identity](8i5-device-control-identity.md) before the
+   remaining groove and overlay dependency trials. The
+   [interface review](8i-trial-2-interface-review.md) records the causes of
+   extra calls and separate improvement candidates.
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.
 

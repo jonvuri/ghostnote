@@ -4,12 +4,29 @@ kind: status
 state: active
 updated: 2026-10-09
 phase: phase-8-agent-native-live-engine
-session: 8i-trial-2
+session: 8i5-device-control-identity
 ---
 
 ## Now
 
-8i4 is complete and staged, not committed
+Next: [8i5 device control identity](plan/phase-8/8i5-device-control-identity.md).
+The 2026-10-09 dogfood session completed the bass revision and sound task.
+The operator accepted both. Review found two failures: a valid Blur remote
+at host position 7 was indexed as a compact array position; the Sampler
+wrapper completed its structural writes but its behavior witness could not
+match `Filter Frequency` to remote `Filt Freq`. Both reproduce offline.
+The plan fixes selectors, proves an ID-bound behavior witness, and makes
+witness failure results clear. It also includes Patch help with the first
+edit read. Keep the accepted material. The remaining 8i groove and overlay
+dependency trials are still open.
+
+The [interface review](plan/phase-8/8i-trial-2-interface-review.md) separates
+extra calls caused by product recovery from agent-side output choices.
+The first two priorities are in 8i5, with a fresh agent trial. Later
+candidates cover discovery output, saved preset scope, and supported
+authoring types. Test improvements before adding a sampling or discovery tool.
+
+8i4 is complete
 ([E253](evidence/experiments/e253-overlay-basis-sealing.md),
 [D45](decisions/d45-the-edit-limb-seals-explicit-overlay-claims.md)).
 `edit_launcher_clip` is the supplied dependency-basis utility: a current
@@ -37,10 +54,10 @@ a rerun (1,686 ms) on the same code did not, so the ledger stands.
 
 ### Next
 
-1. Rerun the second 8i trial in "ice jungle"
-   ([8i charter](plan/phase-8/8i-agent-native-hybrid-dogfood.md)). The trial
-   set needs a groove task and an overlay dependency change; both are now
-   possible without a repository helper.
+1. Complete [8i5](plan/phase-8/8i5-device-control-identity.md) on owned
+   fixtures. Preserve the accepted "ice jungle" bass and chord clips.
+2. Resume the [8i trial set](plan/phase-8/8i-agent-native-hybrid-dogfood.md):
+   a groove task and an overlay dependency change remain.
 
 Agent impact from 8i3 to keep in mind: with the D44 limits, the agent splits
 larger work into more calls. A split is not atomic; `revert_change` does not
@@ -57,12 +74,13 @@ clip; a non-add tool whose verify read throws reports `differs`, not
 `unavailable`; `delete_track` does not report that Bitwig moves the mixer
 selection.
 
-"ice jungle" holds the Undertow Bass track and clip from the failed trial
-(the clip can hold notes from the stopped piano-roll input); the operator
-decides on it. The operator kept the eight-bar IcyShellStab01 duplicate in
-Scene 2 and its original in Scene 1. Preserve both. The slot selection is
-Ice Shells row 1; the mixer selection is Undertow Bass. The operator accepts
-the generic pressure warning as a host limit.
+The latest dogfood session added `Pocket Bounce Bass` and the 32-beat clip
+`Pocket Bounce v2 - 1 & 3` in Scene 2. Its accepted device order is an
+FX Layer with Sampler in `Layer 1`, then Blur. Preserve this result and
+the eight-bar IcyShellStab01 duplicate in Scene 2 and its original in Scene 1.
+The fresh track read in that session had no Undertow Bass. Check current
+state and selection before live work. The operator accepts the generic
+pressure warning as a host limit.
 
 # What 8h gives 8i
 
@@ -90,10 +108,11 @@ The deployed normal `ghostnote` archive is unchanged since 8i1: SHA-256
 `aae2c7e346c413dc409c572a3e52dc44f983f08ac232ea302e4c0b14f0bc1fb0`, 89
 methods, `0ef817f4bac8a8a7`, `fineSteps` 4,194,304, and the `rig.info`
 markers `clipMetadataWrite: owned-fields-v1` and `cursorTrackPins.rule:
-owned-tracks-pinned-v1`. The 8i3 and 8i4 changes are brain-only. Bitwig has
-the owned project "New 3" open (Inst 1, Audio 2, FX 1; 8 scenes; the audio
-engine is on), at its baseline; `gn-scale-test`, "New 2", and "New 6" are
-unchanged. The next free evidence number is E254; the next decision is D46.
+owned-tracks-pinned-v1`. The 8i3 and 8i4 changes are brain-only. The last
+fixture verification used "New 3" (Inst 1, Audio 2, FX 1; 8 scenes; audio
+engine on), at baseline; `gn-scale-test`, "New 2", and "New 6" were unchanged.
+The later dogfood session used "ice jungle". The next free evidence number
+is E254; the next decision is D46.
 Check the current project before live work; dogfood uses "ice jungle".
 `phase8i4-overlay-seal.ts seal` checks the claim lifecycle live on its own
 track.

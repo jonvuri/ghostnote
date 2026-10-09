@@ -2,10 +2,10 @@
 title: Phase 8i — Agent-native hybrid dogfood
 kind: plan
 state: planned
-status: Final Phase 8 gate. 8i0 (E249, D42), the 8i1 reader repair (E250, D43), the 8i2 group verification (E251), the 8i3 long-write profile (E252, D44), and the 8i4 overlay basis sealing (E253, D45) are complete. Next: resume the second trial in "ice jungle".
+status: Final Phase 8 gate. 8i0–8i4 are complete (E249–E253, D42–D45). The second musical trial passed. Next: 8i5 device control identity, then the remaining groove and overlay dependency trials.
 updated: 2026-10-09
 parent: README.md
-prev: 8i4-overlay-basis-sealing.md
+prev: 8i5-device-control-identity.md
 next: ../phase-9/README.md
 evidence: E120, E121, E127-E134, E209, E213, E247, E252, E253; D25, D39, D40, D44, D45
 ---
@@ -24,11 +24,11 @@ The second trial failed: every `clip.read` in "ice jungle" refused
 `deadline`. The project was saved with the ghostnote cursor records, so the
 unpinned cursors followed the selection. The 8i1 repair keeps every owned
 cursor track pinned ([E250](../../evidence/experiments/e250-reader-follow-mode-repair.md),
-[D43](../../decisions/d43-owned-cursor-tracks-stay-pinned.md)). Rerun the
-second trial in "ice jungle" after the three review sessions below.
+[D43](../../decisions/d43-owned-cursor-tracks-stay-pinned.md)). The repair
+enabled the later trial described below.
 
 The Phase 8 review (2026-10-08) found two problems and one verification gap.
-Do them in this order before the next trial:
+The following sessions completed them before the 2026-10-09 trial:
 
 1. [8i2 — Collapsed-group live verification](8i2-collapsed-group-live-verification.md):
    run the collapsed-group read and point routes live on the D43 build.
@@ -46,6 +46,15 @@ Do them in this order before the next trial:
    [D45](../../decisions/d45-the-edit-limb-seals-explicit-overlay-claims.md)):
    `edit_launcher_clip` computes the basis of each claim that the call
    states.
+
+## Second musical trial
+
+The second musical trial passed on 2026-10-09: the operator accepted the
+bass rhythm revision and sound. Preserve that result. Two device failures
+from the session are scoped in [8i5](8i5-device-control-identity.md).
+The [interface review](8i-trial-2-interface-review.md) records extra calls
+and their causes. This trial did not use overlays. Groove interpretation
+and overlay dependency changes remain open gates.
 
 ## Accepted 8f3 inputs
 
