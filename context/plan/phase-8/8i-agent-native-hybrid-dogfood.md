@@ -2,7 +2,7 @@
 title: Phase 8i — Agent-native hybrid dogfood
 kind: plan
 state: planned
-status: Final Phase 8 gate. 8i0–8i6 are complete (E249–E255, D42–D46). The second musical trial passed. Next: the remaining groove and overlay dependency trials.
+status: Final Phase 8 gate. 8i0–8i6 are complete (E249–E255, D42–D46). Next: 8i9 overlay authoring and creation, then the operator's fresh-client trial.
 updated: 2026-10-09
 parent: README.md
 prev: 8i5-device-control-identity.md
@@ -62,6 +62,13 @@ The following sessions completed them before the 2026-10-09 trial:
 8. Planned: [8i7 — Bounded track mixer controls](8i7-track-mixer.md) and
    [8i8 — Selection effects and unavailable readback](8i8-selection-and-readback-results.md).
    Neither closes the groove or overlay gates.
+9. Next: [8i9 — Overlay authoring and creation](8i9-overlay-authoring-and-creation.md).
+   The Rain Steps trial selected overlays, but the agent read the repository
+   to construct them. Creation then left an empty clip before refusing
+   overlays with an agent-chosen clip ID. Add complete requested templates,
+   bounded repair help, and support for creation with overlays. Keep added
+   description prose small. The operator will manually rerun the fresh-client
+   trial after implementation. The groove and overlay gates stay pending.
 
 ## Fresh agent trials
 

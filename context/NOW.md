@@ -4,14 +4,17 @@ kind: status
 state: active
 updated: 2026-10-09
 phase: phase-8-agent-native-live-engine
-session: 8i-trial-set
+session: 8i9-overlay-authoring-and-creation
 ---
 
 ## Now
 
-Next: resume the [8i trial set](plan/phase-8/8i-agent-native-hybrid-dogfood.md).
-A groove task and an overlay dependency change remain open gates. Planned
-sessions that do not close those gates:
+Next: [8i9 — Overlay authoring and creation](plan/phase-8/8i9-overlay-authoring-and-creation.md).
+Add requested timing templates and repair help, and support overlays on clip
+creation. Keep added tool description prose small. The operator will manually
+rerun the fresh-client trial after implementation; its gates are in the
+[8i charter](plan/phase-8/8i-agent-native-hybrid-dogfood.md).
+Other planned sessions:
 [8i7](plan/phase-8/8i7-track-mixer.md) (bounded mixer tools, plus two
 description items from 8i6) and
 [8i8](plan/phase-8/8i8-selection-and-readback-results.md) (E250/E251 result
@@ -37,6 +40,12 @@ Scene 2 and its original in Scene 1. The last fresh track read there had no
 Undertow Bass. Check current state and selection before live work. The
 operator accepts the generic pressure warning as a host limit.
 
+The last observed project in the overlay trial was "Night Glass". Preserve
+the Rain Steps drums and the new Scene 1 bass clip `Rain Pocket • 8 bars`
+(28 notes, 56 claims). Claims are stored in the server process; the trial
+also saved a timing map and baseline in its workspace. The 8i9 plan gives
+the source transcript. Check current state before live work.
+
 ## Last live baseline (8i6)
 
 The deployed normal `ghostnote` archive is unchanged since 8i1: SHA-256
@@ -45,9 +54,11 @@ methods, `0ef817f4bac8a8a7`, `fineSteps` 4,194,304, and the `rig.info`
 markers `clipMetadataWrite: owned-fields-v1` and `cursorTrackPins.rule:
 owned-tracks-pinned-v1`. The 8i3 to 8i6 changes are brain-only. The 8i6
 runs used the owned unsaved project "New 1" (Inst 1, Audio 2, FX 1; 8
-scenes); it is at baseline after the runs (each trial track deleted). The
+scenes); it was at baseline after the runs (each trial track deleted). The
 deletes moved the mixer selection (host, E251). "ice jungle" was not
-touched. The next free evidence number is E256; the next decision is D47. Check the current project before live work; dogfood uses "ice jungle".
+touched. The next free evidence number is E256; the next decision is D47.
+Use owned fixtures for 8i9. The operator chooses the fresh-client trial
+project. Check the current project before live work.
 `phase8i3-long-writes.ts identity` checks the selector and the D46 writers;
 `probe:modulation-routes` checks the route forms.
 `phase8i6-format-help.ts templates <dir>` checks the templates on the live

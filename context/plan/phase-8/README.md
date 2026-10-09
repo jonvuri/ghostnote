@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: 8h and 8i0–8i6 are complete (E247–E255). The second musical trial passed. Next: the remaining 8i trial gates.
+status: 8h and 8i0–8i6 are complete (E247–E255). Next: 8i9 overlay authoring and creation, then the operator's fresh-client trial.
 updated: 2026-10-09
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -414,6 +414,10 @@ owns the migration details.
    (complete, E255) and [8i7 — Bounded track mixer controls](8i7-track-mixer.md).
    [8i8 — Selection effects and unavailable readback](8i8-selection-and-readback-results.md)
    fixes the result defects of E250 and E251.
+   Next: [8i9 — Overlay authoring and creation](8i9-overlay-authoring-and-creation.md).
+   The Rain Steps trial found missing nested examples and a refusal after
+   empty clip creation. Fix these with little added description prose, then
+   hand the fresh-client trial to the operator.
    None requires a skill. Keep the groove and overlay gates open.
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.
