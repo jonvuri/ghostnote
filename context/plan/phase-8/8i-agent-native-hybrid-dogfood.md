@@ -2,7 +2,7 @@
 title: Phase 8i — Agent-native hybrid dogfood
 kind: plan
 state: planned
-status: Final Phase 8 gate. 8i0–8i6 and 8i9 are complete (E249–E256, D42–D47); the groove and overlay trials passed (E256). Next: 8i7 and 8i8.
+status: Final Phase 8 gate. 8i0–8i6 and 8i9 are complete (E249–E256, D42–D47); the groove and overlay trials passed (E256). Next: 8i7, 8i8, then 8i10.
 updated: 2026-10-09
 parent: README.md
 prev: 8i5-device-control-identity.md
@@ -73,6 +73,10 @@ The following sessions completed them before the 2026-10-09 trial:
     ([E256](../../evidence/experiments/e256-overlay-authoring-and-creation.md#operator-trial)).
     It closes the groove task and the overlay dependency change of the trial
     set.
+11. Planned after 8i7 and 8i8:
+    [8i10 — Unprompted overlay trials](8i10-unprompted-overlay-trials.md).
+    The 8i9 prompt described the claims it wanted. 8i10 tests whether an
+    agent reaches for timing overlays when a task only benefits from them.
 
 ## Fresh agent trials
 

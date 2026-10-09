@@ -6,7 +6,7 @@ status: Report a failed verification read as unavailable, and keep or report the
 updated: 2026-10-09
 parent: README.md
 prev: 8i7-track-mixer.md
-next: 8i-agent-native-hybrid-dogfood.md
+next: 8i10-unprompted-overlay-trials.md
 evidence: E250, E251; D43
 ---
 

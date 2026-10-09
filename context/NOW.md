@@ -12,7 +12,9 @@ session: 8i7-track-mixer
 Next: [8i7](plan/phase-8/8i7-track-mixer.md) (bounded mixer tools, plus two
 description items from 8i6), then
 [8i8](plan/phase-8/8i8-selection-and-readback-results.md) (E250/E251 result
-defects). [9c](plan/phase-9/9c-release-and-upgrade-live-suite.md) is the
+defects), then [8i10](plan/phase-8/8i10-unprompted-overlay-trials.md)
+(operator trials: do agents reach for timing overlays without a leading
+prompt?). [9c](plan/phase-9/9c-release-and-upgrade-live-suite.md) is the
 release and Bitwig upgrade live suite.
 
 8i9 is complete ([E256](evidence/experiments/e256-overlay-authoring-and-creation.md),
