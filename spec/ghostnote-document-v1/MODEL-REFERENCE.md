@@ -1,6 +1,6 @@
 # Model format reference
 
-Format: `ghostnote-document/1.0`. Reference revision: `2`.
+Format: `ghostnote-document/1.0`. Reference revision: `3`.
 The [identity file](MODEL-REFERENCE.identity.json) gives the SHA-256 of this
 maintained source. Select the Core section and the optional sections needed
 for the task. Examples use generated MIT fixture music.
@@ -90,8 +90,9 @@ UPDATE n1 {"pitch":62}
 
 OVERLAY carries a full JSON envelope: id, type, state, provenance, depends,
 basis, and data. Provenance declares kind (`declared`, `measured`, `inferred`),
-source, and method. Depends declares event fields, clip fields, whole overlays,
-and clip membership. Use the supplied dependency-basis utility for a new claim.
+source, and method. Depends has four arrays, all required, also when empty:
+`events` and `clips` hold `{id, fields}` objects; `overlays` and `membership`
+hold IDs. Use the supplied dependency-basis utility for a new claim.
 Current bases must match. Changed dependencies make retained claims stale.
 Remove or replace every claim with a deleted reference. Stale data is previous
 context. OVERLAY_PUT replaces a full claim; OVERLAY_REMOVE removes only the claim.
@@ -123,6 +124,27 @@ remain separate from swing. Tempo-qualified display uses tempo at nominal onset;
 a claim derived from tempo declares its tempo dependency.
 [R15](SPEC.md#r15--known-source-groove-equations),
 [R16](SPEC.md#r16--unknown-source-timing-and-time-display)
+
+This example has authored timing with known source values on `n1`, and an
+observation with unresolved residuals on `n2`. Each groove depends on its
+nominal claim:
+
+```fields
+DOC ghostnote-document 1.0 desired
+CLIP {"id":"part","length":"4"}
+COVERAGE {"channels":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],"clip":"part","fields":"all","from":"0","status":"complete","to":"4"}
+FIELDS id clip at duration pitch velocity channel mute
+EVENT n1 part 17/32 3/16 60 100 1 false
+EVENT n2 part 129/128 15/32 64 90 1 false
+OVERLAY {"basis":"f855c7cfed3966b1bbbfa1d19e53a7dffb1e8c80e303eae243bee9286302d425","data":{"atDelta":"0","cross":"0","durationDelta":"0","durationIntent":"-1/16","durationUnassigned":"0","event":"n1","intent":"resolved","local":"0","nominal":"nom1","phase":"0","sourceAt":"17/32","sourceDuration":"3/16","template":"1/32","unassigned":"0"},"depends":{"clips":[],"events":[{"fields":["at","clip","duration"],"id":"n1"}],"membership":[],"overlays":["nom1"]},"id":"groove1","provenance":{"kind":"declared","method":"authored-late-template","source":"fixture-author"},"state":"current","type":"groove"}
+OVERLAY {"basis":"ea4ede5c555c47b4cc89b124554c6822b75c179834a900373dcd5710912fa615","data":{"atDelta":null,"cross":"0","durationDelta":null,"durationIntent":"0","durationUnassigned":"-1/32","event":"n2","intent":"unresolved","local":"0","nominal":"nom2","phase":"0","template":"0","unassigned":"1/128"},"depends":{"clips":[],"events":[{"fields":["at","clip","duration"],"id":"n2"}],"membership":[],"overlays":["nom2"]},"id":"groove2","provenance":{"kind":"measured","method":"cell-only-observation","source":"fixture-author"},"state":"current","type":"groove"}
+OVERLAY {"basis":"1b759198906aa108f4edb19b1aacd3f989e3a90b77758fe56d5b94f403caa2e0","data":{"at":"1/2","division":"1/2","duration":"1/4","event":"n1"},"depends":{"clips":[],"events":[{"fields":["at","clip","duration"],"id":"n1"}],"membership":[],"overlays":[]},"id":"nom1","provenance":{"kind":"declared","method":"authored-eighths","source":"fixture-author"},"state":"current","type":"nominal"}
+OVERLAY {"basis":"8f891dbb31be2875653bcddfb4b06fe222882d2403b502f33f3222a36ea76d4a","data":{"at":"1","division":"1/4","duration":"1/2","event":"n2"},"depends":{"clips":[],"events":[{"fields":["at","clip","duration"],"id":"n2"}],"membership":[],"overlays":[]},"id":"nom2","provenance":{"kind":"inferred","method":"nearest-quarter","source":"fixture-author"},"state":"current","type":"nominal"}
+```
+
+For `n1`: sourceAt `17/32` = `1/2` + template `1/32`; source duration `3/16`
+= `1/4` + durationIntent `-1/16`; both deltas are zero. For `n2`: unassigned
+`1/128` = `129/128` - `1`; durationUnassigned `-1/32` = `15/32` - `1/2`.
 
 ## Groups
 

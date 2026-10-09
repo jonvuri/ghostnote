@@ -147,3 +147,52 @@ export function sealProposal(proposal: Document, request: SealRequest, base: Sta
   // The codec validates the sealed proposal again when it applies it (`applyPatchTo`, `applyDesiredTo`).
   return sealed;
 }
+
+/**
+ * Bind the claims of a created clip to its live clip ID (8i9). `document` has its clips, coverage, and events at the
+ * live ID already. The claims were sealed against the proposal as sent, so each supplied basis was checked in the
+ * agent's clip ID space and no wrong basis reaches this step. The clip ID is the only change: each claim names the
+ * live ID, and each current claim gets the basis of the same dependencies under that ID. A stale claim keeps its
+ * prior basis (R22). Mutates `document.overlays`.
+ */
+export function bindCreatedClaims(document: StateDocument, from: string, to: string): void {
+  const map = (id: string) => (id === from ? to : id);
+  for (const claim of document.overlays) {
+    const data = claim.data as Record<string, unknown>;
+    if (data['clip'] === from) data['clip'] = to;
+    claim.depends.clips = claim.depends.clips.map((item) => ({ ...item, id: map(item.id) }));
+    claim.depends.membership = claim.depends.membership.map(map);
+  }
+  const index = indexState(document);
+  for (const claim of document.overlays) if (claim.state === 'current') claim.basis = basisFromIndex(index, claim);
+}
+
+/**
+ * The dependency expansion of the claims that a call states as current (8i9, D44). A membership dependency projects
+ * every event ID of its clip, and an overlay dependency projects the full envelope of that claim, for each basis
+ * computation. Unit: one member event, or 4 bytes of canonical JSON of a depended-on claim (both cost about 1 µs of
+ * planning). Computed in one pass over the parsed proposal, before any basis.
+ */
+export function dependencyExpansion(document: Document, request: SealRequest): number {
+  if (document.kind === 'patch') return 0;
+  const members = new Map<string, number>();
+  for (const event of document.events) members.set(event.clip, (members.get(event.clip) ?? 0) + 1);
+  const claims = new Map(document.overlays.map((claim) => [claim.id, claim]));
+  const sizes = new Map<string, number>();
+  const size = (id: string): number => {
+    let found = sizes.get(id);
+    if (found === undefined) {
+      const claim = claims.get(id);
+      found = claim === undefined ? 0 : Math.ceil(Buffer.byteLength(canonicalJson(claim)) / 4);
+      sizes.set(id, found);
+    }
+    return found;
+  };
+  let units = 0;
+  for (const claim of document.overlays) {
+    if (claim.state !== 'current' && !request.current.has(claim.id)) continue;
+    for (const clip of claim.depends.membership) units += members.get(clip) ?? 0;
+    for (const id of claim.depends.overlays) units += size(id);
+  }
+  return units;
+}

@@ -27,8 +27,10 @@ import {
 } from '../contract/index.js';
 import { branchProtected, directedDestruction, takeAppliedAnything } from '../engine/index.js';
 import {
-  EditRefusal, clipPropertyWrite, documentClipLength, type ClipPropertyChanges,
+  EditRefusal, checkCreation, clipPropertyWrite, documentClipLength, type ClipPropertyChanges,
 } from '../bindings/launcher-clip-edit.js';
+import { NO_SEAL, dependencyExpansion, type SealRequest } from '../bindings/overlay-seal.js';
+import type { Document } from '../document/index.js';
 import type { StashedChangeset } from '../stash/index.js';
 import {
   AGENT_NATIVE_TOOL_PROFILE, ToolFailure, failureResult, isFailureResult,
@@ -36,9 +38,11 @@ import {
 } from './agent-native-result.js';
 import { checkHealth, format } from './agent-native.js';
 import { documentText, editLauncherClip, parseProposal } from './agent-native-edit.js';
-import { DESIRED_EXAMPLE_TEXT, FORMAT_STATEMENT, documentParameter, kindRepair } from './document-help.js';
+import {
+  DESIRED_EXAMPLE_TEXT, FORMAT_STATEMENT, claimRepairOf, documentParameter, kindRepair,
+} from './document-help.js';
 import type { ToolSpec } from './tools.js';
-import { atMost, requireWithinLimit } from './write-limits.js';
+import { WRITE_LIMITS, atMost, requireWithinLimit } from './write-limits.js';
 import type { Workspace } from './workspace.js';
 
 export const ADD_SCHEMA = 'ghostnote-launcher-clip-add/1';
@@ -180,11 +184,15 @@ const occupancyIn = (entries: Snapshot['entries'], target: Target, at: RevisionM
 
 // --- add_launcher_clip ---------------------------------------------------------
 
+const CLAIM_DEPENDENCY_UNITS = 'claim dependency units (one for each note of a membership dependency, and one for '
+  + 'each 4 bytes of a claim that another claim depends on)';
+
 const addInput = z.object({
   trackId,
   row,
   document: z.union([z.string().min(1), z.record(z.string(), z.unknown())]).describe(
-    documentParameter('A desired document without BASE (one CLIP and its notes)'),
+    `${documentParameter('A desired document without BASE (one CLIP and its notes)')} `
+    + atMost('claimDependencyExpansion', CLAIM_DEPENDENCY_UNITS),
   ),
   format,
   readback: z.enum(['summary', 'document']).optional().describe(
@@ -198,8 +206,10 @@ const ADD_DESCRIPTION = `${PROFILE} Create one Launcher clip in an empty slot fr
   + `${DESIRED_EXAMPLE_TEXT}\n`
   + 'The CLIP length is the clip length in beats. A CLIP without loop makes a clip that does not loop; loop '
   + '{"from":"0","to":<length>} makes it loop over its length. The notes are written through the '
-  + 'edit_launcher_clip path, with its rules and refusals. A refused document returns code invalid-input before '
-  + 'any write; detail.repair has the known correction.\n'
+  + 'edit_launcher_clip path, with its rules and refusals. OVERLAY rows can use the document clip ID and omit '
+  + 'basis: the tool checks them before any write, binds them to the new clip, and computes each basis. It takes at '
+  + `most ${WRITE_LIMITS.claimDependencyExpansion} claim dependency units (see document). A refused `
+  + 'document returns code invalid-input before any write; detail.repair has the known correction.\n'
   + 'The slot must exist and be empty. An occupied slot refuses with code occupied: Bitwig would put the new clip '
   + 'on a new scene past the reachable rows. A missing row refuses with code absent; add scenes at the end with '
   + 'add_scenes.\n'
@@ -209,11 +219,24 @@ const ADD_DESCRIPTION = `${PROFILE} Create one Launcher clip in an empty slot fr
   + 'creation in failure.effects; revert_change with its changeId removes the empty clip. To undo a complete '
   + 'add, revert the content change, then the creation (next.revert has both, in order).';
 
+/** The creation check (`checkCreation`) as an input refusal: no read, no write, and the known repair. */
+function checkedCreation(proposal: Document, seal: SealRequest): { document: Document; seal: SealRequest } {
+  try {
+    const document = checkCreation(proposal, seal);
+    return document === proposal ? { document, seal } : { document, seal: NO_SEAL };
+  } catch (error) {
+    if (!(error instanceof EditRefusal)) throw error;
+    const repair = claimRepairOf(error);
+    throw new ToolFailure(error.code, 'input', `${error.message} Nothing was written.`, {
+      detail: { reason: error.reason, ...error.detail, ...(repair === undefined ? {} : { repair }) } });
+  }
+}
+
 async function addLauncherClip(workspace: Workspace, args: AddInput): Promise<unknown> {
   const started = performance.now();
   const target = { trackId: args.trackId, row: args.row };
   return guardedRun(ADD_SCHEMA, target, async (state) => {
-    const proposal = parseProposal(args, 'add').document;
+    const { document: proposal, seal } = parseProposal(args, 'add');
     if (proposal.kind !== 'desired' || proposal.base !== undefined) {
       throw new ToolFailure('invalid-input', 'input', 'add_launcher_clip takes a desired document without BASE.', {
         detail: { repair: kindRepair('add', args.format ?? 'fields', documentText(args.document)) } });
@@ -221,7 +244,10 @@ async function addLauncherClip(workspace: Workspace, args: AddInput): Promise<un
     if (proposal.clips.length !== 1) {
       throw new ToolFailure('invalid-input', 'input', 'A desired document for one Launcher clip has exactly one CLIP.');
     }
+    requireWithinLimit('claimDependencyExpansion', dependencyExpansion(proposal, seal), CLAIM_DEPENDENCY_UNITS);
     const lengthBeats = documentClipLength(proposal.clips[0]!);
+    // The claims are checked and sealed before the clip exists; the planner binds them to the live clip ID (8i9).
+    const checked = checkedCreation(proposal, seal);
 
     state.stage = 'resolve';
     const at = await markFor(workspace, [args.row]);
@@ -244,7 +270,7 @@ async function addLauncherClip(workspace: Workspace, args: AddInput): Promise<un
     const content = await editLauncherClip(workspace, {
       trackId: args.trackId, row: args.row, document: args.document, intent: 'replace', format: args.format ?? 'fields',
       ...(args.readback === undefined ? {} : { readback: args.readback }),
-    }) as Record<string, any>;
+    }, { parsed: checked }) as Record<string, any>;
     if (isFailureResult(content)) {
       return {
         ...content,

@@ -30,6 +30,8 @@ surface without relying on the user's UI selection.
   fresh `clip.read` capture; a reference that is not `current` refuses (D32).
   `get_document_reference` returns the format reference and templates with
   no host call, and a refused document returns a repair (E255).
+  `add_launcher_clip` takes overlay claims in one call and binds them to the
+  new clip (D47).
 - Device branching uses ordinary layer-chain operations (`compose_devices`,
   `duplicate_layer_chain`, `set_layer_chain_solo`, `move_devices`, D18). There
   is no managed device-alternate lifecycle in the default profile.

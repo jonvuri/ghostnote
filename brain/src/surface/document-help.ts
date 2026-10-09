@@ -16,14 +16,18 @@ import { readFileSync } from 'node:fs';
 import { z } from 'zod';
 
 import {
-  DocumentError, contentHash, modelReference, parse, serialize,
-  type Document, type Encoding, type Patch,
+  DocumentError, applyPatch, contentHash, modelReference, parse, serialize,
+  type Document, type Encoding, type Overlay, type Patch, type StateDocument,
 } from '../document/index.js';
+import { canonicalJson } from '../document/json.js';
+import { parseSealable, sealProposal } from '../bindings/overlay-seal.js';
 import { AGENT_NATIVE_TOOL_PROFILE, failureResult, type ReadResult } from './agent-native-result.js';
 import type { ToolSpec } from './tools.js';
 
 export const REFERENCE_SCHEMA = 'ghostnote-document-reference/1';
 export const REFERENCE_TOOL = 'get_document_reference';
+
+const byId = (a: Overlay, b: Overlay) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
 
 // --- the maintained reference --------------------------------------------------
 
@@ -66,15 +70,23 @@ export function selectedReference(sections: readonly OptionalSection[]): string 
  */
 export const EXAMPLE_REF = 'gnb1.from-read';
 
-const EXAMPLES = [...REFERENCE_SOURCE.matchAll(/```fields\n([\s\S]*?)```/g)].map((match) => match[1]!);
-if (EXAMPLES.length !== 2) throw new Error('MODEL-REFERENCE.md must hold the Core and the Patch example');
-const CORE_EXAMPLE = parse(EXAMPLES[0]!, 'fields');
-const PATCH_EXAMPLE = parse(EXAMPLES[1]!, 'fields');
+/** The fenced FIELDS examples of one reference section, in source order. Each one parses (checked at load). */
+function examplesOf(section: string): Document[] {
+  return [...SECTIONS.get(section)!.matchAll(/```fields\n([\s\S]*?)```/g)].map((match) => parse(match[1]!, 'fields'));
+}
+const [CORE_EXAMPLE, PATCH_EXAMPLE, TIMING_EXAMPLE] = (['Core', 'Patch', 'Timing overlays'] as const).map((section) => {
+  const examples = examplesOf(section);
+  if (examples.length !== 1) throw new Error(`MODEL-REFERENCE.md must hold one example in ${section}`);
+  return examples[0]!;
+}) as [Document, Document, StateDocument];
 if (CORE_EXAMPLE.kind !== 'desired' || CORE_EXAMPLE.base !== undefined || CORE_EXAMPLE.clips.length !== 1) {
   throw new Error('the Core example must be a one-clip desired document without BASE');
 }
 if (PATCH_EXAMPLE.kind !== 'patch' || PATCH_EXAMPLE.base.sha256 !== contentHash(CORE_EXAMPLE)) {
   throw new Error('the Patch example must patch the Core example');
+}
+if (TIMING_EXAMPLE.kind !== 'desired' || TIMING_EXAMPLE.overlays.some((claim) => claim.state !== 'current')) {
+  throw new Error('the Timing overlays example must be a desired document with current claims');
 }
 
 /**
@@ -105,6 +117,64 @@ export const ADD_EXAMPLE_ROW = 'ADD n2 part 1 1/2 64 100 1 false';
 if (parse(TEMPLATES.patch.fields + ADD_EXAMPLE_ROW + '\n', 'fields').kind !== 'patch') {
   throw new Error('the ADD example row does not parse');
 }
+
+// --- timing templates ------------------------------------------------------------
+
+/** The notes of the Timing overlays example without its claims: the fixture of the timing templates. */
+export const TIMING_FIXTURE = { ...TIMING_EXAMPLE, overlays: [] } as StateDocument;
+
+export type TimingTemplateKind = 'known' | 'unknown';
+
+/**
+ * The timing template of one mode: a patch that puts one nominal claim and its groove claim of the Timing overlays
+ * example on the fixture, in the host input form (no basis). known: the groove with sourceAt and sourceDuration.
+ * unknown: the groove without them.
+ */
+function timingPatch(kind: TimingTemplateKind): Patch {
+  const claims = TIMING_EXAMPLE.overlays;
+  const groove = claims.find((claim) => claim.type === 'groove' && ('sourceAt' in claim.data) === (kind === 'known'))!;
+  const nominal = claims.find((claim) => claim.id === (groove.data as { nominal: string }).nominal)!;
+  return {
+    format: 'ghostnote-document', version: '1.0', kind: 'patch',
+    base: { sha256: contentHash(TIMING_FIXTURE), ref: EXAMPLE_REF },
+    add: [], remove: [], update: [], clipUpdate: [], overlayPut: [nominal, groove], overlayRemove: [],
+  } as Patch;
+}
+
+/** One timing template in one encoding, without the basis of each put claim. */
+function timingTemplateText(kind: TimingTemplateKind, encoding: Encoding): string {
+  const text = serialize(timingPatch(kind), encoding);
+  return text.replace(/"basis":"[0-9a-f]{64}",/g, '');
+}
+const TIMING_TEMPLATES = Object.fromEntries((['known', 'unknown'] as const).map((kind) => {
+  const fields = timingTemplateText(kind, 'fields');
+  const json = JSON.parse(timingTemplateText(kind, 'json')) as Record<string, unknown>;
+  for (const [text, encoding] of [[fields, 'fields'], [JSON.stringify(json), 'json']] as const) {
+    if (/"basis"/.test(text)) throw new Error(`the ${kind} timing template has a basis`);
+    const { document, seal } = parseSealable(text, encoding);
+    const applied = applyPatch(TIMING_FIXTURE, sealProposal(document, seal, TIMING_FIXTURE) as Patch).document;
+    if (canonicalJson(applied.overlays) !== canonicalJson(timingPatch(kind).overlayPut.slice().sort(byId))) {
+      throw new Error(`the ${kind} timing template does not seal to the Timing overlays example (${encoding})`);
+    }
+  }
+  return [kind, { fields, json }];
+})) as Record<TimingTemplateKind, { fields: string; json: Record<string, unknown> }>;
+
+/** One timing template: FIELDS text, or the canonical JSON object. */
+export function timingTemplate(kind: TimingTemplateKind, encoding: Encoding): string | Record<string, unknown> {
+  return encoding === 'fields' ? TIMING_TEMPLATES[kind].fields : structuredClone(TIMING_TEMPLATES[kind].json);
+}
+
+/** The host input rule beside the timing templates. The portable format requires a basis on every claim. */
+export const TIMING_TEMPLATE_NOTE = 'Each patch puts a nominal claim and its groove claim on one note of the '
+  + 'Timing overlays example (BASE is that example without OVERLAY rows). known: authored timing with known '
+  + 'source values (n1). unknown: an observation with unresolved residuals (n2). For a live clip, copy BASE from a '
+  + 'fresh read_launcher_clip and the event IDs from its document. In a new clip, put the same claims in OVERLAY '
+  + 'rows of the add_launcher_clip document. Host input rule of add_launcher_clip and edit_launcher_clip, not of '
+  + 'the portable format: a current claim that the call states (OVERLAY_PUT, or a new or changed OVERLAY) can '
+  + 'omit basis; the tool computes it after the note changes of the call. A supplied basis must match, or the call '
+  + 'refuses with R22 and detail.expectedBasis. A retained or stale claim keeps its prior basis; a stale claim '
+  + 'must state it. The portable format requires basis on every overlay; each returned document has it.';
 
 // --- description text ----------------------------------------------------------
 
@@ -147,7 +217,9 @@ export interface Repair {
 export type RepairCase =
   | 'record-keyword' | 'record-order' | 'missing-fields' | 'row-width' | 'header' | 'encoding-mismatch'
   | 'exact-timing' | 'integer-value' | 'json-syntax' | 'json-envelope' | 'missing-coverage' | 'desired-coverage'
-  | 'document-kind';
+  | 'document-kind' | ClaimRepairCase;
+export type ClaimRepairCase =
+  | 'overlay-depends' | 'dependency-entry' | 'dependency-minimum' | 'overlay-envelope' | 'overlay-data' | 'groove-timing';
 
 const RECORDS = new Set(['DOC', 'META', 'BASE', 'EXTENSIONS', 'CLIP', 'COVERAGE', 'FIELDS', 'EVENT', 'ADD', 'REMOVE',
   'UPDATE', 'CLIP_UPDATE', 'OVERLAY', 'OVERLAY_PUT', 'OVERLAY_REMOVE']);
@@ -246,7 +318,69 @@ export function repairOf(error: DocumentError, text: string, encoding: Encoding,
       + 'COVERAGE has fields "all", all 16 channels, from "0" to the clip length, and status complete. The COVERAGE '
       + 'of a read is snapshot coverage: it lists only the observed fields. Do not copy it into a desired document.' });
   }
+  return claimRepair(error.rule, error.path, reason);
+}
+
+// --- claim repair --------------------------------------------------------------
+
+const DEPENDS_FORM = 'depends has four arrays, all required, also when empty: events and clips hold {"id","fields"} '
+  + 'objects; overlays and membership hold IDs. Example: {"events":[{"id":"n1","fields":["at","clip","duration"]}],'
+  + '"clips":[],"overlays":["nom1"],"membership":[]}.';
+const CLAIM = /^\$\.(?:overlays|overlayPut)\[\d+\]/;
+
+/**
+ * The known correction for a refused overlay claim (8i9), from the codec rule, path, and reason only. The codec
+ * reports a structure fault at the parse, and a timing equation (R15, R16) when the claim meets its event: at the
+ * apply of an edit, or at the creation check of an add. Undefined when no known correction applies.
+ */
+function claimRepair(rule: string, path: string, reason: string): Repair | undefined {
+  const reference = { tool: REFERENCE_TOOL, sections: ['Core', 'Timing overlays'] };
+  const repair = (kind: ClaimRepairCase, correction: string): Repair => ({ case: kind, reference, correction });
+  if (rule === 'R15' || rule === 'R16') {
+    return repair('groove-timing', 'Known source (sourceAt and sourceDuration present): atDelta and durationDelta '
+      + 'are values; sourceAt = nominal.at + phase + template + cross + local + unassigned; event.at = sourceAt + '
+      + 'atDelta; sourceDuration = nominal.duration + durationIntent + durationUnassigned; event.duration = '
+      + 'sourceDuration + durationDelta; resolved intent has zero unassigned terms. Unknown source (no sourceAt or '
+      + 'sourceDuration): atDelta and durationDelta are null, intent is unresolved, phase, template, cross, local, '
+      + 'and durationIntent are 0, unassigned = event.at - nominal.at, and durationUnassigned = event.duration - '
+      + 'nominal.duration. Measured provenance has unresolved intent and zero intentional terms.');
+  }
+  if (rule === 'R22' || rule === 'R28' || !CLAIM.test(path)) return undefined;
+  const tail = path.replace(CLAIM, '');
+  if (/^\.depends(?:\.(?:events|clips|overlays|membership))?$/.test(tail)
+      && /required field is missing|expected/.test(reason)) {
+    return repair('overlay-depends', DEPENDS_FORM);
+  }
+  if ((/^\.depends\.(?:events|clips)\[\d+\](?:\.(?:id|fields))?$/.test(tail)
+      || /^\.depends\.(?:overlays|membership)\[\d+\]$/.test(tail)) && /required field is missing|expected/.test(reason)) {
+    return repair('dependency-entry', DEPENDS_FORM);
+  }
+  if (rule === 'R21' && /^missing .*dependency/.test(reason)) {
+    return repair('dependency-minimum', 'A nominal claim depends on the at, clip, and duration fields of its event. '
+      + 'A groove claim depends on the same fields and names its nominal claim ID in depends.overlays. '
+      + DEPENDS_FORM);
+  }
+  if ((/^\.(?:id|type|state|provenance|basis)$/.test(tail) || /^\.provenance\.(?:kind|source|method)$/.test(tail))
+      && /required field is missing|expected|unknown/.test(reason)) {
+    return repair('overlay-envelope', 'Each OVERLAY and OVERLAY_PUT is one JSON object with id, type, state '
+      + '(current or stale), provenance, depends, and data. provenance is {"kind","source","method"}: kind is '
+      + 'declared, measured, or inferred; source and method are nonempty text.');
+  }
+  if (/^\.data(?:\.[A-Za-z]+)?$/.test(tail) && /required field is missing|unknown field|expected object/.test(reason)) {
+    return repair('overlay-data', 'Nominal data: event, at, duration, and division (at is a multiple of division). '
+      + 'Groove data: event, nominal, intent, phase, template, cross, local, unassigned, durationIntent, '
+      + 'durationUnassigned, atDelta, and durationDelta; also sourceAt and sourceDuration when the source timing is '
+      + 'known. Timing values are exact fractions as JSON strings.');
+  }
   return undefined;
+}
+
+/** The known correction for a claim refusal of the planner or the creation check: a codec rule and its path. */
+export function claimRepairOf(refusal: { readonly message: string; readonly detail: Readonly<Record<string, unknown>> }) {
+  const { rule, path } = refusal.detail;
+  if (typeof rule !== 'string' || typeof path !== 'string') return undefined;
+  const reason = refusal.message.includes(': ') ? refusal.message.slice(refusal.message.indexOf(': ') + 2) : refusal.message;
+  return claimRepair(rule, path, reason);
 }
 
 /** The repair when the input is in the other encoding than format states. */
@@ -280,7 +414,7 @@ export function kindRepair(use: DocumentUse, encoding: Encoding, text: string): 
 const referenceInput = z.object({
   sections: z.array(z.enum(OPTIONAL_REFERENCE_SECTIONS)).max(4).optional().describe(
     'Optional sections to add to Core: Patch, Timing overlays, Groups, Meter and tempo. Patch also adds the patch '
-    + 'template.',
+    + 'template; Timing overlays adds the timing templates.',
   ),
   format: z.enum(['fields', 'json']).default('fields').describe(
     'Template encoding: fields (FIELDS text, default) or json (the same schema as a JSON object).',
@@ -295,14 +429,16 @@ const REFERENCE_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Return the 
   + 'The Core section is always in data.reference; sections adds Patch, Timing overlays, Groups, or Meter and '
   + 'tempo. data has the format, the reference revision and sha256, and templates.desired: a complete one-clip '
   + 'desired document for add_launcher_clip. With Patch, templates.patch is a patch for edit_launcher_clip: its '
-  + 'BASE and IDs show the form only; copy them from a fresh read_launcher_clip of the target clip. format json '
-  + 'returns the templates as JSON objects of the same schema.';
+  + 'BASE and IDs show the form only; copy them from a fresh read_launcher_clip of the target clip. With Timing '
+  + 'overlays, templates.timing has known and unknown: patches that put a nominal and a groove claim, and a note '
+  + 'with the basis rule of the host tools. format json returns the templates as JSON objects of the same schema.';
 
 function getDocumentReference(args: ReferenceInput): unknown {
   try {
     const encoding: Encoding = args.format ?? 'fields';
     const optional = [...new Set(args.sections ?? [])];
     const patch = optional.includes('Patch');
+    const timing = optional.includes('Timing overlays');
     const result: ReadResult<Record<string, unknown>> = {
       schema: REFERENCE_SCHEMA,
       source: { host: 'ghostnote', read: 'maintained-reference' },
@@ -318,6 +454,11 @@ function getDocumentReference(args: ReferenceInput): unknown {
         templates: {
           desired: template('desired', encoding),
           ...(patch ? { patch: template('patch', encoding) } : {}),
+          ...(timing ? { timing: {
+            note: TIMING_TEMPLATE_NOTE,
+            known: timingTemplate('known', encoding),
+            unknown: timingTemplate('unknown', encoding),
+          } } : {}),
         },
       },
       warnings: [],
@@ -341,7 +482,7 @@ export const getDocumentReferenceTool: ToolSpec = {
     profile: AGENT_NATIVE_TOOL_PROFILE,
     envelope: ['schema', 'source', 'target', 'coverage', 'authority', 'data', 'warnings'],
     failure: ['schema', 'failure.code', 'failure.stage', 'failure.effects', 'message'],
-    templates: ['desired', 'patch with Patch'],
+    templates: ['desired', 'patch with Patch', 'timing with Timing overlays'],
     reference: MODEL_REFERENCE,
   },
   run: async (_workspace, input) => getDocumentReference(input as ReferenceInput),

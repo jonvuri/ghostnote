@@ -33,11 +33,16 @@ for (const [name, expect] of Object.entries(expected.documents) as [
     for (const encoding of ['json', 'fields'] as const)
         emit(`conformance/v1/canonical/${name}.${encoding}`, serialize(json, encoding));
 }
-const source = read('MODEL-REFERENCE.md'), examples = [...source.matchAll(/```fields\n([\s\S]*?)```/g)].map(match => parse(match[1], 'fields'));
-assert.equal(examples.length, 2);
-const result = applyPatch(examples[0] as StateDocument, examples[1] as Patch);
+const source = read('MODEL-REFERENCE.md');
+// Each example belongs to its reference section; select them by section, not by position.
+const examplesOf = (section: string) => [...source.split(/(?=^## )/m).find(piece => piece.startsWith(`## ${section}\n`))!.matchAll(/```fields\n([\s\S]*?)```/g)].map(match => parse(match[1], 'fields'));
+assert.equal([...source.matchAll(/```fields\n/g)].length, 3, 'MODEL-REFERENCE.md has the Core, Patch, and Timing overlays examples');
+const [core] = examplesOf('Core'), [patch] = examplesOf('Patch'), [timing] = examplesOf('Timing overlays');
+const result = applyPatch(core as StateDocument, patch as Patch);
 assert.equal(result.document.events[0].pitch, 62);
-emit('MODEL-REFERENCE.identity.json', JSON.stringify({ formatVersion: '1.0', referenceRevision: 2, algorithm: 'sha256', scope: 'Exact UTF-8 bytes of MODEL-REFERENCE.md', sha256: hash(source) }, null, 2) + '\n');
+assert.equal(timing.kind, 'desired');
+assert.deepEqual(timing.overlays.map(overlay => `${overlay.id}:${overlay.type}:${overlay.state}`), ['groove1:groove:current', 'groove2:groove:current', 'nom1:nominal:current', 'nom2:nominal:current']);
+emit('MODEL-REFERENCE.identity.json', JSON.stringify({ formatVersion: '1.0', referenceRevision: 3, algorithm: 'sha256', scope: 'Exact UTF-8 bytes of MODEL-REFERENCE.md', sha256: hash(source) }, null, 2) + '\n');
 const baseline = JSON.parse(execFileSync('python3', [new URL('conformance/v1/measure-baseline.py', spec).pathname], { encoding: 'utf8', env: { ...process.env, PYTHONDONTWRITEBYTECODE: '1' } }));
 const selections = { core: [], patch: ['Patch'], timing: ['Timing overlays'], full: REFERENCE_SECTIONS.filter(section => section !== 'Core') } as const;
 const measurements = Object.entries(selections).map(([name, sections]) => {

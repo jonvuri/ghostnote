@@ -785,6 +785,19 @@ test('edit seal: a put on an event that the same patch removes refuses', async (
   assert.match(result.message, /dangling event/);
 });
 
+test('edit seal: an unknown-source groove with a wrong residual refuses at the plan with the timing repair (8i9)', async () => {
+  const fx = await fixture();
+  await fx.write(0, { 0: [note({ pitch: 60 }), note({ pitch: 64, startBeats: 1 })] });
+  const first = await fx.read();
+  const subject = ids(documentOf(first)).get('1:64:1')!;
+  // The note is on its nominal onset, so unassigned must be 0, not 1/16.
+  const result = await refused(fx, patch(first.authority.base, [`OVERLAY_PUT ${nominalText(subject, '1', '1')}`,
+    `OVERLAY_PUT ${grooveText(subject, 'nom1', '1/16', '0')}`]), 'invalid-input', 'R16');
+  assert.equal(result.failure.stage, 'plan');
+  assert.equal(result.detail.repair?.case, 'groove-timing', JSON.stringify(result));
+  assert.deepEqual(result.detail.repair.reference.sections, ['Core', 'Timing overlays']);
+});
+
 test('edit seal: a sealed claim stays current on an unrelated edit and goes stale, not resealed, on a dependency edit', async () => {
   const fx = await fixture();
   await fx.write(0, { 0: [note({ pitch: 60 }), note({ pitch: 64, startBeats: 1 })] });

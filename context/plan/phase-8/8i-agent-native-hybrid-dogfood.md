@@ -2,7 +2,7 @@
 title: Phase 8i — Agent-native hybrid dogfood
 kind: plan
 state: planned
-status: Final Phase 8 gate. 8i0–8i6 are complete (E249–E255, D42–D46). Next: 8i9 overlay authoring and creation, then the operator's fresh-client trial.
+status: Final Phase 8 gate. 8i0–8i6 and 8i9 are complete (E249–E256, D42–D47); the groove and overlay trials passed (E256). Next: 8i7 and 8i8.
 updated: 2026-10-09
 parent: README.md
 prev: 8i5-device-control-identity.md
@@ -62,13 +62,17 @@ The following sessions completed them before the 2026-10-09 trial:
 8. Planned: [8i7 — Bounded track mixer controls](8i7-track-mixer.md) and
    [8i8 — Selection effects and unavailable readback](8i8-selection-and-readback-results.md).
    Neither closes the groove or overlay gates.
-9. Next: [8i9 — Overlay authoring and creation](8i9-overlay-authoring-and-creation.md).
-   The Rain Steps trial selected overlays, but the agent read the repository
-   to construct them. Creation then left an empty clip before refusing
-   overlays with an agent-chosen clip ID. Add complete requested templates,
-   bounded repair help, and support for creation with overlays. Keep added
-   description prose small. The operator will manually rerun the fresh-client
-   trial after implementation. The groove and overlay gates stay pending.
+9. [8i9 — Overlay authoring and creation](8i9-overlay-authoring-and-creation.md).
+   Complete ([E256](../../evidence/experiments/e256-overlay-authoring-and-creation.md),
+   [D47](../../decisions/d47-clip-creation-binds-claims-to-the-live-clip.md)):
+   Timing overlays help has a complete example and timing templates with the
+   host basis rule; a refused claim returns `detail.repair`;
+   `add_launcher_clip` takes claims with the document's clip ID in one call.
+   Descriptions v42, model reference revision 3.
+10. The [operator overlay trial](#operator-overlay-trial) passed
+    ([E256](../../evidence/experiments/e256-overlay-authoring-and-creation.md#operator-trial)).
+    It closes the groove task and the overlay dependency change of the trial
+    set.
 
 ## Fresh agent trials
 
@@ -88,14 +92,42 @@ tool list. The session file in `~/.codex/sessions` has the timestamps. Use
 an owned track, and delete it after the trial. Give the task only; do not
 name tools or a sequence.
 
+## Operator overlay trial
+
+The operator repeats the Rain Steps task of the
+[8i9 source](8i9-overlay-authoring-and-creation.md#source-and-observed-failure)
+in a fresh client with no repository access and no tool sequence.
+
+1. Restart the client, or its ghostnote MCP server, so that it loads
+   `ghostnote-description-v42` and model reference revision 3. A restart
+   clears the claims that the server process stores; the "Night Glass"
+   clip `Rain Pocket • 8 bars` then reads without its 56 claims.
+2. Check: `get_document_reference` with Timing overlays returns
+   `data.revision` 3 and `data.templates.timing`.
+3. Give the original task. After the add, move one note of the new clip by
+   hand in Bitwig, then ask the agent to read fresh state.
+4. Record the transcript, help requests, format refusals, recovery, calls,
+   the claim states after the hand move, and the musical verdict.
+
+A claim whose note keeps its ID and its dependency values stays current. A
+hand edit that keeps the onset cell (a length change) keeps the ID; the
+claims of that note become stale. A moved onset is a new cell: the note gets
+a new ID in the fresh read, and its claims are removed.
+
+Result (2026-10-09, [E256](../../evidence/experiments/e256-overlay-authoring-and-creation.md#operator-trial)):
+passed. The agent created 32 notes and 64 claims in one add with no refusal
+and no repository read. After two hand edits, the moved note's claims were
+removed, the lengthened note's claims were stale, and 60 claims stayed
+current; the agent reported this correctly. Operator verdict: musical pass.
+
 ## Second musical trial
 
 The second musical trial passed on 2026-10-09: the operator accepted the
 bass rhythm revision and sound. Preserve that result. 8i5 repaired the two
 device failures from the session ([E254](../../evidence/experiments/e254-device-control-identity-and-route-claims.md)).
 The [interface review](8i-trial-2-interface-review.md) records extra calls
-and their causes. This trial did not use overlays. Groove interpretation
-and overlay dependency changes remain open gates.
+and their causes. This trial did not use overlays; the operator overlay
+trial covered groove interpretation and overlay dependency changes.
 
 ## Accepted 8f3 inputs
 

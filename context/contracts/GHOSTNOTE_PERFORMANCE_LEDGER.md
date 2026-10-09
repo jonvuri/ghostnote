@@ -4,7 +4,7 @@ kind: reference
 state: active
 updated: 2026-10-09
 parent: ../plan/phase-8/8h-cache-promotion-and-interface-simplification.md
-evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252, E253, E254
+evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252, E253, E254, E256
 ---
 
 # Ghostnote performance ledger
@@ -94,10 +94,13 @@ live wire-call count of the E247 inventory.
 | `edit_launcher_clip`, claims only (put or remove, no note change) | 806 ms (read 357, readback 409); no write | Edit refusal about 400 ms (E246) | mark 2, tracks 1, clipRead 2, delta 2 (the seal adds no call; new test) | E253 |
 | Edit refusal before a write | About 400 ms | E236: 560 ms | — | E246 |
 | Document input refused by the codec (add or edit), with `detail.repair` | 1 ms; 0 wire calls | Before 8i6: the same refusal without repair | none (new test) | E255 |
-| `get_document_reference`, Core and the desired template; all sections and both templates | 0.3 ms, 4,469 bytes; 0.1 ms, 9,192 bytes | Reference source 7,980 bytes | none (new test) | E255 |
+| `get_document_reference`, Core and the desired template; Timing overlays; all sections and all templates | 4,469 bytes; 13,347 bytes; 15,733 bytes (FIELDS) | E255: 4,469; 6,806; 9,192 bytes. Reference source 7,980 → 10,736 bytes (the timing example) | none | E255, E256 |
 | `add_launcher_clip` with the desired template (1 note); a template-form patch (1 ADD, 1 UPDATE) after a read with Patch help | 2,460 ms, 87 wire calls; 1,546 ms, 45 wire calls (read 389 ms) | E250 add typical 2,158 ms; targeted insert 1,367–1,428 ms | unchanged | E255 |
 | `add_launcher_clip`, typical (256 notes) | 2,323 ms; 85 wire calls | 16 notes, E237: 2,611 ms; `add_clip` 1,827 ms | mark 3, tracks 2, read 3, resolve 2, apply 2, delta 4, clipRead 3 | E247 |
 | `add_launcher_clip`, 16,384 notes | 6,418 ms (plan 778, write 3,352) | E247: 8,172 ms | as typical | E248 add-worst |
+| `add_launcher_clip` with claims, typical (28 notes, 56 nominal and groove claims, no read before) | 2,279 ms (plan 47, readback 40); 79 wire calls, 54 turns | Same notes without claims: 2,157 ms (plan 10), 77 calls, 53 turns; E250 256 notes: 2,158 ms, 77 | as typical (claims add no call; new test) | E256 |
+| `add_launcher_clip`, largest admitted with claims (16,384 notes, 13,498 claims, 4,188,652 expansion units: the D44 limit) | 22,156 ms (plan 8,383, write 3,518, readback 4,969); 77 calls, 53 turns; reverts 3,816 and 1,143 ms; offline 20.3 s | E248 add-worst without claims 6,418 ms; E253 planning 16,384 claims 6.3 s | as typical | E256 |
+| Claim structure or timing refusal of an add (with `detail.repair`), or above the expansion limit | 0 wire calls | — | none (new tests) | E256 |
 | `add_launcher_clip`, the review case; 2,097,152 cells (4,096 one-beat 1/512 notes) | 2,293 ms; 3,341 ms, ZGC used peak 2,450 MiB | 512 steps: 111,419 ms; about 54 s (257 pages) | as typical | E248 |
 | `copy_launcher_clips`, one clip | 924 ms | Before: 1,228 ms; `copy_clip_down`: 2,897 ms | mark 1, tracks 1, read 3, resolve 1, apply 1, delta 1 | E247 |
 | `move_launcher_clips`, one clip | 1,190 ms | Before: 1,472 ms | mark 1, tracks 1, read 3, resolve 1, apply 1, delta 1 | E247 |

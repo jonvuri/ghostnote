@@ -317,8 +317,35 @@ This is a host input rule. The portable grammar does not change.
    (R12). The codec lifecycle (R23) and its R22 check apply to every claim.
 
 The stored and returned document is a valid Document 1.0 with the computed
-bases. `add_launcher_clip` parses the same way; a replacement with overlays
-must still use the clip ID of a read.
+bases.
+
+### Claims on clip creation
+
+`add_launcher_clip` takes claims in its desired document (8i9,
+[D47](../../context/decisions/d47-clip-creation-binds-claims-to-the-live-clip.md)).
+Each claim is a stated claim.
+
+1. Before any read or write, the tool counts the dependency expansion of the
+   stated current claims: one unit for each event of a membership clip, and
+   one unit for each 4 bytes of a claim that another claim depends on. Above
+   the D44 limit it refuses with `outside-limit`.
+2. Before any read or write, the tool seals the claims in the clip ID space
+   of the document as sent. It checks each supplied basis there, and the codec
+   checks every claim: references, cycles, and the timing equations (R13–R16,
+   R21). A refusal has code `invalid-input`, stage `input`, and no effect; a
+   wrong basis has `detail.expectedBasis` in that ID space.
+3. After the creation, the tool binds the document to the clip ID of the new
+   clip: the clip, the coverage, each event, and each claim reference
+   (`data.clip`, `depends.clips`, `depends.membership`). Each current claim
+   then gets the basis of the same dependencies under the live ID. This is an
+   ID mapping of a checked basis, not a replacement of a wrong value. A stale
+   claim keeps its prior basis. Event and claim IDs do not change.
+4. The content write and its independent readback are those of the edit limb.
+   A refusal after the creation returns the creation in `failure.effects` and
+   its `revert_change` route.
+
+An unguarded replacement of an existing clip (`edit_launcher_clip` with intent
+`replace`) with claims must still use the clip ID of a read.
 
 ### Edit refusals
 
@@ -338,7 +365,8 @@ Each refusal happens before a host call. Code `unsupported` has
 Code `range` (reason `past-clip-end`): a written note would start or end after
 the clip length. Code `invalid-input`: codec errors, a BASE sha256 that does
 not match the ref, and a supplied basis that does not match (reason `R22`, with
-`detail.expectedBasis` for a stated claim). Non-`current` verdicts use their verdict codes; `stale`
+`detail.expectedBasis` for a stated claim). A known claim structure or timing
+fault also has `detail.repair` (8i9). Non-`current` verdicts use their verdict codes; `stale`
 returns the new document and base in `detail`.
 
 ## D9 writes, loss, and readback

@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v41';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v42';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -530,6 +530,8 @@ export const DESCRIPTION_COHORT_V40: readonly DescriptionCohortMember[] =
 /**
  * v41 (8i6) adds get_document_reference before read_launcher_clip. The document inputs state the custom format,
  * carry a minimal valid example, and name the reference tool; a refused document input returns detail.repair.
+ * v42 (8i9) keeps this list: get_document_reference names the timing templates, add_launcher_clip takes claims
+ * with the document clip ID and no basis, and edit_launcher_clip names the claim templates.
  */
 export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = DESCRIPTION_COHORT_V40.flatMap((member) =>
   member.name !== 'read_launcher_clip' ? [member] : [{
@@ -785,7 +787,14 @@ export const TOOL_DESCRIPTION_V40_SHA256 =
 
 /**
  * v41 (8i6): get_document_reference, the format statement and examples of the document inputs, and repair
- * guidance. Changing this fingerprint requires a new description version.
+ * guidance. Frozen in 8i9.
  */
 export const TOOL_DESCRIPTION_V41_SHA256 =
   '0fd8b5fa3f73f3b0c3093b3e2e4cc784721ff172fc54e0f77c1d16be30c2bb74';
+
+/**
+ * v42 (8i9): the timing templates of get_document_reference, and claims on clip creation. Changing this
+ * fingerprint requires a new description version.
+ */
+export const TOOL_DESCRIPTION_V42_SHA256 =
+  'b477591bae62de3845d0dd5cf200b030c57504d58e1855260f6dc84778983b00';

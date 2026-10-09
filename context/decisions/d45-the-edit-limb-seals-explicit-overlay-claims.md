@@ -45,3 +45,6 @@ The portable grammar and the model reference revision do not change.
 - No host turn is added. The seal costs about 10 percent of the planner time
   when the call states claims (E253); a call without claims has no seal work.
 - Tool descriptions: `ghostnote-description-v38`.
+- 8i9 ([D47](d47-clip-creation-binds-claims-to-the-live-clip.md)):
+  `add_launcher_clip` applies the same seal to the claims of a new clip, then
+  binds them to the live clip ID.

@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: 8h and 8i0–8i6 are complete (E247–E255). Next: 8i9 overlay authoring and creation, then the operator's fresh-client trial.
+status: 8h, 8i0–8i6, and 8i9 are complete (E247–E256); the groove and overlay trials passed. Next: 8i7 and 8i8.
 updated: 2026-10-09
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -406,7 +406,8 @@ owns the migration details.
    [8i5 — Device control identity](8i5-device-control-identity.md)
    (complete, E254, D46).
    The second musical trial passed on 2026-10-09; 8i5 repaired its two
-   device failures. The groove and overlay dependency trials remain. The
+   device failures. The groove and overlay dependency trials passed in the
+   8i9 operator trial (E256). The
    [interface review](8i-trial-2-interface-review.md) records the causes of
    extra calls and separate improvement candidates.
    The fresh-project trial adds two planned follow-ups:
@@ -414,11 +415,12 @@ owns the migration details.
    (complete, E255) and [8i7 — Bounded track mixer controls](8i7-track-mixer.md).
    [8i8 — Selection effects and unavailable readback](8i8-selection-and-readback-results.md)
    fixes the result defects of E250 and E251.
-   Next: [8i9 — Overlay authoring and creation](8i9-overlay-authoring-and-creation.md).
-   The Rain Steps trial found missing nested examples and a refusal after
-   empty clip creation. Fix these with little added description prose, then
-   hand the fresh-client trial to the operator.
-   None requires a skill. Keep the groove and overlay gates open.
+   [8i9 — Overlay authoring and creation](8i9-overlay-authoring-and-creation.md)
+   (complete, E256, D47) adds the timing example and templates, claim repair,
+   and claims on clip creation. The operator's fresh-client
+   [overlay trial](8i-agent-native-hybrid-dogfood.md#operator-overlay-trial)
+   passed; it closes the groove and overlay trials.
+   None requires a skill.
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.
 

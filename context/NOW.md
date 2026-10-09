@@ -4,29 +4,27 @@ kind: status
 state: active
 updated: 2026-10-09
 phase: phase-8-agent-native-live-engine
-session: 8i9-overlay-authoring-and-creation
+session: 8i7-track-mixer
 ---
 
 ## Now
 
-Next: [8i9 — Overlay authoring and creation](plan/phase-8/8i9-overlay-authoring-and-creation.md).
-Add requested timing templates and repair help, and support overlays on clip
-creation. Keep added tool description prose small. The operator will manually
-rerun the fresh-client trial after implementation; its gates are in the
-[8i charter](plan/phase-8/8i-agent-native-hybrid-dogfood.md).
-Other planned sessions:
-[8i7](plan/phase-8/8i7-track-mixer.md) (bounded mixer tools, plus two
-description items from 8i6) and
+Next: [8i7](plan/phase-8/8i7-track-mixer.md) (bounded mixer tools, plus two
+description items from 8i6), then
 [8i8](plan/phase-8/8i8-selection-and-readback-results.md) (E250/E251 result
 defects). [9c](plan/phase-9/9c-release-and-upgrade-live-suite.md) is the
 release and Bitwig upgrade live suite.
 
-8i6 is complete ([E255](evidence/experiments/e255-document-format-discovery.md)):
-`get_document_reference` gives format help with no host call, the document
-inputs carry valid examples, and a refused document returns `detail.repair`.
-Descriptions `ghostnote-description-v41`, 40 tools. Fresh agent trials run
-locally with `codex exec`; the charter has the
-[procedure](plan/phase-8/8i-agent-native-hybrid-dogfood.md#fresh-agent-trials).
+8i9 is complete ([E256](evidence/experiments/e256-overlay-authoring-and-creation.md),
+[D47](decisions/d47-clip-creation-binds-claims-to-the-live-clip.md)):
+Timing overlays help has a complete example and `templates.timing` with the
+host basis rule; a refused claim returns `detail.repair`;
+`add_launcher_clip` takes claims with the document's clip ID in one call,
+under a D44 expansion limit (largest admitted add 22.2 s). Descriptions v42,
+reference revision 3, 40 tools. The operator overlay trial passed: one add
+of 32 notes and 64 claims with no refusal; after hand edits, a moved note
+lost its claims, a lengthened note's claims went stale, and 60 stayed
+current; musical pass. This closes the charter's groove and overlay trials.
 
 Keep in mind for the trials: with the D44 limits, an agent splits larger
 work into more calls. A split is not atomic; `revert_change` does not
@@ -40,34 +38,32 @@ Scene 2 and its original in Scene 1. The last fresh track read there had no
 Undertow Bass. Check current state and selection before live work. The
 operator accepts the generic pressure warning as a host limit.
 
-The last observed project in the overlay trial was "Night Glass". Preserve
-the Rain Steps drums and the new Scene 1 bass clip `Rain Pocket • 8 bars`
-(28 notes, 56 claims). Claims are stored in the server process; the trial
-also saved a timing map and baseline in its workspace. The 8i9 plan gives
-the source transcript. Check current state before live work.
+Preserve in "Night Glass": the Rain Steps drums and the Scene 1 bass clip
+`Rain Steps • Pocket Bass` (32 notes, with the operator's two hand edits; its
+60 current and 2 stale claims are in the running server process only, and a
+restart clears them). The earlier `Rain Pocket • 8 bars` clip is no longer in
+Scene 1. Check
+current state before live work.
 
-## Last live baseline (8i6)
+## Last live baseline (8i9)
 
 The deployed normal `ghostnote` archive is unchanged since 8i1: SHA-256
 `aae2c7e346c413dc409c572a3e52dc44f983f08ac232ea302e4c0b14f0bc1fb0`, 89
 methods, `0ef817f4bac8a8a7`, `fineSteps` 4,194,304, and the `rig.info`
 markers `clipMetadataWrite: owned-fields-v1` and `cursorTrackPins.rule:
-owned-tracks-pinned-v1`. The 8i3 to 8i6 changes are brain-only. The 8i6
-runs used the owned unsaved project "New 1" (Inst 1, Audio 2, FX 1; 8
-scenes); it was at baseline after the runs (each trial track deleted). The
-deletes moved the mixer selection (host, E251). "ice jungle" was not
-touched. The next free evidence number is E256; the next decision is D47.
-Use owned fixtures for 8i9. The operator chooses the fresh-client trial
-project. Check the current project before live work.
-`phase8i3-long-writes.ts identity` checks the selector and the D46 writers;
-`probe:modulation-routes` checks the route forms.
-`phase8i6-format-help.ts templates <dir>` checks the templates on the live
-add and edit paths; its `trial-setup`, `trial-state`, and `trial-cleanup`
-modes manage the owned trial track.
+owned-tracks-pinned-v1`. The 8i3 to 8i9 changes are brain-only. The 8i9
+runs used the owned unsaved project "New 2" (Inst 1, Audio 2, FX 1); it was
+at baseline after the runs (the track `gn-8i9-overlay` deleted). Bitwig heap
+1,096 of 3,072 MiB after the runs. The next free evidence number is E257;
+the next decision is D48.
+`phase8i9-overlay-add.ts bench|live` measures the overlay add and its
+lifecycle; `phase8i3-long-writes.ts identity` checks the selector and the D46
+writers; `probe:modulation-routes` checks the route forms;
+`phase8i6-format-help.ts` checks the templates and manages a trial track.
 
 ## Facts
 
-Add the index row in the same session as a new E or D record. A remote control position is its host slot, not an array index (E254). The modulation writers claim the route, not the sound (D46); a new route form needs a route-suite case first. An agent claim can omit `basis`; `edit_launcher_clip` seals it (D45). Clip colour no
+Add the index row in the same session as a new E or D record. A remote control position is its host slot, not an array index (E254). The modulation writers claim the route, not the sound (D46); a new route form needs a route-suite case first. An agent claim can omit `basis`; `edit_launcher_clip` seals it (D45), and `add_launcher_clip` seals it in the document's clip ID space, then binds it to the live clip (D47). A claim's basis covers the full envelope of each claim it depends on: a revised nominal makes its groove stale. Check many claim bases with one `sealOverlays`, not `dependencyBasis` for each claim. A generated 16,384-note clip uses quarter-beat notes (the reader cell limit). Clip colour no
 longer needs the palette (D42); a colour sample must include dark colours.
 Report note channels 1-based to the operator. A long write has a D44 limit
 in `write-limits.ts`; a new or changed long path measures its largest

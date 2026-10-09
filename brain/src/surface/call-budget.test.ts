@@ -106,6 +106,27 @@ test('call budget: get_document_reference and a refused document input make no a
   }
 });
 
+test('call budget: add_launcher_clip with claims keeps the add budget; a refused claim makes no call (8i9)', async () => {
+  const fx = await fixture();
+  const claim = (id: string, event: string, at: string) => ({ id, type: 'nominal', state: 'current',
+    provenance: { kind: 'declared', source: 'agent', method: 'author' },
+    depends: { events: [{ id: event, fields: ['clip', 'at', 'duration'] }], clips: [], overlays: [], membership: [] },
+    data: { event, at, duration: '1/4', division: '1/4' } });
+  const document = ['DOC ghostnote-document 1.0 desired', 'CLIP {"id":"bass","length":"8"}',
+    'COVERAGE {"channels":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],"clip":"bass","fields":"all","from":"0","status":"complete","to":"8"}',
+    'FIELDS id clip at duration pitch velocity channel',
+    ...Array.from({ length: 16 }, (_, c) => `EVENT n${c} bass ${c}/4 1/4 60 100 ${c + 1}`),
+    ...Array.from({ length: 16 }, (_, c) => `OVERLAY ${JSON.stringify(claim(`nom${c}`, `n${c}`, `${c}/4`))}`)].join('\n') + '\n';
+  // The claim check, the ID binding, and the seal are brain work: the counts equal the add without claims.
+  const added = await fx.call('add_launcher_clip', { trackId: fx.trackId, row: 2, document });
+  assert.equal(added.result.readback?.status, 'verified', JSON.stringify(added.result).slice(0, 300));
+  assert.deepEqual(added.counts, { mark: 3, tracks: 2, read: 3, resolve: 2, apply: 2, delta: 4, clipRead: 3 });
+  const refused = await fx.call('add_launcher_clip', { trackId: fx.trackId, row: 3,
+    document: document.replace('"overlays":[],', '') });
+  assert.equal(refused.result.detail?.repair?.case, 'overlay-depends', JSON.stringify(refused.result).slice(0, 300));
+  assert.deepEqual(refused.counts, {});
+});
+
 test('call budget: check_launcher_clips reads all refs in one adapter read', async () => {
   const fx = await fixture();
   const refs = [];

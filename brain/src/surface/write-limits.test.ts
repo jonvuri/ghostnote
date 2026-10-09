@@ -110,6 +110,32 @@ test('D44: each bounded write refuses one more than its limit before any read or
   }
 });
 
+/** A desired document of `notes` notes and `roles` role claims, each with a membership dependency (8i9). */
+function membershipDocument(notes: number, roles: number): string {
+  const role = (index: number) => JSON.stringify({ id: `role${index}`, type: 'role', state: 'current',
+    provenance: { kind: 'declared', source: 'limit', method: 'membership' },
+    depends: { events: [], clips: [{ id: 'c1', fields: ['length'] }], overlays: [], membership: ['c1'] },
+    data: { clip: 'c1', label: `r${index}`, events: [] } });
+  return ['DOC ghostnote-document 1.0 desired', 'CLIP {"id":"c1","length":"1024"}',
+    'COVERAGE {"channels":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],"clip":"c1","fields":"all","from":"0","status":"complete","to":"1024"}',
+    'FIELDS id clip at duration pitch velocity channel',
+    ...times(notes, (n) => `EVENT n${n} c1 ${Math.floor(n / 16)} 1/4 60 100 ${(n % 16) + 1}`),
+    ...times(roles, (index) => `OVERLAY ${role(index)}`)].join('\n') + '\n';
+}
+
+test('D44: add_launcher_clip refuses claims above the dependency expansion limit before any read (8i9)', async () => {
+  const { trackId, call } = await fixture();
+  // Each role claim projects all 16,384 event IDs: one claim more than the limit allows refuses.
+  const roles = Math.floor(WRITE_LIMITS.claimDependencyExpansion / 16_384) + 1;
+  const { result, calls } = await call('add_launcher_clip', { trackId, row: 0, document: membershipDocument(16_384, roles) });
+  assertRefused(result, calls, 'claimDependencyExpansion', roles * 16_384);
+  const schema = z.toJSONSchema((AGENT_NATIVE_TOOLS.find((item) => item.name === 'add_launcher_clip')!
+    .inputSchema as Record<string, z.ZodType>)['document']!) as Wire;
+  assert.match(String(schema.description), new RegExp(`At most ${WRITE_LIMITS.claimDependencyExpansion} claim dependency units`));
+  assert.match(AGENT_NATIVE_TOOLS.find((item) => item.name === 'add_launcher_clip')!.description,
+    new RegExp(`at most ${WRITE_LIMITS.claimDependencyExpansion} claim dependency units`));
+});
+
 test('D44: a request at the limit is not refused for its size', async () => {
   const { trackId, call } = await fixture();
   const atLimit: [string, Wire][] = [

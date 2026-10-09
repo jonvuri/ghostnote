@@ -43,6 +43,14 @@ export const WRITE_LIMITS = Object.freeze({
   /** move_launcher_clips: rows in one range (each clip is two launcher content events). */
   clipMoveRows: 8,
   /**
+   * add_launcher_clip: dependency expansion of the stated claims (8i9, `dependencyExpansion`). A unit is one member
+   * event of a membership dependency, or 4 bytes of a claim that another claim depends on; each costs about 1 µs
+   * for each basis computation. The 8 MiB document bound alone admits about 28,000 membership claims on a
+   * 16,384-note clip (about 330 s). E256: the largest admitted add (16,384 notes, 13,282 pair claims, and 216
+   * membership claims at the limit) took 22.2 s, and its reverts 3.8 s and 1.1 s.
+   */
+  claimDependencyExpansion: 4_194_304,
+  /**
    * wrap_existing_device_modulation: modulators in one wrap. A host limit, not a time limit (8 and 15 take 13.5 s):
    * the container has one remote page and each modulator adds one, and the remote-page window is 16 (E252: 16
    * modulators never prove their pages).

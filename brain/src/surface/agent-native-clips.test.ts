@@ -8,7 +8,7 @@ import test from 'node:test';
 import { FakeAdapter } from '../adapters/fake/adapter.js';
 import { IdentityRegistry } from '../bindings/identity-registry.js';
 import { EXACT_CLIP_COLORS, scene, slot, track, type NoteRecord } from '../contract/index.js';
-import { parse, type StateDocument } from '../document/index.js';
+import { dependencyBasis, parse, sealOverlays, type Overlay, type StateDocument } from '../document/index.js';
 import { Executor } from '../engine/index.js';
 import { FakeObservationStore, type StoredObservationRecord } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
@@ -134,6 +134,195 @@ test('8h4d add_launcher_clip: a content refusal after creation reports the creat
   assert.equal(fx.occupied(2), true, 'the empty clip stays');
   await fx.native('revert_change', { changeId: result.detail.revert.changeId });
   assert.equal(fx.occupied(2), false);
+});
+
+// --- add_launcher_clip with overlays (8i9) ---------------------------------------
+
+/** A nominal claim and its groove claim on one note, in the host input form (no basis). */
+function claimPair(event: string, nominal: { at: string; duration: string }, groove: Record<string, unknown>): Overlay[] {
+  const depends = (overlays: string[]) => ({ events: [{ id: event, fields: ['at', 'clip', 'duration'] }], clips: [],
+    overlays, membership: [] });
+  return [
+    { id: `nom-${event}`, type: 'nominal', state: 'current', provenance: { kind: 'declared', source: 'agent', method: 'author' },
+      depends: depends([]), data: { event, ...nominal, division: '1/4' } },
+    { id: `groove-${event}`, type: 'groove', state: 'current', provenance: { kind: 'declared', source: 'agent', method: 'author' },
+      depends: depends([`nom-${event}`]), data: { event, nominal: `nom-${event}`, phase: '0', template: '0', cross: '0',
+        local: '0', unassigned: '0', durationIntent: '0', durationUnassigned: '0', ...groove } },
+  ] as unknown as Overlay[];
+}
+
+/** A two-note bass clip with clip ID `bass` and a nominal/groove pair on each note: known source, then unknown. */
+function bassDocument(extra: Overlay[] = [], length = '8'): StateDocument {
+  return {
+    format: 'ghostnote-document', version: '1.0', kind: 'desired',
+    clips: [{ id: 'bass', length, loop: { from: '0', to: length } }],
+    coverage: [{ clip: 'bass', channels: [...Array(16).keys()].map((c) => c + 1), fields: 'all', from: '0', to: length,
+      status: 'complete' }],
+    events: [
+      { id: 'b1', clip: 'bass', at: '1/64', duration: '1', pitch: 38, velocity: 92, channel: 1, mute: false },
+      { id: 'b2', clip: 'bass', at: '129/128', duration: '15/32', pitch: 45, velocity: 80, channel: 1, mute: false },
+    ],
+    overlays: [
+      ...claimPair('b1', { at: '0', duration: '1' }, { intent: 'resolved', template: '1/64', sourceAt: '1/64',
+        sourceDuration: '1', atDelta: '0', durationDelta: '0' }),
+      ...claimPair('b2', { at: '1', duration: '1/2' }, { intent: 'unresolved', unassigned: '1/128',
+        durationUnassigned: '-1/32', atDelta: null, durationDelta: null }),
+      ...extra,
+    ],
+  } as unknown as StateDocument;
+}
+
+const addJson = (fx: ReturnType<typeof fixture>, row: number, document: unknown, readback?: 'document') =>
+  fx.native('add_launcher_clip', { trackId: fx.trackId, row, format: 'json', document,
+    ...(readback === undefined ? {} : { readback }) });
+
+/** The readback document in either encoding. */
+const documentIn = (value: unknown) => (typeof value === 'string' ? parse(value, 'fields')
+  : parse(JSON.stringify(value), 'json')) as StateDocument;
+
+/** Each current claim has the R22 basis of the document. */
+function assertSealed(document: StateDocument): void {
+  for (const claim of document.overlays.filter((item) => item.state === 'current')) {
+    assert.equal(claim.basis, dependencyBasis(document, claim), `${claim.id} has the R22 basis`);
+  }
+}
+
+test('8i9 add_launcher_clip: nominal and groove claims with an agent clip ID and no read bind to the live clip', async () => {
+  const fx = fixture();
+  const result = await addJson(fx, 1, bassDocument(), 'document');
+  assert.equal(result.applied, true, JSON.stringify(result).slice(0, 600));
+  assert.equal(result.readback.status, 'verified');
+  assert.equal(result.effects.length, 2);
+  const written = documentIn(result.readback.document);
+  const live = written.clips[0]!.id;
+  assert.notEqual(live, 'bass', 'the registry names the new clip');
+  assert.deepEqual(written.events.map((event) => [event.id, event.clip]), [['b1', live], ['b2', live]]);
+  assert.deepEqual(written.overlays.map((claim) => [claim.id, claim.state]),
+    [['groove-b1', 'current'], ['groove-b2', 'current'], ['nom-b1', 'current'], ['nom-b2', 'current']]);
+  assertSealed(written);
+  // A later read returns the same claims; the revert route removes both changes.
+  const read = await fx.native('read_launcher_clip', { trackId: fx.trackId, row: 1 });
+  assert.equal(read.authority.base.ref, result.readback.base.ref);
+  assert.deepEqual((parse(read.data.document, 'fields') as StateDocument).overlays, written.overlays);
+  for (const step of result.next.revert) await fx.native('revert_change', { changeId: step.changeId });
+  assert.equal(fx.occupied(1), false);
+});
+
+test('8i9 add_launcher_clip: clip and membership dependencies move to the live clip ID', async () => {
+  const fx = fixture();
+  const role = { id: 'role1', type: 'role', state: 'current', provenance: { kind: 'declared', source: 'agent', method: 'author' },
+    depends: { events: ['b1', 'b2'].map((id) => ({ id, fields: ['at', 'clip', 'duration', 'pitch'] })),
+      clips: [{ id: 'bass', fields: ['length'] }], overlays: [], membership: ['bass'] },
+    data: { clip: 'bass', label: 'bass', events: ['b1', 'b2'] } } as unknown as Overlay;
+  const result = await addJson(fx, 1, bassDocument([role]), 'document');
+  assert.equal(result.readback?.status, 'verified', JSON.stringify(result).slice(0, 600));
+  const written = documentIn(result.readback.document);
+  const live = written.clips[0]!.id;
+  const bound = written.overlays.find((claim) => claim.id === 'role1')!;
+  assert.equal(bound.state, 'current');
+  assert.equal((bound.data as { clip: string }).clip, live);
+  assert.deepEqual(bound.depends.clips.map((item) => [item.id, ...item.fields]), [[live, 'length']]);
+  assert.deepEqual(bound.depends.membership, [live]);
+  assertSealed(written);
+});
+
+test('8i9 add_launcher_clip: a supplied basis is checked against the document as sent', async () => {
+  const fx = fixture();
+  const sent = bassDocument();
+  // A valid basis in the clip ID space of the document: accepted, and the result has the basis under the live ID.
+  const valid = sealOverlays({ ...sent, overlays: sent.overlays.map((claim) => ({ ...claim, basis: '0'.repeat(64) })) });
+  const accepted = await addJson(fx, 1, valid, 'document');
+  assert.equal(accepted.readback?.status, 'verified', JSON.stringify(accepted).slice(0, 600));
+  const written = documentIn(accepted.readback.document);
+  assertSealed(written);
+  assert.notEqual(written.overlays[0]!.basis, valid.overlays.find((claim) => claim.id === written.overlays[0]!.id)!.basis,
+    'the basis covers the clip ID');
+
+  // A wrong basis: R22 with the expected value of the document as sent; no read and no write.
+  const before = fx.records();
+  const wrong = structuredClone(sent);
+  wrong.overlays[0]!.basis = 'f'.repeat(64);
+  const refused = await addJson(fx, 2, wrong);
+  assert.equal(refused.failure.code, 'invalid-input', JSON.stringify(refused));
+  assert.equal(refused.failure.stage, 'input');
+  assert.deepEqual(refused.failure.effects, []);
+  assert.equal(refused.detail.reason, 'R22');
+  assert.equal(refused.detail.overlay, wrong.overlays[0]!.id);
+  assert.equal(refused.detail.expectedBasis, valid.overlays.find((claim) => claim.id === wrong.overlays[0]!.id)!.basis);
+  assert.equal(fx.records(), before);
+  assert.equal(fx.occupied(2), false);
+});
+
+test('8i9 add_launcher_clip: a dangling reference, a cycle, and a timing equation refuse before creation', async () => {
+  const fx = fixture();
+  const before = fx.records();
+  const dangling = bassDocument();
+  dangling.overlays[0]!.depends.events = [{ id: 'b9', fields: ['at', 'clip', 'duration'] }];
+  (dangling.overlays[0]!.data as { event: string }).event = 'b9';
+  const cycle = bassDocument();
+  cycle.overlays[0]!.depends.overlays = ['groove-b1'];
+  const equation = bassDocument();
+  (equation.overlays[1]!.data as { sourceAt: string }).sourceAt = '1/32';
+  for (const [label, document, rule] of [['dangling', dangling, 'R21'], ['cycle', cycle, 'R21'],
+    ['equation', equation, 'R15']] as const) {
+    const refused = await addJson(fx, 2, document);
+    assert.equal(refused.failure?.code, 'invalid-input', `${label}: ${JSON.stringify(refused)}`);
+    assert.deepEqual(refused.failure.effects, [], label);
+    assert.equal(refused.detail.rule, rule, label);
+    assert.equal(refused.detail.repair?.case, rule === 'R15' ? 'groove-timing' : undefined, label);
+  }
+  assert.equal(fx.records(), before);
+  assert.equal(fx.occupied(2), false);
+});
+
+test('8i9 add_launcher_clip: a content refusal after creation keeps the creation effect and its revert', async () => {
+  const fx = fixture();
+  const late = bassDocument([], '2');
+  late.events[1] = { ...late.events[1]!, duration: '1' };
+  (late.overlays[3]!.data as unknown as Record<string, string>)['durationUnassigned'] = '1/2';
+  const result = await addJson(fx, 2, late);
+  assert.equal(result.failure?.code, 'range', JSON.stringify(result).slice(0, 400));
+  assert.equal(result.failure.effects.length, 1);
+  assert.equal(result.detail.revert.changeId, result.failure.effects[0].changeId);
+  await fx.native('revert_change', { changeId: result.detail.revert.changeId });
+  assert.equal(fx.occupied(2), false);
+});
+
+test('8i9 add_launcher_clip: later edits keep the lifecycle; a general replacement still needs the read clip ID', async () => {
+  const fx = fixture();
+  const added = await addJson(fx, 1, bassDocument());
+  assert.equal(added.readback?.status, 'verified', JSON.stringify(added).slice(0, 400));
+  const edit = (base: Wire, rows: string[]) => fx.native('edit_launcher_clip', { trackId: fx.trackId, row: 1,
+    document: ['DOC ghostnote-document 1.0 patch', `BASE ${JSON.stringify(base)}`,
+      'FIELDS id clip at duration pitch velocity channel mute', ...rows].join('\n') + '\n' });
+  const states = async () => Object.fromEntries((parse((await fx.native('read_launcher_clip',
+    { trackId: fx.trackId, row: 1 })).data.document, 'fields') as StateDocument).overlays.map((claim) => [claim.id, claim.state]));
+  const base = async () => (await fx.native('read_launcher_clip', { trackId: fx.trackId, row: 1 })).authority.base;
+
+  // An unrelated edit (velocity) retains every claim.
+  assert.equal((await edit(await base(), ['UPDATE b1 {"velocity":70}'])).readback?.status, 'verified');
+  assert.deepEqual(await states(), { 'groove-b1': 'current', 'groove-b2': 'current', 'nom-b1': 'current', 'nom-b2': 'current' });
+  // A structured dependency edit that keeps the ID makes only the claims of that note stale.
+  assert.equal((await edit(await base(), ['UPDATE b2 {"duration":"1/4"}'])).readback?.status, 'verified');
+  assert.deepEqual(await states(), { 'groove-b1': 'current', 'groove-b2': 'stale', 'nom-b1': 'current', 'nom-b2': 'stale' });
+  // A claim removal changes no note.
+  const notes = JSON.stringify([...fx.fake.model.visibleTracks()[0]!.slots[1]!.notes.entries()]);
+  assert.equal((await edit(await base(), ['OVERLAY_REMOVE groove-b2', 'OVERLAY_REMOVE nom-b2'])).applied, true);
+  assert.equal(JSON.stringify([...fx.fake.model.visibleTracks()[0]!.slots[1]!.notes.entries()]), notes);
+  assert.deepEqual(await states(), { 'groove-b1': 'current', 'nom-b1': 'current' });
+  // A host edit that loses the note identity (an operator moves the note) removes its claims.
+  const slotNotes = fx.fake.model.visibleTracks()[0]!.slots[1]!.notes;
+  const [key, moved] = [...slotNotes.entries()].find(([, item]) => item.pitch === 38)!;
+  slotNotes.delete(key);
+  slotNotes.set(`0:38:${3 * 512}`, { ...moved, startBeats: 3 });
+  fx.fake.model.revision += 1;
+  assert.deepEqual(await states(), {});
+
+  // A general replacement with overlays and another clip ID keeps its refusal.
+  const replaced = await fx.native('edit_launcher_clip', { trackId: fx.trackId, row: 1, intent: 'replace',
+    format: 'json', document: bassDocument() });
+  assert.equal(replaced.failure?.code, 'invalid-input', JSON.stringify(replaced).slice(0, 400));
+  assert.equal(replaced.detail.reason, 'replace');
 });
 
 // --- copy and move ---------------------------------------------------------------

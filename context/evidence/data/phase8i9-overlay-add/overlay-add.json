@@ -1,0 +1,624 @@
+{
+ "schema": "phase8i9-overlay-add-v1",
+ "hello": {
+  "runtimeProfile": "normal-v1",
+  "methodCount": 89,
+  "methodsHash": "0ef817f4bac8a8a7"
+ },
+ "project": "New 2",
+ "checks": {
+  "add": {
+   "notes": 28,
+   "claims": 56,
+   "stale": []
+  },
+  "read": {
+   "notes": 28,
+   "claims": 56,
+   "stale": []
+  },
+  "overlayOnly": {
+   "notes": 28,
+   "claims": 56,
+   "stale": [
+    "groove-b0"
+   ]
+  },
+  "dependency": {
+   "stale": [
+    "groove-b0",
+    "groove-b1",
+    "nom-b1"
+   ]
+  },
+  "removal": {
+   "claims": 54
+  },
+  "reverted": "empty",
+  "largest": {
+   "pairs": 6641,
+   "roles": 216,
+   "bytes": 6397028,
+   "units": 4188652,
+   "notes": 16384,
+   "claims": 13498,
+   "stale": []
+  },
+  "baseline": true
+ },
+ "rows": [
+  {
+   "step": "tracks-before",
+   "tool": "list_tracks",
+   "ok": true,
+   "ms": 23,
+   "bytes": 673,
+   "calls": 2,
+   "turns": 1,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1
+   }
+  },
+  {
+   "step": "add-track",
+   "tool": "add_tracks",
+   "ok": true,
+   "status": "verified",
+   "ms": 847,
+   "bytes": 670,
+   "calls": 38,
+   "turns": 20,
+   "methods": {
+    "selection.status": 2,
+    "slot.status": 2,
+    "revision.get": 11,
+    "track.list": 13,
+    "batch.run": 2,
+    "cursor.pin": 8
+   }
+  },
+  {
+   "step": "add-typical-control",
+   "tool": "add_launcher_clip",
+   "ok": true,
+   "status": "verified",
+   "route": "targeted",
+   "ms": 2157,
+   "timing": {
+    "readMs": 337.718292,
+    "planMs": 10.013042000000041,
+    "writeMs": 954.0320830000001,
+    "readbackMs": 5.128040999999939,
+    "totalMs": 2155.9112910000003
+   },
+   "bytes": 1165,
+   "calls": 77,
+   "turns": 53,
+   "methods": {
+    "revision.get": 16,
+    "track.list": 17,
+    "slot.status": 15,
+    "selection.status": 4,
+    "batch.run": 2,
+    "cursor.pin": 10,
+    "clip.read": 3,
+    "cursor.pointTrack": 1,
+    "slot.select": 2,
+    "cursor.status": 3,
+    "cursor.setStepSize": 2,
+    "cursor.scrollToStep": 2
+   }
+  },
+  {
+   "step": "revert-control",
+   "tool": "revert_change",
+   "ok": true,
+   "status": "verified",
+   "ms": 1486,
+   "bytes": 1903,
+   "calls": 42,
+   "turns": 33,
+   "methods": {
+    "revision.get": 8,
+    "track.list": 8,
+    "selection.status": 4,
+    "slot.status": 5,
+    "clip.read": 3,
+    "slot.select": 3,
+    "cursor.pin": 2,
+    "cursor.pointTrack": 1,
+    "cursor.status": 3,
+    "cursor.setStepSize": 2,
+    "cursor.scrollToStep": 2,
+    "batch.run": 1
+   }
+  },
+  {
+   "step": "revert-control",
+   "tool": "revert_change",
+   "ok": true,
+   "status": "verified",
+   "ms": 1121,
+   "bytes": 1985,
+   "calls": 42,
+   "turns": 27,
+   "methods": {
+    "revision.get": 8,
+    "track.list": 9,
+    "selection.status": 3,
+    "slot.status": 10,
+    "clip.read": 2,
+    "slot.select": 1,
+    "batch.run": 1,
+    "cursor.pin": 8
+   }
+  },
+  {
+   "step": "add-typical",
+   "tool": "add_launcher_clip",
+   "ok": true,
+   "status": "verified",
+   "route": "targeted",
+   "ms": 2279,
+   "timing": {
+    "readMs": 341.6083750000007,
+    "planMs": 47.30225000000064,
+    "writeMs": 965.844000000001,
+    "readbackMs": 40.48829099999966,
+    "totalMs": 2278.758291
+   },
+   "bytes": 34886,
+   "calls": 79,
+   "turns": 54,
+   "methods": {
+    "revision.get": 17,
+    "track.list": 18,
+    "slot.status": 15,
+    "selection.status": 4,
+    "batch.run": 2,
+    "cursor.pin": 10,
+    "clip.read": 3,
+    "cursor.pointTrack": 1,
+    "slot.select": 2,
+    "cursor.status": 3,
+    "cursor.setStepSize": 2,
+    "cursor.scrollToStep": 2
+   }
+  },
+  {
+   "step": "read",
+   "tool": "read_launcher_clip",
+   "ok": true,
+   "ms": 404,
+   "timing": {
+    "readMs": 340.082124999999,
+    "totalMs": 403.4592079999984
+   },
+   "bytes": 34406,
+   "calls": 14,
+   "turns": 10,
+   "methods": {
+    "revision.get": 4,
+    "track.list": 4,
+    "selection.status": 1,
+    "slot.status": 4,
+    "clip.read": 1
+   }
+  },
+  {
+   "step": "base-0",
+   "tool": "read_launcher_clip",
+   "ok": true,
+   "ms": 421,
+   "timing": {
+    "readMs": 341.51179199999933,
+    "totalMs": 420.46258300000045
+   },
+   "bytes": 34409,
+   "calls": 14,
+   "turns": 10,
+   "methods": {
+    "revision.get": 4,
+    "track.list": 4,
+    "selection.status": 1,
+    "slot.status": 4,
+    "clip.read": 1
+   }
+  },
+  {
+   "step": "edit-overlay-only",
+   "tool": "edit_launcher_clip",
+   "ok": true,
+   "status": "verified",
+   "route": "none",
+   "ms": 836,
+   "timing": {
+    "readMs": 363.25954099999944,
+    "planMs": 50.49320799999987,
+    "readbackMs": 411.9550419999996,
+    "totalMs": 835.8006670000013
+   },
+   "bytes": 574,
+   "calls": 24,
+   "turns": 18,
+   "methods": {
+    "revision.get": 6,
+    "track.list": 6,
+    "selection.status": 2,
+    "slot.status": 8,
+    "clip.read": 2
+   }
+  },
+  {
+   "step": "read-after-put",
+   "tool": "read_launcher_clip",
+   "ok": true,
+   "ms": 417,
+   "timing": {
+    "readMs": 335.85533399999986,
+    "totalMs": 416.47558299999946
+   },
+   "bytes": 34406,
+   "calls": 14,
+   "turns": 10,
+   "methods": {
+    "revision.get": 4,
+    "track.list": 4,
+    "selection.status": 1,
+    "slot.status": 4,
+    "clip.read": 1
+   }
+  },
+  {
+   "step": "base-0",
+   "tool": "read_launcher_clip",
+   "ok": true,
+   "ms": 430,
+   "timing": {
+    "readMs": 344.0013749999998,
+    "totalMs": 430.2428749999999
+   },
+   "bytes": 34404,
+   "calls": 14,
+   "turns": 10,
+   "methods": {
+    "revision.get": 4,
+    "track.list": 4,
+    "selection.status": 1,
+    "slot.status": 4,
+    "clip.read": 1
+   }
+  },
+  {
+   "step": "edit-dependency",
+   "tool": "edit_launcher_clip",
+   "ok": true,
+   "status": "verified",
+   "route": "whole-clip",
+   "ms": 1756,
+   "timing": {
+    "readMs": 368.5989160000008,
+    "planMs": 57.808250000000044,
+    "writeMs": 1290.6852080000008,
+    "readbackMs": 27.547749999999724,
+    "totalMs": 1755.8382079999992
+   },
+   "bytes": 1105,
+   "calls": 52,
+   "turns": 40,
+   "methods": {
+    "revision.get": 11,
+    "track.list": 11,
+    "selection.status": 3,
+    "slot.status": 11,
+    "clip.read": 3,
+    "cursor.pin": 2,
+    "cursor.pointTrack": 1,
+    "slot.select": 2,
+    "cursor.status": 3,
+    "cursor.setStepSize": 2,
+    "cursor.scrollToStep": 2,
+    "batch.run": 1
+   }
+  },
+  {
+   "step": "read-after-dependency",
+   "tool": "read_launcher_clip",
+   "ok": true,
+   "ms": 423,
+   "timing": {
+    "readMs": 340.4830000000002,
+    "totalMs": 422.901084000001
+   },
+   "bytes": 34399,
+   "calls": 14,
+   "turns": 10,
+   "methods": {
+    "revision.get": 4,
+    "track.list": 4,
+    "selection.status": 1,
+    "slot.status": 4,
+    "clip.read": 1
+   }
+  },
+  {
+   "step": "base-0",
+   "tool": "read_launcher_clip",
+   "ok": true,
+   "ms": 426,
+   "timing": {
+    "readMs": 342.6588329999995,
+    "totalMs": 425.6213339999995
+   },
+   "bytes": 34400,
+   "calls": 14,
+   "turns": 10,
+   "methods": {
+    "revision.get": 4,
+    "track.list": 4,
+    "selection.status": 1,
+    "slot.status": 4,
+    "clip.read": 1
+   }
+  },
+  {
+   "step": "edit-claim-removal",
+   "tool": "edit_launcher_clip",
+   "ok": true,
+   "status": "verified",
+   "route": "none",
+   "ms": 848,
+   "timing": {
+    "readMs": 369.83549999999923,
+    "planMs": 53.4095410000009,
+    "readbackMs": 415.61333399999967,
+    "totalMs": 847.5691250000018
+   },
+   "bytes": 574,
+   "calls": 24,
+   "turns": 18,
+   "methods": {
+    "revision.get": 6,
+    "track.list": 6,
+    "selection.status": 2,
+    "slot.status": 8,
+    "clip.read": 2
+   }
+  },
+  {
+   "step": "read-after-removal",
+   "tool": "read_launcher_clip",
+   "ok": true,
+   "ms": 423,
+   "timing": {
+    "readMs": 336.7541659999988,
+    "totalMs": 422.4707920000001
+   },
+   "bytes": 33284,
+   "calls": 14,
+   "turns": 10,
+   "methods": {
+    "revision.get": 4,
+    "track.list": 4,
+    "selection.status": 1,
+    "slot.status": 4,
+    "clip.read": 1
+   }
+  },
+  {
+   "step": "revert-typical",
+   "tool": "revert_change",
+   "ok": true,
+   "status": "verified",
+   "ms": 4913,
+   "bytes": 1903,
+   "calls": 73,
+   "turns": 64,
+   "methods": {
+    "revision.get": 8,
+    "track.list": 8,
+    "selection.status": 4,
+    "slot.status": 5,
+    "clip.read": 3,
+    "slot.select": 3,
+    "cursor.pin": 2,
+    "cursor.pointTrack": 1,
+    "cursor.status": 3,
+    "cursor.setStepSize": 2,
+    "cursor.scrollToStep": 2,
+    "batch.run": 32
+   }
+  },
+  {
+   "step": "revert-typical",
+   "tool": "revert_change",
+   "ok": true,
+   "status": "verified",
+   "ms": 1501,
+   "bytes": 1903,
+   "calls": 42,
+   "turns": 33,
+   "methods": {
+    "revision.get": 8,
+    "track.list": 8,
+    "selection.status": 4,
+    "slot.status": 5,
+    "clip.read": 3,
+    "slot.select": 3,
+    "cursor.pin": 2,
+    "cursor.pointTrack": 1,
+    "cursor.status": 3,
+    "cursor.setStepSize": 2,
+    "cursor.scrollToStep": 2,
+    "batch.run": 1
+   }
+  },
+  {
+   "step": "revert-typical",
+   "tool": "revert_change",
+   "ok": true,
+   "status": "verified",
+   "ms": 1138,
+   "bytes": 1985,
+   "calls": 42,
+   "turns": 27,
+   "methods": {
+    "revision.get": 8,
+    "track.list": 9,
+    "selection.status": 3,
+    "slot.status": 10,
+    "clip.read": 2,
+    "slot.select": 1,
+    "batch.run": 1,
+    "cursor.pin": 8
+   }
+  },
+  {
+   "step": "read-reverted",
+   "tool": "read_launcher_clip",
+   "ok": true,
+   "ms": 215,
+   "timing": {
+    "readMs": 143.73300000000017,
+    "totalMs": 215.29433300000164
+   },
+   "bytes": 566,
+   "calls": 13,
+   "turns": 9,
+   "methods": {
+    "revision.get": 4,
+    "track.list": 4,
+    "selection.status": 1,
+    "slot.status": 4
+   }
+  },
+  {
+   "step": "add-largest",
+   "tool": "add_launcher_clip",
+   "ok": true,
+   "status": "verified",
+   "route": "targeted",
+   "ms": 22156,
+   "timing": {
+    "readMs": 342.22091699999874,
+    "planMs": 8383.450083000003,
+    "writeMs": 3518.198000000004,
+    "readbackMs": 4968.9938339999935,
+    "totalMs": 22155.557625
+   },
+   "bytes": 1195,
+   "calls": 77,
+   "turns": 53,
+   "methods": {
+    "revision.get": 16,
+    "track.list": 17,
+    "slot.status": 15,
+    "selection.status": 4,
+    "batch.run": 2,
+    "cursor.pin": 10,
+    "clip.read": 3,
+    "cursor.pointTrack": 1,
+    "slot.select": 2,
+    "cursor.status": 3,
+    "cursor.setStepSize": 2,
+    "cursor.scrollToStep": 2
+   }
+  },
+  {
+   "step": "read-largest",
+   "tool": "read_launcher_clip",
+   "ok": true,
+   "ms": 2827,
+   "timing": {
+    "readMs": 787.5298750000075,
+    "totalMs": 2827.2957079999906
+   },
+   "bytes": 8588335,
+   "calls": 14,
+   "turns": 10,
+   "methods": {
+    "revision.get": 4,
+    "track.list": 4,
+    "selection.status": 1,
+    "slot.status": 4,
+    "clip.read": 1
+   }
+  },
+  {
+   "step": "revert-largest",
+   "tool": "revert_change",
+   "ok": true,
+   "status": "verified",
+   "ms": 3816,
+   "bytes": 1903,
+   "calls": 42,
+   "turns": 33,
+   "methods": {
+    "revision.get": 8,
+    "track.list": 8,
+    "selection.status": 4,
+    "slot.status": 5,
+    "clip.read": 3,
+    "slot.select": 3,
+    "cursor.pin": 2,
+    "cursor.pointTrack": 1,
+    "cursor.status": 3,
+    "cursor.setStepSize": 2,
+    "cursor.scrollToStep": 2,
+    "batch.run": 1
+   }
+  },
+  {
+   "step": "revert-largest",
+   "tool": "revert_change",
+   "ok": true,
+   "status": "verified",
+   "ms": 1143,
+   "bytes": 1985,
+   "calls": 42,
+   "turns": 27,
+   "methods": {
+    "revision.get": 8,
+    "track.list": 9,
+    "selection.status": 3,
+    "slot.status": 10,
+    "clip.read": 2,
+    "slot.select": 1,
+    "batch.run": 1,
+    "cursor.pin": 8
+   }
+  },
+  {
+   "step": "delete-track",
+   "tool": "delete_track",
+   "ok": true,
+   "status": "verified",
+   "ms": 435,
+   "bytes": 474,
+   "calls": 24,
+   "turns": 11,
+   "methods": {
+    "selection.status": 1,
+    "slot.status": 1,
+    "revision.get": 6,
+    "track.list": 7,
+    "batch.run": 1,
+    "cursor.pin": 8
+   }
+  },
+  {
+   "step": "tracks-after",
+   "tool": "list_tracks",
+   "ok": true,
+   "ms": 25,
+   "bytes": 673,
+   "calls": 2,
+   "turns": 1,
+   "methods": {
+    "revision.get": 1,
+    "track.list": 1
+   }
+  }
+ ]
+}

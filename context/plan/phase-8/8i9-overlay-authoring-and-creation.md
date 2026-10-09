@@ -1,16 +1,25 @@
 ---
 title: Phase 8i9 overlay authoring and creation
 kind: plan
-state: planned
-status: Next session. Add complete overlay examples and repair help, and support overlays on clip creation. The operator runs the fresh-client trial after implementation.
+state: done
+status: Complete (E256, D47). Timing example and templates, claim repair, and claims on clip creation; descriptions v42. The operator's fresh-client trial passed.
 updated: 2026-10-09
 parent: README.md
 prev: 8i6-document-format-discovery.md
 next: 8i-agent-native-hybrid-dogfood.md
-evidence: E253, E255; D44, D45
+evidence: E253, E255, E256; D44, D45, D47
 ---
 
 # Phase 8i9 overlay authoring and creation
+
+**Complete** ([E256](../../evidence/experiments/e256-overlay-authoring-and-creation.md),
+[D47](../../decisions/d47-clip-creation-binds-claims-to-the-live-clip.md)).
+The largest admitted case was not one pair per note: the 8 MiB input bound
+admits 6,641 pairs on 16,384 notes, and membership dependencies needed a new
+D44 expansion limit. The largest admitted add takes 22.2 s live. The
+operator trial in the
+[charter](8i-agent-native-hybrid-dogfood.md#operator-overlay-trial) passed:
+one add with 64 claims, and the expected claim states after hand edits.
 
 Make timing overlays usable from the MCP tools alone. Keep detailed examples
 in requested reference results. Add only short, necessary changes to tool

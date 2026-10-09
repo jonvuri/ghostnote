@@ -58,6 +58,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D44 | Long writes are optimized first, then bounded on their own input **[SETTLED 2026-10-08]** | [open](d44-long-writes-are-optimized-then-bounded.md) |
 | D45 | The edit limb seals explicit overlay claims **[SETTLED 2026-10-09]** | [open](d45-the-edit-limb-seals-explicit-overlay-claims.md) |
 | D46 | Modulation writers claim the route, not the sound **[SETTLED 2026-10-09]** | [open](d46-modulation-writers-claim-the-route-not-the-sound.md) |
+| D47 | Clip creation binds claims to the live clip **[SETTLED 2026-10-09]** | [open](d47-clip-creation-binds-claims-to-the-live-clip.md) |
 
 ## Phase 4 closeout audit
 

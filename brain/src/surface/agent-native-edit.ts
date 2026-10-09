@@ -42,7 +42,8 @@ import {
 import { DocumentError, type Document, type Encoding } from '../document/index.js';
 import { parseSealable, type SealRequest } from '../bindings/overlay-seal.js';
 import {
-  FORMAT_STATEMENT, PATCH_EXAMPLE_TEXT, documentParameter, encodingRepair, kindRepair, repairOf, type DocumentUse,
+  FORMAT_STATEMENT, PATCH_EXAMPLE_TEXT, claimRepairOf, documentParameter, encodingRepair, kindRepair, repairOf,
+  type DocumentUse,
 } from './document-help.js';
 import {
   AGENT_NATIVE_TOOL_PROFILE, ToolFailure, VERDICT_CODES, failureResult,
@@ -106,8 +107,8 @@ const EDIT_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Edit one Launche
   + 'stale or removed when their notes changed. This tool is the dependency-basis utility: a current claim that '
   + 'the call states (OVERLAY_PUT, or a new or changed OVERLAY of a desired document) can omit basis, and the tool '
   + 'computes it on the state after the note changes of the same call. A supplied basis that does not match refuses '
-  + 'with code invalid-input, detail.reason R22, and detail.expectedBasis. The tool does not compute a basis for a '
-  + 'claim that the call does not state; a stale claim keeps its basis.\n'
+  + 'with code invalid-input, detail.reason R22, and detail.expectedBasis. Retained and stale claims keep their '
+  + 'basis. get_document_reference with Timing overlays has claim templates.\n'
   + 'A whole-clip rewrite at the reader limit (16,384 notes) takes about 7 s.';
 
 /** The input document as text. */
@@ -219,7 +220,9 @@ function verifiedSnapshot(verify: Snapshot, trackId: string, row: number): ClipS
 
 function planFailure(error: unknown): unknown {
   if (error instanceof EditRefusal) {
-    return new ToolFailure(error.code, 'plan', error.message, { detail: { reason: error.reason, ...error.detail } });
+    const repair = claimRepairOf(error);
+    return new ToolFailure(error.code, 'plan', error.message, {
+      detail: { reason: error.reason, ...error.detail, ...(repair === undefined ? {} : { repair }) } });
   }
   return asToolFailure(error);
 }
@@ -289,7 +292,12 @@ function planView(plan: EditPlan) {
   };
 }
 
-export async function editLauncherClip(workspace: Workspace, args: EditInput): Promise<unknown> {
+/** The internal options of `add_launcher_clip`: its parsed and checked proposal, on the clip that it created. */
+export interface CreationContent {
+  readonly parsed: { readonly document: Document; readonly seal: SealRequest };
+}
+
+export async function editLauncherClip(workspace: Workspace, args: EditInput, creation?: CreationContent): Promise<unknown> {
   const started = performance.now();
   const encoding: Encoding = args.format ?? 'fields';
   const target = { trackId: args.trackId, row: args.row };
@@ -297,7 +305,7 @@ export async function editLauncherClip(workspace: Workspace, args: EditInput): P
   let stage: FailureStage = 'input';
   let effects: Effect[] = [];
   try {
-    const { document: proposal, seal } = parseProposal(args);
+    const { document: proposal, seal } = creation?.parsed ?? parseProposal(args);
     if (proposal.kind === 'snapshot') {
       throw new ToolFailure('invalid-input', 'input', 'A snapshot is not an edit. Send a patch or a desired document.', {
         detail: { repair: kindRepair('edit', encoding, documentText(args.document)) } });
@@ -382,7 +390,8 @@ export async function editLauncherClip(workspace: Workspace, args: EditInput): P
     const planStarted = performance.now();
     let plan: EditPlan;
     try {
-      plan = planLauncherClipEdit({ snapshot, entry, proposal, seal, mode: replace ? 'replace' : 'guarded', fresh });
+      plan = planLauncherClipEdit({ snapshot, entry, proposal, seal, fresh,
+        mode: creation !== undefined ? 'create' : replace ? 'replace' : 'guarded' });
     } catch (error) {
       throw planFailure(error);
     }

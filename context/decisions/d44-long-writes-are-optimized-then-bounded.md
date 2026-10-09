@@ -2,7 +2,7 @@
 id: D44
 kind: decision
 state: active
-updated: 2026-10-08
+updated: 2026-10-09
 source: phase-8i3
 ---
 
@@ -53,6 +53,7 @@ The limits (`brain/src/surface/write-limits.ts`):
 | `delete_launcher_clip` | 4 clips (the revert writes each clip again) | 4 of 16,384 notes: 7.3 s, revert 23.0 s |
 | `move_launcher_clips` | 8 rows | 8 of 16,384 notes: 23.7 s |
 | `wrap_existing_device_modulation` | 15 modulators (a host limit: the 16-page remote window) | 1 through 15: 13.6 s |
+| `add_launcher_clip` (8i9) | 4,194,304 claim dependency units: one for each event of a membership clip, one for each 4 bytes of a claim that another claim depends on | 16,384 notes, 13,498 claims, 4,188,652 units: 22.2 s, reverts 3.8 s and 1.1 s ([E256](../evidence/experiments/e256-overlay-authoring-and-creation.md)) |
 
 The 8i3 limit follow-up raised the route limit (2 → 4) and the removal
 limit (6 → 10) after the slot fixes (E252 `final3/`). A plug-in source
@@ -64,7 +65,11 @@ Not bounded, with the measured reason: `add_devices` (schema maximum 16;
 s), `edit_preset_modulation` (the checks share one sampling session: 8
 checks 7.0 s), `delete_scene` and `add_scenes` (the 128-scene window: 56
 scenes deleted in 3.2–4.5 s), `add_tracks` (16: 7.2 s), and the clip and
-document edits (E248).
+document edits (E248). The claims of an add are bounded on their dependency
+expansion, not on their count: the 8 MiB document bound admits about 13,500
+claim pairs, but also about 28,000 membership claims on a 16,384-note clip
+(about 330 s, E256). The claims of `edit_launcher_clip` have no expansion
+limit (E256 limit).
 
 ## Why
 
