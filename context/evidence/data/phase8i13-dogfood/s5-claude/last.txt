@@ -1,0 +1,6 @@
+Done, and verified by readback:
+
+- **Pad**: volume -18.0 dB (was -10.0)
+- **Chords**: volume -12.0 dB (was -10.0), pan 20% right (was centre)
+
+I picked 20% for "a little to the right"; say if you want it more or less. The change can be reverted in one step if needed.

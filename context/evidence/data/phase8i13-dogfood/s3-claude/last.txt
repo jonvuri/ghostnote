@@ -1,0 +1,5 @@
+T01–T12 are now at -1 dB through -12 dB, each verified by readback (T10 was already at -10 dB, so it wasn't written).
+
+**T13 was not set: the project has no track named T13.** The T-series stops at T12. If T13 should exist, or another track was meant to take -13 dB, tell me which and I'll set it.
+
+Both changes can be undone with `revert_change`: `521371e5-fbc0-4bf3-813a-218bcc90baaf` (T01–T08) and `d84a3ebf-bd9b-471e-98fe-388e8d0d43ed` (T09–T12).

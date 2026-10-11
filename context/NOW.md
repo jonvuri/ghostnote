@@ -4,30 +4,33 @@ kind: status
 state: active
 updated: 2026-10-11
 phase: phase-8-agent-native-live-engine
-session: 8i12-automated-dogfood-process-proof
+session: 8i14-clip-copy-to-any-row
 ---
 
 ## Now
 
-Next: the operator selects the tasks of the
-[8i13 stretch set](plan/phase-8/8i13-automated-dogfood-stretch-set.md)
-(recommended: all five, S1 to S5, with both clients; the 8i11 claim
-repairs are not in the set, because claims do not survive a session
-resume). Then 8i13 runs them with the
-[runbook](plan/phase-8/8i-automated-dogfood-runbook.md) and adds to the
-[issue log](plan/phase-8/8i-dogfood-issues.md) (D1 to D5 are open for the
-operator review). The 8i gate close-out
-([8i plan](plan/phase-8/8i-agent-native-hybrid-dogfood.md), item 14)
-follows the stretch set and its operator review: check the 8i acceptance
-criteria against the E records, give each Phase 8 interface a verdict, and
-write the Phase 9 handoff with the 9b artifact inventory.
+Next: [8i14 — clip copy to any row](plan/phase-8/8i14-clip-copy-to-any-row.md)
+(issue D9). Check `InsertionPoint.copySlotsOrScenes` in the API 25
+reference, probe it in the research profile, then let
+`copy_launcher_clips` copy a clip to any empty slot; rerun S4. The session
+needs two controller replacements by the operator (probe, then normal).
+Then [8i15 — device-add revert report](plan/phase-8/8i15-device-add-revert-report.md)
+(issue D8). Then the 8i gate close-out
+([8i plan](plan/phase-8/8i-agent-native-hybrid-dogfood.md), item 14):
+check the 8i acceptance criteria against the E records, give each Phase 8
+interface a verdict, and write the Phase 9 handoff with the 9b artifact
+inventory.
 [9c](plan/phase-9/9c-release-and-upgrade-live-suite.md) is the release and
 Bitwig upgrade live suite.
 
-8i12 is complete ([E261](evidence/experiments/e261-automated-dogfood-process-proof.md)).
-`tools/dogfood/run-session.sh` ran one fresh Codex and one fresh Claude
-session on the mixer task P1 in `gn-scale-test`. Both met the goal on the
-E257 route (3 Ghostnote calls, no refusal; Codex 46 s, Claude 13 s). No
+The operator reviewed the [issue log](plan/phase-8/8i-dogfood-issues.md)
+(D1 to D12): only D9 and D8 get a fix; the other rows need no action.
+
+8i13 is complete ([E262](evidence/experiments/e262-automated-dogfood-stretch-set.md)).
+Ten fresh sessions (S1 to S5, Codex and Claude) ran in `gn-scale-test`
+with the [runbook](plan/phase-8/8i-automated-dogfood-runbook.md); each met
+its goal in the independent state read. The 8i11 claim repairs stay with
+the operator in Codex Desktop (claims do not survive a session resume). No
 product, extension, or description change (v46).
 
 Keep in mind for the trials: with the D44 limits, an agent splits larger
@@ -59,11 +62,12 @@ methods, `0bafdd963fa9f5da`, `fineSteps` 4,194,304, and the `rig.info`
 markers `selectionEffects: mixer-restore-v1`, `trackMixer:
 track-mixer-raw-v1`, `clipMetadataWrite: owned-fields-v1`, and
 `cursorTrackPins.rule: owned-tracks-pinned-v1`. The 8i8 runs used
-`gn-scale-test` with scratch tracks only. After 8i12 it is at its E234
-baseline with mixer `gn-sel` selected; `selection.status` reports no
-selected slot (as at the 8i12 entry; the baseline names slot `gn-A` row 0,
-issue D5). "New 3" (8i7) was not opened. The next free evidence number is
-E262; the next decision is D49. `phase8i7-mixer.ts trial-setup` now
+`gn-scale-test` with scratch tracks only. After 8i13 it is at its E234
+baseline with mixer `gn-sel` selected and no selected slot;
+`selection.status` reports the last slot of a deleted fixture track
+(issue D11; the baseline names slot `gn-A` row 0, issue D5). "New 3"
+(8i7) was not opened. The next free evidence number is E263; the next
+decision is D49; the next issue row is D13. `phase8i7-mixer.ts trial-setup` now
 requires `gn-scale-test`; `trial-state all` prints the mixer of every
 track and the selection.
 `phase8i8-selection.ts accept` runs the selection arms; the current drivers
@@ -73,7 +77,14 @@ identity`, and `probe:modulation-routes` stay as before.
 
 ## Facts
 
-Automated dogfood (E261): follow the runbook. Count calls from the client
+Automated dogfood (E261, E262): follow the runbook.
+`phase8i13-stretch.ts <s1|s2|s3|s4> setup|state|cleanup` makes and deletes
+the stretch fixtures; `run-session.sh` takes `--no-ghostnote-line`.
+Compare the state after a cleanup without the slot selection fields.
+`copy_launcher_clips` copies to the next row only. `revert_change` of a
+device add reports `fidelity: none`. Codex calls `cua_repl` in some
+sessions; remove the application list of a `getState` result from the
+evidence copy. Count calls from the client
 session file (`session.jsonl`), not the Codex event stream, which has no
 script call. Codex `--approve-for-me` approves a Ghostnote write tool
 without a per-tool entry. Claude Code does not start an MCP server from a

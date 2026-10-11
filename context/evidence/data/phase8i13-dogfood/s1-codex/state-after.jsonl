@@ -1,0 +1,24 @@
+{"name":"Instrument Layer","type":"Hybrid","position":0,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[2,4]}
+{"name":"Hybrid 2","type":"Hybrid","position":1,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[1,2]}
+{"name":"gn-A","type":"Instrument","position":2,"volumeRaw":0.7811510509348213,"db":-6.435898716825146,"pan":-0.30000000000000004,"mute":false,"solo":false,"clipRows":[0,1,2,3,4,5,6,7,8,9]}
+{"name":"gn-B","type":"Instrument","position":3,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[0,5]}
+{"name":"Group 5","type":"Group","position":4,"volumeRaw":1,"db":0,"pan":0,"mute":false,"solo":false,"clipRows":[0,1,2]}
+{"name":"gn-E16","type":"Instrument","position":5,"volumeRaw":0.7307542089390263,"db":-8.173720472944144,"pan":-0.16000000000000003,"mute":false,"solo":false,"clipRows":[0,1,2]}
+{"name":"gn-lay","type":"Instrument","position":6,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[0]}
+{"name":"gn-lay4","type":"Instrument","position":7,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[0]}
+{"name":"gn-sel","type":"Instrument","position":8,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[0]}
+{"name":"Drums","type":"Instrument","position":9,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[0,1]}
+{"name":"Bass","type":"Instrument","position":10,"volumeRaw":0.7943282347242815,"db":-6,"pan":0,"mute":false,"solo":false,"clipRows":[0,1]}
+{"name":"Pad","type":"Instrument","position":11,"volumeRaw":0.5843414133735176,"db":-13.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[0,1]}
+{"name":"Lead","type":"Instrument","position":12,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":true,"solo":false,"clipRows":[0,1]}
+{"name":"FX 1","type":"Effect","position":13,"volumeRaw":1,"db":0,"pan":0,"mute":false,"solo":false,"clipRows":[]}
+{"name":"Master","type":"Master","position":14,"volumeRaw":1,"db":0,"pan":0,"mute":false,"solo":false,"clipRows":[]}
+{"clip":"Drums","row":0,"name":"A","length":"4","notes":["0:1/4:36:90","1/2:1/4:37:91","1:1/4:38:92","3/2:1/4:39:93","2:1/4:36:94","5/2:1/4:37:95","3:1/4:38:96","7/2:1/4:39:97"]}
+{"clip":"Drums","row":1,"name":"B","length":"4","notes":["0:1/4:36:90","1/2:1/4:37:91","1:1/4:38:92","3/2:1/4:39:93","2:1/4:36:94","5/2:1/4:37:95","3:1/4:38:96","7/2:1/4:39:97"]}
+{"clip":"Bass","row":0,"name":"A","length":"4","notes":["0:1/4:48:90","1/2:1/4:49:91","1:1/4:50:92","3/2:1/4:51:93","2:1/4:48:94","5/2:1/4:49:95","3:1/4:50:96","7/2:1/4:51:97"]}
+{"clip":"Bass","row":1,"name":"B","length":"4","notes":["0:1/4:48:90","1/2:1/4:49:91","1:1/4:50:92","3/2:1/4:51:93","2:1/4:48:94","5/2:1/4:49:95","3:1/4:50:96","7/2:1/4:51:97"]}
+{"clip":"Pad","row":0,"name":"A","length":"4","notes":["0:1/4:60:90","1/2:1/4:61:91","1:1/4:62:92","3/2:1/4:63:93","2:1/4:60:94","5/2:1/4:61:95","3:1/4:62:96","7/2:1/4:63:97"]}
+{"clip":"Pad","row":1,"name":"B","length":"4","notes":["0:1/4:60:90","1/2:1/4:61:91","1:1/4:62:92","3/2:1/4:63:93","2:1/4:60:94","5/2:1/4:61:95","3:1/4:62:96","7/2:1/4:63:97"]}
+{"clip":"Lead","row":0,"name":"A","length":"4","notes":["0:1/4:72:90","1/2:1/4:73:91","1:1/4:74:92","3/2:1/4:75:93","2:1/4:72:94","5/2:1/4:73:95","3:1/4:74:96","7/2:1/4:75:97"]}
+{"clip":"Lead","row":1,"name":"B","length":"4","notes":["0:1/4:72:90","1/2:1/4:73:91","1:1/4:74:92","3/2:1/4:75:93","2:1/4:72:94","5/2:1/4:73:95","3:1/4:74:96","7/2:1/4:75:97"]}
+{"project":"gn-scale-test","sceneCount":10,"slotTrackIndex":12,"slotIndex":1,"mixerTrackIndex":8,"mixerChannelId":"6fb96670-abde-4958-9147-f573a4b43918"}

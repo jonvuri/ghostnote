@@ -1,0 +1,3 @@
+Used Ghostnote to add EQ+ and Delay+, reorder delay before EQ, and route an LFO to delay Mix. The route was verified; actual Mix movement could not be observed.
+
+Restored Keys to its original enabled Polymer only, with all readable parameters matching. No track changes remained unundone.

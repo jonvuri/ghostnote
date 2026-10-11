@@ -1,0 +1,15 @@
+The Keys track is back to how it started: Polymer alone, enabled, with the mixer unchanged at -10.0 dB, pan centre, no mute or solo. There is nothing I could not undo.
+
+What I did on the way:
+
+- **Add:** EQ+ and Delay+ went on after Polymer.
+- **Reorder:** Delay+ moved ahead of EQ+, giving Polymer → Delay+ → EQ+.
+- **LFO:** an LFO was routed to the Delay+ Mix at amount 0.3. To host it, Ghostnote placed Delay+ inside an FX Layer; the delay kept its settings.
+- **Restore:** the FX Layer and its LFO were removed, then Delay+ and EQ+.
+
+Two caveats:
+
+- **LFO not heard:** Ghostnote confirmed the route and the LFO page, but it cannot observe the mix actually moving, and my one attempt to read the modulated value failed. "Works" here means the route was written and verified, not that the sound was checked.
+- **Polymer not compared:** I never touched Polymer, but I did not snapshot its parameters beforehand, so its unchanged state rests on that rather than on a before/after comparison.
+
+Bitwig's own undo history now holds these steps.

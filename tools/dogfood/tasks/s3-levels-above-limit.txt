@@ -1,0 +1,1 @@
+Set the tracks T01 to T13 to these levels: T01 -1 dB, T02 -2 dB, and so on down to T13 -13 dB.

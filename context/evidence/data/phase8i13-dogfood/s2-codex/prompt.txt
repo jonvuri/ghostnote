@@ -1,0 +1,2 @@
+On the Keys track, add an EQ and a delay after the instrument, then put the delay before the EQ, and add an LFO that moves the delay mix. When that works, put the track back exactly as it was and tell me anything you could not undo.
+Use Ghostnote.

@@ -1,0 +1,1 @@
+On the Seq track, move the Scene 2 clip to Scene 6, delete the Scene 3 clip, and copy the Scene 1 clip to Scene 3. Then add a new empty scene above Scene 1.

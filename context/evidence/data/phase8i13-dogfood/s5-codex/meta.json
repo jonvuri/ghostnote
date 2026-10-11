@@ -1,0 +1,12 @@
+{
+  "client": "codex",
+  "version": "codex-cli 0.162.1",
+  "task": "tools/dogfood/tasks/p1-mixer.txt",
+  "workdir": "/tmp/gn-dogfood.8FS2XX",
+  "start": "2026-10-11T08:26:15Z",
+  "end": "2026-10-11T08:26:54Z",
+  "seconds": 39,
+  "exitCode": 0,
+  "session": "01a12a11-dcb7-71e0-8169-bddab7cfc62f",
+  "sessionFile": "/Users/jonvuri/.codex/sessions/2026/10/11/rollout-2026-10-11T16-26-16-01a12a11-dcb7-71e0-8169-bddab7cfc62f.jsonl"
+}

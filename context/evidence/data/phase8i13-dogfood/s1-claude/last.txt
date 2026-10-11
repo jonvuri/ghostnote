@@ -1,0 +1,8 @@
+Done in `gn-scale-test`, all verified by readback:
+
+- **Clips:** Scene 1 clips of Drums, Bass, Pad and Lead copied to Scene 2 (the slots were empty), and each copy is named "B".
+- **Lead:** muted.
+- **Bass:** -6.0 dB (was -10.0).
+- **Pad:** -14.0 dB (was -10.0).
+
+Each step can be undone with Ghostnote's revert if needed.

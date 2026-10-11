@@ -1,0 +1,9 @@
+The three clip edits on Seq are done, but the new scene above Scene 1 is not: Ghostnote can only add scenes at the end of the Launcher.
+
+- **Scene 2 → Scene 6:** moved.
+- **Scene 3:** deleted.
+- **Scene 1 → Scene 3:** copied. The host only copies one row down, so I copied via Scene 2 and then deleted that intermediate copy; Scene 2 is empty again.
+
+Seq now has clips in Scenes 1, 3, 4 and 6. I took "Scene N" to mean Launcher row N, since Ghostnote doesn't expose scene names.
+
+For the new scene, the quickest route is to insert it yourself in Bitwig. The alternative is that I add a scene at the end and shift every clip on every track down one row. That leaves row 1 empty, but scene names and colours would stay where they are, so they would no longer line up with their clips. Say if you want that.

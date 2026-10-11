@@ -1,0 +1,2 @@
+In the open Bitwig project, copy the Scene 1 clips of Drums, Bass, Pad and Lead to Scene 2 and name each copy 'B'. Then mute Lead, set Bass to -6 dB and set Pad to -14 dB.
+Use Ghostnote.

@@ -1,0 +1,1 @@
+Set and verified T01–T12 at −1 through −12 dB using Ghostnote. T13 wasn’t found in the active project, so its level couldn’t be set.

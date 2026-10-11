@@ -1,9 +1,10 @@
 #!/bin/sh
 # Run one fresh agent session for an automated dogfood task (8i12).
 #
-#   tools/dogfood/run-session.sh <codex|claude> <task-file> <out-dir>
+#   tools/dogfood/run-session.sh <codex|claude> <task-file> <out-dir> [--no-ghostnote-line]
 #
 # The task file holds the prompt only. The runner adds the line "Use Ghostnote.".
+# With --no-ghostnote-line it does not: the agent must find Ghostnote from the task (8i13, S5).
 # The client runs in a new empty directory in /tmp, with the Ghostnote MCP server
 # of this tree and no computer use. The runner writes these files to <out-dir>:
 #
@@ -18,8 +19,8 @@
 # The runner deletes the /tmp directory. Run one session at a time.
 set -u
 
-if [ $# -ne 3 ]; then
-  echo "usage: $0 <codex|claude> <task-file> <out-dir>" >&2
+if [ $# -lt 3 ] || [ $# -gt 4 ] || { [ $# -eq 4 ] && [ "$4" != "--no-ghostnote-line" ]; }; then
+  echo "usage: $0 <codex|claude> <task-file> <out-dir> [--no-ghostnote-line]" >&2
   exit 2
 fi
 SESSION_FILE=
@@ -32,7 +33,8 @@ mkdir -p "$OUT"
 OUT=$(cd "$OUT" && pwd)
 [ ! -e "$OUT/events.jsonl" ] || { echo "$OUT has a run already" >&2; exit 2; }
 
-PROMPT="$(cat "$TASK")
+PROMPT="$(cat "$TASK")"
+[ $# -eq 4 ] || PROMPT="$PROMPT
 Use Ghostnote."
 printf '%s\n' "$PROMPT" > "$OUT/prompt.txt"
 WORK=$(mktemp -d /tmp/gn-dogfood.XXXXXX)

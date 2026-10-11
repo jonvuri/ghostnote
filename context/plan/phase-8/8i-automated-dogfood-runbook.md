@@ -40,7 +40,8 @@ not split into words.
 
 A task file is plain text in `tools/dogfood/tasks/<id>-<name>.txt`. It
 holds the prompt only, as an operator would write it: no tool name, no
-sequence, no repository path. The runner adds the line "Use Ghostnote.".
+sequence, no repository path. The runner adds the line "Use Ghostnote.";
+with `--no-ghostnote-line` as the fourth argument it does not (S5 of 8i13).
 Each task also has, in its plan: the setup command, the check, the
 baseline (when one exists), and the cleanup command.
 
@@ -64,7 +65,15 @@ For each task and each client (`codex`, then `claude`):
 6. Evaluate (section 5).
 7. Cleanup. Run the task's cleanup command (P1: `trial-cleanup`), then the
    state command again. It must equal `state-entry.jsonl` (`diff` prints
-   nothing). Do not start the next run before it does.
+   nothing). Do not start the next run before it does. After a clip
+   write, `selection.status` keeps the last slot of a deleted track
+   (issue D11): compare without `slotTrackIndex` and `slotIndex`
+   (`jq -c 'del(.slotTrackIndex, .slotIndex)'` on each file).
+
+The 8i13 tasks S1 to S4 use `node --import tsx
+src/probes/phase8i13-stretch.ts <task> setup|state|cleanup`. Its `state`
+is the state command of the task; the comparison with `state-entry.jsonl`
+uses `phase8i7-mixer.ts trial-state all`.
 
 ### What the runner does
 
@@ -111,7 +120,9 @@ directory.
   concise and to the point."). Check the `instructions` row of each
   extract.
 - Computer use is not enabled. The Codex computer-use plug-in (`cua_repl`)
-  stays available to the agent; a call to it is a detour.
+  stays available to the agent; a call to it is a detour. A `getState`
+  call returns the list of the applications on the operator's computer
+  (issue D10): remove that list from the evidence copy.
 
 ## 5. Evaluation checklist
 
@@ -151,6 +162,7 @@ State a cause as an inference when the transcript has no reasoning text.
 
 ## 7. Exit checks
 
-- `trial-state all` equals `state-entry.jsonl`.
+- `trial-state all` equals `state-entry.jsonl` (the slot fields apart,
+  issue D11).
 - `ls /tmp | grep gn-dogfood` prints nothing.
 - The operator stops the transport when a task launched a clip.

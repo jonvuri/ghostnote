@@ -1,0 +1,1 @@
+Done and verified: Pad is at −18 dB, Chords is at −12 dB, and Chords is panned 15% right.

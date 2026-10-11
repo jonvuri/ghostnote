@@ -1,0 +1,12 @@
+{
+  "client": "claude",
+  "version": "2.1.292 (Claude Code)",
+  "task": "tools/dogfood/tasks/p1-mixer.txt",
+  "workdir": "/tmp/gn-dogfood.yYbCFx",
+  "start": "2026-10-11T08:26:58Z",
+  "end": "2026-10-11T08:27:10Z",
+  "seconds": 12,
+  "exitCode": 0,
+  "session": "555f5e3b-6464-4597-9c99-95ca686bc94c",
+  "sessionFile": "/Users/jonvuri/.claude/projects/-private-tmp-gn-dogfood-yYbCFx/555f5e3b-6464-4597-9c99-95ca686bc94c.jsonl"
+}

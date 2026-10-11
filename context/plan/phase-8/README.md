@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: 8h and 8i0–8i12 are complete (E247–E261); the groove and overlay trials passed, timing claims are used without a leading prompt or a claim refusal, and the automated dogfood loop is proved. Next: the operator selects the 8i13 stretch set.
+status: 8h and 8i0–8i13 are complete (E247–E262); the groove and overlay trials passed, timing claims are used without a leading prompt or a claim refusal, the automated dogfood loop is proved, and the stretch set passed. Next: 8i14 (clip copy to any row), then 8i15 (device-add revert report), then the 8i gate close-out.
 updated: 2026-10-11
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -429,10 +429,12 @@ owns the migration details.
    (complete, E260) repairs the duplicate-claim and onset-floor refusals of
    the reruns.
    [8i12 — Automated dogfood process proof](8i12-automated-dogfood-process-proof.md)
-   (complete, E261) proves the automated loop with Codex and Claude. Next:
-   [8i13 — Automated dogfood stretch set](8i13-automated-dogfood-stretch-set.md)
-   (proposed; the operator selects the tasks), then the 8i gate close-out
-   (verdicts and the 9b handoff).
+   (complete, E261) proves the automated loop with Codex and Claude. [8i13 — Automated dogfood stretch set](8i13-automated-dogfood-stretch-set.md)
+   (complete, E262) ran five stretch tasks with both clients; each met its
+   goal; the operator reviewed its issue log. Next:
+   [8i14 — Clip copy to any row](8i14-clip-copy-to-any-row.md) (planned)
+   and [8i15 — Device-add revert report](8i15-device-add-revert-report.md)
+   (planned), then the 8i gate close-out (verdicts and the 9b handoff).
    None requires a skill.
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.

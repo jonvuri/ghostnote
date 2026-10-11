@@ -1,0 +1,24 @@
+{"name":"Instrument Layer","type":"Hybrid","position":0,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[2,4]}
+{"name":"Hybrid 2","type":"Hybrid","position":1,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[1,2]}
+{"name":"gn-A","type":"Instrument","position":2,"volumeRaw":0.7811510509348213,"db":-6.435898716825146,"pan":-0.30000000000000004,"mute":false,"solo":false,"clipRows":[0,1,2,3,4,5,6,7,8,9]}
+{"name":"gn-B","type":"Instrument","position":3,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[0,5]}
+{"name":"Group 5","type":"Group","position":4,"volumeRaw":1,"db":0,"pan":0,"mute":false,"solo":false,"clipRows":[0,1,2]}
+{"name":"gn-E16","type":"Instrument","position":5,"volumeRaw":0.7307542089390263,"db":-8.173720472944144,"pan":-0.16000000000000003,"mute":false,"solo":false,"clipRows":[0,1,2]}
+{"name":"gn-lay","type":"Instrument","position":6,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[0]}
+{"name":"gn-lay4","type":"Instrument","position":7,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[0]}
+{"name":"gn-sel","type":"Instrument","position":8,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[0]}
+{"name":"T01","type":"Instrument","position":9,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[]}
+{"name":"T02","type":"Instrument","position":10,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[]}
+{"name":"T03","type":"Instrument","position":11,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[]}
+{"name":"T04","type":"Instrument","position":12,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[]}
+{"name":"T05","type":"Instrument","position":13,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[]}
+{"name":"T06","type":"Instrument","position":14,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[]}
+{"name":"T07","type":"Instrument","position":15,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[]}
+{"name":"T08","type":"Instrument","position":16,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[]}
+{"name":"T09","type":"Instrument","position":17,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[]}
+{"name":"T10","type":"Instrument","position":18,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[]}
+{"name":"T11","type":"Instrument","position":19,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[]}
+{"name":"T12","type":"Instrument","position":20,"volumeRaw":0.6812920690579614,"db":-9.999999999999996,"pan":0,"mute":false,"solo":false,"clipRows":[]}
+{"name":"FX 1","type":"Effect","position":21,"volumeRaw":1,"db":0,"pan":0,"mute":false,"solo":false,"clipRows":[]}
+{"name":"Master","type":"Master","position":22,"volumeRaw":1,"db":0,"pan":0,"mute":false,"solo":false,"clipRows":[]}
+{"project":"gn-scale-test","sceneCount":10,"slotTrackIndex":12,"slotIndex":1,"mixerTrackIndex":8,"mixerChannelId":"6fb96670-abde-4958-9147-f573a4b43918"}

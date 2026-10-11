@@ -1,0 +1,12 @@
+{
+  "client": "codex",
+  "version": "codex-cli 0.162.1",
+  "task": "tools/dogfood/tasks/s2-devices-and-undo.txt",
+  "workdir": "/tmp/gn-dogfood.2xJ15V",
+  "start": "2026-10-11T08:17:29Z",
+  "end": "2026-10-11T08:19:10Z",
+  "seconds": 101,
+  "exitCode": 0,
+  "session": "01a12a09-d440-73d1-a3e3-352aa82fd55d",
+  "sessionFile": "/Users/jonvuri/.codex/sessions/2026/10/11/rollout-2026-10-11T16-17-29-01a12a09-d440-73d1-a3e3-352aa82fd55d.jsonl"
+}

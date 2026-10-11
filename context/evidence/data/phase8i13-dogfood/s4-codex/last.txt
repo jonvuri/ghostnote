@@ -1,0 +1,3 @@
+Completed on Seq: moved Scene 2 to Scene 6, deleted Scene 3’s clip, and copied Scene 1 to Scene 3.
+
+The empty scene above Scene 1 remains undone: Ghostnote only appends scenes, and computer control of Bitwig was denied.

@@ -1,13 +1,13 @@
 ---
 title: Phase 8i13 automated dogfood stretch set
 kind: plan
-state: proposed
-status: Proposed. The operator selects the tasks; then this plan is the next session.
+state: done
+status: Complete (E262). The operator selected all five tasks with both clients; each of the ten sessions met its goal; the operator reviewed the issue log (D9 and D8 get fix sessions, 8i14 and 8i15).
 updated: 2026-10-11
 parent: README.md
 prev: 8i12-automated-dogfood-process-proof.md
-next: 8i-agent-native-hybrid-dogfood.md
-evidence: E261
+next: 8i14-clip-copy-to-any-row.md
+evidence: E261, E262
 ---
 
 # Phase 8i13 automated dogfood stretch set
@@ -20,8 +20,8 @@ trials stretched least. The driving agent follows the
 [issue log](8i-dogfood-issues.md). The operator reviews the log in a later
 live session.
 
-**Operator decision: select the tasks.** The recommendation is all five
-tasks with both clients (10 runs). The 8i11 claim repairs are not in the
+**Operator decision: all five tasks with both clients (10 runs).** Result:
+[E262](../../evidence/experiments/e262-automated-dogfood-stretch-set.md). The 8i11 claim repairs are not in the
 set: they need two prompts in one session, and claims do not survive a
 session resume. They stay with the operator in Codex Desktop.
 
