@@ -1,13 +1,13 @@
 ---
 title: Phase 8i12 automated dogfood process proof
 kind: plan
-state: planned
-status: Planned. Prove one repeatable automated dogfood session with Codex and with Claude, then propose the session goals for the stretch set.
+state: done
+status: Complete (E261). One Codex and one Claude session met the P1 goal on the E257 route with no operator action; the runbook, the issue log, and the stretch-set proposal (8i13) exist.
 updated: 2026-10-11
 parent: README.md
 prev: 8i11-claim-replacement-repair.md
-next: 8i-agent-native-hybrid-dogfood.md
-evidence: E255, E257, E259, E260
+next: 8i13-automated-dogfood-stretch-set.md
+evidence: E255, E257, E259, E260, E261
 ---
 
 # Phase 8i12 automated dogfood process proof

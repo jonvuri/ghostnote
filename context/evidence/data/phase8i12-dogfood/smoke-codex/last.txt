@@ -1,0 +1,17 @@
+Ghostnote reports 11 tracks in **gn-scale-test**, in order:
+
+| Track | Type |
+|---|---|
+| Instrument Layer | Hybrid |
+| Hybrid 2 | Hybrid |
+| gn-A | Instrument |
+| gn-B | Instrument |
+| Group 5 | Group |
+| gn-E16 | Instrument |
+| gn-lay | Instrument |
+| gn-lay4 | Instrument |
+| gn-sel | Instrument |
+| FX 1 | Effect |
+| Master | Master |
+
+Nothing was changed.

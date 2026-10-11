@@ -1,0 +1,12 @@
+{
+  "client": "claude",
+  "version": "2.1.292 (Claude Code)",
+  "task": "/tmp/gn-8i12/smoke.txt",
+  "workdir": "/tmp/gn-dogfood.Fp9YtF",
+  "start": "2026-10-11T07:28:33Z",
+  "end": "2026-10-11T07:28:40Z",
+  "seconds": 7,
+  "exitCode": 0,
+  "session": "b336f44e-7642-4e6e-ba22-16eba831dda2",
+  "sessionFile": ""
+}

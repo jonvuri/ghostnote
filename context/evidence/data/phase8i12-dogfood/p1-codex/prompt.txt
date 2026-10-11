@@ -1,0 +1,2 @@
+In the open Bitwig project, set the Pad track to -18 dB and the Chords track to -12 dB, and pan Chords a little to the right.
+Use Ghostnote.

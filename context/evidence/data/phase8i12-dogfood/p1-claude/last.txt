@@ -1,0 +1,6 @@
+Done, and Bitwig's readback confirms all three values:
+
+- **Pad:** volume -18 dB (was -10)
+- **Chords:** volume -12 dB (was -10), pan 20% right (was centre)
+
+I picked 20% for "a little to the right"; say if you want more or less. The change can be reverted as one step (change ID `bc219344-bbd7-470a-8dbf-d404e0a2ca3d`).

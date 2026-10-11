@@ -1,0 +1,12 @@
+{
+  "client": "claude",
+  "version": "2.1.292 (Claude Code)",
+  "task": "tools/dogfood/tasks/p1-mixer.txt",
+  "workdir": "/tmp/gn-dogfood.NWX85L",
+  "start": "2026-10-11T07:31:10Z",
+  "end": "2026-10-11T07:31:23Z",
+  "seconds": 13,
+  "exitCode": 0,
+  "session": "68c0491e-d424-4afe-abe2-81829ef6a749",
+  "sessionFile": ""
+}

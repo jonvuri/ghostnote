@@ -11,7 +11,8 @@
  *                   The next `release` deletes it.
  *   release [name]  Delete gn-8i7-ui, or the named driver track (for example gn-8h4c-edit after a cost rerun).
  *   trial-setup     Create the fresh-agent trial tracks Pad and Chords (fresh mixer values).
- *   trial-state     Print the raw mixer of the trial tracks (the independent check of the trial).
+ *   trial-state [all]  Print the raw mixer of the trial tracks (the independent check of the trial). With `all`,
+ *                   print every track and the selection (the check that no other track changed).
  *   trial-cleanup   Delete the trial tracks.
  *   stats           Print rig.stats: init time and heap.
  *
@@ -93,14 +94,16 @@ async function stats(): Promise<Wire> {
     heapUsedMb: s.heapUsedMb, heapMaxMb: s.heapMaxMb, tracks: s.config?.tracks };
 }
 
-async function requireOwnedProject(): Promise<string> {
+/** `scratchOnly`: the mode adds and deletes its own tracks only, so the saved owned project is admitted (8i12). */
+async function requireOwnedProject(scratchOnly = false): Promise<string> {
   const info = await request('rig.info');
   assert.equal(info.trackMixer, 'track-mixer-raw-v1', 'the 8i7 build marker');
   const hello = await request('contract.hello');
   assert.equal(hello.runtimeProfile, 'normal-v1');
   const connection = await tool('check_bitwig_connection', {});
   const project = connection.result.data?.project as string;
-  assert(typeof project === 'string' && project !== ANCHOR, `an owned unsaved project is required, not ${project}`);
+  assert(typeof project === 'string' && (scratchOnly ? project === ANCHOR : project !== ANCHOR),
+    scratchOnly ? `the owned project ${ANCHOR} is required, not ${project}` : `an owned unsaved project is required, not ${project}`);
   return project;
 }
 
@@ -277,17 +280,23 @@ const TRIAL = ['Pad', 'Chords'];
 const trialIds = async (): Promise<string[]> => ((await request('track.list')).tracks as Wire[])
   .filter((row) => TRIAL.includes(row.name)).map((row) => row.channelId as string);
 
-async function trial(mode: string): Promise<void> {
+async function trial(mode: string, scope?: string): Promise<void> {
   if (mode === 'trial-setup') {
     assert.deepEqual(await trialIds(), [], 'a trial track exists; run trial-cleanup first');
-    await requireOwnedProject();
+    await requireOwnedProject(true);
     say({ created: await addTracks(TRIAL) });
   } else if (mode === 'trial-state') {
-    const ids = await trialIds();
+    const ids = scope === 'all'
+      ? ((await request('track.list')).tracks as Wire[]).map((row) => row.channelId as string) : await trialIds();
     const names = new Map(((await request('track.list')).tracks as Wire[]).map((row) => [row.channelId, row.name]));
     for (const [id, row] of await raw(ids)) {
       say({ name: names.get(id), volumeRaw: row.volumeRaw, db: 60 * Math.log10(row.volumeRaw), display: row.volumeDisplayed,
         pan: row.panRaw, mute: row.mute, solo: row.solo });
+    }
+    if (scope === 'all') {
+      const selection = await request('selection.status');
+      say({ project: selection.project, slotTrackIndex: selection.trackIndex, slotIndex: selection.slotIndex,
+        mixerTrackIndex: selection.mixerTrackIndex, mixerChannelId: selection.mixerChannelId });
     }
   } else {
     await deleteTracks(await trialIds());
@@ -299,6 +308,6 @@ if (mode === 'measure') await measure(dir ?? '/tmp/phase8i7');
 else if (mode === 'hold') await hold(dir ?? '/tmp/phase8i7');
 else if (mode === 'release') await release(dir);
 else if (mode === 'stats') say(await stats());
-else if (mode?.startsWith('trial-')) await trial(mode);
+else if (mode?.startsWith('trial-')) await trial(mode, dir);
 else throw new Error('usage: phase8i7-mixer.ts measure <dir> | hold <dir> | release | stats');
 process.exit(0);

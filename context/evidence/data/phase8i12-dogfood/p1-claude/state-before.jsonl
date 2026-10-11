@@ -1,0 +1,14 @@
+{"name":"Instrument Layer","volumeRaw":0.6812920690579614,"db":-9.999999999999996,"display":"-10.0 dB","pan":0,"mute":false,"solo":false}
+{"name":"Hybrid 2","volumeRaw":0.6812920690579614,"db":-9.999999999999996,"display":"-10.0 dB","pan":0,"mute":false,"solo":false}
+{"name":"gn-A","volumeRaw":0.7811510509348213,"db":-6.435898716825146,"display":"-6.4 dB","pan":-0.30000000000000004,"mute":false,"solo":false}
+{"name":"gn-B","volumeRaw":0.6812920690579614,"db":-9.999999999999996,"display":"-10.0 dB","pan":0,"mute":false,"solo":false}
+{"name":"Group 5","volumeRaw":1,"db":0,"display":"0.0 dB","pan":0,"mute":false,"solo":false}
+{"name":"gn-E16","volumeRaw":0.7307542089390263,"db":-8.173720472944144,"display":"-8.2 dB","pan":-0.16000000000000003,"mute":false,"solo":false}
+{"name":"gn-lay","volumeRaw":0.6812920690579614,"db":-9.999999999999996,"display":"-10.0 dB","pan":0,"mute":false,"solo":false}
+{"name":"gn-lay4","volumeRaw":0.6812920690579614,"db":-9.999999999999996,"display":"-10.0 dB","pan":0,"mute":false,"solo":false}
+{"name":"gn-sel","volumeRaw":0.6812920690579614,"db":-9.999999999999996,"display":"-10.0 dB","pan":0,"mute":false,"solo":false}
+{"name":"Pad","volumeRaw":0.6812920690579614,"db":-9.999999999999996,"display":"-10.0 dB","pan":0,"mute":false,"solo":false}
+{"name":"Chords","volumeRaw":0.6812920690579614,"db":-9.999999999999996,"display":"-10.0 dB","pan":0,"mute":false,"solo":false}
+{"name":"FX 1","volumeRaw":1,"db":0,"display":"0.0 dB","pan":0,"mute":false,"solo":false}
+{"name":"Master","volumeRaw":1,"db":0,"display":"0.0 dB","pan":0,"mute":false,"solo":false}
+{"project":"gn-scale-test","slotTrackIndex":-1,"slotIndex":-1,"mixerTrackIndex":8,"mixerChannelId":"6fb96670-abde-4958-9147-f573a4b43918"}

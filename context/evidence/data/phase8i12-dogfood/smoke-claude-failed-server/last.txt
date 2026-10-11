@@ -1,0 +1,3 @@
+I can't list the tracks: the Ghostnote MCP server failed to connect this session (`CONNECTION_CLOSED: "Connection closed"`), so its tools are unavailable.
+
+Nothing was read or changed. Reconnecting it (e.g. `/mcp` → reconnect ghostnote, with Bitwig running) should fix it; then ask again and I'll list the tracks.

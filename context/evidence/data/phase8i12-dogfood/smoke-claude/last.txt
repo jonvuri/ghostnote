@@ -1,0 +1,17 @@
+The open project `gn-scale-test` has 11 tracks (complete listing, nothing changed):
+
+| # | Name | Kind |
+|---|------|------|
+| 0 | Instrument Layer | Hybrid |
+| 1 | Hybrid 2 | Hybrid |
+| 2 | gn-A | Instrument |
+| 3 | gn-B | Instrument |
+| 4 | Group 5 | Group |
+| 5 | gn-E16 | Instrument |
+| 6 | gn-lay | Instrument |
+| 7 | gn-lay4 | Instrument |
+| 8 | gn-sel | Instrument |
+| 9 | FX 1 | Effect |
+| 10 | Master | Master |
+
+The listing doesn't say which tracks sit inside Group 5.

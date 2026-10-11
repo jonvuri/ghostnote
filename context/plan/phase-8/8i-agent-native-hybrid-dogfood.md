@@ -2,7 +2,7 @@
 title: Phase 8i — Agent-native hybrid dogfood
 kind: plan
 state: planned
-status: Final Phase 8 gate. 8i0–8i11 are complete (E249–E260, D42–D48); the groove and overlay trials passed (E256), and timing claims are used without a leading prompt (E259, E260). Next: 8i12, the automated dogfood process proof, then the gate close-out.
+status: Final Phase 8 gate. 8i0–8i12 are complete (E249–E261, D42–D48); the groove and overlay trials passed (E256), timing claims are used without a leading prompt (E259, E260), and the automated dogfood loop is proved (E261). Next: the operator selects the 8i13 stretch set; then 8i13, its review, and the gate close-out.
 updated: 2026-10-11
 parent: README.md
 prev: 8i5-device-control-identity.md
@@ -90,11 +90,15 @@ The following sessions completed them before the 2026-10-09 trial:
     the duplicate-claim and onset-floor refusals return a repair; reference
     revision 5, descriptions v46; the operator rerun of T1 steps 1 and 2 had
     no refusal.
-13. Next: [8i12 — Automated dogfood process proof](8i12-automated-dogfood-process-proof.md).
-    A driving agent runs fresh Codex and Claude sessions on mechanical
-    tasks, checks each transcript and the state, and logs issues for an
-    operator review. 8i12 proves the loop and proposes the stretch set
-    (8i13) for the parts that the trials stretched least.
+13. [8i12 — Automated dogfood process proof](8i12-automated-dogfood-process-proof.md).
+    Complete ([E261](../../evidence/experiments/e261-automated-dogfood-process-proof.md)):
+    a driving agent ran one fresh Codex and one fresh Claude session on a
+    mixer task; both met the goal on the E257 route. The
+    [runbook](8i-automated-dogfood-runbook.md) and the
+    [issue log](8i-dogfood-issues.md) exist.
+    Next: [8i13 — Automated dogfood stretch set](8i13-automated-dogfood-stretch-set.md)
+    (proposed; the operator selects the tasks), for the parts that the
+    trials stretched least, then the operator review of the issue log.
 14. Then the gate close-out. Check the [acceptance criteria](#acceptance-criteria)
     against the E records, give each Phase 8 interface a verdict, and write
     the [Phase 9 handoff](#phase-9-handoff) with the 9b artifact inventory.

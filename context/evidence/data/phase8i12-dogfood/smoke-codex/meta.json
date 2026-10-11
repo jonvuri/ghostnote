@@ -1,0 +1,12 @@
+{
+  "client": "codex",
+  "version": "codex-cli 0.162.1",
+  "task": "/tmp/gn-8i12/smoke.txt",
+  "workdir": "/tmp/gn-dogfood.zfVS9j",
+  "start": "2026-10-11T07:27:44Z",
+  "end": "2026-10-11T07:28:26Z",
+  "seconds": 42,
+  "exitCode": 0,
+  "session": "01a129dc-4ae0-7da2-be09-6619172f68a4",
+  "sessionFile": ""
+}

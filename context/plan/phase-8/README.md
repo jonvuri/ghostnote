@@ -2,8 +2,8 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: 8h and 8i0–8i11 are complete (E247–E260); the groove and overlay trials passed, and timing claims are used without a leading prompt or a claim refusal. Next: 8i12, the automated dogfood process proof.
-updated: 2026-10-09
+status: 8h and 8i0–8i12 are complete (E247–E261); the groove and overlay trials passed, timing claims are used without a leading prompt or a claim refusal, and the automated dogfood loop is proved. Next: the operator selects the 8i13 stretch set.
+updated: 2026-10-11
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
 next: ../phase-9/README.md
@@ -427,9 +427,12 @@ owns the migration details.
    claims without a leading prompt.
    [8i11 — Claim replacement repair](8i11-claim-replacement-repair.md)
    (complete, E260) repairs the duplicate-claim and onset-floor refusals of
-   the reruns. Next:
-   [8i12 — Automated dogfood process proof](8i12-automated-dogfood-process-proof.md),
-   then the 8i gate close-out (verdicts and the 9b handoff).
+   the reruns.
+   [8i12 — Automated dogfood process proof](8i12-automated-dogfood-process-proof.md)
+   (complete, E261) proves the automated loop with Codex and Claude. Next:
+   [8i13 — Automated dogfood stretch set](8i13-automated-dogfood-stretch-set.md)
+   (proposed; the operator selects the tasks), then the 8i gate close-out
+   (verdicts and the 9b handoff).
    None requires a skill.
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.
