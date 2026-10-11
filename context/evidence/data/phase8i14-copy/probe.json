@@ -1,0 +1,1253 @@
+{
+  "schema": "phase8i14-copy-v1",
+  "mode": "probe",
+  "hello": {
+    "contractVersion": 0,
+    "extensionVersion": "0.0.1",
+    "runtimeProfile": "phase-8-probe-v1",
+    "hostApiVersion": 25,
+    "methodCount": 111,
+    "methodsHash": "9b339de4e9bb08da"
+  },
+  "window": {
+    "tracks": 256,
+    "scenes": 128
+  },
+  "entry": {
+    "tracks": [
+      "0:Instrument Layer:Hybrid:98ba",
+      "1:Hybrid 2:Hybrid:4a6a",
+      "2:gn-A:Instrument:d61c",
+      "3:gn-B:Instrument:78a4",
+      "4:Group 5:Group:ae4c",
+      "5:gn-E16:Instrument:e75d",
+      "6:gn-lay:Instrument:d367",
+      "7:gn-lay4:Instrument:9a88",
+      "8:gn-sel:Instrument:6fb9",
+      "9:FX 1:Effect:52bd",
+      "10:Master:Master:834e"
+    ],
+    "scenes": 10,
+    "grid": {
+      "Instrument Layer#98ba": "..x.x.....",
+      "Hybrid 2#4a6a": ".xx.......",
+      "gn-A#d61c": "xxxxxxxxxx",
+      "gn-B#78a4": "x....x....",
+      "Group 5#ae4c": "xxx.......",
+      "gn-E16#e75d": "xxx.......",
+      "gn-lay#d367": "x.........",
+      "gn-lay4#9a88": "x.........",
+      "gn-sel#6fb9": "x........."
+    },
+    "selection": {
+      "track": 9,
+      "slot": 0,
+      "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+    },
+    "contentEpoch": 32817,
+    "sceneEpoch": 5,
+    "revision": 40,
+    "events": [
+      {
+        "seq": 32794,
+        "channelId": "c732ecc2-be75-4fb3-9008-703855e405d0",
+        "trackIndex": 9,
+        "slotIndex": 0,
+        "filled": true
+      },
+      {
+        "seq": 32795,
+        "channelId": "c732ecc2-be75-4fb3-9008-703855e405d0",
+        "trackIndex": 9,
+        "slotIndex": 5,
+        "filled": true
+      },
+      {
+        "seq": 32796,
+        "channelId": "c732ecc2-be75-4fb3-9008-703855e405d0",
+        "trackIndex": 9,
+        "slotIndex": 0,
+        "filled": false
+      },
+      {
+        "seq": 32797,
+        "channelId": "c732ecc2-be75-4fb3-9008-703855e405d0",
+        "trackIndex": 9,
+        "slotIndex": 5,
+        "filled": false
+      },
+      {
+        "seq": 32798,
+        "channelId": "8893b7c6-f99c-4f0c-8dda-b3ed8817bbc6",
+        "trackIndex": 9,
+        "slotIndex": 0,
+        "filled": true
+      },
+      {
+        "seq": 32799,
+        "channelId": "8893b7c6-f99c-4f0c-8dda-b3ed8817bbc6",
+        "trackIndex": 9,
+        "slotIndex": 5,
+        "filled": true
+      },
+      {
+        "seq": 32800,
+        "channelId": "8893b7c6-f99c-4f0c-8dda-b3ed8817bbc6",
+        "trackIndex": 9,
+        "slotIndex": 2,
+        "filled": true
+      },
+      {
+        "seq": 32801,
+        "channelId": "8893b7c6-f99c-4f0c-8dda-b3ed8817bbc6",
+        "trackIndex": 9,
+        "slotIndex": 3,
+        "filled": true
+      },
+      {
+        "seq": 32802,
+        "channelId": "a012835d-1ba9-429a-80e7-62805d0c7335",
+        "trackIndex": 10,
+        "slotIndex": 0,
+        "filled": true
+      },
+      {
+        "seq": 32803,
+        "channelId": "a012835d-1ba9-429a-80e7-62805d0c7335",
+        "trackIndex": 10,
+        "slotIndex": 4,
+        "filled": true
+      },
+      {
+        "seq": 32804,
+        "channelId": "8893b7c6-f99c-4f0c-8dda-b3ed8817bbc6",
+        "trackIndex": 9,
+        "slotIndex": 4,
+        "filled": true
+      },
+      {
+        "seq": 32805,
+        "channelId": "54c856d1-d287-46ed-9f54-f53eb9248711",
+        "trackIndex": 11,
+        "slotIndex": 0,
+        "filled": true
+      },
+      {
+        "seq": 32806,
+        "channelId": "a012835d-1ba9-429a-80e7-62805d0c7335",
+        "trackIndex": 10,
+        "slotIndex": 6,
+        "filled": true
+      },
+      {
+        "seq": 32807,
+        "channelId": "a012835d-1ba9-429a-80e7-62805d0c7335",
+        "trackIndex": 10,
+        "slotIndex": 11,
+        "filled": true
+      },
+      {
+        "seq": 32808,
+        "channelId": "54c856d1-d287-46ed-9f54-f53eb9248711",
+        "trackIndex": 11,
+        "slotIndex": 0,
+        "filled": false
+      },
+      {
+        "seq": 32809,
+        "channelId": "a012835d-1ba9-429a-80e7-62805d0c7335",
+        "trackIndex": 10,
+        "slotIndex": 0,
+        "filled": false
+      },
+      {
+        "seq": 32810,
+        "channelId": "a012835d-1ba9-429a-80e7-62805d0c7335",
+        "trackIndex": 10,
+        "slotIndex": 4,
+        "filled": false
+      },
+      {
+        "seq": 32811,
+        "channelId": "a012835d-1ba9-429a-80e7-62805d0c7335",
+        "trackIndex": 10,
+        "slotIndex": 6,
+        "filled": false
+      },
+      {
+        "seq": 32812,
+        "channelId": "a012835d-1ba9-429a-80e7-62805d0c7335",
+        "trackIndex": 10,
+        "slotIndex": 11,
+        "filled": false
+      },
+      {
+        "seq": 32813,
+        "channelId": "8893b7c6-f99c-4f0c-8dda-b3ed8817bbc6",
+        "trackIndex": 9,
+        "slotIndex": 0,
+        "filled": false
+      },
+      {
+        "seq": 32814,
+        "channelId": "8893b7c6-f99c-4f0c-8dda-b3ed8817bbc6",
+        "trackIndex": 9,
+        "slotIndex": 2,
+        "filled": false
+      },
+      {
+        "seq": 32815,
+        "channelId": "8893b7c6-f99c-4f0c-8dda-b3ed8817bbc6",
+        "trackIndex": 9,
+        "slotIndex": 3,
+        "filled": false
+      },
+      {
+        "seq": 32816,
+        "channelId": "8893b7c6-f99c-4f0c-8dda-b3ed8817bbc6",
+        "trackIndex": 9,
+        "slotIndex": 4,
+        "filled": false
+      },
+      {
+        "seq": 32817,
+        "channelId": "8893b7c6-f99c-4f0c-8dda-b3ed8817bbc6",
+        "trackIndex": 9,
+        "slotIndex": 5,
+        "filled": false
+      }
+    ]
+  },
+  "cases": [
+    {
+      "case": "same-track-down",
+      "params": {
+        "trackIndex": 9,
+        "slotIndex": 0,
+        "toTrackIndex": 9,
+        "toSlotIndex": 2
+      },
+      "reply": {
+        "success": true,
+        "sourceHadContent": true,
+        "destExisted": true,
+        "destHadContent": false,
+        "epochBefore": 32819,
+        "sources": 1
+      },
+      "replyMs": 23,
+      "changedMs": 94,
+      "slots": [
+        "gn-8i14-a#63c0:2 .>x"
+      ],
+      "tracksSame": true,
+      "scenes": [
+        10,
+        10
+      ],
+      "contentEvents": 1,
+      "events": [
+        "9:2:filled"
+      ],
+      "revision": [
+        55,
+        55
+      ],
+      "selection": {
+        "before": {
+          "track": 9,
+          "slot": 0,
+          "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        "after": {
+          "track": 9,
+          "slot": 0,
+          "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        "kept": true
+      },
+      "destination": "occupied",
+      "copy": {
+        "metadata": {
+          "name": "gn-rich",
+          "color": {
+            "red": 20,
+            "green": 160,
+            "blue": 89
+          },
+          "lengthBeats": 64,
+          "playStartBeats": 4,
+          "loopEnabled": false,
+          "loopStartBeats": 0,
+          "loopEndBeats": 64
+        },
+        "launch": {
+          "quantization": "1/4",
+          "mode": "synced",
+          "useLoopStartAsQuantizationReference": true
+        },
+        "notes": 256,
+        "channels": 16
+      },
+      "equal": {
+        "metadata": true,
+        "launch": true,
+        "notes": true
+      },
+      "sourceKept": true
+    },
+    {
+      "case": "same-track-up",
+      "params": {
+        "trackIndex": 9,
+        "slotIndex": 5,
+        "toTrackIndex": 9,
+        "toSlotIndex": 3
+      },
+      "reply": {
+        "success": true,
+        "sourceHadContent": true,
+        "destExisted": true,
+        "destHadContent": false,
+        "epochBefore": 32820,
+        "sources": 1
+      },
+      "replyMs": 24,
+      "changedMs": 92,
+      "slots": [
+        "gn-8i14-a#63c0:3 .>x"
+      ],
+      "tracksSame": true,
+      "scenes": [
+        10,
+        10
+      ],
+      "contentEvents": 1,
+      "events": [
+        "9:3:filled"
+      ],
+      "revision": [
+        55,
+        55
+      ],
+      "selection": {
+        "before": {
+          "track": 9,
+          "slot": 0,
+          "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        "after": {
+          "track": 9,
+          "slot": 0,
+          "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        "kept": true
+      },
+      "destination": "occupied",
+      "copy": {
+        "metadata": {
+          "name": "gn-small",
+          "color": {
+            "red": 122,
+            "green": 122,
+            "blue": 122
+          },
+          "lengthBeats": 4,
+          "playStartBeats": 0,
+          "loopEnabled": true,
+          "loopStartBeats": 0,
+          "loopEndBeats": 4
+        },
+        "launch": {
+          "quantization": "default",
+          "mode": "default",
+          "useLoopStartAsQuantizationReference": false
+        },
+        "notes": 4,
+        "channels": 1
+      },
+      "equal": {
+        "metadata": true,
+        "launch": true,
+        "notes": true
+      },
+      "sourceKept": true
+    },
+    {
+      "case": "other-track-same-row",
+      "params": {
+        "trackIndex": 9,
+        "slotIndex": 0,
+        "toTrackIndex": 10,
+        "toSlotIndex": 0
+      },
+      "reply": {
+        "success": true,
+        "sourceHadContent": true,
+        "destExisted": true,
+        "destHadContent": false,
+        "epochBefore": 32821,
+        "sources": 1
+      },
+      "replyMs": 25,
+      "changedMs": 98,
+      "slots": [
+        "gn-8i14-b#6b19:0 .>x"
+      ],
+      "tracksSame": true,
+      "scenes": [
+        10,
+        10
+      ],
+      "contentEvents": 1,
+      "events": [
+        "10:0:filled"
+      ],
+      "revision": [
+        55,
+        55
+      ],
+      "selection": {
+        "before": {
+          "track": 9,
+          "slot": 0,
+          "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        "after": {
+          "track": 9,
+          "slot": 0,
+          "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        "kept": true
+      },
+      "destination": "occupied",
+      "copy": {
+        "metadata": {
+          "name": "gn-rich",
+          "color": {
+            "red": 20,
+            "green": 160,
+            "blue": 89
+          },
+          "lengthBeats": 64,
+          "playStartBeats": 4,
+          "loopEnabled": false,
+          "loopStartBeats": 0,
+          "loopEndBeats": 64
+        },
+        "launch": {
+          "quantization": "1/4",
+          "mode": "synced",
+          "useLoopStartAsQuantizationReference": true
+        },
+        "notes": 256,
+        "channels": 16
+      },
+      "equal": {
+        "metadata": true,
+        "launch": true,
+        "notes": true
+      },
+      "sourceKept": true
+    },
+    {
+      "case": "other-track-other-row",
+      "params": {
+        "trackIndex": 9,
+        "slotIndex": 0,
+        "toTrackIndex": 10,
+        "toSlotIndex": 4
+      },
+      "reply": {
+        "success": true,
+        "sourceHadContent": true,
+        "destExisted": true,
+        "destHadContent": false,
+        "epochBefore": 32822,
+        "sources": 1
+      },
+      "replyMs": 24,
+      "changedMs": 95,
+      "slots": [
+        "gn-8i14-b#6b19:4 .>x"
+      ],
+      "tracksSame": true,
+      "scenes": [
+        10,
+        10
+      ],
+      "contentEvents": 1,
+      "events": [
+        "10:4:filled"
+      ],
+      "revision": [
+        55,
+        55
+      ],
+      "selection": {
+        "before": {
+          "track": 9,
+          "slot": 0,
+          "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        "after": {
+          "track": 9,
+          "slot": 0,
+          "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        "kept": true
+      },
+      "destination": "occupied",
+      "copy": {
+        "metadata": {
+          "name": "gn-rich",
+          "color": {
+            "red": 20,
+            "green": 160,
+            "blue": 89
+          },
+          "lengthBeats": 64,
+          "playStartBeats": 4,
+          "loopEnabled": false,
+          "loopStartBeats": 0,
+          "loopEndBeats": 64
+        },
+        "launch": {
+          "quantization": "1/4",
+          "mode": "synced",
+          "useLoopStartAsQuantizationReference": true
+        },
+        "notes": 256,
+        "channels": 16
+      },
+      "equal": {
+        "metadata": true,
+        "launch": true,
+        "notes": true
+      },
+      "sourceKept": true
+    },
+    {
+      "case": "occupied-destination",
+      "params": {
+        "trackIndex": 9,
+        "slotIndex": 5,
+        "toTrackIndex": 9,
+        "toSlotIndex": 2
+      },
+      "reply": {
+        "success": true,
+        "sourceHadContent": true,
+        "destExisted": true,
+        "destHadContent": true,
+        "epochBefore": 32823,
+        "sources": 1
+      },
+      "replyMs": 25,
+      "changedMs": null,
+      "slots": [],
+      "tracksSame": true,
+      "scenes": [
+        10,
+        10
+      ],
+      "contentEvents": 0,
+      "events": [],
+      "revision": [
+        55,
+        55
+      ],
+      "selection": {
+        "before": {
+          "track": 9,
+          "slot": 0,
+          "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        "after": {
+          "track": 9,
+          "slot": 0,
+          "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        "kept": true
+      },
+      "destination": "occupied",
+      "copy": {
+        "metadata": {
+          "name": "gn-small",
+          "color": {
+            "red": 122,
+            "green": 122,
+            "blue": 122
+          },
+          "lengthBeats": 4,
+          "playStartBeats": 0,
+          "loopEnabled": true,
+          "loopStartBeats": 0,
+          "loopEndBeats": 4
+        },
+        "launch": {
+          "quantization": "default",
+          "mode": "default",
+          "useLoopStartAsQuantizationReference": false
+        },
+        "notes": 4,
+        "channels": 1
+      },
+      "equal": {
+        "metadata": true,
+        "launch": true,
+        "notes": true
+      },
+      "sourceKept": true,
+      "replacedContent": {
+        "metadata": true,
+        "launch": true,
+        "notes": true
+      }
+    },
+    {
+      "case": "occupied-neighbours",
+      "params": {
+        "trackIndex": 9,
+        "slotIndex": 0,
+        "toTrackIndex": 9,
+        "toSlotIndex": 4
+      },
+      "reply": {
+        "success": true,
+        "sourceHadContent": true,
+        "destExisted": true,
+        "destHadContent": false,
+        "epochBefore": 32823,
+        "sources": 1
+      },
+      "replyMs": 23,
+      "changedMs": 93,
+      "slots": [
+        "gn-8i14-a#63c0:4 .>x"
+      ],
+      "tracksSame": true,
+      "scenes": [
+        10,
+        10
+      ],
+      "contentEvents": 1,
+      "events": [
+        "9:4:filled"
+      ],
+      "revision": [
+        55,
+        55
+      ],
+      "selection": {
+        "before": {
+          "track": 9,
+          "slot": 0,
+          "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        "after": {
+          "track": 9,
+          "slot": 0,
+          "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        "kept": true
+      },
+      "destination": "occupied",
+      "copy": {
+        "metadata": {
+          "name": "gn-rich",
+          "color": {
+            "red": 20,
+            "green": 160,
+            "blue": 89
+          },
+          "lengthBeats": 64,
+          "playStartBeats": 4,
+          "loopEnabled": false,
+          "loopStartBeats": 0,
+          "loopEndBeats": 64
+        },
+        "launch": {
+          "quantization": "1/4",
+          "mode": "synced",
+          "useLoopStartAsQuantizationReference": true
+        },
+        "notes": 256,
+        "channels": 16
+      },
+      "equal": {
+        "metadata": true,
+        "launch": true,
+        "notes": true
+      },
+      "sourceKept": true,
+      "neighboursKept": true
+    },
+    {
+      "case": "audio-destination",
+      "params": {
+        "trackIndex": 9,
+        "slotIndex": 0,
+        "toTrackIndex": 11,
+        "toSlotIndex": 0
+      },
+      "reply": {
+        "success": true,
+        "sourceHadContent": true,
+        "destExisted": true,
+        "destHadContent": false,
+        "epochBefore": 32824,
+        "sources": 1
+      },
+      "replyMs": 24,
+      "changedMs": 96,
+      "slots": [
+        "gn-8i14-audio#a1c4:0 .>x"
+      ],
+      "tracksSame": false,
+      "scenes": [
+        10,
+        10
+      ],
+      "contentEvents": 1,
+      "events": [
+        "11:0:filled"
+      ],
+      "revision": [
+        55,
+        55
+      ],
+      "selection": {
+        "before": {
+          "track": 9,
+          "slot": 0,
+          "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        "after": {
+          "track": 9,
+          "slot": 0,
+          "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        "kept": true
+      },
+      "destination": "occupied",
+      "copy": {
+        "metadata": {
+          "name": "gn-rich",
+          "color": {
+            "red": 20,
+            "green": 160,
+            "blue": 89
+          },
+          "lengthBeats": 64,
+          "playStartBeats": 4,
+          "loopEnabled": false,
+          "loopStartBeats": 0,
+          "loopEndBeats": 64
+        },
+        "launch": {
+          "quantization": "1/4",
+          "mode": "synced",
+          "useLoopStartAsQuantizationReference": true
+        },
+        "notes": 256,
+        "channels": 16
+      },
+      "equal": {
+        "metadata": true,
+        "launch": true,
+        "notes": true
+      },
+      "sourceKept": true
+    },
+    {
+      "case": "two-sources",
+      "params": {
+        "trackIndex": 9,
+        "slotIndex": 0,
+        "toTrackIndex": 10,
+        "toSlotIndex": 6,
+        "sources": [
+          {
+            "trackIndex": 9,
+            "slotIndex": 5
+          }
+        ]
+      },
+      "reply": {
+        "success": true,
+        "sourceHadContent": true,
+        "destExisted": true,
+        "destHadContent": false,
+        "epochBefore": 32825,
+        "sources": 2
+      },
+      "replyMs": 24,
+      "changedMs": 97,
+      "slots": [
+        "Instrument Layer#98ba:10 ->.",
+        "Instrument Layer#98ba:11 ->.",
+        "Hybrid 2#4a6a:10 ->.",
+        "Hybrid 2#4a6a:11 ->.",
+        "gn-A#d61c:10 ->.",
+        "gn-A#d61c:11 ->.",
+        "gn-B#78a4:10 ->.",
+        "gn-B#78a4:11 ->.",
+        "Group 5#ae4c:10 ->.",
+        "Group 5#ae4c:11 ->.",
+        "gn-E16#e75d:10 ->.",
+        "gn-E16#e75d:11 ->.",
+        "gn-lay#d367:10 ->.",
+        "gn-lay#d367:11 ->.",
+        "gn-lay4#9a88:10 ->.",
+        "gn-lay4#9a88:11 ->.",
+        "gn-sel#6fb9:10 ->.",
+        "gn-sel#6fb9:11 ->.",
+        "gn-8i14-a#63c0:10 ->.",
+        "gn-8i14-a#63c0:11 ->.",
+        "gn-8i14-b#6b19:6 .>x",
+        "gn-8i14-b#6b19:10 ->.",
+        "gn-8i14-b#6b19:11 ->x",
+        "gn-8i14-audio#a1c4:10 ->.",
+        "gn-8i14-audio#a1c4:11 ->.",
+        "gn-8i14-big#5d87:10 ->.",
+        "gn-8i14-big#5d87:11 ->."
+      ],
+      "tracksSame": true,
+      "scenes": [
+        10,
+        12
+      ],
+      "contentEvents": 2,
+      "events": [
+        "10:6:filled",
+        "10:11:filled"
+      ],
+      "revision": [
+        55,
+        55
+      ],
+      "selection": {
+        "before": {
+          "track": 9,
+          "slot": 0,
+          "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        "after": {
+          "track": 9,
+          "slot": 0,
+          "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        "kept": true
+      },
+      "destination": "occupied",
+      "copy": {
+        "metadata": {
+          "name": "gn-rich",
+          "color": {
+            "red": 20,
+            "green": 160,
+            "blue": 89
+          },
+          "lengthBeats": 64,
+          "playStartBeats": 4,
+          "loopEnabled": false,
+          "loopStartBeats": 0,
+          "loopEndBeats": 64
+        },
+        "launch": {
+          "quantization": "1/4",
+          "mode": "synced",
+          "useLoopStartAsQuantizationReference": true
+        },
+        "notes": 256,
+        "channels": 16
+      },
+      "equal": {
+        "metadata": true,
+        "launch": true,
+        "notes": true
+      },
+      "sourceKept": true,
+      "second": {
+        "row7": {
+          "occupancy": "empty"
+        },
+        "row11": {
+          "metadata": {
+            "name": "gn-small",
+            "color": {
+              "red": 201,
+              "green": 201,
+              "blue": 201
+            },
+            "lengthBeats": 4,
+            "playStartBeats": 0,
+            "loopEnabled": true,
+            "loopStartBeats": 0,
+            "loopEndBeats": 4
+          },
+          "launch": {
+            "quantization": "default",
+            "mode": "default",
+            "useLoopStartAsQuantizationReference": false
+          },
+          "notes": 4,
+          "channels": 1
+        }
+      },
+      "scenesRestored": {
+        "scenes": 10,
+        "deleted": 2,
+        "status": "verified"
+      }
+    },
+    {
+      "case": "past-last-scene",
+      "params": {
+        "trackIndex": 9,
+        "slotIndex": 0,
+        "toTrackIndex": 9,
+        "toSlotIndex": 10
+      },
+      "reply": {
+        "success": true,
+        "sourceHadContent": true,
+        "destExisted": false,
+        "destHadContent": false,
+        "epochBefore": 32828,
+        "sources": 1
+      },
+      "replyMs": 23,
+      "changedMs": null,
+      "slots": [],
+      "tracksSame": true,
+      "scenes": [
+        10,
+        10
+      ],
+      "contentEvents": 0,
+      "events": [],
+      "revision": [
+        58,
+        58
+      ],
+      "selection": {
+        "before": {
+          "track": 9,
+          "slot": 0,
+          "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        "after": {
+          "track": 9,
+          "slot": 0,
+          "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        "kept": true
+      },
+      "destination": "no-slot"
+    },
+    {
+      "case": "group-destination",
+      "params": {
+        "trackIndex": 9,
+        "slotIndex": 5,
+        "toTrackIndex": 4,
+        "toSlotIndex": 9
+      },
+      "reply": {
+        "success": true,
+        "sourceHadContent": true,
+        "destExisted": true,
+        "destHadContent": false,
+        "epochBefore": 32828,
+        "sources": 1
+      },
+      "replyMs": 25,
+      "changedMs": 97,
+      "slots": [
+        "Group 5#ae4c:9 .>x"
+      ],
+      "tracksSame": true,
+      "scenes": [
+        10,
+        10
+      ],
+      "contentEvents": 1,
+      "events": [
+        "4:9:filled"
+      ],
+      "revision": [
+        58,
+        58
+      ],
+      "selection": {
+        "before": {
+          "track": 9,
+          "slot": 0,
+          "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        "after": {
+          "track": 9,
+          "slot": 0,
+          "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        "kept": true
+      },
+      "destination": "occupied",
+      "undo": {
+        "success": true,
+        "undosRequested": 1,
+        "undosPerformed": 1,
+        "canUndo": true
+      },
+      "undone": {
+        "slots": [],
+        "scenes": 10,
+        "tracksSame": true
+      }
+    },
+    {
+      "case": "playing-source",
+      "params": {
+        "trackIndex": 9,
+        "slotIndex": 0,
+        "toTrackIndex": 9,
+        "toSlotIndex": 7
+      },
+      "reply": {
+        "success": true,
+        "sourceHadContent": true,
+        "destExisted": true,
+        "destHadContent": false,
+        "epochBefore": 32830,
+        "sources": 1
+      },
+      "replyMs": 25,
+      "changedMs": 49,
+      "slots": [
+        "gn-8i14-a#63c0:7 .>x"
+      ],
+      "tracksSame": true,
+      "scenes": [
+        10,
+        10
+      ],
+      "contentEvents": 1,
+      "events": [
+        "9:7:filled"
+      ],
+      "revision": [
+        58,
+        58
+      ],
+      "selection": {
+        "before": {
+          "track": 9,
+          "slot": 0,
+          "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        "after": {
+          "track": 9,
+          "slot": 0,
+          "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        "kept": true
+      },
+      "destination": "occupied",
+      "copy": {
+        "metadata": {
+          "name": "gn-rich",
+          "color": {
+            "red": 20,
+            "green": 160,
+            "blue": 89
+          },
+          "lengthBeats": 64,
+          "playStartBeats": 4,
+          "loopEnabled": false,
+          "loopStartBeats": 0,
+          "loopEndBeats": 64
+        },
+        "launch": {
+          "quantization": "1/4",
+          "mode": "synced",
+          "useLoopStartAsQuantizationReference": true
+        },
+        "notes": 256,
+        "channels": 16
+      },
+      "equal": {
+        "metadata": true,
+        "launch": true,
+        "notes": true
+      },
+      "sourceKept": true,
+      "sourcePlaying": {
+        "before": true,
+        "after": true,
+        "copy": false
+      }
+    },
+    {
+      "case": "notes-16384",
+      "params": {
+        "trackIndex": 12,
+        "slotIndex": 0,
+        "toTrackIndex": 12,
+        "toSlotIndex": 3
+      },
+      "reply": {
+        "success": true,
+        "sourceHadContent": true,
+        "destExisted": true,
+        "destHadContent": false,
+        "epochBefore": 32832,
+        "sources": 1
+      },
+      "replyMs": 24,
+      "changedMs": 146,
+      "slots": [
+        "gn-8i14-big#5d87:3 .>x"
+      ],
+      "tracksSame": true,
+      "scenes": [
+        10,
+        10
+      ],
+      "contentEvents": 1,
+      "events": [
+        "12:3:filled"
+      ],
+      "revision": [
+        60,
+        60
+      ],
+      "selection": {
+        "before": {
+          "track": 9,
+          "slot": 0,
+          "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        "after": {
+          "track": 9,
+          "slot": 0,
+          "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        "kept": true
+      },
+      "destination": "occupied",
+      "copy": {
+        "metadata": {
+          "name": "",
+          "color": {
+            "red": 134,
+            "green": 137,
+            "blue": 169
+          },
+          "lengthBeats": 1024,
+          "playStartBeats": 0,
+          "loopEnabled": true,
+          "loopStartBeats": 0,
+          "loopEndBeats": 1024
+        },
+        "launch": {
+          "quantization": "default",
+          "mode": "default",
+          "useLoopStartAsQuantizationReference": false
+        },
+        "notes": 16384,
+        "channels": 16
+      },
+      "equal": {
+        "metadata": true,
+        "launch": true,
+        "notes": true
+      },
+      "sourceKept": true,
+      "sourceNotes": 16384
+    }
+  ],
+  "sources": {
+    "rich": {
+      "metadata": {
+        "name": "gn-rich",
+        "color": {
+          "red": 20,
+          "green": 160,
+          "blue": 89
+        },
+        "lengthBeats": 64,
+        "playStartBeats": 4,
+        "loopEnabled": false,
+        "loopStartBeats": 0,
+        "loopEndBeats": 64
+      },
+      "launch": {
+        "quantization": "1/4",
+        "mode": "synced",
+        "useLoopStartAsQuantizationReference": true
+      },
+      "notes": 256,
+      "channels": 16
+    },
+    "small": {
+      "metadata": {
+        "name": "gn-small",
+        "color": {
+          "red": 122,
+          "green": 122,
+          "blue": 122
+        },
+        "lengthBeats": 4,
+        "playStartBeats": 0,
+        "loopEnabled": true,
+        "loopStartBeats": 0,
+        "loopEndBeats": 4
+      },
+      "launch": {
+        "quantization": "default",
+        "mode": "default",
+        "useLoopStartAsQuantizationReference": false
+      },
+      "notes": 4,
+      "channels": 1
+    }
+  },
+  "passed": [
+    "same-track-down: {\"metadata\":true,\"launch\":true,\"notes\":true}",
+    "same-track-up: {\"metadata\":true,\"launch\":true,\"notes\":true}",
+    "other-track-same-row: {\"metadata\":true,\"launch\":true,\"notes\":true}",
+    "other-track-other-row: {\"metadata\":true,\"launch\":true,\"notes\":true}",
+    "occupied-destination: {\"metadata\":true,\"launch\":true,\"notes\":true}",
+    "occupied-neighbours: {\"metadata\":true,\"launch\":true,\"notes\":true}",
+    "audio-destination: {\"metadata\":true,\"launch\":true,\"notes\":true}",
+    "two-sources: {\"metadata\":true,\"launch\":true,\"notes\":true}",
+    "playing-source: {\"metadata\":true,\"launch\":true,\"notes\":true}",
+    "notes-16384: {\"metadata\":true,\"launch\":true,\"notes\":true}"
+  ],
+  "cleanup": {
+    "status": "verified",
+    "removed": [
+      "63c07190-0c12-455f-bfd1-9821b685110a",
+      "6b19c1a9-5d39-4747-ab09-177a4427270d",
+      "a1c477eb-6fa3-4de4-ba9e-dbf94f382e83",
+      "5d879bd9-bc8f-43b4-8653-240ae8fd777d"
+    ]
+  },
+  "scenesRestored": {
+    "scenes": 10,
+    "deleted": 0
+  },
+  "exit": {
+    "slots": [],
+    "tracksSame": true,
+    "scenes": 10,
+    "selection": {
+      "track": 9,
+      "slot": 0,
+      "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+    },
+    "selectionKept": true
+  }
+}

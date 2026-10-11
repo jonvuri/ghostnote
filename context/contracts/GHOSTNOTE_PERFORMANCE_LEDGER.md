@@ -2,9 +2,9 @@
 title: Ghostnote performance ledger
 kind: reference
 state: active
-updated: 2026-10-09
+updated: 2026-10-11
 parent: ../plan/phase-8/8h-cache-promotion-and-interface-simplification.md
-evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252, E253, E254, E256, E257, E258
+evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252, E253, E254, E256, E257, E258, E263
 ---
 
 # Ghostnote performance ledger
@@ -107,6 +107,9 @@ live wire-call count of the E247 inventory.
 | Claim structure or timing refusal of an add (with `detail.repair`), or above the expansion limit | 0 wire calls | — | none (new tests) | E256 |
 | `add_launcher_clip`, the review case; 2,097,152 cells (4,096 one-beat 1/512 notes) | 2,293 ms; 3,341 ms, ZGC used peak 2,450 MiB | 512 steps: 111,419 ms; about 54 s (257 pages) | as typical | E248 |
 | `copy_launcher_clips`, one clip | 924 ms | Before: 1,228 ms; `copy_clip_down`: 2,897 ms | mark 1, tracks 1, read 3, resolve 1, apply 1, delta 1 | E247 |
+| `copy_launcher_clips`, one clip to any empty slot (`slot.copyTo`, `gn-scale-test`): the next row, another row, another track, Hybrid; its revert | 853–888 ms; 37 wire calls, 22 turns; revert 1,115–1,179 ms, 42 calls, 27 turns | E247: 924 ms (`slot.duplicateClip`, next row only) | unchanged; also for a row that is not the next row | E263 |
+| `copy_launcher_clips` refusals: track type; occupied destination; missing row | 25 ms, 2 calls; 94 ms, 6 calls; 23 ms, 2 calls; no write | — | — | E263 |
+| `copy_launcher_clips`, 8 clips of 16,384 notes to another track (the D44 limit); its revert | 8,368 ms, 170 wire calls, 106 turns; 14,574 ms, 182 calls, 118 turns | E252: 13,192 ms; 24,623 ms (project "New 6", next rows) | as one call | E263 |
 | `move_launcher_clips`, one clip | 1,190 ms | Before: 1,472 ms | mark 1, tracks 1, read 3, resolve 1, apply 1, delta 1 | E247 |
 | `set_launcher_clip_launch_settings` | 1,056 ms | — | mark 1, tracks 1, read 3, resolve 1, apply 1, delta 1 | E247 |
 | `set_launcher_clip_properties`, one clip | Name, length, or colour: 1,423–1,436 ms; 3 captures, 1 stage, only the owned setters; no change: no write | E247: 1,447 ms | mark 1, tracks 1, read 3, resolve 1, apply 1, delta 1 | E249 |

@@ -1404,13 +1404,14 @@ export class FakeAdapter implements BitwigAdapter {
 
       case 'clip.duplicate': {
         const track = this.requireTrack(op.source.slot.track, op.op);
+        const to = this.requireTrack(op.destination.track, op.op);
         const sourceIndex = op.source.slot.scene.index;
         const destinationIndex = op.destination.scene.index;
         this.clock.stage(() => {
           const source = track.slots[sourceIndex];
-          const destination = track.slots[destinationIndex];
+          const destination = to.slots[destinationIndex];
           if (source === undefined || destination === undefined || !source.hasContent) return;
-          this.model.setSlotContent(track, destinationIndex, true);
+          this.model.setSlotContent(to, destinationIndex, true);
           destination.lengthBeats = source.lengthBeats;
           destination.name = source.name;
           destination.color = { ...source.color };

@@ -1,16 +1,21 @@
 ---
 title: Phase 8i14 clip copy to any row
 kind: plan
-state: planned
-status: Planned. Next session. Probe `InsertionPoint.copySlotsOrScenes`, then let `copy_launcher_clips` copy a clip to any empty slot.
+state: done
+status: Complete (E263). `copy_launcher_clips` copies a clip to any empty slot of an Instrument or Hybrid track with `slot.copyTo`; S4 rerun passed with one copy write.
 updated: 2026-10-11
 parent: README.md
 prev: 8i13-automated-dogfood-stretch-set.md
 next: 8i15-device-add-revert-report.md
-evidence: E20b, E43, E262
+evidence: E20b, E43, E262, E263
 ---
 
 # Phase 8i14 clip copy to any row
+
+Complete: [E263](../../evidence/experiments/e263-clip-copy-to-any-row.md).
+The result differs from this plan in two places. Every copy uses the new
+route, also the next row, so `slot.duplicateClip` is no longer sent. The
+tool admits Instrument and Hybrid tracks and refuses other track types.
 
 Issue D9 of the [issue log](8i-dogfood-issues.md)
 ([E262](../../evidence/experiments/e262-automated-dogfood-stretch-set.md), S4):

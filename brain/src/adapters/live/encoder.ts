@@ -542,11 +542,14 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       ];
     }
 
+    // 8i14 (E263): the copy to a named slot, for every destination. `slot.duplicateClip` has no destination (its
+    // copy lands in the next row); the product no longer sends it.
     case 'clip.duplicate':
-      return [frame(WIRE.slotDuplicateClip, {
+      return [frame(WIRE.slotCopyTo, {
         trackIndex: ctx.trackIndex(op.source.slot.track),
         slotIndex: ctx.sceneRow(op.source.slot.scene),
-        route: 'slot',
+        toTrackIndex: ctx.trackIndex(op.destination.track),
+        toSlotIndex: ctx.sceneRow(op.destination.scene),
       })];
 
     case 'clip.move':

@@ -2,7 +2,7 @@
 title: Phase 8i — Agent-native hybrid dogfood
 kind: plan
 state: planned
-status: Final Phase 8 gate. 8i0–8i13 are complete (E249–E262, D42–D48); the groove and overlay trials passed (E256), timing claims are used without a leading prompt (E259, E260), and the automated dogfood loop is proved (E261), and the stretch set passed (E262). The operator reviewed the issue log: next are the fix sessions 8i14 (D9, clip copy to any row) and 8i15 (D8, device-add revert report), then the gate close-out.
+status: Final Phase 8 gate. 8i0–8i14 are complete (E249–E263, D42–D48); the groove and overlay trials passed (E256), timing claims are used without a leading prompt (E259, E260), and the automated dogfood loop is proved (E261), and the stretch set passed (E262). The operator reviewed the issue log: 8i14 fixed D9 (clip copy to any slot, E263); next is the fix session 8i15 (D8, device-add revert report), then the gate close-out.
 updated: 2026-10-11
 parent: README.md
 prev: 8i5-device-control-identity.md
@@ -101,9 +101,12 @@ The following sessions completed them before the 2026-10-09 trial:
     ten sessions (S1 to S5, both clients) met their goals; the issue log
     has D6 to D12. The operator reviewed the log: D9 and D8 get fix
     sessions; the other rows need no action.
-    Next: [8i14 — Clip copy to any row](8i14-clip-copy-to-any-row.md)
-    (planned; D9), then
-    [8i15 — Device-add revert report](8i15-device-add-revert-report.md)
+    [8i14 — Clip copy to any row](8i14-clip-copy-to-any-row.md).
+    Complete ([E263](../../evidence/experiments/e263-clip-copy-to-any-row.md)):
+    `copy_launcher_clips` copies a clip to any empty slot of an Instrument
+    or Hybrid track in one write; the S4 rerun passed with both clients
+    (D9 fixed). Descriptions v47.
+    Next: [8i15 — Device-add revert report](8i15-device-add-revert-report.md)
     (planned; D8).
 14. Then the gate close-out. Check the [acceptance criteria](#acceptance-criteria)
     against the E records, give each Phase 8 interface a verdict, and write

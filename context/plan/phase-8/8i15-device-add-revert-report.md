@@ -2,12 +2,12 @@
 title: Phase 8i15 device-add revert report
 kind: plan
 state: planned
-status: Planned. Follows 8i14. Make `revert_change` and `check_revert` report a reverted device add correctly.
+status: Planned. Next session. Make `revert_change` and `check_revert` report a reverted device add correctly.
 updated: 2026-10-11
 parent: README.md
 prev: 8i14-clip-copy-to-any-row.md
 next: 8i-agent-native-hybrid-dogfood.md
-evidence: E262
+evidence: E262, E263
 ---
 
 # Phase 8i15 device-add revert report
@@ -75,6 +75,15 @@ These are inferences from one read of the code; confirm each one first.
 6. Live check in `gn-scale-test` on a scratch track: `add_devices` (two
    devices), `check_revert`, `revert_change` for each; the result names
    each removed device and the track holds the prior device list.
+7. Extension cleanup from 8i14
+   ([E263](../../evidence/experiments/e263-clip-copy-to-any-row.md)): the
+   product no longer sends `slot.duplicateClip`. Move the method from
+   `PRODUCT` to `HISTORICAL` (`RuntimeProfile.java`), remove
+   `slotDuplicateClip` from the wire map, and update the goldens, the
+   wire map tests, and the build pin. This needs one controller
+   replacement by the operator and a `probe:hello`. Skip the item when
+   the operator does not want an extension build in this session; then
+   record it as a limit in the E record.
 
 ## Cost model
 

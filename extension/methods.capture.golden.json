@@ -5,8 +5,8 @@
   ],
   "profile": "capture",
   "identity": "capture-v1",
-  "count": 97,
-  "methodsHash": "a0bc85f2720b055b",
+  "count": 98,
+  "methodsHash": "418774dabf8fa3b8",
   "methods": [
     "batch.run",
     "branch.duplicateTrack",
@@ -88,6 +88,7 @@
     "scene.delete",
     "selection.restoreMixer",
     "selection.status",
+    "slot.copyTo",
     "slot.delete",
     "slot.duplicateClip",
     "slot.launchWithOptions",

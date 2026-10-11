@@ -48,7 +48,7 @@ const note = (over: Partial<NoteRecord> = {}): NoteRecord => ({
 });
 
 async function fixture() {
-  const fake = new CountingAdapter({ tracks: ['gn-budget'], scenes: 4 });
+  const fake = new CountingAdapter({ tracks: ['gn-budget'], scenes: 6 });
   const [trackState] = await fake.tracks();
   const trackId = trackState!.channelId;
   let id = 0;
@@ -191,6 +191,11 @@ test('call budget: the 8h4d Launcher clip tools', async () => {
     destination: { trackId: fx.trackId, row: 3 } }] });
   assert.equal(copied.result.readback?.status, 'verified');
   assert.deepEqual(copied.counts, { mark: 1, tracks: 1, read: 3, resolve: 1, apply: 1, delta: 1 });
+  // 8i14: a copy to a row that is not the next row has the same calls.
+  const far = await fx.call('copy_launcher_clips', { copies: [{ source: { trackId: fx.trackId, row: 2 },
+    destination: { trackId: fx.trackId, row: 5 } }] });
+  assert.equal(far.result.readback?.status, 'verified');
+  assert.deepEqual(far.counts, { mark: 1, tracks: 1, read: 3, resolve: 1, apply: 1, delta: 1 });
   const props = await fx.call('set_launcher_clip_properties', { clips: [{ trackId: fx.trackId, row: 0,
     properties: { name: 'budget' } }] });
   assert.equal(props.result.readback?.status, 'verified');

@@ -13,10 +13,10 @@
     "`rig.methods` during the Phase-0 sitting. methodsHash is sha256 of the sorted",
     "names joined by \\n, first 16 hex chars; contract.hello returns the same value."
   ],
-  "extractedAt": "2026-10-09",
+  "extractedAt": "2026-10-11",
   "extractedFrom": "handlers/*Handlers.java registration declarations",
-  "count": 169,
-  "methodsHash": "28bbb9f8ce6540a5",
+  "count": 170,
+  "methodsHash": "223fad96762879ab",
   "addedInPhase0": [
     "api.runtimeMethods",
     "app.selectionNotifications",
@@ -89,6 +89,7 @@
     "observation.replace",
     "rig.methods",
     "selection.restoreMixer",
+    "slot.copyTo",
     "slot.duplicateClip",
     "slot.duplicateObject",
     "slot.epoch",
@@ -273,6 +274,7 @@
     "scene.delete",
     "selection.restoreMixer",
     "selection.status",
+    "slot.copyTo",
     "slot.delete",
     "slot.duplicateClip",
     "slot.duplicateObject",
@@ -540,5 +542,8 @@
   ],
   "addedInPhase8i8": [
     "selection.restoreMixer"
+  ],
+  "addedInPhase8i14": [
+    "slot.copyTo"
   ]
 }

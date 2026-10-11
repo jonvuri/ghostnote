@@ -73,9 +73,16 @@ test('E-clip-block: copy, move, launch and settings encode only measured routes'
   const copied = encodeOp({
     op: 'clip.duplicate', source: CLIP_A, destination,
   }, ctx);
+  // 8i14 (E263): every copy names its destination slot, also the next row.
   assert.deepEqual(copied, [{
-    method: WIRE.slotDuplicateClip,
-    params: { trackIndex: 3, slotIndex: 0, route: 'slot' },
+    method: WIRE.slotCopyTo,
+    params: { trackIndex: 3, slotIndex: 0, toTrackIndex: 3, toSlotIndex: 1 },
+  }]);
+
+  const far = encodeOp({ op: 'clip.duplicate', source: CLIP_A, destination: slot(TRACK_A, scene(3, 1)) }, ctx);
+  assert.deepEqual(far, [{
+    method: WIRE.slotCopyTo,
+    params: { trackIndex: 3, slotIndex: 0, toTrackIndex: 3, toSlotIndex: 3 },
   }]);
 
   const moved = encodeOp({ op: 'clip.move', source: CLIP_A, destination }, ctx);

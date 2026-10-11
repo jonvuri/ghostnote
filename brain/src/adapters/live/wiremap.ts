@@ -50,7 +50,10 @@ export const WIRE = {
   slotStatus: 'slot.status',
   slotSelect: 'slot.select',
   slotDelete: 'slot.delete',
+  /** Not sent after 8i14: the copy has no destination. The method stays registered until the next extension build. */
   slotDuplicateClip: 'slot.duplicateClip',
+  /** 8i14 (E263): one clip to a named slot, for every `clip.duplicate`. */
+  slotCopyTo: 'slot.copyTo',
   slotLaunchWithOptions: 'slot.launchWithOptions',
   slotPlayState: 'slot.playState',
   slotMoveTo: 'slot.moveTo',

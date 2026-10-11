@@ -20,7 +20,7 @@ import { AGENT_NATIVE_TOOL_PROFILE, callTool } from '../surface/tools.js';
 import { workspaceOf } from '../surface/workspace.js';
 import { WireTransport } from './phase8h3c-promotion.js';
 import { typicalDesired, wireSummary } from './phase8h4g-inventory.js';
-import { NORMAL_8I8 } from './phase8h4f-measure.js';
+import { assertCurrentNormal } from './phase8h4f-measure.js';
 
 type Wire = Record<string, any>;
 const SCHEMA = 'phase8i8-selection-v1';
@@ -57,7 +57,7 @@ async function accept(dir: string): Promise<void> {
   };
 
   const hello = await request('contract.hello');
-  assert.deepEqual([hello.runtimeProfile, hello.methodCount, hello.methodsHash], [...NORMAL_8I8], 'deploy the 8i8 build');
+  assertCurrentNormal(hello);
   const rig = await request('rig.info');
   assert.equal(rig.selectionEffects, 'mixer-restore-v1', 'deploy the 8i8 build');
   const mark = await request('revision.get');

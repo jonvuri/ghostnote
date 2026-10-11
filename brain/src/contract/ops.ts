@@ -483,18 +483,7 @@ export function assertOpsWritable(ops: readonly Op[]): void {
       const problem = mixerValueProblem(op.mixer.field, op.value);
       if (problem !== undefined) throw new InvalidOpError(op.op, problem);
     }
-    if (op.op === 'clip.duplicate') {
-      const source = op.source.slot;
-      if (source.track.channelId !== op.destination.track.channelId
-          || op.destination.scene.index !== source.scene.index + 1) {
-        throw new InvalidOpError(
-          op.op,
-          'duplicateClip always writes exactly one row below its source on the same track; '
-          + 'the typed destination must name that measured landing row',
-        );
-      }
-    }
-    if (op.op === 'clip.move'
+    if ((op.op === 'clip.duplicate' || op.op === 'clip.move')
         && addressKey(op.source.slot) === addressKey(op.destination)) {
       throw new InvalidOpError(op.op, 'source and destination must be different slots');
     }

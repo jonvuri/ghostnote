@@ -88,9 +88,9 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
     probeGolden.methods,
     [...new Set([...normalGolden.methods, ...probeOnly])].sort(),
   );
-  assert.equal(normalGolden.count, 92);
-  assert.equal(captureGolden.count, 97);
-  assert.equal(probeGolden.count, 110);
+  assert.equal(normalGolden.count, 93);
+  assert.equal(captureGolden.count, 98);
+  assert.equal(probeGolden.count, 111);
 });
 
 test('8b: historical host objects are absent from active Rig construction', () => {
@@ -193,7 +193,8 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
       ...(golden.addedInPhase8e ?? []), ...(golden.addedInPhase8g ?? []),
       ...(golden.addedInPhase8h1a ?? []), ...(golden.addedInPhase8h4a5 ?? []),
       ...(golden.addedInPhase8h4e0 ?? []), ...(golden.addedInPhase8h4e ?? []),
-      ...(golden.addedInPhase8i7 ?? []), ...(golden.addedInPhase8i8 ?? [])];
+      ...(golden.addedInPhase8i7 ?? []), ...(golden.addedInPhase8i8 ?? []),
+      ...(golden.addedInPhase8i14 ?? [])];
   assert.deepEqual(
     [...golden.addedInPhase0].sort(),
     historical.filter((method) => golden.methods.includes(method)).sort(),
@@ -1111,4 +1112,17 @@ test('8i8: the mixer-selection restore is one normal product method, guarded bef
   for (const guard of ['rig.selectionRevision != revision', 'expected.equals(channelIdAt(rig.selectedMixerTrackIndex))']) {
     assert.ok(body.indexOf(guard) > 0 && body.indexOf(guard) < select, `${guard} runs before the select`);
   }
+});
+
+test('8i14: the clip copy to a named slot is one normal product method on the replace insertion point', () => {
+  assert.deepEqual(golden.addedInPhase8i14, ['slot.copyTo']);
+  assert.ok(WIRE_METHODS_USED.includes('slot.copyTo'));
+  assert.ok(normalGolden.methods.includes('slot.copyTo'));
+  const source = readFileSync(join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+    'extension', 'handlers', 'TrackHandlers.java'), 'utf8');
+  const body = source.slice(source.indexOf('private JsonElement slotCopyTo'), source.indexOf('private int requireWindowRow'));
+  assert.match(body, /dest\.replaceInsertionPoint\(\)\.copySlotsOrScenes\(/);
+  // Several sources add scenes (E263): only the probe profile takes them.
+  assert.ok(body.indexOf('!rig.profile.hasProbeResources()') > 0
+    && body.indexOf('!rig.profile.hasProbeResources()') < body.indexOf('copySlotsOrScenes('));
 });

@@ -105,6 +105,8 @@ public final class CoreHandlers extends HandlerGroup {
         result.addProperty("trackMixer", MixerHandlers.RULE);
         // 8i8 deliberate build marker: the guarded mixer-selection restore and the clip-create lease.
         result.addProperty("selectionEffects", CursorHandlers.SELECTION_EFFECTS);
+        // 8i14 deliberate build marker: the clip copy to a named slot (E263).
+        result.addProperty("clipCopy", TrackHandlers.CLIP_COPY);
         // 8h4a (D33): the track-bank content filter that init applied.
         result.addProperty("contentFilter", rig.contentFilterApplied);
         return result;

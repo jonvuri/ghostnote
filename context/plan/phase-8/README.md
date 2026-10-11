@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: 8h and 8i0–8i13 are complete (E247–E262); the groove and overlay trials passed, timing claims are used without a leading prompt or a claim refusal, the automated dogfood loop is proved, and the stretch set passed. Next: 8i14 (clip copy to any row), then 8i15 (device-add revert report), then the 8i gate close-out.
+status: 8h and 8i0–8i14 are complete (E247–E263); the groove and overlay trials passed, timing claims are used without a leading prompt or a claim refusal, the automated dogfood loop is proved, the stretch set passed, and a clip copy reaches any empty slot (E263). Next: 8i15 (device-add revert report), then the 8i gate close-out.
 updated: 2026-10-11
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -431,9 +431,10 @@ owns the migration details.
    [8i12 — Automated dogfood process proof](8i12-automated-dogfood-process-proof.md)
    (complete, E261) proves the automated loop with Codex and Claude. [8i13 — Automated dogfood stretch set](8i13-automated-dogfood-stretch-set.md)
    (complete, E262) ran five stretch tasks with both clients; each met its
-   goal; the operator reviewed its issue log. Next:
-   [8i14 — Clip copy to any row](8i14-clip-copy-to-any-row.md) (planned)
-   and [8i15 — Device-add revert report](8i15-device-add-revert-report.md)
+   goal; the operator reviewed its issue log.
+   [8i14 — Clip copy to any row](8i14-clip-copy-to-any-row.md) (complete,
+   E263) lets `copy_launcher_clips` copy to any empty slot. Next:
+   [8i15 — Device-add revert report](8i15-device-add-revert-report.md)
    (planned), then the 8i gate close-out (verdicts and the 9b handoff).
    None requires a skill.
    Test ordinary work in fresh agent sessions and decide whether the engine,

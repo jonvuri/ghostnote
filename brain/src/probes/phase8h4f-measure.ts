@@ -36,10 +36,12 @@ export const NORMAL_8H4F = ['normal-v1', 89, '0ef817f4bac8a8a7'] as const;
 export const NORMAL_8I7 = ['normal-v1', 91, '64d13fa7b66ad7f9'] as const;
 /** 8i8 (E258): the normal build with `selection.restoreMixer`. */
 export const NORMAL_8I8 = ['normal-v1', 92, '0bafdd963fa9f5da'] as const;
-/** The current-driver guard: the 8h4f normal build or a later one (8i7 mixer methods, 8i8 mixer-selection restore). */
+/** 8i14 (E263): the normal build with `slot.copyTo`. */
+export const NORMAL_8I14 = ['normal-v1', 93, '8a5639c94fe02f55'] as const;
+/** The current-driver guard: the 8h4f normal build or a later one (8i7 mixer methods, 8i8 mixer-selection restore, 8i14 clip copy). */
 export function assertCurrentNormal(hello: Readonly<Record<string, unknown>>): void {
   const live = JSON.stringify([hello['runtimeProfile'], hello['methodCount'], hello['methodsHash']]);
-  assert.ok([NORMAL_8H4F, NORMAL_8I7, NORMAL_8I8].some((pin) => JSON.stringify(pin) === live),
+  assert.ok([NORMAL_8H4F, NORMAL_8I7, NORMAL_8I8, NORMAL_8I14].some((pin) => JSON.stringify(pin) === live),
     `unexpected normal build: ${live}`);
 }
 const ANCHOR = 'gn-scale-test';

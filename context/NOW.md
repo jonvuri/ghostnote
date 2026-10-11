@@ -4,34 +4,35 @@ kind: status
 state: active
 updated: 2026-10-11
 phase: phase-8-agent-native-live-engine
-session: 8i14-clip-copy-to-any-row
+session: 8i15-device-add-revert-report
 ---
 
 ## Now
 
-Next: [8i14 — clip copy to any row](plan/phase-8/8i14-clip-copy-to-any-row.md)
-(issue D9). Check `InsertionPoint.copySlotsOrScenes` in the API 25
-reference, probe it in the research profile, then let
-`copy_launcher_clips` copy a clip to any empty slot; rerun S4. The session
-needs two controller replacements by the operator (probe, then normal).
-Then [8i15 — device-add revert report](plan/phase-8/8i15-device-add-revert-report.md)
-(issue D8). Then the 8i gate close-out
-([8i plan](plan/phase-8/8i-agent-native-hybrid-dogfood.md), item 14):
-check the 8i acceptance criteria against the E records, give each Phase 8
-interface a verdict, and write the Phase 9 handoff with the 9b artifact
-inventory.
+Next: [8i15 — device-add revert report](plan/phase-8/8i15-device-add-revert-report.md)
+(issue D8): `revert_change` and `check_revert` of a device add must name
+the removed device and report a fidelity that agrees with the state. Its
+work item 7 removes the unused `slot.duplicateClip` from the product
+profile (one controller replacement by the operator). Then the 8i gate
+close-out ([8i plan](plan/phase-8/8i-agent-native-hybrid-dogfood.md),
+item 14): check the 8i acceptance criteria against the E records, give
+each Phase 8 interface a verdict, and write the Phase 9 handoff with the
+9b artifact inventory.
 [9c](plan/phase-9/9c-release-and-upgrade-live-suite.md) is the release and
 Bitwig upgrade live suite.
 
 The operator reviewed the [issue log](plan/phase-8/8i-dogfood-issues.md)
-(D1 to D12): only D9 and D8 get a fix; the other rows need no action.
+(D1 to D12): only D9 and D8 get a fix; the other rows need no action. D9
+is fixed.
 
-8i13 is complete ([E262](evidence/experiments/e262-automated-dogfood-stretch-set.md)).
-Ten fresh sessions (S1 to S5, Codex and Claude) ran in `gn-scale-test`
-with the [runbook](plan/phase-8/8i-automated-dogfood-runbook.md); each met
-its goal in the independent state read. The 8i11 claim repairs stay with
-the operator in Codex Desktop (claims do not survive a session resume). No
-product, extension, or description change (v46).
+8i14 is complete ([E263](evidence/experiments/e263-clip-copy-to-any-row.md)).
+`copy_launcher_clips` copies a clip to any empty slot of an Instrument or
+Hybrid track, on the same or another track, in one write. Every
+`clip.duplicate` op uses `slot.copyTo`
+(`InsertionPoint.copySlotsOrScenes` on the replace insertion point, one
+source). The S4 rerun met its goal with one copy write for each client.
+Descriptions are v47. The 8i11 claim repairs stay with the operator in
+Codex Desktop (claims do not survive a session resume).
 
 Keep in mind for the trials: with the D44 limits, an agent splits larger
 work into more calls. A split is not atomic; `revert_change` does not
@@ -54,24 +55,26 @@ Scene 2 Bass` (step-2 state) and the agent's copies of the Scene 1 drums,
 pad, chords, and shaker clips. The agent launched Scene 2; the operator
 stops the transport. Check current state before live work.
 
-## Last live baseline (8i8)
+## Last live baseline (8i14)
 
-The deployed normal `ghostnote` archive is the 8i8 build: SHA-256
-`72ce96cb3185ad5930dc3159c6a7dcb9ec36b393fad5d201b70a70d049877893`, 92
-methods, `0bafdd963fa9f5da`, `fineSteps` 4,194,304, and the `rig.info`
-markers `selectionEffects: mixer-restore-v1`, `trackMixer:
-track-mixer-raw-v1`, `clipMetadataWrite: owned-fields-v1`, and
-`cursorTrackPins.rule: owned-tracks-pinned-v1`. The 8i8 runs used
-`gn-scale-test` with scratch tracks only. After 8i13 it is at its E234
-baseline with mixer `gn-sel` selected and no selected slot;
-`selection.status` reports the last slot of a deleted fixture track
-(issue D11; the baseline names slot `gn-A` row 0, issue D5). "New 3"
-(8i7) was not opened. The next free evidence number is E263; the next
-decision is D49; the next issue row is D13. `phase8i7-mixer.ts trial-setup` now
+The deployed normal `ghostnote` archive is the 8i14 build: SHA-256
+`5621e60d9ac16e4207f4e9ba047d5a418e9e8dbb1f88e3e17b853922bdb2aa8a`, 93
+methods, `8a5639c94fe02f55`, `fineSteps` 4,194,304, and the `rig.info`
+markers `clipCopy: copy-to-slot-v1`, `selectionEffects: mixer-restore-v1`,
+`trackMixer: track-mixer-raw-v1`, `clipMetadataWrite: owned-fields-v1`,
+and `cursorTrackPins.rule: owned-tracks-pinned-v1`. The probe build has
+111 methods, `9b339de4e9bb08da`. `gn-scale-test` is at its E234 baseline
+with 10 scenes and mixer `gn-sel` selected; `selection.status` reports a
+slot of a deleted fixture track (issue D11; the baseline names slot `gn-A`
+row 0, issue D5). The 8i14 probe left the transport playing for the
+operator to stop. "New 3" (8i7) was not opened. The next free evidence
+number is E264; the next decision is D49; the next issue row is D13.
+`phase8i14-copy.ts probe|accept <dir>` runs the copy cases (probe profile)
+and the product acceptance (normal profile); `restore-scenes` deletes
+empty scenes after row 10. The current drivers accept the 8i14 build
+(`NORMAL_8I14`, `assertCurrentNormal`). `phase8i7-mixer.ts trial-setup`
 requires `gn-scale-test`; `trial-state all` prints the mixer of every
-track and the selection.
-`phase8i8-selection.ts accept` runs the selection arms; the current drivers
-accept the 8i8 build (`NORMAL_8I8`, `assertCurrentNormal`).
+track and the selection. `phase8i8-selection.ts accept`,
 `phase8i7-mixer.ts`, `phase8i9-overlay-add.ts`, `phase8i3-long-writes.ts
 identity`, and `probe:modulation-routes` stay as before.
 
@@ -81,7 +84,7 @@ Automated dogfood (E261, E262): follow the runbook.
 `phase8i13-stretch.ts <s1|s2|s3|s4> setup|state|cleanup` makes and deletes
 the stretch fixtures; `run-session.sh` takes `--no-ghostnote-line`.
 Compare the state after a cleanup without the slot selection fields.
-`copy_launcher_clips` copies to the next row only. `revert_change` of a
+`revert_change` of a
 device add reports `fidelity: none`. Codex calls `cua_repl` in some
 sessions; remove the application list of a `getState` result from the
 evidence copy. Count calls from the client
@@ -159,6 +162,14 @@ wire sequence with the inventory, and rerun once (8i4). Fakes use host
 indices and real host labels (8i5). Check a reused driver input against the
 current D44 limits before a live run. A trial that must reach a refusal
 says "send it as written first" (8i6).
+
+Clip copy (E263): the host replaces an occupied destination with no
+event, does nothing for a row past the last scene, and changes an empty
+Audio track that receives a note clip to an Instrument track. Several
+sources in one `copySlotsOrScenes` call keep their row offsets and can add
+scenes: a probe of a host verb with several targets compares the scene
+count and restores it in the case. A scratch Hybrid track is a
+`duplicate_track` of a baseline Hybrid track.
 
 VU audibility oracle (E239): stop every clip and the transport, wait for VU 0,
 then launch one track and read the Master VU as well.

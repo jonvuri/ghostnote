@@ -2,9 +2,9 @@
 title: Launcher clips — timing, metadata, paging, and duplication
 kind: capability
 state: active
-updated: 2026-09-24
+updated: 2026-10-11
 scope: launcher-clip notes, metadata, exact reads, writes, and copies
-evidence: E2, E24, E41–E46, E51–E54, E116, E119, E130-E133; D8, D9, D15, D16, D21, D23
+evidence: E2, E24, E41–E46, E51–E54, E116, E119, E130-E133, E263; D8, D9, D15, D16, D21, D23
 ---
 
 # Launcher clips
@@ -17,8 +17,10 @@ evidence: E2, E24, E41–E46, E51–E54, E116, E119, E130-E133; D8, D9, D15, D16
 
 **Launcher clips have exact typed note and measured metadata paths. A step-data
 observer replays sparse occupancy, but complete notes still require targeted or
-full `getStep` reads. A copy is safe only after the next row is proved empty.** [K,
+full `getStep` reads. A copy can go to any slot of an Instrument or Hybrid
+track; it is safe only after the destination slot is proved empty.** [K,
 [E43](../experiments/e43-clip-metadata-and-duplication-routes.md),
+[E263](../experiments/e263-clip-copy-to-any-row.md),
 [E45](../experiments/e45-first-real-musical-dogfood.md),
 [E46](../experiments/e46-long-clip-editing-follow-up.md),
 [E130](../experiments/e130-constant-time-launcher-clip-read-search.md)]
@@ -67,11 +69,21 @@ The play-stop setter is inert. Automation lanes have no complete readback.
 Deleting and recreating a clip is therefore lossy even though the shipped
 metadata, launch settings, and note channels restore exactly [K, E43].
 
-`duplicateClip` and `duplicateObject` both copy to the next row and can silently
-overwrite it. The product uses only `duplicateClip`, only for a same-track next-
-row copy, and only after independent occupancy readback proves that row empty
-[K, E43]. `Clip.duplicateContent` edits the source and is not an object-copy
-route [K, E43].
+`duplicateClip` and `duplicateObject` have no destination: both copy to the
+next row and can silently overwrite it [K, E43]. `Clip.duplicateContent` edits
+the source and is not an object-copy route [K, E43].
+
+`InsertionPoint.copySlotsOrScenes` on the replace insertion point of a slot
+copies one clip to that slot, on the same track or on another track. The copy
+has equal notes, metadata, and launch settings; the source stays; no other
+slot and no selection changes. An occupied destination is replaced with no
+occupancy event, and a row past the last scene does nothing. An empty Audio
+track that receives a note clip becomes an Instrument track. Several sources
+in one call keep their row offsets and can add scenes [K,
+[E263](../experiments/e263-clip-copy-to-any-row.md)]. The product uses only
+this route, with one source for each call, between Instrument and Hybrid
+tracks, and only after an independent occupancy read proves the destination
+empty [K, E263]. Clip automation in a copy has no readback [U, E43].
 
 ## Cursor windows and paging
 

@@ -120,8 +120,9 @@ async function markFor(workspace: Workspace, rows: readonly number[]): Promise<R
 }
 
 /** Each named track exists exactly once and is not a group track. */
-async function requireTracks(workspace: Workspace, ids: readonly string[]): Promise<void> {
+async function requireTracks(workspace: Workspace, ids: readonly string[]) {
   const tracks = await workspace.tracks();
+  const found = new Map<string, (typeof tracks)[number]>();
   for (const id of new Set(ids)) {
     const matching = tracks.filter((item) => item.channelId === id);
     if (matching.length !== 1) {
@@ -131,7 +132,9 @@ async function requireTracks(workspace: Workspace, ids: readonly string[]): Prom
       throw new ToolFailure('group-slot', 'resolve', 'The track is a group track. Its launcher slots mirror '
         + 'the clips of its child tracks. Address a child track by its trackId.');
     }
+    found.set(id, matching[0]!);
   }
+  return found;
 }
 
 const clipOf = (target: Target, at: RevisionMark): ClipAddress =>
@@ -351,15 +354,18 @@ const copyInput = z.object({
 type CopyInput = z.infer<typeof copyInput>;
 
 const COPY_DESCRIPTION = `${PROFILE} Copy Launcher clips. Each copy names a source clip and a destination slot. `
-  + 'The host can copy a clip only into the slot directly below it on the same track (destination row = source '
-  + 'row + 1); another destination refuses with code unsupported. The copy carries the notes, the clip '
-  + 'properties, and the launch settings.\n'
+  + 'The destination can be any empty slot of the same track or of another track. The copy carries the notes, the '
+  + 'clip properties, and the launch settings; the source stays. The source and the destination must be on '
+  + 'Instrument or Hybrid tracks: another track type refuses with code unsupported (reason copy-destination).\n'
   + 'Every source must hold a clip (code absent) and every destination must exist and be empty (code occupied): '
   + 'Bitwig replaces an occupied destination without an occupancy event. A missing row refuses with code absent; '
   + 'add scenes at the end with add_scenes. Every result, also a refusal and a dry run, has occupancy: the '
   + 'state of each slot that the preflight read.\n'
   + 'One call copies at most 8 clips (8 clips of 16,384 notes: about 12 s). A larger request refuses before any read or write (code outside-limit, the limit in detail): split it into more calls.\n'
   + 'Result: one effect with a changeId; revert_change removes the copies while they are unchanged.';
+
+/** 8i14 (E263): the track types with a proved clip copy. Bitwig changes an Audio track that receives a note clip. */
+const COPY_TRACK_TYPES: readonly string[] = ['Instrument', 'Hybrid'];
 
 async function copyLauncherClips(workspace: Workspace, args: CopyInput): Promise<unknown> {
   const started = performance.now();
@@ -369,12 +375,6 @@ async function copyLauncherClips(workspace: Workspace, args: CopyInput): Promise
     requireWithinLimit('clipCopyBatch', args.copies.length, 'copies');
     const sources = args.copies.map((item) => item.source);
     const destinations = args.copies.map((item) => item.destination);
-    const unsupported = args.copies.filter((item) => item.destination.trackId !== item.source.trackId
-      || item.destination.row !== item.source.row + 1);
-    if (unsupported.length > 0) {
-      throw new ToolFailure('unsupported', 'input', 'The host copies a clip only into the slot directly below it '
-        + 'on the same track.', { detail: { reason: 'copy-destination', copies: unsupported } });
-    }
     const all = [...sources, ...destinations];
     if (new Set(all.map((item) => `${item.trackId}:${item.row}`)).size !== all.length) {
       throw new ToolFailure('invalid-input', 'input', 'Each source and destination slot can appear only once.');
@@ -382,7 +382,13 @@ async function copyLauncherClips(workspace: Workspace, args: CopyInput): Promise
 
     state.stage = 'resolve';
     const at = await markFor(workspace, all.map((item) => item.row));
-    await requireTracks(workspace, all.map((item) => item.trackId));
+    const tracks = await requireTracks(workspace, all.map((item) => item.trackId));
+    const unsupported = args.copies.filter((item) => [item.source, item.destination].some((slot) =>
+      !COPY_TRACK_TYPES.includes(tracks.get(slot.trackId)!.type)));
+    if (unsupported.length > 0) {
+      throw new ToolFailure('unsupported', 'resolve', 'A clip copy needs Instrument or Hybrid tracks for the source '
+        + 'and the destination. Nothing was written.', { detail: { reason: 'copy-destination', copies: unsupported } });
+    }
     state.stage = 'acquire';
     const { occupancy } = await readSlots(workspace, all, at);
     occupancyReport = args.copies.map((item) => ({

@@ -178,6 +178,7 @@ public enum RuntimeProfile {
             "scene.delete",
             "selection.restoreMixer",
             "selection.status",
+            "slot.copyTo",
             "slot.delete",
             "slot.duplicateClip",
             "slot.launchWithOptions",
@@ -361,11 +362,11 @@ public enum RuntimeProfile {
             ALL_CLASSIFIED = Set.copyOf(classified);
 
             if (!PRODUCT.containsAll(OPTIONAL_CAPTURE)
-                    || PRODUCT.size() != 97
-                    || NORMAL.size() != 92
-                    || PROBE.size() != 110
+                    || PRODUCT.size() != 98
+                    || NORMAL.size() != 93
+                    || PROBE.size() != 111
                     || HISTORICAL.size() != 54
-                    || ALL_CLASSIFIED.size() != 169
+                    || ALL_CLASSIFIED.size() != 170
                     || !ALL_CLASSIFIED.containsAll(READS)
                     || !ALL_CLASSIFIED.containsAll(CLIP_READS)
                     || READS.stream().anyMatch(CLIP_READS::contains)) {

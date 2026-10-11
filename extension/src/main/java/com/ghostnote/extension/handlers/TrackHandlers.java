@@ -42,6 +42,7 @@ public final class TrackHandlers extends HandlerGroup {
         r.on("slot.duplicateObject", params -> slotDuplicateObject(params));
         r.on("slot.playState", params -> slotPlayState(params));
         r.on("slot.moveTo", params -> slotMoveTo(params));
+        r.on("slot.copyTo", params -> slotCopyTo(params));
         r.on("slot.epoch", params -> slotEpoch());
     }
 
@@ -73,6 +74,9 @@ public final class TrackHandlers extends HandlerGroup {
     private static final String[] LAUNCH_MODES = {
         "default", "from_start", "continue_or_from_start", "continue_or_synced", "synced",
     };
+
+    /** 8i14 deliberate build marker: `slot.copyTo` copies one clip to a named slot (E263). */
+    public static final String CLIP_COPY = "copy-to-slot-v1";
 
     /** 8h4f (E239): the track kinds of {@code track.create}. A missing kind is an instrument track. */
     private static final String[] CREATE_KINDS = { "instrument", "audio" };
@@ -339,6 +343,64 @@ public final class TrackHandlers extends HandlerGroup {
             source.moveTo(dest);
         }
         return result;
+    }
+
+    /**
+     * 8i14 (E263): copy a launcher clip to a named slot with
+     * `InsertionPoint.copySlotsOrScenes` on the replace insertion point of the
+     * destination. `slot.duplicateClip` has no destination: its copy lands in the
+     * next row.
+     *
+     * The verbs of `InsertionPoint` do not behave alike (see `slot.moveTo`), so a
+     * working move proves nothing about this copy. The reply is the same when
+     * nothing was copied. Prove the copy with `slot.status` and a clip read.
+     *
+     * One call copies one clip. With several sources, the host keeps the row
+     * offset of each source from the first one and adds scenes for a row past
+     * the last scene (E263). `sources` (more source slots, after the first one)
+     * is for the probe profile only.
+     */
+    private JsonElement slotCopyTo(JsonObject params) {
+        if (params.has("sources") && !rig.profile.hasProbeResources()) {
+            throw new IllegalArgumentException("sources requires the probe profile");
+        }
+        Track from = requireTrack(params.get("trackIndex").getAsInt());
+        Track to = requireTrack(params.get("toTrackIndex").getAsInt());
+        int slotIndex = requireWindowRow(params.get("slotIndex").getAsInt());
+        int toSlotIndex = requireWindowRow(params.get("toSlotIndex").getAsInt());
+        if (from == to && slotIndex == toSlotIndex) {
+            throw new IllegalArgumentException("source and destination are the same slot");
+        }
+
+        java.util.List<ClipLauncherSlot> sources = new java.util.ArrayList<>();
+        sources.add(from.clipLauncherSlotBank().getItemAt(slotIndex));
+        if (params.has("sources")) {
+            for (JsonElement item : params.getAsJsonArray("sources")) {
+                JsonObject more = item.getAsJsonObject();
+                sources.add(requireTrack(more.get("trackIndex").getAsInt()).clipLauncherSlotBank()
+                    .getItemAt(requireWindowRow(more.get("slotIndex").getAsInt())));
+            }
+        }
+        ClipLauncherSlot dest = to.clipLauncherSlotBank().getItemAt(toSlotIndex);
+
+        JsonObject result = ok();
+        // Read both ends before the copy.
+        putGuarded(result, "sourceHadContent", () -> sources.get(0).hasContent().get());
+        putGuarded(result, "destExisted", () -> dest.exists().get());
+        putGuarded(result, "destHadContent", () -> dest.hasContent().get());
+        result.addProperty("epochBefore", rig.launcherContentEpoch);
+        result.addProperty("sources", sources.size());
+
+        dest.replaceInsertionPoint().copySlotsOrScenes(sources.toArray(new ClipLauncherSlot[0]));
+        return result;
+    }
+
+    private int requireWindowRow(int slotIndex) {
+        if (slotIndex < 0 || slotIndex >= rig.config.scenes) {
+            throw new IllegalArgumentException(
+                "slotIndex outside the scene bank window: " + slotIndex + " (window " + rig.config.scenes + ")");
+        }
+        return slotIndex;
     }
 
     /**

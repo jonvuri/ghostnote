@@ -347,10 +347,6 @@ test('8h4d copy_launcher_clips: copies below, reports occupancy, and guards the 
   const blocked = await fx.native('copy_launcher_clips', { copies: [pair] });
   assert.equal(blocked.failure.code, 'occupied');
   assert.equal(blocked.occupancy[0].destination.occupancy, 'occupied');
-  const far = await fx.native('copy_launcher_clips', { copies: [{ source: pair.source,
-    destination: { trackId: fx.trackId, row: 3 } }] });
-  assert.equal(far.failure.code, 'unsupported');
-  assert.equal(far.detail.reason, 'copy-destination');
   const empty = await fx.native('copy_launcher_clips', { copies: [{ source: { trackId: fx.trackId, row: 3 },
     destination: { trackId: fx.trackId, row: 4 } }] });
   assert.equal(empty.failure.code, 'absent');
@@ -358,6 +354,55 @@ test('8h4d copy_launcher_clips: copies below, reports occupancy, and guards the 
 
   await fx.native('revert_change', { changeId: copied.effects[0].changeId });
   assert.equal(fx.occupied(1), false);
+});
+
+test('8i14 copy_launcher_clips: copies to any empty slot of an Instrument track, and reverts each form', async () => {
+  const fx = fixture();
+  await fx.seed(0);
+  await fx.seed(3);
+  const source = { trackId: fx.trackId, row: 0 };
+  // Not the next row, with occupied rows around the destination: down and up.
+  const down = await fx.native('copy_launcher_clips', { copies: [{ source, destination: { trackId: fx.trackId, row: 2 } }] });
+  assert.equal(down.readback.status, 'verified', JSON.stringify(down).slice(0, 300));
+  assert.deepEqual(down.readback.copies, [{ trackId: fx.trackId, row: 2, occupancy: 'occupied' }]);
+  assert.deepEqual([0, 1, 2, 3, 4, 5].map((row) => fx.occupied(row)), [true, false, true, true, false, false]);
+  const up = await fx.native('copy_launcher_clips', { copies: [{ source: { trackId: fx.trackId, row: 3 },
+    destination: { trackId: fx.trackId, row: 1 } }] });
+  assert.equal(up.readback.status, 'verified');
+  // Another track: the same row and another row, in one call.
+  const other = await fx.native('copy_launcher_clips', { copies: [
+    { source, destination: { trackId: fx.otherId, row: 0 } },
+    { source: { trackId: fx.trackId, row: 3 }, destination: { trackId: fx.otherId, row: 4 } }] });
+  assert.equal(other.readback.status, 'verified');
+  assert.deepEqual([0, 1, 2, 3, 4, 5].map((row) => fx.occupied(row, 1)), [true, false, false, false, true, false]);
+
+  const records = fx.records();
+  const blocked = await fx.native('copy_launcher_clips', { copies: [{ source, destination: { trackId: fx.otherId, row: 4 } }] });
+  assert.equal(blocked.failure.code, 'occupied');
+  assert.equal(blocked.failure.stage, 'acquire');
+  const same = await fx.native('copy_launcher_clips', { copies: [{ source, destination: source }] });
+  assert.equal(same.failure.code, 'invalid-input');
+  assert.equal(fx.records(), records, 'refusals record nothing');
+
+  for (const change of [other, up, down]) {
+    const reverted = await fx.native('revert_change', { changeId: change.effects[0].changeId });
+    assert.equal(reverted.failure, undefined, JSON.stringify(reverted).slice(0, 300));
+  }
+  assert.deepEqual([0, 1, 2, 3, 4, 5].map((row) => fx.occupied(row)), [true, false, false, true, false, false]);
+  assert.deepEqual([0, 1, 2, 3, 4, 5].map((row) => fx.occupied(row, 1)), Array(6).fill(false));
+});
+
+test('8i14 copy_launcher_clips: the source and the destination need Instrument or Hybrid tracks', async () => {
+  const fx = fixture();
+  await fx.seed(0);
+  const audio = (await fx.native('add_tracks', { tracks: [{ name: 'gn-audio', kind: 'audio' }] })).readback.tracks[0].trackId;
+  const records = fx.records();
+  const refused = await fx.native('copy_launcher_clips', { copies: [{ source: { trackId: fx.trackId, row: 0 },
+    destination: { trackId: audio, row: 0 } }] });
+  assert.equal(refused.failure.code, 'unsupported');
+  assert.equal(refused.detail.reason, 'copy-destination');
+  assert.equal(fx.records(), records, 'the refusal records nothing');
+  assert.equal(fx.fake.model.visibleTracks().find((item) => item.channelId === audio)!.slots[0]!.hasContent, false);
 });
 
 test('8h4d move_launcher_clips: occupancy of source, destination, and boundary rows; the exact reverse', async () => {

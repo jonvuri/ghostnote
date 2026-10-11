@@ -1,0 +1,11 @@
+The three clip edits on Seq are done; the last step, the new scene above Scene 1, is not done because Ghostnote can only add scenes at the end of the Launcher.
+
+- **Move:** the Scene 2 clip is now in Scene 6.
+- **Delete:** the Scene 3 clip is gone.
+- **Copy:** the Scene 1 clip is now also in Scene 3.
+
+I took "Scene N" to mean the Nth Launcher row, since Ghostnote doesn't expose scene names.
+
+For the new scene, the only route through Ghostnote is to add a scene at the end and then shift every clip on every track down one row. I held off because that touches all the other tracks, scene names and colours would not move with the clips, and `add_scenes` can't be reverted. Inserting the scene directly in Bitwig is the clean way.
+
+Do you want me to do the shift-everything-down version, or will you insert the scene in Bitwig yourself?

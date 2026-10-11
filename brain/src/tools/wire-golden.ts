@@ -102,6 +102,8 @@ export interface Golden {
   addedInPhase8h4e?: string[];
   addedInPhase8i7?: string[];
   addedInPhase8i8?: string[];
+  /** Phase 8i14 product clip copy to a named slot (E263). */
+  addedInPhase8i14?: string[];
   /** D03 internal plug-in preset file and popup-browser probe surface. */
   addedInD03?: string[];
   preSplitCount: number;

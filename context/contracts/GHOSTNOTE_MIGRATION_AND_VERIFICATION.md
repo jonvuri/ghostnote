@@ -2,7 +2,7 @@
 title: Ghostnote Document 1.0 migration and verification
 kind: reference
 state: active
-updated: 2026-10-08
+updated: 2026-10-11
 scope: 8f3 target contract; implementation gates for 8g, 8h, 8i, and 9b
 ---
 
@@ -172,7 +172,7 @@ on `agent-native-v1` that calls a removed name gets `no such tool`.
 | `cancel_clip_music_operation` | None | A direct call returns the result; there is no operation handle (8h4g) |
 | `record_observation`, `read_observation_record`, `report_observations` | None | The observation workflow is retired from `agent-native-v1`; see the policy below |
 | `add_clip` | `add_launcher_clip` | One clip from a desired document without BASE; two change records (creation, then content). A content refusal after creation returns the creation as an effect |
-| `copy_clip_down` | `copy_launcher_clips` | Explicit source and destination pairs; the host copies only to the row below on the same track. Launch settings are a separate call (`set_launcher_clip_launch_settings`) |
+| `copy_clip_down` | `copy_launcher_clips` | Explicit source and destination pairs; the destination is any empty slot of an Instrument or Hybrid track (E263). Launch settings are a separate call (`set_launcher_clip_launch_settings`) |
 | `move_clip_block` | `move_launcher_clips` | Same range and guards; failure codes and an occupancy report |
 | `set_clip_launch` | `set_launcher_clip_launch_settings` | Every clip must exist (`absent`) |
 | `set_clip_metadata` | `set_launcher_clip_properties` | Partial properties; omitted properties keep their value and get no setter. Any RGB colour, verified within one byte; no palette refusal. Reversal restores only the written properties (D42). The writer of `edit_launcher_clip` |
