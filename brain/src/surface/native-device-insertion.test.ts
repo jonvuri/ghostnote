@@ -128,10 +128,9 @@ test('d02-s6-reversal: complete top-level drift blocks exact-name removal', asyn
   const reversed = await callTool(fx.workspace, 'revert_change', {
     changeId: result.added[1]!.change.changeId,
   }) as Record<string, unknown>;
-  assert.match(
-    ((reversed['failed'] as { error?: string }[] | undefined)?.[0]?.error ?? ''),
-    /device chain changed/,
-  );
+  // 8i15 (E264): as the live adapter, the complete-chain guard refuses before the write.
+  assert.equal(reversed['refused'], true, JSON.stringify(reversed));
+  assert.equal(reversed['nothingWasWritten'], true);
   assert.deepEqual(track.devices.map((device) => device.name), [
     'Polysynth', 'Delay+', 'Human device',
   ]);

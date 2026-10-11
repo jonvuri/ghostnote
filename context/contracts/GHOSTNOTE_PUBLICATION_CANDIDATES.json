@@ -1188,7 +1188,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "501228a5ff90260634c765cf8f734eecdb93e192582da5f0a14f12344a593cfc"
+        "value": "96426daacf9e10d036d3c8576d9f2fb26bbd90cac0447f62ce1d9bef019c947d"
       },
       "dependencies": [
         "spec/ghostnote-document-v1/HOST-BINDING.md",

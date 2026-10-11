@@ -24,7 +24,7 @@ import { Stash } from '../stash/index.js';
 import { AGENT_NATIVE_TOOL_PROFILE, callTool } from '../surface/tools.js';
 import { workspaceOf } from '../surface/workspace.js';
 import { WireTransport } from './phase8h3c-promotion.js';
-import { NORMAL_8I14 } from './phase8h4f-measure.js';
+import { NORMAL_8I14, NORMAL_8I15 } from './phase8h4f-measure.js';
 import { typicalDesired, wireSummary, worstDesired } from './phase8h4g-inventory.js';
 
 type Wire = Record<string, any>;
@@ -290,7 +290,8 @@ async function probe(dir: string): Promise<void> {
 async function accept(dir: string): Promise<void> {
   const s = session();
   const hello = await requireAnchor(s, 'normal-v1');
-  assert.deepEqual([hello.runtimeProfile, hello.methodCount, hello.methodsHash], [...NORMAL_8I14], 'deploy the 8i14 build');
+  assert([NORMAL_8I14, NORMAL_8I15].some((pin) => s.same([...pin], [hello.runtimeProfile, hello.methodCount, hello.methodsHash])),
+    'deploy the 8i14 build or a later one');
   assert.equal((await s.request('rig.info')).clipCopy, 'copy-to-slot-v1', 'deploy the 8i14 build');
   await s.adapter.hello();
   const mixer = async (): Promise<string> => {

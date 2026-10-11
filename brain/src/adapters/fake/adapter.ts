@@ -14,7 +14,7 @@ import { noteReadCell, noteReadStart } from '../../contract/grid.js';
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION, GROUP_TRACK_TYPE,
   assertNoGroupSlotAddresses, assertNoGroupSlotOps, sceneGuardError, sceneGuardMismatch, sceneGuardOf,
-  StaleAddressError, UnsupportedOpError, addressKey, addressScene, addressTrack, assertNever,
+  InvalidOpError, StaleAddressError, UnsupportedOpError, addressKey, addressScene, addressTrack, assertNever,
   assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertClipSources, assertDeviceInsertable, assertDeviceRelocatable, assertDrumPadInsertable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, budgetTicks,
   chain as chainAt, chainCopyUnnamed, chainPath, clipSourceFingerprint, contentDelta, notes as notesAt,
   hasUnverifiedProps, lookupChain, lookupNestedDevice, mintedChain, nestingObservable, orderedNoteProps, stepSizeFor,
@@ -1105,6 +1105,18 @@ export class FakeAdapter implements BitwigAdapter {
       // about to read has been re-fetched. Without it the write below lands
       // inside `stepDataIsStale`'s window and is discarded, exactly as live.
       if (stage.settleBefore !== undefined) this.clock.settle(stage.settleBefore);
+
+      // 8i15 (E264): as the live adapter, the complete-chain guard of a `device.delete` stage throws before the
+      // write. It is not a failed op in the receipt.
+      const deleteOp = stage.ops.length === 1 && stage.ops[0]?.op === 'device.delete' ? stage.ops[0] : undefined;
+      if (deleteOp?.expectedChain !== undefined) {
+        const actual = this.model.tracks.find((item) => item.channelId === deleteOp.device.track.channelId)
+          ?.devices.map((item) => item.name);
+        if (actual !== undefined && JSON.stringify(actual) !== JSON.stringify(deleteOp.expectedChain)) {
+          throw new InvalidOpError(deleteOp.op, `the top-level device chain changed: expected ${
+            JSON.stringify(deleteOp.expectedChain)}, got ${JSON.stringify(actual)}`);
+        }
+      }
 
       // ⚠ E15-F: one stage is one control-surface turn, and `setNoteProps`
       // resolves its note against the clip the cursor held when the turn began.

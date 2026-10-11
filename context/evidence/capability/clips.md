@@ -4,7 +4,7 @@ kind: capability
 state: active
 updated: 2026-10-11
 scope: launcher-clip notes, metadata, exact reads, writes, and copies
-evidence: E2, E24, E41–E46, E51–E54, E116, E119, E130-E133, E263; D8, D9, D15, D16, D21, D23
+evidence: E2, E24, E41–E46, E51–E54, E116, E119, E130-E133, E263, E264; D8, D9, D15, D16, D21, D23
 ---
 
 # Launcher clips
@@ -83,7 +83,10 @@ in one call keep their row offsets and can add scenes [K,
 [E263](../experiments/e263-clip-copy-to-any-row.md)]. The product uses only
 this route, with one source for each call, between Instrument and Hybrid
 tracks, and only after an independent occupancy read proves the destination
-empty [K, E263]. Clip automation in a copy has no readback [U, E43].
+empty [K, E263]. The normal profile does not register `slot.duplicateClip`;
+only the probe profile has it, for older probe drivers [K,
+[E264](../experiments/e264-device-add-revert-report.md)]. Clip automation in
+a copy has no readback [U, E43].
 
 ## Cursor windows and paging
 

@@ -222,7 +222,7 @@ The retained tools keep their names and change their result shape:
 | Tool | Change in `agent-native-v1` |
 |---|---|
 | `list_tracks`, `list_changes`, `check_revert`, `list_modulator_types` | The read envelope. A place uses `track`, `scene`, `launcher_clip`, `device`, or `device_control`, with 1-based note channels |
-| `revert_change`, `rename_track`, `set_device_enabled`, `delete_track` | The write envelope. A reversal is one effect with `target.undoOf`; nothing to put back is `applied: false` with `readback.status` `nothing-to-revert` |
+| `revert_change`, `rename_track`, `set_device_enabled`, `delete_track` | The write envelope. A reversal is one effect with `target.undoOf`; its `fidelity` states what the revert restored and `redoFidelity` states the reversal of the revert (D49). `readback.removed` names each device or clip that the revert deleted, and `check_revert` gives `data.wouldRemove` and `data.fidelity` (E264). A device-add revert in the wrong order refuses with `target-changed`. Nothing to put back is `applied: false` with `readback.status` `nothing-to-revert` |
 | `read_device_controls`, `set_device_controls`, `read_preset_modulation`, `edit_preset_modulation`, `wrap_existing_device_modulation`, `reverse_existing_device_modulation_wrap` | The measured body stays; `schema` is added, and a refusal, a standing that is not stable, an incomplete or partial write, or a throw after a write adds the `failure` object with each recorded change in `failure.effects` (D40) |
 | `delete_device`, `move_devices` | A project device address is `devicePosition`, not `position`. `read_devices` and `add_devices` report `devicePosition` |
 

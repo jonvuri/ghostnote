@@ -2,7 +2,7 @@
 title: Decision index
 kind: index
 state: active
-updated: 2026-10-09
+updated: 2026-10-11
 ---
 
 # Decision index
@@ -60,6 +60,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D46 | Modulation writers claim the route, not the sound **[SETTLED 2026-10-09]** | [open](d46-modulation-writers-claim-the-route-not-the-sound.md) |
 | D47 | Clip creation binds claims to the live clip **[SETTLED 2026-10-09]** | [open](d47-clip-creation-binds-claims-to-the-live-clip.md) |
 | D48 | The track mixer writes host raw values **[SETTLED 2026-10-09]** | [open](d48-track-mixer-writes-host-raw-values.md) |
+| D49 | The fidelity of a revert states what the revert restored **[SETTLED 2026-10-11]** | [open](d49-revert-fidelity-states-what-the-revert-restored.md) |
 
 ## Phase 4 closeout audit
 

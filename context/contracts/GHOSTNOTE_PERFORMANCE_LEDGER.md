@@ -4,7 +4,7 @@ kind: reference
 state: active
 updated: 2026-10-11
 parent: ../plan/phase-8/8h-cache-promotion-and-interface-simplification.md
-evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252, E253, E254, E256, E257, E258, E263
+evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252, E253, E254, E256, E257, E258, E263, E264
 ---
 
 # Ghostnote performance ledger
@@ -204,6 +204,7 @@ above stay the reference for top-level tracks.
 | `set_device_enabled`, one device; its revert | 905 ms; 775 ms | E239: 770 ms; 665 ms | devices 1, resolve 1, read 2, apply 1, delta 1 | E247 |
 | `add_devices`, one native device | 1,447–1,544 ms; 67 wire calls | Before: 5,541 ms | devices 2, read 2, apply 1, delta 1 | E247 |
 | `add_devices`, 16 native devices (schema maximum); 6 Divas | 16,811 ms; 6,426 ms | E252 baseline: 15,497 ms | as one device, for each | E252 |
+| `revert_change` of an `add_devices` change, one native device (`gn-scale-test`); its refusal in the wrong order; `check_revert` | 1,527–1,875 ms, 53 wire calls, 38 turns, 1 write; refusal 810 ms, 26 calls, no write; check 45–52 ms, 4 calls | S2 (E262): 1.4–2.3 s for each call with client time | — | E264 |
 | `compose_devices`, offline, 2 and 4 layer chains | 3,382–3,403 ms; 3,978–4,023 ms | E238: 7,199–7,330; 7,770–7,779 ms. E18a insertion: 463–465 ms | wire: 128 (2 layer chains) | E247 benchmark |
 | `compose_devices`, staged, 2 and 4 layer chains | 17,500–17,551 ms; 30,430–30,556 ms | E238: 36,525–37,145; 64,878–64,937 ms | — | E247 benchmark |
 | `compose_devices`, staged at the D44 limit (6 units): 5×1, 3×2, 2×3; their reverts | 20,993; 23,540; 23,247 ms; revert 22,499; 26,301; 26,912 ms | Before 8i3: 5×1 31,475 (revert 21,456); 5×2 50,292 (39,392); 5×4 102,095 (89,355) | — | E252 |

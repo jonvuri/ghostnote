@@ -1,0 +1,912 @@
+{
+  "schema": "phase8i15-revert-v1",
+  "hello": {
+    "contractVersion": 0,
+    "extensionVersion": "0.0.1",
+    "runtimeProfile": "normal-v1",
+    "hostApiVersion": 25,
+    "methodCount": 92,
+    "methodsHash": "8be1975eaa99d78f"
+  },
+  "entry": {
+    "tracks": [
+      "0:Instrument Layer:Hybrid:98ba",
+      "1:Hybrid 2:Hybrid:4a6a",
+      "2:gn-A:Instrument:d61c",
+      "3:gn-B:Instrument:78a4",
+      "4:Group 5:Group:ae4c",
+      "5:gn-E16:Instrument:e75d",
+      "6:gn-lay:Instrument:d367",
+      "7:gn-lay4:Instrument:9a88",
+      "8:gn-sel:Instrument:6fb9",
+      "9:FX 1:Effect:52bd",
+      "10:Master:Master:834e"
+    ],
+    "scenes": 10,
+    "selection": {
+      "track": -1,
+      "slot": -1,
+      "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+    }
+  },
+  "rows": [
+    {
+      "step": "add-track",
+      "tool": "add_tracks",
+      "ms": 911,
+      "calls": 40,
+      "turns": 22,
+      "writes": 2,
+      "methods": {
+        "selection.status": 4,
+        "revision.get": 11,
+        "track.list": 14,
+        "batch.run": 2,
+        "cursor.pin": 8,
+        "selection.restoreMixer": 1
+      },
+      "result": {
+        "schema": "ghostnote-track-add/1",
+        "applied": true,
+        "effects": [
+          {
+            "changeId": "ebdcda2f-2835-4717-a061-6d0712984bb6",
+            "target": {
+              "trackIds": [
+                "53f2af77-8867-44a8-975e-24e6d58049bc"
+              ]
+            },
+            "summary": "Created 1 track(s).",
+            "fidelity": "exact"
+          },
+          {
+            "changeId": "007f94f6-19de-4016-a1cc-02300327c95e",
+            "target": {
+              "trackIds": [
+                "53f2af77-8867-44a8-975e-24e6d58049bc"
+              ]
+            },
+            "summary": "Named the new track(s).",
+            "fidelity": "exact"
+          }
+        ],
+        "readback": {
+          "status": "verified",
+          "tracks": [
+            {
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "name": "gn-8i15-a",
+              "kind": "Instrument"
+            }
+          ]
+        },
+        "warnings": [
+          {
+            "code": "not-reversible",
+            "message": "revert_change does not remove a new track; use delete_track."
+          }
+        ],
+        "target": {
+          "tracks": 1
+        }
+      }
+    },
+    {
+      "step": "add-devices",
+      "tool": "add_devices",
+      "ms": 2227,
+      "calls": 84,
+      "turns": 60,
+      "writes": 2,
+      "methods": {
+        "selection.status": 5,
+        "track.list": 15,
+        "devcursor.pin": 8,
+        "cursor.pointTrack": 8,
+        "device.list": 20,
+        "revision.get": 10,
+        "batch.run": 2,
+        "cursor.pin": 16
+      },
+      "result": {
+        "schema": "ghostnote-device-add/1",
+        "applied": true,
+        "effects": [
+          {
+            "changeId": "96c12b52-56c0-4a8c-a025-40b16ef9d075",
+            "target": {
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "deviceIndex": 0
+            },
+            "summary": "Added device 0 (Polysynth).",
+            "fidelity": "exact"
+          },
+          {
+            "changeId": "0e8a7c13-1a18-41d6-b9fe-84c54f300ad2",
+            "target": {
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "deviceIndex": 1
+            },
+            "summary": "Added device 1 (Delay+).",
+            "fidelity": "exact"
+          }
+        ],
+        "readback": {
+          "status": "verified",
+          "added": [
+            {
+              "deviceIndex": 0,
+              "source": "native",
+              "devicePosition": 0,
+              "name": "Polysynth"
+            },
+            {
+              "deviceIndex": 1,
+              "source": "native",
+              "devicePosition": 1,
+              "name": "Delay+"
+            }
+          ],
+          "topLevel": [
+            {
+              "devicePosition": 0,
+              "name": "Polysynth",
+              "enabled": true
+            },
+            {
+              "devicePosition": 1,
+              "name": "Delay+",
+              "enabled": true
+            }
+          ]
+        },
+        "next": {
+          "revert": {
+            "tool": "revert_change",
+            "changeIds": [
+              "0e8a7c13-1a18-41d6-b9fe-84c54f300ad2",
+              "96c12b52-56c0-4a8c-a025-40b16ef9d075"
+            ]
+          }
+        },
+        "warnings": [],
+        "timing": {
+          "totalMs": 2226.110917
+        },
+        "target": {
+          "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+          "devices": 2
+        }
+      }
+    },
+    {
+      "step": "check-0",
+      "tool": "check_revert",
+      "ms": 52,
+      "calls": 4,
+      "turns": 2,
+      "writes": 0,
+      "methods": {
+        "revision.get": 2,
+        "track.list": 2
+      },
+      "result": {
+        "schema": "ghostnote-revert-check/1",
+        "source": {
+          "host": "bitwig",
+          "read": "fresh-read-of-each-place"
+        },
+        "target": {
+          "changeId": "96c12b52-56c0-4a8c-a025-40b16ef9d075"
+        },
+        "coverage": {
+          "status": "complete"
+        },
+        "authority": {
+          "kind": "change-record-and-fresh-read"
+        },
+        "data": {
+          "wouldWriteAnything": true,
+          "fullyRestorable": true,
+          "fidelity": "exact",
+          "wouldRestore": [],
+          "wouldRemove": [
+            {
+              "what": "device",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "devicePosition": 0,
+              "name": "Polysynth"
+            }
+          ],
+          "wouldNotRestore": [],
+          "caveats": []
+        },
+        "warnings": []
+      }
+    },
+    {
+      "step": "check-1",
+      "tool": "check_revert",
+      "ms": 45,
+      "calls": 4,
+      "turns": 2,
+      "writes": 0,
+      "methods": {
+        "revision.get": 2,
+        "track.list": 2
+      },
+      "result": {
+        "schema": "ghostnote-revert-check/1",
+        "source": {
+          "host": "bitwig",
+          "read": "fresh-read-of-each-place"
+        },
+        "target": {
+          "changeId": "0e8a7c13-1a18-41d6-b9fe-84c54f300ad2"
+        },
+        "coverage": {
+          "status": "complete"
+        },
+        "authority": {
+          "kind": "change-record-and-fresh-read"
+        },
+        "data": {
+          "wouldWriteAnything": true,
+          "fullyRestorable": true,
+          "fidelity": "exact",
+          "wouldRestore": [],
+          "wouldRemove": [
+            {
+              "what": "device",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "devicePosition": 1,
+              "name": "Delay+"
+            }
+          ],
+          "wouldNotRestore": [],
+          "caveats": []
+        },
+        "warnings": []
+      }
+    },
+    {
+      "step": "revert-first-early",
+      "tool": "revert_change",
+      "ms": 810,
+      "calls": 26,
+      "turns": 21,
+      "writes": 0,
+      "methods": {
+        "revision.get": 5,
+        "track.list": 5,
+        "selection.status": 1,
+        "devcursor.pin": 3,
+        "cursor.pointTrack": 1,
+        "device.list": 3,
+        "devcursor.selectAt": 2,
+        "devcursor.status": 1,
+        "directparam.list": 3,
+        "param.list": 1,
+        "chain.inventory": 1
+      },
+      "result": {
+        "schema": "ghostnote-revert/1",
+        "failure": {
+          "code": "target-changed",
+          "stage": "guard",
+          "effects": []
+        },
+        "message": "The project no longer holds what the change left, so the revert removed nothing. Nothing was written. A device add is removed only when the device order on its track is the order that the add left: revert the later device changes on the track first.",
+        "retryWhen": "after the later changes are reverted, newest first",
+        "target": {
+          "changeId": "96c12b52-56c0-4a8c-a025-40b16ef9d075"
+        },
+        "detail": {
+          "notRemoved": [
+            {
+              "what": "device",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "devicePosition": 0,
+              "name": "Polysynth"
+            }
+          ],
+          "hostError": "invalid device.delete: the top-level device chain changed: expected [\"Polysynth\"], got [\"Polysynth\",\"Delay+\"]"
+        },
+        "diagnostic": {
+          "error": "invalid device.delete: the top-level device chain changed: expected [\"Polysynth\"], got [\"Polysynth\",\"Delay+\"]",
+          "type": "InvalidOpError"
+        }
+      }
+    },
+    {
+      "step": "revert-1",
+      "tool": "revert_change",
+      "ms": 1875,
+      "calls": 53,
+      "turns": 38,
+      "writes": 1,
+      "methods": {
+        "revision.get": 8,
+        "track.list": 9,
+        "selection.status": 1,
+        "devcursor.pin": 4,
+        "cursor.pointTrack": 2,
+        "device.list": 4,
+        "devcursor.selectAt": 4,
+        "devcursor.status": 1,
+        "directparam.list": 3,
+        "param.list": 1,
+        "chain.inventory": 5,
+        "devcursor.selectFirstInSlot": 2,
+        "batch.run": 1,
+        "cursor.pin": 8
+      },
+      "result": {
+        "schema": "ghostnote-revert/1",
+        "applied": true,
+        "effects": [
+          {
+            "changeId": "2fd82eef-0c2d-4fd1-8e89-686c6efc11d1",
+            "target": {
+              "undoOf": "0e8a7c13-1a18-41d6-b9fe-84c54f300ad2"
+            },
+            "summary": "Reverted change 0e8a7c13-1a18-41d6-b9fe-84c54f300ad2.",
+            "fidelity": "exact",
+            "redoFidelity": "none"
+          }
+        ],
+        "readback": {
+          "status": "verified",
+          "restored": [],
+          "removed": [
+            {
+              "what": "device",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "devicePosition": 1,
+              "name": "Delay+"
+            }
+          ],
+          "notRestored": []
+        },
+        "warnings": [],
+        "target": {
+          "changeId": "0e8a7c13-1a18-41d6-b9fe-84c54f300ad2"
+        }
+      }
+    },
+    {
+      "step": "revert-0",
+      "tool": "revert_change",
+      "ms": 1527,
+      "calls": 53,
+      "turns": 38,
+      "writes": 1,
+      "methods": {
+        "revision.get": 8,
+        "track.list": 9,
+        "selection.status": 1,
+        "devcursor.pin": 6,
+        "cursor.pointTrack": 4,
+        "device.list": 4,
+        "devcursor.selectAt": 4,
+        "devcursor.status": 2,
+        "directparam.list": 3,
+        "param.list": 1,
+        "chain.inventory": 2,
+        "batch.run": 1,
+        "cursor.pin": 8
+      },
+      "result": {
+        "schema": "ghostnote-revert/1",
+        "applied": true,
+        "effects": [
+          {
+            "changeId": "a84d85e2-3842-493d-b277-c36b7acc277c",
+            "target": {
+              "undoOf": "96c12b52-56c0-4a8c-a025-40b16ef9d075"
+            },
+            "summary": "Reverted change 96c12b52-56c0-4a8c-a025-40b16ef9d075.",
+            "fidelity": "exact",
+            "redoFidelity": "none"
+          }
+        ],
+        "readback": {
+          "status": "verified",
+          "restored": [],
+          "removed": [
+            {
+              "what": "device",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "devicePosition": 0,
+              "name": "Polysynth"
+            }
+          ],
+          "notRestored": []
+        },
+        "warnings": [],
+        "target": {
+          "changeId": "96c12b52-56c0-4a8c-a025-40b16ef9d075"
+        }
+      }
+    },
+    {
+      "step": "add-clip",
+      "tool": "add_launcher_clip",
+      "ms": 1957,
+      "calls": 70,
+      "turns": 46,
+      "writes": 2,
+      "methods": {
+        "revision.get": 16,
+        "track.list": 17,
+        "slot.status": 12,
+        "selection.status": 1,
+        "batch.run": 2,
+        "cursor.pin": 10,
+        "clip.read": 3,
+        "cursor.pointTrack": 1,
+        "slot.select": 1,
+        "cursor.status": 3,
+        "cursor.setStepSize": 2,
+        "cursor.scrollToStep": 2
+      },
+      "result": {
+        "schema": "ghostnote-launcher-clip-add/1",
+        "applied": true,
+        "effects": [
+          {
+            "changeId": "99bdc4b1-27f2-479d-a57e-32c563f634bd",
+            "target": {
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0
+            },
+            "summary": "Created an empty clip of 4 beats.",
+            "fidelity": "exact"
+          },
+          {
+            "changeId": "1133ca8e-9168-4001-9c92-ea919d6e989d",
+            "target": {
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0
+            },
+            "summary": "Edited notes: 4 added, 0 removed, 0 changed (0 moved). Route targeted.",
+            "fidelity": "exact"
+          }
+        ],
+        "readback": {
+          "status": "verified",
+          "base": {
+            "sha256": "ca5595f7a725a5df9c74f76622109a38c5bc3e01ecec91034c76202835f5dc04",
+            "ref": "gnb1.SvhQqs2N0qSm"
+          },
+          "identity": "written",
+          "retainedIds": 4,
+          "mintedIds": 0,
+          "discrepancies": []
+        },
+        "next": {
+          "revert": [
+            {
+              "tool": "revert_change",
+              "changeId": "1133ca8e-9168-4001-9c92-ea919d6e989d"
+            },
+            {
+              "tool": "revert_change",
+              "changeId": "99bdc4b1-27f2-479d-a57e-32c563f634bd"
+            }
+          ]
+        },
+        "warnings": [
+          {
+            "code": "slot-selection-moved",
+            "message": "Bitwig selected the new clip, and the earlier Launcher slot selection was not restored: no slot was selected before the call."
+          }
+        ],
+        "timing": {
+          "readMs": 289.35358300000007,
+          "planMs": 5.563250000001062,
+          "writeMs": 839.0079999999998,
+          "readbackMs": 4.062125000000378,
+          "totalMs": 1956.6407909999998
+        },
+        "target": {
+          "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+          "row": 0
+        },
+        "plan": {
+          "route": "targeted",
+          "added": 4,
+          "removed": 0,
+          "changed": 0,
+          "moved": 0
+        }
+      }
+    },
+    {
+      "step": "revert-clip-content",
+      "tool": "revert_change",
+      "ms": 1410,
+      "calls": 42,
+      "turns": 33,
+      "writes": 1,
+      "methods": {
+        "revision.get": 8,
+        "track.list": 8,
+        "selection.status": 4,
+        "slot.status": 5,
+        "clip.read": 3,
+        "slot.select": 3,
+        "cursor.pin": 2,
+        "cursor.pointTrack": 1,
+        "cursor.status": 3,
+        "cursor.setStepSize": 2,
+        "cursor.scrollToStep": 2,
+        "batch.run": 1
+      },
+      "result": {
+        "schema": "ghostnote-revert/1",
+        "applied": true,
+        "effects": [
+          {
+            "changeId": "6ffabee8-0518-4a3b-9786-193dc2b95728",
+            "target": {
+              "undoOf": "1133ca8e-9168-4001-9c92-ea919d6e989d"
+            },
+            "summary": "Reverted change 1133ca8e-9168-4001-9c92-ea919d6e989d.",
+            "fidelity": "exact",
+            "redoFidelity": "exact"
+          }
+        ],
+        "readback": {
+          "status": "verified",
+          "restored": [
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 1
+            }
+          ],
+          "removed": [],
+          "notRestored": []
+        },
+        "warnings": [],
+        "target": {
+          "changeId": "1133ca8e-9168-4001-9c92-ea919d6e989d"
+        }
+      }
+    },
+    {
+      "step": "check-clip",
+      "tool": "check_revert",
+      "ms": 359,
+      "calls": 11,
+      "turns": 9,
+      "writes": 0,
+      "methods": {
+        "revision.get": 2,
+        "track.list": 2,
+        "selection.status": 2,
+        "slot.status": 3,
+        "clip.read": 1,
+        "slot.select": 1
+      },
+      "result": {
+        "schema": "ghostnote-revert-check/1",
+        "source": {
+          "host": "bitwig",
+          "read": "fresh-read-of-each-place"
+        },
+        "target": {
+          "changeId": "99bdc4b1-27f2-479d-a57e-32c563f634bd"
+        },
+        "coverage": {
+          "status": "complete"
+        },
+        "authority": {
+          "kind": "change-record-and-fresh-read"
+        },
+        "data": {
+          "wouldWriteAnything": true,
+          "fullyRestorable": true,
+          "fidelity": "exact",
+          "wouldRestore": [
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 1
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 2
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 3
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 4
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 5
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 6
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 7
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 8
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 9
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 10
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 11
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 12
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 13
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 14
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 15
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 16
+            }
+          ],
+          "wouldRemove": [
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0
+            }
+          ],
+          "wouldNotRestore": [],
+          "caveats": []
+        },
+        "warnings": []
+      }
+    },
+    {
+      "step": "revert-clip",
+      "tool": "revert_change",
+      "ms": 1122,
+      "calls": 42,
+      "turns": 27,
+      "writes": 1,
+      "methods": {
+        "revision.get": 8,
+        "track.list": 9,
+        "selection.status": 3,
+        "slot.status": 10,
+        "clip.read": 2,
+        "slot.select": 1,
+        "batch.run": 1,
+        "cursor.pin": 8
+      },
+      "result": {
+        "schema": "ghostnote-revert/1",
+        "applied": true,
+        "effects": [
+          {
+            "changeId": "7129b139-14ec-4c9d-b73f-6869d5f1f5f6",
+            "target": {
+              "undoOf": "99bdc4b1-27f2-479d-a57e-32c563f634bd"
+            },
+            "summary": "Reverted change 99bdc4b1-27f2-479d-a57e-32c563f634bd.",
+            "fidelity": "exact",
+            "redoFidelity": "lossy"
+          }
+        ],
+        "readback": {
+          "status": "verified",
+          "restored": [
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 1
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 2
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 3
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 4
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 5
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 6
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 7
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 8
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 9
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 10
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 11
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 12
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 13
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 14
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 15
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0,
+              "channel": 16
+            }
+          ],
+          "removed": [
+            {
+              "what": "launcher_clip",
+              "trackId": "53f2af77-8867-44a8-975e-24e6d58049bc",
+              "row": 0
+            }
+          ],
+          "notRestored": []
+        },
+        "warnings": [],
+        "target": {
+          "changeId": "99bdc4b1-27f2-479d-a57e-32c563f634bd"
+        }
+      }
+    }
+  ],
+  "devicesBefore": [],
+  "devicesAfter": [],
+  "cleanup": {
+    "status": "verified",
+    "removed": [
+      "53f2af77-8867-44a8-975e-24e6d58049bc"
+    ]
+  },
+  "exit": {
+    "tracks": [
+      "0:Instrument Layer:Hybrid:98ba",
+      "1:Hybrid 2:Hybrid:4a6a",
+      "2:gn-A:Instrument:d61c",
+      "3:gn-B:Instrument:78a4",
+      "4:Group 5:Group:ae4c",
+      "5:gn-E16:Instrument:e75d",
+      "6:gn-lay:Instrument:d367",
+      "7:gn-lay4:Instrument:9a88",
+      "8:gn-sel:Instrument:6fb9",
+      "9:FX 1:Effect:52bd",
+      "10:Master:Master:834e"
+    ],
+    "scenes": 10,
+    "selection": {
+      "track": 9,
+      "slot": 0,
+      "mixer": "6fb96670-abde-4958-9147-f573a4b43918"
+    },
+    "tracksSame": true,
+    "selectionKept": false
+  }
+}

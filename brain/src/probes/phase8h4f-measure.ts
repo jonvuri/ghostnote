@@ -38,10 +38,15 @@ export const NORMAL_8I7 = ['normal-v1', 91, '64d13fa7b66ad7f9'] as const;
 export const NORMAL_8I8 = ['normal-v1', 92, '0bafdd963fa9f5da'] as const;
 /** 8i14 (E263): the normal build with `slot.copyTo`. */
 export const NORMAL_8I14 = ['normal-v1', 93, '8a5639c94fe02f55'] as const;
-/** The current-driver guard: the 8h4f normal build or a later one (8i7 mixer methods, 8i8 mixer-selection restore, 8i14 clip copy). */
+/** 8i15 (E264): the normal build without the old clip duplicate method (probe profile only from 8i15). */
+export const NORMAL_8I15 = ['normal-v1', 92, '8be1975eaa99d78f'] as const;
+/**
+ * The current-driver guard: the 8h4f normal build or a later one (8i7 mixer methods, 8i8 mixer-selection restore,
+ * 8i14 clip copy, 8i15 without the old clip duplicate method).
+ */
 export function assertCurrentNormal(hello: Readonly<Record<string, unknown>>): void {
   const live = JSON.stringify([hello['runtimeProfile'], hello['methodCount'], hello['methodsHash']]);
-  assert.ok([NORMAL_8H4F, NORMAL_8I7, NORMAL_8I8, NORMAL_8I14].some((pin) => JSON.stringify(pin) === live),
+  assert.ok([NORMAL_8H4F, NORMAL_8I7, NORMAL_8I8, NORMAL_8I14, NORMAL_8I15].some((pin) => JSON.stringify(pin) === live),
     `unexpected normal build: ${live}`);
 }
 const ANCHOR = 'gn-scale-test';

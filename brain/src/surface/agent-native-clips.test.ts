@@ -352,7 +352,15 @@ test('8h4d copy_launcher_clips: copies below, reports occupancy, and guards the 
   assert.equal(empty.failure.code, 'absent');
   assert.equal(fx.records(), records, 'refusals record nothing');
 
-  await fx.native('revert_change', { changeId: copied.effects[0].changeId });
+  // 8i15: the reversal of a copy deletes the copy. The result names it, and the empty slot is the exact prior state.
+  const removed = [{ what: 'launcher_clip', trackId: fx.trackId, row: 1 }];
+  const check = await fx.native('check_revert', { changeId: copied.effects[0].changeId });
+  assert.deepEqual(check.data.wouldRemove, removed, JSON.stringify(check));
+  assert.equal(check.data.fidelity, 'exact');
+  const reverted = await fx.native('revert_change', { changeId: copied.effects[0].changeId });
+  assert.deepEqual(reverted.readback.removed, removed, JSON.stringify(reverted));
+  assert.ok(reverted.readback.restored.length > 0);
+  assert.equal(reverted.effects[0].fidelity, 'exact');
   assert.equal(fx.occupied(1), false);
 });
 

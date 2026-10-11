@@ -34,16 +34,16 @@
  */
 import {
   NOTE_PROP_FIDELITY, UNVERIFIED_NOTE_PROPS, UNWRITABLE_NOTE_PROPS,
-  addressKey, addressTrack, assertNever, chainPath, stepSizeFor,
+  addressKey, addressTrack, assertNever, chainPath, planStages, stepSizeFor,
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, ContractVersionError,
   InvalidOpError, NoteTimingUnrepresentableError, ParameterValueUnrepresentableError, RemoteSelectorError,
   CollapsedGroupRowError, GroupSlotError, SlotOccupiedError, StaleAddressError,
   WireDriftError,
-  type Address, type ChainAddress, type DeviceAddress, type NoteRecord, type StateValue,
+  type Address, type ChainAddress, type DeviceAddress, type Fidelity, type NoteRecord, type Op, type StateValue,
 } from '../contract/index.js';
 import { StaleExtensionError } from '../deploy.js';
 import {
-  UnprotectedWriteError, isAtRisk, structuralRisk,
+  UnprotectedWriteError, isAtRisk, structuralRisk, worse,
   type Disagreement, type StructuralRisk, type Take, type TakeValue, type Unrestored,
   type WriteTarget,
 } from '../engine/index.js';
@@ -74,6 +74,8 @@ export interface Where {
   readonly parameter?: number | string;
   /** 8i7: one track mixer field. */
   readonly mixerField?: string;
+  /** 8i15: the name of a device that a reversal removes, when the change recorded it. */
+  readonly name?: string;
 }
 
 /**
@@ -552,15 +554,55 @@ const REMOVED_DEVICE_CAVEAT =
   + 'retain a full managed-chain witness, so a later rearrangement can make the position name a '
   + 'different device.';
 
+/** One object that a reversal deletes, with the index of its op in the reversal plan. */
+export interface Removal {
+  readonly opIndex: number;
+  readonly where: Where;
+}
+
+/**
+ * The objects that the ops of a reversal delete (8i15): a device that the change added, and a clip that the
+ * change put in an empty slot. A reversal plan holds no other delete: a clip that existed before is rebuilt.
+ */
+export function removalsOf(ops: readonly Op[]): Removal[] {
+  return ops.flatMap((op, opIndex): Removal[] => {
+    if (op.op === 'device.delete') {
+      return [{ opIndex, where: { ...describeAddress(op.device),
+        ...(op.expectedName === undefined ? {} : { name: op.expectedName }) } }];
+    }
+    if (op.op === 'clip.delete') {
+      return [{ opIndex, where: { what: 'clip', trackId: op.slot.track.channelId, row: op.slot.scene.index } }];
+    }
+    return [];
+  });
+}
+
+/**
+ * The op indices of a take that did not apply (8i15). A stage applies whole or not at all, so each op of a stage
+ * with a failed op counts, and each op of a stage that did not run.
+ */
+export function unappliedOps(take: Pick<Take, 'ops' | 'receipt'>): ReadonlySet<number> {
+  const applied = new Set(take.receipt.stages.flatMap((receipt) =>
+    !receipt.applied || receipt.ops.some((item) => !item.ok) ? [] : planStages(take.ops)[receipt.index]?.opIndices ?? []));
+  return new Set(take.ops.map((_, index) => index).filter((index) => !applied.has(index)));
+}
+
 export interface ReversalReport {
   readonly changeId: string;
   readonly wouldRestore: readonly Where[];
+  /** 8i15: each object that the reversal deletes. A removed device is in this list only: it has no prior place. */
+  readonly wouldRemove: readonly Where[];
   readonly wouldNotRestore: readonly {
     readonly where?: Where;
     readonly what: string;
     readonly why: string;
   }[];
   readonly fullyRestorable: boolean;
+  /**
+   * D49: how completely the reversal restores the state before the change. `none` when the plan writes nothing;
+   * at most `lossy` when a part is not restored.
+   */
+  readonly fidelity: Fidelity;
   readonly caveats: readonly string[];
 }
 
@@ -590,8 +632,10 @@ export function reversalReport(
       .map((key) => byKey.get(key))
       .filter((a): a is Address => a !== undefined)
       .map(describeAddress),
+    wouldRemove: removalsOf(plan.ops).map((item) => item.where),
     wouldNotRestore: wouldNot,
     fullyRestorable: wouldNot.length === 0 && plan.ops.length > 0,
+    fidelity: plan.ops.length === 0 ? 'none' : wouldNot.length === 0 ? plan.fidelity : worse(plan.fidelity, 'lossy'),
     // ⚠ Derived from the ops the plan actually contains, not from the internal
     // caveat text. The two caveats that matter are both facts about an op:
     // rebuilding a clip loses everything about it that has no readback, and

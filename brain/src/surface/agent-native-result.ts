@@ -122,7 +122,13 @@ export interface Effect {
   readonly changeId: string;
   readonly target: Readonly<Record<string, unknown>>;
   readonly summary: string;
+  /**
+   * How completely `revert_change` can restore the state before this change. For the effect of a reversal (D49):
+   * how completely the reversal restored the state before the reverted change.
+   */
   readonly fidelity: string;
+  /** Only on the effect of a reversal (D49): how completely a revert of the reversal can bring the work back. */
+  readonly redoFidelity?: string;
 }
 
 /** The write envelope (used from 8h4c). */

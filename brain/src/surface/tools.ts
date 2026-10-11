@@ -2861,6 +2861,7 @@ export const TOOLS: readonly ToolSpec[] = [
           ...receipt,
           undoOf: args.changeId,
           restored: report.wouldRestore,
+          removed: report.wouldRemove,
           notRestored: report.wouldNotRestore,
           caveats: report.caveats,
         };

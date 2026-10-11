@@ -5,8 +5,8 @@
   ],
   "profile": "capture",
   "identity": "capture-v1",
-  "count": 98,
-  "methodsHash": "418774dabf8fa3b8",
+  "count": 97,
+  "methodsHash": "8b79866f915a96d8",
   "methods": [
     "batch.run",
     "branch.duplicateTrack",
@@ -90,7 +90,6 @@
     "selection.status",
     "slot.copyTo",
     "slot.delete",
-    "slot.duplicateClip",
     "slot.launchWithOptions",
     "slot.moveTo",
     "slot.playState",

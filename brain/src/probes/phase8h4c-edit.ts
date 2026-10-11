@@ -39,7 +39,7 @@ import { WireTransport } from './phase8h3c-promotion.js';
 import { typicalNotes } from './phase8h3e-snapshots-lib.js';
 import { parse, serialize, type Event, type StateDocument } from '../document/index.js';
 import { NORMAL_8H4E } from './phase8h4e-devices.js';
-import { NORMAL_8I14, NORMAL_8I7, NORMAL_8I8 } from './phase8h4f-measure.js';
+import { NORMAL_8I14, NORMAL_8I15, NORMAL_8I7, NORMAL_8I8 } from './phase8h4f-measure.js';
 import { NORMAL, agreement, eventKey, rawDiff, rowKey, type Wire } from './phase8h4b-document-read-lib.js';
 
 const SCHEMA = 'phase8h4c-edit-v1';
@@ -84,7 +84,7 @@ async function until(next: () => Promise<Wire>, done: (value: Wire) => boolean, 
 async function guard(): Promise<Wire> {
   const hello = await request('contract.hello');
   // The 8h4c build or a later normal build (8h4e: 89 methods; 8h4g reruns; 8i7: 91 with the mixer methods; 8i8: 92; 8i14: 93).
-  assert([[...NORMAL], [...NORMAL_8H4E], [...NORMAL_8I7], [...NORMAL_8I8], [...NORMAL_8I14]].some((value) =>
+  assert([[...NORMAL], [...NORMAL_8H4E], [...NORMAL_8I7], [...NORMAL_8I8], [...NORMAL_8I14], [...NORMAL_8I15]].some((value) =>
     isDeepStrictEqual(value, [hello.runtimeProfile, hello.methodCount, hello.methodsHash])), JSON.stringify(hello));
   const mark = await request('revision.get');
   assert(/^New \d+$/.test(mark.project) && mark.project !== ANCHOR, `use an owned unsaved project, got ${mark.project}`);

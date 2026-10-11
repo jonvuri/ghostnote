@@ -25,7 +25,7 @@
 import { z } from 'zod';
 
 import {
-  CREATABLE_TRACK_KINDS, clip as clipAt, device as deviceAt, isGroupTrack,
+  CREATABLE_TRACK_KINDS, InvalidOpError, clip as clipAt, device as deviceAt, isGroupTrack,
   scene as sceneAt, slot as slotAt, track as trackAt,
   type CreatableTrackKind, type Op, type TrackAddress,
 } from '../contract/index.js';
@@ -43,7 +43,9 @@ import {
   issuedCompositionCheckpoint, previewGeneralDeviceCompositionReversal, runGeneralDeviceCompositionReversal,
 } from './general-device-composition.js';
 import { runModulatorCatalog } from './modulator-catalog.js';
-import { causeOf, receiptOf, reversalReport, type Receipt, type Where } from './report.js';
+import {
+  causeOf, receiptOf, removalsOf, reversalReport, unappliedOps, type Receipt, type Removal, type Where,
+} from './report.js';
 import type { ToolSpec } from './tools.js';
 import { captureWorkspaceChanges, type Workspace } from './workspace.js';
 
@@ -106,6 +108,15 @@ async function guardedRun(
 
 function effectOf(change: StashedChangeset, target: Readonly<Record<string, unknown>>, summary: string): Effect {
   return { changeId: change.take.id, target, summary, fidelity: change.take.fidelity };
+}
+
+/**
+ * The effect of a reversal (D49). `fidelity` states how completely the reversal restored the state before the
+ * reverted change. `redoFidelity` states how completely a revert of the reversal can bring the reverted work back:
+ * the fidelity of the reversal as a change of its own.
+ */
+function reversalEffect(change: StashedChangeset, undoOf: string, summary: string, fidelity: string): Effect {
+  return { changeId: change.take.id, target: { undoOf }, summary, fidelity, redoFidelity: change.take.fidelity };
 }
 
 /** One public place: the shared nouns, a 1-based note channel, and no internal address kinds. */
@@ -264,7 +275,10 @@ type RevertInput = z.infer<typeof revertInput>;
 
 const CHECK_REVERT_DESCRIPTION = `${PROFILE} Read what revert_change would restore for one change, and what it would `
   + 'not, without a write. Each place is compared with what the change left there. A place that a person edited '
-  + 'since, or a slot that a clip moved into or out of, stays and is reported in data.wouldNotRestore. For a '
+  + 'since, or a slot that a clip moved into or out of, stays and is reported in data.wouldNotRestore. '
+  + 'data.wouldRemove names each object that the revert deletes: a device that the change added (track, position, '
+  + 'and name), or a clip that the change put in an empty slot. data.fidelity is the fidelity that revert_change '
+  + 'would report. For a '
   + 'compose_devices change ID, the guards of the first reversal stage run without a write; data.wouldWriteAnything '
   + 'is false, with data.why, when they refuse. A change ID that this server process did not write refuses with '
   + 'code absent.';
@@ -294,7 +308,9 @@ async function checkRevert(workspace: Workspace, args: RevertInput): Promise<unk
       const report = reversalReport(plan, workspace.changes.require(args.changeId).take.targets);
       data = {
         wouldWriteAnything: plan.ops.length > 0, fullyRestorable: report.fullyRestorable,
+        fidelity: report.fidelity,
         wouldRestore: report.wouldRestore.map(placeOf),
+        wouldRemove: report.wouldRemove.map(placeOf),
         wouldNotRestore: report.wouldNotRestore.map((item) => ({ ...item,
           ...(item.where === undefined ? {} : { where: placeOf(item.where) }) })),
         caveats: report.caveats,
@@ -311,7 +327,13 @@ async function checkRevert(workspace: Workspace, args: RevertInput): Promise<unk
 const REVERT_DESCRIPTION = `${PROFILE} Reverse one change that this server process wrote, from what the change `
   + 'recorded before it ran. Use it when the person asks for it. Only places that still hold exactly what the '
   + 'change left are written: a place that a person edited since, or a slot that a clip moved into or out of, stays '
-  + 'and is reported in readback.notRestored. A rebuilt clip gets its recorded notes, length, name, colour, loop, '
+  + 'and is reported in readback.notRestored. readback.removed names each object that the revert deleted: a device '
+  + 'that the change added, or a clip that the change put in an empty slot. A device add is reverted by a delete at '
+  + 'its position with an order guard: revert device adds on one track newest first, or the call refuses with code '
+  + 'target-changed and removes nothing. The effect fidelity states how completely the revert restored the state '
+  + 'before the change: exact, lossy (see notRestored and caveats), or none. redoFidelity states how completely a '
+  + 'revert of this revert can bring the work back; it is none for a removed device, which you add again. A '
+  + 'rebuilt clip gets its recorded notes, length, name, colour, loop, '
   + 'and launch settings back; its play-stop marker and automation do not come back. A set_track_mixer change puts '
   + 'back each mixer field that still holds what it left; a field that has automation now refuses. A compose_devices change ID '
   + '(next.revert) reverses the whole composition: moved existing devices go back, and only the owned sources and '
@@ -329,7 +351,9 @@ async function revertChange(workspace: Workspace, args: RevertInput): Promise<un
       const captured = await captureWorkspaceChanges(workspace,
         (scoped) => runGeneralDeviceCompositionReversal(scoped, { checkpoint }));
       for (const change of captured.changes.filter((item) => takeAppliedAnything(item.take))) {
-        state.effects.push(effectOf(change, { undoOf: args.changeId }, 'One stage of the composition reversal.'));
+        // Each stage runs after its complete guards: a stage with a verified readback restored its part exactly.
+        state.effects.push(reversalEffect(change, args.changeId, 'One stage of the composition reversal.',
+          statusOf(receiptOf(change)) === 'verified' ? 'exact' : 'lossy'));
       }
       const body = captured.result;
       if (body['complete'] !== true) {
@@ -359,15 +383,45 @@ async function revertChange(workspace: Workspace, args: RevertInput): Promise<un
     state.stage = 'write';
     // The clearance travels with the plan: a reversal of our own work is the one write that the engine floor lets
     // through.
-    const change = await workspace.apply(plan.ops, { clearance: plan.clearance });
+    const removals = removalsOf(plan.ops);
+    /** 8i15: the removal guard refused. The device or clip stays, and nothing was written. */
+    const notRemoved = (kept: readonly Removal[], detail: Record<string, unknown>, cause?: unknown) =>
+      new ToolFailure('target-changed', 'guard', kept.length === 0 ? 'The reversal did not apply. Nothing was written.'
+        : 'The project no longer holds what the change left, so the revert removed nothing. Nothing was written. A '
+          + 'device add is removed only when the device order on its track is the order that the add left: revert '
+          + 'the later device changes on the track first.',
+      { retryWhen: 'after the later changes are reverted, newest first', detail: {
+        notRemoved: kept.map((item) => placeOf(item.where)), ...detail }, ...(cause === undefined ? {} : { cause }) });
+    let change: StashedChangeset;
+    try {
+      change = await workspace.apply(plan.ops, { clearance: plan.clearance });
+    } catch (error) {
+      // The adapter checks the complete device order before the delete and throws when it changed (E264).
+      if (error instanceof InvalidOpError && error.op === 'device.delete') {
+        throw notRemoved(removals.filter((item) => item.where.what === 'device'), { hostError: error.message }, error);
+      }
+      throw error;
+    }
     requireApplied(change);
-    state.effects.push(effectOf(change, { undoOf: args.changeId }, `Reverted change ${args.changeId}.`));
     const receipt = receiptOf(change);
+    // A removal that did not apply did not happen. The device or clip stays, and the result says so.
+    const unapplied = unappliedOps(change.take);
+    const kept = removals.filter((item) => unapplied.has(item.opIndex));
+    if (unapplied.size === plan.ops.length) {
+      throw notRemoved(kept, receipt.failed === undefined ? {} : { failed: receipt.failed });
+    }
+    const allNotRestored = [...notRestored, ...kept.map((item) => ({ where: placeOf(item.where), what: item.where.what,
+      why: 'The guard of this removal refused: the project no longer holds what the change left. It stays.' }))];
+    state.effects.push(reversalEffect(change, args.changeId, `Reverted change ${args.changeId}.`,
+      kept.length > 0 && report.fidelity === 'exact' ? 'lossy' : report.fidelity));
     const status = statusOf(receipt);
     const result: WriteResult<unknown> = {
       schema: REVERT_SCHEMA, applied: true, effects: state.effects,
-      readback: { status, restored: report.wouldRestore.map(placeOf), notRestored,
+      readback: { status, restored: report.wouldRestore.map(placeOf),
+        removed: removals.filter((item) => !unapplied.has(item.opIndex)).map((item) => placeOf(item.where)),
+        notRestored: allNotRestored,
         ...(report.caveats.length === 0 ? {} : { caveats: report.caveats }),
+        ...(receipt.failed === undefined ? {} : { failed: receipt.failed }),
         ...(receipt.mismatches === undefined ? {} : { mismatches: receipt.mismatches }) },
       warnings: unavailableWarnings(status, 'the restored places'),
     };

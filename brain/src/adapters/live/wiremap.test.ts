@@ -80,6 +80,8 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
     // 8h4e0 (E244): the display observer ID set and the callback log.
     'directparam.log',
     'directparam.observeDisplay',
+    // 8i15 (E264): the product copies with slot.copyTo. Older probe drivers use this method for setup.
+    'slot.duplicateClip',
     'stepdata.observer.enrich',
     'stepdata.observer.prepare',
     'stepdata.observer.read',
@@ -88,8 +90,8 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
     probeGolden.methods,
     [...new Set([...normalGolden.methods, ...probeOnly])].sort(),
   );
-  assert.equal(normalGolden.count, 93);
-  assert.equal(captureGolden.count, 98);
+  assert.equal(normalGolden.count, 92);
+  assert.equal(captureGolden.count, 97);
   assert.equal(probeGolden.count, 111);
 });
 
@@ -510,9 +512,10 @@ test('E20: session 3b early-probe surface is probe surface, and the contract can
   const unexpected = e20.filter((m) => !allowed.includes(m));
   assert.deepEqual(unexpected, [], `session 3b added an unexpected method: ${unexpected.join(', ')}`);
   const reachable = e20.filter((m) => WIRE_METHODS_USED.includes(m));
+  // 8i15 (E264): slot.duplicateClip is probe-only again. The product copies with slot.copyTo (8i14).
   assert.deepEqual(reachable.sort(), [
-    'cursor.playState', 'slot.duplicateClip', 'slot.launchWithOptions', 'slot.playState',
-  ], 'session 3e promotes the four measured clip primitives; ui.get remains probe-only');
+    'cursor.playState', 'slot.launchWithOptions', 'slot.playState',
+  ], 'session 3e promotes the measured clip primitives; ui.get and slot.duplicateClip are probe-only');
 });
 
 test('3e-arm-1: per-clip launch-setting probes are named and promoted', () => {

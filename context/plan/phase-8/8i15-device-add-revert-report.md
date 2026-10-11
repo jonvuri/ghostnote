@@ -1,16 +1,21 @@
 ---
 title: Phase 8i15 device-add revert report
 kind: plan
-state: planned
-status: Planned. Next session. Make `revert_change` and `check_revert` report a reverted device add correctly.
+state: done
+status: Complete (E264, D49). `check_revert` and `revert_change` name each removed device and clip; the revert fidelity states what the revert restored; `slot.duplicateClip` is probe-only.
 updated: 2026-10-11
 parent: README.md
 prev: 8i14-clip-copy-to-any-row.md
 next: 8i-agent-native-hybrid-dogfood.md
-evidence: E262, E263
+evidence: E262, E263, E264
 ---
 
 # Phase 8i15 device-add revert report
+
+Result: [E264](../../evidence/experiments/e264-device-add-revert-report.md)
+and [D49](../../decisions/d49-revert-fidelity-states-what-the-revert-restored.md).
+Work item 7 put `slot.duplicateClip` in the probe-only set, not in
+`HISTORICAL`: advertised probe drivers send it (E264).
 
 Issue D8 of the [issue log](8i-dogfood-issues.md)
 ([E262](../../evidence/experiments/e262-automated-dogfood-stretch-set.md), S2).

@@ -178,6 +178,46 @@ test('8h4e add_devices: every unknown native name refuses together before a writ
   assert.equal(preset.failure.code, 'invalid-input');
 });
 
+test('8i15 add_devices revert: the check and the revert name the removed device, and the fidelity agrees', async () => {
+  const fx = abFixture();
+  const added = await fx.native('add_devices', { trackId: fx.trackId,
+    devices: [{ kind: 'native', name: 'EQ+' }, { kind: 'native', name: 'Delay+' }] });
+  assert.deepEqual(added.effects.map((item: Wire) => item.fidelity), ['exact', 'exact'], JSON.stringify(added));
+  const names = () => fx.row.devices.map((item) => item.name);
+  assert.deepEqual(names(), ['Polysynth', 'FX Layer', 'Tool', 'EQ+', 'Delay+']);
+  const [first, second] = added.effects.map((item: Wire) => item.changeId as string);
+  const place = (devicePosition: number, name: string) => ({ what: 'device', trackId: fx.trackId, devicePosition, name });
+
+  const check = await fx.native('check_revert', { changeId: second });
+  assert.equal(check.data.wouldWriteAnything, true, JSON.stringify(check));
+  assert.equal(check.data.fullyRestorable, true);
+  assert.equal(check.data.fidelity, 'exact');
+  assert.deepEqual(check.data.wouldRemove, [place(4, 'Delay+')]);
+  assert.deepEqual(check.data.wouldRestore, []);
+  assert.deepEqual(names().length, 5, 'the check writes nothing');
+
+  // The delete has an order guard: the first add cannot be reverted while the second device is there.
+  const early = await fx.native('revert_change', { changeId: first });
+  assert.equal(early.failure.code, 'target-changed', JSON.stringify(early));
+  assert.equal(early.failure.stage, 'guard');
+  assert.deepEqual(early.failure.effects, []);
+  assert.match(early.detail.hostError, /top-level device chain changed/);
+  assert.deepEqual(early.detail.notRemoved, [place(3, 'EQ+')]);
+  assert.equal(names().length, 5, 'the refused revert removes nothing');
+
+  for (const [changeId, removed] of [[second, place(4, 'Delay+')], [first, place(3, 'EQ+')]] as const) {
+    const reverted = await fx.native('revert_change', { changeId });
+    assert.equal(reverted.applied, true, JSON.stringify(reverted));
+    assert.equal(reverted.readback.status, 'verified');
+    assert.deepEqual(reverted.readback.removed, [removed]);
+    assert.deepEqual(reverted.readback.notRestored, []);
+    assert.equal(reverted.effects.length, 1);
+    assert.equal(reverted.effects[0].fidelity, 'exact', 'the revert restored the prior device list');
+    assert.equal(reverted.effects[0].redoFidelity, 'none', 'a revert cannot add the device again');
+  }
+  assert.deepEqual(names(), ['Polysynth', 'FX Layer', 'Tool']);
+});
+
 test('8h4e compose_devices: the private backend boundary', () => {
   const chain = (name: string, source: Wire, extra: Wire = {}) => ({ name, devices: [{ source, ...extra }] });
   const native = (name: string) => ({ kind: 'native' as const, name });

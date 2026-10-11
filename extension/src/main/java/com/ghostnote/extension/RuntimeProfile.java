@@ -180,7 +180,6 @@ public enum RuntimeProfile {
             "selection.status",
             "slot.copyTo",
             "slot.delete",
-            "slot.duplicateClip",
             "slot.launchWithOptions",
             "slot.moveTo",
             "slot.playState",
@@ -222,6 +221,7 @@ public enum RuntimeProfile {
             "directparam.hop",
             "directparam.log",
             "directparam.observeDisplay",
+            "slot.duplicateClip",
             "stepdata.observer.enrich",
             "stepdata.observer.prepare",
             "stepdata.observer.read"
@@ -362,8 +362,8 @@ public enum RuntimeProfile {
             ALL_CLASSIFIED = Set.copyOf(classified);
 
             if (!PRODUCT.containsAll(OPTIONAL_CAPTURE)
-                    || PRODUCT.size() != 98
-                    || NORMAL.size() != 93
+                    || PRODUCT.size() != 97
+                    || NORMAL.size() != 92
                     || PROBE.size() != 111
                     || HISTORICAL.size() != 54
                     || ALL_CLASSIFIED.size() != 170

@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v47';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v48';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -546,7 +546,8 @@ export const DESCRIPTION_COHORT_V42: readonly DescriptionCohortMember[] = DESCRI
  * unavailable, and three descriptions state their selection effects. v45 (8i10) keeps this list:
  * add_launcher_clip, edit_launcher_clip, and the read reference input state when to request Timing overlays. v46
  * (8i11) keeps this list: the read_launcher_clip description names reference revision 5. v47 (8i14) keeps this
- * list: copy_launcher_clips copies to any empty slot.
+ * list: copy_launcher_clips copies to any empty slot. v48 (8i15) keeps this list: check_revert and revert_change
+ * name the removed objects and state the revert fidelity.
  */
 export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V42,
@@ -842,7 +843,15 @@ export const TOOL_DESCRIPTION_V46_SHA256 =
   '4e83b4c03a9ec039d6b39fe21dfaa65396c93a5f6886280b28d513a27a90fdfe';
 
 /**
- * v47 (8i14, E263): copy_launcher_clips copies a clip to any empty slot of an Instrument or Hybrid track. Changing this fingerprint requires a new description version.
+ * v47 (8i14, E263): copy_launcher_clips copies a clip to any empty slot of an Instrument or Hybrid track. Frozen
+ * in 8i15.
  */
 export const TOOL_DESCRIPTION_V47_SHA256 =
   '908c26cee0c0d4665312cd4462b77ea0084c1a3d4fd13dc0191e25cfbf5db0f6';
+
+/**
+ * v48 (8i15, E264, D49): check_revert and revert_change name each object that a revert removes, and state what the
+ * revert fidelity and redoFidelity mean. Changing this fingerprint requires a new description version.
+ */
+export const TOOL_DESCRIPTION_V48_SHA256 =
+  '1759a278fc4afa63210ab5f6d938b799d020a1f7924acde2f58718affec8b282';
