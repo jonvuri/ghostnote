@@ -6,7 +6,7 @@ status: Complete (E260). A duplicate current claim returns repair duplicate-clai
 updated: 2026-10-09
 parent: README.md
 prev: 8i10-unprompted-overlay-trials.md
-next: 8i-agent-native-hybrid-dogfood.md
+next: 8i12-automated-dogfood-process-proof.md
 evidence: E256, E259, E260; D45, D47
 ---
 

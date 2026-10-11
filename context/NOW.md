@@ -2,19 +2,24 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-10-09
+updated: 2026-10-11
 phase: phase-8-agent-native-live-engine
 session: 8i11-claim-replacement-repair
 ---
 
 ## Now
 
-Next: the 8i gate close-out
-([8i plan](plan/phase-8/8i-agent-native-hybrid-dogfood.md), item 13):
-check the 8i acceptance criteria against E249–E260, give each Phase 8
-interface a verdict, and write the Phase 9 handoff with the 9b artifact
-inventory. [9c](plan/phase-9/9c-release-and-upgrade-live-suite.md) is the
-release and Bitwig upgrade live suite.
+Next: [8i12](plan/phase-8/8i12-automated-dogfood-process-proof.md), the
+automated dogfood process proof. A driving agent runs one fresh Codex
+session and one fresh Claude session on one mechanical task in
+`gn-scale-test` (Ghostnote only, no computer use), checks the transcript and the state, and writes the
+runbook, the issue log, and the stretch-set proposal (8i13). The 8i gate
+close-out ([8i plan](plan/phase-8/8i-agent-native-hybrid-dogfood.md),
+item 14) follows the stretch set and its operator review: check the 8i
+acceptance criteria against the E records, give each Phase 8 interface a
+verdict, and write the Phase 9 handoff with the 9b artifact inventory.
+[9c](plan/phase-9/9c-release-and-upgrade-live-suite.md) is the release and
+Bitwig upgrade live suite.
 
 8i11 is complete ([E260](evidence/experiments/e260-claim-replacement-repair.md)).
 A duplicate current claim (R13, R14) names both IDs and the event and

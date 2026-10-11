@@ -2,8 +2,8 @@
 title: Phase 8i — Agent-native hybrid dogfood
 kind: plan
 state: planned
-status: Final Phase 8 gate. 8i0–8i11 are complete (E249–E260, D42–D48); the groove and overlay trials passed (E256), and timing claims are used without a leading prompt (E259, E260). Next: the gate close-out.
-updated: 2026-10-09
+status: Final Phase 8 gate. 8i0–8i11 are complete (E249–E260, D42–D48); the groove and overlay trials passed (E256), and timing claims are used without a leading prompt (E259, E260). Next: 8i12, the automated dogfood process proof, then the gate close-out.
+updated: 2026-10-11
 parent: README.md
 prev: 8i5-device-control-identity.md
 next: ../phase-9/README.md
@@ -90,9 +90,16 @@ The following sessions completed them before the 2026-10-09 trial:
     the duplicate-claim and onset-floor refusals return a repair; reference
     revision 5, descriptions v46; the operator rerun of T1 steps 1 and 2 had
     no refusal.
-13. Next: the gate close-out. Check the [acceptance criteria](#acceptance-criteria)
-    against E249–E260, give each Phase 8 interface a verdict, and write the
-    [Phase 9 handoff](#phase-9-handoff) with the 9b artifact inventory.
+13. Next: [8i12 — Automated dogfood process proof](8i12-automated-dogfood-process-proof.md).
+    A driving agent runs fresh Codex and Claude sessions on mechanical
+    tasks, checks each transcript and the state, and logs issues for an
+    operator review. 8i12 proves the loop and proposes the stretch set
+    (8i13) for the parts that the trials stretched least.
+14. Then the gate close-out. Check the [acceptance criteria](#acceptance-criteria)
+    against the E records, give each Phase 8 interface a verdict, and write
+    the [Phase 9 handoff](#phase-9-handoff) with the 9b artifact inventory.
+    The resident cache is gone (8h3e): mark the cache items of the trial
+    set and of the criteria as void, with E230 and E233.
 
 ## Fresh agent trials
 
