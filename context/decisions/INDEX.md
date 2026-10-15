@@ -2,7 +2,7 @@
 title: Decision index
 kind: index
 state: active
-updated: 2026-10-11
+updated: 2026-10-15
 ---
 
 # Decision index
@@ -61,6 +61,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D47 | Clip creation binds claims to the live clip **[SETTLED 2026-10-09]** | [open](d47-clip-creation-binds-claims-to-the-live-clip.md) |
 | D48 | The track mixer writes host raw values **[SETTLED 2026-10-09]** | [open](d48-track-mixer-writes-host-raw-values.md) |
 | D49 | The fidelity of a revert states what the revert restored **[SETTLED 2026-10-11]** | [open](d49-revert-fidelity-states-what-the-revert-restored.md) |
+| D50 | MIDI files are offline conversions: full inline documents, explicit tempo mapping and losses, FIFO pairing, atomic new-file export with no project revert; snapshot export uses observed MIDI field coverage **[SETTLED 2026-10-14, AMENDED 2026-10-15]** | [open](d50-midi-files-are-offline-conversions.md) |
 
 ## Phase 4 closeout audit
 

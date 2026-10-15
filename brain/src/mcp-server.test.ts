@@ -11,8 +11,8 @@ const STABLE_INSTRUCTIONS = 'Ghostnote reads and edits the active Bitwig Studio 
   + 'permanently remove containers.';
 const AGENT_NATIVE_INSTRUCTIONS = 'Ghostnote reads and edits the active Bitwig Studio project: tracks, Launcher '
   + 'clips as Ghostnote documents, devices, layer chains, device controls, and preset modulation. Read the current '
-  + 'state before a write. Each result has a schema; a failure has failure.code. Each durable effect has a change '
-  + 'ID for revert_change. Delete tools permanently remove what they name.';
+  + 'state before a write. Each result has a schema; a failure has failure.code. Each durable project effect has a change '
+  + 'ID for revert_change. MIDI file tools work offline: file writes have no project change ID or revert. Delete tools permanently remove what they name.';
 
 const environment = (profile?: string): Record<string, string> => ({
   ...Object.fromEntries(Object.entries(process.env)
@@ -34,7 +34,7 @@ test('8h4f: the default server profile is agent-native-v1, with its compact inst
   const client = await connected(t);
   assert.equal(client.getInstructions(), AGENT_NATIVE_INSTRUCTIONS);
   const names = (await client.listTools()).tools.map((item) => item.name);
-  assert.equal(names.length, 42);
+  assert.equal(names.length, 44);
   assert.equal(names[1], 'check_bitwig_connection');
 });
 
@@ -75,10 +75,10 @@ test('the agent-native-v1 server profile lists the kept stable tools, the docume
   t.after(async () => client.close());
 
   const names = (await client.listTools()).tools.map((item) => item.name);
-  assert.equal(names.length, 42);
-  assert.deepEqual(names.slice(-24, -21), ['read_launcher_clip', 'check_launcher_clips', 'edit_launcher_clip']);
-  assert.deepEqual(names.slice(-14, -11), ['read_devices', 'read_device_controls', 'set_device_controls']);
-  assert.deepEqual(names.slice(-2), ['read_track_mixer', 'set_track_mixer']);
+  assert.equal(names.length, 44);
+  assert.deepEqual(names.slice(-26, -23), ['read_launcher_clip', 'check_launcher_clips', 'edit_launcher_clip']);
+  assert.deepEqual(names.slice(-16, -13), ['read_devices', 'read_device_controls', 'set_device_controls']);
+  assert.deepEqual(names.slice(-4), ['read_track_mixer', 'set_track_mixer', 'read_midi_file', 'write_midi_file']);
   for (const retired of ['acquire_clip_note_source', 'read_clip', 'write_notes', 'record_observation', 'copy_clip_down',
     'create_device_alternates', 'keep_device_alternate', 'inspect_devices', 'set_parameter', 'compose_device_sources',
     'check_connection', 'add_track', 'copy_track', 'inspect_operation', 'cancel_operation']) {

@@ -193,8 +193,9 @@ test('8h4b profile: stable-v1 registration is byte-equal; agent-native-v1 keeps 
     ['compose_devices', 'write'], ['duplicate_layer_chain', 'write'], ['rename_layer_chain', 'write'],
     ['move_devices', 'write'], ['copy_devices', 'write'], ['set_layer_chain_solo', 'write'],
     ['read_track_mixer', 'read'], ['set_track_mixer', 'write'],
+    ['read_midi_file', 'read'], ['write_midi_file', 'write'],
   ]);
-  assert.equal(native.length, 42);
+  assert.equal(native.length, 44);
   for (const spec of native.slice(kept.length, kept.length + 4)) {
     assert.deepEqual(spec.emits, spec.kind === 'read' ? []
       : ['clip.update', 'note.remove', 'note.insert', 'note.clear', 'note.write']);

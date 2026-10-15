@@ -25,6 +25,8 @@ import {
   TOOL_DESCRIPTION_V46_SHA256,
   TOOL_DESCRIPTION_V47_SHA256,
   TOOL_DESCRIPTION_V48_SHA256,
+  TOOL_DESCRIPTION_V49_SHA256,
+  TOOL_DESCRIPTION_V50_SHA256,
   TOOL_DESCRIPTION_V29_SHA256,
   TOOL_DESCRIPTION_V28_SHA256,
   TOOL_DESCRIPTION_V27_SHA256,
@@ -58,7 +60,7 @@ import {
 } from './description-cohort.js';
 import { AGENT_NATIVE_TOOLS, ANNOTATIONS, TOOLS } from './tools.js';
 
-/** v43 (8i7): the complete default agent-native-v1 list, in profile order (v42 plus the two mixer tools). */
+/** The complete default agent-native-v1 list in profile order, including the MIDI file tools. */
 const EXPECTED_COHORT = [
   'list_modulator_types', 'check_bitwig_connection', 'list_tracks', 'list_changes', 'check_revert', 'launch_clip',
   'add_tracks', 'duplicate_track', 'rename_track', 'add_scenes', 'wrap_existing_device_modulation',
@@ -68,11 +70,11 @@ const EXPECTED_COHORT = [
   'delete_launcher_clip', 'show_launcher_clip_in_detail_editor',
   'read_devices', 'read_device_controls', 'set_device_controls', 'read_preset_modulation', 'edit_preset_modulation',
   'add_devices', 'compose_devices', 'duplicate_layer_chain', 'rename_layer_chain', 'move_devices', 'copy_devices',
-  'set_layer_chain_solo', 'read_track_mixer', 'set_track_mixer',
+  'set_layer_chain_solo', 'read_track_mixer', 'set_track_mixer', 'read_midi_file', 'write_midi_file',
 ] as const;
 
-test('description v48 names one complete and explicit cohort: the default agent-native-v1 list', () => {
-  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v48');
+test('description v50 names one complete and explicit cohort: the default agent-native-v1 list', () => {
+  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v50');
   assert.deepEqual(DESCRIPTION_COHORT.map((member) => member.name), EXPECTED_COHORT);
   assert.deepEqual(AGENT_NATIVE_TOOLS.map((spec) => spec.name), EXPECTED_COHORT);
   assert.equal(new Set(EXPECTED_COHORT).size, EXPECTED_COHORT.length);
@@ -92,12 +94,12 @@ test('description v1 stays frozen as its original 15-tool artifact', () => {
   );
 });
 
-test('description v48 matches its public artifact', () => {
+test('description v50 matches its public artifact', () => {
   const artifact = descriptionCohortArtifact(AGENT_NATIVE_TOOLS, ANNOTATIONS);
   assert.equal(
     fingerprintDescriptionCohort(artifact),
-    TOOL_DESCRIPTION_V48_SHA256,
-    'the v48 public wording or schema changed',
+    TOOL_DESCRIPTION_V50_SHA256,
+    'the v50 public wording or schema changed',
   );
 });
 
@@ -389,4 +391,12 @@ test('description v10 distinguishes the three public container writers by MIDI r
 
   assert.match(descriptions['compose_drum_machine'] ?? '', /per-MIDI-note routing/);
   assert.match(descriptions['compose_drum_machine'] ?? '', /one note reaches one separate pad device/);
+});
+
+test('description v48 keeps its frozen public artifact', () => {
+  assert.equal(TOOL_DESCRIPTION_V48_SHA256, '1759a278fc4afa63210ab5f6d938b799d020a1f7924acde2f58718affec8b282');
+});
+
+test("description v49 keeps its frozen public artifact", () => {
+  assert.equal(TOOL_DESCRIPTION_V49_SHA256, "e379ac34a5c2f1b25e95c02e6ba42ad5f613b4bc43f94497532ff8ad12270a59");
 });

@@ -115,8 +115,8 @@ const spec = (name: string) => AGENT_NATIVE_TOOLS.find((item) => item.name === n
 
 test('8i6 descriptions: each document consumer names the custom format and the reference tool', () => {
   const consumers = AGENT_NATIVE_TOOLS.filter((item) => 'document' in item.inputSchema).map((item) => item.name);
-  assert.deepEqual(consumers.sort(), ['add_launcher_clip', 'edit_launcher_clip']);
-  for (const name of [...consumers, 'read_launcher_clip', 'check_launcher_clips']) {
+  assert.deepEqual(consumers.sort(), ['add_launcher_clip', 'edit_launcher_clip', 'write_midi_file']);
+  for (const name of [...consumers, 'read_launcher_clip', 'check_launcher_clips', 'read_midi_file']) {
     assert.match(spec(name).description, /Ghostnote Document 1\.0/, name);
     assert.match(spec(name).description, new RegExp(REFERENCE_TOOL), name);
   }

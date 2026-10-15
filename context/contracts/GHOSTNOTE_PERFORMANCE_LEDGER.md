@@ -2,9 +2,9 @@
 title: Ghostnote performance ledger
 kind: reference
 state: active
-updated: 2026-10-11
+updated: 2026-10-15
 parent: ../plan/phase-8/8h-cache-promotion-and-interface-simplification.md
-evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252, E253, E254, E256, E257, E258, E263, E264
+evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252, E253, E254, E256, E257, E258, E263, E264, E265, E267
 ---
 
 # Ghostnote performance ledger
@@ -227,6 +227,26 @@ above stay the reference for top-level tracks.
 | `edit_preset_modulation` (D46: identity check, no samples), one LFO; its revert | 2,055 ms; 1,287 ms | E252: 7,092 ms. E254 without the identity check: 1,510 ms, 50 | wire: 67 | E254 |
 | Modulation route suite (`probe:modulation-routes`, `stable-v1` witnesses; not a product call) | 160 s for 18 checks | — | — | E254 |
 | A/B audition and winner collapse, 2 layer chains (8 calls) | 11,877–12,084 ms; 447–450 wire calls | E239: 21,877–21,903 ms, 497 wire calls; `stable-v1` managed alternates: 20,191–20,247 ms (E239: 50.7 s) | — | E247 ab |
+
+### Offline MIDI files (E265, E267)
+
+`read_midi_file` and `write_midi_file` use zero host calls, turns, cold reads,
+and host write stages. The call-budget test asserts this. Import reads one
+local file; export stages, publishes, and verifies one new file. Six operator
+files (33–1,682 notes): read 2.8–66.4 ms, write and verify 6.3–59.1 ms.
+A generated 16,384-note sequential case: read 522.7 ms, write 455.6 ms,
+674,732 FIELDS bytes. Heap after import: 135.2 MiB; RSS: 423.5 MiB. These are
+process snapshots, not peaks. Dense overlaps and metadata have separate bounds;
+this case does not measure their worst cost. No live-path budget changes.
+See [E265](../evidence/experiments/e265-inline-midi-file-conversion.md).
+
+E267 snapshot export keeps the zero host budget. Three original trial snapshots
+(72–100 notes) exported unchanged in 10.3–15.6 ms and matched the trial file
+hashes. A 16,384-note snapshot took 375.7 ms, with 35.8 MiB heap and 315.0 MiB
+RSS after export. One full document validation was removed; one coverage check
+per clip was added. The run is not a controlled speed comparison with E265.
+See [E267](../evidence/experiments/e267-midi-snapshot-export.md).
+
 
 ## Limits
 

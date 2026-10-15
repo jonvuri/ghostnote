@@ -2,8 +2,8 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: 8h and 8i0–8i15 are complete (E247–E264); the groove and overlay trials passed, timing claims are used without a leading prompt or a claim refusal, the automated dogfood loop is proved, the stretch set passed, a clip copy reaches any empty slot (E263), and a revert names what it removed (E264, D49). Next: the 8i gate close-out.
-updated: 2026-10-11
+status: 8h, 8i0–8i16, and 8i18 are complete (E247–E267). The MIDI trial is recorded and snapshot export is fixed. 8i17 plans the separate musical-navigation survey. Next: the 8i gate close-out.
+updated: 2026-10-15
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
 next: ../phase-9/README.md
@@ -436,8 +436,14 @@ owns the migration details.
    E263) lets `copy_launcher_clips` copy to any empty slot.
    [8i15 — Device-add revert report](8i15-device-add-revert-report.md)
    (complete, E264, D49) makes `check_revert` and `revert_change` name
-   each removed device and clip. Next: the 8i gate close-out (verdicts and
-   the 9b handoff).
+   each removed device and clip.
+   [8i16 — Inline MIDI file conversion](8i16-midi-file-conversion.md)
+   (complete, E265, D50) adds full-document read and new-file write tools.
+   [8i17 — MIDI musical navigation survey](8i17-midi-musical-navigation-survey.md)
+   is a separate planned survey, with the E266 operator trial as a baseline example.
+   [8i18 — MIDI snapshot export](8i18-midi-snapshot-export.md) (complete,
+   E266, E267) records the trial and fixes the snapshot coverage refusal.
+   Next: the 8i gate close-out (verdicts and the 9b handoff).
    None requires a skill.
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.

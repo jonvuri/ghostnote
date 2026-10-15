@@ -1,0 +1,56 @@
+{
+  "version": "8i18-snapshot-replay-v1",
+  "date": "2026-10-15T00:48:49.677Z",
+  "node": "v24.11.1",
+  "source": "rollout-2026-10-14T21-41-17-01a13aa5-5bb9-7e42-a526-77de86bc1f2a.jsonl",
+  "sourceSha256": "632ddd5dcb26b5aea8b6248e222cd254f62a60d0fdba55e41ae5d10d33102c7b",
+  "hostCalls": 0,
+  "results": [
+    {
+      "readLine": 190,
+      "writeLine": 214,
+      "file": "syncopated.mid",
+      "notes": 72,
+      "sha256": "9878a7d0cd2df981ef292632db8240312ef1fa79a58515d557e0a1da65e2a523",
+      "matchesTrialBytes": true,
+      "readback": "verified",
+      "writeMs": 15.576166,
+      "heapBefore": 32785864,
+      "heapAfter": 39281944
+    },
+    {
+      "readLine": 192,
+      "writeLine": 215,
+      "file": "light.mid",
+      "notes": 92,
+      "sha256": "ab0a0dd07f6dbd510f42ae7249adfb92c50a161d27067bde678a85c7d45ecf23",
+      "matchesTrialBytes": true,
+      "readback": "verified",
+      "writeMs": 10.93145899999999,
+      "heapBefore": 39307928,
+      "heapAfter": 19598008
+    },
+    {
+      "readLine": 191,
+      "writeLine": 216,
+      "file": "driving.mid",
+      "notes": 100,
+      "sha256": "e07feab7ae22927182d926221789be47a63504e5bed98e1b6376825375b02be9",
+      "matchesTrialBytes": true,
+      "readback": "verified",
+      "writeMs": 10.339542000000023,
+      "heapBefore": 19616384,
+      "heapAfter": 27375776
+    },
+    {
+      "file": "generated-16384-note-snapshot",
+      "notes": 16384,
+      "sha256": "d091ea12197728b9ca81262ed497b56a509cd29ded7525c94f8c668a079d4876",
+      "readback": "verified",
+      "writeMs": 375.68141599999996,
+      "heapBefore": 24693616,
+      "heapAfter": 37572520,
+      "rssAfter": 330317824
+    }
+  ]
+}

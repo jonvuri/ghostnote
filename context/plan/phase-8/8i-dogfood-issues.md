@@ -1,19 +1,20 @@
 ---
-title: 8i automated dogfood issue log
+title: 8i dogfood issue log
 kind: reference
 state: active
-updated: 2026-10-11
+updated: 2026-10-15
 parent: 8i-agent-native-hybrid-dogfood.md
 ---
 
-# 8i automated dogfood issue log
+# 8i dogfood issue log
 
 The driving agent of an automated dogfood session
 ([runbook](8i-automated-dogfood-runbook.md)) adds one row for each issue.
 It does not change product code. The operator fills the decision column in
 a review session. The operator reviewed D1 to D12 on 2026-10-11: D9 and
 D8 get fix sessions; the other rows need no action. D9 is fixed (E263). D8 is fixed (E264). A transcript reference is an extract file and its `line`
-values, under `context/evidence/data/`.
+values, under `context/evidence/data/`. E266 adds the operator MIDI trial;
+the operator requested the D13 fix on 2026-10-15. E267 verifies that fix.
 
 Owners: `description`, `tool`, `client`, `agent`, `driver` (the runner, a
 fixture driver, or the runbook), and `operator` (the fixture state).
@@ -32,3 +33,4 @@ fixture driver, or the runbook), and `operator` (the fixture state).
 | D10 | S4, S5 (E262) | Codex | `phase8i13-dogfood/s4-codex/extract.jsonl`, lines 15, 20, 40; `s5-codex/extract.jsonl`, line 15 | S4, with "Use Ghostnote." in the prompt: three `cua_repl` calls. `getApp("Ghostnote")` failed, `getState()` returned the list of the applications on the operator's computer, and `getApp` for Bitwig was refused as not approved. S5, without the line: the first call was a refused `cua_repl` call for Bitwig; the agent then found Ghostnote in the tool list. E261 had no `cua_repl` call | No expectation for the client. The runner can disable the plug-in for a session; the evidence copy must not hold the application list (removed here) | client | No action (operator, 2026-10-11) |
 | D11 | Fixture check (E262) | — | E262, Driver and runner; each `state-cleanup.jsonl` | After a clip write on a fixture track and the track delete, `selection.status` reports the last slot (`trackIndex`, `slotIndex`) and `slot.status` reports `isSelected: false`. The state no longer equals `state-entry.jsonl` (no slot). The session compared without the two slot fields | A `selection.status` that reports no slot when none is selected, or a baseline comparison that does not hold the slot fields (the runbook now says so) | driver | No action (operator, 2026-10-11) |
 | D12 | S1, S2, S4 (E262) | — | E262, Driver and runner | The plan asked for raw wire reads of the state. The bridge has no clip or device read without a cursor, so the driver reads clip documents and device controls with the product read tools in its own process | An independent read that does not use the tool under test, or a plan that accepts the product read | driver | No action (operator, 2026-10-11) |
+| D13 | Operator MIDI trial (E266) | Codex | `phase8i18-midi-snapshot/trial.json`, rollout lines 200, 207, 214–216 | Export rejected a valid Launcher snapshot after changing its kind to desired. The agent changed coverage to all, then accepted loop loss and exported | Accept observed MIDI fields without claiming unobserved fields | tool | Fixed in [8i18](8i18-midi-snapshot-export.md), [E267](../../evidence/experiments/e267-midi-snapshot-export.md); operator requested the fix on 2026-10-15 |

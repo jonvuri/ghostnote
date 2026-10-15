@@ -12,6 +12,10 @@
  */
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { mkdtemp, writeFile, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { SIMPLE_MIDI } from '../midi/fixtures.js';
 
 import { FakeAdapter } from '../adapters/fake/adapter.js';
 import { IdentityRegistry } from '../bindings/identity-registry.js';
@@ -369,3 +373,17 @@ const EXPECTED_MIXER_BUDGETS: Record<string, Counts> = {
   revert8: { read: 3, delta: 2, resolve: 1, apply: 1 },
   revert1: { read: 3, delta: 2, resolve: 1, apply: 1 },
 };
+
+test('8i16 call budget: successful MIDI file read and write each make zero host calls', async () => {
+  const fx = await fixture();
+  const dir = await mkdtemp(join(tmpdir(), 'gn-midi-budget-'));
+  try {
+    await writeFile(join(dir, 'source.mid'), SIMPLE_MIDI);
+    const read = await fx.call('read_midi_file', { path: join(dir, 'source.mid'), targetBpm: 120 });
+    assert.equal(read.result.failure, undefined);
+    assert.deepEqual(read.counts, {});
+    const write = await fx.call('write_midi_file', { path: join(dir, 'result.mid'), document: read.result.data.document });
+    assert.equal(write.result.readback.status, 'verified');
+    assert.deepEqual(write.counts, {});
+  } finally { await rm(dir, { recursive: true, force: true }); }
+});

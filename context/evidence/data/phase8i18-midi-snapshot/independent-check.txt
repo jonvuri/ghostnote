@@ -1,0 +1,9 @@
+{"file": "syncopated.mid", "notes": 72, "exactSnapshotAndOutputNotes": true, "hashMatch": true, "ppq": 512, "tempoUs": [[0, 545455]], "endTicks": [8192, 8192]}
+{"file": "light.mid", "notes": 92, "exactSnapshotAndOutputNotes": true, "hashMatch": true, "ppq": 512, "tempoUs": [[0, 545455]], "endTicks": [8192, 8192]}
+{"file": "driving.mid", "notes": 100, "exactSnapshotAndOutputNotes": true, "hashMatch": true, "ppq": 512, "tempoUs": [[0, 545455]], "endTicks": [8192, 8192]}
+raw MIDI hat coherence 120 0.06491
+raw MIDI hat coherence 126 0.89417
+raw MIDI hat coherence 126.01 0.91031
+syncopated matches source excerpt at 126 BPM with kick and snare remaps; first beat 0.0859375
+light matches source excerpt at 126 BPM with kick and snare remaps; first beat 0.09375
+driving matches source excerpt at 126 BPM with kick and snare remaps; first beat 0.08203125

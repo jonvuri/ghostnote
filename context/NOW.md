@@ -2,7 +2,7 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-10-11
+updated: 2026-10-15
 phase: phase-8-agent-native-live-engine
 session: 8i-gate-close-out
 ---
@@ -22,16 +22,26 @@ The operator reviewed the [issue log](plan/phase-8/8i-dogfood-issues.md)
 (D1 to D12): only D9 and D8 get a fix; the other rows need no action. Both
 are fixed (E263, E264).
 
-8i15 is complete ([E264](evidence/experiments/e264-device-add-revert-report.md),
-[D49](decisions/d49-revert-fidelity-states-what-the-revert-restored.md)).
-`check_revert` gives `data.wouldRemove` and `data.fidelity`;
-`revert_change` gives `readback.removed` (a device with track, position,
-and name; a clip with track and row). The effect `fidelity` of a revert
-states what the revert restored; `redoFidelity` states the reversal of the
-revert. A device-add revert in the wrong order refuses with
-`target-changed` at stage `guard`. `slot.duplicateClip` is in the
-probe-only set. Descriptions are v48. The 8i11 claim repairs stay with the
-operator in Codex Desktop (claims do not survive a session resume).
+8i18 is complete. [E266](evidence/experiments/e266-inline-midi-operator-trial.md)
+records the operator's MIDI trial. [E267](evidence/experiments/e267-midi-snapshot-export.md)
+fixes its snapshot export refusal (issue D13). `write_midi_file` now accepts
+unchanged `read_launcher_clip` snapshots with complete MIDI field coverage.
+Do not change snapshot coverage to `all`. Loop loss still requires `acceptLoss`.
+Descriptions are v50 (44 tools); the controller remains 8i15.
+
+The trial used `targetBpm: 126` for the 60 BPM transcription, then played the
+selected grooves at the operator's chosen 110 BPM. The earlier E265 test used
+120 BPM. Fix the source tempo explicitly in comparisons. The separate
+[8i17 plan](plan/phase-8/8i17-midi-musical-navigation-survey.md) now includes
+this unaided-agent example: full documents stayed in script memory; the agent
+printed summaries and selected patterns. Isolated token measurement remains
+part of that planned survey. It can run independently of the gate close-out.
+
+Preserve `lie sword`: track 1, scenes 1–3 hold the three 16-beat drum clips
+(72, 92, and 100 notes), with the operator's snare corrections to pitch 37.
+The operator confirmed the initial save in the trial. Preserve the three MIDI
+files in `good lies/extracted-drums`. E266 has the last observations; 8i18 made
+no live read or write. Check current state before live work.
 
 Keep in mind for the trials: with the D44 limits, an agent splits larger
 work into more calls. A split is not atomic; `revert_change` does not
@@ -68,120 +78,48 @@ new marker: the method count and hash identify it. The probe build has
 scenes and mixer `gn-sel` selected; `selection.status` reports a slot of
 a deleted scratch track (track index 9, row 0; issue D11). The transport
 was not started in 8i15. "New 3" (8i7) was not opened. The next free
-evidence number is E265; the next decision is D50; the next issue row is
-D13. `phase8i15-revert.ts accept <dir>` runs the device-add and clip-add
-revert checks on one scratch track (normal profile, 8i15 build).
-`phase8i14-copy.ts probe|accept <dir>` runs the copy cases (probe profile)
-and the product acceptance (normal profile, 8i14 or 8i15 build);
-`restore-scenes` deletes empty scenes after row 10. The current drivers
-accept the 8i15 build (`NORMAL_8I15`, `assertCurrentNormal`).
-`phase8i7-mixer.ts trial-setup` requires `gn-scale-test`; `trial-state
-all` prints the mixer of every track and the selection.
-`phase8i8-selection.ts accept`, `phase8i7-mixer.ts`,
-`phase8i9-overlay-add.ts`, `phase8i3-long-writes.ts identity`, and
-`probe:modulation-routes` stay as before.
+evidence number is E268; the next decision is D51; the next issue row is
+D14. The current live drivers accept 8i15 (`NORMAL_8I15`,
+`assertCurrentNormal`). See E263 and E264 for their commands and cleanup.
+No live project was opened or changed in 8i16 or 8i18. E266 records the
+operator trial between those sessions.
 
 ## Facts
 
-Automated dogfood (E261, E262): follow the runbook.
-`phase8i13-stretch.ts <s1|s2|s3|s4> setup|state|cleanup` makes and deletes
-the stretch fixtures; `run-session.sh` takes `--no-ghostnote-line`.
-Compare the state after a cleanup without the slot selection fields.
-Revert device adds on one track newest first
-(`next.revert.changeIds` has this order); another order refuses with
-`target-changed` (E264). Codex calls `cua_repl` in some
-sessions; remove the application list of a `getState` result from the
-evidence copy. Count calls from the client
-session file (`session.jsonl`), not the Codex event stream, which has no
-script call. Codex `--approve-for-me` approves a Ghostnote write tool
-without a per-tool entry. Claude Code does not start an MCP server from a
-`cwd` field. Read the project name (`trial-state all`) after the hello: a
-hello that runs while the project loads lists other tracks.
+MIDI files: use the [conversion contract](contracts/MIDI_FILE_CONVERSION.md).
+The offline driver is `phase8i16-midi-files.ts <absolute MIDI directory>`.
+It tests at 120 BPM and removes its generated files. All six `good lies` files
+passed. R07 normalization can create same-pitch overlaps: use the stated FIFO
+pairing rule, not note shortening. Read returns the full document; client
+truncation and actual token use belong to the 8i17 baseline.
 
-Codex Desktop starts one Ghostnote server for each thread, from the brain
-source: a new thread loads changed descriptions with no deploy, and claims do
-not cross threads. A trial's first prompt ends with "Use Ghostnote and
-computer use as you see fit." (without it, the agent used only computer use).
-Agents request the reference sections that a description names. A
-duplicate current claim names both IDs (repair `duplicate-claim`); R15 at
-`.data.atDelta` is the onset floor: atDelta is in (−1/512, 0]. The Codex
-rollout log cuts tool results over about 24,000 characters; take numbers
-from the event rows or the agents' script output. A `codex://threads/<id>`
-link is `~/.codex/sessions/<date>/rollout-*-<id>.jsonl`; Ghostnote calls are
-its `McpToolCall` items. Copy the E259 extract format.
+For automated trials, use the [E261 runbook links](evidence/experiments/e261-automated-dogfood-process-proof.md)
+and [E262 stretch fixtures](evidence/experiments/e262-automated-dogfood-stretch-set.md).
+Count calls from the client session file. End a trial's first prompt with
+"Use Ghostnote and computer use as you see fit." Claims belong to one server
+session and do not survive a new thread or resume. Read the project name after
+the hello; a hello during project loading can list other tracks.
 
-Add the index row in the same session as a new E or D record. A readback
-status is `unavailable` only for a failed read (`Unverified.cause`
-`read-failed`); use `readbackStatusOf` and `readbackOrUnavailable` in a new
-write tool, and add its case to `readback-unavailable.test.ts`. An op that
-makes Bitwig move the mixer selection goes in `movesMixerSelection`
-(live adapter) and in the fake; a two-change tool runs in one
-`withSelection` scope. A track
-volume is the host raw value: dB = 60·log10(raw), so -18 dB is raw
-10^(-18/60) (D48); `setRaw` lands, a plain `set` does not. A mixer field with
-automation refuses; a mixer reversal restores each field that the readback proved
-and that still holds what the change left; a mixer batch carries the
-scene guard of the tool's prior read. A Codex trial that uses a new write tool needs its
-approval (`-c mcp_servers.ghostnote.tools.<tool>.approval_mode="approve"`)
-and `< /dev/null`; the operator's Codex has a computer-use plugin
-(`cua_repl`) that agents call first. A remote control position is its host slot, not an array index (E254). The modulation writers claim the route, not the sound (D46); a new route form needs a route-suite case first. An agent claim can omit `basis`; `edit_launcher_clip` seals it (D45), and `add_launcher_clip` seals it in the document's clip ID space, then binds it to the live clip (D47). A claim's basis covers the full envelope of each claim it depends on: a revised nominal makes its groove stale. Check many claim bases with one `sealOverlays`, not `dependencyBasis` for each claim. A generated 16,384-note clip uses quarter-beat notes (the reader cell limit). Clip colour no
-longer needs the palette (D42); a colour sample must include dark colours.
-Report note channels 1-based to the operator. A long write has a D44 limit
-in `write-limits.ts`; a new or changed long path measures its largest
-admitted case and its revert, and adds or moves a limit with a test. `context/check.rb` needs
-`LANG=en_US.UTF-8`. Bitwig
-cannot insert a scene above row 0. The first write after an operator scene
-change can refuse in the cursor preflight (E3); retry once. Probe
-`WireTransport` throws `BridgeError` with the reply code (8i3). Bitwig reports note
-pressure as 0 (D37). The normal profile has no `transport.stop`; a live
-launch leaves the transport playing for the operator to stop.
-`check-publication-candidates.py --write` after a reviewed spec, codec, or
-migration contract change. For plug-in work, the operator turns the audio
-engine on in the owned project (E244). Adding a device to an unnamed track
-makes Bitwig rename the track after the device. Owned cursor tracks stay
-pinned (D43): a new owned cursor goes through `Rig.ownCursorTrack`, and
-`cursor.pinTrack` refuses `pinned: false`. A cursor without a track holds no
-pin. A pinned point leaves the mixer selection alone; only the operator
-changes it. A track delete, create, or duplicate moves the mixer selection (host, E251); the tools restore it (E258). The
-device routes point a hidden child with `cursor.pointTrack`; only clip
-points use `cursor.pointExpanded`. Print the wire call sequence with its
-gaps. Run live drivers as one foreground chain, and check `pgrep -f phase8`
-first. In zsh, a variable does not split into words: write `${=a}` or each
-command out.
+Live work: check `pgrep -f phase8` first and run one foreground driver chain.
+Check current project, selection, and the driver's input against D44 before a
+write. Before a regression claim, inspect per-call durations and rerun once.
+Restore scratch fixtures to their documented baseline. The normal profile has
+no `transport.stop`; the operator stops playback after a launch.
 
-Each wire call costs one control-surface turn (about 24 ms); calls sent
-together share one turn. `phase8h4c-edit.ts cost|worst|accept`,
-`phase8h4g-inventory.ts inventory|add-worst|plan-bench`, and
-`phase8h4g-writer-width.ts entry|reviewer|far|heap` print the wire calls. A
-probe that sends raw requests on the adapter's transport bypasses the
-adapter's request count; keep raw setup apart from timed calls. A
-`rig.json` override needs a controller replacement, not a redeploy. A
-`fineSteps` override below 4,194,304 makes every live note write refuse
-before mutation (D41); a probe that needs a narrow writer passes
-`allowNarrowWriter`. The Bitwig live heap grows by about 100 MiB over a long
-driver run: deleted tracks stay in the undo history.
+Revert device adds newest first (`next.revert.changeIds`). The other order
+refuses `target-changed` (E264). A revert's `fidelity` states what it restored;
+`redoFidelity` states its reversal. `check_revert` names `wouldRemove`, and
+`revert_change` names `readback.removed`. `slot.duplicateClip` is probe-only.
+Before retiring a wire method, search the advertised drivers in `brain/src/probes`.
 
-Before you attribute a live regression, compare per-call durations in the
-wire sequence with the inventory, and rerun once (8i4). Fakes use host
-indices and real host labels (8i5). Check a reused driver input against the
-current D44 limits before a live run. A trial that must reach a refusal
-says "send it as written first" (8i6).
+For a new write tool, use `readbackStatusOf` and `readbackOrUnavailable`, and
+add its case to `readback-unavailable.test.ts`. `unavailable` means a failed
+read only. Add selection-moving ops to `movesMixerSelection` and the fake;
+a two-change tool uses one `withSelection` scope (E258). Cursor tracks stay
+pinned (D43). Mixer volume is raw: dB = 60·log10(raw); writes use `setRaw` (D48).
 
-Revert reports (E264, D49): a reversal plan holds a delete only for an
-added device or a clip in a formerly empty slot (`removalsOf`). Run a
-guard refusal once on the live adapter before you fix its report form: the
-fake adapter records most guard failures as failed ops, and the live
-adapter can throw before the write. Before a plan retires a wire method,
-search `brain/src/probes` for it: an advertised probe cannot name a
-`HISTORICAL` method.
-
-Clip copy (E263): the host replaces an occupied destination with no
-event, does nothing for a row past the last scene, and changes an empty
-Audio track that receives a note clip to an Instrument track. Several
-sources in one `copySlotsOrScenes` call keep their row offsets and can add
-scenes: a probe of a host verb with several targets compares the scene
-count and restores it in the case. A scratch Hybrid track is a
-`duplicate_track` of a baseline Hybrid track.
-
-VU audibility oracle (E239): stop every clip and the transport, wait for VU 0,
-then launch one track and read the Master VU as well.
+Add the index row with each new E or D record. Check context with
+`LANG=en_US.UTF-8 ruby context/check.rb`. A reviewed spec, codec, or migration
+contract change runs `check-publication-candidates.py --write`. Tool additions
+must update the server list, profile inventory, document-help consumers, and
+description artifact in the same session.

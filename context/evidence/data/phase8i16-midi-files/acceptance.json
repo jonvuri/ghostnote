@@ -1,0 +1,492 @@
+{
+  "version": "8i16-acceptance-v1",
+  "date": "2026-10-14T11:53:30.162Z",
+  "node": "v24.11.1",
+  "hostCalls": 0,
+  "results": [
+    {
+      "file": "transcript-muscriptor-large/033-electric-bass.mid",
+      "sourceSha256": "4905a041e5a50c95d1a7ce16743a3a9b0ed13785866a0f3fcd677ed53f3692a4",
+      "sourceBytes": 10262,
+      "notes": 1216,
+      "documentBytes": 91714,
+      "documentSha256": "b479859e63c9d40d9eb27779e5e811d2fd30e2bb25b1dfee3d81a041184c230e",
+      "responseBytes": 96878,
+      "importMs": 55.40379199999995,
+      "repeatedImportMs": 41.66770800000006,
+      "writeMs": 44.76104200000009,
+      "exportBytes": 10259,
+      "exportSha256": "975099272bd5703a9d546d2ec95105ab0de8ec237a17e953cbee1bb04f10aed9",
+      "readback": "verified",
+      "noteRoundTrip": true,
+      "normalization": {
+        "version": "midi-document-v1",
+        "sourceFormat": 1,
+        "sourcePpq": 1000,
+        "timing": "elapsed-time-at-target-bpm",
+        "targetBpm": 120,
+        "notePairing": "fifo-per-track-channel-pitch",
+        "overlappingNoteOns": 0,
+        "velocityZeroOffReleaseVelocity": 64,
+        "sourceTempoMap": [
+          {
+            "tick": 0,
+            "microseconds": 1000000
+          }
+        ],
+        "defaultTempoApplied": false,
+        "tracks": [
+          {
+            "clip": "c2",
+            "index": 1,
+            "name": "electric bass",
+            "noteCount": 1216,
+            "length": "160027/500"
+          }
+        ],
+        "notes": 1216,
+        "normalizedOnsets": 1178,
+        "normalizedDurations": 1213,
+        "minimumDurationPromotions": 0,
+        "changedOverlapPairs": 2964,
+        "ignored": [
+          {
+            "code": "program-change",
+            "count": 1
+          }
+        ]
+      },
+      "exportReport": {
+        "version": "midi-document-v1",
+        "format": 1,
+        "ppq": 512,
+        "clips": 1,
+        "notes": 1216,
+        "notePairing": "fifo-per-track-channel-pitch",
+        "losses": [],
+        "rounding": [
+          {
+            "code": "metadata-time-rounded",
+            "count": 1
+          }
+        ],
+        "defaultTempoApplied": false
+      },
+      "heapUsedBefore": 41802112,
+      "heapUsedAfterImport": 86506072,
+      "rssAfterImport": 331644928
+    },
+    {
+      "file": "transcript-muscriptor-large/052-voice.mid",
+      "sourceSha256": "e1518a6dce074f42560cf35df91935113e349ce9a8f01de8da857af76de12491",
+      "sourceBytes": 1424,
+      "notes": 153,
+      "documentBytes": 11916,
+      "documentSha256": "51ab33230d8539a5aa64ccfad6cb2e6eadda2c2519dbabe9075a8fbae6930914",
+      "responseBytes": 13859,
+      "importMs": 6.615417000000093,
+      "repeatedImportMs": 5.9957090000000335,
+      "writeMs": 12.173249999999939,
+      "exportBytes": 1421,
+      "exportSha256": "c52a13a6ac64605a3a362a376dfe32b222913af390f75c02b982bcd1bd5de3ab",
+      "readback": "verified",
+      "noteRoundTrip": true,
+      "normalization": {
+        "version": "midi-document-v1",
+        "sourceFormat": 1,
+        "sourcePpq": 1000,
+        "timing": "elapsed-time-at-target-bpm",
+        "targetBpm": 120,
+        "notePairing": "fifo-per-track-channel-pitch",
+        "overlappingNoteOns": 0,
+        "velocityZeroOffReleaseVelocity": 64,
+        "sourceTempoMap": [
+          {
+            "tick": 0,
+            "microseconds": 1000000
+          }
+        ],
+        "defaultTempoApplied": false,
+        "tracks": [
+          {
+            "clip": "c2",
+            "index": 1,
+            "name": "voice",
+            "noteCount": 153,
+            "length": "160027/500"
+          }
+        ],
+        "notes": 153,
+        "normalizedOnsets": 148,
+        "normalizedDurations": 153,
+        "minimumDurationPromotions": 0,
+        "changedOverlapPairs": 32,
+        "ignored": [
+          {
+            "code": "program-change",
+            "count": 1
+          }
+        ]
+      },
+      "exportReport": {
+        "version": "midi-document-v1",
+        "format": 1,
+        "ppq": 512,
+        "clips": 1,
+        "notes": 153,
+        "notePairing": "fifo-per-track-channel-pitch",
+        "losses": [],
+        "rounding": [
+          {
+            "code": "metadata-time-rounded",
+            "count": 1
+          }
+        ],
+        "defaultTempoApplied": false
+      },
+      "heapUsedBefore": 44214528,
+      "heapUsedAfterImport": 55882776,
+      "rssAfterImport": 342835200
+    },
+    {
+      "file": "transcript-muscriptor-large/088-synth-pad.mid",
+      "sourceSha256": "da0393635f19631f36a86119dd4954a95b0e41cfe3529fa5ba7a9f0c9b2e9df2",
+      "sourceBytes": 340,
+      "notes": 33,
+      "documentBytes": 3054,
+      "documentSha256": "69ee1e8549c31c8866348a8340f958229ac2408b0d267b643a04c1f7697377fa",
+      "responseBytes": 4642,
+      "importMs": 2.8212499999999636,
+      "repeatedImportMs": 2.079207999999994,
+      "writeMs": 6.272375000000011,
+      "exportBytes": 337,
+      "exportSha256": "516da2e3ce593401943ba4e5975c0372dc4fb6e66607532b8c5d5325774012da",
+      "readback": "verified",
+      "noteRoundTrip": true,
+      "normalization": {
+        "version": "midi-document-v1",
+        "sourceFormat": 1,
+        "sourcePpq": 1000,
+        "timing": "elapsed-time-at-target-bpm",
+        "targetBpm": 120,
+        "notePairing": "fifo-per-track-channel-pitch",
+        "overlappingNoteOns": 0,
+        "velocityZeroOffReleaseVelocity": 64,
+        "sourceTempoMap": [
+          {
+            "tick": 0,
+            "microseconds": 1000000
+          }
+        ],
+        "defaultTempoApplied": false,
+        "tracks": [
+          {
+            "clip": "c2",
+            "index": 1,
+            "name": "synth pad",
+            "noteCount": 33,
+            "length": "160027/500"
+          }
+        ],
+        "notes": 33,
+        "normalizedOnsets": 33,
+        "normalizedDurations": 33,
+        "minimumDurationPromotions": 0,
+        "changedOverlapPairs": 57,
+        "ignored": [
+          {
+            "code": "program-change",
+            "count": 1
+          }
+        ]
+      },
+      "exportReport": {
+        "version": "midi-document-v1",
+        "format": 1,
+        "ppq": 512,
+        "clips": 1,
+        "notes": 33,
+        "notePairing": "fifo-per-track-channel-pitch",
+        "losses": [],
+        "rounding": [
+          {
+            "code": "metadata-time-rounded",
+            "count": 1
+          }
+        ],
+        "defaultTempoApplied": false
+      },
+      "heapUsedBefore": 42897960,
+      "heapUsedAfterImport": 46020784,
+      "rssAfterImport": 343212032
+    },
+    {
+      "file": "transcript-muscriptor-large/128-drums.mid",
+      "sourceSha256": "9c50f458cba021ffd847e3cb997ac152600d0eda23dce0022e18662b1b6713f2",
+      "sourceBytes": 12719,
+      "notes": 1567,
+      "documentBytes": 116430,
+      "documentSha256": "7a24ed71f16ef20f622d0c48ac2de86e5468502ccd54eea6f626d8ac10495dca",
+      "responseBytes": 122406,
+      "importMs": 59.64770800000008,
+      "repeatedImportMs": 58.1957910000001,
+      "writeMs": 54.912166999999954,
+      "exportBytes": 12719,
+      "exportSha256": "144aafd420bd35e1108d57c74a861a56e159826898124db1f6350ac237249e6e",
+      "readback": "verified",
+      "noteRoundTrip": true,
+      "normalization": {
+        "version": "midi-document-v1",
+        "sourceFormat": 1,
+        "sourcePpq": 1000,
+        "timing": "elapsed-time-at-target-bpm",
+        "targetBpm": 120,
+        "notePairing": "fifo-per-track-channel-pitch",
+        "overlappingNoteOns": 0,
+        "velocityZeroOffReleaseVelocity": 64,
+        "sourceTempoMap": [
+          {
+            "tick": 0,
+            "microseconds": 1000000
+          }
+        ],
+        "defaultTempoApplied": false,
+        "tracks": [
+          {
+            "clip": "c2",
+            "index": 1,
+            "name": "drums",
+            "noteCount": 1567,
+            "length": "160027/500"
+          }
+        ],
+        "notes": 1567,
+        "normalizedOnsets": 1498,
+        "normalizedDurations": 1567,
+        "minimumDurationPromotions": 0,
+        "changedOverlapPairs": 677,
+        "ignored": []
+      },
+      "exportReport": {
+        "version": "midi-document-v1",
+        "format": 1,
+        "ppq": 512,
+        "clips": 1,
+        "notes": 1567,
+        "notePairing": "fifo-per-track-channel-pitch",
+        "losses": [],
+        "rounding": [
+          {
+            "code": "metadata-time-rounded",
+            "count": 1
+          }
+        ],
+        "defaultTempoApplied": false
+      },
+      "heapUsedBefore": 42749160,
+      "heapUsedAfterImport": 95707128,
+      "rssAfterImport": 345112576
+    },
+    {
+      "file": "transcript-muscriptor-medium/033-electric-bass.mid",
+      "sourceSha256": "bd56ed2b9cca0cb894def7723f7f93536ff374423991f6d7e30f12c9307e4b4b",
+      "sourceBytes": 13982,
+      "notes": 1682,
+      "documentBytes": 126871,
+      "documentSha256": "f88d1beed8eae085727a5914e300c069e22c357019782494b199f52e80d6e7a4",
+      "responseBytes": 133436,
+      "importMs": 66.39387500000021,
+      "repeatedImportMs": 57.874000000000024,
+      "writeMs": 59.09783300000004,
+      "exportBytes": 13979,
+      "exportSha256": "fd8e647b0789aaed7a212a167d1505a975facf7a37f5f1136eff9a31d9a889f9",
+      "readback": "verified",
+      "noteRoundTrip": true,
+      "normalization": {
+        "version": "midi-document-v1",
+        "sourceFormat": 1,
+        "sourcePpq": 1000,
+        "timing": "elapsed-time-at-target-bpm",
+        "targetBpm": 120,
+        "notePairing": "fifo-per-track-channel-pitch",
+        "overlappingNoteOns": 0,
+        "velocityZeroOffReleaseVelocity": 64,
+        "sourceTempoMap": [
+          {
+            "tick": 0,
+            "microseconds": 1000000
+          }
+        ],
+        "defaultTempoApplied": false,
+        "tracks": [
+          {
+            "clip": "c2",
+            "index": 1,
+            "name": "electric bass",
+            "noteCount": 1682,
+            "length": "160027/500"
+          }
+        ],
+        "notes": 1682,
+        "normalizedOnsets": 1644,
+        "normalizedDurations": 1643,
+        "minimumDurationPromotions": 0,
+        "changedOverlapPairs": 5993,
+        "ignored": [
+          {
+            "code": "program-change",
+            "count": 1
+          }
+        ]
+      },
+      "exportReport": {
+        "version": "midi-document-v1",
+        "format": 1,
+        "ppq": 512,
+        "clips": 1,
+        "notes": 1682,
+        "notePairing": "fifo-per-track-channel-pitch",
+        "losses": [],
+        "rounding": [
+          {
+            "code": "metadata-time-rounded",
+            "count": 1
+          }
+        ],
+        "defaultTempoApplied": false
+      },
+      "heapUsedBefore": 45338416,
+      "heapUsedAfterImport": 55222248,
+      "rssAfterImport": 348864512
+    },
+    {
+      "file": "transcript-muscriptor-medium/128-drums.mid",
+      "sourceSha256": "2ad265db719228410fdd4f1e6ddd1834de9220739f8ec2c73e2077bf36a655e2",
+      "sourceBytes": 12094,
+      "notes": 1485,
+      "documentBytes": 110375,
+      "documentSha256": "49c1cc1d88bb058a8b9e5e995aa72b3be91705ddcc5448aa4490d2f5b7bd9444",
+      "responseBytes": 116107,
+      "importMs": 52.13625000000002,
+      "repeatedImportMs": 51.98554200000012,
+      "writeMs": 50.84162500000002,
+      "exportBytes": 12094,
+      "exportSha256": "7999e41fea8aacff19e9db5cd96778e4c083269e67cd5b18f9c51e1737846246",
+      "readback": "verified",
+      "noteRoundTrip": true,
+      "normalization": {
+        "version": "midi-document-v1",
+        "sourceFormat": 1,
+        "sourcePpq": 1000,
+        "timing": "elapsed-time-at-target-bpm",
+        "targetBpm": 120,
+        "notePairing": "fifo-per-track-channel-pitch",
+        "overlappingNoteOns": 0,
+        "velocityZeroOffReleaseVelocity": 64,
+        "sourceTempoMap": [
+          {
+            "tick": 0,
+            "microseconds": 1000000
+          }
+        ],
+        "defaultTempoApplied": false,
+        "tracks": [
+          {
+            "clip": "c2",
+            "index": 1,
+            "name": "drums",
+            "noteCount": 1485,
+            "length": "160027/500"
+          }
+        ],
+        "notes": 1485,
+        "normalizedOnsets": 1445,
+        "normalizedDurations": 1485,
+        "minimumDurationPromotions": 0,
+        "changedOverlapPairs": 602,
+        "ignored": []
+      },
+      "exportReport": {
+        "version": "midi-document-v1",
+        "format": 1,
+        "ppq": 512,
+        "clips": 1,
+        "notes": 1485,
+        "notePairing": "fifo-per-track-channel-pitch",
+        "losses": [],
+        "rounding": [
+          {
+            "code": "metadata-time-rounded",
+            "count": 1
+          }
+        ],
+        "defaultTempoApplied": false
+      },
+      "heapUsedBefore": 45733080,
+      "heapUsedAfterImport": 92273904,
+      "rssAfterImport": 355172352
+    },
+    {
+      "file": "generated-16384-notes",
+      "sourceSha256": "d091ea12197728b9ca81262ed497b56a509cd29ded7525c94f8c668a079d4876",
+      "sourceBytes": 163914,
+      "notes": 16384,
+      "documentBytes": 674732,
+      "documentSha256": "0ddcc8259b7fb3fec54a4f856c0e546b5d8d8c8f7177f096e240f5b1d66e4c23",
+      "responseBytes": 692377,
+      "importMs": 522.6775830000001,
+      "repeatedImportMs": 507.6850000000004,
+      "writeMs": 455.62708299999986,
+      "exportBytes": 163914,
+      "exportSha256": "d091ea12197728b9ca81262ed497b56a509cd29ded7525c94f8c668a079d4876",
+      "readback": "verified",
+      "noteRoundTrip": true,
+      "normalization": {
+        "version": "midi-document-v1",
+        "sourceFormat": 1,
+        "sourcePpq": 512,
+        "timing": "elapsed-time-at-target-bpm",
+        "targetBpm": 120,
+        "notePairing": "fifo-per-track-channel-pitch",
+        "overlappingNoteOns": 0,
+        "velocityZeroOffReleaseVelocity": 64,
+        "sourceTempoMap": [
+          {
+            "tick": 0,
+            "microseconds": 500000
+          }
+        ],
+        "defaultTempoApplied": false,
+        "tracks": [
+          {
+            "clip": "c2",
+            "index": 1,
+            "name": "Generated MIDI fixture",
+            "noteCount": 16384,
+            "length": "16384"
+          }
+        ],
+        "notes": 16384,
+        "normalizedOnsets": 0,
+        "normalizedDurations": 0,
+        "minimumDurationPromotions": 0,
+        "changedOverlapPairs": 0,
+        "ignored": []
+      },
+      "exportReport": {
+        "version": "midi-document-v1",
+        "format": 1,
+        "ppq": 512,
+        "clips": 1,
+        "notes": 16384,
+        "notePairing": "fifo-per-track-channel-pitch",
+        "losses": [],
+        "rounding": [],
+        "defaultTempoApplied": false
+      },
+      "heapUsedBefore": 45615952,
+      "heapUsedAfterImport": 141751584,
+      "rssAfterImport": 444039168
+    }
+  ]
+}

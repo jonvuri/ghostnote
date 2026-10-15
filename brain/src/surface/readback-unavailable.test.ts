@@ -22,6 +22,8 @@ import { parse, type StateDocument } from '../document/index.js';
 import { Executor } from '../engine/index.js';
 import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
+import { writeMidiFile } from './midi-files.js';
+import { midiDocument } from '../midi/fixtures.js';
 import { combinedReadbackStatus, readbackStatusOf } from './agent-native-result.js';
 import { measuredBody } from './agent-native-retained.js';
 import { AGENT_NATIVE_TOOL_PROFILE, callTool, toolsForProfile, type ToolSpec } from './tools.js';
@@ -158,7 +160,8 @@ const CASES: readonly Case[] = [
   } },
 ];
 
-const NOT_RUN = new Set(['compose_devices', 'edit_preset_modulation', 'wrap_existing_device_modulation',
+// write_midi_file has filesystem readback cases below; it has no project change ID.
+const NOT_RUN = new Set(['write_midi_file', 'compose_devices', 'edit_preset_modulation', 'wrap_existing_device_modulation',
   'reverse_existing_device_modulation_wrap']);
 
 /** The status, the effects, and the warnings of a write result or of a measured body. */
@@ -261,3 +264,20 @@ test('8i8 review: a deletion that the revision guard refuses reports no effect a
   assert.deepEqual(result.failure.effects, []);
   assert.deepEqual(fx.fake.model.visibleTracks()[0]!.devices.map((item) => item.name), devices, 'nothing was removed');
 });
+
+for (const mode of ['throw', 'different'] as const) {
+  test(`8i16 write_midi_file: ${mode} verification keeps the published file effect`, async () => {
+    let published = false;
+    const result = await writeMidiFile({ path: '/test.mid', format: 'json', document: { ...midiDocument() } }, {
+      publish: async () => { published = true; },
+      read: async () => { if (mode === 'throw') throw new Error('read failed'); return Buffer.from('different'); },
+    }) as Wire;
+    assert.equal(published, true);
+    assert.equal(result.applied, true);
+    assert.equal(result.file.path, '/test.mid');
+    assert.equal(result.file.reversible, false);
+    assert.deepEqual(result.effects, []);
+    assert.equal(result.readback.status, mode === 'throw' ? 'unavailable' : 'differs');
+    assert.equal(result.warnings.some((w: Wire) => w.code === 'readback-unavailable'), mode === 'throw');
+  });
+}

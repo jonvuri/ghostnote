@@ -1,0 +1,624 @@
+{
+  "thread": "01a13aa5-5bb9-7e42-a526-77de86bc1f2a",
+  "rollout": "rollout-2026-10-14T21-41-17-01a13aa5-5bb9-7e42-a526-77de86bc1f2a.jsonl",
+  "rolloutSha256": "632ddd5dcb26b5aea8b6248e222cd254f62a60d0fdba55e41ae5d10d33102c7b",
+  "scope": "MIDI file calls only; no source note content",
+  "calls": [
+    {
+      "line": 54,
+      "timestamp": "2026-10-14T13:46:46.890Z",
+      "tool": "read_midi_file",
+      "path": "transcript-muscriptor-large/128-drums.mid",
+      "durationMs": 99.336417,
+      "coverage": {
+        "status": "complete",
+        "clips": 1,
+        "notes": 1567
+      },
+      "documentBytes": 115948,
+      "readReport": {
+        "version": "midi-document-v1",
+        "sourceFormat": 1,
+        "sourcePpq": 1000,
+        "timing": "source-beats",
+        "targetBpm": null,
+        "notePairing": "fifo-per-track-channel-pitch",
+        "overlappingNoteOns": 0,
+        "velocityZeroOffReleaseVelocity": 64,
+        "sourceTempoMap": [
+          {
+            "tick": 0,
+            "microseconds": 1000000
+          }
+        ],
+        "defaultTempoApplied": false,
+        "tracks": [
+          {
+            "clip": "c2",
+            "index": 1,
+            "name": "drums",
+            "noteCount": 1567,
+            "length": "160027/1000"
+          }
+        ],
+        "notes": 1567,
+        "normalizedOnsets": 1498,
+        "normalizedDurations": 1567,
+        "minimumDurationPromotions": 0,
+        "changedOverlapPairs": 677,
+        "ignored": []
+      },
+      "logDocumentTruncated": true
+    },
+    {
+      "line": 82,
+      "timestamp": "2026-10-14T13:48:04.265Z",
+      "tool": "read_midi_file",
+      "path": "transcript-muscriptor-large/128-drums.mid",
+      "durationMs": 83.808708,
+      "targetBpm": 126,
+      "coverage": {
+        "status": "complete",
+        "clips": 1,
+        "notes": 1567
+      },
+      "documentBytes": 118272,
+      "readReport": {
+        "version": "midi-document-v1",
+        "sourceFormat": 1,
+        "sourcePpq": 1000,
+        "timing": "elapsed-time-at-target-bpm",
+        "targetBpm": 126,
+        "notePairing": "fifo-per-track-channel-pitch",
+        "overlappingNoteOns": 0,
+        "velocityZeroOffReleaseVelocity": 64,
+        "sourceTempoMap": [
+          {
+            "tick": 0,
+            "microseconds": 1000000
+          }
+        ],
+        "defaultTempoApplied": false,
+        "tracks": [
+          {
+            "clip": "c2",
+            "index": 1,
+            "name": "drums",
+            "noteCount": 1567,
+            "length": "3360567/10000"
+          }
+        ],
+        "notes": 1567,
+        "normalizedOnsets": 1566,
+        "normalizedDurations": 1567,
+        "minimumDurationPromotions": 0,
+        "changedOverlapPairs": 677,
+        "ignored": []
+      },
+      "logDocumentTruncated": true
+    },
+    {
+      "line": 150,
+      "timestamp": "2026-10-14T13:55:35.141Z",
+      "tool": "read_midi_file",
+      "path": "transcript-muscriptor-large/128-drums.mid",
+      "durationMs": 86.215542,
+      "targetBpm": 126,
+      "coverage": {
+        "status": "complete",
+        "clips": 1,
+        "notes": 1567
+      },
+      "documentBytes": 118272,
+      "readReport": {
+        "version": "midi-document-v1",
+        "sourceFormat": 1,
+        "sourcePpq": 1000,
+        "timing": "elapsed-time-at-target-bpm",
+        "targetBpm": 126,
+        "notePairing": "fifo-per-track-channel-pitch",
+        "overlappingNoteOns": 0,
+        "velocityZeroOffReleaseVelocity": 64,
+        "sourceTempoMap": [
+          {
+            "tick": 0,
+            "microseconds": 1000000
+          }
+        ],
+        "defaultTempoApplied": false,
+        "tracks": [
+          {
+            "clip": "c2",
+            "index": 1,
+            "name": "drums",
+            "noteCount": 1567,
+            "length": "3360567/10000"
+          }
+        ],
+        "notes": 1567,
+        "normalizedOnsets": 1566,
+        "normalizedDurations": 1567,
+        "minimumDurationPromotions": 0,
+        "changedOverlapPairs": 677,
+        "ignored": []
+      },
+      "logDocumentTruncated": true
+    },
+    {
+      "line": 151,
+      "timestamp": "2026-10-14T13:55:35.212Z",
+      "tool": "read_midi_file",
+      "path": "transcript-muscriptor-large/033-electric-bass.mid",
+      "durationMs": 159.018375,
+      "targetBpm": 126,
+      "truncated": true
+    },
+    {
+      "line": 200,
+      "timestamp": "2026-10-14T14:50:21.585Z",
+      "tool": "write_midi_file",
+      "path": "extracted-drums/syncopated.mid",
+      "durationMs": 13.348458,
+      "bpm": 110,
+      "inputDocument": {
+        "sha256": "4765068bf3295435e6dccc9a9f3b1f9265e794bd56eb1dd90fae842be32c19db",
+        "bytes": 5491,
+        "header": "DOC ghostnote-document 1.0 snapshot",
+        "coverage": {
+          "channels": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "clip": "c4",
+          "fields": [
+            "at",
+            "chance",
+            "channel",
+            "clip",
+            "duration",
+            "expression",
+            "id",
+            "mute",
+            "occurrence",
+            "pitch",
+            "recurrence",
+            "releaseVelocity",
+            "velocity"
+          ],
+          "from": "0",
+          "status": "complete",
+          "to": "16"
+        },
+        "notes": 72
+      },
+      "failure": {
+        "code": "invalid-input",
+        "stage": "input",
+        "effects": []
+      },
+      "message": "R03 $.coverage[0]: desired coverage must contain complete state",
+      "detail": {
+        "rule": "R03",
+        "path": "$.coverage[0]"
+      }
+    },
+    {
+      "line": 207,
+      "timestamp": "2026-10-14T14:50:37.842Z",
+      "tool": "write_midi_file",
+      "path": "extracted-drums/syncopated.mid",
+      "durationMs": 10.459791,
+      "bpm": 110,
+      "inputDocument": {
+        "sha256": "568771981d7335d2048ad1b7008981c33512ffdb946eadec7415c572acabca92",
+        "bytes": 5364,
+        "header": "DOC ghostnote-document 1.0 desired",
+        "coverage": {
+          "channels": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "clip": "c4",
+          "fields": "all",
+          "from": "0",
+          "status": "complete",
+          "to": "16"
+        },
+        "notes": 72
+      },
+      "failure": {
+        "code": "unsupported",
+        "stage": "input",
+        "effects": []
+      },
+      "message": "MIDI cannot preserve all document data. Review losses and set acceptLoss: true to export realized notes.",
+      "detail": {
+        "losses": [
+          {
+            "code": "clip-loop",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "line": 214,
+      "timestamp": "2026-10-14T14:50:46.631Z",
+      "tool": "write_midi_file",
+      "path": "extracted-drums/syncopated.mid",
+      "durationMs": 28.478917,
+      "bpm": 110,
+      "acceptLoss": true,
+      "inputDocument": {
+        "sha256": "568771981d7335d2048ad1b7008981c33512ffdb946eadec7415c572acabca92",
+        "bytes": 5364,
+        "header": "DOC ghostnote-document 1.0 desired",
+        "coverage": {
+          "channels": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "clip": "c4",
+          "fields": "all",
+          "from": "0",
+          "status": "complete",
+          "to": "16"
+        },
+        "notes": 72
+      },
+      "readback": {
+        "status": "verified",
+        "sha256": "9878a7d0cd2df981ef292632db8240312ef1fa79a58515d557e0a1da65e2a523",
+        "bytes": 674
+      },
+      "report": {
+        "version": "midi-document-v1",
+        "format": 1,
+        "ppq": 512,
+        "clips": 1,
+        "notes": 72,
+        "notePairing": "fifo-per-track-channel-pitch",
+        "losses": [
+          {
+            "code": "clip-loop",
+            "count": 1
+          }
+        ],
+        "rounding": [
+          {
+            "code": "tempo-microseconds-rounded",
+            "count": 1
+          }
+        ],
+        "defaultTempoApplied": false
+      },
+      "file": {
+        "sha256": "9878a7d0cd2df981ef292632db8240312ef1fa79a58515d557e0a1da65e2a523",
+        "bytes": 674,
+        "reversible": false
+      }
+    },
+    {
+      "line": 215,
+      "timestamp": "2026-10-14T14:50:49.279Z",
+      "tool": "write_midi_file",
+      "path": "extracted-drums/light.mid",
+      "durationMs": 19.495375,
+      "bpm": 110,
+      "acceptLoss": true,
+      "inputDocument": {
+        "sha256": "1817719978f079df4320869a41d548954afab2f395aec2bb4e5fb82184e31938",
+        "bytes": 6904,
+        "header": "DOC ghostnote-document 1.0 desired",
+        "coverage": {
+          "channels": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "clip": "c4y",
+          "fields": "all",
+          "from": "0",
+          "status": "complete",
+          "to": "16"
+        },
+        "notes": 92
+      },
+      "readback": {
+        "status": "verified",
+        "sha256": "ab0a0dd07f6dbd510f42ae7249adfb92c50a161d27067bde678a85c7d45ecf23",
+        "bytes": 815
+      },
+      "report": {
+        "version": "midi-document-v1",
+        "format": 1,
+        "ppq": 512,
+        "clips": 1,
+        "notes": 92,
+        "notePairing": "fifo-per-track-channel-pitch",
+        "losses": [
+          {
+            "code": "clip-loop",
+            "count": 1
+          }
+        ],
+        "rounding": [
+          {
+            "code": "tempo-microseconds-rounded",
+            "count": 1
+          }
+        ],
+        "defaultTempoApplied": false
+      },
+      "file": {
+        "sha256": "ab0a0dd07f6dbd510f42ae7249adfb92c50a161d27067bde678a85c7d45ecf23",
+        "bytes": 815,
+        "reversible": false
+      }
+    },
+    {
+      "line": 216,
+      "timestamp": "2026-10-14T14:50:50.922Z",
+      "tool": "write_midi_file",
+      "path": "extracted-drums/driving.mid",
+      "durationMs": 16.652042,
+      "bpm": 110,
+      "acceptLoss": true,
+      "inputDocument": {
+        "sha256": "c337d0e0d46d8ba8b1ae66a5d7f983b8daa777db6998194245fadc1ac4d255f4",
+        "bytes": 7477,
+        "header": "DOC ghostnote-document 1.0 desired",
+        "coverage": {
+          "channels": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "clip": "c25",
+          "fields": "all",
+          "from": "0",
+          "status": "complete",
+          "to": "16"
+        },
+        "notes": 100
+      },
+      "readback": {
+        "status": "verified",
+        "sha256": "e07feab7ae22927182d926221789be47a63504e5bed98e1b6376825375b02be9",
+        "bytes": 880
+      },
+      "report": {
+        "version": "midi-document-v1",
+        "format": 1,
+        "ppq": 512,
+        "clips": 1,
+        "notes": 100,
+        "notePairing": "fifo-per-track-channel-pitch",
+        "losses": [
+          {
+            "code": "clip-loop",
+            "count": 1
+          }
+        ],
+        "rounding": [
+          {
+            "code": "tempo-microseconds-rounded",
+            "count": 1
+          }
+        ],
+        "defaultTempoApplied": false
+      },
+      "file": {
+        "sha256": "e07feab7ae22927182d926221789be47a63504e5bed98e1b6376825375b02be9",
+        "bytes": 880,
+        "reversible": false
+      }
+    },
+    {
+      "line": 223,
+      "timestamp": "2026-10-14T14:51:05.736Z",
+      "tool": "read_midi_file",
+      "path": "extracted-drums/syncopated.mid",
+      "durationMs": 12.182333,
+      "coverage": {
+        "status": "complete",
+        "clips": 1,
+        "notes": 72
+      },
+      "documentBytes": 5861,
+      "readReport": {
+        "version": "midi-document-v1",
+        "sourceFormat": 1,
+        "sourcePpq": 512,
+        "timing": "source-beats",
+        "targetBpm": null,
+        "notePairing": "fifo-per-track-channel-pitch",
+        "overlappingNoteOns": 0,
+        "velocityZeroOffReleaseVelocity": 64,
+        "sourceTempoMap": [
+          {
+            "tick": 0,
+            "microseconds": 545455
+          }
+        ],
+        "defaultTempoApplied": false,
+        "tracks": [
+          {
+            "clip": "c2",
+            "index": 1,
+            "name": "01 \u2022 Syncopated / 8th hats",
+            "noteCount": 72,
+            "length": "16"
+          }
+        ],
+        "notes": 72,
+        "normalizedOnsets": 0,
+        "normalizedDurations": 0,
+        "minimumDurationPromotions": 0,
+        "changedOverlapPairs": 0,
+        "ignored": []
+      },
+      "logDocumentTruncated": false
+    },
+    {
+      "line": 224,
+      "timestamp": "2026-10-14T14:51:05.744Z",
+      "tool": "read_midi_file",
+      "path": "extracted-drums/driving.mid",
+      "durationMs": 20.300625,
+      "coverage": {
+        "status": "complete",
+        "clips": 1,
+        "notes": 100
+      },
+      "documentBytes": 7898,
+      "readReport": {
+        "version": "midi-document-v1",
+        "sourceFormat": 1,
+        "sourcePpq": 512,
+        "timing": "source-beats",
+        "targetBpm": null,
+        "notePairing": "fifo-per-track-channel-pitch",
+        "overlappingNoteOns": 0,
+        "velocityZeroOffReleaseVelocity": 64,
+        "sourceTempoMap": [
+          {
+            "tick": 0,
+            "microseconds": 545455
+          }
+        ],
+        "defaultTempoApplied": false,
+        "tracks": [
+          {
+            "clip": "c2",
+            "index": 1,
+            "name": "03 \u2022 Driving / snare chatter",
+            "noteCount": 100,
+            "length": "16"
+          }
+        ],
+        "notes": 100,
+        "normalizedOnsets": 0,
+        "normalizedDurations": 0,
+        "minimumDurationPromotions": 0,
+        "changedOverlapPairs": 0,
+        "ignored": []
+      },
+      "logDocumentTruncated": false
+    },
+    {
+      "line": 225,
+      "timestamp": "2026-10-14T14:51:05.753Z",
+      "tool": "read_midi_file",
+      "path": "extracted-drums/light.mid",
+      "durationMs": 28.10175,
+      "coverage": {
+        "status": "complete",
+        "clips": 1,
+        "notes": 92
+      },
+      "documentBytes": 7316,
+      "readReport": {
+        "version": "midi-document-v1",
+        "sourceFormat": 1,
+        "sourcePpq": 512,
+        "timing": "source-beats",
+        "targetBpm": null,
+        "notePairing": "fifo-per-track-channel-pitch",
+        "overlappingNoteOns": 0,
+        "velocityZeroOffReleaseVelocity": 64,
+        "sourceTempoMap": [
+          {
+            "tick": 0,
+            "microseconds": 545455
+          }
+        ],
+        "defaultTempoApplied": false,
+        "tracks": [
+          {
+            "clip": "c2",
+            "index": 1,
+            "name": "02 \u2022 Light kick / 16th hats",
+            "noteCount": 92,
+            "length": "16"
+          }
+        ],
+        "notes": 92,
+        "normalizedOnsets": 0,
+        "normalizedDurations": 0,
+        "minimumDurationPromotions": 0,
+        "changedOverlapPairs": 0,
+        "ignored": []
+      },
+      "logDocumentTruncated": false
+    }
+  ]
+}

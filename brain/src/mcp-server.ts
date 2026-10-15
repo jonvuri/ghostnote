@@ -51,8 +51,9 @@ const INSTRUCTIONS: Readonly<Record<ToolProfile, string>> = {
     + 'containers.',
   'agent-native-v1': 'Ghostnote reads and edits the active Bitwig Studio project: tracks, Launcher clips as '
     + 'Ghostnote documents, devices, layer chains, device controls, and preset modulation. Read the current state '
-    + 'before a write. Each result has a schema; a failure has failure.code. Each durable effect has a change ID '
-    + 'for revert_change. Delete tools permanently remove what they name.',
+    + 'before a write. Each result has a schema; a failure has failure.code. Each durable project effect has a change ID '
+    + 'for revert_change. MIDI file tools work offline: file writes have no project change ID or revert. '
+    + 'Delete tools permanently remove what they name.',
 };
 
 const server = new McpServer({
