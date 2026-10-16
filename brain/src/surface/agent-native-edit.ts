@@ -54,6 +54,7 @@ import {
   asToolFailure, bindSnapshot, checkHealth, encoded, format, guarded, identityFacts, identityRegistryOf,
   lossOf, projectionWarnings, SOURCE,
 } from './agent-native.js';
+import { DOCUMENT_PATH_STATEMENT, documentInput, documentPathInput, type DocumentFile } from './document-files.js';
 import type { ToolSpec } from './tools.js';
 import type { Workspace } from './workspace.js';
 
@@ -62,9 +63,10 @@ export const EDIT_SCHEMA = 'ghostnote-launcher-clip-edit/1';
 const editInput = z.object({
   trackId: z.string().min(1).describe('Durable track ID from list_tracks.'),
   row: z.number().int().min(0).describe('Zero-based Launcher row (scene).'),
-  document: z.union([z.string().min(1), z.record(z.string(), z.unknown())]).describe(
+  document: z.union([z.string().min(1), z.record(z.string(), z.unknown())]).optional().describe(
     documentParameter('The patch or desired document'),
   ),
+  documentPath: documentPathInput,
   format,
   intent: z.literal('replace').optional().describe(
     'Only for a desired document without BASE: replace the whole clip. It keeps no event IDs.',
@@ -78,6 +80,7 @@ export type EditInput = z.infer<typeof editInput>;
 
 const EDIT_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Edit one Launcher clip with a Ghostnote Document 1.0 `
   + `patch or desired document. ${FORMAT_STATEMENT} Address the clip by trackId and row, as in read_launcher_clip. `
+  + `${DOCUMENT_PATH_STATEMENT} `
   + 'A patch or a desired '
   + 'document needs BASE with the sha256 and the ref of a read of this clip. A patch changes only what it names. '
   + 'A desired document is the complete new state: omitted notes are removed and omitted fields have their '
@@ -114,7 +117,7 @@ const EDIT_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Edit one Launche
   + 'A whole-clip rewrite at the reader limit (16,384 notes) takes about 7 s.';
 
 /** The input document as text. */
-export const documentText = (document: EditInput['document']): string =>
+export const documentText = (document: NonNullable<EditInput['document']>): string =>
   typeof document === 'string' ? document : JSON.stringify(document);
 
 /**
@@ -122,7 +125,8 @@ export const documentText = (document: EditInput['document']): string =>
  * rule and location and adds the known repair (8i6). Nothing reaches the host before this parse.
  */
 export function parseProposal(
-  args: Pick<EditInput, 'document' | 'format'>, use: DocumentUse = 'edit',
+  args: { readonly document: NonNullable<EditInput['document']>; readonly format?: Encoding | undefined },
+  use: DocumentUse = 'edit',
 ): { document: Document; seal: SealRequest } {
   const encoding: Encoding = args.format ?? 'fields';
   if (typeof args.document !== 'string' && encoding !== 'json') {
@@ -297,6 +301,7 @@ function planView(plan: EditPlan) {
 /** The internal options of `add_launcher_clip`: its parsed and checked proposal, on the clip that it created. */
 export interface CreationContent {
   readonly parsed: { readonly document: Document; readonly seal: SealRequest };
+  readonly documentFile?: DocumentFile;
 }
 
 export async function editLauncherClip(workspace: Workspace, args: EditInput, creation?: CreationContent): Promise<unknown> {
@@ -307,10 +312,14 @@ export async function editLauncherClip(workspace: Workspace, args: EditInput, cr
   let stage: FailureStage = 'input';
   let effects: Effect[] = [];
   try {
-    const { document: proposal, seal } = creation?.parsed ?? parseProposal(args);
+    // The inline encoding is format; a documentPath file sets its own. format also encodes returned documents.
+    const input = creation === undefined ? await documentInput(args, encoding) : undefined;
+    const file = creation?.documentFile ?? input?.file;
+    const fileFacts = file === undefined ? {} : { documentFile: file };
+    const { document: proposal, seal } = creation?.parsed ?? parseProposal(input!);
     if (proposal.kind === 'snapshot') {
       throw new ToolFailure('invalid-input', 'input', 'A snapshot is not an edit. Send a patch or a desired document.', {
-        detail: { repair: kindRepair('edit', encoding, documentText(args.document)) } });
+        detail: { repair: kindRepair('edit', input!.format, documentText(input!.document!)) } });
     }
     const replace = args.intent === 'replace';
     if (replace && (proposal.kind !== 'desired' || proposal.base !== undefined)) {
@@ -405,7 +414,7 @@ export async function editLauncherClip(workspace: Workspace, args: EditInput, cr
         readback: { base, status: 'unchanged' },
         timing: { ...timing, totalMs: performance.now() - started },
       };
-      return { ...result, target, plan: planView(plan) };
+      return { ...result, target, ...fileFacts, plan: planView(plan) };
     }
     if (args.dryRun === true) {
       const result: WriteResult<null> = {
@@ -413,7 +422,7 @@ export async function editLauncherClip(workspace: Workspace, args: EditInput, cr
         timing: { ...timing, totalMs: performance.now() - started },
       };
       return {
-        ...result, target, dryRun: true, base, plan: planView(plan),
+        ...result, target, ...fileFacts, dryRun: true, base, plan: planView(plan),
         ...(plan.route === 'whole-clip' ? { warnings: [PRESSURE_WARNING] } : {}),
         expected: { format: encoding, document: encoded(plan.expected, encoding) },
       };
@@ -494,7 +503,7 @@ export async function editLauncherClip(workspace: Workspace, args: EditInput, cr
       warnings,
       timing: { ...timing, totalMs: performance.now() - started },
     };
-    return { ...result, target, plan: summaryOf(plan) };
+    return { ...result, target, ...fileFacts, plan: summaryOf(plan) };
   } catch (error) {
     const failure = failureResult(EDIT_SCHEMA, stage, error, target);
     return effects.length === 0 ? failure : { ...failure, failure: { ...failure.failure, effects } };
@@ -512,7 +521,7 @@ export const editLauncherClipTool: ToolSpec = {
   resultContract: {
     schema: EDIT_SCHEMA,
     profile: AGENT_NATIVE_TOOL_PROFILE,
-    envelope: ['schema', 'applied', 'effects', 'readback', 'next', 'warnings', 'timing', 'target', 'plan'],
+    envelope: ['schema', 'applied', 'effects', 'readback', 'next', 'warnings', 'timing', 'target', 'documentFile', 'plan'],
     failure: ['schema', 'failure.code', 'failure.stage', 'failure.effects', 'message', 'retryWhen', 'detail'],
     readbackStatus: ['verified', 'differs', 'unavailable', 'unchanged'],
     routes: ['none', 'targeted', 'whole-clip'],

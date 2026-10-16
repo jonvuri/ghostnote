@@ -11,8 +11,7 @@ const STABLE_INSTRUCTIONS = 'Ghostnote reads and edits the active Bitwig Studio 
   + 'permanently remove containers.';
 const AGENT_NATIVE_INSTRUCTIONS = 'Ghostnote reads and edits the active Bitwig Studio project: tracks, Launcher '
   + 'clips as Ghostnote documents, devices, layer chains, device controls, and preset modulation. Read the current '
-  + 'state before a write. Each result has a schema; a failure has failure.code. Each durable project effect has a change '
-  + 'ID for revert_change. MIDI file tools work offline: file writes have no project change ID or revert. Delete tools permanently remove what they name.';
+  + 'state before a write. Each result has a schema; a failure has failure.code.';
 
 const environment = (profile?: string): Record<string, string> => ({
   ...Object.fromEntries(Object.entries(process.env)

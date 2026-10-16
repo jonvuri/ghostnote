@@ -4,7 +4,7 @@ kind: contract
 state: active
 updated: 2026-10-15
 parent: ../plan/phase-8/8i16-midi-file-conversion.md
-evidence: E265, E267
+evidence: E265, E267, E269
 ---
 
 # MIDI file conversion
@@ -16,9 +16,12 @@ controller replacement. Source: `brain/src/midi/` and
 
 ## Read
 
-Input: an absolute `path`, and optional `targetBpm` greater than zero and at
-most 1000. Output: `ghostnote-midi-file-read/1`, with the full FIELDS desired
-document in `data.document`, a content hash, and `data.report`.
+Input: an absolute `path`, optional `targetBpm` greater than zero and at most
+1000, and optional `documentOutputPath`. Output: `ghostnote-midi-file-read/1`,
+with the full FIELDS desired document in `data.document`, a content hash, and
+`data.report`. With `documentOutputPath`, the tool writes the same document to
+that new file. `data.documentFile` then replaces `data.document` and
+`data.documentBytes`. See [Document files](#document-files).
 
 ```json
 {"path":"/music/bass.mid","targetBpm":120}
@@ -58,15 +61,18 @@ requires a target tempo. Metadata outside all retained clip spans is reported.
 
 The public normalization report has counts, not a row for each note or overlap.
 The pure converter retains the full R07 report in `normalization` for inspection
-and tests. The tool returns no excerpt, summary-only mode, or temporary document
-file. It does not truncate the document. Client output limits are outside this
-conversion contract.
+and tests. The tool returns no excerpt or summary-only mode. It does not
+truncate the document. Client output limits are outside this conversion
+contract; `documentOutputPath` keeps the document out of the result.
 
 ## Write
 
-Input: an absolute new `.mid` or `.midi` `path`, inline `document`, optional
-`format` (`fields` by default, or `json`), optional `bpm`, and optional
-`acceptLoss` (false by default). Native JSON objects require `format: json`.
+Input: an absolute new `.mid` or `.midi` `path`, exactly one of inline
+`document` and `documentPath`, optional `format` (`fields` by default, or
+`json`), optional `bpm`, and optional `acceptLoss` (false by default). Native
+JSON objects require `format: json`. `format` describes only the inline
+document; with `documentPath` it refuses, because the file content sets the
+encoding.
 Accept complete desired documents and snapshots from `read_launcher_clip`.
 Keep the snapshot kind and coverage unchanged. Each clip needs complete coverage
 from zero to its length on all 16 channels. An explicit field list must include
@@ -95,6 +101,33 @@ The refusal lists `detail.losses`. Accepted muted or zero-velocity notes are
 omitted. A note tail past clip length extends the MIDI track and is an explicit
 loss. Export does not render repeats, chance, expression, or interpretive claims.
 Document IDs and overlay provenance are not MIDI identities.
+
+## Document files
+
+[D51](../decisions/d51-document-file-paths.md) adds document files to the
+document tools. `documentPath` replaces inline `document` in
+`add_launcher_clip`, `edit_launcher_clip`, and `write_midi_file`; exactly one
+is required. `documentOutputPath` adds a file output to `read_launcher_clip`
+and `read_midi_file`. Paths are absolute on the server filesystem.
+
+Input files are regular files with no symbolic link, at most 8 MiB (R28), and
+valid UTF-8. Detect the encoding from the first record after leading white
+space: `DOC` and a space or tab is FIELDS; `{` is JSON. Other content refuses
+with `invalid-input`. The codec then applies all R11 rules, including the BOM
+refusal. Codec errors keep their rule, line, and repair. For the clip writers,
+`format` then sets only the encoding of returned documents. The write result
+has `documentFile`: path, detected format, bytes, and SHA-256.
+
+An output file must not exist, and its parent must exist. The tool checks this
+before any MIDI read or host call; a refusal is `occupied` or `invalid-input`.
+Publication uses the same staged, atomic no-replace link as MIDI export, then
+an independent read compares the bytes. `data.documentFile` has path, format,
+bytes, SHA-256, and `readback.status`: `verified`, `differs`, or
+`unavailable`. An empty Launcher slot writes no file. A document file has no
+change ID and no revert.
+
+The recommended names are `.gndoc` for FIELDS and `.gndoc.json` for JSON. The
+tools do not check names. `.gn` is avoided: GN build files use it.
 
 ## Filesystem and result
 

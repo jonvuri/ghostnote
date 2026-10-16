@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: 8h, 8i0–8i16, and 8i18 are complete (E247–E267). The MIDI trial is recorded and snapshot export is fixed. 8i17 plans the separate musical-navigation survey. Next: the 8i gate close-out.
+status: 8h, 8i0–8i16, 8i18, and 8i19 are complete (E247–E269). The document tools take file paths (D51). 8i17 plans the separate musical-navigation survey. Next: the 8i gate close-out.
 updated: 2026-10-15
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -443,6 +443,12 @@ owns the migration details.
    is a separate planned survey, with the E266 operator trial as a baseline example.
    [8i18 — MIDI snapshot export](8i18-midi-snapshot-export.md) (complete,
    E266, E267) records the trial and fixes the snapshot coverage refusal.
+   [8i19 — Document file paths](8i19-document-file-paths.md) (complete,
+   E268, E269, D51) adds `documentPath` and `documentOutputPath`; E270
+   reruns the trial with them.
+   [8i20 — MIDI tempo report and overlap pre-check](8i20-midi-tempo-report-and-overlap-precheck.md)
+   (planned, E270) bounds the tempo report, fixes the `targetBpm` text, and
+   refuses clip overlaps before the clip exists.
    Next: the 8i gate close-out (verdicts and the 9b handoff).
    None requires a skill.
    Test ordinary work in fresh agent sessions and decide whether the engine,

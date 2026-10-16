@@ -4,7 +4,7 @@ kind: reference
 state: active
 updated: 2026-10-15
 parent: ../plan/phase-8/8h-cache-promotion-and-interface-simplification.md
-evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252, E253, E254, E256, E257, E258, E263, E264, E265, E267
+evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252, E253, E254, E256, E257, E258, E263, E264, E265, E267, E269
 ---
 
 # Ghostnote performance ledger
@@ -246,6 +246,20 @@ hashes. A 16,384-note snapshot took 375.7 ms, with 35.8 MiB heap and 315.0 MiB
 RSS after export. One full document validation was removed; one coverage check
 per clip was added. The run is not a controlled speed comparison with E265.
 See [E267](../evidence/experiments/e267-midi-snapshot-export.md).
+
+### Document files (E269)
+
+`documentPath` and `documentOutputPath` add no host call, turn, cold read, or
+host write stage. The 8i19 call-budget test asserts equal counts with and
+without a file. A refused destination or a missing input file makes no host
+call. The added cost is local: one file read of at most 8 MiB, or one staged
+publication and one readback. Measured medians: read 0.26 ms (240,353 bytes)
+and 0.50 ms (674,732 bytes); publish and verify 5.7–6.5 ms. Live
+`read_launcher_clip` of a 653-note clip: 14 wire calls in each repeated read,
+inline 386–412 ms and to a file 401–406 ms. The difference is in the noise of
+these three pairs. The client gain is in result size: 251,600 to 1,723 bytes for
+the 3,243-note E268 file, and 28.7 to 1.05 KB for the live clip. See
+[E269](../evidence/experiments/e269-document-file-paths.md).
 
 
 ## Limits

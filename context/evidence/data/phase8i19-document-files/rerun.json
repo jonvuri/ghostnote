@@ -1,0 +1,221 @@
+{
+  "version": "8i19-rerun-v1",
+  "descriptions": "ghostnote-description-v51",
+  "source": {
+    "file": "feeding time/transcript-muscriptor-medium/024-acoustic-guitar.mid",
+    "notes": 3243,
+    "tempoEvents": 512,
+    "bpmRange": [
+      95.5,
+      127.9
+    ],
+    "meter": "2/4 at 0"
+  },
+  "claude": {
+    "session": "1b845c12-c815-40a3-90ac-c501a6f75174",
+    "prompts": "E268 prompts 1 and 2 unchanged",
+    "calls": [
+      {
+        "line": 41,
+        "tool": "read_midi_file",
+        "fileArgs": [
+          "documentOutputPath"
+        ]
+      },
+      {
+        "line": 129,
+        "tool": "list_tracks",
+        "fileArgs": []
+      },
+      {
+        "line": 130,
+        "tool": "check_bitwig_connection",
+        "fileArgs": []
+      },
+      {
+        "line": 144,
+        "tool": "read_launcher_clip",
+        "fileArgs": []
+      },
+      {
+        "line": 145,
+        "tool": "read_launcher_clip",
+        "fileArgs": []
+      },
+      {
+        "line": 146,
+        "tool": "read_launcher_clip",
+        "fileArgs": []
+      },
+      {
+        "line": 190,
+        "tool": "add_launcher_clip",
+        "fileArgs": [
+          "documentPath"
+        ]
+      },
+      {
+        "line": 191,
+        "tool": "add_launcher_clip",
+        "fileArgs": [
+          "documentPath"
+        ]
+      },
+      {
+        "line": 204,
+        "tool": "read_launcher_clip",
+        "fileArgs": [
+          "documentOutputPath"
+        ]
+      }
+    ],
+    "turnSeconds": [
+      119,
+      115
+    ],
+    "outputTokens": 19378,
+    "peakContext": 97666,
+    "toolSearch": [
+      25,
+      116
+    ],
+    "readResult": {
+      "line": 45,
+      "chars": 21633
+    },
+    "readResultContextGrowthTokens": 10255
+  },
+  "codex": {
+    "thread": "01a14341-07e1-7430-907b-f150ec5cdd9a",
+    "prompts": "E268 prompt 1; prompt 2 asks for 4 samples of 4 to 8 bars",
+    "calls": [
+      {
+        "line": 24,
+        "tool": "read_midi_file",
+        "fileArgs": [
+          "documentOutputPath"
+        ]
+      },
+      {
+        "line": 107,
+        "tool": "list_tracks",
+        "fileArgs": []
+      },
+      {
+        "line": 107,
+        "tool": "get_document_reference",
+        "fileArgs": []
+      },
+      {
+        "line": 115,
+        "tool": "read_launcher_clip",
+        "fileArgs": []
+      },
+      {
+        "line": 155,
+        "tool": "add_launcher_clip",
+        "fileArgs": [
+          "documentPath"
+        ]
+      },
+      {
+        "line": 162,
+        "tool": "read_launcher_clip",
+        "fileArgs": []
+      },
+      {
+        "line": 170,
+        "tool": "edit_launcher_clip",
+        "fileArgs": [
+          "documentPath"
+        ]
+      },
+      {
+        "line": 179,
+        "tool": "edit_launcher_clip",
+        "fileArgs": [
+          "documentPath"
+        ]
+      },
+      {
+        "line": 185,
+        "tool": "add_launcher_clip",
+        "fileArgs": [
+          "documentPath"
+        ]
+      },
+      {
+        "line": 194,
+        "tool": "set_launcher_clip_properties",
+        "fileArgs": []
+      },
+      {
+        "line": 194,
+        "tool": "read_launcher_clip",
+        "fileArgs": [
+          "documentOutputPath"
+        ]
+      },
+      {
+        "line": 205,
+        "tool": "show_launcher_clip_in_detail_editor",
+        "fileArgs": []
+      }
+    ],
+    "turnSeconds": [
+      140,
+      285
+    ],
+    "peakContext": 128043,
+    "totals": {
+      "input_tokens": 2307267,
+      "cached_input_tokens": 2147968,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 10976,
+      "reasoning_output_tokens": 3084,
+      "total_tokens": 2318243
+    },
+    "approvalWait": {
+      "line": 129,
+      "seconds": 131,
+      "note": "operator approval prompt"
+    },
+    "readResult": {
+      "line": 28,
+      "contextGrowthTokens": 7297
+    },
+    "overlapRefusal": {
+      "line": 158,
+      "code": "unsupported",
+      "reason": "overlap",
+      "emptyClipCreated": true,
+      "detailNamesNotes": false
+    },
+    "noopPropertyWrite": {
+      "line": 194,
+      "tool": "set_launcher_clip_properties",
+      "readback": "unchanged"
+    },
+    "scope": "task turns 1-2 (lines 1-225); later turns are operator questions",
+    "followUp": {
+      "lines": [
+        239,
+        389
+      ],
+      "discovery": "line 267: the AGENTS.md discovery instruction was present; the agent filtered descriptions before names",
+      "instructions": "lines 293-356: agent-reported public sources say Codex Code Mode prepends server instructions to each tool description (codex issue 29097 is related); not independently verified"
+    }
+  },
+  "clips": {
+    "claude": [
+      1353,
+      1343
+    ],
+    "codex": [
+      781,
+      768,
+      835,
+      "see line 190"
+    ]
+  }
+}

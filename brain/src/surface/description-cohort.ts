@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v50';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v51';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -547,14 +547,16 @@ export const DESCRIPTION_COHORT_V42: readonly DescriptionCohortMember[] = DESCRI
  * add_launcher_clip, edit_launcher_clip, and the read reference input state when to request Timing overlays. v46
  * (8i11) keeps this list: the read_launcher_clip description names reference revision 5. v47 (8i14) keeps this
  * list: copy_launcher_clips copies to any empty slot. v48 (8i15) keeps this list: check_revert and revert_change
- * name the removed objects and state the revert fidelity. v49 adds the two offline MIDI file tools. v50 states the snapshot coverage required for MIDI export.
+ * name the removed objects and state the revert fidelity. v49 adds the two offline MIDI file tools. v50 states the snapshot coverage required for MIDI export. v51
+ * (8i19, D51) keeps this list: the document writers take documentPath, and the two document readers take
+ * documentOutputPath.
  */
 export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V42,
   { name: 'read_track_mixer', kind: 'read', reason: 'Reads the track volume in dB, pan, mute, and solo.' },
   { name: 'set_track_mixer', kind: 'write', reason: 'Sets the track volume in dB, pan, mute, and solo with readback.' },
-  { name: 'read_midi_file', kind: 'read', reason: 'Converts a complete local MIDI file to an inline document with optional tempo conversion.' },
-  { name: 'write_midi_file', kind: 'write', reason: 'Writes an inline document to a new local MIDI file without a host call.' },
+  { name: 'read_midi_file', kind: 'read', reason: 'Converts a complete local MIDI file to a document, inline or in a new file, with optional tempo conversion.' },
+  { name: 'write_midi_file', kind: 'write', reason: 'Writes an inline or file document to a new local MIDI file without a host call.' },
 ];
 
 interface ToolAnnotations {
@@ -861,5 +863,11 @@ export const TOOL_DESCRIPTION_V48_SHA256 =
 /** v49 (8i16): inline MIDI file conversion with explicit filesystem effects. */
 export const TOOL_DESCRIPTION_V49_SHA256 = 'e379ac34a5c2f1b25e95c02e6ba42ad5f613b4bc43f94497532ff8ad12270a59';
 
-/** v50 (8i18): MIDI export accepts observed snapshots without a coverage rewrite. */
+/** v50 (8i18): MIDI export accepts observed snapshots without a coverage rewrite. Frozen in 8i19. */
 export const TOOL_DESCRIPTION_V50_SHA256 = 'c4ab80749ce8a870c67b3198354ebd22508e2b0ef2d8e009c6f749c3fe19ba84';
+
+/**
+ * v51 (8i19, D51): add_launcher_clip, edit_launcher_clip, and write_midi_file take documentPath; read_launcher_clip
+ * and read_midi_file take documentOutputPath.
+ */
+export const TOOL_DESCRIPTION_V51_SHA256 = '877303235b4df1d9db5e6540a31964a3d86395dd573838075dca58be5495775b';

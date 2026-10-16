@@ -2,7 +2,7 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-10-15
+updated: 2026-10-16
 phase: phase-8-agent-native-live-engine
 session: 8i-gate-close-out
 ---
@@ -22,26 +22,38 @@ The operator reviewed the [issue log](plan/phase-8/8i-dogfood-issues.md)
 (D1 to D12): only D9 and D8 get a fix; the other rows need no action. Both
 are fixed (E263, E264).
 
-8i18 is complete. [E266](evidence/experiments/e266-inline-midi-operator-trial.md)
-records the operator's MIDI trial. [E267](evidence/experiments/e267-midi-snapshot-export.md)
-fixes its snapshot export refusal (issue D13). `write_midi_file` now accepts
-unchanged `read_launcher_clip` snapshots with complete MIDI field coverage.
-Do not change snapshot coverage to `all`. Loop loss still requires `acceptLoss`.
-Descriptions are v50 (44 tools); the controller remains 8i15.
+8i19 is complete ([E269](evidence/experiments/e269-document-file-paths.md),
+[D51](decisions/d51-document-file-paths.md)). It fixes issue D14 from the
+two-client trial [E268](evidence/experiments/e268-two-client-midi-chord-trial.md).
+`add_launcher_clip`, `edit_launcher_clip`, and `write_midi_file` take
+`documentPath`; `read_launcher_clip` and `read_midi_file` take
+`documentOutputPath`. Descriptions are v51 (44 tools); the controller remains
+8i15. In the [E270](evidence/experiments/e270-document-file-rerun.md) rerun
+both clients used the file parameters unprompted. The server instructions now
+hold only the capability map, the read-before-write rule, and the result
+convention. [8i20](plan/phase-8/8i20-midi-tempo-report-and-overlap-precheck.md)
+is planned from E270: a bounded tempo report, the `targetBpm` text, and an
+overlap check before clip creation. It can run before or after the gate
+close-out. 8i18 (E266, E267) made `write_midi_file` accept unchanged
+snapshots; do not change snapshot coverage to `all`.
 
-The trial used `targetBpm: 126` for the 60 BPM transcription, then played the
-selected grooves at the operator's chosen 110 BPM. The earlier E265 test used
-120 BPM. Fix the source tempo explicitly in comparisons. The separate
-[8i17 plan](plan/phase-8/8i17-midi-musical-navigation-survey.md) now includes
-this unaided-agent example: full documents stayed in script memory; the agent
-printed summaries and selected patterns. Isolated token measurement remains
-part of that planned survey. It can run independently of the gate close-out.
+Ghostworks transcriptions now carry tempo maps and meters (E270): for
+example 512 events at 95.5–127.9 BPM in the `feeding time` guitar, and 247
+events at 126 BPM in the `good lies` drums. Omit `targetBpm` for them. E266
+and E268 used the earlier 60 BPM files (E266 `targetBpm: 126`; E268 an
+inferred 100 BPM grid), so state the source file version in comparisons. The separate
+[8i17 plan](plan/phase-8/8i17-midi-musical-navigation-survey.md) has the E266
+example. E268 adds inputs for it: the first-turn analysis quality, the
+Ghostworks source context, and client limits (Codex cut the 67,046-token read
+to 16,740; Claude Code saved it to a file). 8i17 can run independently of the
+gate close-out.
 
-Preserve `lie sword`: track 1, scenes 1–3 hold the three 16-beat drum clips
-(72, 92, and 100 notes), with the operator's snare corrections to pitch 37.
-The operator confirmed the initial save in the trial. Preserve the three MIDI
-files in `good lies/extracted-drums`. E266 has the last observations; 8i18 made
-no live read or write. Check current state before live work.
+Preserve `lie sword` and the three MIDI files in `good lies/extracted-drums`.
+For E270 the operator renamed and cleared track 2 to `chords` (trackId
+`0a288e89…`) before each session. The last observed state is the end of the
+Codex session: rows 0–3 hold its four 8-bar clips, and the project was
+saved. Earlier comparison clips can be in alternate saves. Check
+current state before live work.
 
 Keep in mind for the trials: with the D44 limits, an agent splits larger
 work into more calls. A split is not atomic; `revert_change` does not
@@ -78,20 +90,21 @@ new marker: the method count and hash identify it. The probe build has
 scenes and mixer `gn-sel` selected; `selection.status` reports a slot of
 a deleted scratch track (track index 9, row 0; issue D11). The transport
 was not started in 8i15. "New 3" (8i7) was not opened. The next free
-evidence number is E268; the next decision is D51; the next issue row is
-D14. The current live drivers accept 8i15 (`NORMAL_8I15`,
+evidence number is E271; the next decision is D52; the next issue row is
+D17. The current live drivers accept 8i15 (`NORMAL_8I15`,
 `assertCurrentNormal`). See E263 and E264 for their commands and cleanup.
-No live project was opened or changed in 8i16 or 8i18. E266 records the
-operator trial between those sessions.
+No live project was opened or changed in 8i16, 8i18, or 8i19; 8i19 made
+live reads only, after `probe:hello` passed on the 8i15 build.
 
 ## Facts
 
-MIDI files: use the [conversion contract](contracts/MIDI_FILE_CONVERSION.md).
-The offline driver is `phase8i16-midi-files.ts <absolute MIDI directory>`.
-It tests at 120 BPM and removes its generated files. All six `good lies` files
-passed. R07 normalization can create same-pitch overlaps: use the stated FIFO
-pairing rule, not note shortening. Read returns the full document; client
-truncation and actual token use belong to the 8i17 baseline.
+MIDI and document files: use the [conversion contract](contracts/MIDI_FILE_CONVERSION.md).
+The offline drivers are `phase8i16-midi-files.ts <absolute MIDI directory>`
+and `phase8i19-document-files.ts <absolute MIDI file>`; the live read check is
+`phase8i19-live-read.ts <track name> <row>`. They remove their files. R07
+normalization can create same-pitch overlaps: use the stated FIFO pairing rule,
+not note shortening. A document file is FIELDS when its first record is `DOC`;
+a JSON object is JSON. Name files `.gndoc` or `.gndoc.json`, not `.gn`.
 
 For automated trials, use the [E261 runbook links](evidence/experiments/e261-automated-dogfood-process-proof.md)
 and [E262 stretch fixtures](evidence/experiments/e262-automated-dogfood-stretch-set.md).

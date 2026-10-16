@@ -30,6 +30,7 @@ import {
 import {
   CORE_REFERENCE, MODEL_REFERENCE, OPTIONAL_REFERENCE_SECTIONS, getDocumentReferenceTool, selectedReference,
 } from './document-help.js';
+import { checkDocumentOutput, documentOutputPathInput, publishDocumentFile } from './document-files.js';
 import type { ToolSpec } from './tools.js';
 import type { Workspace } from './workspace.js';
 
@@ -242,6 +243,7 @@ const readInput = z.object({
     + 'get_document_reference returns the sections and templates without a clip.',
   ),
   diagnostic: z.boolean().optional().describe('Also return the exact host source of the read. Use only to diagnose a problem.'),
+  documentOutputPath: documentOutputPathInput,
 }).strict();
 type ReadInput = z.infer<typeof readInput>;
 
@@ -266,6 +268,11 @@ const READ_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Read one Launche
   + 'authority.base, and reference together: another read only for the help or the base is not necessary. Read '
   + 'again when the clip can have changed. get_document_reference returns the reference and templates without a '
   + 'read.\n'
+  + 'documentOutputPath writes the document of an occupied slot to a new local file in the format encoding: '
+  + 'data.documentFile has path, format, bytes, sha256, and readback.status (verified, differs, or unavailable), and '
+  + 'data has no inline document. An empty slot writes no file. The file has no change ID and cannot use '
+  + 'revert_change. authority.base stays in the result: a script can build a patch or desired document from the '
+  + 'file for edit_launcher_clip documentPath. write_midi_file takes the file unchanged.\n'
   + 'Overlays, META, and EXTENSIONS that edit_launcher_clip stored come back with the document while the clip '
   + 'ID stays. When notes change, authority.overlays names the claims that became stale or were removed.\n'
   + 'A failure has failure.code: absent, outside-limit, unhealthy, authority-unavailable, '
@@ -282,8 +289,11 @@ async function readLauncherClip(workspace: Workspace, args: ReadInput): Promise<
   const started = performance.now();
   const encoding: Encoding = args.format ?? 'fields';
   const target = { trackId: args.trackId, row: args.row };
-  let stage: 'resolve' | 'acquire' | 'project' | 'registry' = 'resolve';
+  let stage: 'input' | 'resolve' | 'acquire' | 'project' | 'registry' | 'write' = 'input';
   try {
+    // The destination is checked before any host call.
+    if (args.documentOutputPath !== undefined) await checkDocumentOutput(args.documentOutputPath);
+    stage = 'resolve';
     const registry = identityRegistryOf(workspace);
     const before = await workspace.mark();
     checkHealth(before);
@@ -346,6 +356,9 @@ async function readLauncherClip(workspace: Workspace, args: ReadInput): Promise<
     stage = 'registry';
     const { acquired, projection } = bindSnapshot(registry, snapshot,
       prior === undefined ? undefined : { entry: prior, verdict: verdict! });
+    stage = 'write';
+    const output = args.documentOutputPath === undefined ? undefined : await publishDocumentFile(READ_SCHEMA,
+      args.documentOutputPath, encodeLauncherClip(projection.document, encoding), encoding);
     const result: ReadResult<Record<string, unknown>> = {
       schema: READ_SCHEMA,
       source: SOURCE,
@@ -359,10 +372,10 @@ async function readLauncherClip(workspace: Workspace, args: ReadInput): Promise<
       data: {
         occupancy: 'occupied',
         format: encoding,
-        document: encoded(projection.document, encoding),
+        ...(output === undefined ? { document: encoded(projection.document, encoding) } : { documentFile: output.documentFile }),
         ...lossOf(projection),
       },
-      warnings: projectionWarnings(projection),
+      warnings: [...projectionWarnings(projection), ...(output?.warnings ?? [])],
       timing: { readMs, totalMs: performance.now() - started },
       ...(args.reference === undefined ? {} : { reference: selectedReference(args.reference) }),
       ...(args.diagnostic === true ? { diagnostic: exactSource(snapshot) } : {}),

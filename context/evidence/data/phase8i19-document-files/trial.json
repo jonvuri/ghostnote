@@ -1,0 +1,469 @@
+{
+  "version": "8i19-two-client-trial-v1",
+  "task": "same first prompt: read the 3,243-note guitar transcription with ghostnote and analyze it; later prompts put chord progressions into the chords track at 110 BPM (Claude prompts 2 and 3 were reworded by the operator)",
+  "source": {
+    "file": "feeding time/transcript-muscriptor-medium/024-acoustic-guitar.mid",
+    "sha256": "0e09eebef1cc88232d4ab32d149df1d8e860128947732442f34785b6c3d34c00",
+    "notes": 3243
+  },
+  "codex": {
+    "thread": "01a13d3d-abd7-70d0-a6d4-26cd27ed3293",
+    "turns": [
+      {
+        "lines": [
+          2,
+          82
+        ],
+        "seconds": 165
+      },
+      {
+        "lines": [
+          84,
+          175
+        ],
+        "seconds": 150
+      },
+      {
+        "lines": [
+          177,
+          240
+        ],
+        "seconds": 68
+      }
+    ],
+    "contextAt": [
+      {
+        "line": 19,
+        "inputTokens": 30439
+      },
+      {
+        "line": 25,
+        "inputTokens": 40063
+      },
+      {
+        "line": 29,
+        "inputTokens": 40197
+      },
+      {
+        "line": 34,
+        "inputTokens": 40764
+      },
+      {
+        "line": 40,
+        "inputTokens": 57504
+      },
+      {
+        "line": 46,
+        "inputTokens": 60173
+      },
+      {
+        "line": 51,
+        "inputTokens": 60839
+      },
+      {
+        "line": 59,
+        "inputTokens": 62857
+      },
+      {
+        "line": 65,
+        "inputTokens": 65341
+      },
+      {
+        "line": 71,
+        "inputTokens": 71146
+      },
+      {
+        "line": 81,
+        "inputTokens": 72554
+      },
+      {
+        "line": 93,
+        "inputTokens": 74462
+      },
+      {
+        "line": 100,
+        "inputTokens": 78828
+      },
+      {
+        "line": 114,
+        "inputTokens": 84944
+      },
+      {
+        "line": 121,
+        "inputTokens": 87164
+      },
+      {
+        "line": 126,
+        "inputTokens": 93488
+      },
+      {
+        "line": 132,
+        "inputTokens": 102153
+      },
+      {
+        "line": 141,
+        "inputTokens": 105955
+      },
+      {
+        "line": 148,
+        "inputTokens": 106767
+      },
+      {
+        "line": 158,
+        "inputTokens": 108457
+      },
+      {
+        "line": 165,
+        "inputTokens": 109678
+      },
+      {
+        "line": 170,
+        "inputTokens": 109985
+      },
+      {
+        "line": 174,
+        "inputTokens": 116376
+      },
+      {
+        "line": 195,
+        "inputTokens": 116522
+      },
+      {
+        "line": 202,
+        "inputTokens": 119574
+      },
+      {
+        "line": 211,
+        "inputTokens": 120757
+      },
+      {
+        "line": 221,
+        "inputTokens": 137705
+      },
+      {
+        "line": 235,
+        "inputTokens": 138671
+      },
+      {
+        "line": 239,
+        "inputTokens": 139477
+      }
+    ],
+    "writes": [
+      {
+        "line": 137,
+        "tool": "add_launcher_clip",
+        "documentFrom": "script memory (load)"
+      },
+      {
+        "line": 142,
+        "tool": "add_launcher_clip",
+        "documentFrom": "script memory (load)"
+      },
+      {
+        "line": 203,
+        "tool": "edit_launcher_clip",
+        "documentFrom": "script memory (load)"
+      },
+      {
+        "line": 214,
+        "tool": "edit_launcher_clip",
+        "documentFrom": "script memory (load)"
+      }
+    ],
+    "toolDiscovery": [
+      {
+        "line": 16,
+        "outputLine": 18,
+        "note": "lists matching tool descriptions; output cut from 32,224 tokens"
+      },
+      {
+        "line": 22
+      },
+      {
+        "line": 26
+      }
+    ],
+    "totals": {
+      "input_tokens": 2552840,
+      "cached_input_tokens": 2422784,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 10872,
+      "reasoning_output_tokens": 3669,
+      "total_tokens": 2563712
+    },
+    "clipNotes": [
+      653,
+      654,
+      705,
+      619
+    ],
+    "truncatedOutputs": [
+      {
+        "line": 18,
+        "originalTokens": 32224,
+        "charsSeen": 41240
+      },
+      {
+        "line": 33,
+        "originalTokens": 67046,
+        "charsSeen": 45516
+      },
+      {
+        "line": 210,
+        "originalTokens": 13326,
+        "charsSeen": 48259
+      }
+    ],
+    "readMidiFile": {
+      "line": 33,
+      "note": "read_midi_file result printed with text(r); the client cut it; the script kept the full result with store()"
+    }
+  },
+  "claude": {
+    "session": "e98f53e4-f21e-4058-b65e-413e82781216",
+    "turns": [
+      {
+        "line": 150,
+        "seconds": 142
+      },
+      {
+        "line": 257,
+        "seconds": 531
+      },
+      {
+        "line": 378,
+        "seconds": 515
+      }
+    ],
+    "contextAt": [
+      {
+        "line": 25,
+        "inputTokens": 38842,
+        "outputTokens": 90
+      },
+      {
+        "line": 41,
+        "inputTokens": 39713,
+        "outputTokens": 115
+      },
+      {
+        "line": 51,
+        "inputTokens": 40459,
+        "outputTokens": 362
+      },
+      {
+        "line": 60,
+        "inputTokens": 41739,
+        "outputTokens": 387
+      },
+      {
+        "line": 70,
+        "inputTokens": 43377,
+        "outputTokens": 545
+      },
+      {
+        "line": 83,
+        "inputTokens": 44013,
+        "outputTokens": 928
+      },
+      {
+        "line": 91,
+        "inputTokens": 45127,
+        "outputTokens": 991
+      },
+      {
+        "line": 99,
+        "inputTokens": 46924,
+        "outputTokens": 358
+      },
+      {
+        "line": 110,
+        "inputTokens": 48889,
+        "outputTokens": 1060
+      },
+      {
+        "line": 124,
+        "inputTokens": 50169,
+        "outputTokens": 594
+      },
+      {
+        "line": 128,
+        "inputTokens": 53898,
+        "outputTokens": 1567
+      },
+      {
+        "line": 143,
+        "inputTokens": 56020,
+        "outputTokens": 602
+      },
+      {
+        "line": 147,
+        "inputTokens": 59396,
+        "outputTokens": 3396
+      },
+      {
+        "line": 161,
+        "inputTokens": 62892,
+        "outputTokens": 248
+      },
+      {
+        "line": 175,
+        "inputTokens": 71594,
+        "outputTokens": 38
+      },
+      {
+        "line": 186,
+        "inputTokens": 72022,
+        "outputTokens": 345
+      },
+      {
+        "line": 202,
+        "inputTokens": 76977,
+        "outputTokens": 1867
+      },
+      {
+        "line": 213,
+        "inputTokens": 79356,
+        "outputTokens": 502
+      },
+      {
+        "line": 226,
+        "inputTokens": 81091,
+        "outputTokens": 966
+      },
+      {
+        "line": 234,
+        "inputTokens": 82238,
+        "outputTokens": 286
+      },
+      {
+        "line": 243,
+        "inputTokens": 161289,
+        "outputTokens": 71900
+      },
+      {
+        "line": 254,
+        "inputTokens": 233873,
+        "outputTokens": 630
+      },
+      {
+        "line": 268,
+        "inputTokens": 234566,
+        "outputTokens": 809
+      },
+      {
+        "line": 284,
+        "inputTokens": 236371,
+        "outputTokens": 910
+      },
+      {
+        "line": 296,
+        "inputTokens": 254758,
+        "outputTokens": 17660
+      },
+      {
+        "line": 311,
+        "inputTokens": 273029,
+        "outputTokens": 127
+      },
+      {
+        "line": 319,
+        "inputTokens": 291169,
+        "outputTokens": 18113
+      },
+      {
+        "line": 333,
+        "inputTokens": 309951,
+        "outputTokens": 127
+      },
+      {
+        "line": 341,
+        "inputTokens": 328557,
+        "outputTokens": 18579
+      },
+      {
+        "line": 356,
+        "inputTokens": 347853,
+        "outputTokens": 156
+      },
+      {
+        "line": 365,
+        "inputTokens": 364486,
+        "outputTokens": 16577
+      },
+      {
+        "line": 375,
+        "inputTokens": 381739,
+        "outputTokens": 527
+      }
+    ],
+    "writes": [
+      {
+        "line": 244,
+        "tool": "add_launcher_clip",
+        "documentFrom": "inline (model output)",
+        "documentChars": 103174,
+        "notes": 2733,
+        "callOutputTokens": 71900
+      },
+      {
+        "line": 297,
+        "tool": "edit_launcher_clip",
+        "documentFrom": "inline (model output)",
+        "documentChars": 24886,
+        "notes": 677,
+        "callOutputTokens": 17660
+      },
+      {
+        "line": 319,
+        "tool": "add_launcher_clip",
+        "documentFrom": "inline (model output)",
+        "documentChars": 25634,
+        "notes": 699,
+        "callOutputTokens": 18113
+      },
+      {
+        "line": 341,
+        "tool": "add_launcher_clip",
+        "documentFrom": "inline (model output)",
+        "documentChars": 26355,
+        "notes": 717,
+        "callOutputTokens": 18579
+      },
+      {
+        "line": 365,
+        "tool": "add_launcher_clip",
+        "documentFrom": "inline (model output)",
+        "documentChars": 23434,
+        "notes": 640,
+        "callOutputTokens": 16577
+      }
+    ],
+    "toolDiscovery": [
+      {
+        "line": 25,
+        "query": "select:mcp__ghostnote__read_midi_file"
+      },
+      {
+        "line": 162,
+        "query": "select:mcp__ghostnote__list_tracks,mcp__ghostnote__check_launcher_clips,mcp__ghostnote__add_launcher_clip,mcp__ghostnote"
+      }
+    ],
+    "overflowSaved": {
+      "line": 45,
+      "resultChars": 251600,
+      "noticeChars": 1436
+    },
+    "totals": {
+      "output_tokens": 161362
+    },
+    "clipNotes": [
+      2733,
+      677,
+      699,
+      717,
+      640
+    ]
+  }
+}

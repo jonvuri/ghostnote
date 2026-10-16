@@ -41,6 +41,7 @@ import { documentText, editLauncherClip, parseProposal } from './agent-native-ed
 import {
   DESIRED_EXAMPLE_TEXT, FORMAT_STATEMENT, TIMING_FEEL_ROUTE, claimRepairOf, documentParameter, kindRepair,
 } from './document-help.js';
+import { DOCUMENT_PATH_STATEMENT, documentInput, documentPathInput } from './document-files.js';
 import type { ToolSpec } from './tools.js';
 import { WRITE_LIMITS, atMost, requireWithinLimit } from './write-limits.js';
 import type { Workspace } from './workspace.js';
@@ -213,10 +214,11 @@ const CLAIM_DEPENDENCY_UNITS = 'claim dependency units (one for each note of a m
 const addInput = z.object({
   trackId,
   row,
-  document: z.union([z.string().min(1), z.record(z.string(), z.unknown())]).describe(
+  document: z.union([z.string().min(1), z.record(z.string(), z.unknown())]).optional().describe(
     `${documentParameter('A desired document without BASE (one CLIP and its notes)')} `
     + atMost('claimDependencyExpansion', CLAIM_DEPENDENCY_UNITS),
   ),
+  documentPath: documentPathInput,
   format,
   readback: z.enum(['summary', 'document']).optional().describe(
     'summary (default): the new base, IDs, and discrepancies. document: also the read-back document.',
@@ -225,7 +227,8 @@ const addInput = z.object({
 type AddInput = z.infer<typeof addInput>;
 
 const ADD_DESCRIPTION = `${PROFILE} Create one Launcher clip in an empty slot from a Ghostnote Document 1.0 `
-  + `desired document without BASE (DOC ghostnote-document 1.0 desired, one CLIP). ${FORMAT_STATEMENT}\n`
+  + `desired document without BASE (DOC ghostnote-document 1.0 desired, one CLIP). ${FORMAT_STATEMENT} `
+  + `${DOCUMENT_PATH_STATEMENT}\n`
   + `${DESIRED_EXAMPLE_TEXT}\n`
   + 'The CLIP length is the clip length in beats. A CLIP without loop makes a clip that does not loop; loop '
   + '{"from":"0","to":<length>} makes it loop over its length. The notes are written through the '
@@ -262,10 +265,11 @@ async function addLauncherClip(workspace: Workspace, args: AddInput): Promise<un
   const started = performance.now();
   const target = { trackId: args.trackId, row: args.row };
   return guardedRun(ADD_SCHEMA, target, async (state) => {
-    const { document: proposal, seal } = parseProposal(args, 'add');
+    const input = await documentInput(args, args.format ?? 'fields');
+    const { document: proposal, seal } = parseProposal(input, 'add');
     if (proposal.kind !== 'desired' || proposal.base !== undefined) {
       throw new ToolFailure('invalid-input', 'input', 'add_launcher_clip takes a desired document without BASE.', {
-        detail: { repair: kindRepair('add', args.format ?? 'fields', documentText(args.document)) } });
+        detail: { repair: kindRepair('add', input.format, documentText(input.document)) } });
     }
     if (proposal.clips.length !== 1) {
       throw new ToolFailure('invalid-input', 'input', 'A desired document for one Launcher clip has exactly one CLIP.');
@@ -297,9 +301,9 @@ async function addLauncherClip(workspace: Workspace, args: AddInput): Promise<un
       // The content goes through the edit limb: an unguarded replacement of the new, empty clip.
       state.stage = 'plan';
       const edited = await editLauncherClip(workspace, {
-        trackId: args.trackId, row: args.row, document: args.document, intent: 'replace', format: args.format ?? 'fields',
+        trackId: args.trackId, row: args.row, document: input.document, intent: 'replace', format: args.format ?? 'fields',
         ...(args.readback === undefined ? {} : { readback: args.readback }),
-      }, { parsed: checked }) as Record<string, any>;
+      }, { parsed: checked, ...(input.file === undefined ? {} : { documentFile: input.file }) }) as Record<string, any>;
       return { creation: made, content: edited };
     });
     const { creation, content } = written;
@@ -324,7 +328,8 @@ async function addLauncherClip(workspace: Workspace, args: AddInput): Promise<un
       warnings: [...(content['warnings'] ?? []), ...moved],
       timing: { ...(content['timing'] ?? {}), totalMs: performance.now() - started },
     };
-    return { ...result, target, ...(content['plan'] === undefined ? {} : { plan: content['plan'] }) };
+    return { ...result, target, ...(input.file === undefined ? {} : { documentFile: input.file }),
+      ...(content['plan'] === undefined ? {} : { plan: content['plan'] }) };
   });
 }
 
@@ -337,7 +342,7 @@ const addLauncherClipTool: ToolSpec = {
   inputValidator: addInput,
   emits: ['clip.create', 'clip.update', 'note.remove', 'note.insert', 'note.clear', 'note.write'],
   resultContract: {
-    schema: ADD_SCHEMA, profile: AGENT_NATIVE_TOOL_PROFILE, envelope: [...WRITE_FIELDS, 'plan'], failure: FAILURE_FIELDS,
+    schema: ADD_SCHEMA, profile: AGENT_NATIVE_TOOL_PROFILE, envelope: [...WRITE_FIELDS, 'documentFile', 'plan'], failure: FAILURE_FIELDS,
     readbackStatus: ['verified', 'differs', 'unavailable', 'unchanged'],
   },
   run: (workspace, input) => addLauncherClip(workspace, input as AddInput),

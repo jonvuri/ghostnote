@@ -1,0 +1,44 @@
+{
+  "version": "8i19-document-files-v1",
+  "date": "2026-10-15T04:32:44.926Z",
+  "node": "v24.11.1",
+  "hostCalls": 0,
+  "results": [
+    {
+      "case": "source",
+      "notes": 3243,
+      "sourceSha256": "0e09eebef1cc88232d4ab32d149df1d8e860128947732442f34785b6c3d34c00",
+      "documentBytes": 240353,
+      "documentSha256": "2e076dc7f3b844cc622672ff5e4dc96e33a5d7448033f719d620ea42beb446ea",
+      "inlineResultBytes": 251600,
+      "fileResultBytes": 1723,
+      "inlineReadMs": 132.501416,
+      "fileReadMs": 122.61870900000002,
+      "fileReadback": "verified",
+      "writeFromFileMs": 83.68070799999998,
+      "writeResultBytes": 964,
+      "writeReadback": "verified",
+      "noteRoundTrip": true,
+      "documentFileReadMedianMs": 0.2621249999999691,
+      "documentFilePublishMedianMs": 5.70795899999996
+    },
+    {
+      "case": "generated-16384-notes",
+      "notes": 16384,
+      "sourceSha256": "d091ea12197728b9ca81262ed497b56a509cd29ded7525c94f8c668a079d4876",
+      "documentBytes": 674732,
+      "documentSha256": "0ddcc8259b7fb3fec54a4f856c0e546b5d8d8c8f7177f096e240f5b1d66e4c23",
+      "inlineResultBytes": 692370,
+      "fileResultBytes": 1459,
+      "inlineReadMs": 470.699166,
+      "fileReadMs": 476.09475,
+      "fileReadback": "verified",
+      "writeFromFileMs": 334.9016670000001,
+      "writeResultBytes": 815,
+      "writeReadback": "verified",
+      "noteRoundTrip": true,
+      "documentFileReadMedianMs": 0.5029999999997017,
+      "documentFilePublishMedianMs": 6.517417000000023
+    }
+  ]
+}

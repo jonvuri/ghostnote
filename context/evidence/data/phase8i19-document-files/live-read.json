@@ -1,0 +1,73 @@
+{
+  "version": "8i19-live-read-v1",
+  "date": "2026-10-15T04:33:42.906Z",
+  "build": [
+    "normal-v1",
+    92,
+    "8be1975eaa99d78f"
+  ],
+  "project": "lie sword",
+  "target": {
+    "track": "chords - codex",
+    "row": 0
+  },
+  "notes": 653,
+  "documentBytes": 27275,
+  "steps": [
+    {
+      "step": "tracks",
+      "tool": "list_tracks",
+      "ms": 25,
+      "bytes": 1139,
+      "wire": 2
+    },
+    {
+      "step": "inline-0",
+      "tool": "read_launcher_clip",
+      "ms": 452,
+      "bytes": 28712,
+      "wire": 12,
+      "readMs": 356
+    },
+    {
+      "step": "file-0",
+      "tool": "read_launcher_clip",
+      "ms": 406,
+      "bytes": 1051,
+      "wire": 14,
+      "readMs": 333
+    },
+    {
+      "step": "inline-1",
+      "tool": "read_launcher_clip",
+      "ms": 386,
+      "bytes": 28733,
+      "wire": 14,
+      "readMs": 330
+    },
+    {
+      "step": "file-1",
+      "tool": "read_launcher_clip",
+      "ms": 401,
+      "bytes": 1052,
+      "wire": 14,
+      "readMs": 334
+    },
+    {
+      "step": "inline-2",
+      "tool": "read_launcher_clip",
+      "ms": 412,
+      "bytes": 28731,
+      "wire": 14,
+      "readMs": 338
+    },
+    {
+      "step": "file-2",
+      "tool": "read_launcher_clip",
+      "ms": 406,
+      "bytes": 1045,
+      "wire": 14,
+      "readMs": 336
+    }
+  ]
+}

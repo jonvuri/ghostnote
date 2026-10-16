@@ -12,7 +12,7 @@
  */
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { mkdtemp, writeFile, rm } from 'node:fs/promises';
+import { mkdtemp, readFile, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { SIMPLE_MIDI } from '../midi/fixtures.js';
@@ -385,5 +385,45 @@ test('8i16 call budget: successful MIDI file read and write each make zero host 
     const write = await fx.call('write_midi_file', { path: join(dir, 'result.mid'), document: read.result.data.document });
     assert.equal(write.result.readback.status, 'verified');
     assert.deepEqual(write.counts, {});
+  } finally { await rm(dir, { recursive: true, force: true }); }
+});
+
+test('8i19 call budget: document files add no host call; a refused destination makes none', async () => {
+  const fx = await fixture();
+  const dir = await mkdtemp(join(tmpdir(), 'gn-document-budget-'));
+  try {
+    const out = join(dir, 'row0.gndoc');
+    // The first read budget of 'call budget: read_launcher_clip, first and repeated'.
+    const filed = await fx.call('read_launcher_clip', { trackId: fx.trackId, row: 0, documentOutputPath: out });
+    assert.equal(filed.result.data.documentFile.readback.status, 'verified');
+    assert.deepEqual(filed.counts, { mark: 1, tracks: 1, clipRead: 1, delta: 1 });
+    const occupied = await fx.call('read_launcher_clip', { trackId: fx.trackId, row: 0, documentOutputPath: out });
+    assert.equal(occupied.result.failure.code, 'occupied');
+    assert.deepEqual(occupied.counts, {});
+
+    const desired = ['DOC ghostnote-document 1.0 desired', 'CLIP {"id":"c1","length":"8"}',
+      'COVERAGE {"channels":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],"clip":"c1","fields":"all","from":"0","status":"complete","to":"8"}',
+      'FIELDS id clip at duration pitch velocity channel',
+      ...Array.from({ length: 16 }, (_, c) => `EVENT n${c} c1 ${c}/4 1/4 60 100 ${c + 1}`)].join('\n') + '\n';
+    await writeFile(join(dir, 'new.gndoc'), desired);
+    const added = await fx.call('add_launcher_clip', { trackId: fx.trackId, row: 2, documentPath: join(dir, 'new.gndoc') });
+    assert.equal(added.result.readback?.status, 'verified', JSON.stringify(added.result).slice(0, 300));
+    assert.deepEqual(added.counts, { mark: 3, tracks: 2, read: 3, resolve: 2, apply: 2, delta: 4, clipRead: 3 });
+
+    // The same patch inline on row 1 and from a file on row 0: the same route and calls.
+    const row1 = await fx.call('read_launcher_clip', { trackId: fx.trackId, row: 1 });
+    const inlineEdit = await fx.call('edit_launcher_clip', { trackId: fx.trackId, row: 1, document: patch(
+      row1.result.authority.base, [`UPDATE ${documentOf(row1.result).events[0]!.id} {"velocity":90}`]) });
+    assert.equal(inlineEdit.result.applied, true, JSON.stringify(inlineEdit.result).slice(0, 300));
+    const fileDocument = parse(await readFile(out, 'utf8'), 'fields') as StateDocument;
+    await writeFile(join(dir, 'patch.gndoc'), patch(filed.result.authority.base,
+      [`UPDATE ${fileDocument.events[0]!.id} {"velocity":90}`]));
+    const edited = await fx.call('edit_launcher_clip', { trackId: fx.trackId, row: 0, documentPath: join(dir, 'patch.gndoc') });
+    assert.equal(edited.result.applied, true, JSON.stringify(edited.result).slice(0, 300));
+    assert.equal(edited.result.plan.route, inlineEdit.result.plan.route);
+    assert.deepEqual(edited.counts, inlineEdit.counts);
+    const missing = await fx.call('edit_launcher_clip', { trackId: fx.trackId, row: 0, documentPath: join(dir, 'none.gndoc') });
+    assert.equal(missing.result.failure.code, 'absent');
+    assert.deepEqual(missing.counts, {});
   } finally { await rm(dir, { recursive: true, force: true }); }
 });

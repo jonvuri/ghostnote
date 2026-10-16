@@ -50,3 +50,9 @@ as observed documents. Require complete clip and channel coverage for the MIDI
 fields, with an explicit field list permitted. Unobserved non-MIDI fields stay
 unknown. Do not change the input to desired or claim `fields: "all"`. Existing
 loss checks still apply to supplied nondefault values.
+
+## Document files (8i19)
+
+[D51](d51-document-file-paths.md) adds `documentOutputPath` to
+`read_midi_file` and `documentPath` to `write_midi_file`. The inline document
+stays the default. The file rules above also apply to document files.
