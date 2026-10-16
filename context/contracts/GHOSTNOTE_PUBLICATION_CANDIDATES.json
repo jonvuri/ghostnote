@@ -1060,7 +1060,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "c054a3954f38a53f5c4f36f13ce5c5344efb88743daf8b0b80dc1caa66ef3e08"
+        "value": "474633b2bb66990e04d12542c3aeff6a2d9f74eed9462e4a7ed827026bcfd345"
       },
       "dependencies": [
         "brain/src/document/",
@@ -1130,7 +1130,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "af0e0db392a0fc8cc560817502afd790db2b5625bbd50b5edae69e299a9a1db7"
+        "value": "a4c41d92b9e07ee4fc4659535bd914c3dca6a3f99f2593d48671516e40738d71"
       },
       "dependencies": [
         "brain/src/document/",

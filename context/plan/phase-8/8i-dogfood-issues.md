@@ -2,7 +2,7 @@
 title: 8i dogfood issue log
 kind: reference
 state: active
-updated: 2026-10-15
+updated: 2026-10-16
 parent: 8i-agent-native-hybrid-dogfood.md
 ---
 
@@ -14,7 +14,7 @@ It does not change product code. The operator fills the decision column in
 a review session. The operator reviewed D1 to D12 on 2026-10-11: D9 and
 D8 get fix sessions; the other rows need no action. D9 is fixed (E263). D8 is fixed (E264). A transcript reference is an extract file and its `line`
 values, under `context/evidence/data/`. E266 adds the operator MIDI trial;
-the operator requested the D13 fix on 2026-10-15. E267 verifies that fix. E268 adds the two-client MIDI chord trial; the operator requested the D14 fix on 2026-10-15. E269 verifies that fix. E270 adds D15 and D16 from the file-path rerun; 8i20 plans D15 and D16.
+the operator requested the D13 fix on 2026-10-15. E267 verifies that fix. E268 adds the two-client MIDI chord trial; the operator requested the D14 fix on 2026-10-15. E269 verifies that fix. E270 adds D15 and D16 from the file-path rerun; 8i20 fixes both (E271).
 
 Owners: `description`, `tool`, `client`, `agent`, `driver` (the runner, a
 fixture driver, or the runbook), and `operator` (the fixture state).
@@ -35,5 +35,5 @@ fixture driver, or the runbook), and `operator` (the fixture state).
 | D12 | S1, S2, S4 (E262) | — | E262, Driver and runner | The plan asked for raw wire reads of the state. The bridge has no clip or device read without a cursor, so the driver reads clip documents and device controls with the product read tools in its own process | An independent read that does not use the tool under test, or a plan that accepts the product read | driver | No action (operator, 2026-10-11) |
 | D13 | Operator MIDI trial (E266) | Codex | `phase8i18-midi-snapshot/trial.json`, rollout lines 200, 207, 214–216 | Export rejected a valid Launcher snapshot after changing its kind to desired. The agent changed coverage to all, then accepted loop loss and exported | Accept observed MIDI fields without claiming unobserved fields | tool | Fixed in [8i18](8i18-midi-snapshot-export.md), [E267](../../evidence/experiments/e267-midi-snapshot-export.md); operator requested the fix on 2026-10-15 |
 | D14 | Two-client MIDI chord trial (E268) | Claude | `phase8i19-document-files/trial.json`, Claude session lines 244, 297, 319, 341, 365 | The clip writers took only inline documents. The agent read each generated document into its context, then wrote it again as the tool argument: 161,362 output tokens for the session, 71,900 for one call. Codex passed documents from script memory | A route from a local document file to the write tool, with no document in the context | tool | Fixed in [8i19](8i19-document-file-paths.md), [E269](../../evidence/experiments/e269-document-file-paths.md), D51; operator requested the fix on 2026-10-15 |
-| D15 | File-path rerun (E270) | Codex, Claude | `phase8i19-document-files/rerun.json`; Claude line 45, Codex line 28 | `read_midi_file` with `documentOutputPath` returned 21,633 characters: `report.sourceTempoMap` listed all 512 tempo events. Context grew by 10,255 (Claude) and 7,297 (Codex) tokens | A file-mode result whose size does not grow with the source tempo map | tool | Planned: [8i20](8i20-midi-tempo-report-and-overlap-precheck.md) |
-| D16 | File-path rerun (E270) | Codex | `phase8i19-document-files/rerun.json`; Codex line 158 | `add_launcher_clip` created the empty clip, then refused the content: `unsupported`, reason `overlap`, with no note named. The agent repaired the document and filled the empty clip with an edit | Refuse the overlap before any host call, and name the overlapping notes | tool | Planned: [8i20](8i20-midi-tempo-report-and-overlap-precheck.md) |
+| D15 | File-path rerun (E270) | Codex, Claude | `phase8i19-document-files/rerun.json`; Claude line 45, Codex line 28 | `read_midi_file` with `documentOutputPath` returned 21,633 characters: `report.sourceTempoMap` listed all 512 tempo events. Context grew by 10,255 (Claude) and 7,297 (Codex) tokens | A file-mode result whose size does not grow with the source tempo map | tool | Fixed in [8i20](8i20-midi-tempo-report-and-overlap-precheck.md), [E271](../../evidence/experiments/e271-midi-tempo-report-and-overlap-precheck.md): a fixed `report.sourceTempo` summary; file results 1.8 KB |
+| D16 | File-path rerun (E270) | Codex | `phase8i19-document-files/rerun.json`; Codex line 158 | `add_launcher_clip` created the empty clip, then refused the content: `unsupported`, reason `overlap`, with no note named. The agent repaired the document and filled the empty clip with an edit | Refuse the overlap before any host call, and name the overlapping notes | tool | Fixed in [8i20](8i20-midi-tempo-report-and-overlap-precheck.md), [E271](../../evidence/experiments/e271-midi-tempo-report-and-overlap-precheck.md): refused before any host call, with at most 16 pairs and the total |

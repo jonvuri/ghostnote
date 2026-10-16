@@ -2,9 +2,9 @@
 title: Ghostnote performance ledger
 kind: reference
 state: active
-updated: 2026-10-15
+updated: 2026-10-16
 parent: ../plan/phase-8/8h-cache-promotion-and-interface-simplification.md
-evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252, E253, E254, E256, E257, E258, E263, E264, E265, E267, E269
+evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252, E253, E254, E256, E257, E258, E263, E264, E265, E267, E269, E271
 ---
 
 # Ghostnote performance ledger
@@ -260,6 +260,24 @@ inline 386–412 ms and to a file 401–406 ms. The difference is in the noise o
 these three pairs. The client gain is in result size: 251,600 to 1,723 bytes for
 the 3,243-note E268 file, and 28.7 to 1.05 KB for the live clip. See
 [E269](../evidence/experiments/e269-document-file-paths.md).
+
+### Tempo report and overlap pre-check (E271)
+
+`read_midi_file` reports `sourceTempo`, a fixed summary, not the source
+tempo map. File-mode results of the E270 files with 512, 247, and 489 tempo
+events: 21,573, 11,194, and 20,655 bytes before; 1,834, 1,773, and 1,774 bytes
+after. Read times are unchanged (147–328 ms). No host call.
+
+`add_launcher_clip` and an `edit_launcher_clip` with `intent: replace` check
+same-key overlaps of the desired document before any host call. A refused
+add made 12 adapter calls (mark 2, tracks 2, read 3, resolve 1, apply 1,
+delta 2, clipRead 1) and left an empty clip; it now makes none. A refused
+replace made 4 calls (mark, tracks, clipRead, delta); it now makes none. The
+call-budget test asserts zero counts. The success budget is unchanged. The
+pre-check is one sort and one sweep, in addition to the same check in the
+planner: offline median 2.9 ms for 835 notes and 51.2 ms for 16,384 notes
+(60 ms at 114,660 overlap pairs), against the 22.2 s largest admitted add
+(E256).
 
 
 ## Limits

@@ -39,6 +39,7 @@ import {
 import {
   EditRefusal, compareReadback, planLauncherClipEdit, type EditPlan,
 } from '../bindings/launcher-clip-edit.js';
+import { BindingRefusal, OVERLAP_DETAIL_PAIRS, refuseOverlaps } from '../bindings/ghostnote-document.js';
 import { DocumentError, type Document, type Encoding } from '../document/index.js';
 import { parseSealable, type SealRequest } from '../bindings/overlay-seal.js';
 import {
@@ -95,7 +96,9 @@ const EDIT_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Edit one Launche
   + 'Bitwig does not report note pressure, so a whole-clip rewrite loses pressure that a person set in Bitwig; '
   + 'the result then has warning pressure-unobservable.\n'
   + 'Refusals before any write: code unsupported with detail.reason: pressure (the document sets a nonzero '
-  + 'pressure; the host cannot write it), repeat and articulation (no host mapping), overlap (two notes of one channel and pitch overlap), transpose outside '
+  + 'pressure; the host cannot write it), repeat and articulation (no host mapping), overlap (two notes of one channel and pitch overlap; '
+  + `detail.overlaps lists at most ${OVERLAP_DETAIL_PAIRS} pairs with event IDs, channel, pitch, and onsets, and detail.overlapPairs counts all; `
+  + 'with intent replace this refuses before any host call), transpose outside '
   + '-96..96, recurrence length above 8, timing (no writable grid), play-range, loop (only null or 0..length). '
   + 'A clip name, length, or loop change writes only the changed properties; the clip colour stays. Code range: a '
   + 'note would start or end after '
@@ -148,6 +151,23 @@ export function parseProposal(
       });
     }
     throw error;
+  }
+}
+
+/**
+ * A desired document for an empty or replaced clip: every note is new, so any same-key overlap refuses. The check
+ * uses only the document, so it runs before any host call (8i20, E270). The detail is the planner detail.
+ */
+export function checkDesiredOverlaps(proposal: Document): void {
+  if (proposal.kind !== 'desired') return;
+  try {
+    refuseOverlaps(proposal.events);
+  } catch (error) {
+    if (!(error instanceof BindingRefusal)) throw error;
+    const count = error.detail['overlapPairs'] as number;
+    throw new ToolFailure('unsupported', 'input', `${count} pair${count === 1 ? '' : 's'} of notes of one channel `
+      + 'and pitch overlap. detail.overlaps lists the first pairs in onset order. Nothing was written.', {
+      detail: { reason: 'overlap', ...error.detail } });
   }
 }
 
@@ -325,6 +345,8 @@ export async function editLauncherClip(workspace: Workspace, args: EditInput, cr
     if (replace && (proposal.kind !== 'desired' || proposal.base !== undefined)) {
       throw new ToolFailure('invalid-input', 'input', 'intent replace takes a desired document without BASE.');
     }
+    // add_launcher_clip checked its document before the clip existed.
+    if (replace && creation === undefined) checkDesiredOverlaps(proposal);
 
     stage = 'resolve';
     const registry = identityRegistryOf(workspace);

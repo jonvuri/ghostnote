@@ -4,7 +4,7 @@ import { importNotes, sealOverlays, validate, BINDING, EVENT_DEFAULTS, ImportCol
 import { add, sub, fraction, rational, spelling, cmp, sum, type Rational } from '../document/rational.js';
 import { MIDI_LIMITS, MidiError, requireMidi, parseSmf, writeSmf, metaEvent, type OutputEvent } from './smf.js';
 
-export const MIDI_CONVERSION_VERSION = 'midi-document-v1';
+export const MIDI_CONVERSION_VERSION = 'midi-document-v2';
 const channels = Array.from({ length: 16 }, (_, i) => i + 1);
 export interface Loss { code: string; count: number }
 const countLoss = (counts: Map<string, number>, code: string, count = 1) => counts.set(code, (counts.get(code) ?? 0) + count);
@@ -66,6 +66,12 @@ export function importMidi(bytes: Buffer, options: { targetBpm?: number } = {}) 
   let tempoMap = uniqueMap(tempos, 'tempo');
   const defaultTempo = !tempoMap.some(t => t.tick === 0);
   if (defaultTempo) tempoMap = [{ tick: 0, microseconds: 500000 }, ...tempoMap];
+  // v2 (8i20): consecutive equal tempos make one overlay. The clock and the outside-clip count keep the source map.
+  const tempoPoints = tempoMap.filter((t, i) => i === 0 || t.microseconds !== tempoMap[i - 1]!.microseconds);
+  const bpms = tempoPoints.map(t => 60000000 / t.microseconds);
+  const events = tempoMap.length - (defaultTempo ? 1 : 0), changes = tempoPoints.length - (defaultTempo ? 1 : 0);
+  const sourceTempo = { events, changes, equalMerged: events - changes, firstBpm: bpms[0]!,
+    minBpm: Math.min(...bpms), maxBpm: Math.max(...bpms) };
   const meterMap = uniqueMap(meters, 'meter');
   // Prefix integrals plus binary search avoid rescanning the map for each note.
   let elapsed = fraction(0n);
@@ -133,7 +139,7 @@ export function importMidi(bytes: Buffer, options: { targetBpm?: number } = {}) 
         : { type: 'meter', data: { clip, at, numerator: data.numerator!, denominator: data.denominator! } }) });
   };
   for (const track of tracks) {
-    for (const tempo of target ? [{ tick: 0, microseconds: 60000000 / options.targetBpm! }] : tempoMap) {
+    for (const tempo of target ? [{ tick: 0, microseconds: 60000000 / options.targetBpm! }] : tempoPoints) {
       const at = spelling(position(tempo.tick));
       if (cmp(at, track.length) >= 0 && !(at === '0' && track.length === '0')) continue;
       const bpm = target ? options.targetBpm! : 60000000 / tempo.microseconds;
@@ -155,7 +161,7 @@ export function importMidi(bytes: Buffer, options: { targetBpm?: number } = {}) 
   return { document, normalization: imported.report, report: { version: MIDI_CONVERSION_VERSION, sourceFormat: midi.format, sourcePpq: midi.ppq,
     timing: target ? 'elapsed-time-at-target-bpm' : 'source-beats', targetBpm: options.targetBpm ?? null,
     notePairing: 'fifo-per-track-channel-pitch', overlappingNoteOns, velocityZeroOffReleaseVelocity: 64,
-    sourceTempoMap: tempoMap, defaultTempoApplied: defaultTempo, tracks,
+    sourceTempo, defaultTempoApplied: defaultTempo, tracks,
     notes: imported.events.length, normalizedOnsets: imported.report.notes.filter(n => n.atDelta !== '0').length,
     normalizedDurations: imported.report.notes.filter(n => n.durationDelta !== '0').length,
     minimumDurationPromotions: imported.report.notes.filter(n => n.minimumDurationPromotion).length,

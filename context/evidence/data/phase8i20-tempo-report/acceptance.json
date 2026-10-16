@@ -1,0 +1,112 @@
+{
+  "version": "8i20-tempo-report-v1",
+  "date": "2026-10-16T07:11:10.080Z",
+  "node": "v24.11.1",
+  "hostCalls": 0,
+  "results": [
+    {
+      "file": "feeding time/transcript-muscriptor-medium/024-acoustic-guitar.mid",
+      "sourceSha256": "66c045371d44e938940728d342341074b4c1eb5522afe41407efa3b5e70d647b",
+      "notes": 3243,
+      "sourceTempo": {
+        "events": 512,
+        "changes": 512,
+        "equalMerged": 0,
+        "firstBpm": 98.5841670541572,
+        "minBpm": 95.45445867776483,
+        "maxBpm": 127.9497754481441
+      },
+      "tempoOverlays": 512,
+      "inlineResultBytes": 466176,
+      "fileResultBytes": 1834,
+      "reportBytes": 671,
+      "documentBytes": 423582,
+      "inlineReadMs": 328.238625,
+      "fileReadMs": 326.248375,
+      "roundTrip": {
+        "notes": true,
+        "tempoOverlays": true,
+        "maxOnsetDeviationMs": 1.1718750000113687,
+        "maxEndDeviationMs": 1.7578125000028422
+      }
+    },
+    {
+      "file": "good lies/transcript-muscriptor-medium/128-drums.mid",
+      "sourceSha256": "982750460d31839d2bba9e3c7727ecaddee4851f83fb5d92c8a93a3610cd0152",
+      "notes": 1485,
+      "sourceTempo": {
+        "events": 247,
+        "changes": 247,
+        "equalMerged": 0,
+        "firstBpm": 125.98716190820156,
+        "minBpm": 125.98716190820156,
+        "maxBpm": 125.98769100258905
+      },
+      "tempoOverlays": 247,
+      "inlineResultBytes": 223494,
+      "fileResultBytes": 1773,
+      "reportBytes": 636,
+      "documentBytes": 202337,
+      "inlineReadMs": 157.27608299999997,
+      "fileReadMs": 147.03195899999992,
+      "roundTrip": {
+        "notes": true,
+        "tempoOverlays": true,
+        "maxOnsetDeviationMs": 0.9375000000204636,
+        "maxEndDeviationMs": 0.8203125000108002
+      }
+    },
+    {
+      "file": "losing you/transcript-muscriptor-large/128-drums.mid",
+      "sourceSha256": "9beaf1e8be6432150529729fc265dd31ad97cfda92ab9ee697c472569d809533",
+      "notes": 1850,
+      "sourceTempo": {
+        "events": 489,
+        "changes": 489,
+        "equalMerged": 0,
+        "firstBpm": 139.99883334305548,
+        "minBpm": 139.99883334305548,
+        "maxBpm": 139.9998133335822
+      },
+      "tempoOverlays": 489,
+      "inlineResultBytes": 355035,
+      "fileResultBytes": 1774,
+      "reportBytes": 637,
+      "documentBytes": 317957,
+      "inlineReadMs": 239.74295900000016,
+      "fileReadMs": 238.19287499999973,
+      "roundTrip": {
+        "notes": true,
+        "tempoOverlays": true,
+        "maxOnsetDeviationMs": 0.8203125000250111,
+        "maxEndDeviationMs": 0.7031250000295586
+      }
+    },
+    {
+      "file": "namisora/transcript-muscriptor-medium/000-acoustic-piano.mid",
+      "sourceSha256": "442d898f3c1286dddae792557cf5c65d9207086938d6da8a094b94455f664e78",
+      "notes": 2740,
+      "sourceTempo": {
+        "events": 1,
+        "changes": 1,
+        "equalMerged": 0,
+        "firstBpm": 60,
+        "minBpm": 60,
+        "maxBpm": 60
+      },
+      "tempoOverlays": 1,
+      "inlineResultBytes": 214999,
+      "fileResultBytes": 1745,
+      "reportBytes": 592,
+      "documentBytes": 205237,
+      "inlineReadMs": 93.04883299999983,
+      "fileReadMs": 95.55887499999972,
+      "roundTrip": {
+        "notes": true,
+        "tempoOverlays": true,
+        "maxOnsetDeviationMs": 1.8750000000409273,
+        "maxEndDeviationMs": 2.8125000000045475
+      }
+    }
+  ]
+}

@@ -147,7 +147,7 @@ function refusalOf(error: unknown): never {
     if (error.code === 'base') {
       throw new EditRefusal('invalid-input', 'base', 'The base sha256 does not match the base ref.');
     }
-    throw new EditRefusal('unsupported', error.code, error.message);
+    throw new EditRefusal('unsupported', error.code, error.message, error.detail);
   }
   if (error instanceof DocumentError) {
     throw new EditRefusal('invalid-input', error.rule, error.message, { rule: error.rule, path: error.path });

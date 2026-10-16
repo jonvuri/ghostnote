@@ -1,0 +1,85 @@
+{
+  "version": "8i20-tempo-report-v1",
+  "date": "2026-10-16T07:11:14.295Z",
+  "node": "v24.11.1",
+  "hostCalls": 0,
+  "results": [
+    {
+      "file": "feeding time/transcript-muscriptor-medium/024-acoustic-guitar.mid",
+      "sourceSha256": "66c045371d44e938940728d342341074b4c1eb5522afe41407efa3b5e70d647b",
+      "notes": 3243,
+      "sourceTempo": 512,
+      "tempoOverlays": 512,
+      "inlineResultBytes": 485915,
+      "fileResultBytes": 21573,
+      "reportBytes": 20410,
+      "documentBytes": 423582,
+      "inlineReadMs": 321.98070900000005,
+      "fileReadMs": 303.00820799999997,
+      "roundTrip": {
+        "notes": true,
+        "tempoOverlays": true,
+        "maxOnsetDeviationMs": 1.1718750000113687,
+        "maxEndDeviationMs": 1.7578125000028422
+      }
+    },
+    {
+      "file": "good lies/transcript-muscriptor-medium/128-drums.mid",
+      "sourceSha256": "982750460d31839d2bba9e3c7727ecaddee4851f83fb5d92c8a93a3610cd0152",
+      "notes": 1485,
+      "sourceTempo": 247,
+      "tempoOverlays": 247,
+      "inlineResultBytes": 232915,
+      "fileResultBytes": 11194,
+      "reportBytes": 10057,
+      "documentBytes": 202337,
+      "inlineReadMs": 135.82512500000007,
+      "fileReadMs": 143.58166600000004,
+      "roundTrip": {
+        "notes": true,
+        "tempoOverlays": true,
+        "maxOnsetDeviationMs": 0.9375000000204636,
+        "maxEndDeviationMs": 0.8203125000108002
+      }
+    },
+    {
+      "file": "losing you/transcript-muscriptor-large/128-drums.mid",
+      "sourceSha256": "9beaf1e8be6432150529729fc265dd31ad97cfda92ab9ee697c472569d809533",
+      "notes": 1850,
+      "sourceTempo": 489,
+      "tempoOverlays": 489,
+      "inlineResultBytes": 373916,
+      "fileResultBytes": 20655,
+      "reportBytes": 19518,
+      "documentBytes": 317957,
+      "inlineReadMs": 231.61524999999983,
+      "fileReadMs": 238.5513329999999,
+      "roundTrip": {
+        "notes": true,
+        "tempoOverlays": true,
+        "maxOnsetDeviationMs": 0.8203125000250111,
+        "maxEndDeviationMs": 0.7031250000295586
+      }
+    },
+    {
+      "file": "namisora/transcript-muscriptor-medium/000-acoustic-piano.mid",
+      "sourceSha256": "442d898f3c1286dddae792557cf5c65d9207086938d6da8a094b94455f664e78",
+      "notes": 2740,
+      "sourceTempo": 1,
+      "tempoOverlays": 1,
+      "inlineResultBytes": 214959,
+      "fileResultBytes": 1705,
+      "reportBytes": 552,
+      "documentBytes": 205237,
+      "inlineReadMs": 91.57616700000017,
+      "fileReadMs": 112.89229099999966,
+      "roundTrip": {
+        "notes": true,
+        "tempoOverlays": true,
+        "maxOnsetDeviationMs": 1.8750000000409273,
+        "maxEndDeviationMs": 2.8125000000045475
+      }
+    }
+  ],
+  "note": "Baseline: the same driver on commit be007fa (midi-document-v1). sourceTempo is the length of report.sourceTempoMap."
+}

@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-10-15
+updated: 2026-10-16
 ---
 
 # Evidence index
@@ -16,6 +16,7 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E271 | MIDI tempo report and overlap pre-check (8i20, issues D15 and D16). `report.sourceTempo` replaces the tempo map: file results 21,573 to 1,834 bytes; equal tempos merge (`midi-document-v2`). A desired-document overlap refuses before any host call (was 12 adapter calls and an empty clip), with pair detail. Descriptions v52 | [open](experiments/e271-midi-tempo-report-and-overlap-precheck.md) |
 | E270 | Document file rerun (v51). Both clients used `documentOutputPath` and `documentPath` unprompted; Claude output tokens 161,362 to 19,378. Issues D15 (tempo map in the read report) and D16 (overlap refusal after clip creation). Server instructions trimmed. 8i20 planned | [open](experiments/e270-document-file-rerun.md) |
 | E269 | Document file paths (8i19, D51, issue D14). `documentPath` on the document writers, `documentOutputPath` on the document readers, content-detected encoding. Same host call budgets; live read unchanged. 3,243-note read result 251,600 to 1,723 bytes. Descriptions v51 | [open](experiments/e269-document-file-paths.md) |
 | E268 | Two-client MIDI chord trial. Same 3,243-note analysis and chord task in Codex and Claude Code. Codex wrote documents from script memory (10,872 output tokens); Claude Code wrote them again as tool arguments (161,362 output tokens, about 15 minutes longer). Issue D14 | [open](experiments/e268-two-client-midi-chord-trial.md) |

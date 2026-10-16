@@ -78,9 +78,35 @@ test('a held note crosses a tempo change: integrate onset and end separately', (
   assert.equal(imported.document.events[0]!.at, '1');
   assert.equal(imported.document.events[0]!.duration, '2');
   assert.equal(imported.document.clips[0]!.length, '3');
-  assert.equal(imported.report.sourceTempoMap.length, 2);
+  assert.deepEqual(imported.report.sourceTempo, { events: 2, changes: 2, equalMerged: 0, firstBpm: 60, minBpm: 60, maxBpm: 120 });
   const preserved = importMidi(bytes);
   assert.deepEqual(plain(preserved.document.overlays.map(o => o.data)), [{ clip: 'c1', at: '0', bpm: 60 }, { clip: 'c1', at: '1', bpm: 120 }]);
+});
+
+test('consecutive equal tempos make one overlay; timing and export do not change (8i20)', () => {
+  const tempo = (us: [number, number, number]) => [255, 81, 3, ...us];
+  const at60: [number, number, number] = [15, 66, 64], at120: [number, number, number] = [7, 161, 32], at125: [number, number, number] = [7, 83, 0];
+  // Ticks (ppq 1000): 60 at 0 and 500, 120 at 1000 and 2500; the note is 0 to 2000.
+  const repeated = smfFixture([[0, ...tempo(at60), 0, 0x90, 60, 90, 0x83, 0x74, ...tempo(at60), 0x83, 0x74, ...tempo(at120),
+    0x87, 0x68, 0x80, 60, 40, 0x83, 0x74, ...tempo(at120), ...EOT]]);
+  const single = smfFixture([[0, ...tempo(at60), 0, 0x90, 60, 90, 0x87, 0x68, ...tempo(at120), 0x87, 0x68, 0x80, 60, 40, 0x83, 0x74, 0xff, 1, 0, ...EOT]]);
+  const variable = importMidi(repeated);
+  assert.deepEqual(variable.report.sourceTempo, { events: 4, changes: 2, equalMerged: 2, firstBpm: 60, minBpm: 60, maxBpm: 120 });
+  assert.deepEqual(plain(variable.document.overlays.filter(o => o.type === 'tempo').map(o => o.data)),
+    [{ clip: 'c1', at: '0', bpm: 60 }, { clip: 'c1', at: '1', bpm: 120 }]);
+  // The elapsed-time clock is the same with and without the equal events.
+  assert.deepEqual(noteValues(importMidi(repeated, { targetBpm: 120 }).document), noteValues(importMidi(single, { targetBpm: 120 }).document));
+  assert.equal(importMidi(repeated, { targetBpm: 120 }).document.events[0]!.duration, '3');
+  const again = importMidi(exportMidi(variable.document).bytes);
+  assert.deepEqual(noteValues(again.document), noteValues(variable.document));
+  const tempoData = (d: StateDocument) => plain(d.overlays.filter(o => o.type === 'tempo').map(({ data: { clip, ...data } }) => data));
+  assert.deepEqual(tempoData(again.document), tempoData(variable.document));
+  assert.equal(again.report.sourceTempo.changes, 2);
+  const constant = importMidi(smfFixture([[0, ...tempo(at125), 0, 0x90, 60, 90, 0x83, 0x74, ...tempo(at125),
+    0x83, 0x74, ...tempo(at125), 0, 0x80, 60, 40, ...EOT]]));
+  assert.deepEqual(constant.report.sourceTempo, { events: 3, changes: 1, equalMerged: 2, firstBpm: 125, minBpm: 125, maxBpm: 125 });
+  assert.equal(constant.document.overlays.filter(o => o.type === 'tempo').length, 1);
+  assert.equal(constant.report.version, 'midi-document-v2');
 });
 
 test('running status, velocity-zero off, channel 16, and leading silence', () => {

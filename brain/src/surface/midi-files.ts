@@ -19,7 +19,7 @@ const hash = (bytes: Buffer) => createHash('sha256').update(bytes).digest('hex')
 const path = z.string().min(1).refine(isAbsolute, 'Use an absolute path on the Ghostnote server filesystem.');
 const bpm = z.number().positive().max(1000);
 const readInput = z.object({ path: path.describe('Absolute path of the local .mid or .midi file.'),
-  targetBpm: bpm.optional().describe('Preserve elapsed time at this constant BPM. For a transcription encoded at 60 BPM of a 120 BPM song, use 120: beat positions and durations double. Omit to preserve source beats.'),
+  targetBpm: bpm.optional().describe('Replace the source tempo map with this one constant BPM and keep elapsed time: beat positions and durations scale with the tempo. Omit it when the file has its own tempo map (data.report.sourceTempo); the document then keeps source beats and the map as tempo overlays. A read without targetBpm returns the map.'),
   documentOutputPath: documentOutputPathInput }).strict();
 const writeInput = z.object({ path: path.describe('Absolute path for a new .mid or .midi file. The parent directory must exist; an existing path refuses.'),
   document: z.union([z.string().min(1), z.record(z.string(), z.unknown())]).optional().describe('Complete Ghostnote Document 1.0 FIELDS text or JSON object, including a read_launcher_clip snapshot with explicit MIDI field coverage. One CLIP becomes one MIDI track. Use get_document_reference for syntax.'),
@@ -102,7 +102,8 @@ export const MIDI_FILE_TOOLS: readonly ToolSpec[] = [{
     + 'With documentOutputPath, write the document to that new file instead: data.documentFile has path, format, bytes, sha256, and readback.status (verified, differs, or unavailable), and the result holds no inline document. '
     + 'A large transcription is tens of thousands of tokens inline; prefer documentOutputPath when a script processes the notes, then give the file to add_launcher_clip or edit_launcher_clip with documentPath. '
     + 'Use get_document_reference for format syntax. Each musical track becomes one CLIP; channels are 1 to 16. Keep leading silence and source beat coordinates by default. '
-    + 'targetBpm preserves elapsed time through the source tempo map and maps it to the requested constant BPM before normalization. '
+    + 'targetBpm preserves elapsed time through the source tempo map and maps it to the requested constant BPM before normalization; omit it when the file has its own tempo map. '
+    + 'data.report.sourceTempo summarizes the source map: events, changes (events with a new value), equalMerged, firstBpm, minBpm, and maxBpm. Consecutive equal tempos make one overlay. '
     + 'Onsets floor to 1/512 beat; durations round to nearest, ties up, with a one-cell minimum. Report counts in data.report; no per-note diagnostic expansion. '
     + 'Preserve notes, release velocity, names, and tempo/meter overlays. Program changes, controllers (including sustain), pitch bend, pressure, and other unsupported events are omitted and counted. '
     + 'No musical analysis or excerpts. No loop is inferred. Note-offs close the earliest open note of the same track, channel, and pitch (FIFO); overlapping note-ons are counted and warned. Format 2, SMPTE timing, unmatched notes, and normalized note collisions refuse. '

@@ -29,6 +29,7 @@ import { branchProtected, directedDestruction, takeAppliedAnything } from '../en
 import {
   EditRefusal, checkCreation, clipPropertyWrite, documentClipLength, type ClipPropertyChanges,
 } from '../bindings/launcher-clip-edit.js';
+import { OVERLAP_DETAIL_PAIRS } from '../bindings/ghostnote-document.js';
 import { NO_SEAL, dependencyExpansion, type SealRequest } from '../bindings/overlay-seal.js';
 import type { Document } from '../document/index.js';
 import type { StashedChangeset } from '../stash/index.js';
@@ -37,7 +38,7 @@ import {
   type Effect, type FailureStage, type Warning, type WriteResult,
 } from './agent-native-result.js';
 import { checkHealth, format, selectionWarnings, withSelection } from './agent-native.js';
-import { documentText, editLauncherClip, parseProposal } from './agent-native-edit.js';
+import { checkDesiredOverlaps, documentText, editLauncherClip, parseProposal } from './agent-native-edit.js';
 import {
   DESIRED_EXAMPLE_TEXT, FORMAT_STATEMENT, TIMING_FEEL_ROUTE, claimRepairOf, documentParameter, kindRepair,
 } from './document-help.js';
@@ -235,7 +236,10 @@ const ADD_DESCRIPTION = `${PROFILE} Create one Launcher clip in an empty slot fr
   + 'edit_launcher_clip path, with its rules and refusals. OVERLAY rows can use the document clip ID and omit '
   + 'basis: the tool checks them before any write, binds them to the new clip, and computes each basis. It takes at '
   + `most ${WRITE_LIMITS.claimDependencyExpansion} claim dependency units (see document). A refused `
-  + 'document returns code invalid-input before any write; detail.repair has the known correction.\n'
+  + 'document returns code invalid-input before any write; detail.repair has the known correction. Two notes of '
+  + 'one channel and pitch that overlap refuse before any host call with code unsupported, detail.reason overlap, '
+  + `detail.overlaps (at most ${OVERLAP_DETAIL_PAIRS} pairs: event IDs, channel, pitch, and onsets), and `
+  + 'detail.overlapPairs (the total count).\n'
   + `${TIMING_FEEL_ROUTE}\n`
   + 'The slot must exist and be empty. An occupied slot refuses with code occupied: Bitwig would put the new clip '
   + 'on a new scene past the reachable rows. A missing row refuses with code absent; add scenes at the end with '
@@ -275,6 +279,7 @@ async function addLauncherClip(workspace: Workspace, args: AddInput): Promise<un
       throw new ToolFailure('invalid-input', 'input', 'A desired document for one Launcher clip has exactly one CLIP.');
     }
     requireWithinLimit('claimDependencyExpansion', dependencyExpansion(proposal, seal), CLAIM_DEPENDENCY_UNITS);
+    checkDesiredOverlaps(proposal);
     const lengthBeats = documentClipLength(proposal.clips[0]!);
     // The claims are checked and sealed before the clip exists; the planner binds them to the live clip ID (8i9).
     const checked = checkedCreation(proposal, seal);

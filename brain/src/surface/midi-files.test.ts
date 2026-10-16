@@ -10,7 +10,7 @@ import { Executor } from '../engine/index.js';
 import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
 import { exportMidi } from '../midi/conversion.js';
-import { SIMPLE_MIDI, midiDocument } from '../midi/fixtures.js';
+import { EOT, SIMPLE_MIDI, midiDocument, smfFixture } from '../midi/fixtures.js';
 import { AGENT_NATIVE_TOOL_PROFILE, callTool, registerTools } from './tools.js';
 import { workspaceOf, type Workspace } from './workspace.js';
 import { writeMidiFile } from './midi-files.js';
@@ -90,6 +90,22 @@ test('full inline output has every note beyond 24,000 characters', async t => {
   assert.equal(read.data.report.notes, 2000);
   assert.ok(JSON.stringify(read.data.report).length < 2000);
   assert.deepEqual(await readdir(dir), ['large.mid']);
+});
+
+test('a 512-event tempo map gives a bounded read report; the document keeps each change (8i20, E270)', async t => {
+  const dir = await files(t), input = join(dir, 'tempo.mid');
+  // 512 tempo events, 125 BPM and 120 BPM in pairs, each 250 ticks apart; one note over all of them.
+  const us = (bpm: number) => { const v = 60000000 / bpm; return [v >> 16, (v >> 8) & 255, v & 255]; };
+  const track = [0, 0x90, 60, 90];
+  for (let i = 0; i < 512; i++) track.push(...(i ? [0x81, 0x7a] : [0]), 255, 81, 3, ...us(i % 4 < 2 ? 125 : 120));
+  track.push(0x81, 0x7a, 0x80, 60, 40, ...EOT);
+  await writeFile(input, smfFixture([track]));
+  const inline = await call('read_midi_file', { path: input });
+  assert.deepEqual(inline.data.report.sourceTempo, { events: 512, changes: 256, equalMerged: 256, firstBpm: 125, minBpm: 120, maxBpm: 125 });
+  assert.equal((parse(inline.data.document, 'fields') as StateDocument).overlays.filter(o => o.type === 'tempo').length, 256);
+  const filed = await call('read_midi_file', { path: input, documentOutputPath: join(dir, 'tempo.gndoc') });
+  assert.equal(filed.data.documentFile.readback.status, 'verified');
+  assert.ok(JSON.stringify(filed).length <= 4096, String(JSON.stringify(filed).length));
 });
 
 test('JSON document input and FIELDS export use identical MIDI bytes', async t => {

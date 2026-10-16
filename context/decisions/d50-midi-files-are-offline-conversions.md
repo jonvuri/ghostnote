@@ -2,7 +2,7 @@
 id: D50
 kind: decision
 state: active
-updated: 2026-10-15
+updated: 2026-10-16
 source: phase-8i16
 ---
 
@@ -56,3 +56,13 @@ loss checks still apply to supplied nondefault values.
 [D51](d51-document-file-paths.md) adds `documentOutputPath` to
 `read_midi_file` and `documentPath` to `write_midi_file`. The inline document
 stays the default. The file rules above also apply to document files.
+
+## Tempo summary (8i20)
+
+[E271](../evidence/experiments/e271-midi-tempo-report-and-overlap-precheck.md)
+replaces the source tempo map in the read report with a fixed summary,
+`report.sourceTempo`. The document keeps the map as tempo overlays; equal
+consecutive tempos make one overlay (`midi-document-v2`). A result field that
+copies source data must have a bound that does not depend on the source.
+`targetBpm` replaces the map with one constant tempo; omit it when the file has
+its own tempo map. The description has no 60 BPM example.

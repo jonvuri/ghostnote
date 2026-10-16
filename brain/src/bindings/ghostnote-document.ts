@@ -17,13 +17,13 @@ import type { RevisionMark, Snapshot } from '../contract/snapshot.js';
 import { isDeepStrictEqual } from 'node:util';
 
 export class BindingRefusal extends Error {
-  constructor(readonly code: string, message: string) {
+  constructor(readonly code: string, message: string, readonly detail: Readonly<Record<string, unknown>> = {}) {
     super(message);
     this.name = 'BindingRefusal';
   }
 }
-function refuse(code: string, message: string): never {
-  throw new BindingRefusal(code, message);
+function refuse(code: string, message: string, detail?: Readonly<Record<string, unknown>>): never {
+  throw new BindingRefusal(code, message, detail);
 }
 export const OCCURRENCES = [
   'ALWAYS', 'FIRST', 'NOT_FIRST', 'PREV', 'NOT_PREV', 'PREV_CHANNEL',
@@ -286,24 +286,82 @@ export function assessBindingProposal(
     if (old.get(id)?.expression?.pressure !== 0)
       refuse('pressure', 'Reversal cannot restore removed nonzero pressure');
     else if (!options.rawReplay) refuse('repeat', 'Removal needs a confirmed repeat mapping for reversal');
-  const groups = new Map<string, Event[]>();
-  for (const event of result.document.events) {
-    const e = values(event), key = `${e.clip}\0${e.channel}\0${e.pitch}`;
-    const group = groups.get(key) ?? [];
-    group.push(e); groups.set(key, group);
-  }
-  for (const group of groups.values()) {
-    group.sort((a, b) => cmp(a.at, b.at));
-    let allEnd = '0', changedEnd = '0';
-    for (const e of group) {
-      if (cmp(e.at, changed.has(e.id) ? allEnd : changedEnd) < 0)
-        refuse('overlap', 'The measured write path cannot promise this same-key overlap');
-      const end = sum(e.at, e.duration);
-      if (cmp(end, allEnd) > 0) allEnd = end;
-      if (changed.has(e.id) && cmp(end, changedEnd) > 0) changedEnd = end;
+  refuseOverlaps(result.document.events, changed);
+  return result;
+}
+
+/** The pairs that an overlap refusal lists. `overlapPairs` counts all of them. */
+export const OVERLAP_DETAIL_PAIRS = 16;
+export interface OverlapPair {
+  readonly first: string; readonly second: string;
+  readonly channel: number; readonly pitch: number; readonly firstAt: string; readonly secondAt: string;
+}
+
+/** A binary min-heap of active notes by end. */
+class Ends {
+  readonly items: { end: string; event: Event }[] = [];
+  push(item: { end: string; event: Event }): void {
+    const a = this.items; a.push(item);
+    for (let i = a.length - 1; i > 0;) {
+      const up = (i - 1) >> 1;
+      if (cmp(a[up]!.end, a[i]!.end) <= 0) break;
+      [a[up], a[i]] = [a[i]!, a[up]!]; i = up;
     }
   }
-  return result;
+  /** Remove the notes that end at or before `at`. */
+  prune(at: string): void {
+    const a = this.items;
+    while (a.length > 0 && cmp(a[0]!.end, at) <= 0) {
+      const last = a.pop()!;
+      if (a.length === 0) break;
+      a[0] = last;
+      for (let i = 0; ;) {
+        const l = 2 * i + 1, r = l + 1;
+        let m = i;
+        if (l < a.length && cmp(a[l]!.end, a[m]!.end) < 0) m = l;
+        if (r < a.length && cmp(a[r]!.end, a[m]!.end) < 0) m = r;
+        if (m === i) break;
+        [a[m], a[i]] = [a[i]!, a[m]!]; i = m;
+      }
+    }
+  }
+}
+
+/**
+ * The same-key overlaps that the measured write path cannot promise: two notes of one clip, channel, and pitch whose
+ * intervals overlap, when at least one of them is in `changed`. Without `changed`, every note is new (a desired
+ * document on an empty or replaced clip). One sort and one sweep in onset order; the listed pairs are bounded.
+ */
+export function sameKeyOverlaps(events: readonly Event[], changed?: ReadonlySet<string>) {
+  const isChanged = (e: Event) => changed === undefined || changed.has(e.id);
+  const sorted = events.map(values).sort((a, b) => a.clip < b.clip ? -1 : a.clip > b.clip ? 1 : cmp(a.at, b.at));
+  const active = new Map<string, { all: Ends; changed: Ends }>();
+  const pairs: OverlapPair[] = [];
+  let total = 0;
+  for (const e of sorted) {
+    const key = `${e.clip}\0${e.channel}\0${e.pitch}`;
+    const heaps = active.get(key) ?? { all: new Ends(), changed: new Ends() };
+    active.set(key, heaps);
+    heaps.all.prune(e.at); heaps.changed.prune(e.at);
+    const prior = isChanged(e) ? heaps.all : heaps.changed;
+    total += prior.items.length;
+    if (pairs.length < OVERLAP_DETAIL_PAIRS && prior.items.length > 0) {
+      const listed = prior.items.map(item => item.event).sort((a, b) => cmp(a.at, b.at));
+      for (const p of listed.slice(0, OVERLAP_DETAIL_PAIRS - pairs.length))
+        pairs.push({ first: p.id, second: e.id, channel: e.channel!, pitch: e.pitch, firstAt: p.at, secondAt: e.at });
+    }
+    const item = { end: sum(e.at, e.duration), event: e };
+    heaps.all.push(item);
+    if (isChanged(e)) heaps.changed.push(item);
+  }
+  return { pairs, total };
+}
+
+/** Refuse a same-key overlap (`sameKeyOverlaps`) with the bounded pair list and the total count (8i20). */
+export function refuseOverlaps(events: readonly Event[], changed?: ReadonlySet<string>): void {
+  const { pairs, total } = sameKeyOverlaps(events, changed);
+  if (total > 0) refuse('overlap', 'The measured write path cannot promise this same-key overlap',
+    { overlaps: pairs, overlapPairs: total });
 }
 
 /**

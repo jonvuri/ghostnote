@@ -131,6 +131,38 @@ test('call budget: add_launcher_clip with claims keeps the add budget; a refused
   assert.deepEqual(refused.counts, {});
 });
 
+test('call budget: a same-key overlap in a desired document refuses with no adapter call (8i20)', async () => {
+  const fx = await fixture();
+  const document = ['DOC ghostnote-document 1.0 desired', 'CLIP {"id":"lead","length":"8"}',
+    'COVERAGE {"channels":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],"clip":"lead","fields":"all","from":"0","status":"complete","to":"8"}',
+    'FIELDS id clip at duration pitch velocity channel',
+    // 20 notes of one key, each 2 beats long and 1/4 beat apart; n20 is on another channel.
+    ...Array.from({ length: 20 }, (_, i) => `EVENT n${i} lead ${i}/4 2 60 100 1`), 'EVENT n20 lead 0 2 60 100 2'].join('\n') + '\n';
+  const expectedPairs = Array.from({ length: 20 }, (_, i) => Math.min(i, 7)).reduce((a, b) => a + b, 0);
+  for (const [name, extra] of [['add_launcher_clip', { row: 3 }], ['edit_launcher_clip', { row: 0, intent: 'replace' }]] as const) {
+    const refused = await fx.call(name, { trackId: fx.trackId, document, ...extra });
+    assert.equal(refused.result.failure?.code, 'unsupported', name);
+    assert.equal(refused.result.failure.stage, 'input', name);
+    assert.deepEqual(refused.result.failure.effects, [], name);
+    assert.equal(refused.result.detail.reason, 'overlap', name);
+    assert.equal(refused.result.detail.overlapPairs, expectedPairs, name);
+    assert.equal(refused.result.detail.overlaps.length, 16, name);
+    assert.deepEqual(refused.result.detail.overlaps[0], { first: 'n0', second: 'n1', channel: 1, pitch: 60, firstAt: '0', secondAt: '1/4' });
+    assert.deepEqual(refused.counts, {}, name);
+  }
+  assert.equal(fx.fake.model.visibleTracks()[0]!.slots[3]!.hasContent, false, 'no clip was created');
+  // A patch keeps its check after the fresh read, with the same detail.
+  const read = await fx.call('read_launcher_clip', { trackId: fx.trackId, row: 0 });
+  const base = read.result.authority.base, clipId = documentOf(read.result).clips[0]!.id;
+  const patched = await fx.call('edit_launcher_clip', { trackId: fx.trackId, row: 0,
+    document: patch(base, [`ADD o1 ${clipId} 1/2 1 60 100 1 false`]) });
+  assert.equal(patched.result.detail?.reason, 'overlap', JSON.stringify(patched.result).slice(0, 300));
+  assert.equal(patched.result.failure.stage, 'plan');
+  assert.deepEqual(patched.result.detail.overlaps, [{ first: patched.result.detail.overlaps[0].first, second: 'o1',
+    channel: 1, pitch: 60, firstAt: '0', secondAt: '1/2' }]);
+  assert.equal(patched.result.detail.overlapPairs, 1);
+});
+
 test('call budget: check_launcher_clips reads all refs in one adapter read', async () => {
   const fx = await fixture();
   const refs = [];

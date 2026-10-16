@@ -22,24 +22,24 @@ The operator reviewed the [issue log](plan/phase-8/8i-dogfood-issues.md)
 (D1 to D12): only D9 and D8 get a fix; the other rows need no action. Both
 are fixed (E263, E264).
 
-8i19 is complete ([E269](evidence/experiments/e269-document-file-paths.md),
-[D51](decisions/d51-document-file-paths.md)). It fixes issue D14 from the
-two-client trial [E268](evidence/experiments/e268-two-client-midi-chord-trial.md).
-`add_launcher_clip`, `edit_launcher_clip`, and `write_midi_file` take
-`documentPath`; `read_launcher_clip` and `read_midi_file` take
-`documentOutputPath`. Descriptions are v51 (44 tools); the controller remains
-8i15. In the [E270](evidence/experiments/e270-document-file-rerun.md) rerun
-both clients used the file parameters unprompted. The server instructions now
-hold only the capability map, the read-before-write rule, and the result
-convention. [8i20](plan/phase-8/8i20-midi-tempo-report-and-overlap-precheck.md)
-is planned from E270: a bounded tempo report, the `targetBpm` text, and an
-overlap check before clip creation. It can run before or after the gate
-close-out. 8i18 (E266, E267) made `write_midi_file` accept unchanged
-snapshots; do not change snapshot coverage to `all`.
+8i20 is complete ([E271](evidence/experiments/e271-midi-tempo-report-and-overlap-precheck.md)).
+It fixes issues D15 and D16 from the
+[E270](evidence/experiments/e270-document-file-rerun.md) rerun of 8i19
+([E269](evidence/experiments/e269-document-file-paths.md),
+[D51](decisions/d51-document-file-paths.md)). `read_midi_file` returns the
+fixed `report.sourceTempo` summary, not the tempo map (conversion
+`midi-document-v2`). A same-key overlap in a desired document refuses from
+`add_launcher_clip` and a replace edit before any host call, with
+`detail.overlaps` and `detail.overlapPairs`. Descriptions are v52 (44 tools);
+the controller remains 8i15. No client trial has used v52. 8i18 (E266, E267)
+made `write_midi_file` accept unchanged snapshots; do not change snapshot
+coverage to `all`.
 
 Ghostworks transcriptions now carry tempo maps and meters (E270): for
 example 512 events at 95.5–127.9 BPM in the `feeding time` guitar, and 247
-events at 126 BPM in the `good lies` drums. Omit `targetBpm` for them. E266
+events at 125.987–125.988 BPM in the `good lies` drums. No two consecutive
+values are equal, so the 8i20 merge does not reduce them (E271). Omit
+`targetBpm` for them. E266
 and E268 used the earlier 60 BPM files (E266 `targetBpm: 126`; E268 an
 inferred 100 BPM grid), so state the source file version in comparisons. The separate
 [8i17 plan](plan/phase-8/8i17-midi-musical-navigation-survey.md) has the E266
@@ -90,11 +90,11 @@ new marker: the method count and hash identify it. The probe build has
 scenes and mixer `gn-sel` selected; `selection.status` reports a slot of
 a deleted scratch track (track index 9, row 0; issue D11). The transport
 was not started in 8i15. "New 3" (8i7) was not opened. The next free
-evidence number is E271; the next decision is D52; the next issue row is
+evidence number is E272; the next decision is D52; the next issue row is
 D17. The current live drivers accept 8i15 (`NORMAL_8I15`,
 `assertCurrentNormal`). See E263 and E264 for their commands and cleanup.
-No live project was opened or changed in 8i16, 8i18, or 8i19; 8i19 made
-live reads only, after `probe:hello` passed on the 8i15 build.
+No live project was opened or changed in 8i16, 8i18, 8i19, or 8i20; 8i19
+made live reads only, after `probe:hello` passed on the 8i15 build.
 
 ## Facts
 
@@ -103,7 +103,9 @@ The offline drivers are `phase8i16-midi-files.ts <absolute MIDI directory>`
 and `phase8i19-document-files.ts <absolute MIDI file>`; the live read check is
 `phase8i19-live-read.ts <track name> <row>`. They remove their files. R07
 normalization can create same-pitch overlaps: use the stated FIFO pairing rule,
-not note shortening. A document file is FIELDS when its first record is `DOC`;
+not note shortening. The 8i20 driver `phase8i20-tempo-report.ts <absolute MIDI
+file>...` measures result sizes and the export round trip. A clip write still
+refuses the overlap; `detail.overlaps` names the pairs. A document file is FIELDS when its first record is `DOC`;
 a JSON object is JSON. Name files `.gndoc` or `.gndoc.json`, not `.gn`.
 
 For automated trials, use the [E261 runbook links](evidence/experiments/e261-automated-dogfood-process-proof.md)

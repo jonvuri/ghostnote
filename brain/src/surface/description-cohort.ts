@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v51';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v52';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -549,7 +549,8 @@ export const DESCRIPTION_COHORT_V42: readonly DescriptionCohortMember[] = DESCRI
  * list: copy_launcher_clips copies to any empty slot. v48 (8i15) keeps this list: check_revert and revert_change
  * name the removed objects and state the revert fidelity. v49 adds the two offline MIDI file tools. v50 states the snapshot coverage required for MIDI export. v51
  * (8i19, D51) keeps this list: the document writers take documentPath, and the two document readers take
- * documentOutputPath.
+ * documentOutputPath. v52 (8i20) keeps this list: read_midi_file reports a bounded tempo summary and states when to
+ * omit targetBpm; add_launcher_clip and edit_launcher_clip state the overlap detail and the pre-check.
  */
 export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V42,
@@ -868,6 +869,13 @@ export const TOOL_DESCRIPTION_V50_SHA256 = 'c4ab80749ce8a870c67b3198354ebd22508e
 
 /**
  * v51 (8i19, D51): add_launcher_clip, edit_launcher_clip, and write_midi_file take documentPath; read_launcher_clip
- * and read_midi_file take documentOutputPath.
+ * and read_midi_file take documentOutputPath. Frozen in 8i20.
  */
 export const TOOL_DESCRIPTION_V51_SHA256 = '877303235b4df1d9db5e6540a31964a3d86395dd573838075dca58be5495775b';
+
+/**
+ * v52 (8i20, E271): read_midi_file reports data.report.sourceTempo, not the source tempo map, and the targetBpm text
+ * has no 60 BPM example. add_launcher_clip and an intent replace edit refuse a same-key overlap before any host call,
+ * with the pair detail.
+ */
+export const TOOL_DESCRIPTION_V52_SHA256 = 'ccc7d870105b85d34da8e725b15b61c7315e7f5315d031ff68988830606bc3ea';

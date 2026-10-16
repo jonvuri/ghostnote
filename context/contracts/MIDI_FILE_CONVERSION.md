@@ -2,9 +2,9 @@
 title: MIDI file conversion
 kind: contract
 state: active
-updated: 2026-10-15
+updated: 2026-10-16
 parent: ../plan/phase-8/8i16-midi-file-conversion.md
-evidence: E265, E267, E269
+evidence: E265, E267, E269, E271
 ---
 
 # MIDI file conversion
@@ -12,7 +12,8 @@ evidence: E265, E267, E269
 `read_midi_file` and `write_midi_file` are offline tools in `agent-native-v1`.
 They use the existing Document 1.0 codec. They make no Bitwig call and need no
 controller replacement. Source: `brain/src/midi/` and
-`brain/src/surface/midi-files.ts`. Conversion version: `midi-document-v1`.
+`brain/src/surface/midi-files.ts`. Conversion version: `midi-document-v2` (8i20: equal tempo events merge;
+`midi-document-v1` made one overlay for each event).
 
 ## Read
 
@@ -31,9 +32,10 @@ Without `targetBpm`, source ticks divided by ticks per quarter note give beats.
 With it, integrate elapsed seconds through the source tempo map, then multiply
 by `targetBpm / 60`. Convert onset and note end independently through that map;
 subtract to get the source duration. Apply the existing R07 onset floor and
-nearest-duration rules once. A file encoded at 60 BPM needs `targetBpm: 120`
-when one encoded beat represents one second of a 120 BPM song. This doubles
-beat positions and durations. It does not infer tempo, meter, or a downbeat.
+nearest-duration rules once. `targetBpm` replaces the source tempo map with one
+constant tempo and keeps elapsed time; beat positions and durations scale with
+the tempo. Omit it when the file has its own tempo map: the document then
+keeps source beats and the map. It does not infer tempo, meter, or a downbeat.
 The MIDI default tempo is 120 BPM when no source tempo exists at tick zero.
 
 Each musical track becomes a clip, with stable source-order IDs, its end-of-track
@@ -41,8 +43,17 @@ length, name, channels, pitches, velocities, and release velocities. Keep leadin
 silence. A conductor-only track does not become a musical clip. A wholly empty
 file yields one empty clip. A named empty non-conductor track stays a clip.
 No loop or play range is inferred. Tempo and meter become declared overlays;
-these are file metadata, not harmonic analysis. A target tempo replaces the
-source tempo map in the document. The report keeps the original tempo map.
+these are file metadata, not harmonic analysis. Consecutive source tempo events
+with the same value make one tempo overlay. A target tempo replaces the source
+tempo map in the document. The elapsed-time clock and the outside-clip count
+use the complete source map.
+
+`report.sourceTempo` summarizes the source map: `events` (source tempo events),
+`changes` (events with a new value), `equalMerged` (`events` minus `changes`),
+`firstBpm` (the tempo at zero), `minBpm`, and `maxBpm`. The default 120 BPM is
+in the BPM values when `defaultTempoApplied` is true; it is not an event. The
+report size does not grow with the map. A read without `targetBpm` has the
+map in the document. See [E271](../evidence/experiments/e271-midi-tempo-report-and-overlap-precheck.md).
 
 Note-offs close the earliest open note with the same track, channel, and pitch
 (FIFO). MIDI has no note ID. Count overlapping note-ons and warn when this rule

@@ -1,8 +1,8 @@
 ---
 title: Phase 8i20 — MIDI tempo report and overlap pre-check
 kind: plan
-state: planned
-status: Planned from E270 (issues D15 and D16, and the targetBpm text).
+state: done
+status: Complete (E271). Issues D15 and D16 fixed; descriptions v52.
 updated: 2026-10-16
 parent: README.md
 prev: 8i19-document-file-paths.md
