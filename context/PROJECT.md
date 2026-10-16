@@ -2,7 +2,7 @@
 title: ghostnote project context
 kind: project
 state: active
-updated: 2026-10-08
+updated: 2026-10-16
 ---
 
 # ghostnote
@@ -21,9 +21,10 @@ surface without relying on the user's UI selection.
   addressing for clips/scenes, which have no durable identity.
 - Writes pass through one executor and stash boundary with readback verification,
   concurrency reporting, and fidelity-aware reversal.
-- The default tool profile is `agent-native-v1` (D40): 40 tools on one
-  address, health, result, and error vocabulary. `stable-v1` is the frozen
-  rollback through 8i.
+- The default tool profile is `agent-native-v1` (D40): 44 tools on one
+  address, health, result, and error vocabulary, descriptions v52. The 8i
+  gate is closed (E272); `stable-v1` is the frozen rollback until its
+  planned Phase 9 removal.
 - Launcher clips are read and edited as Ghostnote Document 1.0 documents:
   `read_launcher_clip` returns a base ref, and `edit_launcher_clip` takes a
   sparse patch or a desired document against it (D21, D25). Every read is a
@@ -31,7 +32,10 @@ surface without relying on the user's UI selection.
   `get_document_reference` returns the format reference and templates with
   no host call, and a refused document returns a repair (E255).
   `add_launcher_clip` takes overlay claims in one call and binds them to the
-  new clip (D47).
+  new clip (D47). The document writers take `documentPath` and the readers
+  take `documentOutputPath`, so a large document stays out of the
+  conversation (D51). `read_midi_file` and `write_midi_file` convert MIDI
+  files offline, with no host call (D50).
 - Track mixers are read and set in exact dB, pan, mute, and nonexclusive
   solo on durable track IDs (`read_track_mixer`, `set_track_mixer`, D48).
   The volume unit is the host raw value; automation refuses before a write.

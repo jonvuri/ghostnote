@@ -2,8 +2,8 @@
 title: Phase 9 — Breadth and release
 kind: plan
 state: planned
-status: Start after Phase 8 accepts the agent-native engine and publication candidates.
-updated: 2026-10-09
+status: Open. Phase 8 accepted the agent-native engine and the publication candidates (E272); the 8i handoff is in 9b.
+updated: 2026-10-16
 parent: ../ROADMAP.md
 prev: ../phase-8/README.md
 ---
@@ -26,7 +26,8 @@ usefulness**, which cannot be predicted in advance and should not be pre-committ
 ## Next selected item
 
 [9a — `bwmod` publication review and extraction](9a-bwmod-publication-review.md)
-is the first selected backlog item after the Phase 8 dogfood gate closes. The
+is the first selected backlog item now that the Phase 8 dogfood gate is
+closed ([E272](../../evidence/experiments/e272-8i-gate-close-out.md)). The
 first Phase 5 closeout settled the internal asset policy and deferred external
 redistribution review. Session 9a checks that boundary before it prepares the
 standalone package. It does not publish externally without explicit approval.
@@ -90,6 +91,13 @@ product commitment:
 
 ### Packaging & hygiene
 
+- **Retire the `stable-v1` profile.** D40 names its removal after 8i, and
+  the [8i close-out](../../evidence/experiments/e272-8i-gate-close-out.md#interface-verdicts)
+  gives it the retire verdict. Remove the frozen cohort, its server
+  instructions, the `stable-v1`-only operation handle and musical patch
+  path, and the device-alternate assets (I07, I08, I21 in the
+  [workstation interfaces](../../evidence/format/WORKSTATION_INTERFACES.md));
+  keep the migration records. Run the wire goldens and `probe:hello`.
 - Install documentation, including the one-time manual step nobody can automate:
   Settings → Controllers → Add Controller → vendor "ghostnote".
 - Cross-platform paths. The extension already reads `RigConfig` from

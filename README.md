@@ -19,9 +19,10 @@ Planning and evidence live in [`context/`](context/). Start with the current
 [`PROJECT`](context/PROJECT.md), [decision index](context/decisions/INDEX.md),
 and [evidence index](context/evidence/INDEX.md) as needed.
 
-> **Status:** Phases 1, 2, 4, and 5 are complete. Phase 3 is deferred. An open
-> dogfooding loop precedes the Phase 6 backlog. This personal project has no
-> support commitment or stability promise.
+> **Status:** Phases 1, 2, 4, 6, 7, and 8 are complete; the Phase 8 dogfood
+> gate closed on 2026-10-16 (E272). Phase 3 is deferred, the Phase 5
+> generalized closeout stays open, and Phase 9 is a backlog. This personal
+> project has no support commitment or stability promise.
 
 ## Requirements
 

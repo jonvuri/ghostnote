@@ -1,13 +1,13 @@
 ---
 title: Phase 8i — Agent-native hybrid dogfood
 kind: plan
-state: planned
-status: Final Phase 8 gate. 8i0–8i15 are complete (E249–E264, D42–D49); the groove and overlay trials passed (E256), timing claims are used without a leading prompt (E259, E260), and the automated dogfood loop is proved (E261), and the stretch set passed (E262). The operator reviewed the issue log: 8i14 fixed D9 (clip copy to any slot, E263) and 8i15 fixed D8 (device-add revert report, E264); next is the gate close-out.
-updated: 2026-10-11
+state: done
+status: Final Phase 8 gate, closed (E272). 8i0–8i16 and 8i18–8i20 are complete (E249–E271, D42–D51); the groove and overlay trials passed (E256), timing claims are used without a leading prompt (E259, E260), the automated dogfood loop is proved (E261, E262), and the issue log D1–D16 is decided. 8i17 is a separate planned survey.
+updated: 2026-10-16
 parent: README.md
 prev: 8i5-device-control-identity.md
 next: ../phase-9/README.md
-evidence: E120, E121, E127-E134, E209, E213, E247, E252, E253; D25, D39, D40, D44, D45
+evidence: E120, E121, E127-E134, E209, E213, E247, E249-E272; D25, D39, D40, D42-D51
 ---
 
 # Phase 8i — Agent-native hybrid dogfood
@@ -111,11 +111,15 @@ The following sessions completed them before the 2026-10-09 trial:
     D49): `check_revert` and `revert_change` name each removed device and
     clip, and the revert fidelity states what the revert restored (D8
     fixed). `slot.duplicateClip` is probe-only. Descriptions v48.
-14. Next: the gate close-out. Check the [acceptance criteria](#acceptance-criteria)
-    against the E records, give each Phase 8 interface a verdict, and write
-    the [Phase 9 handoff](#phase-9-handoff) with the 9b artifact inventory.
-    The resident cache is gone (8h3e): mark the cache items of the trial
-    set and of the criteria as void, with E230 and E233.
+14. The gate close-out. Complete
+    ([E272](../../evidence/experiments/e272-8i-gate-close-out.md)): the
+    [acceptance criteria](#acceptance-criteria) are checked against the E
+    records, each Phase 8 interface has a verdict, and the
+    [Phase 9 handoff](#phase-9-handoff) names the 9b artifact inventory.
+    The cache items of the trial set and of the criteria are void (8h3e:
+    E230, E233). See the [closeout](#closeout-e272) below.
+    The later sessions 8i16 and 8i18 to 8i20 (E265 to E271, D50, D51) added
+    MIDI and document files; the [Phase 8 README](README.md) lists them.
 
 ## Fresh agent trials
 
@@ -218,7 +222,8 @@ Run several bounded tasks that together cover:
 - nominal rhythm interpretation under the normalized timing boundary;
 - a groove task that preserves or transfers selected timing intent;
 - an overlay dependency change that requires preservation or invalidation;
-- a repeated read that should benefit from the cache;
+- a repeated read that should benefit from the cache (void: the resident
+  cache was removed in 8h3e, E230 and E233; every read is fresh);
 - one structural change or rebuild condition;
 - one visible UI-only action followed by structured reacquisition;
 - one failure, ambiguity, or over-limit fallback; and
@@ -275,7 +280,9 @@ are a default path when the descriptions route to them, not an expert path.
 
 ## Acceptance criteria
 
-- The cache remains correct through the selected real lifecycle events.
+- The cache remains correct through the selected real lifecycle events
+  (void: E230 and E233 removed the resident cache; the D32 reference and
+  the fresh reads take its place).
 - The version 1.0 document supports useful complete and sparse reads/edits
   with the declared loss, defaults, and field preservation.
 - Overlay identities and dependencies survive or invalidate correctly. Removing
@@ -297,7 +304,27 @@ are a default path when the descriptions route to them, not an expert path.
   that names paths, versions, hashes, dependencies, and redistribution status.
 - Complete repository checks and the relevant live gates pass.
 
+## Closeout (E272)
+
+Each acceptance criterion, with its state and evidence, is in
+[E272](../../evidence/experiments/e272-8i-gate-close-out.md#acceptance-criteria).
+Every criterion is met; the cache criterion is void. Each Phase 8 interface
+has a verdict in the same record: the `agent-native-v1` profile, the
+document limb, overlay claims, the clip structure limbs, the track mixer,
+the device sensors and limbs, the change records, Document 1.0, the model
+reference, the host binding, and the pull snapshot reader graduate; the
+launch and navigation limbs, the track and scene limbs, the layer-chain and
+modulation workflows, the MIDI and document files, the wire, the runbook,
+the ledger, and the risk tiers are retained; the resident cache and the
+`stable-v1` profile retire. The main Phase 8 verdict is that Ghostnote
+behaved like an instrument: fresh agents used it for real work from the
+descriptions alone, and the residual workflow (timing routes, claim repair,
+file routes) was named and removed inside 8i.
+
 ## Phase 9 handoff
+
+The handoff is written: [E272, Phase 9 handoff](../../evidence/experiments/e272-8i-gate-close-out.md#phase-9-handoff)
+and the [9b plan](../phase-9/9b-compact-bar-publication-review.md#8i-handoff-e272).
 
 Phase 9b can package the format after this session accepts the specification,
 reference codec, model reference, conformance package, overlays, and live use.

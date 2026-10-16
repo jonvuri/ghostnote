@@ -1,8 +1,8 @@
 ---
 title: Phase 8 — Agent-native live engine
 kind: plan
-state: active
-status: 8h, 8i0–8i16, and 8i18–8i20 are complete (E247–E271). The document tools take file paths (D51). 8i17 plans the separate musical-navigation survey. Next: the 8i gate close-out.
+state: done
+status: Complete. The 8i gate is closed (E272): every criterion is met or void, each Phase 8 interface has a verdict, and 9b has the handoff. 8i17 is a separate planned survey under this phase.
 updated: 2026-10-16
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -449,7 +449,10 @@ owns the migration details.
    [8i20 — MIDI tempo report and overlap pre-check](8i20-midi-tempo-report-and-overlap-precheck.md)
    (complete, E270, E271) bounds the tempo report, fixes the `targetBpm` text,
    and refuses clip overlaps before the clip exists.
-   Next: the 8i gate close-out (verdicts and the 9b handoff).
+   The gate close-out is complete
+   ([E272](../../evidence/experiments/e272-8i-gate-close-out.md)): the
+   criteria, interface verdicts, and the 9b handoff with the artifact
+   inventory. The main Phase 8 verdict is "instrument".
    None requires a skill.
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.
@@ -493,6 +496,19 @@ owns the migration details.
 - Fresh hybrid dogfood confirms that an agent can use the surface without
   repository-specific coaching.
 - Phase 9 receives explicit publication candidates and remaining limits.
+
+## Closeout (8i, E272)
+
+[E272](../../evidence/experiments/e272-8i-gate-close-out.md) checks the
+8i criteria and the exit criteria above: the posture and ownership are in
+the audit and E272's verdict table; every retained tool has a ledger row
+and a cohort entry (44 tools, v52); the comparisons are E209 and E213; the
+identity, project, and restart behavior are E138, E233, E250, and E251;
+the cache limits are void after E233 (the reader limits are E246 and E248);
+the document contract is the 9b candidate; the surface measurements are
+E239, E247, and the E272 comparison table; the fresh dogfood is E255 to
+E262 and E270; the publication candidates are in the inventory. The
+`stable-v1` rollback retires in a Phase 9 session (D40).
 
 ## Phase 9 handoff
 

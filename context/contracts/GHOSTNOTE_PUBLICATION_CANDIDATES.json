@@ -1,7 +1,7 @@
 {
   "schema": "ghostnote-publication-candidates/1",
-  "updated": "2026-10-01",
-  "status": "8f3 review inventory; 8i acceptance and 9b publication review remain required",
+  "updated": "2026-10-16",
+  "status": "8f3 review inventory with 8i acceptance (E272); 9b publication review remains required",
   "hashRules": {
     "exact-file-bytes": "SHA-256 over retained file bytes. This is not the document semantic hash.",
     "sorted-tree-file-hashes-v1": "Sort relative POSIX file paths. SHA-256 over UTF-8 rows: path, NUL, lowercase file-byte SHA-256, LF. Exclude __pycache__ and .pyc. Paths are relative to the candidate root."
@@ -13,7 +13,7 @@
   "exclusions": [
     "This inventory excludes itself to avoid a self-hash.",
     "No vendor documentation/presets, paid provider reruns, or live project files are approved for redistribution.",
-    "8h/8i live acceptance evidence is not available yet."
+    "8h and 8i live acceptance: E247 and E272. Acceptance approves no redistribution."
   ],
   "candidates": [
     {
@@ -1188,7 +1188,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "96426daacf9e10d036d3c8576d9f2fb26bbd90cac0447f62ce1d9bef019c947d"
+        "value": "f1fd86eb7f4821b87f30c365105333bab06e45d92bbdb769bfae80ef3d07b02e"
       },
       "dependencies": [
         "spec/ghostnote-document-v1/HOST-BINDING.md",
@@ -1269,7 +1269,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "e920e19d55b9733330a92ebdd18999b5fd1d0e4541a8c990a22c7091d393cf01"
+        "value": "bb0fc4d769003a5827182646186ca693125cb10d0af6f5a3e1d16961aca44a5f"
       },
       "dependencies": [
         "9b package dependency/notice review"

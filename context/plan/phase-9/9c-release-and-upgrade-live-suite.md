@@ -2,8 +2,8 @@
 title: Phase 9c — Release and Bitwig upgrade live suite
 kind: plan
 state: planned
-status: Select and document the live checks to run for a release candidate and a Bitwig upgrade. Start after the 8i trial gates close.
-updated: 2026-10-09
+status: Open. The 8i trial gates are closed (E272). Select and document the live checks to run for a release candidate and a Bitwig upgrade.
+updated: 2026-10-16
 parent: README.md
 evidence: E39, E40, E85, E244, E254; D46
 ---

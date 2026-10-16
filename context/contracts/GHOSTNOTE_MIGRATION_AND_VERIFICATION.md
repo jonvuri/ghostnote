@@ -2,7 +2,7 @@
 title: Ghostnote Document 1.0 migration and verification
 kind: reference
 state: active
-updated: 2026-10-11
+updated: 2026-10-16
 scope: 8f3 target contract; implementation gates for 8g, 8h, 8i, and 9b
 ---
 
@@ -297,6 +297,8 @@ inventory cannot authorize container creation or removal through a benign edit.
 6. 8i runs fresh bounded trials using the versioned model reference. Cover a
    complete desired state, a sparse edit, nominal/groove use, stale overlay,
    a stale snapshot reference, structure change, UI reacquisition, and a refusal.
+   Done: [E272](../evidence/experiments/e272-8i-gate-close-out.md) maps each
+   item to its record.
 
 Rollback disables only the failed promotion stage and selects the prior proved
 read/write route. Invalidate incompatible snapshot references and proposal
@@ -311,15 +313,16 @@ hashes, IDs, defaults, or overlays is permitted.
 The [candidate inventory](GHOSTNOTE_PUBLICATION_CANDIDATES.json) records exact
 paths, versions, byte hashes, dependencies, and redistribution status. It is a
 review inventory for [9b](../plan/phase-9/9b-compact-bar-publication-review.md),
-not a release manifest. 8i adds live acceptance and known limits. 9b chooses
-packaging, dependency notices, and public claims.
+not a release manifest. [E272](../evidence/experiments/e272-8i-gate-close-out.md#phase-9-handoff)
+adds the 8i live acceptance and the known limits. 9b chooses packaging,
+dependency notices, and public claims.
 
 | Candidate family | Version/hash authority | Dependencies and remaining gate |
 |---|---|---|
 | Specification, field table, EBNF, schema, conformance inventory | Document 1.0; exact file hashes in candidate inventory | Keep R01-R32 and field defaults paired. 9b reviews release wording |
 | Reference codec and CLI | Document 1.0, repository TypeScript source and lockfile hashes | Node/TypeScript toolchain; generated schema copy. Standalone consumer and codec corpus must pass; package/dependency notices need 9b review |
 | Canonical examples and versioned corpus | Eight document semantic hashes in `examples/expected.json`; byte hashes in inventory | Codec-owned generated artifacts; generated MIT music. Keep semantic and byte domains separate |
-| Model format reference and prompts | Version 1.0/reference revision 1; `MODEL-REFERENCE.identity.json` | Codec-generated examples and corpus prompts; include through the actual 8h prompt/skill entry point |
+| Model format reference and prompts | Version 1.0/reference revision 5 (E272); `MODEL-REFERENCE.identity.json` | Codec-generated examples and corpus prompts; include through the actual 8h prompt/skill entry point |
 | Host binding, identity, cache, migration, and binding corpus | 8f3 contract revision; candidate file hashes | Host/API-qualified evidence; 8g/8h must prove live behavior before claiming integration |
 | Product review and reproduction evidence | Frozen matrix/addendum paths and inventory hashes | README starting point; preserve denominators, provider manifests, scoring scripts, and known limits. Third-party payload redistribution needs explicit 9b review |
 

@@ -2,8 +2,8 @@
 title: Phase 9b — Document format packaging and publication
 kind: plan
 state: planned
-status: Gated by Phase 8i acceptance. Package the selected format and benchmark evidence for public review.
-updated: 2026-10-01
+status: Open. 8i accepted the format, codec, model reference, binding, and live use (E272); the handoff below names the candidate versions and limits. Package them for public review.
+updated: 2026-10-16
 parent: README.md
 evidence: E109, E114-E121, E129-E139, E209, E211-E213; D23, D25
 ---
@@ -20,11 +20,27 @@ Start after [8i](../phase-8/8i-agent-native-hybrid-dogfood.md) accepts the forma
 conformance package, and live use. The handoff must name the exact candidate
 versions and known limits. Preparation does not make an external release.
 
+## 8i handoff (E272)
+
+[E272](../../evidence/experiments/e272-8i-gate-close-out.md#phase-9-handoff)
+is the handoff. It names the candidate families with their version
+authorities, the [candidate inventory](../../contracts/GHOSTNOTE_PUBLICATION_CANDIDATES.json)
+(101 entries with exact paths, SHA-256 values, dependencies, and
+redistribution status), the version 1.0 changes that the benchmark did not
+measure, and the known limits. The accepted versions are Document 1.0
+(`ghostnote-document/1.0`), binding `ghostnote-binding/1`, model reference
+revision 5 (`MODEL-REFERENCE.identity.json`), 24 conformance cases, 3
+binding cases, and 8 example documents. The frozen result packages are
+`brain/benchmarks/symbolic-format-v5/` (59 files) and
+`brain/benchmarks/native-composite-v1/` (53 files); their imported
+dependencies are not yet a proven closure. Provider responses and the
+operator's music are not redistributable; generated fixtures are MIT.
+
 ## Earmarked artifacts
 
-The following inventory is the publication starting point. Normative artifacts
-will be supplied by the named Phase 8 session. Record their final paths,
-versions, hashes, dependencies, and licensing in the 8i handoff.
+The following inventory is the publication starting point. The final
+paths, versions, hashes, dependencies, and licensing are in the 8i handoff
+above and the candidate inventory.
 
 | Artifact | Source and publication use |
 |---|---|
