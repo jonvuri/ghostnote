@@ -1,14 +1,14 @@
 ---
-title: Phase 9a — bwmod publication review and extraction
+title: Phase 10a — bwmod publication review and extraction
 kind: plan
 state: planned
-status: First selected Phase 9 item after Phase 8. Review redistribution before extraction.
-updated: 2026-09-25
+status: First publication item in the deferred Phase 10 backlog. Review redistribution before extraction.
+updated: 2026-10-18
 parent: README.md
 evidence: D1-D3, E10-E13, E65-E73
 ---
 
-# Phase 9a — `bwmod` publication review and extraction
+# Phase 10a — `bwmod` publication review and extraction
 
 ## Purpose
 

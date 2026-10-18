@@ -2,9 +2,9 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-10-16
-phase: phase-9-breadth-and-release
-session: operator-selects-next
+updated: 2026-10-18
+phase: phase-9-overlap-investigation
+session: 9a-live-grid-editing-spike
 ---
 
 ## Now
@@ -13,22 +13,25 @@ Phase 8 is complete. The 8i gate closed in
 [E272](evidence/experiments/e272-8i-gate-close-out.md): every 8i criterion
 is met (the cache criterion is void, E230 and E233), each Phase 8 interface
 has a verdict (no revise; the resident cache and `stable-v1` retire), and
-[9b](plan/phase-9/9b-compact-bar-publication-review.md) has the handoff
+[10b](plan/phase-10/10b-compact-bar-publication-review.md) has the handoff
 with the artifact inventory (101 entries). The main Phase 8 verdict is that
 Ghostnote behaved like an instrument.
 
-Next: the operator selects the next session. The
-[Phase 9 README](plan/phase-9/README.md) names
-[9a](plan/phase-9/9a-bwmod-publication-review.md) (the `bwmod` publication
-review) as the first selected item; [9b](plan/phase-9/9b-compact-bar-publication-review.md)
-is ready with its handoff; [9c](plan/phase-9/9c-release-and-upgrade-live-suite.md)
-is the release and Bitwig upgrade live suite; the `stable-v1` retirement is
-a Phase 9 backlog item (D40, E272); and the
+Next: [9a — Live Grid editing spike](plan/phase-9/9a-live-grid-editing-spike.md).
+Start with a bounded device graph read, using openwig's internal descriptor
+reader as a source. If identity and readback pass, investigate live module
+and cable CRUD. No live experiment has run for 9a. The
+[new Phase 9](plan/phase-9/README.md) remains provisional while the overlap
+investigation continues; its wider scope is not selected.
+
+The former Phase 9 is now [Phase 10](plan/phase-10/README.md): publication
+plans 10a/10b, the release and upgrade suite 10c, and the `stable-v1` retirement
+backlog (D40, E272). Historical Phase 9 handoffs refer to that moved work. The
 [8i17 survey](plan/phase-8/8i17-midi-musical-navigation-survey.md) (musical
 navigation in large MIDI files; E266 and E268 are its inputs) runs
 independently. No client trial has used descriptions v52; a rerun with the
 [runbook](plan/phase-8/8i-automated-dogfood-runbook.md) is optional and
-does not gate 9b.
+does not gate 10b.
 
 Live material to preserve, until the operator says otherwise:
 

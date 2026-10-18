@@ -105,8 +105,8 @@ Cache implementation, live surface integration, and fresh agent trials remain
 in 8g, 8h, and 8i.
 
 Earmark the accepted specification, tooling, conformance corpus, format card,
-examples, and benchmark reproduction evidence for Phase 9.
-[Phase 9b](../plan/phase-9/9b-compact-bar-publication-review.md) owns public
+examples, and benchmark reproduction evidence for Phase 10.
+[Phase 10b](../plan/phase-10/10b-compact-bar-publication-review.md) owns public
 packaging and publication review. The product review is the starting point
 for the eventual README. Acceptance in Phase 8i supplies the publication
 candidate. Version 1.0 is the target contract, not a current external release.

@@ -1,0 +1,611 @@
+{
+  "scope": "Offline source audit. No Bitwig load or live write.",
+  "ghostnote_commit": "8646bc4cead401673cb5e657612c1f8c276f7ba8",
+  "original_report_sha256": "7e3e13273207f7275863bf72fe85a3c0a7188ffd680efd0d0e4f80ac78d1684f",
+  "repositories": [
+    {
+      "name": "BitX",
+      "commit": "23768a4e9dbcf161e4a4b53a732ff704d10039cb",
+      "commit_date": "2026-07-26T18:56:14+02:00",
+      "origin": "git@github.com:wimvandenborre/BitX.git",
+      "status": ""
+    },
+    {
+      "name": "DrivenByMoss",
+      "commit": "836117be7c17318a0f93cb414e333516a91a5436",
+      "commit_date": "2026-07-26T19:06:54+02:00",
+      "origin": "https://github.com/git-moss/DrivenByMoss.git",
+      "status": ""
+    },
+    {
+      "name": "WigAI",
+      "commit": "6b567eb90ad3702a88f80398cf6ecbd74d1b5306",
+      "commit_date": "2025-12-18T18:33:59+01:00",
+      "origin": "https://github.com/csabacsaba/WigAI.git",
+      "status": ""
+    },
+    {
+      "name": "acidcat",
+      "commit": "2d0a0479bd4527b1ffcb8610b3568788198c749c",
+      "commit_date": "2026-10-15T16:18:44-04:00",
+      "origin": "https://github.com/hed0rah/acidcat.git",
+      "status": ""
+    },
+    {
+      "name": "bitwig-control-deck",
+      "commit": "45933855dcbfd1bd130beea18dd3f02bf794a838",
+      "commit_date": "2026-10-13T08:08:39-07:00",
+      "origin": "https://github.com/remymazmanian/bitwig-control-deck.git",
+      "status": ""
+    },
+    {
+      "name": "bitwig-device-hacks",
+      "commit": "59aa058e3fc725d202b6309c5251960a588e37a2",
+      "commit_date": "2017-05-22T11:03:01+03:00",
+      "origin": "https://github.com/zezic/bitwig-device-hacks.git",
+      "status": ""
+    },
+    {
+      "name": "bitwig-extensions",
+      "commit": "de79a747a62b50e1488cc9ef49617d129804e3ff",
+      "commit_date": "2026-03-15T19:10:35-04:00",
+      "origin": "https://github.com/gregrossdev/bitwig-extensions.git",
+      "status": ""
+    },
+    {
+      "name": "bitwig-nitro-tools",
+      "commit": "a34c1d61c7e48b1531fb3fba5e4c06d9e1e0cf16",
+      "commit_date": "2026-08-12T22:58:57-05:00",
+      "origin": "https://github.com/blakebratcher/bitwig-nitro-tools.git",
+      "status": ""
+    },
+    {
+      "name": "bitwig_agent",
+      "commit": "e17ac4033a7c5619e2371d0d733b0a4bb4b686d4",
+      "commit_date": "2026-10-05T23:40:28-03:00",
+      "origin": "https://github.com/gatovillano/bitwig_agent.git",
+      "status": ""
+    },
+    {
+      "name": "bwpreset",
+      "commit": "202bf50c31ac551f1e5d345bab5a39c1bed32a12",
+      "commit_date": "2026-10-07T22:15:00-04:00",
+      "origin": "https://github.com/jdormit/bwpreset.git",
+      "status": ""
+    },
+    {
+      "name": "daw-mcp",
+      "commit": "a30cbf62f8741265550fc2d638b0cd56559255e6",
+      "commit_date": "2026-01-01T16:29:58+01:00",
+      "origin": "git@github.com:ptaczek/daw-mcp.git",
+      "status": "M mcp-server/package-lock.json"
+    },
+    {
+      "name": "openwig",
+      "commit": "d9ffed4cd3ea7ad7f2f94dee5992545e8e54db2d",
+      "commit_date": "2026-06-11T00:33:55+02:00",
+      "origin": "https://github.com/Axyom/openwig.git",
+      "status": ""
+    }
+  ],
+  "presets": [
+    {
+      "path": "brain/assets/device-alternates/instrument-layer-seed.bwpreset",
+      "sha256": "0906707ce7a1e6fec24c2ce82422073ad4f2938e80dbc8888b6b3b90d0be5133",
+      "objects": 19,
+      "byte_exact": true,
+      "stable": true
+    },
+    {
+      "path": "brain/fixtures/FXLayer/gn_latebound_fx_layer.bwpreset",
+      "sha256": "fdc1f2d64132d8aabe277c090e052b9a6dfb76ba3c80e1c9e0a1748c60e71f50",
+      "objects": 17,
+      "byte_exact": true,
+      "stable": true
+    },
+    {
+      "path": "brain/fixtures/InstrumentLayer/gn_layer_4chain.bwpreset",
+      "sha256": "b953135a8c744b0796c6fdef86485012790e0533a137c7b59c6c2d21bc77b1f5",
+      "objects": 410,
+      "byte_exact": true,
+      "stable": true
+    },
+    {
+      "path": "brain/fixtures/Polysynth/gn-preset-zoo.bwpreset",
+      "sha256": "05ede862291810e2ca7925075f1acd318ccf438ff35bc10d2edbfe446fe7cb43",
+      "objects": 848,
+      "byte_exact": true,
+      "stable": true
+    },
+    {
+      "path": "brain/fixtures/Polysynth/gn_mod_lfo-sampler.bwpreset",
+      "sha256": "5be42b84fd7a1bcddba312cb1fee9dd4502369a36ac1929ef56caa6bd83534e0",
+      "objects": 88,
+      "byte_exact": true,
+      "stable": true
+    },
+    {
+      "path": "brain/fixtures/Polysynth/gn_mod_vibrato-poly.bwpreset",
+      "sha256": "2cb1bec961e3dfb2099e190f010d3d4443bde85aa2ccb5deddf1ae3a2cec0cf0",
+      "objects": 87,
+      "byte_exact": true,
+      "stable": true
+    },
+    {
+      "path": "brain/fixtures/Polysynth/modtest.bwpreset",
+      "sha256": "8e879a4b419af6e210473915cfce3abbfe89058b3f94acf3138f4a834e4f2ec5",
+      "objects": 111,
+      "byte_exact": true,
+      "stable": true
+    },
+    {
+      "path": "brain/fixtures/Polysynth/modzoo.bwpreset",
+      "sha256": "2c86ab589bca31cc512a61ad3cc1790287c9efaf12b4682c13abee34ac033382",
+      "objects": 95,
+      "byte_exact": true,
+      "stable": true
+    },
+    {
+      "path": "brain/fixtures/Polysynth/mp_bare.bwpreset",
+      "sha256": "41dd6053f4fab69376fc3db51aaf42440b0f5f03317eb3aff3860a6c824a635d",
+      "objects": 72,
+      "byte_exact": true,
+      "stable": true
+    },
+    {
+      "path": "brain/fixtures/Polysynth/mp_bare_same.bwpreset",
+      "sha256": "26dc16557c1f127418afaa4268c2b84660428cb54e9f2829d6f47639dd860c01",
+      "objects": 72,
+      "byte_exact": true,
+      "stable": true
+    },
+    {
+      "path": "brain/fixtures/Polysynth/mp_note_first.bwpreset",
+      "sha256": "36d1dbbf7290b4e327e95bd817430560009b7cbae4c83569e807e4788ac2c047",
+      "objects": 94,
+      "byte_exact": true,
+      "stable": true
+    },
+    {
+      "path": "brain/fixtures/Polysynth/mp_one_lfo.bwpreset",
+      "sha256": "486160e18650bda5b48cfe089100b675096a6d6ac00869d67737a488124d5ddf",
+      "objects": 86,
+      "byte_exact": true,
+      "stable": true
+    },
+    {
+      "path": "brain/fixtures/Polysynth/mp_one_random.bwpreset",
+      "sha256": "e1a01f3b961eb4e653d80e12ca67759038774d62315a2b19e3b4c285f960e674",
+      "objects": 83,
+      "byte_exact": true,
+      "stable": true
+    },
+    {
+      "path": "brain/fixtures/Sampler/gn_sampler_bare.bwpreset",
+      "sha256": "118f7140cb9925ca18d9a21f027f168a0ba91af0aa0bcbe09a8f74af4986d3b1",
+      "objects": 61,
+      "byte_exact": true,
+      "stable": true
+    },
+    {
+      "path": "brain/fixtures/Sampler/gn_sampler_lfo_random.bwpreset",
+      "sha256": "daa302dc2f6c265e47642f03bab1bd2a44109e639ebfdf66fe478bcc3e50ece0",
+      "objects": 90,
+      "byte_exact": true,
+      "stable": true
+    },
+    {
+      "path": "brain/fixtures/Sampler/gn_sampler_multi_bare.bwpreset",
+      "sha256": "d33bed32e991c7bf49b60e8918539bb26cd5fa1bc537da1d9b9d9e6d9559c6a5",
+      "objects": 70,
+      "byte_exact": true,
+      "stable": true
+    },
+    {
+      "path": "brain/fixtures/Sampler/gn_sampler_multi_one_lfo.bwpreset",
+      "sha256": "56879dee0a1eafbffd6c35c70e327e02eadba0a61be3ef901d2a05eac2712a42",
+      "objects": 86,
+      "byte_exact": true,
+      "stable": true
+    },
+    {
+      "path": "brain/fixtures/Sampler/gn_sampler_no_sample.bwpreset",
+      "sha256": "0e12eecd608fb4bdb8bb72a47f0300a408492908fff64b8b2f93b9242f5f7733",
+      "objects": 55,
+      "byte_exact": true,
+      "stable": true
+    },
+    {
+      "path": "brain/fixtures/Sampler/gn_sampler_one_lfo.bwpreset",
+      "sha256": "13f86029971163a15086a150a72efa2209669cafa323883722714670d08deee4",
+      "objects": 77,
+      "byte_exact": true,
+      "stable": true
+    },
+    {
+      "path": "brain/fixtures/Sampler/gn_sampler_one_random.bwpreset",
+      "sha256": "a49a56a6f5e2b4a42b19c88c20aba7375cceceef370fe3f988451165e833749d",
+      "objects": 74,
+      "byte_exact": true,
+      "stable": true
+    },
+    {
+      "path": "brain/fixtures/Zebra3/gn_zebra3clap_bare.bwpreset",
+      "sha256": "0ab02cf63e6c3d9786f4ede01fa9f95d48151c443789739ecccc04b6de227a5b",
+      "objects": 11,
+      "byte_exact": true,
+      "stable": true
+    },
+    {
+      "path": "brain/fixtures/Zebra3/gn_zebra3clap_one_lfo.bwpreset",
+      "sha256": "576d0c54cdf46fae3f241fb80756994f194ac3ee218b2983e92a5d19a21b10a9",
+      "objects": 29,
+      "byte_exact": true,
+      "stable": true
+    },
+    {
+      "path": "brain/fixtures/Zebra3/gn_zebra3vst_bare.bwpreset",
+      "sha256": "774d1c34a107a3c8c39f7963a94bcb917533f38e2904edce58d62dba0d8328de",
+      "objects": 11,
+      "byte_exact": true,
+      "stable": true
+    },
+    {
+      "path": "brain/fixtures/Zebra3/gn_zebra3vst_one_lfo.bwpreset",
+      "sha256": "4095fe05d58f0b3893ef2ce8afe786ecaed3cfa8b7be21e072fde8a79423e834",
+      "objects": 29,
+      "byte_exact": true,
+      "stable": true
+    }
+  ],
+  "donors": [
+    {
+      "id": "lfo-sampler",
+      "sha256": "972f21bddd4fc4f1651a03e2e2c1c5cda49a12e87bf2eade3418b16c47273499",
+      "measured": 16,
+      "objects": 16,
+      "complete": true
+    },
+    {
+      "id": "random-sampler",
+      "sha256": "a06feea2bc3758a96dd7ea18deeceee6338fe1b076a1b062ec43ac71f7885fe9",
+      "measured": 13,
+      "objects": 13,
+      "complete": true
+    },
+    {
+      "id": "random-poly",
+      "sha256": "8835a4f693a3fb6d548a4d72ec3f09ebbfc6cdc47de310faa471a4780e4e8cfa",
+      "measured": 11,
+      "objects": 11,
+      "complete": true
+    },
+    {
+      "id": "lfo-poly",
+      "sha256": "40ef2251194cf98b094801d41ad8e964cb29c538aa43322350c39e64341f04ed",
+      "measured": null,
+      "objects": 14,
+      "complete": true
+    },
+    {
+      "id": "classiclfo-poly",
+      "sha256": "03cee435651c249238c85f77def00420fe8a11decc3588295fbf5679c129191d",
+      "measured": 12,
+      "objects": 12,
+      "complete": true
+    },
+    {
+      "id": "vibrato-poly",
+      "sha256": "a642ee58ba5ea51ed94f46c8bb8df7efe76bb30f8d3f17234bf0e0b197a67f96",
+      "measured": 15,
+      "objects": 15,
+      "complete": true
+    },
+    {
+      "id": "expressions-poly",
+      "sha256": "dffd2ff43f28ad77917666aca317b95b0f8ed148d9d1be14df5b5a8d28188730",
+      "measured": null,
+      "objects": 8,
+      "complete": true
+    },
+    {
+      "id": "4-stage-zoo",
+      "sha256": "a5f1d09feaa3ff0d5f95fb23dfcd5582612027558e32f730e6a778b96bf2c436",
+      "measured": null,
+      "objects": 23,
+      "complete": true
+    },
+    {
+      "id": "adsr-zoo",
+      "sha256": "7a13497ffb49b8c543f16dae962aed906df085bc14c2caaaeef4d0052149e5d2",
+      "measured": null,
+      "objects": 16,
+      "complete": true
+    },
+    {
+      "id": "ahd-on-release-zoo",
+      "sha256": "c0dceb93a9e620c7740ac87f1c0504ee73bb618801821e3d486054b3e15f354c",
+      "measured": null,
+      "objects": 12,
+      "complete": true
+    },
+    {
+      "id": "ahdsr-zoo",
+      "sha256": "7b229443568366366d17ec05abdcbde4d8f48163e113ec6ba2c640bfb90df22b",
+      "measured": null,
+      "objects": 20,
+      "complete": true
+    },
+    {
+      "id": "audio-rate-zoo",
+      "sha256": "15d7dfc3de1f0b31fd1af6eef04e7762fcfbc2da68049304533e18f57f0cea32",
+      "measured": null,
+      "objects": 11,
+      "complete": true
+    },
+    {
+      "id": "audio-sidechain-zoo",
+      "sha256": "426c79ed9c8a31e0697d72657017b8b8aec964da56863b8d6382e746230bdee2",
+      "measured": null,
+      "objects": 13,
+      "complete": true
+    },
+    {
+      "id": "beat-lfo-zoo",
+      "sha256": "2c46159fcfee07e7ff84359cc99ce759bc798ec2de24e532d6288e06436d557a",
+      "measured": null,
+      "objects": 12,
+      "complete": true
+    },
+    {
+      "id": "button-zoo",
+      "sha256": "87bce3cd9039f6b2aa96734f8b355ea68de741c78b36774e56c8a254fd0c640e",
+      "measured": null,
+      "objects": 8,
+      "complete": true
+    },
+    {
+      "id": "buttons-zoo",
+      "sha256": "f4b781a0dbedd197b0203471a8cf2ddb65f4dfa10efa6a035d00738125f14c27",
+      "measured": null,
+      "objects": 14,
+      "complete": true
+    },
+    {
+      "id": "channel-16-zoo",
+      "sha256": "127cac7eb0dbc968a63a64f27b2561e1dab260d80e28796c412b257070460431",
+      "measured": null,
+      "objects": 53,
+      "complete": true
+    },
+    {
+      "id": "classic-lfo-zoo",
+      "sha256": "2da8d6d03f466976d6c0e51472162e2d92566abb97aae71e2be3236d76bb2c7f",
+      "measured": 14,
+      "objects": 14,
+      "complete": true
+    },
+    {
+      "id": "curves-zoo",
+      "sha256": "ab9e1426e263b1b50bfd774e22517425e5787bb192eb0fa5fd048f0229cc8d96",
+      "measured": null,
+      "objects": 31,
+      "complete": true
+    },
+    {
+      "id": "envelope-follower-zoo",
+      "sha256": "f2a7ed5e41bd80f61f5b45f04b40866bee6db49d21c75acdaf47cd35fdc99627",
+      "measured": null,
+      "objects": 11,
+      "complete": true
+    },
+    {
+      "id": "expressions-zoo",
+      "sha256": "246951b5fa4903dfa6a16434b39a6225346b781ef4d63f552920e7d61496e9f3",
+      "measured": null,
+      "objects": 16,
+      "complete": true
+    },
+    {
+      "id": "globals-zoo",
+      "sha256": "a6a69e4396e82673c508a674569ee37c65e6d399f2ffe336916c6917800c1b1c",
+      "measured": null,
+      "objects": 11,
+      "complete": true
+    },
+    {
+      "id": "hw-cv-in-zoo",
+      "sha256": "afd5f409015cad903fed982ca585c82d0995b3f242cbe5da515a763145348c61",
+      "measured": null,
+      "objects": 9,
+      "complete": true
+    },
+    {
+      "id": "keytrack-plus-zoo",
+      "sha256": "c1e0b26f93391c08845ecabb39a3fac0572c2753006f0f4a695a83d696db936b",
+      "measured": null,
+      "objects": 11,
+      "complete": true
+    },
+    {
+      "id": "macro-4-zoo",
+      "sha256": "4c2b97fb22b1183ce1f1523616a9d7738550f80dc2d6f9fb0dea1dbd20b39ee0",
+      "measured": null,
+      "objects": 26,
+      "complete": true
+    },
+    {
+      "id": "macro-zoo",
+      "sha256": "be21e0aebc551888ba288ee7e220f84a45e9bea300325acccf4216c1a58e3cf8",
+      "measured": null,
+      "objects": 8,
+      "complete": true
+    },
+    {
+      "id": "math-zoo",
+      "sha256": "42e1ff1db100b285d1767b5da85c4b7dd802a74af4b818bc85ca0b1cafb82bcd",
+      "measured": null,
+      "objects": 8,
+      "complete": true
+    },
+    {
+      "id": "midi-zoo",
+      "sha256": "cdb58b902fdc3ceafdae1834351c2287d3e913b3edff8bc0f2140e9500b3474b",
+      "measured": null,
+      "objects": 11,
+      "complete": true
+    },
+    {
+      "id": "mix-zoo",
+      "sha256": "376e61f8c0b4673a46147adcc8af4fef6e8570ee372cf28e63bc3f982bdc6719",
+      "measured": null,
+      "objects": 8,
+      "complete": true
+    },
+    {
+      "id": "note-counter-zoo",
+      "sha256": "9a32af4796d961982896c7ca107448711afbe211ea2de14e37f8dfdb5a30d659",
+      "measured": null,
+      "objects": 8,
+      "complete": true
+    },
+    {
+      "id": "note-sidechain-zoo",
+      "sha256": "8da8a92a40bf4aee39d28aba397d38c6a901b6aeb8c00418f066d862641230fa",
+      "measured": null,
+      "objects": 17,
+      "complete": true
+    },
+    {
+      "id": "parseq-8-zoo",
+      "sha256": "a8b426abbf35fca513f44333ad1bf45e4e83ae48496d62badc66dc82c657f1b8",
+      "measured": null,
+      "objects": 62,
+      "complete": true
+    },
+    {
+      "id": "pitch-12-zoo",
+      "sha256": "a23e6e74a7915bcaf804c44b6ba34d32ac55c75947407610e8c85f459b1ef5f1",
+      "measured": null,
+      "objects": 40,
+      "complete": true
+    },
+    {
+      "id": "polynom-zoo",
+      "sha256": "22338e4ef5b413ca5b57b0ec3fdb434eae40a968be0b1f3f8ee080b153eeae8f",
+      "measured": null,
+      "objects": 10,
+      "complete": true
+    },
+    {
+      "id": "quantize-zoo",
+      "sha256": "a03230fec95bba2e145b6542f0aea372f4550c8a4b677e25f1f8c27012da1bb7",
+      "measured": null,
+      "objects": 8,
+      "complete": true
+    },
+    {
+      "id": "ramp-zoo",
+      "sha256": "6dd88109669f241eaaa01fc27e9ba8658d807bac6d4fec1ae3db2004bfc593d4",
+      "measured": null,
+      "objects": 14,
+      "complete": true
+    },
+    {
+      "id": "relative-keytrack-zoo",
+      "sha256": "0c5ece4d00f87c6e61ab2b81f8460f60536b3739d3c2cc735bafb89d310076ac",
+      "measured": null,
+      "objects": 19,
+      "complete": true
+    },
+    {
+      "id": "sample-and-hold-zoo",
+      "sha256": "fc32e8219eff2732d4c37963bde4647a6bb13c45408960ecdb8047e98696f093",
+      "measured": null,
+      "objects": 11,
+      "complete": true
+    },
+    {
+      "id": "segments-zoo",
+      "sha256": "346a8ea32b2b045c3d41daac32106005827b4e04954818f0ccda3c52d90ce1e4",
+      "measured": null,
+      "objects": 18,
+      "complete": true
+    },
+    {
+      "id": "select-4-zoo",
+      "sha256": "0ca07a967649be27cbca53ad4dbcdcc620db738dc7af61443c742c56c8ff736c",
+      "measured": null,
+      "objects": 16,
+      "complete": true
+    },
+    {
+      "id": "stack-spread-zoo",
+      "sha256": "e9fba50786badaaf72bc9bc678bbadd60c5c4c7c981eec4c44ab283e26741d0a",
+      "measured": null,
+      "objects": 22,
+      "complete": true
+    },
+    {
+      "id": "steps-zoo",
+      "sha256": "72855339acf8c37c97b670ae5d1b568da73fae37d01e6af34aa26172abcbd52f",
+      "measured": null,
+      "objects": 18,
+      "complete": true
+    },
+    {
+      "id": "vector-4-zoo",
+      "sha256": "2a4d896e580e5b89efda4eab3b849cca6ba24cce940f7ab4d9f52c0c40d207b5",
+      "measured": null,
+      "objects": 16,
+      "complete": true
+    },
+    {
+      "id": "vector-8-zoo",
+      "sha256": "eff4711da8a45923e69c713ed6cd0647ea6de30f418d30944e774868d2491c0c",
+      "measured": null,
+      "objects": 28,
+      "complete": true
+    },
+    {
+      "id": "voice-control-zoo",
+      "sha256": "2af97c29472e97df1afe957f655b3ee9ba526a878670dc1acc915f054f54f702",
+      "measured": null,
+      "objects": 50,
+      "complete": true
+    },
+    {
+      "id": "xy-zoo",
+      "sha256": "95269e2e821389aa9ab61a110509e2d3f764603cfb737e24d48f705d22bda7f8",
+      "measured": null,
+      "objects": 10,
+      "complete": true
+    }
+  ],
+  "resolved_field_types": {
+    "0x1": 1944,
+    "0x2": 4,
+    "0x3": 40,
+    "0x5": 1498,
+    "0x7": 1965,
+    "0x8": 4137,
+    "0x9": 592,
+    "0xa": 109,
+    "0xd": 9,
+    "0x12": 572,
+    "0x15": 155,
+    "0x16": 62,
+    "0x17": 1,
+    "0x19": 96
+  },
+  "installed_key_check": {
+    "error": "KeyError: \"There is no item named 'com/bitwig/base/serial/file/sYG.class' in the archive\""
+  },
+  "acidcat_metadata_check": {
+    "file": "brain/fixtures/Polysynth/mp_bare.bwpreset",
+    "byte_delta": 35,
+    "body_offset_unchanged": true,
+    "scope": "In memory only; no fixture was changed.",
+    "error": "ParseError: unknown type 0x20 at 0x1669 (field 0x20202020 of class 0x20202020 at 0x1665)"
+  }
+}

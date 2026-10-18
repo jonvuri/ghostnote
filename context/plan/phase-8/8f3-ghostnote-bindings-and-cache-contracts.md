@@ -131,7 +131,7 @@ policy, and rollback plan. Hand 8i the model reference and bounded trial cases.
 - Cache contract and state-machine reference.
 - Risk and verification policy by operation class.
 - Compatibility and migration map, with evidence for any decision amendment.
-- Binding corpus and an inventory of publication candidates for 9b.
+- Binding corpus and an inventory of publication candidates for 10b.
 
 All represented fields have authority and writability rules. Complete and
 sparse changes have deterministic preservation semantics. Identity has
@@ -147,7 +147,7 @@ Phase 8f closes when all three child sessions meet their criteria.
 ## Out of scope
 
 Product cache implementation belongs to 8g. Stable tool migration belongs to
-8h. Fresh composed agent trials belong to 8i. Public release belongs to 9b.
+8h. Fresh composed agent trials belong to 8i. Public release belongs to 10b.
 
 ## Retrospective target
 

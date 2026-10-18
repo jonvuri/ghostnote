@@ -3,7 +3,7 @@ title: Ghostnote Document 1.0 migration and verification
 kind: reference
 state: active
 updated: 2026-10-16
-scope: 8f3 target contract; implementation gates for 8g, 8h, 8i, and 9b
+scope: 8f3 target contract; implementation gates for 8g, 8h, 8i, and 10b
 ---
 
 # Migration and verification
@@ -312,24 +312,24 @@ hashes, IDs, defaults, or overlays is permitted.
 
 The [candidate inventory](GHOSTNOTE_PUBLICATION_CANDIDATES.json) records exact
 paths, versions, byte hashes, dependencies, and redistribution status. It is a
-review inventory for [9b](../plan/phase-9/9b-compact-bar-publication-review.md),
+review inventory for [10b](../plan/phase-10/10b-compact-bar-publication-review.md),
 not a release manifest. [E272](../evidence/experiments/e272-8i-gate-close-out.md#phase-9-handoff)
-adds the 8i live acceptance and the known limits. 9b chooses packaging,
+adds the 8i live acceptance and the known limits. 10b chooses packaging,
 dependency notices, and public claims.
 
 | Candidate family | Version/hash authority | Dependencies and remaining gate |
 |---|---|---|
-| Specification, field table, EBNF, schema, conformance inventory | Document 1.0; exact file hashes in candidate inventory | Keep R01-R32 and field defaults paired. 9b reviews release wording |
-| Reference codec and CLI | Document 1.0, repository TypeScript source and lockfile hashes | Node/TypeScript toolchain; generated schema copy. Standalone consumer and codec corpus must pass; package/dependency notices need 9b review |
+| Specification, field table, EBNF, schema, conformance inventory | Document 1.0; exact file hashes in candidate inventory | Keep R01-R32 and field defaults paired. 10b reviews release wording |
+| Reference codec and CLI | Document 1.0, repository TypeScript source and lockfile hashes | Node/TypeScript toolchain; generated schema copy. Standalone consumer and codec corpus must pass; package/dependency notices need 10b review |
 | Canonical examples and versioned corpus | Eight document semantic hashes in `examples/expected.json`; byte hashes in inventory | Codec-owned generated artifacts; generated MIT music. Keep semantic and byte domains separate |
 | Model format reference and prompts | Version 1.0/reference revision 5 (E272); `MODEL-REFERENCE.identity.json` | Codec-generated examples and corpus prompts; include through the actual 8h prompt/skill entry point |
 | Host binding, identity, cache, migration, and binding corpus | 8f3 contract revision; candidate file hashes | Host/API-qualified evidence; 8g/8h must prove live behavior before claiming integration |
-| Product review and reproduction evidence | Frozen matrix/addendum paths and inventory hashes | README starting point; preserve denominators, provider manifests, scoring scripts, and known limits. Third-party payload redistribution needs explicit 9b review |
+| Product review and reproduction evidence | Frozen matrix/addendum paths and inventory hashes | README starting point; preserve denominators, provider manifests, scoring scripts, and known limits. Third-party payload redistribution needs explicit 10b review |
 
 The repository license covers original software and documentation subject to
 its notice. Generated fixture music states MIT provenance. Do not infer a
 redistribution grant for vendor documentation, presets, provider responses, or
-reference works from the repository license. Mark these items for 9b review.
+reference works from the repository license. Mark these items for 10b review.
 No paid provider run or new token measurement is required in this session.
 
 ## Retrospective

@@ -1,14 +1,14 @@
 ---
-title: Phase 9b — Document format packaging and publication
+title: Phase 10b — Document format packaging and publication
 kind: plan
 state: planned
 status: Open. 8i accepted the format, codec, model reference, binding, and live use (E272); the handoff below names the candidate versions and limits. Package them for public review.
-updated: 2026-10-16
+updated: 2026-10-18
 parent: README.md
 evidence: E109, E114-E121, E129-E139, E209, E211-E213; D23, D25
 ---
 
-# Phase 9b — Document format packaging and publication
+# Phase 10b — Document format packaging and publication
 
 ## Purpose and entry
 

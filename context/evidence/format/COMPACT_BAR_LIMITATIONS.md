@@ -124,6 +124,6 @@ codec, and host-binding sessions:
 9. Recheck byte and provider-token targets on the selected syntax.
 10. Keep the internal project cache outside the public music document.
 
-[Phase 9b](../../plan/phase-9/9b-compact-bar-publication-review.md) reviews
+[Phase 10b](../../plan/phase-10/10b-compact-bar-publication-review.md) reviews
 sources, fixture rights, versioning, compatibility, and the complete public
 package after 8i accepts its live use. Phase 8 prepares artifacts for that review.

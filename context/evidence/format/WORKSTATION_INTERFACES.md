@@ -17,7 +17,7 @@ cohort `ghostnote-description-v52` (8i7 to 8i20: the track mixer, the
 clip copy to any slot, the revert report, the MIDI file tools, and the
 document file paths); I03 has 92 methods (`8be1975eaa99d78f`; the probe
 build 111, `9b339de4e9bb08da`). `stable-v1` (I07, I08, I21) retires in a
-planned Phase 9 session (D40).
+planned Phase 10 session (D40).
 
 ## 8h closeout status (2026-10-08, E247)
 

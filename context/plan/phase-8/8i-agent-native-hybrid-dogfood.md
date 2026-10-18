@@ -115,7 +115,7 @@ The following sessions completed them before the 2026-10-09 trial:
     ([E272](../../evidence/experiments/e272-8i-gate-close-out.md)): the
     [acceptance criteria](#acceptance-criteria) are checked against the E
     records, each Phase 8 interface has a verdict, and the
-    [Phase 9 handoff](#phase-9-handoff) names the 9b artifact inventory.
+    [Phase 9 handoff](#phase-9-handoff) names the 10b artifact inventory.
     The cache items of the trial set and of the criteria are void (8h3e:
     E230, E233). See the [closeout](#closeout-e272) below.
     The later sessions 8i16 and 8i18 to 8i20 (E265 to E271, D50, D51) added
@@ -210,7 +210,7 @@ the cost of each tool for the comparison section.
 Test whether the revised Ghostnote works as fast specialized senses and limbs
 for a frontier agent. Use ordinary musical work, fresh agent sessions, real
 projects, and computer use. Decide whether the cache, compact-bar contract, and
-simplified surface are ready for Phase 9 publication review.
+simplified surface are ready for Phase 10 publication review.
 
 ## Trial set
 
@@ -300,7 +300,7 @@ are a default path when the descriptions route to them, not an expert path.
 - The result gives each Phase 8 interface a graduate, revise, retain, or retire
   verdict.
 - Publication candidates and known limits are handed to
-  [9b](../phase-9/9b-compact-bar-publication-review.md), with an artifact inventory
+  [10b](../phase-10/10b-compact-bar-publication-review.md), with an artifact inventory
   that names paths, versions, hashes, dependencies, and redistribution status.
 - Complete repository checks and the relevant live gates pass.
 
@@ -323,16 +323,18 @@ file routes) was named and removed inside 8i.
 
 ## Phase 9 handoff
 
-The handoff is written: [E272, Phase 9 handoff](../../evidence/experiments/e272-8i-gate-close-out.md#phase-9-handoff)
-and the [9b plan](../phase-9/9b-compact-bar-publication-review.md#8i-handoff-e272).
+This historical handoff now belongs to Phase 10.
 
-Phase 9b can package the format after this session accepts the specification,
+The handoff is written: [E272, Phase 9 handoff](../../evidence/experiments/e272-8i-gate-close-out.md#phase-9-handoff)
+and the [10b plan](../phase-10/10b-compact-bar-publication-review.md#8i-handoff-e272).
+
+Phase 10b can package the format after this session accepts the specification,
 reference codec, model reference, conformance package, overlays, and live use.
 Include the product review as the README source, corrected matrix and
 adjudicated result packages, and a list of any version 1.0 changes not measured
 by the old benchmark. Hand off unresolved limits explicitly.
 
-Phase 9 can review the extension only if the normal runtime and public surface
+Phase 10 can review the extension only if the normal runtime and public surface
 have stable owners.
 
 ## Retrospective target

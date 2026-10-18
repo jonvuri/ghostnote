@@ -34,7 +34,7 @@ Review existing pure musical modules and the retained benchmark
 adapters for regression cases. Keep the frozen adapters and results unchanged.
 
 Use a pure library boundary that the TypeScript brain can consume and Phase
-9b can extract. It must work without Bitwig, cache state, credentials, or a
+10b can extract. It must work without Bitwig, cache state, credentials, or a
 provider service. Define native objects for this boundary. Other runtime
 domains may use different types.
 

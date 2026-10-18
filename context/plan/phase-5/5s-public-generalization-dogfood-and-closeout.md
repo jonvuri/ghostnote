@@ -112,7 +112,7 @@ the complete compact donor matrix, and final closeout.
 [5t](5t-grid-generalization-and-colourcopy-closeout.md) now has passing grid,
 page, catalog, and observer repairs. Start its final projectless ColourCopy task
 next. The operator later accepted that result and moved current work to Phase
-6. Phase 9a owns the publication review after the agent-native engine work.
+6. Phase 10a owns the publication review after the agent-native engine work.
 
 ## Retrospective
 

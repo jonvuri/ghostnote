@@ -13,7 +13,7 @@ owner: phase-8i
 The [8i gate](../../plan/phase-8/8i-agent-native-hybrid-dogfood.md) is
 closed. This record checks the 8i acceptance criteria against E249 to E271,
 gives each Phase 8 interface a verdict, and hands the publication candidates
-to [9b](../../plan/phase-9/9b-compact-bar-publication-review.md). No product
+to [9b](../../plan/phase-10/10b-compact-bar-publication-review.md). No product
 code, tool description, or live project changed in this session. The
 deployed controller is the 8i15 build; descriptions are v52.
 
@@ -121,7 +121,7 @@ recorded limit.
 | Pull snapshot references and the cold reader (D32, `clip-reader-v3`, D41, D43) | Graduate | E230, E233, E248, E250, E251 |
 | Resident and shadow cache (8g, 8h1) | Retired | E233; the cache items of the 8i trial set are void |
 | Wire `normal-v1` (92 methods, `8be1975eaa99d78f`) and `phase-8-probe-v1` (111 methods, `9b339de4e9bb08da`) | Retain | Private transport with goldens and `probe:hello`; 9c owns the live suite |
-| `stable-v1` profile | Retire | D40 names its removal after 8i. Planned in the [Phase 9 backlog](../../plan/phase-9/README.md#packaging--hygiene) |
+| `stable-v1` profile | Retire | D40 names its removal after 8i. Planned in the [Phase 9 backlog](../../plan/phase-10/README.md#packaging--hygiene) |
 | Description cohort versioning and its public artifact | Retain | v52 (`ccc7d870…c3ea`); the cohort tests freeze each version |
 | Automated dogfood runbook, runner, and issue log | Retain | E261, E262, E270 |
 | Performance ledger and call budgets | Retain | E247; every 8i session with a live path updated it |
@@ -250,8 +250,8 @@ NOW is unchanged.
 - The [Phase 8 README](../../plan/phase-8/README.md) is done; 8i17 stays
   planned under it. The [roadmap](../../plan/ROADMAP.md) and the root
   README state lines are current.
-- [9b](../../plan/phase-9/9b-compact-bar-publication-review.md) has the
-  8i handoff section; the [Phase 9 README](../../plan/phase-9/README.md)
+- [9b](../../plan/phase-10/10b-compact-bar-publication-review.md) has the
+  8i handoff section; the [Phase 9 README](../../plan/phase-10/README.md)
   has its entry condition met and the `stable-v1` retirement item.
 - `PROJECT.md`, the [workstation interfaces](../format/WORKSTATION_INTERFACES.md)
   8i status, the migration contract, and the candidate inventory status

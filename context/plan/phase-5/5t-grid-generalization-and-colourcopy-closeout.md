@@ -138,7 +138,7 @@ ColourCopy result can remain only when the operator asks to keep it.
 Update E88 and E95, the format specification, decisions D1 and D3, Phase 5
 overview, capability evidence, outcome archive, roadmap, dogfood ledger, and
 `context/NOW.md` from the measured result. The operator moved current work to
-Phase 6. Phase 9a owns the later publication handoff.
+Phase 6. Phase 10a owns the later publication handoff.
 
 ## Acceptance criteria
 
@@ -171,7 +171,7 @@ Phase 6. Phase 9a owns the later publication handoff.
 
 The final ColourCopy dogfood passed with an explicit operator acceptance. The
 complete closeout matrix and final Phase 5 records remain. The operator moved
-current work to Phase 6. Phase 9a owns the later publication review.
+current work to Phase 6. Phase 10a owns the later publication review.
 
 ## Session result to date
 

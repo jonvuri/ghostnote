@@ -1,7 +1,7 @@
 {
   "schema": "ghostnote-publication-candidates/1",
-  "updated": "2026-10-16",
-  "status": "8f3 review inventory with 8i acceptance (E272); 9b publication review remains required",
+  "updated": "2026-10-18",
+  "status": "8f3 review inventory with 8i acceptance (E272); 10b publication review remains required",
   "hashRules": {
     "exact-file-bytes": "SHA-256 over retained file bytes. This is not the document semantic hash.",
     "sorted-tree-file-hashes-v1": "Sort relative POSIX file paths. SHA-256 over UTF-8 rows: path, NUL, lowercase file-byte SHA-256, LF. Exclude __pycache__ and .pyc. Paths are relative to the candidate root."
@@ -22,13 +22,13 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "44b5200769890225a11cfba87412244065e64039e51e40771172e272f56584b4"
+        "value": "3a9e01ab9405d5d69f79c47b05bfda0b0dde50281a5b3c25fae6f41f4202ee0f"
       },
       "dependencies": [
         "brain/src/document/",
         "LICENSE"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "spec/ghostnote-document-v1/CONFORMANCE.md",
@@ -42,7 +42,7 @@
         "brain/src/document/",
         "LICENSE"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "spec/ghostnote-document-v1/EXAMPLES.md",
@@ -56,7 +56,7 @@
         "brain/src/document/",
         "LICENSE"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "spec/ghostnote-document-v1/FIELDS.md",
@@ -70,7 +70,7 @@
         "brain/src/document/",
         "LICENSE"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "spec/ghostnote-document-v1/HOST-BINDING.md",
@@ -84,7 +84,7 @@
         "brain/src/bindings/ghostnote-document.ts",
         "spec/ghostnote-document-v1/SPEC.md"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "spec/ghostnote-document-v1/HOST-HANDOFF.md",
@@ -92,13 +92,13 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "e94c9a764b5f27dce06d0e07deaef9e73ffd4b8a1a62eacdbf9fca744c19d99c"
+        "value": "eb997aafddea55eafe77f845b55a2e1ae92be386c5076c14c84b991c2c7bba6e"
       },
       "dependencies": [
         "brain/src/document/",
         "LICENSE"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "spec/ghostnote-document-v1/IDENTITY-AND-OVERLAYS.md",
@@ -112,7 +112,7 @@
         "brain/src/bindings/ghostnote-document.ts",
         "spec/ghostnote-document-v1/SPEC.md"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "spec/ghostnote-document-v1/MODEL-REFERENCE.identity.json",
@@ -126,7 +126,7 @@
         "brain/src/document/",
         "LICENSE"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "spec/ghostnote-document-v1/MODEL-REFERENCE.md",
@@ -140,7 +140,7 @@
         "brain/src/document/",
         "LICENSE"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "spec/ghostnote-document-v1/SPEC.md",
@@ -154,7 +154,7 @@
         "brain/src/document/",
         "LICENSE"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "spec/ghostnote-document-v1/bindings/v1/README.md",
@@ -168,7 +168,7 @@
         "brain/src/bindings/ghostnote-document.ts",
         "spec/ghostnote-document-v1/SPEC.md"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "spec/ghostnote-document-v1/bindings/v1/fixtures.json",
@@ -182,7 +182,7 @@
         "brain/src/bindings/ghostnote-document.ts",
         "spec/ghostnote-document-v1/SPEC.md"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "spec/ghostnote-document-v1/bindings/v1/manifest.json",
@@ -196,7 +196,7 @@
         "brain/src/bindings/ghostnote-document.ts",
         "spec/ghostnote-document-v1/SPEC.md"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "spec/ghostnote-document-v1/conformance/v1/README.md",
@@ -210,7 +210,7 @@
         "brain/src/document/",
         "LICENSE"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "spec/ghostnote-document-v1/conformance/v1/canonical/complete.fields",
@@ -448,7 +448,7 @@
         "brain/src/document/",
         "LICENSE"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "spec/ghostnote-document-v1/conformance/v1/measure-baseline.py",
@@ -462,7 +462,7 @@
         "brain/src/document/",
         "LICENSE"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "spec/ghostnote-document-v1/conformance/v1/measurements.json",
@@ -476,7 +476,7 @@
         "brain/src/document/",
         "LICENSE"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "spec/ghostnote-document-v1/conformance/v1/prompts/core.txt",
@@ -490,7 +490,7 @@
         "brain/src/document/",
         "LICENSE"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "spec/ghostnote-document-v1/conformance/v1/prompts/full.txt",
@@ -504,7 +504,7 @@
         "brain/src/document/",
         "LICENSE"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "spec/ghostnote-document-v1/conformance/v1/prompts/patch.txt",
@@ -518,7 +518,7 @@
         "brain/src/document/",
         "LICENSE"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "spec/ghostnote-document-v1/conformance/v1/prompts/timing.txt",
@@ -532,7 +532,7 @@
         "brain/src/document/",
         "LICENSE"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "spec/ghostnote-document-v1/examples/complete.fields",
@@ -784,7 +784,7 @@
         "brain/src/document/",
         "LICENSE"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "spec/ghostnote-document-v1/schema.json",
@@ -798,7 +798,7 @@
         "brain/src/document/",
         "LICENSE"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/document/cli.test.ts",
@@ -813,7 +813,7 @@
         "Node module support",
         "brain/package-lock.json"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/document/cli.ts",
@@ -828,7 +828,7 @@
         "Node module support",
         "brain/package-lock.json"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/document/codec.test.ts",
@@ -843,7 +843,7 @@
         "Node module support",
         "brain/package-lock.json"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/document/display.ts",
@@ -858,7 +858,7 @@
         "Node module support",
         "brain/package-lock.json"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/document/error.ts",
@@ -873,7 +873,7 @@
         "Node module support",
         "brain/package-lock.json"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/document/fields.ts",
@@ -888,7 +888,7 @@
         "Node module support",
         "brain/package-lock.json"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/document/import.ts",
@@ -903,7 +903,7 @@
         "Node module support",
         "brain/package-lock.json"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/document/index.ts",
@@ -918,7 +918,7 @@
         "Node module support",
         "brain/package-lock.json"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/document/json.ts",
@@ -933,7 +933,7 @@
         "Node module support",
         "brain/package-lock.json"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/document/materialize.ts",
@@ -948,7 +948,7 @@
         "Node module support",
         "brain/package-lock.json"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/document/model.ts",
@@ -963,7 +963,7 @@
         "Node module support",
         "brain/package-lock.json"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/document/rational.ts",
@@ -978,7 +978,7 @@
         "Node module support",
         "brain/package-lock.json"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/document/reference.ts",
@@ -993,7 +993,7 @@
         "Node module support",
         "brain/package-lock.json"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/document/schema-data.ts",
@@ -1008,7 +1008,7 @@
         "Node module support",
         "brain/package-lock.json"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/document/semantic.ts",
@@ -1023,7 +1023,7 @@
         "Node module support",
         "brain/package-lock.json"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/document/structure.ts",
@@ -1038,7 +1038,7 @@
         "Node module support",
         "brain/package-lock.json"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/bindings/ghostnote-document.test.ts",
@@ -1052,7 +1052,7 @@
         "brain/src/document/",
         "brain/src/contract/"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/bindings/ghostnote-document.ts",
@@ -1066,7 +1066,7 @@
         "brain/src/document/",
         "brain/src/contract/"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/bindings/identity-registry.test.ts",
@@ -1080,7 +1080,7 @@
         "brain/src/document/",
         "brain/src/contract/"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/bindings/identity-registry.ts",
@@ -1094,7 +1094,7 @@
         "brain/src/document/",
         "brain/src/contract/"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/bindings/launcher-clip-document.test.ts",
@@ -1108,7 +1108,7 @@
         "brain/src/document/",
         "brain/src/contract/"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/bindings/launcher-clip-document.ts",
@@ -1122,7 +1122,7 @@
         "brain/src/document/",
         "brain/src/contract/"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/bindings/launcher-clip-edit.ts",
@@ -1136,7 +1136,7 @@
         "brain/src/document/",
         "brain/src/contract/"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/bindings/overlay-carry.ts",
@@ -1150,7 +1150,7 @@
         "brain/src/document/",
         "brain/src/contract/"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/bindings/overlay-seal.ts",
@@ -1164,7 +1164,7 @@
         "brain/src/document/",
         "brain/src/contract/"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "context/contracts/GHOSTNOTE_CACHE_CONTRACT.md",
@@ -1180,7 +1180,7 @@
         "context/plan/phase-8/8g-shadow-project-cache.md",
         "context/plan/phase-8/8h-cache-promotion-and-interface-simplification.md"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "context/contracts/GHOSTNOTE_MIGRATION_AND_VERIFICATION.md",
@@ -1188,7 +1188,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "f1fd86eb7f4821b87f30c365105333bab06e45d92bbdb769bfae80ef3d07b02e"
+        "value": "cc0c5bdc8ef1e41e11d1d1808022cfa767742876178f0982868c343c89074970"
       },
       "dependencies": [
         "spec/ghostnote-document-v1/HOST-BINDING.md",
@@ -1196,7 +1196,7 @@
         "context/plan/phase-8/8g-shadow-project-cache.md",
         "context/plan/phase-8/8h-cache-promotion-and-interface-simplification.md"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "LICENSE",
@@ -1207,9 +1207,9 @@
         "value": "74021e26b6e4e32482b19a10cd30ad77187f7155831caa6385dc2233a20aa257"
       },
       "dependencies": [
-        "9b package dependency/notice review"
+        "10b package dependency/notice review"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/package.json",
@@ -1220,9 +1220,9 @@
         "value": "f93d428ad6510e07cccc67830eca08ffb4fbb03ad516d23b5f7e7dc7bc225edc"
       },
       "dependencies": [
-        "9b package dependency/notice review"
+        "10b package dependency/notice review"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/package-lock.json",
@@ -1233,9 +1233,9 @@
         "value": "f244dda9703dbc1072eea87aa95a21c50179475779d233d97582ec626da9fb1a"
       },
       "dependencies": [
-        "9b package dependency/notice review"
+        "10b package dependency/notice review"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/tools/document-artifacts.ts",
@@ -1246,9 +1246,9 @@
         "value": "b692fa39f02f05327c9a1ba9a5f4fec748af4f02d9515cbd948ed0750f795c1e"
       },
       "dependencies": [
-        "9b package dependency/notice review"
+        "10b package dependency/notice review"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "brain/src/tools/document-standalone-check.ts",
@@ -1259,9 +1259,9 @@
         "value": "050e9609acdabdfd0916db4eea8a7b70151ef6a2f1c0ff83bdbd046ac360119b"
       },
       "dependencies": [
-        "9b package dependency/notice review"
+        "10b package dependency/notice review"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "context/contracts/check-publication-candidates.py",
@@ -1269,12 +1269,12 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "bb0fc4d769003a5827182646186ca693125cb10d0af6f5a3e1d16961aca44a5f"
+        "value": "cf76018e828c77c29c4974129da511c9c698b7a945d7c68380ac32345b9ddac0"
       },
       "dependencies": [
-        "9b package dependency/notice review"
+        "10b package dependency/notice review"
       ],
-      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
       "path": "context/evidence/format/FORMAT_BENCHMARK_PRODUCT_REVIEW.md",
@@ -1289,7 +1289,7 @@
         "brain/benchmarks/native-composite-v1/",
         "context/evidence/format/COMPACT_BAR_REPRODUCIBILITY.md"
       ],
-      "redistribution": "Contains third-party/provider evidence. 9b must review redistribution before release."
+      "redistribution": "Contains third-party/provider evidence. 10b must review redistribution before release."
     },
     {
       "path": "context/evidence/format/COMPACT_BAR_REPRODUCIBILITY.md",
@@ -1304,7 +1304,7 @@
         "brain/benchmarks/native-composite-v1/",
         "context/evidence/format/COMPACT_BAR_REPRODUCIBILITY.md"
       ],
-      "redistribution": "Contains third-party/provider evidence. 9b must review redistribution before release."
+      "redistribution": "Contains third-party/provider evidence. 10b must review redistribution before release."
     },
     {
       "path": "context/evidence/experiments/e209-offline-score-repair-updates-eight-arm-matrix.md",
@@ -1319,7 +1319,7 @@
         "brain/benchmarks/native-composite-v1/",
         "context/evidence/format/COMPACT_BAR_REPRODUCIBILITY.md"
       ],
-      "redistribution": "Contains third-party/provider evidence. 9b must review redistribution before release."
+      "redistribution": "Contains third-party/provider evidence. 10b must review redistribution before release."
     },
     {
       "path": "context/evidence/experiments/e213-audit-adjudications-update-native-composite-scoring.md",
@@ -1334,7 +1334,7 @@
         "brain/benchmarks/native-composite-v1/",
         "context/evidence/format/COMPACT_BAR_REPRODUCIBILITY.md"
       ],
-      "redistribution": "Contains third-party/provider evidence. 9b must review redistribution before release."
+      "redistribution": "Contains third-party/provider evidence. 10b must review redistribution before release."
     },
     {
       "path": "brain/benchmarks/symbolic-format-v5/runs/2026-09-30-corrected-assessment.json",
@@ -1349,7 +1349,7 @@
         "brain/benchmarks/native-composite-v1/",
         "context/evidence/format/COMPACT_BAR_REPRODUCIBILITY.md"
       ],
-      "redistribution": "Contains third-party/provider evidence. 9b must review redistribution before release."
+      "redistribution": "Contains third-party/provider evidence. 10b must review redistribution before release."
     },
     {
       "path": "brain/benchmarks/symbolic-format-v5/corrected_assessment.py",
@@ -1364,7 +1364,7 @@
         "brain/benchmarks/native-composite-v1/",
         "context/evidence/format/COMPACT_BAR_REPRODUCIBILITY.md"
       ],
-      "redistribution": "Contains third-party/provider evidence. 9b must review redistribution before release."
+      "redistribution": "Contains third-party/provider evidence. 10b must review redistribution before release."
     },
     {
       "path": "brain/benchmarks/native-composite-v1/audits/adjudicated-assessment.json",
@@ -1379,7 +1379,7 @@
         "brain/benchmarks/native-composite-v1/",
         "context/evidence/format/COMPACT_BAR_REPRODUCIBILITY.md"
       ],
-      "redistribution": "Contains third-party/provider evidence. 9b must review redistribution before release."
+      "redistribution": "Contains third-party/provider evidence. 10b must review redistribution before release."
     },
     {
       "path": "brain/benchmarks/native-composite-v1/audits/adjudication-policy.json",
@@ -1394,7 +1394,7 @@
         "brain/benchmarks/native-composite-v1/",
         "context/evidence/format/COMPACT_BAR_REPRODUCIBILITY.md"
       ],
-      "redistribution": "Contains third-party/provider evidence. 9b must review redistribution before release."
+      "redistribution": "Contains third-party/provider evidence. 10b must review redistribution before release."
     },
     {
       "path": "brain/benchmarks/native-composite-v1/audits/adjudicated-report.md",
@@ -1409,7 +1409,7 @@
         "brain/benchmarks/native-composite-v1/",
         "context/evidence/format/COMPACT_BAR_REPRODUCIBILITY.md"
       ],
-      "redistribution": "Contains third-party/provider evidence. 9b must review redistribution before release."
+      "redistribution": "Contains third-party/provider evidence. 10b must review redistribution before release."
     },
     {
       "path": "brain/benchmarks/native-composite-v1/audits/adjudicated_assessment.py",
@@ -1424,7 +1424,7 @@
         "brain/benchmarks/native-composite-v1/",
         "context/evidence/format/COMPACT_BAR_REPRODUCIBILITY.md"
       ],
-      "redistribution": "Contains third-party/provider evidence. 9b must review redistribution before release."
+      "redistribution": "Contains third-party/provider evidence. 10b must review redistribution before release."
     },
     {
       "path": "brain/benchmarks/symbolic-format-v5/",
@@ -1436,10 +1436,10 @@
       },
       "fileCount": 59,
       "dependencies": [
-        "Resolve imported benchmark dependencies under 9b; these two roots alone are not a proven reproduction closure.",
+        "Resolve imported benchmark dependencies under 10b; these two roots alone are not a proven reproduction closure.",
         "Python version and optional format executables from each package protocol."
       ],
-      "redistribution": "Contains third-party/provider evidence. 9b must review redistribution before release."
+      "redistribution": "Contains third-party/provider evidence. 10b must review redistribution before release."
     },
     {
       "path": "brain/benchmarks/native-composite-v1/",
@@ -1451,10 +1451,10 @@
       },
       "fileCount": 53,
       "dependencies": [
-        "Resolve imported benchmark dependencies under 9b; these two roots alone are not a proven reproduction closure.",
+        "Resolve imported benchmark dependencies under 10b; these two roots alone are not a proven reproduction closure.",
         "Python version and optional format executables from each package protocol."
       ],
-      "redistribution": "Contains third-party/provider evidence. 9b must review redistribution before release."
+      "redistribution": "Contains third-party/provider evidence. 10b must review redistribution before release."
     }
   ]
 }

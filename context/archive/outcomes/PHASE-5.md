@@ -97,7 +97,7 @@ passed on its first attempt for exact candidate
 ## Phase 9 handoff
 
 Phase 9 starts with the
-[`bwmod` publication review and extraction](../../plan/phase-9/9a-bwmod-publication-review.md).
+[`bwmod` publication review and extraction](../../plan/phase-10/10a-bwmod-publication-review.md).
 Review provenance, licensing, attribution, and package contents before binary
 assets enter a standalone package. Do not publish externally without explicit
 approval.

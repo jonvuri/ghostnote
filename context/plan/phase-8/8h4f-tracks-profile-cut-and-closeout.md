@@ -99,4 +99,4 @@ arms only.
 ## Out of scope
 
 - Removal of `stable-v1` (after 8i).
-- External publication (Phase 9).
+- External publication (Phase 10).

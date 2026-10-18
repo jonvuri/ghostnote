@@ -178,7 +178,7 @@ per chain, and other unsupported shapes.
 | Symbolic context module and `ghostnote-agent-context-v0` | Compact note view | Merge into the consolidated compact-bar read contract in 8f. Retire the separate module request from normal agent work. |
 | Note compiler, `ghostnote-note-patch-v0`, candidate, invariants, and preview result | Guarded agent edit | Merge into the consolidated compact-bar patch. Keep the current compiler as a comparison implementation through 8h. |
 | Reference-context module and comparison records | Permissioned reference evidence | Defer as an optional module. It is not part of the lean live core. The agent owns interpretation and selection. |
-| Documentation provider and verified document cache | Exact-version offline retrieval | Defer to Phase 9 or an optional provider. It does not belong in the normal Bitwig runtime. |
+| Documentation provider and verified document cache | Exact-version offline retrieval | Defer to Phase 10 or an optional provider. It does not belong in the normal Bitwig runtime. |
 | Audio facts module and `audio-facts-v0` | Verified file sensor | Retain as an optional sensor. It owns measurements, not aesthetic decisions. |
 | Audio capture module and `audio-capture-v0` | Guarded project-master artifact creation | Revise and keep experimental. It mutates transport and files, so it is not a read-only sensor. More dogfood is required by E127. |
 | Sensory packet v1 | Select and compare task facts | Retire as a separate reasoning layer after its compatibility checks move beside audio facts. The agent can compare the small typed facts. |
@@ -213,7 +213,7 @@ disposition:
 | I14 | Sensory request and packet formats | Retire the separate router. Move required compatibility gates beside the retained typed facts. |
 | I15 | Saved-project, capture-source, capture-request, and audio-capture v0 | Keep experimental and optional. Revise after more capture dogfood. |
 | I16 | Audio artifact, verified artifact, audio fact, and audio-facts v0 | Retain as an optional sensor with exact byte identity and coverage. |
-| I17 | Documentation cache manifests and verified source wrappers | Defer to an optional provider or Phase 9. Keep exact-byte validation. |
+| I17 | Documentation cache manifests and verified source wrappers | Defer to an optional provider or Phase 10. Keep exact-byte validation. |
 | I18 | Documentation request, result, and disposable index v0 | Defer with I17. Do not start or allocate it in normal live runtime. |
 | I19 | Native catalog and resolution schema | Retain internally for exact device-source identity. |
 | I20 | Donor manifest, modulator objects, and footprint records | Retain internally for guarded authoring. Do not expose binary records to the agent. |

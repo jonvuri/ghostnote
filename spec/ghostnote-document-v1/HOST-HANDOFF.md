@@ -52,7 +52,7 @@ The [cache contract](../../context/contracts/GHOSTNOTE_CACHE_CONTRACT.md) gave
 8g its state machine, limits, and shadow cases. 8h3e replaced it with the pull
 snapshot contract (D32). The
 [migration and risk policy](../../context/contracts/GHOSTNOTE_MIGRATION_AND_VERIFICATION.md)
-gives 8h its decision gates and rollback. 8i tests fresh agent use; 9b reviews
+gives 8h its decision gates and rollback. 8i tests fresh agent use; 10b reviews
 publication candidates. Host integration remains unbuilt. Existing runtime,
 checkpoint fidelity, and frozen benchmark forms are unchanged.
 

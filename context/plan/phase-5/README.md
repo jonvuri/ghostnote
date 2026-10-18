@@ -177,7 +177,7 @@ now owns only the generalized closeout matrix and final records.
 
 Direct parameter-base writes are already general through `set_parameter` and
 stay separate. Runtime modulator creation and routing remain host-API
-impossibilities. External publication and redistribution remain Phase 9 work.
+impossibilities. External publication and redistribution remain Phase 10 work.
 
 ## Scope
 
@@ -227,10 +227,10 @@ impossibilities. External publication and redistribution remain Phase 9 work.
   Do not expand the library before the external review.
 - **Redistribution — current scope settled by 5g.** The one asset is
   user-authored. No bundled Bitwig content is copied. Keep external
-  redistribution review in Phase 9.
+  redistribution review in Phase 10.
 - **Shipped vs. first-run generation — settled by 5g.** Ship the one required
   asset. Do not require runtime operator setup.
-- **Standalone `bwmod` publication — deferred to Phase 9.** It does not gate
+- **Standalone `bwmod` publication — deferred to Phase 10.** It does not gate
   composition or Phase 5 closeout.
 - **Public target identity — reopened for 5j.** General DirectParameter
   identities replace the fixed recipe requirement. Raw routes stay hidden.

@@ -114,7 +114,7 @@ consumer, runs it with Node and no runtime packages, checks the independent
 complete-example hash, and removes the temporary directory.
 
 A future package must include SPEC.md, FIELDS.md, fields.ebnf, schema.json,
-the corpus, the Model format reference, and the MIT license. Phase 9b owns
+the corpus, the Model format reference, and the MIT license. Phase 10b owns
 packaging and external publication. The [8f3 host binding](HOST-BINDING.md) defines capability mappings and
 partial-base resolution. [Identity rules](IDENTITY-AND-OVERLAYS.md) and the
 [pull snapshot contract](../../context/contracts/GHOSTNOTE_CACHE_CONTRACT.md) define

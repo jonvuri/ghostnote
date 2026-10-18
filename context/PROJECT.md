@@ -24,7 +24,7 @@ surface without relying on the user's UI selection.
 - The default tool profile is `agent-native-v1` (D40): 44 tools on one
   address, health, result, and error vocabulary, descriptions v52. The 8i
   gate is closed (E272); `stable-v1` is the frozen rollback until its
-  planned Phase 9 removal.
+  planned Phase 10 removal.
 - Launcher clips are read and edited as Ghostnote Document 1.0 documents:
   `read_launcher_clip` returns a base ref, and `edit_launcher_clip` takes a
   sparse patch or a desired document against it (D21, D25). Every read is a

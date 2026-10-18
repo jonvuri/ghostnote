@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: done
-status: Complete. The 8i gate is closed (E272): every criterion is met or void, each Phase 8 interface has a verdict, and 9b has the handoff. 8i17 is a separate planned survey under this phase.
+status: Complete. The 8i gate is closed (E272): every criterion is met or void, each Phase 8 interface has a verdict, and 10b has the handoff. 8i17 is a separate planned survey under this phase.
 updated: 2026-10-16
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -451,11 +451,11 @@ owns the migration details.
    and refuses clip overlaps before the clip exists.
    The gate close-out is complete
    ([E272](../../evidence/experiments/e272-8i-gate-close-out.md)): the
-   criteria, interface verdicts, and the 9b handoff with the artifact
+   criteria, interface verdicts, and the 10b handoff with the artifact
    inventory. The main Phase 8 verdict is "instrument".
    None requires a skill.
    Test ordinary work in fresh agent sessions and decide whether the engine,
-   format, and surface are ready for Phase 9 publication review.
+   format, and surface are ready for Phase 10 publication review.
 
 ## Cross-session rules
 
@@ -495,7 +495,7 @@ owns the migration details.
   hiding material effects or failures.
 - Fresh hybrid dogfood confirms that an agent can use the surface without
   repository-specific coaching.
-- Phase 9 receives explicit publication candidates and remaining limits.
+- Phase 10 receives explicit publication candidates and remaining limits.
 
 ## Closeout (8i, E272)
 
@@ -505,16 +505,18 @@ the audit and E272's verdict table; every retained tool has a ledger row
 and a cohort entry (44 tools, v52); the comparisons are E209 and E213; the
 identity, project, and restart behavior are E138, E233, E250, and E251;
 the cache limits are void after E233 (the reader limits are E246 and E248);
-the document contract is the 9b candidate; the surface measurements are
+the document contract is the 10b candidate; the surface measurements are
 E239, E247, and the E272 comparison table; the fresh dogfood is E255 to
 E262 and E270; the publication candidates are in the inventory. The
-`stable-v1` rollback retires in a Phase 9 session (D40).
+`stable-v1` rollback retires in a Phase 10 session (D40).
 
 ## Phase 9 handoff
 
-[Phase 9](../phase-9/README.md) owns breadth and external publication review.
+This historical handoff now belongs to Phase 10.
+
+[Phase 10](../phase-10/README.md) owns breadth and external publication review.
 The existing `bwmod` review remains there.
-[9b](../phase-9/9b-compact-bar-publication-review.md) packages the accepted
+[10b](../phase-10/10b-compact-bar-publication-review.md) packages the accepted
 format, tooling, model reference, and benchmark reproduction evidence after
 8i. The product review is the starting point for its README. The 8i handoff
 names exact artifact versions, hashes, licenses, and remaining limits.

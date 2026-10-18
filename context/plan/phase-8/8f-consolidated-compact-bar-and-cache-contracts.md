@@ -36,7 +36,7 @@ must suit their domains. Settle the separate host binding and cache contract.
 Start each child after the preceding handoff meets its acceptance criteria.
 Revise specification and implementation together when a later child exposes
 a concrete defect. Version 1.0 is the target specification; external release
-and standalone packaging remain in Phase 9b.
+and standalone packaging remain in Phase 10b.
 
 ## Common requirements
 
@@ -88,7 +88,7 @@ Hand [8g](8g-shadow-project-cache.md) its shadow contract,
 [8h](8h-cache-promotion-and-interface-simplification.md) its integration and
 migration contract, and [8i](8i-agent-native-hybrid-dogfood.md) its fresh agent
 trials. Earmark accepted artifacts for
-[9b](../phase-9/9b-compact-bar-publication-review.md).
+[10b](../phase-10/10b-compact-bar-publication-review.md).
 
 ## Retrospective target
 
