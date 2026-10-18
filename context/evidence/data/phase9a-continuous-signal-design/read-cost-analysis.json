@@ -1,0 +1,57 @@
+{
+  "scope": "Offline derivation from E292. No new host calls. Other document time is a residual, not a measured component or cause.",
+  "rows": [
+    {
+      "source": "context/evidence/data/phase9a-engine-adoption/prepare-v12-fixed/baseline-before-0.json",
+      "sourceSha256": "5df87bf47c68fb80440ee12a0bf1482ee4fd1f97dbae5333f8e4dfc89de8a62c",
+      "wireMs": 67.652333,
+      "queueMs": 0.120667,
+      "documentMs": 29.060208,
+      "graphTraversalMs": 6.812209,
+      "otherDocumentMs": 22.247999,
+      "nodes": 53,
+      "work": 278,
+      "graphBytes": 35828,
+      "heapRiseMiB": 4.0
+    },
+    {
+      "source": "context/evidence/data/phase9a-engine-adoption/prepare-v12-fixed/baseline-before-1.json",
+      "sourceSha256": "b54a674bb4bfaa27d7266f8c4cd6d1a22bf3873be413810421a9436648e3e0ee",
+      "wireMs": 44.80195800000001,
+      "queueMs": 0.168,
+      "documentMs": 19.389042,
+      "graphTraversalMs": 8.513,
+      "otherDocumentMs": 10.876042,
+      "nodes": 53,
+      "work": 278,
+      "graphBytes": 35828,
+      "heapRiseMiB": 2.0
+    },
+    {
+      "source": "context/evidence/data/phase9a-engine-adoption/restore-v12/restored-before-0.json",
+      "sourceSha256": "c2934cbd301f9700e404b2d1200a1ed130a13526f266b202c66ee8452ed06f84",
+      "wireMs": 67.97074999999995,
+      "queueMs": 0.381042,
+      "documentMs": 43.544458,
+      "graphTraversalMs": 21.241084,
+      "otherDocumentMs": 22.303374,
+      "nodes": 53,
+      "work": 278,
+      "graphBytes": 35829,
+      "heapRiseMiB": 2.0
+    },
+    {
+      "source": "context/evidence/data/phase9a-engine-adoption/restore-v12/restored-before-1.json",
+      "sourceSha256": "19c13bb909711e036c96f7f7d497cf74d3c29d6bc77c36ade7cc65301881e450",
+      "wireMs": 62.795582999999965,
+      "queueMs": 0.369333,
+      "documentMs": 19.600084,
+      "graphTraversalMs": 7.452917,
+      "otherDocumentMs": 12.147167,
+      "nodes": 53,
+      "work": 278,
+      "graphBytes": 35828,
+      "heapRiseMiB": 2.0
+    }
+  ]
+}

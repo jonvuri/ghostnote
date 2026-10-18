@@ -574,6 +574,61 @@ and two captures after native completion, with zero graph writes and at most
 one outstanding owned note-off. Product call budgets and descriptions stay
 unchanged. V11 remains loaded with both attempts used and the engine inactive.
 
+[E293](../evidence/experiments/e293-continuous-grid-signal-design.md) defines the
+[continuous-signal replacement](../plan/phase-9/9a-continuous-signal-design.md).
+It makes no runtime change or live measurement. Its planned 248 calls are
+16 prepare, 216 run, and 16 restore, with 59 fixture captures, two detached
+captures, 11 graph edits, one factory, eight signal windows, and zero note
+writes. Sixty-four timed paired-meter tasks replace note boundary work.
+Window begin/collect add 16 more document tasks. There are 72 timer entries
+and at most 64 controller completion deliveries. The 248 wire turns have a
+5,952 ms unit-cost floor; counting 136 scheduled entries separately gives a
+rough 384-unit / 9,216 ms model, not distinct host turns. Scheduled work
+occurs inside dwell and must not be added twice.
+
+Typical and largest scope remain five modules and three cables. Plan 750 ms
+warm wire per graph stage, 1.20 seconds prepare/restore, and 0.432 seconds for
+window/control calls: 9.882 seconds, rounded to 10. Add 1.95 seconds cursor
+settlement and 18–20 seconds dwell: about 30–32 seconds plus operator work.
+The 100 ms increase from the earlier 650 ms stage plan reserves room for
+observed read variance and measurement work. It does not identify their cause.
+Temporary Java heap stays 16 MiB per graph stage, with 64 KiB sample storage,
+128 KiB signal/failure response, and 1 MiB graph response. Failure adds at most
+two cached calls and four recovery calls, with two captures and zero writes.
+Cold/native work and checkpoint CPU remain unmeasured. Product budgets and
+public descriptions v52 stay unchanged.
+
+E293 derives E292's first restoration read as 43.544 ms document time:
+21.241 ms graph traversal and 22.303 ms other document work. The second is
+19.600 ms: 7.453 ms traversal and 12.147 ms other work. Queue waits are
+0.381/0.369 ms; graph scope is equal at 53 nodes and 278 work steps.
+Preparation's 29.060/19.389 ms reads have 6.812/8.513 ms traversal. The residual
+includes byte accounting, guards, witnesses, validation, and copies; it does
+not isolate any one component. Keep the 43.544 ms observed maximum, 99% above
+E289, without assigning a cause. Instrument these components in existing calls
+and compare the next admitted pairs. Do not add reads or repeat restoration.
+
+The replacement is conditional on a read-only valid-packet witness: `DxI.EbT`
+also advances during invalid-packet decay. Its trace is the next planned
+session, before implementation. V12 remains loaded, used, and locked. No new
+freshness or DSP claim follows from this cost model.
+
+[E294](../evidence/experiments/e294-grid-valid-packet-witness-trace.md) completes
+the offline receive-path trace with `fresh-meter-evidence-unavailable` in that
+path. Validity is not retained by the meter cache. Document update and polling
+counters do not prove per-meter validity or age; raw shared-memory publication
+and coherent reads remain unproved. E293's 248-call model is still conditional.
+No accessor was proved to fit its fixed snapshot task. A separate observable
+design must supply the mechanism and costs before implementation.
+
+E294 adds zero live host turns, cold reads, write stages, subscriptions, and
+probe heap allocation, for both typical and maximum cases. Offline work is
+34 exact bytecode inspections and a jar metadata scan. No runtime path,
+product call budget, or description changes. The 43.544 ms read maximum and
+its unisolated cause remain unchanged. Keep the 16-call final restoration
+budget and planned component timing inside existing calls. V12 remains loaded,
+used, and locked; no new live timing or DSP claim follows.
+
 8i3 review rerun (E252): Polysynth 44 controls 9,481 ms; Diva 64 controls
 13,912 ms; staged 5×1 / 3×2 / 2×3 compositions 20,975 / 23,642 / 23,278 ms,
 with reversals 21,922 / 26,028 / 26,764 ms. No time regressed by more than

@@ -16,6 +16,8 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E294 | Offline valid-packet trace finds no sufficient witness in the Java receive path: validity is discarded, global updates do not prove per-meter freshness, raw publication/age unproved; observable design precedes implementation; V12 untouched and 9a active [K] (2026-10-19) | [open](experiments/e294-grid-valid-packet-witness-trace.md) |
+| E293 | Continuous-signal replacement design: no test notes, bounded gain windows, frozen first-failure samples, 248-call model; read-cost cause unisolated; EbT also advances on decay, so valid-packet trace precedes implementation; V12 untouched and 9a active [K] (2026-10-19) | [open](experiments/e293-continuous-grid-signal-design.md) |
 | E292 | V12 inactive baseline passes; active Q0 rejects expected continuous output due to a wrong note-gated assumption; no graph edit or factory; exact inactive baseline restored and session released; DSP adoption unproved [K] (2026-10-19) | [open](experiments/e292-grid-engine-quiet-gate-refusal.md) |
 | E291 | V12 engine probe implements fixed stages, independent meter windows, owned note cleanup, exact guards, and bounded recovery; offline checks pass; built but not deployed; V11 and baseline stay unchanged [K] (2026-10-19) | [open](experiments/e291-grid-engine-probe-implementation.md) |
 | E290 | Engine adoption design: native protocol trace, independent metered signal gate under mute, bounded stages and recovery, exact restoration, and cost model; no live writes; V11 and 9a stay active [K] (2026-10-19) | [open](experiments/e290-grid-engine-adoption-design.md) |

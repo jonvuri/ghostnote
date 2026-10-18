@@ -2,7 +2,7 @@
 title: Phase 9a — Live Grid editing spike
 kind: plan
 state: active
-status: E292 stops V12 at the initial quiet gate without notes or graph edits. Exact inactive restoration passes; 9a stays active.
+status: E294 finds no sufficient witness in the Java receive path. Observable design is next; V12 remains used and locked; 9a stays active.
 updated: 2026-10-19
 parent: README.md
 ---
@@ -237,31 +237,45 @@ V12 remains loaded with its session used and locked. Do not repeat this session.
 
 ### Next session — baseline signal and failure evidence design
 
-Source: E292, the operator's continuous-output confirmation and screenshot,
-and the [engine contract](9a-engine-adoption-design.md). The fixture is
-Sine → Amplify → Audio Out without an envelope or gate. Continuous output
-with stopped transport is expected. The note-gated baseline assumption was
-incorrect; no source investigation is needed to explain Q0's refusal.
+Completed by [E293](../../evidence/experiments/e293-continuous-grid-signal-design.md).
+Source: E292 and the operator's confirmation of the unchanged continuous
+Sine → Amplify → Audio Out fixture. The
+[replacement contract](9a-continuous-signal-design.md) removes test notes and
+quiet-before-note assumptions. It defines eight bounded windows, stable
+zero/half/unity criteria, frozen first-failure samples, recovery, exact
+restoration, and a 248-call model. The final restoration keeps 16 calls.
 
-Design the test around this unchanged fixture's continuous signal. Use positive
-baseline output, zero gain, returned baseline, and the inserted Amplify's unity,
-zero, half, and returned unity gains. Remove test-note injection and note-release
-expectations from the replacement protocol. Define bounded post-edit settlement,
-stable measurement windows, fresh packet evidence for zero as well as positive
-values, quantization-aware ratios, master silence, and rejection of external
-input. Preserve independent DSP evidence, exact paired graph checks, mute,
-failure lock, and exact baseline restoration. Recalculate calls, timers, write
-stages, and heap before implementation. Do not rerun the V12 protocol.
+The offline read-cost analysis retains the 43.544 ms maximum and splits its
+21.241 ms traversal from 22.303 ms other document work. No cause is isolated.
+Future component timings belong inside existing calls; do not repeat V12.
 
-Investigate the 43.544 ms read maximum, 99% above E289, without treating one
-sample as an isolated cause. Preserve the 16-call restoration budget.
+### Next session — valid-packet witness trace
 
-Design a bounded cached failure report with sample values and timing that can
-be read after a lock without a document task. Freeze it on the first failure;
-E292 filled the bounded buffer during operator delay. Review the revised protocol,
-negative tests, and typical/maximum costs before implementation or another
-live run. A later implementation and live session needs a fresh permitted
-initialization and verified baseline. Keep 9a active.
+Completed by [E294](../../evidence/experiments/e294-grid-valid-packet-witness-trace.md).
+The Java receive path does not retain valid-packet evidence. Its global update
+token and polling times cannot prove per-target freshness. Raw shared-memory
+validity lacks a proved coherent snapshot and age. The trace returns
+`fresh-meter-evidence-unavailable`; it does not admit runner implementation.
+
+### Next session — observable design after the packet trace
+
+Source: E294 and the
+[planned observable design](9a-continuous-signal-design.md#next-session--observable-design-after-the-packet-trace).
+Compare a bounded native publication trace with other existing host signal
+evidence. Select a complete independent observable, or record a bounded
+negative result with a specific research handoff. Keep the fixture and signal
+requirements. Revise costs before implementation. This session stays offline;
+do not call V12 or weaken the fresh-zero requirement.
+
+### Following sessions — implementation and fresh live gate
+
+The replacement contract defines the
+[offline implementation acceptance](9a-continuous-signal-design.md#then--replacement-probe-implementation-and-offline-checks)
+and the [fresh live gate](9a-continuous-signal-design.md#then--fresh-bounded-live-gate).
+They require an accepted observable design that resolves E294. Keep 9a active. V12 remains loaded with its
+session used and locked. Exact baseline restoration passed; the operator
+later briefly activated the engine. Verify current state before live work.
+Do not rerun V12 or its final restoration read.
 
 ## Read first
 
@@ -350,6 +364,10 @@ save both the project and device preset before capture. The preset is
 `gn-grid-spike-baseline.bwpreset` in
 `~/Documents/Bitwig Studio/Library/Presets/Poly Grid/`. E274 records its exact
 values, positions, ports, file paths, and hashes.
+
+The operator confirmed that `gn-scale-test` was open by chance. Its unsaved
+changes are not important. It has no inspection, preservation, or restoration
+requirement for 9a. Historical observations of its tab do not add a gate.
 
 Keep the initial probe to one Grid, at most 8 modules, and at most 12 cables.
 The final reduced CRUD cycle can use fewer. The largest admitted research

@@ -1,0 +1,50 @@
+{
+  "scope": "Offline bytecode inspection. No vendor code is included. No class is initialized in Bitwig.",
+  "jar": "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "reproduce": [
+    "javap",
+    "-p",
+    "-c",
+    "-classpath",
+    "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar",
+    "<class>"
+  ],
+  "inspections": [
+    {
+      "class": "DxI",
+      "javapSha256": "c62b8b60d97614c92ffb4f03790833ab1d7bf67d11a1c105559a9486edf06196"
+    },
+    {
+      "class": "UoA",
+      "javapSha256": "5444ae3545dc7766e7e07fb4bb1029b69c6f669626e566cae1077db51f859e46"
+    },
+    {
+      "class": "LbJ",
+      "javapSha256": "4cd84a5ff08523093f8594d9e7406a8d491c9192dc0d7a88c2a294e1566bf49b"
+    },
+    {
+      "class": "Bsp",
+      "javapSha256": "8d014ebba6010155756678143a0b9747421f5c5f0a2ac353c3939df9430317a0"
+    },
+    {
+      "class": "Cic",
+      "javapSha256": "36c571972aa955c5f8f7eed2aedaabe1ed550e310c61aaac5f4aa6bae6b3310b"
+    },
+    {
+      "class": "com.bitwig.flt.control_surface.proxy.AbstractChannelProxy",
+      "javapSha256": "a08cbfb69ee7911bc95d6d45de2192a7898033f5d90e409937b222421dcad484"
+    },
+    {
+      "class": "com.bitwig.flt.control_surface.proxy.AbstractChannelProxy$VuMeterObserver",
+      "javapSha256": "811b0b613727ea56035b268c8c055ca1bca05fa860facb08f0e28871ff614c7b"
+    }
+  ],
+  "findings": [
+    "DxI.ffA(hwy) valid branch writes EbT at bytecode offset 142.",
+    "DxI.mIz() invalid-packet decay writes EbT at offset 84. EbT alone does not identify valid DSP packets.",
+    "UoA.wi2(double) returns without an event when peak is unchanged.",
+    "AbstractChannelProxy resolves Cic.Uhv()[2] and Bsp.NaF() for the combined peak. Its observer uses exponent 0.3333 and range minus one.",
+    "No separate valid-packet sequence or timestamp is established by this inspection."
+  ]
+}

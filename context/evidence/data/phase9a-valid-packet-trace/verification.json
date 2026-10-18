@@ -1,0 +1,31 @@
+{
+  "scope": "Offline trace verification. No Bitwig live call or runtime change.",
+  "checks": [
+    {
+      "command": "python3 context/evidence/data/phase9a-valid-packet-trace/check_trace.py",
+      "result": "pass: pinned jar; 34 source hashes; selected writer/dispatch paths; 22-byte payload; zero-state ambiguity model"
+    },
+    {
+      "command": "LANG=en_US.UTF-8 ruby context/check.rb",
+      "result": "pass: 653 active documents; links intact"
+    },
+    {
+      "command": "git diff --check",
+      "result": "pass"
+    }
+  ],
+  "limits": [
+    "The scalar model is not a native or live execution test.",
+    "The constant-pool scan does not cover native or reflective writes.",
+    "The native producer and shared-memory publication protocol are not proved."
+  ],
+  "verdict": "fresh-meter-evidence-unavailable in the inspected Java path; observable design must precede implementation",
+  "preservation": "No V12 or fixture operation. Current engine state is unverified after the operator activation recorded in NOW.",
+  "descriptionVersion": "v52 unchanged",
+  "liveCost": {
+    "hostCalls": 0,
+    "writeStages": 0,
+    "coldReads": 0,
+    "newSubscriptions": 0
+  }
+}

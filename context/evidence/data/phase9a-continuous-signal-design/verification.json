@@ -1,0 +1,34 @@
+{
+  "scope": "Offline design verification only. No runtime code changed and no live request ran.",
+  "contextCheck": {
+    "command": "LANG=en_US.UTF-8 ruby context/check.rb",
+    "result": "pass; 652 active documents, links intact"
+  },
+  "diffCheck": {
+    "command": "git diff --check",
+    "result": "pass"
+  },
+  "sourceChecks": {
+    "result": "pass",
+    "checks": [
+      "Four E292 source file hashes match the derived analysis.",
+      "Document time equals traversal plus residual for each read.",
+      "All four graphs have 53 nodes and 278 work steps.",
+      "Installed jar matches the E290 pin; seven javap output hashes match the inspection manifest."
+    ]
+  },
+  "designArithmetic": {
+    "result": "pass",
+    "checks": [
+      "16 + (11*18 + 8*2 + 2) + 16 = 248 calls.",
+      "4 + 11*5 = 59 fixture captures.",
+      "8*8 = 64 checkpoint tasks; 8*9 = 72 timer entries.",
+      "(248 + 72 + 64)*24 = 9216 scheduling-unit milliseconds; not distinct host turns.",
+      "11*750 + 1200 + 18*24 = 9882 ms warm request allowance, rounded to 10 s.",
+      "Ideal half amplitude passes conservative quantization intervals at every integer baseline code from 32 through 110.",
+      "Unity and zero do not satisfy the half-gain interval."
+    ]
+  },
+  "runtimeTests": "Not run: documentation-only change. Future negative tests are specified in the plan.",
+  "liveState": "No observation made. V12 and exact restoration facts come from E292 and the operator. Verify current state before future live work."
+}

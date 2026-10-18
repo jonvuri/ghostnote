@@ -40,12 +40,23 @@ loading and the inactive baseline. The single active-engine run locks at Q0
 with `signal-before-note`, before any note, graph edit, or factory. No native
 task is unfinished. Exact inactive restoration and session release pass.
 V12 stays loaded, with its session used and locked. Do not repeat prepare,
-run, or the final restoration read. Next: the planned
-[baseline signal and failure evidence design session](plan/phase-9/9a-live-grid-editing-spike.md#next-session--baseline-signal-and-failure-evidence-design).
-The operator confirmed the expected continuous output: Sine → Amplify → Audio
-Out has no envelope or gate. The quiet-before-note requirement was a test-design
-error. Redesign around continuous-signal gain changes with no test notes.
-DSP adoption remains unproved. Keep 9a active. Wider Phase 9 scope is unselected.
+run, or the final restoration read. [E293](evidence/experiments/e293-continuous-grid-signal-design.md)
+defines the [continuous-signal replacement](plan/phase-9/9a-continuous-signal-design.md):
+no test notes, eight bounded gain windows, first-failure samples frozen in
+place, recovery, exact restoration, and 248 planned calls (16/216/16).
+
+[E294](evidence/experiments/e294-grid-valid-packet-witness-trace.md) completes
+the offline trace: `fresh-meter-evidence-unavailable` in the Java receive path.
+The decoder discards validity; its global update token does not prove a valid
+meter packet. Raw shared-memory validity has no proved coherent snapshot or
+per-target age. The 248-call runner remains conditional and unimplemented.
+
+Next: [observable design after the packet trace](plan/phase-9/9a-continuous-signal-design.md#next-session--observable-design-after-the-packet-trace),
+offline before implementation or live writes. Select a complete observable
+and revise its costs. Keep the unchanged continuous fixture and fresh-zero
+requirement. E292's 43.544 ms read maximum has no isolated cause; component
+timings remain planned inside existing calls. DSP adoption remains unproved.
+Keep 9a active. Wider Phase 9 scope is unselected.
 
 The former Phase 9 is now [Phase 10](plan/phase-10/README.md): publication
 plans 10a/10b, the release and upgrade suite 10c, and the `stable-v1` retirement
@@ -110,10 +121,9 @@ Preset path:
 The preset is unchanged. The edited-state copy is
 `/tmp/gn-grid-spike-e289-attached.bwproject`; it is not the current baseline.
 
-At entry, `gn-scale-test` had 12 tracks and 10 scenes, with the existing
-`Poly Grid` track at index 9 (`a61f595f…`). Preserve this track. This is not
-the former 11-track E234 baseline. Its open tab has unsaved changes; this
-session did not save or modify it.
+Operator clarification: `gn-scale-test` was open by chance. Its unsaved
+changes are not important. It has no preservation, inspection, or restoration
+requirement for 9a. Do not treat its state as a 9a gate.
 
 ## Previous normal baseline (8i15 build)
 
@@ -127,7 +137,7 @@ and `cursorTrackPins.rule: owned-tracks-pinned-v1`. The prior probe build had
 and at 9a entry. `selection.status` can report a slot of a deleted scratch
 track (issue D11). Descriptions are v52 (44 tools);
 no live project changed in 8i16 and 8i18 to 8i20 or in the close-out. The
-next free evidence number is E293; the next decision is D52; the next
+next free evidence number is E295; the next decision is D52; the next
 issue row is D17. The live drivers accept 8i15 (`NORMAL_8I15`,
 `assertCurrentNormal`); see E263 and E264 for their commands and cleanup.
 

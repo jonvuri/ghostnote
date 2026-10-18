@@ -2,21 +2,27 @@
 title: 9a — Engine adoption design
 kind: plan
 state: active
-status: E292 stops V12 at Q0 before notes or edits. Exact inactive restoration passes. Revise the baseline signal design before another live run.
+status: Historical V12 protocol. E293 replaces the signal and failure design; V12 remains used and locked.
 updated: 2026-10-19
 parent: 9a-live-grid-editing-spike.md
 ---
 
 # 9a — Engine adoption design
 
-## Correction after E292
+## Replacement after E292 and E293
 
-The operator confirmed continuous output from the unchanged Sine → Amplify →
-Audio Out fixture with no envelope or gate. Transport can stay stopped. The
-note-pulse and quiet-before-note assumptions below are invalid for this fixture.
-Retain them as the record of V12's executed design; do not use them for a new
-run. The [next design session](9a-live-grid-editing-spike.md#next-session--baseline-signal-and-failure-evidence-design)
-replaces them with continuous-signal gain measurements and a revised cost model.
+The [continuous-signal design](9a-continuous-signal-design.md) is the current
+contract for the next test. It replaces this document's signal windows,
+note lifecycle, failure report, cost model, and next-session instructions.
+The remaining sections preserve E290/V12 history and the native update trace.
+Do not execute the historical driver procedure below.
+
+The unchanged Sine → Amplify → Audio Out fixture has no envelope or gate.
+Positive output with stopped transport is expected. E293 also finds that
+`DxI.EbT` advances during invalid-packet decay. It is not sufficient proof of
+a fresh valid packet. The replacement requires a read-only valid-packet witness
+before implementation. V12 stays loaded with its session used and locked;
+do not repeat prepare, run, or its final restoration read.
 
 ## Decision and scope
 
@@ -281,7 +287,8 @@ For success and failure, finish as follows:
    restart the host before any further document operation. Controller
    replacement alone does not prove document or engine recovery.
 2. Close only `gn-grid-spike` without saving. Confirm it is closed before any
-   file replacement. Preserve `gn-scale-test` and every other open project.
+   file replacement. Preserve the live material listed in NOW. The operator
+   later confirmed that `gn-scale-test` has no preservation requirement for 9a.
    Keep the verified backup unchanged.
 3. Check saved project and backup hashes. If the saved file still equals the
    exact baseline, reopen it directly. Otherwise replace the closed fixture

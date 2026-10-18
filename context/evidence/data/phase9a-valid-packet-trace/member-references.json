@@ -1,0 +1,160 @@
+{
+  "scope": "Constant-pool member references, not an invocation or writer proof. Javap confirms use sites. Native and reflective references are outside this scan.",
+  "classCount": 30940,
+  "rows": [
+    {
+      "class": "DxI",
+      "kind": 9,
+      "owner": "DxI",
+      "name": "EbT",
+      "descriptor": "Ljava/time/Instant;"
+    },
+    {
+      "class": "Yuj",
+      "kind": 11,
+      "owner": "Lck",
+      "name": "ffA",
+      "descriptor": "(Lcom/bitwig/base/platform/hwy;)V"
+    },
+    {
+      "class": "com.bitwig.base.platform.iIS",
+      "kind": 9,
+      "owner": "com.bitwig.base.platform.iIS",
+      "name": "Uhv",
+      "descriptor": "J"
+    },
+    {
+      "class": "com.bitwig.base.platform.iIS",
+      "kind": 10,
+      "owner": "com.bitwig.base.platform.iIS",
+      "name": "Uhv",
+      "descriptor": "(Lcom/bitwig/base/platform/uqc;)V"
+    },
+    {
+      "class": "com.bitwig.base.platform.uqc",
+      "kind": 10,
+      "owner": "com.bitwig.base.platform.iIS",
+      "name": "Uhv",
+      "descriptor": "(Lcom/bitwig/base/platform/uqc;)V"
+    },
+    {
+      "class": "com.bitwig.base.platform.FZ1",
+      "kind": 10,
+      "owner": "com.bitwig.base.platform.iIS",
+      "name": "cG3",
+      "descriptor": "(Lcom/bitwig/base/platform/uqc;)V"
+    },
+    {
+      "class": "com.bitwig.base.platform.iIS",
+      "kind": 9,
+      "owner": "com.bitwig.base.platform.iIS",
+      "name": "cG3",
+      "descriptor": "J"
+    },
+    {
+      "class": "com.bitwig.base.platform.FZ1",
+      "kind": 10,
+      "owner": "com.bitwig.base.platform.iIS",
+      "name": "ffA",
+      "descriptor": "()V"
+    },
+    {
+      "class": "com.bitwig.base.platform.FZ1",
+      "kind": 10,
+      "owner": "com.bitwig.base.platform.iIS",
+      "name": "ffA",
+      "descriptor": "(Lcom/bitwig/base/platform/uqc;)V"
+    },
+    {
+      "class": "com.bitwig.base.platform.iIS",
+      "kind": 9,
+      "owner": "com.bitwig.base.platform.iIS",
+      "name": "ffA",
+      "descriptor": "Z"
+    },
+    {
+      "class": "com.bitwig.base.platform.iIS",
+      "kind": 10,
+      "owner": "com.bitwig.base.platform.uqc",
+      "name": "ffA",
+      "descriptor": "(Lcom/bitwig/base/platform/hwy;)V"
+    },
+    {
+      "class": "KzN",
+      "kind": 10,
+      "owner": "com.bitwig.flt.document.core.master.gJd",
+      "name": "ffA",
+      "descriptor": "(Lcom/bitwig/base/platform/uqc;)I"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.Svr",
+      "kind": 10,
+      "owner": "com.bitwig.flt.document.core.master.gJd",
+      "name": "ffA",
+      "descriptor": "(Z)V"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.Ymq",
+      "kind": 10,
+      "owner": "com.bitwig.flt.document.core.master.gJd",
+      "name": "ffA",
+      "descriptor": "(LcYH;Lcom/bitwig/ramona/core/HEV;)V"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.bGD",
+      "kind": 10,
+      "owner": "com.bitwig.flt.document.core.master.gJd",
+      "name": "ffA",
+      "descriptor": "(I)Lcom/bitwig/flt/document/core/master/DN1;"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.bGD",
+      "kind": 10,
+      "owner": "com.bitwig.flt.document.core.master.gJd",
+      "name": "ffA",
+      "descriptor": "(LVXM;)V"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.bGD",
+      "kind": 10,
+      "owner": "com.bitwig.flt.document.core.master.gJd",
+      "name": "ffA",
+      "descriptor": "(Lcom/bitwig/flt/document/core/iface/sL2;)I"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.bGD",
+      "kind": 10,
+      "owner": "com.bitwig.flt.document.core.master.gJd",
+      "name": "ffA",
+      "descriptor": "(Lcom/bitwig/flt/document/core/master/DN1;IZ)V"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.gJd",
+      "kind": 9,
+      "owner": "com.bitwig.flt.document.core.master.gJd",
+      "name": "ffA",
+      "descriptor": "Z"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.sUO",
+      "kind": 10,
+      "owner": "com.bitwig.flt.document.core.master.gJd",
+      "name": "ffA",
+      "descriptor": "(Lcom/bitwig/flt/document/core/master/DN1;)V"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.Svr",
+      "kind": 10,
+      "owner": "com.bitwig.flt.document.core.master.gJd",
+      "name": "kyi",
+      "descriptor": "()V"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.Svr",
+      "kind": 10,
+      "owner": "com.bitwig.flt.document.core.master.gJd",
+      "name": "wi2",
+      "descriptor": "()V"
+    }
+  ]
+}
