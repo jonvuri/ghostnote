@@ -1,0 +1,35 @@
+{
+  "checkedAt": "2026-10-18T19:31:54.037894+00:00",
+  "files": {
+    "project": {
+      "path": "/Users/jonvuri/Documents/Bitwig Studio/Projects/gn-grid-spike/gn-grid-spike.bwproject",
+      "bytes": 34128,
+      "sha256": "af24056e72e9722eacaa80bf01daa02e7fba0c72103f7fd1655f689448da1b4f",
+      "matchesPriorRecord": true
+    },
+    "backup": {
+      "path": "/tmp/gn-grid-spike-e280-baseline.bwproject",
+      "bytes": 34128,
+      "sha256": "af24056e72e9722eacaa80bf01daa02e7fba0c72103f7fd1655f689448da1b4f",
+      "matchesPriorRecord": true
+    },
+    "preset": {
+      "path": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+      "bytes": 10451,
+      "sha256": "1e8f90fc3875dbeb1f38ed88bec59ee783f39bb00fb366194c79504e063c0cc9",
+      "matchesPriorRecord": true
+    },
+    "deployedV11": {
+      "path": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension",
+      "bytes": 701230,
+      "sha256": "8fd9654465ded7d78a9e24f78f8bb2f6e1fd69513dfcd69e98a686a306a1f130",
+      "matchesPriorRecord": true
+    }
+  },
+  "liveCalls": 0,
+  "liveWrites": 0,
+  "deployment": false,
+  "liveStateSource": "operator entry and E289; no new UI or host observation",
+  "engine": "inactive per entry",
+  "otherProjects": "not accessed"
+}

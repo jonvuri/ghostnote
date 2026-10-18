@@ -1,0 +1,31 @@
+{
+  "state": "inactive baseline passed; awaiting operator engine activation",
+  "operatorIsolation": "Confirmed unchanged by operator before preparation.",
+  "sandboxAttempt": "Connection EPERM before any host request; output prepare-v12.",
+  "clientRefusal": {
+    "output": "prepare-v12-live",
+    "calls": 8,
+    "reason": "Visible track omits hidden; strict false assertion refused before probe bind.",
+    "graphWrites": 0,
+    "notes": 0
+  },
+  "correction": "Accept omitted or false hidden; reject true. Test fixture now uses the actual omitted field.",
+  "verification": {
+    "focusedEngineTests": 6,
+    "focusedEngineTestsPassed": true,
+    "typecheck": "passed"
+  },
+  "baseline": {
+    "output": "prepare-v12-fixed",
+    "calls": 16,
+    "summedRequestMs": 559.277248,
+    "responseBytes": 83739,
+    "pairedReads": "exact match; four modules; two cables; original rectangles; empty selection; idle edit",
+    "engine": "inactive",
+    "fixtureHashes": "verified before and after",
+    "graphWrites": 0,
+    "notes": 0
+  },
+  "retrospective": "Use actual wire response shapes in test fixtures; visible track rows omit hidden.",
+  "descriptions": "unchanged; v52; 44 tools"
+}

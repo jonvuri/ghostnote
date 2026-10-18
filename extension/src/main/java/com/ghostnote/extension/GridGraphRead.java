@@ -33,7 +33,7 @@ public final class GridGraphRead {
     }
 
     private final Reader reader;
-    private final int workLimit, byteLimit, depthLimit;
+    private final int workLimit, byteLimit, depthLimit, nodeLimit;
     private final IdentityHashMap<Object, Integer> identities = new IdentityHashMap<>();
     private final JsonArray nodes = new JsonArray(), errors = new JsonArray();
     private int work, bytes = 4096, errorCount, scalarChars;
@@ -43,6 +43,11 @@ public final class GridGraphRead {
     public GridGraphRead(Reader reader) { this(reader, MAX_WORK, MAX_BYTES, MAX_DEPTH); }
 
     public GridGraphRead(Reader reader, int workLimit, int byteLimit, int depthLimit) {
+        this(reader, workLimit, byteLimit, depthLimit, MAX_WORK);
+    }
+    public GridGraphRead(Reader reader, int workLimit, int byteLimit, int depthLimit, int nodeLimit) {
+        if (nodeLimit < 1 || nodeLimit > MAX_WORK) throw new IllegalArgumentException("invalid node bound");
+        this.nodeLimit = nodeLimit;
         if (workLimit < 1 || workLimit > MAX_WORK || byteLimit < 8192 || byteLimit > MAX_BYTES
                 || depthLimit < 0 || depthLimit > MAX_DEPTH) throw new IllegalArgumentException("invalid capture bounds");
         this.reader = reader;
@@ -107,6 +112,7 @@ public final class GridGraphRead {
         if (object == null) { issue("null-relationship"); return JsonNull.INSTANCE; }
         Integer prior = identities.get(object);
         if (prior != null) return new JsonPrimitive(prior);
+        if (identities.size() >= nodeLimit) { issue("node-limit"); stopped = true; return JsonNull.INSTANCE; }
         if (depth > depthLimit) { issue("depth-limit"); return JsonNull.INSTANCE; }
         if (!step()) return JsonNull.INSTANCE;
         int id = identities.size();

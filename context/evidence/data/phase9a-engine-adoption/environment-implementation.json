@@ -1,0 +1,41 @@
+{
+  "scope": "Offline V12 implementation; no deployment or live request",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "libsJarSha256": "f793a1ddbb59b87e445926d9f9e8d4b9875f10981d2abf242b4f0549cfe8b1ab",
+  "additionalInspections": [
+    {
+      "class": "com.bitwig.flt.control_surface.proxy.ControlSurfaceObject",
+      "javapSha256": "f706161bbbb7e94acc9cfdcb958cbfdc8aec3a26727b5aa5c4cbd89f6602a470"
+    },
+    {
+      "class": "com.bitwig.flt.control_surface.proxy.AbstractTrackProxy",
+      "javapSha256": "2ba5d4d3cd5fe9c7cafb48946670ada810cb909fdd1e89bc7722ec7567d4380f"
+    },
+    {
+      "class": "GkS",
+      "javapSha256": "b6870686b8823dcac469feffc791f249ebb3cbbe986f8de2cfbede8e0cafa09a"
+    },
+    {
+      "class": "iwZ",
+      "javapSha256": "b9d4079afee23f7438b604404a3775e2613c2a85a7a7408fea1a55ff49c8c530"
+    },
+    {
+      "class": "HLJ",
+      "javapSha256": "b43c68b2d104d9ce9db4e0770bb7d96b4c5c1743700e4a230c00c54b4edd4a60"
+    },
+    {
+      "class": "wEM",
+      "javapSha256": "337298eabf41bd618911c8ea6e2877e6ab85d626566142eac9c5b4cc0ce71a8f"
+    },
+    {
+      "class": "Cic",
+      "javapSha256": "36c571972aa955c5f8f7eed2aedaabe1ed550e310c61aaac5f4aa6bae6b3310b"
+    },
+    {
+      "class": "Mpj",
+      "javapSha256": "e9b00b3588e4fed7d3cececde7a8b90f8f72921b02bc50335721e428fb73b238"
+    }
+  ],
+  "nativeNotePath": "AbstractTrackProxy.lambda$startNote$0 / lambda$stopNote$0 -> GkS.Ye3() -> iwZ.ffA/eOi(0,60,HLJ.ffA(80/0)); guarded document task, no second proxy queue",
+  "vendorInitializationInSymbolCheck": false
+}

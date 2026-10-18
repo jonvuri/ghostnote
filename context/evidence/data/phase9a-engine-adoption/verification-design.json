@@ -1,0 +1,49 @@
+{
+  "checkedAt": "2026-10-18T19:04:44.696195+00:00",
+  "scope": "Offline design checks only. No runtime, live, or DSP result.",
+  "jarPin": "pass",
+  "bytecodeHashCount": 27,
+  "apiDocumentHashCount": 2,
+  "traceSignatureChecks": {
+    "status": "pass",
+    "classes": [
+      "com.bitwig.flt.document.core.master.device.NHx",
+      "com.bitwig.ramona.core.HEV",
+      "cYO",
+      "cYM",
+      "cYQ",
+      "com.bitwig.flt.document.core.master.Ymq",
+      "rjH",
+      "DxI",
+      "com.bitwig.flt.control_surface.proxy.AbstractChannelProxy$VuMeterObserver"
+    ]
+  },
+  "costArithmetic": "pass",
+  "syntheticMeterMath": {
+    "baselineCode": 54,
+    "halfGainCode": 43,
+    "ratioInterval": [
+      0.47784299828136234,
+      0.5409412060865778
+    ],
+    "halfRawCodeRejected": true,
+    "limits": "Synthetic values only. No live meter calibration or signal evidence."
+  },
+  "fixtureHashRecheck": "pass",
+  "contextCheck": {
+    "command": "LANG=en_US.UTF-8 ruby context/check.rb",
+    "result": "pass: 648 active documents, links intact"
+  },
+  "diffCheck": {
+    "commands": [
+      "git diff --check",
+      "git diff --cached --check"
+    ],
+    "result": "pass"
+  },
+  "toolDescriptions": {
+    "changed": false,
+    "version": 52,
+    "count": 44
+  }
+}

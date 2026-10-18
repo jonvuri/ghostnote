@@ -31,10 +31,21 @@ preservation.
 passes the bounded native attachment gate: two V11 insertions, exact paired
 readback, preserved selection and layout, one-step undo/redo, and edited-state
 save/reopen. The exact baseline file is restored, reopened, and verified.
-Next: complete the [9a engine adoption design](plan/phase-9/9a-live-grid-editing-spike.md#next-session--engine-adoption-design)
-before another live stage. Keep 9a active. Both V11 factory attempts are used;
-do not issue another factory request. Wider
-[Phase 9](plan/phase-9/README.md) scope remains unselected.
+[E290](evidence/experiments/e290-grid-engine-adoption-design.md) defines the
+[engine adoption contract](plan/phase-9/9a-engine-adoption-design.md).
+[E291](evidence/experiments/e291-grid-engine-probe-implementation.md) implements
+V12 and passes the offline checks.
+[E292](evidence/experiments/e292-grid-engine-quiet-gate-refusal.md) verifies V12
+loading and the inactive baseline. The single active-engine run locks at Q0
+with `signal-before-note`, before any note, graph edit, or factory. No native
+task is unfinished. Exact inactive restoration and session release pass.
+V12 stays loaded, with its session used and locked. Do not repeat prepare,
+run, or the final restoration read. Next: the planned
+[baseline signal and failure evidence design session](plan/phase-9/9a-live-grid-editing-spike.md#next-session--baseline-signal-and-failure-evidence-design).
+The operator confirmed the expected continuous output: Sine → Amplify → Audio
+Out has no envelope or gate. The quiet-before-note requirement was a test-design
+error. Redesign around continuous-signal gain changes with no test notes.
+DSP adoption remains unproved. Keep 9a active. Wider Phase 9 scope is unselected.
 
 The former Phase 9 is now [Phase 10](plan/phase-10/README.md): publication
 plans 10a/10b, the release and upgrade suite 10c, and the `stable-v1` retirement
@@ -68,22 +79,26 @@ one server session and do not survive a new thread or resume.
 
 ## Current deployment and fixture (2026-10-19)
 
-The deployed archive is V11: `phase-8-probe-v1`, 117 methods,
-`b899e5d3d75a791d`, marker `gridReadProbe: 9a-grid-attachment-v11`. The
-[deployment record](evidence/data/phase9a-grid-attachment/deployment-v11.json)
-records its hash and time. V11 is confirmed loaded, initialized at
-`2026-10-18T18:13:18.006Z`; the hello passes. Two successful V11 attachment
-workflows have used both factory attempts. Cached status has no write lock,
-no unfinished task, two accepted after reads, and no recovery use. All epochs
-are released. The normal profile is not restored.
+The deployed and loaded archive is V12: `phase-8-probe-v1`, 118 methods,
+`2e939035ea90b8b0`, marker `gridReadProbe: 9a-grid-engine-v12`. The
+[deployment record](evidence/data/phase9a-engine-adoption/deployment-v12.json)
+records its verified hash and confirmed operator replacement. The hello passes
+with initialization `2026-10-18T19:50:46.016Z`, after deployment.
 
-Last observed in E289: `gn-grid-spike` has its four-module, two-cable baseline.
-Paired reads match the preset and original native rectangles. Edit state is
-idle, Grid selection is empty, parent checks pass, and the outer Poly Grid
-identity is unchanged. UUIDs were reacquired after reopening. Track
-`grid-probe` (`c784d25c…`) is muted at -10 dB and armed. Transport is stopped at
-1.1.1.00. The engine is inactive; the Grid editor is open. MW and Expressions
-remain visible. The fixture tab is unstarred.
+E292's single engine session is used and locked at Q0. No note, graph edit,
+or factory ran. The final restoration workflow passes: session inactive and
+released, no open epoch, no unfinished native task, recovery unused. Do not
+retry this initialization. The normal profile is not restored.
+
+The [preservation record](evidence/data/phase9a-engine-adoption/preservation-live.json)
+confirms operator close without save, exact file checks, and reopening. The
+fixture engine was inactive at restoration. The operator later briefly activated
+it to confirm continuous output; check current engine state before live work.
+Paired native reads prove the four-module,
+two-cable baseline, original rectangles, empty Grid selection, idle edit, and
+parent identities. Track `grid-probe` (`c784d25c…`) is muted at -10 dB, armed,
+and active. Transport is stopped at 1.1.1.00. The original Poly Grid and
+MW/Expressions are visible. The fixture tab is unstarred. No project was saved.
 
 The saved project and backup are byte-identical, SHA-256
 `af24056e72e9722eacaa80bf01daa02e7fba0c72103f7fd1655f689448da1b4f`.
@@ -112,7 +127,7 @@ and `cursorTrackPins.rule: owned-tracks-pinned-v1`. The prior probe build had
 and at 9a entry. `selection.status` can report a slot of a deleted scratch
 track (issue D11). Descriptions are v52 (44 tools);
 no live project changed in 8i16 and 8i18 to 8i20 or in the close-out. The
-next free evidence number is E290; the next decision is D52; the next
+next free evidence number is E293; the next decision is D52; the next
 issue row is D17. The live drivers accept 8i15 (`NORMAL_8I15`,
 `assertCurrentNormal`); see E263 and E264 for their commands and cleanup.
 

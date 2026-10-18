@@ -1,0 +1,42 @@
+[
+  {
+    "name": "rig.info",
+    "ms": 25.602708000000007,
+    "bytes": 1802
+  },
+  {
+    "name": "contract.hello",
+    "ms": 22.926417,
+    "bytes": 155
+  },
+  {
+    "name": "rig.info",
+    "ms": 23.06887500000002,
+    "bytes": 1802
+  },
+  {
+    "name": "rig.stats",
+    "ms": 23.128208,
+    "bytes": 2498
+  },
+  {
+    "name": "host.info",
+    "ms": 20.25125,
+    "bytes": 148
+  },
+  {
+    "name": "revision.get",
+    "ms": 23.185666999999995,
+    "bytes": 2432
+  },
+  {
+    "name": "selection.status",
+    "ms": 23.665791999999982,
+    "bytes": 207
+  },
+  {
+    "name": "track.list",
+    "ms": 23.130583,
+    "bytes": 381
+  }
+]

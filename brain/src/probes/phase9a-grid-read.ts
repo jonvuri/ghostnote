@@ -78,9 +78,9 @@ try {
   if (mode === 'state') console.log(JSON.stringify(entry, null, 2));
   else {
     assert.equal(hello.runtimeProfile, 'phase-8-probe-v1');
-    assert.equal(hello.methodCount, 117);
-    assert.equal(hello.methodsHash, 'b899e5d3d75a791d');
-    assert.equal(rig.gridReadProbe, '9a-grid-attachment-v11');
+    assert.equal(hello.methodCount, 118);
+    assert.equal(hello.methodsHash, '2e939035ea90b8b0');
+    assert.equal(rig.gridReadProbe, '9a-grid-engine-v12');
     assert.equal(compareDeployment(deployedAtMs(), stats.initEpochMs ?? -1).state, 'fresh');
     assert.equal(mark.project, 'gn-grid-spike');
     const matches = tracks.tracks.filter((track: Wire) => track.name === 'grid-probe');

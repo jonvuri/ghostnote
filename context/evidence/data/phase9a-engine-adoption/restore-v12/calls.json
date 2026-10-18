@@ -1,0 +1,87 @@
+[
+  {
+    "name": "contract.hello",
+    "ms": 29.164749999999998,
+    "bytes": 155
+  },
+  {
+    "name": "rig.info",
+    "ms": 17.682874999999996,
+    "bytes": 1802
+  },
+  {
+    "name": "rig.stats",
+    "ms": 22.540208000000007,
+    "bytes": 2498
+  },
+  {
+    "name": "host.info",
+    "ms": 21.819792000000007,
+    "bytes": 148
+  },
+  {
+    "name": "revision.get",
+    "ms": 23.24362500000001,
+    "bytes": 2432
+  },
+  {
+    "name": "selection.status",
+    "ms": 25.73679199999998,
+    "bytes": 207
+  },
+  {
+    "name": "track.list",
+    "ms": 25.617624999999975,
+    "bytes": 381
+  },
+  {
+    "name": "cursor.pointTrack",
+    "ms": 22.98925,
+    "bytes": 16
+  },
+  {
+    "name": "devcursor.status",
+    "ms": 6.55479200000002,
+    "bytes": 232
+  },
+  {
+    "name": "device.list",
+    "ms": 23.58499999999998,
+    "bytes": 171
+  },
+  {
+    "name": "probe.gridEngine",
+    "operation": "bind",
+    "ms": 46.351500000000044,
+    "bytes": 278
+  },
+  {
+    "name": "probe.gridEngine",
+    "operation": "read",
+    "ms": 67.97074999999995,
+    "bytes": 36697
+  },
+  {
+    "name": "probe.gridEngine",
+    "operation": "read",
+    "ms": 62.795582999999965,
+    "bytes": 36696
+  },
+  {
+    "name": "selection.status",
+    "ms": 21.636958999999933,
+    "bytes": 207
+  },
+  {
+    "name": "probe.gridEngine",
+    "operation": "release",
+    "ms": 21.867208000000005,
+    "bytes": 16
+  },
+  {
+    "name": "probe.gridEngine",
+    "operation": "sessionRelease",
+    "ms": 25.155874999999924,
+    "bytes": 671
+  }
+]

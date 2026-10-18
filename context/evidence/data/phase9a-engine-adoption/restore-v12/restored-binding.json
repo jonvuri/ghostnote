@@ -1,0 +1,10 @@
+{
+  "marker": "9a-grid-engine-v12",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "operation": "bind",
+  "queueNanos": 1259459,
+  "epoch": "76e8ca8b-c65e-48ee-9f7d-fe0533a7b11a",
+  "heapUsedBefore": 660602880,
+  "heapUsedAfter": 660602880,
+  "documentTaskNanos": 4137833
+}

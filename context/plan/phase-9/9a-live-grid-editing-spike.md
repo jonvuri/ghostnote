@@ -2,7 +2,7 @@
 title: Phase 9a — Live Grid editing spike
 kind: plan
 state: active
-status: E289 passes bounded native attachment and persistence. Engine adoption design is next; 9a remains active.
+status: E292 stops V12 at the initial quiet gate without notes or graph edits. Exact inactive restoration passes; 9a stays active.
 updated: 2026-10-19
 parent: README.md
 ---
@@ -181,26 +181,87 @@ and uses its receipt in exact readback. V11 is tested and deployed. E288 complet
 operator recovery, replacement, fresh hello, and baseline checks. E289 then
 passes two insertions, exact paired readback, preserved layout and selection,
 one-step undo/redo, and edited-state reload. The exact baseline file is
-restored, reopened, and verified. V11 remains loaded with both attempts used.
+restored, reopened, and verified. Both V11 attempts were used.
 The engine is inactive. No further factory request is admitted on this init.
 
-### Next session — engine adoption design
+### Designed: engine adoption (E290)
 
 Source: [E289](../../evidence/experiments/e289-native-grid-attachment-and-persistence.md).
-The document attachment gate is complete. Keep 9a active. Before another live
-stage, define a bounded test that distinguishes successful document editing
-from adoption by the running audio engine. Trace the native update path and
-choose an independent observable for the new Amplify. Specify muted routing,
-transport and engine entry state, readback, stop conditions, and exact baseline
-restoration. Do not infer DSP behavior from serialization or UI alone.
+[E290](../../evidence/experiments/e290-grid-engine-adoption-design.md) completes
+this session's [engine adoption contract](9a-engine-adoption-design.md).
+The trace follows native relationship notifications through engine protocol
+batching and follows the independent meter back to packet decoding. The
+contract defines muted signal calibration, a fixed series path through the
+new Amplify, fresh meter windows, failure recovery, exact baseline restoration,
+and a typical/maximum cost model. No implementation or live write ran.
 
-Write the typical and maximum cost model before implementation. Compare it
-with E289's 18-call, 558–567 ms attachment workflows and 45–48 ms document
-command cost. Include host turns, reads, write stages, and heap. State how a
-new build or initialization will obtain a fresh bounded attempt allowance;
-do not bypass the used V11 allowance. Acceptance for this design session is
-a reviewable protocol, cost model, source trace, and explicit failure limits.
-It does not authorize a broader Phase 9 scope or claim engine adoption.
+### Implemented: engine probe and offline checks (E291)
+
+[E291](../../evidence/experiments/e291-grid-engine-probe-implementation.md)
+implements the [bounded probe contract](9a-engine-adoption-design.md#probe-implementation-and-offline-checks).
+V12 has one session and one factory attempt per initialization, weak engine
+and meter identities, exact phase guards, a fixed scalar recorder, and owned
+note cleanup. Offline failure, identity, numerical, native signature, and
+call-budget checks pass. E291 built the archive without deployment. E292
+records deployment and the live attempt. Code does not prove DSP adoption.
+
+### Executed protocol — deployment and bounded live engine gate
+
+Source: E290, E291, and the [live acceptance sequence](9a-engine-adoption-design.md#bounded-live-engine-gate).
+Deploy V12 with `./gradlew copyProbeExtension`. Ask the operator to remove the
+old controller fully and select the final matching `ghostnote probe` product
+in the complete list. Wait for confirmation, then run `npm run probe:hello`.
+Require V12's fresh initialization, 118 methods, hash `2e939035ea90b8b0`, and
+marker `9a-grid-engine-v12`. A toggle or earlier duplicate is insufficient.
+Then run the muted calibration before
+construction. Then test one new Amplify with unity, zero, half, and returned
+unity gain while the engine stays active. Require exact paired graph readback
+and independent fresh signal evidence. Stop on an unavailable observable; do
+not unmute or widen scope. Restore the exact inactive baseline on every exit.
+
+The cost model has 252 wire calls and at most 20 extra scheduled host turns,
+59 fixture captures, two detached captures, 11 graph edits, one factory, and
+16 note writes. Plan about 24–32 seconds plus operator work, 16 MiB temporary
+Java heap per graph stage, and a 64 KiB meter buffer. Compare the attachment
+stage with E289's 18-call, 558–567 ms workflows and 45–48 ms document command.
+Native cold work and engine heap remain unmeasured. Keep 9a active; wider
+Phase 9 scope remains unselected.
+
+### Current live result — Q0 refusal (E292)
+
+[E292](../../evidence/experiments/e292-grid-engine-quiet-gate-refusal.md) verifies
+V12 deployment, fresh initialization, and inactive baseline preparation. The
+single active run locks at `signal-before-note` in Q0. No note, graph edit, or
+factory is attempted. Exact inactive restoration and session release pass.
+V12 remains loaded with its session used and locked. Do not repeat this session.
+
+### Next session — baseline signal and failure evidence design
+
+Source: E292, the operator's continuous-output confirmation and screenshot,
+and the [engine contract](9a-engine-adoption-design.md). The fixture is
+Sine → Amplify → Audio Out without an envelope or gate. Continuous output
+with stopped transport is expected. The note-gated baseline assumption was
+incorrect; no source investigation is needed to explain Q0's refusal.
+
+Design the test around this unchanged fixture's continuous signal. Use positive
+baseline output, zero gain, returned baseline, and the inserted Amplify's unity,
+zero, half, and returned unity gains. Remove test-note injection and note-release
+expectations from the replacement protocol. Define bounded post-edit settlement,
+stable measurement windows, fresh packet evidence for zero as well as positive
+values, quantization-aware ratios, master silence, and rejection of external
+input. Preserve independent DSP evidence, exact paired graph checks, mute,
+failure lock, and exact baseline restoration. Recalculate calls, timers, write
+stages, and heap before implementation. Do not rerun the V12 protocol.
+
+Investigate the 43.544 ms read maximum, 99% above E289, without treating one
+sample as an isolated cause. Preserve the 16-call restoration budget.
+
+Design a bounded cached failure report with sample values and timing that can
+be read after a lock without a document task. Freeze it on the first failure;
+E292 filled the bounded buffer during operator delay. Review the revised protocol,
+negative tests, and typical/maximum costs before implementation or another
+live run. A later implementation and live session needs a fresh permitted
+initialization and verified baseline. Keep 9a active.
 
 ## Read first
 

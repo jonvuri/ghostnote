@@ -1,0 +1,57 @@
+{
+  "checkedAt": "2026-10-18T20:06:24.783698+00:00",
+  "files": {
+    "project": {
+      "path": "/Users/jonvuri/Documents/Bitwig Studio/Projects/gn-grid-spike/gn-grid-spike.bwproject",
+      "sha256": "af24056e72e9722eacaa80bf01daa02e7fba0c72103f7fd1655f689448da1b4f",
+      "bytes": 34128
+    },
+    "backup": {
+      "path": "/tmp/gn-grid-spike-e280-baseline.bwproject",
+      "sha256": "af24056e72e9722eacaa80bf01daa02e7fba0c72103f7fd1655f689448da1b4f",
+      "bytes": 34128
+    },
+    "preset": {
+      "path": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+      "sha256": "1e8f90fc3875dbeb1f38ed88bec59ee783f39bb00fb366194c79504e063c0cc9",
+      "bytes": 10451
+    }
+  },
+  "operator": "Confirmed engine deactivation and fixture-only close without save.",
+  "reopen": "Agent reopened the verified file through Bitwig. No file replacement or save. Engine remained inactive after loading.",
+  "ui": "Fixture unstarred, transport stopped at 1.1.1.00, muted -10 dB armed track; original Poly Grid with MW and Expressions visible. gn-scale-test remains open and unsaved.",
+  "restoreCalls": 16,
+  "summedRequestMs": 464.71258399999977,
+  "responseBytes": 82607,
+  "released": {
+    "used": true,
+    "active": false,
+    "locked": true,
+    "factoryAttempted": false,
+    "recoveryUsed": false,
+    "next": "Q0",
+    "failure": "java.lang.IllegalStateException: signal-before-note",
+    "marker": "9a-grid-engine-v12",
+    "nativeUnfinished": false,
+    "stage": 0,
+    "commandAttempted": false,
+    "beforeReads": 2,
+    "afterReads": 0,
+    "epochOpen": false,
+    "restored": true,
+    "lastWindow": {
+      "name": "Q0",
+      "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+      "masterId": "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f",
+      "generation": "24f4a375-6ede-417f-a302-dc488735f762",
+      "samplesCount": 2048,
+      "failure": "signal-before-note",
+      "noteOnAttempted": false,
+      "noteOffAttempted": false,
+      "noteOnObserved": false,
+      "noteOffObserved": false,
+      "onNanos": -1,
+      "offNanos": -1
+    }
+  }
+}

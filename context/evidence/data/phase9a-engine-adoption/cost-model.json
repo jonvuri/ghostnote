@@ -1,0 +1,62 @@
+{
+  "status": "Design estimate only; no live measurement",
+  "scope": {
+    "typicalModulesMax": 5,
+    "maximumModules": 5,
+    "maximumCables": 3,
+    "factoryAttemptsPerInitialization": 1,
+    "graphEdits": 11,
+    "valueEdits": 5,
+    "cableEdits": 4,
+    "attachmentEdits": 1,
+    "deletionEdits": 1,
+    "pulseWindows": 8,
+    "quietWindows": 2,
+    "noteWriteStages": 16
+  },
+  "components": [
+    {
+      "name": "nativeStages",
+      "count": 11,
+      "callsEach": 18,
+      "fixtureCapturesEach": 5
+    },
+    {
+      "name": "signalWindows",
+      "count": 10,
+      "callsEach": 2,
+      "fixedMeterWitnessTasksEach": 2
+    },
+    {
+      "name": "pairedBaselineWorkflows",
+      "count": 2,
+      "callsEach": 15,
+      "fixtureCapturesEach": 2
+    },
+    {
+      "name": "sessionControl",
+      "count": 4,
+      "callsEach": 1
+    }
+  ],
+  "wireCalls": 252,
+  "fixtureCaptures": 59,
+  "detachedCaptures": 2,
+  "scheduledBoundaryTurnsMax": 20,
+  "roughTotalTurns": 272,
+  "roughSchedulingFloorMs": 6528,
+  "warmRequestPlanMs": 9000,
+  "cursorSettlementMs": 1950,
+  "windowDwellTypicalMs": 12500,
+  "windowDwellMaximumMs": 20000,
+  "elapsedTypicalPlanMs": 23450,
+  "elapsedMaximumPlanMs": 30950,
+  "attachmentDocumentPlanMs": 60,
+  "graphStageTemporaryHeapMiB": 16,
+  "sampleBufferBytesMax": 65536,
+  "windowResponseBytesMax": 131072,
+  "recoveryExtraWireCalls": 4,
+  "recoveryExtraFixtureCaptures": 2,
+  "nativeTimeBound": null,
+  "nativeEngineHeapBound": null
+}

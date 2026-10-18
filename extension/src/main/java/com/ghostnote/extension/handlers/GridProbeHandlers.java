@@ -7,7 +7,8 @@ import java.util.UUID;
 
 /** 9a research entry points. Only the named disposable fixture is admitted. */
 public final class GridProbeHandlers extends HandlerGroup {
-    public static final String MARKER = "9a-grid-attachment-v11";
+    public static final String MARKER = GridEngineHandlers.MARKER;
+    private final GridEngineHandlers engine;
     private GridReadSymbols symbols;
     private GridReadEpoch epoch;
     private boolean busy;
@@ -17,9 +18,10 @@ public final class GridProbeHandlers extends HandlerGroup {
     private Target recoveryTarget;
     private Target epochTarget;
 
-    public GridProbeHandlers(ControllerHost host, Rig rig, ExecState state) { super(host, rig, state); }
+    public GridProbeHandlers(ControllerHost host, Rig rig, ExecState state) { super(host, rig, state); engine = new GridEngineHandlers(host, rig, state); }
 
     @Override public void register(HandlerRegistry r) {
+        engine.register(r);
         r.onAsync("probe.gridRead", (params, reply) -> request(params, reply, Write.NONE));
         r.onAsync("probe.gridValue", (params, reply) -> request(params, reply, Write.VALUE));
         r.onAsync("probe.gridCable", (params, reply) -> request(params, reply, Write.CABLE));
@@ -45,6 +47,8 @@ public final class GridProbeHandlers extends HandlerGroup {
 
     private void request(JsonObject params, Bridge.Reply reply, Write kind) throws Exception {
 
+        if (kind != Write.NONE) throw new IllegalStateException("V12 writes require the fixed engine protocol; V11 cohort is retired");
+        if (engine.used() || engine.unfinished()) throw new IllegalStateException("engine-session-owns-grid; use probe.gridEngine");
         boolean write = kind != Write.NONE;
         String operation = write ? switch (kind) {
             case VALUE -> "setValue"; case CABLE -> "setCable"; case DELETE -> "deleteModule"; case FACTORY -> "detachedFactory"; case ATTACH -> "attachModule";

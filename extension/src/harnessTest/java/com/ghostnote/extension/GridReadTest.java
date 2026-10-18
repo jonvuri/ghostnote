@@ -50,6 +50,8 @@ public final class GridReadTest {
         require(graph.getAsJsonArray("nodes").size() == 3);
         require(graph.toString().contains("\"refs\":[1,2,1]"));
         require(graph.get("encodedBytes").getAsInt() == graph.toString().getBytes(StandardCharsets.UTF_8).length);
+        JsonObject nodeBound = new GridGraphRead(reader, 4096, 8192, 12, 2).capture(children(a, b));
+        require(!complete(nodeBound) && nodeBound.getAsJsonArray("nodes").size() == 2);
         require(!complete(new GridGraphRead(reader, 1, 8192, 12).capture(children(a))));
         require(!complete(new GridGraphRead(reader, 4096, 8192, 0).capture(children(a))));
         require(!complete(new GridGraphRead(reader).capture(scalar("x".repeat(4097)))));
@@ -101,6 +103,7 @@ public final class GridReadTest {
         async();
         GridDetachedFactoryTest.run();
         GridAttachmentTest.run();
+        GridEngineTest.run();
         require(RuntimeProfile.PROBE.includes("probe.gridModuleAttach"));
         require(!RuntimeProfile.NORMAL.includes("probe.gridModuleAttach"));
         require(!RuntimeProfile.CAPTURE.includes("probe.gridModuleAttach"));

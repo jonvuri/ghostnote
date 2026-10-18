@@ -1,0 +1,32 @@
+[
+  {
+    "name": "probe.gridEngine",
+    "operation": "sessionBegin",
+    "ms": 28.15925,
+    "bytes": 293
+  },
+  {
+    "name": "probe.gridEngine",
+    "operation": "windowBegin",
+    "ms": 50.07008300000001,
+    "bytes": 566
+  },
+  {
+    "name": "probe.gridEngine",
+    "operation": "windowCollect",
+    "ms": 9.50695799999994,
+    "error": "BridgeError: Internal error: engine-session-locked"
+  },
+  {
+    "name": "probe.gridEngine",
+    "operation": "abort",
+    "ms": 19.205416000000014,
+    "bytes": 665
+  },
+  {
+    "name": "probe.gridEngine",
+    "operation": "status",
+    "ms": 19.72179099999994,
+    "bytes": 665
+  }
+]

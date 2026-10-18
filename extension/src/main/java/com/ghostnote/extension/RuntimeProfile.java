@@ -227,6 +227,7 @@ public enum RuntimeProfile {
             "probe.gridModuleDelete",
             "probe.gridModuleFactory",
             "probe.gridModuleAttach",
+            "probe.gridEngine",
             "slot.duplicateClip",
             "stepdata.observer.enrich",
             "stepdata.observer.prepare",
@@ -371,9 +372,9 @@ public enum RuntimeProfile {
             if (!PRODUCT.containsAll(OPTIONAL_CAPTURE)
                     || PRODUCT.size() != 97
                     || NORMAL.size() != 92
-                    || PROBE.size() != 117
+                    || PROBE.size() != 118
                     || HISTORICAL.size() != 54
-                    || ALL_CLASSIFIED.size() != 176
+                    || ALL_CLASSIFIED.size() != 177
                     || !ALL_CLASSIFIED.containsAll(READS)
                     || !ALL_CLASSIFIED.containsAll(CLIP_READS)
                     || READS.stream().anyMatch(CLIP_READS::contains)) {

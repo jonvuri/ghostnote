@@ -514,6 +514,66 @@ steps. Read heap samples rise 0–2 MiB. No peak or retained-heap claim follows.
 The engine remains inactive. No runtime, product call budget, or public
 description changes in this continuation; descriptions remain v52.
 
+[E292](../evidence/experiments/e292-grid-engine-quiet-gate-refusal.md) measures
+V12 preparation at 16 calls, 559.277 ms summed requests plus 150 ms settlement,
+and 83,739 response bytes. The two document reads take 29.060/19.389 ms and
+sample 4/2 MiB heap rises. The first exceeds E289's 21.860 ms maximum by 33%;
+it is the first V12 read, and engine guards and cold work are not isolated.
+The second is within that maximum. No timing retry is permitted.
+
+The active run refuses Q0 before any note, graph edit, or factory. Five calls
+sum to 126.663 ms plus 1,250 ms dwell; successful responses total 2,189 bytes.
+Begin/window-begin document times are 13.264/5.864 ms with no sampled heap
+rise. The client-shape refusal before probe bind adds eight calls and
+184.959 ms separately. Restoration uses 16 calls, 464.713 ms plus 150 ms
+settlement, and 82,607 response bytes. Its document reads take 43.544/19.600 ms
+with 2 MiB sampled heap rises. The first is 99% above E289's 21.860 ms maximum;
+the second is within it. Reopened-target work, JVM activity, and new guards
+are not isolated causes. No retry is allowed. Retain the 43.544 ms limit and
+investigate it in the next design session. The completed prepare/refusal/restore
+path uses 37 calls and 1,150.653 ms summed requests, plus 300 ms settlement and
+1,250 ms dwell. The full 252-call
+path and attachment estimate remain unmeasured. Callback allocation, native
+engine memory, and process-memory delta are not measured. Product budgets and
+descriptions v52 do not change.
+
+[E290](../evidence/experiments/e290-grid-engine-adoption-design.md) completes the
+[engine adoption design](../plan/phase-9/9a-engine-adoption-design.md), without a
+runtime change or live measurement. Its fixed five-module, three-cable maximum
+uses 252 wire calls, 59 fixture captures, two detached captures, 20 fixed meter
+witness tasks, 11 graph edits, one factory, and 16 note writes. Ten signal
+windows add at most 20 scheduled host turns: a rough 272-turn / 6,528 ms floor.
+Plan 9 seconds warm request latency, 1.95 seconds cursor settlement, and
+12.5–20 seconds window dwell, about 24–32 seconds plus operator work. Timer
+turns overlap dwell. Typical and maximum graph scopes are the same.
+
+[E291](../evidence/experiments/e291-grid-engine-probe-implementation.md) implements
+this budget. Offline tests assert 252 calls, 59 captures, one factory,
+11 graph edits, ten windows, and 16 note stages. Prepare/run/restore use
+16/220/16 calls. One abort and one cached status call can be added on failure;
+they have no document task. Recovery remains four additional calls. The probe
+adds one master handle with zero scenes, two VU subscriptions, and one note
+subscription at initialization. Sixteen note boundary document tasks have no
+wire call. Their host and native cost remains unmeasured. The sample arrays
+use 32 KiB before object overhead, within the 64 KiB buffer limit. Normal and
+capture allocations and product call budgets do not change. V12 is built but
+not deployed; live cost measurement belongs to the next 9a session.
+
+The attachment stage keeps the 18-call shape. Its 60 ms active-engine document
+estimate is about 25–32% above E289's 45–48 ms. Protocol serialization and
+active connection work are hypotheses for this allowance, not measured causes.
+The extra graph stages and signal windows account for the full-test cost.
+Future live evidence must compare the matching command/read costs and explain
+increases above 20%. No new regression is claimed here.
+
+Budget 16 MiB temporary Java heap per graph stage, plus a 64 KiB fixed sample
+buffer and a 128 KiB encoded window response. Stream results. Native engine
+heap, first activation, symbol work, cache misses, and blocked native work have
+no measured bound. Failure-only recovery adds four calls (about 96 ms floor)
+and two captures after native completion, with zero graph writes and at most
+one outstanding owned note-off. Product call budgets and descriptions stay
+unchanged. V11 remains loaded with both attempts used and the engine inactive.
+
 8i3 review rerun (E252): Polysynth 44 controls 9,481 ms; Diva 64 controls
 13,912 ms; staged 5×1 / 3×2 / 2×3 compositions 20,975 / 23,642 / 23,278 ms,
 with reversals 21,922 / 26,028 / 26,764 ms. No time regressed by more than

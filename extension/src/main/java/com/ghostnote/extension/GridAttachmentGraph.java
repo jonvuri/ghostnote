@@ -8,6 +8,10 @@ import static com.ghostnote.extension.GridFixtureValue.*;
 public final class GridAttachmentGraph {
     private GridAttachmentGraph() {}
     public static GridGraphRead.Reader bounded(GridGraphRead.Reader source) {
+        return bounded(source, 2);
+    }
+    public static GridGraphRead.Reader bounded(GridGraphRead.Reader source, int maxCables) {
+        if (maxCables < 2 || maxCables > 3) throw new IllegalArgumentException("cable-limit");
         return new GridGraphRead.Reader() {
             private int cables;
             public String scope() { return source.scope(); }
@@ -25,7 +29,7 @@ public final class GridAttachmentGraph {
                 int count = source.childCount(property, object), id = source.id(property);
                 if (id == 6428 && count > 5) throw new IllegalStateException("attachment-member-limit");
                 if (id == 7125) {
-                    if (count < 0 || count > 2 || cables + count > 2) throw new IllegalStateException("attachment-cable-limit");
+                    if (count < 0 || count > 1 || cables + count > maxCables) throw new IllegalStateException("attachment-cable-limit");
                     cables += count;
                 }
                 return count;

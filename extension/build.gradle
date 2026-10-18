@@ -259,3 +259,11 @@ tasks.register('gridAttachmentSymbolsTest', JavaExec) {
     mainClass = 'com.ghostnote.extension.GridAttachmentTest'
     args '/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar'
 }
+
+// Resolve V12 metadata without initializing vendor classes or connecting to the host.
+tasks.register('gridEngineSymbolsTest', JavaExec) {
+    dependsOn harnessTestClasses
+    classpath = sourceSets.harnessTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.GridEngineTest'
+    args '/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar'
+}

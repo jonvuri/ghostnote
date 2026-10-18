@@ -1,0 +1,23 @@
+{
+  "marker": "9a-grid-engine-v12",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "operation": "windowBegin",
+  "queueNanos": 183750,
+  "window": {
+    "name": "Q0",
+    "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+    "masterId": "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f",
+    "generation": "24f4a375-6ede-417f-a302-dc488735f762",
+    "samplesCount": 0,
+    "failure": "",
+    "noteOnAttempted": false,
+    "noteOffAttempted": false,
+    "noteOnObserved": false,
+    "noteOffObserved": false,
+    "onNanos": -1,
+    "offNanos": -1
+  },
+  "heapUsedBefore": 1960837120,
+  "heapUsedAfter": 1960837120,
+  "documentTaskNanos": 5863916
+}

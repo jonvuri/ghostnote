@@ -332,7 +332,8 @@ recovery, replacement, fresh hello, and baseline reads.
 completes the sequence below with an inactive engine. Both V11 attempts are
 used. Do not repeat this sequence on the current initialization. The baseline
 is restored and reopened; the Grid editor is open. The next 9a session is
-[engine adoption design](9a-live-grid-editing-spike.md#next-session--engine-adoption-design).
+[engine probe implementation and offline checks](9a-live-grid-editing-spike.md#next-session--engine-probe-implementation-and-offline-checks),
+under the [E290 design](9a-engine-adoption-design.md).
 The commands below remain the reproducible protocol for this completed gate.
 
 Before the first insertion, inspect the UI and record an inactive engine in

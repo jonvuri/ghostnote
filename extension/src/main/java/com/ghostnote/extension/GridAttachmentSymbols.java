@@ -175,7 +175,9 @@ public final class GridAttachmentSymbols implements GridModuleAttachment.Host {
         if (a.display != b.display || a.state != b.state || a.focus != b.focus || !sameItems(a.selected, b.selected)
                 || !a.json.equals(b.json)) throw new IllegalStateException("attachment-selection-changed");
     }
-    public JsonObject witness() throws Exception {
+    public JsonObject witness() throws Exception { return witness(2); }
+    public JsonObject witness(int maxCables) throws Exception {
+        if (maxCables < 2 || maxCables > 3) throw new IllegalArgumentException("witness-cable-limit");
         List<?> items = members(); List<GridAttachmentLayout.Rect> rects = rectangles(items); Edit e = edit();
         JsonArray membership = refs(node(graph, graph.get("root").getAsInt()), 6428);
         if (!graph.get("complete").getAsBoolean() || graph.get("errorCount").getAsInt() != 0 || membership.size() != items.size())
@@ -185,7 +187,7 @@ public final class GridAttachmentSymbols implements GridModuleAttachment.Host {
             JsonObject n = value.getAsJsonObject();
             if (n.get("className").getAsString().equals("audio_destination_atom")) cables += refs(n, 7125).size();
         }
-        if (cables > 2) throw new IllegalStateException("attachment-cable-limit");
+        if (cables > maxCables) throw new IllegalStateException("attachment-cable-limit");
         JsonObject result = new JsonObject(); JsonArray jsonRects = new JsonArray(), ids = new JsonArray();
         for (int i = 0; i < items.size(); i++) {
             Object item = items.get(i); GridAttachmentLayout.Rect r = rects.get(i);

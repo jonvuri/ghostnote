@@ -16,6 +16,9 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E292 | V12 inactive baseline passes; active Q0 rejects expected continuous output due to a wrong note-gated assumption; no graph edit or factory; exact inactive baseline restored and session released; DSP adoption unproved [K] (2026-10-19) | [open](experiments/e292-grid-engine-quiet-gate-refusal.md) |
+| E291 | V12 engine probe implements fixed stages, independent meter windows, owned note cleanup, exact guards, and bounded recovery; offline checks pass; built but not deployed; V11 and baseline stay unchanged [K] (2026-10-19) | [open](experiments/e291-grid-engine-probe-implementation.md) |
+| E290 | Engine adoption design: native protocol trace, independent metered signal gate under mute, bounded stages and recovery, exact restoration, and cost model; no live writes; V11 and 9a stay active [K] (2026-10-19) | [open](experiments/e290-grid-engine-adoption-design.md) |
 | E289 | Two V11 native attachments pass exact readback, selection/layout, single undo/redo, and edited reload; exact baseline restored and reopened; both attempts used; 9a stays active for engine adoption design [K] (2026-10-19) | [open](experiments/e289-native-grid-attachment-and-persistence.md) |
 | E288 | V11 hello and paired restored-baseline reads pass; saved hashes match; engine reactivated on reopen, so attachment waits for inactive-engine entry; both factory attempts unused [K] (2026-10-19) | [open](experiments/e288-v11-restored-baseline.md) |
 | E287 | V10 inserts one Amplify and closes its edit; managed-ID readback stops and locks writes; recovery isolates ID 0 -> 4000; tested V11 registration proof is deployed; live baseline recovery is pending [K] (2026-10-19) | [open](experiments/e287-grid-attachment-managed-identity.md) |

@@ -1,0 +1,19 @@
+{
+  "archive": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension",
+  "bytes": 734734,
+  "sha256": "bb9350dc7199746f4b786430891ff66ae045ea323d4a70b9f7e3454cd4cd5012",
+  "deployedAt": "2026-10-18T19:49:06.122370+00:00",
+  "deployedAtMs": 1792352946122.37,
+  "runtimeProfile": "phase-8-probe-v1",
+  "methodCount": 118,
+  "methodsHash": "2e939035ea90b8b0",
+  "marker": "9a-grid-engine-v12",
+  "operatorReplacement": "confirmed by operator",
+  "liveCalls": "npm run probe:hello; all checks pass; engine prepare and run have not started",
+  "lastConfirmedRuntime": "V12; phase-8-probe-v1; 118 methods; 2e939035ea90b8b0; 9a-grid-engine-v12",
+  "fixtureFiles": "Project and backup retain exact baseline SHA-256; preset unchanged.",
+  "uiObservation": "gn-scale-test selected and unsaved; gn-grid-spike open and unstarred. Transport stopped at 1.1.1.00. No UI action performed.",
+  "initAt": "2026-10-18T19:50:46.016Z",
+  "initEpochMs": 1792353046016,
+  "helloResult": "ALL PASS; running initialization is newer than deployment"
+}

@@ -1,0 +1,31 @@
+{
+  "used": true,
+  "active": false,
+  "locked": true,
+  "factoryAttempted": false,
+  "recoveryUsed": false,
+  "next": "Q0",
+  "failure": "java.lang.IllegalStateException: signal-before-note",
+  "marker": "9a-grid-engine-v12",
+  "nativeUnfinished": false,
+  "stage": 0,
+  "commandAttempted": false,
+  "beforeReads": 2,
+  "afterReads": 0,
+  "epochOpen": false,
+  "restored": true,
+  "lastWindow": {
+    "name": "Q0",
+    "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+    "masterId": "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f",
+    "generation": "24f4a375-6ede-417f-a302-dc488735f762",
+    "samplesCount": 2048,
+    "failure": "signal-before-note",
+    "noteOnAttempted": false,
+    "noteOffAttempted": false,
+    "noteOnObserved": false,
+    "noteOffObserved": false,
+    "onNanos": -1,
+    "offNanos": -1
+  }
+}

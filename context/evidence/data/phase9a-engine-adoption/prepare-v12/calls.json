@@ -1,0 +1,7 @@
+[
+  {
+    "name": "rig.info",
+    "ms": 0.8608750000000072,
+    "error": "Error: connect EPERM 127.0.0.1:8686 - Local (0.0.0.0:0)"
+  }
+]

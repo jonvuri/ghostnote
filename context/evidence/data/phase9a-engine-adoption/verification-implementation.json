@@ -1,0 +1,66 @@
+{
+  "scope": "Offline only; no deployment or live measurement",
+  "checks": [
+    {
+      "command": "./gradlew check gridAttachmentSymbolsTest gridEngineSymbolsTest",
+      "cwd": "extension",
+      "status": "pass"
+    },
+    {
+      "command": "npm run typecheck",
+      "cwd": "brain",
+      "status": "pass"
+    },
+    {
+      "command": "node --import tsx --test src/probes/phase9a-grid-engine.test.ts src/probes/phase9a-grid-attachment.test.ts src/adapters/live/wiremap.test.ts src/surface/call-budget.test.ts",
+      "cwd": "brain",
+      "status": "pass",
+      "tests": 82
+    },
+    {
+      "command": "node --import tsx --test --test-name-pattern='call budget' src/adapters/live/adapter.test.ts",
+      "cwd": "brain",
+      "status": "pass",
+      "tests": 5
+    },
+    {
+      "command": "LANG=en_US.UTF-8 ruby context/check.rb",
+      "cwd": ".",
+      "status": "pass",
+      "documents": 649
+    },
+    {
+      "command": "git diff --check; git diff --cached --check",
+      "cwd": ".",
+      "status": "pass"
+    }
+  ],
+  "budget": {
+    "prepare": 16,
+    "run": 220,
+    "restore": 16,
+    "total": 252,
+    "fixtureCaptures": 59,
+    "detachedCaptures": 2,
+    "factoryAttempts": 1,
+    "graphEdits": 11,
+    "noteWrites": 16,
+    "windows": 10,
+    "recovery": 4,
+    "failureCachedControls": 2
+  },
+  "descriptionsVersion": 52,
+  "publicToolCount": 44,
+  "liveCalls": 0,
+  "nativeSymbolInitialization": false,
+  "builtArchive": {
+    "path": "extension/build/libs/ghostnote-0.0.1-probe.bwextension",
+    "bytes": 734734,
+    "sha256": "bb9350dc7199746f4b786430891ff66ae045ea323d4a70b9f7e3454cd4cd5012",
+    "deployed": false,
+    "runtimeProfile": "phase-8-probe-v1",
+    "methodCount": 118,
+    "methodsHash": "2e939035ea90b8b0",
+    "marker": "9a-grid-engine-v12"
+  }
+}
