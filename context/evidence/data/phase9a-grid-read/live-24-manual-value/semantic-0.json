@@ -1,0 +1,199 @@
+{
+  "scope": "module types, session identities, stored values, layout, and directed patch cables",
+  "identityDomain": "module UUIDs observed to change on project reload",
+  "valueDomain": "stored/native; display conversion is not a write contract",
+  "moduleUuids": [
+    "562d06f5-b4b8-408f-98b3-2d4de39e3792",
+    "fbd79c50-4150-460e-8d74-770eb1e0e2c0",
+    "86eef36b-03b6-4387-b74d-89bfd16ae60e",
+    "7ca0a0a2-fdeb-4b62-8b40-81cdff829f24"
+  ],
+  "modules": [
+    {
+      "index": "0",
+      "name": "Sine",
+      "typeUuid": "ca05aebd-ecaf-4d57-b0f6-c04ce81674c4",
+      "x": -4,
+      "y": -2,
+      "parameters": [
+        {
+          "name": "PITCH",
+          "value": 0
+        },
+        {
+          "name": "TIMBRE",
+          "value": 0.5
+        },
+        {
+          "name": "WRAP",
+          "value": 0
+        },
+        {
+          "name": "KEYTRACK",
+          "value": true
+        },
+        {
+          "name": "PITCH_MOD",
+          "value": 0
+        },
+        {
+          "name": "PHASE_MOD",
+          "value": 0
+        },
+        {
+          "name": "STEREO",
+          "value": false
+        },
+        {
+          "name": "RETRIGGER",
+          "value": false
+        },
+        {
+          "name": "DETUNE",
+          "value": 0
+        },
+        {
+          "name": "DENOMINATOR",
+          "value": 1
+        },
+        {
+          "name": "NUMERATOR",
+          "value": 1
+        },
+        {
+          "name": "BIPOLAR",
+          "value": true
+        }
+      ],
+      "ports": [
+        {
+          "name": "OUT",
+          "direction": "output"
+        },
+        {
+          "name": "PITCH_IN",
+          "direction": "input"
+        },
+        {
+          "name": "PHASE_IN",
+          "direction": "input"
+        },
+        {
+          "name": "GATE_IN",
+          "direction": "input"
+        }
+      ]
+    },
+    {
+      "index": "1",
+      "name": "Amplify",
+      "typeUuid": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2",
+      "x": -1,
+      "y": -2,
+      "parameters": [
+        {
+          "name": "VALUE",
+          "value": 0.6299605249474366
+        },
+        {
+          "name": "BIPOLAR",
+          "value": false
+        },
+        {
+          "name": "STEREOIZE",
+          "value": false
+        }
+      ],
+      "ports": [
+        {
+          "name": "OUT",
+          "direction": "output"
+        },
+        {
+          "name": "IN",
+          "direction": "input"
+        }
+      ]
+    },
+    {
+      "index": "2",
+      "name": "Audio Out",
+      "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6",
+      "x": 0,
+      "y": -2,
+      "parameters": [
+        {
+          "name": "AFFECT_VOICE_LIFETIME",
+          "value": false
+        },
+        {
+          "name": "SILENCE_THRESHOLD",
+          "value": -96
+        },
+        {
+          "name": "HOLD_TIME",
+          "value": 0.05
+        },
+        {
+          "name": "CLIP_MODE",
+          "value": 1
+        },
+        {
+          "name": "CLIP_LEVEL",
+          "value": 1
+        }
+      ],
+      "ports": [
+        {
+          "name": "IN",
+          "direction": "input"
+        }
+      ]
+    },
+    {
+      "index": "3",
+      "name": "Amplify",
+      "typeUuid": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2",
+      "x": -1,
+      "y": 0,
+      "parameters": [
+        {
+          "name": "VALUE",
+          "value": 0.8434326653017492
+        },
+        {
+          "name": "BIPOLAR",
+          "value": false
+        },
+        {
+          "name": "STEREOIZE",
+          "value": false
+        }
+      ],
+      "ports": [
+        {
+          "name": "OUT",
+          "direction": "output"
+        },
+        {
+          "name": "IN",
+          "direction": "input"
+        }
+      ]
+    }
+  ],
+  "cables": [
+    {
+      "sourceModule": "0",
+      "sourcePort": "OUT",
+      "destinationModule": "1",
+      "destinationPort": "IN"
+    },
+    {
+      "sourceModule": "1",
+      "sourcePort": "OUT",
+      "destinationModule": "2",
+      "destinationPort": "IN"
+    }
+  ]
+}

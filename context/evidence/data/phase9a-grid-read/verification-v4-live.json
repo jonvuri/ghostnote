@@ -1,0 +1,52 @@
+{
+  "build": {
+    "profile": "phase-8-probe-v1",
+    "methods": 113,
+    "methodsHash": "0bf393706e47e7ed",
+    "marker": "9a-grid-value-v4",
+    "operatorReplacementConfirmed": true,
+    "init": "2026-10-18T14:40:01.023Z",
+    "hello": "pass",
+    "helloLogSha256": "a01ff0d59f5c86d1aaf587642d352b5a7a76a4b87956e6f0fe88362db6913f73"
+  },
+  "live": {
+    "writes": 4,
+    "pairedReadbacks": "pass",
+    "ui": "50 to 60 to 50 observed; repeat 60 saved; post-reload 50 observed and saved",
+    "undo": "60 observed and fresh-read verified",
+    "redo": "50 fresh-read verified before repeated 60 write",
+    "editedPersistence": "pass",
+    "baselineReload": "pass; equals independent preset",
+    "outerIdentity": "equal to E276",
+    "selection": "unchanged in all drivers",
+    "epochs": "released",
+    "engine": "inactive; Audio Output Lost notice at entry and exit",
+    "dspAdoption": "not proved",
+    "project": {
+      "path": "/Users/jonvuri/Documents/Bitwig Studio/Projects/gn-grid-spike/gn-grid-spike.bwproject",
+      "bytes": 34128,
+      "sha256": "8073707c552a7cdde4e184429f638bb830e8acf0daa8381a333340fd1df90ba1"
+    },
+    "presetUnchanged": true,
+    "otherProject": "gn-scale-test unsaved at entry and exit; not modified or saved"
+  },
+  "offline": {
+    "extensionAndTypeScript": "unchanged since verification-v4.json; all prior checks passed",
+    "valueEvidence": "pass; four exact raw deltas, undo/redo, edited and baseline reload, outer identity",
+    "semanticTests": {
+      "passed": 9,
+      "failed": 0
+    },
+    "context": {
+      "documents": 633,
+      "result": "pass"
+    },
+    "diffCheck": "pass"
+  },
+  "descriptions": {
+    "version": 52,
+    "tools": 44,
+    "changed": false
+  },
+  "deployment": "research V4 remains loaded; normal not restored"
+}

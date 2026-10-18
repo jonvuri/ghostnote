@@ -1,0 +1,33 @@
+{
+  "extension": {
+    "command": "./gradlew build verifyExtensionArchives gridReadTest --offline",
+    "result": "pass",
+    "logSha256": "86b1b5d7eaee7018ce500217234b65089c8818787cc0a6acb9ece2cdb07e7c5d"
+  },
+  "brain": {
+    "typecheck": "pass",
+    "cohort": "wiremap.test.ts, adapter.test.ts, call-budget.test.ts",
+    "tests": 236,
+    "passed": 236,
+    "failed": 0,
+    "logSha256": "065c71a8587bd37807def83dfb46d402744326c198142f6dc203f5f50283e03b"
+  },
+  "context": {
+    "documents": 631,
+    "result": "pass"
+  },
+  "descriptions": {
+    "version": 52,
+    "tools": 44,
+    "changed": false
+  },
+  "live": {
+    "v2Hello": "pass",
+    "v2InitEpoch": "2026-10-18T14:01:10.940Z",
+    "v2SemanticGate": "failed: incomplete DSP traversal",
+    "v2HandlesReleased": true,
+    "selectionUnchanged": true,
+    "fixtureFilesUnchanged": true,
+    "v3": "not run; operator replacement pending"
+  }
+}

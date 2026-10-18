@@ -1,0 +1,400 @@
+{
+  "marker": "9a-grid-read-v1",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "operationId": "ea5e58f1-7954-4d2a-85e5-96e1098d923d",
+  "epoch": "1d0131b5-ba0a-49f9-b654-8e3c73f60488",
+  "runtimeClass": "com.bitwig.flt.document.core.master.device.S2E",
+  "className": "native_device",
+  "classId": 163,
+  "thread": "main",
+  "queueNanos": 79625,
+  "heapUsedBefore": 750780416,
+  "graph": {
+    "complete": true,
+    "scope": "serializer-descriptors; semantic Grid gate not yet proved",
+    "identityScope": "capture-local; no cross-reload identity",
+    "root": 0,
+    "nodes": [
+      {
+        "id": 0,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.S2E",
+        "className": "native_device",
+        "classId": 163,
+        "properties": [
+          {
+            "id": 6194,
+            "name": "settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 0,
+            "refs": []
+          },
+          {
+            "id": 15,
+            "name": "UUID",
+            "descriptorClass": "cYL",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.util.UUID",
+              "data": "e3aebd87-3e23-4de1-8d96-da410b00d77d"
+            }
+          },
+          {
+            "id": 825,
+            "name": "display_settings",
+            "descriptorClass": "cYD",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              1
+            ]
+          },
+          {
+            "id": 5466,
+            "name": "user_device_name",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": "Poly Grid"
+            }
+          },
+          {
+            "id": 407,
+            "name": "preset_to_serialize",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 0,
+            "refs": []
+          },
+          {
+            "id": 409,
+            "name": "preset_name",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": "gn-grid-spike-baseline"
+            }
+          },
+          {
+            "id": 410,
+            "name": "preset_category",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": ""
+            }
+          },
+          {
+            "id": 411,
+            "name": "preset_creator",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": "jrajav"
+            }
+          },
+          {
+            "id": 1364,
+            "name": "preset_keywords",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": ""
+            }
+          },
+          {
+            "id": 3744,
+            "name": "preset_category_filter",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": ""
+            }
+          },
+          {
+            "id": 3745,
+            "name": "preset_creator_filter",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": ""
+            }
+          },
+          {
+            "id": 6237,
+            "name": "preset_comment",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": ""
+            }
+          },
+          {
+            "id": 13649,
+            "name": "preset_revision",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "1"
+            }
+          },
+          {
+            "id": 6815,
+            "name": "is_frozen",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "id": 4991,
+            "name": "active",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": true
+            }
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "runtimeClass": "BtH",
+        "className": "device_display_settings",
+        "classId": 392,
+        "properties": [
+          {
+            "id": 813,
+            "name": "is_expanded",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": true
+            }
+          },
+          {
+            "id": 3618,
+            "name": "are_remote_controls_visible",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "id": 6827,
+            "name": "are_modulators_visible",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": true
+            }
+          },
+          {
+            "id": 932,
+            "name": "selected_child_chain_index",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "-1"
+            }
+          },
+          {
+            "id": 2985,
+            "name": "parameter_search_string",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": ""
+            }
+          },
+          {
+            "id": 2986,
+            "name": "show_only_automated_parameters",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "id": 2987,
+            "name": "parameter_list_column_count",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "1"
+            }
+          },
+          {
+            "id": 5006,
+            "name": "plugin_device_view_mode",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "WRX",
+              "data": "PARAMETERS"
+            }
+          },
+          {
+            "id": 5922,
+            "name": "selected_modulation_tab",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "0"
+            }
+          },
+          {
+            "id": 9678,
+            "name": "is_device_window_pinned",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "id": 7412,
+            "name": "is_device_window_position_known",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "id": 7413,
+            "name": "device_window_x",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "0"
+            }
+          },
+          {
+            "id": 7414,
+            "name": "device_window_y",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "0"
+            }
+          },
+          {
+            "id": 9666,
+            "name": "is_device_window_size_known",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "id": 7415,
+            "name": "device_window_width",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "0"
+            }
+          },
+          {
+            "id": 7416,
+            "name": "device_window_height",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "0"
+            }
+          },
+          {
+            "id": 9682,
+            "name": "has_device_window_been_undocked",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "id": 9687,
+            "name": "device_window_screen_index",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "-1"
+            }
+          }
+        ]
+      }
+    ],
+    "errors": [],
+    "errorCount": 0,
+    "work": 82,
+    "documentReadNanos": 768375,
+    "encodedBytes": 5259
+  },
+  "heapUsedAfter": 750780416,
+  "documentTaskNanos": 1049500,
+  "completionNanos": 22970708
+}

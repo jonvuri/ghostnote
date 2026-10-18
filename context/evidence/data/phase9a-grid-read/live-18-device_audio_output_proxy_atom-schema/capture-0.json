@@ -1,0 +1,88 @@
+{
+  "marker": "9a-grid-read-v3",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "operationId": "07c882a9-0e44-4b87-a2a8-c37cf0210dfd",
+  "epoch": "e0fd477c-b8ea-4ecf-b647-4697fe37d3b0",
+  "runtimeClass": "com.bitwig.flt.document.core.master.device.S2E",
+  "className": "native_device",
+  "classId": 163,
+  "thread": "main",
+  "queueNanos": 155959,
+  "heapUsedBefore": 576716800,
+  "schema": {
+    "className": "device_audio_output_proxy_atom",
+    "classId": 3335,
+    "runtimeClass": "com.bitwig.flt.document.core.master.device.euX",
+    "scope": "one-object schema and child headers; no scalar values or semantic gate",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 228,
+        "name": "in_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "audio_port",
+            "classId": 242,
+            "runtimeClass": "Kdl",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 229,
+        "name": "out_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 6194,
+        "name": "settings",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "component_settings",
+            "classId": 236,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 607,
+        "name": "channel_count",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 608,
+        "name": "oversampling",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 9817,
+        "name": "device_destination_ID",
+        "serializerIncluded": true,
+        "relationship": false
+      }
+    ],
+    "work": 202,
+    "complete": true
+  },
+  "queryWork": 202,
+  "heapUsedAfter": 576716800,
+  "documentTaskNanos": 578208,
+  "completionNanos": 22551625
+}

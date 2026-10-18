@@ -1,0 +1,11 @@
+{
+  "mode": "schema",
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "result": "ALL PASS",
+  "command": "npm run probe:hello",
+  "runtimeProfile": "phase-8-probe-v1",
+  "methods": 114,
+  "methodsHash": "9dc11c1f9958f4d8",
+  "gridReadProbe": "9a-grid-retarget-v6",
+  "initializedAt": "2026-10-18T15:40:26.010Z",
+  "deployedAt": "2026-10-18T15:31:52.281155Z",
+  "logSha256": "105525b251469d4f55b52ba7530ccb66e2f2c7344ec9907e1b4538aa8ea6e3ae"
+}

@@ -2,9 +2,9 @@
 title: Devices — type UUIDs, parameters and observables
 kind: capability
 state: active
-updated: 2026-10-09
+updated: 2026-10-19
 scope: device identification, parameter access and the observable surface
-evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E73, E254; D2, D46; reference/BitX
+evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E73, E254, E276, E277, E279, E280, E281; D2, D46; reference/BitX
 ---
 
 # Devices
@@ -13,9 +13,43 @@ evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E73, E254; D2, D46; reference/BitX
 > unknown, and cites its E-number or names its observer and date. Read the four
 > rules in [INDEX.md](INDEX.md) before you edit this page.
 
-A device has **no runtime identity**. It is identified by *type* through a UUID,
-and located by position within a chain. See [identity](identity.md) for what
-follows from that.
+The public controller API has no device-instance ID. It identifies device
+*types* through UUIDs and locates instances by chain position [K,
+[E16l](../experiments/e16l-object-identity-settled-properly-is-the-only-one-and-there-is-no.md)].
+See [identity](identity.md) for the public API limits.
+
+Exact-build reflection reads the internal graph of the E276 four-module Poly
+Grid fixture. It reads types, distinct module UUIDs, stored parameters, layout,
+and directed patch cables. Preset comparison, a manual value delta, other-device
+selection, and save/reload pass. Module UUIDs change on reload; the outer-device
+UUID stayed equal in this one test. This supersedes an unqualified claim that
+no internal instance identity can be read. It does not add a public identity
+contract [K,
+[E276](../experiments/e276-grid-semantic-read-and-value-probe.md)].
+
+V4 also changes one disconnected Amplify value from 50% to 60% and back.
+Four internal setter calls pass fresh paired reads. UI, host undo/redo, and
+edited-state save/reload pass. The final saved/reloaded baseline matches the
+preset. This supersedes the earlier unproved parameter-write status. Module
+creation, layout writes, and DSP adoption remain unproved.
+The engine was inactive. This is an exact-build research result, not a public
+tool [K, [E277](../experiments/e277-grid-value-write-readback-and-persistence.md)].
+
+V5 connects and disconnects the spare Amplify input. V6 replaces its source
+between Sine OUT and first Amplify OUT through one native setter call. Exact
+paired reads, UI, single undo/redo in both directions, edited-state reload,
+and baseline restoration pass. The original two edges and all other projected
+fields remain equal. The engine was inactive. This proves bounded document
+cable operations, not failure atomicity or general Grid authoring [K,
+[E279](../experiments/e279-grid-cable-connect-disconnect-and-persistence.md),
+[E280](../experiments/e280-grid-retarget-and-module-delete-probe.md)].
+
+V7 deletes the spare Amplify with no input cable, or with one from Sine OUT.
+Exact paired reads, UI, single undo/redo, and edited-state reload pass. The
+connected deletion removes the module and incoming cable together. The exact
+saved baseline is restored and reopened. Outgoing consumer cleanup, arbitrary
+module deletion, creation, and DSP adoption remain unproved [K,
+[E281](../experiments/e281-grid-module-delete-and-persistence.md)].
 
 ---
 

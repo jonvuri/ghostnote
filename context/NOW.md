@@ -2,7 +2,7 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-10-18
+updated: 2026-10-19
 phase: phase-9-overlap-investigation
 session: 9a-live-grid-editing-spike
 ---
@@ -17,12 +17,17 @@ has a verdict (no revise; the resident cache and `stable-v1` retire), and
 with the artifact inventory (101 entries). The main Phase 8 verdict is that
 Ghostnote behaved like an instrument.
 
-Next: [9a — Live Grid editing spike](plan/phase-9/9a-live-grid-editing-spike.md).
-Start with a bounded device graph read, using openwig's internal descriptor
-reader as a source. If identity and readback pass, investigate live module
-and cable CRUD. No live experiment has run for 9a. The
-[new Phase 9](plan/phase-9/README.md) remains provisional while the overlap
-investigation continues; its wider scope is not selected.
+[9a — Live Grid editing spike](plan/phase-9/9a-live-grid-editing-spike.md)
+continues. [E281](evidence/experiments/e281-grid-module-delete-and-persistence.md)
+proves native deletion of the spare Amplify, with or without an incoming
+cable, exact readback, one-step undo/redo, and edited-state reload. The exact
+baseline project bytes are restored and reopened. E277 proves parameter
+editing; E279/E280 prove cable connect, disconnect, and retarget.
+Next: the plan's bounded module factory lifecycle probe. E281 traces template
+copying, initialization, and disposal. Complete its failure-path design before
+implementation; no factory or attachment call has run. V7 remains loaded,
+with no replacement pending. Reacquire module UUIDs after reload. Wider
+[Phase 9](plan/phase-9/README.md) scope remains unselected.
 
 The former Phase 9 is now [Phase 10](plan/phase-10/README.md): publication
 plans 10a/10b, the release and upgrade suite 10c, and the `stable-v1` retirement
@@ -54,20 +59,50 @@ Live material to preserve, until the operator says otherwise:
 Check current state and selection before any live work. Claims belong to
 one server session and do not survive a new thread or resume.
 
-## Last live baseline (8i15 build; hello 2026-10-16)
+## Current deployment and fixture (2026-10-19)
 
-The deployed normal `ghostnote` archive is the 8i15 build: SHA-256
+The deployed archive is V7: `phase-8-probe-v1`, 115 methods,
+`252339a249e3a8ae`, marker `gridReadProbe: 9a-grid-delete-v7`. The
+[deployment record](evidence/data/phase9a-grid-retarget/deployment-v7.json)
+records its hash and deployment time. Operator replacement and hello passed
+in E281, with fresh initialization at `2026-10-18T15:59:11.505Z`. The normal
+profile has not been restored. No V8 archive has been built.
+
+Last observed in E281: `gn-grid-spike` is open at its restored and reloaded
+baseline, with no unsaved marker. Track `grid-probe` (`c784d25c…`) is muted at
+-10 dB and armed. Transport is stopped. The engine is inactive. Preserve its
+four modules and two cables: Sine -> Amplify 25% -> Audio Out, with a separate
+Amplify 50% below. Keep the outer modulators. The Grid editor is open.
+Project path:
+`/Users/jonvuri/Documents/Bitwig Studio/Projects/gn-grid-spike/gn-grid-spike.bwproject`.
+Preset path:
+`/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset`.
+E281 records the captures and measurements. All four deletion writes passed.
+The saved deletion survived reload. The fixture was then closed, restored
+from the verified backup, and reopened. Fresh reads match the unchanged
+preset and the prior outer identity. All epochs were released. Final project
+SHA-256: `af24056e72e9722eacaa80bf01daa02e7fba0c72103f7fd1655f689448da1b4f`.
+The verified backup remains `/tmp/gn-grid-spike-e280-baseline.bwproject`.
+Check its hash before a later destructive test.
+
+At entry, `gn-scale-test` had 12 tracks and 10 scenes, with the existing
+`Poly Grid` track at index 9 (`a61f595f…`). Preserve this track. This is not
+the former 11-track E234 baseline. Its open tab has unsaved changes; this
+session did not save or modify it.
+
+## Previous normal baseline (8i15 build)
+
+The previous normal `ghostnote` archive is the 8i15 build: SHA-256
 `8f7f6c895cb7e11e4ea654b4fccbc8d52df439d3aadebae47b6174d3a91c6928`, 92
 methods, `8be1975eaa99d78f`, `fineSteps` 4,194,304, and the `rig.info`
 markers `clipCopy: copy-to-slot-v1`, `selectionEffects: mixer-restore-v1`,
 `trackMixer: track-mixer-raw-v1`, `clipMetadataWrite: owned-fields-v1`,
-and `cursorTrackPins.rule: owned-tracks-pinned-v1`. The probe build has 111
-methods, `9b339de4e9bb08da` (it keeps `slot.duplicateClip`). `probe:hello`
-passed on 2026-10-16 (E272). `gn-scale-test` is at its E234 baseline with
-10 scenes and mixer `gn-sel` selected; `selection.status` can report a slot
-of a deleted scratch track (issue D11). Descriptions are v52 (44 tools);
+and `cursorTrackPins.rule: owned-tracks-pinned-v1`. The prior probe build had
+111 methods, `9b339de4e9bb08da`. `probe:hello` passed on 2026-10-16 (E272)
+and at 9a entry. `selection.status` can report a slot of a deleted scratch
+track (issue D11). Descriptions are v52 (44 tools);
 no live project changed in 8i16 and 8i18 to 8i20 or in the close-out. The
-next free evidence number is E273; the next decision is D52; the next
+next free evidence number is E282; the next decision is D52; the next
 issue row is D17. The live drivers accept 8i15 (`NORMAL_8I15`,
 `assertCurrentNormal`); see E263 and E264 for their commands and cleanup.
 

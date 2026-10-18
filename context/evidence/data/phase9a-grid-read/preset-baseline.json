@@ -1,0 +1,235 @@
+{
+  "path": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+  "bytes": 10451,
+  "sha256": "1e8f90fc3875dbeb1f38ed88bec59ee783f39bb00fb366194c79504e063c0cc9",
+  "byteRoundTrip": true,
+  "scope": "saved preset; no live graph claim",
+  "modules": [
+    {
+      "index": "0",
+      "name": "Sine",
+      "typeUuid": "ca05aebd-ecaf-4d57-b0f6-c04ce81674c4",
+      "x": -4,
+      "y": -2,
+      "parameters": [
+        {
+          "name": "PITCH",
+          "classId": 133,
+          "domain": "stored; display conversion unclassified",
+          "value": 0.0
+        },
+        {
+          "name": "TIMBRE",
+          "classId": 133,
+          "domain": "stored; display conversion unclassified",
+          "value": 0.5
+        },
+        {
+          "name": "PITCH_IN",
+          "classId": 2018,
+          "domain": "stored; display conversion unclassified",
+          "value": null
+        },
+        {
+          "name": "PHASE_IN",
+          "classId": 2018,
+          "domain": "stored; display conversion unclassified",
+          "value": null
+        },
+        {
+          "name": "GATE_IN",
+          "classId": 2018,
+          "domain": "stored; display conversion unclassified",
+          "value": null
+        },
+        {
+          "name": "WRAP",
+          "classId": 133,
+          "domain": "stored; display conversion unclassified",
+          "value": 0.0
+        },
+        {
+          "name": "KEYTRACK",
+          "classId": 127,
+          "domain": "stored; display conversion unclassified",
+          "value": true
+        },
+        {
+          "name": "PITCH_MOD",
+          "classId": 133,
+          "domain": "stored; display conversion unclassified",
+          "value": 0.0
+        },
+        {
+          "name": "PHASE_MOD",
+          "classId": 133,
+          "domain": "stored; display conversion unclassified",
+          "value": 0.0
+        },
+        {
+          "name": "STEREO",
+          "classId": 127,
+          "domain": "stored; display conversion unclassified",
+          "value": false
+        },
+        {
+          "name": "RETRIGGER",
+          "classId": 127,
+          "domain": "stored; display conversion unclassified",
+          "value": false
+        },
+        {
+          "name": "DETUNE",
+          "classId": 133,
+          "domain": "stored; display conversion unclassified",
+          "value": 0.0
+        },
+        {
+          "name": "DENOMINATOR",
+          "classId": 393,
+          "domain": "stored; display conversion unclassified",
+          "value": 1
+        },
+        {
+          "name": "NUMERATOR",
+          "classId": 393,
+          "domain": "stored; display conversion unclassified",
+          "value": 1
+        },
+        {
+          "name": "BIPOLAR",
+          "classId": 127,
+          "domain": "stored; display conversion unclassified",
+          "value": true
+        }
+      ]
+    },
+    {
+      "index": "1",
+      "name": "Amplify",
+      "typeUuid": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2",
+      "x": -1,
+      "y": -2,
+      "parameters": [
+        {
+          "name": "VALUE",
+          "classId": 133,
+          "domain": "stored; display conversion unclassified",
+          "value": 0.6299605249474366
+        },
+        {
+          "name": "BIPOLAR",
+          "classId": 1755,
+          "domain": "stored; display conversion unclassified",
+          "value": false
+        },
+        {
+          "name": "IN",
+          "classId": 2018,
+          "domain": "stored; display conversion unclassified",
+          "value": null
+        },
+        {
+          "name": "STEREOIZE",
+          "classId": 127,
+          "domain": "stored; display conversion unclassified",
+          "value": false
+        }
+      ]
+    },
+    {
+      "index": "2",
+      "name": "Audio Out",
+      "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6",
+      "x": 0,
+      "y": -2,
+      "parameters": [
+        {
+          "name": "IN",
+          "classId": 2018,
+          "domain": "stored; display conversion unclassified",
+          "value": null
+        },
+        {
+          "name": "AFFECT_VOICE_LIFETIME",
+          "classId": 127,
+          "domain": "stored; display conversion unclassified",
+          "value": false
+        },
+        {
+          "name": "SILENCE_THRESHOLD",
+          "classId": 133,
+          "domain": "stored; display conversion unclassified",
+          "value": -96.0
+        },
+        {
+          "name": "HOLD_TIME",
+          "classId": 133,
+          "domain": "stored; display conversion unclassified",
+          "value": 0.05
+        },
+        {
+          "name": "CLIP_MODE",
+          "classId": 247,
+          "domain": "stored; display conversion unclassified",
+          "value": 1
+        },
+        {
+          "name": "CLIP_LEVEL",
+          "classId": 247,
+          "domain": "stored; display conversion unclassified",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "index": "3",
+      "name": "Amplify",
+      "typeUuid": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2",
+      "x": -1,
+      "y": 0,
+      "parameters": [
+        {
+          "name": "VALUE",
+          "classId": 133,
+          "domain": "stored; display conversion unclassified",
+          "value": 0.7937005259840998
+        },
+        {
+          "name": "BIPOLAR",
+          "classId": 1755,
+          "domain": "stored; display conversion unclassified",
+          "value": false
+        },
+        {
+          "name": "IN",
+          "classId": 2018,
+          "domain": "stored; display conversion unclassified",
+          "value": null
+        },
+        {
+          "name": "STEREOIZE",
+          "classId": 127,
+          "domain": "stored; display conversion unclassified",
+          "value": false
+        }
+      ]
+    }
+  ],
+  "cables": [
+    {
+      "sourceModule": "0",
+      "sourcePort": "OUT",
+      "destinationModule": "1",
+      "destinationPort": "IN",
+      "storedSource": "CONTENTS/MODULES/0/CONTENTS/OUT"
+    },
+    {
+      "sourceModule": "1",
+      "sourcePort": "OUT",
+      "destinationModule": "2",
+      "destinationPort": "IN",
+      "storedSource": "CONTENTS/MODULES/1/CONTENTS/OUT"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "mode": "schema",
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 7
+    },
+    {
+      "parentClass": "module_grid",
+      "propertyId": 6428,
+      "propertyName": "auxiliary_devices",
+      "index": 0
+    },
+    {
+      "parentClass": "module",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "module_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 13
+    }
+  ]
+}

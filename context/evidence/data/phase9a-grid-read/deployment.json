@@ -1,0 +1,11 @@
+{
+  "path": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension",
+  "sha256": "713c6cc79bab0e2981ecbc489833ea8993522f0dd1e8714200c0206767e188fa",
+  "bytes": 626506,
+  "deployedAt": "2026-10-18T13:34:08.787264+00:00",
+  "expectedProfile": "phase-8-probe-v1",
+  "expectedMethodCount": 112,
+  "expectedMethodsHash": "1632f304f2cdb820",
+  "expectedMarker": "9a-grid-read-v1",
+  "operatorReplacementConfirmed": false
+}

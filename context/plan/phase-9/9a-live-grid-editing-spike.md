@@ -1,9 +1,9 @@
 ---
 title: Phase 9a — Live Grid editing spike
 kind: plan
-state: planned
-status: Start with a bounded device graph read. Continue to guarded live edits if the read gate passes.
-updated: 2026-10-18
+state: active
+status: V7 deletion passes in E281. Continue with a bounded module factory lifecycle probe.
+updated: 2026-10-19
 parent: README.md
 ---
 
@@ -23,6 +23,78 @@ a reproducible probe, and evidence. A useful partial or negative result can
 close the session. Do not claim a product feature from one successful call.
 Do not turn the remaining overlap candidates into Phase 9 commitments.
 Musical generation remains the driving agent's responsibility.
+
+The first pass reached a checkpoint in
+[E277](../../evidence/experiments/e277-grid-value-write-readback-and-persistence.md).
+Read, parameter write, independent readback, UI, undo/redo, and edited-state
+save/reload pass on the four-module fixture. The operator selected continuation
+of 9a. This supersedes E277's session-close handoff, not its measured results.
+Historical evidence and the verified fixture remain unchanged.
+
+## Current continuation — module creation
+
+[E281](../../evidence/experiments/e281-grid-module-delete-and-persistence.md)
+passes isolated and connected spare-module deletion, exact paired readback,
+single undo/redo, and edited-state reload. The exact baseline project bytes
+are restored and reopened. V7 remains loaded; no replacement is pending.
+E277 proves parameter editing. E279/E280 prove cable connect, disconnect,
+and native source replacement. These are bounded document operations;
+engine adoption and general failure atomicity remain unproved.
+
+Keep the bounded reader, schema discovery, identity checks, and asynchronous
+failure handling. Reacquire module UUIDs after each reload. Do not repeat the
+broad DSP walk or completed V4–V7 sequences without a new reason. The exact
+baseline backup remains the recovery path for tests that save edited state.
+
+### Next: detached module factory lifecycle
+
+E281 traces `DbL.pvN(UUID)`, the `xQx` / `JtC` template copy, module
+initialization, and native disposal. Complete the failure-path design, then
+prepare a probe for one native Amplify type only. Do not attach it to the
+Grid in this first probe. Do not interpret a file-loader string as a type
+UUID. Do not mutate or clear the host's template cache.
+
+Admit only the exact four-module, two-cable fixture baseline with a fresh
+epoch and complete before capture. Use the host factory once. Check the
+returned runtime type, fresh module UUID, null parent, contents ownership,
+initialization state, native defaults, and bounded module/atom counts.
+Capture the detached result twice. Keep the live fixture capture separate.
+Dispose the returned detached object through the traced native lifecycle in
+a `finally` block. Verify disposal, then read the live Grid twice and require
+exact equality. A second independent call must yield a different module UUID
+with equal defaults. Compare its cost and verify that disposal did not damage
+the cached template. No object handle may survive the call.
+
+Before implementation, account for a factory that throws before returning,
+or a timeout during file I/O. No result handle exists for caller cleanup in
+the first case. Do not claim rollback, retry an uncertain factory, or dispose
+an unproved object. The reader's deadline cannot cancel native file parsing
+or monitor waits. Report uncertainty and stop that probe session. If the
+native lifecycle cannot be bounded enough for this fixture, record that
+specific limit before choosing another creation path.
+
+Cost model for the proposed probe: retain 18 sequential wire calls, five
+live-fixture captures, and one construction/disposal stage. Add two local
+captures of the detached Amplify, expected to have eight projected nodes.
+Typical and maximum admitted scope are one fixed type; there is no batch.
+Plan about 600 ms summed warm wire time plus 150 ms cursor settlement and
+16 MiB temporary heap. This exceeds V7's roughly 550 ms / 8 MiB plan because
+it copies and initializes new contents and performs native disposal. Cold
+file I/O and cache waits have no measured bound yet. Record first and repeat
+factory timings separately; do not label the first call cold without cache
+evidence. Keep the 4-second pre-operation deadline and 5-second response
+watchdog, with an explicit non-cancellation limit. Measure heap samples and
+state that they are not peak or retained heap. Revise this model before code
+if the lifecycle design requires more calls or stages.
+
+Acceptance: exact live-fixture preservation, independent detached reads,
+distinct new identities, equal repeated native defaults, verified ownership
+and disposal, no retained probe handle, measured costs, and explicit failure
+limits. This proves factory use only. After it passes, trace and test the
+host's collection insertion with one detached Amplify at a free position.
+That next stage needs its own cost model, parent/membership readback, UI,
+one-step undo/redo, edited reload, and final baseline restoration. Do not
+claim live creation from a detached factory result.
 
 ## Read first
 
@@ -46,8 +118,9 @@ Musical generation remains the driving agent's responsibility.
 
 ## Source map and established limits
 
-Use the pinned clones in `reference/`. Record HEAD and local changes before
-using them. Do not update a clone as part of reproducing the audit.
+Use the pinned clones in `reference/`. In this worktree, read them at
+`/Users/jonvuri/Development/ghostnote/reference` in the main checkout. Record
+HEAD and local changes before use. Do not update a clone during this audit.
 
 | Source | Relevant implementation | What it does not establish |
 | --- | --- | --- |
@@ -102,6 +175,15 @@ or destination for cable retargeting. Record the exact module types, port
 names, values, coordinates, and cables from the UI. Save its `.bwpreset` as an
 independent comparison fixture. Record the project and preset hashes.
 
+The saved E274 fixture is `gn-grid-spike`, with track `grid-probe` and one
+first-slot device named `Poly Grid`. Its patch is Sine -> Amplify 25% -> Audio
+Out, with a disconnected Amplify 50% below the first Amplify. It has four
+modules and two cables. Keep the default outer modulators. Mute the track and
+save both the project and device preset before capture. The preset is
+`gn-grid-spike-baseline.bwpreset` in
+`~/Documents/Bitwig Studio/Library/Presets/Poly Grid/`. E274 records its exact
+values, positions, ports, file paths, and hashes.
+
 Keep the initial probe to one Grid, at most 8 modules, and at most 12 cables.
 The final reduced CRUD cycle can use fewer. The largest admitted research
 fixture is 16 modules and 24 cables. Do not widen it until the smaller case
@@ -140,6 +222,14 @@ fresh initialization, and a deliberate spike build marker. Normal and probe
 deployment overwrite the same archive.
 
 ### 2. Prove a read before any internal write
+
+
+[E276](../../evidence/experiments/e276-grid-semantic-read-and-value-probe.md)
+passes this gate on the four-module fixture. The saved semantic projection
+accounts for all fixture values and directed patch cables. Module UUIDs change
+on project reload; reacquire them. This is not a complete serialized device.
+V4 passes the guarded parameter test in E277. The read gate alone does not
+prove commands or DSP adoption.
 
 Capture the selected Grid's bounded raw graph on the correct document thread.
 Return raw descriptor IDs, typed values, relationships, completeness status,
@@ -269,6 +359,18 @@ repeat runs and explain a regression above 20 percent. Add measured probe
 numbers to the ledger without replacing unrelated product baselines.
 
 ## Acceptance and handoff
+
+Measured gates through [E281](../../evidence/experiments/e281-grid-module-delete-and-persistence.md):
+
+| Gate | State |
+|---|---|
+| Exact environment, clone pins, and narrow bytecode path | Recorded |
+| Probe bounds, identity, incomplete reads, and asynchronous failures | Offline checks pass |
+| Research archive and deliberate marker | V7 replacement and hello pass; 115 methods. V7 remains loaded; no replacement is pending. |
+| Saved fixture and UI/preset comparison baseline | Recorded; four modules and two cables |
+| Complete semantic read, manual delta, selection change, save/reload | Passed on the four-module Poly Grid fixture; module UUIDs change on reload |
+| Commands, CRUD, engine adoption, recovery, and cleanup | Parameter write, bounded cable connect/disconnect/retarget, and spare-module deletion pass readback, UI, undo/redo, persistence, and cleanup. Deletion passes with an incoming cable. Module creation, layout writes, outgoing-consumer cleanup, and engine adoption remain unproved. |
+| Final operation verdict and normal-profile restoration | Module investigation continues; research profile remains deployed. No final 9a close verdict. |
 
 - The evidence records the exact environment, clone pins, fixture baseline,
   discovery method, commands, raw captures, and operation-by-operation verdict.

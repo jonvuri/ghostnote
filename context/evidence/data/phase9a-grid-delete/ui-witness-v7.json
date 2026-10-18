@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-19",
+  "source": "Direct computer-use observations; screenshots remain in the conversation",
+  "entry": "Four baseline modules, two original cables, Amplify 25% and 50%. Engine inactive. Fixture tab already starred after replacement.",
+  "observations": [
+    {
+      "stage": "live-73-delete-isolated",
+      "result": "Spare Amplify absent; original Sine -> Amplify 25% -> Audio Out stays. UI undo label is Delete Amplify."
+    },
+    {
+      "stages": [
+        "live-74-undo-isolated",
+        "live-75-redo-isolated"
+      ],
+      "actions": [
+        "Cmd+Z once",
+        "Cmd+Shift+Z once"
+      ],
+      "result": "Separate paired graph reads verify exact undo and redo states."
+    },
+    {
+      "stage": "live-76-delete-isolated-repeat",
+      "result": "One undo before the repeated driver. Its two before reads verify the exact baseline."
+    },
+    {
+      "stage": "live-77-connect",
+      "result": "One undo before cable setup. UI shows Sine OUT -> spare Amplify IN at 50%; spare output unused."
+    },
+    {
+      "stage": "live-78-delete-connected",
+      "result": "UI shows only the original three-module path. The spare module and incoming cable are absent."
+    },
+    {
+      "stages": [
+        "live-79-undo-connected",
+        "live-80-redo-connected"
+      ],
+      "actions": [
+        "Cmd+Z once",
+        "Cmd+Shift+Z once"
+      ],
+      "result": "Separate paired graph reads verify the module and cable together."
+    },
+    {
+      "stage": "live-81-delete-connected-repeat",
+      "result": "One undo before the repeated driver. Its two before reads verify the connected spare."
+    },
+    {
+      "stage": "live-82-saved-deletion",
+      "result": "Cmd+S. Fixture tab unstarred; three modules in Grid."
+    },
+    {
+      "stage": "live-83-reloaded-deletion",
+      "result": "Closed only fixture tab; reopened the exact saved project. Independent reads prove persistence. Track muted at -10 dB and armed; engine inactive."
+    },
+    {
+      "stage": "baseline-restore",
+      "result": "Closed fixture; screenshot shows only the pre-existing gn-scale-test tab. Restored verified backup bytes before reopening fixture."
+    },
+    {
+      "stages": [
+        "live-84-restored-baseline",
+        "live-86-read-repeat"
+      ],
+      "result": "Final expanded Grid shows Sine -> Amplify 25% -> Audio Out, with separate Amplify 50% disconnected. Fixture tab unstarred."
+    }
+  ],
+  "preserved": "No edit or save of gn-scale-test. No audio setting or engine change."
+}

@@ -241,3 +241,12 @@ tasks.register('clipReaderTest', JavaExec) {
 tasks.named('check') {
     dependsOn 'clipReaderTest'
 }
+
+tasks.register('gridReadTest', JavaExec) {
+    dependsOn harnessTestClasses
+    classpath = sourceSets.harnessTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.GridReadTest'
+    systemProperty 'gridFixtureBaseline', file('../context/evidence/data/phase9a-grid-read/live-28-after-reload/capture-0.json').absolutePath
+}
+
+tasks.named('check') { dependsOn 'gridReadTest' }

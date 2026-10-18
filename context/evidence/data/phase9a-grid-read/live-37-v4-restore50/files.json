@@ -1,0 +1,12 @@
+{
+  "project": {
+    "path": "/Users/jonvuri/Documents/Bitwig Studio/Projects/gn-grid-spike/gn-grid-spike.bwproject",
+    "bytes": 34128,
+    "sha256": "e29578746bf8498d32d67a87213189b9663c3e82fc24e59d06f24af479d396d6"
+  },
+  "preset": {
+    "path": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+    "bytes": 10451,
+    "sha256": "1e8f90fc3875dbeb1f38ed88bec59ee783f39bb00fb366194c79504e063c0cc9"
+  }
+}

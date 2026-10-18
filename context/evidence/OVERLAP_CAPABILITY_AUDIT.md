@@ -2,7 +2,7 @@
 title: Bitwig capability overlap source audit
 kind: note
 state: active
-updated: 2026-10-17
+updated: 2026-10-19
 ---
 
 # Bitwig capability overlap source audit
@@ -395,8 +395,17 @@ then modes, then scale-source ownership and remapping. [BP-route] [BP-model]
 
 ### P6 Grid patch authoring with modules and cables
 
-**Ghostnote:** Missing as a named capability. The previous exclusion does not
-remove it from this audit's candidates.
+**Ghostnote:** No named product capability. Research now proves semantic reads,
+guarded parameter writes, and bounded cable connect, disconnect, and native
+source replacement on a four-module Poly Grid fixture. Cable undo/redo and
+edited-state save/reload pass. E281 adds isolated and connected spare-module
+deletion, exact readback, undo/redo, and persistence. Module creation and DSP
+adoption remain unproved.
+See [E277](experiments/e277-grid-value-write-readback-and-persistence.md) and
+[E279](experiments/e279-grid-cable-connect-disconnect-and-persistence.md), and
+[E280](experiments/e280-grid-retarget-and-module-delete-probe.md), and
+[E281](experiments/e281-grid-module-delete-and-persistence.md).
+This does not establish general Grid authoring.
 
 **bwpreset:** This is its central feature, with typed ports, module instances,
 cables, remote pages, fragments, deletion/reindexing, and preserved unknown

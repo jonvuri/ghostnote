@@ -1,0 +1,46 @@
+{
+  "source": "Direct Bitwig screenshots and keyboard actions through cua_repl; screenshots remain in the conversation.",
+  "engine": "inactive throughout; no audio settings changed",
+  "transport": "stopped at 1.1.1.00",
+  "track": "grid-probe muted at -10 dB; armed at entry and exit",
+  "observations": [
+    {
+      "stage": "live-41-baseline",
+      "observed": "four modules, original two cables, 25% and 50% Amplify values; fixture tab already marked unsaved before any cable call"
+    },
+    {
+      "stage": "live-42-connect",
+      "observed": "visible Sine OUT cable to spare Amplify IN; original two cables remain; spare output disconnected"
+    },
+    {
+      "stage": "live-43-disconnect",
+      "observed": "test cable absent; original two cables and 25%/50% values remain"
+    },
+    {
+      "stage": "live-49-saved-connected",
+      "observed": "three cables visible; saved fixture tab has no unsaved marker; undo tooltip names Connect Signal Out to Audio Thru"
+    },
+    {
+      "stage": "live-53-final-reload",
+      "observed": "four modules, two original cables, 25%/50% values; spare input and output disconnected; saved fixture tab; gn-scale-test remains open with its prior unsaved marker"
+    }
+  ],
+  "undoRedo": [
+    {
+      "action": "Cmd+Z after disconnect",
+      "readback": "live-44-undo-disconnect"
+    },
+    {
+      "action": "Cmd+Shift+Z",
+      "readback": "live-45-redo-disconnect"
+    },
+    {
+      "action": "Cmd+Z after repeated connect",
+      "readback": "live-47-undo-connect"
+    },
+    {
+      "action": "Cmd+Shift+Z",
+      "readback": "live-48-redo-connect"
+    }
+  ]
+}

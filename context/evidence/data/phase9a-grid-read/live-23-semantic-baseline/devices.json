@@ -1,0 +1,14 @@
+{
+  "devices": [
+    {
+      "index": 0,
+      "name": "Poly Grid",
+      "enabled": true
+    }
+  ],
+  "count": 1,
+  "itemCount": 1,
+  "trackChannelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+  "trackPosition": 0,
+  "bankSize": 16
+}

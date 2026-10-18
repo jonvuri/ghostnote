@@ -2,7 +2,7 @@
 title: Ghostnote performance ledger
 kind: reference
 state: active
-updated: 2026-10-16
+updated: 2026-10-19
 parent: ../plan/phase-8/8h-cache-promotion-and-interface-simplification.md
 evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252, E253, E254, E256, E257, E258, E263, E264, E265, E267, E269, E271
 ---
@@ -281,6 +281,120 @@ planner: offline median 2.9 ms for 835 notes and 51.2 ms for 16,384 notes
 
 
 ## Limits
+
+9a research ([E274](../evidence/experiments/e274-grid-root-read-and-contents-bridge.md)):
+V1 reads only two outer-device nodes, not the Grid contents. Bind took
+81.573 ms; two captures took 47.393 and 48.148 ms, with 82 work units and about
+5.26 KiB per graph. Document tasks took 3.857 and 1.050 ms. Heap samples show
+zero change, not a peak or retained-heap bound. These numbers do not measure
+a complete four-module read. The trace has 16 wire calls, including entry,
+route settlement, bind, two captures, selection check, and release.
+
+[E275](../evidence/experiments/e275-grid-dsp-walk-and-scoped-discovery.md): V2
+reached 56 internal DSP nodes in 48.016 ms wire time, with 507 work units,
+43,086 graph bytes, and a 7.532 ms document task. Heap samples increased by
+2 MiB. The capture is incomplete. The larger document time reflects the larger
+scope; the failed walk was not repeated as a performance benchmark.
+
+V3 adds one-object schema reads and explicit property projections. It uses the
+same wire turns, with bounded local path scans and a final identity-route check.
+Navigation, schema/field scans, and projected visits share 4,096 work units;
+the final route check has a separate bounded path budget. No wire call or write
+stage is added to a successful capture. A returned incomplete graph adds one
+public selection read at exit for failure evidence. [E276](../evidence/experiments/e276-grid-semantic-read-and-value-probe.md)
+measures V3 on four modules and two cables: 53 nodes, 278 graph steps, 1,606
+shared query steps, and about 35.8 KiB per graph. Twelve semantic captures take
+43.599–50.752 ms on the wire; document tasks take 4.806–14.228 ms. The first
+projection is cold; later tasks take 4.806–8.983 ms. Heap samples change by
+0 or 2 MiB. These are not peak or retained-heap measurements. The full paired
+workflow uses 15 sequential wire calls. V2's incomplete read took 48.016 ms;
+wire cost is comparable despite the new semantic scope. Document-time variation
+is not a product regression; all per-call samples remain in the E276 data.
+
+[E277](../evidence/experiments/e277-grid-value-write-readback-and-persistence.md)
+measures V4: four guarded parameter writes take 44.019–47.623 ms each on the
+wire, with 2.306–11.910 ms document tasks. The first task is cold; the repeated
+50% to 60% task takes 2.306 ms. Twenty-eight semantic reads take
+39.680–52.089 ms wire time and 1.079–10.313 ms document time. Each graph has
+53 nodes and 35,827–35,828 bytes. Heap samples rise by 0 or 2 MiB; peak and
+retained heap remain unmeasured. The engine was inactive during this run.
+
+One write workflow has 18 wire calls: two before reads, one request with a
+fresh guard capture and mutation, two independent after reads, and entry,
+route, selection, and release calls. Summed wire time is 522.946–583.424 ms,
+plus 150 ms explicit driver settlement and client overhead. The primitive
+budget excludes that setup. No measured wire regression exceeds 20 percent
+against E276. All per-call samples remain in E277. The 16-module/24-cable
+fixture is unmeasured and can hit the 4,096-work cap. Product budgets do not
+change.
+
+[E278](../evidence/experiments/e278-grid-cable-probe-preparation.md) prepares
+V5 cable connect/disconnect on the same four-module fixture. The planned
+workflow keeps 18 wire calls and five core calls: two before reads, one fresh
+guard capture with one mutation, and two after reads. At the E277 rate, allow
+about 240 ms for the core calls and 550 ms summed wire time, plus 150 ms driver
+settlement. Cable validation adds local scalar and edge checks and two bounded
+atom paths. It adds no wire call. Plan up to 8 MiB temporary heap per capture;
+this is not a measurement. The largest admitted cable writer is also four
+modules, with only the spare input's Sine edge allowed. E279 measures this
+plan below. Product call budgets remain unchanged.
+
+[E279](../evidence/experiments/e279-grid-cable-connect-disconnect-and-persistence.md)
+measures four V5 cable writes at 45.601–46.406 ms wire and 4.388–11.801 ms
+document time. Repeated connect is 45.601/9.240 ms. Each 18-call workflow sums
+to 521.060–558.560 ms wire time, plus 150 ms explicit driver settlement. The
+first cold semantic read is 71.931 ms wire and 26.122 ms document time, 38%
+above E277's maximum wire read. All 35 later reads are 42.904–50.187 ms.
+The explicit timing repeat is 45.274/46.325 ms wire and 2.518/3.787 ms document.
+Extra cold work is consistent with a later host completion turn; its exact
+JVM cause is unprofiled. Keep this cold outlier as a limit. Graphs have 53 nodes,
+35,827–35,829 bytes, 278/279 graph steps, and 1,606/1,607 query steps. Heap
+samples rise 0 or 2 MiB. The engine is inactive; no peak-heap or sounding claim.
+
+[E280](../evidence/experiments/e280-grid-retarget-and-module-delete-probe.md)
+measures three V6 retargets at 44.320–47.627 ms wire and 2.511–8.173 ms
+on the document thread. The matched forward repeat is 44.320/7.601 ms.
+The five-write sequence uses 18 calls per workflow, with 512.966–575.496 ms
+summed wire time plus 150 ms explicit settlement. Forty reads take
+43.048–50.489 ms wire and 1.030–7.521 ms document time. No wire regression
+exceeds 20% against V5. The first cold write takes 15.415 ms document time,
+31% above V5's maximum. V6 adds one bounded source path; the share of cold
+class/JVM work is unprofiled. The repeated retarget stays below V5's maximum.
+Retain the cold cost as a limit, without assigning an unproved cause.
+Graphs remain 53 nodes, 35,827–35,830 bytes, 278/279 graph work, and
+1,606/1,607 query work. Heap samples rise 0–2 MiB for reads and 2–4 MiB for
+commands; V5 commands sampled 2 MiB. Peak and retained heap remain unmeasured.
+The engine was inactive. Product budgets do not change.
+
+[E281](../evidence/experiments/e281-grid-module-delete-and-persistence.md)
+measures four V7 module deletions. The first isolated call takes 70.793 ms
+wire / 28.300 ms document; its repeat takes 48.489 / 14.844 ms. Connected
+deletion takes 43.753 / 9.274 ms and repeats at 47.189 / 10.309 ms. Each
+write workflow retains 18 calls and five captures. The five workflows,
+including cable setup, sum to 541.234–604.460 ms wire plus 150 ms settlement,
+against a 550 ms plan. The first delete exceeds V6's write maxima by 49%
+wire and 84% document. Native removal and reference cleanup differ from a
+cable setter; the share of cold JVM work is unprofiled. Both matched repeats
+are below V6's document maximum and within 2% of its wire maximum.
+
+The 38 reads take 45.806–89.029 ms wire and 0.951–6.109 ms document time.
+The first delete's first after read has 50.456 ms queue wait and accounts for
+the 76% wire increase over V6's read maximum. The isolated delete repeat and
+final reads do not reproduce it. Final reads take 48.081/48.405 ms with about
+0.12 ms queue wait. Retain the first-delete and queue outliers as limits.
+The 53-to-45-node delta has 30,217–35,829 graph bytes, 235–279 graph steps,
+and 1,379–1,607 query steps. Delete heap samples rise 4 MiB against the 8 MiB
+plan; reads sample 0–2 MiB. Peak/retained heap and DSP adoption are unproved.
+Product budgets do not change. The exact saved baseline is restored.
+
+The next factory probe's pre-implementation model is in
+[9a](../plan/phase-9/9a-live-grid-editing-spike.md): 18 wire calls, five fixture
+captures, two detached-module captures, and one construction/disposal stage.
+Plan about 600 ms warm wire plus 150 ms settlement and 16 MiB temporary heap
+for one fixed Amplify type. Native template copying, initialization, and
+disposal explain the increase over V7's plan. Cold file I/O/cache waits are
+unmeasured and cannot be cancelled by the reader deadline. Complete the
+failure-path design before code. No factory timing or V8 build exists yet.
 
 8i3 review rerun (E252): Polysynth 44 controls 9,481 ms; Diva 64 controls
 13,912 ms; staged 5×1 / 3×2 / 2×3 compositions 20,975 / 23,642 / 23,278 ms,

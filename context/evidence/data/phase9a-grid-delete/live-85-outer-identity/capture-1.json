@@ -1,0 +1,61 @@
+{
+  "marker": "9a-grid-delete-v7",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "operationId": "fbb43426-5461-49d5-b8f9-aab44e45a1d5",
+  "epoch": "898aa4e5-f1ad-4658-b3e4-b153f227db61",
+  "runtimeClass": "com.bitwig.flt.document.core.master.device.S2E",
+  "className": "native_device",
+  "classId": 163,
+  "thread": "main",
+  "queueNanos": 77375,
+  "heapUsedBefore": 662700032,
+  "graph": {
+    "complete": true,
+    "scope": "explicit property projection; semantic Grid gate not yet proved",
+    "identityScope": "capture-local; no cross-reload identity",
+    "root": 0,
+    "nodes": [
+      {
+        "id": 0,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.S2E",
+        "className": "native_device",
+        "classId": 163,
+        "properties": [
+          {
+            "inclusion": "explicit-projection",
+            "id": 15,
+            "name": "UUID",
+            "descriptorClass": "cYL",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.util.UUID",
+              "data": "e3aebd87-3e23-4de1-8d96-da410b00d77d"
+            }
+          },
+          {
+            "inclusion": "explicit-projection",
+            "id": 404,
+            "name": "device_name",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": "Poly Grid"
+            }
+          }
+        ]
+      }
+    ],
+    "errors": [],
+    "errorCount": 0,
+    "work": 3,
+    "documentReadNanos": 190166,
+    "encodedBytes": 755
+  },
+  "queryWork": 60,
+  "heapUsedAfter": 662700032,
+  "documentTaskNanos": 626500,
+  "completionNanos": 23204750
+}

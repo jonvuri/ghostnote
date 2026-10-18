@@ -1,0 +1,12 @@
+{
+  "archive": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension",
+  "bytes": 654936,
+  "sha256": "ae519c2c72bbc9af3695ab178f88b37606f92bbfda68e4b9985988959297eacb",
+  "deployedAt": "2026-10-18T15:54:21.027286+00:00",
+  "runtimeProfile": "phase-8-probe-v1",
+  "methodCount": 115,
+  "methodsHash": "252339a249e3a8ae",
+  "marker": "9a-grid-delete-v7",
+  "operatorReplacement": "pending",
+  "liveCalls": "none"
+}

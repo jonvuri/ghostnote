@@ -104,6 +104,8 @@ export interface Golden {
   addedInPhase8i8?: string[];
   /** Phase 8i14 product clip copy to a named slot (E263). */
   addedInPhase8i14?: string[];
+  /** Phase 9a descriptor reads and guarded fixture value, cable, and module writes. Research only. */
+  addedInPhase9a?: string[];
   /** D03 internal plug-in preset file and popup-browser probe surface. */
   addedInD03?: string[];
   preSplitCount: number;

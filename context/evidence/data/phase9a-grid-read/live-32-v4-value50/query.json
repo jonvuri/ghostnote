@@ -1,0 +1,102 @@
+{
+  "mode": "value",
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 7
+    }
+  ],
+  "projection": {
+    "module_grid": [
+      6428
+    ],
+    "module": [
+      15,
+      404,
+      406,
+      6679,
+      6680,
+      6977
+    ],
+    "module_contents": [
+      6369,
+      6370,
+      173
+    ],
+    "audio_source_atom": [
+      3639,
+      3640
+    ],
+    "audio_destination_atom": [
+      7123,
+      7124,
+      7125,
+      7234
+    ],
+    "bipolar_toggleable_decimal_value_atom": [
+      701,
+      374,
+      712,
+      949,
+      6406
+    ],
+    "decimal_value_atom": [
+      701,
+      374,
+      712,
+      949
+    ],
+    "boolean_value_atom": [
+      701,
+      374,
+      210,
+      953
+    ],
+    "button_boolean_value_atom": [
+      701,
+      374,
+      210,
+      953
+    ],
+    "integer_value_atom": [
+      701,
+      374,
+      828,
+      957
+    ],
+    "indexed_value_atom": [
+      701,
+      374,
+      457,
+      955,
+      6928
+    ],
+    "boolean_panel_value": [
+      6387,
+      6386
+    ],
+    "nitro_atom": [
+      14
+    ],
+    "device_input_proxy_atom": [
+      9794
+    ],
+    "device_audio_output_proxy_atom": [
+      9817
+    ],
+    "audio_voice_sum_atom": [
+      14
+    ],
+    "polyphonic_observer_atom": [
+      14
+    ]
+  }
+}

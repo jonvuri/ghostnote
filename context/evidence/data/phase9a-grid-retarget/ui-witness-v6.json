@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-18",
+  "source": "Direct computer-use observations; screenshots are in the conversation",
+  "entry": "Expanded Grid editor. Four baseline modules; two cables. Amplify 25% and 50%. Engine inactive. Fixture tab already starred after replacement.",
+  "observations": [
+    {
+      "stage": "live-57-connect",
+      "result": "UI shows Sine OUT connected to spare Amplify IN; spare output unused."
+    },
+    {
+      "stage": "live-58-retarget-amplify",
+      "result": "UI shows first Amplify OUT connected to spare Amplify IN; original two edges remain."
+    },
+    {
+      "stages": [
+        "live-59-undo-retarget",
+        "live-60-redo-retarget",
+        "live-62-undo-reverse",
+        "live-63-redo-reverse"
+      ],
+      "actions": [
+        "Cmd+Z",
+        "Cmd+Shift+Z",
+        "Cmd+Z",
+        "Cmd+Shift+Z"
+      ],
+      "result": "One keyboard action per stage. AX state observed after each; separate paired graph reads verify each result."
+    },
+    {
+      "stage": "live-65-saved-retarget",
+      "result": "Cmd+S. Retargeted cable visible; fixture tab unstarred."
+    },
+    {
+      "stage": "live-66-reloaded-retarget",
+      "result": "Closed only fixture tab; reopened exact saved project through Open chooser. Independent reads prove persistent retarget."
+    },
+    {
+      "stage": "live-68-saved-baseline",
+      "result": "Cmd+S after guarded cable removal. Track muted at -10 dB and armed; engine inactive; fixture tab unstarred."
+    },
+    {
+      "stage": "live-69-final-reload",
+      "result": "Closed and reopened exact fixture. Expanded Grid shows Sine -> Amplify 25% -> Audio Out; spare Amplify 50% disconnected. No fixture star."
+    }
+  ],
+  "preserved": "gn-scale-test retained its existing unsaved marker. No save or edit of that project. No engine or audio settings changed."
+}

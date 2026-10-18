@@ -1,0 +1,56 @@
+{
+  "project": {
+    "path": "/Users/jonvuri/Documents/Bitwig Studio/Projects/gn-grid-spike/gn-grid-spike.bwproject",
+    "sha256": "fc489b3d3742654b076b877eace480c64aef4767ff98c8570490f91dd014282a",
+    "bytes": 33381
+  },
+  "preset": "preset-baseline.json",
+  "uiObserved": {
+    "project": "gn-grid-spike",
+    "track": "grid-probe",
+    "device": "Poly Grid",
+    "muted": true,
+    "trackVolumeDb": -10,
+    "audioEngineActive": false,
+    "transportPosition": "1.1.1.00",
+    "modules": [
+      {
+        "index": "0",
+        "name": "Sine",
+        "position": "upper left",
+        "pitchSemitones": 0,
+        "offsetHz": 0,
+        "ratio": "1:1"
+      },
+      {
+        "index": "1",
+        "name": "Amplify",
+        "position": "right of Sine",
+        "gainPercent": 25
+      },
+      {
+        "index": "2",
+        "name": "Audio Out",
+        "position": "right of Amplify 1"
+      },
+      {
+        "index": "3",
+        "name": "Amplify",
+        "position": "below Amplify 1",
+        "gainPercent": 50
+      }
+    ],
+    "cables": [
+      "Sine output -> Amplify 1 input",
+      "Amplify 1 output -> Audio Out input"
+    ],
+    "defaultOuterModulators": [
+      "Vibrato",
+      "Expressions"
+    ],
+    "savedAfterCapture": true,
+    "patchChangedByAgent": false,
+    "editorLeftOpen": true
+  },
+  "note": "Project tab had an unsaved marker before capture. The agent saved it after the read-only capture. live-01/files.json retains the prior project hash. Exact cell coordinates and stored port IDs come from the preset; UI confirms relative positions and directions."
+}

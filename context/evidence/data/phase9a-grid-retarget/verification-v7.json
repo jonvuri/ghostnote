@@ -1,0 +1,45 @@
+{
+  "liveV6": {
+    "hello": "pass",
+    "writes": 5,
+    "retargets": 3,
+    "pairedReadback": "pass",
+    "undoRedoBothDirections": "pass",
+    "editedReload": "pass",
+    "restoredReload": "pass",
+    "outerIdentity": "equal",
+    "engine": "inactive",
+    "evidenceVerifier": "pass"
+  },
+  "offlineV7": {
+    "gradleCheck": "pass",
+    "typecheck": "pass",
+    "wireTests": {
+      "passed": 55,
+      "initialFailures": "Two inventory tests detected a missing aggregate bucket entry; fixed and rerun."
+    },
+    "semanticTests": 9,
+    "v5EvidenceVerifier": "pass",
+    "v6EvidenceVerifier": "pass",
+    "contextCheck": {
+      "result": "pass",
+      "activeDocuments": 636
+    },
+    "diffCheck": "pass",
+    "deployment": "copyProbeExtension --offline passed",
+    "live": "pending operator replacement"
+  },
+  "publicSurface": {
+    "descriptionVersion": 52,
+    "toolCount": 44,
+    "descriptionChanges": "none",
+    "normalMethodCount": 92,
+    "normalMethodsHash": "8be1975eaa99d78f",
+    "productCallBudgets": "unchanged"
+  },
+  "probe": {
+    "methodCount": 115,
+    "methodsHash": "252339a249e3a8ae",
+    "marker": "9a-grid-delete-v7"
+  }
+}

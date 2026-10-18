@@ -1,0 +1,15 @@
+{
+  "marker": "9a-grid-delete-v7",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "operationId": "c447fc0b-4238-4036-a7a4-81d1640d1818",
+  "epoch": "e012d029-118f-4592-a15a-5c15db179349",
+  "runtimeClass": "com.bitwig.flt.document.core.master.device.S2E",
+  "className": "native_device",
+  "classId": 163,
+  "thread": "main",
+  "queueNanos": 88125,
+  "heapUsedBefore": 742391808,
+  "heapUsedAfter": 742391808,
+  "documentTaskNanos": 95750,
+  "completionNanos": 24230416
+}

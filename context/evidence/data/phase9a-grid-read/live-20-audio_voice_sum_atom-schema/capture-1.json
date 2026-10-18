@@ -1,0 +1,107 @@
+{
+  "marker": "9a-grid-read-v3",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "operationId": "54c7f42f-1aaa-4c99-a58c-f4c998b77bac",
+  "epoch": "5a88a00e-b5bf-4afc-806a-2e74675eea21",
+  "runtimeClass": "com.bitwig.flt.document.core.master.device.S2E",
+  "className": "native_device",
+  "classId": 163,
+  "thread": "main",
+  "queueNanos": 144750,
+  "heapUsedBefore": 591396864,
+  "schema": {
+    "className": "audio_voice_sum_atom",
+    "classId": 3469,
+    "runtimeClass": "Hki",
+    "scope": "one-object schema and child headers; no scalar values or semantic gate",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 228,
+        "name": "in_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "audio_port",
+            "classId": 242,
+            "runtimeClass": "Kdl",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 229,
+        "name": "out_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 4,
+        "children": [
+          {
+            "className": "audio_port",
+            "classId": 242,
+            "runtimeClass": "Kdl",
+            "index": 0
+          },
+          {
+            "className": "audio_port",
+            "classId": 242,
+            "runtimeClass": "Kdl",
+            "index": 1
+          },
+          {
+            "className": "audio_port",
+            "classId": 242,
+            "runtimeClass": "Kdl",
+            "index": 2
+          },
+          {
+            "className": "audio_port",
+            "classId": 242,
+            "runtimeClass": "Kdl",
+            "index": 3
+          }
+        ]
+      },
+      {
+        "id": 6194,
+        "name": "settings",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "component_settings",
+            "classId": 236,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 607,
+        "name": "channel_count",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 608,
+        "name": "oversampling",
+        "serializerIncluded": true,
+        "relationship": false
+      }
+    ],
+    "work": 205,
+    "complete": true
+  },
+  "queryWork": 205,
+  "heapUsedAfter": 591396864,
+  "documentTaskNanos": 437916,
+  "completionNanos": 24313125
+}

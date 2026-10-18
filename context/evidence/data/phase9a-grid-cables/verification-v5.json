@@ -1,0 +1,48 @@
+{
+  "extension": {
+    "gridReadTest": "pass",
+    "check": "pass",
+    "checkLogSha256": "53a98f08cee4743b0a8ca3314247617cd2a00e76ccd0018935a1f92bf9fb4204",
+    "deployment": "./gradlew copyProbeExtension --offline",
+    "deployLogSha256": "7c81c4ad4643a7b16e0bbe1c4777499d9d2141d354190fc7442863489adb8ec7"
+  },
+  "brain": {
+    "typecheck": "pass",
+    "cohort": "wiremap.test.ts, adapter.test.ts, call-budget.test.ts",
+    "initialTests": 236,
+    "initialPassed": 234,
+    "initialFailed": 2,
+    "initialLogSha256": "b30919657dd861821011ae1324666706a2a90150f1134a43e57639b7e1762538",
+    "correction": "Added probe.gridCable to the legacy addedInPhase0 aggregate. Its Phase9a bucket and main inventory were already present.",
+    "rerun": "wiremap.test.ts",
+    "rerunTests": 55,
+    "rerunPassed": 55,
+    "rerunFailed": 0,
+    "rerunLogSha256": "697b2454b5c0b41cf6f63dbab34f78729387e8cc046d8aeb15dfe480661b20cf",
+    "unchangedPassingTests": 181
+  },
+  "semantics": {
+    "command": "python3 -B -m unittest discover -s tools/grid-spike -p 'test_*.py'",
+    "tests": 9,
+    "result": "pass"
+  },
+  "descriptions": {
+    "version": 52,
+    "tools": 44,
+    "changed": false
+  },
+  "live": {
+    "callsThisPreparation": 0,
+    "operatorReplacement": "pending",
+    "helloV5": "not run",
+    "cableOperations": "not run",
+    "performance": "unmeasured",
+    "lastConfirmedLoadedBuild": "9a-grid-value-v4"
+  },
+  "context": {
+    "documents": 634,
+    "result": "pass",
+    "logSha256": "1db2cc594c035a58d9a1200ce46e5a33d176e2c5a10a2856a886bad23102ca15"
+  },
+  "diffCheck": "pass"
+}

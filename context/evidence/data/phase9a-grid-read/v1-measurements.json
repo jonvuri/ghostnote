@@ -1,0 +1,27 @@
+{
+  "semanticGate": "failed: no modules or cables",
+  "captures": [
+    {
+      "capture": 0,
+      "nodes": 2,
+      "work": 82,
+      "bytes": 5260,
+      "queueMs": 0.075584,
+      "documentReadMs": 2.692542,
+      "documentTaskMs": 3.85725,
+      "completionMs": 22.742875,
+      "heapDeltaBytes": 0
+    },
+    {
+      "capture": 1,
+      "nodes": 2,
+      "work": 82,
+      "bytes": 5259,
+      "queueMs": 0.079625,
+      "documentReadMs": 0.768375,
+      "documentTaskMs": 1.0495,
+      "completionMs": 22.970708,
+      "heapDeltaBytes": 0
+    }
+  ]
+}

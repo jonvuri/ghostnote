@@ -1,0 +1,15 @@
+{
+  "marker": "9a-grid-cable-v5",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "operationId": "c1eaccac-10a2-41fa-b008-e8cd6878951d",
+  "epoch": "f6b3f7de-e6bc-43db-8b38-147d85e20acf",
+  "runtimeClass": "com.bitwig.flt.document.core.master.device.S2E",
+  "className": "native_device",
+  "classId": 163,
+  "thread": "main",
+  "queueNanos": 114792,
+  "heapUsedBefore": 681574400,
+  "heapUsedAfter": 681574400,
+  "documentTaskNanos": 128250,
+  "completionNanos": 24896917
+}

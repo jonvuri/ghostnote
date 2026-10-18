@@ -1,0 +1,15 @@
+{
+  "note": "Read-only file hashes after V5 deployment. No current host-state claim.",
+  "files": [
+    {
+      "path": "/Users/jonvuri/Documents/Bitwig Studio/Projects/gn-grid-spike/gn-grid-spike.bwproject",
+      "bytes": 34128,
+      "sha256": "8073707c552a7cdde4e184429f638bb830e8acf0daa8381a333340fd1df90ba1"
+    },
+    {
+      "path": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+      "bytes": 10451,
+      "sha256": "1e8f90fc3875dbeb1f38ed88bec59ee783f39bb00fb366194c79504e063c0cc9"
+    }
+  ]
+}

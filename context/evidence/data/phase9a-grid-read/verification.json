@@ -1,0 +1,29 @@
+{
+  "extension": {
+    "command": "./gradlew build verifyExtensionArchives gridReadTest --offline",
+    "passed": true,
+    "clipReaderGroups": 20,
+    "gridReadHarness": "pass"
+  },
+  "brain": {
+    "typecheck": "pass",
+    "command": "node --import tsx --test src/adapters/live/wiremap.test.ts src/adapters/live/adapter.test.ts src/surface/call-budget.test.ts",
+    "tests": 236,
+    "passed": 236,
+    "failed": 0
+  },
+  "context": {
+    "command": "LANG=en_US.UTF-8 ruby context/check.rb",
+    "documents": 629,
+    "passed": true
+  },
+  "diffCheck": "pass",
+  "live": {
+    "entryNormalHello": "ALL PASS",
+    "postDeployHello": "not run; operator replacement pending",
+    "internalRead": "not attempted",
+    "internalWrite": "not attempted"
+  },
+  "descriptionVersion": "ghostnote-description-v52",
+  "descriptionChanged": false
+}

@@ -80,6 +80,10 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
     // 8h4e0 (E244): the display observer ID set and the callback log.
     'directparam.log',
     'directparam.observeDisplay',
+    'probe.gridRead',
+    'probe.gridValue',
+    'probe.gridCable',
+    'probe.gridModuleDelete',
     // 8i15 (E264): the product copies with slot.copyTo. Older probe drivers use this method for setup.
     'slot.duplicateClip',
     'stepdata.observer.enrich',
@@ -92,7 +96,7 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
   );
   assert.equal(normalGolden.count, 92);
   assert.equal(captureGolden.count, 97);
-  assert.equal(probeGolden.count, 111);
+  assert.equal(probeGolden.count, 115);
 });
 
 test('8b: historical host objects are absent from active Rig construction', () => {
@@ -196,7 +200,7 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
       ...(golden.addedInPhase8h1a ?? []), ...(golden.addedInPhase8h4a5 ?? []),
       ...(golden.addedInPhase8h4e0 ?? []), ...(golden.addedInPhase8h4e ?? []),
       ...(golden.addedInPhase8i7 ?? []), ...(golden.addedInPhase8i8 ?? []),
-      ...(golden.addedInPhase8i14 ?? [])];
+      ...(golden.addedInPhase8i14 ?? []), ...(golden.addedInPhase9a ?? [])];
   assert.deepEqual(
     [...golden.addedInPhase0].sort(),
     historical.filter((method) => golden.methods.includes(method)).sort(),

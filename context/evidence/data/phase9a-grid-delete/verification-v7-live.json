@@ -1,0 +1,44 @@
+{
+  "liveV7": {
+    "hello": "pass",
+    "deletions": 4,
+    "cableSetupWrites": 1,
+    "pairedReadback": "pass",
+    "isolatedAndConnectedUndoRedo": "pass",
+    "editedReload": "pass",
+    "exactBaselineBytesRestored": true,
+    "restoredReload": "pass",
+    "outerIdentity": "equal",
+    "selection": "unchanged",
+    "engine": "inactive",
+    "matchingTimingRepeats": "pass"
+  },
+  "offline": {
+    "semanticTests": 9,
+    "v4EvidenceVerifier": "pass",
+    "v5EvidenceVerifier": "pass",
+    "v6EvidenceVerifier": "pass",
+    "v7EvidenceVerifier": "pass",
+    "contextCheck": {
+      "result": "pass",
+      "activeDocuments": 637
+    },
+    "diffCheck": "pass",
+    "implementationChecks": "V7 implementation is unchanged; Gradle, TypeScript, and 55 wire tests passed in E280."
+  },
+  "publicSurface": {
+    "descriptionVersion": 52,
+    "toolCount": 44,
+    "descriptionChanges": "none",
+    "normalMethodCount": 92,
+    "normalMethodsHash": "8be1975eaa99d78f",
+    "productCallBudgets": "unchanged"
+  },
+  "deployment": {
+    "changed": false,
+    "loadedMarker": "9a-grid-delete-v7",
+    "methodCount": 115,
+    "methodsHash": "252339a249e3a8ae"
+  },
+  "factory": "source trace only; no invocation or V8 build"
+}

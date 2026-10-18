@@ -1,0 +1,51 @@
+{
+  "liveV5": {
+    "hello": "pass",
+    "init": "2026-10-18T15:20:56.867Z",
+    "helloLogSha256": "a4487dbcd5bc485679f531b9380b7e3c978510232639cdacc5cd3d8d353fe0d5",
+    "methodCount": 114,
+    "methodsHash": "9dc11c1f9958f4d8",
+    "marker": "9a-grid-cable-v5",
+    "writes": 4,
+    "connectDisconnect": "pass",
+    "undoRedoBothOperations": "pass",
+    "editedReload": "pass",
+    "baselineReload": "pass",
+    "outerIdentity": "equal to E277",
+    "engineAdoption": "not attempted; inactive engine",
+    "evidenceVerifier": "python3 -B tools/grid-spike/verify_cable_evidence.py",
+    "verifierResult": "pass"
+  },
+  "extensionV6": {
+    "command": "./gradlew check --offline",
+    "result": "pass",
+    "logSha256": "4217cf8d38d439324ce88baae60df0f29620ab6aab29eacf7e6107d326630437",
+    "deployment": "./gradlew copyProbeExtension --offline",
+    "deployLogSha256": "3c191de1ad5ae314b60a26a7b7d2de63c388830aa604b0db3c464048cbd76343",
+    "live": "not run; operator replacement pending"
+  },
+  "brain": {
+    "typecheck": "pass",
+    "typecheckLogSha256": "a2ba59eb1769a1138357f2c1ebb3ea1662bb72ce1692d99cc4c3ccaf7dabe308",
+    "wireTests": 55,
+    "wirePassed": 55,
+    "wireFailed": 0,
+    "wireLogSha256": "78244929ea7e66229c46312a170c62b7e9ca356a473fbddfb5cbc2e6bfcf87ea",
+    "productCallBudgets": "unchanged; E278 checks remain applicable"
+  },
+  "semantics": {
+    "tests": 9,
+    "result": "pass"
+  },
+  "descriptions": {
+    "version": 52,
+    "tools": 44,
+    "changed": false
+  },
+  "context": {
+    "documents": 635,
+    "result": "pass",
+    "logSha256": "84dfae67ba43944318e71144632404fefcc847774d4a28f31d5cd1393f1bbb9d"
+  },
+  "diffCheck": "pass"
+}

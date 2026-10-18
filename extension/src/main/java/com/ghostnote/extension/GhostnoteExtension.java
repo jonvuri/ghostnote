@@ -15,6 +15,7 @@ import com.ghostnote.extension.handlers.CursorHandlers;
 import com.ghostnote.extension.handlers.DeviceHandlers;
 import com.ghostnote.extension.handlers.ExecState;
 import com.ghostnote.extension.handlers.HandlerRegistry;
+import com.ghostnote.extension.handlers.GridProbeHandlers;
 import com.ghostnote.extension.handlers.NoteHandlers;
 import com.ghostnote.extension.handlers.NavigationHandlers;
 import com.ghostnote.extension.handlers.ObservationHandlers;
@@ -73,6 +74,7 @@ public class GhostnoteExtension extends ControllerExtension {
             new ParamHandlers(host, rig, state),
             new AppHandlers(host, rig, state),
             new ApiInventoryHandlers(host, rig, state),
+            new GridProbeHandlers(host, rig, state),
             new BranchHandlers(host, rig, state),
             new ShadowCacheHandlers(host, rig, state),
             new ObservationHandlers(host, rig, state, panel, panelError),

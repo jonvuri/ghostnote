@@ -1,0 +1,35 @@
+{
+  "extension": {
+    "command": "./gradlew build verifyExtensionArchives gridReadTest --offline",
+    "result": "pass",
+    "logSha256": "c666008d55ba603ebcdef3d8871c17c7e70c5d55e0022fbc97b8fbf0f5ae35df"
+  },
+  "brain": {
+    "typecheck": "pass",
+    "cohort": "wiremap.test.ts, adapter.test.ts, call-budget.test.ts",
+    "tests": 236,
+    "passed": 236,
+    "failed": 0,
+    "logSha256": "d71bbe4b2e192a873cf4eba07c53f2c3d33a4c61e0474c4cce8c279a89814c48"
+  },
+  "preset": {
+    "parse": "pass",
+    "byteRoundTrip": true,
+    "modules": 4,
+    "cables": 2
+  },
+  "context": {
+    "documents": 630,
+    "result": "pass"
+  },
+  "descriptions": {
+    "version": 52,
+    "tools": 44,
+    "changed": false
+  },
+  "live": {
+    "v1Hello": "pass",
+    "v1SemanticGate": "failed: modules and cables absent",
+    "v2": "not run; operator replacement pending"
+  }
+}

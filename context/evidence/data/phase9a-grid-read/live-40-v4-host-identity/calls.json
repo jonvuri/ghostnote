@@ -1,0 +1,81 @@
+{
+  "calls": [
+    {
+      "method": "contract.hello",
+      "ms": 18.526375,
+      "bytes": 155
+    },
+    {
+      "method": "rig.info",
+      "ms": 22.202958999999993,
+      "bytes": 1800
+    },
+    {
+      "method": "rig.stats",
+      "ms": 22.75425,
+      "bytes": 2497
+    },
+    {
+      "method": "host.info",
+      "ms": 22.383499999999998,
+      "bytes": 148
+    },
+    {
+      "method": "revision.get",
+      "ms": 22.766875,
+      "bytes": 2432
+    },
+    {
+      "method": "selection.status",
+      "ms": 23.082249999999988,
+      "bytes": 207
+    },
+    {
+      "method": "track.list",
+      "ms": 22.69479099999998,
+      "bytes": 381
+    },
+    {
+      "method": "cursor.pointTrack",
+      "ms": 20.286542000000026,
+      "bytes": 16
+    },
+    {
+      "method": "devcursor.status",
+      "ms": 22.89904100000001,
+      "bytes": 232
+    },
+    {
+      "method": "device.list",
+      "ms": 3.4565000000000055,
+      "bytes": 171
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 45.12412500000005,
+      "bytes": 456
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 43.57041699999996,
+      "bytes": 1236
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 45.83170899999993,
+      "bytes": 1236
+    },
+    {
+      "method": "selection.status",
+      "ms": 22.27354200000002,
+      "bytes": 207
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 21.872041999999965,
+      "bytes": 16
+    }
+  ],
+  "sequentialWireCalls": 15,
+  "note": "Async document and completion tasks add host scheduling beyond the wire-call count."
+}

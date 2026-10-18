@@ -1,0 +1,3083 @@
+{
+  "marker": "9a-grid-read-v2",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "operationId": "efb78e81-cc3d-4a84-9f0a-c623fe043da7",
+  "epoch": "630015b3-fd7a-48a6-ab00-ce8d42acc01c",
+  "runtimeClass": "com.bitwig.flt.document.core.master.device.S2E",
+  "className": "native_device",
+  "classId": 163,
+  "thread": "main",
+  "queueNanos": 60500,
+  "heapUsedBefore": 2080374784,
+  "graph": {
+    "complete": false,
+    "scope": "serializer-descriptors plus explicit root bridge; semantic Grid gate not yet proved",
+    "identityScope": "capture-local; no cross-reload identity",
+    "root": 0,
+    "nodes": [
+      {
+        "id": 0,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.S2E",
+        "className": "native_device",
+        "classId": 163,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 6194,
+            "name": "settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 0,
+            "refs": []
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 15,
+            "name": "UUID",
+            "descriptorClass": "cYL",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.util.UUID",
+              "data": "e3aebd87-3e23-4de1-8d96-da410b00d77d"
+            }
+          },
+          {
+            "inclusion": "explicit-root-bridge",
+            "id": 406,
+            "name": "device_contents",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              1
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.esS",
+        "className": "device_contents",
+        "classId": 151,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 6194,
+            "name": "settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 0,
+            "refs": []
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 173,
+            "name": "child_components",
+            "descriptorClass": "cYy",
+            "kind": "relationship",
+            "count": 49,
+            "refs": [
+              2,
+              21,
+              42
+            ]
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "runtimeClass": "c3U",
+        "className": "polyphonic_note_voice_atom",
+        "classId": 350,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 6194,
+            "name": "settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              3
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 607,
+            "name": "channel_count",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "JFK",
+              "data": "PARENT"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 608,
+            "name": "oversampling",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "aQT",
+              "data": "OS1X"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 16599,
+            "name": "note_priority",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "Qs",
+              "data": "LAST"
+            }
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+        "className": "component_settings",
+        "classId": 236,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 612,
+            "name": "desktop_settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              4
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 614,
+            "name": "inport_connections",
+            "descriptorClass": "cYy",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              5
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 615,
+            "name": "is_polyphonic",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": true
+            }
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.EeT",
+        "className": "desktop_settings",
+        "classId": 17,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 17,
+            "name": "x",
+            "descriptorClass": "cYo",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Long",
+              "data": "8"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 18,
+            "name": "y",
+            "descriptorClass": "cYo",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Long",
+              "data": "152"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 19,
+            "name": "color",
+            "descriptorClass": "cXX",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "v3K"
+            }
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Uqf",
+        "className": "inport_connection",
+        "classId": 105,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 248,
+            "name": "source_component",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              6
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 249,
+            "name": "outport_index",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "0"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 6443,
+            "name": "unconnected_value",
+            "descriptorClass": "cYc",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Double",
+              "data": 0
+            }
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "runtimeClass": "Aot",
+        "className": "note_delay_compensation_atom",
+        "classId": 1435,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 6194,
+            "name": "settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              7
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 607,
+            "name": "channel_count",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "JFK",
+              "data": "PARENT"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 608,
+            "name": "oversampling",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "aQT",
+              "data": "OS1X"
+            }
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+        "className": "component_settings",
+        "classId": 236,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 612,
+            "name": "desktop_settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              8
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 614,
+            "name": "inport_connections",
+            "descriptorClass": "cYy",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              9
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 615,
+            "name": "is_polyphonic",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.EeT",
+        "className": "desktop_settings",
+        "classId": 17,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 17,
+            "name": "x",
+            "descriptorClass": "cYo",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Long",
+              "data": "316"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 18,
+            "name": "y",
+            "descriptorClass": "cYo",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Long",
+              "data": "84"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 19,
+            "name": "color",
+            "descriptorClass": "cXX",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "v3K"
+            }
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Uqf",
+        "className": "inport_connection",
+        "classId": 105,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 248,
+            "name": "source_component",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              10
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 249,
+            "name": "outport_index",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "1"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 6443,
+            "name": "unconnected_value",
+            "descriptorClass": "cYc",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Double",
+              "data": 0
+            }
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.EiB",
+        "className": "nested_device_chain_slot",
+        "classId": 587,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 6194,
+            "name": "settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              11
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 836,
+            "name": "preset_identifier",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": "PRE_FX"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 2434,
+            "name": "suggest_note_input_devices",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": true
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 2435,
+            "name": "suggest_audio_input_devices",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 5768,
+            "name": "suggest_note_output_devices",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": true
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 5769,
+            "name": "suggest_audio_output_devices",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 1373,
+            "name": "show_mixer_as_subtrack",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 2076,
+            "name": "show_mixer_at_end_of_chain",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 1374,
+            "name": "subtrack_sends_count",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "0"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 2079,
+            "name": "has_volume_and_pan",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 2077,
+            "name": "has_mute",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 2220,
+            "name": "has_solo",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 9926,
+            "name": "has_note_led",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 10863,
+            "name": "chain_color",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "sZq",
+              "data": "DEFAULT"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 13583,
+            "name": "handle_pdc_separately",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 835,
+            "name": "name",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": "Note FX"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 2315,
+            "name": "tooltip_text",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": ""
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 2270,
+            "name": "must_have_device_chain",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": true
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 5361,
+            "name": "should_devices_in_slot_determine_device_type",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 12052,
+            "name": "sends_access_mode",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "BMW",
+              "data": "NO_SENDS"
+            }
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+        "className": "component_settings",
+        "classId": 236,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 612,
+            "name": "desktop_settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              12
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 614,
+            "name": "inport_connections",
+            "descriptorClass": "cYy",
+            "kind": "relationship",
+            "count": 2,
+            "refs": [
+              13,
+              17
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 615,
+            "name": "is_polyphonic",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.EeT",
+        "className": "desktop_settings",
+        "classId": 17,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 17,
+            "name": "x",
+            "descriptorClass": "cYo",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Long",
+              "data": "304"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 18,
+            "name": "y",
+            "descriptorClass": "cYo",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Long",
+              "data": "32"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 19,
+            "name": "color",
+            "descriptorClass": "cXX",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "v3K"
+            }
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Uqf",
+        "className": "inport_connection",
+        "classId": 105,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 248,
+            "name": "source_component",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              14
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 249,
+            "name": "outport_index",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "0"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 6443,
+            "name": "unconnected_value",
+            "descriptorClass": "cYc",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Double",
+              "data": 0
+            }
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.aqp",
+        "className": "proxy_in_port_component",
+        "classId": 154,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 6194,
+            "name": "settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              15
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 301,
+            "name": "port",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              16
+            ]
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+        "className": "component_settings",
+        "classId": 236,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 612,
+            "name": "desktop_settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              null
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 614,
+            "name": "inport_connections",
+            "descriptorClass": "cYy",
+            "kind": "relationship",
+            "count": 0,
+            "refs": []
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 615,
+            "name": "is_polyphonic",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          }
+        ]
+      },
+      {
+        "id": 16,
+        "runtimeClass": "Kdl",
+        "className": "audio_port",
+        "classId": 242,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 498,
+            "name": "name",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": ""
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 4741,
+            "name": "description",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": ""
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 499,
+            "name": "decorated_name",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": " Audio out (PARENT)"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 500,
+            "name": "is_inport",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 1384,
+            "name": "is_optional",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 7174,
+            "name": "exclude_from_graph",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 372,
+            "name": "channel_count",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "JFK",
+              "data": "STEREO"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 13324,
+            "name": "oversampling",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "aQT",
+              "data": "OS1X"
+            }
+          }
+        ]
+      },
+      {
+        "id": 17,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Uqf",
+        "className": "inport_connection",
+        "classId": 105,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 248,
+            "name": "source_component",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              18
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 249,
+            "name": "outport_index",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "0"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 6443,
+            "name": "unconnected_value",
+            "descriptorClass": "cYc",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Double",
+              "data": 0
+            }
+          }
+        ]
+      },
+      {
+        "id": 18,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.aqp",
+        "className": "proxy_in_port_component",
+        "classId": 154,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 6194,
+            "name": "settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              19
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 301,
+            "name": "port",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              20
+            ]
+          }
+        ]
+      },
+      {
+        "id": 19,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+        "className": "component_settings",
+        "classId": 236,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 612,
+            "name": "desktop_settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              null
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 614,
+            "name": "inport_connections",
+            "descriptorClass": "cYy",
+            "kind": "relationship",
+            "count": 0,
+            "refs": []
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 615,
+            "name": "is_polyphonic",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          }
+        ]
+      },
+      {
+        "id": 20,
+        "runtimeClass": "alY",
+        "className": "note_port",
+        "classId": 61,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 498,
+            "name": "name",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": ""
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 4741,
+            "name": "description",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": ""
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 499,
+            "name": "decorated_name",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": " Note out"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 500,
+            "name": "is_inport",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 1384,
+            "name": "is_optional",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 7174,
+            "name": "exclude_from_graph",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 13326,
+            "name": "oversampling",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "aQT",
+              "data": "OS1X"
+            }
+          }
+        ]
+      },
+      {
+        "id": 21,
+        "runtimeClass": "PAA",
+        "className": "audio_voice_combiner_atom",
+        "classId": 313,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 6194,
+            "name": "settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              22
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 607,
+            "name": "channel_count",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "JFK",
+              "data": "OCTA"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 608,
+            "name": "oversampling",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "aQT",
+              "data": "OS1X"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 7235,
+            "name": "gate_is_audio",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": true
+            }
+          }
+        ]
+      },
+      {
+        "id": 22,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+        "className": "component_settings",
+        "classId": 236,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 612,
+            "name": "desktop_settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              23
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 614,
+            "name": "inport_connections",
+            "descriptorClass": "cYy",
+            "kind": "relationship",
+            "count": 2,
+            "refs": [
+              24,
+              38
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 615,
+            "name": "is_polyphonic",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": true
+            }
+          }
+        ]
+      },
+      {
+        "id": 23,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.EeT",
+        "className": "desktop_settings",
+        "classId": 17,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 17,
+            "name": "x",
+            "descriptorClass": "cYo",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Long",
+              "data": "68"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 18,
+            "name": "y",
+            "descriptorClass": "cYo",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Long",
+              "data": "544"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 19,
+            "name": "color",
+            "descriptorClass": "cXX",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "v3K"
+            }
+          }
+        ]
+      },
+      {
+        "id": 24,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Uqf",
+        "className": "inport_connection",
+        "classId": 105,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 248,
+            "name": "source_component",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              25
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 249,
+            "name": "outport_index",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "0"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 6443,
+            "name": "unconnected_value",
+            "descriptorClass": "cYc",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Double",
+              "data": 0
+            }
+          }
+        ]
+      },
+      {
+        "id": 25,
+        "runtimeClass": "dkb",
+        "className": "nitro_atom",
+        "classId": 1721,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 6194,
+            "name": "settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              26
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 607,
+            "name": "channel_count",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "JFK",
+              "data": "PARENT"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 608,
+            "name": "oversampling",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "aQT",
+              "data": "OS1X"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 11357,
+            "name": "code_path",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": "grid/mix/grid_amp_and_pan.nitro"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 10421,
+            "name": "code_storage",
+            "descriptorClass": "cXU",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "[B",
+              "length": 0,
+              "data": []
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 14616,
+            "name": "is_code_storage_binary_ast",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 11360,
+            "name": "use_code_path",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": true
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 6567,
+            "name": "fft_order",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "hiw",
+              "data": "PARENT"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 9972,
+            "name": "nitro_properties",
+            "descriptorClass": "cYy",
+            "kind": "relationship",
+            "count": 0,
+            "refs": []
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 15756,
+            "name": "nitro_inputs",
+            "descriptorClass": "cYy",
+            "kind": "relationship",
+            "count": 3,
+            "refs": [
+              34,
+              35,
+              36
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 15757,
+            "name": "nitro_outputs",
+            "descriptorClass": "cYy",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              37
+            ]
+          }
+        ]
+      },
+      {
+        "id": 26,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+        "className": "component_settings",
+        "classId": 236,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 612,
+            "name": "desktop_settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              27
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 614,
+            "name": "inport_connections",
+            "descriptorClass": "cYy",
+            "kind": "relationship",
+            "count": 3,
+            "refs": [
+              28,
+              32,
+              33
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 615,
+            "name": "is_polyphonic",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": true
+            }
+          }
+        ]
+      },
+      {
+        "id": 27,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.EeT",
+        "className": "desktop_settings",
+        "classId": 17,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 17,
+            "name": "x",
+            "descriptorClass": "cYo",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Long",
+              "data": "68"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 18,
+            "name": "y",
+            "descriptorClass": "cYo",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Long",
+              "data": "464"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 19,
+            "name": "color",
+            "descriptorClass": "cXX",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "v3K"
+            }
+          }
+        ]
+      },
+      {
+        "id": 28,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Uqf",
+        "className": "inport_connection",
+        "classId": 105,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 248,
+            "name": "source_component",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              29
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 249,
+            "name": "outport_index",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "0"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 6443,
+            "name": "unconnected_value",
+            "descriptorClass": "cYc",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Double",
+              "data": 0
+            }
+          }
+        ]
+      },
+      {
+        "id": 29,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.DCg",
+        "className": "device_audio_output_collector_atom",
+        "classId": 3336,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 6194,
+            "name": "settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              30
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 607,
+            "name": "channel_count",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "JFK",
+              "data": "OCTA"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 608,
+            "name": "oversampling",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "aQT",
+              "data": "OS1X"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 9818,
+            "name": "destination_ID",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": "OUT"
+            }
+          }
+        ]
+      },
+      {
+        "id": 30,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+        "className": "component_settings",
+        "classId": 236,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 612,
+            "name": "desktop_settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              31
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 614,
+            "name": "inport_connections",
+            "descriptorClass": "cYy",
+            "kind": "relationship",
+            "count": 0,
+            "refs": []
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 615,
+            "name": "is_polyphonic",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": true
+            }
+          }
+        ]
+      },
+      {
+        "id": 31,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.EeT",
+        "className": "desktop_settings",
+        "classId": 17,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 17,
+            "name": "x",
+            "descriptorClass": "cYo",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Long",
+              "data": "68"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 18,
+            "name": "y",
+            "descriptorClass": "cYo",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Long",
+              "data": "428"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 19,
+            "name": "color",
+            "descriptorClass": "cXX",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "v3K"
+            }
+          }
+        ]
+      },
+      {
+        "id": 32,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Uqf",
+        "className": "inport_connection",
+        "classId": 105,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 248,
+            "name": "source_component",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              2
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 249,
+            "name": "outport_index",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "3"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 6443,
+            "name": "unconnected_value",
+            "descriptorClass": "cYc",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Double",
+              "data": 0
+            }
+          }
+        ]
+      },
+      {
+        "id": 33,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Uqf",
+        "className": "inport_connection",
+        "classId": 105,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 248,
+            "name": "source_component",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              2
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 249,
+            "name": "outport_index",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "4"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 6443,
+            "name": "unconnected_value",
+            "descriptorClass": "cYc",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Double",
+              "data": 0
+            }
+          }
+        ]
+      },
+      {
+        "id": 34,
+        "runtimeClass": "com.bitwig.nitro.EMf",
+        "className": "nitro_port_info",
+        "classId": 2428,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 8557,
+            "name": "name",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": "Input"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8558,
+            "name": "desc",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": ""
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8559,
+            "name": "channel_count",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "8"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8560,
+            "name": "index",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "0"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8561,
+            "name": "kind",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "cIh",
+              "data": "AUDIO"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8562,
+            "name": "is_input",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": true
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 10071,
+            "name": "is_double_precision",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8563,
+            "name": "is_compressed_mask",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "16777215"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8564,
+            "name": "is_compressable",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8565,
+            "name": "event_size",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "0"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8566,
+            "name": "event_type",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": ""
+            }
+          }
+        ]
+      },
+      {
+        "id": 35,
+        "runtimeClass": "com.bitwig.nitro.EMf",
+        "className": "nitro_port_info",
+        "classId": 2428,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 8557,
+            "name": "name",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": "Gain"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8558,
+            "name": "desc",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": ""
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8559,
+            "name": "channel_count",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "1"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8560,
+            "name": "index",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "1"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8561,
+            "name": "kind",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "cIh",
+              "data": "AUDIO"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8562,
+            "name": "is_input",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": true
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 10071,
+            "name": "is_double_precision",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8563,
+            "name": "is_compressed_mask",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "16777215"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8564,
+            "name": "is_compressable",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8565,
+            "name": "event_size",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "0"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8566,
+            "name": "event_type",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": ""
+            }
+          }
+        ]
+      },
+      {
+        "id": 36,
+        "runtimeClass": "com.bitwig.nitro.EMf",
+        "className": "nitro_port_info",
+        "classId": 2428,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 8557,
+            "name": "name",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": "Pan"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8558,
+            "name": "desc",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": ""
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8559,
+            "name": "channel_count",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "1"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8560,
+            "name": "index",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "2"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8561,
+            "name": "kind",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "cIh",
+              "data": "AUDIO"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8562,
+            "name": "is_input",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": true
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 10071,
+            "name": "is_double_precision",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8563,
+            "name": "is_compressed_mask",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "16777215"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8564,
+            "name": "is_compressable",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8565,
+            "name": "event_size",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "0"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8566,
+            "name": "event_type",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": ""
+            }
+          }
+        ]
+      },
+      {
+        "id": 37,
+        "runtimeClass": "com.bitwig.nitro.EMf",
+        "className": "nitro_port_info",
+        "classId": 2428,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 8557,
+            "name": "name",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": "Output"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8558,
+            "name": "desc",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": ""
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8559,
+            "name": "channel_count",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "8"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8560,
+            "name": "index",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "0"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8561,
+            "name": "kind",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "cIh",
+              "data": "AUDIO"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8562,
+            "name": "is_input",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 10071,
+            "name": "is_double_precision",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8563,
+            "name": "is_compressed_mask",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "16777215"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8564,
+            "name": "is_compressable",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8565,
+            "name": "event_size",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "0"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 8566,
+            "name": "event_type",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": ""
+            }
+          }
+        ]
+      },
+      {
+        "id": 38,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Uqf",
+        "className": "inport_connection",
+        "classId": 105,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 248,
+            "name": "source_component",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              39
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 249,
+            "name": "outport_index",
+            "descriptorClass": "cYm",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Integer",
+              "data": "0"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 6443,
+            "name": "unconnected_value",
+            "descriptorClass": "cYc",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Double",
+              "data": 0
+            }
+          }
+        ]
+      },
+      {
+        "id": 39,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.DCg",
+        "className": "device_audio_output_collector_atom",
+        "classId": 3336,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 6194,
+            "name": "settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              40
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 607,
+            "name": "channel_count",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "JFK",
+              "data": "SCALAR"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 608,
+            "name": "oversampling",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "aQT",
+              "data": "OS1X"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 9818,
+            "name": "destination_ID",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": "GATE_OUT"
+            }
+          }
+        ]
+      },
+      {
+        "id": 40,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+        "className": "component_settings",
+        "classId": 236,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 612,
+            "name": "desktop_settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              41
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 614,
+            "name": "inport_connections",
+            "descriptorClass": "cYy",
+            "kind": "relationship",
+            "count": 0,
+            "refs": []
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 615,
+            "name": "is_polyphonic",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": true
+            }
+          }
+        ]
+      },
+      {
+        "id": 41,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.EeT",
+        "className": "desktop_settings",
+        "classId": 17,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 17,
+            "name": "x",
+            "descriptorClass": "cYo",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Long",
+              "data": "224"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 18,
+            "name": "y",
+            "descriptorClass": "cYo",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Long",
+              "data": "428"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 19,
+            "name": "color",
+            "descriptorClass": "cXX",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "v3K"
+            }
+          }
+        ]
+      },
+      {
+        "id": 42,
+        "runtimeClass": "dkb",
+        "className": "nitro_atom",
+        "classId": 1721,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 6194,
+            "name": "settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              43
+            ]
+          }
+        ]
+      },
+      {
+        "id": 43,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+        "className": "component_settings",
+        "classId": 236,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 612,
+            "name": "desktop_settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              44
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 614,
+            "name": "inport_connections",
+            "descriptorClass": "cYy",
+            "kind": "relationship",
+            "count": 2,
+            "refs": [
+              45
+            ]
+          }
+        ]
+      },
+      {
+        "id": 44,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.EeT",
+        "className": "desktop_settings",
+        "classId": 17,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 17,
+            "name": "x",
+            "descriptorClass": "cYo",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Long",
+              "data": "12"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 18,
+            "name": "y",
+            "descriptorClass": "cYo",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Long",
+              "data": "758"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 19,
+            "name": "color",
+            "descriptorClass": "cXX",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "v3K"
+            }
+          }
+        ]
+      },
+      {
+        "id": 45,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Uqf",
+        "className": "inport_connection",
+        "classId": 105,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 248,
+            "name": "source_component",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              46
+            ]
+          }
+        ]
+      },
+      {
+        "id": 46,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.EiB",
+        "className": "nested_device_chain_slot",
+        "classId": 587,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 6194,
+            "name": "settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              47
+            ]
+          }
+        ]
+      },
+      {
+        "id": 47,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+        "className": "component_settings",
+        "classId": 236,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 612,
+            "name": "desktop_settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              48
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 614,
+            "name": "inport_connections",
+            "descriptorClass": "cYy",
+            "kind": "relationship",
+            "count": 2,
+            "refs": [
+              49
+            ]
+          }
+        ]
+      },
+      {
+        "id": 48,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.EeT",
+        "className": "desktop_settings",
+        "classId": 17,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 17,
+            "name": "x",
+            "descriptorClass": "cYo",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Long",
+              "data": "12"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 18,
+            "name": "y",
+            "descriptorClass": "cYo",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Long",
+              "data": "696"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 19,
+            "name": "color",
+            "descriptorClass": "cXX",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "v3K"
+            }
+          }
+        ]
+      },
+      {
+        "id": 49,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Uqf",
+        "className": "inport_connection",
+        "classId": 105,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 248,
+            "name": "source_component",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              50
+            ]
+          }
+        ]
+      },
+      {
+        "id": 50,
+        "runtimeClass": "YoM",
+        "className": "processing_delay_placeholder_component",
+        "classId": 1437,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 6194,
+            "name": "settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              51
+            ]
+          }
+        ]
+      },
+      {
+        "id": 51,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+        "className": "component_settings",
+        "classId": 236,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 612,
+            "name": "desktop_settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              52
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 614,
+            "name": "inport_connections",
+            "descriptorClass": "cYy",
+            "kind": "relationship",
+            "count": 2,
+            "refs": [
+              53
+            ]
+          }
+        ]
+      },
+      {
+        "id": 52,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.EeT",
+        "className": "desktop_settings",
+        "classId": 17,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 17,
+            "name": "x",
+            "descriptorClass": "cYo",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Long",
+              "data": "12"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 18,
+            "name": "y",
+            "descriptorClass": "cYo",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Long",
+              "data": "656"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 19,
+            "name": "color",
+            "descriptorClass": "cXX",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "v3K"
+            }
+          }
+        ]
+      },
+      {
+        "id": 53,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Uqf",
+        "className": "inport_connection",
+        "classId": 105,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 248,
+            "name": "source_component",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              54
+            ]
+          }
+        ]
+      },
+      {
+        "id": 54,
+        "runtimeClass": "dkb",
+        "className": "nitro_atom",
+        "classId": 1721,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 6194,
+            "name": "settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              55
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 607,
+            "name": "channel_count",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "JFK",
+              "data": "PARENT"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 608,
+            "name": "oversampling",
+            "descriptorClass": "cYd",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "aQT",
+              "data": "OS1X"
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 11357,
+            "name": "code_path",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": ""
+            }
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 10421,
+            "name": "code_storage",
+            "descriptorClass": "cXU",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "[B",
+              "length": 632,
+              "data": []
+            }
+          }
+        ]
+      },
+      {
+        "id": 55,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+        "className": "component_settings",
+        "classId": 236,
+        "properties": [
+          {
+            "inclusion": "serializer-filter",
+            "id": 612,
+            "name": "desktop_settings",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              null
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 614,
+            "name": "inport_connections",
+            "descriptorClass": "cYy",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              null
+            ]
+          },
+          {
+            "inclusion": "serializer-filter",
+            "id": 615,
+            "name": "is_polyphonic",
+            "descriptorClass": "cXT",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.Boolean",
+              "data": false
+            }
+          }
+        ]
+      }
+    ],
+    "errors": [
+      "unsupported-value:v3K",
+      "unsupported-value:v3K",
+      "unsupported-value:v3K",
+      "depth-limit",
+      "depth-limit",
+      "unsupported-value:v3K",
+      "unsupported-value:v3K",
+      "unsupported-value:v3K",
+      "unknown-binary-value",
+      "unsupported-value:v3K",
+      "unsupported-value:v3K",
+      "unsupported-value:v3K",
+      "unsupported-value:v3K",
+      "depth-limit",
+      "depth-limit",
+      "array-limit"
+    ],
+    "errorCount": 17,
+    "work": 507,
+    "documentReadNanos": 5653500,
+    "encodedBytes": 43086
+  },
+  "heapUsedAfter": 2082471936,
+  "documentTaskNanos": 7531584,
+  "completionNanos": 23055542
+}

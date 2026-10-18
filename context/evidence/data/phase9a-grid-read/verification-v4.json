@@ -1,0 +1,41 @@
+{
+  "extension": {
+    "command": "./gradlew check gridReadTest copyProbeExtension --offline",
+    "result": "pass",
+    "logSha256": "31c1c3c0ea1b33cdc66537b3180f84943b808aa655c8e7dfc4ff02e0c5b96c41"
+  },
+  "brain": {
+    "typecheck": "pass",
+    "cohort": "wiremap.test.ts, adapter.test.ts, call-budget.test.ts",
+    "tests": 236,
+    "passed": 236,
+    "failed": 0,
+    "logSha256": "9255d53a9d12bd858246f71d5f71e4681d905715e32d110bbfd6a08d90920dda"
+  },
+  "semantics": {
+    "command": "python3 -B -m unittest discover -s tools/grid-spike -p 'test_*.py'",
+    "tests": 9,
+    "result": "pass"
+  },
+  "descriptions": {
+    "version": 52,
+    "tools": 44,
+    "changed": false
+  },
+  "live": {
+    "v3Hello": "pass",
+    "v3InitEpoch": "2026-10-18T14:14:57.505Z",
+    "v3HelloLogSha256": "327645a3f2fde719b5856d1874899d3824bd0a78a1a3a813aa3ae3ac8261478b",
+    "semanticReadGate": "pass on four-module Poly Grid fixture",
+    "manualValue": "50 to 60 to 50 percent; exact restored nodes",
+    "selection": "different Tool device selected; graph unchanged; Tool insertion undone",
+    "reload": "same semantics, different module UUIDs; outer UUID unchanged",
+    "internalWrites": "not attempted",
+    "v4": "not run; operator replacement pending"
+  },
+  "context": {
+    "documents": 632,
+    "result": "pass"
+  },
+  "diffCheck": "pass"
+}

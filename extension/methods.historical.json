@@ -13,10 +13,10 @@
     "`rig.methods` during the Phase-0 sitting. methodsHash is sha256 of the sorted",
     "names joined by \\n, first 16 hex chars; contract.hello returns the same value."
   ],
-  "extractedAt": "2026-10-11",
+  "extractedAt": "2026-10-18",
   "extractedFrom": "handlers/*Handlers.java registration declarations",
-  "count": 170,
-  "methodsHash": "223fad96762879ab",
+  "count": 174,
+  "methodsHash": "422fbda10474cac5",
   "addedInPhase0": [
     "api.runtimeMethods",
     "app.selectionNotifications",
@@ -87,6 +87,10 @@
     "note.observer.read",
     "observation.read",
     "observation.replace",
+    "probe.gridCable",
+    "probe.gridModuleDelete",
+    "probe.gridRead",
+    "probe.gridValue",
     "rig.methods",
     "selection.restoreMixer",
     "slot.copyTo",
@@ -259,6 +263,10 @@
     "param.set",
     "param.touch",
     "ping",
+    "probe.gridCable",
+    "probe.gridModuleDelete",
+    "probe.gridRead",
+    "probe.gridValue",
     "remote.list",
     "remote.selectPage",
     "remote.set",
@@ -545,5 +553,11 @@
   ],
   "addedInPhase8i14": [
     "slot.copyTo"
+  ],
+  "addedInPhase9a": [
+    "probe.gridCable",
+    "probe.gridRead",
+    "probe.gridValue",
+    "probe.gridModuleDelete"
   ]
 }

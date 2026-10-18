@@ -1,0 +1,75 @@
+{
+  "marker": "9a-grid-read-v3",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "operationId": "0237ef4d-a2a2-485f-9191-4835f15db218",
+  "epoch": "96c0d7e9-0335-4814-b17f-bd88c27252ba",
+  "runtimeClass": "com.bitwig.flt.document.core.master.device.S2E",
+  "className": "native_device",
+  "classId": 163,
+  "thread": "main",
+  "queueNanos": 112583,
+  "heapUsedBefore": 603979776,
+  "schema": {
+    "className": "boolean_panel_value",
+    "classId": 1751,
+    "runtimeClass": "yhl",
+    "scope": "one-object schema and child headers; no scalar values or semantic gate",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 228,
+        "name": "in_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 229,
+        "name": "out_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 6194,
+        "name": "settings",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "component_settings",
+            "classId": 236,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 6387,
+        "name": "preset_identifier",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6386,
+        "name": "value",
+        "serializerIncluded": true,
+        "relationship": false
+      }
+    ],
+    "work": 200,
+    "complete": true
+  },
+  "queryWork": 200,
+  "heapUsedAfter": 603979776,
+  "documentTaskNanos": 400375,
+  "completionNanos": 24441833
+}

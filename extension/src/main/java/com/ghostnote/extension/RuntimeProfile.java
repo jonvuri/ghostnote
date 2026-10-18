@@ -11,7 +11,7 @@ import java.util.Set;
  * One exact extension runtime surface.
  *
  * The normal profile contains the product wire. Capture adds the optional
- * recorder wire. Probe adds only the current Phase 8 and D13 regressions.
+ * recorder wire. Probe adds the current research operations and regressions.
  * Historical methods stay in source for evidence, but no active profile
  * registers them.
  */
@@ -221,6 +221,10 @@ public enum RuntimeProfile {
             "directparam.hop",
             "directparam.log",
             "directparam.observeDisplay",
+            "probe.gridRead",
+            "probe.gridValue",
+            "probe.gridCable",
+            "probe.gridModuleDelete",
             "slot.duplicateClip",
             "stepdata.observer.enrich",
             "stepdata.observer.prepare",
@@ -316,6 +320,7 @@ public enum RuntimeProfile {
             "observation.read",
             "param.list",
             "ping",
+            "probe.gridRead",
             "revision.get",
             "rig.info",
             "rig.methods",
@@ -364,9 +369,9 @@ public enum RuntimeProfile {
             if (!PRODUCT.containsAll(OPTIONAL_CAPTURE)
                     || PRODUCT.size() != 97
                     || NORMAL.size() != 92
-                    || PROBE.size() != 111
+                    || PROBE.size() != 115
                     || HISTORICAL.size() != 54
-                    || ALL_CLASSIFIED.size() != 170
+                    || ALL_CLASSIFIED.size() != 174
                     || !ALL_CLASSIFIED.containsAll(READS)
                     || !ALL_CLASSIFIED.containsAll(CLIP_READS)
                     || READS.stream().anyMatch(CLIP_READS::contains)) {

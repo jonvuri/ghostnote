@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-10-16
+updated: 2026-10-19
 ---
 
 # Evidence index
@@ -16,6 +16,15 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E281 | Native Grid spare-module deletion passes isolated and connected cases, exact readback, single undo/redo, and persistence; exact baseline bytes restored; module factory lifecycle traced for continuation [K] (2026-10-19) | [open](experiments/e281-grid-module-delete-and-persistence.md) |
+| E280 | Native Grid cable retarget passes exact readback, UI, one-step undo/redo, and persistence; baseline restored; guarded V7 module deletion probe deployed and awaits replacement [K] (2026-10-18) | [open](experiments/e280-grid-retarget-and-module-delete-probe.md) |
+| E279 | Guarded Grid cable connect/disconnect passes exact readback, UI, undo/redo, and edited reload; baseline restored; V6 retarget probe deployed and awaits replacement [K] (2026-10-18) | [open](experiments/e279-grid-cable-connect-disconnect-and-persistence.md) |
+| E278 | 9a continues from E277; guarded V5 Sine-to-spare-Amplify cable probe is checked and deployed; operator replacement and live cycle pending [K] (2026-10-18) | [open](experiments/e278-grid-cable-probe-preparation.md) |
+| E277 | Guarded internal Grid parameter edits pass fresh readback, UI, undo/redo, and save/reload; baseline restored; 9a closes with a partial verdict; module/cable CRUD and DSP adoption unproved [K] (2026-10-18) | [open](experiments/e277-grid-value-write-readback-and-persistence.md) |
+| E276 | Four-module semantic Grid read passes preset, manual delta, selection, and reload checks; module UUIDs change on reload; V4 guarded value probe awaits replacement [K] (2026-10-18) | [open](experiments/e276-grid-semantic-read-and-value-probe.md) |
+| E275 | V2 reaches device contents but stops in the DSP graph; V3 adds bounded schema discovery and explicit property projections; semantic Grid read remains unproved [K] (2026-10-18) | [open](experiments/e275-grid-dsp-walk-and-scoped-discovery.md) |
+| E274 | Grid V1 reaches the outer device but omits all modules and cables; UI/preset baseline agrees; V2 adds one verified root relationship and awaits replacement [K] (2026-10-18) | [open](experiments/e274-grid-root-read-and-contents-bridge.md) |
+| E273 | Grid descriptor read probe prepared and deployed: exact host jar and source pins, narrow serializer path, bounded probe-only Java reader, offline identity and failure checks; live read gate awaits controller replacement and a saved disposable fixture | [open](experiments/e273-grid-descriptor-read-probe.md) |
 | E272 | 8i gate close-out and Phase 9 handoff: every 8i acceptance criterion checked against E249–E271 (the cache items void, E230 and E233); each Phase 8 interface has a graduate, retain, or retire verdict (`stable-v1` retires; the resident cache is retired; no revise); the 9b artifact inventory names paths, versions, hashes, dependencies, and redistribution (101 entries); the main Phase 8 verdict is "instrument". Repository checks and `probe:hello` on the 8i15 build pass; no product, description, or live change | [open](experiments/e272-8i-gate-close-out.md) |
 | E271 | MIDI tempo report and overlap pre-check (8i20, issues D15 and D16). `report.sourceTempo` replaces the tempo map: file results 21,573 to 1,834 bytes; equal tempos merge (`midi-document-v2`). A desired-document overlap refuses before any host call (was 12 adapter calls and an empty clip), with pair detail. Descriptions v52 | [open](experiments/e271-midi-tempo-report-and-overlap-precheck.md) |
 | E270 | Document file rerun (v51). Both clients used `documentOutputPath` and `documentPath` unprompted; Claude output tokens 161,362 to 19,378. Issues D15 (tempo map in the read report) and D16 (overlap refusal after clip creation). Server instructions trimmed. 8i20 planned | [open](experiments/e270-document-file-rerun.md) |

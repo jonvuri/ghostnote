@@ -1,0 +1,71 @@
+{
+  "calls": [
+    {
+      "method": "contract.hello",
+      "ms": 7.294375000000002,
+      "bytes": 155
+    },
+    {
+      "method": "rig.info",
+      "ms": 24.937624999999997,
+      "bytes": 1765
+    },
+    {
+      "method": "rig.stats",
+      "ms": 24.581084000000004,
+      "bytes": 2463
+    },
+    {
+      "method": "host.info",
+      "ms": 19.918374999999983,
+      "bytes": 148
+    },
+    {
+      "method": "revision.get",
+      "ms": 25.003332999999998,
+      "bytes": 2060
+    },
+    {
+      "method": "selection.status",
+      "ms": 23.806208999999996,
+      "bytes": 207
+    },
+    {
+      "method": "track.list",
+      "ms": 23.955084,
+      "bytes": 381
+    },
+    {
+      "method": "cursor.pointTrack",
+      "ms": 23.864374999999995,
+      "bytes": 16
+    },
+    {
+      "method": "devcursor.status",
+      "ms": 24.346250000000026,
+      "bytes": 232
+    },
+    {
+      "method": "device.list",
+      "ms": 14.327292,
+      "bytes": 171
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 62.805792,
+      "bytes": 458
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 48.01604200000003,
+      "bytes": 43535
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 22.919791999999916,
+      "bytes": 16
+    }
+  ],
+  "sequentialWireCalls": 13,
+  "note": "Async document and completion tasks add host scheduling beyond the wire-call count."
+}

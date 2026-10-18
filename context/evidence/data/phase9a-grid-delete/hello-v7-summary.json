@@ -1,0 +1,18 @@
+{
+  "result": "pass",
+  "source": "npm run probe:hello; full local log /tmp/gn9a-v7-hello.log",
+  "hello": {
+    "contractVersion": 0,
+    "extensionVersion": "0.0.1",
+    "runtimeProfile": "phase-8-probe-v1",
+    "hostApiVersion": 25,
+    "methodCount": 115,
+    "methodsHash": "252339a249e3a8ae"
+  },
+  "marker": "9a-grid-delete-v7",
+  "initializedAt": "2026-10-18T15:59:11.505000+00:00",
+  "deployedAt": "2026-10-18T15:54:21.027286Z",
+  "deployment": "../phase9a-grid-retarget/deployment-v7.json",
+  "fresh": true,
+  "competingPhaseDrivers": false
+}
