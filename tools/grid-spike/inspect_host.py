@@ -23,6 +23,8 @@ CLASSES = [
     "com.bitwig.flt.document.core.master.device.rmP",
     "com.bitwig.flt.document.core.master.Svr",
     "com.bitwig.flt.document.core.master.iWC",
+    "llL", "com.bitwig.flt.document.core.master.oaA",
+    "com.bitwig.base.async.AsyncUtilities",
     "com.bitwig.base.async.ITE",
     "com.bitwig.ramona.core.ytV", "com.bitwig.ramona.core.toM",
     "xQx", "Lqu", "JtC", "CRd", "iYc", "DHY", "rpR", "zrk",

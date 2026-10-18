@@ -7,11 +7,13 @@ import java.util.UUID;
 
 /** 9a research entry points. Only the named disposable fixture is admitted. */
 public final class GridProbeHandlers extends HandlerGroup {
-    public static final String MARKER = "9a-grid-delete-v7";
+    public static final String MARKER = "9a-grid-factory-v8";
     private GridReadSymbols symbols;
     private GridReadEpoch epoch;
     private boolean busy, timedOut;
     private Target epochTarget;
+    private String factoryEpoch;
+    private int factoryAttempts;
 
     public GridProbeHandlers(ControllerHost host, Rig rig, ExecState state) { super(host, rig, state); }
 
@@ -20,9 +22,10 @@ public final class GridProbeHandlers extends HandlerGroup {
         r.onAsync("probe.gridValue", (params, reply) -> request(params, reply, Write.VALUE));
         r.onAsync("probe.gridCable", (params, reply) -> request(params, reply, Write.CABLE));
         r.onAsync("probe.gridModuleDelete", (params, reply) -> request(params, reply, Write.DELETE));
+        r.onAsync("probe.gridModuleFactory", (params, reply) -> request(params, reply, Write.FACTORY));
     }
 
-    private enum Write { NONE, VALUE, CABLE, DELETE }
+    private enum Write { NONE, VALUE, CABLE, DELETE, FACTORY }
 
     private record Target(String project, String trackId, String trackName, int deviceIndex, String deviceName) {}
 
@@ -42,7 +45,7 @@ public final class GridProbeHandlers extends HandlerGroup {
         if (busy) throw new IllegalStateException("grid-read-busy");
         boolean write = kind != Write.NONE;
         String operation = write ? switch (kind) {
-            case VALUE -> "setValue"; case CABLE -> "setCable"; case DELETE -> "deleteModule";
+            case VALUE -> "setValue"; case CABLE -> "setCable"; case DELETE -> "deleteModule"; case FACTORY -> "detachedFactory";
             default -> throw new IllegalStateException("unexpected write kind");
         } : params.get("operation").getAsString();
         if (operation.equals("release")) {
@@ -58,7 +61,8 @@ public final class GridProbeHandlers extends HandlerGroup {
             throw new IllegalArgumentException("the fixture write has a fixed path and projection");
         GridFixtureValue.Input input = kind == Write.VALUE ? GridFixtureValue.parse(params) : null;
         GridFixtureCable.Input cable = kind == Write.CABLE ? GridFixtureCable.parse(params)
-            : kind == Write.DELETE ? GridFixtureModuleDelete.parse(params) : null;
+            : kind == Write.DELETE ? GridFixtureModuleDelete.parse(params)
+            : kind == Write.FACTORY ? GridFactorySymbols.parse(params) : null;
         GridReadExplore.Query query = write ? GridFixtureValue.query() : GridReadExplore.Query.parse(params);
         if (operation.equals("read") && !query.path().isEmpty() && query.projection().isEmpty())
             throw new IllegalArgumentException("a read path needs an explicit projection");
@@ -76,11 +80,14 @@ public final class GridProbeHandlers extends HandlerGroup {
         GridReadEpoch bound = epoch;
         if (capture && (bound == null || !bound.token.equals(token) || !target.equals(epochTarget)))
             throw new IllegalStateException("stale-grid-epoch");
+        if (kind == Write.FACTORY && (factoryAttempts >= 2 || token.equals(factoryEpoch)))
+            throw new IllegalStateException("factory-attempt-limit; use a fresh epoch; maximum two calls per initialization");
         if (symbols == null) symbols = new GridReadSymbols(host.getClass());
         Object proxy = rig.cursorDeviceBanks[0].getDevice(index);
         String operationId = UUID.randomUUID().toString();
         long queued = System.nanoTime();
         var writeAttempted = new java.util.concurrent.atomic.AtomicBoolean();
+        var lifecycle = new java.util.concurrent.atomic.AtomicReference<String>("not-attempted");
         busy = true;
         GridReadJob.start(task -> GridReadSymbols.queue(proxy, task), host::scheduleTask, () -> {
             long entered = System.nanoTime();
@@ -108,7 +115,20 @@ public final class GridProbeHandlers extends HandlerGroup {
                 else {
                     JsonObject graph = new GridGraphRead(explore.project(query.projection())).capture(root);
                     result.add("graph", graph);
-                    if (write) {
+                    if (kind == Write.FACTORY) {
+                        GridFixtureCable.require(graph, cable);
+                        GridFactorySymbols factory = new GridFactorySymbols(symbols, root.getClass().getClassLoader(), cable.moduleUuids());
+                        proof.require(token, GridReadSymbols.document(proxy),
+                            GridReadSymbols.target(rig.cursorTracks[0]), GridReadSymbols.target(proxy));
+                        if (System.nanoTime() - queued > 4_000_000_000L)
+                            throw new IllegalStateException("fixture-factory-deadline; no factory call");
+                        factoryEpoch = token; factoryAttempts++;
+                        writeAttempted.set(true);
+                        result.add("lifecycle", GridDetachedFactory.run(factory, lifecycle::set));
+                        result.addProperty("writeStatus", "detached-disposed; fresh fixture read required");
+                        result.addProperty("writeAttempted", true);
+                        result.addProperty("readbackStatus", "not-attempted");
+                    } else if (write) {
                         Object atom;
                         Object[] arguments;
                         java.lang.reflect.Method setter;
@@ -163,16 +183,16 @@ public final class GridProbeHandlers extends HandlerGroup {
             } catch (Exception error) {
                 if (writeAttempted.get()) timedOut = true;
                 epoch = null; epochTarget = null;
-                reply.error(new IllegalStateException("writeAttempted=" + writeAttempted.get() + ":" + error.getMessage(), error), 0);
+                reply.error(new IllegalStateException("writeAttempted=" + writeAttempted.get() + ":" + error.getMessage() + ":lifecycle=" + lifecycle.get(), error), 0);
             }
         }, error -> {
             if (writeAttempted.get()) timedOut = true;
             busy = false; epoch = null; epochTarget = null;
-            reply.error(new IllegalStateException(operationId + ":writeAttempted=" + writeAttempted.get() + ":" + error.getMessage(), error), 0);
+            reply.error(new IllegalStateException(operationId + ":writeAttempted=" + writeAttempted.get() + ":" + error.getMessage() + ":lifecycle=" + lifecycle.get(), error), 0);
         }, () -> {
             busy = false; timedOut = true; epoch = null; epochTarget = null;
             reply.error(new IllegalStateException("grid-operation-timeout:" + operationId
-                + ":writeAttempted=" + writeAttempted.get() + "; no retry; inspect the fixture"), 0);
+                + ":writeAttempted=" + writeAttempted.get() + ":lifecycle=" + lifecycle.get() + "; native work is not cancelled; no retry; inspect or restart the host"), 0);
         });
     }
 

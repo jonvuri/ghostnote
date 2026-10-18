@@ -1,0 +1,61 @@
+{
+  "at": "2026-10-18T16:35:41.533188+00:00",
+  "liveGate": "pending operator replacement; no factory or attachment calls",
+  "checks": [
+    {
+      "command": "./gradlew check",
+      "status": "passed",
+      "logSha256": "d44ff1fc15c2f1242fe10c3814e3a17711d9f1e9d10887abb94f3cdba5a52456"
+    },
+    {
+      "command": "npm run typecheck",
+      "status": "passed",
+      "logSha256": "a2ba59eb1769a1138357f2c1ebb3ea1662bb72ce1692d99cc4c3ccaf7dabe308"
+    },
+    {
+      "command": "node --import tsx src/tools/regen-wire-golden.ts",
+      "status": "passed",
+      "logSha256": "31c678a6502a7180b8502f49268871b219936efd030dd92fa9f03ab7a814e78e"
+    },
+    {
+      "command": "node --import tsx --test src/adapters/live/wiremap.test.ts src/adapters/live/adapter.test.ts src/surface/call-budget.test.ts",
+      "status": "passed",
+      "logSha256": "481693f6451299b63ca9e9496c84bd5ea3f0d218e4541ed8fe78d91e9c118f1c"
+    },
+    {
+      "command": "python3 -B -m unittest discover -s tools/grid-spike -p 'test_*.py'",
+      "status": "passed",
+      "tests": 12,
+      "note": "Synthetic factory records do not prove the live gate."
+    },
+    {
+      "command": "python3 -B tools/grid-spike/verify_value_evidence.py",
+      "status": "passed",
+      "outputSha256": "2cefca3d482e1cebddd668f1b8c83c69bba7457b21a6108c0c27532fc133c269"
+    },
+    {
+      "command": "python3 -B tools/grid-spike/verify_cable_evidence.py",
+      "status": "passed",
+      "outputSha256": "e10a350736a486ce058a1d802a5f9329dc40ea8326bd20edd4412e66597d6aee"
+    },
+    {
+      "command": "python3 -B tools/grid-spike/verify_retarget_evidence.py",
+      "status": "passed",
+      "outputSha256": "ec355ace090abce6da7257cba216d3f8e2f6aa42e0016de079ebc61dfa95549b"
+    },
+    {
+      "command": "python3 -B tools/grid-spike/verify_delete_evidence.py",
+      "status": "passed",
+      "outputSha256": "a473096d935b0951a7b388d51253b9dffd9e0e842991bd205e313df714dce7f1"
+    },
+    {
+      "command": "ruby context/check.rb",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    }
+  ],
+  "deployment": "deployment-v8.json"
+}

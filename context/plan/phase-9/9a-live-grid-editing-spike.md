@@ -2,7 +2,7 @@
 title: Phase 9a — Live Grid editing spike
 kind: plan
 state: active
-status: V7 deletion passes in E281. Continue with a bounded module factory lifecycle probe.
+status: V8 detached factory gate passes in E283. Continue with native attachment design.
 updated: 2026-10-19
 parent: README.md
 ---
@@ -36,7 +36,10 @@ Historical evidence and the verified fixture remain unchanged.
 [E281](../../evidence/experiments/e281-grid-module-delete-and-persistence.md)
 passes isolated and connected spare-module deletion, exact paired readback,
 single undo/redo, and edited-state reload. The exact baseline project bytes
-are restored and reopened. V7 remains loaded; no replacement is pending.
+are restored and reopened. [E282](../../evidence/experiments/e282-detached-grid-factory-probe-preparation.md)
+prepares V8. [E283](../../evidence/experiments/e283-detached-grid-factory-lifecycle.md)
+passes operator replacement, hello, and both detached factory workflows.
+V8 remains loaded. Its two-attempt factory allowance is used.
 E277 proves parameter editing. E279/E280 prove cable connect, disconnect,
 and native source replacement. These are bounded document operations;
 engine adoption and general failure atomicity remain unproved.
@@ -46,11 +49,11 @@ failure handling. Reacquire module UUIDs after each reload. Do not repeat the
 broad DSP walk or completed V4–V7 sequences without a new reason. The exact
 baseline backup remains the recovery path for tests that save edited state.
 
-### Next: detached module factory lifecycle
+### Passed: detached module factory lifecycle (E283)
 
 E281 traces `DbL.pvN(UUID)`, the `xQx` / `JtC` template copy, module
-initialization, and native disposal. Complete the failure-path design, then
-prepare a probe for one native Amplify type only. Do not attach it to the
+initialization, and native disposal. E282 completes the failure-path design
+and prepares a probe for one native Amplify type only. Both guarded workflows pass in E283. Do not attach it to the
 Grid in this first probe. Do not interpret a file-loader string as a type
 UUID. Do not mutate or clear the host's template cache.
 
@@ -95,6 +98,98 @@ host's collection insertion with one detached Amplify at a free position.
 That next stage needs its own cost model, parent/membership readback, UI,
 one-step undo/redo, edited reload, and final baseline restoration. Do not
 claim live creation from a detached factory result.
+
+#### V8 failure-path design (before implementation)
+
+The factory request is research-only and classified as a write. Admit one
+attempt per epoch and at most two attempts per controller initialization.
+Resolve all reflection methods before the attempt. Require the exact baseline
+and a current route immediately before `DbL.pvN(UUID)`. Mark the attempt before
+the call. Never retry inside the handler. No attachment method is exposed.
+
+After return, require exact `DbL` type, null `HEV.I_()` ownership and null
+`had.Fuu()` Grid parent, a new UUID, and non-disposed state. Walk only native
+owned children (`HEV.dpx(null)`), with identity checks, at most 256 objects,
+depth 12, and a 1-second check deadline. Each child must name its owner through
+`I_()`. Require the copied contents to belong to this module. The native
+factory trace supplies copy provenance; the repeat checks defaults after
+disposal. Do not inspect or change the template cache.
+
+Once ownership is proved, use `finally` to dispose through `dC_()`, including
+when initialization checks or detached captures fail. Recheck ownership before
+disposal. Check `J_()` on every recorded owned object afterward. A failed
+ownership proof must not trigger disposal. Report the failed stage, attempt,
+return, ownership, and disposal state. Keep only JSON reports and UUID strings
+outside the task. No native result handle enters the epoch or response.
+
+A factory exception before return has unknown partial allocation. An ownership
+failure or disposal failure also has an uncertain result. Each closes the
+handler to further requests until operator replacement. The 5-second watchdog
+does the same. It cannot cancel native work; a late return still runs guarded
+cleanup, but the timeout response cannot attest that cleanup. Do not issue
+another factory call after uncertainty, even if the fixture still reads equal.
+The operator must inspect or restart the host before a new probe session.
+
+The detached projection has exactly eight nodes and six atoms. Check the two
+helpers set by `OEf.ao_()` without invoking their setters. Capture native
+defaults as observations, then require paired and repeated equality. This
+does not establish DSP initialization. The ownership walk adds bounded local
+reads, not wire calls or write stages. The 18-call / 16 MiB model above still
+applies; native parsing and disposal remain non-cancellable.
+
+### Next: native collection attachment
+
+Source: [E283](../../evidence/experiments/e283-detached-grid-factory-lifecycle.md).
+The detached factory gate passes. Continue within 9a with one Amplify inserted
+at a verified free position in the same fixture. Keep V8 loaded until a
+reviewable attachment probe is ready. A new extension build needs operator
+replacement and a fresh hello. Do not reset V8's attempt allowance to bypass
+its bound.
+
+Before implementation:
+
+1. Finish the native edit-admission and failure trace. The public collection
+   wrapper opens a named edit, mutates, invokes a callback, then closes the
+   edit. It does not close the edit in a failure handler. Its start helper
+   discards the returned boolean. Determine how to refuse an unavailable edit
+   before mutation and how to report a throw after the edit starts. Do not
+   close an unknown outer edit or claim general rollback.
+2. Trace the selection callback and choose the native entry that preserves
+   the current selection. The `ffA` wrapper adds `oaA`; `eOi` accepts an
+   optional callback. State why the chosen entry includes all required graph
+   and notification steps.
+3. Bound the layout pass. Read x/y/width/height for all four existing modules
+   and the new Amplify. Admit dimensions 1–8 and a total vertical span at most
+   16 cells. Check a free candidate position (2, 0), then simulate the traced
+   `llL` pass and require no movement of existing modules. Refuse an unexpected
+   rectangle before insertion. Do not infer dimensions from the UI alone.
+4. Define ownership transfer and cleanup separately from detached disposal.
+   Before insertion, retain V8's ownership and initialization checks. After
+   an insertion attempt, never dispose merely because a method threw or a
+   parent read is null. First account for membership and undo ownership.
+   Report an uncertain partial insertion and stop writes when proof fails.
+   Preserve a bounded read-only recovery path and the verified project backup.
+
+Proposed success cost: 18 sequential wire calls, five fixture captures,
+two detached captures, one construction stage, and one native insertion edit.
+Typical and maximum scope are four modules before and five after, two cables,
+and one fixed Amplify type. Allow 650 ms summed warm wire time plus 150 ms
+cursor settlement and 16 MiB temporary heap. V8 measured 508–591 ms wire,
+including detached disposal. Attachment replaces that disposal with ownership
+transfer, native edit bookkeeping, notification, and the bounded layout pass.
+The after projection grows from 53 to 61 nodes. No extra wire turn is planned.
+Native file I/O and edit execution remain non-cancellable. Revise these figures
+before code if the failure design requires another stage or call.
+
+Acceptance: fresh identity, exact native defaults at the admitted position,
+parent equal to the intended Grid, exact five-member collection, two equal
+independent after reads, and no unrelated graph or selection change. Check the
+UI, one-step undo/redo, saved edited-state reload with fresh UUIDs, and the
+final exact baseline-file restoration and fresh read. Each undo/redo check adds
+one action call and a separate paired read workflow; it is not part of the
+18-call insertion budget. Retain first/repeat timing, native-stage timing,
+queue/completion, payload, and heap samples. No broad module-type, DSP, or
+failure-atomicity claim follows from this fixture test.
 
 ## Read first
 
@@ -366,10 +461,10 @@ Measured gates through [E281](../../evidence/experiments/e281-grid-module-delete
 |---|---|
 | Exact environment, clone pins, and narrow bytecode path | Recorded |
 | Probe bounds, identity, incomplete reads, and asynchronous failures | Offline checks pass |
-| Research archive and deliberate marker | V7 replacement and hello pass; 115 methods. V7 remains loaded; no replacement is pending. |
+| Research archive and deliberate marker | V8 replacement and the 116-method hello pass in E283. V8 remains loaded. |
 | Saved fixture and UI/preset comparison baseline | Recorded; four modules and two cables |
 | Complete semantic read, manual delta, selection change, save/reload | Passed on the four-module Poly Grid fixture; module UUIDs change on reload |
-| Commands, CRUD, engine adoption, recovery, and cleanup | Parameter write, bounded cable connect/disconnect/retarget, and spare-module deletion pass readback, UI, undo/redo, persistence, and cleanup. Deletion passes with an incoming cable. Module creation, layout writes, outgoing-consumer cleanup, and engine adoption remain unproved. |
+| Commands, CRUD, engine adoption, recovery, and cleanup | Parameter write, bounded cable connect/disconnect/retarget, and spare-module deletion pass readback, UI, undo/redo, persistence, and cleanup. Deletion passes with an incoming cable. Detached factory lifecycle passes in E283. Live attachment, layout writes, outgoing-consumer cleanup, and engine adoption remain unproved. |
 | Final operation verdict and normal-profile restoration | Module investigation continues; research profile remains deployed. No final 9a close verdict. |
 
 - The evidence records the exact environment, clone pins, fixture baseline,

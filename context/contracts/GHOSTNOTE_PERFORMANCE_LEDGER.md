@@ -393,8 +393,39 @@ captures, two detached-module captures, and one construction/disposal stage.
 Plan about 600 ms warm wire plus 150 ms settlement and 16 MiB temporary heap
 for one fixed Amplify type. Native template copying, initialization, and
 disposal explain the increase over V7's plan. Cold file I/O/cache waits are
-unmeasured and cannot be cancelled by the reader deadline. Complete the
-failure-path design before code. No factory timing or V8 build exists yet.
+unmeasured and cannot be cancelled by the reader deadline.
+[E282](../evidence/experiments/e282-detached-grid-factory-probe-preparation.md)
+completes the failure-path design and prepares V8. The ownership walk permits
+256 objects, depth 12, and a 1-second check deadline. It adds local reads only.
+The native child-list allocation and disposal cannot be cancelled either.
+Offline checks pass. E283 supplies the two live measurements below. Product
+call budgets do not change.
+
+[E283](../evidence/experiments/e283-detached-grid-factory-lifecycle.md) passes
+V8's detached factory gate. First/repeat requests take 65.623/45.402 ms wire
+and 25.595/12.924 ms document time. Native construction takes 4.381/0.863 ms;
+disposal takes 0.818/0.073 ms. Each workflow retains 18 calls and sums to
+590.554/508.250 ms wire plus 150 ms settlement, within the 600 ms plan.
+Both calls prove and dispose 77 owned objects. Detached captures have eight
+nodes and 5,826 bytes. Heap samples rise 4/2 MiB against the 16 MiB plan.
+Peak and retained heap remain unmeasured. First/repeat costs are below the
+respective V7 isolated-delete costs. No cold-cache claim is made.
+
+Eight independent fixture reads take 44.271–48.277 ms wire and
+2.789–12.922 ms document. The first document read is 112% above V7's maximum;
+the immediate repeat is 6.872 ms and all later reads are below V7's 6.109 ms.
+The read code and graph scope are unchanged. The first-use cost is not
+reproduced; JVM warm-up is plausible but unprofiled. Retain this limit.
+All fixture graphs have 53 nodes and 35,828 bytes. The exact baseline is
+preserved. Product call budgets do not change.
+
+The plan's next attachment stage budgets 18 calls, five fixture captures,
+two detached captures, one construction stage, and one native insertion edit.
+Allow 650 ms warm wire plus 150 ms settlement and 16 MiB temporary heap for
+four-to-five modules and two cables. Edit bookkeeping, ownership transfer,
+notifications, and a bounded layout pass replace detached disposal. The
+61-node after read and native attachment are not measured yet. Complete the
+edit-failure design before implementation.
 
 8i3 review rerun (E252): Polysynth 44 controls 9,481 ms; Diva 64 controls
 13,912 ms; staged 5×1 / 3×2 / 2×3 compositions 20,975 / 23,642 / 23,278 ms,

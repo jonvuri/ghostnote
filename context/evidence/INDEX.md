@@ -16,6 +16,8 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E283 | Detached Amplify factory gate passes twice with new UUIDs, equal defaults, 77-object ownership/disposal, and exact fixture preservation; native attachment trace identifies selection, layout, and edit-failure guards [K] (2026-10-19) | [open](experiments/e283-detached-grid-factory-lifecycle.md) |
+| E282 | V8 detached Amplify factory lifecycle probe prepared; ownership, disposal, failure, and evidence checks pass offline; operator replacement and live factory gate pending [K] (2026-10-19) | [open](experiments/e282-detached-grid-factory-probe-preparation.md) |
 | E281 | Native Grid spare-module deletion passes isolated and connected cases, exact readback, single undo/redo, and persistence; exact baseline bytes restored; module factory lifecycle traced for continuation [K] (2026-10-19) | [open](experiments/e281-grid-module-delete-and-persistence.md) |
 | E280 | Native Grid cable retarget passes exact readback, UI, one-step undo/redo, and persistence; baseline restored; guarded V7 module deletion probe deployed and awaits replacement [K] (2026-10-18) | [open](experiments/e280-grid-retarget-and-module-delete-probe.md) |
 | E279 | Guarded Grid cable connect/disconnect passes exact readback, UI, undo/redo, and edited reload; baseline restored; V6 retarget probe deployed and awaits replacement [K] (2026-10-18) | [open](experiments/e279-grid-cable-connect-disconnect-and-persistence.md) |

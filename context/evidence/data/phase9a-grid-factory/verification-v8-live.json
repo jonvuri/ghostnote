@@ -1,0 +1,73 @@
+{
+  "at": "2026-10-18T16:47:35.735871+00:00",
+  "liveGate": "passed twice; no attachment call or V9 build",
+  "checks": [
+    {
+      "command": "npm run probe:hello",
+      "status": "passed",
+      "logSha256": "8f8d6ff7cf1c4162eb1c179aa0aa7a76f74e7c3bdc66cd5cc008d20183a5251f"
+    },
+    {
+      "command": "npm run typecheck",
+      "status": "passed",
+      "logSha256": "a2ba59eb1769a1138357f2c1ebb3ea1662bb72ce1692d99cc4c3ccaf7dabe308"
+    },
+    {
+      "command": "node --import tsx --test src/adapters/live/wiremap.test.ts",
+      "status": "passed",
+      "logSha256": "14894981afe44e2af9378d7b797edcd7a848f99b6000bd05c83172094df863b4",
+      "tests": 56
+    },
+    {
+      "command": "python3 -B -m unittest discover -s tools/grid-spike -p 'test_*.py'",
+      "status": "passed",
+      "logSha256": "a8544491c6dc8aaf54b8e1bef74ca9f0891c753035e1eeb489ff367bc8c0537e",
+      "tests": 12
+    },
+    {
+      "command": "python3 -B tools/grid-spike/verify_factory_evidence.py live-87-factory-first live-88-factory-repeat",
+      "status": "passed",
+      "logSha256": "3457ee766deb3dc49bdd3a0467f0616a5d4b94deb1435faee352b59abbefdc61",
+      "note": "Both arguments are under context/evidence/data/phase9a-grid-factory. Output matches v8-measurements.json exactly."
+    },
+    {
+      "command": "LANG=en_US.UTF-8 ruby context/check.rb",
+      "status": "passed",
+      "logSha256": "e091507e28a683fc467873ae64c3a6343261b7c4aa65e5687348adf79e5a6a96"
+    },
+    {
+      "command": "git diff --check; git diff --cached --check",
+      "status": "passed"
+    },
+    {
+      "command": "Final SHA-256 comparison of project, backup, and preset",
+      "status": "passed",
+      "note": "All equal the preserved E281 baseline hashes."
+    }
+  ],
+  "priorVerification": "verification-v8.json",
+  "hello": "hello-v8-summary.json",
+  "measurements": "v8-measurements.json",
+  "descriptions": {
+    "changed": false,
+    "version": 52,
+    "tools": 44
+  },
+  "notes": [
+    "The first hello failed because its client expected V7. The marker was corrected before factory calls.",
+    "No extension code changed in this live continuation.",
+    "The two-attempt V8 allowance is used. Both epochs were released."
+  ],
+  "liveWorkflows": [
+    {
+      "directory": "live-87-factory-first",
+      "status": "passed",
+      "wireCalls": 18
+    },
+    {
+      "directory": "live-88-factory-repeat",
+      "status": "passed",
+      "wireCalls": 18
+    }
+  ]
+}

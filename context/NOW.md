@@ -23,10 +23,13 @@ proves native deletion of the spare Amplify, with or without an incoming
 cable, exact readback, one-step undo/redo, and edited-state reload. The exact
 baseline project bytes are restored and reopened. E277 proves parameter
 editing; E279/E280 prove cable connect, disconnect, and retarget.
-Next: the plan's bounded module factory lifecycle probe. E281 traces template
-copying, initialization, and disposal. Complete its failure-path design before
-implementation; no factory or attachment call has run. V7 remains loaded,
-with no replacement pending. Reacquire module UUIDs after reload. Wider
+[E283](evidence/experiments/e283-detached-grid-factory-lifecycle.md) passes
+the detached Amplify factory gate: two fresh identities, equal defaults,
+verified ownership and disposal of 77 objects per call, and exact fixture
+preservation. Next: the plan's native collection attachment stage. Complete
+its edit-admission, failure-recovery, selection, and layout guards before
+implementation. No attachment call or V9 build has run. V8 remains loaded;
+its two factory attempts are used. No replacement is pending. Wider
 [Phase 9](plan/phase-9/README.md) scope remains unselected.
 
 The former Phase 9 is now [Phase 10](plan/phase-10/README.md): publication
@@ -61,26 +64,26 @@ one server session and do not survive a new thread or resume.
 
 ## Current deployment and fixture (2026-10-19)
 
-The deployed archive is V7: `phase-8-probe-v1`, 115 methods,
-`252339a249e3a8ae`, marker `gridReadProbe: 9a-grid-delete-v7`. The
-[deployment record](evidence/data/phase9a-grid-retarget/deployment-v7.json)
-records its hash and deployment time. Operator replacement and hello passed
-in E281, with fresh initialization at `2026-10-18T15:59:11.505Z`. The normal
-profile has not been restored. No V8 archive has been built.
+The deployed archive is V8: `phase-8-probe-v1`, 116 methods,
+`14aacf5657eac6c2`, marker `gridReadProbe: 9a-grid-factory-v8`. The
+[deployment record](evidence/data/phase9a-grid-factory/deployment-v8.json)
+records its hash and deployment time. Operator replacement and V8 hello pass
+in E283, with fresh initialization at `2026-10-18T16:36:48.534Z`. The normal
+profile is not restored.
 
-Last observed in E281: `gn-grid-spike` is open at its restored and reloaded
-baseline, with no unsaved marker. Track `grid-probe` (`c784d25c…`) is muted at
--10 dB and armed. Transport is stopped. The engine is inactive. Preserve its
-four modules and two cables: Sine -> Amplify 25% -> Audio Out, with a separate
+Last observed in E283: `gn-grid-spike` is open at the exact projected baseline.
+Its unsaved marker was present before the factory calls and remains afterward.
+No project save or reload ran in E283. Track `grid-probe` (`c784d25c…`) is muted
+at -10 dB. Its last observed arm state is on (E281). Transport is stopped.
+The engine is inactive. Preserve its four modules and two cables: Sine -> Amplify 25% -> Audio Out, with a separate
 Amplify 50% below. Keep the outer modulators. The Grid editor is open.
 Project path:
 `/Users/jonvuri/Documents/Bitwig Studio/Projects/gn-grid-spike/gn-grid-spike.bwproject`.
 Preset path:
 `/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset`.
-E281 records the captures and measurements. All four deletion writes passed.
-The saved deletion survived reload. The fixture was then closed, restored
-from the verified backup, and reopened. Fresh reads match the unchanged
-preset and the prior outer identity. All epochs were released. Final project
+E281 records deletion, baseline restoration, and outer identity. E283 records
+the detached factory calls and unchanged fixture captures and file hashes.
+All epochs were released. Final project
 SHA-256: `af24056e72e9722eacaa80bf01daa02e7fba0c72103f7fd1655f689448da1b4f`.
 The verified backup remains `/tmp/gn-grid-spike-e280-baseline.bwproject`.
 Check its hash before a later destructive test.
@@ -102,7 +105,7 @@ and `cursorTrackPins.rule: owned-tracks-pinned-v1`. The prior probe build had
 and at 9a entry. `selection.status` can report a slot of a deleted scratch
 track (issue D11). Descriptions are v52 (44 tools);
 no live project changed in 8i16 and 8i18 to 8i20 or in the close-out. The
-next free evidence number is E282; the next decision is D52; the next
+next free evidence number is E284; the next decision is D52; the next
 issue row is D17. The live drivers accept 8i15 (`NORMAL_8I15`,
 `assertCurrentNormal`); see E263 and E264 for their commands and cleanup.
 

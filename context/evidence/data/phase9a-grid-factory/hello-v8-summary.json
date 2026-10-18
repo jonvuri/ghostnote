@@ -1,0 +1,15 @@
+{
+  "operatorReplacement": "confirmed by operator",
+  "runtimeProfile": "phase-8-probe-v1",
+  "methodCount": 116,
+  "methodsHash": "14aacf5657eac6c2",
+  "marker": "9a-grid-factory-v8",
+  "initEpochMs": 1792341408534,
+  "initializedAt": "2026-10-18T16:36:48.534000+00:00",
+  "fresh": true,
+  "hello": "passed after client marker correction",
+  "initialHelloFailure": "Client still expected V7; controller had the correct V8 marker. No factory call had run.",
+  "helloLogSha256": "8f8d6ff7cf1c4162eb1c179aa0aa7a76f74e7c3bdc66cd5cc008d20183a5251f",
+  "readOnlyEntryLimit": "transport.status refused as absent from active probe profile; transport and engine observed in UI",
+  "competingDrivers": "pgrep found no phase8 or phase9 process"
+}

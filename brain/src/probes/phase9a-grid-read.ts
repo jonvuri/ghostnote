@@ -1,4 +1,4 @@
-/** 9a probe. Usage: state | capture|schema|project|value|cable|delete <project> <preset> <new output> [query.json] [50|60|sine|amplify|none]. */
+/** 9a probe. Usage: state | capture|schema|project|value|cable|delete|factory <project> <preset> <new output> [query.json] [50|60|sine|amplify|none]. */
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { lstatSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -8,10 +8,10 @@ import { compareDeployment, deployedAtMs } from '../deploy.js';
 
 type Wire = Record<string, any>;
 const [mode, projectPath, presetPath, output, queryPath, targetPercent] = process.argv.slice(2);
-assert.ok(['state', 'capture', 'schema', 'project', 'value', 'cable', 'delete'].includes(mode!), 'Use state, capture, schema, project, value, cable, or delete');
+assert.ok(['state', 'capture', 'schema', 'project', 'value', 'cable', 'delete', 'factory'].includes(mode!), 'Use state, capture, schema, project, value, cable, delete, or factory');
 if (mode === 'value') assert.ok(['50', '60'].includes(targetPercent!), 'Value mode requires target 50 or 60');
 if (mode === 'cable') assert.ok(['sine', 'amplify', 'none'].includes(targetPercent!), 'Cable mode requires sine, amplify, or none');
-const writing = mode === 'value' || mode === 'cable' || mode === 'delete';
+const writing = mode === 'value' || mode === 'cable' || mode === 'delete' || mode === 'factory';
 const client = new BridgeClient();
 const calls: Wire[] = [];
 let epoch: string | undefined;
@@ -57,6 +57,10 @@ try {
     assert.ok(projectPath && presetPath && output, 'Capture needs project, preset, and new output directory paths');
     assert.ok(isAbsolute(output), 'Use an absolute output directory');
     files = { project: fingerprint(projectPath), preset: fingerprint(presetPath) };
+    if (mode === 'factory') {
+      assert.equal(files.project.sha256, 'af24056e72e9722eacaa80bf01daa02e7fba0c72103f7fd1655f689448da1b4f');
+      assert.equal(files.preset.sha256, '1e8f90fc3875dbeb1f38ed88bec59ee783f39bb00fb366194c79504e063c0cc9');
+    }
     mkdirSync(output);
     createdOutput = true;
     save('files', files);
@@ -74,9 +78,9 @@ try {
   if (mode === 'state') console.log(JSON.stringify(entry, null, 2));
   else {
     assert.equal(hello.runtimeProfile, 'phase-8-probe-v1');
-    assert.equal(hello.methodCount, 115);
-    assert.equal(hello.methodsHash, '252339a249e3a8ae');
-    assert.equal(rig.gridReadProbe, '9a-grid-delete-v7');
+    assert.equal(hello.methodCount, 116);
+    assert.equal(hello.methodsHash, '14aacf5657eac6c2');
+    assert.equal(rig.gridReadProbe, '9a-grid-factory-v8');
     assert.equal(compareDeployment(deployedAtMs(), stats.initEpochMs ?? -1).state, 'fresh');
     assert.equal(mark.project, 'gn-grid-spike');
     const matches = tracks.tracks.filter((track: Wire) => track.name === 'grid-probe');
@@ -136,7 +140,10 @@ try {
       const atoms = property(contents, 173).refs;
       let expected = structuredClone(nodes);
       let method: string, params: Wire;
-      if (mode === 'value') {
+      if (mode === 'factory') {
+        method = 'probe.gridModuleFactory';
+        params = { moduleUuids: modules.map(id => property(node(id), 15).value.data) };
+      } else if (mode === 'value') {
         const baseline = 0.7937005259840998, changed = 0.8434326653017492;
         const before = targetPercent === '60' ? baseline : changed;
         const after = targetPercent === '60' ? changed : baseline;
@@ -175,7 +182,23 @@ try {
       }
       const command = await request(method, { ...target, epoch, ...params, expectedNodes: nodes });
       save(`${mode}-command`, command);
-      assert.equal(command.writeStatus, 'command-returned; fresh read required');
+      assert.deepEqual(command.graph.nodes, nodes, 'The command guard differs from the paired before reads');
+      assert.equal(command.writeStatus, mode === 'factory'
+        ? 'detached-disposed; fresh fixture read required' : 'command-returned; fresh read required');
+      if (mode === 'factory') {
+        const lifecycle = command.lifecycle;
+        assert.equal(lifecycle.stage, 'complete');
+        for (const key of ['factoryAttempted', 'factoryReturned', 'ownershipProved',
+          'initializationHelpersPresent', 'disposeAttempted', 'disposalVerified']) assert.equal(lifecycle[key], true, key);
+        assert.ok(lifecycle.ownedObjects >= 8 && lifecycle.ownedObjects <= 256);
+        assert.deepEqual(lifecycle.capture0.nodes, lifecycle.capture1.nodes);
+        for (const capture of [lifecycle.capture0, lifecycle.capture1]) {
+          assert.equal(capture.complete, true); assert.equal(capture.errorCount, 0);
+          assert.equal(capture.nodes.length, 8);
+          const detached = capture.nodes.find((n: Wire) => n.id === capture.root);
+          assert.ok(!params.moduleUuids.includes(property(detached, 15).value.data));
+        }
+      }
       for (let run = 0; run < 2; run++) {
         const result = await request('probe.gridRead', { ...query, operation: 'read', epoch, ...target });
         save(`${mode}-readback-${run}`, result);
@@ -185,6 +208,7 @@ try {
     }
     assert.deepEqual(fingerprint(projectPath!), files!.project, 'The saved project changed during capture');
     assert.deepEqual(fingerprint(presetPath!), files!.preset, 'The saved preset changed during capture');
+    if (mode === 'factory') save('files-after', { project: fingerprint(projectPath!), preset: fingerprint(presetPath!) });
     const finalSelection = await request('selection.status');
     save('selection-after', finalSelection);
     if (writing) assert.deepEqual(finalSelection, selection, 'Selection changed during the fixture write');

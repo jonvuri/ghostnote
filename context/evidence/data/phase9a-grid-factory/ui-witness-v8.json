@@ -1,0 +1,21 @@
+{
+  "observations": [
+    {
+      "stage": "before factory calls",
+      "project": "gn-grid-spike",
+      "unsavedMarker": true,
+      "otherProject": "gn-scale-test",
+      "otherUnsavedMarker": true,
+      "engine": "inactive; Activate Audio Engine shown",
+      "transportPosition": "1.1.1.00 / 0:00.000",
+      "grid": "Sine -> Amplify 25% -> Audio Out; disconnected Amplify 50% below; outer modulators visible",
+      "moduleSelection": "No item selected"
+    },
+    {
+      "stage": "after both factory calls",
+      "sameVisibleState": true
+    }
+  ],
+  "uiActions": [],
+  "note": "Screenshots inspected through computer use. No controller-list or other UI action."
+}

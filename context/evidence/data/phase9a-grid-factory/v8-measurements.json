@@ -1,0 +1,42 @@
+{
+  "factoryGate": "passed",
+  "scope": "detached Amplify only; live attachment is unproved",
+  "cacheLimit": "repeat defaults agree after disposal; no cache reset or cold-cache claim",
+  "heapLimit": "samples only; peak and retained heap are unmeasured",
+  "calls": [
+    {
+      "folder": "live-87-factory-first",
+      "moduleUuid": "a4b6de5d-e880-4e79-b564-3640057dfbb6",
+      "ownedObjects": 77,
+      "wireMs": 65.62291700000003,
+      "workflowWireMs": 590.5543770000003,
+      "factoryMs": 4.381083,
+      "disposalMs": 0.818208,
+      "documentMs": 25.595458,
+      "queueMs": 0.117459,
+      "completionMs": 39.034167,
+      "heapSampleDelta": 4194304,
+      "detachedBytes": [
+        5826,
+        5826
+      ]
+    },
+    {
+      "folder": "live-88-factory-repeat",
+      "moduleUuid": "d01db07f-9e43-479d-b423-70f07ce57335",
+      "ownedObjects": 77,
+      "wireMs": 45.40208300000006,
+      "workflowWireMs": 508.2495010000002,
+      "factoryMs": 0.863292,
+      "disposalMs": 0.072583,
+      "documentMs": 12.924291,
+      "queueMs": 0.146542,
+      "completionMs": 22.853167,
+      "heapSampleDelta": 2097152,
+      "detachedBytes": [
+        5826,
+        5826
+      ]
+    }
+  ]
+}
