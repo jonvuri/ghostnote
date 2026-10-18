@@ -1,0 +1,60 @@
+{
+  "checkedAt": "2026-10-18T18:45:08.572435+00:00",
+  "scope": "V11 attachment live acceptance and saved-evidence verifier; no runtime change",
+  "checks": [
+    {
+      "command": "python3 -B tools/grid-spike/verify_attachment_evidence.py <live-94> <live-98>",
+      "result": "pass"
+    },
+    {
+      "command": "python3 -B tools/grid-spike/verify_attachment_lifecycle.py",
+      "result": "pass"
+    },
+    {
+      "command": "python3 -B -m unittest discover -s tools/grid-spike -p 'test_*.py'",
+      "result": "pass",
+      "tests": 17
+    },
+    {
+      "command": "python3 -B tools/grid-spike/verify_attachment_registration.py",
+      "result": "pass"
+    },
+    {
+      "command": "python3 -B tools/grid-spike/verify_attachment_refusal.py",
+      "result": "pass"
+    },
+    {
+      "command": "LANG=en_US.UTF-8 ruby context/check.rb",
+      "result": "pass"
+    },
+    {
+      "command": "git diff --check and git diff --cached --check",
+      "result": "pass"
+    }
+  ],
+  "runtimeChecks": "Unchanged V11 Java, native symbols, TypeScript typecheck, and 63 focused tests passed in verification-v11.json. No redeployment in this continuation.",
+  "liveGates": {
+    "attachments": 2,
+    "independentReadback": "pass",
+    "selectionAndLayout": "pass",
+    "singleUndoRedo": "pass",
+    "editedSaveReload": "pass",
+    "exactBaselineRestoredAndReopened": "pass",
+    "outerIdentity": "pass",
+    "engine": "inactive",
+    "factoryAttemptsUsed": 2,
+    "recoveryUsed": false
+  },
+  "publicDescriptions": {
+    "version": 52,
+    "tools": 44,
+    "changed": false
+  },
+  "limits": [
+    "No DSP adoption",
+    "No arbitrary type or placement claim",
+    "No general failure atomicity",
+    "Cold file I/O remains unbounded",
+    "Heap figures are samples, not peaks or retained heap"
+  ]
+}

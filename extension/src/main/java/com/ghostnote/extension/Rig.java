@@ -1061,6 +1061,8 @@ public class Rig {
             cursorTracks[i].name().markInterested();
             cursorTracks[i].position().markInterested();
             cursorTracks[i].channelId().markInterested();
+            // The attachment probe requires a muted fixture before native work.
+            if (i == 0 && profile.hasProbeResources()) cursorTracks[i].mute().markInterested();
             ownCursorTrack("GN_CT_" + i, cursorTracks[i]);
 
             // Musical writes can use a 1/64-beat grid across an eight-beat clip.

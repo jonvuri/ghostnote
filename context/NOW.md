@@ -26,10 +26,14 @@ editing; E279/E280 prove cable connect, disconnect, and retarget.
 [E283](evidence/experiments/e283-detached-grid-factory-lifecycle.md) passes
 the detached Amplify factory gate: two fresh identities, equal defaults,
 verified ownership and disposal of 77 objects per call, and exact fixture
-preservation. Next: the plan's native collection attachment stage. Complete
-its edit-admission, failure-recovery, selection, and layout guards before
-implementation. No attachment call or V9 build has run. V8 remains loaded;
-its two factory attempts are used. No replacement is pending. Wider
+preservation.
+[E289](evidence/experiments/e289-native-grid-attachment-and-persistence.md)
+passes the bounded native attachment gate: two V11 insertions, exact paired
+readback, preserved selection and layout, one-step undo/redo, and edited-state
+save/reopen. The exact baseline file is restored, reopened, and verified.
+Next: complete the [9a engine adoption design](plan/phase-9/9a-live-grid-editing-spike.md#next-session--engine-adoption-design)
+before another live stage. Keep 9a active. Both V11 factory attempts are used;
+do not issue another factory request. Wider
 [Phase 9](plan/phase-9/README.md) scope remains unselected.
 
 The former Phase 9 is now [Phase 10](plan/phase-10/README.md): publication
@@ -64,29 +68,32 @@ one server session and do not survive a new thread or resume.
 
 ## Current deployment and fixture (2026-10-19)
 
-The deployed archive is V8: `phase-8-probe-v1`, 116 methods,
-`14aacf5657eac6c2`, marker `gridReadProbe: 9a-grid-factory-v8`. The
-[deployment record](evidence/data/phase9a-grid-factory/deployment-v8.json)
-records its hash and deployment time. Operator replacement and V8 hello pass
-in E283, with fresh initialization at `2026-10-18T16:36:48.534Z`. The normal
-profile is not restored.
+The deployed archive is V11: `phase-8-probe-v1`, 117 methods,
+`b899e5d3d75a791d`, marker `gridReadProbe: 9a-grid-attachment-v11`. The
+[deployment record](evidence/data/phase9a-grid-attachment/deployment-v11.json)
+records its hash and time. V11 is confirmed loaded, initialized at
+`2026-10-18T18:13:18.006Z`; the hello passes. Two successful V11 attachment
+workflows have used both factory attempts. Cached status has no write lock,
+no unfinished task, two accepted after reads, and no recovery use. All epochs
+are released. The normal profile is not restored.
 
-Last observed in E283: `gn-grid-spike` is open at the exact projected baseline.
-Its unsaved marker was present before the factory calls and remains afterward.
-No project save or reload ran in E283. Track `grid-probe` (`c784d25c…`) is muted
-at -10 dB. Its last observed arm state is on (E281). Transport is stopped.
-The engine is inactive. Preserve its four modules and two cables: Sine -> Amplify 25% -> Audio Out, with a separate
-Amplify 50% below. Keep the outer modulators. The Grid editor is open.
+Last observed in E289: `gn-grid-spike` has its four-module, two-cable baseline.
+Paired reads match the preset and original native rectangles. Edit state is
+idle, Grid selection is empty, parent checks pass, and the outer Poly Grid
+identity is unchanged. UUIDs were reacquired after reopening. Track
+`grid-probe` (`c784d25c…`) is muted at -10 dB and armed. Transport is stopped at
+1.1.1.00. The engine is inactive; the Grid editor is open. MW and Expressions
+remain visible. The fixture tab is unstarred.
+
+The saved project and backup are byte-identical, SHA-256
+`af24056e72e9722eacaa80bf01daa02e7fba0c72103f7fd1655f689448da1b4f`.
 Project path:
 `/Users/jonvuri/Documents/Bitwig Studio/Projects/gn-grid-spike/gn-grid-spike.bwproject`.
+Backup: `/tmp/gn-grid-spike-e280-baseline.bwproject`.
 Preset path:
 `/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset`.
-E281 records deletion, baseline restoration, and outer identity. E283 records
-the detached factory calls and unchanged fixture captures and file hashes.
-All epochs were released. Final project
-SHA-256: `af24056e72e9722eacaa80bf01daa02e7fba0c72103f7fd1655f689448da1b4f`.
-The verified backup remains `/tmp/gn-grid-spike-e280-baseline.bwproject`.
-Check its hash before a later destructive test.
+The preset is unchanged. The edited-state copy is
+`/tmp/gn-grid-spike-e289-attached.bwproject`; it is not the current baseline.
 
 At entry, `gn-scale-test` had 12 tracks and 10 scenes, with the existing
 `Poly Grid` track at index 9 (`a61f595f…`). Preserve this track. This is not
@@ -105,7 +112,7 @@ and `cursorTrackPins.rule: owned-tracks-pinned-v1`. The prior probe build had
 and at 9a entry. `selection.status` can report a slot of a deleted scratch
 track (issue D11). Descriptions are v52 (44 tools);
 no live project changed in 8i16 and 8i18 to 8i20 or in the close-out. The
-next free evidence number is E284; the next decision is D52; the next
+next free evidence number is E290; the next decision is D52; the next
 issue row is D17. The live drivers accept 8i15 (`NORMAL_8I15`,
 `assertCurrentNormal`); see E263 and E264 for their commands and cleanup.
 

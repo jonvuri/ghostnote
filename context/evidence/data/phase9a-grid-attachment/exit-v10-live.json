@@ -1,0 +1,1131 @@
+{
+  "at": "2026-10-18T18:04:34.036Z",
+  "status": {
+    "writeLocked": true,
+    "nativeUnfinished": false,
+    "operationId": "eb5f7009-42a1-4b8e-b6af-a5d4dda833b9",
+    "factoryAttempts": 1,
+    "recoveryUsed": true,
+    "recoveryReads": 2,
+    "afterReads": 0,
+    "lifecycle": {
+      "factoryAttempted": true,
+      "factoryReturned": true,
+      "ownershipProved": true,
+      "editStartAttempted": true,
+      "editStartReturned": true,
+      "editOwned": true,
+      "insertionAttempted": true,
+      "insertionReturned": true,
+      "closeAttempted": true,
+      "closeReturned": true,
+      "disposeAttempted": false,
+      "disposalVerified": false,
+      "stage": "complete",
+      "factoryNanos": 2823791,
+      "ownedObjects": 77,
+      "initializationHelpersPresent": true,
+      "capture0": {
+        "complete": true,
+        "scope": "explicit property projection; semantic Grid gate not yet proved",
+        "identityScope": "capture-local; no cross-reload identity",
+        "root": 0,
+        "nodes": [
+          {
+            "id": 0,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+            "className": "module",
+            "classId": 1902,
+            "properties": [
+              {
+                "inclusion": "explicit-projection",
+                "id": 15,
+                "name": "UUID",
+                "descriptorClass": "cYL",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.util.UUID",
+                  "data": "b92d31fd-5ecd-4d07-a7ca-9426e03ae905"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 404,
+                "name": "device_name",
+                "descriptorClass": "cYK",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.String",
+                  "data": "Amplify"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 406,
+                "name": "device_contents",
+                "descriptorClass": "cYz",
+                "kind": "relationship",
+                "count": 1,
+                "refs": [
+                  1
+                ]
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 6679,
+                "name": "grid_x",
+                "descriptorClass": "cYm",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.Integer",
+                  "data": "0"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 6680,
+                "name": "grid_y",
+                "descriptorClass": "cYm",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.Integer",
+                  "data": "0"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 6977,
+                "name": "active",
+                "descriptorClass": "cXT",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.Boolean",
+                  "data": true
+                }
+              }
+            ]
+          },
+          {
+            "id": 1,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.Wxc",
+            "className": "module_contents",
+            "classId": 1904,
+            "properties": [
+              {
+                "inclusion": "explicit-projection",
+                "id": 173,
+                "name": "child_components",
+                "descriptorClass": "cYy",
+                "kind": "relationship",
+                "count": 6,
+                "refs": [
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7
+                ]
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 6369,
+                "name": "device_UUID",
+                "descriptorClass": "cYL",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.util.UUID",
+                  "data": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 6370,
+                "name": "device_name",
+                "descriptorClass": "cYK",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.String",
+                  "data": "Amplify"
+                }
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "properties": [
+              {
+                "inclusion": "explicit-projection",
+                "id": 3639,
+                "name": "name",
+                "descriptorClass": "cYK",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.String",
+                  "data": "Out"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 3640,
+                "name": "preset_identifier",
+                "descriptorClass": "cYK",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.String",
+                  "data": "OUT"
+                }
+              }
+            ]
+          },
+          {
+            "id": 3,
+            "runtimeClass": "tqm",
+            "className": "bipolar_toggleable_decimal_value_atom",
+            "classId": 1763,
+            "properties": [
+              {
+                "inclusion": "explicit-projection",
+                "id": 701,
+                "name": "preset_identifier",
+                "descriptorClass": "cYK",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.String",
+                  "data": "VALUE"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 374,
+                "name": "name",
+                "descriptorClass": "cYK",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.String",
+                  "data": "Amplification Amount"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 712,
+                "name": "value",
+                "descriptorClass": "cYc",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.Double",
+                  "data": 1
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 949,
+                "name": "gui_value",
+                "descriptorClass": "cYc",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.Double",
+                  "data": 1
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 6406,
+                "name": "bipolar",
+                "descriptorClass": "cXT",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.Boolean",
+                  "data": false
+                }
+              }
+            ]
+          },
+          {
+            "id": 4,
+            "runtimeClass": "yhl",
+            "className": "boolean_panel_value",
+            "classId": 1751,
+            "properties": [
+              {
+                "inclusion": "explicit-projection",
+                "id": 6387,
+                "name": "preset_identifier",
+                "descriptorClass": "cYK",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.String",
+                  "data": "BIPOLAR"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 6386,
+                "name": "value",
+                "descriptorClass": "cXT",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.Boolean",
+                  "data": false
+                }
+              }
+            ]
+          },
+          {
+            "id": 5,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ",
+            "className": "audio_destination_atom",
+            "classId": 2002,
+            "properties": [
+              {
+                "inclusion": "explicit-projection",
+                "id": 7123,
+                "name": "name",
+                "descriptorClass": "cYK",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.String",
+                  "data": "Audio Thru"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 7124,
+                "name": "preset_identifier",
+                "descriptorClass": "cYK",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.String",
+                  "data": "IN"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 7125,
+                "name": "source",
+                "descriptorClass": "cYz",
+                "kind": "relationship",
+                "count": 0,
+                "refs": []
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 7234,
+                "name": "default_value",
+                "descriptorClass": "cYc",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.Double",
+                  "data": 0
+                }
+              }
+            ]
+          },
+          {
+            "id": 6,
+            "runtimeClass": "dkb",
+            "className": "nitro_atom",
+            "classId": 1721,
+            "properties": [
+              {
+                "inclusion": "explicit-projection",
+                "id": 14,
+                "name": "managed_object_ID",
+                "descriptorClass": "cYm",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.Integer",
+                  "data": "0"
+                }
+              }
+            ]
+          },
+          {
+            "id": 7,
+            "runtimeClass": "QY",
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "properties": [
+              {
+                "inclusion": "explicit-projection",
+                "id": 701,
+                "name": "preset_identifier",
+                "descriptorClass": "cYK",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.String",
+                  "data": "STEREOIZE"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 374,
+                "name": "name",
+                "descriptorClass": "cYK",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.String",
+                  "data": "Stereo-ize"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 210,
+                "name": "value",
+                "descriptorClass": "cXT",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.Boolean",
+                  "data": false
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 953,
+                "name": "gui_value",
+                "descriptorClass": "cXT",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.Boolean",
+                  "data": false
+                }
+              }
+            ]
+          }
+        ],
+        "errors": [],
+        "errorCount": 0,
+        "work": 42,
+        "documentReadNanos": 450167,
+        "encodedBytes": 5826,
+        "queryWork": 226
+      },
+      "capture1": {
+        "complete": true,
+        "scope": "explicit property projection; semantic Grid gate not yet proved",
+        "identityScope": "capture-local; no cross-reload identity",
+        "root": 0,
+        "nodes": [
+          {
+            "id": 0,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+            "className": "module",
+            "classId": 1902,
+            "properties": [
+              {
+                "inclusion": "explicit-projection",
+                "id": 15,
+                "name": "UUID",
+                "descriptorClass": "cYL",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.util.UUID",
+                  "data": "b92d31fd-5ecd-4d07-a7ca-9426e03ae905"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 404,
+                "name": "device_name",
+                "descriptorClass": "cYK",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.String",
+                  "data": "Amplify"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 406,
+                "name": "device_contents",
+                "descriptorClass": "cYz",
+                "kind": "relationship",
+                "count": 1,
+                "refs": [
+                  1
+                ]
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 6679,
+                "name": "grid_x",
+                "descriptorClass": "cYm",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.Integer",
+                  "data": "0"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 6680,
+                "name": "grid_y",
+                "descriptorClass": "cYm",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.Integer",
+                  "data": "0"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 6977,
+                "name": "active",
+                "descriptorClass": "cXT",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.Boolean",
+                  "data": true
+                }
+              }
+            ]
+          },
+          {
+            "id": 1,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.Wxc",
+            "className": "module_contents",
+            "classId": 1904,
+            "properties": [
+              {
+                "inclusion": "explicit-projection",
+                "id": 173,
+                "name": "child_components",
+                "descriptorClass": "cYy",
+                "kind": "relationship",
+                "count": 6,
+                "refs": [
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7
+                ]
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 6369,
+                "name": "device_UUID",
+                "descriptorClass": "cYL",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.util.UUID",
+                  "data": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 6370,
+                "name": "device_name",
+                "descriptorClass": "cYK",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.String",
+                  "data": "Amplify"
+                }
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "properties": [
+              {
+                "inclusion": "explicit-projection",
+                "id": 3639,
+                "name": "name",
+                "descriptorClass": "cYK",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.String",
+                  "data": "Out"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 3640,
+                "name": "preset_identifier",
+                "descriptorClass": "cYK",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.String",
+                  "data": "OUT"
+                }
+              }
+            ]
+          },
+          {
+            "id": 3,
+            "runtimeClass": "tqm",
+            "className": "bipolar_toggleable_decimal_value_atom",
+            "classId": 1763,
+            "properties": [
+              {
+                "inclusion": "explicit-projection",
+                "id": 701,
+                "name": "preset_identifier",
+                "descriptorClass": "cYK",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.String",
+                  "data": "VALUE"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 374,
+                "name": "name",
+                "descriptorClass": "cYK",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.String",
+                  "data": "Amplification Amount"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 712,
+                "name": "value",
+                "descriptorClass": "cYc",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.Double",
+                  "data": 1
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 949,
+                "name": "gui_value",
+                "descriptorClass": "cYc",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.Double",
+                  "data": 1
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 6406,
+                "name": "bipolar",
+                "descriptorClass": "cXT",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.Boolean",
+                  "data": false
+                }
+              }
+            ]
+          },
+          {
+            "id": 4,
+            "runtimeClass": "yhl",
+            "className": "boolean_panel_value",
+            "classId": 1751,
+            "properties": [
+              {
+                "inclusion": "explicit-projection",
+                "id": 6387,
+                "name": "preset_identifier",
+                "descriptorClass": "cYK",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.String",
+                  "data": "BIPOLAR"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 6386,
+                "name": "value",
+                "descriptorClass": "cXT",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.Boolean",
+                  "data": false
+                }
+              }
+            ]
+          },
+          {
+            "id": 5,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ",
+            "className": "audio_destination_atom",
+            "classId": 2002,
+            "properties": [
+              {
+                "inclusion": "explicit-projection",
+                "id": 7123,
+                "name": "name",
+                "descriptorClass": "cYK",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.String",
+                  "data": "Audio Thru"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 7124,
+                "name": "preset_identifier",
+                "descriptorClass": "cYK",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.String",
+                  "data": "IN"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 7125,
+                "name": "source",
+                "descriptorClass": "cYz",
+                "kind": "relationship",
+                "count": 0,
+                "refs": []
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 7234,
+                "name": "default_value",
+                "descriptorClass": "cYc",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.Double",
+                  "data": 0
+                }
+              }
+            ]
+          },
+          {
+            "id": 6,
+            "runtimeClass": "dkb",
+            "className": "nitro_atom",
+            "classId": 1721,
+            "properties": [
+              {
+                "inclusion": "explicit-projection",
+                "id": 14,
+                "name": "managed_object_ID",
+                "descriptorClass": "cYm",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.Integer",
+                  "data": "0"
+                }
+              }
+            ]
+          },
+          {
+            "id": 7,
+            "runtimeClass": "QY",
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "properties": [
+              {
+                "inclusion": "explicit-projection",
+                "id": 701,
+                "name": "preset_identifier",
+                "descriptorClass": "cYK",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.String",
+                  "data": "STEREOIZE"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 374,
+                "name": "name",
+                "descriptorClass": "cYK",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.String",
+                  "data": "Stereo-ize"
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 210,
+                "name": "value",
+                "descriptorClass": "cXT",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.Boolean",
+                  "data": false
+                }
+              },
+              {
+                "inclusion": "explicit-projection",
+                "id": 953,
+                "name": "gui_value",
+                "descriptorClass": "cXT",
+                "kind": "value",
+                "domain": "unknown",
+                "value": {
+                  "type": "java.lang.Boolean",
+                  "data": false
+                }
+              }
+            ]
+          }
+        ],
+        "errors": [],
+        "errorCount": 0,
+        "work": 42,
+        "documentReadNanos": 175500,
+        "encodedBytes": 5826,
+        "queryWork": 226
+      },
+      "admission": {
+        "layout": [
+          {
+            "uuid": "21dceaec-f451-4408-8e8a-4039149931ac",
+            "x": -4,
+            "y": -2,
+            "width": 3,
+            "height": 2
+          },
+          {
+            "uuid": "5b445792-b5fe-4985-9ad6-048ac4820a1b",
+            "x": -1,
+            "y": -2,
+            "width": 1,
+            "height": 1
+          },
+          {
+            "uuid": "b1aaa72a-4e32-4b0e-86e6-0cd2c90e548e",
+            "x": -1,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          {
+            "uuid": "6dbc82db-df8a-4478-8a0c-0820028f907e",
+            "x": 0,
+            "y": -2,
+            "width": 1,
+            "height": 1
+          },
+          {
+            "uuid": "b92d31fd-5ecd-4d07-a7ca-9426e03ae905",
+            "x": 2,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        ],
+        "selection": {
+          "selected": []
+        }
+      },
+      "startNanos": 510833,
+      "editAdmitted": true,
+      "insertionNanos": 5592083,
+      "closeNanos": 2421291,
+      "closeAccepted": true,
+      "editClosed": true,
+      "attached": {
+        "uuid": "b92d31fd-5ecd-4d07-a7ca-9426e03ae905",
+        "parentsVerified": true,
+        "selectionUnchanged": true,
+        "rectangle": {
+          "uuid": "b92d31fd-5ecd-4d07-a7ca-9426e03ae905",
+          "x": 2,
+          "y": 0,
+          "width": 1,
+          "height": 1
+        }
+      },
+      "uncertain": false,
+      "diagnostics": {
+        "edit": {
+          "frames": 0,
+          "instant": 0,
+          "longer": 0,
+          "locks": 0,
+          "lockSet": false,
+          "active": false
+        },
+        "moduleUuids": [
+          "21dceaec-f451-4408-8e8a-4039149931ac",
+          "5b445792-b5fe-4985-9ad6-048ac4820a1b",
+          "6dbc82db-df8a-4478-8a0c-0820028f907e",
+          "b1aaa72a-4e32-4b0e-86e6-0cd2c90e548e",
+          "b92d31fd-5ecd-4d07-a7ca-9426e03ae905"
+        ],
+        "ownership": [
+          {
+            "uuid": "21dceaec-f451-4408-8e8a-4039149931ac",
+            "ownerIsGrid": true,
+            "parentIsGrid": true
+          },
+          {
+            "uuid": "5b445792-b5fe-4985-9ad6-048ac4820a1b",
+            "ownerIsGrid": true,
+            "parentIsGrid": true
+          },
+          {
+            "uuid": "6dbc82db-df8a-4478-8a0c-0820028f907e",
+            "ownerIsGrid": true,
+            "parentIsGrid": true
+          },
+          {
+            "uuid": "b1aaa72a-4e32-4b0e-86e6-0cd2c90e548e",
+            "ownerIsGrid": true,
+            "parentIsGrid": true
+          },
+          {
+            "uuid": "b92d31fd-5ecd-4d07-a7ca-9426e03ae905",
+            "ownerIsGrid": true,
+            "parentIsGrid": true
+          }
+        ]
+      },
+      "requestError": "java.lang.IllegalStateException: grid-operation-failed:java.lang.IllegalStateException: attachment-independent-readback-disagrees; caused by java.lang.IllegalStateException: attachment-independent-readback-disagrees"
+    }
+  },
+  "selection": {
+    "trackIndex": -1,
+    "slotIndex": -1,
+    "mixerTrackIndex": 0,
+    "mixerChannelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+    "changes": 0,
+    "revision": 1,
+    "slotProject": "",
+    "mixerProject": "gn-grid-spike",
+    "project": "gn-grid-spike"
+  },
+  "revision": {
+    "revision": 0,
+    "generation": "2035a81c-f40a-4bd8-a282-7957e27ca6e5",
+    "project": "gn-grid-spike",
+    "projectStatus": "marked",
+    "sceneEpoch": 2,
+    "sceneCount": 8,
+    "contentEpoch": 32768,
+    "unpinnedCursorTracks": [],
+    "contentEvents": [
+      {
+        "seq": 32745,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 104,
+        "filled": false
+      },
+      {
+        "seq": 32746,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 105,
+        "filled": false
+      },
+      {
+        "seq": 32747,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 106,
+        "filled": false
+      },
+      {
+        "seq": 32748,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 107,
+        "filled": false
+      },
+      {
+        "seq": 32749,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 108,
+        "filled": false
+      },
+      {
+        "seq": 32750,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 109,
+        "filled": false
+      },
+      {
+        "seq": 32751,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 110,
+        "filled": false
+      },
+      {
+        "seq": 32752,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 111,
+        "filled": false
+      },
+      {
+        "seq": 32753,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 112,
+        "filled": false
+      },
+      {
+        "seq": 32754,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 113,
+        "filled": false
+      },
+      {
+        "seq": 32755,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 114,
+        "filled": false
+      },
+      {
+        "seq": 32756,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 115,
+        "filled": false
+      },
+      {
+        "seq": 32757,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 116,
+        "filled": false
+      },
+      {
+        "seq": 32758,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 117,
+        "filled": false
+      },
+      {
+        "seq": 32759,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 118,
+        "filled": false
+      },
+      {
+        "seq": 32760,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 119,
+        "filled": false
+      },
+      {
+        "seq": 32761,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 120,
+        "filled": false
+      },
+      {
+        "seq": 32762,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 121,
+        "filled": false
+      },
+      {
+        "seq": 32763,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 122,
+        "filled": false
+      },
+      {
+        "seq": 32764,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 123,
+        "filled": false
+      },
+      {
+        "seq": 32765,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 124,
+        "filled": false
+      },
+      {
+        "seq": 32766,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 125,
+        "filled": false
+      },
+      {
+        "seq": 32767,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 126,
+        "filled": false
+      },
+      {
+        "seq": 32768,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 127,
+        "filled": false
+      }
+    ]
+  }
+}

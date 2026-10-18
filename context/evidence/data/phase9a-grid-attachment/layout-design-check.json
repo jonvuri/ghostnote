@@ -1,0 +1,13 @@
+{
+  "scope": "Offline scalar hypotheses; no live rectangle or native layout proof",
+  "dimensionCombinations": 262144,
+  "admittedWithNoMovement": 1344,
+  "refusedOverlap": 260800,
+  "boundaryChecks": [
+    "inserted-first tie",
+    "half-open edge contact",
+    "negative origin and 16-row span",
+    "17-row refusal"
+  ],
+  "limitation": "The probe must read every native rectangle independently; unequal Amplify dimensions and integer overflow need implementation tests."
+}

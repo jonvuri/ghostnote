@@ -1,0 +1,80 @@
+{
+  "calls": [
+    {
+      "method": "contract.hello",
+      "ms": 20.71304099999999,
+      "bytes": 155
+    },
+    {
+      "method": "rig.info",
+      "ms": 21.889583000000002,
+      "bytes": 1805
+    },
+    {
+      "method": "rig.stats",
+      "ms": 23.01070899999999,
+      "bytes": 2496
+    },
+    {
+      "method": "host.info",
+      "ms": 22.773583000000002,
+      "bytes": 148
+    },
+    {
+      "method": "revision.get",
+      "ms": 22.929332999999986,
+      "bytes": 2060
+    },
+    {
+      "method": "selection.status",
+      "ms": 25.20675,
+      "bytes": 207
+    },
+    {
+      "method": "track.list",
+      "ms": 22.73720899999998,
+      "bytes": 381
+    },
+    {
+      "method": "cursor.pointTrack",
+      "ms": 21.95466600000003,
+      "bytes": 16
+    },
+    {
+      "method": "devcursor.status",
+      "ms": 4.521208999999999,
+      "bytes": 232
+    },
+    {
+      "method": "device.list",
+      "ms": 22.82249999999999,
+      "bytes": 171
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 137.36004099999997,
+      "bytes": 466
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 96.18333400000006,
+      "bytes": 36947
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 66.165209,
+      "bytes": 36947
+    },
+    {
+      "method": "probe.gridModuleAttach",
+      "ms": 100.06004100000007,
+      "error": "BridgeError: Internal error: c3251d9b-c2fc-494a-91ce-2c6c961a8ae5:writeAttempted=false:stage=null:java.lang.IllegalStateException: grid-operation-failed:java.lang.IllegalStateException: attachment-before-witness-changed; caused by java.lang.IllegalStateException: attachment-before-witness-changed; details in attachmentStatus"
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 18.082374999999956,
+      "bytes": 1037
+    }
+  ],
+  "sequentialWireCalls": 15
+}

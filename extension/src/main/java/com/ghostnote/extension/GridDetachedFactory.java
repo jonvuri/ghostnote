@@ -93,7 +93,7 @@ public final class GridDetachedFactory {
         report.addProperty("stage", value); progress.accept(report.toString());
     }
 
-    private static List<Object> ownership(Host host, Object module) throws Exception {
+    static List<Object> ownership(Host host, Object module) throws Exception {
         host.requireRoot(module);
         List<Object> result = new ArrayList<>();
         Set<Object> seen = Collections.newSetFromMap(new IdentityHashMap<>());

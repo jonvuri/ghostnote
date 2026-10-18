@@ -1,0 +1,38 @@
+{
+  "scope": "V9 live refusal/recovery and offline V10 repair",
+  "checkedAt": "2026-10-18T17:54:26.622860+00:00",
+  "checks": [
+    {
+      "command": "./gradlew check gridAttachmentSymbolsTest",
+      "result": "pass"
+    },
+    {
+      "command": "npm run typecheck",
+      "result": "pass"
+    },
+    {
+      "command": "node --import tsx --test src/probes/phase9a-grid-attachment.test.ts src/adapters/live/wiremap.test.ts",
+      "result": "pass",
+      "tests": 61
+    },
+    {
+      "command": "python3 -B -m unittest discover -s tools/grid-spike -p 'test_*.py'",
+      "result": "pass",
+      "tests": 15
+    },
+    {
+      "command": "python3 -B tools/grid-spike/verify_attachment_refusal.py",
+      "result": "pass"
+    }
+  ],
+  "regression": "V9 null focus loss reproduced with new Gson(); empty and focused witnesses survive fixed response/request encoding",
+  "publicDescriptions": {
+    "version": 52,
+    "tools": 44,
+    "changed": false
+  },
+  "successCallBudget": 18,
+  "recoveryCallBudget": 4,
+  "liveV10": "pending operator replacement and fresh hello",
+  "archiveSha256": "dfa371a9e49aeca1c94bd64dfe4d95d2fbc1fbe61b2f2cd6f7d8f1860ac64f91"
+}

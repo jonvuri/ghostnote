@@ -1,0 +1,48 @@
+{
+  "recordedAt": "2026-10-18T18:43:19.882271+00:00",
+  "source": "Bitwig screenshots and UI actions in the live tool transcript",
+  "project": "gn-grid-spike",
+  "engineInactiveAtEntryAndExit": true,
+  "transportPosition": "1.1.1.00 / 0:00.000",
+  "firstAttachment": {
+    "modules": 5,
+    "cables": 2,
+    "newModule": "Amplify 100% at (2,0)",
+    "existingLayoutUnchanged": true,
+    "selection": "No item selected"
+  },
+  "repeatAttachment": {
+    "modules": 5,
+    "cables": 2,
+    "newModule": "Amplify 100% at (2,0)",
+    "existingLayoutUnchanged": true,
+    "selection": "No item selected"
+  },
+  "persistence": {
+    "save": "Command-S changed the saved file; paired capture live-99 is exact.",
+    "close": "Command-W closed only gn-grid-spike.",
+    "reload": "Command-O opened the exact saved path. The tab was unstarred and the engine inactive.",
+    "reloadVisualLimit": "The compact Grid showed five modules. The expanded editor did not open from a double-click. Native paired reads prove persisted semantics and rectangles."
+  },
+  "final": {
+    "modules": 4,
+    "cables": 2,
+    "amplifyValues": [
+      25,
+      50
+    ],
+    "selection": "No item selected",
+    "gridEditorOpen": true,
+    "projectStarred": false,
+    "outerModulators": [
+      "MW",
+      "Expressions"
+    ],
+    "otherProject": "gn-scale-test remains open with its prior unsaved marker"
+  },
+  "uiActions": [
+    "Save fixture, close, reopen edited file, close, restore baseline bytes, reopen baseline",
+    "Toggle remote controls on, then off; open expanded device view with its separate button"
+  ],
+  "limit": "No playback, engine activation, or audible DSP check."
+}

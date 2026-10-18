@@ -1,0 +1,57 @@
+{
+  "result": "V10 insertion returned; exact readback gate stopped at managed ID",
+  "uuid": "b92d31fd-5ecd-4d07-a7ca-9426e03ae905",
+  "onlyUnexpectedDelta": {
+    "node": 59,
+    "property": 14,
+    "detached": "0",
+    "recovered": "4000"
+  },
+  "nativeRegistrationProof": false,
+  "factoryAttempts": 1,
+  "recoveryCalls": 4,
+  "writeLocked": true,
+  "workflowWireMs": 528.9193349999998,
+  "recoveryWireMs": 153.445083,
+  "commandWireMs": 71.902375,
+  "commandDocumentMs": 27.788667,
+  "commandQueueMs": 0.110875,
+  "nativeMs": {
+    "factory": 2.823791,
+    "start": 0.510833,
+    "insertion": 5.592083,
+    "close": 2.421291
+  },
+  "commandHeapSampleDelta": 8388608,
+  "reads": [
+    {
+      "capture": "live-91-attach-first/capture-0",
+      "documentMs": 6.450292,
+      "queueMs": 0.137417,
+      "heapSampleDelta": 2097152,
+      "graphBytes": 35828
+    },
+    {
+      "capture": "live-91-attach-first/capture-1",
+      "documentMs": 8.795042,
+      "queueMs": 0.097958,
+      "heapSampleDelta": 2097152,
+      "graphBytes": 35828
+    },
+    {
+      "capture": "live-92-recovery/recovery-0",
+      "documentMs": 8.452208,
+      "queueMs": 0.165083,
+      "heapSampleDelta": 2097152,
+      "graphBytes": 41407
+    },
+    {
+      "capture": "live-92-recovery/recovery-1",
+      "documentMs": 11.159042,
+      "queueMs": 0.152792,
+      "heapSampleDelta": 2097152,
+      "graphBytes": 41407
+    }
+  ],
+  "limit": "V11 registry proof, successful repeat, undo/redo, edited reload, and live baseline restoration remain pending."
+}

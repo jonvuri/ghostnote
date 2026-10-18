@@ -1,4 +1,4 @@
-/** 9a probe. Usage: state | capture|schema|project|value|cable|delete|factory <project> <preset> <new output> [query.json] [50|60|sine|amplify|none]. */
+/** 9a probe. Usage: state | capture|attachment|schema|project|value|cable|delete|factory <project> <preset> <new output> [query.json] [50|60|sine|amplify|none]. */
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { lstatSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -8,7 +8,7 @@ import { compareDeployment, deployedAtMs } from '../deploy.js';
 
 type Wire = Record<string, any>;
 const [mode, projectPath, presetPath, output, queryPath, targetPercent] = process.argv.slice(2);
-assert.ok(['state', 'capture', 'schema', 'project', 'value', 'cable', 'delete', 'factory'].includes(mode!), 'Use state, capture, schema, project, value, cable, delete, or factory');
+assert.ok(['state', 'capture', 'attachment', 'schema', 'project', 'value', 'cable', 'delete', 'factory'].includes(mode!), 'Use state, capture, attachment, schema, project, value, cable, delete, or factory');
 if (mode === 'value') assert.ok(['50', '60'].includes(targetPercent!), 'Value mode requires target 50 or 60');
 if (mode === 'cable') assert.ok(['sine', 'amplify', 'none'].includes(targetPercent!), 'Cable mode requires sine, amplify, or none');
 const writing = mode === 'value' || mode === 'cable' || mode === 'delete' || mode === 'factory';
@@ -78,9 +78,9 @@ try {
   if (mode === 'state') console.log(JSON.stringify(entry, null, 2));
   else {
     assert.equal(hello.runtimeProfile, 'phase-8-probe-v1');
-    assert.equal(hello.methodCount, 116);
-    assert.equal(hello.methodsHash, '14aacf5657eac6c2');
-    assert.equal(rig.gridReadProbe, '9a-grid-factory-v8');
+    assert.equal(hello.methodCount, 117);
+    assert.equal(hello.methodsHash, 'b899e5d3d75a791d');
+    assert.equal(rig.gridReadProbe, '9a-grid-attachment-v11');
     assert.equal(compareDeployment(deployedAtMs(), stats.initEpochMs ?? -1).state, 'fresh');
     assert.equal(mark.project, 'gn-grid-spike');
     const matches = tracks.tracks.filter((track: Wire) => track.name === 'grid-probe');
@@ -108,7 +108,7 @@ try {
     epoch = bound.epoch;
     let prior: Wire | undefined;
     for (let run = 0; run < 2; run++) {
-      const result = await request('probe.gridRead', { ...query, operation: mode === 'schema' ? 'schema' : 'read', epoch, ...target });
+      const result = await request('probe.gridRead', { ...query, operation: mode === 'schema' ? 'schema' : mode === 'attachment' ? 'attachmentRead' : 'read', epoch, ...target });
       save(`capture-${run}`, result);
       if (mode === 'schema') {
         assert.equal(result.schema.complete, true);
@@ -126,6 +126,10 @@ try {
           assert.equal(contents?.count, 1, 'Need one device contents object');
         }
         if (prior) assert.deepEqual(result.graph.nodes, prior.graph.nodes, 'Settled graphs differ');
+        if (mode === 'attachment') {
+          assert.ok(result.witness, 'The native attachment witness is absent');
+          if (prior) assert.deepEqual(result.witness, prior.witness, 'Settled native witnesses differ');
+        }
       }
       prior = result;
     }
@@ -211,7 +215,7 @@ try {
     if (mode === 'factory') save('files-after', { project: fingerprint(projectPath!), preset: fingerprint(presetPath!) });
     const finalSelection = await request('selection.status');
     save('selection-after', finalSelection);
-    if (writing) assert.deepEqual(finalSelection, selection, 'Selection changed during the fixture write');
+    if (writing || mode === 'attachment') assert.deepEqual(finalSelection, selection, 'Selection changed during the fixture write');
     console.log(JSON.stringify({ status: writing ? `${mode}-readback-agrees` : 'raw-captures-agree', mode, output,
       semanticGate: 'evaluate with read_semantics.py; UI witness required for writes',
       selectionUnchanged: JSON.stringify(selection) === JSON.stringify(finalSelection) }));

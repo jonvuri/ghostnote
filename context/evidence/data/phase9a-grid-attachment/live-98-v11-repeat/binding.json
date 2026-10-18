@@ -1,0 +1,15 @@
+{
+  "marker": "9a-grid-attachment-v11",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "operationId": "304915cc-77d1-43d3-a43b-4a03f4f3246e",
+  "epoch": "f172c223-9774-46b5-8855-46489a2daf77",
+  "runtimeClass": "com.bitwig.flt.document.core.master.device.S2E",
+  "className": "native_device",
+  "classId": 163,
+  "thread": "main",
+  "queueNanos": 201792,
+  "heapUsedBefore": 591396864,
+  "heapUsedAfter": 591396864,
+  "documentTaskNanos": 271542,
+  "completionNanos": 22885750
+}

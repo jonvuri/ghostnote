@@ -1,0 +1,244 @@
+{
+  "at": "2026-10-18T17:50:26.491Z",
+  "status": {
+    "writeLocked": true,
+    "nativeUnfinished": false,
+    "operationId": "c3251d9b-c2fc-494a-91ce-2c6c961a8ae5",
+    "factoryAttempts": 0,
+    "recoveryUsed": true,
+    "recoveryReads": 2,
+    "afterReads": 0,
+    "lifecycle": {
+      "diagnostics": {
+        "edit": {
+          "frames": 0,
+          "instant": 0,
+          "longer": 0,
+          "locks": 0,
+          "lockSet": false,
+          "active": false
+        },
+        "moduleUuids": [
+          "21dceaec-f451-4408-8e8a-4039149931ac",
+          "5b445792-b5fe-4985-9ad6-048ac4820a1b",
+          "6dbc82db-df8a-4478-8a0c-0820028f907e",
+          "b1aaa72a-4e32-4b0e-86e6-0cd2c90e548e"
+        ],
+        "ownership": [
+          {
+            "uuid": "21dceaec-f451-4408-8e8a-4039149931ac",
+            "ownerIsGrid": true,
+            "parentIsGrid": true
+          },
+          {
+            "uuid": "5b445792-b5fe-4985-9ad6-048ac4820a1b",
+            "ownerIsGrid": true,
+            "parentIsGrid": true
+          },
+          {
+            "uuid": "6dbc82db-df8a-4478-8a0c-0820028f907e",
+            "ownerIsGrid": true,
+            "parentIsGrid": true
+          },
+          {
+            "uuid": "b1aaa72a-4e32-4b0e-86e6-0cd2c90e548e",
+            "ownerIsGrid": true,
+            "parentIsGrid": true
+          }
+        ]
+      },
+      "requestError": "java.lang.IllegalStateException: grid-operation-failed:java.lang.IllegalStateException: attachment-before-witness-changed; caused by java.lang.IllegalStateException: attachment-before-witness-changed"
+    }
+  },
+  "selection": {
+    "trackIndex": -1,
+    "slotIndex": -1,
+    "mixerTrackIndex": 0,
+    "mixerChannelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+    "changes": 0,
+    "revision": 1,
+    "slotProject": "",
+    "mixerProject": "gn-grid-spike",
+    "project": "gn-grid-spike"
+  },
+  "revision": {
+    "revision": 0,
+    "generation": "58a96e0e-34f5-46c5-9234-b8908126abab",
+    "project": "gn-grid-spike",
+    "projectStatus": "marked",
+    "sceneEpoch": 2,
+    "sceneCount": 8,
+    "contentEpoch": 32768,
+    "unpinnedCursorTracks": [],
+    "contentEvents": [
+      {
+        "seq": 32745,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 104,
+        "filled": false
+      },
+      {
+        "seq": 32746,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 105,
+        "filled": false
+      },
+      {
+        "seq": 32747,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 106,
+        "filled": false
+      },
+      {
+        "seq": 32748,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 107,
+        "filled": false
+      },
+      {
+        "seq": 32749,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 108,
+        "filled": false
+      },
+      {
+        "seq": 32750,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 109,
+        "filled": false
+      },
+      {
+        "seq": 32751,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 110,
+        "filled": false
+      },
+      {
+        "seq": 32752,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 111,
+        "filled": false
+      },
+      {
+        "seq": 32753,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 112,
+        "filled": false
+      },
+      {
+        "seq": 32754,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 113,
+        "filled": false
+      },
+      {
+        "seq": 32755,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 114,
+        "filled": false
+      },
+      {
+        "seq": 32756,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 115,
+        "filled": false
+      },
+      {
+        "seq": 32757,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 116,
+        "filled": false
+      },
+      {
+        "seq": 32758,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 117,
+        "filled": false
+      },
+      {
+        "seq": 32759,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 118,
+        "filled": false
+      },
+      {
+        "seq": 32760,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 119,
+        "filled": false
+      },
+      {
+        "seq": 32761,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 120,
+        "filled": false
+      },
+      {
+        "seq": 32762,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 121,
+        "filled": false
+      },
+      {
+        "seq": 32763,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 122,
+        "filled": false
+      },
+      {
+        "seq": 32764,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 123,
+        "filled": false
+      },
+      {
+        "seq": 32765,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 124,
+        "filled": false
+      },
+      {
+        "seq": 32766,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 125,
+        "filled": false
+      },
+      {
+        "seq": 32767,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 126,
+        "filled": false
+      },
+      {
+        "seq": 32768,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 127,
+        "filled": false
+      }
+    ]
+  }
+}

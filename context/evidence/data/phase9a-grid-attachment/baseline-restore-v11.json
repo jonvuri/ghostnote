@@ -1,0 +1,15 @@
+{
+  "at": "2026-10-18T18:26:41.208263+00:00",
+  "fixtureClosedObserved": true,
+  "project": "/Users/jonvuri/Documents/Bitwig Studio/Projects/gn-grid-spike/gn-grid-spike.bwproject",
+  "backup": "/tmp/gn-grid-spike-e280-baseline.bwproject",
+  "editedCopy": "/tmp/gn-grid-spike-e289-attached.bwproject",
+  "before": {
+    "bytes": 34490,
+    "sha256": "a35542378cb80e67fcc22345b4457439b5732e7fcc1e0875b8d31662532f9807"
+  },
+  "after": {
+    "bytes": 34128,
+    "sha256": "af24056e72e9722eacaa80bf01daa02e7fba0c72103f7fd1655f689448da1b4f"
+  }
+}

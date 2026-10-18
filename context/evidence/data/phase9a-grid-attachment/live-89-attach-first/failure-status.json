@@ -1,0 +1,50 @@
+{
+  "writeLocked": true,
+  "nativeUnfinished": false,
+  "operationId": "c3251d9b-c2fc-494a-91ce-2c6c961a8ae5",
+  "factoryAttempts": 0,
+  "recoveryUsed": false,
+  "recoveryReads": 0,
+  "afterReads": 0,
+  "lifecycle": {
+    "diagnostics": {
+      "edit": {
+        "frames": 0,
+        "instant": 0,
+        "longer": 0,
+        "locks": 0,
+        "lockSet": false,
+        "active": false
+      },
+      "moduleUuids": [
+        "21dceaec-f451-4408-8e8a-4039149931ac",
+        "5b445792-b5fe-4985-9ad6-048ac4820a1b",
+        "6dbc82db-df8a-4478-8a0c-0820028f907e",
+        "b1aaa72a-4e32-4b0e-86e6-0cd2c90e548e"
+      ],
+      "ownership": [
+        {
+          "uuid": "21dceaec-f451-4408-8e8a-4039149931ac",
+          "ownerIsGrid": true,
+          "parentIsGrid": true
+        },
+        {
+          "uuid": "5b445792-b5fe-4985-9ad6-048ac4820a1b",
+          "ownerIsGrid": true,
+          "parentIsGrid": true
+        },
+        {
+          "uuid": "6dbc82db-df8a-4478-8a0c-0820028f907e",
+          "ownerIsGrid": true,
+          "parentIsGrid": true
+        },
+        {
+          "uuid": "b1aaa72a-4e32-4b0e-86e6-0cd2c90e548e",
+          "ownerIsGrid": true,
+          "parentIsGrid": true
+        }
+      ]
+    },
+    "requestError": "java.lang.IllegalStateException: grid-operation-failed:java.lang.IllegalStateException: attachment-before-witness-changed; caused by java.lang.IllegalStateException: attachment-before-witness-changed"
+  }
+}

@@ -4,7 +4,7 @@ kind: capability
 state: active
 updated: 2026-10-19
 scope: device identification, parameter access and the observable surface
-evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E73, E254, E276, E277, E279, E280, E281, E283; D2, D46; reference/BitX
+evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E73, E254, E276, E277, E279, E280, E281, E283, E289; D2, D46; reference/BitX
 ---
 
 # Devices
@@ -31,7 +31,8 @@ V4 also changes one disconnected Amplify value from 50% to 60% and back.
 Four internal setter calls pass fresh paired reads. UI, host undo/redo, and
 edited-state save/reload pass. The final saved/reloaded baseline matches the
 preset. This supersedes the earlier unproved parameter-write status. Live
-module attachment, layout writes, and DSP adoption remain unproved.
+module attachment was not tested in E277. General layout writes and DSP
+adoption remain unproved.
 The engine was inactive. This is an exact-build research result, not a public
 tool [K, [E277](../experiments/e277-grid-value-write-readback-and-persistence.md)].
 
@@ -48,7 +49,7 @@ V7 deletes the spare Amplify with no input cable, or with one from Sine OUT.
 Exact paired reads, UI, single undo/redo, and edited-state reload pass. The
 connected deletion removes the module and incoming cable together. The exact
 saved baseline is restored and reopened. Outgoing consumer cleanup, arbitrary
-module deletion, live attachment, and DSP adoption remain unproved [K,
+module deletion and DSP adoption remain unproved [K,
 [E281](../experiments/e281-grid-module-delete-and-persistence.md)].
 
 V8 constructs and disposes a detached Amplify twice. New module UUIDs,
@@ -56,9 +57,18 @@ null parentage, contents ownership, initialization helpers, equal projected
 native defaults, and disposal of all 77 owned objects pass. Paired live
 fixture reads and saved file hashes remain equal. The native VALUE default
 is 1; BIPOLAR and STEREOIZE are false. This proves the bounded factory
-lifecycle only. Live attachment, DSP adoption, and general failure rollback
-remain unproved [K,
+lifecycle only. DSP adoption and general failure rollback remain unproved [K,
 [E283](../experiments/e283-detached-grid-factory-lifecycle.md)].
+
+V11 attaches one native Amplify at (2, 0) in each of two separate attempts.
+Exact paired reads prove the new membership, native defaults, registered
+managed identity, ownership, and unchanged existing graph. Selection and
+existing rectangles remain equal. UI, one-step undo/redo, edited-state reload,
+and exact baseline restoration pass. This supersedes the unproved document
+attachment status from E277/E281/E283. The engine stayed inactive. The result
+covers one fixed native type and free position only; it does not prove DSP
+adoption, arbitrary creation, relocation, or general failure atomicity [K,
+[E289](../experiments/e289-native-grid-attachment-and-persistence.md)].
 
 ---
 

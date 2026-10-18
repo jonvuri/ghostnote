@@ -1,0 +1,95 @@
+{
+  "calls": [
+    {
+      "method": "contract.hello",
+      "ms": 3.543292000000001,
+      "bytes": 155
+    },
+    {
+      "method": "rig.info",
+      "ms": 22.420416000000003,
+      "bytes": 1806
+    },
+    {
+      "method": "rig.stats",
+      "ms": 22.514416999999995,
+      "bytes": 2497
+    },
+    {
+      "method": "host.info",
+      "ms": 22.730625000000003,
+      "bytes": 148
+    },
+    {
+      "method": "revision.get",
+      "ms": 22.655417,
+      "bytes": 2432
+    },
+    {
+      "method": "selection.status",
+      "ms": 23.412458000000015,
+      "bytes": 207
+    },
+    {
+      "method": "track.list",
+      "ms": 22.690290999999974,
+      "bytes": 381
+    },
+    {
+      "method": "cursor.pointTrack",
+      "ms": 21.992665999999986,
+      "bytes": 16
+    },
+    {
+      "method": "devcursor.status",
+      "ms": 5.056040999999993,
+      "bytes": 232
+    },
+    {
+      "method": "device.list",
+      "ms": 22.400541999999973,
+      "bytes": 171
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 45.41808299999997,
+      "bytes": 463
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 48.034790999999984,
+      "bytes": 36947
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 45.44924999999995,
+      "bytes": 36946
+    },
+    {
+      "method": "probe.gridModuleAttach",
+      "ms": 94.78975000000003,
+      "bytes": 49977
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 44.37199999999996,
+      "bytes": 42639
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 45.50841700000001,
+      "bytes": 42640
+    },
+    {
+      "method": "selection.status",
+      "ms": 22.427915999999982,
+      "bytes": 207
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 22.818084,
+      "bytes": 16
+    }
+  ],
+  "sequentialWireCalls": 18
+}

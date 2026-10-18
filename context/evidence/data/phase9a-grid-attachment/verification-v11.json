@@ -1,0 +1,43 @@
+{
+  "scope": "V10 attachment stop and bounded recovery; offline V11 managed identity fix",
+  "checkedAt": "2026-10-18T18:11:07.299942+00:00",
+  "checks": [
+    {
+      "command": "./gradlew check gridAttachmentSymbolsTest",
+      "result": "pass"
+    },
+    {
+      "command": "npm run typecheck",
+      "result": "pass"
+    },
+    {
+      "command": "node --import tsx --test src/probes/phase9a-grid-attachment.test.ts src/adapters/live/wiremap.test.ts",
+      "result": "pass",
+      "tests": 63
+    },
+    {
+      "command": "python3 -B -m unittest discover -s tools/grid-spike -p 'test_*.py'",
+      "result": "pass",
+      "tests": 16
+    },
+    {
+      "command": "python3 -B tools/grid-spike/verify_attachment_registration.py",
+      "result": "pass"
+    },
+    {
+      "command": "python3 -B tools/grid-spike/verify_attachment_refusal.py",
+      "result": "pass"
+    }
+  ],
+  "regression": "Registered ID replaces detached zero only for the new Nitro atom; wrong registration and ID changes refuse; both saved V10 recovery graphs match this narrow rule.",
+  "publicDescriptions": {
+    "version": 52,
+    "tools": 44,
+    "changed": false
+  },
+  "successCallBudget": 18,
+  "recoveryCallBudget": 4,
+  "liveV11": "pending operator inspection, baseline reopening, replacement, and fresh hello",
+  "archiveSha256": "8fd9654465ded7d78a9e24f78f8bb2f6e1fd69513dfcd69e98a686a306a1f130",
+  "archiveIdentity": "deployed bytes equal built probe archive; phase-8-probe-v1 resource and V11 marker verified"
+}

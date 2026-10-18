@@ -1,0 +1,33 @@
+{
+  "scope": "Design and offline scalar model only. No runtime implementation, build, deployment, or live request.",
+  "checks": [
+    {
+      "check": "Pinned jar and 29 fresh bytecode hashes",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -B tools/grid-spike/check_attachment_layout_design.py",
+      "status": "passed",
+      "result": "262144 scalar hypotheses; 1344 admitted with no movement; 260800 overlap refusals; four boundary checks; saved result reproduced"
+    },
+    {
+      "check": "Saved project, backup, and preset hashes match E283",
+      "status": "passed"
+    },
+    {
+      "command": "LANG=en_US.UTF-8 ruby context/check.rb",
+      "status": "passed",
+      "result": "641 active documents; links intact"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    }
+  ],
+  "descriptions": {
+    "changed": false,
+    "version": 52,
+    "tools": 44
+  },
+  "deployment": "V8 remains the last confirmed loaded build. Both factory attempts remain used."
+}

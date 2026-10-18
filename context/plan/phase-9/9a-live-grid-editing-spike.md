@@ -2,7 +2,7 @@
 title: Phase 9a — Live Grid editing spike
 kind: plan
 state: active
-status: V8 detached factory gate passes in E283. Continue with native attachment design.
+status: E289 passes bounded native attachment and persistence. Engine adoption design is next; 9a remains active.
 updated: 2026-10-19
 parent: README.md
 ---
@@ -39,7 +39,7 @@ single undo/redo, and edited-state reload. The exact baseline project bytes
 are restored and reopened. [E282](../../evidence/experiments/e282-detached-grid-factory-probe-preparation.md)
 prepares V8. [E283](../../evidence/experiments/e283-detached-grid-factory-lifecycle.md)
 passes operator replacement, hello, and both detached factory workflows.
-V8 remains loaded. Its two-attempt factory allowance is used.
+V8 used both factory attempts. V11 is now loaded; E289 uses its two attempts.
 E277 proves parameter editing. E279/E280 prove cable connect, disconnect,
 and native source replacement. These are bounded document operations;
 engine adoption and general failure atomicity remain unproved.
@@ -137,59 +137,70 @@ does not establish DSP initialization. The ownership walk adds bounded local
 reads, not wire calls or write stages. The 18-call / 16 MiB model above still
 applies; native parsing and disposal remain non-cancellable.
 
-### Next: native collection attachment
+### Passed: native collection attachment (E289)
 
 Source: [E283](../../evidence/experiments/e283-detached-grid-factory-lifecycle.md).
 The detached factory gate passes. Continue within 9a with one Amplify inserted
-at a verified free position in the same fixture. Keep V8 loaded until a
-reviewable attachment probe is ready. A new extension build needs operator
-replacement and a fresh hello. Do not reset V8's attempt allowance to bypass
-its bound.
+at a verified free position in the same fixture. A new extension build needs
+operator replacement and a fresh hello. Do not bypass attempt limits or a
+latched write lock.
 
-Before implementation:
+The [attachment design](9a-native-attachment-design.md) is complete in
+[E284](../../evidence/experiments/e284-native-grid-attachment-design.md).
+[E285](../../evidence/experiments/e285-native-grid-attachment-probe.md) implements
+and checks that contract. E287 adds managed-ID admission in V11. E288 verifies
+operator recovery, a fresh hello, and paired baseline reads.
+[E289](../../evidence/experiments/e289-native-grid-attachment-and-persistence.md)
+passes the full bounded attachment sequence. Both V11 factory attempts are used.
+The contract selects the native insertion body under a
+checked edit start and close. It omits the selection callback, proves edit
+ownership before close, and forbids detached disposal after insertion entry.
+A separate write lock preserves one bounded diagnostic read workflow after
+native work finishes. The layout guard reads native rectangles and simulates
+`llL`; it refuses any movement of existing modules. Actual dimensions remain
+a live admission check, not an inferred UI measurement.
 
-1. Finish the native edit-admission and failure trace. The public collection
-   wrapper opens a named edit, mutates, invokes a callback, then closes the
-   edit. It does not close the edit in a failure handler. Its start helper
-   discards the returned boolean. Determine how to refuse an unavailable edit
-   before mutation and how to report a throw after the edit starts. Do not
-   close an unknown outer edit or claim general rollback.
-2. Trace the selection callback and choose the native entry that preserves
-   the current selection. The `ffA` wrapper adds `oaA`; `eOi` accepts an
-   optional callback. State why the chosen entry includes all required graph
-   and notification steps.
-3. Bound the layout pass. Read x/y/width/height for all four existing modules
-   and the new Amplify. Admit dimensions 1–8 and a total vertical span at most
-   16 cells. Check a free candidate position (2, 0), then simulate the traced
-   `llL` pass and require no movement of existing modules. Refuse an unexpected
-   rectangle before insertion. Do not infer dimensions from the UI alone.
-4. Define ownership transfer and cleanup separately from detached disposal.
-   Before insertion, retain V8's ownership and initialization checks. After
-   an insertion attempt, never dispose merely because a method threw or a
-   parent read is null. First account for membership and undo ownership.
-   Report an uncertain partial insertion and stop writes when proof fails.
-   Preserve a bounded read-only recovery path and the verified project backup.
+The success model stays at 18 sequential wire calls, five fixture captures,
+two detached captures, one construction stage, and one insertion edit. Plan
+650 ms summed warm wire plus 150 ms settlement and 16 MiB temporary heap.
+The fixed scope is four modules before, five after, and two cables. Edit,
+selection, ownership, and rectangle checks add bounded local reads only.
+Failure recovery adds at most four read-only wire calls after native completion;
+it is outside the success budget. The design defines cold-work limits, offline
+failure cases, and the full UI, undo/redo, repeat, edited-reload, and exact
+baseline-restoration acceptance sequence. No attachment implementation,
+V9 build, deployment, or live call ran in E284. E285 implements and deploys V9
+without a live request. [E286](../../evidence/experiments/e286-grid-attachment-witness-wire-fix.md) then
+confirms V9 loaded. Its first request refuses before construction because Gson
+omits null focus. Recovery proves the exact E283 baseline and empty selection.
+V10 fixes the witness encoding. [E287](../../evidence/experiments/e287-grid-attachment-managed-identity.md)
+then records one insertion and successful edit close. Independent readback
+stops because the new Nitro atom receives managed ID 4000. Recovery proves
+that this is the only unexpected graph delta. V11 checks native registration
+and uses its receipt in exact readback. V11 is tested and deployed. E288 completes
+operator recovery, replacement, fresh hello, and baseline checks. E289 then
+passes two insertions, exact paired readback, preserved layout and selection,
+one-step undo/redo, and edited-state reload. The exact baseline file is
+restored, reopened, and verified. V11 remains loaded with both attempts used.
+The engine is inactive. No further factory request is admitted on this init.
 
-Proposed success cost: 18 sequential wire calls, five fixture captures,
-two detached captures, one construction stage, and one native insertion edit.
-Typical and maximum scope are four modules before and five after, two cables,
-and one fixed Amplify type. Allow 650 ms summed warm wire time plus 150 ms
-cursor settlement and 16 MiB temporary heap. V8 measured 508–591 ms wire,
-including detached disposal. Attachment replaces that disposal with ownership
-transfer, native edit bookkeeping, notification, and the bounded layout pass.
-The after projection grows from 53 to 61 nodes. No extra wire turn is planned.
-Native file I/O and edit execution remain non-cancellable. Revise these figures
-before code if the failure design requires another stage or call.
+### Next session — engine adoption design
 
-Acceptance: fresh identity, exact native defaults at the admitted position,
-parent equal to the intended Grid, exact five-member collection, two equal
-independent after reads, and no unrelated graph or selection change. Check the
-UI, one-step undo/redo, saved edited-state reload with fresh UUIDs, and the
-final exact baseline-file restoration and fresh read. Each undo/redo check adds
-one action call and a separate paired read workflow; it is not part of the
-18-call insertion budget. Retain first/repeat timing, native-stage timing,
-queue/completion, payload, and heap samples. No broad module-type, DSP, or
-failure-atomicity claim follows from this fixture test.
+Source: [E289](../../evidence/experiments/e289-native-grid-attachment-and-persistence.md).
+The document attachment gate is complete. Keep 9a active. Before another live
+stage, define a bounded test that distinguishes successful document editing
+from adoption by the running audio engine. Trace the native update path and
+choose an independent observable for the new Amplify. Specify muted routing,
+transport and engine entry state, readback, stop conditions, and exact baseline
+restoration. Do not infer DSP behavior from serialization or UI alone.
+
+Write the typical and maximum cost model before implementation. Compare it
+with E289's 18-call, 558–567 ms attachment workflows and 45–48 ms document
+command cost. Include host turns, reads, write stages, and heap. State how a
+new build or initialization will obtain a fresh bounded attempt allowance;
+do not bypass the used V11 allowance. Acceptance for this design session is
+a reviewable protocol, cost model, source trace, and explicit failure limits.
+It does not authorize a broader Phase 9 scope or claim engine adoption.
 
 ## Read first
 
@@ -455,16 +466,16 @@ numbers to the ledger without replacing unrelated product baselines.
 
 ## Acceptance and handoff
 
-Measured gates through [E281](../../evidence/experiments/e281-grid-module-delete-and-persistence.md):
+Measured gates through [E289](../../evidence/experiments/e289-native-grid-attachment-and-persistence.md):
 
 | Gate | State |
 |---|---|
 | Exact environment, clone pins, and narrow bytecode path | Recorded |
 | Probe bounds, identity, incomplete reads, and asynchronous failures | Offline checks pass |
-| Research archive and deliberate marker | V8 replacement and the 116-method hello pass in E283. V8 remains loaded. |
+| Research archive and deliberate marker | V11 replacement and hello pass in E288 (117 methods). E289 passes both attachments and restores the baseline; both attempts are used. |
 | Saved fixture and UI/preset comparison baseline | Recorded; four modules and two cables |
 | Complete semantic read, manual delta, selection change, save/reload | Passed on the four-module Poly Grid fixture; module UUIDs change on reload |
-| Commands, CRUD, engine adoption, recovery, and cleanup | Parameter write, bounded cable connect/disconnect/retarget, and spare-module deletion pass readback, UI, undo/redo, persistence, and cleanup. Deletion passes with an incoming cable. Detached factory lifecycle passes in E283. Live attachment, layout writes, outgoing-consumer cleanup, and engine adoption remain unproved. |
+| Commands, CRUD, engine adoption, recovery, and cleanup | Parameter write, bounded cable connect/disconnect/retarget, and spare-module deletion pass readback, UI, undo/redo, persistence, and cleanup. Deletion passes with an incoming cable. Detached factory lifecycle passes in E283. E289 passes bounded native attachment, exact readback, unchanged selection/layout, undo/redo, and persistence. General layout writes, outgoing-consumer cleanup, and engine adoption remain unproved. |
 | Final operation verdict and normal-profile restoration | Module investigation continues; research profile remains deployed. No final 9a close verdict. |
 
 - The evidence records the exact environment, clone pins, fixture baseline,

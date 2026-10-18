@@ -1,0 +1,85 @@
+{
+  "calls": [
+    {
+      "method": "contract.hello",
+      "ms": 26.802459,
+      "bytes": 155
+    },
+    {
+      "method": "rig.info",
+      "ms": 24.648415999999997,
+      "bytes": 1806
+    },
+    {
+      "method": "rig.stats",
+      "ms": 22.070291999999995,
+      "bytes": 2496
+    },
+    {
+      "method": "host.info",
+      "ms": 24.271209,
+      "bytes": 148
+    },
+    {
+      "method": "revision.get",
+      "ms": 25.313458999999995,
+      "bytes": 2060
+    },
+    {
+      "method": "selection.status",
+      "ms": 25.33654200000001,
+      "bytes": 207
+    },
+    {
+      "method": "track.list",
+      "ms": 25.34691700000002,
+      "bytes": 381
+    },
+    {
+      "method": "cursor.pointTrack",
+      "ms": 21.909666000000016,
+      "bytes": 16
+    },
+    {
+      "method": "devcursor.status",
+      "ms": 12.194666999999981,
+      "bytes": 232
+    },
+    {
+      "method": "device.list",
+      "ms": 24.471874999999955,
+      "bytes": 171
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 60.14304199999998,
+      "bytes": 463
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 46.26374999999996,
+      "bytes": 36946
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 47.70491599999991,
+      "bytes": 36945
+    },
+    {
+      "method": "probe.gridModuleAttach",
+      "ms": 71.902375,
+      "bytes": 49922
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 46.45566700000006,
+      "error": "BridgeError: Internal error: d9d7483c-ae91-4942-aa68-1d1381471925:writeAttempted=false:stage=\"complete\":java.lang.IllegalStateException: grid-operation-failed:java.lang.IllegalStateException: attachment-independent-readback-disagrees; caused by java.lang.IllegalStateException: attachment-independent-readback-disagrees; details in attachmentStatus"
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 24.084082999999964,
+      "bytes": 14029
+    }
+  ],
+  "sequentialWireCalls": 16
+}

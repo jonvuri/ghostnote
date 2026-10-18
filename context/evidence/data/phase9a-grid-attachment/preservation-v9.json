@@ -1,0 +1,23 @@
+{
+  "checkedAt": "2026-10-18T17:45:07.125416+00:00",
+  "files": {
+    "project": {
+      "path": "/Users/jonvuri/Documents/Bitwig Studio/Projects/gn-grid-spike/gn-grid-spike.bwproject",
+      "bytes": 34128,
+      "sha256": "af24056e72e9722eacaa80bf01daa02e7fba0c72103f7fd1655f689448da1b4f"
+    },
+    "preset": {
+      "path": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+      "bytes": 10451,
+      "sha256": "1e8f90fc3875dbeb1f38ed88bec59ee783f39bb00fb366194c79504e063c0cc9"
+    },
+    "backup": {
+      "path": "/tmp/gn-grid-spike-e280-baseline.bwproject",
+      "bytes": 34128,
+      "sha256": "af24056e72e9722eacaa80bf01daa02e7fba0c72103f7fd1655f689448da1b4f"
+    }
+  },
+  "liveRequests": 0,
+  "uiActions": 0,
+  "lastConfirmedRuntime": "V8; both factory attempts used"
+}

@@ -1,0 +1,17 @@
+/Users/jonvuri/Development/worktrees/ghostnote/hale-fjord/ghostnote/brain/src/client.ts:214
+      pending.reject(new BridgeError(response.error.code, response.error.message));
+                     ^
+
+BridgeError: Internal error: c3251d9b-c2fc-494a-91ce-2c6c961a8ae5:writeAttempted=false:stage=null:java.lang.IllegalStateException: grid-operation-failed:java.lang.IllegalStateException: attachment-before-witness-changed; caused by java.lang.IllegalStateException: attachment-before-witness-changed; details in attachmentStatus
+    at BridgeClient.handleResponse (/Users/jonvuri/Development/worktrees/ghostnote/hale-fjord/ghostnote/brain/src/client.ts:214:22)
+    at BridgeClient.handleData (/Users/jonvuri/Development/worktrees/ghostnote/hale-fjord/ghostnote/brain/src/client.ts:201:12)
+    at Socket.<anonymous> (/Users/jonvuri/Development/worktrees/ghostnote/hale-fjord/ghostnote/brain/src/client.ts:109:48)
+    at Socket.emit (node:events:508:28)
+    at addChunk (node:internal/streams/readable:559:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+    at Readable.push (node:internal/streams/readable:390:5)
+    at TCP.onStreamRead (node:internal/stream_base_commons:189:23) {
+  code: -32603
+}
+
+Node.js v24.11.1

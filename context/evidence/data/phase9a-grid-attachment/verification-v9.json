@@ -1,0 +1,39 @@
+{
+  "scope": "Offline V9 implementation checks; no live attachment evidence",
+  "checkedAt": "2026-10-18T17:45:59.086228+00:00",
+  "checks": [
+    {
+      "command": "./gradlew check gridAttachmentSymbolsTest",
+      "cwd": "extension",
+      "result": "pass",
+      "nativeInitialization": false
+    },
+    {
+      "command": "npm run typecheck",
+      "cwd": "brain",
+      "result": "pass"
+    },
+    {
+      "command": "node --import tsx --test src/probes/phase9a-grid-attachment.test.ts src/adapters/live/wiremap.test.ts src/surface/call-budget.test.ts src/adapters/live/adapter.test.ts",
+      "cwd": "brain",
+      "result": "pass",
+      "tests": 242
+    },
+    {
+      "command": "python3 -m unittest discover -s tools/grid-spike -p test_*.py",
+      "result": "pass",
+      "tests": 15
+    }
+  ],
+  "successWireCalls": 18,
+  "recoveryWireCalls": 4,
+  "readOnlyWitnessWireCalls": 15,
+  "extraFailureStatusCalls": 1,
+  "descriptionVersion": 52,
+  "publicTools": 44,
+  "normalMethods": 92,
+  "captureMethods": 97,
+  "probeMethods": 117,
+  "liveMeasurement": "pending operator replacement and fresh hello",
+  "archiveSha256": "2c26af5dc817bf47d1c92b398b996ba5b95c71facb6174e4b9524c271aa7a0c1"
+}

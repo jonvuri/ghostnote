@@ -424,8 +424,95 @@ two detached captures, one construction stage, and one native insertion edit.
 Allow 650 ms warm wire plus 150 ms settlement and 16 MiB temporary heap for
 four-to-five modules and two cables. Edit bookkeeping, ownership transfer,
 notifications, and a bounded layout pass replace detached disposal. The
-61-node after read and native attachment are not measured yet. Complete the
-edit-failure design before implementation.
+61-node after read and native attachment are not measured yet.
+[E284](../evidence/experiments/e284-native-grid-attachment-design.md) completes
+the [attachment design](../plan/phase-9/9a-native-attachment-design.md).
+Checked edit admission/close, selection, membership, and rectangle witnesses
+add local reads within the same 18 calls. There is no added success-path wire
+turn or write stage. At about 24 ms per turn, 18 turns give a rough 432 ms
+transport floor; document queue/completion adds cost. The fixed typical and
+maximum cases are equal. Allow one first-use read and unbounded native cold
+file I/O; no cache-cold timing is claimed. The layout model has five rectangles
+and at most 16 row slots. The proposed failure-only diagnostic path adds at
+most four wire calls, two captures, and zero writes after native completion
+(about 96 ms transport floor). A task that never finishes has no finite
+recovery-time estimate. No runtime path changed in E284; live measurements
+and product call budgets remain unchanged.
+
+[E285](../evidence/experiments/e285-native-grid-attachment-probe.md) implements
+and checks V9. The tested driver keeps 18 success calls and four failure-only
+recovery calls. A cached status request can add one failure-path call, with no
+document task. The paired native-witness read workflow for undo/redo/reload uses
+15 calls when the cursor settles on its first poll. One probe-only cursor-mute
+Boolean subscription is added at initialization. Native edit, selection,
+rectangle, and relationship-limit checks add bounded local work. No product
+call budget or normal-profile observer changes. The 650 ms warm-wire and 16 MiB
+heap figures remain plans. No V9 live measurement ran: operator replacement,
+fresh hello, and the first/repeat comparison with E283 are the next gate.
+
+[E286](../evidence/experiments/e286-grid-attachment-witness-wire-fix.md) measures
+V9's pre-factory refusal and single recovery. The refused workflow has 15 calls
+and 626.410 ms summed wire; recovery has four calls and 140.707 ms. Factory and
+insertion counts are zero. Entry native-witness reads take 96.183/66.165 ms wire
+and 52.368/33.517 ms document time, above E283 by more than 20 percent. The
+recovery pair falls to 46.912/45.806 ms wire and 15.002/12.189 ms document time.
+New reflection and native witness checks add local work; first-use class cost
+is plausible but not isolated. This is no successful attachment budget claim.
+Heap samples rise 4/2 MiB at entry and 2/2 MiB in recovery. V10 corrects absent
+focus encoding with no added call, observer, or native stage. Its live timing
+is pending replacement and a fresh hello. Product call budgets are unchanged.
+
+
+[E287](../evidence/experiments/e287-grid-attachment-managed-identity.md) measures
+V10's insertion and successful edit close, followed by a managed-ID readback
+stop. The 16-call stopped workflow sums to 528.919 ms wire plus 150 ms settle;
+four recovery calls sum to 153.445 ms. The command takes 71.902 ms wire and
+27.789 ms document time, 9.6%/8.6% above E283's first detached request.
+Native factory/start/insertion/close take 2.824/0.511/5.592/2.421 ms. Insertion,
+layout, and edit bookkeeping replace disposal. The command heap sample rises
+8 MiB versus E283's 4 MiB first sample; the added witness/edit/notification
+allocation share is not isolated. It remains below the 16 MiB plan, with no
+peak or retained-heap claim. The lock forbids a timing retry; measure V11's
+successful repeat after operator recovery.
+
+Entry reads take 46.264/47.705 ms wire and 6.450/8.795 ms document time, within
+E283 maxima. Recovery document reads take 8.452/11.159 ms. Every read heap
+sample rises 2 MiB. The new 61-node graph encodes 41,407 bytes, below 42 KiB.
+No complete success-budget claim follows from this stopped workflow. V11 adds
+two fixed descriptor steps and native ID/context/registry reads inside the
+existing task, with no added wire call, capture, observer, or write stage.
+The fixed typical/maximum case retains 18 success calls, 650 ms warm wire plus
+150 ms settlement, and 16 MiB temporary heap. V11 live measurements remain
+pending operator inspection, baseline reopening, replacement, and fresh hello.
+Product call budgets and descriptions v52 remain unchanged.
+
+[E289](../evidence/experiments/e289-native-grid-attachment-and-persistence.md)
+passes the V11 attachment sequence and exact baseline restoration. The first
+and repeat workflows keep 18 calls and sum to 567.499/558.234 ms wire, plus
+150 ms settlement. Both are below the 650 ms warm-wire plan. Command wire time
+is 89.021/94.790 ms; document time is 45.332/48.108 ms. Factory/start/insertion/
+close times are 2.106/0.239/7.485/3.781 ms first and
+4.359/0.379/15.475/3.426 ms repeat. Command heap samples rise 6/4 MiB, below
+16 MiB. Typical and maximum scope remain one fixed four-to-five-module edit.
+
+Against E283's corresponding detached calls, command wire time rises 36%/109%
+and document time rises 77%/272%; total workflow time changes by -4%/+10%.
+Attachment adds edit, registration, layout, ownership, and selection work and
+replaces detached disposal. The matched repeat retains the higher command
+cost. Queue time is 0.126/0.109 ms. Insertion itself varies by 7.990 ms between
+samples. The remaining JVM, witness, and notification shares are not isolated.
+Both factory attempts are used; there is no third request or cold-cache claim.
+
+Seven paired witness-read workflows each use 15 calls plus 150 ms settlement.
+Across their reads and insertion before/after reads, 22 captures take
+4.127–21.860 ms document time. The maximum is 69% above E283's 12.922 ms.
+The matched final four-module pair takes 18.432/5.813 ms, so the first-read
+increase persists without graph growth. Native witnesses add bounded local
+work; no isolated cause is proved. Keep the measured limit. Graphs have 53/61
+nodes, 35,828/41,407 encoded bytes, 278/321 graph steps, and 1,606/1,833 query
+steps. Read heap samples rise 0–2 MiB. No peak or retained-heap claim follows.
+The engine remains inactive. No runtime, product call budget, or public
+description changes in this continuation; descriptions remain v52.
 
 8i3 review rerun (E252): Polysynth 44 controls 9,481 ms; Diva 64 controls
 13,912 ms; staged 5×1 / 3×2 / 2×3 compositions 20,975 / 23,642 / 23,278 ms,

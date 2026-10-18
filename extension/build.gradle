@@ -246,7 +246,16 @@ tasks.register('gridReadTest', JavaExec) {
     dependsOn harnessTestClasses
     classpath = sourceSets.harnessTest.runtimeClasspath
     mainClass = 'com.ghostnote.extension.GridReadTest'
+    systemProperty 'gridDetachedBaseline', file('../context/evidence/data/phase9a-grid-factory/live-87-factory-first/factory-command.json').absolutePath
     systemProperty 'gridFixtureBaseline', file('../context/evidence/data/phase9a-grid-read/live-28-after-reload/capture-0.json').absolutePath
 }
 
 tasks.named('check') { dependsOn 'gridReadTest' }
+
+// This check resolves reflection metadata. It does not initialize vendor classes.
+tasks.register('gridAttachmentSymbolsTest', JavaExec) {
+    dependsOn harnessTestClasses
+    classpath = sourceSets.harnessTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.GridAttachmentTest'
+    args '/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar'
+}

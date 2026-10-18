@@ -100,6 +100,11 @@ public final class GridReadTest {
         refuses(() -> epoch.require(epoch.token, document, track, null));
         async();
         GridDetachedFactoryTest.run();
+        GridAttachmentTest.run();
+        require(RuntimeProfile.PROBE.includes("probe.gridModuleAttach"));
+        require(!RuntimeProfile.NORMAL.includes("probe.gridModuleAttach"));
+        require(!RuntimeProfile.CAPTURE.includes("probe.gridModuleAttach"));
+        require(RuntimeProfile.kind("probe.gridModuleAttach") == WriteGate.Kind.WRITE);
         require(RuntimeProfile.PROBE.includes("probe.gridRead"));
         require(RuntimeProfile.PROBE.includes("probe.gridValue"));
         require(!RuntimeProfile.NORMAL.includes("probe.gridValue"));

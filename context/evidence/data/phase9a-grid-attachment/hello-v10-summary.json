@@ -1,0 +1,10 @@
+{
+  "operatorReplacement": "confirmed by operator",
+  "profile": "phase-8-probe-v1",
+  "methodCount": 117,
+  "methodsHash": "b899e5d3d75a791d",
+  "marker": "9a-grid-attachment-v10",
+  "initEpochMs": 1792346528345,
+  "initializedAt": "2026-10-18T18:02:08.345Z",
+  "result": "ALL PASS"
+}

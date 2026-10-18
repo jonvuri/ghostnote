@@ -1,0 +1,132 @@
+{
+  "jar": "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "bytecodeInspections": [
+    {
+      "class": "com.bitwig.ramona.core.ikl",
+      "javapSha256": "e4572d61cfa72aa15e99355425f61192d02ef6853045f5cde98068937b9be250"
+    },
+    {
+      "class": "com.bitwig.ramona.core.Ibf",
+      "javapSha256": "d941714d31e975cbb69f8e9fb0ef4537d8aa78cede9ebfe903fd3dfbeaf3c798"
+    },
+    {
+      "class": "com.bitwig.ramona.core.uX1",
+      "javapSha256": "06857d4c23fd2dd3d18b0fce8977b52708de5adf79014e1b511776cce3e6ead6"
+    },
+    {
+      "class": "cZl",
+      "javapSha256": "8e603b35e3a1d5b872fcaa870562c6ef98697cfe9992213c561998ac0806e327"
+    },
+    {
+      "class": "cZv",
+      "javapSha256": "f1eab2da5bc0d0c1506787de7f6217a4ef264ea59a2c4d22a718674dc6b0600a"
+    },
+    {
+      "class": "YJr",
+      "javapSha256": "7297fea7abf41492705bad734efcecb5a834c7683d44cb532fcef781bb56d3b6"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.RHk",
+      "javapSha256": "0ae27c1b5d0dc5ea672d6023ebc2d9a071d6679090e657f7d7a3fe8a560a5bba"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.had",
+      "javapSha256": "dbb03f0ba0de8c4fbe07ef99e809d92392c6a850958c35aae183b2fe8b1f6741"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.DbL",
+      "javapSha256": "e6ce62ef7dc235db025a36a4dbf5cf83171729d1058516585150effa5ecec502"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.NHx",
+      "javapSha256": "66217fdeb2080f1f0670f862be4c4ded30ba0448b848f3c9f5046c5fe7ac7945"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.xWk",
+      "javapSha256": "c0d1b2d6a3a7fb3ce7fa08daddbe223a9b18801869e18fcc7a12c9c0816a8ca7"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.gOr",
+      "javapSha256": "a21be13c6cab9d92fa1ca6d89533b7eea795722e4e3f307a3920f7e3fb0eb5ea"
+    },
+    {
+      "class": "llL",
+      "javapSha256": "8bc994ddf95a00d0d12954ea2fa3fc1389abd0683ff9c11aeb206b7fe7245c1c"
+    },
+    {
+      "class": "Gn",
+      "javapSha256": "9e9cad0c06e83e3237775b0ba3fcda6d538600b115882a419f0b04decf006da5"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.oaA",
+      "javapSha256": "0425a93246fd990d1e24d3086b364e0e943cd4c5c04429cd15770941b0e166b5"
+    },
+    {
+      "class": "daR",
+      "javapSha256": "6ec6b3522bc96047e801214915d96883b226633933b76c81f78f6bef1b47444b"
+    },
+    {
+      "class": "com.bitwig.ramona.core.xYk",
+      "javapSha256": "d30bb5880c61837b07e467a46115565f66c26dfcc1875f731baca0604b8e4011"
+    },
+    {
+      "class": "com.bitwig.ramona.core.xlb",
+      "javapSha256": "234db806dad0556e9900003d208ac0b8f5f56394c88d803f2073bbae99f387ad"
+    },
+    {
+      "class": "Tu",
+      "javapSha256": "e0a712b24eb3792970b3f627d2426b245fc70eaee17e19fa54f9435b630b27dc"
+    },
+    {
+      "class": "KgN",
+      "javapSha256": "e0dd779e8ec6f2c8ee81b4812aa0b969833076e8d77f6032817ab27262cd32b4"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.QHo",
+      "javapSha256": "34517764e4799de0b6a8ec7a4c2a8684db87da9df7fc2161a294f62359889471"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.DtR",
+      "javapSha256": "9259d6e674def837e79a514b7807399877f17ade54ccac2ba29aa0ecc4a2fcf4"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.cbl",
+      "javapSha256": "96cd2a2ba39723e20d8b3bf3467f7ad8d75d92f79abdb13d800c84d96096c375"
+    },
+    {
+      "class": "com.bitwig.ramona.core.HEV",
+      "javapSha256": "4ee704e54bcf14cdda27a0e957fdd5620fa2d689e9593994ef497640bdf444fd"
+    },
+    {
+      "class": "nST",
+      "javapSha256": "97c655c660c4724f49ba81cd18a65449784f581bffd19768a0ee672caa639d5b"
+    },
+    {
+      "class": "SCi",
+      "javapSha256": "a63a6db24fb3d87cc3c621f0656e1ed236570982767814824708985721de3b0c"
+    },
+    {
+      "class": "iYc",
+      "javapSha256": "082a1a5f89aa7f90c87414e26a6fc38a228d64a752383436149b56f26421e271"
+    },
+    {
+      "class": "mbe",
+      "javapSha256": "80c3c6c7ce135cbd4a29e7056ffbc74d9bca8aeccbde78abb38448656ad27774"
+    },
+    {
+      "class": "QAi",
+      "javapSha256": "13bac0a5794ca025663d4d22c10c29f5c1f8067801439b54bf53d350fd33622b"
+    }
+  ],
+  "javapVersion": "26.0.1",
+  "scope": "Offline inspection only. No host invocation or extension build.",
+  "reproduce": [
+    "javap",
+    "-p",
+    "-c",
+    "-classpath",
+    "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar",
+    "<class>"
+  ]
+}

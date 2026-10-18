@@ -1,0 +1,99 @@
+{
+  "savedEvidenceGate": "passed",
+  "attachments": [
+    {
+      "folder": "live-94-v11-first",
+      "uuid": "7c25564e-4cc3-4eb5-a70f-678980ab5132",
+      "epoch": "8cf55a6c-3581-4532-9f66-2d125b3fc492",
+      "operationId": "6989fbef-0a7a-4dcc-889e-a19ea15cc99f",
+      "workflowWireMs": 567.498834,
+      "nativeMs": {
+        "factory": 2.106125,
+        "start": 0.239375,
+        "insertion": 7.484625,
+        "close": 3.780917
+      },
+      "heapSampleDelta": 6291456,
+      "commandWireMs": 89.02070900000001,
+      "documentMs": 45.332458,
+      "queueMs": 0.125834
+    },
+    {
+      "folder": "live-98-v11-repeat",
+      "uuid": "3ee6f0fc-d77b-48d6-9346-69c07908a9e5",
+      "epoch": "f172c223-9774-46b5-8855-46489a2daf77",
+      "operationId": "805436ff-8f60-4c6c-be1f-02ee2603449a",
+      "workflowWireMs": 558.2344559999998,
+      "nativeMs": {
+        "factory": 4.358584,
+        "start": 0.379209,
+        "insertion": 15.474583,
+        "close": 3.426209
+      },
+      "heapSampleDelta": 4194304,
+      "commandWireMs": 94.78975000000003,
+      "documentMs": 48.107958,
+      "queueMs": 0.108542
+    }
+  ],
+  "readWorkflows": [
+    {
+      "folder": "live-95-v11-undo-first",
+      "calls": 15,
+      "wireMs": 387.640792
+    },
+    {
+      "folder": "live-96-v11-redo-first",
+      "calls": 15,
+      "wireMs": 389.91150200000016
+    },
+    {
+      "folder": "live-97-v11-repeat-baseline",
+      "calls": 15,
+      "wireMs": 377.07074899999986
+    },
+    {
+      "folder": "live-99-v11-saved",
+      "calls": 15,
+      "wireMs": 407.9375820000001
+    },
+    {
+      "folder": "live-100-v11-reloaded",
+      "calls": 15,
+      "wireMs": 438.10224900000014
+    },
+    {
+      "folder": "live-101-v11-restored",
+      "calls": 15,
+      "wireMs": 442.0677080000001
+    },
+    {
+      "folder": "live-103-v11-read-repeat",
+      "calls": 15,
+      "wireMs": 386.1493359999999
+    }
+  ],
+  "nativeReadCount": 22,
+  "readDocumentMs": [
+    4.1265,
+    21.860417
+  ],
+  "graphBytes": [
+    35828,
+    41407
+  ],
+  "graphWork": [
+    278,
+    321
+  ],
+  "queryWork": [
+    1606,
+    1833
+  ],
+  "readHeapSampleDelta": [
+    0,
+    2097152
+  ],
+  "uiEvidence": "Separate observations are recorded in ui-witness-v11-live.json.",
+  "limits": "No DSP adoption, cold-cache bound, or general failure atomicity claim."
+}

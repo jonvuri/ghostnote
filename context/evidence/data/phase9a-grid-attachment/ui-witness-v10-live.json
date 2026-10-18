@@ -1,0 +1,32 @@
+{
+  "observedAt": "2026-10-18T18:08:19.956259+00:00",
+  "project": "gn-grid-spike",
+  "engineInactive": true,
+  "transportPosition": "1.1.1.00 / 0:00.000",
+  "before": {
+    "modules": 4,
+    "cables": 2,
+    "selection": "No item selected"
+  },
+  "after": {
+    "modules": 5,
+    "cables": 2,
+    "newModule": "Amplify 100% at (2,0)",
+    "existingLayoutUnchanged": true,
+    "selection": "No item selected"
+  },
+  "outerModulators": [
+    "MW",
+    "Expressions"
+  ],
+  "existingUnsavedMarkers": [
+    "gn-grid-spike",
+    "gn-scale-test"
+  ],
+  "actions": [
+    "Raise window"
+  ],
+  "documentActions": [],
+  "source": "Bitwig screenshots in the live tool transcript",
+  "limit": "Operator inspection and baseline restoration remain pending."
+}

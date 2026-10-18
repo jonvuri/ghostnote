@@ -1,0 +1,25 @@
+{
+  "calls": [
+    {
+      "method": "probe.gridRead",
+      "ms": 34.00537500000001,
+      "bytes": 463
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 49.414417,
+      "bytes": 43399
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 46.45037500000001,
+      "bytes": 43400
+    },
+    {
+      "method": "probe.gridRead",
+      "ms": 23.574916,
+      "bytes": 16
+    }
+  ],
+  "sequentialWireCalls": 4
+}

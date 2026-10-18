@@ -1,0 +1,40 @@
+{
+  "result": "pre-factory refusal and exact baseline recovery verified",
+  "factoryAttempts": 0,
+  "insertionAttempts": 0,
+  "recoveryWorkflowCalls": 4,
+  "writeLocked": true,
+  "refusedWorkflowWireMs": 626.409583,
+  "recoveryWireMs": 140.70716800000002,
+  "reads": [
+    {
+      "capture": "live-89-attach-first/capture-0",
+      "documentMs": 52.367541,
+      "queueMs": 0.132959,
+      "heapSampleDelta": 4194304,
+      "graphBytes": 35829
+    },
+    {
+      "capture": "live-89-attach-first/capture-1",
+      "documentMs": 33.517292,
+      "queueMs": 0.115083,
+      "heapSampleDelta": 2097152,
+      "graphBytes": 35829
+    },
+    {
+      "capture": "live-90-recovery/recovery-0",
+      "documentMs": 15.001917,
+      "queueMs": 0.132958,
+      "heapSampleDelta": 2097152,
+      "graphBytes": 35828
+    },
+    {
+      "capture": "live-90-recovery/recovery-1",
+      "documentMs": 12.189208,
+      "queueMs": 0.103917,
+      "heapSampleDelta": 2097152,
+      "graphBytes": 35828
+    }
+  ],
+  "limit": "No attachment, edit, disposal, undo/redo, or edited reload is proved by these reads."
+}

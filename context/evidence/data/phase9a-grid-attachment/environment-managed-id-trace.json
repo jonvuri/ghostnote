@@ -1,0 +1,35 @@
+{
+  "checkedAt": "2026-10-18T18:08:19.956259+00:00",
+  "jar": "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "bytecodeInspections": [
+    {
+      "className": "cYx",
+      "javapSha256": "5de165ed81b0852705b0a49ac17ea40d8df8b210df64293c6a4d45f86c506a02"
+    },
+    {
+      "className": "com.bitwig.ramona.core.HEV",
+      "javapSha256": "4ee704e54bcf14cdda27a0e957fdd5620fa2d689e9593994ef497640bdf444fd"
+    },
+    {
+      "className": "com.bitwig.ramona.core.uX1",
+      "javapSha256": "06857d4c23fd2dd3d18b0fce8977b52708de5adf79014e1b511776cce3e6ead6"
+    },
+    {
+      "className": "com.bitwig.ramona.core.UL",
+      "javapSha256": "8fab5f3fcd929455137d694bad2209722129d33d8f2cfea1ef915dae4d9b0ed8"
+    },
+    {
+      "className": "qOs",
+      "javapSha256": "800cd29d0ed3ab7839bd3985f3ac078fae46f843a2fed2ffd1df8688f39e4870"
+    }
+  ],
+  "vendorBytecode": "Temporary files only; not committed.",
+  "findings": [
+    "cYx property 14 reads HEV.WKy().",
+    "uX1.NaF(HEV) assigns asI through nhl when ID is zero, increments asI, and inserts into its registry.",
+    "uX1.Uhv(HEV) registers the subtree.",
+    "HEV.WKy() reads the ID; uX1.ffA(int) reads its registry. No setter or registration is called by V11.",
+    "UL inherits qOs.ffA(int): reads the ID bucket and compares IDs; it does not allocate or insert."
+  ]
+}
