@@ -1,0 +1,477 @@
+{
+  "hello": {
+    "contractVersion": 0,
+    "extensionVersion": "0.0.1",
+    "runtimeProfile": "phase-8-probe-v1",
+    "hostApiVersion": 25,
+    "methodCount": 118,
+    "methodsHash": "2e939035ea90b8b0"
+  },
+  "rig": {
+    "runtimeProfile": "phase-8-probe-v1",
+    "gridReadProbe": "9a-grid-audio-v13",
+    "tracks": 256,
+    "scenes": 128,
+    "gridSteps": 64,
+    "fineSteps": 4194304,
+    "noteReadSteps": 2048,
+    "gridKeys": 128,
+    "stepSize": 0.25,
+    "cursorPool": 8,
+    "deviceBank": 16,
+    "remotePages": 16,
+    "containerScopes": 3,
+    "containerEntryBank": 5,
+    "containerEntryDeviceBank": 4,
+    "parameterRouteDepth": 2,
+    "sceneCount": 8,
+    "clipReader": {
+      "revision": "clip-reader-v3",
+      "closeRule": "confirm-before-release-v1",
+      "openRule": "subscribe-before-unpin-v1",
+      "groupRule": "expand-collapsed-parent-v1",
+      "limitRule": "sounding-cell-limit-v1",
+      "format": "notes-v1",
+      "width": 4194304,
+      "grid": 0.001953125,
+      "page": 131072,
+      "deadlineMs": 2000,
+      "soundingCells": 2097152,
+      "reads": 0,
+      "refusals": 0,
+      "lastRefusal": "",
+      "lateCallbacks": 0,
+      "strayCallbacks": 0,
+      "releaseCallbacks": 0,
+      "releaseEmpty": 0,
+      "releaseSustain": 0,
+      "releaseOn": 0,
+      "subscribed": false,
+      "open": false,
+      "state": {
+        "parkChannelId": "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f",
+        "trackChannelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackPinned": true,
+        "clipTrackChannelId": "",
+        "clipExists": false,
+        "clipPinned": false,
+        "sceneIndex": 0,
+        "subscribed": false,
+        "atPark": false
+      },
+      "writeGate": {
+        "readOpen": false,
+        "waiting": 0,
+        "leases": 0,
+        "limit": 256,
+        "queuedTotal": 0,
+        "refusedTotal": 0
+      },
+      "groupPoint": {
+        "rule": "expand-collapsed-point-v1",
+        "points": 0,
+        "refusals": 0,
+        "lastRefusal": "",
+        "open": false
+      }
+    },
+    "writeGuard": "batch-scene-guard-v1",
+    "selectionRule": "selection-project-v1",
+    "cursorIdentity": "cursor-channel-id-v1",
+    "groupPoint": "expand-collapsed-point-v1",
+    "parameterSettle": "same-ids-switch-v1",
+    "trackCreateKinds": [
+      "instrument",
+      "audio"
+    ],
+    "clipMetadataWrite": "owned-fields-v1",
+    "cursorTrackPins": {
+      "rule": "owned-tracks-pinned-v1",
+      "tracks": 14,
+      "unpinned": [],
+      "repins": 0,
+      "untargeted": 0
+    },
+    "trackMixer": "track-mixer-raw-v1",
+    "selectionEffects": "mixer-restore-v1",
+    "clipCopy": "copy-to-slot-v1",
+    "contentFilter": "ALL_CHANNELS"
+  },
+  "stats": {
+    "runtimeProfile": "phase-8-probe-v1",
+    "config": {
+      "tracks": 256,
+      "scenes": 128,
+      "gridSteps": 64,
+      "gridKeys": 128,
+      "cursorPool": 8,
+      "sends": 4,
+      "deviceBank": 16,
+      "fineSteps": 4194304,
+      "noteReadSteps": 2048,
+      "paramHandles": 64,
+      "remotePages": 16,
+      "cacheShadowSteps": 131072,
+      "cacheKneeResearch": false,
+      "changeWatchCursors": 0,
+      "contentFilter": "ALL_CHANNELS",
+      "directObservers": true,
+      "stamp": "default",
+      "fromFile": true
+    },
+    "rigConstructMicros": 48250,
+    "initMicros": 66092,
+    "initEpochMs": 1792359593989,
+    "upMs": 14645887,
+    "clipReader": {
+      "revision": "clip-reader-v3",
+      "closeRule": "confirm-before-release-v1",
+      "openRule": "subscribe-before-unpin-v1",
+      "groupRule": "expand-collapsed-parent-v1",
+      "limitRule": "sounding-cell-limit-v1",
+      "format": "notes-v1",
+      "width": 4194304,
+      "grid": 0.001953125,
+      "page": 131072,
+      "deadlineMs": 2000,
+      "soundingCells": 2097152,
+      "reads": 0,
+      "refusals": 0,
+      "lastRefusal": "",
+      "lateCallbacks": 0,
+      "strayCallbacks": 0,
+      "releaseCallbacks": 0,
+      "releaseEmpty": 0,
+      "releaseSustain": 0,
+      "releaseOn": 0,
+      "subscribed": false,
+      "open": false,
+      "state": {
+        "parkChannelId": "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f",
+        "trackChannelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackPinned": true,
+        "clipTrackChannelId": "",
+        "clipExists": false,
+        "clipPinned": false,
+        "sceneIndex": 0,
+        "subscribed": false,
+        "atPark": false
+      },
+      "writeGate": {
+        "readOpen": false,
+        "waiting": 0,
+        "leases": 0,
+        "limit": 256,
+        "queuedTotal": 0,
+        "refusedTotal": 0
+      },
+      "groupPoint": {
+        "rule": "expand-collapsed-point-v1",
+        "points": 0,
+        "refusals": 0,
+        "lastRefusal": "",
+        "open": false
+      }
+    },
+    "cursorTrackPins": {
+      "rule": "owned-tracks-pinned-v1",
+      "tracks": 14,
+      "unpinned": [],
+      "repins": 0,
+      "untargeted": 0
+    },
+    "slotObjects": 32768,
+    "markedValues": 207360,
+    "resources": {
+      "cursorDeviceBanks": 8,
+      "siblingDeviceBanks": 1,
+      "layerDeviceBanks": 8,
+      "slotDeviceBanks": 15,
+      "namedSlotDeviceBanks": 0,
+      "drumPadDeviceBanks": 16,
+      "deviceBanks": 48,
+      "cursorDeviceSlots": 128,
+      "cursorDeviceEnabledValues": 128,
+      "layerDeviceSlots": 32,
+      "slotDeviceSlots": 60,
+      "drumPadDeviceSlots": 256,
+      "namedSlotDeviceSlots": 0,
+      "deviceSlots": 492,
+      "cursorDevices": 1,
+      "specificDeviceViews": 4,
+      "typedParameterHandles": 75,
+      "remotePageCursors": 16,
+      "remoteParameterHandles": 128,
+      "directParameterObservers": 4,
+      "noteObserverCursors": 1,
+      "noteStepObservers": 1,
+      "stepDataObservers": 1,
+      "trackSendBanks": 0,
+      "trackSendHandles": 0,
+      "trackVuObservers": 0,
+      "historicalActionHandles": 0,
+      "historicalSelectionObservers": 0,
+      "equalsProxies": 32,
+      "transportProxies": 1,
+      "masterRecorderProxies": 0,
+      "cursorTracks": 11,
+      "cursorClips": 13,
+      "layerBanks": 4,
+      "layerHandles": 23,
+      "layerSendBanks": 0,
+      "layerSendHandles": 0,
+      "explicitHostObjects": 33895,
+      "observerCallbacks": 839
+    },
+    "heapUsedMb": 826,
+    "heapMaxMb": 3072
+  },
+  "host": {
+    "hostApiVersion": 25,
+    "hostProduct": "Bitwig Studio",
+    "hostVendor": "Bitwig",
+    "hostVersion": "6.0.6",
+    "javaVersion": "25",
+    "javaVendor": "Azul Systems, Inc."
+  },
+  "revision": {
+    "revision": 0,
+    "generation": "fee42333-bdc9-4208-911a-4eb768d5e7a3",
+    "project": "gn-grid-spike",
+    "projectStatus": "marked",
+    "sceneEpoch": 3,
+    "sceneCount": 8,
+    "contentEpoch": 32818,
+    "unpinnedCursorTracks": [],
+    "contentEvents": [
+      {
+        "seq": 32795,
+        "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+        "trackIndex": 0,
+        "slotIndex": 4,
+        "filled": false
+      },
+      {
+        "seq": 32796,
+        "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+        "trackIndex": 1,
+        "slotIndex": 1,
+        "filled": false
+      },
+      {
+        "seq": 32797,
+        "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+        "trackIndex": 1,
+        "slotIndex": 2,
+        "filled": false
+      },
+      {
+        "seq": 32798,
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+        "trackIndex": 2,
+        "slotIndex": 0,
+        "filled": false
+      },
+      {
+        "seq": 32799,
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+        "trackIndex": 2,
+        "slotIndex": 1,
+        "filled": false
+      },
+      {
+        "seq": 32800,
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+        "trackIndex": 2,
+        "slotIndex": 2,
+        "filled": false
+      },
+      {
+        "seq": 32801,
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+        "trackIndex": 2,
+        "slotIndex": 3,
+        "filled": false
+      },
+      {
+        "seq": 32802,
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+        "trackIndex": 2,
+        "slotIndex": 4,
+        "filled": false
+      },
+      {
+        "seq": 32803,
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+        "trackIndex": 2,
+        "slotIndex": 5,
+        "filled": false
+      },
+      {
+        "seq": 32804,
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+        "trackIndex": 2,
+        "slotIndex": 6,
+        "filled": false
+      },
+      {
+        "seq": 32805,
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+        "trackIndex": 2,
+        "slotIndex": 7,
+        "filled": false
+      },
+      {
+        "seq": 32806,
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+        "trackIndex": 2,
+        "slotIndex": 8,
+        "filled": false
+      },
+      {
+        "seq": 32807,
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+        "trackIndex": 2,
+        "slotIndex": 9,
+        "filled": false
+      },
+      {
+        "seq": 32808,
+        "channelId": "",
+        "trackIndex": 3,
+        "slotIndex": 0,
+        "filled": false
+      },
+      {
+        "seq": 32809,
+        "channelId": "",
+        "trackIndex": 3,
+        "slotIndex": 5,
+        "filled": false
+      },
+      {
+        "seq": 32810,
+        "channelId": "",
+        "trackIndex": 4,
+        "slotIndex": 0,
+        "filled": false
+      },
+      {
+        "seq": 32811,
+        "channelId": "",
+        "trackIndex": 4,
+        "slotIndex": 1,
+        "filled": false
+      },
+      {
+        "seq": 32812,
+        "channelId": "",
+        "trackIndex": 4,
+        "slotIndex": 2,
+        "filled": false
+      },
+      {
+        "seq": 32813,
+        "channelId": "",
+        "trackIndex": 5,
+        "slotIndex": 0,
+        "filled": false
+      },
+      {
+        "seq": 32814,
+        "channelId": "",
+        "trackIndex": 5,
+        "slotIndex": 1,
+        "filled": false
+      },
+      {
+        "seq": 32815,
+        "channelId": "",
+        "trackIndex": 5,
+        "slotIndex": 2,
+        "filled": false
+      },
+      {
+        "seq": 32816,
+        "channelId": "",
+        "trackIndex": 6,
+        "slotIndex": 0,
+        "filled": false
+      },
+      {
+        "seq": 32817,
+        "channelId": "",
+        "trackIndex": 7,
+        "slotIndex": 0,
+        "filled": false
+      },
+      {
+        "seq": 32818,
+        "channelId": "",
+        "trackIndex": 8,
+        "slotIndex": 0,
+        "filled": false
+      }
+    ]
+  },
+  "selection": {
+    "trackIndex": -1,
+    "slotIndex": -1,
+    "mixerTrackIndex": 0,
+    "mixerChannelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+    "changes": 0,
+    "revision": 2,
+    "slotProject": "",
+    "mixerProject": "gn-grid-spike",
+    "project": "gn-grid-spike"
+  },
+  "tracks": {
+    "tracks": [
+      {
+        "index": 0,
+        "name": "grid-probe",
+        "position": 0,
+        "type": "Instrument",
+        "channelId": "c784d25c-b753-47ca-af8d-c83d11cfd990"
+      },
+      {
+        "index": 1,
+        "name": "FX 1",
+        "position": 1,
+        "type": "Effect",
+        "channelId": "0c4835e2-1769-4ecc-9d03-cf0226bcb5a4"
+      },
+      {
+        "index": 2,
+        "name": "Master",
+        "position": 2,
+        "type": "Master",
+        "channelId": "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f"
+      }
+    ],
+    "count": 3,
+    "itemCount": 3,
+    "bankSize": 256
+  },
+  "devices": {
+    "devices": [
+      {
+        "index": 0,
+        "name": "Poly Grid",
+        "enabled": true
+      }
+    ],
+    "count": 1,
+    "itemCount": 1,
+    "trackChannelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+    "trackPosition": 0,
+    "bankSize": 16
+  },
+  "target": {
+    "project": "gn-grid-spike",
+    "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+    "trackName": "grid-probe",
+    "deviceIndex": 0,
+    "deviceName": "Poly Grid"
+  }
+}

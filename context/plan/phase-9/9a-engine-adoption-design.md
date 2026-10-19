@@ -1,19 +1,20 @@
 ---
 title: 9a — Engine adoption design
 kind: plan
-state: active
-status: Historical V12 protocol. E293 replaces the signal and failure design; V12 remains used and locked.
+state: superseded
+status: Historical V12 protocol. E296 selects operator audio acceptance; V12 remains used and locked.
 updated: 2026-10-19
 parent: 9a-live-grid-editing-spike.md
 ---
 
 # 9a — Engine adoption design
 
-## Replacement after E292 and E293
+## Replacement after E296
 
-The [continuous-signal design](9a-continuous-signal-design.md) is the current
-contract for the next test. It replaces this document's signal windows,
-note lifecycle, failure report, cost model, and next-session instructions.
+The [operator audio test](9a-operator-audio-test.md) is the current contract.
+It replaces the automated signal requirement, note lifecycle, failure report,
+cost model, and next-session instructions. The interim
+[continuous-signal design](9a-continuous-signal-design.md) is deferred.
 The remaining sections preserve E290/V12 history and the native update trace.
 Do not execute the historical driver procedure below.
 

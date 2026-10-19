@@ -1,0 +1,22 @@
+{
+  "command": "python3 context/evidence/data/phase9a-observable-design/check_design.py",
+  "result": "pass",
+  "sourceFiles": 4,
+  "commandOutputHashes": 24,
+  "ambiguityModels": 4,
+  "negativeRequirementCases": [
+    "invalid-zero",
+    "missing-validity",
+    "stale-sequence",
+    "too-old-zero",
+    "before-window",
+    "future-time",
+    "missing-age",
+    "torn-zero",
+    "no-publication-proof",
+    "wrong-target",
+    "reconnected"
+  ],
+  "conditionalWireCalls": 248,
+  "limit": "Checks pinned files, selected instruction facts, scalar countermodels, and cost arithmetic only. Does not prove native producer behavior, synchronization, all writers, or a working accessor."
+}

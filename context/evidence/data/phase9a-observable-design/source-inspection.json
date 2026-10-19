@@ -1,0 +1,393 @@
+{
+  "scope": "Offline file inspection only. No host invocation, process attach, native-memory read, subscription, fixture operation, or deployment.",
+  "localOutputDirectory": "/tmp/gn9a-observable-design",
+  "sources": [
+    {
+      "name": "jar",
+      "path": "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar",
+      "sha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+      "bytes": 34686665
+    },
+    {
+      "name": "engine",
+      "path": "/Applications/Bitwig Studio.app/Contents/MacOS/Bitwig Audio Engine ARM64-NEON.app/Contents/MacOS/BitwigAudioEngine-ARM64-NEON",
+      "sha256": "c83b0615dbe914ac04e5b4f9de4ff91b1cc6db2720297a4954377f9ef83ea616",
+      "bytes": 66187344
+    },
+    {
+      "name": "jni",
+      "path": "/Applications/Bitwig Studio.app/Contents/Frameworks/libbitwig-jni.jnilib",
+      "sha256": "ece77643d8cc95a4915231a26b0305a3f964e7a156776996a794dbcde9d354ea",
+      "bytes": 19090672
+    },
+    {
+      "name": "app",
+      "path": "/Applications/Bitwig Studio.app/Contents/MacOS/BitwigStudio",
+      "sha256": "ae5044db7786cd29cad544410b7eec5b2a08659be9c341d5f040cfaeb15c36c1",
+      "bytes": 659952
+    }
+  ],
+  "outputs": [
+    {
+      "file": "javap-version.txt",
+      "command": [
+        "javap",
+        "-version"
+      ],
+      "sha256": "dccfe05dc2d97445a4ce74d945e6f1de00a88eea20751d97620208140fc5eceb",
+      "bytes": 7
+    },
+    {
+      "file": "objdump-version.txt",
+      "command": [
+        "/opt/homebrew/opt/llvm/bin/llvm-objdump",
+        "--version"
+      ],
+      "sha256": "dbba2662a80e62729affac84bf9d71c136f744d7a87108b4a95d79afcc14f295",
+      "bytes": 1730
+    },
+    {
+      "file": "com.bitwig.base.platform.SharedMemory.txt",
+      "command": [
+        "javap",
+        "-p",
+        "-c",
+        "-classpath",
+        "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar",
+        "com.bitwig.base.platform.SharedMemory"
+      ],
+      "sha256": "eea9dff78097030ed3666a6b9eb11350fbe249a17cbfce274f9cc7106d7ff9f5",
+      "bytes": 7780
+    },
+    {
+      "file": "com.bitwig.flt.control_surface.proxy.AbstractChannelProxy.txt",
+      "command": [
+        "javap",
+        "-p",
+        "-c",
+        "-classpath",
+        "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar",
+        "com.bitwig.flt.control_surface.proxy.AbstractChannelProxy"
+      ],
+      "sha256": "a08cbfb69ee7911bc95d6d45de2192a7898033f5d90e409937b222421dcad484",
+      "bytes": 80633
+    },
+    {
+      "file": "com.bitwig.flt.control_surface.proxy.AbstractChannelProxy$VuMeterObserver.txt",
+      "command": [
+        "javap",
+        "-p",
+        "-c",
+        "-classpath",
+        "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar",
+        "com.bitwig.flt.control_surface.proxy.AbstractChannelProxy$VuMeterObserver"
+      ],
+      "sha256": "811b0b613727ea56035b268c8c055ca1bca05fa860facb08f0e28871ff614c7b",
+      "bytes": 3025
+    },
+    {
+      "file": "com.bitwig.extension.controller.api.Channel.txt",
+      "command": [
+        "javap",
+        "-p",
+        "-c",
+        "-classpath",
+        "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar",
+        "com.bitwig.extension.controller.api.Channel"
+      ],
+      "sha256": "b001ea13390832df101eea3b759ed5c51e3b3792057db11cc7390c354db99846",
+      "bytes": 2139
+    },
+    {
+      "file": "Cic.txt",
+      "command": [
+        "javap",
+        "-p",
+        "-c",
+        "-classpath",
+        "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar",
+        "Cic"
+      ],
+      "sha256": "36c571972aa955c5f8f7eed2aedaabe1ed550e310c61aaac5f4aa6bae6b3310b",
+      "bytes": 64
+    },
+    {
+      "file": "Bsp.txt",
+      "command": [
+        "javap",
+        "-p",
+        "-c",
+        "-classpath",
+        "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar",
+        "Bsp"
+      ],
+      "sha256": "8d014ebba6010155756678143a0b9747421f5c5f0a2ac353c3939df9430317a0",
+      "bytes": 64
+    },
+    {
+      "file": "DxI.txt",
+      "command": [
+        "javap",
+        "-p",
+        "-c",
+        "-classpath",
+        "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar",
+        "DxI"
+      ],
+      "sha256": "c62b8b60d97614c92ffb4f03790833ab1d7bf67d11a1c105559a9486edf06196",
+      "bytes": 16248
+    },
+    {
+      "file": "UoA.txt",
+      "command": [
+        "javap",
+        "-p",
+        "-c",
+        "-classpath",
+        "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar",
+        "UoA"
+      ],
+      "sha256": "5444ae3545dc7766e7e07fb4bb1029b69c6f669626e566cae1077db51f859e46",
+      "bytes": 20488
+    },
+    {
+      "file": "engine-file.txt",
+      "command": [
+        "file",
+        "/Applications/Bitwig Studio.app/Contents/MacOS/Bitwig Audio Engine ARM64-NEON.app/Contents/MacOS/BitwigAudioEngine-ARM64-NEON"
+      ],
+      "sha256": "20ddc788a5e3f88254d20dd0b4a0991e1e34b51c44ea097fc248362cb7d26057",
+      "bytes": 158
+    },
+    {
+      "file": "engine-symbols.txt",
+      "command": [
+        "nm",
+        "-arch",
+        "arm64",
+        "-C",
+        "/Applications/Bitwig Studio.app/Contents/MacOS/Bitwig Audio Engine ARM64-NEON.app/Contents/MacOS/BitwigAudioEngine-ARM64-NEON"
+      ],
+      "sha256": "11431e46ae9de149f4963664d85b960bb0759c04996cf8c9d75ec4d338864dba",
+      "bytes": 128404
+    },
+    {
+      "file": "engine-headers.txt",
+      "command": [
+        "otool",
+        "-arch",
+        "arm64",
+        "-l",
+        "/Applications/Bitwig Studio.app/Contents/MacOS/Bitwig Audio Engine ARM64-NEON.app/Contents/MacOS/BitwigAudioEngine-ARM64-NEON"
+      ],
+      "sha256": "6d6c35f3974db22c66853c8018ab0c9ddee94d751d393164afa59be799b23540",
+      "bytes": 14239
+    },
+    {
+      "file": "jni-file.txt",
+      "command": [
+        "file",
+        "/Applications/Bitwig Studio.app/Contents/Frameworks/libbitwig-jni.jnilib"
+      ],
+      "sha256": "a4f0333c95f796db6545c5e245b440f789f0afa4a8f5231815a608092573bb53",
+      "bytes": 500
+    },
+    {
+      "file": "jni-symbols.txt",
+      "command": [
+        "nm",
+        "-arch",
+        "arm64",
+        "-C",
+        "/Applications/Bitwig Studio.app/Contents/Frameworks/libbitwig-jni.jnilib"
+      ],
+      "sha256": "4eced4dbd357238c0bd772f49e5f634f598b815c3ec7603eee7a5fb8bef53e5a",
+      "bytes": 2251882
+    },
+    {
+      "file": "jni-headers.txt",
+      "command": [
+        "otool",
+        "-arch",
+        "arm64",
+        "-l",
+        "/Applications/Bitwig Studio.app/Contents/Frameworks/libbitwig-jni.jnilib"
+      ],
+      "sha256": "b433c7c7998ed7b87232dcf6fea8d1c7fbe1259927385cb033559b431dce2e85",
+      "bytes": 15029
+    },
+    {
+      "file": "app-file.txt",
+      "command": [
+        "file",
+        "/Applications/Bitwig Studio.app/Contents/MacOS/BitwigStudio"
+      ],
+      "sha256": "3e3fe88552f3ea14dc938f7d5001d784ae0a3807bbc7e25f0ddce540aed3029a",
+      "bytes": 423
+    },
+    {
+      "file": "app-symbols.txt",
+      "command": [
+        "nm",
+        "-arch",
+        "arm64",
+        "-C",
+        "/Applications/Bitwig Studio.app/Contents/MacOS/BitwigStudio"
+      ],
+      "sha256": "a5e05f0f73b9569209ea627bce4749b9f9a67791d19fc28a1fc49e2b0d6b5b58",
+      "bytes": 66079
+    },
+    {
+      "file": "app-headers.txt",
+      "command": [
+        "otool",
+        "-arch",
+        "arm64",
+        "-l",
+        "/Applications/Bitwig Studio.app/Contents/MacOS/BitwigStudio"
+      ],
+      "sha256": "681102dffcc4997a8bb34bf47343be5bcf26d28e14f832dad870dc29d711eb9e",
+      "bytes": 10628
+    },
+    {
+      "file": "jni-create-server.txt",
+      "command": [
+        "/opt/homebrew/opt/llvm/bin/llvm-objdump",
+        "-d",
+        "-C",
+        "--start-address=5242660",
+        "--stop-address=5243172",
+        "/tmp/gn9a-observable-design/jni-arm64.bin"
+      ],
+      "sha256": "d2fbd461d5f792011cfbae612a3c0879bf2ca366c7a3ff63309a0256ae796db0",
+      "bytes": 7379
+    },
+    {
+      "file": "jni-get-address.txt",
+      "command": [
+        "/opt/homebrew/opt/llvm/bin/llvm-objdump",
+        "-d",
+        "-C",
+        "--start-address=5243728",
+        "--stop-address=5243736",
+        "/tmp/gn9a-observable-design/jni-arm64.bin"
+      ],
+      "sha256": "6ad84588394acb62d4d03403fa71f2d383983076d79cba7c5f2e3a494ef4e830",
+      "bytes": 268
+    },
+    {
+      "file": "jni-begin-frame.txt",
+      "command": [
+        "/opt/homebrew/opt/llvm/bin/llvm-objdump",
+        "-d",
+        "-C",
+        "--start-address=5455852",
+        "--stop-address=5455960",
+        "/tmp/gn9a-observable-design/jni-arm64.bin"
+      ],
+      "sha256": "f7db9172300fbdbb8e17b772927ad764fe357b174f52b405eb2415fcdf65087b",
+      "bytes": 1515
+    },
+    {
+      "file": "jni-array-reader.txt",
+      "command": [
+        "/opt/homebrew/opt/llvm/bin/llvm-objdump",
+        "-d",
+        "-C",
+        "--start-address=5455316",
+        "--stop-address=5455504",
+        "/tmp/gn9a-observable-design/jni-arm64.bin"
+      ],
+      "sha256": "b0421137d9a1bab73a497957f1e81b92ca7d7918ab5bed032eed39bea123c26b",
+      "bytes": 2591
+    },
+    {
+      "file": "jni-scope-reader.txt",
+      "command": [
+        "/opt/homebrew/opt/llvm/bin/llvm-objdump",
+        "-d",
+        "-C",
+        "--start-address=5458652",
+        "--stop-address=5459248",
+        "/tmp/gn9a-observable-design/jni-arm64.bin"
+      ],
+      "sha256": "8999cc1b4b616e827c4497fc3eb3ed5366ebeb7977f4058065f3b9f60cf5c7b0",
+      "bytes": 8937
+    }
+  ],
+  "thinSlice": {
+    "command": [
+      "lipo",
+      "/Applications/Bitwig Studio.app/Contents/Frameworks/libbitwig-jni.jnilib",
+      "-thin",
+      "arm64",
+      "-output",
+      "/tmp/gn9a-observable-design/jni-arm64.bin"
+    ],
+    "sha256": "d31df7d25b2f944243150a598c24cc3cf864620e0c83f1694e88d0747e9098d2"
+  },
+  "nativeLeads": {
+    "scope": "Type-name bytes and symbol text only. These are not recovered producer functions, vtables, writer sets, or publication proof.",
+    "engineTypeNames": [
+      {
+        "typeName": "N3flt4core11VuMeterAtomE",
+        "fileOffsets": [
+          "0x2bf37d8"
+        ]
+      },
+      {
+        "typeName": "N3flt4core15VuMeterAtomNodeE",
+        "fileOffsets": [
+          "0x2bf37f1"
+        ]
+      },
+      {
+        "typeName": "N3flt4core25EngineSharedMemoryManagerE",
+        "fileOffsets": [
+          "0x2bdf1c0"
+        ]
+      },
+      {
+        "typeName": "N3flt4core24EngineSharedMemoryHelperE",
+        "fileOffsets": [
+          "0x2bf32e2"
+        ]
+      },
+      {
+        "typeName": "N3flt4core28EngineSharedMemoryHelperNodeE",
+        "fileOffsets": [
+          "0x2bf3308"
+        ]
+      },
+      {
+        "typeName": "N3flt4core24SharedMemoryAnalysisAtomE",
+        "fileOffsets": [
+          "0x2bf3690"
+        ]
+      },
+      {
+        "typeName": "N3flt4core27LightweightOscilloscopeAtomE",
+        "fileOffsets": [
+          "0x2bf3408"
+        ]
+      }
+    ],
+    "engineSymbolPredicates": [
+      "VuMeter",
+      "EngineSharedMemory",
+      "SharedMemoryAnalysis",
+      "LightweightOscilloscope"
+    ],
+    "engineSymbolMatches": [],
+    "jarAsciiNameScan": {
+      "classCount": 30940,
+      "matches": {
+        "VuMeterAtom": [],
+        "SharedMemoryAnalysisAtom": [],
+        "LightweightOscilloscopeAtom": [],
+        "EngineSharedMemoryHelper": [],
+        "OscilloscopeAtom": []
+      }
+    }
+  }
+}

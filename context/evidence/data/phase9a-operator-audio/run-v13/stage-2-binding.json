@@ -1,0 +1,18 @@
+{
+  "marker": "9a-grid-audio-v13",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "operation": "bind",
+  "queueNanos": 515584,
+  "epoch": "6d5560ba-c318-499e-99de-0e35333b16aa",
+  "timings": {
+    "guardsAndTargetsNanos": 500333,
+    "engineSymbolsNanos": 417,
+    "readerSymbolsControllerNanos": 708,
+    "responseSizeCheckNanos": 23458,
+    "completionDeliveryNanos": 21271667
+  },
+  "heapUsedBefore": 549453824,
+  "heapUsedAfter": 549453824,
+  "documentTaskNanos": 603541,
+  "documentFinishedNanos": 160228229661291
+}

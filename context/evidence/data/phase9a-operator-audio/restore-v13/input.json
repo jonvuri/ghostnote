@@ -1,0 +1,11 @@
+{
+  "projectPath": "/Users/jonvuri/Documents/Bitwig Studio/Projects/gn-grid-spike/gn-grid-spike.bwproject",
+  "backupPath": "/tmp/gn-grid-spike-e280-baseline.bwproject",
+  "presetPath": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+  "observedAt": 1792374716808,
+  "engineInactive": true,
+  "isolationConfirmed": true,
+  "operatorAnswer": "Closed.",
+  "uiObservation": "Project closed without save by operator; exact file hashes checked while closed; agent reopened the verified saved baseline. Screenshot shows inactive engine, unstarred gn-grid-spike, muted armed grid-probe at -10 dB, transport at 1.1.1.00, original Poly Grid and MW/Expressions.",
+  "restorationConfirmed": true
+}

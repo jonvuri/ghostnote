@@ -1,13 +1,22 @@
 ---
 title: 9a — Continuous signal and frozen failure evidence
 kind: plan
-state: active
-status: E294 finds no sufficient witness in the Java receive path. Design the observable before implementation. V12 remains used and locked.
+state: deferred
+status: Automated measurement deferred by E296. Use the operator audio test; V12 remains used and locked.
 updated: 2026-10-19
 parent: 9a-live-grid-editing-spike.md
 ---
 
 # 9a — Continuous signal and frozen failure evidence
+
+## Superseded acceptance after E296
+
+The [operator audio test](9a-operator-audio-test.md) is the current contract.
+It replaces this document's fresh-packet prerequisite, timed measurements,
+muted/master-silent run, numeric signal thresholds, costs, and next sessions.
+The operator requested this narrower evidence claim in E296. The graph
+sequence and exact restoration remain. Preserve this automated design as
+history; do not implement it or continue packet research as a 9a prerequisite.
 
 ## Scope and entry state
 
@@ -66,8 +75,11 @@ thread boundary; it does not prove synchronization with the native producer.
 A valid zero update and invalid decay from zero can leave equal cached values.
 This is a bounded negative result, not proof that every host observable fails.
 
-The [next observable design session](#next-session--observable-design-after-the-packet-trace)
-must resolve this gap before runner implementation. Keep these requirements.
+[E295](../../evidence/experiments/e295-grid-observable-design.md) completes the
+[observable design](9a-observable-design.md) with no admitted candidate.
+The next step is [native meter producer reconstruction](9a-observable-design.md#next-session--native-meter-producer-reconstruction),
+still offline. Resolve this gap before runner implementation. Keep these
+requirements.
 Establish an existing, target-bound valid-packet sequence or timestamp,
 with a value snapshot from the same update. It must distinguish valid zero
 from decay, reset, initial binding, and stale cached values. Read it on the
@@ -77,8 +89,8 @@ Do not install hooks, replace a decoder, call packet/flush/reset methods, or
 change the fixture to obtain a witness.
 
 If no such read-only witness exists, record `fresh-meter-evidence-unavailable`.
-Plan a separate observable design session; do not implement or deploy the
-signal runner under a weaker claim. The timing and budget below require the
+Follow the bounded producer reconstruction plan; do not implement or deploy
+the signal runner under a weaker claim. The timing and budget below require the
 witness to fit one fixed snapshot task with no extra subscription or wire call.
 A different mechanism requires a revised design and cost model first.
 
@@ -393,6 +405,11 @@ The 248-call plan remains conditional. No runner implementation or deployment
 follows from this trace. V12 remains used and locked.
 
 ### Next session — observable design after the packet trace
+
+Completed by [E295](../../evidence/experiments/e295-grid-observable-design.md).
+The [comparison and cost disposition](9a-observable-design.md) admit no
+candidate. The requirements below record this completed session's scope.
+The next session is [native meter producer reconstruction](9a-observable-design.md#next-session--native-meter-producer-reconstruction).
 
 Source: E294's receive-path table, writer audit, and native-publication limit;
 E293's continuous-signal and failure contract. Select a complete independent

@@ -1,0 +1,31 @@
+{
+  "result": "operator-audio-pass; exact baseline restoration subsequently passed",
+  "graphVerdict": "all eleven stages pass exact paired readback",
+  "audioVerdict": "all eight actual operator answers are yes",
+  "restorationVerdict": "pass in ../restore-v13; see ../verification-live.json",
+  "calls": 208,
+  "wireMs": 6488.06792099964,
+  "stageWireMs": [
+    555.026,
+    565.504,
+    599.819,
+    569.605,
+    615.633,
+    571.94,
+    570.731,
+    566.684,
+    571.532,
+    563.205,
+    566.879
+  ],
+  "fixtureCaptures": 55,
+  "detachedCaptures": 2,
+  "factoryAttempts": 1,
+  "graphEdits": 11,
+  "noteWrites": 0,
+  "operatorAnswers": 8,
+  "readTraversalMaxMs": 8.854708,
+  "documentTaskMaxMs": 34.120167,
+  "maxMeasuredHeapIncreaseBytes": 6291456,
+  "heapLimit": "process heap deltas are not allocation or retained-native-heap bounds"
+}

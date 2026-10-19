@@ -1,0 +1,73 @@
+{
+  "result": "pass",
+  "claim": "operator-verified audio response on the fixed Poly Grid fixture",
+  "graphVerdict": "pass: eleven native edit stages and all paired graph checks",
+  "audioVerdict": "pass: eight literal yes answers",
+  "restorationVerdict": "pass: exact files, inactive paired baseline reads, session released",
+  "session": "56986b96-53f7-4df0-a6dd-a6da02d151f3",
+  "profile": "phase-8-probe-v1",
+  "marker": "9a-grid-audio-v13",
+  "initEpochMs": 1792359593989,
+  "phases": {
+    "prepare": {
+      "calls": 16,
+      "wireMs": 464.60033300000015,
+      "maxResponseBytes": 37171
+    },
+    "run": {
+      "calls": 208,
+      "wireMs": 6488.06792099964,
+      "maxResponseBytes": 50188
+    },
+    "restore": {
+      "calls": 16,
+      "wireMs": 434.6407470000001,
+      "maxResponseBytes": 37174
+    }
+  },
+  "totalCalls": 240,
+  "helloCallsOutsideBudget": 6,
+  "totalWireMs": 7387.3090009996395,
+  "cursorWaitMs": 1950,
+  "operatorAnswers": 8,
+  "fixtureCaptures": 59,
+  "detachedCaptures": 2,
+  "factoryAttempts": 1,
+  "graphEdits": 11,
+  "noteWrites": 0,
+  "recoveryCalls": 0,
+  "maxTraversalMs": 8.854708,
+  "maxDocumentTaskMs": 34.120167,
+  "finalStatus": {
+    "used": true,
+    "active": false,
+    "locked": false,
+    "restored": true,
+    "nativeUnfinished": false,
+    "epochOpen": false,
+    "recoveryUsed": false
+  },
+  "fixtureFiles": {
+    "projectPath": {
+      "path": "/Users/jonvuri/Documents/Bitwig Studio/Projects/gn-grid-spike/gn-grid-spike.bwproject",
+      "sha256": "af24056e72e9722eacaa80bf01daa02e7fba0c72103f7fd1655f689448da1b4f",
+      "match": true
+    },
+    "backupPath": {
+      "path": "/tmp/gn-grid-spike-e280-baseline.bwproject",
+      "sha256": "af24056e72e9722eacaa80bf01daa02e7fba0c72103f7fd1655f689448da1b4f",
+      "match": true
+    },
+    "presetPath": {
+      "path": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+      "sha256": "1e8f90fc3875dbeb1f38ed88bec59ee783f39bb00fb366194c79504e063c0cc9",
+      "match": true
+    }
+  },
+  "uiFinal": "gn-grid-spike reopened and unstarred; engine inactive; grid-probe muted and armed at -10 dB; transport stopped at 1.1.1.00; Poly Grid and MW/Expressions visible",
+  "limits": [
+    "No absolute digital-zero, exact amplitude-ratio, sample-continuity, engine-revision acknowledgement, or arbitrary-patch claim.",
+    "E292 traversal maximum remains unexplained; no timing retry.",
+    "9a stays active for bounded close-out and profile disposition."
+  ]
+}

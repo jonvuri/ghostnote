@@ -2,7 +2,7 @@
 title: Phase 9a — Live Grid editing spike
 kind: plan
 state: active
-status: E294 finds no sufficient witness in the Java receive path. Observable design is next; V12 remains used and locked; 9a stays active.
+status: E298 passes operator audio, exact graph checks, and baseline restoration. Bounded close-out is next; 9a remains active.
 updated: 2026-10-19
 parent: README.md
 ---
@@ -30,6 +30,23 @@ Read, parameter write, independent readback, UI, undo/redo, and edited-state
 save/reload pass on the four-module fixture. The operator selected continuation
 of 9a. This supersedes E277's session-close handoff, not its measured results.
 Historical evidence and the verified fixture remain unchanged.
+
+## Current audio acceptance after E296
+
+The operator selected [listening verification](9a-operator-audio-test.md) for
+this spike. It replaces the automated meter gate in the historical sections
+below. The agent performs the native edits and paired graph checks. The
+operator must confirm all eight audible results. Exact baseline restoration
+must pass. Report an operator-verified audio response on this fixed fixture;
+do not claim digital silence, an exact gain ratio, or arbitrary Grid support.
+Temporary track unmute is permitted by the new contract. No test notes are
+needed. Native meter producer research is deferred and no longer gates 9a.
+
+[E297](../../evidence/experiments/e297-grid-operator-audio-probe.md) implements
+and deploys the step-controlled V13 runner. Offline checks pass.
+[E298](../../evidence/experiments/e298-grid-operator-audio-live-test.md) passes
+all eight operator audio checks, eleven native graph stages, and exact baseline
+restoration. The revised audio gate passes on the fixed fixture.
 
 ## Current continuation — module creation
 
@@ -259,23 +276,43 @@ validity lacks a proved coherent snapshot and age. The trace returns
 
 ### Next session — observable design after the packet trace
 
-Source: E294 and the
-[planned observable design](9a-continuous-signal-design.md#next-session--observable-design-after-the-packet-trace).
-Compare a bounded native publication trace with other existing host signal
-evidence. Select a complete independent observable, or record a bounded
-negative result with a specific research handoff. Keep the fixture and signal
-requirements. Revise costs before implementation. This session stays offline;
-do not call V12 or weaken the fresh-zero requirement.
+Completed by [E295](../../evidence/experiments/e295-grid-observable-design.md).
+The [observable comparison](9a-observable-design.md) admits no candidate.
+Native meter producer functions remain unresolved. JNI visualization readers
+have no proved fixture/master binding or age; the scope reader changes shared
+state. Public callbacks can carry cached values from initial binding. Its
+fresh-zero requirements and conditional costs belong to the deferred automated
+design. E296 replaces them for the operator audio test.
 
-### Following sessions — implementation and fresh live gate
+### Deferred — native meter producer reconstruction
 
-The replacement contract defines the
-[offline implementation acceptance](9a-continuous-signal-design.md#then--replacement-probe-implementation-and-offline-checks)
-and the [fresh live gate](9a-continuous-signal-design.md#then--fresh-bounded-live-gate).
-They require an accepted observable design that resolves E294. Keep 9a active. V12 remains loaded with its
-session used and locked. Exact baseline restoration passed; the operator
-later briefly activated the engine. Verify current state before live work.
-Do not rerun V12 or its final restoration read.
+[E295](../../evidence/experiments/e295-grid-observable-design.md) preserves
+this research option. E296 removes it from the 9a critical path. Resume only
+if a future selected task needs automated signal evidence.
+
+### Passed — step-controlled probe and listening test
+
+[E297](../../evidence/experiments/e297-grid-operator-audio-probe.md) implements
+and checks the V13 operator gates. [E298](../../evidence/experiments/e298-grid-operator-audio-live-test.md)
+passes all eight listening checks, eleven exact graph stages, and saved-baseline
+restoration in 240 calls. One factory and zero notes are used. The V13 session
+is used and released. Do not repeat prepare, run, or restoration.
+
+### Next session — bounded close-out and profile disposition
+
+Use E277–E289 for the measured operation, readback, undo/redo, persistence,
+and ownership results. Add E298's operator-audio and exact-restoration result.
+Write the final operation-by-operation verdict for the fixed Poly Grid fixture
+and pinned Bitwig build. State limits on general module types, layout writes,
+outgoing-consumer cleanup, failure atomicity, and automated signal evidence.
+Do not infer broader product support from the spike.
+
+Record the normal/probe profile disposition. If the session returns to the
+normal profile, build and deploy it, defer controller replacement to the
+operator, then verify the fresh hello under AGENTS.md. Do not rerun the V13
+sequence or add timing reads. Update the capability record only with measured
+results, the evidence index, and NOW. Keep 9a active until that record is
+complete. Wider Phase 9 scope remains unselected.
 
 ## Read first
 
@@ -560,7 +597,8 @@ Measured gates through [E289](../../evidence/experiments/e289-native-grid-attach
 - The evidence records the exact environment, clone pins, fixture baseline,
   discovery method, commands, raw captures, and operation-by-operation verdict.
 - A positive live CRUD verdict includes current-host readback, unrelated-state
-  preservation, engine adoption, persistence, and baseline restoration.
+  preservation, operator-verified audio response under E296, persistence,
+  and baseline restoration.
   A partial verdict names the missing proof without claiming general support.
 - Discovery and probes are reproducible on the named build. Unknown builds
   fail explicitly. Store a jar hash with any symbol map; names alone do not

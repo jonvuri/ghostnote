@@ -1,0 +1,22 @@
+{
+  "phase": "prepare",
+  "result": "pass",
+  "calls": 16,
+  "wireMs": 464.60033300000015,
+  "fixtureCaptures": 2,
+  "graphEdits": 0,
+  "factoryAttempts": 0,
+  "noteWrites": 0,
+  "operatorChecks": 0,
+  "initEpochMs": 1792359593989,
+  "readTraversalMs": [
+    3.05875,
+    2.94275
+  ],
+  "documentTaskMs": [
+    16.864625,
+    8.223875
+  ],
+  "controllerColdSymbolsMs": 38.451708,
+  "next": "operator activation and unmute, then one run; do not repeat prepare"
+}

@@ -3,96 +3,77 @@ package com.ghostnote.extension;
 import com.google.gson.*;
 import java.nio.file.*;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicLong;
 
-/** Offline signal, sequence, and note ownership failures. No live write is made. */
+/** Offline operator gates, sequence, and failure evidence. No live write is made. */
 public final class GridEngineTest {
     private static void check(boolean value, String message) { if (!value) throw new AssertionError(message); }
     private static void refuses(Runnable call) { try { call.run(); } catch (RuntimeException expected) { return; } throw new AssertionError("expected refusal"); }
-    private static GridEngineWindow window(String name) { return new GridEngineWindow(name,"track","master","gen",0,10000,0); }
-    private static void sample(GridEngineWindow w, int kind, int value, long ms) { w.sample(kind,value,kind == 1 ? "master" : "track",ms*1_000_000,10000+ms); }
-    private static JsonObject collect(GridEngineWindow w, long end) { return w.collect(1250_000_000L,11250,new long[]{9900,9900},new long[]{end,end}); }
-    private static GridEngineWindow pulse(int peak, String fault) {
-        GridEngineWindow w = window("B+"); sample(w,0,0,100); w.on(250_000_000L);
-        if (!fault.equals("missing-note")) sample(w,2,fault.equals("foreign-note") ? 61 : 60,300);
-        sample(w,1,fault.equals("master") ? 2 : 0,450);
-        if (!fault.equals("suppressed")) sample(w,0,peak,500);
-        if (!fault.equals("off-failed")) { w.off(850_000_000L); sample(w,2,0,900); }
-        sample(w,0,0,1100); return w;
-    }
-    private static void signals() {
-        check(collect(pulse(80,""),11200).get("available").getAsBoolean(),"positive signal");
-        check(collect(pulse(0,""),11200).get("available").getAsBoolean(),"zero with fresh packets and notes");
-        for (String fault : List.of("missing-note","foreign-note","master","suppressed","off-failed"))
-            check(!collect(pulse(80,fault),11200).get("available").getAsBoolean(),fault);
-        check(!collect(pulse(0,""),9900).get("available").getAsBoolean(),"zero without freshness is unavailable");
-        check(!collect(pulse(80,""),13000).get("available").getAsBoolean(),"future packet");
-        GridEngineWindow bind = window("Q0"); check(!collect(bind,11200).get("available").getAsBoolean(),"bind value cannot pass");
-        for (String fault : List.of("overflow","order","clock","target")) {
-            GridEngineWindow w = window("Q0");
-            if (fault.equals("overflow")) for (int i=0;i<=2048;i++) sample(w,0,0,100);
-            if (fault.equals("order")) { sample(w,0,0,200); sample(w,0,0,100); }
-            if (fault.equals("clock")) w.sample(0,0,"track",100_000_000,13000);
-            if (fault.equals("target")) w.sample(0,0,"replacement",100_000_000,10100);
-            refuses(w::requireHealthy);
-        }
-        GridEngineWindow backlog = window("B+"); refuses(() -> backlog.on(500_000_000));
-        GridEngineWindow consumed = pulse(80,""); collect(consumed,11200); refuses(() -> collect(consumed,11200));
-        GridEngineProtocol.requireHalf(63,80,80);
-        for (int half : new int[]{0,40,70,80}) refuses(() -> GridEngineProtocol.requireHalf(half,80,80));
-        refuses(() -> GridEngineProtocol.requireHalf(63,80,100));
+    private static void ack(GridEngineProtocol p, String name, long now) {
+        check(p.acknowledge(p.session(), name, "yes", "yes", now, now, now, now), "yes accepted");
     }
     private static void protocol() {
-        GridEngineProtocol p = new GridEngineProtocol(); p.begin(0); refuses(() -> p.begin(1)); refuses(() -> p.factory(1));
-        p.signal("Q0",0,1); p.signal("B+",80,2); p.advance("stage1",3); p.signal("B0",0,4);
-        p.advance("stage2",5); p.signal("B-return",80,6); p.factory(7); refuses(() -> p.factory(8));
-        p.fail("disconnect"); refuses(() -> p.advance("stage3",9)); refuses(() -> p.recovery(true)); p.recovery(false); refuses(() -> p.recovery(false));
-        p.release(); refuses(() -> p.begin(10));
-        for (String failure : List.of("meter-stale","graph-readback","factory","cable","value","delete","transport","target","overflow","deadline")) {
-            GridEngineProtocol f = new GridEngineProtocol(); f.begin(0); f.fail(failure); refuses(() -> f.require("Q0",1));
-            check(f.locked(),failure+" latches");
+        GridEngineProtocol p = new GridEngineProtocol(); p.begin(0,0);
+        refuses(() -> p.begin(1,1)); refuses(() -> p.advance("stage1",1,1)); refuses(() -> p.factory(1));
+        refuses(() -> p.acknowledge("wrong", "B+", "yes", "yes", 1,1,1,1));
+        refuses(() -> p.acknowledge(p.session(), "B+", "yes", "é".repeat(65), 1,1,1,1));
+        refuses(() -> p.acknowledge(p.session(), "B+", "yes", "yes", 2,1,1,1));
+        refuses(() -> ack(p,"B0",1));
+        ack(p,"B+",120_000_000_000L); // Human wait does not use the segment allowance.
+        refuses(() -> ack(p,"B+",120_000_000_001L));
+        p.advance("stage1",120_000_000_001L,120_000_000_001L);
+        ack(p,"B0",120_000_000_002L); p.advance("stage2",120_000_000_003L,120_000_000_003L);
+        ack(p,"B-return",120_000_000_004L); p.factory(120_000_000_005L); refuses(() -> p.factory(120_000_000_006L));
+        JsonObject context = new JsonObject(); context.addProperty("nativeUnfinished",true);
+        p.fail("disconnect",context,120_000_000_007L,42);
+        JsonObject frozen = p.status().getAsJsonObject("firstFailure").deepCopy();
+        context.addProperty("nativeUnfinished",false); p.fail("later",context,99,99);
+        p.status().getAsJsonObject("firstFailure").addProperty("reason","changed");
+        check(p.status().getAsJsonObject("firstFailure").equals(frozen),"first failure is immutable");
+        refuses(() -> p.advance("stage3",120_000_000_008L,42)); refuses(() -> p.recovery(true));
+        p.recovery(false); refuses(() -> p.recovery(false)); p.release(); refuses(() -> p.begin(200,200));
+        GridEngineProtocol segment = new GridEngineProtocol(); segment.begin(0,0); ack(segment,"B+",1);
+        refuses(() -> segment.require("stage1",60_000_000_002L));
+        GridEngineProtocol total = new GridEngineProtocol(); total.begin(0,0);
+        refuses(() -> ack(total,"B+",900_000_000_001L));
+        for (String verdict : List.of("no","unsure")) {
+            GridEngineProtocol f = new GridEngineProtocol(); f.begin(0,0);
+            check(!f.acknowledge(f.session(),"B+",verdict,verdict,1,1,1,1),"negative answer");
+            f.fail("operator-"+verdict,new JsonObject(),1,1);
+            check(f.status().getAsJsonObject("firstFailure").getAsJsonArray("answers").size()==1,"negative answer frozen");
+            refuses(() -> f.advance("stage1",2,2));
         }
-        GridEngineProtocol deadline = new GridEngineProtocol(); deadline.begin(0); refuses(() -> deadline.require("Q0",60_000_000_001L));
+        GridEngineProtocol all = new GridEngineProtocol(); all.begin(0,0);
+        check(all.acknowledge(all.session(),"B+","yes","\u0001".repeat(127)+"x",1,1,1,1),"maximum first answer");
+        Map<Integer,String> gates=Map.of(1,"B0",2,"B-return",5,"N+",6,"N0",7,"N-half",8,"N-return",11,"R+");
+        for(int stage=1;stage<=11;stage++) {
+            all.advance("stage"+stage,stage*2,stage*2);
+            if(gates.containsKey(stage)) check(all.acknowledge(all.session(),gates.get(stage),"yes","\u0001".repeat(127)+"x",
+                stage*2+1,stage*2+1,stage*2+1,stage*2+1),"maximum escaped answer");
+        }
+        check(all.complete(),"all eight answers and eleven stages required");
+        refuses(() -> ack(all,"R+",99));
+        JsonObject maximumContext = new JsonObject(); maximumContext.addProperty("data","x".repeat(3000));
+        all.fail("x".repeat(1000),maximumContext,100,100);
+        check(GridEngineProtocol.encoded(all.status())<32*1024,"status cap");
+        check(GridEngineProtocol.encoded(all.status().get("firstFailure"))<16*1024,"evidence cap");
+        check(all.status().getAsJsonObject("firstFailure").get("reason").getAsString().length()==512,"reason cap");
+        check(GridEngineProtocol.muteMatches(true,false) && GridEngineProtocol.muteMatches(false,true),"mute boundaries");
+        check(!GridEngineProtocol.muteMatches(true,true) && !GridEngineProtocol.muteMatches(false,false),"mute mismatch");
     }
-    private static void lease() {
-        for (String fault : List.of("client-loss","target-before-on","target-before-off","on-failed","off-failed","abort","queued-late")) {
-            Object original = new Object(); Object[] current = {original}; AtomicLong clock = new AtomicLong();
-            List<Runnable> queue = new ArrayList<>(); List<String> writes = new ArrayList<>(); List<Exception> errors = new ArrayList<>();
-            GridEngineWindow w = window("B+");
-            GridEngineNoteLease lease = new GridEngineNoteLease(original,new GridEngineNoteLease.Host() {
-                public void queue(Runnable r) { queue.add(r); }
-                public Object target() { return current[0]; }
-                public void guardOn() { w.requireHealthy(); }
-                public void note(Object t, boolean on) {
-                    check(t == original,"never address replacement"); writes.add(on?"on":"off");
-                    if (fault.equals(on?"on-failed":"off-failed")) throw new IllegalStateException(fault);
-                }
-                public void failure(Exception error) { errors.add(error); }
-            },w,clock::get);
-            Map<Integer,Runnable> timers = new HashMap<>(); lease.schedule((r,d)->timers.put(d,r));
-            check(timers.size()==2,"independent timers");
-            if (fault.equals("target-before-on")) current[0] = new Object();
-            if (fault.equals("abort")) w.abort("abort");
-            clock.set(250_000_000); timers.get(250).run(); check(lease.unfinished(),"queued note unfinished");
-            if (fault.equals("queued-late")) clock.set(900_000_000);
-            queue.removeFirst().run(); check(!lease.unfinished(),"native completion");
-            if (fault.equals("target-before-off")) current[0] = new Object();
-            clock.set(850_000_000); timers.get(850).run(); while(!queue.isEmpty()) queue.removeFirst().run();
-            if (Set.of("client-loss","on-failed","off-failed").contains(fault)) check(writes.equals(List.of("on","off")),fault);
-            else if (fault.equals("target-before-off")) check(writes.equals(List.of("on")),fault);
-            else check(writes.isEmpty(),fault);
-        }
+    private static void lifetime() {
+        Bridge.ClientLifetime life = new Bridge.ClientLifetime(); int[] calls={0};
+        check(life.connected(),"client initially connected"); life.observe(() -> calls[0]++);
+        life.close(); life.close(); check(!life.connected() && calls[0]==1,"disconnect once");
+        life.observe(() -> calls[0]++); check(calls[0]==2,"late listener sees disconnect");
     }
     private static void identities() {
-        Object[] original = {new Object(),new Object(),new Object(),new Object(),new Object()};
-        for (int index=-1;index<5;index++) {
-            GridEngineIdentity identity = new GridEngineIdentity(original[0],original[1],original[2],original[3],original[4]);
-            identity.require(true,original[0],original[1],original[2],original[3],original[4]);
+        Object[] original = {new Object(),new Object(),new Object()};
+        for (int index=-1;index<3;index++) {
+            GridEngineIdentity identity = new GridEngineIdentity(original[0],original[1],original[2]);
+            identity.require(true,original[0],original[1],original[2]);
             Object[] changed = original.clone(); if (index>=0) changed[index] = new Object(); boolean connected = index>=0;
-            refuses(() -> identity.require(connected,changed[0],changed[1],changed[2],changed[3],changed[4]));
-            refuses(() -> identity.require(true,original[0],original[1],original[2],original[3],original[4]));
-            identity.requireNoteTarget(original[1]); refuses(() -> identity.requireNoteTarget(new Object()));
-            identity.release(); refuses(() -> identity.requireNoteTarget(original[1]));
+            refuses(() -> identity.require(connected,changed[0],changed[1],changed[2]));
+            refuses(() -> identity.require(true,original[0],original[1],original[2])); identity.release();
         }
     }
     private static void graph() throws Exception {
@@ -116,7 +97,7 @@ public final class GridEngineTest {
         }
         check(graph.getAsJsonArray("nodes").equals(original),"exact eleven-stage restore");
     }
-    public static void run() throws Exception { signals(); protocol(); lease(); identities(); graph(); System.out.println("Engine signal, sequence, graph, and note ownership checks pass."); }
+    public static void run() throws Exception { protocol(); lifetime(); identities(); graph(); System.out.println("Engine operator gates, lifetime, sequence, and graph checks pass."); }
     public static void main(String[] args) throws Exception {
         Path jar=Path.of(args[0]);
         check(HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(Files.readAllBytes(jar))).equals(GridReadSymbols.JAR_SHA256),"pinned jar");

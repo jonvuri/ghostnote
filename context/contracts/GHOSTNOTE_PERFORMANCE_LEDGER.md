@@ -629,6 +629,102 @@ its unisolated cause remain unchanged. Keep the 16-call final restoration
 budget and planned component timing inside existing calls. V12 remains loaded,
 used, and locked; no new live timing or DSP claim follows.
 
+[E295](../evidence/experiments/e295-grid-observable-design.md) completes the
+[observable comparison](../plan/phase-9/9a-observable-design.md) with no admitted
+candidate. The native meter producer is unresolved. A separate visualization
+reader writes shared state and copies dimension-dependent data; it has no
+proved fixture/master binding, age, or finite admitted heap cap. Public VU
+callbacks can forward old cached values at binding. No accessor is selected.
+
+E295 uses zero live calls, host tasks, cold live reads, writes, subscriptions,
+and probe heap in both typical and maximum cases. It adds no runtime path or
+product call-budget change. The offline reproduction has eight bytecode
+inspections, nine native metadata outputs, five bounded disassembly ranges,
+one thin-slice extraction, and a jar name scan. E293's conditional model is
+recalculated as 248 calls (16/216/16), 80 window tasks, 136 scheduled entries,
+59 fixture/two detached captures, 11 edits, one factory, and zero notes.
+Planned elapsed time is 29.832–31.832 seconds plus operator work. The 5,952 ms
+wire and 9,216 ms scheduling-unit floors overlap dwell. These are not live
+measurements or an approved budget for a new accessor.
+
+A future mechanism must budget its actual extra tasks/calls and witness fields.
+The existing 16 MiB graph heap, 64 KiB sample store, 128 KiB signal response,
+and 1 MiB graph response are conditional. Keep the final 16-call restoration
+and component timings inside existing calls. The unexplained 43.544 ms read
+maximum is unchanged. The next session is bounded offline native producer
+reconstruction. V12 remains used and locked; descriptions remain v52.
+
+[E296](../evidence/experiments/e296-grid-operator-audio-acceptance.md) replaces
+the automated signal gate with [operator audio acceptance](../plan/phase-9/9a-operator-audio-test.md).
+This documentation session uses zero live calls, tasks, cold reads, writes,
+subscriptions, and probe heap in both typical and maximum cases. No runtime
+path or public description changes; descriptions remain v52.
+
+The proposed step-controlled runner uses 240 calls (16 prepare, 208 run,
+16 restore), eight cache-only operator acknowledgements, 59 fixture/two
+detached captures, 11 edits, one factory, and zero notes. Eight acknowledgements
+replace 16 meter boundary calls; all 80 window document tasks and 136 sampler
+timer/delivery entries are removed. Structural scope stays five modules and
+three cables. At 24 ms per call, the wire floor is 5,760 ms. The warm request
+allowance is 11 × 750 + 1,200 + 240 = 9,690 ms, plus 1,950 ms cursor settlement
+and operator time. Human pauses create no polling calls. The session allowance
+is 15 minutes, with 60 seconds per automated segment; neither bounds a blocked
+native task. Engine activation and temporary unmute are operator actions,
+recorded separately from bridge calls.
+
+Keep 16 MiB graph heap and 1 MiB graph response. Eight bounded answer records
+and the first failure have a 16 KiB encoded cap; status/ack responses have a
+32 KiB cap. These replace the signal sample/response caps. Cold symbol work,
+initial reads, activation, factory file I/O, and reopen work remain unmeasured.
+Failure adds at most two cached calls and four recovery calls, with zero graph
+writes. Final restoration stays 16 calls. Preserve the unexplained 43.544 ms
+read maximum and component timings inside existing calls. This is a design
+budget, not a live measurement. The next session implements and checks it;
+native meter reconstruction is deferred and no longer gates 9a.
+
+[E297](../evidence/experiments/e297-grid-operator-audio-probe.md) implements
+that fixed 240-call model. Offline tests confirm 16/208/16 calls, 59 fixture
+captures, one factory, eleven edits, eight acknowledgements, and zero notes.
+There are 73 document tasks: 59 fixture captures, 13 binds, and session begin.
+The two detached captures share the factory command task. Existing per-task
+watchdogs and completion delivery remain. One new cache-only expiry timer
+locks the session after 15 minutes. Client loss adds one controller notification;
+there is no polling during a pause. Neither event queues an edit or native read.
+The maximum response reserves 1 KiB for timing metadata inside the 1 MiB cap.
+Bounded answer/failure evidence remains 16 KiB, with a 32 KiB status cap.
+
+Read timings now separate controller symbol lookup, queue delay, guard/target
+reads, engine symbols, navigation/projection, graph traversal, nested property
+byte accounting, final graph byte accounting, witness symbols/read, validation
+copies, mutation/prediction, response size check, and completion delivery.
+Nested timings must not be added to their parent totals. No extra capture or
+wire call is added. The 16 MiB temporary graph-heap figure remains an allowance,
+not an enforced allocation cap. Native and retained heap remain unmeasured.
+
+V13 is deployed; no live measurement has run. The next admitted listening run
+must report actual costs and explain any regression over 20 percent. E292's
+43.544 ms maximum remains unexplained. Product budgets and descriptions v52
+are unchanged; their offline call-budget and adapter-frame checks pass.
+
+[E298](../evidence/experiments/e298-grid-operator-audio-live-test.md) passes
+V13 inactive preparation in 16 calls: 464.600 ms of requests and a 150 ms
+cursor wait, below the 1.20-second allowance. Cold controller symbol lookup
+costs 38.452 ms. Paired traversal times are 3.059/2.943 ms; document task times
+are 16.865/8.224 ms. The first read adds 3.032 ms navigation/projection,
+3.015 ms witness symbols, and 4.368 ms witness reads. No read exceeds the older
+43.544 ms maximum. Its cause remains unproved; no timing retry was made.
+The active listening run then passes in 208 calls and 6,488.068 ms of requests.
+Its eleven 18-call stages take 555.026–615.633 ms each, below the 750 ms
+allowance. Maximum traversal is 8.855 ms. The largest document task is
+34.120 ms at stage 3, including 28.086 ms for mutation and prediction. E292
+has no comparable active-stage measurement. No measured traversal exceeds its
+43.544 ms maximum; that older cause remains unexplained. Final saved-baseline
+restoration passes in 16 calls and 434.641 ms. Its traversals take 4.225/1.589 ms;
+document tasks take 12.539/8.200 ms. The full 240-call workflow takes 7,387.309 ms
+of requests, below the 9,690 ms allowance, plus 1,950 ms cursor wait and operator
+time. It uses 59 fixture/two detached captures, one factory, eleven edits, eight
+answers, and zero notes/recovery calls. No timing retry was made.
+
 8i3 review rerun (E252): Polysynth 44 controls 9,481 ms; Diva 64 controls
 13,912 ms; staged 5×1 / 3×2 / 2×3 compositions 20,975 / 23,642 / 23,278 ms,
 with reversals 21,922 / 26,028 / 26,764 ms. No time regressed by more than

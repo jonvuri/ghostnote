@@ -43,6 +43,23 @@ public class Bridge {
     public interface Reply {
         void result(JsonElement result, long queuedNanos);
         void error(Exception error, long queuedNanos);
+        default boolean clientConnected() { return true; }
+        default void onClientDisconnect(Runnable action) {}
+    }
+
+    /** Connection evidence for a probe that waits for operator input. No host reads. */
+    public static final class ClientLifetime {
+        private boolean connected = true;
+        private final java.util.List<Runnable> listeners = new java.util.ArrayList<>();
+        public synchronized boolean connected() { return connected; }
+        public synchronized void observe(Runnable action) {
+            if (connected) listeners.add(action); else action.run();
+        }
+        public synchronized void close() {
+            if (!connected) return;
+            connected = false;
+            listeners.forEach(Runnable::run); listeners.clear();
+        }
     }
 
     private final int port;
@@ -95,6 +112,7 @@ public class Bridge {
     }
 
     private void handleClient(Socket clientSocket) {
+        ClientLifetime lifetime = new ClientLifetime();
         try (
             BufferedReader in = new BufferedReader(
                 new InputStreamReader(clientSocket.getInputStream(), StandardCharsets.UTF_8));
@@ -118,10 +136,13 @@ public class Bridge {
                 }
 
                 final JsonObject req = request;
-                host.scheduleTask(() -> processRequest(req, response -> writeLine(out, response)), 0);
+                host.scheduleTask(() -> processRequest(req, response -> writeLine(out, response), lifetime), 0);
             }
         } catch (IOException e) {
             host.println("[ghostnote] client disconnected: " + e.getMessage());
+        } finally {
+            lifetime.close();
+            try { clientSocket.close(); } catch (IOException ignored) {}
         }
     }
 
@@ -133,7 +154,7 @@ public class Bridge {
         }
     }
 
-    private void processRequest(JsonObject request, java.util.function.Consumer<JsonObject> send) {
+    private void processRequest(JsonObject request, java.util.function.Consumer<JsonObject> send, ClientLifetime lifetime) {
         JsonElement id = request.get("id");
 
         if (!request.has("method") || !request.get("method").isJsonPrimitive()) {
@@ -147,6 +168,10 @@ public class Bridge {
                 : new JsonObject();
 
         dispatcher.dispatch(method, params, new Reply() {
+            @Override public boolean clientConnected() { return lifetime.connected(); }
+            @Override public void onClientDisconnect(Runnable action) {
+                lifetime.observe(() -> host.scheduleTask(action, 0));
+            }
             @Override
             public void result(JsonElement result, long queuedNanos) {
                 JsonObject response = baseResponse(id);

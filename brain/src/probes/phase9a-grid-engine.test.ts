@@ -1,22 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { prepareEngine, runEngine, restoreEngine, recoverEngine, expectedStage, checkWindow, halfRatio,
+import { prepareEngine, runEngine, restoreEngine, recoverEngine, expectedStage, LISTENING_CHECKS,
   ENGINE_BUDGET, ENGINE_MARKER, ENGINE_HASH, type Options, type Request } from './phase9a-grid-engine.js';
 
 type Wire = Record<string, any>;
 const saved = JSON.parse(readFileSync(new URL('../../../context/evidence/data/phase9a-grid-attachment/live-98-v11-repeat/attach-command.json', import.meta.url), 'utf8'));
-function signal(name: string): Wire {
-  const pulse = !name.startsWith('Q'), peak = ['Q0', 'Q1', 'B0', 'N0'].includes(name) ? 0 : name === 'N-half' ? 63 : 80;
-  const samples = [[0, 100_000_000, 0, 0], ...(pulse ? [[1, 300_000_000, 2, 60]] : []),
-    [0, 450_000_000, 1, 0], [0, 500_000_000, 0, peak], ...(pulse ? [[0, 900_000_000, 2, 0]] : []), [0, 1_100_000_000, 0, 0]];
-  samples.forEach((row, i) => row[0] = i);
-  return { name, available: true, failure: '', elapsedNanos: 1_250_000_000, samples, samplesCount: samples.length, peak,
-    packets: [[10000, 11200], [10000, 11200]], noteOnAttempted: pulse, noteOffAttempted: pulse, noteOnObserved: pulse, noteOffObserved: pulse };
-}
 function fixture(fault = '') {
   let graph = structuredClone(saved.graph), witness = structuredClone(saved.witness), stage = 0, mode = '', mutated = false, time = 10000;
-  let commands = 0, captures = 0, windows = 0, factories = 0, notes = 0;
+  let commands = 0, captures = 0, acknowledgements = 0, factories = 0, notes = 0;
+  const answers: Wire[] = [];
   const calls: Wire[] = [], artifacts = new Map<string, unknown>();
   const request: Request = async (name, p = {}) => {
     calls.push({ name, ...p });
@@ -47,29 +40,29 @@ function fixture(fault = '') {
       } else if (mode === 'stage' && mutated && fault === `read-${stage}`) result.graph.nodes[0].className = 'wrong';
       return result;
     }
-    if (p.operation === 'windowBegin') { windows++; if (!p.name.startsWith('Q')) notes += 2; return { window: { name: p.name } }; }
-    if (p.operation === 'windowCollect') {
-      const w = signal(p.name);
-      if (fault === `window-${p.name}`) w.available = false;
-      return { window: w };
+    if (p.operation === 'sessionBegin') return { session: 'session' };
+    if (p.operation === 'operatorAck') {
+      acknowledgements++; assert.equal(p.session, 'session'); answers.push(p);
+      return { session: 'session', answers: structuredClone(answers), locked: p.verdict !== 'yes' };
     }
     if (p.operation === 'sessionRelease') return { active: false, restored: true, nativeUnfinished: false, epochOpen: false };
     if (p.operation === 'status') return { next: 'complete', locked: false, nativeUnfinished: false };
     return {};
   };
   const options: Options = { save: (name, value) => artifacts.set(name, value), settle: async () => { time += 150; },
-    wait: async ms => { time += ms; }, now: () => time, verifyFiles: () => {}, deployedAt: 1 };
-  return { request, options, calls, artifacts, stats: () => ({ commands, captures, windows, factories, notes }), graph: () => graph };
+    wait: async ms => { time += ms; }, now: () => time, verifyFiles: () => {}, deployedAt: 1,
+    ask: async check => ({ verdict: fault === `answer-${check.name}` ? 'no' : 'yes', answer: fault === `answer-${check.name}` ? 'no' : 'yes' }) };
+  return { request, options, calls, artifacts, stats: () => ({ commands, captures, acknowledgements, factories, notes }), graph: () => graph };
 }
-test('engine protocol uses 252 calls, 59 captures, one factory, 11 edits, and 16 note writes', async () => {
+test('engine protocol uses 240 calls, 59 captures, one factory, 11 edits, and no note writes', async () => {
   const f = fixture(); const ui = () => ({ observedAt: f.options.now(), isolationConfirmed: true });
   await prepareEngine(f.request, f.options, { ...ui(), engineInactive: true }); assert.equal(f.calls.length, 16);
-  await runEngine(f.request, f.options, { ...ui(), engineActive: true }); assert.equal(f.calls.length, 236);
+  await runEngine(f.request, f.options, { ...ui(), engineActive: true }); assert.equal(f.calls.length, 224);
   await restoreEngine(f.request, f.options, { ...ui(), engineInactive: true, restorationConfirmed: true });
   assert.equal(f.calls.length, ENGINE_BUDGET.calls);
-  assert.deepEqual(f.stats(), { commands: 11, captures: 59, windows: 10, factories: 1, notes: 16 });
+  assert.deepEqual(f.stats(), { commands: 11, captures: 59, acknowledgements: 8, factories: 1, notes: 0 });
   assert.deepEqual(f.graph().nodes, saved.graph.nodes);
-  assert.equal(f.calls.filter(c => c.operation === 'windowCollect').length, 10);
+  assert.equal(f.calls.filter(c => c.operation === 'operatorAck').length, 8);
   assert.equal(f.calls.filter(c => c.name === 'cursor.pointTrack').length, 13);
 });
 test('every graph failure stops without an inverse, retry, or diagnostic document request', async () => {
@@ -80,9 +73,9 @@ test('every graph failure stops without an inverse, retry, or diagnostic documen
     assert.equal(f.calls.filter(c => c.operation === 'bind' && c.mode === 'recovery').length, 0);
   }
 });
-test('every signal refusal stops; calibration failures never reach construction', async () => {
-  for (const name of ['Q0', 'B+', 'B0', 'B-return', 'N+', 'N0', 'N-half', 'N-return', 'R+', 'Q1']) {
-    const f = fixture(`window-${name}`);
+test('every operator refusal stops; calibration failures never reach construction', async () => {
+  for (const name of LISTENING_CHECKS.map(c => c.name)) {
+    const f = fixture(`answer-${name}`);
     await assert.rejects(runEngine(f.request, f.options, { observedAt: f.options.now(), isolationConfirmed: true, engineActive: true }));
     assert.deepEqual(f.calls.slice(-2).map(c => c.operation), ['abort', 'status']);
     if (['Q0', 'B+', 'B0', 'B-return'].includes(name)) assert.equal(f.stats().factories, 0);
@@ -99,17 +92,26 @@ test('stale UI, wrong cohort, and replacement target refuse before graph writes'
   await assert.rejects(runEngine(f.request, f.options, { observedAt: -60000, isolationConfirmed: true, engineActive: true }));
   assert.equal(f.calls.length, 0);
 });
-test('window validation rejects missing data, master leak, clock order, stale packet, and foreign note', () => {
-  for (const change of [
-    (w: Wire) => { w.samples = []; w.samplesCount = 0; },
-    (w: Wire) => { w.samples[2][3] = 2; },
-    (w: Wire) => { w.samples[3][1] = 200_000_000; },
-    (w: Wire) => { w.packets[0][1] = 10000; },
-    (w: Wire) => { w.samples[1][3] = 61; },
-    (w: Wire) => { w.noteOffObserved = false; },
-    (w: Wire) => { w.elapsedNanos = 2_000_000_001; },
-  ]) { const w = signal('B+'); change(w); assert.throws(() => checkWindow(w, 'B+')); }
-  halfRatio(63, 80, 80); for (const h of [0, 40, 70, 80]) assert.throws(() => halfRatio(h, 80, 80));
+test('an unanswered check holds all graph edits, even beyond the segment deadline', async () => {
+  const f = fixture(); let answer!: (value: { verdict: string; answer: string }) => void;
+  let reached!: () => void; const pending = new Promise<void>(resolve => { reached = resolve; });
+  f.options.ask = async () => { reached(); return new Promise(resolve => { answer = resolve; }); };
+  const run = runEngine(f.request, f.options, { observedAt: f.options.now(), isolationConfirmed: true, engineActive: true });
+  await pending; await f.options.wait(120_000); assert.equal(f.stats().commands, 0);
+  answer({ verdict: 'unsure', answer: 'unsure' }); await assert.rejects(run);
+  assert.equal(f.stats().commands, 0); assert.equal(f.stats().acknowledgements, 1);
+});
+test('missing input, closed input, and invalid answers cannot pass', async () => {
+  for (const fault of ['missing', 'closed', 'invalid', 'oversize', 'expired']) {
+    const f = fixture();
+    f.options.ask = fault === 'missing' ? undefined : async () => {
+      if (fault === 'closed') throw new Error('input closed');
+      if (fault === 'expired') await f.options.wait(900_001);
+      return { verdict: fault === 'invalid' ? 'ok' : 'yes', answer: fault === 'oversize' ? 'é'.repeat(65) : 'yes' };
+    };
+    await assert.rejects(runEngine(f.request, f.options, { observedAt: f.options.now(), isolationConfirmed: true, engineActive: true }));
+    assert.equal(f.stats().commands, 0); assert.equal(f.stats().acknowledgements, 0);
+  }
 });
 test('recovery is four reads/control calls; a failed read is never retried', async () => {
   const calls: Wire[] = [];

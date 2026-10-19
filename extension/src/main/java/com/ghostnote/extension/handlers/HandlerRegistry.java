@@ -82,6 +82,8 @@ public final class HandlerRegistry implements Bridge.Dispatcher {
             try {
                 if (async != null) {
                     async.handle(params, new Bridge.Reply() {
+                        @Override public boolean clientConnected() { return reply.clientConnected(); }
+                        @Override public void onClientDisconnect(Runnable action) { reply.onClientDisconnect(action); }
                         @Override public void result(JsonElement result, long ignored) { reply.result(result, queued); }
                         @Override public void error(Exception error, long ignored) { reply.error(error, queued); }
                     });

@@ -1,0 +1,41 @@
+{
+  "session": "56986b96-53f7-4df0-a6dd-a6da02d151f3",
+  "completedStage": 1,
+  "next": "stage2",
+  "factoryAttempted": false,
+  "answers": [
+    {
+      "check": 1,
+      "name": "B+",
+      "completedStage": 0,
+      "promptedAt": 1792374207235,
+      "answeredAt": 1792374239799,
+      "receivedAt": 1792374239803,
+      "verdict": "yes",
+      "answer": "yes"
+    },
+    {
+      "check": 2,
+      "name": "B0",
+      "completedStage": 1,
+      "promptedAt": 1792374241525,
+      "answeredAt": 1792374268415,
+      "receivedAt": 1792374268421,
+      "verdict": "yes",
+      "answer": "yes"
+    }
+  ],
+  "used": true,
+  "active": true,
+  "locked": false,
+  "recoveryUsed": false,
+  "marker": "9a-grid-audio-v13",
+  "initEpochMs": 1792359593989,
+  "nativeUnfinished": false,
+  "stage": 1,
+  "commandAttempted": true,
+  "beforeReads": 2,
+  "afterReads": 2,
+  "epochOpen": false,
+  "restored": false
+}

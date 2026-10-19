@@ -31,32 +31,31 @@ preservation.
 passes the bounded native attachment gate: two V11 insertions, exact paired
 readback, preserved selection and layout, one-step undo/redo, and edited-state
 save/reopen. The exact baseline file is restored, reopened, and verified.
-[E290](evidence/experiments/e290-grid-engine-adoption-design.md) defines the
-[engine adoption contract](plan/phase-9/9a-engine-adoption-design.md).
-[E291](evidence/experiments/e291-grid-engine-probe-implementation.md) implements
-V12 and passes the offline checks.
-[E292](evidence/experiments/e292-grid-engine-quiet-gate-refusal.md) verifies V12
-loading and the inactive baseline. The single active-engine run locks at Q0
-with `signal-before-note`, before any note, graph edit, or factory. No native
-task is unfinished. Exact inactive restoration and session release pass.
-V12 stays loaded, with its session used and locked. Do not repeat prepare,
-run, or the final restoration read. [E293](evidence/experiments/e293-continuous-grid-signal-design.md)
-defines the [continuous-signal replacement](plan/phase-9/9a-continuous-signal-design.md):
-no test notes, eight bounded gain windows, first-failure samples frozen in
-place, recovery, exact restoration, and 248 planned calls (16/216/16).
+[E292](evidence/experiments/e292-grid-engine-quiet-gate-refusal.md) verifies
+V12 loading and inactive restoration. Its one active run stops at Q0 before
+any note, graph edit, or factory. V12 remains used and locked. Do not repeat
+its prepare, run, or final restoration read.
 
-[E294](evidence/experiments/e294-grid-valid-packet-witness-trace.md) completes
-the offline trace: `fresh-meter-evidence-unavailable` in the Java receive path.
-The decoder discards validity; its global update token does not prove a valid
-meter packet. Raw shared-memory validity has no proved coherent snapshot or
-per-target age. The 248-call runner remains conditional and unimplemented.
+[E298](evidence/experiments/e298-grid-operator-audio-live-test.md) passes the
+[E296 operator-audio acceptance](plan/phase-9/9a-operator-audio-test.md): all
+eight literal answers are `yes`, all eleven native graph stages pass exact
+paired reads, and exact saved-baseline restoration passes. V13 uses the planned
+240 calls (16/208/16), one factory, and zero notes or recovery calls. The
+result is operator-verified audio response on the fixed Poly Grid fixture.
+No automated meter check is required for this spike result.
 
-Next: [observable design after the packet trace](plan/phase-9/9a-continuous-signal-design.md#next-session--observable-design-after-the-packet-trace),
-offline before implementation or live writes. Select a complete observable
-and revise its costs. Keep the unchanged continuous fixture and fresh-zero
-requirement. E292's 43.544 ms read maximum has no isolated cause; component
-timings remain planned inside existing calls. DSP adoption remains unproved.
-Keep 9a active. Wider Phase 9 scope is unselected.
+Next: [bounded close-out and profile disposition](plan/phase-9/9a-live-grid-editing-spike.md#next-session--bounded-close-out-and-profile-disposition).
+Consolidate E277–E289 operation/persistence evidence and E298 audio/restoration;
+state the fixed-build limits and record the normal/probe profile disposition.
+Keep 9a active until that separate close-out. Do not repeat V13 prepare, run,
+or restoration. Its session is used and released, with no open epoch or native
+work. All eight answers remain in the final status. Wider Phase 9 is unselected.
+
+The automated witness work in [E294](evidence/experiments/e294-grid-valid-packet-witness-trace.md)
+and [E295](evidence/experiments/e295-grid-observable-design.md) remains historical
+evidence. Native producer reconstruction and the 248-call automated runner are
+deferred; they no longer gate 9a. Resume only for a selected automated-signal
+need. Keep 9a active. Wider Phase 9 scope is unselected.
 
 The former Phase 9 is now [Phase 10](plan/phase-10/README.md): publication
 plans 10a/10b, the release and upgrade suite 10c, and the `stable-v1` retirement
@@ -90,26 +89,26 @@ one server session and do not survive a new thread or resume.
 
 ## Current deployment and fixture (2026-10-19)
 
-The deployed and loaded archive is V12: `phase-8-probe-v1`, 118 methods,
-`2e939035ea90b8b0`, marker `gridReadProbe: 9a-grid-engine-v12`. The
-[deployment record](evidence/data/phase9a-engine-adoption/deployment-v12.json)
-records its verified hash and confirmed operator replacement. The hello passes
-with initialization `2026-10-18T19:50:46.016Z`, after deployment.
+V13 is deployed: `phase-8-probe-v1`, 118 methods, `2e939035ea90b8b0`, marker
+`gridReadProbe: 9a-grid-audio-v13`. The
+[deployment record](evidence/data/phase9a-operator-audio/deployment-v13.json)
+confirms the built and deployed archive match, SHA-256
+`ed8934be54f937bfe0cd805589435260c60c27dead4a06ea94c24eea052694d3`.
+The operator confirmed replacement. The [fresh hello](evidence/data/phase9a-operator-audio/hello-v13.txt)
+passes with V13 and initialization `2026-10-18T21:39:53.989Z`.
+[E298's final verification](evidence/data/phase9a-operator-audio/verification-live.json)
+records the completed run and exact restoration. The session is used, inactive,
+released, and not locked. No epoch or native task remains open; recovery is
+unused. Do not repeat any V13 workflow. The normal profile is not restored.
 
-E292's single engine session is used and locked at Q0. No note, graph edit,
-or factory ran. The final restoration workflow passes: session inactive and
-released, no open epoch, no unfinished native task, recovery unused. Do not
-retry this initialization. The normal profile is not restored.
-
-The [preservation record](evidence/data/phase9a-engine-adoption/preservation-live.json)
-confirms operator close without save, exact file checks, and reopening. The
-fixture engine was inactive at restoration. The operator later briefly activated
-it to confirm continuous output; check current engine state before live work.
-Paired native reads prove the four-module,
-two-cable baseline, original rectangles, empty Grid selection, idle edit, and
-parent identities. Track `grid-probe` (`c784d25c…`) is muted at -10 dB, armed,
-and active. Transport is stopped at 1.1.1.00. The original Poly Grid and
-MW/Expressions are visible. The fixture tab is unstarred. No project was saved.
+The operator closed `gn-grid-spike` without saving. File checks passed while
+closed; no baseline file replacement was needed. The agent reopened the exact
+saved baseline. Final paired reads pass with reacquired identities. The fixture
+is selected and unstarred, with the original four-module, two-cable graph,
+rectangles, empty Grid selection, idle edit, and parents. Track `grid-probe`
+is muted at -10 dB, armed, active, and not soloed. The engine is inactive and
+transport is stopped at 1.1.1.00. Poly Grid and MW/Expressions are unchanged.
+No project was saved. No other live material was edited.
 
 The saved project and backup are byte-identical, SHA-256
 `af24056e72e9722eacaa80bf01daa02e7fba0c72103f7fd1655f689448da1b4f`.
@@ -137,7 +136,7 @@ and `cursorTrackPins.rule: owned-tracks-pinned-v1`. The prior probe build had
 and at 9a entry. `selection.status` can report a slot of a deleted scratch
 track (issue D11). Descriptions are v52 (44 tools);
 no live project changed in 8i16 and 8i18 to 8i20 or in the close-out. The
-next free evidence number is E295; the next decision is D52; the next
+next free evidence number is E299; the next decision is D52; the next
 issue row is D17. The live drivers accept 8i15 (`NORMAL_8I15`,
 `assertCurrentNormal`); see E263 and E264 for their commands and cleanup.
 

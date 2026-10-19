@@ -2,7 +2,7 @@
 title: Phase 9 — Overlap investigation
 kind: plan
 state: active
-status: E292 stops the V12 live test at Q0 before notes or edits. Exact inactive restoration passes; 9a remains active.
+status: E298 passes operator audio and exact restoration. Bounded 9a close-out and profile disposition are next; 9a remains active.
 updated: 2026-10-19
 parent: ../ROADMAP.md
 prev: ../phase-8/README.md
@@ -50,6 +50,16 @@ and bounded live attempt. No DSP adoption result is claimed.
 
 [E292](../../evidence/experiments/e292-grid-engine-quiet-gate-refusal.md) confirms
 V12 loading and inactive baseline preparation. The active run refuses signal
-before any test note at Q0. No graph edit or factory runs. Exact inactive restoration and session release
-pass. Next is the planned baseline signal and failure evidence design in 9a.
-DSP adoption remains unproved.
+before any test note at Q0. No graph edit or factory runs. Exact inactive
+restoration and session release pass.
+[E293](../../evidence/experiments/e293-continuous-grid-signal-design.md)
+defines the continuous-signal replacement. E294 finds no sufficient Java
+packet witness. [E295](../../evidence/experiments/e295-grid-observable-design.md)
+compares signal observables and admits none.
+[E296](../../evidence/experiments/e296-grid-operator-audio-acceptance.md) changes
+the acceptance to an [operator audio test](9a-operator-audio-test.md). Native
+producer research is deferred. [E297](../../evidence/experiments/e297-grid-operator-audio-probe.md)
+implements, checks, and deploys V13. [E298](../../evidence/experiments/e298-grid-operator-audio-live-test.md)
+passes all eight operator audio checks, eleven native graph stages, and exact
+baseline restoration in 240 calls. V13 is used and released. Do not repeat it.
+Next record the bounded 9a close-out and profile disposition; keep 9a active.

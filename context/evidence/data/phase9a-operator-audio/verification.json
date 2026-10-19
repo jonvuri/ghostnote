@@ -1,0 +1,46 @@
+{
+  "result": "offline checks pass; live replacement and listening pending",
+  "typescriptTests": 244,
+  "typecheck": "pass",
+  "javaChecks": [
+    "check",
+    "gridEngineSymbolsTest",
+    "gridAttachmentSymbolsTest",
+    "gridReadTest (eight maximum encoded answers)"
+  ],
+  "inventory": {
+    "normal": 92,
+    "capture": 97,
+    "probe": 118,
+    "probeHash": "2e939035ea90b8b0"
+  },
+  "budget": {
+    "prepare": 16,
+    "run": 208,
+    "restore": 16,
+    "total": 240,
+    "fixtureCaptures": 59,
+    "detachedCaptures": 2,
+    "graphEdits": 11,
+    "factories": 1,
+    "operatorAnswers": 8,
+    "noteWrites": 0,
+    "documentTasks": 73,
+    "sessionExpiryTimers": 1
+  },
+  "sourceAudit": "No old signal-window, meter observer, packet read, or note-injection call in the V13 runner. One playing-notes observer remains as an isolation guard.",
+  "sourceSha256": {
+    "extension/src/main/java/com/ghostnote/extension/GridEngineProtocol.java": "bdada74ab39dcb2868f2a5965c629b05357f44befa3c5c45ea11af9788ba4e37",
+    "extension/src/main/java/com/ghostnote/extension/GridEngineSymbols.java": "e7dc51a49b4dd6e37c254130509c8e46685e5ee893c7ab8d8a5d5a8c7564dee9",
+    "extension/src/main/java/com/ghostnote/extension/handlers/GridEngineHandlers.java": "e4ccc95e7d7c490ffa2f81f624cf796eb05949c07da9fcb3c777a96a3d15f807",
+    "brain/src/probes/phase9a-grid-engine.ts": "f7e6bbf724c47a9b39b10d28a8ccae860b4d887eca2c091f6378ece177a68430"
+  },
+  "liveProbeCalls": 0,
+  "descriptions": {
+    "version": 52,
+    "count": 44,
+    "changed": false
+  },
+  "contextCheck": "pass; 658 active documents",
+  "diffChecks": "staged and unstaged pass"
+}

@@ -1,0 +1,121 @@
+{
+  "status": "operator-audio-passes; exact restoration required",
+  "marker": "9a-grid-audio-v13",
+  "session": "56986b96-53f7-4df0-a6dd-a6da02d151f3",
+  "answers": [
+    {
+      "name": "B+",
+      "verdict": "yes",
+      "answer": "yes",
+      "promptedAt": 1792374207235,
+      "answeredAt": 1792374239799
+    },
+    {
+      "name": "B0",
+      "verdict": "yes",
+      "answer": "yes",
+      "promptedAt": 1792374241525,
+      "answeredAt": 1792374268415
+    },
+    {
+      "name": "B-return",
+      "verdict": "yes",
+      "answer": "yes",
+      "promptedAt": 1792374270144,
+      "answeredAt": 1792374309976
+    },
+    {
+      "name": "N+",
+      "verdict": "yes",
+      "answer": "yes",
+      "promptedAt": 1792374313234,
+      "answeredAt": 1792374351541
+    },
+    {
+      "name": "N0",
+      "verdict": "yes",
+      "answer": "yes",
+      "promptedAt": 1792374353287,
+      "answeredAt": 1792374381181
+    },
+    {
+      "name": "N-half",
+      "verdict": "yes",
+      "answer": "yes",
+      "promptedAt": 1792374382929,
+      "answeredAt": 1792374429521
+    },
+    {
+      "name": "N-return",
+      "verdict": "yes",
+      "answer": "yes",
+      "promptedAt": 1792374431256,
+      "answeredAt": 1792374479845
+    },
+    {
+      "name": "R+",
+      "verdict": "yes",
+      "answer": "yes",
+      "promptedAt": 1792374483031,
+      "answeredAt": 1792374522344
+    }
+  ],
+  "graphEvidence": {
+    "B+": {
+      "phase": "prepare",
+      "pairedReads": [
+        "baseline-before-0.json",
+        "baseline-before-1.json"
+      ]
+    },
+    "B0": {
+      "phase": "run",
+      "pairedReads": [
+        "stage-1-after-0.json",
+        "stage-1-after-1.json"
+      ]
+    },
+    "B-return": {
+      "phase": "run",
+      "pairedReads": [
+        "stage-2-after-0.json",
+        "stage-2-after-1.json"
+      ]
+    },
+    "N+": {
+      "phase": "run",
+      "pairedReads": [
+        "stage-5-after-0.json",
+        "stage-5-after-1.json"
+      ]
+    },
+    "N0": {
+      "phase": "run",
+      "pairedReads": [
+        "stage-6-after-0.json",
+        "stage-6-after-1.json"
+      ]
+    },
+    "N-half": {
+      "phase": "run",
+      "pairedReads": [
+        "stage-7-after-0.json",
+        "stage-7-after-1.json"
+      ]
+    },
+    "N-return": {
+      "phase": "run",
+      "pairedReads": [
+        "stage-8-after-0.json",
+        "stage-8-after-1.json"
+      ]
+    },
+    "R+": {
+      "phase": "run",
+      "pairedReads": [
+        "stage-11-after-0.json",
+        "stage-11-after-1.json"
+      ]
+    }
+  }
+}

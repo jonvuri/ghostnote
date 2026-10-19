@@ -1,8 +1,9 @@
-/** Fixed V12 protocol. Prepare, run, and restore have separate operator boundaries. */
+/** Fixed V13 operator audio protocol. Prepare, run, and restore have separate operator boundaries. */
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync, lstatSync, mkdirSync, writeFileSync } from 'node:fs';
 import { isAbsolute, join, resolve } from 'node:path';
+import { createInterface } from 'node:readline';
 import { pathToFileURL } from 'node:url';
 import { BridgeClient } from '../client.js';
 import { compareDeployment, deployedAtMs } from '../deploy.js';
@@ -14,11 +15,12 @@ export type Options = {
   save: (name: string, value: unknown) => void; settle: () => Promise<void>;
   wait: (ms: number) => Promise<void>; now: () => number; verifyFiles: () => void;
   deployedAt: number | undefined;
+  ask?: (check: ListeningCheck) => Promise<{ verdict: string; answer: string }>;
 };
-export const ENGINE_MARKER = '9a-grid-engine-v12';
+export const ENGINE_MARKER = '9a-grid-audio-v13';
 export const ENGINE_HASH = '2e939035ea90b8b0';
-export const ENGINE_BUDGET = Object.freeze({ calls: 252, fixtureCaptures: 59, detachedCaptures: 2,
-  factories: 1, graphEdits: 11, noteWrites: 16, windows: 10, recoveryCalls: 4 });
+export const ENGINE_BUDGET = Object.freeze({ calls: 240, fixtureCaptures: 59, detachedCaptures: 2,
+  factories: 1, graphEdits: 11, noteWrites: 0, acknowledgements: 8, recoveryCalls: 4 });
 const method = 'probe.gridEngine';
 const node = (g: Wire, id: number): Wire => { const n = g.nodes.find((n: Wire) => n.id === id); assert.ok(n); return n; };
 const property = (n: Wire, id: number): Wire => { const p = n.properties.find((p: Wire) => p.id === id); assert.ok(p); return p; };
@@ -101,62 +103,67 @@ export async function prepareEngine(request: Request, options: Options, ui: Wire
   const rig = await request('rig.info'); assert.equal(rig.gridReadProbe, ENGINE_MARKER); options.save('rig-entry', rig);
   return graphWorkflow(request, scope(options, 'baseline'), 'entry');
 }
-export function halfRatio(half: number, a: number, b: number) {
-  assert.ok(half >= 0 && half < Math.min(a, b));
-  const low = (half / (Math.max(a, b) + 1)) ** (1 / .3333), high = ((half + 1) / Math.min(a, b)) ** (1 / .3333);
-  assert.ok(low >= .4 && high <= .6, `half-gain ratio ${low}..${high}`);
-}
-export function checkWindow(w: Wire, name: string): number {
-  assert.equal(w.name, name); assert.equal(w.available, true); assert.equal(w.failure, '');
-  assert.ok(w.elapsedNanos >= 1_250_000_000 && w.elapsedNanos <= 2_000_000_000);
-  assert.ok(w.samples.length > 0 && w.samples.length <= 2048); assert.equal(w.samplesCount, w.samples.length);
-  const pulse = !name.startsWith('Q'); let time = -1, peak = -1, last = -1, master = 0, notes = 0;
-  for (let i = 0; i < w.samples.length; i++) {
-    const [seq, t, kind, v] = w.samples[i]; assert.equal(seq, i); assert.ok(t >= time && t <= w.elapsedNanos); time = t;
-    assert.ok(Number.isInteger(v) && v >= 0 && v <= 127); assert.ok([0, 1, 2].includes(kind));
-    if (kind === 1) { master++; assert.ok(v <= 1); }
-    if (kind === 2) { assert.ok(v === 0 || pulse && v === 60); notes = v; }
-    if (kind === 0) {
-      if (!pulse || t < 250_000_000) assert.ok(v <= 1);
-      if (t >= 400_000_000 && t <= 800_000_000) { if (pulse) assert.equal(notes, 60); peak = Math.max(peak, v); }
-      if (t >= 850_000_000) last = v;
-    }
-  }
-  assert.ok(master > 0 && peak >= 0 && last >= 0 && last <= 1); assert.equal(notes, 0); assert.equal(w.peak, peak);
-  for (const [begin, end] of w.packets) assert.ok(Number.isFinite(begin) && end > begin);
-  assert.equal(w.packets.length, 2);
-  if (pulse) for (const field of ['noteOnAttempted', 'noteOffAttempted', 'noteOnObserved', 'noteOffObserved']) assert.equal(w[field], true);
-  return peak;
-}
+export type ListeningCheck = { name: string; prompt: string };
+export const LISTENING_CHECKS: ListeningCheck[] = [
+  { name: 'B+', prompt: 'Can you hear the steady baseline tone?' },
+  { name: 'B0', prompt: 'Has the tone stopped?' },
+  { name: 'B-return', prompt: 'Has the tone returned to the baseline level?' },
+  { name: 'N+', prompt: 'Can you hear the tone at the baseline level through the new Amplify?' },
+  { name: 'N0', prompt: 'Has the tone stopped?' },
+  { name: 'N-half', prompt: 'Is the tone audible and clearly quieter than at N+?' },
+  { name: 'N-return', prompt: 'Has the tone returned to the N+ level?' },
+  { name: 'R+', prompt: 'Has the original baseline tone remained after removal of the new Amplify?' },
+];
 export async function runEngine(request: Request, options: Options, ui: Wire): Promise<void> {
-  fresh(ui, options); assert.equal(ui.engineActive, true); assert.equal(ui.isolationConfirmed, true); options.verifyFiles();
-  const start = options.now(), peaks: Wire = {};
+  fresh(ui, options); assert.equal(ui.engineActive, true); assert.equal(ui.isolationConfirmed, true);
+  assert.ok(options.ask, 'An operator answer source is required'); options.verifyFiles();
+  const start = options.now(); let segmentStart = start;
+  const answers: Wire[] = [];
+  function deadline() {
+    assert.ok(options.now() - start <= 900_000, 'Operator session expired');
+    assert.ok(options.now() - segmentStart <= 60_000, 'Automatic segment expired');
+  }
   try {
-    const begin = await request(method, { operation: 'sessionBegin', observedAt: ui.observedAt, isolationConfirmed: true }); options.save('session-begin', begin);
-    async function window(name: string) {
-      assert.ok(options.now() - start <= 60_000);
-      const receipt = await request(method, { operation: 'windowBegin', name }); options.save(`window-${name}-begin`, receipt);
-      await options.wait(1250);
-      const collected = await request(method, { operation: 'windowCollect', name }); options.save(`window-${name}`, collected);
-      const peak = checkWindow(collected.window, name); peaks[name] = peak;
-      if (['Q0', 'Q1', 'B0', 'N0'].includes(name)) assert.ok(peak <= 1);
-      else if (name === 'B+') assert.ok(peak >= 32 && peak <= 110);
-      else if (name === 'N-half') halfRatio(peak, peaks['N+'], peaks['N+']);
-      else assert.ok(Math.abs(peak - peaks['B+']) <= 3);
-      if (name === 'N-return') { assert.ok(Math.abs(peak - peaks['N+']) <= 3); halfRatio(peaks['N-half'], peaks['N+'], peak); }
+    const begin = await request(method, { operation: 'sessionBegin', observedAt: ui.observedAt, isolationConfirmed: true });
+    options.save('session-begin', begin); assert.equal(typeof begin.session, 'string'); assert.ok(begin.session.length > 0);
+    const scoped: Request = (name, params = {}) => request(name, name === method ? { ...params, session: begin.session } : params);
+    async function listen(name: string) {
+      deadline(); await options.wait(1000); deadline();
+      const check = LISTENING_CHECKS.find(c => c.name === name)!;
+      const promptedAt = options.now(); options.save(`prompt-${name}`, { ...check, session: begin.session, promptedAt });
+      let timer: ReturnType<typeof setTimeout> | undefined;
+      const answer = await Promise.race([
+        options.ask!(check),
+        new Promise<never>((_, reject) => { timer = setTimeout(() => reject(new Error('Operator session expired')), Math.max(0, 900_000 - (options.now() - start))); }),
+      ]).finally(() => clearTimeout(timer));
+      const answeredAt = options.now();
+      assert.ok(answeredAt - start <= 900_000, 'Operator session expired');
+      assert.ok(['yes', 'no', 'unsure'].includes(answer.verdict));
+      assert.ok(answer.answer.trim().length > 0 && Buffer.byteLength(answer.answer) <= 128);
+      const row = { name, ...answer, promptedAt, answeredAt }; answers.push(row); options.save(`answer-${name}`, row);
+      const ack = await scoped(method, { operation: 'operatorAck', ...row }); options.save(`ack-${name}`, ack);
+      assert.equal(ack.session, begin.session); assert.equal(ack.answers.length, answers.length);
+      assert.equal(ack.answers.at(-1).name, name); assert.equal(ack.answers.at(-1).answer, answer.answer);
+      assert.equal(ack.answers.at(-1).verdict, answer.verdict);
+      assert.equal(answer.verdict, 'yes', `Operator answered ${answer.verdict} at ${name}`); assert.equal(ack.locked, false);
+      segmentStart = options.now();
     }
-    await window('Q0'); await window('B+');
+    await listen('B+');
     const after: Wire = { 1: 'B0', 2: 'B-return', 5: 'N+', 6: 'N0', 7: 'N-half', 8: 'N-return', 11: 'R+' };
     for (let stage = 1; stage <= 11; stage++) {
-      assert.ok(options.now() - start <= 60_000);
-      await graphWorkflow(request, scope(options, `stage-${stage}`), 'stage', stage);
-      if (after[stage]) await window(after[stage]);
+      deadline(); await graphWorkflow(scoped, scope(options, `stage-${stage}`), 'stage', stage); deadline();
+      if (after[stage]) await listen(after[stage]);
     }
-    await window('Q1'); const status = await request(method, { operation: 'status' }); options.save('status', status);
+    const status = await scoped(method, { operation: 'status' }); options.save('status', status);
     assert.equal(status.locked, false); assert.equal(status.nativeUnfinished, false); assert.equal(status.next, 'complete');
-    options.save('signal-verdict', { status: 'bounded-signal-passes; operator restoration required', peaks });
+    options.save('audio-verdict', { status: 'operator-audio-passes; exact restoration required',
+      marker: ENGINE_MARKER, session: begin.session, answers,
+      graphEvidence: Object.fromEntries([[0, 'B+'], ...Object.entries(after).map(([stage, name]) => [Number(stage), name])]
+        .map(([stage, name]) => [name, { phase: stage === 0 ? 'prepare' : 'run',
+          pairedReads: stage === 0 ? ['baseline-before-0.json', 'baseline-before-1.json']
+            : [`stage-${stage}-after-0.json`, `stage-${stage}-after-1.json`] }])) });
   } catch (error) {
-    // This has no document task or inverse edit. The scheduled owned note-off remains independent.
+    // These calls have no document task or inverse edit.
     try { options.save('abort', await request(method, { operation: 'abort' })); } catch (abortError) { options.save('abort-error', String(abortError)); }
     try { options.save('failure-status', await request(method, { operation: 'status' })); } catch (statusError) { options.save('status-error', String(statusError)); }
     throw error;
@@ -197,15 +204,22 @@ async function main() {
     catch (error) { calls.push({ name, operation: params.operation, ms: performance.now() - start, error: String(error) }); throw error; }
   };
   const wait = (ms: number) => new Promise<void>(resolve => setTimeout(resolve, ms));
-  const options: Options = { save, settle: () => wait(150), wait, now: Date.now, verifyFiles: () => files(config), deployedAt: deployedAtMs() };
+  const inputLines = mode === 'run' ? createInterface({ input: process.stdin, crlfDelay: Infinity }) : undefined;
+  const lines = inputLines?.[Symbol.asyncIterator]();
+  const options: Options = { save, settle: () => wait(150), wait, now: Date.now, verifyFiles: () => files(config), deployedAt: deployedAtMs(),
+    ask: async check => {
+      console.log(JSON.stringify({ listeningCheck: check.name, prompt: check.prompt, answer: 'yes | no | unsure' }));
+      const line = await lines!.next(); if (line.done) throw new Error('Operator input closed');
+      return { verdict: line.value.trim().toLowerCase(), answer: line.value };
+    } };
   try {
     save('input', config);
     if (mode === 'prepare') { save('prepared', await prepareEngine(request, options, config)); assert.equal(calls.length, 16); }
-    else if (mode === 'run') { await runEngine(request, options, config); assert.equal(calls.length, 220); }
+    else if (mode === 'run') { await runEngine(request, options, config); assert.equal(calls.length, 208); }
     else if (mode === 'restore') { await restoreEngine(request, options, config); assert.equal(calls.length, 16); }
     else if (mode === 'recover') { await recoverEngine(request, config, save); assert.equal(calls.length, 4); }
     else save('status', await request(method, { operation: 'status' }));
     console.log(JSON.stringify({ mode, output, calls: calls.length }));
-  } finally { save('calls', calls); client.disconnect(); }
+  } finally { inputLines?.close(); save('calls', calls); client.disconnect(); }
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) await main();

@@ -39,6 +39,9 @@ public final class GridGraphRead {
     private int work, bytes = 4096, errorCount, scalarChars;
     private final long deadline = System.nanoTime() + 1_000_000_000L;
     private boolean stopped;
+    private long propertyByteAccountingNanos, finalByteAccountingNanos;
+    public long propertyByteAccountingNanos() { return propertyByteAccountingNanos; }
+    public long finalByteAccountingNanos() { return finalByteAccountingNanos; }
 
     public GridGraphRead(Reader reader) { this(reader, MAX_WORK, MAX_BYTES, MAX_DEPTH); }
 
@@ -71,10 +74,12 @@ public final class GridGraphRead {
             result.addProperty("work", work);
             result.addProperty("documentReadNanos", System.nanoTime() - start);
             result.addProperty("encodedBytes", 0);
+            long encodingStart = System.nanoTime();
             for (int i = 0; i < 3; i++)
                 result.addProperty("encodedBytes", result.toString().getBytes(StandardCharsets.UTF_8).length);
             if (result.toString().getBytes(StandardCharsets.UTF_8).length > byteLimit)
                 throw new IllegalStateException("capture byte accounting failed");
+            finalByteAccountingNanos = System.nanoTime() - encodingStart;
             return result;
         } finally {
             identities.clear();
@@ -100,7 +105,9 @@ public final class GridGraphRead {
     }
 
     private boolean charge(JsonElement value) {
+        long start = System.nanoTime();
         int size = value.toString().getBytes(StandardCharsets.UTF_8).length + 16;
+        propertyByteAccountingNanos += System.nanoTime() - start;
         if (bytes + size > byteLimit) {
             issue("byte-limit"); stopped = true; return false;
         }

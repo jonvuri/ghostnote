@@ -1,0 +1,35 @@
+{
+  "archive": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension",
+  "bytes": 728716,
+  "sha256": "ed8934be54f937bfe0cd805589435260c60c27dead4a06ea94c24eea052694d3",
+  "deployedAt": "2026-10-18T21:35:56.907935+00:00",
+  "deployedAtMs": 1792359356907,
+  "runtimeProfile": "phase-8-probe-v1",
+  "methodCount": 118,
+  "methodsHash": "2e939035ea90b8b0",
+  "marker": "9a-grid-audio-v13",
+  "operatorReplacement": "confirmed by operator: Controlled replaced",
+  "helloResult": "ALL PASS",
+  "lastConfirmedRuntime": "V13; phase-8-probe-v1; 118 methods; 2e939035ea90b8b0; 9a-grid-audio-v13",
+  "liveProbeCalls": 246,
+  "matchesBuildArchive": "extension/build/libs/ghostnote-0.0.1-probe.bwextension",
+  "fixtureFiles": {
+    "project": {
+      "path": "/Users/jonvuri/Documents/Bitwig Studio/Projects/gn-grid-spike/gn-grid-spike.bwproject",
+      "sha256": "af24056e72e9722eacaa80bf01daa02e7fba0c72103f7fd1655f689448da1b4f"
+    },
+    "backup": {
+      "path": "/tmp/gn-grid-spike-e280-baseline.bwproject",
+      "sha256": "af24056e72e9722eacaa80bf01daa02e7fba0c72103f7fd1655f689448da1b4f"
+    },
+    "preset": {
+      "path": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+      "sha256": "1e8f90fc3875dbeb1f38ed88bec59ee783f39bb00fb366194c79504e063c0cc9"
+    }
+  },
+  "initAt": "2026-10-18T21:39:53.989Z",
+  "initEpochMs": 1792359593989,
+  "liveWorkflowCalls": 240,
+  "helloCalls": 6,
+  "sessionDisposition": "used and released; no retry; graph, operator audio, and exact restoration pass in E298"
+}
