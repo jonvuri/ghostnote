@@ -2,7 +2,7 @@
 title: ghostnote roadmap
 kind: plan
 state: active
-updated: 2026-10-18
+updated: 2026-10-19
 ---
 
 # Roadmap
@@ -19,7 +19,7 @@ updated: 2026-10-18
 | [6 — music workstation exploration](phase-6/README.md) | done | Contracts and verification costs audited; Phase 7 implementation followed |
 | [7 — workstation dogfood](phase-7/README.md) | done | Focused modules, hybrid dogfood, and the played-range follow-up pass |
 | [8 — agent-native live engine](phase-8/README.md) | done | FIELDS/JSON 1.0 contract, codec, model reference, and the agent-native surface; the 8i gate closed (E272). 8i17 remains a planned survey |
-| [9 — overlap investigation](phase-9/README.md) | provisional | Scope will follow the investigation. Only 9a, the live Grid editing spike, is planned |
+| [9 — overlap investigation](phase-9/README.md) | provisional | 9a is complete (E299). Further scope will be selected in a separate planning session |
 | [10 — breadth and release](phase-10/README.md) | deferred | Former Phase 9: publication reviews 10a/10b, the release live suite 10c, and the existing breadth backlog |
 
 ## Cross-phase work

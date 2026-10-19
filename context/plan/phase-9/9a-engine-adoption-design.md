@@ -2,16 +2,23 @@
 title: 9a — Engine adoption design
 kind: plan
 state: superseded
-status: Historical V12 protocol. E296 selects operator audio acceptance; V12 remains used and locked.
+status: Historical V12 protocol. E298 passes the replacement operator audio test; E299 closes 9a.
 updated: 2026-10-19
 parent: 9a-live-grid-editing-spike.md
 ---
 
 # 9a — Engine adoption design
 
+> Historical design. [E299](../../evidence/experiments/e299-grid-spike-close-out.md)
+> closes 9a. [E298](../../evidence/experiments/e298-grid-operator-audio-live-test.md)
+> passes the accepted operator audio test. Deployment states and procedures
+> below describe their original sessions. They are not current instructions.
+> See [NOW](../../NOW.md) for the retained V13 deployment and last verified state.
+
 ## Replacement after E296
 
-The [operator audio test](9a-operator-audio-test.md) is the current contract.
+The [operator audio test](9a-operator-audio-test.md) is the completed acceptance
+contract. It passed in E298.
 It replaces the automated signal requirement, note lifecycle, failure report,
 cost model, and next-session instructions. The interim
 [continuous-signal design](9a-continuous-signal-design.md) is deferred.
@@ -21,9 +28,10 @@ Do not execute the historical driver procedure below.
 The unchanged Sine → Amplify → Audio Out fixture has no envelope or gate.
 Positive output with stopped transport is expected. E293 also finds that
 `DxI.EbT` advances during invalid-packet decay. It is not sufficient proof of
-a fresh valid packet. The replacement requires a read-only valid-packet witness
-before implementation. V12 stays loaded with its session used and locked;
-do not repeat prepare, run, or its final restoration read.
+a fresh valid packet. The deferred automated replacement required a read-only
+valid-packet witness.
+E296 removed that prerequisite from 9a. V12 was later replaced by V13; its
+used session is historical.
 
 ## Decision and scope
 
@@ -372,7 +380,7 @@ Implementation: [E291](../../evidence/experiments/e291-grid-engine-probe-impleme
 V12 implements this section and passes the offline checks. E292 records its
 deployment, operator replacement, and live quiet-gate refusal. Exact inactive
 restoration and release pass. The next work is the
-[baseline signal and failure evidence design](9a-live-grid-editing-spike.md#next-session--baseline-signal-and-failure-evidence-design),
+[baseline signal and failure evidence design](9a-live-grid-editing-spike-history.md#next-session--baseline-signal-and-failure-evidence-design),
 not a repeat of this used session.
 
 Source: E290 and this contract. Implement the fixed state machine, active-engine

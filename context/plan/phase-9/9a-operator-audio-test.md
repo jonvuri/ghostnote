@@ -1,8 +1,8 @@
 ---
 title: 9a — Operator audio test
 kind: plan
-state: active
-status: E298 passes all eight listening checks, eleven graph stages, and exact restoration. Do not repeat V13.
+state: complete
+status: E298 passes all listening, graph, and restoration checks. E299 closes 9a and retains V13; do not repeat its workflow.
 updated: 2026-10-19
 parent: 9a-live-grid-editing-spike.md
 ---
@@ -45,14 +45,16 @@ all eight operator checks, eleven native graph stages, and exact saved-baseline
 restoration. The complete workflow uses 240 calls. V13 is used and released;
 do not repeat preparation, run, or restoration on this initialization. The
 procedure below records the completed test. A future run requires a separately
-admitted session. The next session is the parent plan's bounded close-out and
-profile disposition; 9a stays active until then.
+admitted session. [E299](../../evidence/experiments/e299-grid-spike-close-out.md)
+completes the bounded close-out. The operator chose to keep V13 deployed; its
+test allowance remains used. Next steps will be selected separately.
 
 [E297](../../evidence/experiments/e297-grid-operator-audio-probe.md) contains the
 implementation and offline checks. V13 loading and fresh hello pass in E298.
 
-The deployment command is `./gradlew copyProbeExtension` in
-`extension/`. The operator must fully remove the old controller and select
+The following deployment and test instructions record the completed procedure.
+They do not authorize another run. The deployment command is
+`./gradlew copyProbeExtension` in `extension/`. The operator must fully remove the old controller and select
 the final matching `ghostnote probe` product in the complete list. Do not
 operate that Settings list. A power toggle or an earlier duplicate can load
 cached Java classes. After operator confirmation, run `npm run probe:hello`
@@ -181,10 +183,9 @@ checks, context and diff checks. Add the previously planned read-component
 timings inside existing calls, without extra captures. No public description
 change is expected; verify that in the implementation.
 
-Then deploy, obtain operator replacement, and run this checklist once. Record
-the literal answers and actual costs. A test pass can satisfy 9a's remaining
-audio gate. The final bounded 9a verdict and profile disposition still need
-their own recorded close-out. Wider Phase 9 scope remains unselected.
+E297 completed implementation and deployment. E298 records operator replacement,
+the literal answers, actual costs, and exact restoration. E299 closes 9a and
+records the retained research profile. Wider Phase 9 scope remains unselected.
 
 ## Cost model before implementation
 
@@ -265,6 +266,5 @@ report names the paired graph files for each check. Keep prepare, run, and
 restoration output together. No/unsure, invalid input, or closed input stops
 writes. Status and abort have no document task.
 
-After the listening run, complete exact restoration before an overall pass.
-Then record a separate 9a close-out session for the bounded verdict and profile
-disposition, as required by the parent plan. Keep 9a active until that record.
+E298 completed exact restoration before the overall pass. E299 records the
+final bounded verdict and retained research profile. The spike is complete.

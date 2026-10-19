@@ -2,16 +2,23 @@
 title: 9a — Continuous signal and frozen failure evidence
 kind: plan
 state: deferred
-status: Automated measurement deferred by E296. Use the operator audio test; V12 remains used and locked.
+status: Historical automated design, superseded for 9a by operator listening. E299 closes 9a; no automated follow-up is selected.
 updated: 2026-10-19
 parent: 9a-live-grid-editing-spike.md
 ---
 
 # 9a — Continuous signal and frozen failure evidence
 
+> Historical design. [E299](../../evidence/experiments/e299-grid-spike-close-out.md)
+> closes 9a. [E298](../../evidence/experiments/e298-grid-operator-audio-live-test.md)
+> passes the accepted operator audio test. Deployment states and procedures
+> below describe their original sessions. They are not current instructions.
+> See [NOW](../../NOW.md) for the retained V13 deployment and last verified state.
+
 ## Superseded acceptance after E296
 
-The [operator audio test](9a-operator-audio-test.md) is the current contract.
+The [operator audio test](9a-operator-audio-test.md) is the completed acceptance
+contract. It passed in E298.
 It replaces this document's fresh-packet prerequisite, timed measurements,
 muted/master-silent run, numeric signal thresholds, costs, and next sessions.
 The operator requested this narrower evidence claim in E296. The graph

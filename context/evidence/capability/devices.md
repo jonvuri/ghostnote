@@ -4,7 +4,7 @@ kind: capability
 state: active
 updated: 2026-10-19
 scope: device identification, parameter access and the observable surface
-evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E73, E254, E276, E277, E279, E280, E281, E283, E289; D2, D46; reference/BitX
+evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E73, E254, E276, E277, E279, E280, E281, E283, E289, E298, E299; D2, D46; reference/BitX
 ---
 
 # Devices
@@ -18,57 +18,37 @@ The public controller API has no device-instance ID. It identifies device
 [E16l](../experiments/e16l-object-identity-settled-properly-is-the-only-one-and-there-is-no.md)].
 See [identity](identity.md) for the public API limits.
 
-Exact-build reflection reads the internal graph of the E276 four-module Poly
-Grid fixture. It reads types, distinct module UUIDs, stored parameters, layout,
-and directed patch cables. Preset comparison, a manual value delta, other-device
-selection, and save/reload pass. Module UUIDs change on reload; the outer-device
-UUID stayed equal in this one test. This supersedes an unqualified claim that
-no internal instance identity can be read. It does not add a public identity
-contract [K,
-[E276](../experiments/e276-grid-semantic-read-and-value-probe.md)].
+## Live Grid research (9a)
 
-V4 also changes one disconnected Amplify value from 50% to 60% and back.
-Four internal setter calls pass fresh paired reads. UI, host undo/redo, and
-edited-state save/reload pass. The final saved/reloaded baseline matches the
-preset. This supersedes the earlier unproved parameter-write status. Live
-module attachment was not tested in E277. General layout writes and DSP
-adoption remain unproved.
-The engine was inactive. This is an exact-build research result, not a public
-tool [K, [E277](../experiments/e277-grid-value-write-readback-and-persistence.md)].
+9a is complete. The result applies to one four-module Poly Grid fixture on
+pinned Bitwig 6.0.6, API 25. It uses internal reflection and native operations;
+no public Grid authoring tool is added. The
+[close-out](../experiments/e299-grid-spike-close-out.md) gives the full verdict,
+limits, costs, deployment, and evidence map [K, E299].
 
-V5 connects and disconnects the spare Amplify input. V6 replaces its source
-between Sine OUT and first Amplify OUT through one native setter call. Exact
-paired reads, UI, single undo/redo in both directions, edited-state reload,
-and baseline restoration pass. The original two edges and all other projected
-fields remain equal. The engine was inactive. This proves bounded document
-cable operations, not failure atomicity or general Grid authoring [K,
-[E279](../experiments/e279-grid-cable-connect-disconnect-and-persistence.md),
-[E280](../experiments/e280-grid-retarget-and-module-delete-probe.md)].
+| Capability | Verified scope | Evidence |
+| --- | --- | --- |
+| Semantic read | Types, distinct loaded module UUIDs, stored values, layout, ports, and directed cables. Preset comparison, manual delta, selection change, and reload pass. Module UUIDs change on reload; one unchanged outer UUID does not prove persistent identity. | [K, [E276](../experiments/e276-grid-semantic-read-and-value-probe.md)] |
+| Parameter update | Disconnected Amplify 50% ↔ 60%, paired reads, UI, undo/redo, and edited-state save/reload. | [K, [E277](../experiments/e277-grid-value-write-readback-and-persistence.md)] |
+| Cable CRUD | Connect/disconnect Sine OUT → spare Amplify IN; retarget that input between Sine OUT and original Amplify OUT. Paired reads, UI, undo/redo, persistence, and restoration pass. | [K, [E279](../experiments/e279-grid-cable-connect-disconnect-and-persistence.md), [E280](../experiments/e280-grid-retarget-and-module-delete-probe.md)] |
+| Module deletion | Spare Amplify, isolated or with an incoming cable. Incoming cable cleanup, paired reads, UI, undo/redo, persistence, and exact restoration pass. | [K, [E281](../experiments/e281-grid-module-delete-and-persistence.md)] |
+| Native factory and attachment | Two detached Amplify calls: fresh UUIDs, equal defaults, initialization, ownership, and disposal of all 77 objects per call. Two native attachments at (2, 0): registered identity, exact paired reads, preserved graph/layout/selection, undo/redo, persistence, and exact restoration. | [K, [E283](../experiments/e283-detached-grid-factory-lifecycle.md), [E289](../experiments/e289-native-grid-attachment-and-persistence.md)] |
+| Operator audio | Eight listening checks and eleven paired graph stages pass with the same active engine. A newly created Amplify in the only output path gives audible zero/reduced/full-gain responses. Deletion and exact baseline restoration pass. | [K, [E298](../experiments/e298-grid-operator-audio-live-test.md)] |
 
-V7 deletes the spare Amplify with no input cable, or with one from Sine OUT.
-Exact paired reads, UI, single undo/redo, and edited-state reload pass. The
-connected deletion removes the module and incoming cable together. The exact
-saved baseline is restored and reopened. Outgoing consumer cleanup, arbitrary
-module deletion and DSP adoption remain unproved [K,
-[E281](../experiments/e281-grid-module-delete-and-persistence.md)].
+E298 establishes **operator-verified audio response on the fixed Poly Grid
+fixture**. It supersedes the earlier unqualified statement that no audio
+response had been proved. The earlier undo and persistence tests used an
+inactive engine. Listening does not establish digital zero, an exact amplitude
+ratio, sample continuity, or an engine revision acknowledgement [K,
+[E298](../experiments/e298-grid-operator-audio-live-test.md)].
 
-V8 constructs and disposes a detached Amplify twice. New module UUIDs,
-null parentage, contents ownership, initialization helpers, equal projected
-native defaults, and disposal of all 77 owned objects pass. Paired live
-fixture reads and saved file hashes remain equal. The native VALUE default
-is 1; BIPOLAR and STEREOIZE are false. This proves the bounded factory
-lifecycle only. DSP adoption and general failure rollback remain unproved [K,
-[E283](../experiments/e283-detached-grid-factory-lifecycle.md)].
-
-V11 attaches one native Amplify at (2, 0) in each of two separate attempts.
-Exact paired reads prove the new membership, native defaults, registered
-managed identity, ownership, and unchanged existing graph. Selection and
-existing rectangles remain equal. UI, one-step undo/redo, edited-state reload,
-and exact baseline restoration pass. This supersedes the unproved document
-attachment status from E277/E281/E283. The engine stayed inactive. The result
-covers one fixed native type and free position only; it does not prove DSP
-adoption, arbitrary creation, relocation, or general failure atomicity [K,
-[E289](../experiments/e289-native-grid-attachment-and-persistence.md)].
+Arbitrary module types and patches, general layout writes, outgoing-consumer
+cleanup on deletion, general failure atomicity, and other host builds remain
+unproved [U, scope limits in [E299](../experiments/e299-grid-spike-close-out.md)].
+Automated meter evidence is not required by the accepted spike criteria.
+Native producer research is deferred; no further scope is selected [K,
+[E296](../experiments/e296-grid-operator-audio-acceptance.md),
+[E299](../experiments/e299-grid-spike-close-out.md)].
 
 ---
 
@@ -494,6 +474,7 @@ to a replacement [K, E90].
 
 | Date | Change |
 |---|---|
+| 2026-10-19 | E299 closes 9a. E298 adds operator-verified audio response on the fixed fixture to the earlier native CRUD and persistence results. General DSP and public Grid support remain unproved. |
 | 2026-10-09 | E254 adds sparse remote positions, the remote-label limit, and the D46 route claim of the live product. |
 | 2026-09-12 | E101 proves direct VSTPRESET, indexed-direct H2P, one FXP no-op, the FXB fixture gap, and the API 25 popup transaction limit. |
 | 2026-09-01 | E96 proves compact relocation for 12 supported donor types, exact ordinal page families, complete fresh remote-inventory retry, and 31 pre-write catalog refusals. |

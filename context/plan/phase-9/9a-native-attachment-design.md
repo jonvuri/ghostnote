@@ -1,18 +1,24 @@
 ---
 title: 9a — Native collection attachment design
 kind: plan
-state: active
-status: E289 passes the bounded attachment sequence. Both V11 attempts are used; 9a remains active.
+state: complete
+status: Completed in E289. E299 closes 9a; V13 remains deployed by operator choice.
 updated: 2026-10-19
 parent: 9a-live-grid-editing-spike.md
 ---
 
 # 9a — Native collection attachment design
 
+> Historical design. [E299](../../evidence/experiments/e299-grid-spike-close-out.md)
+> closes 9a. [E298](../../evidence/experiments/e298-grid-operator-audio-live-test.md)
+> passes the accepted operator audio test. Deployment states and procedures
+> below describe their original sessions. They are not current instructions.
+> See [NOW](../../NOW.md) for the retained V13 deployment and last verified state.
+
 This is the implementation contract for the completed attachment stage of
 [9a](9a-live-grid-editing-spike.md). [E284](../../evidence/experiments/e284-native-grid-attachment-design.md)
 records the offline trace. [E283](../../evidence/experiments/e283-detached-grid-factory-lifecycle.md)
-supplies the factory proof. Keep 9a active.
+supplies the factory proof.
 [E286](../../evidence/experiments/e286-grid-attachment-witness-wire-fix.md) records
 the V9 pre-factory refusal and V10 encoding fix. Do not bypass a used attempt
 allowance or a latched write lock.
@@ -330,10 +336,9 @@ workflow used. Do not make another V10 Grid request.
 recovery, replacement, fresh hello, and baseline reads.
 [E289](../../evidence/experiments/e289-native-grid-attachment-and-persistence.md)
 completes the sequence below with an inactive engine. Both V11 attempts are
-used. Do not repeat this sequence on the current initialization. The baseline
-is restored and reopened; the Grid editor is open. The next 9a session is
-[engine probe implementation and offline checks](9a-live-grid-editing-spike.md#next-session--engine-probe-implementation-and-offline-checks),
-under the [E290 design](9a-engine-adoption-design.md).
+used. E289 restored and reopened the baseline. The later
+[E291 implementation](../../evidence/experiments/e291-grid-engine-probe-implementation.md)
+followed the [E290 design](9a-engine-adoption-design.md).
 The commands below remain the reproducible protocol for this completed gate.
 
 Before the first insertion, inspect the UI and record an inactive engine in

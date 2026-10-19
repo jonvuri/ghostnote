@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-10-19
 phase: phase-9-overlap-investigation
-session: 9a-live-grid-editing-spike
+session: 9a-close-out
 ---
 
 ## Now
@@ -18,44 +18,19 @@ with the artifact inventory (101 entries). The main Phase 8 verdict is that
 Ghostnote behaved like an instrument.
 
 [9a — Live Grid editing spike](plan/phase-9/9a-live-grid-editing-spike.md)
-continues. [E281](evidence/experiments/e281-grid-module-delete-and-persistence.md)
-proves native deletion of the spare Amplify, with or without an incoming
-cable, exact readback, one-step undo/redo, and edited-state reload. The exact
-baseline project bytes are restored and reopened. E277 proves parameter
-editing; E279/E280 prove cable connect, disconnect, and retarget.
-[E283](evidence/experiments/e283-detached-grid-factory-lifecycle.md) passes
-the detached Amplify factory gate: two fresh identities, equal defaults,
-verified ownership and disposal of 77 objects per call, and exact fixture
-preservation.
-[E289](evidence/experiments/e289-native-grid-attachment-and-persistence.md)
-passes the bounded native attachment gate: two V11 insertions, exact paired
-readback, preserved selection and layout, one-step undo/redo, and edited-state
-save/reopen. The exact baseline file is restored, reopened, and verified.
-[E292](evidence/experiments/e292-grid-engine-quiet-gate-refusal.md) verifies
-V12 loading and inactive restoration. Its one active run stops at Q0 before
-any note, graph edit, or factory. V12 remains used and locked. Do not repeat
-its prepare, run, or final restoration read.
+is complete in [E299](evidence/experiments/e299-grid-spike-close-out.md).
+Native module/cable operations and persistence pass within the fixed-fixture
+scope. [E298](evidence/experiments/e298-grid-operator-audio-live-test.md) passes
+all eight operator audio checks, eleven native graph stages, and exact baseline
+restoration. The 9a index links the final verdict, limits, evidence, source
+code, and completed listening procedure. Earlier automated signal designs are
+historical; native meter research is deferred and does not gate this result.
 
-[E298](evidence/experiments/e298-grid-operator-audio-live-test.md) passes the
-[E296 operator-audio acceptance](plan/phase-9/9a-operator-audio-test.md): all
-eight literal answers are `yes`, all eleven native graph stages pass exact
-paired reads, and exact saved-baseline restoration passes. V13 uses the planned
-240 calls (16/208/16), one factory, and zero notes or recovery calls. The
-result is operator-verified audio response on the fixed Poly Grid fixture.
-No automated meter check is required for this spike result.
-
-Next: [bounded close-out and profile disposition](plan/phase-9/9a-live-grid-editing-spike.md#next-session--bounded-close-out-and-profile-disposition).
-Consolidate E277–E289 operation/persistence evidence and E298 audio/restoration;
-state the fixed-build limits and record the normal/probe profile disposition.
-Keep 9a active until that separate close-out. Do not repeat V13 prepare, run,
-or restoration. Its session is used and released, with no open epoch or native
-work. All eight answers remain in the final status. Wider Phase 9 is unselected.
-
-The automated witness work in [E294](evidence/experiments/e294-grid-valid-packet-witness-trace.md)
-and [E295](evidence/experiments/e295-grid-observable-design.md) remains historical
-evidence. Native producer reconstruction and the 248-call automated runner are
-deferred; they no longer gate 9a. Resume only for a selected automated-signal
-need. Keep 9a active. Wider Phase 9 scope is unselected.
+Next: select next steps in a separate planning session, as the user requested.
+No implementation scope is selected. Wider Phase 9 remains provisional.
+Keep the research probe deployed by operator choice. V13's test session is
+used and released. Do not repeat its preparation, run, or restoration workflow.
+The close-out changed documentation only; it made no live request.
 
 The former Phase 9 is now [Phase 10](plan/phase-10/README.md): publication
 plans 10a/10b, the release and upgrade suite 10c, and the `stable-v1` retirement
@@ -87,9 +62,11 @@ Live material to preserve, until the operator says otherwise:
 Check current state and selection before any live work. Claims belong to
 one server session and do not survive a new thread or resume.
 
-## Current deployment and fixture (2026-10-19)
+## Retained deployment and last verified fixture (E298, 2026-10-19)
 
-V13 is deployed: `phase-8-probe-v1`, 118 methods, `2e939035ea90b8b0`, marker
+The user chose to retain V13 during E299 close-out. The state below was last
+verified in E298; E299 made no fresh live observation. V13 is deployed:
+`phase-8-probe-v1`, 118 methods, `2e939035ea90b8b0`, marker
 `gridReadProbe: 9a-grid-audio-v13`. The
 [deployment record](evidence/data/phase9a-operator-audio/deployment-v13.json)
 confirms the built and deployed archive match, SHA-256
@@ -135,8 +112,8 @@ and `cursorTrackPins.rule: owned-tracks-pinned-v1`. The prior probe build had
 111 methods, `9b339de4e9bb08da`. `probe:hello` passed on 2026-10-16 (E272)
 and at 9a entry. `selection.status` can report a slot of a deleted scratch
 track (issue D11). Descriptions are v52 (44 tools);
-no live project changed in 8i16 and 8i18 to 8i20 or in the close-out. The
-next free evidence number is E299; the next decision is D52; the next
+no live project changed in 8i16 and 8i18 to 8i20, E272, or E299. The
+next free evidence number is E300; the next decision is D52; the next
 issue row is D17. The live drivers accept 8i15 (`NORMAL_8I15`,
 `assertCurrentNormal`); see E263 and E264 for their commands and cleanup.
 

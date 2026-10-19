@@ -16,6 +16,7 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E299 | 9a closes with bounded native module/cable CRUD, readback, persistence, operator audio, and exact restoration; research probe retained by operator choice; further planning separate, no live calls [K] (2026-10-19) | [open](experiments/e299-grid-spike-close-out.md) |
 | E298 | V13 passes all eight operator audio checks, eleven native graph stages, and exact saved-baseline restoration in 240 calls; one factory, zero notes, session released; bounded close-out next, 9a active [K] (2026-10-19) | [open](experiments/e298-grid-operator-audio-live-test.md) |
 | E297 | V13 operator audio runner checked and deployed: eight explicit answers, eleven graph stages, 240 calls, no meter or note injection; 244 TypeScript tests and Java checks pass; replacement and live listening next, 9a active [K] (2026-10-19) | [open](experiments/e297-grid-operator-audio-probe.md) |
 | E296 | Operator selects listening verification for the remaining 9a audio gate: eight checks, exact graph readback and restoration, temporary unmute, no test notes or packet prerequisite; 240-call step-controlled probe is next; native research deferred [K] (2026-10-19) | [open](experiments/e296-grid-operator-audio-acceptance.md) |

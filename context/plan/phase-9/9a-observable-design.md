@@ -2,12 +2,18 @@
 title: 9a — Signal observable selection after E294
 kind: plan
 state: deferred
-status: Deferred by E296. Operator audio verification now gates 9a; native producer research is not required.
+status: Historical E295 findings. Automated producer research is deferred; E299 closes 9a with operator audio evidence.
 updated: 2026-10-19
 parent: 9a-live-grid-editing-spike.md
 ---
 
 # 9a — Signal observable selection after E294
+
+> Historical design. [E299](../../evidence/experiments/e299-grid-spike-close-out.md)
+> closes 9a. [E298](../../evidence/experiments/e298-grid-operator-audio-live-test.md)
+> passes the accepted operator audio test. Deployment states and procedures
+> below describe their original sessions. They are not current instructions.
+> See [NOW](../../NOW.md) for the retained V13 deployment and last verified state.
 
 ## Superseded acceptance after E296
 
