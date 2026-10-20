@@ -1,0 +1,4416 @@
+{
+  "evidence": "E304",
+  "runs": [
+    {
+      "run": "live-v15",
+      "entryEqualsOriginal": true,
+      "exitEqualsOriginal": false,
+      "exit": {
+        "scratch": null,
+        "uncertain": false,
+        "completedPresets": 2
+      },
+      "wireCalls": 1575,
+      "wireMsSum": 65526.26926600012,
+      "captureWireMs": {
+        "count": 1125,
+        "min": 43.74195899999995,
+        "median": 47.9309170000015,
+        "max": 50.795791999997164
+      },
+      "documentMs": {
+        "count": 1125,
+        "min": 0.132333,
+        "median": 0.501875,
+        "max": 2.677833
+      },
+      "schemaDocumentMs": {
+        "count": 42,
+        "min": 0.172875,
+        "median": 0.33335349999999997,
+        "max": 1.954208
+      },
+      "schemaHeapDeltaMiB": {
+        "count": 42,
+        "min": 0.0,
+        "median": 0.0,
+        "max": 2.0
+      },
+      "bindWireMs": [
+        67.15979100000004,
+        48.74108399999932,
+        45.43166699998983
+      ],
+      "heapDeltaMiB": {
+        "count": 1125,
+        "min": 0.0,
+        "median": 0.0,
+        "max": 4.0
+      },
+      "completeQueryWork": {
+        "count": 884,
+        "min": 202,
+        "median": 226.0,
+        "max": 3874
+      },
+      "graphBytes": {
+        "count": 1125,
+        "min": 873,
+        "median": 1548,
+        "max": 52271
+      },
+      "refusals": [
+        {
+          "verdict": "cap-refusal",
+          "error": "AssertionError [ERR_ASSERTION]: focused-capture-limit"
+        }
+      ],
+      "failure": {
+        "error": "AssertionError [ERR_ASSERTION]: focused-needs-complete-catalog\n\nfalse !== true\n",
+        "scratch": "999e7131-19c8-4f22-9256-7c58833571ad",
+        "uncertain": false
+      }
+    },
+    {
+      "run": "live-v15-v2",
+      "entryEqualsOriginal": true,
+      "exitEqualsOriginal": true,
+      "exit": {
+        "scratch": null,
+        "uncertain": false,
+        "completedPresets": 5
+      },
+      "wireCalls": 2935,
+      "wireMsSum": 120573.26698600024,
+      "captureWireMs": {
+        "count": 2151,
+        "min": 39.89137499999924,
+        "median": 47.166291000001365,
+        "max": 54.5659169999999
+      },
+      "documentMs": {
+        "count": 2151,
+        "min": 0.103958,
+        "median": 0.408542,
+        "max": 2.597583
+      },
+      "schemaDocumentMs": {
+        "count": 114,
+        "min": 0.131333,
+        "median": 0.3075625,
+        "max": 0.825667
+      },
+      "schemaHeapDeltaMiB": {
+        "count": 114,
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0
+      },
+      "bindWireMs": [
+        46.274333999999726,
+        45.80054200000086,
+        46.404209000000264,
+        40.287374999999884,
+        51.01766700000735
+      ],
+      "heapDeltaMiB": {
+        "count": 2151,
+        "min": 0.0,
+        "median": 0.0,
+        "max": 2.0
+      },
+      "completeQueryWork": {
+        "count": 1740,
+        "min": 197,
+        "median": 226.0,
+        "max": 1089
+      },
+      "graphBytes": {
+        "count": 2151,
+        "min": 878,
+        "median": 1451,
+        "max": 10905
+      },
+      "refusals": [
+        {
+          "verdict": "cap-refusal",
+          "error": "AssertionError [ERR_ASSERTION]: focused-module-limit"
+        }
+      ],
+      "failure": null
+    },
+    {
+      "run": "live-v15-v3",
+      "entryEqualsOriginal": true,
+      "exitEqualsOriginal": true,
+      "exit": {
+        "scratch": null,
+        "uncertain": false,
+        "completedPresets": 2
+      },
+      "wireCalls": 1427,
+      "wireMsSum": 58200.3868339999,
+      "captureWireMs": {
+        "count": 1075,
+        "min": 39.60591700000077,
+        "median": 45.82170800000131,
+        "max": 54.524499999999534
+      },
+      "documentMs": {
+        "count": 1075,
+        "min": 0.104042,
+        "median": 0.388667,
+        "max": 2.226375
+      },
+      "schemaDocumentMs": {
+        "count": 62,
+        "min": 0.134834,
+        "median": 0.232375,
+        "max": 0.55125
+      },
+      "schemaHeapDeltaMiB": {
+        "count": 62,
+        "min": 0.0,
+        "median": 0.0,
+        "max": 2.0
+      },
+      "bindWireMs": [
+        46.74720800000023,
+        42.09220799999821
+      ],
+      "heapDeltaMiB": {
+        "count": 1075,
+        "min": 0.0,
+        "median": 0.0,
+        "max": 2.0
+      },
+      "completeQueryWork": {
+        "count": 860,
+        "min": 197,
+        "median": 226.0,
+        "max": 1089
+      },
+      "graphBytes": {
+        "count": 1075,
+        "min": 878,
+        "median": 1640,
+        "max": 14394
+      },
+      "refusals": [],
+      "failure": null
+    },
+    {
+      "run": "live-v15-v4",
+      "entryEqualsOriginal": true,
+      "exitEqualsOriginal": true,
+      "exit": {
+        "scratch": null,
+        "uncertain": false,
+        "completedPresets": 1
+      },
+      "wireCalls": 462,
+      "wireMsSum": 17872.97798899999,
+      "captureWireMs": {
+        "count": 268,
+        "min": 37.61437500000011,
+        "median": 47.7093330000007,
+        "max": 58.64837500000067
+      },
+      "documentMs": {
+        "count": 268,
+        "min": 0.10175,
+        "median": 0.465291,
+        "max": 3.52175
+      },
+      "schemaDocumentMs": {
+        "count": 32,
+        "min": 0.126917,
+        "median": 0.29600000000000004,
+        "max": 1.193
+      },
+      "schemaHeapDeltaMiB": {
+        "count": 32,
+        "min": 0.0,
+        "median": 0.0,
+        "max": 2.0
+      },
+      "bindWireMs": [
+        46.75700000000006
+      ],
+      "heapDeltaMiB": {
+        "count": 268,
+        "min": 0.0,
+        "median": 0.0,
+        "max": 2.0
+      },
+      "completeQueryWork": {
+        "count": 208,
+        "min": 197,
+        "median": 226.0,
+        "max": 909
+      },
+      "graphBytes": {
+        "count": 268,
+        "min": 882,
+        "median": 2516.0,
+        "max": 9821
+      },
+      "refusals": [],
+      "failure": null
+    },
+    {
+      "run": "live-v15-v5",
+      "entryEqualsOriginal": true,
+      "exitEqualsOriginal": true,
+      "exit": {
+        "scratch": null,
+        "uncertain": false,
+        "completedPresets": 1
+      },
+      "wireCalls": 461,
+      "wireMsSum": 18037.74568100002,
+      "captureWireMs": {
+        "count": 268,
+        "min": 44.51237500000025,
+        "median": 47.70822850000059,
+        "max": 50.340416000000914
+      },
+      "documentMs": {
+        "count": 268,
+        "min": 0.120541,
+        "median": 0.41868700000000003,
+        "max": 2.111292
+      },
+      "schemaDocumentMs": {
+        "count": 32,
+        "min": 0.111375,
+        "median": 0.238771,
+        "max": 0.548042
+      },
+      "schemaHeapDeltaMiB": {
+        "count": 32,
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0
+      },
+      "bindWireMs": [
+        45.79258400000026
+      ],
+      "heapDeltaMiB": {
+        "count": 268,
+        "min": 0.0,
+        "median": 0.0,
+        "max": 2.0
+      },
+      "completeQueryWork": {
+        "count": 208,
+        "min": 197,
+        "median": 226.0,
+        "max": 909
+      },
+      "graphBytes": {
+        "count": 268,
+        "min": 882,
+        "median": 2605.5,
+        "max": 9821
+      },
+      "refusals": [],
+      "failure": null
+    },
+    {
+      "run": "live-v15-v6",
+      "entryEqualsOriginal": true,
+      "exitEqualsOriginal": true,
+      "exit": {
+        "scratch": null,
+        "uncertain": false,
+        "completedPresets": 1
+      },
+      "wireCalls": 461,
+      "wireMsSum": 17906.301548000003,
+      "captureWireMs": {
+        "count": 267,
+        "min": 45.00170800000069,
+        "median": 47.682167000000845,
+        "max": 53.90216700000019
+      },
+      "documentMs": {
+        "count": 267,
+        "min": 0.10375,
+        "median": 0.424666,
+        "max": 1.904208
+      },
+      "schemaDocumentMs": {
+        "count": 31,
+        "min": 0.176417,
+        "median": 0.266125,
+        "max": 0.467875
+      },
+      "schemaHeapDeltaMiB": {
+        "count": 31,
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0
+      },
+      "bindWireMs": [
+        49.34616600000027
+      ],
+      "heapDeltaMiB": {
+        "count": 267,
+        "min": 0.0,
+        "median": 0.0,
+        "max": 2.0
+      },
+      "completeQueryWork": {
+        "count": 208,
+        "min": 197,
+        "median": 226.0,
+        "max": 909
+      },
+      "graphBytes": {
+        "count": 267,
+        "min": 882,
+        "median": 2564,
+        "max": 9821
+      },
+      "refusals": [],
+      "failure": null
+    }
+  ],
+  "presets": [
+    {
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-0-focused-summary.json",
+      "preset": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+      "flavour": "Poly Grid",
+      "moduleCount": 4,
+      "captures": 99,
+      "schemas": 16,
+      "configuredAtomReads": 32,
+      "limits": [],
+      "mappings": [],
+      "arrays": [],
+      "resources": [],
+      "inputConnections": [],
+      "projectedAudioCables": [
+        {
+          "sourceId": "197798",
+          "sourceOwner": {
+            "moduleIndex": 0,
+            "moduleName": "Sine",
+            "typeUuid": "ca05aebd-ecaf-4d57-b0f6-c04ce81674c4",
+            "atomIndex": 2,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "198151",
+          "destinationOwner": {
+            "moduleIndex": 1,
+            "moduleName": "Amplify",
+            "typeUuid": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2",
+            "atomIndex": 3,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "198137",
+          "sourceOwner": {
+            "moduleIndex": 1,
+            "moduleName": "Amplify",
+            "typeUuid": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "198223",
+          "destinationOwner": {
+            "moduleIndex": 2,
+            "moduleName": "Audio Out",
+            "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6",
+            "atomIndex": 0,
+            "className": "audio_destination_atom"
+          }
+        }
+      ],
+      "control": {
+        "storedValuesMatch": 95,
+        "audioCablesMatch": 2,
+        "moduleAndAtomMembershipMatch": true
+      }
+    },
+    {
+      "source": "context/evidence/data/phase9b-focused/live-v15-v2/preset-0-focused-summary.json",
+      "preset": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+      "flavour": "Poly Grid",
+      "moduleCount": 4,
+      "captures": 111,
+      "schemas": 20,
+      "configuredAtomReads": 32,
+      "limits": [],
+      "mappings": [],
+      "arrays": [],
+      "resources": [],
+      "inputConnections": [],
+      "projectedAudioCables": [
+        {
+          "sourceId": "220830",
+          "sourceOwner": {
+            "moduleIndex": 0,
+            "moduleName": "Sine",
+            "typeUuid": "ca05aebd-ecaf-4d57-b0f6-c04ce81674c4",
+            "atomIndex": 2,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "221183",
+          "destinationOwner": {
+            "moduleIndex": 1,
+            "moduleName": "Amplify",
+            "typeUuid": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2",
+            "atomIndex": 3,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "221169",
+          "sourceOwner": {
+            "moduleIndex": 1,
+            "moduleName": "Amplify",
+            "typeUuid": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "221255",
+          "destinationOwner": {
+            "moduleIndex": 2,
+            "moduleName": "Audio Out",
+            "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6",
+            "atomIndex": 0,
+            "className": "audio_destination_atom"
+          }
+        }
+      ],
+      "control": {
+        "storedValuesMatch": 95,
+        "audioCablesMatch": 2,
+        "moduleAndAtomMembershipMatch": true
+      }
+    },
+    {
+      "source": "context/evidence/data/phase9b-focused/live-v15-v2/preset-1-focused-summary.json",
+      "preset": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+      "flavour": "Poly Grid",
+      "moduleCount": 19,
+      "captures": 621,
+      "schemas": 32,
+      "configuredAtomReads": 180,
+      "limits": [],
+      "mappings": [
+        {
+          "mappingId": "229831",
+          "sourceId": "229820",
+          "sourceOwner": null,
+          "destinationReference": "229832",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": 0.30000000000000004,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": false,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "229825",
+          "sourceId": "229820",
+          "sourceOwner": null,
+          "destinationReference": "229826",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": 0.31000000000000005,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": false,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "229827",
+          "sourceId": "229820",
+          "sourceOwner": null,
+          "destinationReference": "229828",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": 0.3000000000000001,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": false,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "229615",
+          "sourceId": "229610",
+          "sourceOwner": null,
+          "destinationReference": "229616",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": -1.0000000000000002,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": false,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "229829",
+          "sourceId": "229820",
+          "sourceOwner": null,
+          "destinationReference": "229830",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": 0.30000000000000004,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": false,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "229747",
+          "sourceId": "229742",
+          "sourceOwner": null,
+          "destinationReference": "229748",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": -3.999999999999985,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": false,
+          "targetListsMapping": false
+        }
+      ],
+      "arrays": [
+        {
+          "managedId": "227139",
+          "owner": {
+            "moduleIndex": 9,
+            "moduleName": "Gates",
+            "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635",
+            "atomIndex": 5,
+            "className": "data_array_component"
+          },
+          "size": 64,
+          "values": [
+            1,
+            0.5201321840286255,
+            0.07500000298023224,
+            0.6492387652397156,
+            1,
+            0,
+            1,
+            0.45883414149284363,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "resources": [],
+      "inputConnections": [
+        {
+          "destinationId": "225211",
+          "destinationOwner": {
+            "moduleIndex": 1,
+            "moduleName": "ADSR",
+            "typeUuid": "7e09068b-fee5-457e-afe4-7017661ebbd3",
+            "atomIndex": 7,
+            "className": "modulation_source_atom"
+          },
+          "inputIndex": 0,
+          "connectionId": "225215",
+          "sourceIds": [
+            "225158"
+          ],
+          "sourceOwners": [
+            {
+              "moduleIndex": 1,
+              "moduleName": "ADSR",
+              "typeUuid": "7e09068b-fee5-457e-afe4-7017661ebbd3",
+              "atomIndex": 6,
+              "className": "nitro_atom"
+            }
+          ],
+          "sourcePort": "3"
+        },
+        {
+          "destinationId": "228466",
+          "destinationOwner": {
+            "moduleIndex": 14,
+            "moduleName": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+            "atomIndex": 13,
+            "className": "modulation_source_atom"
+          },
+          "inputIndex": 0,
+          "connectionId": "228470",
+          "sourceIds": [
+            "228483"
+          ],
+          "sourceOwners": [
+            {
+              "moduleIndex": 14,
+              "moduleName": "LFO",
+              "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+              "atomIndex": 16,
+              "className": "nitro_atom"
+            }
+          ],
+          "sourcePort": "1"
+        }
+      ],
+      "projectedAudioCables": [
+        {
+          "sourceId": "228322",
+          "sourceOwner": {
+            "moduleIndex": 14,
+            "moduleName": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "224784",
+          "destinationOwner": {
+            "moduleIndex": 0,
+            "moduleName": "Wavetable",
+            "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+            "atomIndex": 20,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "227037",
+          "sourceOwner": {
+            "moduleIndex": 8,
+            "moduleName": "AND",
+            "typeUuid": "1e330c79-9a6f-4015-8dfa-da507c1bb15a",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "225153",
+          "destinationOwner": {
+            "moduleIndex": 1,
+            "moduleName": "ADSR",
+            "typeUuid": "7e09068b-fee5-457e-afe4-7017661ebbd3",
+            "atomIndex": 5,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "227404",
+          "sourceOwner": {
+            "moduleIndex": 11,
+            "moduleName": "Merge",
+            "typeUuid": "c10b5ffa-0d10-4005-ad49-a39253ee26eb",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "225233",
+          "destinationOwner": {
+            "moduleIndex": 1,
+            "moduleName": "ADSR",
+            "typeUuid": "7e09068b-fee5-457e-afe4-7017661ebbd3",
+            "atomIndex": 10,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "225689",
+          "sourceOwner": {
+            "moduleIndex": 3,
+            "moduleName": "Attenuate",
+            "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "225519",
+          "destinationOwner": {
+            "moduleIndex": 2,
+            "moduleName": "Audio Out",
+            "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6",
+            "atomIndex": 0,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "225238",
+          "sourceOwner": {
+            "moduleIndex": 1,
+            "moduleName": "ADSR",
+            "typeUuid": "7e09068b-fee5-457e-afe4-7017661ebbd3",
+            "atomIndex": 11,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "225703",
+          "destinationOwner": {
+            "moduleIndex": 3,
+            "moduleName": "Attenuate",
+            "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508",
+            "atomIndex": 3,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "228322",
+          "sourceOwner": {
+            "moduleIndex": 14,
+            "moduleName": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "225968",
+          "destinationOwner": {
+            "moduleIndex": 4,
+            "moduleName": "Wavetable",
+            "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+            "atomIndex": 20,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "228322",
+          "sourceOwner": {
+            "moduleIndex": 14,
+            "moduleName": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "226492",
+          "destinationOwner": {
+            "moduleIndex": 5,
+            "moduleName": "Wavetable",
+            "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+            "atomIndex": 20,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "227084",
+          "sourceOwner": {
+            "moduleIndex": 9,
+            "moduleName": "Gates",
+            "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "227042",
+          "destinationOwner": {
+            "moduleIndex": 8,
+            "moduleName": "AND",
+            "typeUuid": "1e330c79-9a6f-4015-8dfa-da507c1bb15a",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "226979",
+          "sourceOwner": {
+            "moduleIndex": 7,
+            "moduleName": "Gate In",
+            "typeUuid": "4e00fda6-20f6-45a9-9d7e-02867cf09b82",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "227047",
+          "destinationOwner": {
+            "moduleIndex": 8,
+            "moduleName": "AND",
+            "typeUuid": "1e330c79-9a6f-4015-8dfa-da507c1bb15a",
+            "atomIndex": 2,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "227329",
+          "sourceOwner": {
+            "moduleIndex": 10,
+            "moduleName": "\u00d8 Reset",
+            "typeUuid": "d04bb748-5f66-4a4a-85d8-d3402c982e22",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "227089",
+          "destinationOwner": {
+            "moduleIndex": 9,
+            "moduleName": "Gates",
+            "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "226823",
+          "sourceOwner": {
+            "moduleIndex": 6,
+            "moduleName": "Transport",
+            "typeUuid": "997869ea-e649-4ac8-865e-bd4ac9e7b2a2",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "227350",
+          "destinationOwner": {
+            "moduleIndex": 10,
+            "moduleName": "\u00d8 Reset",
+            "typeUuid": "d04bb748-5f66-4a4a-85d8-d3402c982e22",
+            "atomIndex": 3,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "227689",
+          "sourceOwner": {
+            "moduleIndex": 12,
+            "moduleName": "\u00d8 Counter",
+            "typeUuid": "f9b5157c-0a41-403c-810b-9bbf9a133110",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "227477",
+          "destinationOwner": {
+            "moduleIndex": 11,
+            "moduleName": "Merge",
+            "typeUuid": "c10b5ffa-0d10-4005-ad49-a39253ee26eb",
+            "atomIndex": 3,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "228826",
+          "sourceOwner": {
+            "moduleIndex": 15,
+            "moduleName": "Pan",
+            "typeUuid": "43600afd-7226-4408-bbb6-b7b9cc2a6cee",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "227482",
+          "destinationOwner": {
+            "moduleIndex": 11,
+            "moduleName": "Merge",
+            "typeUuid": "c10b5ffa-0d10-4005-ad49-a39253ee26eb",
+            "atomIndex": 4,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "228905",
+          "sourceOwner": {
+            "moduleIndex": 16,
+            "moduleName": "Pan",
+            "typeUuid": "43600afd-7226-4408-bbb6-b7b9cc2a6cee",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "227487",
+          "destinationOwner": {
+            "moduleIndex": 11,
+            "moduleName": "Merge",
+            "typeUuid": "c10b5ffa-0d10-4005-ad49-a39253ee26eb",
+            "atomIndex": 5,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "228984",
+          "sourceOwner": {
+            "moduleIndex": 17,
+            "moduleName": "Pan",
+            "typeUuid": "43600afd-7226-4408-bbb6-b7b9cc2a6cee",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "227492",
+          "destinationOwner": {
+            "moduleIndex": 11,
+            "moduleName": "Merge",
+            "typeUuid": "c10b5ffa-0d10-4005-ad49-a39253ee26eb",
+            "atomIndex": 6,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "229063",
+          "sourceOwner": {
+            "moduleIndex": 18,
+            "moduleName": "Pan",
+            "typeUuid": "43600afd-7226-4408-bbb6-b7b9cc2a6cee",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "227497",
+          "destinationOwner": {
+            "moduleIndex": 11,
+            "moduleName": "Merge",
+            "typeUuid": "c10b5ffa-0d10-4005-ad49-a39253ee26eb",
+            "atomIndex": 7,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "227084",
+          "sourceOwner": {
+            "moduleIndex": 9,
+            "moduleName": "Gates",
+            "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "227718",
+          "destinationOwner": {
+            "moduleIndex": 12,
+            "moduleName": "\u00d8 Counter",
+            "typeUuid": "f9b5157c-0a41-403c-810b-9bbf9a133110",
+            "atomIndex": 3,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "228322",
+          "sourceOwner": {
+            "moduleIndex": 14,
+            "moduleName": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "227974",
+          "destinationOwner": {
+            "moduleIndex": 13,
+            "moduleName": "Wavetable",
+            "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+            "atomIndex": 20,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "224620",
+          "sourceOwner": {
+            "moduleIndex": 0,
+            "moduleName": "Wavetable",
+            "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+            "atomIndex": 2,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "228831",
+          "destinationOwner": {
+            "moduleIndex": 15,
+            "moduleName": "Pan",
+            "typeUuid": "43600afd-7226-4408-bbb6-b7b9cc2a6cee",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "225804",
+          "sourceOwner": {
+            "moduleIndex": 4,
+            "moduleName": "Wavetable",
+            "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+            "atomIndex": 2,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "228910",
+          "destinationOwner": {
+            "moduleIndex": 16,
+            "moduleName": "Pan",
+            "typeUuid": "43600afd-7226-4408-bbb6-b7b9cc2a6cee",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "226328",
+          "sourceOwner": {
+            "moduleIndex": 5,
+            "moduleName": "Wavetable",
+            "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+            "atomIndex": 2,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "228989",
+          "destinationOwner": {
+            "moduleIndex": 17,
+            "moduleName": "Pan",
+            "typeUuid": "43600afd-7226-4408-bbb6-b7b9cc2a6cee",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "227810",
+          "sourceOwner": {
+            "moduleIndex": 13,
+            "moduleName": "Wavetable",
+            "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+            "atomIndex": 2,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "229068",
+          "destinationOwner": {
+            "moduleIndex": 18,
+            "moduleName": "Pan",
+            "typeUuid": "43600afd-7226-4408-bbb6-b7b9cc2a6cee",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        }
+      ]
+    },
+    {
+      "source": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-summary.json",
+      "preset": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+      "flavour": "FX Grid",
+      "moduleCount": 31,
+      "captures": 750,
+      "schemas": 29,
+      "configuredAtomReads": 179,
+      "limits": [],
+      "mappings": [
+        {
+          "mappingId": "234932",
+          "sourceId": "234927",
+          "sourceOwner": {
+            "moduleIndex": 28,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "234933",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": 1,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "232964",
+          "sourceId": "232959",
+          "sourceOwner": {
+            "moduleIndex": 14,
+            "moduleName": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+            "atomIndex": 13,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "232965",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": 0.018800000000000063,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "232966",
+          "sourceId": "232959",
+          "sourceOwner": {
+            "moduleIndex": 14,
+            "moduleName": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+            "atomIndex": 13,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "232967",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": -0.12442500000000017,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "235711",
+          "sourceId": "235706",
+          "sourceOwner": null,
+          "destinationReference": "235712",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": 1,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": false,
+          "targetListsMapping": false
+        }
+      ],
+      "arrays": [],
+      "resources": [],
+      "inputConnections": [
+        {
+          "destinationId": "234927",
+          "destinationOwner": {
+            "moduleIndex": 28,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "inputIndex": 0,
+          "connectionId": "234931",
+          "sourceIds": [
+            "234935"
+          ],
+          "sourceOwners": [
+            {
+              "moduleIndex": 28,
+              "moduleName": "Modulator Out",
+              "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+              "atomIndex": 2,
+              "className": "nitro_atom"
+            }
+          ],
+          "sourcePort": "0"
+        },
+        {
+          "destinationId": "232007",
+          "destinationOwner": {
+            "moduleIndex": 9,
+            "moduleName": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+            "atomIndex": 13,
+            "className": "modulation_source_atom"
+          },
+          "inputIndex": 0,
+          "connectionId": "232011",
+          "sourceIds": [
+            "232024"
+          ],
+          "sourceOwners": [
+            {
+              "moduleIndex": 9,
+              "moduleName": "LFO",
+              "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+              "atomIndex": 16,
+              "className": "nitro_atom"
+            }
+          ],
+          "sourcePort": "1"
+        },
+        {
+          "destinationId": "232959",
+          "destinationOwner": {
+            "moduleIndex": 14,
+            "moduleName": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+            "atomIndex": 13,
+            "className": "modulation_source_atom"
+          },
+          "inputIndex": 0,
+          "connectionId": "232963",
+          "sourceIds": [
+            "232980"
+          ],
+          "sourceOwners": [
+            {
+              "moduleIndex": 14,
+              "moduleName": "LFO",
+              "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+              "atomIndex": 16,
+              "className": "nitro_atom"
+            }
+          ],
+          "sourcePort": "1"
+        },
+        {
+          "destinationId": "233557",
+          "destinationOwner": {
+            "moduleIndex": 16,
+            "moduleName": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+            "atomIndex": 13,
+            "className": "modulation_source_atom"
+          },
+          "inputIndex": 0,
+          "connectionId": "233561",
+          "sourceIds": [
+            "233574"
+          ],
+          "sourceOwners": [
+            {
+              "moduleIndex": 16,
+              "moduleName": "LFO",
+              "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+              "atomIndex": 16,
+              "className": "nitro_atom"
+            }
+          ],
+          "sourcePort": "1"
+        }
+      ],
+      "projectedAudioCables": [
+        {
+          "sourceId": "233991",
+          "sourceOwner": {
+            "moduleIndex": 18,
+            "moduleName": "VU Meter",
+            "typeUuid": "08d55d78-9240-43b9-9fe3-acde57ac1e60",
+            "atomIndex": 3,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "230591",
+          "destinationOwner": {
+            "moduleIndex": 1,
+            "moduleName": "Audio Out",
+            "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6",
+            "atomIndex": 0,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "231196",
+          "sourceOwner": {
+            "moduleIndex": 5,
+            "moduleName": "Value",
+            "typeUuid": "1faa5baf-6cdf-406a-b0e4-89b67501d982",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "230834",
+          "destinationOwner": {
+            "moduleIndex": 2,
+            "moduleName": "Merge",
+            "typeUuid": "c10b5ffa-0d10-4005-ad49-a39253ee26eb",
+            "atomIndex": 3,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "230561",
+          "sourceOwner": {
+            "moduleIndex": 0,
+            "moduleName": "Audio In",
+            "typeUuid": "b2a6b111-7afd-4c95-b380-6de8125af980",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "230839",
+          "destinationOwner": {
+            "moduleIndex": 2,
+            "moduleName": "Merge",
+            "typeUuid": "c10b5ffa-0d10-4005-ad49-a39253ee26eb",
+            "atomIndex": 4,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "234735",
+          "sourceOwner": {
+            "moduleIndex": 26,
+            "moduleName": "Blend",
+            "typeUuid": "0f2a027d-2bc3-4789-8a56-4d079a7e6137",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "230844",
+          "destinationOwner": {
+            "moduleIndex": 2,
+            "moduleName": "Merge",
+            "typeUuid": "c10b5ffa-0d10-4005-ad49-a39253ee26eb",
+            "atomIndex": 5,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "234483",
+          "sourceOwner": {
+            "moduleIndex": 22,
+            "moduleName": "Gain - Vol",
+            "typeUuid": "b1296326-cbf0-4797-9fc6-e2a6f2ce4a78",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "230849",
+          "destinationOwner": {
+            "moduleIndex": 2,
+            "moduleName": "Merge",
+            "typeUuid": "c10b5ffa-0d10-4005-ad49-a39253ee26eb",
+            "atomIndex": 6,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "234535",
+          "sourceOwner": {
+            "moduleIndex": 23,
+            "moduleName": "Gain - Vol",
+            "typeUuid": "b1296326-cbf0-4797-9fc6-e2a6f2ce4a78",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "230854",
+          "destinationOwner": {
+            "moduleIndex": 2,
+            "moduleName": "Merge",
+            "typeUuid": "c10b5ffa-0d10-4005-ad49-a39253ee26eb",
+            "atomIndex": 7,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "234587",
+          "sourceOwner": {
+            "moduleIndex": 24,
+            "moduleName": "Attenuate",
+            "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "230859",
+          "destinationOwner": {
+            "moduleIndex": 2,
+            "moduleName": "Merge",
+            "typeUuid": "c10b5ffa-0d10-4005-ad49-a39253ee26eb",
+            "atomIndex": 8,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "233917",
+          "sourceOwner": {
+            "moduleIndex": 17,
+            "moduleName": "Gain - Vol",
+            "typeUuid": "b1296326-cbf0-4797-9fc6-e2a6f2ce4a78",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "230864",
+          "destinationOwner": {
+            "moduleIndex": 2,
+            "moduleName": "Merge",
+            "typeUuid": "c10b5ffa-0d10-4005-ad49-a39253ee26eb",
+            "atomIndex": 9,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "230561",
+          "sourceOwner": {
+            "moduleIndex": 0,
+            "moduleName": "Audio In",
+            "typeUuid": "b2a6b111-7afd-4c95-b380-6de8125af980",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "231051",
+          "destinationOwner": {
+            "moduleIndex": 3,
+            "moduleName": "Quantize",
+            "typeUuid": "c1f45a63-edde-4c38-b588-efbd4c1e35ec",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "231103",
+          "sourceOwner": {
+            "moduleIndex": 4,
+            "moduleName": "Value",
+            "typeUuid": "1faa5baf-6cdf-406a-b0e4-89b67501d982",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "231056",
+          "destinationOwner": {
+            "moduleIndex": 3,
+            "moduleName": "Quantize",
+            "typeUuid": "c1f45a63-edde-4c38-b588-efbd4c1e35ec",
+            "atomIndex": 2,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "230561",
+          "sourceOwner": {
+            "moduleIndex": 0,
+            "moduleName": "Audio In",
+            "typeUuid": "b2a6b111-7afd-4c95-b380-6de8125af980",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "231294",
+          "destinationOwner": {
+            "moduleIndex": 6,
+            "moduleName": "Distortion",
+            "typeUuid": "6e8f9374-3393-4531-9f7e-571d0033ea94",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "231289",
+          "sourceOwner": {
+            "moduleIndex": 6,
+            "moduleName": "Distortion",
+            "typeUuid": "6e8f9374-3393-4531-9f7e-571d0033ea94",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "231406",
+          "destinationOwner": {
+            "moduleIndex": 7,
+            "moduleName": "Chebyshev",
+            "typeUuid": "0b9d73b3-796f-4cc0-b7af-d59e19df2827",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "230561",
+          "sourceOwner": {
+            "moduleIndex": 0,
+            "moduleName": "Audio In",
+            "typeUuid": "b2a6b111-7afd-4c95-b380-6de8125af980",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "231522",
+          "destinationOwner": {
+            "moduleIndex": 8,
+            "moduleName": "Mod Delay",
+            "typeUuid": "a8d565fa-fcf5-4ede-bea9-90999f6e8406",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "231863",
+          "sourceOwner": {
+            "moduleIndex": 9,
+            "moduleName": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "231586",
+          "destinationOwner": {
+            "moduleIndex": 8,
+            "moduleName": "Mod Delay",
+            "typeUuid": "a8d565fa-fcf5-4ede-bea9-90999f6e8406",
+            "atomIndex": 8,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "232665",
+          "sourceOwner": {
+            "moduleIndex": 12,
+            "moduleName": "Add",
+            "typeUuid": "57a6f72c-db9d-4a96-bc4b-d6a2bb8b656a",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "232372",
+          "destinationOwner": {
+            "moduleIndex": 10,
+            "moduleName": "All-pass Delay",
+            "typeUuid": "f435652c-2fd7-4edd-8b7a-ee97b0fd43a5",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "234587",
+          "sourceOwner": {
+            "moduleIndex": 24,
+            "moduleName": "Attenuate",
+            "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "232434",
+          "destinationOwner": {
+            "moduleIndex": 11,
+            "moduleName": "Long Delay",
+            "typeUuid": "f601a44c-8dcb-4ee7-9f2a-ce02ff07948e",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "231289",
+          "sourceOwner": {
+            "moduleIndex": 6,
+            "moduleName": "Distortion",
+            "typeUuid": "6e8f9374-3393-4531-9f7e-571d0033ea94",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "232670",
+          "destinationOwner": {
+            "moduleIndex": 12,
+            "moduleName": "Add",
+            "typeUuid": "57a6f72c-db9d-4a96-bc4b-d6a2bb8b656a",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "232712",
+          "sourceOwner": {
+            "moduleIndex": 13,
+            "moduleName": "Attenuate",
+            "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "232675",
+          "destinationOwner": {
+            "moduleIndex": 12,
+            "moduleName": "Add",
+            "typeUuid": "57a6f72c-db9d-4a96-bc4b-d6a2bb8b656a",
+            "atomIndex": 2,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "232429",
+          "sourceOwner": {
+            "moduleIndex": 11,
+            "moduleName": "Long Delay",
+            "typeUuid": "f601a44c-8dcb-4ee7-9f2a-ce02ff07948e",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "232726",
+          "destinationOwner": {
+            "moduleIndex": 13,
+            "moduleName": "Attenuate",
+            "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508",
+            "atomIndex": 3,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "231046",
+          "sourceOwner": {
+            "moduleIndex": 3,
+            "moduleName": "Quantize",
+            "typeUuid": "c1f45a63-edde-4c38-b588-efbd4c1e35ec",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "233329",
+          "destinationOwner": {
+            "moduleIndex": 15,
+            "moduleName": "Low-pass",
+            "typeUuid": "9747205f-2450-42da-89be-200b149b967b",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "235073",
+          "sourceOwner": {
+            "moduleIndex": 30,
+            "moduleName": "Transport Playing",
+            "typeUuid": "9714df20-f4ea-4017-a874-4ccb554dd86e",
+            "atomIndex": 2,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "233423",
+          "destinationOwner": {
+            "moduleIndex": 16,
+            "moduleName": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+            "atomIndex": 2,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "233334",
+          "sourceOwner": {
+            "moduleIndex": 15,
+            "moduleName": "Low-pass",
+            "typeUuid": "9747205f-2450-42da-89be-200b149b967b",
+            "atomIndex": 2,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "233922",
+          "destinationOwner": {
+            "moduleIndex": 17,
+            "moduleName": "Gain - Vol",
+            "typeUuid": "b1296326-cbf0-4797-9fc6-e2a6f2ce4a78",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "230761",
+          "sourceOwner": {
+            "moduleIndex": 2,
+            "moduleName": "Merge",
+            "typeUuid": "c10b5ffa-0d10-4005-ad49-a39253ee26eb",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "233969",
+          "destinationOwner": {
+            "moduleIndex": 18,
+            "moduleName": "VU Meter",
+            "typeUuid": "08d55d78-9240-43b9-9fe3-acde57ac1e60",
+            "atomIndex": 0,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "231517",
+          "sourceOwner": {
+            "moduleIndex": 8,
+            "moduleName": "Mod Delay",
+            "typeUuid": "a8d565fa-fcf5-4ede-bea9-90999f6e8406",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "234043",
+          "destinationOwner": {
+            "moduleIndex": 19,
+            "moduleName": "Attenuate",
+            "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508",
+            "atomIndex": 3,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "230561",
+          "sourceOwner": {
+            "moduleIndex": 0,
+            "moduleName": "Audio In",
+            "typeUuid": "b2a6b111-7afd-4c95-b380-6de8125af980",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "234120",
+          "destinationOwner": {
+            "moduleIndex": 20,
+            "moduleName": "Dry/Wet",
+            "typeUuid": "0f2a027d-2bc3-4789-8a56-4d079a7e6137",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "234281",
+          "sourceOwner": {
+            "moduleIndex": 21,
+            "moduleName": "SVF",
+            "typeUuid": "2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f",
+            "atomIndex": 3,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "234142",
+          "destinationOwner": {
+            "moduleIndex": 20,
+            "moduleName": "Dry/Wet",
+            "typeUuid": "0f2a027d-2bc3-4789-8a56-4d079a7e6137",
+            "atomIndex": 3,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "234029",
+          "sourceOwner": {
+            "moduleIndex": 19,
+            "moduleName": "Attenuate",
+            "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "234276",
+          "destinationOwner": {
+            "moduleIndex": 21,
+            "moduleName": "SVF",
+            "typeUuid": "2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f",
+            "atomIndex": 2,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "231401",
+          "sourceOwner": {
+            "moduleIndex": 7,
+            "moduleName": "Chebyshev",
+            "typeUuid": "0b9d73b3-796f-4cc0-b7af-d59e19df2827",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "234488",
+          "destinationOwner": {
+            "moduleIndex": 22,
+            "moduleName": "Gain - Vol",
+            "typeUuid": "b1296326-cbf0-4797-9fc6-e2a6f2ce4a78",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "234115",
+          "sourceOwner": {
+            "moduleIndex": 20,
+            "moduleName": "Dry/Wet",
+            "typeUuid": "0f2a027d-2bc3-4789-8a56-4d079a7e6137",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "234540",
+          "destinationOwner": {
+            "moduleIndex": 23,
+            "moduleName": "Gain - Vol",
+            "typeUuid": "b1296326-cbf0-4797-9fc6-e2a6f2ce4a78",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "232367",
+          "sourceOwner": {
+            "moduleIndex": 10,
+            "moduleName": "All-pass Delay",
+            "typeUuid": "f435652c-2fd7-4edd-8b7a-ee97b0fd43a5",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "234601",
+          "destinationOwner": {
+            "moduleIndex": 24,
+            "moduleName": "Attenuate",
+            "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508",
+            "atomIndex": 3,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "231289",
+          "sourceOwner": {
+            "moduleIndex": 6,
+            "moduleName": "Distortion",
+            "typeUuid": "6e8f9374-3393-4531-9f7e-571d0033ea94",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "234678",
+          "destinationOwner": {
+            "moduleIndex": 25,
+            "moduleName": "All-pass Delay",
+            "typeUuid": "f435652c-2fd7-4edd-8b7a-ee97b0fd43a5",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "234871",
+          "sourceOwner": {
+            "moduleIndex": 27,
+            "moduleName": "\u00d8 Mirror",
+            "typeUuid": "de0334b8-93bd-463e-824b-dea397e90354",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "234740",
+          "destinationOwner": {
+            "moduleIndex": 26,
+            "moduleName": "Blend",
+            "typeUuid": "0f2a027d-2bc3-4789-8a56-4d079a7e6137",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "231289",
+          "sourceOwner": {
+            "moduleIndex": 6,
+            "moduleName": "Distortion",
+            "typeUuid": "6e8f9374-3393-4531-9f7e-571d0033ea94",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "234762",
+          "destinationOwner": {
+            "moduleIndex": 26,
+            "moduleName": "Blend",
+            "typeUuid": "0f2a027d-2bc3-4789-8a56-4d079a7e6137",
+            "atomIndex": 3,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "234673",
+          "sourceOwner": {
+            "moduleIndex": 25,
+            "moduleName": "All-pass Delay",
+            "typeUuid": "f435652c-2fd7-4edd-8b7a-ee97b0fd43a5",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "234876",
+          "destinationOwner": {
+            "moduleIndex": 27,
+            "moduleName": "\u00d8 Mirror",
+            "typeUuid": "de0334b8-93bd-463e-824b-dea397e90354",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "234960",
+          "sourceOwner": {
+            "moduleIndex": 29,
+            "moduleName": "Attenuate",
+            "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "234922",
+          "destinationOwner": {
+            "moduleIndex": 28,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 0,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "233413",
+          "sourceOwner": {
+            "moduleIndex": 16,
+            "moduleName": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "234974",
+          "destinationOwner": {
+            "moduleIndex": 29,
+            "moduleName": "Attenuate",
+            "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508",
+            "atomIndex": 3,
+            "className": "audio_destination_atom"
+          }
+        }
+      ]
+    },
+    {
+      "source": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json",
+      "preset": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+      "flavour": "Poly Grid",
+      "moduleCount": 50,
+      "captures": 669,
+      "schemas": 30,
+      "configuredAtomReads": 63,
+      "limits": [],
+      "mappings": [
+        {
+          "mappingId": "245262",
+          "sourceId": "245257",
+          "sourceOwner": null,
+          "destinationReference": "245263",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": 0.15499999999999983,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": false,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "246075",
+          "sourceId": "246068",
+          "sourceOwner": null,
+          "destinationReference": "246076",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": -0.06000000000000005,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": false,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "246453",
+          "sourceId": "246448",
+          "sourceOwner": null,
+          "destinationReference": "246454",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": 0.9600000000000009,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": false,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "240781",
+          "sourceId": "240776",
+          "sourceOwner": {
+            "moduleIndex": 13,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "240782",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": 129,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "240783",
+          "sourceId": "240776",
+          "sourceOwner": {
+            "moduleIndex": 13,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "240784",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": 129,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "240785",
+          "sourceId": "240776",
+          "sourceOwner": {
+            "moduleIndex": 13,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "240786",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": 129,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "241106",
+          "sourceId": "241101",
+          "sourceOwner": {
+            "moduleIndex": 15,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "241107",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": 0.11999999999999973,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "241108",
+          "sourceId": "241101",
+          "sourceOwner": {
+            "moduleIndex": 15,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "241109",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": 0.1399999999999994,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "241110",
+          "sourceId": "241101",
+          "sourceOwner": {
+            "moduleIndex": 15,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "241111",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": 0.13999999999999913,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "243357",
+          "sourceId": "243352",
+          "sourceOwner": {
+            "moduleIndex": 32,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "243358",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": 129,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "243129",
+          "sourceId": "243124",
+          "sourceOwner": {
+            "moduleIndex": 29,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "243130",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": 0.9800000000000002,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "243131",
+          "sourceId": "243124",
+          "sourceOwner": {
+            "moduleIndex": 29,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "243132",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": 1.0300000000000005,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "243133",
+          "sourceId": "243124",
+          "sourceOwner": {
+            "moduleIndex": 29,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "243134",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": 1.0100000000000005,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "243529",
+          "sourceId": "243524",
+          "sourceOwner": {
+            "moduleIndex": 35,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "243530",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": 1,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "246812",
+          "sourceId": "246807",
+          "sourceOwner": null,
+          "destinationReference": "246813",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": 0.21499999999999997,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": false,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "243359",
+          "sourceId": "243352",
+          "sourceOwner": {
+            "moduleIndex": 32,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "243360",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": 129,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "243361",
+          "sourceId": "243352",
+          "sourceOwner": {
+            "moduleIndex": 32,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "243362",
+          "targetIds": [],
+          "targetOwners": [],
+          "amount": 129,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": false
+        }
+      ],
+      "arrays": [
+        {
+          "managedId": "241193",
+          "owner": {
+            "moduleIndex": 16,
+            "moduleName": "Gates",
+            "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635",
+            "atomIndex": 5,
+            "className": "data_array_component"
+          },
+          "size": 64,
+          "values": [
+            1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            1,
+            1,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "resources": [],
+      "inputConnections": [
+        {
+          "destinationId": "240776",
+          "destinationOwner": {
+            "moduleIndex": 13,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "inputIndex": 0,
+          "connectionId": "240780",
+          "sourceIds": [
+            "240788"
+          ],
+          "sourceOwners": [
+            {
+              "moduleIndex": 13,
+              "moduleName": "Modulator Out",
+              "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+              "atomIndex": 2,
+              "className": "nitro_atom"
+            }
+          ],
+          "sourcePort": "0"
+        },
+        {
+          "destinationId": "241101",
+          "destinationOwner": {
+            "moduleIndex": 15,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "inputIndex": 0,
+          "connectionId": "241105",
+          "sourceIds": [
+            "241113"
+          ],
+          "sourceOwners": [
+            {
+              "moduleIndex": 15,
+              "moduleName": "Modulator Out",
+              "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+              "atomIndex": 2,
+              "className": "nitro_atom"
+            }
+          ],
+          "sourcePort": "0"
+        },
+        {
+          "destinationId": "243352",
+          "destinationOwner": {
+            "moduleIndex": 32,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "inputIndex": 0,
+          "connectionId": "243356",
+          "sourceIds": [
+            "243364"
+          ],
+          "sourceOwners": [
+            {
+              "moduleIndex": 32,
+              "moduleName": "Modulator Out",
+              "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+              "atomIndex": 2,
+              "className": "nitro_atom"
+            }
+          ],
+          "sourcePort": "0"
+        },
+        {
+          "destinationId": "243124",
+          "destinationOwner": {
+            "moduleIndex": 29,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "inputIndex": 0,
+          "connectionId": "243128",
+          "sourceIds": [
+            "243136"
+          ],
+          "sourceOwners": [
+            {
+              "moduleIndex": 29,
+              "moduleName": "Modulator Out",
+              "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+              "atomIndex": 2,
+              "className": "nitro_atom"
+            }
+          ],
+          "sourcePort": "0"
+        },
+        {
+          "destinationId": "243524",
+          "destinationOwner": {
+            "moduleIndex": 35,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "inputIndex": 0,
+          "connectionId": "243528",
+          "sourceIds": [
+            "243532"
+          ],
+          "sourceOwners": [
+            {
+              "moduleIndex": 35,
+              "moduleName": "Modulator Out",
+              "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+              "atomIndex": 2,
+              "className": "nitro_atom"
+            }
+          ],
+          "sourcePort": "0"
+        }
+      ],
+      "projectedAudioCables": [
+        {
+          "sourceId": "238290",
+          "sourceOwner": {
+            "moduleIndex": 5,
+            "moduleName": "Attenuate",
+            "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "239428",
+          "destinationOwner": {
+            "moduleIndex": 9,
+            "moduleName": "Pulse",
+            "typeUuid": "10c3be1f-ceb4-4bbc-bf35-af11285e58e0",
+            "atomIndex": 3,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "243861",
+          "sourceOwner": {
+            "moduleIndex": 40,
+            "moduleName": "Attenuate",
+            "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "240154",
+          "destinationOwner": {
+            "moduleIndex": 11,
+            "moduleName": "Sawtooth",
+            "typeUuid": "4ae6d37a-5412-4691-aa8b-261e94e60c59",
+            "atomIndex": 3,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "241818",
+          "sourceOwner": {
+            "moduleIndex": 20,
+            "moduleName": "Multiply",
+            "typeUuid": "4a945068-35ff-469f-bc17-fda5d32b7baa",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "240771",
+          "destinationOwner": {
+            "moduleIndex": 13,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 0,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "241865",
+          "sourceOwner": {
+            "moduleIndex": 21,
+            "moduleName": "Multiply",
+            "typeUuid": "4a945068-35ff-469f-bc17-fda5d32b7baa",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "241096",
+          "destinationOwner": {
+            "moduleIndex": 15,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 0,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "238461",
+          "sourceOwner": {
+            "moduleIndex": 7,
+            "moduleName": "Mixer",
+            "typeUuid": "839e96da-cda4-45ce-b5a1-e0a40a176968",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "242070",
+          "destinationOwner": {
+            "moduleIndex": 24,
+            "moduleName": "Lowpass",
+            "typeUuid": "2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f",
+            "atomIndex": 2,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "243161",
+          "sourceOwner": {
+            "moduleIndex": 30,
+            "moduleName": "Mst Reso",
+            "typeUuid": "1faa5baf-6cdf-406a-b0e4-89b67501d982",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "243119",
+          "destinationOwner": {
+            "moduleIndex": 29,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 0,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "243254",
+          "sourceOwner": {
+            "moduleIndex": 31,
+            "moduleName": "Mst Cutoff",
+            "typeUuid": "1faa5baf-6cdf-406a-b0e4-89b67501d982",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "243347",
+          "destinationOwner": {
+            "moduleIndex": 32,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 0,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "243557",
+          "sourceOwner": {
+            "moduleIndex": 36,
+            "moduleName": "Multiply",
+            "typeUuid": "4a945068-35ff-469f-bc17-fda5d32b7baa",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "243519",
+          "destinationOwner": {
+            "moduleIndex": 35,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 0,
+            "className": "audio_destination_atom"
+          }
+        }
+      ]
+    },
+    {
+      "source": "context/evidence/data/phase9b-focused/live-v15-v3/preset-0-focused-summary.json",
+      "preset": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+      "flavour": "Poly Grid",
+      "moduleCount": 19,
+      "captures": 406,
+      "schemas": 32,
+      "configuredAtomReads": 91,
+      "limits": [],
+      "mappings": [
+        {
+          "mappingId": "263983",
+          "sourceId": "263972",
+          "sourceOwner": null,
+          "destinationReference": "263984",
+          "targetIds": [
+            "258941"
+          ],
+          "targetOwners": [
+            {
+              "moduleIndex": 0,
+              "moduleName": "Wavetable",
+              "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+              "atomIndex": 21,
+              "className": "decimal_value_atom"
+            }
+          ],
+          "amount": 0.30000000000000004,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": false,
+          "targetListsMapping": true
+        },
+        {
+          "mappingId": "263977",
+          "sourceId": "263972",
+          "sourceOwner": null,
+          "destinationReference": "263978",
+          "targetIds": [
+            "260125"
+          ],
+          "targetOwners": [
+            {
+              "moduleIndex": 4,
+              "moduleName": "Wavetable",
+              "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+              "atomIndex": 21,
+              "className": "decimal_value_atom"
+            }
+          ],
+          "amount": 0.31000000000000005,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": false,
+          "targetListsMapping": true
+        },
+        {
+          "mappingId": "263979",
+          "sourceId": "263972",
+          "sourceOwner": null,
+          "destinationReference": "263980",
+          "targetIds": [
+            "260649"
+          ],
+          "targetOwners": [
+            {
+              "moduleIndex": 5,
+              "moduleName": "Wavetable",
+              "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+              "atomIndex": 21,
+              "className": "decimal_value_atom"
+            }
+          ],
+          "amount": 0.3000000000000001,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": false,
+          "targetListsMapping": true
+        },
+        {
+          "mappingId": "263981",
+          "sourceId": "263972",
+          "sourceOwner": null,
+          "destinationReference": "263982",
+          "targetIds": [
+            "262131"
+          ],
+          "targetOwners": [
+            {
+              "moduleIndex": 13,
+              "moduleName": "Wavetable",
+              "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+              "atomIndex": 21,
+              "className": "decimal_value_atom"
+            }
+          ],
+          "amount": 0.30000000000000004,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": false,
+          "targetListsMapping": true
+        }
+      ],
+      "arrays": [
+        {
+          "managedId": "261291",
+          "owner": {
+            "moduleIndex": 9,
+            "moduleName": "Gates",
+            "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635",
+            "atomIndex": 5,
+            "className": "data_array_component"
+          },
+          "size": 64,
+          "values": [
+            1,
+            0.5201321840286255,
+            0.07500000298023224,
+            0.6492387652397156,
+            1,
+            0,
+            1,
+            0.45883414149284363,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "resources": [],
+      "inputConnections": [],
+      "projectedAudioCables": [
+        {
+          "sourceId": "262474",
+          "sourceOwner": {
+            "moduleIndex": 14,
+            "moduleName": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "258936",
+          "destinationOwner": {
+            "moduleIndex": 0,
+            "moduleName": "Wavetable",
+            "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+            "atomIndex": 20,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "262474",
+          "sourceOwner": {
+            "moduleIndex": 14,
+            "moduleName": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "260120",
+          "destinationOwner": {
+            "moduleIndex": 4,
+            "moduleName": "Wavetable",
+            "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+            "atomIndex": 20,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "262474",
+          "sourceOwner": {
+            "moduleIndex": 14,
+            "moduleName": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "260644",
+          "destinationOwner": {
+            "moduleIndex": 5,
+            "moduleName": "Wavetable",
+            "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+            "atomIndex": 20,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "261481",
+          "sourceOwner": {
+            "moduleIndex": 10,
+            "moduleName": "\u00d8 Reset",
+            "typeUuid": "d04bb748-5f66-4a4a-85d8-d3402c982e22",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "261241",
+          "destinationOwner": {
+            "moduleIndex": 9,
+            "moduleName": "Gates",
+            "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "262474",
+          "sourceOwner": {
+            "moduleIndex": 14,
+            "moduleName": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "262126",
+          "destinationOwner": {
+            "moduleIndex": 13,
+            "moduleName": "Wavetable",
+            "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+            "atomIndex": 20,
+            "className": "audio_destination_atom"
+          }
+        }
+      ]
+    },
+    {
+      "source": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json",
+      "preset": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+      "flavour": "Poly Grid",
+      "moduleCount": 50,
+      "captures": 669,
+      "schemas": 30,
+      "configuredAtomReads": 63,
+      "limits": [],
+      "mappings": [
+        {
+          "mappingId": "273502",
+          "sourceId": "273497",
+          "sourceOwner": null,
+          "destinationReference": "273503",
+          "targetIds": [
+            "267657"
+          ],
+          "targetOwners": [
+            {
+              "moduleIndex": 9,
+              "moduleName": "Pulse",
+              "typeUuid": "10c3be1f-ceb4-4bbc-bf35-af11285e58e0",
+              "atomIndex": 1,
+              "className": "decimal_value_atom"
+            }
+          ],
+          "amount": 0.15499999999999983,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": false,
+          "targetListsMapping": true
+        },
+        {
+          "mappingId": "274315",
+          "sourceId": "274308",
+          "sourceOwner": null,
+          "destinationReference": "274316",
+          "targetIds": [
+            "268377"
+          ],
+          "targetOwners": [
+            {
+              "moduleIndex": 11,
+              "moduleName": "Sawtooth",
+              "typeUuid": "4ae6d37a-5412-4691-aa8b-261e94e60c59",
+              "atomIndex": 0,
+              "className": "decimal_value_atom"
+            }
+          ],
+          "amount": -0.06000000000000005,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": false,
+          "targetListsMapping": true
+        },
+        {
+          "mappingId": "274693",
+          "sourceId": "274688",
+          "sourceOwner": null,
+          "destinationReference": "274694",
+          "targetIds": [
+            "268377"
+          ],
+          "targetOwners": [
+            {
+              "moduleIndex": 11,
+              "moduleName": "Sawtooth",
+              "typeUuid": "4ae6d37a-5412-4691-aa8b-261e94e60c59",
+              "atomIndex": 0,
+              "className": "decimal_value_atom"
+            }
+          ],
+          "amount": 0.9600000000000009,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": false,
+          "targetListsMapping": true
+        },
+        {
+          "mappingId": "269021",
+          "sourceId": "269016",
+          "sourceOwner": {
+            "moduleIndex": 13,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "269022",
+          "targetIds": [
+            "270298"
+          ],
+          "targetOwners": [
+            {
+              "moduleIndex": 24,
+              "moduleName": "Lowpass",
+              "typeUuid": "2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f",
+              "atomIndex": 0,
+              "className": "decimal_value_atom"
+            }
+          ],
+          "amount": 129,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": true
+        },
+        {
+          "mappingId": "269023",
+          "sourceId": "269016",
+          "sourceOwner": {
+            "moduleIndex": 13,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "269024",
+          "targetIds": [
+            "270530"
+          ],
+          "targetOwners": [
+            {
+              "moduleIndex": 25,
+              "moduleName": "Bandpass",
+              "typeUuid": "2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f",
+              "atomIndex": 0,
+              "className": "decimal_value_atom"
+            }
+          ],
+          "amount": 129,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "269025",
+          "sourceId": "269016",
+          "sourceOwner": {
+            "moduleIndex": 13,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "269026",
+          "targetIds": [
+            "270762"
+          ],
+          "targetOwners": [
+            {
+              "moduleIndex": 26,
+              "moduleName": "Highpass",
+              "typeUuid": "2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f",
+              "atomIndex": 0,
+              "className": "decimal_value_atom"
+            }
+          ],
+          "amount": 129,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "269346",
+          "sourceId": "269341",
+          "sourceOwner": {
+            "moduleIndex": 15,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "269347",
+          "targetIds": [
+            "270304"
+          ],
+          "targetOwners": [
+            {
+              "moduleIndex": 24,
+              "moduleName": "Lowpass",
+              "typeUuid": "2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f",
+              "atomIndex": 1,
+              "className": "decimal_value_atom"
+            }
+          ],
+          "amount": 0.11999999999999973,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": true
+        },
+        {
+          "mappingId": "269348",
+          "sourceId": "269341",
+          "sourceOwner": {
+            "moduleIndex": 15,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "269349",
+          "targetIds": [
+            "270536"
+          ],
+          "targetOwners": [
+            {
+              "moduleIndex": 25,
+              "moduleName": "Bandpass",
+              "typeUuid": "2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f",
+              "atomIndex": 1,
+              "className": "decimal_value_atom"
+            }
+          ],
+          "amount": 0.1399999999999994,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "269350",
+          "sourceId": "269341",
+          "sourceOwner": {
+            "moduleIndex": 15,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "269351",
+          "targetIds": [
+            "270768"
+          ],
+          "targetOwners": [
+            {
+              "moduleIndex": 26,
+              "moduleName": "Highpass",
+              "typeUuid": "2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f",
+              "atomIndex": 1,
+              "className": "decimal_value_atom"
+            }
+          ],
+          "amount": 0.13999999999999913,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "271597",
+          "sourceId": "271592",
+          "sourceOwner": {
+            "moduleIndex": 32,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "271598",
+          "targetIds": [
+            "270298"
+          ],
+          "targetOwners": [
+            {
+              "moduleIndex": 24,
+              "moduleName": "Lowpass",
+              "typeUuid": "2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f",
+              "atomIndex": 0,
+              "className": "decimal_value_atom"
+            }
+          ],
+          "amount": 129,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": true
+        },
+        {
+          "mappingId": "271369",
+          "sourceId": "271364",
+          "sourceOwner": {
+            "moduleIndex": 29,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "271370",
+          "targetIds": [
+            "270304"
+          ],
+          "targetOwners": [
+            {
+              "moduleIndex": 24,
+              "moduleName": "Lowpass",
+              "typeUuid": "2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f",
+              "atomIndex": 1,
+              "className": "decimal_value_atom"
+            }
+          ],
+          "amount": 0.9800000000000002,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": true
+        },
+        {
+          "mappingId": "271371",
+          "sourceId": "271364",
+          "sourceOwner": {
+            "moduleIndex": 29,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "271372",
+          "targetIds": [
+            "270536"
+          ],
+          "targetOwners": [
+            {
+              "moduleIndex": 25,
+              "moduleName": "Bandpass",
+              "typeUuid": "2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f",
+              "atomIndex": 1,
+              "className": "decimal_value_atom"
+            }
+          ],
+          "amount": 1.0300000000000005,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "271373",
+          "sourceId": "271364",
+          "sourceOwner": {
+            "moduleIndex": 29,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "271374",
+          "targetIds": [
+            "270768"
+          ],
+          "targetOwners": [
+            {
+              "moduleIndex": 26,
+              "moduleName": "Highpass",
+              "typeUuid": "2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f",
+              "atomIndex": 1,
+              "className": "decimal_value_atom"
+            }
+          ],
+          "amount": 1.0100000000000005,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "271769",
+          "sourceId": "271764",
+          "sourceOwner": {
+            "moduleIndex": 35,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "271770",
+          "targetIds": [
+            "271499"
+          ],
+          "targetOwners": [
+            {
+              "moduleIndex": 31,
+              "moduleName": "Mst Cutoff",
+              "typeUuid": "1faa5baf-6cdf-406a-b0e4-89b67501d982",
+              "atomIndex": 1,
+              "className": "bipolar_toggleable_decimal_value_atom"
+            }
+          ],
+          "amount": 1,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": true
+        },
+        {
+          "mappingId": "275052",
+          "sourceId": "275047",
+          "sourceOwner": null,
+          "destinationReference": "275053",
+          "targetIds": [
+            "271499"
+          ],
+          "targetOwners": [
+            {
+              "moduleIndex": 31,
+              "moduleName": "Mst Cutoff",
+              "typeUuid": "1faa5baf-6cdf-406a-b0e4-89b67501d982",
+              "atomIndex": 1,
+              "className": "bipolar_toggleable_decimal_value_atom"
+            }
+          ],
+          "amount": 0.21499999999999997,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": false,
+          "targetListsMapping": true
+        },
+        {
+          "mappingId": "271599",
+          "sourceId": "271592",
+          "sourceOwner": {
+            "moduleIndex": 32,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "271600",
+          "targetIds": [
+            "270530"
+          ],
+          "targetOwners": [
+            {
+              "moduleIndex": 25,
+              "moduleName": "Bandpass",
+              "typeUuid": "2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f",
+              "atomIndex": 0,
+              "className": "decimal_value_atom"
+            }
+          ],
+          "amount": 129,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": false
+        },
+        {
+          "mappingId": "271601",
+          "sourceId": "271592",
+          "sourceOwner": {
+            "moduleIndex": 32,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "destinationReference": "271602",
+          "targetIds": [
+            "270762"
+          ],
+          "targetOwners": [
+            {
+              "moduleIndex": 26,
+              "moduleName": "Highpass",
+              "typeUuid": "2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f",
+              "atomIndex": 0,
+              "className": "decimal_value_atom"
+            }
+          ],
+          "amount": 129,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": true,
+          "targetListsMapping": false
+        }
+      ],
+      "arrays": [
+        {
+          "managedId": "269433",
+          "owner": {
+            "moduleIndex": 16,
+            "moduleName": "Gates",
+            "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635",
+            "atomIndex": 5,
+            "className": "data_array_component"
+          },
+          "size": 64,
+          "values": [
+            1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            1,
+            1,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "resources": [],
+      "inputConnections": [
+        {
+          "destinationId": "269016",
+          "destinationOwner": {
+            "moduleIndex": 13,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "inputIndex": 0,
+          "connectionId": "269020",
+          "sourceIds": [
+            "269028"
+          ],
+          "sourceOwners": [
+            {
+              "moduleIndex": 13,
+              "moduleName": "Modulator Out",
+              "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+              "atomIndex": 2,
+              "className": "nitro_atom"
+            }
+          ],
+          "sourcePort": "0"
+        },
+        {
+          "destinationId": "269341",
+          "destinationOwner": {
+            "moduleIndex": 15,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "inputIndex": 0,
+          "connectionId": "269345",
+          "sourceIds": [
+            "269353"
+          ],
+          "sourceOwners": [
+            {
+              "moduleIndex": 15,
+              "moduleName": "Modulator Out",
+              "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+              "atomIndex": 2,
+              "className": "nitro_atom"
+            }
+          ],
+          "sourcePort": "0"
+        },
+        {
+          "destinationId": "271592",
+          "destinationOwner": {
+            "moduleIndex": 32,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "inputIndex": 0,
+          "connectionId": "271596",
+          "sourceIds": [
+            "271604"
+          ],
+          "sourceOwners": [
+            {
+              "moduleIndex": 32,
+              "moduleName": "Modulator Out",
+              "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+              "atomIndex": 2,
+              "className": "nitro_atom"
+            }
+          ],
+          "sourcePort": "0"
+        },
+        {
+          "destinationId": "271364",
+          "destinationOwner": {
+            "moduleIndex": 29,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "inputIndex": 0,
+          "connectionId": "271368",
+          "sourceIds": [
+            "271376"
+          ],
+          "sourceOwners": [
+            {
+              "moduleIndex": 29,
+              "moduleName": "Modulator Out",
+              "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+              "atomIndex": 2,
+              "className": "nitro_atom"
+            }
+          ],
+          "sourcePort": "0"
+        },
+        {
+          "destinationId": "271764",
+          "destinationOwner": {
+            "moduleIndex": 35,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 1,
+            "className": "modulation_source_atom"
+          },
+          "inputIndex": 0,
+          "connectionId": "271768",
+          "sourceIds": [
+            "271772"
+          ],
+          "sourceOwners": [
+            {
+              "moduleIndex": 35,
+              "moduleName": "Modulator Out",
+              "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+              "atomIndex": 2,
+              "className": "nitro_atom"
+            }
+          ],
+          "sourcePort": "0"
+        }
+      ],
+      "projectedAudioCables": [
+        {
+          "sourceId": "266530",
+          "sourceOwner": {
+            "moduleIndex": 5,
+            "moduleName": "Attenuate",
+            "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "267668",
+          "destinationOwner": {
+            "moduleIndex": 9,
+            "moduleName": "Pulse",
+            "typeUuid": "10c3be1f-ceb4-4bbc-bf35-af11285e58e0",
+            "atomIndex": 3,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "272101",
+          "sourceOwner": {
+            "moduleIndex": 40,
+            "moduleName": "Attenuate",
+            "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "268394",
+          "destinationOwner": {
+            "moduleIndex": 11,
+            "moduleName": "Sawtooth",
+            "typeUuid": "4ae6d37a-5412-4691-aa8b-261e94e60c59",
+            "atomIndex": 3,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "270058",
+          "sourceOwner": {
+            "moduleIndex": 20,
+            "moduleName": "Multiply",
+            "typeUuid": "4a945068-35ff-469f-bc17-fda5d32b7baa",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "269011",
+          "destinationOwner": {
+            "moduleIndex": 13,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 0,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "270105",
+          "sourceOwner": {
+            "moduleIndex": 21,
+            "moduleName": "Multiply",
+            "typeUuid": "4a945068-35ff-469f-bc17-fda5d32b7baa",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "269336",
+          "destinationOwner": {
+            "moduleIndex": 15,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 0,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "266701",
+          "sourceOwner": {
+            "moduleIndex": 7,
+            "moduleName": "Mixer",
+            "typeUuid": "839e96da-cda4-45ce-b5a1-e0a40a176968",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "270310",
+          "destinationOwner": {
+            "moduleIndex": 24,
+            "moduleName": "Lowpass",
+            "typeUuid": "2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f",
+            "atomIndex": 2,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "271401",
+          "sourceOwner": {
+            "moduleIndex": 30,
+            "moduleName": "Mst Reso",
+            "typeUuid": "1faa5baf-6cdf-406a-b0e4-89b67501d982",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "271359",
+          "destinationOwner": {
+            "moduleIndex": 29,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 0,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "271494",
+          "sourceOwner": {
+            "moduleIndex": 31,
+            "moduleName": "Mst Cutoff",
+            "typeUuid": "1faa5baf-6cdf-406a-b0e4-89b67501d982",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "271587",
+          "destinationOwner": {
+            "moduleIndex": 32,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 0,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "271797",
+          "sourceOwner": {
+            "moduleIndex": 36,
+            "moduleName": "Multiply",
+            "typeUuid": "4a945068-35ff-469f-bc17-fda5d32b7baa",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "271759",
+          "destinationOwner": {
+            "moduleIndex": 35,
+            "moduleName": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+            "atomIndex": 0,
+            "className": "audio_destination_atom"
+          }
+        }
+      ]
+    },
+    {
+      "source": "context/evidence/data/phase9b-focused/live-v15-v4/preset-0-focused-summary.json",
+      "preset": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+      "flavour": "Poly Grid",
+      "moduleCount": 19,
+      "captures": 268,
+      "schemas": 32,
+      "configuredAtomReads": 28,
+      "limits": [],
+      "mappings": [
+        {
+          "mappingId": "282464",
+          "sourceId": "282453",
+          "sourceOwner": null,
+          "destinationReference": "282465",
+          "targetIds": [
+            "277422"
+          ],
+          "targetOwners": [
+            {
+              "moduleIndex": 0,
+              "moduleName": "Wavetable",
+              "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+              "atomIndex": 21,
+              "className": "decimal_value_atom"
+            }
+          ],
+          "amount": 0.30000000000000004,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": false,
+          "targetListsMapping": true
+        }
+      ],
+      "arrays": [
+        {
+          "managedId": "279772",
+          "owner": {
+            "moduleIndex": 9,
+            "moduleName": "Gates",
+            "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635",
+            "atomIndex": 5,
+            "className": "data_array_component"
+          },
+          "size": 64,
+          "values": [
+            1,
+            0.5201321840286255,
+            0.07500000298023224,
+            0.6492387652397156,
+            1,
+            0,
+            1,
+            0.45883414149284363,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "managedId": "275451",
+          "className": "wavetable_reference",
+          "fields": [
+            {
+              "id": 14,
+              "name": "managed_object_ID",
+              "value": {
+                "type": "java.lang.Integer",
+                "data": "275451"
+              }
+            }
+          ]
+        }
+      ],
+      "inputConnections": [],
+      "projectedAudioCables": [
+        {
+          "sourceId": "280955",
+          "sourceOwner": {
+            "moduleIndex": 14,
+            "moduleName": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "277417",
+          "destinationOwner": {
+            "moduleIndex": 0,
+            "moduleName": "Wavetable",
+            "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+            "atomIndex": 20,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "279962",
+          "sourceOwner": {
+            "moduleIndex": 10,
+            "moduleName": "\u00d8 Reset",
+            "typeUuid": "d04bb748-5f66-4a4a-85d8-d3402c982e22",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "279722",
+          "destinationOwner": {
+            "moduleIndex": 9,
+            "moduleName": "Gates",
+            "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        }
+      ]
+    },
+    {
+      "source": "context/evidence/data/phase9b-focused/live-v15-v5/preset-0-focused-summary.json",
+      "preset": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+      "flavour": "Poly Grid",
+      "moduleCount": 19,
+      "captures": 268,
+      "schemas": 32,
+      "configuredAtomReads": 28,
+      "limits": [],
+      "mappings": [
+        {
+          "mappingId": "289817",
+          "sourceId": "289806",
+          "sourceOwner": null,
+          "destinationReference": "289818",
+          "targetIds": [
+            "284775"
+          ],
+          "targetOwners": [
+            {
+              "moduleIndex": 0,
+              "moduleName": "Wavetable",
+              "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+              "atomIndex": 21,
+              "className": "decimal_value_atom"
+            }
+          ],
+          "amount": 0.30000000000000004,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": false,
+          "targetListsMapping": true
+        }
+      ],
+      "arrays": [
+        {
+          "managedId": "287125",
+          "owner": {
+            "moduleIndex": 9,
+            "moduleName": "Gates",
+            "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635",
+            "atomIndex": 5,
+            "className": "data_array_component"
+          },
+          "size": 64,
+          "values": [
+            1,
+            0.5201321840286255,
+            0.07500000298023224,
+            0.6492387652397156,
+            1,
+            0,
+            1,
+            0.45883414149284363,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "managedId": "282804",
+          "className": "wavetable_reference",
+          "fields": [
+            {
+              "id": 14,
+              "name": "managed_object_ID",
+              "value": {
+                "type": "java.lang.Integer",
+                "data": "282804"
+              }
+            },
+            {
+              "id": 4767,
+              "name": "name",
+              "value": {
+                "type": "java.lang.String",
+                "data": "Sine Feedback"
+              }
+            },
+            {
+              "id": 4766,
+              "name": "file_reference",
+              "refs": [
+                "282802"
+              ]
+            },
+            {
+              "id": 4024,
+              "name": "sub_path",
+              "value": {
+                "type": "java.lang.String",
+                "data": ""
+              }
+            },
+            {
+              "id": 11284,
+              "name": "cycle_size",
+              "value": {
+                "type": "java.lang.Integer",
+                "data": "128"
+              }
+            },
+            {
+              "id": 11285,
+              "name": "table_size",
+              "value": {
+                "type": "java.lang.Integer",
+                "data": "32"
+              }
+            }
+          ]
+        },
+        {
+          "managedId": "282802",
+          "className": "file_reference",
+          "fields": [
+            {
+              "id": 14,
+              "name": "managed_object_ID",
+              "value": {
+                "type": "java.lang.Integer",
+                "data": "282802"
+              }
+            }
+          ]
+        }
+      ],
+      "inputConnections": [],
+      "projectedAudioCables": [
+        {
+          "sourceId": "288308",
+          "sourceOwner": {
+            "moduleIndex": 14,
+            "moduleName": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "284770",
+          "destinationOwner": {
+            "moduleIndex": 0,
+            "moduleName": "Wavetable",
+            "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+            "atomIndex": 20,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "287315",
+          "sourceOwner": {
+            "moduleIndex": 10,
+            "moduleName": "\u00d8 Reset",
+            "typeUuid": "d04bb748-5f66-4a4a-85d8-d3402c982e22",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "287075",
+          "destinationOwner": {
+            "moduleIndex": 9,
+            "moduleName": "Gates",
+            "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        }
+      ]
+    },
+    {
+      "source": "context/evidence/data/phase9b-focused/live-v15-v6/preset-0-focused-summary.json",
+      "preset": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+      "flavour": "Poly Grid",
+      "moduleCount": 19,
+      "captures": 267,
+      "schemas": 31,
+      "configuredAtomReads": 28,
+      "limits": [],
+      "mappings": [
+        {
+          "mappingId": "297170",
+          "sourceId": "297159",
+          "sourceOwner": null,
+          "destinationReference": "297171",
+          "targetIds": [
+            "292128"
+          ],
+          "targetOwners": [
+            {
+              "moduleIndex": 0,
+              "moduleName": "Wavetable",
+              "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+              "atomIndex": 21,
+              "className": "decimal_value_atom"
+            }
+          ],
+          "amount": 0.30000000000000004,
+          "enabled": true,
+          "transfer": "LINEAR",
+          "sourceListsMapping": false,
+          "targetListsMapping": true
+        }
+      ],
+      "arrays": [
+        {
+          "managedId": "294478",
+          "owner": {
+            "moduleIndex": 9,
+            "moduleName": "Gates",
+            "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635",
+            "atomIndex": 5,
+            "className": "data_array_component"
+          },
+          "size": 64,
+          "values": [
+            1,
+            0.5201321840286255,
+            0.07500000298023224,
+            0.6492387652397156,
+            1,
+            0,
+            1,
+            0.45883414149284363,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "managedId": "290157",
+          "className": "wavetable_reference",
+          "fields": [
+            {
+              "id": 14,
+              "name": "managed_object_ID",
+              "value": {
+                "type": "java.lang.Integer",
+                "data": "290157"
+              }
+            },
+            {
+              "id": 4767,
+              "name": "name",
+              "value": {
+                "type": "java.lang.String",
+                "data": "Sine Feedback"
+              }
+            },
+            {
+              "id": 4766,
+              "name": "file_reference",
+              "refs": [
+                "290155"
+              ]
+            },
+            {
+              "id": 4024,
+              "name": "sub_path",
+              "value": {
+                "type": "java.lang.String",
+                "data": ""
+              }
+            },
+            {
+              "id": 11284,
+              "name": "cycle_size",
+              "value": {
+                "type": "java.lang.Integer",
+                "data": "128"
+              }
+            },
+            {
+              "id": 11285,
+              "name": "table_size",
+              "value": {
+                "type": "java.lang.Integer",
+                "data": "32"
+              }
+            }
+          ]
+        },
+        {
+          "managedId": "290155",
+          "className": "file_reference",
+          "fields": [
+            {
+              "id": 14,
+              "name": "managed_object_ID",
+              "value": {
+                "type": "java.lang.Integer",
+                "data": "290155"
+              }
+            },
+            {
+              "id": 1298,
+              "name": "name",
+              "value": {
+                "type": "java.lang.String",
+                "data": "Sine Feedback.wt"
+              }
+            },
+            {
+              "id": 3386,
+              "name": "path_in_project",
+              "value": {
+                "type": "java.lang.String",
+                "data": ""
+              }
+            },
+            {
+              "id": 3284,
+              "name": "packaged_file_id_path",
+              "value": {
+                "type": "java.lang.String",
+                "data": "Bitwig/Essentials:13/wavetables/Wavetables/Analog/Sine Feedback.wt"
+              }
+            },
+            {
+              "id": 23,
+              "name": "file_length",
+              "value": {
+                "type": "java.lang.Long",
+                "data": "8204"
+              }
+            },
+            {
+              "id": 24,
+              "name": "local_state",
+              "value": {
+                "type": "LWt",
+                "data": "FOUND"
+              }
+            },
+            {
+              "id": 25,
+              "name": "local_path",
+              "value": {
+                "type": "java.lang.String",
+                "data": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Wavetables/Analog/Sine Feedback.wt"
+              }
+            }
+          ]
+        }
+      ],
+      "inputConnections": [],
+      "projectedAudioCables": [
+        {
+          "sourceId": "295661",
+          "sourceOwner": {
+            "moduleIndex": 14,
+            "moduleName": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "292123",
+          "destinationOwner": {
+            "moduleIndex": 0,
+            "moduleName": "Wavetable",
+            "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+            "atomIndex": 20,
+            "className": "audio_destination_atom"
+          }
+        },
+        {
+          "sourceId": "294668",
+          "sourceOwner": {
+            "moduleIndex": 10,
+            "moduleName": "\u00d8 Reset",
+            "typeUuid": "d04bb748-5f66-4a4a-85d8-d3402c982e22",
+            "atomIndex": 0,
+            "className": "audio_source_atom"
+          },
+          "destinationId": "294428",
+          "destinationOwner": {
+            "moduleIndex": 9,
+            "moduleName": "Gates",
+            "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635",
+            "atomIndex": 1,
+            "className": "audio_destination_atom"
+          }
+        }
+      ]
+    }
+  ],
+  "captureWireMs": {
+    "count": 5154,
+    "min": 37.61437500000011,
+    "median": 47.38037549999717,
+    "max": 58.64837500000067
+  },
+  "documentMs": {
+    "count": 5154,
+    "min": 0.10175,
+    "median": 0.42077050000000005,
+    "max": 3.52175
+  },
+  "heapDeltaMiB": {
+    "count": 5154,
+    "min": 0.0,
+    "median": 0.0,
+    "max": 4.0
+  },
+  "completeQueryWork": {
+    "count": 4108,
+    "min": 197,
+    "median": 226.0,
+    "max": 3874
+  },
+  "finalPreservedBaselineMatches": true,
+  "finalStateMatchesEntry": true,
+  "finalReaderReleased": true,
+  "scope": "Paired explicit fields. Identity-only nodes do not prove resource content or mapping semantics."
+}

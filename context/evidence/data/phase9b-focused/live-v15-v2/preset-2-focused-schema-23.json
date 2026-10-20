@@ -1,0 +1,143 @@
+{
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 5
+    },
+    {
+      "parentClass": "module_grid",
+      "propertyId": 6428,
+      "propertyName": "auxiliary_devices",
+      "index": 11
+    },
+    {
+      "parentClass": "module",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "module_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 3
+    }
+  ],
+  "marker": "9b-grid-focused-v15",
+  "epoch": "1a0ad8cc-068c-430f-894f-f5c659e79769",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "queueNanos": 62667,
+  "heapUsedBefore": 761266176,
+  "schema": {
+    "className": "buffer_reader_atom",
+    "classId": 331,
+    "runtimeClass": "frb",
+    "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 228,
+        "name": "in_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": false,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 229,
+        "name": "out_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": false,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 6194,
+        "name": "settings",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 1,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": false,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 607,
+        "name": "channel_count",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 608,
+        "name": "oversampling",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 732,
+        "name": "mode",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 733,
+        "name": "buffer",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 1,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": false,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 9822,
+        "name": "time_is_scalar",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 852,
+        "name": "interpolation_mode",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 10557,
+        "name": "oversample",
+        "serializerIncluded": true,
+        "relationship": false
+      }
+    ],
+    "work": 204,
+    "complete": true
+  },
+  "queryWork": 204,
+  "heapUsedAfter": 761266176,
+  "documentTaskNanos": 243416,
+  "completionNanos": 26013708
+}

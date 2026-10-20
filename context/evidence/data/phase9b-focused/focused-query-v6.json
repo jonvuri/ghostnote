@@ -1,0 +1,157 @@
+{
+  "mode": "focused",
+  "projection": {
+    "audio_source_atom": [
+      14,
+      3639,
+      3640,
+      6194
+    ],
+    "audio_destination_atom": [
+      14,
+      7123,
+      7124,
+      7125,
+      7234
+    ],
+    "decimal_value_atom": [
+      14,
+      701,
+      374,
+      712,
+      3615
+    ],
+    "bipolar_toggleable_decimal_value_atom": [
+      14,
+      701,
+      374,
+      712,
+      6406,
+      3615
+    ],
+    "boolean_value_atom": [
+      14,
+      701,
+      374,
+      210,
+      3615
+    ],
+    "button_boolean_value_atom": [
+      14,
+      701,
+      374,
+      210,
+      3615
+    ],
+    "integer_value_atom": [
+      14,
+      701,
+      374,
+      828,
+      3615
+    ],
+    "indexed_value_atom": [
+      14,
+      701,
+      374,
+      457,
+      6928,
+      3615
+    ],
+    "boolean_panel_value": [
+      14,
+      6387,
+      6386
+    ],
+    "string_panel_value": [
+      14,
+      6387,
+      6391
+    ],
+    "modulation_source_atom": [
+      14,
+      3639,
+      3640,
+      3616,
+      11497,
+      6194
+    ],
+    "nameable_modulation_source_atom": [
+      14,
+      3639,
+      3640,
+      3616,
+      11497,
+      6194
+    ],
+    "component_settings": [
+      14,
+      614
+    ],
+    "inport_connection": [
+      14,
+      248,
+      249,
+      250,
+      6443
+    ],
+    "data_array_component": [
+      14,
+      6614,
+      6609,
+      6613
+    ],
+    "wavetable_oscillator_atom": [
+      14,
+      11163,
+      11161,
+      11162
+    ],
+    "device_modulation_mapping": [
+      14,
+      3635,
+      3739,
+      3611,
+      11481,
+      11338,
+      3638,
+      11503,
+      11509,
+      11913
+    ],
+    "device_atom_reference": [
+      14,
+      65,
+      4923,
+      4922,
+      4924,
+      4913,
+      4914
+    ],
+    "wavetable_resource": [
+      14,
+      11287
+    ],
+    "wavetable_reference_handle": [
+      14,
+      1204
+    ],
+    "wavetable_reference": [
+      14,
+      4767,
+      4766,
+      4024,
+      11284,
+      11285
+    ],
+    "file_reference": [
+      14,
+      1298,
+      3386,
+      3284,
+      23,
+      24,
+      25
+    ]
+  }
+}

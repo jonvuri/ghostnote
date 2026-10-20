@@ -1,0 +1,275 @@
+{
+  "project": {
+    "revision": 52,
+    "generation": "1bf74da5-5679-45b5-ac55-82cd759de44c",
+    "project": "gn-grid-spike",
+    "projectStatus": "marked",
+    "sceneEpoch": 2,
+    "sceneCount": 8,
+    "contentEpoch": 32768,
+    "unpinnedCursorTracks": [],
+    "contentEvents": [
+      {
+        "seq": 32745,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 104,
+        "filled": false
+      },
+      {
+        "seq": 32746,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 105,
+        "filled": false
+      },
+      {
+        "seq": 32747,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 106,
+        "filled": false
+      },
+      {
+        "seq": 32748,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 107,
+        "filled": false
+      },
+      {
+        "seq": 32749,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 108,
+        "filled": false
+      },
+      {
+        "seq": 32750,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 109,
+        "filled": false
+      },
+      {
+        "seq": 32751,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 110,
+        "filled": false
+      },
+      {
+        "seq": 32752,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 111,
+        "filled": false
+      },
+      {
+        "seq": 32753,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 112,
+        "filled": false
+      },
+      {
+        "seq": 32754,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 113,
+        "filled": false
+      },
+      {
+        "seq": 32755,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 114,
+        "filled": false
+      },
+      {
+        "seq": 32756,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 115,
+        "filled": false
+      },
+      {
+        "seq": 32757,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 116,
+        "filled": false
+      },
+      {
+        "seq": 32758,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 117,
+        "filled": false
+      },
+      {
+        "seq": 32759,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 118,
+        "filled": false
+      },
+      {
+        "seq": 32760,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 119,
+        "filled": false
+      },
+      {
+        "seq": 32761,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 120,
+        "filled": false
+      },
+      {
+        "seq": 32762,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 121,
+        "filled": false
+      },
+      {
+        "seq": 32763,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 122,
+        "filled": false
+      },
+      {
+        "seq": 32764,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 123,
+        "filled": false
+      },
+      {
+        "seq": 32765,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 124,
+        "filled": false
+      },
+      {
+        "seq": 32766,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 125,
+        "filled": false
+      },
+      {
+        "seq": 32767,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 126,
+        "filled": false
+      },
+      {
+        "seq": 32768,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 127,
+        "filled": false
+      }
+    ]
+  },
+  "tracks": {
+    "tracks": [
+      {
+        "index": 0,
+        "name": "grid-probe",
+        "position": 0,
+        "type": "Instrument",
+        "channelId": "c784d25c-b753-47ca-af8d-c83d11cfd990"
+      },
+      {
+        "index": 1,
+        "name": "FX 1",
+        "position": 1,
+        "type": "Effect",
+        "channelId": "0c4835e2-1769-4ecc-9d03-cf0226bcb5a4"
+      },
+      {
+        "index": 2,
+        "name": "Master",
+        "position": 2,
+        "type": "Master",
+        "channelId": "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f"
+      }
+    ],
+    "count": 3,
+    "itemCount": 3,
+    "bankSize": 256
+  },
+  "selection": {
+    "trackIndex": -1,
+    "slotIndex": -1,
+    "mixerTrackIndex": 0,
+    "mixerChannelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+    "changes": 0,
+    "revision": 27,
+    "slotProject": "",
+    "mixerProject": "gn-grid-spike",
+    "project": "gn-grid-spike"
+  },
+  "mixer": {
+    "tracks": [
+      {
+        "trackIndex": 0,
+        "channelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "matches": true,
+        "type": "Instrument",
+        "volumeRaw": 0.6812920690579614,
+        "volumeNormalized": 0.5407418735600996,
+        "volumeDisplayed": "-10.0 dB",
+        "volumeAutomated": false,
+        "panRaw": 0,
+        "panAutomated": false,
+        "mute": true,
+        "solo": false
+      },
+      {
+        "trackIndex": 1,
+        "channelId": "0c4835e2-1769-4ecc-9d03-cf0226bcb5a4",
+        "matches": true,
+        "type": "Effect",
+        "volumeRaw": 1,
+        "volumeNormalized": 0.7937005259840999,
+        "volumeDisplayed": "0.0 dB",
+        "volumeAutomated": false,
+        "panRaw": 0,
+        "panAutomated": false,
+        "mute": false,
+        "solo": false
+      },
+      {
+        "trackIndex": 2,
+        "channelId": "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f",
+        "matches": true,
+        "type": "Master",
+        "volumeRaw": 1,
+        "volumeNormalized": 0.7937005259840999,
+        "volumeDisplayed": "0.0 dB",
+        "volumeAutomated": false,
+        "panRaw": 0,
+        "panAutomated": false,
+        "mute": false,
+        "solo": false
+      }
+    ]
+  },
+  "survey": {
+    "bound": false,
+    "busy": false,
+    "locked": false,
+    "nativeUnfinished": false,
+    "marker": "9b-grid-focused-v15",
+    "foreignOwner": false
+  }
+}

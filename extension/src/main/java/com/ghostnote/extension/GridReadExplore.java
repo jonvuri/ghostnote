@@ -6,6 +6,23 @@ import java.util.*;
 
 /** Bounded descriptor discovery and explicit field projections. See E275. */
 public final class GridReadExplore {
+    /** Null selection keeps the legacy schema behavior. */
+    public record Headers(Set<Integer> fields, int limit) {
+        public static Headers parse(JsonObject params) {
+            if (!params.has("schemaHeaders")) return null;
+            JsonObject input = params.getAsJsonObject("schemaHeaders");
+            if (!input.keySet().equals(Set.of("fields", "limit")))
+                throw new IllegalArgumentException("schema-header-keys");
+            JsonArray values = input.getAsJsonArray("fields");
+            if (values.size() > 64) throw new IllegalArgumentException("schema-header-field-limit");
+            Set<Integer> fields = new LinkedHashSet<>();
+            for (JsonElement value : values)
+                if (!fields.add(Query.integer(value))) throw new IllegalArgumentException("duplicate-schema-header-field");
+            int limit = Query.integer(input.get("limit"));
+            if (limit > GridGraphRead.MAX_ARRAY) throw new IllegalArgumentException("schema-header-limit");
+            return new Headers(Set.copyOf(fields), limit);
+        }
+    }
     public record Step(String parentClass, int propertyId, String propertyName, int index) {}
     public record Query(List<Step> path, Map<String, Set<Integer>> projection) {
         public static Query parse(JsonObject params) {
@@ -105,11 +122,19 @@ public final class GridReadExplore {
         return result;
     }
     public JsonObject schema(Object object) throws Exception {
+        return schema(object, null);
+    }
+    public JsonObject schema(Object object, Headers selection) throws Exception {
         JsonObject result = header(object);
-        result.addProperty("scope", "one-object schema and child headers; no scalar values or semantic gate");
+        result.addProperty("scope", selection == null
+            ? "one-object schema and child headers; no scalar values or semantic gate"
+            : "all property descriptors and counts; only requested child headers; no scalar values");
         JsonArray fields = new JsonArray();
         result.add("properties", fields);
         int bytes = 4096;
+        int remaining = selection == null ? 0 : selection.limit();
+        boolean complete = true;
+        Set<Integer> found = new HashSet<>();
         for (Object property : properties(object)) {
             step();
             JsonObject field = new JsonObject();
@@ -121,22 +146,35 @@ public final class GridReadExplore {
             field.addProperty("relationship", reader.relationship(property));
             if (reader.relationship(property)) {
                 int count = reader.childCount(property, object);
-                if (count < 0 || count > GridGraphRead.MAX_ARRAY) throw new IllegalStateException("schema-child-limit");
+                if (count < 0 || selection == null && count > GridGraphRead.MAX_ARRAY)
+                    throw new IllegalStateException("schema-child-limit");
+                boolean requested = selection == null || selection.fields().contains(reader.id(property));
+                if (selection != null && requested && !found.add(reader.id(property)))
+                    throw new IllegalStateException("ambiguous-schema-header-field");
+                int returned = selection == null ? count : requested ? Math.min(count, remaining) : 0;
                 field.addProperty("count", count);
+                field.addProperty("headersRequested", requested);
+                field.addProperty("returnedCount", returned);
+                field.addProperty("childrenComplete", returned == count);
+                field.addProperty("truncated", requested && returned < count);
+                if (requested && returned < count) complete = false;
                 JsonArray children = new JsonArray();
-                for (int i = 0; i < count; i++) {
+                for (int i = 0; i < returned; i++) {
                     Object child = reader.child(property, object, i);
                     if (child == null) throw new IllegalStateException("schema-null-child");
                     JsonObject item = header(child); item.addProperty("index", i); children.add(item);
                 }
                 field.add("children", children);
+                if (selection != null) remaining -= returned;
             }
             bytes += field.toString().getBytes(StandardCharsets.UTF_8).length + 16;
             if (bytes > GridGraphRead.MAX_BYTES) throw new IllegalStateException("schema-byte-limit");
             fields.add(field);
         }
+        if (selection != null && !found.equals(selection.fields()))
+            throw new IllegalStateException("missing-or-scalar-schema-header-field");
         result.addProperty("work", work);
-        result.addProperty("complete", true);
+        result.addProperty("complete", complete);
         return result;
     }
 

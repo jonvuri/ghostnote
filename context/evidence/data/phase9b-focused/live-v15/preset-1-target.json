@@ -1,0 +1,29 @@
+{
+  "candidate": {
+    "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+    "flavour": "Poly Grid",
+    "role": "Poly route refusal in E302",
+    "loaded": false
+  },
+  "target": {
+    "project": "gn-grid-spike",
+    "trackId": "3b28e172-12ad-47a3-a577-6adb477c7ddc",
+    "trackName": "gn-9b-survey-6627a874",
+    "deviceIndex": 0,
+    "deviceName": "Poly Grid"
+  },
+  "devices": {
+    "devices": [
+      {
+        "index": 0,
+        "name": "Poly Grid",
+        "enabled": true
+      }
+    ],
+    "count": 1,
+    "itemCount": 1,
+    "trackChannelId": "3b28e172-12ad-47a3-a577-6adb477c7ddc",
+    "trackPosition": 1,
+    "bankSize": 16
+  }
+}

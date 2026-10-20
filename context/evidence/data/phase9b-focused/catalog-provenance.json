@@ -1,0 +1,948 @@
+{
+  "evidence": "E303",
+  "observationEvidence": "E302",
+  "scope": "Offline regrouping of E302 observations. No new live reads. Names are editable; filename matches are lexical only.",
+  "types": [
+    {
+      "typeUuid": "06c1eac9-4d64-4748-8d52-8bf18324d1e7",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Note In",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+          ],
+          "filenameMatch": "Note In.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "08d55d78-9240-43b9-9fe3-acde57ac1e60",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "VU Meter",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+          ],
+          "filenameMatch": "VU Meter.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Modulator Out",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+          ],
+          "filenameMatch": "Modulator Out.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "0b9d73b3-796f-4cc0-b7af-d59e19df2827",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Chebyshev",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+          ],
+          "filenameMatch": "Chebyshev.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "0f2a027d-2bc3-4789-8a56-4d079a7e6137",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Blend",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+          ],
+          "filenameMatch": "Blend.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        },
+        {
+          "observedName": "Dry/Wet",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+          ],
+          "filenameMatch": null,
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        },
+        {
+          "observedName": "Steppy",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset"
+          ],
+          "filenameMatch": null,
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Wavetable",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset"
+          ],
+          "filenameMatch": "Wavetable.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "1e330c79-9a6f-4015-8dfa-da507c1bb15a",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "AND",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset"
+          ],
+          "filenameMatch": "AND.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "1faa5baf-6cdf-406a-b0e4-89b67501d982",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Value",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+          ],
+          "filenameMatch": "Value.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "SVF",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+          ],
+          "filenameMatch": "SVF.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "43600afd-7226-4408-bbb6-b7b9cc2a6cee",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Pan",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset"
+          ],
+          "filenameMatch": "Pan.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "44da1c7d-5fef-4d7a-9b1c-739324a59a97",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Phase-1",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset"
+          ],
+          "filenameMatch": "Phase-1.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "4e00fda6-20f6-45a9-9d7e-02867cf09b82",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Gate In",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset"
+          ],
+          "filenameMatch": "Gate In.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "57a6f72c-db9d-4a96-bc4b-d6a2bb8b656a",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Add",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+          ],
+          "filenameMatch": "Add.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "5b414321-7adb-4210-ab26-d2367a8b5d56",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Sum",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+          ],
+          "filenameMatch": "Sum.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "5b7ab937-4f09-41fc-a379-983fb597b2ff",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "AD",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset"
+          ],
+          "filenameMatch": "AD.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "6e8f9374-3393-4531-9f7e-571d0033ea94",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Distortion",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+          ],
+          "filenameMatch": "Distortion.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "70baf51d-271c-43c3-b2de-c98fc48f326d",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Note Out",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+          ],
+          "filenameMatch": "Note Out.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "7e09068b-fee5-457e-afe4-7017661ebbd3",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "ADSR",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset"
+          ],
+          "filenameMatch": "ADSR.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "8214fd6c-5131-49d2-a9a6-709760a46b82",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Sample / Hold",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+          ],
+          "filenameMatch": null,
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "839e96da-cda4-45ce-b5a1-e0a40a176968",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Mixer",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset"
+          ],
+          "filenameMatch": "Mixer.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "85c173a2-1eb3-4cc1-a19d-84bcb4bde00b",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Octaver",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+          ],
+          "filenameMatch": "Octaver.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "85ca7753-049a-419a-bb37-d8c358b10932",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Low-pass LD",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset"
+          ],
+          "filenameMatch": "Low-pass LD.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "895470df-c2de-417f-9113-8bb6fe948b6d",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Abs",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset"
+          ],
+          "filenameMatch": "Abs.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Gates",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset"
+          ],
+          "filenameMatch": "Gates.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "9714df20-f4ea-4017-a874-4ccb554dd86e",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Transport Playing",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+          ],
+          "filenameMatch": "Transport Playing.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "9747205f-2450-42da-89be-200b149b967b",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Low-pass",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+          ],
+          "filenameMatch": "Low-pass.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "997869ea-e649-4ac8-865e-bd4ac9e7b2a2",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Transport",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+          ],
+          "filenameMatch": "Transport.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "9eaf8e7d-b8f7-4134-85c1-c7c77dd9fe92",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "AR",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset"
+          ],
+          "filenameMatch": "AR.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "a34edcba-25b3-4f07-86b2-81701b092d66",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Stereo Width",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset"
+          ],
+          "filenameMatch": "Stereo Width.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "a4d23895-2761-476b-9aad-cbe372d286ea",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Lag",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset"
+          ],
+          "filenameMatch": "Lag.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Amplify",
+          "presetPaths": [
+            "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+            "E276 control"
+          ],
+          "filenameMatch": "Amplify.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "a8d565fa-fcf5-4ede-bea9-90999f6e8406",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Mod Delay",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+          ],
+          "filenameMatch": "Mod Delay.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "ac6de5ed-c143-4364-9989-3c7d299db380",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Rectifier",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset"
+          ],
+          "filenameMatch": "Rectifier.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Audio Out",
+          "presetPaths": [
+            "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset",
+            "E276 control"
+          ],
+          "filenameMatch": "Audio Out.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "b1296326-cbf0-4797-9fc6-e2a6f2ce4a78",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Gain - Vol",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+          ],
+          "filenameMatch": "Gain - Vol.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        },
+        {
+          "observedName": "ManuScale",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+          ],
+          "filenameMatch": null,
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "b297dabd-144e-4106-b8da-15d08fa6b124",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Comment",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset"
+          ],
+          "filenameMatch": "Comment.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "b2a6b111-7afd-4c95-b380-6de8125af980",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Audio In",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset"
+          ],
+          "filenameMatch": "Audio In.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "b2c6ef93-8a14-4e10-b152-56bcee883e1c",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Gain - dB",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset"
+          ],
+          "filenameMatch": "Gain - dB.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "b3a19e19-da13-491d-b569-16ff5cbb109b",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Crush",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset"
+          ],
+          "filenameMatch": null,
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        },
+        {
+          "observedName": "Long Delay",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset"
+          ],
+          "filenameMatch": "Long Delay.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        },
+        {
+          "observedName": "Reverb",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset"
+          ],
+          "filenameMatch": null,
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        },
+        {
+          "observedName": "Short Delay",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset"
+          ],
+          "filenameMatch": null,
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "LFO",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+          ],
+          "filenameMatch": "LFO.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "c0281e6e-3d55-4e86-8c9b-0ce8cf3db67d",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "AutoArp",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+          ],
+          "filenameMatch": null,
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "c10b5ffa-0d10-4005-ad49-a39253ee26eb",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Merge",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset"
+          ],
+          "filenameMatch": "Merge.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "c1f45a63-edde-4c38-b588-efbd4c1e35ec",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Quantize",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+          ],
+          "filenameMatch": "Quantize.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "c53fda13-4ed0-42fd-b410-19052ca6322d",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Pitch Scaler",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+          ],
+          "filenameMatch": "Pitch Scaler.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "c6923eb3-e161-4eed-8a93-a4554287a77b",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Select In",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+          ],
+          "filenameMatch": "Select In.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "ca05aebd-ecaf-4d57-b0f6-c04ce81674c4",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Sine",
+          "presetPaths": [
+            "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+            "E276 control"
+          ],
+          "filenameMatch": "Sine.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Attenuate",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset"
+          ],
+          "filenameMatch": "Attenuate.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        },
+        {
+          "observedName": "AutoScale",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+          ],
+          "filenameMatch": null,
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        },
+        {
+          "observedName": "Crush",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset"
+          ],
+          "filenameMatch": null,
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "d04bb748-5f66-4a4a-85d8-d3402c982e22",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "\u00d8 Reset",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+          ],
+          "filenameMatch": null,
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "de0334b8-93bd-463e-824b-dea397e90354",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "\u00d8 Mirror",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+          ],
+          "filenameMatch": null,
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "e2e808c8-6b7e-4a00-9563-39e2f44177da",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Delay",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset"
+          ],
+          "filenameMatch": "Delay.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "e75916a0-2594-4181-88a4-b19fdb77c0eb",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Triggers",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset",
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+          ],
+          "filenameMatch": "Triggers.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "f435652c-2fd7-4edd-8b7a-ee97b0fd43a5",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "All-pass Delay",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+          ],
+          "filenameMatch": "All-pass Delay.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "f601a44c-8dcb-4ee7-9f2a-ce02ff07948e",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Long Delay",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+          ],
+          "filenameMatch": "Long Delay.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "f9b5157c-0a41-403c-810b-9bbf9a133110",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "\u00d8 Counter",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset"
+          ],
+          "filenameMatch": null,
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    },
+    {
+      "typeUuid": "faea6af4-72db-42c6-adac-0f74d8ebdbbf",
+      "canonicalName": null,
+      "observedAliases": [
+        {
+          "observedName": "Swarm",
+          "presetPaths": [
+            "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset"
+          ],
+          "filenameMatch": "Swarm.bwmodule",
+          "sourceEvidence": "E302",
+          "sourceCatalog": "context/evidence/data/phase9b-survey/catalog-first-pass.json"
+        }
+      ]
+    }
+  ],
+  "ambiguousNames": [
+    {
+      "observedName": "Crush",
+      "typeUuids": [
+        "b3a19e19-da13-491d-b569-16ff5cbb109b",
+        "cfc56753-defc-4324-8a68-bf747ff45508"
+      ]
+    },
+    {
+      "observedName": "Long Delay",
+      "typeUuids": [
+        "b3a19e19-da13-491d-b569-16ff5cbb109b",
+        "f601a44c-8dcb-4ee7-9f2a-ce02ff07948e"
+      ]
+    }
+  ]
+}

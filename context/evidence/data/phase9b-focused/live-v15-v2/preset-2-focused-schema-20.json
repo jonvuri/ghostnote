@@ -1,0 +1,149 @@
+{
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 5
+    },
+    {
+      "parentClass": "module_grid",
+      "propertyId": 6428,
+      "propertyName": "auxiliary_devices",
+      "index": 5
+    },
+    {
+      "parentClass": "module",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "module_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 1
+    },
+    {
+      "parentClass": "bipolar_toggleable_decimal_value_atom",
+      "propertyId": 3615,
+      "propertyName": "modulation_mappings",
+      "index": 0
+    },
+    {
+      "parentClass": "device_modulation_mapping",
+      "propertyId": 3739,
+      "propertyName": "destination_reference",
+      "index": 0
+    }
+  ],
+  "marker": "9b-grid-focused-v15",
+  "epoch": "1a0ad8cc-068c-430f-894f-f5c659e79769",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "queueNanos": 48000,
+  "heapUsedBefore": 650117120,
+  "schema": {
+    "className": "device_atom_reference",
+    "classId": 101,
+    "runtimeClass": "com.bitwig.flt.document.core.master.nAR",
+    "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 65,
+        "name": "atom",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": false,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 4923,
+        "name": "atom_location_in_track",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 4922,
+        "name": "atom_name",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 4924,
+        "name": "is_atom_found",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 236,
+        "name": "outermost_device",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": true,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 237,
+        "name": "path_from_outermost_device",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 4913,
+        "name": "innermost_owner",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": false,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 4914,
+        "name": "path_from_innermost_owner",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 3730,
+        "name": "value_type",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 1,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": false,
+        "truncated": false,
+        "children": []
+      }
+    ],
+    "work": 250,
+    "complete": true
+  },
+  "queryWork": 250,
+  "heapUsedAfter": 650117120,
+  "documentTaskNanos": 152042,
+  "completionNanos": 25019375
+}

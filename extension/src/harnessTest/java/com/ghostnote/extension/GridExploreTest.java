@@ -8,7 +8,7 @@ public final class GridExploreTest {
     private record Field(int id, String name, Object value, List<Node> children) {}
     private record Node(String name, List<Field> fields) {}
     private static final class Reader implements GridGraphRead.Reader {
-        int scalarReads;
+        int scalarReads, childReads;
         boolean filterFails;
         public String name(Object object) { return ((Node) object).name; }
         public int classId(Object object) { return 1; }
@@ -21,7 +21,9 @@ public final class GridExploreTest {
         }
         public boolean relationship(Object field) { return ((Field) field).children != null; }
         public int childCount(Object field, Object object) { return ((Field) field).children.size(); }
-        public Object child(Object field, Object object, int index) { return ((Field) field).children.get(index); }
+        public Object child(Object field, Object object, int index) {
+            childReads++; return ((Field) field).children.get(index);
+        }
         public Object value(Object field, Object object) { scalarReads++; return ((Field) field).value; }
     }
     private interface Action { void run() throws Exception; }
@@ -57,6 +59,35 @@ public final class GridExploreTest {
         Node wide = new Node("root", List.of(new Field(1, "modules", null, Collections.nCopies(257, leaf))));
         refuses(() -> new GridReadExplore(reader).schema(wide));
         refuses(() -> new GridReadExplore(reader).navigate(wide, List.of(step)));
+        Node mixed = new Node("root", List.of(root.fields.get(0),
+            new Field(4, "engine_objects", null, Collections.nCopies(1000, leaf))));
+        var requested = new GridReadExplore.Headers(Set.of(1), 256);
+        reader.childReads = 0;
+        JsonObject selected = new GridReadExplore(reader).schema(mixed, requested);
+        require(selected.get("complete").getAsBoolean());
+        require(reader.childReads == 1);
+        JsonObject omitted = selected.getAsJsonArray("properties").get(1).getAsJsonObject();
+        require(omitted.get("count").getAsInt() == 1000);
+        require(!omitted.get("headersRequested").getAsBoolean());
+        require(!omitted.get("childrenComplete").getAsBoolean());
+        require(!omitted.get("truncated").getAsBoolean());
+        reader.childReads = 0;
+        JsonObject limited = new GridReadExplore(reader).schema(mixed,
+            new GridReadExplore.Headers(Set.of(1, 4), 2));
+        require(!limited.get("complete").getAsBoolean() && reader.childReads == 2);
+        require(limited.getAsJsonArray("properties").get(1).getAsJsonObject().get("truncated").getAsBoolean());
+        reader.childReads = 0;
+        require(new GridReadExplore(reader).schema(mixed, new GridReadExplore.Headers(Set.of(), 0))
+            .get("complete").getAsBoolean());
+        require(reader.childReads == 0);
+        refuses(() -> new GridReadExplore(reader).schema(root, new GridReadExplore.Headers(Set.of(3), 1)));
+        refuses(() -> new GridReadExplore(reader).schema(root, new GridReadExplore.Headers(Set.of(99), 1)));
+        for (String bad : List.of("{\"fields\":[1,1],\"limit\":1}", "{\"fields\":[1],\"limit\":257}",
+                "{\"fields\":[-1],\"limit\":1}", "{\"fields\":[],\"limit\":1.5}",
+                "{\"fields\":[],\"limit\":0,\"extra\":1}"))
+            refuses(() -> GridReadExplore.Headers.parse(JsonParser.parseString("{\"schemaHeaders\":" + bad + "}").getAsJsonObject()));
+        require(GridReadExplore.Headers.parse(JsonParser.parseString(
+            "{\"schemaHeaders\":{\"fields\":[1],\"limit\":256}}").getAsJsonObject()).fields().equals(Set.of(1)));
         Node huge = new Node("root", Collections.nCopies(4097, root.fields.get(0)));
         refuses(() -> new GridReadExplore(reader).schema(huge));
         Map<String, Set<Integer>> projection = Map.of("root", Set.of(1), "leaf", Set.of(2));

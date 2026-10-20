@@ -18,6 +18,8 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E304 | V15 passes selective routes, 31-module focused reads, Grid mapping readback, Gates data, and Wavetable identity; 65 catalog UUIDs; 83-module Note case refused; cleanup and baseline pass; three bounded 9b.3 writes selected [K] (2026-10-20) | [open](experiments/e304-focused-grid-reader-live.md) |
+| E303 | V15 selective schema headers and focused paired reads checked and deployed; 195 TypeScript tests and Java harness pass; controller replacement and 9b.2a live acceptance pending [K] (2026-10-20) | [open](experiments/e303-focused-grid-reader-preparation.md) |
 | E302 | V14 surveys 12 stock presets and the control; 55 type UUIDs, paired catalog inventories to 31 modules; broad graphs remain incomplete/refused; scratch cleanup and baseline preservation pass; focused reader coverage next [K] (2026-10-20) | [open](experiments/e302-stock-grid-survey.md) |
 | E301 | V14 reusable native-device read sessions and scratch survey driver checked and deployed; fixed-name and used-audio restrictions removed from reads; identity, bounds, and timeout locks retained; replacement and live survey pending [K] (2026-10-20) | [open](experiments/e301-reusable-grid-survey-reader.md) |
 | E300 | 9b.1 stops before scratch setup: used V13 session refuses Grid reads; fixed-target guard also excludes survey targets. Offline catalog seed and 64-member symbol manifest recorded; 9b.2 adds the reader and continues the survey [K] (2026-10-20) | [open](experiments/e300-grid-survey-preflight.md) |

@@ -1,0 +1,15 @@
+{
+  "status": "V15 continuation after recorded caps; no native Grid writes",
+  "candidates": [
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+      "flavour": "Poly Grid",
+      "role": "Observed Gates and Wavetable in E302",
+      "loaded": false,
+      "focusModuleIndices": [
+        0,
+        9
+      ]
+    }
+  ]
+}

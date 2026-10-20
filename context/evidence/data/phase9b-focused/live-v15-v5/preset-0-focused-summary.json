@@ -1,0 +1,5954 @@
+{
+  "verdict": "focused-reads-recorded",
+  "moduleCount": 19,
+  "modules": [
+    {
+      "index": 0,
+      "uuid": "29dd8fb9-a309-4b7e-bd3b-ff52e0711a57",
+      "name": "Wavetable",
+      "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+      "complete": true,
+      "atoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "284594",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "284600",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "284606",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "284611",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "284616",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "284621",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "284626",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "284634",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 8,
+          "nodeId": 10,
+          "managedId": "284651",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 9,
+          "nodeId": 11,
+          "managedId": "284655",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 10,
+          "nodeId": 12,
+          "managedId": "284659",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 11,
+          "nodeId": 13,
+          "managedId": "284665",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 12,
+          "nodeId": 14,
+          "managedId": "284671",
+          "className": "button_boolean_value_atom",
+          "runtimeClass": "nQZ"
+        },
+        {
+          "index": 13,
+          "nodeId": 15,
+          "managedId": "284679",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 14,
+          "nodeId": 16,
+          "managedId": "284693",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 15,
+          "nodeId": 17,
+          "managedId": "284701",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 16,
+          "nodeId": 18,
+          "managedId": "284707",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 17,
+          "nodeId": 19,
+          "managedId": "284715",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 18,
+          "nodeId": 20,
+          "managedId": "284723",
+          "className": "wavetable_oscillator_atom",
+          "runtimeClass": "upW"
+        },
+        {
+          "index": 19,
+          "nodeId": 21,
+          "managedId": "284754",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 20,
+          "nodeId": 22,
+          "managedId": "284770",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 21,
+          "nodeId": 23,
+          "managedId": "284775",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 22,
+          "nodeId": 24,
+          "managedId": "284781",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 23,
+          "nodeId": 25,
+          "managedId": "284793",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 24,
+          "nodeId": 26,
+          "managedId": "284799",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 25,
+          "nodeId": 27,
+          "managedId": "284805",
+          "className": "polyphonic_observer_atom",
+          "runtimeClass": "Ngv"
+        },
+        {
+          "index": 26,
+          "nodeId": 28,
+          "managedId": "284811",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR"
+        },
+        {
+          "index": 27,
+          "nodeId": 29,
+          "managedId": "284822",
+          "className": "boolean_panel_value",
+          "runtimeClass": "yhl"
+        }
+      ],
+      "selected": true,
+      "identityOnlyAtoms": [
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "284634",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 8,
+          "nodeId": 10,
+          "managedId": "284651",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 9,
+          "nodeId": 11,
+          "managedId": "284655",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 13,
+          "nodeId": 15,
+          "managedId": "284679",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 19,
+          "nodeId": 21,
+          "managedId": "284754",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 22,
+          "nodeId": 24,
+          "managedId": "284781",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 25,
+          "nodeId": 27,
+          "managedId": "284805",
+          "className": "polyphonic_observer_atom",
+          "runtimeClass": "Ngv"
+        }
+      ],
+      "reads": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "284594",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "decimal_value_atom",
+              "managedId": "284594",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284594"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "PITCH"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Pitch Offset"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 712,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "284600",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "decimal_value_atom",
+              "managedId": "284600",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284600"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "TABLE_INDEX"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Table Index"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 712,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0.11999999999999982
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "284606",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "audio_source_atom",
+              "managedId": "284606",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284606"
+                  }
+                },
+                {
+                  "id": 6194,
+                  "name": "settings",
+                  "refs": [
+                    "284608"
+                  ]
+                },
+                {
+                  "id": 3639,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Signal Out"
+                  }
+                },
+                {
+                  "id": 3640,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "OUT"
+                  }
+                }
+              ]
+            },
+            {
+              "className": "component_settings",
+              "managedId": "284608",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284608"
+                  }
+                },
+                {
+                  "id": 614,
+                  "name": "inport_connections",
+                  "refs": [
+                    "284610"
+                  ]
+                }
+              ]
+            },
+            {
+              "className": "inport_connection",
+              "managedId": "284610",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284610"
+                  }
+                },
+                {
+                  "id": 248,
+                  "name": "source_component",
+                  "refs": [
+                    "284723"
+                  ]
+                },
+                {
+                  "id": 249,
+                  "name": "outport_index",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "0"
+                  }
+                },
+                {
+                  "id": 250,
+                  "name": "label",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": ""
+                  }
+                },
+                {
+                  "id": 6443,
+                  "name": "unconnected_value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            },
+            {
+              "className": "wavetable_oscillator_atom",
+              "managedId": "284723",
+              "identityOnly": true,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284723"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "284611",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "audio_destination_atom",
+              "managedId": "284611",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284611"
+                  }
+                },
+                {
+                  "id": 7123,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Pitch In"
+                  }
+                },
+                {
+                  "id": 7124,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "PITCH_IN"
+                  }
+                },
+                {
+                  "id": 7125,
+                  "name": "source",
+                  "refs": []
+                },
+                {
+                  "id": 7234,
+                  "name": "default_value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "284616",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "audio_destination_atom",
+              "managedId": "284616",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284616"
+                  }
+                },
+                {
+                  "id": 7123,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Phase In"
+                  }
+                },
+                {
+                  "id": 7124,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "PHASE_IN"
+                  }
+                },
+                {
+                  "id": 7125,
+                  "name": "source",
+                  "refs": []
+                },
+                {
+                  "id": 7234,
+                  "name": "default_value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "284621",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "audio_destination_atom",
+              "managedId": "284621",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284621"
+                  }
+                },
+                {
+                  "id": 7123,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Retrigger In"
+                  }
+                },
+                {
+                  "id": 7124,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "GATE_IN"
+                  }
+                },
+                {
+                  "id": 7125,
+                  "name": "source",
+                  "refs": []
+                },
+                {
+                  "id": 7234,
+                  "name": "default_value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "284626",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "boolean_value_atom",
+              "managedId": "284626",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284626"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "KEYTRACK"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Key Tracking"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 210,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Boolean",
+                    "data": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 10,
+          "nodeId": 12,
+          "managedId": "284659",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "decimal_value_atom",
+              "managedId": "284659",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284659"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "PITCH_MOD"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Pitch Modulation Amount"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 712,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 11,
+          "nodeId": 13,
+          "managedId": "284665",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "decimal_value_atom",
+              "managedId": "284665",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284665"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "PHASE_MOD"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Phase Modulation Amount"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 712,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 12,
+          "nodeId": 14,
+          "managedId": "284671",
+          "className": "button_boolean_value_atom",
+          "runtimeClass": "nQZ",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "button_boolean_value_atom",
+              "managedId": "284671",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284671"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "STEREO"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Stereo Detune"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 210,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Boolean",
+                    "data": false
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 14,
+          "nodeId": 16,
+          "managedId": "284693",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "boolean_value_atom",
+              "managedId": "284693",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284693"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "RETRIGGER"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Retrigger on notes"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 210,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Boolean",
+                    "data": false
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 15,
+          "nodeId": 17,
+          "managedId": "284701",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "decimal_value_atom",
+              "managedId": "284701",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284701"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "DETUNE"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Detune"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 712,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 16,
+          "nodeId": 18,
+          "managedId": "284707",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "integer_value_atom",
+              "managedId": "284707",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284707"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "DENOMINATOR"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Denominator"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 828,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "2"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 17,
+          "nodeId": 19,
+          "managedId": "284715",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "integer_value_atom",
+              "managedId": "284715",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284715"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "NUMERATOR"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Numerator"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 828,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 18,
+          "nodeId": 20,
+          "managedId": "284723",
+          "className": "wavetable_oscillator_atom",
+          "runtimeClass": "upW",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "wavetable_oscillator_atom",
+              "managedId": "284723",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284723"
+                  }
+                },
+                {
+                  "id": 11161,
+                  "name": "resource",
+                  "refs": [
+                    "284751"
+                  ]
+                },
+                {
+                  "id": 11162,
+                  "name": "playback_resource",
+                  "refs": [
+                    "284751"
+                  ]
+                },
+                {
+                  "id": 11163,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "WAVETABLE"
+                  }
+                }
+              ]
+            },
+            {
+              "className": "wavetable_resource",
+              "managedId": "284751",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284751"
+                  }
+                },
+                {
+                  "id": 11287,
+                  "name": "wavetable_reference_handle",
+                  "refs": [
+                    "284752"
+                  ]
+                }
+              ]
+            },
+            {
+              "className": "wavetable_reference_handle",
+              "managedId": "284752",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284752"
+                  }
+                },
+                {
+                  "id": 1204,
+                  "name": "file_item_reference",
+                  "refs": [
+                    "282804"
+                  ]
+                }
+              ]
+            },
+            {
+              "className": "wavetable_reference",
+              "managedId": "282804",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "282804"
+                  }
+                },
+                {
+                  "id": 4767,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Sine Feedback"
+                  }
+                },
+                {
+                  "id": 4766,
+                  "name": "file_reference",
+                  "refs": [
+                    "282802"
+                  ]
+                },
+                {
+                  "id": 4024,
+                  "name": "sub_path",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": ""
+                  }
+                },
+                {
+                  "id": 11284,
+                  "name": "cycle_size",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "128"
+                  }
+                },
+                {
+                  "id": 11285,
+                  "name": "table_size",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "32"
+                  }
+                }
+              ]
+            },
+            {
+              "className": "file_reference",
+              "managedId": "282802",
+              "identityOnly": true,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "282802"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 20,
+          "nodeId": 22,
+          "managedId": "284770",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "audio_destination_atom",
+              "managedId": "284770",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284770"
+                  }
+                },
+                {
+                  "id": 7123,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Table Index In"
+                  }
+                },
+                {
+                  "id": 7124,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "TABLE_IN"
+                  }
+                },
+                {
+                  "id": 7125,
+                  "name": "source",
+                  "refs": [
+                    "288308"
+                  ]
+                },
+                {
+                  "id": 7234,
+                  "name": "default_value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            },
+            {
+              "className": "audio_source_atom",
+              "managedId": "288308",
+              "identityOnly": true,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "288308"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 21,
+          "nodeId": 23,
+          "managedId": "284775",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "decimal_value_atom",
+              "managedId": "284775",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284775"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "TABLE_MOD"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Index Modulation Amount"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": [
+                    "289817"
+                  ]
+                },
+                {
+                  "id": 712,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0.74
+                  }
+                }
+              ]
+            },
+            {
+              "className": "device_modulation_mapping",
+              "managedId": "289817",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "289817"
+                  }
+                },
+                {
+                  "id": 3635,
+                  "name": "source",
+                  "refs": [
+                    "289806"
+                  ]
+                },
+                {
+                  "id": 3739,
+                  "name": "destination_reference",
+                  "refs": [
+                    "289818"
+                  ]
+                },
+                {
+                  "id": 3611,
+                  "name": "amount",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0.30000000000000004
+                  }
+                },
+                {
+                  "id": 11509,
+                  "name": "has_auxiliary_modulation_source",
+                  "value": {
+                    "type": "java.lang.Boolean",
+                    "data": false
+                  }
+                },
+                {
+                  "id": 11913,
+                  "name": "is_auxiliary_modulation_source_active",
+                  "value": {
+                    "type": "java.lang.Boolean",
+                    "data": false
+                  }
+                },
+                {
+                  "id": 11503,
+                  "name": "auxiliary_source_reference",
+                  "refs": []
+                },
+                {
+                  "id": 11481,
+                  "name": "modulation_enabled",
+                  "value": {
+                    "type": "java.lang.Boolean",
+                    "data": true
+                  }
+                },
+                {
+                  "id": 11338,
+                  "name": "transfer_function",
+                  "value": {
+                    "type": "jas",
+                    "data": "LINEAR"
+                  }
+                },
+                {
+                  "id": 3638,
+                  "name": "is_polyphonic",
+                  "value": {
+                    "type": "java.lang.Boolean",
+                    "data": false
+                  }
+                }
+              ]
+            },
+            {
+              "className": "nameable_modulation_source_atom",
+              "managedId": "289806",
+              "identityOnly": true,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "289806"
+                  }
+                }
+              ]
+            },
+            {
+              "className": "device_atom_reference",
+              "managedId": "289818",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "289818"
+                  }
+                },
+                {
+                  "id": 65,
+                  "name": "atom",
+                  "refs": [
+                    "284775"
+                  ]
+                },
+                {
+                  "id": 4923,
+                  "name": "atom_location_in_track",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "WT Parkour » Wavetable"
+                  }
+                },
+                {
+                  "id": 4922,
+                  "name": "atom_name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Index Modulation Amount"
+                  }
+                },
+                {
+                  "id": 4924,
+                  "name": "is_atom_found",
+                  "value": {
+                    "type": "java.lang.Boolean",
+                    "data": true
+                  }
+                },
+                {
+                  "id": 4913,
+                  "name": "innermost_owner",
+                  "refs": [
+                    "284573"
+                  ]
+                },
+                {
+                  "id": 4914,
+                  "name": "path_from_innermost_owner",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "CONTENTS/TABLE_MOD"
+                  }
+                }
+              ]
+            },
+            {
+              "className": "module",
+              "managedId": "284573",
+              "identityOnly": true,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284573"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 23,
+          "nodeId": 25,
+          "managedId": "284793",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "decimal_value_atom",
+              "managedId": "284793",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284793"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "UNISON_DETUNE"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Unison Detune"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 712,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0.2
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 24,
+          "nodeId": 26,
+          "managedId": "284799",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "decimal_value_atom",
+              "managedId": "284799",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284799"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "UNISON_SPREAD"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Unison Spread"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 712,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 1
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 26,
+          "nodeId": 28,
+          "managedId": "284811",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "indexed_value_atom",
+              "managedId": "284811",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284811"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "UNISON"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Unison Voices"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 457,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "1"
+                  }
+                },
+                {
+                  "id": 6928,
+                  "name": "value_item_index",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "0"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 27,
+          "nodeId": 29,
+          "managedId": "284822",
+          "className": "boolean_panel_value",
+          "runtimeClass": "yhl",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "boolean_panel_value",
+              "managedId": "284822",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "284822"
+                  }
+                },
+                {
+                  "id": 6387,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "SHOW_UNISON"
+                  }
+                },
+                {
+                  "id": 6386,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Boolean",
+                    "data": false
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "uuid": "fd9fe549-c9e7-45ee-b57b-2ae5af2e6eb0",
+      "name": "ADSR",
+      "typeUuid": "7e09068b-fee5-457e-afe4-7017661ebbd3",
+      "complete": true,
+      "atoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "285110",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "285116",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "285122",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "285128",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "285134",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "285139",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "285144",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "285197",
+          "className": "modulation_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.NDn"
+        },
+        {
+          "index": 8,
+          "nodeId": 10,
+          "managedId": "285203",
+          "className": "polyphonic_observer_atom",
+          "runtimeClass": "Ngv"
+        },
+        {
+          "index": 9,
+          "nodeId": 11,
+          "managedId": "285211",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 10,
+          "nodeId": 12,
+          "managedId": "285219",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 11,
+          "nodeId": 13,
+          "managedId": "285224",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 12,
+          "nodeId": 14,
+          "managedId": "285229",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 13,
+          "nodeId": 15,
+          "managedId": "285233",
+          "className": "device_audio_output_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.euX"
+        },
+        {
+          "index": 14,
+          "nodeId": 16,
+          "managedId": "285238",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 15,
+          "nodeId": 17,
+          "managedId": "285250",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 16,
+          "nodeId": 18,
+          "managedId": "285256",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 17,
+          "nodeId": 19,
+          "managedId": "285262",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 18,
+          "nodeId": 20,
+          "managedId": "285268",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 19,
+          "nodeId": 21,
+          "managedId": "285276",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR"
+        },
+        {
+          "index": 20,
+          "nodeId": 22,
+          "managedId": "285285",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        }
+      ],
+      "selected": false,
+      "identityOnlyAtoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "285110",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "285116",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "285122",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "285128",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "285134",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "285139",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "285144",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "285197",
+          "className": "modulation_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.NDn"
+        },
+        {
+          "index": 8,
+          "nodeId": 10,
+          "managedId": "285203",
+          "className": "polyphonic_observer_atom",
+          "runtimeClass": "Ngv"
+        },
+        {
+          "index": 9,
+          "nodeId": 11,
+          "managedId": "285211",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 10,
+          "nodeId": 12,
+          "managedId": "285219",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 11,
+          "nodeId": 13,
+          "managedId": "285224",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 12,
+          "nodeId": 14,
+          "managedId": "285229",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 13,
+          "nodeId": 15,
+          "managedId": "285233",
+          "className": "device_audio_output_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.euX"
+        },
+        {
+          "index": 14,
+          "nodeId": 16,
+          "managedId": "285238",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 15,
+          "nodeId": 17,
+          "managedId": "285250",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 16,
+          "nodeId": 18,
+          "managedId": "285256",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 17,
+          "nodeId": 19,
+          "managedId": "285262",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 18,
+          "nodeId": 20,
+          "managedId": "285268",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 19,
+          "nodeId": 21,
+          "managedId": "285276",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR"
+        },
+        {
+          "index": 20,
+          "nodeId": 22,
+          "managedId": "285285",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        }
+      ],
+      "reads": []
+    },
+    {
+      "index": 2,
+      "uuid": "4d0d1fc0-938e-4b3b-812e-60c7be9c7de9",
+      "name": "Audio Out",
+      "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6",
+      "complete": true,
+      "atoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "285505",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "285510",
+          "className": "device_audio_output_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.euX"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "285515",
+          "className": "device_audio_output_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.euX"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "285520",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "285528",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "285556",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "285562",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "285568",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR"
+        },
+        {
+          "index": 8,
+          "nodeId": 10,
+          "managedId": "285578",
+          "className": "audio_voice_sum_atom",
+          "runtimeClass": "Hki"
+        },
+        {
+          "index": 9,
+          "nodeId": 11,
+          "managedId": "285587",
+          "className": "polyphonic_observer_atom",
+          "runtimeClass": "Ngv"
+        },
+        {
+          "index": 10,
+          "nodeId": 12,
+          "managedId": "285593",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR"
+        }
+      ],
+      "selected": false,
+      "identityOnlyAtoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "285505",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "285510",
+          "className": "device_audio_output_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.euX"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "285515",
+          "className": "device_audio_output_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.euX"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "285520",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "285528",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "285556",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "285562",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "285568",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR"
+        },
+        {
+          "index": 8,
+          "nodeId": 10,
+          "managedId": "285578",
+          "className": "audio_voice_sum_atom",
+          "runtimeClass": "Hki"
+        },
+        {
+          "index": 9,
+          "nodeId": 11,
+          "managedId": "285587",
+          "className": "polyphonic_observer_atom",
+          "runtimeClass": "Ngv"
+        },
+        {
+          "index": 10,
+          "nodeId": 12,
+          "managedId": "285593",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR"
+        }
+      ],
+      "reads": []
+    },
+    {
+      "index": 3,
+      "uuid": "68bee58c-334e-46b1-b606-2ed58bee35c9",
+      "name": "Attenuate",
+      "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508",
+      "complete": true,
+      "atoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "285675",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "285680",
+          "className": "bipolar_toggleable_decimal_value_atom",
+          "runtimeClass": "tqm"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "285686",
+          "className": "boolean_panel_value",
+          "runtimeClass": "yhl"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "285689",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "285694",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "285708",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        }
+      ],
+      "selected": false,
+      "identityOnlyAtoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "285675",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "285680",
+          "className": "bipolar_toggleable_decimal_value_atom",
+          "runtimeClass": "tqm"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "285686",
+          "className": "boolean_panel_value",
+          "runtimeClass": "yhl"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "285689",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "285694",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "285708",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        }
+      ],
+      "reads": []
+    },
+    {
+      "index": 4,
+      "uuid": "50eb261c-cc5b-4499-9296-a37ed6e7b72d",
+      "name": "Wavetable",
+      "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+      "complete": true,
+      "atoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "285778",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "285784",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "285790",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "285795",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "285800",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "285805",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "285810",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "285818",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 8,
+          "nodeId": 10,
+          "managedId": "285835",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 9,
+          "nodeId": 11,
+          "managedId": "285839",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 10,
+          "nodeId": 12,
+          "managedId": "285843",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 11,
+          "nodeId": 13,
+          "managedId": "285849",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 12,
+          "nodeId": 14,
+          "managedId": "285855",
+          "className": "button_boolean_value_atom",
+          "runtimeClass": "nQZ"
+        },
+        {
+          "index": 13,
+          "nodeId": 15,
+          "managedId": "285863",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 14,
+          "nodeId": 16,
+          "managedId": "285877",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 15,
+          "nodeId": 17,
+          "managedId": "285885",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 16,
+          "nodeId": 18,
+          "managedId": "285891",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 17,
+          "nodeId": 19,
+          "managedId": "285899",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 18,
+          "nodeId": 20,
+          "managedId": "285907",
+          "className": "wavetable_oscillator_atom",
+          "runtimeClass": "upW"
+        },
+        {
+          "index": 19,
+          "nodeId": 21,
+          "managedId": "285938",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 20,
+          "nodeId": 22,
+          "managedId": "285954",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 21,
+          "nodeId": 23,
+          "managedId": "285959",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 22,
+          "nodeId": 24,
+          "managedId": "285965",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 23,
+          "nodeId": 25,
+          "managedId": "285977",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 24,
+          "nodeId": 26,
+          "managedId": "285983",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 25,
+          "nodeId": 27,
+          "managedId": "285989",
+          "className": "polyphonic_observer_atom",
+          "runtimeClass": "Ngv"
+        },
+        {
+          "index": 26,
+          "nodeId": 28,
+          "managedId": "285995",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR"
+        },
+        {
+          "index": 27,
+          "nodeId": 29,
+          "managedId": "286006",
+          "className": "boolean_panel_value",
+          "runtimeClass": "yhl"
+        }
+      ],
+      "selected": false,
+      "identityOnlyAtoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "285778",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "285784",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "285790",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "285795",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "285800",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "285805",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "285810",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "285818",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 8,
+          "nodeId": 10,
+          "managedId": "285835",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 9,
+          "nodeId": 11,
+          "managedId": "285839",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 10,
+          "nodeId": 12,
+          "managedId": "285843",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 11,
+          "nodeId": 13,
+          "managedId": "285849",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 12,
+          "nodeId": 14,
+          "managedId": "285855",
+          "className": "button_boolean_value_atom",
+          "runtimeClass": "nQZ"
+        },
+        {
+          "index": 13,
+          "nodeId": 15,
+          "managedId": "285863",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 14,
+          "nodeId": 16,
+          "managedId": "285877",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 15,
+          "nodeId": 17,
+          "managedId": "285885",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 16,
+          "nodeId": 18,
+          "managedId": "285891",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 17,
+          "nodeId": 19,
+          "managedId": "285899",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 18,
+          "nodeId": 20,
+          "managedId": "285907",
+          "className": "wavetable_oscillator_atom",
+          "runtimeClass": "upW"
+        },
+        {
+          "index": 19,
+          "nodeId": 21,
+          "managedId": "285938",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 20,
+          "nodeId": 22,
+          "managedId": "285954",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 21,
+          "nodeId": 23,
+          "managedId": "285959",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 22,
+          "nodeId": 24,
+          "managedId": "285965",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 23,
+          "nodeId": 25,
+          "managedId": "285977",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 24,
+          "nodeId": 26,
+          "managedId": "285983",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 25,
+          "nodeId": 27,
+          "managedId": "285989",
+          "className": "polyphonic_observer_atom",
+          "runtimeClass": "Ngv"
+        },
+        {
+          "index": 26,
+          "nodeId": 28,
+          "managedId": "285995",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR"
+        },
+        {
+          "index": 27,
+          "nodeId": 29,
+          "managedId": "286006",
+          "className": "boolean_panel_value",
+          "runtimeClass": "yhl"
+        }
+      ],
+      "reads": []
+    },
+    {
+      "index": 5,
+      "uuid": "207f1cdb-aaeb-4d51-9cbe-3a7a31003fa1",
+      "name": "Wavetable",
+      "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+      "complete": true,
+      "atoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "286302",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "286308",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "286314",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "286319",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "286324",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "286329",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "286334",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "286342",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 8,
+          "nodeId": 10,
+          "managedId": "286359",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 9,
+          "nodeId": 11,
+          "managedId": "286363",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 10,
+          "nodeId": 12,
+          "managedId": "286367",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 11,
+          "nodeId": 13,
+          "managedId": "286373",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 12,
+          "nodeId": 14,
+          "managedId": "286379",
+          "className": "button_boolean_value_atom",
+          "runtimeClass": "nQZ"
+        },
+        {
+          "index": 13,
+          "nodeId": 15,
+          "managedId": "286387",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 14,
+          "nodeId": 16,
+          "managedId": "286401",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 15,
+          "nodeId": 17,
+          "managedId": "286409",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 16,
+          "nodeId": 18,
+          "managedId": "286415",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 17,
+          "nodeId": 19,
+          "managedId": "286423",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 18,
+          "nodeId": 20,
+          "managedId": "286431",
+          "className": "wavetable_oscillator_atom",
+          "runtimeClass": "upW"
+        },
+        {
+          "index": 19,
+          "nodeId": 21,
+          "managedId": "286462",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 20,
+          "nodeId": 22,
+          "managedId": "286478",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 21,
+          "nodeId": 23,
+          "managedId": "286483",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 22,
+          "nodeId": 24,
+          "managedId": "286489",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 23,
+          "nodeId": 25,
+          "managedId": "286501",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 24,
+          "nodeId": 26,
+          "managedId": "286507",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 25,
+          "nodeId": 27,
+          "managedId": "286513",
+          "className": "polyphonic_observer_atom",
+          "runtimeClass": "Ngv"
+        },
+        {
+          "index": 26,
+          "nodeId": 28,
+          "managedId": "286519",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR"
+        },
+        {
+          "index": 27,
+          "nodeId": 29,
+          "managedId": "286530",
+          "className": "boolean_panel_value",
+          "runtimeClass": "yhl"
+        }
+      ],
+      "selected": false,
+      "identityOnlyAtoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "286302",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "286308",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "286314",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "286319",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "286324",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "286329",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "286334",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "286342",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 8,
+          "nodeId": 10,
+          "managedId": "286359",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 9,
+          "nodeId": 11,
+          "managedId": "286363",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 10,
+          "nodeId": 12,
+          "managedId": "286367",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 11,
+          "nodeId": 13,
+          "managedId": "286373",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 12,
+          "nodeId": 14,
+          "managedId": "286379",
+          "className": "button_boolean_value_atom",
+          "runtimeClass": "nQZ"
+        },
+        {
+          "index": 13,
+          "nodeId": 15,
+          "managedId": "286387",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 14,
+          "nodeId": 16,
+          "managedId": "286401",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 15,
+          "nodeId": 17,
+          "managedId": "286409",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 16,
+          "nodeId": 18,
+          "managedId": "286415",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 17,
+          "nodeId": 19,
+          "managedId": "286423",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 18,
+          "nodeId": 20,
+          "managedId": "286431",
+          "className": "wavetable_oscillator_atom",
+          "runtimeClass": "upW"
+        },
+        {
+          "index": 19,
+          "nodeId": 21,
+          "managedId": "286462",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 20,
+          "nodeId": 22,
+          "managedId": "286478",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 21,
+          "nodeId": 23,
+          "managedId": "286483",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 22,
+          "nodeId": 24,
+          "managedId": "286489",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 23,
+          "nodeId": 25,
+          "managedId": "286501",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 24,
+          "nodeId": 26,
+          "managedId": "286507",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 25,
+          "nodeId": 27,
+          "managedId": "286513",
+          "className": "polyphonic_observer_atom",
+          "runtimeClass": "Ngv"
+        },
+        {
+          "index": 26,
+          "nodeId": 28,
+          "managedId": "286519",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR"
+        },
+        {
+          "index": 27,
+          "nodeId": 29,
+          "managedId": "286530",
+          "className": "boolean_panel_value",
+          "runtimeClass": "yhl"
+        }
+      ],
+      "reads": []
+    },
+    {
+      "index": 6,
+      "uuid": "7b075428-4799-4c5a-9eff-06b45dc3a0a7",
+      "name": "Transport",
+      "typeUuid": "997869ea-e649-4ac8-865e-bd4ac9e7b2a2",
+      "complete": true,
+      "atoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "286809",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "286814",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "286851",
+          "className": "transport_component",
+          "runtimeClass": "ftf"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "286870",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "286878",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "286886",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "286891",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "286899",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR"
+        },
+        {
+          "index": 8,
+          "nodeId": 10,
+          "managedId": "286911",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        }
+      ],
+      "selected": false,
+      "identityOnlyAtoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "286809",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "286814",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "286851",
+          "className": "transport_component",
+          "runtimeClass": "ftf"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "286870",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "286878",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "286886",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "286891",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "286899",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR"
+        },
+        {
+          "index": 8,
+          "nodeId": 10,
+          "managedId": "286911",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        }
+      ],
+      "reads": []
+    },
+    {
+      "index": 7,
+      "uuid": "54c470d8-0c88-4077-9408-58ed6f68ae4e",
+      "name": "Gate In",
+      "typeUuid": "4e00fda6-20f6-45a9-9d7e-02867cf09b82",
+      "complete": true,
+      "atoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "286965",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "286970",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "286974",
+          "className": "device_audio_output_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.euX"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "286979",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "286987",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        }
+      ],
+      "selected": false,
+      "identityOnlyAtoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "286965",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "286970",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "286974",
+          "className": "device_audio_output_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.euX"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "286979",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "286987",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        }
+      ],
+      "reads": []
+    },
+    {
+      "index": 8,
+      "uuid": "aa6409de-92b9-44b1-83a8-aeb075c7f61f",
+      "name": "AND",
+      "typeUuid": "1e330c79-9a6f-4015-8dfa-da507c1bb15a",
+      "complete": true,
+      "atoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "287023",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "287028",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "287033",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "287038",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        }
+      ],
+      "selected": false,
+      "identityOnlyAtoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "287023",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "287028",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "287033",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "287038",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        }
+      ],
+      "reads": []
+    },
+    {
+      "index": 9,
+      "uuid": "de7793d9-f159-45dc-a620-4614ce5e8cc7",
+      "name": "Gates",
+      "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635",
+      "complete": true,
+      "atoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "287070",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "287075",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "287080",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "287111",
+          "className": "polyphonic_observer_atom",
+          "runtimeClass": "Ngv"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "287117",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "287125",
+          "className": "data_array_component",
+          "runtimeClass": "USc"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "287131",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "287135",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 8,
+          "nodeId": 10,
+          "managedId": "287143",
+          "className": "transport_component",
+          "runtimeClass": "ftf"
+        },
+        {
+          "index": 9,
+          "nodeId": 11,
+          "managedId": "287162",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 10,
+          "nodeId": 12,
+          "managedId": "287170",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR"
+        },
+        {
+          "index": 11,
+          "nodeId": 13,
+          "managedId": "287179",
+          "className": "trigger_atom",
+          "runtimeClass": "GnQ"
+        },
+        {
+          "index": 12,
+          "nodeId": 14,
+          "managedId": "287183",
+          "className": "trigger_atom",
+          "runtimeClass": "GnQ"
+        },
+        {
+          "index": 13,
+          "nodeId": 15,
+          "managedId": "287187",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 14,
+          "nodeId": 16,
+          "managedId": "287210",
+          "className": "trigger_atom",
+          "runtimeClass": "GnQ"
+        },
+        {
+          "index": 15,
+          "nodeId": 17,
+          "managedId": "287214",
+          "className": "trigger_atom",
+          "runtimeClass": "GnQ"
+        },
+        {
+          "index": 16,
+          "nodeId": 18,
+          "managedId": "287218",
+          "className": "last_voice_int_event_atom",
+          "runtimeClass": "inq"
+        }
+      ],
+      "selected": true,
+      "identityOnlyAtoms": [
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "287080",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "287111",
+          "className": "polyphonic_observer_atom",
+          "runtimeClass": "Ngv"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "287131",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 8,
+          "nodeId": 10,
+          "managedId": "287143",
+          "className": "transport_component",
+          "runtimeClass": "ftf"
+        },
+        {
+          "index": 11,
+          "nodeId": 13,
+          "managedId": "287179",
+          "className": "trigger_atom",
+          "runtimeClass": "GnQ"
+        },
+        {
+          "index": 12,
+          "nodeId": 14,
+          "managedId": "287183",
+          "className": "trigger_atom",
+          "runtimeClass": "GnQ"
+        },
+        {
+          "index": 13,
+          "nodeId": 15,
+          "managedId": "287187",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 14,
+          "nodeId": 16,
+          "managedId": "287210",
+          "className": "trigger_atom",
+          "runtimeClass": "GnQ"
+        },
+        {
+          "index": 15,
+          "nodeId": 17,
+          "managedId": "287214",
+          "className": "trigger_atom",
+          "runtimeClass": "GnQ"
+        },
+        {
+          "index": 16,
+          "nodeId": 18,
+          "managedId": "287218",
+          "className": "last_voice_int_event_atom",
+          "runtimeClass": "inq"
+        }
+      ],
+      "reads": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "287070",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "audio_source_atom",
+              "managedId": "287070",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "287070"
+                  }
+                },
+                {
+                  "id": 6194,
+                  "name": "settings",
+                  "refs": [
+                    "287072"
+                  ]
+                },
+                {
+                  "id": 3639,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Gate Out"
+                  }
+                },
+                {
+                  "id": 3640,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "OUT"
+                  }
+                }
+              ]
+            },
+            {
+              "className": "component_settings",
+              "managedId": "287072",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "287072"
+                  }
+                },
+                {
+                  "id": 614,
+                  "name": "inport_connections",
+                  "refs": [
+                    "287074"
+                  ]
+                }
+              ]
+            },
+            {
+              "className": "inport_connection",
+              "managedId": "287074",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "287074"
+                  }
+                },
+                {
+                  "id": 248,
+                  "name": "source_component",
+                  "refs": [
+                    "287080"
+                  ]
+                },
+                {
+                  "id": 249,
+                  "name": "outport_index",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "1"
+                  }
+                },
+                {
+                  "id": 250,
+                  "name": "label",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": ""
+                  }
+                },
+                {
+                  "id": 6443,
+                  "name": "unconnected_value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            },
+            {
+              "className": "nitro_atom",
+              "managedId": "287080",
+              "identityOnly": true,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "287080"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "287075",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "audio_destination_atom",
+              "managedId": "287075",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "287075"
+                  }
+                },
+                {
+                  "id": 7123,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Phase In"
+                  }
+                },
+                {
+                  "id": 7124,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "PHASE_IN"
+                  }
+                },
+                {
+                  "id": 7125,
+                  "name": "source",
+                  "refs": [
+                    "287315"
+                  ]
+                },
+                {
+                  "id": 7234,
+                  "name": "default_value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            },
+            {
+              "className": "audio_source_atom",
+              "managedId": "287315",
+              "identityOnly": true,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "287315"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "287117",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "integer_value_atom",
+              "managedId": "287117",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "287117"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "STEPS"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Step Count"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 828,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "8"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "287125",
+          "className": "data_array_component",
+          "runtimeClass": "USc",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "data_array_component",
+              "managedId": "287125",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "287125"
+                  }
+                },
+                {
+                  "id": 6614,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "DATA"
+                  }
+                },
+                {
+                  "id": 6609,
+                  "name": "data",
+                  "value": {
+                    "type": "[F",
+                    "length": 64,
+                    "data": [
+                      {
+                        "type": "java.lang.Float",
+                        "data": 1
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0.5201321840286255
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0.07500000298023224
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0.6492387652397156
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 1
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 1
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0.45883414149284363
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      },
+                      {
+                        "type": "java.lang.Float",
+                        "data": 0
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": 6613,
+                  "name": "data_size",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "64"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "287135",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "boolean_value_atom",
+              "managedId": "287135",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "287135"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "DEVICE_PHASE"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Use Device Phase"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 210,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Boolean",
+                    "data": false
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 9,
+          "nodeId": 11,
+          "managedId": "287162",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "boolean_value_atom",
+              "managedId": "287162",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "287162"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "MUTE_WHEN_STOPPED"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Mute when stopped"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 210,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Boolean",
+                    "data": false
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 10,
+          "nodeId": 12,
+          "managedId": "287170",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "indexed_value_atom",
+              "managedId": "287170",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "287170"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "MODE"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Mode"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 457,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "1"
+                  }
+                },
+                {
+                  "id": 6928,
+                  "name": "value_item_index",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "uuid": "6d16e350-a663-4de2-b732-eef89645ece4",
+      "name": "Ø Reset",
+      "typeUuid": "d04bb748-5f66-4a4a-85d8-d3402c982e22",
+      "complete": true,
+      "atoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "287315",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "287320",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "287325",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "287336",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "287341",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "287349",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "287353",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        }
+      ],
+      "selected": false,
+      "identityOnlyAtoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "287315",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "287320",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "287325",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "287336",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "287341",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "287349",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "287353",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        }
+      ],
+      "reads": []
+    },
+    {
+      "index": 11,
+      "uuid": "fb30d5a2-151c-46a2-a238-0b26c9c5925d",
+      "name": "Merge",
+      "typeUuid": "c10b5ffa-0d10-4005-ad49-a39253ee26eb",
+      "complete": true,
+      "atoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "287390",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "287395",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "287455",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "287463",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "287468",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "287473",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "287478",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "287483",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 8,
+          "nodeId": 10,
+          "managedId": "287488",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 9,
+          "nodeId": 11,
+          "managedId": "287493",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 10,
+          "nodeId": 12,
+          "managedId": "287498",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 11,
+          "nodeId": 13,
+          "managedId": "287503",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 12,
+          "nodeId": 14,
+          "managedId": "287508",
+          "className": "value_led_atom",
+          "runtimeClass": "dLY"
+        },
+        {
+          "index": 13,
+          "nodeId": 15,
+          "managedId": "287514",
+          "className": "value_led_atom",
+          "runtimeClass": "dLY"
+        },
+        {
+          "index": 14,
+          "nodeId": 16,
+          "managedId": "287520",
+          "className": "value_led_atom",
+          "runtimeClass": "dLY"
+        },
+        {
+          "index": 15,
+          "nodeId": 17,
+          "managedId": "287526",
+          "className": "value_led_atom",
+          "runtimeClass": "dLY"
+        },
+        {
+          "index": 16,
+          "nodeId": 18,
+          "managedId": "287532",
+          "className": "value_led_atom",
+          "runtimeClass": "dLY"
+        },
+        {
+          "index": 17,
+          "nodeId": 19,
+          "managedId": "287538",
+          "className": "value_led_atom",
+          "runtimeClass": "dLY"
+        },
+        {
+          "index": 18,
+          "nodeId": 20,
+          "managedId": "287544",
+          "className": "value_led_atom",
+          "runtimeClass": "dLY"
+        },
+        {
+          "index": 19,
+          "nodeId": 21,
+          "managedId": "287550",
+          "className": "value_led_atom",
+          "runtimeClass": "dLY"
+        },
+        {
+          "index": 20,
+          "nodeId": 22,
+          "managedId": "287556",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR"
+        },
+        {
+          "index": 21,
+          "nodeId": 23,
+          "managedId": "287564",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 22,
+          "nodeId": 24,
+          "managedId": "287572",
+          "className": "button_boolean_value_atom",
+          "runtimeClass": "nQZ"
+        }
+      ],
+      "selected": false,
+      "identityOnlyAtoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "287390",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "287395",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "287455",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "287463",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "287468",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "287473",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "287478",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "287483",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 8,
+          "nodeId": 10,
+          "managedId": "287488",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 9,
+          "nodeId": 11,
+          "managedId": "287493",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 10,
+          "nodeId": 12,
+          "managedId": "287498",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 11,
+          "nodeId": 13,
+          "managedId": "287503",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 12,
+          "nodeId": 14,
+          "managedId": "287508",
+          "className": "value_led_atom",
+          "runtimeClass": "dLY"
+        },
+        {
+          "index": 13,
+          "nodeId": 15,
+          "managedId": "287514",
+          "className": "value_led_atom",
+          "runtimeClass": "dLY"
+        },
+        {
+          "index": 14,
+          "nodeId": 16,
+          "managedId": "287520",
+          "className": "value_led_atom",
+          "runtimeClass": "dLY"
+        },
+        {
+          "index": 15,
+          "nodeId": 17,
+          "managedId": "287526",
+          "className": "value_led_atom",
+          "runtimeClass": "dLY"
+        },
+        {
+          "index": 16,
+          "nodeId": 18,
+          "managedId": "287532",
+          "className": "value_led_atom",
+          "runtimeClass": "dLY"
+        },
+        {
+          "index": 17,
+          "nodeId": 19,
+          "managedId": "287538",
+          "className": "value_led_atom",
+          "runtimeClass": "dLY"
+        },
+        {
+          "index": 18,
+          "nodeId": 20,
+          "managedId": "287544",
+          "className": "value_led_atom",
+          "runtimeClass": "dLY"
+        },
+        {
+          "index": 19,
+          "nodeId": 21,
+          "managedId": "287550",
+          "className": "value_led_atom",
+          "runtimeClass": "dLY"
+        },
+        {
+          "index": 20,
+          "nodeId": 22,
+          "managedId": "287556",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR"
+        },
+        {
+          "index": 21,
+          "nodeId": 23,
+          "managedId": "287564",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 22,
+          "nodeId": 24,
+          "managedId": "287572",
+          "className": "button_boolean_value_atom",
+          "runtimeClass": "nQZ"
+        }
+      ],
+      "reads": []
+    },
+    {
+      "index": 12,
+      "uuid": "c44bd53b-fd28-42d7-96c7-e0c82b164f05",
+      "name": "Ø Counter",
+      "typeUuid": "f9b5157c-0a41-403c-810b-9bbf9a133110",
+      "complete": true,
+      "atoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "287675",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "287680",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "287685",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "287704",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "287709",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "287717",
+          "className": "last_voice_int_event_atom",
+          "runtimeClass": "inq"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "287723",
+          "className": "int_observer_atom",
+          "runtimeClass": "hpv"
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "287729",
+          "className": "boolean_observer_atom",
+          "runtimeClass": "cXb"
+        }
+      ],
+      "selected": false,
+      "identityOnlyAtoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "287675",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "287680",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "287685",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "287704",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "287709",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "287717",
+          "className": "last_voice_int_event_atom",
+          "runtimeClass": "inq"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "287723",
+          "className": "int_observer_atom",
+          "runtimeClass": "hpv"
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "287729",
+          "className": "boolean_observer_atom",
+          "runtimeClass": "cXb"
+        }
+      ],
+      "reads": []
+    },
+    {
+      "index": 13,
+      "uuid": "bb4c2c3d-6e4b-4db3-bb18-09e6b225ece3",
+      "name": "Wavetable",
+      "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+      "complete": true,
+      "atoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "287784",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "287790",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "287796",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "287801",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "287806",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "287811",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "287816",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "287824",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 8,
+          "nodeId": 10,
+          "managedId": "287841",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 9,
+          "nodeId": 11,
+          "managedId": "287845",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 10,
+          "nodeId": 12,
+          "managedId": "287849",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 11,
+          "nodeId": 13,
+          "managedId": "287855",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 12,
+          "nodeId": 14,
+          "managedId": "287861",
+          "className": "button_boolean_value_atom",
+          "runtimeClass": "nQZ"
+        },
+        {
+          "index": 13,
+          "nodeId": 15,
+          "managedId": "287869",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 14,
+          "nodeId": 16,
+          "managedId": "287883",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 15,
+          "nodeId": 17,
+          "managedId": "287891",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 16,
+          "nodeId": 18,
+          "managedId": "287897",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 17,
+          "nodeId": 19,
+          "managedId": "287905",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 18,
+          "nodeId": 20,
+          "managedId": "287913",
+          "className": "wavetable_oscillator_atom",
+          "runtimeClass": "upW"
+        },
+        {
+          "index": 19,
+          "nodeId": 21,
+          "managedId": "287944",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 20,
+          "nodeId": 22,
+          "managedId": "287960",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 21,
+          "nodeId": 23,
+          "managedId": "287965",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 22,
+          "nodeId": 24,
+          "managedId": "287971",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 23,
+          "nodeId": 25,
+          "managedId": "287983",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 24,
+          "nodeId": 26,
+          "managedId": "287989",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 25,
+          "nodeId": 27,
+          "managedId": "287995",
+          "className": "polyphonic_observer_atom",
+          "runtimeClass": "Ngv"
+        },
+        {
+          "index": 26,
+          "nodeId": 28,
+          "managedId": "288001",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR"
+        },
+        {
+          "index": 27,
+          "nodeId": 29,
+          "managedId": "288012",
+          "className": "boolean_panel_value",
+          "runtimeClass": "yhl"
+        }
+      ],
+      "selected": false,
+      "identityOnlyAtoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "287784",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "287790",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "287796",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "287801",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "287806",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "287811",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "287816",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "287824",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 8,
+          "nodeId": 10,
+          "managedId": "287841",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 9,
+          "nodeId": 11,
+          "managedId": "287845",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 10,
+          "nodeId": 12,
+          "managedId": "287849",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 11,
+          "nodeId": 13,
+          "managedId": "287855",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 12,
+          "nodeId": 14,
+          "managedId": "287861",
+          "className": "button_boolean_value_atom",
+          "runtimeClass": "nQZ"
+        },
+        {
+          "index": 13,
+          "nodeId": 15,
+          "managedId": "287869",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 14,
+          "nodeId": 16,
+          "managedId": "287883",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 15,
+          "nodeId": 17,
+          "managedId": "287891",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 16,
+          "nodeId": 18,
+          "managedId": "287897",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 17,
+          "nodeId": 19,
+          "managedId": "287905",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 18,
+          "nodeId": 20,
+          "managedId": "287913",
+          "className": "wavetable_oscillator_atom",
+          "runtimeClass": "upW"
+        },
+        {
+          "index": 19,
+          "nodeId": 21,
+          "managedId": "287944",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 20,
+          "nodeId": 22,
+          "managedId": "287960",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 21,
+          "nodeId": 23,
+          "managedId": "287965",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 22,
+          "nodeId": 24,
+          "managedId": "287971",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 23,
+          "nodeId": 25,
+          "managedId": "287983",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 24,
+          "nodeId": 26,
+          "managedId": "287989",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 25,
+          "nodeId": 27,
+          "managedId": "287995",
+          "className": "polyphonic_observer_atom",
+          "runtimeClass": "Ngv"
+        },
+        {
+          "index": 26,
+          "nodeId": 28,
+          "managedId": "288001",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR"
+        },
+        {
+          "index": 27,
+          "nodeId": 29,
+          "managedId": "288012",
+          "className": "boolean_panel_value",
+          "runtimeClass": "yhl"
+        }
+      ],
+      "reads": []
+    },
+    {
+      "index": 14,
+      "uuid": "4f7af2cc-92b9-4f27-aba5-a17b2dab3402",
+      "name": "LFO",
+      "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+      "complete": true,
+      "atoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "288308",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "288313",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "288318",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "288323",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "288373",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "288377",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "288383",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "288391",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 8,
+          "nodeId": 10,
+          "managedId": "288399",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR"
+        },
+        {
+          "index": 9,
+          "nodeId": 11,
+          "managedId": "288409",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 10,
+          "nodeId": 12,
+          "managedId": "288415",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR"
+        },
+        {
+          "index": 11,
+          "nodeId": 13,
+          "managedId": "288440",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 12,
+          "nodeId": 14,
+          "managedId": "288446",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 13,
+          "nodeId": 15,
+          "managedId": "288452",
+          "className": "modulation_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.NDn"
+        },
+        {
+          "index": 14,
+          "nodeId": 16,
+          "managedId": "288458",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 15,
+          "nodeId": 17,
+          "managedId": "288463",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 16,
+          "nodeId": 18,
+          "managedId": "288469",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 17,
+          "nodeId": 19,
+          "managedId": "288488",
+          "className": "transport_component",
+          "runtimeClass": "ftf"
+        },
+        {
+          "index": 18,
+          "nodeId": 20,
+          "managedId": "288507",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 19,
+          "nodeId": 21,
+          "managedId": "288513",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 20,
+          "nodeId": 22,
+          "managedId": "288527",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        }
+      ],
+      "selected": false,
+      "identityOnlyAtoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "288308",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "288313",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "288318",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "288323",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "288373",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "288377",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "288383",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "288391",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 8,
+          "nodeId": 10,
+          "managedId": "288399",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR"
+        },
+        {
+          "index": 9,
+          "nodeId": 11,
+          "managedId": "288409",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 10,
+          "nodeId": 12,
+          "managedId": "288415",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR"
+        },
+        {
+          "index": 11,
+          "nodeId": 13,
+          "managedId": "288440",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 12,
+          "nodeId": 14,
+          "managedId": "288446",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 13,
+          "nodeId": 15,
+          "managedId": "288452",
+          "className": "modulation_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.NDn"
+        },
+        {
+          "index": 14,
+          "nodeId": 16,
+          "managedId": "288458",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 15,
+          "nodeId": 17,
+          "managedId": "288463",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 16,
+          "nodeId": 18,
+          "managedId": "288469",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 17,
+          "nodeId": 19,
+          "managedId": "288488",
+          "className": "transport_component",
+          "runtimeClass": "ftf"
+        },
+        {
+          "index": 18,
+          "nodeId": 20,
+          "managedId": "288507",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 19,
+          "nodeId": 21,
+          "managedId": "288513",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 20,
+          "nodeId": 22,
+          "managedId": "288527",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        }
+      ],
+      "reads": []
+    },
+    {
+      "index": 15,
+      "uuid": "4574e1ef-a503-4341-b977-9a584972e3a4",
+      "name": "Pan",
+      "typeUuid": "43600afd-7226-4408-bbb6-b7b9cc2a6cee",
+      "complete": true,
+      "atoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "288812",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "288817",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "288822",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "288833",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        }
+      ],
+      "selected": false,
+      "identityOnlyAtoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "288812",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "288817",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "288822",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "288833",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        }
+      ],
+      "reads": []
+    },
+    {
+      "index": 16,
+      "uuid": "93e85b34-15d8-4e65-9a9a-52e3d620d2e0",
+      "name": "Pan",
+      "typeUuid": "43600afd-7226-4408-bbb6-b7b9cc2a6cee",
+      "complete": true,
+      "atoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "288891",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "288896",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "288901",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "288912",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        }
+      ],
+      "selected": false,
+      "identityOnlyAtoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "288891",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "288896",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "288901",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "288912",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        }
+      ],
+      "reads": []
+    },
+    {
+      "index": 17,
+      "uuid": "3e6636f8-a701-43a3-8a7f-4aecef0acf7a",
+      "name": "Pan",
+      "typeUuid": "43600afd-7226-4408-bbb6-b7b9cc2a6cee",
+      "complete": true,
+      "atoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "288970",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "288975",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "288980",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "288991",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        }
+      ],
+      "selected": false,
+      "identityOnlyAtoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "288970",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "288975",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "288980",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "288991",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        }
+      ],
+      "reads": []
+    },
+    {
+      "index": 18,
+      "uuid": "20b43277-d11e-4ecf-a993-145152aefb41",
+      "name": "Pan",
+      "typeUuid": "43600afd-7226-4408-bbb6-b7b9cc2a6cee",
+      "complete": true,
+      "atoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "289049",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "289054",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "289059",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "289070",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        }
+      ],
+      "selected": false,
+      "identityOnlyAtoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "289049",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "289054",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "289059",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "289070",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        }
+      ],
+      "reads": []
+    }
+  ],
+  "schemas": 32,
+  "captures": 268,
+  "limits": [],
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 7
+    }
+  ],
+  "scope": "Paired configured fields and session-local identities. Unknown related classes have identity fields only. This is not a complete graph or a write admission."
+}

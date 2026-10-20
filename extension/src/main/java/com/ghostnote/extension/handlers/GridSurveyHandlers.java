@@ -9,7 +9,7 @@ import java.util.function.BooleanSupplier;
 
 /** Read-only descriptor sessions for explicitly named native devices. */
 public final class GridSurveyHandlers extends HandlerGroup {
-    public static final String MARKER = "9b-grid-survey-v14";
+    public static final String MARKER = "9b-grid-focused-v15";
     public static final Set<String> OPERATIONS = Set.of("status", "bind", "schema", "read", "release");
     private final GridSurveySession session = new GridSurveySession();
     private final BooleanSupplier foreignOwner;
@@ -46,6 +46,9 @@ public final class GridSurveyHandlers extends HandlerGroup {
         }
         var target = GridSurveySession.Target.parse(p, rig.config.deviceBank);
         var query = GridReadExplore.Query.parse(p);
+        var headers = GridReadExplore.Headers.parse(p);
+        if (headers != null && !op.equals("schema"))
+            throw new IllegalArgumentException("schema-headers-only-for-schema");
         boolean bind = op.equals("bind");
         if (bind && (!query.path().isEmpty() || !query.projection().isEmpty()))
             throw new IllegalArgumentException("bind-has-no-query");
@@ -75,7 +78,7 @@ public final class GridSurveyHandlers extends HandlerGroup {
             if (!bind) {
                 GridReadExplore explore = new GridReadExplore(symbols);
                 Object root = explore.navigate(device, query.path());
-                if (op.equals("schema")) r.add("schema", explore.schema(root));
+                if (op.equals("schema")) r.add("schema", explore.schema(root, headers));
                 else r.add("graph", new GridGraphRead(explore.project(query.projection())).capture(root));
                 r.addProperty("queryWork", explore.workUnits());
                 if (root != new GridReadExplore(symbols).navigate(device, query.path()))

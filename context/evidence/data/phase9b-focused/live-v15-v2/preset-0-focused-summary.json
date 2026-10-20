@@ -1,0 +1,2471 @@
+{
+  "verdict": "focused-reads-recorded",
+  "moduleCount": 4,
+  "modules": [
+    {
+      "index": 0,
+      "uuid": "4ab77fcc-1ee7-4a88-88eb-967345ef00f4",
+      "name": "Sine",
+      "typeUuid": "ca05aebd-ecaf-4d57-b0f6-c04ce81674c4",
+      "complete": true,
+      "atoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "220818",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "220824",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "220830",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "220835",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "220840",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "220845",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "220850",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "220891",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 8,
+          "nodeId": 10,
+          "managedId": "220897",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 9,
+          "nodeId": 11,
+          "managedId": "220905",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 10,
+          "nodeId": 12,
+          "managedId": "220909",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 11,
+          "nodeId": 13,
+          "managedId": "220913",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 12,
+          "nodeId": 14,
+          "managedId": "220919",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 13,
+          "nodeId": 15,
+          "managedId": "220925",
+          "className": "button_boolean_value_atom",
+          "runtimeClass": "nQZ"
+        },
+        {
+          "index": 14,
+          "nodeId": 16,
+          "managedId": "220933",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 15,
+          "nodeId": 17,
+          "managedId": "220947",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 16,
+          "nodeId": 18,
+          "managedId": "220955",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 17,
+          "nodeId": 19,
+          "managedId": "220961",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 18,
+          "nodeId": 20,
+          "managedId": "220969",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR"
+        },
+        {
+          "index": 19,
+          "nodeId": 21,
+          "managedId": "220977",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 20,
+          "nodeId": 22,
+          "managedId": "220994",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        }
+      ],
+      "selected": true,
+      "identityOnlyAtoms": [
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "220850",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 9,
+          "nodeId": 11,
+          "managedId": "220905",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 10,
+          "nodeId": 12,
+          "managedId": "220909",
+          "className": "device_input_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.liz"
+        },
+        {
+          "index": 14,
+          "nodeId": 16,
+          "managedId": "220933",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 19,
+          "nodeId": 21,
+          "managedId": "220977",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        }
+      ],
+      "reads": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "220818",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "decimal_value_atom",
+              "managedId": "220818",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "220818"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "PITCH"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Pitch Offset"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 712,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "220824",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "decimal_value_atom",
+              "managedId": "220824",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "220824"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "TIMBRE"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Skew"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 712,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0.5
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "220830",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "audio_source_atom",
+              "managedId": "220830",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "220830"
+                  }
+                },
+                {
+                  "id": 6194,
+                  "name": "settings",
+                  "refs": [
+                    "220832"
+                  ]
+                },
+                {
+                  "id": 3639,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Signal Out"
+                  }
+                },
+                {
+                  "id": 3640,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "OUT"
+                  }
+                }
+              ]
+            },
+            {
+              "className": "component_settings",
+              "managedId": "220832",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "220832"
+                  }
+                },
+                {
+                  "id": 614,
+                  "name": "inport_connections",
+                  "refs": [
+                    "220834"
+                  ]
+                }
+              ]
+            },
+            {
+              "className": "inport_connection",
+              "managedId": "220834",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "220834"
+                  }
+                },
+                {
+                  "id": 248,
+                  "name": "source_component",
+                  "refs": [
+                    "220850"
+                  ]
+                },
+                {
+                  "id": 249,
+                  "name": "outport_index",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "0"
+                  }
+                },
+                {
+                  "id": 250,
+                  "name": "label",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": ""
+                  }
+                },
+                {
+                  "id": 6443,
+                  "name": "unconnected_value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            },
+            {
+              "className": "nitro_atom",
+              "managedId": "220850",
+              "identityOnly": true,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "220850"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "220835",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "audio_destination_atom",
+              "managedId": "220835",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "220835"
+                  }
+                },
+                {
+                  "id": 7123,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Pitch In"
+                  }
+                },
+                {
+                  "id": 7124,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "PITCH_IN"
+                  }
+                },
+                {
+                  "id": 7125,
+                  "name": "source",
+                  "refs": []
+                },
+                {
+                  "id": 7234,
+                  "name": "default_value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "220840",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "audio_destination_atom",
+              "managedId": "220840",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "220840"
+                  }
+                },
+                {
+                  "id": 7123,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Phase In"
+                  }
+                },
+                {
+                  "id": 7124,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "PHASE_IN"
+                  }
+                },
+                {
+                  "id": 7125,
+                  "name": "source",
+                  "refs": []
+                },
+                {
+                  "id": 7234,
+                  "name": "default_value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "220845",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "audio_destination_atom",
+              "managedId": "220845",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "220845"
+                  }
+                },
+                {
+                  "id": 7123,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Retrigger In"
+                  }
+                },
+                {
+                  "id": 7124,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "GATE_IN"
+                  }
+                },
+                {
+                  "id": 7125,
+                  "name": "source",
+                  "refs": []
+                },
+                {
+                  "id": 7234,
+                  "name": "default_value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "220891",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "decimal_value_atom",
+              "managedId": "220891",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "220891"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "WRAP"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Fold"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 712,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "nodeId": 10,
+          "managedId": "220897",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "boolean_value_atom",
+              "managedId": "220897",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "220897"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "KEYTRACK"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Key Tracking"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 210,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Boolean",
+                    "data": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 11,
+          "nodeId": 13,
+          "managedId": "220913",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "decimal_value_atom",
+              "managedId": "220913",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "220913"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "PITCH_MOD"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Pitch Modulation Amount"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 712,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 12,
+          "nodeId": 14,
+          "managedId": "220919",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "decimal_value_atom",
+              "managedId": "220919",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "220919"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "PHASE_MOD"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Phase Modulation Amount"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 712,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 13,
+          "nodeId": 15,
+          "managedId": "220925",
+          "className": "button_boolean_value_atom",
+          "runtimeClass": "nQZ",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "button_boolean_value_atom",
+              "managedId": "220925",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "220925"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "STEREO"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Stereo Detune"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 210,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Boolean",
+                    "data": false
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 15,
+          "nodeId": 17,
+          "managedId": "220947",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "boolean_value_atom",
+              "managedId": "220947",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "220947"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "RETRIGGER"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Retrigger on notes"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 210,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Boolean",
+                    "data": false
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 16,
+          "nodeId": 18,
+          "managedId": "220955",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "decimal_value_atom",
+              "managedId": "220955",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "220955"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "DETUNE"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Detune"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 712,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 17,
+          "nodeId": 19,
+          "managedId": "220961",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "integer_value_atom",
+              "managedId": "220961",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "220961"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "DENOMINATOR"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Denominator"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 828,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 18,
+          "nodeId": 20,
+          "managedId": "220969",
+          "className": "integer_value_atom",
+          "runtimeClass": "elR",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "integer_value_atom",
+              "managedId": "220969",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "220969"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "NUMERATOR"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Numerator"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 828,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 20,
+          "nodeId": 22,
+          "managedId": "220994",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "boolean_value_atom",
+              "managedId": "220994",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "220994"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "BIPOLAR"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Bipolar"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 210,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Boolean",
+                    "data": true
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "uuid": "d1479d42-0b02-4f95-804d-71210199b488",
+      "name": "Amplify",
+      "typeUuid": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2",
+      "complete": true,
+      "atoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "221169",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "221174",
+          "className": "bipolar_toggleable_decimal_value_atom",
+          "runtimeClass": "tqm"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "221180",
+          "className": "boolean_panel_value",
+          "runtimeClass": "yhl"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "221183",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "221188",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "221202",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        }
+      ],
+      "selected": true,
+      "identityOnlyAtoms": [
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "221188",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        }
+      ],
+      "reads": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "221169",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "audio_source_atom",
+              "managedId": "221169",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "221169"
+                  }
+                },
+                {
+                  "id": 6194,
+                  "name": "settings",
+                  "refs": [
+                    "221171"
+                  ]
+                },
+                {
+                  "id": 3639,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Out"
+                  }
+                },
+                {
+                  "id": 3640,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "OUT"
+                  }
+                }
+              ]
+            },
+            {
+              "className": "component_settings",
+              "managedId": "221171",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "221171"
+                  }
+                },
+                {
+                  "id": 614,
+                  "name": "inport_connections",
+                  "refs": [
+                    "221173"
+                  ]
+                }
+              ]
+            },
+            {
+              "className": "inport_connection",
+              "managedId": "221173",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "221173"
+                  }
+                },
+                {
+                  "id": 248,
+                  "name": "source_component",
+                  "refs": [
+                    "221188"
+                  ]
+                },
+                {
+                  "id": 249,
+                  "name": "outport_index",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "0"
+                  }
+                },
+                {
+                  "id": 250,
+                  "name": "label",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": ""
+                  }
+                },
+                {
+                  "id": 6443,
+                  "name": "unconnected_value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            },
+            {
+              "className": "nitro_atom",
+              "managedId": "221188",
+              "identityOnly": true,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "221188"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "221174",
+          "className": "bipolar_toggleable_decimal_value_atom",
+          "runtimeClass": "tqm",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "bipolar_toggleable_decimal_value_atom",
+              "managedId": "221174",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "221174"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "VALUE"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Amplification Amount"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 712,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0.6299605249474366
+                  }
+                },
+                {
+                  "id": 6406,
+                  "name": "bipolar",
+                  "value": {
+                    "type": "java.lang.Boolean",
+                    "data": false
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "221180",
+          "className": "boolean_panel_value",
+          "runtimeClass": "yhl",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "boolean_panel_value",
+              "managedId": "221180",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "221180"
+                  }
+                },
+                {
+                  "id": 6387,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "BIPOLAR"
+                  }
+                },
+                {
+                  "id": 6386,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Boolean",
+                    "data": false
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "221183",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "audio_destination_atom",
+              "managedId": "221183",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "221183"
+                  }
+                },
+                {
+                  "id": 7123,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Audio Thru"
+                  }
+                },
+                {
+                  "id": 7124,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "IN"
+                  }
+                },
+                {
+                  "id": 7125,
+                  "name": "source",
+                  "refs": [
+                    "220830"
+                  ]
+                },
+                {
+                  "id": 7234,
+                  "name": "default_value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            },
+            {
+              "className": "audio_source_atom",
+              "managedId": "220830",
+              "identityOnly": true,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "220830"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "221202",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "boolean_value_atom",
+              "managedId": "221202",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "221202"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "STEREOIZE"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Stereo-ize"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 210,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Boolean",
+                    "data": false
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "uuid": "d8df371e-13a7-41bd-859c-92b4af024e0d",
+      "name": "Audio Out",
+      "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6",
+      "complete": true,
+      "atoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "221255",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "221260",
+          "className": "device_audio_output_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.euX"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "221265",
+          "className": "device_audio_output_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.euX"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "221270",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "221278",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "221306",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "221312",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf"
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "221318",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR"
+        },
+        {
+          "index": 8,
+          "nodeId": 10,
+          "managedId": "221328",
+          "className": "audio_voice_sum_atom",
+          "runtimeClass": "Hki"
+        },
+        {
+          "index": 9,
+          "nodeId": 11,
+          "managedId": "221337",
+          "className": "polyphonic_observer_atom",
+          "runtimeClass": "Ngv"
+        },
+        {
+          "index": 10,
+          "nodeId": 12,
+          "managedId": "221343",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR"
+        }
+      ],
+      "selected": true,
+      "identityOnlyAtoms": [
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "221260",
+          "className": "device_audio_output_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.euX"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "221265",
+          "className": "device_audio_output_proxy_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.euX"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "221278",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 8,
+          "nodeId": 10,
+          "managedId": "221328",
+          "className": "audio_voice_sum_atom",
+          "runtimeClass": "Hki"
+        },
+        {
+          "index": 9,
+          "nodeId": 11,
+          "managedId": "221337",
+          "className": "polyphonic_observer_atom",
+          "runtimeClass": "Ngv"
+        }
+      ],
+      "reads": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "221255",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "audio_destination_atom",
+              "managedId": "221255",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "221255"
+                  }
+                },
+                {
+                  "id": 7123,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Audio In"
+                  }
+                },
+                {
+                  "id": 7124,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "IN"
+                  }
+                },
+                {
+                  "id": 7125,
+                  "name": "source",
+                  "refs": [
+                    "221169"
+                  ]
+                },
+                {
+                  "id": 7234,
+                  "name": "default_value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            },
+            {
+              "className": "audio_source_atom",
+              "managedId": "221169",
+              "identityOnly": true,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "221169"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "221270",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "boolean_value_atom",
+              "managedId": "221270",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "221270"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "AFFECT_VOICE_LIFETIME"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Affect Voice Lifetime"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 210,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Boolean",
+                    "data": false
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "221306",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "decimal_value_atom",
+              "managedId": "221306",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "221306"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "SILENCE_THRESHOLD"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Silence Threshold"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 712,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": -96
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "nodeId": 8,
+          "managedId": "221312",
+          "className": "decimal_value_atom",
+          "runtimeClass": "bcf",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "decimal_value_atom",
+              "managedId": "221312",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "221312"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "HOLD_TIME"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Hold Time"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 712,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0.05
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "nodeId": 9,
+          "managedId": "221318",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "indexed_value_atom",
+              "managedId": "221318",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "221318"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "CLIP_MODE"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Clip Mode"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 457,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "1"
+                  }
+                },
+                {
+                  "id": 6928,
+                  "name": "value_item_index",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 10,
+          "nodeId": 12,
+          "managedId": "221343",
+          "className": "indexed_value_atom",
+          "runtimeClass": "vNR",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "indexed_value_atom",
+              "managedId": "221343",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "221343"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "CLIP_LEVEL"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Clip Level"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 457,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "1"
+                  }
+                },
+                {
+                  "id": 6928,
+                  "name": "value_item_index",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "uuid": "aaa109b3-3a41-42e2-8642-f9032a41d03d",
+      "name": "Amplify",
+      "typeUuid": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2",
+      "complete": true,
+      "atoms": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "221425",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr"
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "221430",
+          "className": "bipolar_toggleable_decimal_value_atom",
+          "runtimeClass": "tqm"
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "221436",
+          "className": "boolean_panel_value",
+          "runtimeClass": "yhl"
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "221439",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ"
+        },
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "221444",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "221458",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY"
+        }
+      ],
+      "selected": true,
+      "identityOnlyAtoms": [
+        {
+          "index": 4,
+          "nodeId": 6,
+          "managedId": "221444",
+          "className": "nitro_atom",
+          "runtimeClass": "dkb"
+        }
+      ],
+      "reads": [
+        {
+          "index": 0,
+          "nodeId": 2,
+          "managedId": "221425",
+          "className": "audio_source_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "audio_source_atom",
+              "managedId": "221425",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "221425"
+                  }
+                },
+                {
+                  "id": 6194,
+                  "name": "settings",
+                  "refs": [
+                    "221427"
+                  ]
+                },
+                {
+                  "id": 3639,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Out"
+                  }
+                },
+                {
+                  "id": 3640,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "OUT"
+                  }
+                }
+              ]
+            },
+            {
+              "className": "component_settings",
+              "managedId": "221427",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "221427"
+                  }
+                },
+                {
+                  "id": 614,
+                  "name": "inport_connections",
+                  "refs": [
+                    "221429"
+                  ]
+                }
+              ]
+            },
+            {
+              "className": "inport_connection",
+              "managedId": "221429",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "221429"
+                  }
+                },
+                {
+                  "id": 248,
+                  "name": "source_component",
+                  "refs": [
+                    "221444"
+                  ]
+                },
+                {
+                  "id": 249,
+                  "name": "outport_index",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "0"
+                  }
+                },
+                {
+                  "id": 250,
+                  "name": "label",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": ""
+                  }
+                },
+                {
+                  "id": 6443,
+                  "name": "unconnected_value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            },
+            {
+              "className": "nitro_atom",
+              "managedId": "221444",
+              "identityOnly": true,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "221444"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "nodeId": 3,
+          "managedId": "221430",
+          "className": "bipolar_toggleable_decimal_value_atom",
+          "runtimeClass": "tqm",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "bipolar_toggleable_decimal_value_atom",
+              "managedId": "221430",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "221430"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "VALUE"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Amplification Amount"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 712,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0.7937005259840998
+                  }
+                },
+                {
+                  "id": 6406,
+                  "name": "bipolar",
+                  "value": {
+                    "type": "java.lang.Boolean",
+                    "data": false
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "nodeId": 4,
+          "managedId": "221436",
+          "className": "boolean_panel_value",
+          "runtimeClass": "yhl",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "boolean_panel_value",
+              "managedId": "221436",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "221436"
+                  }
+                },
+                {
+                  "id": 6387,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "BIPOLAR"
+                  }
+                },
+                {
+                  "id": 6386,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Boolean",
+                    "data": false
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "nodeId": 5,
+          "managedId": "221439",
+          "className": "audio_destination_atom",
+          "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "audio_destination_atom",
+              "managedId": "221439",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "221439"
+                  }
+                },
+                {
+                  "id": 7123,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Audio Thru"
+                  }
+                },
+                {
+                  "id": 7124,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "IN"
+                  }
+                },
+                {
+                  "id": 7125,
+                  "name": "source",
+                  "refs": []
+                },
+                {
+                  "id": 7234,
+                  "name": "default_value",
+                  "value": {
+                    "type": "java.lang.Double",
+                    "data": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "nodeId": 7,
+          "managedId": "221458",
+          "className": "boolean_value_atom",
+          "runtimeClass": "QY",
+          "complete": true,
+          "nodes": [
+            {
+              "className": "boolean_value_atom",
+              "managedId": "221458",
+              "identityOnly": false,
+              "fields": [
+                {
+                  "id": 14,
+                  "name": "managed_object_ID",
+                  "value": {
+                    "type": "java.lang.Integer",
+                    "data": "221458"
+                  }
+                },
+                {
+                  "id": 701,
+                  "name": "preset_identifier",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "STEREOIZE"
+                  }
+                },
+                {
+                  "id": 374,
+                  "name": "name",
+                  "value": {
+                    "type": "java.lang.String",
+                    "data": "Stereo-ize"
+                  }
+                },
+                {
+                  "id": 3615,
+                  "name": "modulation_mappings",
+                  "refs": []
+                },
+                {
+                  "id": 210,
+                  "name": "value",
+                  "value": {
+                    "type": "java.lang.Boolean",
+                    "data": false
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "schemas": 20,
+  "captures": 111,
+  "limits": [],
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 7
+    }
+  ],
+  "scope": "Paired configured fields and session-local identities. Unknown related classes have identity fields only. This is not a complete graph or a write admission."
+}

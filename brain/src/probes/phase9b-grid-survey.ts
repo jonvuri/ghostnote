@@ -17,6 +17,7 @@ import { Stash } from '../stash/index.js';
 import { AGENT_NATIVE_TOOL_PROFILE, callTool } from '../surface/tools.js';
 import { workspaceOf } from '../surface/workspace.js';
 import { readSurvey, validateProjection, type Wire, type Projection } from './phase9b-grid-survey-read.js';
+import { readFocused, validateFocusIndices } from './phase9b-grid-focused-read.js';
 
 const ROOT = join(import.meta.dirname, '../../..');
 const load = (path: string): Wire => {
@@ -31,6 +32,7 @@ export function presetList(input: unknown): Wire[] {
     const row = typeof value === 'string' ? { path: value } : value;
     assert.ok(row && typeof row.path === 'string' && isAbsolute(row.path) && row.path.endsWith('.bwpreset'),
       'Use absolute .bwpreset paths');
+    validateFocusIndices(row.focusModuleIndices);
     const stat = statSync(row.path);
     assert.ok(stat.isFile() && stat.size <= 32 * 1024 * 1024, 'Preset file limit');
     return row;
@@ -47,9 +49,14 @@ async function run(args: string[]) {
   assert.ok(typeof project === 'string' && project.length > 0, 'Expected project is required');
   const query = load(optionalQuery ?? join(ROOT, 'context/evidence/data/phase9a-grid-read/semantic-query.json'));
   const mode = query.mode ?? 'graph';
-  assert.ok(mode === 'graph' || mode === 'catalog', 'Unknown survey mode');
+  assert.ok(mode === 'graph' || mode === 'catalog' || mode === 'focused', 'Unknown survey mode');
   const projection: Projection = structuredClone(query.projection);
   validateProjection(projection);
+  validateFocusIndices(query.focusModuleIndices);
+  const readTarget = (target: Wire, saveCapture: (name: string, value: unknown) => void, baseline?: Wire,
+    indices?: number[]) =>
+    mode === 'focused' ? readFocused(request, target, projection, saveCapture, baseline, indices ?? query.focusModuleIndices)
+      : readSurvey(request, target, projection, saveCapture, baseline, mode);
   const control = load(join(ROOT, 'context/evidence/data/phase9a-grid-read/live-23-semantic-baseline/capture-0.json')).graph;
   mkdirSync(output);
   const save = (name: string, value: unknown) =>
@@ -143,7 +150,7 @@ async function run(args: string[]) {
     const hello = await request('contract.hello'), rig = await request('rig.info'), stats = await request('rig.stats');
     assert.equal(hello.runtimeProfile, 'phase-8-probe-v1');
     assert.equal(hello.methodCount, 118); assert.equal(hello.methodsHash, '2e939035ea90b8b0');
-    assert.equal(rig.gridReadProbe, '9b-grid-survey-v14');
+    assert.equal(rig.gridReadProbe, '9b-grid-focused-v15');
     assert.equal(compareDeployment(deployedAtMs(), stats.initEpochMs ?? -1).state, 'fresh');
     const status = await request('probe.gridRead', { operation: 'status' });
     assert.ok(!status.bound && !status.busy && !status.locked && !status.nativeUnfinished && !status.foreignOwner);
@@ -151,7 +158,7 @@ async function run(args: string[]) {
     if (readOnly) {
       const t = (await tracks()).find(t => t.channelId === explicitTarget!.trackId);
       assert.ok(t); const selected = await selection(); await point(t);
-      const result = await readSurvey(request, explicitTarget!, projection, save, undefined, mode);
+      const result = await readTarget(explicitTarget!, save);
       assert.deepEqual(await selection(), selected);
       save('result', result); return;
     }
@@ -200,10 +207,10 @@ async function run(args: string[]) {
       save(`preset-${i}-target`, { candidate, target, devices: inserted });
       let result: Wire;
       try {
-        result = await readSurvey(request, target, projection, (label, value) => save(`preset-${i}-${label}`, value),
-          candidate.role === '9a baseline control' ? control : undefined, mode);
+        result = await readTarget(target, (label, value) => save(`preset-${i}-${label}`, value),
+          candidate.role === '9a baseline control' ? control : undefined, candidate.focusModuleIndices);
       } catch (error) {
-        if (!/work-or-time-limit|byte-limit|schema-(child|property)-limit|path-(limit|index-limit)|survey-(schema|capture)-limit/.test(String(error))) throw error;
+        if (!/work-or-time-limit|byte-limit|schema-(child|property)-limit|path-(limit|index-limit)|survey-(schema|capture)-limit|focused-(schema|capture|module|atom|summary)-limit|focused-schema-truncated/.test(String(error))) throw error;
         result = { verdict: 'cap-refusal', error: String(error) };
         save(`preset-${i}-cap-refusal`, result);
       }

@@ -1,0 +1,738 @@
+{
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    }
+  ],
+  "marker": "9b-grid-focused-v15",
+  "epoch": "6c90e75c-a786-4e99-b248-073586710ef4",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "queueNanos": 75250,
+  "heapUsedBefore": 744488960,
+  "schema": {
+    "className": "device_contents",
+    "classId": 151,
+    "runtimeClass": "com.bitwig.flt.document.core.master.device.esS",
+    "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 228,
+        "name": "in_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": true,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 229,
+        "name": "out_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": true,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 6194,
+        "name": "settings",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": true,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 173,
+        "name": "child_components",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 50,
+        "headersRequested": true,
+        "returnedCount": 50,
+        "childrenComplete": true,
+        "truncated": false,
+        "children": [
+          {
+            "className": "polyphonic_note_voice_atom",
+            "classId": 350,
+            "runtimeClass": "c3U",
+            "index": 0
+          },
+          {
+            "className": "audio_voice_combiner_atom",
+            "classId": 313,
+            "runtimeClass": "PAA",
+            "index": 1
+          },
+          {
+            "className": "nested_device_chain_slot",
+            "classId": 587,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.EiB",
+            "index": 2
+          },
+          {
+            "className": "nested_device_chain_slot",
+            "classId": 587,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.EiB",
+            "index": 3
+          },
+          {
+            "className": "module_grid",
+            "classId": 1901,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.gOr",
+            "index": 4
+          },
+          {
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "index": 5
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 6
+          },
+          {
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "index": 7
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 8
+          },
+          {
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "index": 9
+          },
+          {
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "index": 10
+          },
+          {
+            "className": "device_audio_output_collector_atom",
+            "classId": 3336,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DCg",
+            "index": 11
+          },
+          {
+            "className": "device_audio_output_collector_atom",
+            "classId": 3336,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DCg",
+            "index": 12
+          },
+          {
+            "className": "processing_delay_placeholder_component",
+            "classId": 1437,
+            "runtimeClass": "YoM",
+            "index": 13
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 14
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 15
+          },
+          {
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "index": 16
+          },
+          {
+            "className": "note_source_atom",
+            "classId": 3440,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.shO",
+            "index": 17
+          },
+          {
+            "className": "note_source_atom",
+            "classId": 3440,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.shO",
+            "index": 18
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 19
+          },
+          {
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "index": 20
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 21
+          },
+          {
+            "className": "integer_value_atom",
+            "classId": 394,
+            "runtimeClass": "elR",
+            "index": 22
+          },
+          {
+            "className": "integer_value_atom",
+            "classId": 394,
+            "runtimeClass": "elR",
+            "index": 23
+          },
+          {
+            "className": "indexed_value_atom",
+            "classId": 180,
+            "runtimeClass": "vNR",
+            "index": 24
+          },
+          {
+            "className": "transport_component",
+            "classId": 1839,
+            "runtimeClass": "ftf",
+            "index": 25
+          },
+          {
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "index": 26
+          },
+          {
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "index": 27
+          },
+          {
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "index": 28
+          },
+          {
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "index": 29
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 30
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 31
+          },
+          {
+            "className": "processing_delay_placeholder_component",
+            "classId": 1437,
+            "runtimeClass": "YoM",
+            "index": 32
+          },
+          {
+            "className": "note_delay_compensation_atom",
+            "classId": 1435,
+            "runtimeClass": "Aot",
+            "index": 33
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 34
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 35
+          },
+          {
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "index": 36
+          },
+          {
+            "className": "device_note_output_collector_atom",
+            "classId": 4290,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.hqz",
+            "index": 37
+          },
+          {
+            "className": "note_voice_combiner_atom",
+            "classId": 4291,
+            "runtimeClass": "BDc",
+            "index": 38
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 39
+          },
+          {
+            "className": "note_delay_compensation_atom",
+            "classId": 1435,
+            "runtimeClass": "Aot",
+            "index": 40
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 41
+          },
+          {
+            "className": "delay_compensation_atom",
+            "classId": 1371,
+            "runtimeClass": "gUY",
+            "index": 42
+          },
+          {
+            "className": "note_delay_compensation_atom",
+            "classId": 1435,
+            "runtimeClass": "Aot",
+            "index": 43
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 44
+          },
+          {
+            "className": "int_source_atom",
+            "classId": 4645,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.dbF",
+            "index": 45
+          },
+          {
+            "className": "int_source_atom",
+            "classId": 4645,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.dbF",
+            "index": 46
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 47
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 48
+          },
+          {
+            "className": "delay_compensation_atom",
+            "classId": 1371,
+            "runtimeClass": "gUY",
+            "index": 49
+          }
+        ]
+      },
+      {
+        "id": 6213,
+        "name": "panels",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 3,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": false,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 177,
+        "name": "proxy_in_ports",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 2,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": false,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 178,
+        "name": "proxy_out_ports",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 2,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": false,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 181,
+        "name": "device_editor_display_settings",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": false,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 182,
+        "name": "shared_resources",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": true,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 6566,
+        "name": "fft_order",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 11047,
+        "name": "analysis_fft_order",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 11110,
+        "name": "analysis_fft_fall_speed",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6834,
+        "name": "context_menu_panel",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": true,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 9820,
+        "name": "inspector_panel",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 1,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": false,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 13647,
+        "name": "device_revision",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6199,
+        "name": "components_to_execute",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 388,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": false,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 1977,
+        "name": "sleep_level_threshold",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 1978,
+        "name": "sleep_level_timeout",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 10568,
+        "name": "processing_strategy",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 14608,
+        "name": "prevent_sleep",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 14932,
+        "name": "is_observed",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 179,
+        "name": "allocated_voices",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 10513,
+        "name": "true_mono",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 385,
+        "name": "device_UUID",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 386,
+        "name": "device_name",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 2057,
+        "name": "description",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 387,
+        "name": "creator",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 388,
+        "name": "comment",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 389,
+        "name": "keywords",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 390,
+        "name": "category",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 391,
+        "name": "device_type",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 4846,
+        "name": "suggest_for_note_input",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 4847,
+        "name": "suggest_for_audio_input",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 392,
+        "name": "has_been_modified",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6195,
+        "name": "audio_proxy_in_port",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": true,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 6196,
+        "name": "audio_proxy_out_port",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": true,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 6197,
+        "name": "note_proxy_in_port",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": true,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 6198,
+        "name": "note_proxy_out_port",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": true,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 13354,
+        "name": "color_tint",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6417,
+        "name": "header_area_panel",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": true,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 7549,
+        "name": "maximized_panel",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 1,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": false,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 10713,
+        "name": "synth_display_panel",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": true,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 10727,
+        "name": "synth_overview_panel",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": true,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 10992,
+        "name": "mixer_eq_panel",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": true,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 9657,
+        "name": "is_maximized_panel_shown",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 10663,
+        "name": "is_allowed_to_show_maximized_panel",
+        "serializerIncluded": true,
+        "relationship": false
+      }
+    ],
+    "work": 156,
+    "complete": true
+  },
+  "queryWork": 156,
+  "heapUsedAfter": 744488960,
+  "documentTaskNanos": 393416,
+  "completionNanos": 25309833
+}

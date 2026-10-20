@@ -1,0 +1,137 @@
+{
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 7
+    },
+    {
+      "parentClass": "module_grid",
+      "propertyId": 6428,
+      "propertyName": "auxiliary_devices",
+      "index": 11
+    },
+    {
+      "parentClass": "module",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "module_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 12
+    }
+  ],
+  "marker": "9b-grid-focused-v15",
+  "epoch": "d6eaef9c-a68a-4270-860d-4aacef030242",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "queueNanos": 70291,
+  "heapUsedBefore": 952107008,
+  "schema": {
+    "className": "value_led_atom",
+    "classId": 189,
+    "runtimeClass": "dLY",
+    "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 228,
+        "name": "in_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": false,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 229,
+        "name": "out_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": true,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 6194,
+        "name": "settings",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 1,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": false,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 607,
+        "name": "channel_count",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 3595,
+        "name": "engine_analysis_helper",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": false,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 3371,
+        "name": "absolute_delay_relative_to_input",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 374,
+        "name": "name",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 11002,
+        "name": "prevent_parent_from_sleeping",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 477,
+        "name": "value",
+        "serializerIncluded": false,
+        "relationship": false
+      }
+    ],
+    "work": 203,
+    "complete": true
+  },
+  "queryWork": 203,
+  "heapUsedAfter": 952107008,
+  "documentTaskNanos": 181917,
+  "completionNanos": 24490291
+}

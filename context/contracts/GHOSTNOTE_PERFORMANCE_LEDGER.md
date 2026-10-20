@@ -289,6 +289,50 @@ planner: offline median 2.9 ms for 835 notes and 51.2 ms for 16,384 notes
 
 ## Limits
 
+[E304](../evidence/experiments/e304-focused-grid-reader-live.md) measures V15
+focused reads on the baseline and stock presets. Six scratch batches use
+7,321 wire calls and 298,116.948 ms of summed call time. The 5,154 graph calls
+include discovery refusals. They take 37.614–58.648 ms wire (median 47.380)
+and 0.102–3.522 ms document (median 0.421). Graph process-heap deltas are
+0–4 MiB; schema deltas are 0–2 MiB. Schema document time reaches 1.954 ms.
+The first cold bind takes 67.160 ms wire.
+
+The first 50-module pass reaches the 1,024-call capture ceiling. An 83-module
+catalog reaches the host work limit. The revised driver reads paired catalog
+entries one module at a time, with header counts before and after, and permits
+selected detailed module reads while retaining all atom membership checks.
+It keeps 64 modules, 256 schemas, 1,024 captures, and all host caps. Stutter's
+83 modules remain outside scope. Complete captures after partitioning use
+at most 1,089 work units. The prior whole 50-module catalog used 3,874.
+
+Grid Multi FX has 31 modules, 179 configured atom reads, 750 captures,
+29 schemas, and bind/status/release: 782 read-session calls, with an
+18.768-second floor at 24 ms per turn. The increase from E302's seven-call
+catalog buys parameter/connection coverage and paired membership checks.
+This is not a comparable whole-graph performance result.
+
+Final unchanged semantic control reads take 47.837/49.935 ms wire and
+3.518/4.751 ms document. Wire times remain inside the E276 range; no comparable
+regression over 20 percent is observed. Keep the 48 MiB planning allowance:
+process samples do not bound native getter allocation or peaks. Product
+budgets and public descriptions v52 stay unchanged.
+
+[E303](../evidence/experiments/e303-focused-grid-reader-preparation.md) prepares
+V15 selective schemas and focused atom reads. A schema request selects at
+most 64 relationships and returns at most 256 child headers total. Full
+counts remain visible. Graph, path, work, and result caps stay unchanged.
+The focused driver permits 256 schemas and 1,024 captures per preset,
+plus bind/status/release: 1,283 read-session calls and a 30.792-second
+wire floor at 24 ms per call. Typical count depends on the observed atoms.
+Full captures go to disk; retained summaries have a 4 MiB cap.
+Fixture operations keep the E302 model. Product call budgets stay fixed.
+
+The temporary host-heap allowance is revised to 48 MiB for planning only.
+It is neither an enforced bound nor a measured peak. E302's process samples
+do not isolate native getter allocation. V15 is deployed, but controller
+replacement and matching live measurements are pending. No performance
+claim follows from the offline checks.
+
 [E302](../evidence/experiments/e302-stock-grid-survey.md) measures V14 on the
 control and stock presets. Control captures take 46.647–49.446 ms, within
 E276's 43.599–50.752 ms range. Broad captures take 41.587–52.908 ms wire and

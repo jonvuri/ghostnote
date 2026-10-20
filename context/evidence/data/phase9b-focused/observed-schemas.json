@@ -1,0 +1,5831 @@
+{
+  "evidence": "E304",
+  "classes": [
+    {
+      "className": "integer_value_atom",
+      "classId": 394,
+      "runtimeClass": "elR",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 608,
+          "name": "oversampling",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 701,
+          "name": "preset_identifier",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 374,
+          "name": "name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 821,
+          "name": "short_name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10561,
+          "name": "should_inherit_name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 3826,
+          "name": "modulations_to_ignore",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 702,
+          "name": "value_type",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 1241,
+          "name": "is_manual_override",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 2772,
+          "name": "has_automation",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 704,
+          "name": "has_arranger_automation",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 2001,
+          "name": "is_playing_launcher_automation",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 14256,
+          "name": "automation_state",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 3370,
+          "name": "automation_playback_time_alignment_delay",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 3615,
+          "name": "modulation_mappings",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 5387,
+          "name": "has_modulations",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 5827,
+          "name": "is_being_processed",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 3605,
+          "name": "engine_shared_memory_helper",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 7489,
+          "name": "allow_automation",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 7490,
+          "name": "allow_modulation",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 14419,
+          "name": "is_atom_effectively_licensed",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 828,
+          "name": "value",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 957,
+          "name": "gui_value",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 5364,
+          "name": "modulated_value",
+          "serializerIncluded": false,
+          "relationship": false
+        }
+      ],
+      "work": 221,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-0-focused-schema-9.json"
+    },
+    {
+      "className": "polyphonic_observer_atom",
+      "classId": 1815,
+      "runtimeClass": "Ngv",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 608,
+          "name": "oversampling",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 6534,
+          "name": "engine_analysis_helper",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6533,
+          "name": "dimensions",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10303,
+          "name": "preset_identifier",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10304,
+          "name": "averageX",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 10305,
+          "name": "averageY",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 10306,
+          "name": "averageZ",
+          "serializerIncluded": false,
+          "relationship": false
+        }
+      ],
+      "work": 205,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-0-focused-schema-15.json"
+    },
+    {
+      "className": "nitro_atom",
+      "classId": 1721,
+      "runtimeClass": "dkb",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 12,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 608,
+          "name": "oversampling",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 6264,
+          "name": "code",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 11357,
+          "name": "code_path",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10421,
+          "name": "code_storage",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 14616,
+          "name": "is_code_storage_binary_ast",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 11360,
+          "name": "use_code_path",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 6526,
+          "name": "has_compiler_errors",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 15776,
+          "name": "engine_compilation_request",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6524,
+          "name": "has_code_changed_since_compile",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 6529,
+          "name": "component_name",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 6530,
+          "name": "component_icon",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 6531,
+          "name": "component_description",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 6567,
+          "name": "fft_order",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 9972,
+          "name": "nitro_properties",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 15756,
+          "name": "nitro_inputs",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 12,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 15757,
+          "name": "nitro_outputs",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 11670,
+          "name": "force_debug_metadata",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 11671,
+          "name": "force_assertions",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 12079,
+          "name": "force_array_bounds_checking",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 12080,
+          "name": "force_debug_printing",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 13532,
+          "name": "force_dump_llvm",
+          "serializerIncluded": false,
+          "relationship": false
+        }
+      ],
+      "work": 219,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-0-focused-schema-5.json"
+    },
+    {
+      "className": "device_input_proxy_atom",
+      "classId": 3300,
+      "runtimeClass": "com.bitwig.flt.document.core.master.device.liz",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 608,
+          "name": "oversampling",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 9794,
+          "name": "device_source_ID",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10295,
+          "name": "is_note_proxy",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 13501,
+          "name": "is_int_proxy",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10555,
+          "name": "amount_control",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        }
+      ],
+      "work": 203,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-1-focused-schema-12.json"
+    },
+    {
+      "className": "device_contents",
+      "classId": 151,
+      "runtimeClass": "com.bitwig.flt.document.core.master.device.esS",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 173,
+          "name": "child_components",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 49,
+          "headersRequested": true,
+          "returnedCount": 49,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": [
+            {
+              "className": "polyphonic_note_voice_atom",
+              "classId": 350,
+              "runtimeClass": "c3U",
+              "index": 0
+            },
+            {
+              "className": "audio_voice_combiner_atom",
+              "classId": 313,
+              "runtimeClass": "PAA",
+              "index": 1
+            },
+            {
+              "className": "nitro_atom",
+              "classId": 1721,
+              "runtimeClass": "dkb",
+              "index": 2
+            },
+            {
+              "className": "decimal_value_atom",
+              "classId": 289,
+              "runtimeClass": "bcf",
+              "index": 3
+            },
+            {
+              "className": "nested_device_chain_slot",
+              "classId": 587,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.EiB",
+              "index": 4
+            },
+            {
+              "className": "nested_device_chain_slot",
+              "classId": 587,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.EiB",
+              "index": 5
+            },
+            {
+              "className": "note_delay_compensation_atom",
+              "classId": 1435,
+              "runtimeClass": "Aot",
+              "index": 6
+            },
+            {
+              "className": "module_grid",
+              "classId": 1901,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.gOr",
+              "index": 7
+            },
+            {
+              "className": "audio_source_atom",
+              "classId": 2000,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+              "index": 8
+            },
+            {
+              "className": "nitro_atom",
+              "classId": 1721,
+              "runtimeClass": "dkb",
+              "index": 9
+            },
+            {
+              "className": "audio_source_atom",
+              "classId": 2000,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+              "index": 10
+            },
+            {
+              "className": "decimal_value_atom",
+              "classId": 289,
+              "runtimeClass": "bcf",
+              "index": 11
+            },
+            {
+              "className": "audio_source_atom",
+              "classId": 2000,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+              "index": 12
+            },
+            {
+              "className": "audio_source_atom",
+              "classId": 2000,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+              "index": 13
+            },
+            {
+              "className": "device_audio_output_collector_atom",
+              "classId": 3336,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.DCg",
+              "index": 14
+            },
+            {
+              "className": "device_audio_output_collector_atom",
+              "classId": 3336,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.DCg",
+              "index": 15
+            },
+            {
+              "className": "processing_delay_placeholder_component",
+              "classId": 1437,
+              "runtimeClass": "YoM",
+              "index": 16
+            },
+            {
+              "className": "nitro_atom",
+              "classId": 1721,
+              "runtimeClass": "dkb",
+              "index": 17
+            },
+            {
+              "className": "nitro_atom",
+              "classId": 1721,
+              "runtimeClass": "dkb",
+              "index": 18
+            },
+            {
+              "className": "audio_source_atom",
+              "classId": 2000,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+              "index": 19
+            },
+            {
+              "className": "note_source_atom",
+              "classId": 3440,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.shO",
+              "index": 20
+            },
+            {
+              "className": "note_source_atom",
+              "classId": 3440,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.shO",
+              "index": 21
+            },
+            {
+              "className": "nitro_atom",
+              "classId": 1721,
+              "runtimeClass": "dkb",
+              "index": 22
+            },
+            {
+              "className": "audio_source_atom",
+              "classId": 2000,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+              "index": 23
+            },
+            {
+              "className": "boolean_value_atom",
+              "classId": 87,
+              "runtimeClass": "QY",
+              "index": 24
+            },
+            {
+              "className": "integer_value_atom",
+              "classId": 394,
+              "runtimeClass": "elR",
+              "index": 25
+            },
+            {
+              "className": "integer_value_atom",
+              "classId": 394,
+              "runtimeClass": "elR",
+              "index": 26
+            },
+            {
+              "className": "indexed_value_atom",
+              "classId": 180,
+              "runtimeClass": "vNR",
+              "index": 27
+            },
+            {
+              "className": "transport_component",
+              "classId": 1839,
+              "runtimeClass": "ftf",
+              "index": 28
+            },
+            {
+              "className": "audio_source_atom",
+              "classId": 2000,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+              "index": 29
+            },
+            {
+              "className": "audio_source_atom",
+              "classId": 2000,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+              "index": 30
+            },
+            {
+              "className": "audio_source_atom",
+              "classId": 2000,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+              "index": 31
+            },
+            {
+              "className": "audio_source_atom",
+              "classId": 2000,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+              "index": 32
+            },
+            {
+              "className": "nitro_atom",
+              "classId": 1721,
+              "runtimeClass": "dkb",
+              "index": 33
+            },
+            {
+              "className": "nitro_atom",
+              "classId": 1721,
+              "runtimeClass": "dkb",
+              "index": 34
+            },
+            {
+              "className": "processing_delay_placeholder_component",
+              "classId": 1437,
+              "runtimeClass": "YoM",
+              "index": 35
+            },
+            {
+              "className": "note_delay_compensation_atom",
+              "classId": 1435,
+              "runtimeClass": "Aot",
+              "index": 36
+            },
+            {
+              "className": "boolean_value_atom",
+              "classId": 87,
+              "runtimeClass": "QY",
+              "index": 37
+            },
+            {
+              "className": "nitro_atom",
+              "classId": 1721,
+              "runtimeClass": "dkb",
+              "index": 38
+            },
+            {
+              "className": "audio_source_atom",
+              "classId": 2000,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+              "index": 39
+            },
+            {
+              "className": "device_note_output_collector_atom",
+              "classId": 4290,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.hqz",
+              "index": 40
+            },
+            {
+              "className": "note_voice_combiner_atom",
+              "classId": 4291,
+              "runtimeClass": "BDc",
+              "index": 41
+            },
+            {
+              "className": "note_delay_compensation_atom",
+              "classId": 1435,
+              "runtimeClass": "Aot",
+              "index": 42
+            },
+            {
+              "className": "nitro_atom",
+              "classId": 1721,
+              "runtimeClass": "dkb",
+              "index": 43
+            },
+            {
+              "className": "note_delay_compensation_atom",
+              "classId": 1435,
+              "runtimeClass": "Aot",
+              "index": 44
+            },
+            {
+              "className": "boolean_value_atom",
+              "classId": 87,
+              "runtimeClass": "QY",
+              "index": 45
+            },
+            {
+              "className": "boolean_value_atom",
+              "classId": 87,
+              "runtimeClass": "QY",
+              "index": 46
+            },
+            {
+              "className": "int_source_atom",
+              "classId": 4645,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.dbF",
+              "index": 47
+            },
+            {
+              "className": "int_source_atom",
+              "classId": 4645,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.dbF",
+              "index": 48
+            }
+          ]
+        },
+        {
+          "id": 6213,
+          "name": "panels",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 3,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 177,
+          "name": "proxy_in_ports",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 2,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 178,
+          "name": "proxy_out_ports",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 2,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 181,
+          "name": "device_editor_display_settings",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 182,
+          "name": "shared_resources",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6566,
+          "name": "fft_order",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 11047,
+          "name": "analysis_fft_order",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 11110,
+          "name": "analysis_fft_fall_speed",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 6834,
+          "name": "context_menu_panel",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 9820,
+          "name": "inspector_panel",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 13647,
+          "name": "device_revision",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 6199,
+          "name": "components_to_execute",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 421,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 1977,
+          "name": "sleep_level_threshold",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 1978,
+          "name": "sleep_level_timeout",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10568,
+          "name": "processing_strategy",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 14608,
+          "name": "prevent_sleep",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 14932,
+          "name": "is_observed",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 179,
+          "name": "allocated_voices",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 10513,
+          "name": "true_mono",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 385,
+          "name": "device_UUID",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 386,
+          "name": "device_name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 2057,
+          "name": "description",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 387,
+          "name": "creator",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 388,
+          "name": "comment",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 389,
+          "name": "keywords",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 390,
+          "name": "category",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 391,
+          "name": "device_type",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 4846,
+          "name": "suggest_for_note_input",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 4847,
+          "name": "suggest_for_audio_input",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 392,
+          "name": "has_been_modified",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 6195,
+          "name": "audio_proxy_in_port",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6196,
+          "name": "audio_proxy_out_port",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6197,
+          "name": "note_proxy_in_port",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6198,
+          "name": "note_proxy_out_port",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 13354,
+          "name": "color_tint",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 6417,
+          "name": "header_area_panel",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 7549,
+          "name": "maximized_panel",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 10713,
+          "name": "synth_display_panel",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 10727,
+          "name": "synth_overview_panel",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 10992,
+          "name": "mixer_eq_panel",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 9657,
+          "name": "is_maximized_panel_shown",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 10663,
+          "name": "is_allowed_to_show_maximized_panel",
+          "serializerIncluded": true,
+          "relationship": false
+        }
+      ],
+      "work": 155,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-1-focused-schema-1.json"
+    },
+    {
+      "className": "native_device",
+      "classId": 163,
+      "runtimeClass": "com.bitwig.flt.document.core.master.device.S2E",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 15,
+          "name": "UUID",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 404,
+          "name": "device_name",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 6785,
+          "name": "remote_controls",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 406,
+          "name": "device_contents",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": true,
+          "returnedCount": 1,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": [
+            {
+              "className": "device_contents",
+              "classId": 151,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.esS",
+              "index": 0
+            }
+          ]
+        },
+        {
+          "id": 825,
+          "name": "display_settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 5466,
+          "name": "user_device_name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 2785,
+          "name": "display_title",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 407,
+          "name": "preset_to_serialize",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 5478,
+          "name": "top_level_device_for_assigning_preset",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 409,
+          "name": "preset_name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 4835,
+          "name": "displayed_preset_name",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 5914,
+          "name": "has_preset_been_chosen",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 410,
+          "name": "preset_category",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 411,
+          "name": "preset_creator",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 1364,
+          "name": "preset_keywords",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 3744,
+          "name": "preset_category_filter",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 3745,
+          "name": "preset_creator_filter",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 6237,
+          "name": "preset_comment",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 13649,
+          "name": "preset_revision",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 5521,
+          "name": "is_being_hot_swapped",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 5550,
+          "name": "context_insert_session",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 6054,
+          "name": "browsing_session_state",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 413,
+          "name": "last_loaded_preset_path",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 14003,
+          "name": "is_device_licensed",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 14415,
+          "name": "is_device_effectively_licensed",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 7582,
+          "name": "human_friendly_path",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 405,
+          "name": "enabled",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6815,
+          "name": "is_frozen",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 6727,
+          "name": "modulator_grid",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 895,
+          "name": "device_type",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 2031,
+          "name": "output_meter",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 2107,
+          "name": "has_note_input",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 2108,
+          "name": "has_note_output",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 2109,
+          "name": "has_audio_input",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 2110,
+          "name": "has_audio_output",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 4848,
+          "name": "suggest_for_note_input",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 4849,
+          "name": "suggest_for_audio_input",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 3358,
+          "name": "device_contents_delay",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 4991,
+          "name": "active",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 5343,
+          "name": "effective_active",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 5044,
+          "name": "device_output_source",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 5655,
+          "name": "device_note_output_source",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 5400,
+          "name": "is_engine_processing",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 5401,
+          "name": "engine_shared_memory_helper",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 5438,
+          "name": "modulation_sources",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 19,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6798,
+          "name": "default_is_expanded_display_setting",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 6799,
+          "name": "default_are_remote_controls_visible_display_setting",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 6826,
+          "name": "default_are_modulators_visible_display_setting",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 7030,
+          "name": "default_selected_remote_controls_page",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 7037,
+          "name": "additional_remote_controls_page_selectors",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 16,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 4954,
+          "name": "was_device_window_open_last_time_track_was_shown",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 5262,
+          "name": "was_device_window_open_when_all_windows_were_hidden",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 11550,
+          "name": "is_engine_ready",
+          "serializerIncluded": false,
+          "relationship": false
+        }
+      ],
+      "work": 59,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-1-focused-schema-0.json"
+    },
+    {
+      "className": "bipolar_toggleable_decimal_value_atom",
+      "classId": 1763,
+      "runtimeClass": "tqm",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 608,
+          "name": "oversampling",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 701,
+          "name": "preset_identifier",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 374,
+          "name": "name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 821,
+          "name": "short_name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10561,
+          "name": "should_inherit_name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 3826,
+          "name": "modulations_to_ignore",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 702,
+          "name": "value_type",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 1241,
+          "name": "is_manual_override",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 2772,
+          "name": "has_automation",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 704,
+          "name": "has_arranger_automation",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 2001,
+          "name": "is_playing_launcher_automation",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 14256,
+          "name": "automation_state",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 3370,
+          "name": "automation_playback_time_alignment_delay",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 3615,
+          "name": "modulation_mappings",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 5387,
+          "name": "has_modulations",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 5827,
+          "name": "is_being_processed",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 3605,
+          "name": "engine_shared_memory_helper",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 7489,
+          "name": "allow_automation",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 7490,
+          "name": "allow_modulation",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 14419,
+          "name": "is_atom_effectively_licensed",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 712,
+          "name": "value",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 949,
+          "name": "gui_value",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 2775,
+          "name": "modulated_value",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 6406,
+          "name": "bipolar",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 6411,
+          "name": "bipolar_panel_value",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6841,
+          "name": "name_panel_value",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6846,
+          "name": "associated_modulation_source",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        }
+      ],
+      "work": 225,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-1-focused-schema-13.json"
+    },
+    {
+      "className": "audio_destination_atom",
+      "classId": 2002,
+      "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 2,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 608,
+          "name": "oversampling",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10378,
+          "name": "port_color",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10379,
+          "name": "effective_port_color",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 10554,
+          "name": "is_being_shown",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 7123,
+          "name": "name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 7124,
+          "name": "preset_identifier",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 7125,
+          "name": "source",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 7234,
+          "name": "default_value",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10380,
+          "name": "colorize_from_source",
+          "serializerIncluded": true,
+          "relationship": false
+        }
+      ],
+      "work": 207,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-0-focused-schema-4.json"
+    },
+    {
+      "className": "audio_voice_sum_atom",
+      "classId": 3469,
+      "runtimeClass": "Hki",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 4,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 608,
+          "name": "oversampling",
+          "serializerIncluded": true,
+          "relationship": false
+        }
+      ],
+      "work": 199,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-0-focused-schema-14.json"
+    },
+    {
+      "className": "button_boolean_value_atom",
+      "classId": 3380,
+      "runtimeClass": "nQZ",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 608,
+          "name": "oversampling",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 701,
+          "name": "preset_identifier",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 374,
+          "name": "name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 821,
+          "name": "short_name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10561,
+          "name": "should_inherit_name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 3826,
+          "name": "modulations_to_ignore",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 702,
+          "name": "value_type",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 1241,
+          "name": "is_manual_override",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 2772,
+          "name": "has_automation",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 704,
+          "name": "has_arranger_automation",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 2001,
+          "name": "is_playing_launcher_automation",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 14256,
+          "name": "automation_state",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 3370,
+          "name": "automation_playback_time_alignment_delay",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 3615,
+          "name": "modulation_mappings",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 5387,
+          "name": "has_modulations",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 5827,
+          "name": "is_being_processed",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 3605,
+          "name": "engine_shared_memory_helper",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 7489,
+          "name": "allow_automation",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 7490,
+          "name": "allow_modulation",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 14419,
+          "name": "is_atom_effectively_licensed",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 210,
+          "name": "value",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 953,
+          "name": "gui_value",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 5362,
+          "name": "modulated_value",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 10048,
+          "name": "associated_modulation_source",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        }
+      ],
+      "work": 222,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-0-focused-schema-8.json"
+    },
+    {
+      "className": "audio_source_atom",
+      "classId": 2000,
+      "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 608,
+          "name": "oversampling",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10378,
+          "name": "port_color",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10379,
+          "name": "effective_port_color",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 10554,
+          "name": "is_being_shown",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 3639,
+          "name": "name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 3640,
+          "name": "preset_identifier",
+          "serializerIncluded": true,
+          "relationship": false
+        }
+      ],
+      "work": 204,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-0-focused-schema-3.json"
+    },
+    {
+      "className": "boolean_panel_value",
+      "classId": 1751,
+      "runtimeClass": "yhl",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6387,
+          "name": "preset_identifier",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 6386,
+          "name": "value",
+          "serializerIncluded": true,
+          "relationship": false
+        }
+      ],
+      "work": 199,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-1-focused-schema-14.json"
+    },
+    {
+      "className": "indexed_value_atom",
+      "classId": 180,
+      "runtimeClass": "vNR",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 608,
+          "name": "oversampling",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 701,
+          "name": "preset_identifier",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 374,
+          "name": "name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 821,
+          "name": "short_name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10561,
+          "name": "should_inherit_name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 3826,
+          "name": "modulations_to_ignore",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 702,
+          "name": "value_type",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 1241,
+          "name": "is_manual_override",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 2772,
+          "name": "has_automation",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 704,
+          "name": "has_arranger_automation",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 2001,
+          "name": "is_playing_launcher_automation",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 14256,
+          "name": "automation_state",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 3370,
+          "name": "automation_playback_time_alignment_delay",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 3615,
+          "name": "modulation_mappings",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 5387,
+          "name": "has_modulations",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 5827,
+          "name": "is_being_processed",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 3605,
+          "name": "engine_shared_memory_helper",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 7489,
+          "name": "allow_automation",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 7490,
+          "name": "allow_modulation",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 14419,
+          "name": "is_atom_effectively_licensed",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 457,
+          "name": "value",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 955,
+          "name": "gui_value",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 6928,
+          "name": "value_item_index",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 5363,
+          "name": "modulated_value",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 458,
+          "name": "value_item",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        }
+      ],
+      "work": 223,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-1-focused-schema-7.json"
+    },
+    {
+      "className": "data_array_component",
+      "classId": 1870,
+      "runtimeClass": "USc",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6614,
+          "name": "preset_identifier",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 6609,
+          "name": "data",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 6613,
+          "name": "data_size",
+          "serializerIncluded": true,
+          "relationship": false
+        }
+      ],
+      "work": 200,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-1-focused-schema-18.json"
+    },
+    {
+      "className": "value_led_atom",
+      "classId": 189,
+      "runtimeClass": "dLY",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 3595,
+          "name": "engine_analysis_helper",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 3371,
+          "name": "absolute_delay_relative_to_input",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 374,
+          "name": "name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 11002,
+          "name": "prevent_parent_from_sleeping",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 477,
+          "name": "value",
+          "serializerIncluded": false,
+          "relationship": false
+        }
+      ],
+      "work": 203,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-1-focused-schema-22.json"
+    },
+    {
+      "className": "string_panel_value",
+      "classId": 1754,
+      "runtimeClass": "UcJ",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6387,
+          "name": "preset_identifier",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 6391,
+          "name": "value",
+          "serializerIncluded": true,
+          "relationship": false
+        }
+      ],
+      "work": 199,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-1-focused-schema-23.json"
+    },
+    {
+      "className": "transport_component",
+      "classId": 1839,
+      "runtimeClass": "ftf",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 16,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6550,
+          "name": "absolute_delay",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 10070,
+          "name": "use_double_precision_beattime",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 11467,
+          "name": "output_connection_mask",
+          "serializerIncluded": false,
+          "relationship": false
+        }
+      ],
+      "work": 200,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-1-focused-schema-19.json"
+    },
+    {
+      "className": "device_audio_output_proxy_atom",
+      "classId": 3335,
+      "runtimeClass": "com.bitwig.flt.document.core.master.device.euX",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 608,
+          "name": "oversampling",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 9817,
+          "name": "device_destination_ID",
+          "serializerIncluded": true,
+          "relationship": false
+        }
+      ],
+      "work": 200,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-0-focused-schema-12.json"
+    },
+    {
+      "className": "decimal_value_atom",
+      "classId": 289,
+      "runtimeClass": "bcf",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 608,
+          "name": "oversampling",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 701,
+          "name": "preset_identifier",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 374,
+          "name": "name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 821,
+          "name": "short_name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10561,
+          "name": "should_inherit_name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 3826,
+          "name": "modulations_to_ignore",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 702,
+          "name": "value_type",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 1241,
+          "name": "is_manual_override",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 2772,
+          "name": "has_automation",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 704,
+          "name": "has_arranger_automation",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 2001,
+          "name": "is_playing_launcher_automation",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 14256,
+          "name": "automation_state",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 3370,
+          "name": "automation_playback_time_alignment_delay",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 3615,
+          "name": "modulation_mappings",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 5387,
+          "name": "has_modulations",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 5827,
+          "name": "is_being_processed",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 3605,
+          "name": "engine_shared_memory_helper",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 7489,
+          "name": "allow_automation",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 7490,
+          "name": "allow_modulation",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 14419,
+          "name": "is_atom_effectively_licensed",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 712,
+          "name": "value",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 949,
+          "name": "gui_value",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 2775,
+          "name": "modulated_value",
+          "serializerIncluded": false,
+          "relationship": false
+        }
+      ],
+      "work": 221,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-1-focused-schema-6.json"
+    },
+    {
+      "className": "trigger_atom",
+      "classId": 239,
+      "runtimeClass": "GnQ",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 608,
+          "name": "oversampling",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 701,
+          "name": "preset_identifier",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 374,
+          "name": "name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 821,
+          "name": "short_name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10561,
+          "name": "should_inherit_name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 617,
+          "name": "trigger_toggle",
+          "serializerIncluded": false,
+          "relationship": false
+        }
+      ],
+      "work": 204,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-1-focused-schema-20.json"
+    },
+    {
+      "className": "last_voice_int_event_atom",
+      "classId": 2076,
+      "runtimeClass": "inq",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 14407,
+          "name": "is_discrete",
+          "serializerIncluded": true,
+          "relationship": false
+        }
+      ],
+      "work": 199,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-1-focused-schema-21.json"
+    },
+    {
+      "className": "device_modulation_mapping",
+      "classId": 760,
+      "runtimeClass": "com.bitwig.flt.document.core.master.device.OTc",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 3635,
+          "name": "source",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 3739,
+          "name": "destination_reference",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 3611,
+          "name": "amount",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 11509,
+          "name": "has_auxiliary_modulation_source",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 11913,
+          "name": "is_auxiliary_modulation_source_active",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 11503,
+          "name": "auxiliary_source_reference",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 11481,
+          "name": "modulation_enabled",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 11338,
+          "name": "transfer_function",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 3638,
+          "name": "is_polyphonic",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 5338,
+          "name": "relative_source_delay",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 14699,
+          "name": "relative_aux_delay",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 10579,
+          "name": "is_delayed_due_to_feedback",
+          "serializerIncluded": false,
+          "relationship": false
+        }
+      ],
+      "work": 235,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-1-focused-schema-17.json"
+    },
+    {
+      "className": "boolean_value_atom",
+      "classId": 87,
+      "runtimeClass": "QY",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 608,
+          "name": "oversampling",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 701,
+          "name": "preset_identifier",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 374,
+          "name": "name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 821,
+          "name": "short_name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10561,
+          "name": "should_inherit_name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 3826,
+          "name": "modulations_to_ignore",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 702,
+          "name": "value_type",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 1241,
+          "name": "is_manual_override",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 2772,
+          "name": "has_automation",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 704,
+          "name": "has_arranger_automation",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 2001,
+          "name": "is_playing_launcher_automation",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 14256,
+          "name": "automation_state",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 3370,
+          "name": "automation_playback_time_alignment_delay",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 3615,
+          "name": "modulation_mappings",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 5387,
+          "name": "has_modulations",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 5827,
+          "name": "is_being_processed",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 3605,
+          "name": "engine_shared_memory_helper",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 7489,
+          "name": "allow_automation",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 7490,
+          "name": "allow_modulation",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 14419,
+          "name": "is_atom_effectively_licensed",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 210,
+          "name": "value",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 953,
+          "name": "gui_value",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 5362,
+          "name": "modulated_value",
+          "serializerIncluded": false,
+          "relationship": false
+        }
+      ],
+      "work": 221,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-1-focused-schema-4.json"
+    },
+    {
+      "className": "modulation_source_atom",
+      "classId": 766,
+      "runtimeClass": "com.bitwig.flt.document.core.master.device.NDn",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 608,
+          "name": "oversampling",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10378,
+          "name": "port_color",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10379,
+          "name": "effective_port_color",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 10554,
+          "name": "is_being_shown",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 3639,
+          "name": "name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 3640,
+          "name": "preset_identifier",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 3616,
+          "name": "modulation_mappings",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 11497,
+          "name": "auxiliary_modulation_mappings",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 5452,
+          "name": "display_settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 14694,
+          "name": "maximum_mapping_delay",
+          "serializerIncluded": false,
+          "relationship": false
+        }
+      ],
+      "work": 208,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15/preset-1-focused-schema-11.json"
+    },
+    {
+      "className": "constant_add_atom",
+      "classId": 308,
+      "runtimeClass": "CJF",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 608,
+          "name": "oversampling",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 750,
+          "name": "constant_value",
+          "serializerIncluded": true,
+          "relationship": false
+        }
+      ],
+      "work": 200,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-schema-25.json"
+    },
+    {
+      "className": "module_grid",
+      "classId": 1901,
+      "runtimeClass": "com.bitwig.flt.document.core.master.device.gOr",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6729,
+          "name": "has_auxiliary_devices",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 6428,
+          "name": "auxiliary_devices",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 4,
+          "headersRequested": true,
+          "returnedCount": 4,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": [
+            {
+              "className": "module",
+              "classId": 1902,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+              "index": 0
+            },
+            {
+              "className": "module",
+              "classId": 1902,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+              "index": 1
+            },
+            {
+              "className": "module",
+              "classId": 1902,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+              "index": 2
+            },
+            {
+              "className": "module",
+              "classId": 1902,
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+              "index": 3
+            }
+          ]
+        },
+        {
+          "id": 6633,
+          "name": "playback_auxiliary_devices",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 4,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6723,
+          "name": "preview_insert_auxiliary_devices",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 11131,
+          "name": "drag_and_drop_preview_devices",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6728,
+          "name": "display_settings",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6765,
+          "name": "preset_identifier",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10140,
+          "name": "preview_hide_modules",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 10351,
+          "name": "min_grid_x",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 10352,
+          "name": "max_grid_x",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 10353,
+          "name": "min_grid_y",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 10354,
+          "name": "max_grid_y",
+          "serializerIncluded": false,
+          "relationship": false
+        }
+      ],
+      "work": 127,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15-v2/preset-0-focused-schema-19.json"
+    },
+    {
+      "className": "wavetable_oscillator_atom",
+      "classId": 3867,
+      "runtimeClass": "upW",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 12,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 608,
+          "name": "oversampling",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 11160,
+          "name": "preview_session",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 11161,
+          "name": "resource",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 11162,
+          "name": "playback_resource",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 11163,
+          "name": "preset_identifier",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 11164,
+          "name": "resource_category_filter",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 11165,
+          "name": "resource_creator_filter",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 11166,
+          "name": "browsing_session_state",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 11408,
+          "name": "engine_wavetable",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 11157,
+          "name": "module_oversampling",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 11389,
+          "name": "unison_model",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 11570,
+          "name": "disable_index_interpolation",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 11581,
+          "name": "phase_mode",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 11572,
+          "name": "enable_unison_phase_spread",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 15445,
+          "name": "remove_dc",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 15447,
+          "name": "remove_f0",
+          "serializerIncluded": true,
+          "relationship": false
+        }
+      ],
+      "work": 214,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15-v2/preset-1-focused-schema-12.json"
+    },
+    {
+      "className": "int_observer_atom",
+      "classId": 1234,
+      "runtimeClass": "hpv",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 3595,
+          "name": "engine_analysis_helper",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 3371,
+          "name": "absolute_delay_relative_to_input",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 374,
+          "name": "name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 11002,
+          "name": "prevent_parent_from_sleeping",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 4828,
+          "name": "value",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 4826,
+          "name": "value_count",
+          "serializerIncluded": true,
+          "relationship": false
+        }
+      ],
+      "work": 204,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15-v2/preset-1-focused-schema-28.json"
+    },
+    {
+      "className": "boolean_observer_atom",
+      "classId": 2029,
+      "runtimeClass": "cXb",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 3595,
+          "name": "engine_analysis_helper",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 3371,
+          "name": "absolute_delay_relative_to_input",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 374,
+          "name": "name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 11002,
+          "name": "prevent_parent_from_sleeping",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 7293,
+          "name": "value",
+          "serializerIncluded": true,
+          "relationship": false
+        }
+      ],
+      "work": 203,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15-v2/preset-1-focused-schema-29.json"
+    },
+    {
+      "className": "device_atom_reference",
+      "classId": 101,
+      "runtimeClass": "com.bitwig.flt.document.core.master.nAR",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 65,
+          "name": "atom",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 4923,
+          "name": "atom_location_in_track",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 4922,
+          "name": "atom_name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 4924,
+          "name": "is_atom_found",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 236,
+          "name": "outermost_device",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 237,
+          "name": "path_from_outermost_device",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 4913,
+          "name": "innermost_owner",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 4914,
+          "name": "path_from_innermost_owner",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 3730,
+          "name": "value_type",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        }
+      ],
+      "work": 246,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-schema-19.json"
+    },
+    {
+      "className": "vu_meter_atom",
+      "classId": 40,
+      "runtimeClass": "DxI",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 3595,
+          "name": "engine_analysis_helper",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 3371,
+          "name": "absolute_delay_relative_to_input",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 374,
+          "name": "name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 11002,
+          "name": "prevent_parent_from_sleeping",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 2075,
+          "name": "scale_style",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 50,
+          "name": "data",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 3,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 51,
+          "name": "overload",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 4821,
+          "name": "peak_hold_value",
+          "serializerIncluded": false,
+          "relationship": false
+        }
+      ],
+      "work": 206,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-schema-24.json"
+    },
+    {
+      "className": "buffer_reader_atom",
+      "classId": 331,
+      "runtimeClass": "frb",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 608,
+          "name": "oversampling",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 732,
+          "name": "mode",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 733,
+          "name": "buffer",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 9822,
+          "name": "time_is_scalar",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 852,
+          "name": "interpolation_mode",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10557,
+          "name": "oversample",
+          "serializerIncluded": true,
+          "relationship": false
+        }
+      ],
+      "work": 204,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-schema-23.json"
+    },
+    {
+      "className": "buffer_writer_atom",
+      "classId": 364,
+      "runtimeClass": "Obi",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 608,
+          "name": "oversampling",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 752,
+          "name": "name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 753,
+          "name": "buffer_length",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 754,
+          "name": "mode",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10558,
+          "name": "oversample",
+          "serializerIncluded": true,
+          "relationship": false
+        }
+      ],
+      "work": 203,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-schema-22.json"
+    },
+    {
+      "className": "wavetable_resource",
+      "classId": 3852,
+      "runtimeClass": "PHs",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 11287,
+          "name": "wavetable_reference_handle",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 11322,
+          "name": "engine_wavetable",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        }
+      ],
+      "work": 218,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15-v2/preset-1-focused-schema-16.json"
+    },
+    {
+      "className": "nameable_modulation_source_atom",
+      "classId": 1929,
+      "runtimeClass": "c3d",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 607,
+          "name": "channel_count",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 608,
+          "name": "oversampling",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10378,
+          "name": "port_color",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 10379,
+          "name": "effective_port_color",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 10554,
+          "name": "is_being_shown",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 3639,
+          "name": "name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 3640,
+          "name": "preset_identifier",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 3616,
+          "name": "modulation_mappings",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 4,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 11497,
+          "name": "auxiliary_modulation_mappings",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 5452,
+          "name": "display_settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 14694,
+          "name": "maximum_mapping_delay",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 6842,
+          "name": "name_panel_value",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        }
+      ],
+      "work": 252,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15-v2/preset-1-focused-schema-17.json"
+    },
+    {
+      "className": "module",
+      "classId": 1902,
+      "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 228,
+          "name": "in_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 229,
+          "name": "out_ports",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 6194,
+          "name": "settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 15,
+          "name": "UUID",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 404,
+          "name": "device_name",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 6785,
+          "name": "remote_controls",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 406,
+          "name": "device_contents",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 825,
+          "name": "display_settings",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 5466,
+          "name": "user_device_name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 2785,
+          "name": "display_title",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 407,
+          "name": "preset_to_serialize",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 5478,
+          "name": "top_level_device_for_assigning_preset",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 409,
+          "name": "preset_name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 4835,
+          "name": "displayed_preset_name",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 5914,
+          "name": "has_preset_been_chosen",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 410,
+          "name": "preset_category",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 411,
+          "name": "preset_creator",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 1364,
+          "name": "preset_keywords",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 3744,
+          "name": "preset_category_filter",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 3745,
+          "name": "preset_creator_filter",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 6237,
+          "name": "preset_comment",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 13649,
+          "name": "preset_revision",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 5521,
+          "name": "is_being_hot_swapped",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 5550,
+          "name": "context_insert_session",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 6054,
+          "name": "browsing_session_state",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 413,
+          "name": "last_loaded_preset_path",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 14003,
+          "name": "is_device_licensed",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 14415,
+          "name": "is_device_effectively_licensed",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 6679,
+          "name": "grid_x",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 6680,
+          "name": "grid_y",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 6977,
+          "name": "active",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 6978,
+          "name": "effective_active",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 7048,
+          "name": "is_visible_in_device_chain",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 7049,
+          "name": "is_previewed_in_device_chain",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 10559,
+          "name": "grid_width",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 10560,
+          "name": "grid_height",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 9807,
+          "name": "user_grid_width",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 9808,
+          "name": "user_grid_height",
+          "serializerIncluded": true,
+          "relationship": false
+        }
+      ],
+      "work": 286,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15-v3/preset-0-focused-schema-18.json"
+    },
+    {
+      "className": "wavetable_reference_handle",
+      "classId": 3844,
+      "runtimeClass": "com.bitwig.flt.document.core.master.QN3",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 1204,
+          "name": "file_item_reference",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        }
+      ],
+      "work": 221,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15-v3/preset-0-focused-schema-16.json"
+    },
+    {
+      "className": "wavetable_reference",
+      "classId": 3843,
+      "runtimeClass": "com.bitwig.flt.document.core.master.rS",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 4767,
+          "name": "name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 4766,
+          "name": "file_reference",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 4024,
+          "name": "sub_path",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 11284,
+          "name": "cycle_size",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 11285,
+          "name": "table_size",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 11306,
+          "name": "is_being_prepared_for_playback",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 11307,
+          "name": "playback_error_message",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 11407,
+          "name": "engine_wavetable",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        }
+      ],
+      "work": 231,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15-v4/preset-0-focused-schema-16.json"
+    },
+    {
+      "className": "file_reference",
+      "classId": 1190,
+      "runtimeClass": "com.bitwig.flt.document.core.master.Qo3",
+      "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+      "properties": [
+        {
+          "id": 14,
+          "name": "managed_object_ID",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 1298,
+          "name": "name",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 3386,
+          "name": "path_in_project",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 3284,
+          "name": "packaged_file_id_path",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 3387,
+          "name": "initial_file_location",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 21,
+          "name": "attached_file_locations",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 1299,
+          "name": "checksum",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 23,
+          "name": "file_length",
+          "serializerIncluded": true,
+          "relationship": false
+        },
+        {
+          "id": 24,
+          "name": "local_state",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 25,
+          "name": "local_path",
+          "serializerIncluded": false,
+          "relationship": false
+        },
+        {
+          "id": 4764,
+          "name": "file_item_references",
+          "serializerIncluded": true,
+          "relationship": true,
+          "count": 1,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": false,
+          "truncated": false,
+          "children": []
+        },
+        {
+          "id": 11401,
+          "name": "file_item_references_inside_file",
+          "serializerIncluded": false,
+          "relationship": true,
+          "count": 0,
+          "headersRequested": false,
+          "returnedCount": 0,
+          "childrenComplete": true,
+          "truncated": false,
+          "children": []
+        }
+      ],
+      "work": 244,
+      "complete": true,
+      "source": "context/evidence/data/phase9b-focused/live-v15-v5/preset-0-focused-schema-16.json"
+    }
+  ]
+}

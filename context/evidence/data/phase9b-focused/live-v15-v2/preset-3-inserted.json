@@ -1,0 +1,34 @@
+{
+  "candidate": {
+    "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+    "flavour": "Poly Grid",
+    "role": "Poly route refusal in E302",
+    "loaded": false,
+    "focusModuleIndices": [
+      9,
+      11,
+      13,
+      15,
+      16,
+      24,
+      29,
+      31,
+      32,
+      35
+    ]
+  },
+  "devices": {
+    "devices": [
+      {
+        "index": 0,
+        "name": "Poly Grid",
+        "enabled": true
+      }
+    ],
+    "count": 1,
+    "itemCount": 1,
+    "trackChannelId": "905e20d9-dd5b-4e5b-ab40-b29c957a32c5",
+    "trackPosition": 1,
+    "bankSize": 16
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "candidate": {
+    "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+    "flavour": "Poly Grid",
+    "role": "Observed Gates and Wavetable in E302",
+    "loaded": false,
+    "focusModuleIndices": [
+      0,
+      9
+    ]
+  },
+  "target": {
+    "project": "gn-grid-spike",
+    "trackId": "ec7191e1-4f98-464d-bcab-98909575772c",
+    "trackName": "gn-9b-survey-d8bb3ddd",
+    "deviceIndex": 0,
+    "deviceName": "Poly Grid"
+  },
+  "devices": {
+    "devices": [
+      {
+        "index": 0,
+        "name": "Poly Grid",
+        "enabled": true
+      }
+    ],
+    "count": 1,
+    "itemCount": 1,
+    "trackChannelId": "ec7191e1-4f98-464d-bcab-98909575772c",
+    "trackPosition": 1,
+    "bankSize": 16
+  }
+}

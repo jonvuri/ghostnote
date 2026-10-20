@@ -1,0 +1,257 @@
+{
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 7
+    },
+    {
+      "parentClass": "module_grid",
+      "propertyId": 6428,
+      "propertyName": "auxiliary_devices",
+      "index": 0
+    },
+    {
+      "parentClass": "module",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "module_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 0
+    }
+  ],
+  "marker": "9b-grid-focused-v15",
+  "epoch": "d97a1a1f-8f47-4eee-a6a9-7fa43face3b9",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "queueNanos": 78791,
+  "heapUsedBefore": 803209216,
+  "schema": {
+    "className": "decimal_value_atom",
+    "classId": 289,
+    "runtimeClass": "bcf",
+    "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 228,
+        "name": "in_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": true,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 229,
+        "name": "out_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": false,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 6194,
+        "name": "settings",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 1,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": false,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 607,
+        "name": "channel_count",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 608,
+        "name": "oversampling",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 701,
+        "name": "preset_identifier",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 374,
+        "name": "name",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 821,
+        "name": "short_name",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 10561,
+        "name": "should_inherit_name",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 3826,
+        "name": "modulations_to_ignore",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 702,
+        "name": "value_type",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 1,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": false,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 1241,
+        "name": "is_manual_override",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 2772,
+        "name": "has_automation",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 704,
+        "name": "has_arranger_automation",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 2001,
+        "name": "is_playing_launcher_automation",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 14256,
+        "name": "automation_state",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 3370,
+        "name": "automation_playback_time_alignment_delay",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 3615,
+        "name": "modulation_mappings",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": true,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 5387,
+        "name": "has_modulations",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 5827,
+        "name": "is_being_processed",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 3605,
+        "name": "engine_shared_memory_helper",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": false,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 7489,
+        "name": "allow_automation",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 7490,
+        "name": "allow_modulation",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 14419,
+        "name": "is_atom_effectively_licensed",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 712,
+        "name": "value",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 949,
+        "name": "gui_value",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 2775,
+        "name": "modulated_value",
+        "serializerIncluded": false,
+        "relationship": false
+      }
+    ],
+    "work": 221,
+    "complete": true
+  },
+  "queryWork": 221,
+  "heapUsedAfter": 803209216,
+  "documentTaskNanos": 292500,
+  "completionNanos": 20801833
+}

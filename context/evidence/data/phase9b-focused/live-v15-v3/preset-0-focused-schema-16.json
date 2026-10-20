@@ -1,0 +1,83 @@
+{
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 7
+    },
+    {
+      "parentClass": "module_grid",
+      "propertyId": 6428,
+      "propertyName": "auxiliary_devices",
+      "index": 0
+    },
+    {
+      "parentClass": "module",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "module_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 18
+    },
+    {
+      "parentClass": "wavetable_oscillator_atom",
+      "propertyId": 11161,
+      "propertyName": "resource",
+      "index": 0
+    },
+    {
+      "parentClass": "wavetable_resource",
+      "propertyId": 11287,
+      "propertyName": "wavetable_reference_handle",
+      "index": 0
+    }
+  ],
+  "marker": "9b-grid-focused-v15",
+  "epoch": "d97a1a1f-8f47-4eee-a6a9-7fa43face3b9",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "queueNanos": 72167,
+  "heapUsedBefore": 832569344,
+  "schema": {
+    "className": "wavetable_reference_handle",
+    "classId": 3844,
+    "runtimeClass": "com.bitwig.flt.document.core.master.QN3",
+    "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 1204,
+        "name": "file_item_reference",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 1,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": false,
+        "truncated": false,
+        "children": []
+      }
+    ],
+    "work": 221,
+    "complete": true
+  },
+  "queryWork": 221,
+  "heapUsedAfter": 832569344,
+  "documentTaskNanos": 215916,
+  "completionNanos": 20177292
+}

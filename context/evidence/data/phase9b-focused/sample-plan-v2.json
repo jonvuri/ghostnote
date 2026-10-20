@@ -1,0 +1,47 @@
+{
+  "status": "V15 continuation after recorded caps; no native Grid writes",
+  "candidates": [
+    {
+      "path": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+      "flavour": "Poly Grid",
+      "role": "9a baseline control",
+      "loaded": false
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+      "flavour": "Poly Grid",
+      "role": "Observed Gates and Wavetable in E302",
+      "loaded": false
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+      "flavour": "FX Grid",
+      "role": "31-module inventory in E302",
+      "loaded": false
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+      "flavour": "Poly Grid",
+      "role": "Poly route refusal in E302",
+      "loaded": false,
+      "focusModuleIndices": [
+        9,
+        11,
+        13,
+        15,
+        16,
+        24,
+        29,
+        31,
+        32,
+        35
+      ]
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Stutter Steps.bwpreset",
+      "flavour": "Note Grid",
+      "role": "Note route refusal in E302",
+      "loaded": false
+    }
+  ]
+}

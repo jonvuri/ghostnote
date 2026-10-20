@@ -1,0 +1,113 @@
+{
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 7
+    },
+    {
+      "parentClass": "module_grid",
+      "propertyId": 6428,
+      "propertyName": "auxiliary_devices",
+      "index": 12
+    },
+    {
+      "parentClass": "module",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "module_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 11
+    }
+  ],
+  "marker": "9b-grid-focused-v15",
+  "epoch": "c6da81b7-885b-400e-9d35-fd3a1f13af4d",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "queueNanos": 55459,
+  "heapUsedBefore": 1010827264,
+  "schema": {
+    "className": "transport_component",
+    "classId": 1839,
+    "runtimeClass": "ftf",
+    "scope": "all property descriptors and counts; only requested child headers; no scalar values",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 228,
+        "name": "in_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": true,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 229,
+        "name": "out_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 16,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": false,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 6194,
+        "name": "settings",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 1,
+        "headersRequested": false,
+        "returnedCount": 0,
+        "childrenComplete": false,
+        "truncated": false,
+        "children": []
+      },
+      {
+        "id": 6550,
+        "name": "absolute_delay",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 10070,
+        "name": "use_double_precision_beattime",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 11467,
+        "name": "output_connection_mask",
+        "serializerIncluded": false,
+        "relationship": false
+      }
+    ],
+    "work": 200,
+    "complete": true
+  },
+  "queryWork": 200,
+  "heapUsedAfter": 1010827264,
+  "documentTaskNanos": 176875,
+  "completionNanos": 20164334
+}

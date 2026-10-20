@@ -1,0 +1,2292 @@
+{
+  "evidence": "E304",
+  "typeCount": 65,
+  "namePairCount": 89,
+  "lexicalFilenameMatches": 56,
+  "moduleFilenameCount": 232,
+  "scope": "Editable observed aliases with provenance. No canonical names.",
+  "types": [
+    {
+      "typeUuid": "052cbe38-8ace-4ded-a4a9-de80a9f5fcea",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "High-pass",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "High-pass.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "0565644e-7e9f-45bf-bc34-8df52b5d7d80",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Reso Mod",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": null
+        }
+      ]
+    },
+    {
+      "typeUuid": "06c1eac9-4d64-4748-8d52-8bf18324d1e7",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Note In",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": "Note In.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "08d55d78-9240-43b9-9fe3-acde57ac1e60",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "VU Meter",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "VU Meter.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Modulator Out",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Modulator Out.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "0b9d73b3-796f-4cc0-b7af-d59e19df2827",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Chebyshev",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Chebyshev.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "0f2a027d-2bc3-4789-8a56-4d079a7e6137",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Blend",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Blend.bwmodule"
+        },
+        {
+          "name": "Dry/Wet",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": null
+        },
+        {
+          "name": "Steppy",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": null
+        }
+      ]
+    },
+    {
+      "typeUuid": "10c3be1f-ceb4-4bbc-bf35-af11285e58e0",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Pulse",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Pulse.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Wavetable",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-1-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v4/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v5/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v6/preset-0-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Wavetable.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "1e330c79-9a6f-4015-8dfa-da507c1bb15a",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "AND",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-1-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v4/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v5/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v6/preset-0-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "AND.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "1faa5baf-6cdf-406a-b0e4-89b67501d982",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Value",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Value.bwmodule"
+        },
+        {
+          "name": "Cutoff Mod",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": null
+        },
+        {
+          "name": "Blend Filter",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": null
+        },
+        {
+          "name": "Mst Reso",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": null
+        },
+        {
+          "name": "Mst Cutoff",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": null
+        },
+        {
+          "name": "ENV Amnt",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": null
+        }
+      ]
+    },
+    {
+      "typeUuid": "2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "SVF",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "SVF.bwmodule"
+        },
+        {
+          "name": "Lowpass",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": null
+        },
+        {
+          "name": "Bandpass",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": null
+        },
+        {
+          "name": "Highpass",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": null
+        }
+      ]
+    },
+    {
+      "typeUuid": "33344afa-c8fb-450f-8e82-65fd242a7837",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Noise",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Noise.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "43600afd-7226-4408-bbb6-b7b9cc2a6cee",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Pan",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-1-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v4/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v5/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v6/preset-0-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Pan.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "44da1c7d-5fef-4d7a-9b1c-739324a59a97",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Phase-1",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": "Phase-1.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "4a945068-35ff-469f-bc17-fda5d32b7baa",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Multiply",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Multiply.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "4ae6d37a-5412-4691-aa8b-261e94e60c59",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Sawtooth",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Sawtooth.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "4e00fda6-20f6-45a9-9d7e-02867cf09b82",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Gate In",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-1-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v4/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v5/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v6/preset-0-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Gate In.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "57a6f72c-db9d-4a96-bc4b-d6a2bb8b656a",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Add",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Add.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "5b414321-7adb-4210-ab26-d2367a8b5d56",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Sum",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": "Sum.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "5b7ab937-4f09-41fc-a379-983fb597b2ff",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "AD",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": "AD.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "5d016b16-be9c-4735-b9df-a533ee72528b",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Morph On",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": null
+        }
+      ]
+    },
+    {
+      "typeUuid": "6e8f9374-3393-4531-9f7e-571d0033ea94",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Distortion",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Distortion.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "70baf51d-271c-43c3-b2de-c98fc48f326d",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Note Out",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": "Note Out.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "7e09068b-fee5-457e-afe4-7017661ebbd3",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "ADSR",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-1-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v4/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v5/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v6/preset-0-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "ADSR.bwmodule"
+        },
+        {
+          "name": "Amp ENV",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": null
+        },
+        {
+          "name": "Mod ENV",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": null
+        }
+      ]
+    },
+    {
+      "typeUuid": "80d4de64-0ebc-4bb8-b448-74e57240f4a9",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Steps",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Steps.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "8214fd6c-5131-49d2-a9a6-709760a46b82",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Sample / Hold",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": null
+        }
+      ]
+    },
+    {
+      "typeUuid": "839e96da-cda4-45ce-b5a1-e0a40a176968",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Mixer",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Mixer.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "85c173a2-1eb3-4cc1-a19d-84bcb4bde00b",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Octaver",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": "Octaver.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "85ca7753-049a-419a-bb37-d8c358b10932",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Low-pass LD",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": "Low-pass LD.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "895470df-c2de-417f-9113-8bb6fe948b6d",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Abs",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": "Abs.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Gates",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-1-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v4/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v5/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v6/preset-0-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Gates.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "9714df20-f4ea-4017-a874-4ccb554dd86e",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Transport Playing",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Transport Playing.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "9747205f-2450-42da-89be-200b149b967b",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Low-pass",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Low-pass.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "997869ea-e649-4ac8-865e-bd4ac9e7b2a2",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Transport",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-1-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v4/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v5/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v6/preset-0-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Transport.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "9eaf8e7d-b8f7-4134-85c1-c7c77dd9fe92",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "AR",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": "AR.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "9f66c3b9-ca9b-4b62-8792-73fbec6464a4",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Dice",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Dice.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "a34edcba-25b3-4f07-86b2-81701b092d66",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Stereo Width",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": "Stereo Width.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "a4d23895-2761-476b-9aad-cbe372d286ea",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Lag",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": "Lag.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Amplify",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+                "E276 control"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15/preset-0-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Amplify.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "a8d565fa-fcf5-4ede-bea9-90999f6e8406",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Mod Delay",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Mod Delay.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "ac6de5ed-c143-4364-9989-3c7d299db380",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Rectifier",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": "Rectifier.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Audio Out",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset",
+                "E276 control"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-1-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v4/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v5/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v6/preset-0-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Audio Out.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "b1296326-cbf0-4797-9fc6-e2a6f2ce4a78",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Gain - Vol",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Gain - Vol.bwmodule"
+        },
+        {
+          "name": "ManuScale",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": null
+        }
+      ]
+    },
+    {
+      "typeUuid": "b297dabd-144e-4106-b8da-15d08fa6b124",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Comment",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": "Comment.bwmodule"
+        },
+        {
+          "name": "SEMtex - the pad machine",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": null
+        },
+        {
+          "name": "Multimode filter - switch, blend, morph",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": null
+        },
+        {
+          "name": "Morphing filter",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": null
+        },
+        {
+          "name": "Very old-school sound",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": null
+        }
+      ]
+    },
+    {
+      "typeUuid": "b2a6b111-7afd-4c95-b380-6de8125af980",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Audio In",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Audio In.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "b2c6ef93-8a14-4e10-b152-56bcee883e1c",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Gain - dB",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": "Gain - dB.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "b3a19e19-da13-491d-b569-16ff5cbb109b",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Crush",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": null
+        },
+        {
+          "name": "Long Delay",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": "Long Delay.bwmodule"
+        },
+        {
+          "name": "Reverb",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": null
+        },
+        {
+          "name": "Short Delay",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": null
+        }
+      ]
+    },
+    {
+      "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "LFO",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-1-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v4/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v5/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v6/preset-0-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "LFO.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "c0281e6e-3d55-4e86-8c9b-0ce8cf3db67d",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "AutoArp",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": null
+        },
+        {
+          "name": "seq/key",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": null
+        }
+      ]
+    },
+    {
+      "typeUuid": "c10b5ffa-0d10-4005-ad49-a39253ee26eb",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Merge",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-1-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v4/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v5/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v6/preset-0-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Merge.bwmodule"
+        },
+        {
+          "name": "Filter Blender",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": null
+        }
+      ]
+    },
+    {
+      "typeUuid": "c1f45a63-edde-4c38-b588-efbd4c1e35ec",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Quantize",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Quantize.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "c53fda13-4ed0-42fd-b410-19052ca6322d",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Pitch Scaler",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": "Pitch Scaler.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "c6923eb3-e161-4eed-8a93-a4554287a77b",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Select In",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": "Select In.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "ca05aebd-ecaf-4d57-b0f6-c04ce81674c4",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Sine",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+                "E276 control"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15/preset-0-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Sine.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Attenuate",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-1-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v4/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v5/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v6/preset-0-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Attenuate.bwmodule"
+        },
+        {
+          "name": "AutoScale",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": null
+        },
+        {
+          "name": "Crush",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": null
+        }
+      ]
+    },
+    {
+      "typeUuid": "d04bb748-5f66-4a4a-85d8-d3402c982e22",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "\u00d8 Reset",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-1-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v4/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v5/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v6/preset-0-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": null
+        }
+      ]
+    },
+    {
+      "typeUuid": "de0334b8-93bd-463e-824b-dea397e90354",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "\u00d8 Mirror",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": null
+        }
+      ]
+    },
+    {
+      "typeUuid": "e1d4fdf5-057e-4c83-869e-db4ee322e4ce",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "AM/RM",
+          "provenance": [
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-3-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-1-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": null
+        }
+      ]
+    },
+    {
+      "typeUuid": "e2e808c8-6b7e-4a00-9563-39e2f44177da",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Delay",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": "Delay.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "e75916a0-2594-4181-88a4-b19fdb77c0eb",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Triggers",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset",
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": "Triggers.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "f435652c-2fd7-4edd-8b7a-ee97b0fd43a5",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "All-pass Delay",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "All-pass Delay.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "f601a44c-8dcb-4ee7-9f2a-ce02ff07948e",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Long Delay",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-2-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": "Long Delay.bwmodule"
+        }
+      ]
+    },
+    {
+      "typeUuid": "f9b5157c-0a41-403c-810b-9bbf9a133110",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "\u00d8 Counter",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset"
+              ]
+            },
+            {
+              "evidence": "E304",
+              "sources": [
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v2/preset-1-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v3/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v4/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v5/preset-0-focused-summary.json"
+                },
+                {
+                  "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+                  "capture": "context/evidence/data/phase9b-focused/live-v15-v6/preset-0-focused-summary.json"
+                }
+              ]
+            }
+          ],
+          "filenameMatch": null
+        }
+      ]
+    },
+    {
+      "typeUuid": "faea6af4-72db-42c6-adac-0f74d8ebdbbf",
+      "canonicalName": null,
+      "aliases": [
+        {
+          "name": "Swarm",
+          "provenance": [
+            {
+              "evidence": "E302",
+              "presetPaths": [
+                "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset"
+              ]
+            }
+          ],
+          "filenameMatch": "Swarm.bwmodule"
+        }
+      ]
+    }
+  ]
+}

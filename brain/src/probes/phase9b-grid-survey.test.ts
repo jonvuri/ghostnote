@@ -30,9 +30,9 @@ function fake(mode = 'normal') {
     if (p.operation === 'schema') {
       let s: Wire;
       if (p.path.length === 0) s = { className: 'native_device', properties: [
-        { id: 406, name: 'device_contents', relationship: true, count: 1 }] };
+        { id: 406, name: 'device_contents', relationship: true, count: 1, childrenComplete: true }] };
       else if (p.path.length === 1) s = { className: 'device_contents', properties: [
-        { id: 173, name: 'child_components', relationship: true, children: [
+        { id: 173, name: 'child_components', relationship: true, childrenComplete: true, children: [
           { className: 'other', index: 0 }, { className: 'module_grid', index: 3 }] }] };
       else {
         assert.equal(p.path[1].index, 3, 'Discover the Grid instead of using index 7');
@@ -69,6 +69,8 @@ test('survey discovers a different Grid child, verifies control, reads twice, an
   const result = await readSurvey(f.request, target, structuredClone(originalProjection), f.save, baseline);
   assert.equal(result.moduleCount, 4); assert.equal(result.projectedAudioCableCount, 2);
   assert.equal(result.paired, true); assert.equal(result.captures, 2);
+  assert.deepEqual(f.calls.filter(c => c.operation === 'schema').slice(0, 2)
+    .map(c => c.schemaHeaders.fields), [[406], [173]]);
   assert.equal(f.calls.at(-1)?.operation, 'release');
 });
 test('catalog reads validate membership without claiming cable coverage or scanning atom schemas', async () => {

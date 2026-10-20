@@ -1,0 +1,4 @@
+{
+  "verdict": "cap-refusal",
+  "error": "AssertionError [ERR_ASSERTION]: focused-capture-limit"
+}

@@ -2,7 +2,7 @@
 title: 9b — Grid symbol manifest
 kind: note
 state: active
-status: Pinned member manifest retained. E302 adds observed descriptor metadata, with no new member pin.
+status: Pinned member manifest retained. E304 proves focused descriptor routes, with no new member pin.
 updated: 2026-10-20
 parent: 9b-grid-breadth-discovery-and-build-out.md
 ---
@@ -191,3 +191,25 @@ Follow-up fields include parameter mappings 3615; modulation-source mappings
 6613; Wavetable resource relationships 11161/11162. Their presence does not
 prove a complete edge or resource model. Session 9b.2a validates that scope
 before a write path pins any new member.
+
+## E304 focused reads
+
+[E304](../../evidence/experiments/e304-focused-grid-reader-live.md) adds no
+obfuscated member. The [final query](../../evidence/data/phase9b-focused/focused-query-v6.json)
+and [schemas](../../evidence/data/phase9b-focused/observed-schemas.json) record
+the proved descriptor routes:
+
+- Mapping source 3635 and destination reference 3739 → atom 65, with amount
+  3611, enabled 11481, and transfer function 11338. Source 3616 and target
+  3615 agree for five selected Grid edges. Source auxiliary list 11497 is
+  observed separately.
+- Modulation source settings 6194 → inports 614 → source component 248 and
+  outport index 249. The source component belongs to the same Grid module.
+- Gates data 6609 and size 6613, with stored boolean 210, integer 828, and
+  indexed 457 values.
+- Wavetable 11161/11162 → resource 11287 → handle 1204 → reference 4766 →
+  file identity fields 1298/3386/3284/23/24/25. Reference fields
+  4767/4024/11284/11285 give the name, sub-path, cycle size, and table size.
+
+These are read routes, not setter symbols. Session 9b.3 must trace and
+validate any new command before it adds a manifest dependency.

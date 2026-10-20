@@ -109,21 +109,22 @@ export async function readSurvey(request: Request, target: Wire, projection: Pro
   const additions: Wire[] = [], inspected = new Set<string>();
   const query = async (operation: string, extra: Wire = {}): Promise<Wire> =>
     request('probe.gridRead', { operation, ...target, epoch, ...extra });
-  const schema = async (path: Step[]): Promise<Wire> => {
+  const schema = async (path: Step[], fields: number[] = []): Promise<Wire> => {
     assert.ok(schemas < MAX_SCHEMAS, 'survey-schema-limit');
-    const result = await query('schema', { path });
+    const result = await query('schema', { path, schemaHeaders: { fields, limit: 256 } });
     save(`schema-${schemas++}`, { path, ...result });
     assert.equal(result.schema.complete, true); return result.schema;
   };
   try {
     const bound = await query('bind'); epoch = bound.epoch; save('binding', bound);
-    const outer = await schema([]);
+    const outer = await schema([], [406]);
     const contentsField = outer.properties.find((p: Wire) => p.id === 406 && p.name === 'device_contents');
-    assert.ok(contentsField?.relationship && contentsField.count === 1, 'native-device-contents-route');
+    assert.ok(contentsField?.relationship && contentsField.count === 1 && contentsField.childrenComplete,
+      'native-device-contents-route');
     const contentsPath = childPath([], outer, contentsField, 0);
-    const contents = await schema(contentsPath);
+    const contents = await schema(contentsPath, [173]);
     const children = contents.properties.find((p: Wire) => p.id === 173 && p.name === 'child_components');
-    assert.ok(children?.relationship, 'device-child-components-route');
+    assert.ok(children?.relationship && children.childrenComplete, 'device-child-components-route');
     const grids = children.children.filter((c: Wire) => c.className === 'module_grid');
     assert.equal(grids.length, 1, 'need-one-module-grid-child');
     const path = childPath(contentsPath, contents, children, grids[0].index);

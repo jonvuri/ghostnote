@@ -2,7 +2,7 @@
 title: Phase 9b — Grid breadth, build discovery, and build-out planning
 kind: plan
 state: active
-status: E302 completes the first survey. Session 9b.2a targets reader coverage before write probes.
+status: E304 completes focused reader coverage. Session 9b.3 tests three bounded write cases.
 updated: 2026-10-20
 parent: README.md
 prev: 9a-live-grid-editing-spike.md
@@ -35,7 +35,7 @@ find it later. Drop the rest.
 - One short E record per experimental session: question, what ran, results,
   limits, next. Link the driver's JSON output under `context/evidence/data/phase9b-*/`.
   Add the index row. Planning and documentation cleanup need no new E record.
-  The next free number is E303.
+  The next free number is E305.
 - Build fixtures with the public surface on a **scratch track**: `track.create`,
   `device.insertFile` (absolute `.bwpreset` path), `track.setMixer` (mute),
   `track.delete`. The probe profile has all four. Delete the scratch track at
@@ -86,8 +86,10 @@ Sessions:
   [E302](../../evidence/experiments/e302-stock-grid-survey.md): 12 stock presets,
   the control, 55 observed type UUIDs, and a complete 31-module catalog read.
   Full stock graphs remain incomplete or refused. V14 is loaded and verified.
-- **9b.2a — Focused reader coverage.** Defined below. Resolve schema caps and
-  parameter/resource read coverage before the new write probes.
+- **9b.2a — Focused reader coverage.** Complete in
+  [E304](../../evidence/experiments/e304-focused-grid-reader-live.md):
+  selective routes, paired reads through 31 modules, selected reads on a
+  50-module patch, Grid mapping endpoints, Gates data, and Wavetable identity.
 - **9b.3 — Write probes for the flagged dimensions.** Select one non-decimal
   value, one knob-modulation edge, and one stateful factory case after 9b.2a
   proves their readback. Use Gates/array or Wavetable evidence from E302.
@@ -376,6 +378,15 @@ top-level Grid is a target-scope result; record its device bank and clean up.
 
 ## Session 9b.2a — Focused reader coverage
 
+**Preparation.** [E303](../../evidence/experiments/e303-focused-grid-reader-preparation.md)
+implements and deploys V15.
+[E304](../../evidence/experiments/e304-focused-grid-reader-live.md) completes
+live acceptance, with the recorded scope limits. The instructions below
+describe that session.
+Use the [focused sample](../../evidence/data/phase9b-focused/sample-plan.json)
+and [query](../../evidence/data/phase9b-focused/focused-query.json) with the
+survey driver. Extend mapping/resource projections only from observed schemas.
+
 **Source.** [E302](../../evidence/experiments/e302-stock-grid-survey.md), the
 [report](../../evidence/data/phase9b-survey/survey-report.json),
 [catalog](../../evidence/data/phase9b-survey/catalog-first-pass.json), and
@@ -411,6 +422,92 @@ Batch extension changes into one build; operator replacement remains required.
 Use the chosen project and muted scratch tracks, park cursors before deletion,
 and compare preserved state at exit. No native Grid write belongs here.
 
-**Output.** E303 or the next free record, updated catalog/schema evidence,
+**Output.** E304 or the next free record for live acceptance, updated catalog/schema evidence,
 and a specific 9b.3 write scope with an independent readback path for each
 admitted operation. Unknown content or unsupported families can remain limits.
+
+### 9b.2a implementation bounds
+
+Selective schema requests name at most 64 relationship IDs and permit at
+most 256 child headers in total. An empty ID list requests counts only.
+Every relationship reports its full count, whether headers were requested,
+the number returned, and whether those headers are complete. A truncated
+requested relationship makes the schema incomplete. Unrequested relationships
+do not consume the header budget. Missing or scalar IDs are refused.
+Requests without this option keep the V14 schema behavior.
+
+Route discovery requests field 406, then field 173. Focused reads use one
+module or atom at a time. Each capture keeps 4,096 shared work units, depth
+12, 256 scalar-array entries, 32 projection classes, 1,024 projected fields,
+and a 1 MiB response. Path navigation keeps its existing limits. No native
+write, subscription, or new pinned member is planned.
+
+The focused driver permits at most 64 modules, 256 atoms per module,
+256 schema calls, and 1,024 graph calls per preset. It refuses at these
+limits. A pair is two independent document captures. Membership captures
+bracket the focused reads; managed IDs join atom references only within the
+bound session. Store captures on disk and retain only compact summaries and
+the current pair. The maximum read-session call count is 1,283, including
+bind, status, and release; the 24 ms wire floor is 30.792 seconds. Typical
+call count depends on the observed atoms and is measured in the live run.
+Fixture setup and cleanup keep the E302 model.
+
+The result and traversal bounds limit retained capture data. They do not
+bound native getter allocations or process heap. Reserve 48 MiB temporary
+heap for planning, above E302's observed 38 MiB increase; this is neither
+an enforced bound nor a measured peak. Record per-call heap samples and
+wire/document times before a performance claim. Retained driver summaries
+have a 4 MiB cap, plus the current graphs, catalog, and membership records.
+
+V15 live discovery finds 50 modules in SEMtex and 83 in Stutter Steps.
+The first run reaches the 1,024-capture budget on SEMtex and the 4,096-work
+budget on the Stutter catalog. Keep both caps and the 64-module scope.
+For continuation, select detailed SEMtex reads by observed module index;
+still check every module's atom membership. Read catalog entries as paired
+single-module captures, before and after the detailed reads. This adds four
+schema calls and changes catalog captures from four to four per module.
+The 1,024-capture ceiling stays fixed. Stutter remains outside the admitted
+module count and is reported as a refusal after route discovery.
+
+## Session 9b.3 — Bounded write probes
+
+**Source.** [E304](../../evidence/experiments/e304-focused-grid-reader-live.md),
+the [focused report](../../evidence/data/phase9b-focused/focused-report.json),
+the [final projection](../../evidence/data/phase9b-focused/focused-query-v6.json),
+and the [schema inventory](../../evidence/data/phase9b-focused/observed-schemas.json).
+Use fresh owned muted scratch tracks in the operator's chosen project.
+Keep `grid-probe` unchanged. V15 is loaded; batch new native probes into one
+build and defer controller replacement to the operator.
+
+Trace and validate the native command for each case before live use.
+Descriptor IDs identify independent reads; they do not identify safe setters.
+Keep input/domain validation, ownership, selection, freshness, the native
+write lock, and the uncertain-state latch. A timeout or uncertain write
+requires inspection and must not trigger an automatic write retry.
+
+| Case | Target and operation | Independent readback required |
+|---|---|---|
+| Non-decimal value | WT Parkour, Gates module 9, type `8d644ad7-8d77-4f05-a36e-04a57f719635`; `Use Device Phase`, atom 7, preset identifier `DEVICE_PHASE`. Change stored boolean false to true, then restore. | A fresh descriptor capture reads boolean field 210. Paired membership and unrelated values must agree. The current 9a double setter is not authority for a boolean command. |
+| Grid knob mapping | SEMtex, Modulator Out module 13/source atom 1 to Lowpass module 24/decimal atom 0. Remove and restore this one existing mapping after the native mapping command is proved. | Source 3616 and target 3615 must agree with mapping source 3635 and destination reference 3739 → atom 65. Restore amount 3611, enabled 11481, transfer 11338, and the observed flags. Preserve auxiliary mappings 11497 and the input route 6194 → 614 → 248/249. |
+| Stateful factory | Create one Gates module with the observed type UUID. Check detached defaults, then attach and remove it only if the existing lifecycle guards apply. | Use a separate fresh read after each command. Verify type, fresh instance UUID, exact membership, array 6609/size 6613, stored parameter values, and affected connections. A factory return or writer capture is not independent readback. |
+
+The mapping source type is `098ad9c6-b4c9-4ec1-887f-eaf588611056`.
+The target type is `2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f`. Re-resolve every
+instance, atom, and mapping in the new session. E304's managed IDs must not
+be reused. Module indices and editable names are route checks, not canonical
+type identifiers. The observed mapping amount is 129 in native units;
+do not reinterpret it as a percentage.
+
+Resource loading, outer Bitwig modulation, FX/Note writes, Sampler/Audio File,
+and patches above the 64-module scope are not admitted by E304. Unknown
+content can remain a recorded limit. An engine-active listening check,
+if required by the write results, belongs to 9b.3a.
+
+**Cost and acceptance.** Read the performance ledger before implementation.
+Budget the actual native command stages and focused readbacks. E304's
+31-module reader used 782 read-session calls; a write probe should select
+the required fields and preserved state explicitly within the same work,
+result, and driver caps. Measure each changed path and explain any comparable
+regression over 20 percent. End with no owned scratch object, matching
+preserved state, and a released reader/writer. Record each case as passed,
+refused, or unknown, plus the reason, in E305 or the next free record.

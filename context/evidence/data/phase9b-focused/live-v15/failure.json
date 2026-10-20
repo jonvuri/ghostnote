@@ -1,0 +1,5 @@
+{
+  "error": "AssertionError [ERR_ASSERTION]: focused-needs-complete-catalog\n\nfalse !== true\n",
+  "scratch": "999e7131-19c8-4f22-9256-7c58833571ad",
+  "uncertain": false
+}
