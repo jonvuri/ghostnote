@@ -1,0 +1,11 @@
+{
+  "typescriptTests": 26,
+  "typecheck": "pass",
+  "javaChecks": [
+    "gridReadTest",
+    "gridBreadthCommandsTest",
+    "verifyExtensionArchives"
+  ],
+  "liveTypedFixtures": "three pass; native witness excluded",
+  "editDocumentJavapSha256": "8e603b35e3a1d5b872fcaa870562c6ef98697cfe9992213c561998ac0806e327"
+}

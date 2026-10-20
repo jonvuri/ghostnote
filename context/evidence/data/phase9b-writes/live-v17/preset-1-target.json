@@ -1,0 +1,27 @@
+{
+  "candidate": {
+    "case": "mapping",
+    "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset"
+  },
+  "target": {
+    "project": "gn-grid-spike",
+    "trackId": "8dfedfa7-f392-4d7f-8258-17f5d9ec72b0",
+    "trackName": "gn-9b-write-eadc22af-692c-4564-8b73-97b6565bd453",
+    "deviceIndex": 0,
+    "deviceName": "Poly Grid"
+  },
+  "devices": {
+    "devices": [
+      {
+        "index": 0,
+        "name": "Poly Grid",
+        "enabled": true
+      }
+    ],
+    "count": 1,
+    "itemCount": 1,
+    "trackChannelId": "8dfedfa7-f392-4d7f-8258-17f5d9ec72b0",
+    "trackPosition": 1,
+    "bankSize": 16
+  }
+}

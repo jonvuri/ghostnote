@@ -1,0 +1,10 @@
+[
+  {
+    "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+    "flavour": "Poly Grid",
+    "case": "factory",
+    "verdict": "passed",
+    "protocolCalls": 10,
+    "attachment": "refused: Amplify-specific lifecycle guards do not admit Gates"
+  }
+]

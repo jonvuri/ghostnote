@@ -1,0 +1,18 @@
+{
+  "typescriptTests": 207,
+  "typescriptFailures": 0,
+  "typecheck": {
+    "command": "npx tsc --noEmit",
+    "exitCode": 0
+  },
+  "javaChecks": [
+    "gridReadTest",
+    "gridBreadthCommandsTest",
+    "gridAttachmentSymbolsTest",
+    "gridEngineSymbolsTest",
+    "verifyExtensionArchives"
+  ],
+  "bytecodeHashes": 13,
+  "nativeGridCommands": 0,
+  "liveAcceptance": "pending operator replacement"
+}

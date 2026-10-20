@@ -317,6 +317,69 @@ regression over 20 percent is observed. Keep the 48 MiB planning allowance:
 process samples do not bound native getter allocation or peaks. Product
 budgets and public descriptions v52 stay unchanged.
 
+[E307](../evidence/experiments/e307-grid-write-guard-refusal.md) measures V16
+refusals before command entry. Six inspection reads take 45.338–48.318 ms
+wire and 3.704–6.261 ms document. Their 19/50-module fixtures use 791/1,567
+descriptor work units. Heap deltas are 0–2 MiB; these are process samples.
+The complete scratch workflow uses 526 calls and 13,476.156 ms of summed
+wire time. No native Grid command ran.
+
+The unchanged control uses the same work counts as E304. Its first captures
+take 77.758/78.174 ms wire, over 20 percent above E304; second captures take
+47.881/47.982 ms. Document times are 8.520–50.889 ms, also above E304.
+The cause is not proved. Do not claim stable control performance from this
+run. The V17 continuation remeasures the planned control pairs. V17 adds
+one edit-wrapper lookup per snapshot and no bridge call. All other bounds
+and the 48 MiB planning allowance remain. Write-path timings are unmeasured.
+
+[E308](../evidence/experiments/e308-grid-write-live-and-factory-lock.md) measures
+V17 boolean/mapping write and restore, plus one factory command before a
+readback lock. The driver uses 422 calls and 11,176.606 ms summed wire time.
+Completed breadth reads take 44.967–49.743 ms wire. Boolean commands take
+1.253/0.775 ms native; mapping commands take 4.577/8.196 ms. Factory creation
+takes 4.238 ms; disposal is unmeasured. Per-task heap deltas are 0–8 MiB.
+The entry control takes 47.402/47.892 ms wire and 3.768/2.969 ms document,
+inside 20 percent of E304. The E307 slowdown does not recur in this pair;
+its cause remains unknown. The retained lock prevents the exit control pair.
+
+V18 adds at most 256 ownership-scoped identity entries per detached snapshot.
+Construction charges against the same 4,096-work/one-second budget and replaces
+detached field-14 reads. No bridge call, document task, or command is added.
+The 48 MiB planning allowance stays fixed. Factory live cost needs process
+recovery. Hello adds two read-only marker calls; the driver reuses its existing
+status calls. Product call budgets and descriptions v52 remain unchanged.
+
+[E310](../evidence/experiments/e310-grid-factory-acceptance-and-breadth-close.md)
+measures the completed V18 factory-only case: 13 protocol/guard calls, nine
+document tasks, two native commands, and eight snapshots. Fixture setup,
+cleanup, and both control pairs total 235 logged calls and 6,818.363 ms summed
+wire time. The detached read pair takes 46.719/47.298 ms wire and 1.612/1.277 ms
+document, with 1,218 work units each. Initial/disposed fixture reads use 791
+work units. Native creation takes 3.058 ms; disposal takes 0.298 ms. Replies
+are 5,163–7,487 bytes; document-task heap deltas are 0–2 MiB. The 236-object
+owned tree stays inside the 256-object cap. These samples do not bound peaks.
+
+E310 control wire times are 47.586–49.313 ms, inside 20 percent of E304 at the
+same 1,606 query/278 graph work. Document times are 5.224/3.591 ms at entry
+and 7.441/4.189 ms at exit. First captures exceed the 20 percent document-time
+threshold; the cause is unproved. The initial factory-baseline read is also
+slower than E308's prewarmed sample. No stable document-time bound follows.
+No write is repeated for timing. Product budgets and descriptions v52 stay
+unchanged; the 48 MiB allowance remains a planning figure.
+
+[E306](../evidence/experiments/e306-bounded-grid-writer-preparation.md) prepares
+the V16 research writer. Its
+[cost model](../plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#v16-cost-model-and-live-continuation)
+counts 13 calls and nine document tasks per case. Three cases use six
+commands and 24 descriptor snapshots, including pre-command checks.
+Each snapshot keeps 4,096 work units, a one-second traversal deadline,
+64 modules, 256 children, and a result below 1 MiB. The factory retains
+at most 256 owned objects at depth 12. Two bounded inspections are permitted
+after uncertainty; a command is never repeated for timing. Fixture work and
+control reads retain the E302 model. The 48 MiB host allowance remains a
+planning figure. E308/E310 supply the bounded live measurements above.
+The product adapter and wire-call budget tests pass without a budget change.
+
 [E303](../evidence/experiments/e303-focused-grid-reader-preparation.md) prepares
 V15 selective schemas and focused atom reads. A schema request selects at
 most 64 relationships and returns at most 256 child headers total. Full

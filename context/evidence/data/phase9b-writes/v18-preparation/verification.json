@@ -1,0 +1,19 @@
+{
+  "typescriptTests": 18,
+  "typecheck": "pass",
+  "javaChecks": [
+    "gridReadTest",
+    "gridBreadthCommandsTest",
+    "verifyExtensionArchives"
+  ],
+  "detachedScopeTests": [
+    "duplicate document IDs remain refused",
+    "same raw ID admitted for different owned detached objects",
+    "stable ownership-slot identities",
+    "foreign reference refused",
+    "duplicate/empty/over-limit scope refused",
+    "document/detached overlap refused"
+  ],
+  "liveVerification": "pending operator process restart and fresh V18 hello",
+  "descriptions": 52
+}

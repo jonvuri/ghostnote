@@ -1,0 +1,58 @@
+{
+  "jar": "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "classes": [
+    {
+      "class": "Eg3",
+      "javapSha256": "005f343292895503a489d1493cf49ee25c5e2f4ce0453c2cb7d38a01f5eee23b"
+    },
+    {
+      "class": "Hjt",
+      "javapSha256": "88ce1db2acc79baa98c636937b9b5229dd69026386b1b2f60863d92c7341829e"
+    },
+    {
+      "class": "QY",
+      "javapSha256": "7e0fa2293260d9b65800d91784cd6f91fdc4957efe1f19b91868f6a9295dde65"
+    },
+    {
+      "class": "Xuo",
+      "javapSha256": "94c9d6adfa740c97231400797eafdfe41d23b2a05c23d94d1fad2c3f613960b8"
+    },
+    {
+      "class": "com.bitwig.flt.control_surface.values.BooleanValueAtomParameterTarget",
+      "javapSha256": "7a009942c28cfb2e14e4931a36513ac1a11cdced3cb7b7be2a91c37444388fba"
+    },
+    {
+      "class": "com.bitwig.flt.control_surface.values.BooleanValueAtomValueTarget",
+      "javapSha256": "81d32e2cfdb275c1295679ad85c4a64bd5b6c87ca1f625bf87c8fbf2a7086f46"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.DbL",
+      "javapSha256": "e6ce62ef7dc235db025a36a4dbf5cf83171729d1058516585150effa5ecec502"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.NDn",
+      "javapSha256": "3c393f6c61dcc5d3cee9d103cc2679c59dafc74a6a2cd1d195b7c6a25c953521"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.Net",
+      "javapSha256": "6fb66630768f47ef71b5d826be410d2f2fc5e63219ac8e5bc008c9b0826cd343"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.OTc",
+      "javapSha256": "1d7d87a8db3af45c13b2c5debb66e9e193ca8b526199f34a1ff06ce3206fcdc6"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.WZo",
+      "javapSha256": "198adb199e7c51b1970e85258d11b7496bd77fa0b219461e72d969f69915ecfe"
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.nAR",
+      "javapSha256": "b234385d3c125a3b76a12b2b24fe7d29059e1040d9b6e063fe79c67ec21d5e75"
+    },
+    {
+      "class": "com.bitwig.ramona.core.ikl",
+      "javapSha256": "e4572d61cfa72aa15e99355425f61192d02ef6853045f5cde98068937b9be250"
+    }
+  ]
+}

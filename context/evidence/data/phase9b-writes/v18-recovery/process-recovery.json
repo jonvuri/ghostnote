@@ -1,0 +1,17 @@
+{
+  "operatorAuthorization": "No, it is a project made only for this work. Proceed.",
+  "action": "Quit Bitwig; choose No at gn-grid-spike save prompt; relaunch; open saved gn-grid-spike from Recent Projects",
+  "oldProcess": 14292,
+  "oldProcessAbsentBeforeRelaunch": true,
+  "bridgeAbsentBeforeRelaunch": true,
+  "newBridgeProcess": 24537,
+  "newLauncherProcess": 24535,
+  "freshInit": "2026-10-20T20:03:41.731000+00:00",
+  "readerMarker": "9b-grid-writes-v18",
+  "writerMarker": "9b-grid-writes-v18",
+  "rigMarker": "9b-grid-writes-v18",
+  "oldScratchAbsent": true,
+  "newNativeCommandCount": 0,
+  "nativeDisposalOfOldDetachedTree": "not claimed; old process exited",
+  "controllerReplacement": "operator confirmation pending"
+}

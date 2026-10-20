@@ -1,0 +1,16 @@
+{
+  "case": "boolean",
+  "commands": 0,
+  "reads": 0,
+  "locked": true,
+  "finished": false,
+  "inspections": 0,
+  "failure": "java.lang.IllegalStateException: breadth-edit-context",
+  "bound": true,
+  "busy": false,
+  "timeoutLocked": false,
+  "nativeUnfinished": false,
+  "marker": "9b-grid-writes-v16",
+  "foreignOwner": false,
+  "session": "ae4bf56a-fe25-4a65-a13b-689db9fcbd14"
+}

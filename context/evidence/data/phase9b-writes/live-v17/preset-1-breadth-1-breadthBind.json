@@ -1,0 +1,20 @@
+{
+  "marker": "9b-grid-writes-v17",
+  "session": "3f350856-aa7b-4262-ae15-93b66269f6cf",
+  "queueNanos": 73333,
+  "heapUsedBefore": 2227175424,
+  "metrics": {},
+  "routeWork": 207,
+  "heapUsedAfter": 2227175424,
+  "documentTaskNanos": 363833,
+  "status": {
+    "case": "mapping",
+    "commands": 0,
+    "reads": 0,
+    "locked": false,
+    "finished": false,
+    "inspections": 0,
+    "failure": ""
+  },
+  "completionNanos": 23987791
+}

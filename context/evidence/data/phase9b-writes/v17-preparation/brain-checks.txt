@@ -1,0 +1,34 @@
+✔ focused reads pair membership and values, retain cross-module identities, and release (2.610125ms)
+✔ focused cap results stay incomplete; changed pairs and truncated route headers stop (3.975042ms)
+✔ focused timeout makes no retry and does not release unfinished work (0.157542ms)
+✔ focused projections require managed identity before a host call (0.097208ms)
+✔ module selection limits detailed reads but keeps all membership checks (0.963333ms)
+✔ configured references expose their targets and leave source atoms as identities (0.859625ms)
+✔ membership and connection checks reject missing references and duplicate managed IDs (0.187416ms)
+✔ prepared focus fields have managed identities and omit display and engine projections (0.307125ms)
+✔ survey discovers a different Grid child, verifies control, reads twice, and releases (3.060875ms)
+✔ catalog reads validate membership without claiming cable coverage or scanning atom schemas (1.042792ms)
+✔ unknown classes get one schema and an explicit projection before paired reads (1.429333ms)
+✔ a paired cap refusal is recorded and the session is released (1.190417ms)
+✔ an absent projected field is reconciled once and its removal is recorded (1.382917ms)
+✔ a changing graph stops; a timeout does not retry or release unfinished native work (2.585791ms)
+✔ graph checks reject dangling cables and duplicate module identities (3.026666ms)
+✔ input and projection limits fail before a host call (1.038792ms)
+✔ bounded boolean sequence and call budget (2.015625ms)
+✔ bounded mapping sequence and call budget (2.724ms)
+✔ bounded factory sequence and call budget (0.854ms)
+✔ a receipt cannot replace independent readback or authorize a restore (2.339791ms)
+✔ uncertain command is inspected at most twice and never retried or released (0.469125ms)
+✔ a refusal before any command can cancel and release the scratch claim (0.17425ms)
+✔ unequal initial reads prevent a command (0.64475ms)
+✔ a proved domain refusal before native entry can release the fixture (2.5025ms)
+✔ mapping permits only the selected new identities and selected list position (3.02725ms)
+✔ factory requires fresh UUID, empty external connections, and disposal evidence (2.360083ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 388.53825

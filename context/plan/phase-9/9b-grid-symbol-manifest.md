@@ -2,7 +2,7 @@
 title: 9b — Grid symbol manifest
 kind: note
 state: active
-status: Pinned member manifest retained. E304 proves focused descriptor routes, with no new member pin.
+status: E308 proves boolean/mapping writes; E310 proves Gates detached defaults and disposal. Manifest is the 9b.4 offline resolver input.
 updated: 2026-10-20
 parent: 9b-grid-breadth-discovery-and-build-out.md
 ---
@@ -213,3 +213,53 @@ the proved descriptor routes:
 
 These are read routes, not setter symbols. Session 9b.3 must trace and
 validate any new command before it adds a manifest dependency.
+
+## E305 command candidates
+
+[E305](../../evidence/experiments/e305-grid-write-command-preparation.md)
+adds the following metadata dependencies in
+[GridBreadthCommands](../../../extension/src/main/java/com/ghostnote/extension/GridBreadthCommands.java).
+They pass resolution on the pinned jar.
+[E306](../../evidence/experiments/e306-bounded-grid-writer-preparation.md) connects
+them to the V16 research writer. E308 later proves these boolean and mapping
+commands in the fixed cases. Keep their scope distinct from the 9a paths.
+
+| Role | Lookup class | Member and signature | Required live invariant | First E |
+|---|---|---|---|---|
+| Boolean command | Xuo | `eOi(boolean): void` | Runtime class QY; Gates DEVICE_PHASE; independent field 210 changes and restores | E305 |
+| Remove mapping | D.Net | `cG3(Hjt): void` | Runtime source NDn; exactly one matching target; both endpoint lists lose only that mapping | E305 |
+| Restore mapping | D.Net | `eOi(Hjt,double,boolean,jas,D.NDn): void` | Exact target and native amount; no auxiliary source; new mapping restores all observed fields | E305 |
+| Target domain | Hjt | `aGJ(): MTu` | Same target atom as the destination reference | E305 |
+| Domain extent | MTu | `NCM(): double` | Finite native extent admits 129 without clamping | E305 |
+
+Additional type checks use `QY`, `Hjt`, `jas`, and `D.NDn`. A method can be
+inherited; the lookup class need not be its declaring class. The Gates type
+argument adds no factory member. Attachment retains the original fixed
+Amplify guards.
+
+E306 reuses the existing attachment and engine witness symbols for edit
+state, document identity, module/atom ownership, selection, and connection
+identity. It does not create a Grid display or journal. It reuses factory
+ownership, initialization, and disposal symbols for the detached Gates tree.
+The fixed descriptor fields come from E304. No additional obfuscated member
+is pinned. The command and witness metadata checks pass before deployment.
+
+E307 distinguishes the `Svr` project root from the `cZl` edit wrapper.
+V17 calls the existing `cZl.ffA(ikl)` lookup on both the Grid and project
+root and requires the same non-null wrapper. Journal and replay members
+use that wrapper. Engine state and connection members use the project root.
+The witness retains both identities. No new member is added. Offline
+metadata checks now test this receiver distinction as well as signatures.
+
+E308 passes the boolean and mapping commands with independent paired reads.
+The Gates factory returns, but detached field-14 aliases prevent readback.
+V18 uses ownership-scoped identities for detached reads. It adds no pinned
+member. E308 alone does not prove factory disposal or attachment.
+
+E310 passes the fresh V18 Gates factory case. Paired descriptors prove the
+17-atom defaults on a 236-object detached tree. Separate disposal read tasks
+check every owned object's disposed flag. All fixture and control comparisons
+pass. The existing factory/lifecycle symbols now have this additional typed
+case; their first-E entries above stay unchanged. No Gates attachment or
+resource loading is proved. Use ownership-scoped identities for detached
+reads and document IDs for attached objects. No new member is pinned.

@@ -1,0 +1,6 @@
+{
+  "error": "BridgeError: Internal error: grid-operation-failed:java.lang.IllegalStateException: breadth-edit-context",
+  "session": "ae4bf56a-fe25-4a65-a13b-689db9fcbd14",
+  "attempted": false,
+  "protocolCalls": 1
+}

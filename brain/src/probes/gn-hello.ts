@@ -82,8 +82,13 @@ const goldenFiles: Record<string, string> = {
 const goldenFile = goldenFiles[hello.runtimeProfile];
 check('runtime profile has an active golden', goldenFile !== undefined, hello);
 if (hello.runtimeProfile === 'phase-8-probe-v1') {
-  check('the 9b focused reader build marker is present', rig['gridReadProbe'] === '9b-grid-focused-v15',
-    { gridReadProbe: rig['gridReadProbe'] });
+  // Read each handler directly. A constant copied into rig.info can be stale.
+  for (const operation of ['status', 'breadthStatus']) {
+    const status = await client.request('probe.gridRead', { operation }) as Record<string, unknown>;
+    check(`the 9b ${operation} handler has the expected build marker`,
+      status['marker'] === '9b-grid-writes-v18', status);
+  }
+  note(`rig.info Grid label (advisory): ${rig['gridReadProbe']}`);
 }
 if (goldenFile === undefined) throw new Error(`unknown runtime profile: ${hello.runtimeProfile}`);
 const golden = JSON.parse(

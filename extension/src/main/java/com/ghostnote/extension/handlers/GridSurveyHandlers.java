@@ -9,7 +9,7 @@ import java.util.function.BooleanSupplier;
 
 /** Read-only descriptor sessions for explicitly named native devices. */
 public final class GridSurveyHandlers extends HandlerGroup {
-    public static final String MARKER = "9b-grid-focused-v15";
+    public static String marker() { return GridBreadthHandlers.marker(); }
     public static final Set<String> OPERATIONS = Set.of("status", "bind", "schema", "read", "release");
     private final GridSurveySession session = new GridSurveySession();
     private final BooleanSupplier foreignOwner;
@@ -37,7 +37,7 @@ public final class GridSurveyHandlers extends HandlerGroup {
         if (!OPERATIONS.contains(op)) throw new IllegalArgumentException("unknown-survey-operation");
         if (op.equals("status")) {
             JsonObject r = session.status(unfinished());
-            r.addProperty("marker", MARKER); r.addProperty("foreignOwner", foreignOwner.getAsBoolean());
+            r.addProperty("marker", marker()); r.addProperty("foreignOwner", foreignOwner.getAsBoolean());
             reply.result(r, 0); return;
         }
         session.idle(foreignOwner.getAsBoolean(), unfinished());
@@ -72,7 +72,7 @@ public final class GridSurveyHandlers extends HandlerGroup {
             proof.require(proof.token, document, track, device);
             if (!symbols.name(device).equals("native_device")) throw new IllegalStateException("survey-needs-native-device");
             JsonObject r = new JsonObject();
-            r.addProperty("marker", MARKER); r.addProperty("epoch", proof.token);
+            r.addProperty("marker", marker()); r.addProperty("epoch", proof.token);
             r.addProperty("jarSha256", GridReadSymbols.JAR_SHA256);
             r.addProperty("queueNanos", entered - queued); r.addProperty("heapUsedBefore", usedHeap());
             if (!bind) {

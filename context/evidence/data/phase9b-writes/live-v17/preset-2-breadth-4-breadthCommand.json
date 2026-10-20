@@ -1,0 +1,29 @@
+{
+  "marker": "9b-grid-writes-v17",
+  "session": "61929794-ead9-454a-a79f-472d3e0bd478",
+  "queueNanos": 147542,
+  "heapUsedBefore": 2401239040,
+  "receipt": {
+    "action": "factory-create",
+    "nativeCommandNanos": 4238125,
+    "commandReturned": true,
+    "readback": "pending-independent-pair"
+  },
+  "metrics": {
+    "descriptorWork": 791,
+    "snapshotNanos": 1252917
+  },
+  "routeWork": 207,
+  "heapUsedAfter": 2403336192,
+  "documentTaskNanos": 7838750,
+  "status": {
+    "case": "factory",
+    "commands": 1,
+    "reads": 0,
+    "locked": false,
+    "finished": false,
+    "inspections": 0,
+    "failure": ""
+  },
+  "completionNanos": 23223667
+}

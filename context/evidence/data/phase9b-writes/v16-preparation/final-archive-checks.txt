@@ -1,0 +1,29 @@
+> Task :compileJava
+> Task :processResources UP-TO-DATE
+> Task :classes
+> Task :compileHarnessTestJava UP-TO-DATE
+> Task :processHarnessTestResources UP-TO-DATE
+> Task :harnessTestClasses UP-TO-DATE
+
+> Task :gridReadTest
+Breadth: typed fixtures, command order, independent pairs, identity limits, failure locks, and late return pass.
+Grid exploration: schema isolation, bounded paths, projections, and query controls pass.
+Detached factory: ownership bounds, failures, cleanup, and late completion pass.
+Attachment: edit failures, partial insertion, readback, layout, limits, and late completion pass.
+Engine operator gates, lifetime, sequence, and graph checks pass.
+Survey target validation, repeated sessions, stale targets, exclusion, and timeout lock pass.
+Grid read: bounds, completeness, identity, fresh reads, async outcomes, and profile checks pass.
+
+> Task :captureRuntimeProfileResource UP-TO-DATE
+> Task :captureJar
+> Task :normalRuntimeProfileResource UP-TO-DATE
+> Task :jar
+> Task :probeRuntimeProfileResource UP-TO-DATE
+> Task :probeJar
+
+> Task :verifyExtensionArchives
+Extension archive registrations and runtime profiles agree.
+
+BUILD SUCCESSFUL in 745ms
+12 actionable tasks: 6 executed, 6 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.6.1/userguide/configuration_cache_enabling.html

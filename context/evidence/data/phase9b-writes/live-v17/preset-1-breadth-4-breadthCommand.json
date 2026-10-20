@@ -1,0 +1,29 @@
+{
+  "marker": "9b-grid-writes-v17",
+  "session": "3f350856-aa7b-4262-ae15-93b66269f6cf",
+  "queueNanos": 56250,
+  "heapUsedBefore": 2231369728,
+  "receipt": {
+    "action": "mapping-remove",
+    "nativeCommandNanos": 4577375,
+    "commandReturned": true,
+    "readback": "pending-independent-pair"
+  },
+  "metrics": {
+    "descriptorWork": 1567,
+    "snapshotNanos": 764500
+  },
+  "routeWork": 207,
+  "heapUsedAfter": 2237661184,
+  "documentTaskNanos": 6735666,
+  "status": {
+    "case": "mapping",
+    "commands": 1,
+    "reads": 0,
+    "locked": false,
+    "finished": false,
+    "inspections": 0,
+    "failure": ""
+  },
+  "completionNanos": 23283208
+}

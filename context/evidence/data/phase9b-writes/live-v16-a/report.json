@@ -1,0 +1,236 @@
+{
+  "calls": 526,
+  "wireMs": 13476.15583,
+  "nativeGridCommands": 0,
+  "cases": [
+    {
+      "case": "boolean",
+      "verdict": "refused-before-command",
+      "commands": 0,
+      "reason": "breadth-edit-context",
+      "inspectionFixturePairEqual": true,
+      "modules": 19,
+      "descriptorWork": [
+        791,
+        791
+      ],
+      "snapshotMs": [
+        5.248084,
+        3.828541
+      ],
+      "documentMs": [
+        6.26125,
+        5.399584
+      ],
+      "queueMs": [
+        0.578917,
+        1.314708
+      ],
+      "heapDeltaMiB": [
+        0.0,
+        2.0
+      ]
+    },
+    {
+      "case": "mapping",
+      "verdict": "refused-before-command",
+      "commands": 0,
+      "reason": "breadth-edit-context",
+      "inspectionFixturePairEqual": true,
+      "modules": 50,
+      "descriptorWork": [
+        1567,
+        1567
+      ],
+      "snapshotMs": [
+        4.677125,
+        3.191125
+      ],
+      "documentMs": [
+        5.723209,
+        4.043042
+      ],
+      "queueMs": [
+        0.155333,
+        0.172875
+      ],
+      "heapDeltaMiB": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "case": "factory",
+      "verdict": "refused-before-command",
+      "commands": 0,
+      "reason": "breadth-edit-context",
+      "inspectionFixturePairEqual": true,
+      "modules": 19,
+      "descriptorWork": [
+        791,
+        791
+      ],
+      "snapshotMs": [
+        2.748708,
+        4.092708
+      ],
+      "documentMs": [
+        3.704416,
+        5.982041
+      ],
+      "queueMs": [
+        0.235084,
+        0.264792
+      ],
+      "heapDeltaMiB": [
+        0.0,
+        2.0
+      ]
+    }
+  ],
+  "controlCaptures": [
+    {
+      "file": "control-after-capture-0.json",
+      "queryWork": 1606,
+      "graphWork": 278,
+      "documentMs": 34.409416,
+      "heapDeltaMiB": 2.0,
+      "complete": true
+    },
+    {
+      "file": "control-after-capture-1.json",
+      "queryWork": 1606,
+      "graphWork": 278,
+      "documentMs": 8.519666,
+      "heapDeltaMiB": 2.0,
+      "complete": true
+    },
+    {
+      "file": "control-before-capture-0.json",
+      "queryWork": 1606,
+      "graphWork": 278,
+      "documentMs": 50.889083,
+      "heapDeltaMiB": 2.0,
+      "complete": true
+    },
+    {
+      "file": "control-before-capture-1.json",
+      "queryWork": 1606,
+      "graphWork": 278,
+      "documentMs": 20.174792,
+      "heapDeltaMiB": 2.0,
+      "complete": true
+    }
+  ],
+  "selectedWireCalls": [
+    {
+      "operation": "read",
+      "ms": 77.75837500000011,
+      "bytes": 36106,
+      "error": null
+    },
+    {
+      "operation": "read",
+      "ms": 47.88074999999981,
+      "bytes": 36105,
+      "error": null
+    },
+    {
+      "operation": "breadthBind",
+      "ms": 146.60874999999942,
+      "bytes": 354,
+      "error": null
+    },
+    {
+      "operation": "breadthRead",
+      "ms": 48.826875000000655,
+      "bytes": null,
+      "error": "BridgeError: Internal error: grid-operation-failed:java.lang.IllegalStateException: breadth-edit-context"
+    },
+    {
+      "operation": "breadthInspect",
+      "ms": 46.02574999999979,
+      "bytes": 5253,
+      "error": null
+    },
+    {
+      "operation": "breadthInspect",
+      "ms": 48.31804199999988,
+      "bytes": 5254,
+      "error": null
+    },
+    {
+      "operation": "breadthBind",
+      "ms": 46.62945800000125,
+      "bytes": 351,
+      "error": null
+    },
+    {
+      "operation": "breadthRead",
+      "ms": 50.220917000000554,
+      "bytes": null,
+      "error": "BridgeError: Internal error: grid-operation-failed:java.lang.IllegalStateException: breadth-edit-context"
+    },
+    {
+      "operation": "breadthInspect",
+      "ms": 46.96025000000009,
+      "bytes": 11740,
+      "error": null
+    },
+    {
+      "operation": "breadthInspect",
+      "ms": 45.33837500000118,
+      "bytes": 11740,
+      "error": null
+    },
+    {
+      "operation": "breadthBind",
+      "ms": 46.818874999999025,
+      "bytes": 351,
+      "error": null
+    },
+    {
+      "operation": "breadthRead",
+      "ms": 54.15583399999923,
+      "bytes": null,
+      "error": "BridgeError: Internal error: grid-operation-failed:java.lang.IllegalStateException: breadth-edit-context"
+    },
+    {
+      "operation": "breadthInspect",
+      "ms": 46.022500000000946,
+      "bytes": 5253,
+      "error": null
+    },
+    {
+      "operation": "breadthInspect",
+      "ms": 45.86445800000001,
+      "bytes": 5253,
+      "error": null
+    },
+    {
+      "operation": "read",
+      "ms": 78.17425000000003,
+      "bytes": 36106,
+      "error": null
+    },
+    {
+      "operation": "read",
+      "ms": 47.98216700000012,
+      "bytes": 36105,
+      "error": null
+    }
+  ],
+  "preservedStateEqual": true,
+  "exit": {
+    "scratch": null,
+    "uncertain": false,
+    "completedPresets": 3
+  },
+  "processPreflight": {
+    "competingProbeDrivers": 0,
+    "bridgeClientsBeforeDriver": 0,
+    "unrelatedMcpDaemonsLeftRunning": true
+  },
+  "helloPassed": true,
+  "initialization": "2026-10-20T19:16:37.495Z"
+}

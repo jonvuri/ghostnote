@@ -1,0 +1,462 @@
+{
+  "calls": 422,
+  "wireMs": 11176.605924999993,
+  "nativeGridCommands": 5,
+  "cases": [
+    {
+      "case": "boolean",
+      "verdict": "passed",
+      "commandCount": 2,
+      "pairedReads": 3,
+      "samples": [
+        {
+          "file": "preset-0-breadth-1-breadthBind.json",
+          "queueMs": 0.809375,
+          "documentMs": 1.83875,
+          "heapDeltaMiB": 0.0,
+          "metrics": {},
+          "receipt": null
+        },
+        {
+          "file": "preset-0-breadth-2-breadthRead.json",
+          "queueMs": 0.077,
+          "documentMs": 3.571833,
+          "heapDeltaMiB": 0.0,
+          "metrics": {
+            "descriptorWork": 791,
+            "snapshotNanos": 2763958
+          },
+          "receipt": null
+        },
+        {
+          "file": "preset-0-breadth-3-breadthRead.json",
+          "queueMs": 0.157458,
+          "documentMs": 1.145125,
+          "heapDeltaMiB": 0.0,
+          "metrics": {
+            "descriptorWork": 791,
+            "snapshotNanos": 593209
+          },
+          "receipt": null
+        },
+        {
+          "file": "preset-0-breadth-4-breadthCommand.json",
+          "queueMs": 0.069125,
+          "documentMs": 2.4815,
+          "heapDeltaMiB": 0.0,
+          "metrics": {
+            "descriptorWork": 791,
+            "snapshotNanos": 515125
+          },
+          "receipt": {
+            "action": "boolean-enable",
+            "nativeCommandNanos": 1253209,
+            "commandReturned": true,
+            "readback": "pending-independent-pair"
+          }
+        },
+        {
+          "file": "preset-0-breadth-5-breadthRead.json",
+          "queueMs": 0.096458,
+          "documentMs": 1.011792,
+          "heapDeltaMiB": 0.0,
+          "metrics": {
+            "descriptorWork": 791,
+            "snapshotNanos": 628250
+          },
+          "receipt": null
+        },
+        {
+          "file": "preset-0-breadth-6-breadthRead.json",
+          "queueMs": 0.0625,
+          "documentMs": 0.747042,
+          "heapDeltaMiB": 0.0,
+          "metrics": {
+            "descriptorWork": 791,
+            "snapshotNanos": 446375
+          },
+          "receipt": null
+        },
+        {
+          "file": "preset-0-breadth-7-breadthCommand.json",
+          "queueMs": 0.094834,
+          "documentMs": 2.729875,
+          "heapDeltaMiB": 0.0,
+          "metrics": {
+            "descriptorWork": 791,
+            "snapshotNanos": 941250
+          },
+          "receipt": {
+            "action": "boolean-restore",
+            "nativeCommandNanos": 774792,
+            "commandReturned": true,
+            "readback": "pending-independent-pair"
+          }
+        },
+        {
+          "file": "preset-0-breadth-8-breadthRead.json",
+          "queueMs": 0.157625,
+          "documentMs": 3.460625,
+          "heapDeltaMiB": 0.0,
+          "metrics": {
+            "descriptorWork": 791,
+            "snapshotNanos": 2709583
+          },
+          "receipt": null
+        },
+        {
+          "file": "preset-0-breadth-9-breadthRead.json",
+          "queueMs": 0.131875,
+          "documentMs": 2.417416,
+          "heapDeltaMiB": 0.0,
+          "metrics": {
+            "descriptorWork": 791,
+            "snapshotNanos": 1544708
+          },
+          "receipt": null
+        }
+      ]
+    },
+    {
+      "case": "mapping",
+      "verdict": "passed",
+      "commandCount": 2,
+      "pairedReads": 3,
+      "samples": [
+        {
+          "file": "preset-1-breadth-1-breadthBind.json",
+          "queueMs": 0.073333,
+          "documentMs": 0.363833,
+          "heapDeltaMiB": 0.0,
+          "metrics": {},
+          "receipt": null
+        },
+        {
+          "file": "preset-1-breadth-2-breadthRead.json",
+          "queueMs": 0.057209,
+          "documentMs": 1.292,
+          "heapDeltaMiB": 2.0,
+          "metrics": {
+            "descriptorWork": 1567,
+            "snapshotNanos": 879584
+          },
+          "receipt": null
+        },
+        {
+          "file": "preset-1-breadth-3-breadthRead.json",
+          "queueMs": 0.085833,
+          "documentMs": 1.0685,
+          "heapDeltaMiB": 0.0,
+          "metrics": {
+            "descriptorWork": 1567,
+            "snapshotNanos": 755458
+          },
+          "receipt": null
+        },
+        {
+          "file": "preset-1-breadth-4-breadthCommand.json",
+          "queueMs": 0.05625,
+          "documentMs": 6.735666,
+          "heapDeltaMiB": 6.0,
+          "metrics": {
+            "descriptorWork": 1567,
+            "snapshotNanos": 764500
+          },
+          "receipt": {
+            "action": "mapping-remove",
+            "nativeCommandNanos": 4577375,
+            "commandReturned": true,
+            "readback": "pending-independent-pair"
+          }
+        },
+        {
+          "file": "preset-1-breadth-5-breadthRead.json",
+          "queueMs": 0.05925,
+          "documentMs": 7.552167,
+          "heapDeltaMiB": 0.0,
+          "metrics": {
+            "descriptorWork": 1517,
+            "snapshotNanos": 6273417
+          },
+          "receipt": null
+        },
+        {
+          "file": "preset-1-breadth-6-breadthRead.json",
+          "queueMs": 0.061542,
+          "documentMs": 1.121583,
+          "heapDeltaMiB": 2.0,
+          "metrics": {
+            "descriptorWork": 1517,
+            "snapshotNanos": 747750
+          },
+          "receipt": null
+        },
+        {
+          "file": "preset-1-breadth-7-breadthCommand.json",
+          "queueMs": 0.059917,
+          "documentMs": 9.403667,
+          "heapDeltaMiB": 8.0,
+          "metrics": {
+            "descriptorWork": 1517,
+            "snapshotNanos": 747333
+          },
+          "receipt": {
+            "action": "mapping-restore",
+            "nativeCommandNanos": 8195750,
+            "commandReturned": true,
+            "readback": "pending-independent-pair"
+          }
+        },
+        {
+          "file": "preset-1-breadth-8-breadthRead.json",
+          "queueMs": 0.067292,
+          "documentMs": 1.530375,
+          "heapDeltaMiB": 2.0,
+          "metrics": {
+            "descriptorWork": 1567,
+            "snapshotNanos": 726875
+          },
+          "receipt": null
+        },
+        {
+          "file": "preset-1-breadth-9-breadthRead.json",
+          "queueMs": 0.055167,
+          "documentMs": 1.292541,
+          "heapDeltaMiB": 0.0,
+          "metrics": {
+            "descriptorWork": 1567,
+            "snapshotNanos": 735709
+          },
+          "receipt": null
+        }
+      ]
+    },
+    {
+      "case": "factory",
+      "verdict": "unknown-after-factory-create",
+      "commandCount": 1,
+      "pairedReads": 1,
+      "samples": [
+        {
+          "file": "preset-2-breadth-1-breadthBind.json",
+          "queueMs": 0.053791,
+          "documentMs": 0.321667,
+          "heapDeltaMiB": 0.0,
+          "metrics": {},
+          "receipt": null
+        },
+        {
+          "file": "preset-2-breadth-2-breadthRead.json",
+          "queueMs": 0.061875,
+          "documentMs": 0.771583,
+          "heapDeltaMiB": 2.0,
+          "metrics": {
+            "descriptorWork": 791,
+            "snapshotNanos": 503709
+          },
+          "receipt": null
+        },
+        {
+          "file": "preset-2-breadth-3-breadthRead.json",
+          "queueMs": 0.055833,
+          "documentMs": 1.021125,
+          "heapDeltaMiB": 0.0,
+          "metrics": {
+            "descriptorWork": 791,
+            "snapshotNanos": 752833
+          },
+          "receipt": null
+        },
+        {
+          "file": "preset-2-breadth-4-breadthCommand.json",
+          "queueMs": 0.147542,
+          "documentMs": 7.83875,
+          "heapDeltaMiB": 2.0,
+          "metrics": {
+            "descriptorWork": 791,
+            "snapshotNanos": 1252917
+          },
+          "receipt": {
+            "action": "factory-create",
+            "nativeCommandNanos": 4238125,
+            "commandReturned": true,
+            "readback": "pending-independent-pair"
+          }
+        },
+        {
+          "file": "preset-2-breadth-inspection-0.json",
+          "queueMs": 0.460958,
+          "documentMs": 4.091208,
+          "heapDeltaMiB": 0.0,
+          "metrics": {
+            "descriptorWork": 825,
+            "snapshotNanos": 3516791
+          },
+          "receipt": null
+        },
+        {
+          "file": "preset-2-breadth-inspection-1.json",
+          "queueMs": 0.251959,
+          "documentMs": 3.819541,
+          "heapDeltaMiB": 0.0,
+          "metrics": {
+            "descriptorWork": 825,
+            "snapshotNanos": 3156042
+          },
+          "receipt": null
+        }
+      ]
+    }
+  ],
+  "control": [
+    {
+      "queueMs": 0.109125,
+      "documentMs": 3.767791,
+      "queryWork": 1606,
+      "graphWork": 278,
+      "wireMs": 47.401792000000114
+    },
+    {
+      "queueMs": 0.053,
+      "documentMs": 2.969375,
+      "queryWork": 1606,
+      "graphWork": 278,
+      "wireMs": 47.89237500000013
+    }
+  ],
+  "wireByOperation": {
+    "breadthBind": [
+      {
+        "ms": 50.6401249999999,
+        "bytes": 350
+      },
+      {
+        "ms": 47.30162500000006,
+        "bytes": 349
+      },
+      {
+        "ms": 48.825958999999784,
+        "bytes": 349
+      }
+    ],
+    "breadthRead": [
+      {
+        "ms": 48.3065830000005,
+        "bytes": 5241
+      },
+      {
+        "ms": 49.01191699999981,
+        "bytes": 5241
+      },
+      {
+        "ms": 49.10450000000037,
+        "bytes": 5239
+      },
+      {
+        "ms": 46.45662500000071,
+        "bytes": 5238
+      },
+      {
+        "ms": 44.96662500000002,
+        "bytes": 5242
+      },
+      {
+        "ms": 49.162999999999556,
+        "bytes": 5242
+      },
+      {
+        "ms": 49.24308299999939,
+        "bytes": 11727
+      },
+      {
+        "ms": 49.02008300000034,
+        "bytes": 11727
+      },
+      {
+        "ms": 45.99104199999965,
+        "bytes": 11419
+      },
+      {
+        "ms": 48.43570799999907,
+        "bytes": 11418
+      },
+      {
+        "ms": 49.74304200000006,
+        "bytes": 11727
+      },
+      {
+        "ms": 48.224459000000934,
+        "bytes": 11727
+      },
+      {
+        "ms": 48.171957999998995,
+        "bytes": 5239
+      },
+      {
+        "ms": 48.609167000000525,
+        "bytes": 5240
+      },
+      {
+        "ms": 46.79704099999981,
+        "error": "BridgeError: Internal error: grid-operation-failed:java.lang.IllegalStateException: breadth-managed-id-alias"
+      }
+    ],
+    "breadthCommand": [
+      {
+        "ms": 49.2681249999996,
+        "bytes": 521
+      },
+      {
+        "ms": 48.75679199999922,
+        "bytes": 521
+      },
+      {
+        "ms": 48.002292000001034,
+        "bytes": 522
+      },
+      {
+        "ms": 47.87883299999885,
+        "bytes": 523
+      },
+      {
+        "ms": 47.14608399999997,
+        "bytes": 523
+      }
+    ],
+    "breadthInspect": [
+      {
+        "ms": 48.0200420000001,
+        "bytes": 5459
+      },
+      {
+        "ms": 46.200457999999344,
+        "bytes": 5459
+      }
+    ]
+  },
+  "factoryInspectionsEqual": true,
+  "factoryInspection": {
+    "witness": {
+      "editIdle": true,
+      "parentsVerified": true,
+      "engineActive": true,
+      "selection": {
+        "present": true,
+        "selected": []
+      }
+    },
+    "detachedFailure": "java.lang.IllegalStateException: breadth-managed-id-alias",
+    "disposalInspection": {
+      "rootDisposed": false,
+      "ownedObjects": 236,
+      "disposedObjects": 0
+    }
+  },
+  "preservedTrackAndMixerFieldsMatchExceptShiftedIndices": true,
+  "finalGraphCheck": "not run: retained writer lock",
+  "scratch": {
+    "scratch": "b8077f74-8e28-4394-a3b3-ffb654b7ba22",
+    "uncertain": true,
+    "completedPresets": 2
+  }
+}

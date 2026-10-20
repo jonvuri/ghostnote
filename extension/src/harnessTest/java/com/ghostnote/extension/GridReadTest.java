@@ -40,6 +40,7 @@ public final class GridReadTest {
     }
 
     public static void main(String[] args) throws Exception {
+        GridBreadthTest.run();
         GridExploreTest.run();
         GridFixtureValueTest.run();
         GridFixtureCableTest.run();

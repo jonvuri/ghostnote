@@ -1,0 +1,20 @@
+{
+  "candidate": {
+    "case": "mapping",
+    "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset"
+  },
+  "devices": {
+    "devices": [
+      {
+        "index": 0,
+        "name": "Poly Grid",
+        "enabled": true
+      }
+    ],
+    "count": 1,
+    "itemCount": 1,
+    "trackChannelId": "8dfedfa7-f392-4d7f-8258-17f5d9ec72b0",
+    "trackPosition": 1,
+    "bankSize": 16
+  }
+}

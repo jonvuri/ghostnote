@@ -1,0 +1,18 @@
+✔ bounded boolean sequence and call budget (1.926042ms)
+✔ bounded mapping sequence and call budget (2.593625ms)
+✔ bounded factory sequence and call budget (0.954625ms)
+✔ a receipt cannot replace independent readback or authorize a restore (2.550584ms)
+✔ uncertain command is inspected at most twice and never retried or released (0.474833ms)
+✔ a refusal before any command can cancel and release the scratch claim (0.182375ms)
+✔ unequal initial reads prevent a command (0.671333ms)
+✔ a proved domain refusal before native entry can release the fixture (2.441834ms)
+✔ mapping permits only the selected new identities and selected list position (2.663042ms)
+✔ factory requires fresh UUID, empty external connections, and disposal evidence (2.041417ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 353.544709

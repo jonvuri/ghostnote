@@ -1,0 +1,16 @@
+{
+  "case": "mapping",
+  "commands": 0,
+  "reads": 0,
+  "locked": true,
+  "finished": false,
+  "inspections": 0,
+  "failure": "java.lang.IllegalStateException: breadth-edit-context",
+  "bound": true,
+  "busy": false,
+  "timeoutLocked": false,
+  "nativeUnfinished": false,
+  "marker": "9b-grid-writes-v16",
+  "foreignOwner": false,
+  "session": "ba1a0be8-c0a5-4119-bcb5-ff9e6313a774"
+}

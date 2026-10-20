@@ -1,0 +1,12 @@
+{
+  "builtArchive": "/Users/jonvuri/Development/ghostnote/extension/build/libs/ghostnote-0.0.1-probe.bwextension",
+  "deployedArchive": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension",
+  "sha256": "35668462515c77edae8a85e673b062572ba044738b5714b59bb43a9f9f0f9c5c",
+  "bytes": 781439,
+  "deployedAt": "2026-10-20T19:11:48.264601+00:00",
+  "runtimeProfile": "phase-8-probe-v1",
+  "definition": "com.ghostnote.extension.GhostnoteProbeExtensionDefinition",
+  "expectedMarker": "9b-grid-writes-v16",
+  "loadedClassesVerified": false,
+  "operatorReplacementRequired": true
+}

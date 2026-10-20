@@ -155,6 +155,14 @@ tasks.register('verifyExtensionArchives') {
                 if (bundledProfile != profile) {
                     throw new GradleException("${taskName}: bundled runtime profile differs")
                 }
+                // Consumers must call the marker method, not copy a build constant.
+                ['CoreHandlers', 'GridProbeHandlers', 'GridSurveyHandlers'].each { name ->
+                    def entry = contents.getJarEntry("com/ghostnote/extension/handlers/${name}.class")
+                    def bytes = new String(contents.getInputStream(entry).readAllBytes(), 'ISO-8859-1')
+                    if (bytes.contains('9b-grid-') || !bytes.contains('marker')) {
+                        throw new GradleException("${taskName}: ${name} has a copied or absent Grid marker")
+                    }
+                }
             }
         }
         println 'Extension archive registrations and runtime profiles agree.'
@@ -265,5 +273,13 @@ tasks.register('gridEngineSymbolsTest', JavaExec) {
     dependsOn harnessTestClasses
     classpath = sourceSets.harnessTest.runtimeClasspath
     mainClass = 'com.ghostnote.extension.GridEngineTest'
+    args '/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar'
+}
+
+// Resolve 9b.3 command metadata. Do not initialize host classes or run commands.
+tasks.register('gridBreadthCommandsTest', JavaExec) {
+    dependsOn harnessTestClasses
+    classpath = sourceSets.harnessTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.GridBreadthCommandsTest'
     args '/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar'
 }

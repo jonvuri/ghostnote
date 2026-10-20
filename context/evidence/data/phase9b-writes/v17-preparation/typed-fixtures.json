@@ -1,0 +1,17 @@
+[
+  {
+    "case": "boolean",
+    "typedFixture": "pass",
+    "nativeWitness": "not validated; original inspection refused edit-context"
+  },
+  {
+    "case": "mapping",
+    "typedFixture": "pass",
+    "nativeWitness": "not validated; original inspection refused edit-context"
+  },
+  {
+    "case": "factory",
+    "typedFixture": "pass",
+    "nativeWitness": "not validated; original inspection refused edit-context"
+  }
+]

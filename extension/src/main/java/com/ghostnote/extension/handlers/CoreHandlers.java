@@ -71,7 +71,7 @@ public final class CoreHandlers extends HandlerGroup {
     private JsonElement rigInfo() {
         JsonObject result = new JsonObject();
         result.addProperty("runtimeProfile", rig.profile.identity());
-        if (rig.profile.hasProbeResources()) result.addProperty("gridReadProbe", GridProbeHandlers.MARKER);
+        if (rig.profile.hasProbeResources()) result.addProperty("gridReadProbe", GridProbeHandlers.marker());
         result.addProperty("tracks", rig.config.tracks);
         result.addProperty("scenes", rig.config.scenes);
         result.addProperty("gridSteps", rig.config.gridSteps);

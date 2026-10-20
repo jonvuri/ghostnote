@@ -1,0 +1,5 @@
+{
+  "factory": "all six independent snapshots pass; each pair agrees",
+  "preservedState": "after equals before",
+  "recovery": "entry equals E308 original tracks, mixer, device banks, selection"
+}

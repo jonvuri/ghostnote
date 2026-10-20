@@ -1,0 +1,16 @@
+{
+  "case": "factory",
+  "commands": 1,
+  "reads": 0,
+  "locked": true,
+  "finished": false,
+  "inspections": 0,
+  "failure": "java.lang.IllegalStateException: breadth-managed-id-alias",
+  "bound": true,
+  "busy": false,
+  "timeoutLocked": false,
+  "nativeUnfinished": false,
+  "marker": "9b-grid-writes-v17",
+  "foreignOwner": false,
+  "session": "61929794-ead9-454a-a79f-472d3e0bd478"
+}

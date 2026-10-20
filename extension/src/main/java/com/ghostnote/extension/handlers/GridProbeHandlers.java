@@ -7,9 +7,10 @@ import java.util.UUID;
 
 /** Reusable survey reads and the retained fixed-fixture 9a research paths. */
 public final class GridProbeHandlers extends HandlerGroup {
-    public static final String MARKER = GridSurveyHandlers.MARKER;
+    public static String marker() { return GridSurveyHandlers.marker(); }
     private final GridEngineHandlers engine;
     private final GridSurveyHandlers survey;
+    private final GridBreadthHandlers breadth;
     private GridReadSymbols symbols;
     private GridReadEpoch epoch;
     private boolean busy;
@@ -24,25 +25,36 @@ public final class GridProbeHandlers extends HandlerGroup {
         engine = new GridEngineHandlers(host, rig, state);
         survey = new GridSurveyHandlers(host, rig, state,
             () -> engine.ownsGrid() || busy || job != null && job.unfinished()
+                || epoch != null || safety.locked() || safety.pendingReadback() || breadthOwns());
+        breadth = new GridBreadthHandlers(host, rig, state,
+            () -> engine.ownsGrid() || survey.ownsGrid() || busy || job != null && job.unfinished()
                 || epoch != null || safety.locked() || safety.pendingReadback());
-        engine.otherGridOwner(survey::ownsGrid);
+        engine.otherGridOwner(() -> survey.ownsGrid() || breadth.ownsGrid());
     }
+    private boolean breadthOwns() { return breadth != null && breadth.ownsGrid(); }
 
     @Override public void register(HandlerRegistry r) {
         engine.register(r);
         r.onAsync("probe.gridRead", (params, reply) -> {
-            if (params.has("operation") && GridSurveyHandlers.OPERATIONS.contains(params.get("operation").getAsString()))
+            if (params.has("operation") && GridBreadthHandlers.READS.contains(params.get("operation").getAsString()))
+                breadth.request(params, reply, null);
+            else if (params.has("operation") && GridSurveyHandlers.OPERATIONS.contains(params.get("operation").getAsString()))
                 survey.request(params, reply);
             else request(params, reply, Write.NONE);
         });
-        r.onAsync("probe.gridValue", (params, reply) -> request(params, reply, Write.VALUE));
-        r.onAsync("probe.gridCable", (params, reply) -> request(params, reply, Write.CABLE));
+        r.onAsync("probe.gridValue", (params, reply) -> breadthOrLegacy(params, reply, Write.VALUE, "boolean"));
+        r.onAsync("probe.gridCable", (params, reply) -> breadthOrLegacy(params, reply, Write.CABLE, "mapping"));
         r.onAsync("probe.gridModuleDelete", (params, reply) -> request(params, reply, Write.DELETE));
-        r.onAsync("probe.gridModuleFactory", (params, reply) -> request(params, reply, Write.FACTORY));
+        r.onAsync("probe.gridModuleFactory", (params, reply) -> breadthOrLegacy(params, reply, Write.FACTORY, "factory"));
         r.onAsync("probe.gridModuleAttach", (params, reply) -> request(params, reply, Write.ATTACH));
     }
 
     private enum Write { NONE, VALUE, CABLE, DELETE, FACTORY, ATTACH }
+    private void breadthOrLegacy(JsonObject params, Bridge.Reply reply, Write kind, String breadthCase) throws Exception {
+        if (params.has("operation") && params.get("operation").getAsString().equals("breadthCommand"))
+            breadth.request(params, reply, breadthCase);
+        else request(params, reply, kind);
+    }
 
     private record Target(String project, String trackId, String trackName, int deviceIndex, String deviceName) {}
 
@@ -60,6 +72,7 @@ public final class GridProbeHandlers extends HandlerGroup {
     private void request(JsonObject params, Bridge.Reply reply, Write kind) throws Exception {
 
         if (kind != Write.NONE) throw new IllegalStateException("V12 writes require the fixed engine protocol; V11 cohort is retired");
+        if (breadth.ownsGrid()) throw new IllegalStateException("breadth-session-owns-grid");
         if (survey.ownsGrid()) throw new IllegalStateException("survey-session-owns-grid");
         if (engine.used() || engine.unfinished()) throw new IllegalStateException("engine-session-owns-grid; use probe.gridEngine");
         boolean write = kind != Write.NONE;
@@ -144,7 +157,7 @@ public final class GridProbeHandlers extends HandlerGroup {
             recoveryProof = proof; recoveryTarget = target;
             if (capture) proof.require(token, document, track, device);
             JsonObject result = new JsonObject();
-            result.addProperty("marker", MARKER);
+            result.addProperty("marker", marker());
             result.addProperty("jarSha256", GridReadSymbols.JAR_SHA256);
             result.addProperty("operationId", operationId);
             result.addProperty("epoch", proof.token);

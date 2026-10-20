@@ -1,0 +1,29 @@
+{
+  "marker": "9b-grid-writes-v17",
+  "session": "bb8acdf1-ecab-4603-a82e-16fd9e63886a",
+  "queueNanos": 69125,
+  "heapUsedBefore": 2038431744,
+  "receipt": {
+    "action": "boolean-enable",
+    "nativeCommandNanos": 1253209,
+    "commandReturned": true,
+    "readback": "pending-independent-pair"
+  },
+  "metrics": {
+    "descriptorWork": 791,
+    "snapshotNanos": 515125
+  },
+  "routeWork": 207,
+  "heapUsedAfter": 2038431744,
+  "documentTaskNanos": 2481500,
+  "status": {
+    "case": "boolean",
+    "commands": 1,
+    "reads": 0,
+    "locked": false,
+    "finished": false,
+    "inspections": 0,
+    "failure": ""
+  },
+  "completionNanos": 24248125
+}

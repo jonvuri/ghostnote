@@ -1,0 +1,5 @@
+{
+  "boolean": "all six captures pass",
+  "mapping": "all six captures pass",
+  "factory": "both inspections match pre-command fixture and witness; detached read remains failed"
+}

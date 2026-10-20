@@ -1,0 +1,311 @@
+{
+  "calls": 235,
+  "wireMs": 6818.363418000013,
+  "nativeGridCommands": 2,
+  "case": "factory",
+  "verdict": "passed",
+  "samples": [
+    {
+      "file": "preset-0-breadth-1-breadthBind.json",
+      "queueMs": 1.995167,
+      "documentMs": 4.854,
+      "heapDeltaMiB": 0.0,
+      "metrics": {},
+      "receipt": null
+    },
+    {
+      "file": "preset-0-breadth-2-breadthRead.json",
+      "queueMs": 0.14975,
+      "documentMs": 4.225375,
+      "heapDeltaMiB": 2.0,
+      "metrics": {
+        "descriptorWork": 791,
+        "snapshotNanos": 3325708
+      },
+      "receipt": null
+    },
+    {
+      "file": "preset-0-breadth-3-breadthRead.json",
+      "queueMs": 0.117334,
+      "documentMs": 1.321916,
+      "heapDeltaMiB": 0.0,
+      "metrics": {
+        "descriptorWork": 791,
+        "snapshotNanos": 779500
+      },
+      "receipt": null
+    },
+    {
+      "file": "preset-0-breadth-4-breadthCommand.json",
+      "queueMs": 0.062583,
+      "documentMs": 5.478583,
+      "heapDeltaMiB": 2.0,
+      "metrics": {
+        "descriptorWork": 791,
+        "snapshotNanos": 694542
+      },
+      "receipt": {
+        "action": "factory-create",
+        "nativeCommandNanos": 3058458,
+        "commandReturned": true,
+        "readback": "pending-independent-pair"
+      }
+    },
+    {
+      "file": "preset-0-breadth-5-breadthRead.json",
+      "queueMs": 0.111792,
+      "documentMs": 1.611541,
+      "heapDeltaMiB": 2.0,
+      "metrics": {
+        "descriptorWork": 1218,
+        "snapshotNanos": 1237042
+      },
+      "receipt": null
+    },
+    {
+      "file": "preset-0-breadth-6-breadthRead.json",
+      "queueMs": 0.058875,
+      "documentMs": 1.277416,
+      "heapDeltaMiB": 0.0,
+      "metrics": {
+        "descriptorWork": 1218,
+        "snapshotNanos": 971709
+      },
+      "receipt": null
+    },
+    {
+      "file": "preset-0-breadth-7-breadthCommand.json",
+      "queueMs": 0.215583,
+      "documentMs": 1.993,
+      "heapDeltaMiB": 2.0,
+      "metrics": {
+        "descriptorWork": 1218,
+        "snapshotNanos": 1158542
+      },
+      "receipt": {
+        "action": "factory-dispose",
+        "nativeCommandNanos": 298000,
+        "commandReturned": true,
+        "readback": "pending-independent-pair"
+      }
+    },
+    {
+      "file": "preset-0-breadth-8-breadthRead.json",
+      "queueMs": 0.13675,
+      "documentMs": 1.806791,
+      "heapDeltaMiB": 0.0,
+      "metrics": {
+        "descriptorWork": 791,
+        "snapshotNanos": 1403750
+      },
+      "receipt": null
+    },
+    {
+      "file": "preset-0-breadth-9-breadthRead.json",
+      "queueMs": 0.080167,
+      "documentMs": 1.24225,
+      "heapDeltaMiB": 0.0,
+      "metrics": {
+        "descriptorWork": 791,
+        "snapshotNanos": 596666
+      },
+      "receipt": null
+    }
+  ],
+  "control": [
+    {
+      "label": "before",
+      "index": 0,
+      "wireMs": 48.02729199999999,
+      "queueMs": 0.059917,
+      "documentMs": 5.224,
+      "queryWork": 1606,
+      "graphWork": 278
+    },
+    {
+      "label": "before",
+      "index": 1,
+      "wireMs": 47.58591700000011,
+      "queueMs": 0.064458,
+      "documentMs": 3.591334,
+      "queryWork": 1606,
+      "graphWork": 278
+    },
+    {
+      "label": "after",
+      "index": 0,
+      "wireMs": 48.667459000000235,
+      "queueMs": 0.129666,
+      "documentMs": 7.440959,
+      "queryWork": 1606,
+      "graphWork": 278
+    },
+    {
+      "label": "after",
+      "index": 1,
+      "wireMs": 49.31262500000048,
+      "queueMs": 0.241708,
+      "documentMs": 4.188542,
+      "queryWork": 1606,
+      "graphWork": 278
+    }
+  ],
+  "wireByOperation": {
+    "breadthStatus": [
+      {
+        "ms": 24.51549999999952,
+        "bytes": 126
+      },
+      {
+        "ms": 24.461583000000246,
+        "bytes": 126
+      }
+    ],
+    "breadthBind": [
+      {
+        "ms": 52.56179200000042,
+        "bytes": 349
+      }
+    ],
+    "breadthRead": [
+      {
+        "ms": 47.86083400000007,
+        "bytes": 5164
+      },
+      {
+        "ms": 48.95995800000037,
+        "bytes": 5163
+      },
+      {
+        "ms": 46.718667000000096,
+        "bytes": 7487
+      },
+      {
+        "ms": 47.297875000000204,
+        "bytes": 7485
+      },
+      {
+        "ms": 48.36516599999959,
+        "bytes": 5180
+      },
+      {
+        "ms": 48.61279099999956,
+        "bytes": 5178
+      }
+    ],
+    "breadthCommand": [
+      {
+        "ms": 49.589833,
+        "bytes": 519
+      },
+      {
+        "ms": 45.72312500000044,
+        "bytes": 522
+      }
+    ],
+    "breadthRelease": [
+      {
+        "ms": 24.345040999999583,
+        "bytes": 16
+      }
+    ]
+  },
+  "detachedDefaults": {
+    "ownedObjects": 236,
+    "type": "8d644ad7-8d77-4f05-a36e-04a57f719635",
+    "uuid": "9dbcfa4e-ef24-4f01-bd2a-865a1304615e",
+    "atoms": 17,
+    "steps": 8,
+    "dataSize": 64,
+    "data": [
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1
+    ],
+    "devicePhase": true,
+    "muteWhenStopped": false,
+    "mode": 0,
+    "mappings": {}
+  },
+  "witness": {
+    "editIdle": true,
+    "parentsVerified": true,
+    "engineActive": true,
+    "selection": {
+      "present": true,
+      "selected": []
+    }
+  },
+  "preservation": {
+    "factory": "all six independent snapshots pass; each pair agrees",
+    "preservedState": "after equals before",
+    "recovery": "entry equals E308 original tracks, mixer, device banks, selection"
+  },
+  "exit": {
+    "scratch": null,
+    "uncertain": false,
+    "completedPresets": 1
+  },
+  "attachment": "refused: fixed Amplify guards do not admit Gates"
+}

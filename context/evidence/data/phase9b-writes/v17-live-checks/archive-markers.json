@@ -1,0 +1,17 @@
+{
+  "sha256": "ea1f694afa43b105d64284e1804852a68f48e1243c1c1818fade91a9318701d7",
+  "classes": {
+    "com/ghostnote/extension/handlers/CoreHandlers.class": [
+      "9b-grid-writes-v16"
+    ],
+    "com/ghostnote/extension/handlers/GridBreadthHandlers.class": [
+      "9b-grid-writes-v17"
+    ],
+    "com/ghostnote/extension/handlers/GridProbeHandlers.class": [
+      "9b-grid-writes-v17"
+    ],
+    "com/ghostnote/extension/handlers/GridSurveyHandlers.class": [
+      "9b-grid-writes-v17"
+    ]
+  }
+}

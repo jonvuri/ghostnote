@@ -2,7 +2,7 @@
 title: Phase 9b — Grid breadth, build discovery, and build-out planning
 kind: plan
 state: active
-status: E304 completes focused reader coverage. Session 9b.3 tests three bounded write cases.
+status: E310 completes 9b.3 and bounded breadth investigation. All three selected cases pass; next is 9b.4 offline resolvers.
 updated: 2026-10-20
 parent: README.md
 prev: 9a-live-grid-editing-spike.md
@@ -35,7 +35,7 @@ find it later. Drop the rest.
 - One short E record per experimental session: question, what ran, results,
   limits, next. Link the driver's JSON output under `context/evidence/data/phase9b-*/`.
   Add the index row. Planning and documentation cleanup need no new E record.
-  The next free number is E305.
+  Select the next free E number from the evidence index.
 - Build fixtures with the public surface on a **scratch track**: `track.create`,
   `device.insertFile` (absolute `.bwpreset` path), `track.setMixer` (mute),
   `track.delete`. The probe profile has all four. Delete the scratch track at
@@ -90,15 +90,16 @@ Sessions:
   [E304](../../evidence/experiments/e304-focused-grid-reader-live.md):
   selective routes, paired reads through 31 modules, selected reads on a
   50-module patch, Grid mapping endpoints, Gates data, and Wavetable identity.
-- **9b.3 — Write probes for the flagged dimensions.** Select one non-decimal
-  value, one knob-modulation edge, and one stateful factory case after 9b.2a
-  proves their readback. Use Gates/array or Wavetable evidence from E302.
-  Resource loading and FX/Note edits remain conditional on sufficient read
-  coverage. Batch admitted probes into one build. No native write is authorized
-  by a preset name or a partial read alone.
+- **9b.3 — Bounded write probes.** Complete in
+  [E310](../../evidence/experiments/e310-grid-factory-acceptance-and-breadth-close.md),
+  with E308 boolean and mapping acceptance. Gates detached defaults and
+  disposal pass. Gates attachment is outside the fixed Amplify guards.
+  Resource loading and FX/Note writes remain unproved. A preset name or
+  partial read is not authority for a new command.
 - **9b.3a — Engine-active checks, if the write results require them.**
   Operator listening in the [E296 style](9a-operator-audio-test.md), with fewer
-  checks. Set the scope in the 9b.3 result.
+  checks. E310 does not require this session for the stored-state verdicts.
+  No new audible-behavior claim follows.
 
 Exit: a verdict per dimension (same model, extension needed, or unknown with
 the reason); the module catalog first pass; the symbol manifest complete for
@@ -471,13 +472,26 @@ module count and is reported as a refusal after route discovery.
 
 ## Session 9b.3 — Bounded write probes
 
+**Progress.** [E305](../../evidence/experiments/e305-grid-write-command-preparation.md)
+records command tracing. [E306](../../evidence/experiments/e306-bounded-grid-writer-preparation.md)
+records the V16 writer, driver, offline checks, and deployment.
+[E307](../../evidence/experiments/e307-grid-write-guard-refusal.md) records three
+V16 refusals before native entry and clean scratch removal.
+[E308](../../evidence/experiments/e308-grid-write-live-and-factory-lock.md) passes
+the boolean and mapping cases on V17. The factory read locks after creation.
+[E309](../../evidence/experiments/e309-grid-factory-process-recovery.md) records
+authorized process recovery.
+[E310](../../evidence/experiments/e310-grid-factory-acceptance-and-breadth-close.md)
+passes the fresh V18 factory case and all exit checks. Session 9b.3 is complete.
+The procedures below retain the implementation and recovery history.
+
 **Source.** [E304](../../evidence/experiments/e304-focused-grid-reader-live.md),
 the [focused report](../../evidence/data/phase9b-focused/focused-report.json),
 the [final projection](../../evidence/data/phase9b-focused/focused-query-v6.json),
 and the [schema inventory](../../evidence/data/phase9b-focused/observed-schemas.json).
 Use fresh owned muted scratch tracks in the operator's chosen project.
-Keep `grid-probe` unchanged. V15 is loaded; batch new native probes into one
-build and defer controller replacement to the operator.
+Keep `grid-probe` unchanged. E310 verifies V18 after operator replacement,
+then proves factory disposal, scratch removal, and preserved state.
 
 Trace and validate the native command for each case before live use.
 Descriptor IDs identify independent reads; they do not identify safe setters.
@@ -511,3 +525,221 @@ result, and driver caps. Measure each changed path and explain any comparable
 regression over 20 percent. End with no owned scratch object, matching
 preserved state, and a released reader/writer. Record each case as passed,
 refused, or unknown, plus the reason, in E305 or the next free record.
+
+### Writer implementation after E305
+
+Continue 9b.3 with the
+[command trace](../../evidence/data/phase9b-writes/command-trace.md) and
+[metadata resolver](../../../extension/src/main/java/com/ghostnote/extension/GridBreadthCommands.java).
+E306 connects the resolver to private research handlers. These requirements
+apply to implementation and live acceptance:
+
+1. Add an owned scratch writer protocol. Reuse the survey target and epoch
+   guards. Exclude the survey, audio runner, and other native writers while
+   a command or its readback is pending. A timeout or failed readback keeps
+   the write lock. Retain bounded read-only inspection after uncertainty.
+2. Admit only the selected typed targets. Validate a fresh descriptor
+   baseline, current project, ownership, selection, and command domain
+   immediately before each command. Require paired independent reads after
+   it. The old fixed-fixture write routes remain retired.
+3. For the mapping, prove one source/target match and that 129 is inside the
+   native domain before removal. Restore enabled, transfer, auxiliary flags,
+   and polyphonic state. Permit new identity only for the selected mapping
+   and its destination reference. The native command appends; preserve the
+   relative order and identities of every other mapping. Do not normalize
+   arbitrary managed IDs or unrelated list order.
+4. Separate factory creation, detached descriptor reads, disposal, and
+   disposal readback into distinct native tasks. Keep at most one owned
+   detached tree, with the existing 256-object/depth-12 traversal limits.
+   Read type, fresh UUID, array size/data, and stored parameters. Report
+   attachment as refused if the existing lifecycle guards do not apply.
+   A new general attachment path is outside this conditional probe.
+5. Build the foreground driver from the survey fixture workflow. Use new
+   muted scratch tracks. Budget all partitions and guards, test state
+   transitions and uncertainty, and measure every admitted live path.
+   Park both cursors before scratch deletion. Check preserved state and
+   the normalized E276 control at exit.
+
+Use E306 or the next free record for implementation or live acceptance.
+The conditional 9b.3a listening session stays separate.
+
+### V16 cost model and live continuation
+
+Use the fixed [three-case plan](../../evidence/data/phase9b-writes/write-plan.json)
+with [the driver](../../../brain/src/probes/phase9b-grid-writes.ts).
+The normal case uses 13 sequential bridge calls: two status calls, one
+selection read, bind, six independent reads, two commands, and release.
+Nine calls queue document tasks. Each command also takes a fresh descriptor
+snapshot before native entry. All three cases total 39 protocol/guard calls,
+27 document tasks, six native commands, and 24 snapshots. At the E246
+24 ms primitive cost, 39 calls have a 936 ms wire floor. This excludes
+fixture work, cold metadata resolution, native work, and both control reads.
+
+One snapshot admits 64 modules, 256 children per relationship, 32 runtime
+classes, 4,096 descriptor work units, and one second of descriptor traversal.
+Selected modules get stored-value and connection reads; other modules get
+identity, type, name, and position. No full-patch parameter claim follows.
+One result is below 1 MiB, with 4 KiB reserved for its wrapper. Scalar text
+has a cumulative 512 Ki-character cap. Route discovery has a separate
+4,096-work/one-second cap. Each command checks the route again before entry.
+Membership witnesses visit at most 64 modules. Atom ownership checks cover
+only the selected modules and share the snapshot's child/work caps.
+
+The factory retains one detached tree, at most 256 objects and depth 12.
+The normal factory case uses five bounded ownership traversals. Creation,
+paired reads, disposal, and paired disposal reads use separate tasks.
+No attachment runs. A request times out after five seconds. Native work can
+continue after timeout; the lock remains. Native entry requires the
+four-second deadline and the current target/selection guards. The session
+expires after 15 minutes. Uncertainty admits at most two read-only inspections.
+It never admits a repeated command or automatic fixture deletion.
+
+Fixture setup and cleanup retain the E302 public-path model and polling
+limits: 80 insertion polls, 40 polls per cursor point, and 32 preserved
+tracks. Both cursors park before deletion. Two unchanged semantic control
+reads compare the preserved Grid with E276; each keeps the 101-call maximum.
+The driver writes captures to disk. It retains bounded snapshots and call
+metadata. Keep the 48 MiB temporary-host planning allowance; it is not an
+enforced or measured peak.
+
+After operator replacement, run `npm run probe:hello` in `brain/`. Require
+`phase-8-probe-v1`, 118 methods, hash `2e939035ea90b8b0`, a fresh initialization,
+and marker `9b-grid-writes-v17`. Check competing drivers and clients.
+Then run one foreground chain:
+
+```sh
+node --import tsx src/probes/phase9b-grid-writes.ts gn-grid-spike /absolute/new/output-directory
+```
+
+Record queue, document, command, snapshot, wire, result-size, and heap samples.
+Compare the unchanged control reads with E276/E304. Compare changed reads
+only when their scope is comparable. No product call budget changed.
+Record passed, refused, or unknown for each case in the next free E record.
+Close 9b.3 only after cleanup and preserved-state checks pass.
+
+### V17 guard correction after E307
+
+The controller proxy returns the `Svr` project root. The edit lookup returns
+its `cZl` wrapper. V16 compared these distinct types and refused every case
+before native entry. V17 compares the Grid's edit wrapper with the wrapper
+looked up from the project root. It reads journal/replay state on the edit
+wrapper and engine state on the project root. It preserves both identities.
+Regression checks cover different/null wrappers and native receiver types.
+
+The change adds one existing, read-only `cZl.ffA(ikl)` lookup per snapshot,
+including an inspection. It adds no bridge call or command stage. The full
+three-case model adds 24 root lookups. All traversal/result caps stay fixed.
+No new obfuscated member is used. Live cost and command acceptance need V17.
+
+E307's unchanged control has the same 1,606 query and 278 graph work units
+as E304. First capture wire times rise to 77.758/78.174 ms; second captures
+take 47.881/47.982 ms. Document times are also higher. The cause is not proved.
+Keep this as a performance limit. Use the already planned V17 control pairs
+to remeasure the path; do not add write repetitions for timing.
+
+### V18 recovery after E308
+
+**Complete in E310.** The operator confirms replacement; fresh V18 hello,
+factory creation/defaults/disposal, scratch cleanup, and preserved-state
+checks pass. The following procedure records the recovery boundary.
+
+Read
+[E308](../../evidence/experiments/e308-grid-write-live-and-factory-lock.md) and
+its final status. Boolean and mapping cases passed; do not repeat them.
+The factory command returned, but the detached reader rejected duplicate
+managed IDs. E308 used both read-only inspections and retained the lock and
+scratch with 236 undisposed objects. No disposal or attachment ran.
+[E309](../../evidence/experiments/e309-grid-factory-process-recovery.md) now
+proves full process exit and recovery. The old scratch is absent.
+
+1. **Complete in E309.** The operator confirms that the project is only for
+   this work and authorizes recovery without saving. The agent selects No
+   at the named project save prompt, verifies process exit, restarts Bitwig,
+   and opens the saved project. The old scratch is absent.
+2. **Process exit and restart complete in E309.** PID 14292 is gone; the new
+   bridge PID is 24537. V18 loads at `2026-10-20T20:03:41.731Z`. The saved
+   project has no old scratch, and reader and writer are unlocked. The operator
+   has been asked to fully remove the controller
+   and choose the final matching `ghostnote probe` product in the complete
+   list. A toggle or earlier duplicate can load cached classes. The orange
+   arrow adds detected controllers; it does not reload the extension.
+3. After confirmation, run `npm run probe:hello`. Require V18 on both direct
+   handlers, fresh initialization after the V18 deployment, profile
+   `phase-8-probe-v1`, 118 methods, and hash `2e939035ea90b8b0`. Check the new
+   process, project, selection, and competing clients. Do not reuse a claim
+   or managed native ID. Process exit ends the old in-memory object lifetime;
+   it does not prove the skipped native disposal command.
+4. Re-establish ownership of any retained scratch from fresh observations:
+   channel `b8077f74-8e28-4394-a3b3-ffb654b7ba22`, exact recorded name,
+   muted mixer, and one Poly Grid from WT Parkour. Reconcile the preserved
+   tracks with the E308 entry snapshot. If the operator reopens the saved
+   project without scratch, prove its absence. Park both survey cursors on
+   `grid-probe` before deleting a retained, newly verified scratch track.
+   Capture the unchanged semantic control before the new factory run.
+5. Run one foreground factory-only chain with a new output directory:
+
+   ```sh
+   node --import tsx src/probes/phase9b-grid-writes.ts gn-grid-spike /absolute/new/output-directory factory-only
+   ```
+
+   This uses the fixed [factory-only plan](../../evidence/data/phase9b-writes/factory-only-plan.json).
+   It creates a fresh muted fixture and a new detached object. It cannot
+   continue the old locked claim. Keep independent read pairs and ownership,
+   freshness, selection, write-lock, and uncertain-state guards. No attachment.
+6. Measure the changed detached projection. Require paired defaults, disposal,
+   paired disposal readback, release, scratch removal, full preserved-state
+   comparison, and the final E276 control pair. Record recovery and the new
+   factory verdict in a new E record. Only then close 9b.3 and start 9b.4.
+
+V18 uses ownership-order identities only for the detached tree. Its map has
+at most 256 entries; construction consumes the existing descriptor work and
+time budgets. It replaces detached field-14 reads, adds no bridge call or
+document task, and retains every other bound. The factory-only normal case
+uses 13 protocol/guard calls, nine document tasks, two commands, and eight
+snapshots, plus the existing fixture and control workflow. Keep the 48 MiB
+planning allowance. Do not repeat a write for timing.
+
+V18 also uses runtime marker methods. Archive checks reject copied version
+labels in Core, survey, and probe consumers. Hello checks both direct handler
+markers with two read-only calls. The driver reuses its existing status calls.
+Descriptions remain v52. The conditional 9b.3a listening session is not needed
+for the stored-state verdicts; no audible-behavior claim follows.
+
+## Session 9b.4 — Offline resolvers
+
+**Source.** Start with the [symbol manifest](9b-grid-symbol-manifest.md),
+[E310 breadth disposition](../../evidence/experiments/e310-grid-factory-acceptance-and-breadth-close.md#breadth-disposition-and-limits),
+and the [E305 command trace](../../evidence/data/phase9b-writes/command-trace.md).
+Use the pinned implementations as the expected result:
+`GridReadSymbols`, `GridWriteSymbols`, `GridFactorySymbols`,
+`GridAttachmentSymbols`, `GridEngineSymbols`, `GridBreadthCommands`, and
+`GridBreadthWitness`. The E307 receiver distinction and E308 detached identity
+scope remain required invariants. All work in this session is offline.
+
+1. Derive a shape resolver for every manifest row and type dependency. Read
+   the local 6.0.6 jar as data. Enumerate default-package classes, including
+   `a` and `llL`; do not infer a package or choose by enumeration order.
+2. Keep candidate discovery separate from validation. Require the expected
+   signatures, inheritance, descriptor or operation invariants, and receiver
+   roles. Reject missing or ambiguous candidates. Pinned names are the test
+   oracle, not the discovery algorithm. Do not initialize vendor classes or
+   run a native edit to make an offline test pass.
+3. Add fake-host tests for missing, ambiguous, inherited, and wrong-receiver
+   candidates. Compare the complete resolved table with the hand-pinned
+   6.0.6 manifest. Identify each invariant that needs the explicit 9b.5 live
+   doctor; an offline shape match does not grant write authority.
+4. Before implementation, record the bounded scan cost and memory model in
+   the performance ledger. Measure jar enumeration, candidate search, and
+   validation separately on 6.0.6. Report jar fingerprint, entry/class counts,
+   elapsed time, and memory limits. No bridge calls or live project changes
+   belong to this session.
+5. Record results and exact unresolved limits in a new E record, update the
+   manifest and 9b.5 inputs, and stage the session changes without a commit.
+   Acceptance requires the exact pinned table, focused failure tests, and
+   measured scan cost. Do not claim cross-build acceptance from 6.0.6 alone.
+
+The 6.1.x update belongs to the operator after the general feature audit,
+with 6.0.6 copied aside. It is not a prerequisite for this offline session.
+The existing 9b.5/9b.6 doctor and step-3 build-out plan own the broader live
+scope. Carry E310's unproved resource, outer-modulator, attachment, flavour,
+scale, and non-boolean-write limits into that planning.

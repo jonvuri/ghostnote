@@ -1,0 +1,40 @@
+> Task :compileJava
+> Task :processResources UP-TO-DATE
+> Task :classes
+> Task :compileHarnessTestJava
+> Task :processHarnessTestResources UP-TO-DATE
+> Task :harnessTestClasses
+
+> Task :gridReadTest
+Breadth: typed fixtures, command order, independent pairs, identity limits, failure locks, and late return pass.
+Grid exploration: schema isolation, bounded paths, projections, and query controls pass.
+Detached factory: ownership bounds, failures, cleanup, and late completion pass.
+Attachment: edit failures, partial insertion, readback, layout, limits, and late completion pass.
+Engine operator gates, lifetime, sequence, and graph checks pass.
+Survey target validation, repeated sessions, stale targets, exclusion, and timeout lock pass.
+Grid read: bounds, completeness, identity, fresh reads, async outcomes, and profile checks pass.
+
+> Task :gridBreadthCommandsTest
+Project Svr and edit document cZl are distinct; lookup and receiver roles pass.
+public final void Xuo.eOi(boolean)
+public final void com.bitwig.flt.document.core.master.device.Net.cG3(Hjt)
+public final void com.bitwig.flt.document.core.master.device.Net.eOi(Hjt,double,boolean,jas,com.bitwig.flt.document.core.master.device.NDn)
+public MTu ccA.aGJ()
+public abstract double TNT.NCM()
+public static com.bitwig.flt.document.core.master.device.DbL com.bitwig.flt.document.core.master.device.DbL.pvN(java.util.UUID)
+Pinned jar, boolean command, mapping commands, domain, and factory metadata pass.
+No host class initialization or native command ran.
+
+> Task :captureRuntimeProfileResource
+> Task :captureJar
+> Task :normalRuntimeProfileResource
+> Task :jar
+> Task :probeRuntimeProfileResource
+> Task :probeJar
+
+> Task :verifyExtensionArchives
+Extension archive registrations and runtime profiles agree.
+
+BUILD SUCCESSFUL in 1s
+13 actionable tasks: 11 executed, 2 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.6.1/userguide/configuration_cache_enabling.html

@@ -16,7 +16,7 @@ import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
 import { AGENT_NATIVE_TOOL_PROFILE, callTool } from '../surface/tools.js';
 import { workspaceOf } from '../surface/workspace.js';
-import { readSurvey, validateProjection, type Wire, type Projection } from './phase9b-grid-survey-read.js';
+import { readSurvey, validateProjection, type Wire, type Projection, type Request } from './phase9b-grid-survey-read.js';
 import { readFocused, validateFocusIndices } from './phase9b-grid-focused-read.js';
 
 const ROOT = join(import.meta.dirname, '../../..');
@@ -38,12 +38,17 @@ export function presetList(input: unknown): Wire[] {
     return row;
   });
 }
-async function run(args: string[]) {
+export type ScratchWorkflow = {
+  run(request: Request, target: Wire, candidate: Wire, save: (name: string, value: unknown) => void): Promise<Wire>;
+};
+export async function runSurvey(args: string[], workflow?: ScratchWorkflow) {
   const readOnly = args[0] === 'read';
   const [projectOrMode, outputOrTarget, listOrOutput, optionalQuery] = args;
   const output = readOnly ? listOrOutput : outputOrTarget;
   assert.ok(output && isAbsolute(output), 'Use a new absolute output directory');
   const candidates = readOnly ? [] : presetList(load(listOrOutput!));
+  assert.ok(!workflow || !readOnly, 'A write workflow requires scratch fixtures');
+  const scratchPrefix = workflow ? 'gn-9b-write-' : 'gn-9b-survey-';
   const explicitTarget = readOnly ? load(outputOrTarget!) : undefined;
   const project = readOnly ? explicitTarget!.project : projectOrMode;
   assert.ok(typeof project === 'string' && project.length > 0, 'Expected project is required');
@@ -118,7 +123,7 @@ async function run(args: string[]) {
   const owned = async (): Promise<Wire> => {
     assert.ok(scratch, 'No owned scratch track');
     const list = await tracks(), found = list.find(t => t.channelId === scratch);
-    assert.ok(found && found.name.startsWith('gn-9b-survey-') && !found.hidden, 'scratch-ownership-changed');
+    assert.ok(found && found.name.startsWith(scratchPrefix) && !found.hidden, 'scratch-ownership-changed');
     assert.deepEqual(await selection(), before!.selection, 'operator-selection-changed');
     return found;
   };
@@ -134,7 +139,8 @@ async function run(args: string[]) {
   const cleanup = async () => {
     if (!scratch) return;
     const state = await request('probe.gridRead', { operation: 'status' });
-    assert.ok(!state.bound && !state.busy && !state.locked && !state.nativeUnfinished, 'native-read-not-released');
+    assert.ok(!state.bound && !state.busy && !state.locked && !state.nativeUnfinished && !state.foreignOwner,
+      'native-read-or-write-not-released');
     await owned();
     const park = (await tracks()).find(t => before!.tracks.some((b: Wire) => b.channelId === t.channelId));
     assert.ok(park, 'No preserved track for cursor parking');
@@ -146,13 +152,24 @@ async function run(args: string[]) {
     assert.ok(!(await tracks()).some(t => t.channelId === id), 'scratch-delete-readback');
     scratch = undefined; uncertain = false;
   };
+  const verifyControl = async (label: string) => {
+    const t = (await tracks()).find(t => t.name === 'grid-probe');
+    assert.ok(t && before!.tracks.filter((b: Wire) => b.name === 'grid-probe').length === 1, 'control-track-required');
+    const bank = await point(t), grids = bank.devices.filter((d: Wire) => d.name === 'Poly Grid');
+    assert.equal(grids.length, 1, 'control-grid-required');
+    const semantic = load(join(ROOT, 'context/evidence/data/phase9a-grid-read/semantic-query.json')).projection;
+    await readSurvey(request, { project, trackId: t.channelId, trackName: t.name,
+      deviceIndex: grids[0].index, deviceName: grids[0].name }, semantic,
+    (name, value) => save(`${label}-${name}`, value), control);
+    assert.deepEqual(await selection(), before!.selection, 'control-selection-changed');
+  };
   try {
     const hello = await request('contract.hello'), rig = await request('rig.info'), stats = await request('rig.stats');
     assert.equal(hello.runtimeProfile, 'phase-8-probe-v1');
     assert.equal(hello.methodCount, 118); assert.equal(hello.methodsHash, '2e939035ea90b8b0');
-    assert.equal(rig.gridReadProbe, '9b-grid-focused-v15');
     assert.equal(compareDeployment(deployedAtMs(), stats.initEpochMs ?? -1).state, 'fresh');
     const status = await request('probe.gridRead', { operation: 'status' });
+    assert.equal(status.marker, '9b-grid-writes-v18');
     assert.ok(!status.bound && !status.busy && !status.locked && !status.nativeUnfinished && !status.foreignOwner);
     save('entry', { hello, rig, stats, status, project, candidates });
     if (readOnly) {
@@ -164,10 +181,11 @@ async function run(args: string[]) {
     }
     await adapter.hello();
     before = await snapshot(); save('before', before);
-    assert.ok(!before.tracks.some((t: Wire) => t.name.startsWith('gn-9b-survey-')), 'Inspect old scratch residue first');
+    assert.ok(!before.tracks.some((t: Wire) => /^gn-9b-(survey|write)-/.test(t.name)), 'Inspect old scratch residue first');
+    if (workflow) await verifyControl('control-before');
     for (let i = 0; i < candidates.length; i++) {
       const candidate = candidates[i]!;
-      const name = `gn-9b-survey-${randomUUID().slice(0, 8)}`;
+      const name = `${scratchPrefix}${workflow ? randomUUID() : randomUUID().slice(0, 8)}`;
       assert.deepEqual(await tracks(), before.tracks, 'track-state-changed-before-setup');
       assert.deepEqual(await selection(), before.selection, 'selection-changed-before-setup');
       const added = await tool('add_tracks', { tracks: [{ name }] });
@@ -207,9 +225,14 @@ async function run(args: string[]) {
       save(`preset-${i}-target`, { candidate, target, devices: inserted });
       let result: Wire;
       try {
-        result = await readTarget(target, (label, value) => save(`preset-${i}-${label}`, value),
+        if (workflow) {
+          uncertain = true;
+          result = await workflow.run(request, target, candidate, (label, value) => save(`preset-${i}-${label}`, value));
+          uncertain = false;
+        } else result = await readTarget(target, (label, value) => save(`preset-${i}-${label}`, value),
           candidate.role === '9a baseline control' ? control : undefined, candidate.focusModuleIndices);
       } catch (error) {
+        if (workflow) throw error;
         if (!/work-or-time-limit|byte-limit|schema-(child|property)-limit|path-(limit|index-limit)|survey-(schema|capture)-limit|focused-(schema|capture|module|atom|summary)-limit|focused-schema-truncated/.test(String(error))) throw error;
         result = { verdict: 'cap-refusal', error: String(error) };
         save(`preset-${i}-cap-refusal`, result);
@@ -220,6 +243,7 @@ async function run(args: string[]) {
       console.log(JSON.stringify({ preset: basename(candidate.path), verdict: result.verdict,
         modules: result.moduleCount, cables: result.projectedAudioCableCount }));
     }
+    if (workflow) await verifyControl('control-after');
     const after = await snapshot(); save('after', after);
     assert.deepEqual(after, before, 'preserved-state-changed-after-survey');
     save('results', results);
@@ -239,4 +263,4 @@ async function run(args: string[]) {
     }
   }
 }
-if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) await run(process.argv.slice(2));
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) await runSurvey(process.argv.slice(2));

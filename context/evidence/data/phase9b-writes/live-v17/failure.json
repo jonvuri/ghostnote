@@ -1,0 +1,5 @@
+{
+  "error": "BridgeError: Internal error: grid-operation-failed:java.lang.IllegalStateException: breadth-managed-id-alias",
+  "scratch": "b8077f74-8e28-4394-a3b3-ffb654b7ba22",
+  "uncertain": true
+}

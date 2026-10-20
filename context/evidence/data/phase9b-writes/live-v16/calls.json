@@ -1,0 +1,18 @@
+{
+  "calls": [
+    {
+      "method": "contract.hello",
+      "params": {},
+      "ms": 0.9088750000000232,
+      "error": "Error: connect EPERM 127.0.0.1:8686 - Local (0.0.0.0:0)"
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 0.2561250000000257,
+      "error": "Error: connect EPERM 127.0.0.1:8686 - Local (0.0.0.0:0)"
+    }
+  ],
+  "count": 2,
+  "wireMs": 1.1650000000000489
+}

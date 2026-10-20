@@ -4,63 +4,68 @@ kind: status
 state: active
 updated: 2026-10-20
 phase: phase-9-overlap-investigation
-session: 9b.3-bounded-write-probes
+session: 9b.4-offline-resolvers
 ---
 
 ## Next session
 
-**9b.3 — Bounded write probes.** Read the
-[session brief](plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b3--bounded-write-probes)
-and [E304](evidence/experiments/e304-focused-grid-reader-live.md). The selected
-cases are one Gates boolean, one proved Grid modulation mapping, and the
-Gates factory case. Trace and validate each native command before use.
-Keep independent descriptor readback, ownership, selection, freshness,
-write locks, and uncertain-state handling. Batch extension changes into
-one build; controller replacement remains an operator action.
+**9b.4 — Offline resolvers.** Read the
+[session brief](plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b4--offline-resolvers),
+[symbol manifest](plan/phase-9/9b-grid-symbol-manifest.md), and
+[E310](evidence/experiments/e310-grid-factory-acceptance-and-breadth-close.md).
+Resolve every manifest row from shape and invariants on the local 6.0.6 jar.
+Reproduce the pinned table, test missing/ambiguous candidates, and measure
+bounded scan cost. No live command or controller replacement is needed for
+this offline session. The explicit 9b.5/9b.6 sessions own live discovery.
 
-9b.2a is complete. Selective schemas pass both former route refusals.
-Focused reads pass at 31 modules and on selected parts of a 50-module patch.
-Stutter Steps has 83 modules and remains outside the 64-module driver scope.
-Gates data and Wavetable file identity are readable. Outer-modulator owners,
-resource loading, Sampler/Audio File, and cross-flavour writes are not proved.
-No native Grid write ran in E304.
+9b.3 and the bounded breadth investigation are complete. E308 passes Gates
+boolean and Grid mapping write/restore. E310 passes fresh Gates factory,
+paired detached defaults, disposal, and paired disposal reads. Gates
+attachment remains outside the fixed Amplify guards. Resource loading,
+outer-modulator ownership, Sampler/Audio File, FX/Note writes, integer/indexed
+writes, and patches over the driver bound remain limits for build-out planning.
+The conditional 9b.3a listening session is not needed for these stored-state
+verdicts. Do not repeat passed writes or the completed 9a audio flow.
 
 ## Deployment and live state
 
-V15 is loaded and verified: `phase-8-probe-v1`, 118 methods,
-`2e939035ea90b8b0`, marker `gridReadProbe: 9b-grid-focused-v15`, initialization
-`2026-10-20T17:03:31.091Z`. Run `npm run probe:hello` from `brain/` before
-new live work. E304 made no new deployment. The normal profile is not restored.
-Do not repeat the completed 9a audio workflow.
+V18 is loaded and verified: `phase-8-probe-v1`, 118 methods,
+`2e939035ea90b8b0`, marker `9b-grid-writes-v18` on both direct handlers and
+`rig.info`, initialization `2026-10-20T20:38:10.868Z`. Bitwig bridge PID 24537.
+Archive SHA-256: `4bf0b922a2193bb91a690facb93976de85e1a3d4c822a2b4205516fee39fed19`.
+Run `npm run probe:hello` from `brain/` before any later live work. The normal
+profile is not restored. Controller replacement stays an operator action.
 
-The chosen project is `gn-grid-spike`. All 13 E304 scratch tracks are deleted.
-Original tracks (`grid-probe`, `FX 1`, `Master`), device banks, mixer, and
-selection match entry. `grid-probe` remains muted at -10 dB. Its final paired
-read matches the normalized E276 baseline: four modules and two cables.
-The reader is released and unlocked; no uncertain write remains. E304 sent
-no engine, transport, or save command. Engine activity, saved-file identity,
-and the UI save marker were not independently tested. Recheck state on entry.
+Project: `gn-grid-spike`. Only `grid-probe`, `FX 1`, and `Master` remain.
+All scratch tracks are deleted. Reader and writer are unbound and unlocked;
+no uncertain claim or unfinished task remains. `grid-probe` is selected,
+muted, and at -10 dB. E310 entry/exit tracks, mixer, device banks, and selection
+match E308's original snapshot. Both control pairs match normalized E276:
+four modules and two cables. Keep `grid-probe` unchanged.
 
-Use muted owned scratch tracks. Park both survey cursors on a preserved
-track before deletion. Keep `grid-probe` unchanged. Managed IDs from E304
-must not be reused in a new session.
+E309 restarted Bitwig without saving, with explicit authorization for this
+disposable research project. E310 sent no engine, transport, or save command.
+Native witnesses report engine active; transport was stopped. Saved-file
+identity and the UI save marker are untested. Old claims and managed native
+IDs do not transfer to a new session.
 
 ## Material to preserve
 
-- [Focused report](evidence/data/phase9b-focused/focused-report.json),
-  [final projection](evidence/data/phase9b-focused/focused-query-v6.json),
+- [E310 report](evidence/data/phase9b-writes/live-v18-factory/report.json),
+  [final status](evidence/data/phase9b-writes/live-v18-factory/final-status.json),
+  all six independent snapshots, `control-captures.zip`, and `calls.json.gz`.
+- [E308 report](evidence/data/phase9b-writes/live-v17/report.json),
+  [E309 recovery](evidence/data/phase9b-writes/v18-recovery/process-recovery.json),
+  [V18 verification](evidence/data/phase9b-writes/v18-preparation/verification.json),
+  and [command trace](evidence/data/phase9b-writes/command-trace.md).
+- [E304 report](evidence/data/phase9b-focused/focused-report.json),
+  [projection](evidence/data/phase9b-focused/focused-query-v6.json),
   [schemas](evidence/data/phase9b-focused/observed-schemas.json), and
   [catalog](evidence/data/phase9b-focused/catalog-updated.json): 65 UUIDs,
-  89 observed name pairs, 56 lexical filename matches. Names are editable.
-- Each focused run's `captures.zip` contains the full capture JSON. The
-  report driver reads these archives and checks baseline preservation.
-- [Symbol manifest](plan/phase-9/9b-grid-symbol-manifest.md): no new pinned
-  member. Public descriptions remain v52.
-- The saved `gn-grid-spike-baseline.bwpreset` control; its path is in the
-  [survey inputs](plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b1--stock-grid-preset-survey-read-only).
-  The E289 edited project is not a baseline.
+  89 observed aliases, 56 lexical filename matches. Names are editable.
+- Saved `gn-grid-spike-baseline.bwpreset` remains the control. The E289 edited
+  project is not a baseline. Public descriptions remain v52.
 
-[9a is complete](evidence/experiments/e299-grid-spike-close-out.md).
-Build discovery still needs the operator's Bitwig 6.1.x update after the
-general feature audit, with 6.0.6 copied aside. See the
+The operator's Bitwig 6.1.x update follows the general feature audit, with
+6.0.6 copied aside. It is not needed for 9b.4. See the
 [roadmap](plan/ROADMAP.md) for the independent 8i17 survey and Phase 10.

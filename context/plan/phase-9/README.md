@@ -2,7 +2,7 @@
 title: Phase 9 — Overlap investigation
 kind: plan
 state: active
-status: 9a is complete (E299). E302 surveys stock Grids on V14; 9b.2a improves read coverage before write probes.
+status: 9a and bounded 9b breadth are complete (E299, E310). Next is 9b.4 offline symbol resolution.
 updated: 2026-10-20
 parent: ../ROADMAP.md
 prev: ../phase-8/README.md
@@ -35,10 +35,15 @@ symbol manifest are recorded; no stock preset was loaded.
 prepares and deploys the reusable reader.
 [E302](../../evidence/experiments/e302-stock-grid-survey.md) completes the first
 survey: 55 observed type UUIDs and a complete 31-module catalog inventory.
-Full stock graphs remain incomplete or refused. Session 9b.2a targets schema,
-modulation, and resource read coverage before 9b.3 write probes.
+E304 extends the reader to focused values, mapping endpoints, Gates data,
+Wavetable resource identity, and a 31-module patch. E308 passes the selected
+boolean and mapping writes. [E310](../../evidence/experiments/e310-grid-factory-acceptance-and-breadth-close.md)
+passes the Gates detached factory and disposal case after E309 recovery.
+Session 9b.3 and the bounded breadth investigation are complete. The next
+session is [9b.4 offline resolvers](9b-grid-breadth-discovery-and-build-out.md#session-9b4--offline-resolvers).
 
-The research probe stays deployed by operator choice. V14 is loaded and
-verified. All scratch tracks are deleted. The V13 audio test was complete; do
-not repeat that workflow. The former Phase 9 publication
-and release plans are in [Phase 10](../phase-10/README.md).
+The research probe remains deployed. V18 is loaded and verified. All scratch
+tracks are deleted; the reader and writer are released and unlocked. Full
+preserved-state and normalized E276 control checks pass. Public descriptions
+remain v52. Do not repeat the completed 9a audio flow. The former Phase 9
+publication and release plans are in [Phase 10](../phase-10/README.md).

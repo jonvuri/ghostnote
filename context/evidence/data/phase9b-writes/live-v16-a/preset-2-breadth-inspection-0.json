@@ -1,0 +1,401 @@
+{
+  "marker": "9b-grid-writes-v16",
+  "session": "10bd0762-1bb2-47b4-baee-c69b4a60149e",
+  "queueNanos": 235084,
+  "heapUsedBefore": 1411383296,
+  "snapshot": {
+    "fixture": {
+      "modules": [
+        {
+          "id": "317764",
+          "uuid": "e7097073-ca9a-4ecc-96a9-b18016a525bd",
+          "name": "Wavetable",
+          "type": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+          "x": -2,
+          "y": -6
+        },
+        {
+          "id": "318288",
+          "uuid": "cdcda382-a426-41aa-89c9-086b3eedeead",
+          "name": "ADSR",
+          "type": "7e09068b-fee5-457e-afe4-7017661ebbd3",
+          "x": 4,
+          "y": -4
+        },
+        {
+          "id": "318692",
+          "uuid": "b84dcf7d-5e50-49d3-9578-efd99ff38cd9",
+          "name": "Audio Out",
+          "type": "af7b5503-c955-489e-9461-164107d56bb6",
+          "x": 8,
+          "y": -4
+        },
+        {
+          "id": "318862",
+          "uuid": "b13bf72a-cb3a-4b31-bba7-20ebfd31b47e",
+          "name": "Attenuate",
+          "type": "cfc56753-defc-4324-8a68-bf747ff45508",
+          "x": 7,
+          "y": -4
+        },
+        {
+          "id": "318948",
+          "uuid": "7e2465cc-35e3-4ee1-b710-4c74a0c2623a",
+          "name": "Wavetable",
+          "type": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+          "x": -2,
+          "y": -4
+        },
+        {
+          "id": "319472",
+          "uuid": "39a8a1eb-afee-4850-89b1-a259ce012c57",
+          "name": "Wavetable",
+          "type": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+          "x": -2,
+          "y": -2
+        },
+        {
+          "id": "319996",
+          "uuid": "69d1e911-68c6-416e-8f35-0513c19d206d",
+          "name": "Transport",
+          "type": "997869ea-e649-4ac8-865e-bd4ac9e7b2a2",
+          "x": -10,
+          "y": -2
+        },
+        {
+          "id": "320152",
+          "uuid": "6c731ec9-a2d4-435a-bd40-5c066ed8bd52",
+          "name": "Gate In",
+          "type": "4e00fda6-20f6-45a9-9d7e-02867cf09b82",
+          "x": -6,
+          "y": 0
+        },
+        {
+          "id": "320210",
+          "uuid": "ca0f2547-5772-49c9-9f0c-d9898b6ee2d9",
+          "name": "AND",
+          "type": "1e330c79-9a6f-4015-8dfa-da507c1bb15a",
+          "x": -4,
+          "y": 0
+        },
+        {
+          "id": "320257",
+          "uuid": "fa3b3292-c9d7-4acf-a8e9-6029a324b25e",
+          "name": "Gates",
+          "type": "8d644ad7-8d77-4f05-a36e-04a57f719635",
+          "x": -7,
+          "y": -2,
+          "atoms": [
+            {
+              "id": "320261",
+              "class": "audio_source_atom",
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+              "fields": {
+                "3639": "Gate Out",
+                "3640": "OUT"
+              },
+              "input": {
+                "id": "320263",
+                "ports": [
+                  {
+                    "248": [
+                      "320271"
+                    ],
+                    "249": 1,
+                    "250": "",
+                    "6443": 0,
+                    "id": "320265"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "320266",
+              "class": "audio_destination_atom",
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ",
+              "fields": {
+                "7123": "Phase In",
+                "7124": "PHASE_IN",
+                "7125": [
+                  "320506"
+                ],
+                "7234": 0
+              }
+            },
+            {
+              "id": "320271",
+              "class": "nitro_atom",
+              "runtimeClass": "dkb",
+              "fields": {}
+            },
+            {
+              "id": "320302",
+              "class": "polyphonic_observer_atom",
+              "runtimeClass": "Ngv",
+              "fields": {}
+            },
+            {
+              "id": "320308",
+              "class": "integer_value_atom",
+              "runtimeClass": "elR",
+              "fields": {
+                "374": "Step Count",
+                "701": "STEPS",
+                "828": 8,
+                "3615": []
+              }
+            },
+            {
+              "id": "320316",
+              "class": "data_array_component",
+              "runtimeClass": "USc",
+              "fields": {
+                "6609": [
+                  1,
+                  0.5201322,
+                  0.075,
+                  0.64923877,
+                  1,
+                  0,
+                  1,
+                  0.45883414,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "6613": 64,
+                "6614": "DATA"
+              }
+            },
+            {
+              "id": "320322",
+              "class": "device_input_proxy_atom",
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.liz",
+              "fields": {}
+            },
+            {
+              "id": "320326",
+              "class": "boolean_value_atom",
+              "runtimeClass": "QY",
+              "fields": {
+                "210": false,
+                "374": "Use Device Phase",
+                "701": "DEVICE_PHASE",
+                "3615": []
+              }
+            },
+            {
+              "id": "320334",
+              "class": "transport_component",
+              "runtimeClass": "ftf",
+              "fields": {}
+            },
+            {
+              "id": "320353",
+              "class": "boolean_value_atom",
+              "runtimeClass": "QY",
+              "fields": {
+                "210": false,
+                "374": "Mute when stopped",
+                "701": "MUTE_WHEN_STOPPED",
+                "3615": []
+              }
+            },
+            {
+              "id": "320361",
+              "class": "indexed_value_atom",
+              "runtimeClass": "vNR",
+              "fields": {
+                "374": "Mode",
+                "457": 1,
+                "701": "MODE",
+                "3615": [],
+                "6928": 1
+              }
+            },
+            {
+              "id": "320370",
+              "class": "trigger_atom",
+              "runtimeClass": "GnQ",
+              "fields": {}
+            },
+            {
+              "id": "320374",
+              "class": "trigger_atom",
+              "runtimeClass": "GnQ",
+              "fields": {}
+            },
+            {
+              "id": "320378",
+              "class": "nitro_atom",
+              "runtimeClass": "dkb",
+              "fields": {}
+            },
+            {
+              "id": "320401",
+              "class": "trigger_atom",
+              "runtimeClass": "GnQ",
+              "fields": {}
+            },
+            {
+              "id": "320405",
+              "class": "trigger_atom",
+              "runtimeClass": "GnQ",
+              "fields": {}
+            },
+            {
+              "id": "320409",
+              "class": "last_voice_int_event_atom",
+              "runtimeClass": "inq",
+              "fields": {}
+            }
+          ]
+        },
+        {
+          "id": "320502",
+          "uuid": "ec2d0348-5278-4005-972c-52570910bcf3",
+          "name": "Ø Reset",
+          "type": "d04bb748-5f66-4a4a-85d8-d3402c982e22",
+          "x": -8,
+          "y": -2
+        },
+        {
+          "id": "320577",
+          "uuid": "7e09e462-f4a9-4240-9e6b-b899de7c142d",
+          "name": "Merge",
+          "type": "c10b5ffa-0d10-4005-ad49-a39253ee26eb",
+          "x": 3,
+          "y": -4
+        },
+        {
+          "id": "320862",
+          "uuid": "ad29289c-acbd-43b5-8397-c28205bafc93",
+          "name": "Ø Counter",
+          "type": "f9b5157c-0a41-403c-810b-9bbf9a133110",
+          "x": -4,
+          "y": -2
+        },
+        {
+          "id": "320954",
+          "uuid": "a1cfde74-9832-4edb-b2e5-1333c4db6468",
+          "name": "Wavetable",
+          "type": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+          "x": -2,
+          "y": 0
+        },
+        {
+          "id": "321478",
+          "uuid": "bc90a2e0-da29-4268-8238-065d37b61c7f",
+          "name": "LFO",
+          "type": "b89c1bce-203a-46be-8869-a44eb7868860",
+          "x": -7,
+          "y": -6
+        },
+        {
+          "id": "321999",
+          "uuid": "257e140a-3c66-4654-b112-f588444cf0f8",
+          "name": "Pan",
+          "type": "43600afd-7226-4408-bbb6-b7b9cc2a6cee",
+          "x": 2,
+          "y": -4
+        },
+        {
+          "id": "322078",
+          "uuid": "55b449c2-81a3-499c-aee9-d3130db5bd73",
+          "name": "Pan",
+          "type": "43600afd-7226-4408-bbb6-b7b9cc2a6cee",
+          "x": 2,
+          "y": -3
+        },
+        {
+          "id": "322157",
+          "uuid": "59c57c09-fb44-4d05-a480-37622761d386",
+          "name": "Pan",
+          "type": "43600afd-7226-4408-bbb6-b7b9cc2a6cee",
+          "x": 2,
+          "y": -2
+        },
+        {
+          "id": "322236",
+          "uuid": "e96bc92e-9683-40fb-9833-b26152e94f23",
+          "name": "Pan",
+          "type": "43600afd-7226-4408-bbb6-b7b9cc2a6cee",
+          "x": 2,
+          "y": -1
+        }
+      ],
+      "mappings": {}
+    },
+    "witnessFailure": "java.lang.IllegalStateException: breadth-edit-context"
+  },
+  "metrics": {
+    "descriptorWork": 791,
+    "snapshotNanos": 2748708
+  },
+  "routeWork": 207,
+  "heapUsedAfter": 1411383296,
+  "documentTaskNanos": 3704416,
+  "status": {
+    "case": "factory",
+    "commands": 0,
+    "reads": 0,
+    "locked": true,
+    "finished": false,
+    "inspections": 1,
+    "failure": "java.lang.IllegalStateException: breadth-edit-context"
+  },
+  "completionNanos": 23323042
+}

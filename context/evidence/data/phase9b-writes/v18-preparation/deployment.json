@@ -1,0 +1,15 @@
+{
+  "sha256": "4bf0b922a2193bb91a690facb93976de85e1a3d4c822a2b4205516fee39fed19",
+  "deployedAt": "2026-10-20T19:33:50.742457+00:00",
+  "archive": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension",
+  "expectedMarker": "9b-grid-writes-v18",
+  "loadedClassesVerified": false,
+  "archiveMarkers": {
+    "com/ghostnote/extension/handlers/CoreHandlers.class": [],
+    "com/ghostnote/extension/handlers/GridBreadthHandlers.class": [
+      "9b-grid-writes-v18"
+    ],
+    "com/ghostnote/extension/handlers/GridProbeHandlers.class": [],
+    "com/ghostnote/extension/handlers/GridSurveyHandlers.class": []
+  }
+}
