@@ -2,8 +2,8 @@
 title: Phase 9 — Overlap investigation
 kind: plan
 state: active
-status: 9a is complete (E299). 9b is active: breadth, then build symbol discovery, then build-out planning. First session is 9b.1.
-updated: 2026-10-19
+status: 9a is complete (E299). E302 surveys stock Grids on V14; 9b.2a improves read coverage before write probes.
+updated: 2026-10-20
 parent: ../ROADMAP.md
 prev: ../phase-8/README.md
 next: ../phase-10/README.md
@@ -27,6 +27,18 @@ than 9a. The [symbol manifest](9b-grid-symbol-manifest.md) collects the
 obfuscated symbols for step 2. See [NOW](../../NOW.md) for the current
 session and the live state.
 
-The research probe stays deployed by operator choice. Its V13 test session is
-used and released; do not repeat that workflow. The former Phase 9 publication
+[E300](../../evidence/experiments/e300-grid-survey-preflight.md) records
+the first survey preflight. V13 refuses reads after its used audio session
+and only admits the original named Poly Grid fixture. The catalog seed and
+symbol manifest are recorded; no stock preset was loaded.
+[E301](../../evidence/experiments/e301-reusable-grid-survey-reader.md)
+prepares and deploys the reusable reader.
+[E302](../../evidence/experiments/e302-stock-grid-survey.md) completes the first
+survey: 55 observed type UUIDs and a complete 31-module catalog inventory.
+Full stock graphs remain incomplete or refused. Session 9b.2a targets schema,
+modulation, and resource read coverage before 9b.3 write probes.
+
+The research probe stays deployed by operator choice. V14 is loaded and
+verified. All scratch tracks are deleted. The V13 audio test was complete; do
+not repeat that workflow. The former Phase 9 publication
 and release plans are in [Phase 10](../phase-10/README.md).

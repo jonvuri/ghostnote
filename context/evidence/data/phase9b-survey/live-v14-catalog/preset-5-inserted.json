@@ -1,0 +1,22 @@
+{
+  "candidate": {
+    "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset",
+    "flavour": "Poly Grid",
+    "role": "Possible large graph; 30 modules is unverified",
+    "loaded": false
+  },
+  "devices": {
+    "devices": [
+      {
+        "index": 0,
+        "name": "Poly Grid",
+        "enabled": true
+      }
+    ],
+    "count": 1,
+    "itemCount": 1,
+    "trackChannelId": "32a27c2d-baa2-42b4-b8f3-50cb4851c397",
+    "trackPosition": 1,
+    "bankSize": 16
+  }
+}

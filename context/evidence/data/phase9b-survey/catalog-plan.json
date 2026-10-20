@@ -1,0 +1,85 @@
+{
+  "status": "candidates only; select replacements after reads if coverage is insufficient",
+  "selectionBasis": "Filename and package category; contents and counts are unverified",
+  "stockCandidates": 12,
+  "candidates": [
+    {
+      "path": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+      "flavour": "Poly Grid",
+      "role": "9a baseline control",
+      "loaded": false
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset",
+      "flavour": "Poly Grid",
+      "role": "Possible sample or audio-file content",
+      "loaded": false
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+      "flavour": "Poly Grid",
+      "role": "Possible wavetable content",
+      "loaded": false
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+      "flavour": "Poly Grid",
+      "role": "Possible Steps or sequencer content",
+      "loaded": false
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Benjolin.bwpreset",
+      "flavour": "Poly Grid",
+      "role": "Possible dense modulation",
+      "loaded": false
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset",
+      "flavour": "Poly Grid",
+      "role": "Possible large graph; 30 modules is unverified",
+      "loaded": false
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Audio FX - Space, Time, Color/Grid Repeater.bwpreset",
+      "flavour": "FX Grid",
+      "role": "Repeater; flavour inferred from package",
+      "loaded": false
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset",
+      "flavour": "FX Grid",
+      "role": "Sequenced effect",
+      "loaded": false
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+      "flavour": "FX Grid",
+      "role": "Multiple effects",
+      "loaded": false
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset",
+      "flavour": "FX Grid",
+      "role": "Replacement FX candidate after no named top-level Grid",
+      "loaded": false
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset",
+      "flavour": "Note Grid",
+      "role": "Possible scale and note-generation content",
+      "loaded": false
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Stutter Steps.bwpreset",
+      "flavour": "Note Grid",
+      "role": "Possible step content",
+      "loaded": false
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Poly Pitch Envelopes.bwpreset",
+      "flavour": "Note Grid",
+      "role": "Possible polyphonic modulation",
+      "loaded": false
+    }
+  ]
+}

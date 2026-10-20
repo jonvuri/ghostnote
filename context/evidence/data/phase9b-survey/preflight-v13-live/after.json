@@ -1,0 +1,335 @@
+{
+  "revision": {
+    "revision": 0,
+    "generation": "fee42333-bdc9-4208-911a-4eb768d5e7a3",
+    "project": "gn-grid-spike",
+    "projectStatus": "marked",
+    "sceneEpoch": 5,
+    "sceneCount": 8,
+    "contentEpoch": 32868,
+    "unpinnedCursorTracks": [],
+    "contentEvents": [
+      {
+        "seq": 32845,
+        "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+        "trackIndex": 0,
+        "slotIndex": 4,
+        "filled": false
+      },
+      {
+        "seq": 32846,
+        "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+        "trackIndex": 1,
+        "slotIndex": 1,
+        "filled": false
+      },
+      {
+        "seq": 32847,
+        "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+        "trackIndex": 1,
+        "slotIndex": 2,
+        "filled": false
+      },
+      {
+        "seq": 32848,
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+        "trackIndex": 2,
+        "slotIndex": 0,
+        "filled": false
+      },
+      {
+        "seq": 32849,
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+        "trackIndex": 2,
+        "slotIndex": 1,
+        "filled": false
+      },
+      {
+        "seq": 32850,
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+        "trackIndex": 2,
+        "slotIndex": 2,
+        "filled": false
+      },
+      {
+        "seq": 32851,
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+        "trackIndex": 2,
+        "slotIndex": 3,
+        "filled": false
+      },
+      {
+        "seq": 32852,
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+        "trackIndex": 2,
+        "slotIndex": 4,
+        "filled": false
+      },
+      {
+        "seq": 32853,
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+        "trackIndex": 2,
+        "slotIndex": 5,
+        "filled": false
+      },
+      {
+        "seq": 32854,
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+        "trackIndex": 2,
+        "slotIndex": 6,
+        "filled": false
+      },
+      {
+        "seq": 32855,
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+        "trackIndex": 2,
+        "slotIndex": 7,
+        "filled": false
+      },
+      {
+        "seq": 32856,
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+        "trackIndex": 2,
+        "slotIndex": 8,
+        "filled": false
+      },
+      {
+        "seq": 32857,
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+        "trackIndex": 2,
+        "slotIndex": 9,
+        "filled": false
+      },
+      {
+        "seq": 32858,
+        "channelId": "",
+        "trackIndex": 3,
+        "slotIndex": 0,
+        "filled": false
+      },
+      {
+        "seq": 32859,
+        "channelId": "",
+        "trackIndex": 3,
+        "slotIndex": 5,
+        "filled": false
+      },
+      {
+        "seq": 32860,
+        "channelId": "",
+        "trackIndex": 4,
+        "slotIndex": 0,
+        "filled": false
+      },
+      {
+        "seq": 32861,
+        "channelId": "",
+        "trackIndex": 4,
+        "slotIndex": 1,
+        "filled": false
+      },
+      {
+        "seq": 32862,
+        "channelId": "",
+        "trackIndex": 4,
+        "slotIndex": 2,
+        "filled": false
+      },
+      {
+        "seq": 32863,
+        "channelId": "",
+        "trackIndex": 5,
+        "slotIndex": 0,
+        "filled": false
+      },
+      {
+        "seq": 32864,
+        "channelId": "",
+        "trackIndex": 5,
+        "slotIndex": 1,
+        "filled": false
+      },
+      {
+        "seq": 32865,
+        "channelId": "",
+        "trackIndex": 5,
+        "slotIndex": 2,
+        "filled": false
+      },
+      {
+        "seq": 32866,
+        "channelId": "",
+        "trackIndex": 6,
+        "slotIndex": 0,
+        "filled": false
+      },
+      {
+        "seq": 32867,
+        "channelId": "",
+        "trackIndex": 7,
+        "slotIndex": 0,
+        "filled": false
+      },
+      {
+        "seq": 32868,
+        "channelId": "",
+        "trackIndex": 8,
+        "slotIndex": 0,
+        "filled": false
+      }
+    ]
+  },
+  "selection": {
+    "trackIndex": -1,
+    "slotIndex": -1,
+    "mixerTrackIndex": 0,
+    "mixerChannelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+    "changes": 0,
+    "revision": 4,
+    "slotProject": "",
+    "mixerProject": "gn-grid-spike",
+    "project": "gn-grid-spike"
+  },
+  "tracks": {
+    "tracks": [
+      {
+        "index": 0,
+        "name": "grid-probe",
+        "position": 0,
+        "type": "Instrument",
+        "channelId": "c784d25c-b753-47ca-af8d-c83d11cfd990"
+      },
+      {
+        "index": 1,
+        "name": "FX 1",
+        "position": 1,
+        "type": "Effect",
+        "channelId": "0c4835e2-1769-4ecc-9d03-cf0226bcb5a4"
+      },
+      {
+        "index": 2,
+        "name": "Master",
+        "position": 2,
+        "type": "Master",
+        "channelId": "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f"
+      }
+    ],
+    "count": 3,
+    "itemCount": 3,
+    "bankSize": 256
+  },
+  "cursor": {
+    "exists": true,
+    "name": "Poly Grid",
+    "enabled": true,
+    "isPinned": false,
+    "deviceIndex": 0,
+    "trackChannelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+    "trackPosition": 0,
+    "cursorTrackPinned": true,
+    "isNested": false,
+    "routeSignature": "-1:[]:[]:[]:[]"
+  },
+  "engine": {
+    "session": "56986b96-53f7-4df0-a6dd-a6da02d151f3",
+    "completedStage": 11,
+    "next": "complete",
+    "factoryAttempted": true,
+    "answers": [
+      {
+        "check": 1,
+        "name": "B+",
+        "completedStage": 0,
+        "promptedAt": 1792374207235,
+        "answeredAt": 1792374239799,
+        "receivedAt": 1792374239803,
+        "verdict": "yes",
+        "answer": "yes"
+      },
+      {
+        "check": 2,
+        "name": "B0",
+        "completedStage": 1,
+        "promptedAt": 1792374241525,
+        "answeredAt": 1792374268415,
+        "receivedAt": 1792374268421,
+        "verdict": "yes",
+        "answer": "yes"
+      },
+      {
+        "check": 3,
+        "name": "B-return",
+        "completedStage": 2,
+        "promptedAt": 1792374270144,
+        "answeredAt": 1792374309976,
+        "receivedAt": 1792374309978,
+        "verdict": "yes",
+        "answer": "yes"
+      },
+      {
+        "check": 4,
+        "name": "N+",
+        "completedStage": 5,
+        "promptedAt": 1792374313234,
+        "answeredAt": 1792374351541,
+        "receivedAt": 1792374351556,
+        "verdict": "yes",
+        "answer": "yes"
+      },
+      {
+        "check": 5,
+        "name": "N0",
+        "completedStage": 6,
+        "promptedAt": 1792374353287,
+        "answeredAt": 1792374381181,
+        "receivedAt": 1792374381198,
+        "verdict": "yes",
+        "answer": "yes"
+      },
+      {
+        "check": 6,
+        "name": "N-half",
+        "completedStage": 7,
+        "promptedAt": 1792374382929,
+        "answeredAt": 1792374429521,
+        "receivedAt": 1792374429529,
+        "verdict": "yes",
+        "answer": "yes"
+      },
+      {
+        "check": 7,
+        "name": "N-return",
+        "completedStage": 8,
+        "promptedAt": 1792374431256,
+        "answeredAt": 1792374479845,
+        "receivedAt": 1792374479857,
+        "verdict": "yes",
+        "answer": "yes"
+      },
+      {
+        "check": 8,
+        "name": "R+",
+        "completedStage": 11,
+        "promptedAt": 1792374483031,
+        "answeredAt": 1792374522344,
+        "receivedAt": 1792374522354,
+        "verdict": "yes",
+        "answer": "yes"
+      }
+    ],
+    "used": true,
+    "active": false,
+    "locked": false,
+    "recoveryUsed": false,
+    "marker": "9a-grid-audio-v13",
+    "initEpochMs": 1792359593989,
+    "nativeUnfinished": false,
+    "stage": 0,
+    "commandAttempted": false,
+    "beforeReads": 2,
+    "afterReads": 0,
+    "epochOpen": false,
+    "restored": true,
+    "attachmentProgressAvailable": true
+  }
+}

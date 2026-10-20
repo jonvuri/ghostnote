@@ -1,0 +1,2332 @@
+{
+  "evidence": "E302",
+  "presets": [
+    {
+      "path": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+      "flavour": "Poly Grid",
+      "graph": {
+        "complete": true,
+        "moduleCount": 4,
+        "projectedAudioCableCount": 2,
+        "modules": [
+          {
+            "index": 0,
+            "uuid": "e3e568d8-4069-4482-9665-2e83b65f12f5",
+            "name": "Sine",
+            "typeUuid": "ca05aebd-ecaf-4d57-b0f6-c04ce81674c4"
+          },
+          {
+            "index": 1,
+            "uuid": "1b2812c9-eef1-4bfe-a69a-4d189d94c0d1",
+            "name": "Amplify",
+            "typeUuid": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2"
+          },
+          {
+            "index": 2,
+            "uuid": "3c268bb2-21b6-4335-9343-3ef4500c6911",
+            "name": "Audio Out",
+            "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6"
+          },
+          {
+            "index": 3,
+            "uuid": "42decb00-b0db-41fb-83d0-2a7db75e64db",
+            "name": "Amplify",
+            "typeUuid": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2"
+          }
+        ],
+        "cables": [
+          {
+            "sourceModule": 0,
+            "sourceNode": 5,
+            "destinationModule": 1,
+            "destinationNode": 29
+          },
+          {
+            "sourceModule": 1,
+            "sourceNode": 26,
+            "destinationModule": 2,
+            "destinationNode": 34
+          }
+        ],
+        "classes": [
+          "audio_destination_atom",
+          "audio_source_atom",
+          "audio_voice_sum_atom",
+          "bipolar_toggleable_decimal_value_atom",
+          "boolean_panel_value",
+          "boolean_value_atom",
+          "button_boolean_value_atom",
+          "decimal_value_atom",
+          "device_audio_output_proxy_atom",
+          "device_input_proxy_atom",
+          "indexed_value_atom",
+          "integer_value_atom",
+          "module",
+          "module_contents",
+          "module_grid",
+          "nitro_atom",
+          "polyphonic_observer_atom"
+        ],
+        "scope": "Explicit projection. Omitted fields and outer-device modulators are not covered.",
+        "paired": true,
+        "additions": [],
+        "schemas": 19,
+        "captures": 2,
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          }
+        ],
+        "measurements": [
+          {
+            "queryWork": 1606,
+            "graphWork": 278,
+            "bytes": 35831,
+            "documentMs": 3.565708,
+            "heapUsedBefore": 719323136,
+            "heapUsedAfter": 721420288
+          },
+          {
+            "queryWork": 1606,
+            "graphWork": 278,
+            "bytes": 35831,
+            "documentMs": 2.034125,
+            "heapUsedBefore": 721420288,
+            "heapUsedAfter": 723517440
+          }
+        ],
+        "verdict": "projected-read-agrees"
+      },
+      "graphSource": "context/evidence/data/phase9b-survey/live-v14",
+      "classes": [
+        "audio_destination_atom",
+        "audio_source_atom",
+        "audio_voice_sum_atom",
+        "bipolar_toggleable_decimal_value_atom",
+        "boolean_panel_value",
+        "boolean_value_atom",
+        "button_boolean_value_atom",
+        "decimal_value_atom",
+        "device_audio_output_proxy_atom",
+        "device_input_proxy_atom",
+        "indexed_value_atom",
+        "integer_value_atom",
+        "module",
+        "module_contents",
+        "module_grid",
+        "nitro_atom",
+        "polyphonic_observer_atom"
+      ],
+      "lastCapture": "context/evidence/data/phase9b-survey/live-v14/preset-0-capture-1.json",
+      "catalog": {
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          }
+        ],
+        "flavour": "Poly Grid",
+        "complete": true,
+        "moduleCount": 4,
+        "projectedAudioCableCount": null,
+        "modules": [
+          {
+            "index": 0,
+            "uuid": "2e9a41b9-10f2-464c-a79d-9bec8ee34a64",
+            "name": "Sine",
+            "typeUuid": "ca05aebd-ecaf-4d57-b0f6-c04ce81674c4"
+          },
+          {
+            "index": 1,
+            "uuid": "f76aae92-da82-4b26-b05a-bf329be83938",
+            "name": "Amplify",
+            "typeUuid": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2"
+          },
+          {
+            "index": 2,
+            "uuid": "49ace987-77c1-445c-9019-57775effddf6",
+            "name": "Audio Out",
+            "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6"
+          },
+          {
+            "index": 3,
+            "uuid": "56e9d945-5721-4523-86af-4f69aab81514",
+            "name": "Amplify",
+            "typeUuid": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2"
+          }
+        ],
+        "cables": [],
+        "classes": [
+          "module",
+          "module_contents",
+          "module_grid"
+        ],
+        "scope": "Module membership, names, and type UUIDs only. Cables and contents are not covered.",
+        "paired": true,
+        "additions": [],
+        "schemas": 2,
+        "captures": 2,
+        "measurements": [
+          {
+            "queryWork": 424,
+            "graphWork": 34,
+            "bytes": 4414,
+            "documentMs": 1.234375,
+            "heapUsedBefore": 622854144,
+            "heapUsedAfter": 622854144
+          },
+          {
+            "queryWork": 424,
+            "graphWork": 34,
+            "bytes": 4414,
+            "documentMs": 0.760792,
+            "heapUsedBefore": 622854144,
+            "heapUsedAfter": 622854144
+          }
+        ],
+        "verdict": "projected-read-agrees",
+        "presetPath": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset"
+      }
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset",
+      "flavour": "Poly Grid",
+      "graph": {
+        "complete": false,
+        "errors": [
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "node:152:java.lang.IllegalStateException: schema-work-or-time-limit",
+          "schema-work-or-time-limit"
+        ],
+        "partialNodes": 153,
+        "paired": true,
+        "additions": [
+          {
+            "className": "wavetable_oscillator_atom",
+            "runtimeClass": "upW",
+            "fields": [
+              6194,
+              607,
+              608,
+              11163,
+              11164,
+              11165,
+              11157,
+              11389,
+              11570,
+              11581,
+              11572,
+              15445,
+              15447
+            ],
+            "removedAbsentFields": []
+          },
+          {
+            "className": "modulation_source_atom",
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.NDn",
+            "fields": [
+              6194,
+              607,
+              608,
+              10378,
+              3639,
+              3640,
+              5452
+            ],
+            "removedAbsentFields": []
+          },
+          {
+            "className": "component_settings",
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+            "fields": [
+              612,
+              614,
+              615
+            ],
+            "removedAbsentFields": []
+          },
+          {
+            "className": "modulation_source_atom_display_settings",
+            "runtimeClass": "ZDj",
+            "fields": [
+              5455
+            ],
+            "removedAbsentFields": []
+          },
+          {
+            "className": "desktop_settings",
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.EeT",
+            "fields": [
+              17,
+              18,
+              19
+            ],
+            "removedAbsentFields": []
+          },
+          {
+            "className": "inport_connection",
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.Uqf",
+            "fields": [
+              248,
+              249,
+              6443
+            ],
+            "removedAbsentFields": []
+          }
+        ],
+        "schemas": 25,
+        "captures": 5,
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          }
+        ],
+        "measurements": [
+          {
+            "queryWork": 4098,
+            "graphWork": 837,
+            "bytes": 106080,
+            "documentMs": 5.536708,
+            "heapUsedBefore": 1067450368,
+            "heapUsedAfter": 1073741824
+          },
+          {
+            "queryWork": 4098,
+            "graphWork": 837,
+            "bytes": 106080,
+            "documentMs": 7.377459,
+            "heapUsedBefore": 1075838976,
+            "heapUsedAfter": 1080033280
+          }
+        ],
+        "verdict": "incomplete-read-recorded"
+      },
+      "graphSource": "context/evidence/data/phase9b-survey/live-v14",
+      "classes": [
+        "audio_destination_atom",
+        "audio_source_atom",
+        "audio_voice_sum_atom",
+        "bipolar_toggleable_decimal_value_atom",
+        "boolean_panel_value",
+        "boolean_value_atom",
+        "button_boolean_value_atom",
+        "component_settings",
+        "decimal_value_atom",
+        "desktop_settings",
+        "device_audio_output_proxy_atom",
+        "device_input_proxy_atom",
+        "indexed_value_atom",
+        "inport_connection",
+        "integer_value_atom",
+        "modulation_source_atom",
+        "modulation_source_atom_display_settings",
+        "module",
+        "module_contents",
+        "module_grid",
+        "nitro_atom",
+        "polyphonic_observer_atom",
+        "wavetable_oscillator_atom"
+      ],
+      "lastCapture": "context/evidence/data/phase9b-survey/live-v14/preset-1-capture-4.json",
+      "catalog": {
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          }
+        ],
+        "flavour": "Poly Grid",
+        "complete": true,
+        "moduleCount": 10,
+        "projectedAudioCableCount": null,
+        "modules": [
+          {
+            "index": 0,
+            "uuid": "b3508821-daac-4326-bf39-1450cfab4cdf",
+            "name": "Wavetable",
+            "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04"
+          },
+          {
+            "index": 1,
+            "uuid": "48a2e26e-c0ee-461c-9a92-f4c6e8a9d8f5",
+            "name": "ADSR",
+            "typeUuid": "7e09068b-fee5-457e-afe4-7017661ebbd3"
+          },
+          {
+            "index": 2,
+            "uuid": "a654be7c-b300-48f4-a693-932b78b25d78",
+            "name": "Audio Out",
+            "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6"
+          },
+          {
+            "index": 3,
+            "uuid": "47b5858c-cff6-40ca-94ba-40606f82613b",
+            "name": "AD",
+            "typeUuid": "5b7ab937-4f09-41fc-a379-983fb597b2ff"
+          },
+          {
+            "index": 4,
+            "uuid": "22046ffb-ab62-4d1a-b2ff-c47d29f9e1f7",
+            "name": "Attenuate",
+            "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508"
+          },
+          {
+            "index": 5,
+            "uuid": "f2635cc9-4741-401b-b3a5-ccc7097f886d",
+            "name": "Mixer",
+            "typeUuid": "839e96da-cda4-45ce-b5a1-e0a40a176968"
+          },
+          {
+            "index": 6,
+            "uuid": "3e465b4b-7194-483e-bbc5-8aae2cf36b97",
+            "name": "AD",
+            "typeUuid": "5b7ab937-4f09-41fc-a379-983fb597b2ff"
+          },
+          {
+            "index": 7,
+            "uuid": "f6971910-500f-441c-b4e2-65f6c47359c3",
+            "name": "Wavetable",
+            "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04"
+          },
+          {
+            "index": 8,
+            "uuid": "03b55324-afbd-4d65-a37a-cf18ad1f00e5",
+            "name": "Delay",
+            "typeUuid": "e2e808c8-6b7e-4a00-9563-39e2f44177da"
+          },
+          {
+            "index": 9,
+            "uuid": "6a65630a-87cc-4389-9844-a88b65127d94",
+            "name": "ADSR",
+            "typeUuid": "7e09068b-fee5-457e-afe4-7017661ebbd3"
+          }
+        ],
+        "cables": [],
+        "classes": [
+          "module",
+          "module_contents",
+          "module_grid"
+        ],
+        "scope": "Module membership, names, and type UUIDs only. Cables and contents are not covered.",
+        "paired": true,
+        "additions": [],
+        "schemas": 2,
+        "captures": 2,
+        "measurements": [
+          {
+            "queryWork": 874,
+            "graphWork": 82,
+            "bytes": 10271,
+            "documentMs": 0.581958,
+            "heapUsedBefore": 736100352,
+            "heapUsedAfter": 736100352
+          },
+          {
+            "queryWork": 874,
+            "graphWork": 82,
+            "bytes": 10271,
+            "documentMs": 0.359959,
+            "heapUsedBefore": 738197504,
+            "heapUsedAfter": 738197504
+          }
+        ],
+        "verdict": "projected-read-agrees",
+        "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset"
+      }
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+      "flavour": "Poly Grid",
+      "graph": {
+        "complete": false,
+        "errors": [
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "schema-work-or-time-limit"
+        ],
+        "partialNodes": 163,
+        "paired": true,
+        "additions": [],
+        "schemas": 25,
+        "captures": 2,
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          }
+        ],
+        "measurements": [
+          {
+            "queryWork": 4097,
+            "graphWork": 878,
+            "bytes": 109350,
+            "documentMs": 3.436083,
+            "heapUsedBefore": 1451229184,
+            "heapUsedAfter": 1457520640
+          },
+          {
+            "queryWork": 4097,
+            "graphWork": 878,
+            "bytes": 109350,
+            "documentMs": 3.416,
+            "heapUsedBefore": 1457520640,
+            "heapUsedAfter": 1463812096
+          }
+        ],
+        "verdict": "incomplete-read-recorded"
+      },
+      "graphSource": "context/evidence/data/phase9b-survey/live-v14",
+      "classes": [
+        "audio_destination_atom",
+        "audio_source_atom",
+        "audio_voice_sum_atom",
+        "bipolar_toggleable_decimal_value_atom",
+        "boolean_panel_value",
+        "boolean_value_atom",
+        "button_boolean_value_atom",
+        "component_settings",
+        "decimal_value_atom",
+        "desktop_settings",
+        "device_audio_output_proxy_atom",
+        "device_input_proxy_atom",
+        "indexed_value_atom",
+        "inport_connection",
+        "integer_value_atom",
+        "modulation_source_atom",
+        "modulation_source_atom_display_settings",
+        "module",
+        "module_contents",
+        "module_grid",
+        "nitro_atom",
+        "polyphonic_observer_atom",
+        "wavetable_oscillator_atom"
+      ],
+      "lastCapture": "context/evidence/data/phase9b-survey/live-v14/preset-2-capture-1.json",
+      "catalog": {
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          }
+        ],
+        "flavour": "Poly Grid",
+        "complete": true,
+        "moduleCount": 19,
+        "projectedAudioCableCount": null,
+        "modules": [
+          {
+            "index": 0,
+            "uuid": "fd7d6338-00a0-4d32-844f-53e1316b31ab",
+            "name": "Wavetable",
+            "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04"
+          },
+          {
+            "index": 1,
+            "uuid": "17598c42-fee9-4c46-8faf-8e9974394f04",
+            "name": "ADSR",
+            "typeUuid": "7e09068b-fee5-457e-afe4-7017661ebbd3"
+          },
+          {
+            "index": 2,
+            "uuid": "b923e928-bf1d-4480-bc51-4daac5d09188",
+            "name": "Audio Out",
+            "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6"
+          },
+          {
+            "index": 3,
+            "uuid": "252b15c1-c8d4-401f-812b-5c27f8960cae",
+            "name": "Attenuate",
+            "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508"
+          },
+          {
+            "index": 4,
+            "uuid": "f7b9b469-8a92-484e-b87b-53b7de681bb7",
+            "name": "Wavetable",
+            "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04"
+          },
+          {
+            "index": 5,
+            "uuid": "4039c6c5-2930-42a2-8e54-c896cd2b16e9",
+            "name": "Wavetable",
+            "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04"
+          },
+          {
+            "index": 6,
+            "uuid": "8bc0c9de-5706-445a-a91d-cfb63225688f",
+            "name": "Transport",
+            "typeUuid": "997869ea-e649-4ac8-865e-bd4ac9e7b2a2"
+          },
+          {
+            "index": 7,
+            "uuid": "9b76f914-6e51-4e05-a3d2-95248b7ca1e7",
+            "name": "Gate In",
+            "typeUuid": "4e00fda6-20f6-45a9-9d7e-02867cf09b82"
+          },
+          {
+            "index": 8,
+            "uuid": "9bd7f8fe-5a5d-4d13-84e8-a8161a41ef36",
+            "name": "AND",
+            "typeUuid": "1e330c79-9a6f-4015-8dfa-da507c1bb15a"
+          },
+          {
+            "index": 9,
+            "uuid": "5ffdfc00-2c91-4504-9bd2-dc21ebe3b982",
+            "name": "Gates",
+            "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635"
+          },
+          {
+            "index": 10,
+            "uuid": "7cac4e69-2c83-4e1c-b644-bb82775a7971",
+            "name": "Ø Reset",
+            "typeUuid": "d04bb748-5f66-4a4a-85d8-d3402c982e22"
+          },
+          {
+            "index": 11,
+            "uuid": "ac94f9ad-233f-406a-83dd-ee807343aa0a",
+            "name": "Merge",
+            "typeUuid": "c10b5ffa-0d10-4005-ad49-a39253ee26eb"
+          },
+          {
+            "index": 12,
+            "uuid": "55c78c4f-84ae-4b65-b385-2f146e4d0980",
+            "name": "Ø Counter",
+            "typeUuid": "f9b5157c-0a41-403c-810b-9bbf9a133110"
+          },
+          {
+            "index": 13,
+            "uuid": "0041ea6c-67ac-4392-873e-d627766ec411",
+            "name": "Wavetable",
+            "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04"
+          },
+          {
+            "index": 14,
+            "uuid": "52df0d58-546b-4dab-a9ce-0afd07fe5fcd",
+            "name": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860"
+          },
+          {
+            "index": 15,
+            "uuid": "a606c60f-bd98-433d-9fb9-c88fb8ec82ae",
+            "name": "Pan",
+            "typeUuid": "43600afd-7226-4408-bbb6-b7b9cc2a6cee"
+          },
+          {
+            "index": 16,
+            "uuid": "40c700bf-dc48-4c91-ab9c-c54dc3598111",
+            "name": "Pan",
+            "typeUuid": "43600afd-7226-4408-bbb6-b7b9cc2a6cee"
+          },
+          {
+            "index": 17,
+            "uuid": "d31436f9-90fc-4a9d-913d-d9c6585aa9f9",
+            "name": "Pan",
+            "typeUuid": "43600afd-7226-4408-bbb6-b7b9cc2a6cee"
+          },
+          {
+            "index": 18,
+            "uuid": "2e32ee05-c81d-4c70-8895-0a14bc4a1f1a",
+            "name": "Pan",
+            "typeUuid": "43600afd-7226-4408-bbb6-b7b9cc2a6cee"
+          }
+        ],
+        "cables": [],
+        "classes": [
+          "module",
+          "module_contents",
+          "module_grid"
+        ],
+        "scope": "Module membership, names, and type UUIDs only. Cables and contents are not covered.",
+        "paired": true,
+        "additions": [],
+        "schemas": 2,
+        "captures": 2,
+        "measurements": [
+          {
+            "queryWork": 1549,
+            "graphWork": 154,
+            "bytes": 19073,
+            "documentMs": 1.62525,
+            "heapUsedBefore": 910163968,
+            "heapUsedAfter": 910163968
+          },
+          {
+            "queryWork": 1549,
+            "graphWork": 154,
+            "bytes": 19073,
+            "documentMs": 1.615917,
+            "heapUsedBefore": 912261120,
+            "heapUsedAfter": 912261120
+          }
+        ],
+        "verdict": "projected-read-agrees",
+        "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset"
+      }
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+      "flavour": "Poly Grid",
+      "graph": {
+        "verdict": "cap-refusal",
+        "error": "BridgeError: Internal error: grid-operation-failed:java.lang.IllegalStateException: schema-child-limit"
+      },
+      "graphSource": "context/evidence/data/phase9b-survey/live-v14",
+      "classes": [],
+      "lastCapture": null,
+      "catalog": {
+        "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+        "flavour": "Poly Grid",
+        "verdict": "cap-refusal",
+        "error": "BridgeError: Internal error: grid-operation-failed:java.lang.IllegalStateException: schema-child-limit",
+        "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset"
+      }
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Benjolin.bwpreset",
+      "flavour": "Poly Grid",
+      "graph": {
+        "verdict": "cap-refusal",
+        "error": "BridgeError: Internal error: grid-operation-failed:java.lang.IllegalStateException: schema-child-limit"
+      },
+      "graphSource": "context/evidence/data/phase9b-survey/live-v14",
+      "classes": [],
+      "lastCapture": null,
+      "catalog": {
+        "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Benjolin.bwpreset",
+        "flavour": "Poly Grid",
+        "verdict": "cap-refusal",
+        "error": "BridgeError: Internal error: grid-operation-failed:java.lang.IllegalStateException: schema-child-limit",
+        "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Benjolin.bwpreset"
+      }
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset",
+      "flavour": "Poly Grid",
+      "graph": {
+        "complete": false,
+        "errors": [
+          "unsupported-value:v3K",
+          "node:139:java.lang.IllegalStateException: schema-work-or-time-limit",
+          "schema-work-or-time-limit"
+        ],
+        "partialNodes": 140,
+        "paired": true,
+        "additions": [],
+        "schemas": 22,
+        "captures": 2,
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          }
+        ],
+        "measurements": [
+          {
+            "queryWork": 4098,
+            "graphWork": 757,
+            "bytes": 97445,
+            "documentMs": 3.25725,
+            "heapUsedBefore": 2864709632,
+            "heapUsedAfter": 2868903936
+          },
+          {
+            "queryWork": 4098,
+            "graphWork": 757,
+            "bytes": 97445,
+            "documentMs": 9.3005,
+            "heapUsedBefore": 2871001088,
+            "heapUsedAfter": 2877292544
+          }
+        ],
+        "verdict": "incomplete-read-recorded"
+      },
+      "graphSource": "context/evidence/data/phase9b-survey/live-v14",
+      "classes": [
+        "audio_destination_atom",
+        "audio_source_atom",
+        "audio_voice_sum_atom",
+        "boolean_value_atom",
+        "button_boolean_value_atom",
+        "component_settings",
+        "decimal_value_atom",
+        "desktop_settings",
+        "device_audio_output_proxy_atom",
+        "device_input_proxy_atom",
+        "indexed_value_atom",
+        "inport_connection",
+        "integer_value_atom",
+        "modulation_source_atom",
+        "modulation_source_atom_display_settings",
+        "module",
+        "module_contents",
+        "module_grid",
+        "nitro_atom",
+        "polyphonic_observer_atom"
+      ],
+      "lastCapture": "context/evidence/data/phase9b-survey/live-v14/preset-5-capture-1.json",
+      "catalog": {
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          }
+        ],
+        "flavour": "Poly Grid",
+        "complete": true,
+        "moduleCount": 8,
+        "projectedAudioCableCount": null,
+        "modules": [
+          {
+            "index": 0,
+            "uuid": "a546ab0c-0668-40d7-ac60-6cc0ce286916",
+            "name": "Audio Out",
+            "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6"
+          },
+          {
+            "index": 1,
+            "uuid": "76848bad-1a2c-4df8-86e8-d1d2c28b66fa",
+            "name": "AR",
+            "typeUuid": "9eaf8e7d-b8f7-4134-85c1-c7c77dd9fe92"
+          },
+          {
+            "index": 2,
+            "uuid": "9b43b3a9-bf6c-493d-9e40-18143b1e712a",
+            "name": "Low-pass LD",
+            "typeUuid": "85ca7753-049a-419a-bb37-d8c358b10932"
+          },
+          {
+            "index": 3,
+            "uuid": "cdced1f5-a859-4d24-a78b-044874a1851d",
+            "name": "Swarm",
+            "typeUuid": "faea6af4-72db-42c6-adac-0f74d8ebdbbf"
+          },
+          {
+            "index": 4,
+            "uuid": "514a3b09-280c-412b-8675-c5743747401e",
+            "name": "Phase-1",
+            "typeUuid": "44da1c7d-5fef-4d7a-9b1c-739324a59a97"
+          },
+          {
+            "index": 5,
+            "uuid": "33ac9c06-9fc4-48cd-a898-868ed088ed87",
+            "name": "Mixer",
+            "typeUuid": "839e96da-cda4-45ce-b5a1-e0a40a176968"
+          },
+          {
+            "index": 6,
+            "uuid": "84a33a4b-1a1b-456c-a436-e82b4f2f0137",
+            "name": "Rectifier",
+            "typeUuid": "ac6de5ed-c143-4364-9989-3c7d299db380"
+          },
+          {
+            "index": 7,
+            "uuid": "324b2177-88dc-4d10-acf2-2afc9027241c",
+            "name": "Gain - dB",
+            "typeUuid": "b2c6ef93-8a14-4e10-b152-56bcee883e1c"
+          }
+        ],
+        "cables": [],
+        "classes": [
+          "module",
+          "module_contents",
+          "module_grid"
+        ],
+        "scope": "Module membership, names, and type UUIDs only. Cables and contents are not covered.",
+        "paired": true,
+        "additions": [],
+        "schemas": 2,
+        "captures": 2,
+        "measurements": [
+          {
+            "queryWork": 724,
+            "graphWork": 66,
+            "bytes": 8326,
+            "documentMs": 1.395791,
+            "heapUsedBefore": 1486880768,
+            "heapUsedAfter": 1488977920
+          },
+          {
+            "queryWork": 724,
+            "graphWork": 66,
+            "bytes": 8326,
+            "documentMs": 1.49725,
+            "heapUsedBefore": 1488977920,
+            "heapUsedAfter": 1488977920
+          }
+        ],
+        "verdict": "projected-read-agrees",
+        "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset"
+      }
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Audio FX - Space, Time, Color/Grid Repeater.bwpreset",
+      "flavour": "FX Grid",
+      "graph": {
+        "verdict": "cap-refusal",
+        "error": "BridgeError: Internal error: grid-operation-failed:java.lang.IllegalStateException: schema-child-limit"
+      },
+      "graphSource": "context/evidence/data/phase9b-survey/live-v14",
+      "classes": [],
+      "lastCapture": null,
+      "catalog": {
+        "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Audio FX - Space, Time, Color/Grid Repeater.bwpreset",
+        "flavour": "FX Grid",
+        "verdict": "cap-refusal",
+        "error": "BridgeError: Internal error: grid-operation-failed:java.lang.IllegalStateException: schema-child-limit",
+        "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Audio FX - Space, Time, Color/Grid Repeater.bwpreset"
+      }
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset",
+      "flavour": "FX Grid",
+      "graph": {
+        "complete": false,
+        "errors": [
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K"
+        ],
+        "partialNodes": 138,
+        "paired": true,
+        "additions": [
+          {
+            "className": "data_array_component",
+            "runtimeClass": "USc",
+            "fields": [
+              6194,
+              6614,
+              6609,
+              6613
+            ],
+            "removedAbsentFields": []
+          },
+          {
+            "className": "transport_component",
+            "runtimeClass": "ftf",
+            "fields": [
+              6194,
+              10070
+            ],
+            "removedAbsentFields": []
+          },
+          {
+            "className": "trigger_atom",
+            "runtimeClass": "GnQ",
+            "fields": [
+              6194,
+              607,
+              608,
+              701,
+              374,
+              821,
+              10561
+            ],
+            "removedAbsentFields": []
+          },
+          {
+            "className": "last_voice_int_event_atom",
+            "runtimeClass": "inq",
+            "fields": [
+              6194,
+              607,
+              14407
+            ],
+            "removedAbsentFields": []
+          }
+        ],
+        "schemas": 25,
+        "captures": 3,
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 5
+          }
+        ],
+        "measurements": [
+          {
+            "queryWork": 3178,
+            "graphWork": 858,
+            "bytes": 96451,
+            "documentMs": 14.017667,
+            "heapUsedBefore": 1077936128,
+            "heapUsedAfter": 1082130432
+          },
+          {
+            "queryWork": 3178,
+            "graphWork": 858,
+            "bytes": 96451,
+            "documentMs": 9.958167,
+            "heapUsedBefore": 1084227584,
+            "heapUsedAfter": 1088421888
+          }
+        ],
+        "verdict": "incomplete-read-recorded"
+      },
+      "graphSource": "context/evidence/data/phase9b-survey/live-v14",
+      "classes": [
+        "audio_destination_atom",
+        "audio_source_atom",
+        "audio_voice_sum_atom",
+        "boolean_value_atom",
+        "component_settings",
+        "data_array_component",
+        "decimal_value_atom",
+        "desktop_settings",
+        "device_audio_output_proxy_atom",
+        "device_input_proxy_atom",
+        "indexed_value_atom",
+        "inport_connection",
+        "integer_value_atom",
+        "last_voice_int_event_atom",
+        "modulation_source_atom",
+        "modulation_source_atom_display_settings",
+        "module",
+        "module_contents",
+        "module_grid",
+        "nitro_atom",
+        "polyphonic_observer_atom",
+        "transport_component",
+        "trigger_atom"
+      ],
+      "lastCapture": "context/evidence/data/phase9b-survey/live-v14/preset-7-capture-2.json",
+      "catalog": {
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 5
+          }
+        ],
+        "flavour": "FX Grid",
+        "complete": true,
+        "moduleCount": 16,
+        "projectedAudioCableCount": null,
+        "modules": [
+          {
+            "index": 0,
+            "uuid": "0aa029e7-344e-4c64-8c6f-0a7fc386e62a",
+            "name": "Audio In",
+            "typeUuid": "b2a6b111-7afd-4c95-b380-6de8125af980"
+          },
+          {
+            "index": 1,
+            "uuid": "10bb53d2-70f0-42da-b3fe-854ed838be3b",
+            "name": "Audio Out",
+            "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6"
+          },
+          {
+            "index": 2,
+            "uuid": "24c35506-398c-4f7f-9b78-4c4819a48fd2",
+            "name": "Gates",
+            "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635"
+          },
+          {
+            "index": 3,
+            "uuid": "52ae7c6d-76dc-4f0c-998a-f7eedab3d6c3",
+            "name": "AD",
+            "typeUuid": "5b7ab937-4f09-41fc-a379-983fb597b2ff"
+          },
+          {
+            "index": 4,
+            "uuid": "0e0e6bb5-55a7-425e-8851-660838223c90",
+            "name": "Reverb",
+            "typeUuid": "b3a19e19-da13-491d-b569-16ff5cbb109b"
+          },
+          {
+            "index": 5,
+            "uuid": "5f238763-7a89-42ea-ac04-8f6ff2273a35",
+            "name": "AD",
+            "typeUuid": "5b7ab937-4f09-41fc-a379-983fb597b2ff"
+          },
+          {
+            "index": 6,
+            "uuid": "d62bc314-f5cc-4ef4-9deb-189837c7f757",
+            "name": "Gates",
+            "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635"
+          },
+          {
+            "index": 7,
+            "uuid": "254072ac-389d-4c7f-8a52-cbb55d53bb3b",
+            "name": "Crush",
+            "typeUuid": "b3a19e19-da13-491d-b569-16ff5cbb109b"
+          },
+          {
+            "index": 8,
+            "uuid": "98f3545e-864d-4112-9862-362c03255f9b",
+            "name": "Gates",
+            "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635"
+          },
+          {
+            "index": 9,
+            "uuid": "8002de3f-9bae-49a7-a445-ea634688362d",
+            "name": "Short Delay",
+            "typeUuid": "b3a19e19-da13-491d-b569-16ff5cbb109b"
+          },
+          {
+            "index": 10,
+            "uuid": "f9c2aa4f-6001-41a6-a255-ba080fbaba52",
+            "name": "AD",
+            "typeUuid": "5b7ab937-4f09-41fc-a379-983fb597b2ff"
+          },
+          {
+            "index": 11,
+            "uuid": "7430c0e0-ddf6-4d0e-a4d0-827ea1b7776e",
+            "name": "Long Delay",
+            "typeUuid": "b3a19e19-da13-491d-b569-16ff5cbb109b"
+          },
+          {
+            "index": 12,
+            "uuid": "0825dd2b-8f14-46a3-9d08-6ecc1881752b",
+            "name": "Gates",
+            "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635"
+          },
+          {
+            "index": 13,
+            "uuid": "9c693823-f6a5-4497-b641-a4e9686dcc48",
+            "name": "AD",
+            "typeUuid": "5b7ab937-4f09-41fc-a379-983fb597b2ff"
+          },
+          {
+            "index": 14,
+            "uuid": "ab2921c9-6689-4aa2-ae01-6c4ea1c3adb1",
+            "name": "Transport",
+            "typeUuid": "997869ea-e649-4ac8-865e-bd4ac9e7b2a2"
+          },
+          {
+            "index": 15,
+            "uuid": "850a70af-1328-4640-b7e2-c340b41c7a5c",
+            "name": "Comment",
+            "typeUuid": "b297dabd-144e-4106-b8da-15d08fa6b124"
+          }
+        ],
+        "cables": [],
+        "classes": [
+          "module",
+          "module_contents",
+          "module_grid"
+        ],
+        "scope": "Module membership, names, and type UUIDs only. Cables and contents are not covered.",
+        "paired": true,
+        "additions": [],
+        "schemas": 2,
+        "captures": 2,
+        "measurements": [
+          {
+            "queryWork": 1324,
+            "graphWork": 130,
+            "bytes": 16134,
+            "documentMs": 3.080167,
+            "heapUsedBefore": 752877568,
+            "heapUsedAfter": 752877568
+          },
+          {
+            "queryWork": 1324,
+            "graphWork": 130,
+            "bytes": 16133,
+            "documentMs": 1.085708,
+            "heapUsedBefore": 754974720,
+            "heapUsedAfter": 754974720
+          }
+        ],
+        "verdict": "projected-read-agrees",
+        "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset"
+      }
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+      "flavour": "FX Grid",
+      "graph": {
+        "complete": false,
+        "errors": [
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "node:166:java.lang.IllegalStateException: schema-work-or-time-limit",
+          "schema-work-or-time-limit"
+        ],
+        "partialNodes": 167,
+        "paired": true,
+        "additions": [
+          {
+            "className": "value_led_atom",
+            "runtimeClass": "dLY",
+            "fields": [
+              6194,
+              607,
+              374,
+              11002
+            ],
+            "removedAbsentFields": []
+          },
+          {
+            "className": "buffer_writer_atom",
+            "runtimeClass": "Obi",
+            "fields": [
+              6194,
+              607,
+              608,
+              752,
+              753,
+              754,
+              10558
+            ],
+            "removedAbsentFields": []
+          },
+          {
+            "className": "buffer_reader_atom",
+            "runtimeClass": "frb",
+            "fields": [
+              6194,
+              607,
+              608,
+              732,
+              733,
+              9822,
+              852,
+              10557
+            ],
+            "removedAbsentFields": []
+          }
+        ],
+        "schemas": 28,
+        "captures": 3,
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 5
+          }
+        ],
+        "measurements": [
+          {
+            "queryWork": 4098,
+            "graphWork": 897,
+            "bytes": 112980,
+            "documentMs": 12.978583,
+            "heapUsedBefore": 876609536,
+            "heapUsedAfter": 880803840
+          },
+          {
+            "queryWork": 4098,
+            "graphWork": 897,
+            "bytes": 112980,
+            "documentMs": 9.88725,
+            "heapUsedBefore": 882900992,
+            "heapUsedAfter": 889192448
+          }
+        ],
+        "verdict": "incomplete-read-recorded"
+      },
+      "graphSource": "context/evidence/data/phase9b-survey/live-v14",
+      "classes": [
+        "audio_destination_atom",
+        "audio_source_atom",
+        "audio_voice_sum_atom",
+        "bipolar_toggleable_decimal_value_atom",
+        "boolean_panel_value",
+        "boolean_value_atom",
+        "button_boolean_value_atom",
+        "component_settings",
+        "decimal_value_atom",
+        "desktop_settings",
+        "device_audio_output_proxy_atom",
+        "device_input_proxy_atom",
+        "indexed_value_atom",
+        "inport_connection",
+        "integer_value_atom",
+        "modulation_source_atom",
+        "modulation_source_atom_display_settings",
+        "module",
+        "module_contents",
+        "module_grid",
+        "nitro_atom",
+        "polyphonic_observer_atom",
+        "transport_component",
+        "value_led_atom"
+      ],
+      "lastCapture": "context/evidence/data/phase9b-survey/live-v14/preset-8-capture-2.json",
+      "catalog": {
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 5
+          }
+        ],
+        "flavour": "FX Grid",
+        "complete": true,
+        "moduleCount": 31,
+        "projectedAudioCableCount": null,
+        "modules": [
+          {
+            "index": 0,
+            "uuid": "74ae0fe5-b520-43b6-9caf-091264d9f1fb",
+            "name": "Audio In",
+            "typeUuid": "b2a6b111-7afd-4c95-b380-6de8125af980"
+          },
+          {
+            "index": 1,
+            "uuid": "cc99a5ce-23a7-459d-952a-868f5c24322a",
+            "name": "Audio Out",
+            "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6"
+          },
+          {
+            "index": 2,
+            "uuid": "1a4bb363-1437-4c57-82b2-24af09ab33ad",
+            "name": "Merge",
+            "typeUuid": "c10b5ffa-0d10-4005-ad49-a39253ee26eb"
+          },
+          {
+            "index": 3,
+            "uuid": "de6d4345-3886-45d9-8741-05e14e1285bd",
+            "name": "Quantize",
+            "typeUuid": "c1f45a63-edde-4c38-b588-efbd4c1e35ec"
+          },
+          {
+            "index": 4,
+            "uuid": "ac4279e4-50e0-4769-8440-f80f78729502",
+            "name": "Value",
+            "typeUuid": "1faa5baf-6cdf-406a-b0e4-89b67501d982"
+          },
+          {
+            "index": 5,
+            "uuid": "ec5c8b66-9f54-41bc-a317-ef68e6bb78ff",
+            "name": "Value",
+            "typeUuid": "1faa5baf-6cdf-406a-b0e4-89b67501d982"
+          },
+          {
+            "index": 6,
+            "uuid": "548adeba-0cef-4ad8-a109-f0ab761c406f",
+            "name": "Distortion",
+            "typeUuid": "6e8f9374-3393-4531-9f7e-571d0033ea94"
+          },
+          {
+            "index": 7,
+            "uuid": "a8b3178d-f705-4cc6-bb1d-354cbd1f4569",
+            "name": "Chebyshev",
+            "typeUuid": "0b9d73b3-796f-4cc0-b7af-d59e19df2827"
+          },
+          {
+            "index": 8,
+            "uuid": "d38232ab-7911-4b38-822a-749341590b97",
+            "name": "Mod Delay",
+            "typeUuid": "a8d565fa-fcf5-4ede-bea9-90999f6e8406"
+          },
+          {
+            "index": 9,
+            "uuid": "b07a1e1b-b098-4198-9987-3b5a891a810d",
+            "name": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860"
+          },
+          {
+            "index": 10,
+            "uuid": "92b55ee3-5881-4fca-b8d5-7641a9a2f06c",
+            "name": "All-pass Delay",
+            "typeUuid": "f435652c-2fd7-4edd-8b7a-ee97b0fd43a5"
+          },
+          {
+            "index": 11,
+            "uuid": "65fe3205-8be7-4337-8b7b-77a655c6c54f",
+            "name": "Long Delay",
+            "typeUuid": "f601a44c-8dcb-4ee7-9f2a-ce02ff07948e"
+          },
+          {
+            "index": 12,
+            "uuid": "23091e1d-982c-4d10-a8e9-08d9206f3476",
+            "name": "Add",
+            "typeUuid": "57a6f72c-db9d-4a96-bc4b-d6a2bb8b656a"
+          },
+          {
+            "index": 13,
+            "uuid": "da9e9344-841f-4feb-b604-71da77d5eec9",
+            "name": "Attenuate",
+            "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508"
+          },
+          {
+            "index": 14,
+            "uuid": "d22a4072-a21f-4a07-a0fb-d078ac21f6e4",
+            "name": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860"
+          },
+          {
+            "index": 15,
+            "uuid": "e8332299-8d38-4c87-9ad9-194765f4eb0a",
+            "name": "Low-pass",
+            "typeUuid": "9747205f-2450-42da-89be-200b149b967b"
+          },
+          {
+            "index": 16,
+            "uuid": "d61d1fa9-662c-4af8-8553-6b0176337b09",
+            "name": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860"
+          },
+          {
+            "index": 17,
+            "uuid": "c4ec4d03-8543-4230-8ac0-29d2a9d70e1f",
+            "name": "Gain - Vol",
+            "typeUuid": "b1296326-cbf0-4797-9fc6-e2a6f2ce4a78"
+          },
+          {
+            "index": 18,
+            "uuid": "74891fdb-f02c-4170-8cf8-9f0c72b0145a",
+            "name": "VU Meter",
+            "typeUuid": "08d55d78-9240-43b9-9fe3-acde57ac1e60"
+          },
+          {
+            "index": 19,
+            "uuid": "58f57aca-4592-4b7b-99d0-8b2192b2e21a",
+            "name": "Attenuate",
+            "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508"
+          },
+          {
+            "index": 20,
+            "uuid": "70fa8e8a-1483-4b1e-834a-cdc60fc73928",
+            "name": "Dry/Wet",
+            "typeUuid": "0f2a027d-2bc3-4789-8a56-4d079a7e6137"
+          },
+          {
+            "index": 21,
+            "uuid": "56be5e41-0772-4726-9ac6-62f43ccce8e9",
+            "name": "SVF",
+            "typeUuid": "2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f"
+          },
+          {
+            "index": 22,
+            "uuid": "338f2827-72b4-498b-b737-6249d03452af",
+            "name": "Gain - Vol",
+            "typeUuid": "b1296326-cbf0-4797-9fc6-e2a6f2ce4a78"
+          },
+          {
+            "index": 23,
+            "uuid": "1a2929f6-b797-4e18-8b91-8e38289ce437",
+            "name": "Gain - Vol",
+            "typeUuid": "b1296326-cbf0-4797-9fc6-e2a6f2ce4a78"
+          },
+          {
+            "index": 24,
+            "uuid": "9f4922ac-2c28-4cd6-b7a9-f44c8ee1f630",
+            "name": "Attenuate",
+            "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508"
+          },
+          {
+            "index": 25,
+            "uuid": "0852313d-e9f6-4a07-8c06-32846a37ee63",
+            "name": "All-pass Delay",
+            "typeUuid": "f435652c-2fd7-4edd-8b7a-ee97b0fd43a5"
+          },
+          {
+            "index": 26,
+            "uuid": "7d984ecf-cc54-424f-aab7-3a464d3c2829",
+            "name": "Blend",
+            "typeUuid": "0f2a027d-2bc3-4789-8a56-4d079a7e6137"
+          },
+          {
+            "index": 27,
+            "uuid": "baa0625a-f021-4665-89df-2b1cd414d5fd",
+            "name": "Ø Mirror",
+            "typeUuid": "de0334b8-93bd-463e-824b-dea397e90354"
+          },
+          {
+            "index": 28,
+            "uuid": "d773e6bb-be9a-4429-be8f-ff48bd3cc061",
+            "name": "Modulator Out",
+            "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056"
+          },
+          {
+            "index": 29,
+            "uuid": "aef81d1f-f36b-4346-8692-353dbc0afb43",
+            "name": "Attenuate",
+            "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508"
+          },
+          {
+            "index": 30,
+            "uuid": "334dd146-1ecf-493e-913f-bffd2c53b1d8",
+            "name": "Transport Playing",
+            "typeUuid": "9714df20-f4ea-4017-a874-4ccb554dd86e"
+          }
+        ],
+        "cables": [],
+        "classes": [
+          "module",
+          "module_contents",
+          "module_grid"
+        ],
+        "scope": "Module membership, names, and type UUIDs only. Cables and contents are not covered.",
+        "paired": true,
+        "additions": [],
+        "schemas": 2,
+        "captures": 2,
+        "measurements": [
+          {
+            "queryWork": 2449,
+            "graphWork": 250,
+            "bytes": 30860,
+            "documentMs": 2.969667,
+            "heapUsedBefore": 878706688,
+            "heapUsedAfter": 880803840
+          },
+          {
+            "queryWork": 2449,
+            "graphWork": 250,
+            "bytes": 30859,
+            "documentMs": 2.312917,
+            "heapUsedBefore": 880803840,
+            "heapUsedAfter": 882900992
+          }
+        ],
+        "verdict": "projected-read-agrees",
+        "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+      }
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset",
+      "flavour": "FX Grid",
+      "graph": {
+        "complete": false,
+        "errors": [
+          "unsupported-value:v3K"
+        ],
+        "partialNodes": 78,
+        "paired": true,
+        "additions": [
+          {
+            "className": "transport_component",
+            "runtimeClass": "ftf",
+            "fields": [
+              6194,
+              10070
+            ],
+            "removedAbsentFields": []
+          },
+          {
+            "className": "component_settings",
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+            "fields": [
+              612,
+              614,
+              615
+            ],
+            "removedAbsentFields": []
+          },
+          {
+            "className": "desktop_settings",
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.EeT",
+            "fields": [
+              17,
+              18,
+              19
+            ],
+            "removedAbsentFields": []
+          }
+        ],
+        "schemas": 21,
+        "captures": 5,
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 5
+          }
+        ],
+        "measurements": [
+          {
+            "queryWork": 2216,
+            "graphWork": 413,
+            "bytes": 52110,
+            "documentMs": 1.684625,
+            "heapUsedBefore": 851443712,
+            "heapUsedAfter": 855638016
+          },
+          {
+            "queryWork": 2216,
+            "graphWork": 413,
+            "bytes": 52110,
+            "documentMs": 1.454458,
+            "heapUsedBefore": 855638016,
+            "heapUsedAfter": 857735168
+          }
+        ],
+        "verdict": "incomplete-read-recorded"
+      },
+      "graphSource": "context/evidence/data/phase9b-survey/live-v14-remaining-2",
+      "classes": [
+        "audio_destination_atom",
+        "audio_source_atom",
+        "audio_voice_sum_atom",
+        "bipolar_toggleable_decimal_value_atom",
+        "boolean_panel_value",
+        "boolean_value_atom",
+        "component_settings",
+        "decimal_value_atom",
+        "desktop_settings",
+        "device_audio_output_proxy_atom",
+        "device_input_proxy_atom",
+        "indexed_value_atom",
+        "integer_value_atom",
+        "module",
+        "module_contents",
+        "module_grid",
+        "nitro_atom",
+        "polyphonic_observer_atom",
+        "transport_component"
+      ],
+      "lastCapture": "context/evidence/data/phase9b-survey/live-v14-remaining-2/preset-0-capture-4.json",
+      "catalog": {
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 5
+          }
+        ],
+        "flavour": "FX Grid",
+        "complete": true,
+        "moduleCount": 10,
+        "projectedAudioCableCount": null,
+        "modules": [
+          {
+            "index": 0,
+            "uuid": "3c3e31df-b322-4c07-b57b-e7c91818159b",
+            "name": "Audio In",
+            "typeUuid": "b2a6b111-7afd-4c95-b380-6de8125af980"
+          },
+          {
+            "index": 1,
+            "uuid": "164b0ed2-bb7e-4443-a6f0-04fc7af33e53",
+            "name": "Audio Out",
+            "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6"
+          },
+          {
+            "index": 2,
+            "uuid": "9e862d61-fba0-4d5c-a566-1d950b267856",
+            "name": "Triggers",
+            "typeUuid": "e75916a0-2594-4181-88a4-b19fdb77c0eb"
+          },
+          {
+            "index": 3,
+            "uuid": "234a4cbe-eb58-4074-8694-14a14d4cc9e4",
+            "name": "Quantize",
+            "typeUuid": "c1f45a63-edde-4c38-b588-efbd4c1e35ec"
+          },
+          {
+            "index": 4,
+            "uuid": "e25f2f21-240d-463b-9278-79d135aeaece",
+            "name": "Abs",
+            "typeUuid": "895470df-c2de-417f-9113-8bb6fe948b6d"
+          },
+          {
+            "index": 5,
+            "uuid": "36fe1378-2a01-4402-bd21-e3463bf136e0",
+            "name": "Lag",
+            "typeUuid": "a4d23895-2761-476b-9aad-cbe372d286ea"
+          },
+          {
+            "index": 6,
+            "uuid": "b11c208b-62df-4657-a265-5c427d4f4da5",
+            "name": "Sample / Hold",
+            "typeUuid": "8214fd6c-5131-49d2-a9a6-709760a46b82"
+          },
+          {
+            "index": 7,
+            "uuid": "7b0090ec-fbb6-4275-8edb-64930db1c706",
+            "name": "Stereo Width",
+            "typeUuid": "a34edcba-25b3-4f07-86b2-81701b092d66"
+          },
+          {
+            "index": 8,
+            "uuid": "12a29d97-948a-439c-9d5c-cd55054f1c20",
+            "name": "Crush",
+            "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508"
+          },
+          {
+            "index": 9,
+            "uuid": "cdcce0b0-94f8-4edf-b775-2788c940cca1",
+            "name": "Steppy",
+            "typeUuid": "0f2a027d-2bc3-4789-8a56-4d079a7e6137"
+          }
+        ],
+        "cables": [],
+        "classes": [
+          "module",
+          "module_contents",
+          "module_grid"
+        ],
+        "scope": "Module membership, names, and type UUIDs only. Cables and contents are not covered.",
+        "paired": true,
+        "additions": [],
+        "schemas": 2,
+        "captures": 2,
+        "measurements": [
+          {
+            "queryWork": 874,
+            "graphWork": 82,
+            "bytes": 10288,
+            "documentMs": 1.598,
+            "heapUsedBefore": 958398464,
+            "heapUsedAfter": 958398464
+          },
+          {
+            "queryWork": 874,
+            "graphWork": 82,
+            "bytes": 10288,
+            "documentMs": 1.508667,
+            "heapUsedBefore": 958398464,
+            "heapUsedAfter": 958398464
+          }
+        ],
+        "verdict": "projected-read-agrees",
+        "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset"
+      }
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset",
+      "flavour": "Note Grid",
+      "graph": {
+        "complete": false,
+        "errors": [
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "unsupported-value:v3K",
+          "schema-work-or-time-limit"
+        ],
+        "partialNodes": 172,
+        "paired": true,
+        "additions": [
+          {
+            "className": "note_led_atom",
+            "runtimeClass": "ywq",
+            "fields": [
+              6194,
+              607,
+              374,
+              11002,
+              169
+            ],
+            "removedAbsentFields": []
+          },
+          {
+            "className": "device_note_output_proxy_atom",
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.lkO",
+            "fields": [
+              6194,
+              607,
+              608,
+              9817
+            ],
+            "removedAbsentFields": []
+          },
+          {
+            "className": "value_led_atom",
+            "runtimeClass": "dLY",
+            "fields": [
+              6194,
+              607,
+              374,
+              11002
+            ],
+            "removedAbsentFields": []
+          },
+          {
+            "className": "modulation_source_atom",
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.NDn",
+            "fields": [
+              6194,
+              607,
+              608,
+              10378,
+              3639,
+              3640,
+              5452
+            ],
+            "removedAbsentFields": []
+          },
+          {
+            "className": "string_panel_value",
+            "runtimeClass": "UcJ",
+            "fields": [
+              6194,
+              6387,
+              6391
+            ],
+            "removedAbsentFields": []
+          },
+          {
+            "className": "inport_connection",
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.Uqf",
+            "fields": [
+              248,
+              249,
+              6443
+            ],
+            "removedAbsentFields": []
+          },
+          {
+            "className": "modulation_source_atom_display_settings",
+            "runtimeClass": "ZDj",
+            "fields": [
+              5455
+            ],
+            "removedAbsentFields": []
+          }
+        ],
+        "schemas": 26,
+        "captures": 4,
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 4
+          }
+        ],
+        "measurements": [
+          {
+            "queryWork": 4097,
+            "graphWork": 887,
+            "bytes": 109430,
+            "documentMs": 11.827833,
+            "heapUsedBefore": 809500672,
+            "heapUsedAfter": 813694976
+          },
+          {
+            "queryWork": 4097,
+            "graphWork": 887,
+            "bytes": 109430,
+            "documentMs": 11.656334,
+            "heapUsedBefore": 815792128,
+            "heapUsedAfter": 822083584
+          }
+        ],
+        "verdict": "incomplete-read-recorded"
+      },
+      "graphSource": "context/evidence/data/phase9b-survey/live-v14-remaining-2",
+      "classes": [
+        "audio_destination_atom",
+        "audio_source_atom",
+        "boolean_value_atom",
+        "button_boolean_value_atom",
+        "component_settings",
+        "decimal_value_atom",
+        "desktop_settings",
+        "device_audio_output_proxy_atom",
+        "device_input_proxy_atom",
+        "device_note_output_proxy_atom",
+        "indexed_value_atom",
+        "inport_connection",
+        "integer_value_atom",
+        "modulation_source_atom",
+        "modulation_source_atom_display_settings",
+        "module",
+        "module_contents",
+        "module_grid",
+        "nitro_atom",
+        "note_led_atom",
+        "polyphonic_observer_atom",
+        "string_panel_value",
+        "transport_component",
+        "value_led_atom"
+      ],
+      "lastCapture": "context/evidence/data/phase9b-survey/live-v14-remaining-2/preset-1-capture-3.json",
+      "catalog": {
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 4
+          }
+        ],
+        "flavour": "Note Grid",
+        "complete": true,
+        "moduleCount": 16,
+        "projectedAudioCableCount": null,
+        "modules": [
+          {
+            "index": 0,
+            "uuid": "31021cb0-9cdf-43ec-81c4-0f3f3329d6f0",
+            "name": "Note In",
+            "typeUuid": "06c1eac9-4d64-4748-8d52-8bf18324d1e7"
+          },
+          {
+            "index": 1,
+            "uuid": "ae4d664f-fbf1-40ce-aed1-e0ccde8f5a6a",
+            "name": "Note Out",
+            "typeUuid": "70baf51d-271c-43c3-b2de-c98fc48f326d"
+          },
+          {
+            "index": 2,
+            "uuid": "14dde48c-70f5-4693-b572-1fd44420f1e2",
+            "name": "Select In",
+            "typeUuid": "c6923eb3-e161-4eed-8a93-a4554287a77b"
+          },
+          {
+            "index": 3,
+            "uuid": "008207b5-ba5a-49d8-a751-3c45cb385247",
+            "name": "Triggers",
+            "typeUuid": "e75916a0-2594-4181-88a4-b19fdb77c0eb"
+          },
+          {
+            "index": 4,
+            "uuid": "b4aec9a2-962f-41bf-9bb2-05539fe1e22a",
+            "name": "Transport",
+            "typeUuid": "997869ea-e649-4ac8-865e-bd4ac9e7b2a2"
+          },
+          {
+            "index": 5,
+            "uuid": "ac107c8a-7ade-4319-bb7d-3f0e915b1ff5",
+            "name": "Ø Reset",
+            "typeUuid": "d04bb748-5f66-4a4a-85d8-d3402c982e22"
+          },
+          {
+            "index": 6,
+            "uuid": "814c6d2b-7ccf-49d8-92e1-73e74b8fb80a",
+            "name": "LFO",
+            "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860"
+          },
+          {
+            "index": 7,
+            "uuid": "1f31d543-e76a-493f-856d-84e091d6c993",
+            "name": "Select In",
+            "typeUuid": "c6923eb3-e161-4eed-8a93-a4554287a77b"
+          },
+          {
+            "index": 8,
+            "uuid": "b7299e74-18a4-43b0-9120-47b5fbd9ef8a",
+            "name": "AutoArp",
+            "typeUuid": "c0281e6e-3d55-4e86-8c9b-0ce8cf3db67d"
+          },
+          {
+            "index": 9,
+            "uuid": "f64b2c19-3971-4cf2-9265-6540826aed5e",
+            "name": "ManuScale",
+            "typeUuid": "b1296326-cbf0-4797-9fc6-e2a6f2ce4a78"
+          },
+          {
+            "index": 10,
+            "uuid": "9b68c90b-4a4c-45d4-b110-1d6355f64a06",
+            "name": "Pitch Scaler",
+            "typeUuid": "c53fda13-4ed0-42fd-b410-19052ca6322d"
+          },
+          {
+            "index": 11,
+            "uuid": "35d0eaef-4c23-4301-a452-f86d46e962bd",
+            "name": "Sample / Hold",
+            "typeUuid": "8214fd6c-5131-49d2-a9a6-709760a46b82"
+          },
+          {
+            "index": 12,
+            "uuid": "37ee3c6f-7a1c-4520-9ac2-7014ae0f8f22",
+            "name": "Sum",
+            "typeUuid": "5b414321-7adb-4210-ab26-d2367a8b5d56"
+          },
+          {
+            "index": 13,
+            "uuid": "528ea10f-65b6-43fe-974a-9a2a666d9b78",
+            "name": "AutoScale",
+            "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508"
+          },
+          {
+            "index": 14,
+            "uuid": "e6e17b02-4b21-4b98-99a4-ee01605dcf6b",
+            "name": "Gain - Vol",
+            "typeUuid": "b1296326-cbf0-4797-9fc6-e2a6f2ce4a78"
+          },
+          {
+            "index": 15,
+            "uuid": "de50ab8a-9259-4130-8de6-328722e76758",
+            "name": "Octaver",
+            "typeUuid": "85c173a2-1eb3-4cc1-a19d-84bcb4bde00b"
+          }
+        ],
+        "cables": [],
+        "classes": [
+          "module",
+          "module_contents",
+          "module_grid"
+        ],
+        "scope": "Module membership, names, and type UUIDs only. Cables and contents are not covered.",
+        "paired": true,
+        "additions": [],
+        "schemas": 2,
+        "captures": 2,
+        "measurements": [
+          {
+            "queryWork": 1324,
+            "graphWork": 130,
+            "bytes": 16171,
+            "documentMs": 1.128334,
+            "heapUsedBefore": 1042284544,
+            "heapUsedAfter": 1044381696
+          },
+          {
+            "queryWork": 1324,
+            "graphWork": 130,
+            "bytes": 16171,
+            "documentMs": 2.634875,
+            "heapUsedBefore": 1044381696,
+            "heapUsedAfter": 1046478848
+          }
+        ],
+        "verdict": "projected-read-agrees",
+        "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+      }
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Stutter Steps.bwpreset",
+      "flavour": "Note Grid",
+      "graph": {
+        "verdict": "cap-refusal",
+        "error": "BridgeError: Internal error: grid-operation-failed:java.lang.IllegalStateException: schema-child-limit"
+      },
+      "graphSource": "context/evidence/data/phase9b-survey/live-v14-remaining-2",
+      "classes": [],
+      "lastCapture": null,
+      "catalog": {
+        "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Stutter Steps.bwpreset",
+        "flavour": "Note Grid",
+        "verdict": "cap-refusal",
+        "error": "BridgeError: Internal error: grid-operation-failed:java.lang.IllegalStateException: schema-child-limit",
+        "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Stutter Steps.bwpreset"
+      }
+    },
+    {
+      "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Poly Pitch Envelopes.bwpreset",
+      "flavour": "Note Grid",
+      "graph": {
+        "verdict": "cap-refusal",
+        "error": "BridgeError: Internal error: grid-operation-failed:java.lang.IllegalStateException: schema-child-limit"
+      },
+      "graphSource": "context/evidence/data/phase9b-survey/live-v14-remaining-2",
+      "classes": [],
+      "lastCapture": null,
+      "catalog": {
+        "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Poly Pitch Envelopes.bwpreset",
+        "flavour": "Note Grid",
+        "verdict": "cap-refusal",
+        "error": "BridgeError: Internal error: grid-operation-failed:java.lang.IllegalStateException: schema-child-limit",
+        "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Poly Pitch Envelopes.bwpreset"
+      }
+    }
+  ],
+  "graphVerdicts": {
+    "projected-read-agrees": 1,
+    "incomplete-read-recorded": 7,
+    "cap-refusal": 5
+  },
+  "catalogVerdicts": {
+    "projected-read-agrees": 8,
+    "cap-refusal": 5
+  },
+  "catalogTypes": 55,
+  "matchedFilenames": 49,
+  "schemaClasses": 35,
+  "runs": [
+    {
+      "folder": "live-v14",
+      "calls": 1355,
+      "summedWireMs": 35359.08962700003,
+      "readCalls": 17,
+      "captureWireMs": [
+        46.64691700000003,
+        51.08637499999895
+      ],
+      "documentMs": [
+        2.034125,
+        14.017667
+      ],
+      "queryWork": [
+        1606,
+        4098
+      ],
+      "graphBytes": [
+        35831,
+        112980
+      ],
+      "heapSampleDeltaBytes": [
+        2097152,
+        39845888
+      ],
+      "exit": {
+        "scratch": null,
+        "uncertain": false,
+        "completedPresets": 9
+      }
+    },
+    {
+      "folder": "live-v14-remaining",
+      "calls": 56,
+      "summedWireMs": 1192.7196670000012,
+      "readCalls": 0,
+      "captureWireMs": null,
+      "documentMs": null,
+      "queryWork": null,
+      "graphBytes": null,
+      "heapSampleDeltaBytes": null,
+      "exit": {
+        "scratch": null,
+        "uncertain": false,
+        "completedPresets": 0
+      }
+    },
+    {
+      "folder": "live-v14-remaining-2",
+      "calls": 603,
+      "summedWireMs": 15139.800382999993,
+      "readCalls": 9,
+      "captureWireMs": [
+        41.58733399999983,
+        52.90758300000016
+      ],
+      "documentMs": [
+        1.454458,
+        12.255958
+      ],
+      "queryWork": [
+        2188,
+        4098
+      ],
+      "graphBytes": [
+        50663,
+        109430
+      ],
+      "heapSampleDeltaBytes": [
+        2097152,
+        39845888
+      ],
+      "exit": {
+        "scratch": null,
+        "uncertain": false,
+        "completedPresets": 4
+      }
+    },
+    {
+      "folder": "live-v14-catalog",
+      "calls": 1719,
+      "summedWireMs": 40694.51962399993,
+      "readCalls": 16,
+      "captureWireMs": [
+        45.671791999999186,
+        50.4912089999998
+      ],
+      "documentMs": [
+        0.359959,
+        3.080167
+      ],
+      "queryWork": [
+        424,
+        2449
+      ],
+      "graphBytes": [
+        4414,
+        30860
+      ],
+      "heapSampleDeltaBytes": [
+        0,
+        2097152
+      ],
+      "exit": {
+        "scratch": null,
+        "uncertain": false,
+        "completedPresets": 13
+      }
+    },
+    {
+      "folder": "live-v14-preserved",
+      "calls": 36,
+      "summedWireMs": 1379.0384609999992,
+      "readCalls": 2,
+      "captureWireMs": [
+        47.11645800000008,
+        48.89337499999999
+      ],
+      "documentMs": [
+        2.494625,
+        3.346334
+      ],
+      "queryWork": [
+        1606,
+        1606
+      ],
+      "graphBytes": [
+        35828,
+        35828
+      ],
+      "heapSampleDeltaBytes": [
+        0,
+        2097152
+      ],
+      "exit": {
+        "scratch": null,
+        "uncertain": false,
+        "completedPresets": 0
+      }
+    }
+  ],
+  "controlCaptureWireMs": [
+    49.445624999999836,
+    46.64691700000003
+  ],
+  "originalStateMatches": true,
+  "preservedGraphMatchesNormalizedBaseline": true,
+  "finalReaderReleased": true,
+  "engineState": "Operator reported active at entry. No engine or transport command was sent.",
+  "limits": [
+    "One extra candidate had no recognized top-level Grid name; its scratch track was deleted.",
+    "A cursor settle refusal caused no fixture write. Read-only repointing restored its identity.",
+    "Scratch setup can mark the project modified. No save or saved-file preservation claim."
+  ]
+}

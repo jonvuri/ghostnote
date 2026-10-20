@@ -1,0 +1,29 @@
+{
+  "candidate": {
+    "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset",
+    "flavour": "FX Grid",
+    "role": "Sequenced effect",
+    "loaded": false
+  },
+  "target": {
+    "project": "gn-grid-spike",
+    "trackId": "220107f2-a116-4b5b-9047-0c0a1deb72f0",
+    "trackName": "gn-9b-survey-4e9e5da5",
+    "deviceIndex": 0,
+    "deviceName": "FX Grid"
+  },
+  "devices": {
+    "devices": [
+      {
+        "index": 0,
+        "name": "FX Grid",
+        "enabled": true
+      }
+    ],
+    "count": 1,
+    "itemCount": 1,
+    "trackChannelId": "220107f2-a116-4b5b-9047-0c0a1deb72f0",
+    "trackPosition": 1,
+    "bankSize": 16
+  }
+}

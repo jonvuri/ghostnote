@@ -1,0 +1,5 @@
+{
+  "error": "AssertionError [ERR_ASSERTION]: Expected one top-level Grid; inspect the inserted chain\n\n0 !== 1\n",
+  "scratch": "ececfa05-8115-4ef6-bbd5-086de3a883c5",
+  "uncertain": false
+}

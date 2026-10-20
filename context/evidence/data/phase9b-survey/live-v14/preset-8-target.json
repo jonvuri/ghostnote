@@ -1,0 +1,29 @@
+{
+  "candidate": {
+    "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+    "flavour": "FX Grid",
+    "role": "Multiple effects",
+    "loaded": false
+  },
+  "target": {
+    "project": "gn-grid-spike",
+    "trackId": "108e5a80-9cc3-4fd6-a4d4-ed950cfc9e44",
+    "trackName": "gn-9b-survey-3ef54c85",
+    "deviceIndex": 0,
+    "deviceName": "FX Grid"
+  },
+  "devices": {
+    "devices": [
+      {
+        "index": 0,
+        "name": "FX Grid",
+        "enabled": true
+      }
+    ],
+    "count": 1,
+    "itemCount": 1,
+    "trackChannelId": "108e5a80-9cc3-4fd6-a4d4-ed950cfc9e44",
+    "trackPosition": 1,
+    "bankSize": 16
+  }
+}

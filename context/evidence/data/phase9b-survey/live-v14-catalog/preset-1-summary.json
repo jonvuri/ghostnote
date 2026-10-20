@@ -1,0 +1,111 @@
+{
+  "complete": true,
+  "moduleCount": 10,
+  "projectedAudioCableCount": null,
+  "modules": [
+    {
+      "index": 0,
+      "uuid": "b3508821-daac-4326-bf39-1450cfab4cdf",
+      "name": "Wavetable",
+      "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04"
+    },
+    {
+      "index": 1,
+      "uuid": "48a2e26e-c0ee-461c-9a92-f4c6e8a9d8f5",
+      "name": "ADSR",
+      "typeUuid": "7e09068b-fee5-457e-afe4-7017661ebbd3"
+    },
+    {
+      "index": 2,
+      "uuid": "a654be7c-b300-48f4-a693-932b78b25d78",
+      "name": "Audio Out",
+      "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6"
+    },
+    {
+      "index": 3,
+      "uuid": "47b5858c-cff6-40ca-94ba-40606f82613b",
+      "name": "AD",
+      "typeUuid": "5b7ab937-4f09-41fc-a379-983fb597b2ff"
+    },
+    {
+      "index": 4,
+      "uuid": "22046ffb-ab62-4d1a-b2ff-c47d29f9e1f7",
+      "name": "Attenuate",
+      "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508"
+    },
+    {
+      "index": 5,
+      "uuid": "f2635cc9-4741-401b-b3a5-ccc7097f886d",
+      "name": "Mixer",
+      "typeUuid": "839e96da-cda4-45ce-b5a1-e0a40a176968"
+    },
+    {
+      "index": 6,
+      "uuid": "3e465b4b-7194-483e-bbc5-8aae2cf36b97",
+      "name": "AD",
+      "typeUuid": "5b7ab937-4f09-41fc-a379-983fb597b2ff"
+    },
+    {
+      "index": 7,
+      "uuid": "f6971910-500f-441c-b4e2-65f6c47359c3",
+      "name": "Wavetable",
+      "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04"
+    },
+    {
+      "index": 8,
+      "uuid": "03b55324-afbd-4d65-a37a-cf18ad1f00e5",
+      "name": "Delay",
+      "typeUuid": "e2e808c8-6b7e-4a00-9563-39e2f44177da"
+    },
+    {
+      "index": 9,
+      "uuid": "6a65630a-87cc-4389-9844-a88b65127d94",
+      "name": "ADSR",
+      "typeUuid": "7e09068b-fee5-457e-afe4-7017661ebbd3"
+    }
+  ],
+  "cables": [],
+  "classes": [
+    "module",
+    "module_contents",
+    "module_grid"
+  ],
+  "scope": "Module membership, names, and type UUIDs only. Cables and contents are not covered.",
+  "paired": true,
+  "additions": [],
+  "schemas": 2,
+  "captures": 2,
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 7
+    }
+  ],
+  "measurements": [
+    {
+      "queryWork": 874,
+      "graphWork": 82,
+      "bytes": 10271,
+      "documentMs": 0.581958,
+      "heapUsedBefore": 736100352,
+      "heapUsedAfter": 736100352
+    },
+    {
+      "queryWork": 874,
+      "graphWork": 82,
+      "bytes": 10271,
+      "documentMs": 0.359959,
+      "heapUsedBefore": 738197504,
+      "heapUsedAfter": 738197504
+    }
+  ],
+  "verdict": "projected-read-agrees"
+}

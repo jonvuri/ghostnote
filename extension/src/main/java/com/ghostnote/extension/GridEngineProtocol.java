@@ -18,6 +18,7 @@ public final class GridEngineProtocol {
     private long start, segmentStart, pendingWall;
     private JsonObject frozen;
     public synchronized boolean used() { return used; }
+    public synchronized boolean active() { return active; }
     public synchronized boolean locked() { return locked; }
     public synchronized boolean complete() { return active && !locked && next == ORDER.length; }
     public synchronized boolean running() { return active && !locked && next < ORDER.length; }

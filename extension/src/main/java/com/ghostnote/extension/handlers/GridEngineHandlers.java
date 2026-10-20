@@ -24,6 +24,11 @@ public final class GridEngineHandlers extends HandlerGroup {
     private volatile boolean busy;
     private Bridge.Reply sessionClient;
     private long symbolResolutionNanos;
+    private java.util.function.BooleanSupplier otherGridOwner = () -> false;
+    public void otherGridOwner(java.util.function.BooleanSupplier owner) { otherGridOwner = owner; }
+    public boolean ownsGrid() {
+        return unfinished() || epoch != null || sessionProof != null || protocol.active() || protocol.locked();
+    }
 
     public GridEngineHandlers(ControllerHost host, Rig rig, ExecState state) {
         super(host, rig, state);
@@ -96,6 +101,7 @@ public final class GridEngineHandlers extends HandlerGroup {
     public void request(JsonObject p, Bridge.Reply reply) throws Exception {
         String op = p.get("operation").getAsString();
         if (op.equals("status")) { replyStatus(reply); return; }
+        if (otherGridOwner.getAsBoolean()) throw new IllegalStateException("survey-session-owns-grid");
         if (op.equals("abort")) { fail("client-abort"); replyStatus(reply); return; }
         try {
             if (unfinished()) throw new IllegalStateException("engine-native-task-unfinished");

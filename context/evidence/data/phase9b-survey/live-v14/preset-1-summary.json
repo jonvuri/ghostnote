@@ -1,0 +1,121 @@
+{
+  "complete": false,
+  "errors": [
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "node:152:java.lang.IllegalStateException: schema-work-or-time-limit",
+    "schema-work-or-time-limit"
+  ],
+  "partialNodes": 153,
+  "paired": true,
+  "additions": [
+    {
+      "className": "wavetable_oscillator_atom",
+      "runtimeClass": "upW",
+      "fields": [
+        6194,
+        607,
+        608,
+        11163,
+        11164,
+        11165,
+        11157,
+        11389,
+        11570,
+        11581,
+        11572,
+        15445,
+        15447
+      ],
+      "removedAbsentFields": []
+    },
+    {
+      "className": "modulation_source_atom",
+      "runtimeClass": "com.bitwig.flt.document.core.master.device.NDn",
+      "fields": [
+        6194,
+        607,
+        608,
+        10378,
+        3639,
+        3640,
+        5452
+      ],
+      "removedAbsentFields": []
+    },
+    {
+      "className": "component_settings",
+      "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+      "fields": [
+        612,
+        614,
+        615
+      ],
+      "removedAbsentFields": []
+    },
+    {
+      "className": "modulation_source_atom_display_settings",
+      "runtimeClass": "ZDj",
+      "fields": [
+        5455
+      ],
+      "removedAbsentFields": []
+    },
+    {
+      "className": "desktop_settings",
+      "runtimeClass": "com.bitwig.flt.document.core.master.device.EeT",
+      "fields": [
+        17,
+        18,
+        19
+      ],
+      "removedAbsentFields": []
+    },
+    {
+      "className": "inport_connection",
+      "runtimeClass": "com.bitwig.flt.document.core.master.device.Uqf",
+      "fields": [
+        248,
+        249,
+        6443
+      ],
+      "removedAbsentFields": []
+    }
+  ],
+  "schemas": 25,
+  "captures": 5,
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 7
+    }
+  ],
+  "measurements": [
+    {
+      "queryWork": 4098,
+      "graphWork": 837,
+      "bytes": 106080,
+      "documentMs": 5.536708,
+      "heapUsedBefore": 1067450368,
+      "heapUsedAfter": 1073741824
+    },
+    {
+      "queryWork": 4098,
+      "graphWork": 837,
+      "bytes": 106080,
+      "documentMs": 7.377459,
+      "heapUsedBefore": 1075838976,
+      "heapUsedAfter": 1080033280
+    }
+  ],
+  "verdict": "incomplete-read-recorded"
+}

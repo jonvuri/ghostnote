@@ -1,0 +1,107 @@
+{
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 5
+    },
+    {
+      "parentClass": "module_grid",
+      "propertyId": 6428,
+      "propertyName": "auxiliary_devices",
+      "index": 2
+    },
+    {
+      "parentClass": "module",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "module_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 12
+    },
+    {
+      "parentClass": "value_led_atom",
+      "propertyId": 6194,
+      "propertyName": "settings",
+      "index": 0
+    }
+  ],
+  "marker": "9b-grid-survey-v14",
+  "epoch": "d7ce3071-4301-48b1-a27e-f8c98e4bcf92",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "queueNanos": 733333,
+  "heapUsedBefore": 901775360,
+  "schema": {
+    "className": "component_settings",
+    "classId": 236,
+    "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+    "scope": "one-object schema and child headers; no scalar values or semantic gate",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 612,
+        "name": "desktop_settings",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "desktop_settings",
+            "classId": 17,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.EeT",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 614,
+        "name": "inport_connections",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "inport_connection",
+            "classId": 105,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.Uqf",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 615,
+        "name": "is_polyphonic",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6673,
+        "name": "is_effectively_polyphonic",
+        "serializerIncluded": false,
+        "relationship": false
+      }
+    ],
+    "work": 211,
+    "complete": true
+  },
+  "queryWork": 211,
+  "heapUsedAfter": 901775360,
+  "documentTaskNanos": 435000,
+  "completionNanos": 23758958
+}

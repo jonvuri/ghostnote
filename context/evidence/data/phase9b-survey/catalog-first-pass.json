@@ -1,0 +1,1012 @@
+{
+  "evidence": "E302",
+  "moduleFiles": [
+    "AD.bwmodule",
+    "ADSR.bwmodule",
+    "AMSolidusRM.bwmodule",
+    "AND.bwmodule",
+    "AR.bwmodule",
+    "Abs.bwmodule",
+    "Accents.bwmodule",
+    "Add.bwmodule",
+    "All-pass Delay.bwmodule",
+    "All-pass.bwmodule",
+    "Amplify.bwmodule",
+    "Array.bwmodule",
+    "Attenuate.bwmodule",
+    "Audio In.bwmodule",
+    "Audio Out.bwmodule",
+    "Audio Sidechain.bwmodule",
+    "Average.bwmodule",
+    "Bend.bwmodule",
+    "Bi To Uni.bwmodule",
+    "Bias.bwmodule",
+    "Bite.bwmodule",
+    "Blend.bwmodule",
+    "Button.bwmodule",
+    "CC In.bwmodule",
+    "CC Out.bwmodule",
+    "CV In.bwmodule",
+    "CV Out.bwmodule",
+    "CV Pitch In.bwmodule",
+    "CV Pitch Out.bwmodule",
+    "Ceil.bwmodule",
+    "Chance.bwmodule",
+    "Chebyshev.bwmodule",
+    "Chorus+.bwmodule",
+    "Clip.bwmodule",
+    "Clock Divide.bwmodule",
+    "Clock Quantize.bwmodule",
+    "Clock.bwmodule",
+    "Comb.bwmodule",
+    "Comment.bwmodule",
+    "Constant.bwmodule",
+    "Crossover-2.bwmodule",
+    "Crossover-3.bwmodule",
+    "Curve.bwmodule",
+    "Curves.bwmodule",
+    "Delay.bwmodule",
+    "Dice.bwmodule",
+    "Diode.bwmodule",
+    "Distortion.bwmodule",
+    "Divide.bwmodule",
+    "Dome.bwmodule",
+    "EqualsSign.bwmodule",
+    "Exp.bwmodule",
+    "Exponents.bwmodule",
+    "Fizz.bwmodule",
+    "Flanger+.bwmodule",
+    "Floor.bwmodule",
+    "Follower RF.bwmodule",
+    "Follower.bwmodule",
+    "Freq Shift+.bwmodule",
+    "Freq To Pitch.bwmodule",
+    "Gain - Vol.bwmodule",
+    "Gain - dB.bwmodule",
+    "Gain In.bwmodule",
+    "Gate In.bwmodule",
+    "Gate Length.bwmodule",
+    "Gate Repeat.bwmodule",
+    "Gates.bwmodule",
+    "GreaterThanOrEqualTo.bwmodule",
+    "GreaterThanSign.bwmodule",
+    "HW In.bwmodule",
+    "HW Out.bwmodule",
+    "Hard Clip.bwmodule",
+    "Heat.bwmodule",
+    "High-pass.bwmodule",
+    "Hold.bwmodule",
+    "Howl.bwmodule",
+    "Invert.bwmodule",
+    "Key On.bwmodule",
+    "Keys Held.bwmodule",
+    "LFO.bwmodule",
+    "LR Gain.bwmodule",
+    "Label.bwmodule",
+    "Lag.bwmodule",
+    "Latch.bwmodule",
+    "LessThanOrEqualTo.bwmodule",
+    "LessThanSign.bwmodule",
+    "Level Scaler.bwmodule",
+    "Level.bwmodule",
+    "Lin To dB.bwmodule",
+    "Log.bwmodule",
+    "Logic Delay.bwmodule",
+    "Long Delay.bwmodule",
+    "Low-pass LD.bwmodule",
+    "Low-pass MG.bwmodule",
+    "Low-pass.bwmodule",
+    "Merge.bwmodule",
+    "MinMax.bwmodule",
+    "Mixer.bwmodule",
+    "Mod Delay.bwmodule",
+    "Modulator Out.bwmodule",
+    "Multiply.bwmodule",
+    "N-Latch.bwmodule",
+    "NAND.bwmodule",
+    "NOR.bwmodule",
+    "NOT.bwmodule",
+    "Noise.bwmodule",
+    "NotEqualTo.bwmodule",
+    "Note In.bwmodule",
+    "Note Out.bwmodule",
+    "OR.bwmodule",
+    "Octaver.bwmodule",
+    "Oscilloscope.bwmodule",
+    "Pan In.bwmodule",
+    "Pan.bwmodule",
+    "Phase Bend.bwmodule",
+    "Phase Counter.bwmodule",
+    "Phase Formant.bwmodule",
+    "Phase In.bwmodule",
+    "Phase Lag.bwmodule",
+    "Phase Mirror.bwmodule",
+    "Phase Pinch.bwmodule",
+    "Phase Pulse.bwmodule",
+    "Phase Reset.bwmodule",
+    "Phase Reverse.bwmodule",
+    "Phase Saw.bwmodule",
+    "Phase Scaler.bwmodule",
+    "Phase Shift.bwmodule",
+    "Phase Sine.bwmodule",
+    "Phase Sinemod.bwmodule",
+    "Phase Skew.bwmodule",
+    "Phase Split.bwmodule",
+    "Phase Sync.bwmodule",
+    "Phase Triangle.bwmodule",
+    "Phase Window.bwmodule",
+    "Phase Wrap.bwmodule",
+    "Phase-1.bwmodule",
+    "Phaser+.bwmodule",
+    "Phasor.bwmodule",
+    "Pinch.bwmodule",
+    "Pitch Buss.bwmodule",
+    "Pitch Class.bwmodule",
+    "Pitch In.bwmodule",
+    "Pitch Quantize.bwmodule",
+    "Pitch Scaler.bwmodule",
+    "Pitch Shift.bwmodule",
+    "Pitch To Freq.bwmodule",
+    "Pitch To Phase.bwmodule",
+    "Pitch.bwmodule",
+    "Pitches.bwmodule",
+    "Pluck.bwmodule",
+    "Poly To Mono.bwmodule",
+    "Power.bwmodule",
+    "Pressure In.bwmodule",
+    "Probabilities.bwmodule",
+    "Product.bwmodule",
+    "Pulse.bwmodule",
+    "Push.bwmodule",
+    "Quantize.bwmodule",
+    "Quantizer.bwmodule",
+    "Rasp.bwmodule",
+    "Ratio.bwmodule",
+    "Reciprocal.bwmodule",
+    "Recorder.bwmodule",
+    "Rectifier.bwmodule",
+    "Ripple.bwmodule",
+    "Root Key.bwmodule",
+    "Roots.bwmodule",
+    "Round.bwmodule",
+    "SSolidusH LFO.bwmodule",
+    "SVF.bwmodule",
+    "Sallen-Key.bwmodule",
+    "Sample Solidus Hold.bwmodule",
+    "Sampler.bwmodule",
+    "Saturator.bwmodule",
+    "Sawtooth.bwmodule",
+    "Scale Steps.bwmodule",
+    "Scrawl.bwmodule",
+    "Segments.bwmodule",
+    "Select In.bwmodule",
+    "Select Out.bwmodule",
+    "Shift Register.bwmodule",
+    "Shred.bwmodule",
+    "Sine.bwmodule",
+    "Slope NorthEastArrow.bwmodule",
+    "Slope SouthEastArrow.bwmodule",
+    "Slopes.bwmodule",
+    "Soar.bwmodule",
+    "Spectrum.bwmodule",
+    "Split.bwmodule",
+    "Step Access.bwmodule",
+    "Steps.bwmodule",
+    "Stereo Merge.bwmodule",
+    "Stereo Split.bwmodule",
+    "Stereo Width.bwmodule",
+    "Sub.bwmodule",
+    "Subtract.bwmodule",
+    "Sum.bwmodule",
+    "Swarm.bwmodule",
+    "Timbre In.bwmodule",
+    "Toggle In.bwmodule",
+    "Toggle Out.bwmodule",
+    "Toggle.bwmodule",
+    "Transfer.bwmodule",
+    "Transport Playing.bwmodule",
+    "Transport.bwmodule",
+    "Transpose.bwmodule",
+    "Triangle.bwmodule",
+    "Trigger.bwmodule",
+    "Triggers.bwmodule",
+    "Uni To Bi.bwmodule",
+    "Union.bwmodule",
+    "VU Meter.bwmodule",
+    "Value Readout.bwmodule",
+    "Value Scaler.bwmodule",
+    "Value.bwmodule",
+    "Velo Mult.bwmodule",
+    "Velocity In.bwmodule",
+    "Voice Stack Info.bwmodule",
+    "Voice Stack Mix.bwmodule",
+    "Voice Stack Tog.bwmodule",
+    "Vowels.bwmodule",
+    "Wavefolder.bwmodule",
+    "Wavetable LFO.bwmodule",
+    "Wavetable.bwmodule",
+    "XNOR.bwmodule",
+    "XOR.bwmodule",
+    "XP.bwmodule",
+    "XY.bwmodule",
+    "Zero Crossings.bwmodule",
+    "by Scale.bwmodule",
+    "by Semitone.bwmodule",
+    "dB To Lin.bwmodule"
+  ],
+  "moduleFileCount": 232,
+  "seenTypes": [
+    {
+      "typeUuid": "06c1eac9-4d64-4748-8d52-8bf18324d1e7",
+      "observedName": "Note In",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+      ],
+      "filenameMatch": "Note In.bwmodule"
+    },
+    {
+      "typeUuid": "08d55d78-9240-43b9-9fe3-acde57ac1e60",
+      "observedName": "VU Meter",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+      ],
+      "filenameMatch": "VU Meter.bwmodule"
+    },
+    {
+      "typeUuid": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+      "observedName": "Modulator Out",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+      ],
+      "filenameMatch": "Modulator Out.bwmodule"
+    },
+    {
+      "typeUuid": "0b9d73b3-796f-4cc0-b7af-d59e19df2827",
+      "observedName": "Chebyshev",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+      ],
+      "filenameMatch": "Chebyshev.bwmodule"
+    },
+    {
+      "typeUuid": "0f2a027d-2bc3-4789-8a56-4d079a7e6137",
+      "observedName": "Blend",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+      ],
+      "filenameMatch": "Blend.bwmodule"
+    },
+    {
+      "typeUuid": "0f2a027d-2bc3-4789-8a56-4d079a7e6137",
+      "observedName": "Dry/Wet",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+      ],
+      "filenameMatch": null
+    },
+    {
+      "typeUuid": "0f2a027d-2bc3-4789-8a56-4d079a7e6137",
+      "observedName": "Steppy",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset"
+      ],
+      "filenameMatch": null
+    },
+    {
+      "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04",
+      "observedName": "Wavetable",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset"
+      ],
+      "filenameMatch": "Wavetable.bwmodule"
+    },
+    {
+      "typeUuid": "1e330c79-9a6f-4015-8dfa-da507c1bb15a",
+      "observedName": "AND",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset"
+      ],
+      "filenameMatch": "AND.bwmodule"
+    },
+    {
+      "typeUuid": "1faa5baf-6cdf-406a-b0e4-89b67501d982",
+      "observedName": "Value",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+      ],
+      "filenameMatch": "Value.bwmodule"
+    },
+    {
+      "typeUuid": "2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f",
+      "observedName": "SVF",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+      ],
+      "filenameMatch": "SVF.bwmodule"
+    },
+    {
+      "typeUuid": "43600afd-7226-4408-bbb6-b7b9cc2a6cee",
+      "observedName": "Pan",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset"
+      ],
+      "filenameMatch": "Pan.bwmodule"
+    },
+    {
+      "typeUuid": "44da1c7d-5fef-4d7a-9b1c-739324a59a97",
+      "observedName": "Phase-1",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset"
+      ],
+      "filenameMatch": "Phase-1.bwmodule"
+    },
+    {
+      "typeUuid": "4e00fda6-20f6-45a9-9d7e-02867cf09b82",
+      "observedName": "Gate In",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset"
+      ],
+      "filenameMatch": "Gate In.bwmodule"
+    },
+    {
+      "typeUuid": "57a6f72c-db9d-4a96-bc4b-d6a2bb8b656a",
+      "observedName": "Add",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+      ],
+      "filenameMatch": "Add.bwmodule"
+    },
+    {
+      "typeUuid": "5b414321-7adb-4210-ab26-d2367a8b5d56",
+      "observedName": "Sum",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+      ],
+      "filenameMatch": "Sum.bwmodule"
+    },
+    {
+      "typeUuid": "5b7ab937-4f09-41fc-a379-983fb597b2ff",
+      "observedName": "AD",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset"
+      ],
+      "filenameMatch": "AD.bwmodule"
+    },
+    {
+      "typeUuid": "6e8f9374-3393-4531-9f7e-571d0033ea94",
+      "observedName": "Distortion",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+      ],
+      "filenameMatch": "Distortion.bwmodule"
+    },
+    {
+      "typeUuid": "70baf51d-271c-43c3-b2de-c98fc48f326d",
+      "observedName": "Note Out",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+      ],
+      "filenameMatch": "Note Out.bwmodule"
+    },
+    {
+      "typeUuid": "7e09068b-fee5-457e-afe4-7017661ebbd3",
+      "observedName": "ADSR",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset"
+      ],
+      "filenameMatch": "ADSR.bwmodule"
+    },
+    {
+      "typeUuid": "8214fd6c-5131-49d2-a9a6-709760a46b82",
+      "observedName": "Sample / Hold",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+      ],
+      "filenameMatch": null
+    },
+    {
+      "typeUuid": "839e96da-cda4-45ce-b5a1-e0a40a176968",
+      "observedName": "Mixer",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset"
+      ],
+      "filenameMatch": "Mixer.bwmodule"
+    },
+    {
+      "typeUuid": "85c173a2-1eb3-4cc1-a19d-84bcb4bde00b",
+      "observedName": "Octaver",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+      ],
+      "filenameMatch": "Octaver.bwmodule"
+    },
+    {
+      "typeUuid": "85ca7753-049a-419a-bb37-d8c358b10932",
+      "observedName": "Low-pass LD",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset"
+      ],
+      "filenameMatch": "Low-pass LD.bwmodule"
+    },
+    {
+      "typeUuid": "895470df-c2de-417f-9113-8bb6fe948b6d",
+      "observedName": "Abs",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset"
+      ],
+      "filenameMatch": "Abs.bwmodule"
+    },
+    {
+      "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635",
+      "observedName": "Gates",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset"
+      ],
+      "filenameMatch": "Gates.bwmodule"
+    },
+    {
+      "typeUuid": "9714df20-f4ea-4017-a874-4ccb554dd86e",
+      "observedName": "Transport Playing",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+      ],
+      "filenameMatch": "Transport Playing.bwmodule"
+    },
+    {
+      "typeUuid": "9747205f-2450-42da-89be-200b149b967b",
+      "observedName": "Low-pass",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+      ],
+      "filenameMatch": "Low-pass.bwmodule"
+    },
+    {
+      "typeUuid": "997869ea-e649-4ac8-865e-bd4ac9e7b2a2",
+      "observedName": "Transport",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+      ],
+      "filenameMatch": "Transport.bwmodule"
+    },
+    {
+      "typeUuid": "9eaf8e7d-b8f7-4134-85c1-c7c77dd9fe92",
+      "observedName": "AR",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset"
+      ],
+      "filenameMatch": "AR.bwmodule"
+    },
+    {
+      "typeUuid": "a34edcba-25b3-4f07-86b2-81701b092d66",
+      "observedName": "Stereo Width",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset"
+      ],
+      "filenameMatch": "Stereo Width.bwmodule"
+    },
+    {
+      "typeUuid": "a4d23895-2761-476b-9aad-cbe372d286ea",
+      "observedName": "Lag",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset"
+      ],
+      "filenameMatch": "Lag.bwmodule"
+    },
+    {
+      "typeUuid": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2",
+      "observedName": "Amplify",
+      "sources": [
+        "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+        "E276 control"
+      ],
+      "filenameMatch": "Amplify.bwmodule"
+    },
+    {
+      "typeUuid": "a8d565fa-fcf5-4ede-bea9-90999f6e8406",
+      "observedName": "Mod Delay",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+      ],
+      "filenameMatch": "Mod Delay.bwmodule"
+    },
+    {
+      "typeUuid": "ac6de5ed-c143-4364-9989-3c7d299db380",
+      "observedName": "Rectifier",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset"
+      ],
+      "filenameMatch": "Rectifier.bwmodule"
+    },
+    {
+      "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6",
+      "observedName": "Audio Out",
+      "sources": [
+        "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset",
+        "E276 control"
+      ],
+      "filenameMatch": "Audio Out.bwmodule"
+    },
+    {
+      "typeUuid": "b1296326-cbf0-4797-9fc6-e2a6f2ce4a78",
+      "observedName": "Gain - Vol",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+      ],
+      "filenameMatch": "Gain - Vol.bwmodule"
+    },
+    {
+      "typeUuid": "b1296326-cbf0-4797-9fc6-e2a6f2ce4a78",
+      "observedName": "ManuScale",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+      ],
+      "filenameMatch": null
+    },
+    {
+      "typeUuid": "b297dabd-144e-4106-b8da-15d08fa6b124",
+      "observedName": "Comment",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset"
+      ],
+      "filenameMatch": "Comment.bwmodule"
+    },
+    {
+      "typeUuid": "b2a6b111-7afd-4c95-b380-6de8125af980",
+      "observedName": "Audio In",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset"
+      ],
+      "filenameMatch": "Audio In.bwmodule"
+    },
+    {
+      "typeUuid": "b2c6ef93-8a14-4e10-b152-56bcee883e1c",
+      "observedName": "Gain - dB",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset"
+      ],
+      "filenameMatch": "Gain - dB.bwmodule"
+    },
+    {
+      "typeUuid": "b3a19e19-da13-491d-b569-16ff5cbb109b",
+      "observedName": "Crush",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset"
+      ],
+      "filenameMatch": null
+    },
+    {
+      "typeUuid": "b3a19e19-da13-491d-b569-16ff5cbb109b",
+      "observedName": "Long Delay",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset"
+      ],
+      "filenameMatch": "Long Delay.bwmodule"
+    },
+    {
+      "typeUuid": "b3a19e19-da13-491d-b569-16ff5cbb109b",
+      "observedName": "Reverb",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset"
+      ],
+      "filenameMatch": null
+    },
+    {
+      "typeUuid": "b3a19e19-da13-491d-b569-16ff5cbb109b",
+      "observedName": "Short Delay",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Sequenced FX Trigger.bwpreset"
+      ],
+      "filenameMatch": null
+    },
+    {
+      "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860",
+      "observedName": "LFO",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+      ],
+      "filenameMatch": "LFO.bwmodule"
+    },
+    {
+      "typeUuid": "c0281e6e-3d55-4e86-8c9b-0ce8cf3db67d",
+      "observedName": "AutoArp",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+      ],
+      "filenameMatch": null
+    },
+    {
+      "typeUuid": "c10b5ffa-0d10-4005-ad49-a39253ee26eb",
+      "observedName": "Merge",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset"
+      ],
+      "filenameMatch": "Merge.bwmodule"
+    },
+    {
+      "typeUuid": "c1f45a63-edde-4c38-b588-efbd4c1e35ec",
+      "observedName": "Quantize",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+      ],
+      "filenameMatch": "Quantize.bwmodule"
+    },
+    {
+      "typeUuid": "c53fda13-4ed0-42fd-b410-19052ca6322d",
+      "observedName": "Pitch Scaler",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+      ],
+      "filenameMatch": "Pitch Scaler.bwmodule"
+    },
+    {
+      "typeUuid": "c6923eb3-e161-4eed-8a93-a4554287a77b",
+      "observedName": "Select In",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+      ],
+      "filenameMatch": "Select In.bwmodule"
+    },
+    {
+      "typeUuid": "ca05aebd-ecaf-4d57-b0f6-c04ce81674c4",
+      "observedName": "Sine",
+      "sources": [
+        "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+        "E276 control"
+      ],
+      "filenameMatch": "Sine.bwmodule"
+    },
+    {
+      "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508",
+      "observedName": "Attenuate",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset"
+      ],
+      "filenameMatch": "Attenuate.bwmodule"
+    },
+    {
+      "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508",
+      "observedName": "AutoScale",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+      ],
+      "filenameMatch": null
+    },
+    {
+      "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508",
+      "observedName": "Crush",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset"
+      ],
+      "filenameMatch": null
+    },
+    {
+      "typeUuid": "d04bb748-5f66-4a4a-85d8-d3402c982e22",
+      "observedName": "Ø Reset",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+      ],
+      "filenameMatch": null
+    },
+    {
+      "typeUuid": "de0334b8-93bd-463e-824b-dea397e90354",
+      "observedName": "Ø Mirror",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+      ],
+      "filenameMatch": null
+    },
+    {
+      "typeUuid": "e2e808c8-6b7e-4a00-9563-39e2f44177da",
+      "observedName": "Delay",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset"
+      ],
+      "filenameMatch": "Delay.bwmodule"
+    },
+    {
+      "typeUuid": "e75916a0-2594-4181-88a4-b19fdb77c0eb",
+      "observedName": "Triggers",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset",
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset"
+      ],
+      "filenameMatch": "Triggers.bwmodule"
+    },
+    {
+      "typeUuid": "f435652c-2fd7-4edd-8b7a-ee97b0fd43a5",
+      "observedName": "All-pass Delay",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+      ],
+      "filenameMatch": "All-pass Delay.bwmodule"
+    },
+    {
+      "typeUuid": "f601a44c-8dcb-4ee7-9f2a-ce02ff07948e",
+      "observedName": "Long Delay",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Grid Multi FX.bwpreset"
+      ],
+      "filenameMatch": "Long Delay.bwmodule"
+    },
+    {
+      "typeUuid": "f9b5157c-0a41-403c-810b-9bbf9a133110",
+      "observedName": "Ø Counter",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset"
+      ],
+      "filenameMatch": null
+    },
+    {
+      "typeUuid": "faea6af4-72db-42c6-adac-0f74d8ebdbbf",
+      "observedName": "Swarm",
+      "sources": [
+        "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset"
+      ],
+      "filenameMatch": "Swarm.bwmodule"
+    }
+  ],
+  "uniqueTypeUuids": 55,
+  "observedNamePairs": 63,
+  "matchedFilenames": [
+    "AD.bwmodule",
+    "ADSR.bwmodule",
+    "AND.bwmodule",
+    "AR.bwmodule",
+    "Abs.bwmodule",
+    "Add.bwmodule",
+    "All-pass Delay.bwmodule",
+    "Amplify.bwmodule",
+    "Attenuate.bwmodule",
+    "Audio In.bwmodule",
+    "Audio Out.bwmodule",
+    "Blend.bwmodule",
+    "Chebyshev.bwmodule",
+    "Comment.bwmodule",
+    "Delay.bwmodule",
+    "Distortion.bwmodule",
+    "Gain - Vol.bwmodule",
+    "Gain - dB.bwmodule",
+    "Gate In.bwmodule",
+    "Gates.bwmodule",
+    "LFO.bwmodule",
+    "Lag.bwmodule",
+    "Long Delay.bwmodule",
+    "Low-pass LD.bwmodule",
+    "Low-pass.bwmodule",
+    "Merge.bwmodule",
+    "Mixer.bwmodule",
+    "Mod Delay.bwmodule",
+    "Modulator Out.bwmodule",
+    "Note In.bwmodule",
+    "Note Out.bwmodule",
+    "Octaver.bwmodule",
+    "Pan.bwmodule",
+    "Phase-1.bwmodule",
+    "Pitch Scaler.bwmodule",
+    "Quantize.bwmodule",
+    "Rectifier.bwmodule",
+    "SVF.bwmodule",
+    "Select In.bwmodule",
+    "Sine.bwmodule",
+    "Stereo Width.bwmodule",
+    "Sum.bwmodule",
+    "Swarm.bwmodule",
+    "Transport Playing.bwmodule",
+    "Transport.bwmodule",
+    "Triggers.bwmodule",
+    "VU Meter.bwmodule",
+    "Value.bwmodule",
+    "Wavetable.bwmodule"
+  ],
+  "matchedFilenameCount": 49,
+  "unmatchedFilenames": [
+    "AMSolidusRM.bwmodule",
+    "Accents.bwmodule",
+    "All-pass.bwmodule",
+    "Array.bwmodule",
+    "Audio Sidechain.bwmodule",
+    "Average.bwmodule",
+    "Bend.bwmodule",
+    "Bi To Uni.bwmodule",
+    "Bias.bwmodule",
+    "Bite.bwmodule",
+    "Button.bwmodule",
+    "CC In.bwmodule",
+    "CC Out.bwmodule",
+    "CV In.bwmodule",
+    "CV Out.bwmodule",
+    "CV Pitch In.bwmodule",
+    "CV Pitch Out.bwmodule",
+    "Ceil.bwmodule",
+    "Chance.bwmodule",
+    "Chorus+.bwmodule",
+    "Clip.bwmodule",
+    "Clock Divide.bwmodule",
+    "Clock Quantize.bwmodule",
+    "Clock.bwmodule",
+    "Comb.bwmodule",
+    "Constant.bwmodule",
+    "Crossover-2.bwmodule",
+    "Crossover-3.bwmodule",
+    "Curve.bwmodule",
+    "Curves.bwmodule",
+    "Dice.bwmodule",
+    "Diode.bwmodule",
+    "Divide.bwmodule",
+    "Dome.bwmodule",
+    "EqualsSign.bwmodule",
+    "Exp.bwmodule",
+    "Exponents.bwmodule",
+    "Fizz.bwmodule",
+    "Flanger+.bwmodule",
+    "Floor.bwmodule",
+    "Follower RF.bwmodule",
+    "Follower.bwmodule",
+    "Freq Shift+.bwmodule",
+    "Freq To Pitch.bwmodule",
+    "Gain In.bwmodule",
+    "Gate Length.bwmodule",
+    "Gate Repeat.bwmodule",
+    "GreaterThanOrEqualTo.bwmodule",
+    "GreaterThanSign.bwmodule",
+    "HW In.bwmodule",
+    "HW Out.bwmodule",
+    "Hard Clip.bwmodule",
+    "Heat.bwmodule",
+    "High-pass.bwmodule",
+    "Hold.bwmodule",
+    "Howl.bwmodule",
+    "Invert.bwmodule",
+    "Key On.bwmodule",
+    "Keys Held.bwmodule",
+    "LR Gain.bwmodule",
+    "Label.bwmodule",
+    "Latch.bwmodule",
+    "LessThanOrEqualTo.bwmodule",
+    "LessThanSign.bwmodule",
+    "Level Scaler.bwmodule",
+    "Level.bwmodule",
+    "Lin To dB.bwmodule",
+    "Log.bwmodule",
+    "Logic Delay.bwmodule",
+    "Low-pass MG.bwmodule",
+    "MinMax.bwmodule",
+    "Multiply.bwmodule",
+    "N-Latch.bwmodule",
+    "NAND.bwmodule",
+    "NOR.bwmodule",
+    "NOT.bwmodule",
+    "Noise.bwmodule",
+    "NotEqualTo.bwmodule",
+    "OR.bwmodule",
+    "Oscilloscope.bwmodule",
+    "Pan In.bwmodule",
+    "Phase Bend.bwmodule",
+    "Phase Counter.bwmodule",
+    "Phase Formant.bwmodule",
+    "Phase In.bwmodule",
+    "Phase Lag.bwmodule",
+    "Phase Mirror.bwmodule",
+    "Phase Pinch.bwmodule",
+    "Phase Pulse.bwmodule",
+    "Phase Reset.bwmodule",
+    "Phase Reverse.bwmodule",
+    "Phase Saw.bwmodule",
+    "Phase Scaler.bwmodule",
+    "Phase Shift.bwmodule",
+    "Phase Sine.bwmodule",
+    "Phase Sinemod.bwmodule",
+    "Phase Skew.bwmodule",
+    "Phase Split.bwmodule",
+    "Phase Sync.bwmodule",
+    "Phase Triangle.bwmodule",
+    "Phase Window.bwmodule",
+    "Phase Wrap.bwmodule",
+    "Phaser+.bwmodule",
+    "Phasor.bwmodule",
+    "Pinch.bwmodule",
+    "Pitch Buss.bwmodule",
+    "Pitch Class.bwmodule",
+    "Pitch In.bwmodule",
+    "Pitch Quantize.bwmodule",
+    "Pitch Shift.bwmodule",
+    "Pitch To Freq.bwmodule",
+    "Pitch To Phase.bwmodule",
+    "Pitch.bwmodule",
+    "Pitches.bwmodule",
+    "Pluck.bwmodule",
+    "Poly To Mono.bwmodule",
+    "Power.bwmodule",
+    "Pressure In.bwmodule",
+    "Probabilities.bwmodule",
+    "Product.bwmodule",
+    "Pulse.bwmodule",
+    "Push.bwmodule",
+    "Quantizer.bwmodule",
+    "Rasp.bwmodule",
+    "Ratio.bwmodule",
+    "Reciprocal.bwmodule",
+    "Recorder.bwmodule",
+    "Ripple.bwmodule",
+    "Root Key.bwmodule",
+    "Roots.bwmodule",
+    "Round.bwmodule",
+    "SSolidusH LFO.bwmodule",
+    "Sallen-Key.bwmodule",
+    "Sample Solidus Hold.bwmodule",
+    "Sampler.bwmodule",
+    "Saturator.bwmodule",
+    "Sawtooth.bwmodule",
+    "Scale Steps.bwmodule",
+    "Scrawl.bwmodule",
+    "Segments.bwmodule",
+    "Select Out.bwmodule",
+    "Shift Register.bwmodule",
+    "Shred.bwmodule",
+    "Slope NorthEastArrow.bwmodule",
+    "Slope SouthEastArrow.bwmodule",
+    "Slopes.bwmodule",
+    "Soar.bwmodule",
+    "Spectrum.bwmodule",
+    "Split.bwmodule",
+    "Step Access.bwmodule",
+    "Steps.bwmodule",
+    "Stereo Merge.bwmodule",
+    "Stereo Split.bwmodule",
+    "Sub.bwmodule",
+    "Subtract.bwmodule",
+    "Timbre In.bwmodule",
+    "Toggle In.bwmodule",
+    "Toggle Out.bwmodule",
+    "Toggle.bwmodule",
+    "Transfer.bwmodule",
+    "Transpose.bwmodule",
+    "Triangle.bwmodule",
+    "Trigger.bwmodule",
+    "Uni To Bi.bwmodule",
+    "Union.bwmodule",
+    "Value Readout.bwmodule",
+    "Value Scaler.bwmodule",
+    "Velo Mult.bwmodule",
+    "Velocity In.bwmodule",
+    "Voice Stack Info.bwmodule",
+    "Voice Stack Mix.bwmodule",
+    "Voice Stack Tog.bwmodule",
+    "Vowels.bwmodule",
+    "Wavefolder.bwmodule",
+    "Wavetable LFO.bwmodule",
+    "XNOR.bwmodule",
+    "XOR.bwmodule",
+    "XP.bwmodule",
+    "XY.bwmodule",
+    "Zero Crossings.bwmodule",
+    "by Scale.bwmodule",
+    "by Semitone.bwmodule",
+    "dB To Lin.bwmodule"
+  ],
+  "coverageRule": "Exact observed-name/file-stem overlap only. Names can be edited; filenames do not prove type identity."
+}

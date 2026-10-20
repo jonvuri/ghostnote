@@ -1,0 +1,12 @@
+{
+  "calls": [
+    {
+      "method": "contract.hello",
+      "params": {},
+      "ms": 0.9740419999999972,
+      "error": "Error: connect EPERM 127.0.0.1:8686 - Local (0.0.0.0:0)"
+    }
+  ],
+  "sequentialWireCalls": 1,
+  "wireMs": 0.9740419999999972
+}

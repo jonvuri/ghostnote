@@ -1,0 +1,29 @@
+{
+  "candidate": {
+    "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Stutter Steps.bwpreset",
+    "flavour": "Note Grid",
+    "role": "Possible step content",
+    "loaded": false
+  },
+  "target": {
+    "project": "gn-grid-spike",
+    "trackId": "bd841315-d8b0-416e-90d0-0abc8c18dbde",
+    "trackName": "gn-9b-survey-2640d0a0",
+    "deviceIndex": 0,
+    "deviceName": "Note Grid"
+  },
+  "devices": {
+    "devices": [
+      {
+        "index": 0,
+        "name": "Note Grid",
+        "enabled": true
+      }
+    ],
+    "count": 1,
+    "itemCount": 1,
+    "trackChannelId": "bd841315-d8b0-416e-90d0-0abc8c18dbde",
+    "trackPosition": 1,
+    "bankSize": 16
+  }
+}

@@ -1,0 +1,444 @@
+{
+  "calls": [
+    {
+      "method": "contract.hello",
+      "params": {},
+      "ms": 28.415667000000013,
+      "bytes": 155
+    },
+    {
+      "method": "rig.info",
+      "params": {},
+      "ms": 19.763333000000046,
+      "bytes": 1803
+    },
+    {
+      "method": "rig.stats",
+      "params": {},
+      "ms": 20.15558299999998,
+      "bytes": 2500
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "status"
+      },
+      "ms": 21.95191699999998,
+      "bytes": 119
+    },
+    {
+      "method": "contract.hello",
+      "params": {},
+      "ms": 24.770749999999964,
+      "bytes": 155
+    },
+    {
+      "method": "host.info",
+      "params": {},
+      "ms": 23.76683399999996,
+      "bytes": 148
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 26.399208999999985,
+      "bytes": 381
+    },
+    {
+      "method": "rig.info",
+      "params": {},
+      "ms": 24.215041999999983,
+      "bytes": 1803
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.606583,
+      "bytes": 2061
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.585125000000005,
+      "bytes": 381
+    },
+    {
+      "method": "track.mixer",
+      "params": {
+        "tracks": [
+          {
+            "trackIndex": 0,
+            "channelId": "c784d25c-b753-47ca-af8d-c83d11cfd990"
+          },
+          {
+            "trackIndex": 1,
+            "channelId": "0c4835e2-1769-4ecc-9d03-cf0226bcb5a4"
+          },
+          {
+            "trackIndex": 2,
+            "channelId": "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f"
+          }
+        ]
+      },
+      "ms": 25.80241699999999,
+      "bytes": 814
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 0
+      },
+      "ms": 23.931250000000034,
+      "bytes": 16
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 25.03733299999999,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 19.741457999999966,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 19.335666999999944,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 22.08891600000004,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 18.327624999999898,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 20.302332999999976,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 19.78733299999999,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 19.93941700000005,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 21.069124999999985,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 18.65645900000004,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 20.238582999999835,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 18.663667000000032,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 20.190875000000005,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 21.701291999999967,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 19.25675000000001,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 20.607999999999947,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 23.18516599999998,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 20.725167000000056,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 20.245290999999952,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 20.927416999999878,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 23.348875000000135,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 16.63695800000005,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 18.889250000000175,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 20.89800000000014,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 19.941417,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 20.585250000000087,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 20.760417000000416,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 20.63983300000018,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 17.016999999999825,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 19.136582999999973,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 20.400666999999885,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 21.20070799999985,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 19.31270799999993,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 19.427625000000262,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 20.232084000000214,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 20.16833399999996,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 23.02666700000009,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 17.84966600000007,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 21.0112909999998,
+      "bytes": 91
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 20.892875000000004,
+      "bytes": 91
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 19.155874999999924,
+      "bytes": 2061
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 25.79041700000016,
+      "bytes": 381
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 23.847625000000335,
+      "bytes": 208
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "status"
+      },
+      "ms": 25.157958000000235,
+      "bytes": 119
+    }
+  ],
+  "count": 56,
+  "wireMs": 1192.7196670000012
+}

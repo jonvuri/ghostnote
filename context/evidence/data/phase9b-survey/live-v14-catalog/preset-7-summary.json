@@ -1,0 +1,147 @@
+{
+  "complete": true,
+  "moduleCount": 16,
+  "projectedAudioCableCount": null,
+  "modules": [
+    {
+      "index": 0,
+      "uuid": "0aa029e7-344e-4c64-8c6f-0a7fc386e62a",
+      "name": "Audio In",
+      "typeUuid": "b2a6b111-7afd-4c95-b380-6de8125af980"
+    },
+    {
+      "index": 1,
+      "uuid": "10bb53d2-70f0-42da-b3fe-854ed838be3b",
+      "name": "Audio Out",
+      "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6"
+    },
+    {
+      "index": 2,
+      "uuid": "24c35506-398c-4f7f-9b78-4c4819a48fd2",
+      "name": "Gates",
+      "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635"
+    },
+    {
+      "index": 3,
+      "uuid": "52ae7c6d-76dc-4f0c-998a-f7eedab3d6c3",
+      "name": "AD",
+      "typeUuid": "5b7ab937-4f09-41fc-a379-983fb597b2ff"
+    },
+    {
+      "index": 4,
+      "uuid": "0e0e6bb5-55a7-425e-8851-660838223c90",
+      "name": "Reverb",
+      "typeUuid": "b3a19e19-da13-491d-b569-16ff5cbb109b"
+    },
+    {
+      "index": 5,
+      "uuid": "5f238763-7a89-42ea-ac04-8f6ff2273a35",
+      "name": "AD",
+      "typeUuid": "5b7ab937-4f09-41fc-a379-983fb597b2ff"
+    },
+    {
+      "index": 6,
+      "uuid": "d62bc314-f5cc-4ef4-9deb-189837c7f757",
+      "name": "Gates",
+      "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635"
+    },
+    {
+      "index": 7,
+      "uuid": "254072ac-389d-4c7f-8a52-cbb55d53bb3b",
+      "name": "Crush",
+      "typeUuid": "b3a19e19-da13-491d-b569-16ff5cbb109b"
+    },
+    {
+      "index": 8,
+      "uuid": "98f3545e-864d-4112-9862-362c03255f9b",
+      "name": "Gates",
+      "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635"
+    },
+    {
+      "index": 9,
+      "uuid": "8002de3f-9bae-49a7-a445-ea634688362d",
+      "name": "Short Delay",
+      "typeUuid": "b3a19e19-da13-491d-b569-16ff5cbb109b"
+    },
+    {
+      "index": 10,
+      "uuid": "f9c2aa4f-6001-41a6-a255-ba080fbaba52",
+      "name": "AD",
+      "typeUuid": "5b7ab937-4f09-41fc-a379-983fb597b2ff"
+    },
+    {
+      "index": 11,
+      "uuid": "7430c0e0-ddf6-4d0e-a4d0-827ea1b7776e",
+      "name": "Long Delay",
+      "typeUuid": "b3a19e19-da13-491d-b569-16ff5cbb109b"
+    },
+    {
+      "index": 12,
+      "uuid": "0825dd2b-8f14-46a3-9d08-6ecc1881752b",
+      "name": "Gates",
+      "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635"
+    },
+    {
+      "index": 13,
+      "uuid": "9c693823-f6a5-4497-b641-a4e9686dcc48",
+      "name": "AD",
+      "typeUuid": "5b7ab937-4f09-41fc-a379-983fb597b2ff"
+    },
+    {
+      "index": 14,
+      "uuid": "ab2921c9-6689-4aa2-ae01-6c4ea1c3adb1",
+      "name": "Transport",
+      "typeUuid": "997869ea-e649-4ac8-865e-bd4ac9e7b2a2"
+    },
+    {
+      "index": 15,
+      "uuid": "850a70af-1328-4640-b7e2-c340b41c7a5c",
+      "name": "Comment",
+      "typeUuid": "b297dabd-144e-4106-b8da-15d08fa6b124"
+    }
+  ],
+  "cables": [],
+  "classes": [
+    "module",
+    "module_contents",
+    "module_grid"
+  ],
+  "scope": "Module membership, names, and type UUIDs only. Cables and contents are not covered.",
+  "paired": true,
+  "additions": [],
+  "schemas": 2,
+  "captures": 2,
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 5
+    }
+  ],
+  "measurements": [
+    {
+      "queryWork": 1324,
+      "graphWork": 130,
+      "bytes": 16134,
+      "documentMs": 3.080167,
+      "heapUsedBefore": 752877568,
+      "heapUsedAfter": 752877568
+    },
+    {
+      "queryWork": 1324,
+      "graphWork": 130,
+      "bytes": 16133,
+      "documentMs": 1.085708,
+      "heapUsedBefore": 754974720,
+      "heapUsedAfter": 754974720
+    }
+  ],
+  "verdict": "projected-read-agrees"
+}

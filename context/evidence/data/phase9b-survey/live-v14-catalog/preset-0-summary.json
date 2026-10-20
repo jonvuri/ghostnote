@@ -1,0 +1,75 @@
+{
+  "complete": true,
+  "moduleCount": 4,
+  "projectedAudioCableCount": null,
+  "modules": [
+    {
+      "index": 0,
+      "uuid": "2e9a41b9-10f2-464c-a79d-9bec8ee34a64",
+      "name": "Sine",
+      "typeUuid": "ca05aebd-ecaf-4d57-b0f6-c04ce81674c4"
+    },
+    {
+      "index": 1,
+      "uuid": "f76aae92-da82-4b26-b05a-bf329be83938",
+      "name": "Amplify",
+      "typeUuid": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2"
+    },
+    {
+      "index": 2,
+      "uuid": "49ace987-77c1-445c-9019-57775effddf6",
+      "name": "Audio Out",
+      "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6"
+    },
+    {
+      "index": 3,
+      "uuid": "56e9d945-5721-4523-86af-4f69aab81514",
+      "name": "Amplify",
+      "typeUuid": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2"
+    }
+  ],
+  "cables": [],
+  "classes": [
+    "module",
+    "module_contents",
+    "module_grid"
+  ],
+  "scope": "Module membership, names, and type UUIDs only. Cables and contents are not covered.",
+  "paired": true,
+  "additions": [],
+  "schemas": 2,
+  "captures": 2,
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 7
+    }
+  ],
+  "measurements": [
+    {
+      "queryWork": 424,
+      "graphWork": 34,
+      "bytes": 4414,
+      "documentMs": 1.234375,
+      "heapUsedBefore": 622854144,
+      "heapUsedAfter": 622854144
+    },
+    {
+      "queryWork": 424,
+      "graphWork": 34,
+      "bytes": 4414,
+      "documentMs": 0.760792,
+      "heapUsedBefore": 622854144,
+      "heapUsedAfter": 622854144
+    }
+  ],
+  "verdict": "projected-read-agrees"
+}

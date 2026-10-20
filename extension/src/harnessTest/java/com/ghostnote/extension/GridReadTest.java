@@ -104,6 +104,7 @@ public final class GridReadTest {
         GridDetachedFactoryTest.run();
         GridAttachmentTest.run();
         GridEngineTest.run();
+        GridSurveyTest.run();
         require(RuntimeProfile.PROBE.includes("probe.gridModuleAttach"));
         require(!RuntimeProfile.NORMAL.includes("probe.gridModuleAttach"));
         require(!RuntimeProfile.CAPTURE.includes("probe.gridModuleAttach"));

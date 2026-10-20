@@ -1,0 +1,392 @@
+{
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "method": "javap -p; exact member type/arguments and static modifier; no host invocation",
+  "memberCount": 64,
+  "classCount": 27,
+  "checks": [
+    {
+      "class": "com.bitwig.ramona.core.HEV",
+      "member": "mW_(): cYx",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "cXV",
+      "member": "pea(): int",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "cXZ",
+      "member": "lSJ(): String",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "cXV",
+      "member": "ciZ(): List",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "cYs",
+      "member": "QiZ(): int",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "cYF",
+      "member": "nM_(): boolean",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.ramona.serial.vWM",
+      "member": "ffA(cYF,R.HEV): boolean",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.ramona.serial.vWM",
+      "member": "cG3: S.vWM",
+      "signatureMatches": true,
+      "static": true
+    },
+    {
+      "class": "cYF",
+      "member": "eOi(R.HEV): Object",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "cYH",
+      "member": "wi2(R.HEV): int",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "cYH",
+      "member": "eOi(R.HEV,int): R.FZ1",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "ccA",
+      "member": "kyi(double): void",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.UL",
+      "member": "D1G(): D.yWH",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.UL",
+      "member": "ffA(a): void",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.had",
+      "member": "Fuu(): D.cbl",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.had",
+      "member": "qON(): void",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.DbL",
+      "member": "pvN(UUID): D.DbL",
+      "signatureMatches": true,
+      "static": true
+    },
+    {
+      "class": "com.bitwig.ramona.core.HEV",
+      "member": "I_(): R.HEV",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.ramona.core.HEV",
+      "member": "dpx(String): List",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.ramona.core.HEV",
+      "member": "J_(): boolean",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.ramona.core.HEV",
+      "member": "dC_(): void",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.DbL",
+      "member": "Fuu(): D.cbl",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.OEf",
+      "member": "VEb(): UUID",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.OEf",
+      "member": "kyi: D.XuU",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.OEf",
+      "member": "rdo: qOW",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.NHx",
+      "member": "eJS(): List",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.NHx",
+      "member": "vl(): int",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.DtR",
+      "member": "cI_(): int",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.DtR",
+      "member": "kyi(): int",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.QHo",
+      "member": "pfb(): int",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.QHo",
+      "member": "rdo(): int",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.ramona.core.ikl",
+      "member": "mSv(): R.uX1",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.ramona.core.uX1",
+      "member": "MkF(): boolean",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.ramona.core.uX1",
+      "member": "Ode(): R.Ibf",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "cZl",
+      "member": "ffA(R.ikl): cZl",
+      "signatureMatches": true,
+      "static": true
+    },
+    {
+      "class": "com.bitwig.ramona.core.Ibf",
+      "member": "NaF(): String",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "daR",
+      "member": "eOi(): boolean",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "daR",
+      "member": "NaF(): cZv",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "cZl",
+      "member": "jBn(): cZv",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "cZl",
+      "member": "EbT(): boolean",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "cZl",
+      "member": "Mkn(): boolean",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.gOr",
+      "member": "ffA(Collection): String",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.ramona.core.ikl",
+      "member": "ffA(String,R.wfl[]): boolean",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.ramona.core.ikl",
+      "member": "hoE(): boolean",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.gOr",
+      "member": "aJp(): void",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.gOr",
+      "member": "ffA(Collection,int,int,boolean,D.RHk): void",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.ramona.core.Ibf",
+      "member": "SRu: Stack",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.ramona.core.Ibf",
+      "member": "pvN: int",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.ramona.core.Ibf",
+      "member": "QiZ: int",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.ramona.core.Ibf",
+      "member": "wi2: int",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.ramona.core.Ibf",
+      "member": "MkF: Set",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "cZl",
+      "member": "W2P: Map",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.gOr",
+      "member": "pvN: cZv",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.device.NHx",
+      "member": "kG: Map",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "nST",
+      "member": "ffA: Tu",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "YJr",
+      "member": "JD1: List",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "YJr",
+      "member": "GC: rez",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "QAi",
+      "member": "pvN(): R.HEV",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.ramona.core.HEV",
+      "member": "WKy(): int",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.ramona.core.uX1",
+      "member": "ffA(int): R.HEV",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.Ymq",
+      "member": "AAO(): rjH",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "com.bitwig.flt.document.core.master.Svr",
+      "member": "jnZ(): cYQ",
+      "signatureMatches": true,
+      "static": false
+    },
+    {
+      "class": "rjH",
+      "member": "cG3: rjH",
+      "signatureMatches": true,
+      "static": true
+    },
+    {
+      "class": "rjH",
+      "member": "ffA: rjH",
+      "signatureMatches": true,
+      "static": true
+    }
+  ]
+}

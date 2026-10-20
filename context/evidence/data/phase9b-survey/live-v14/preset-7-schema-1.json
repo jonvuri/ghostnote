@@ -1,0 +1,1795 @@
+{
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    }
+  ],
+  "marker": "9b-grid-survey-v14",
+  "epoch": "e7feb53f-66d6-412c-bea6-ec5f62a97227",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "queueNanos": 104708,
+  "heapUsedBefore": 1067450368,
+  "schema": {
+    "className": "device_contents",
+    "classId": 151,
+    "runtimeClass": "com.bitwig.flt.document.core.master.device.esS",
+    "scope": "one-object schema and child headers; no scalar values or semantic gate",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 228,
+        "name": "in_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 229,
+        "name": "out_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 6194,
+        "name": "settings",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 173,
+        "name": "child_components",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 59,
+        "children": [
+          {
+            "className": "polyphonic_note_voice_atom",
+            "classId": 350,
+            "runtimeClass": "c3U",
+            "index": 0
+          },
+          {
+            "className": "audio_voice_combiner_atom",
+            "classId": 313,
+            "runtimeClass": "PAA",
+            "index": 1
+          },
+          {
+            "className": "nested_device_chain_slot",
+            "classId": 587,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.EiB",
+            "index": 2
+          },
+          {
+            "className": "nested_device_chain_slot",
+            "classId": 587,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.EiB",
+            "index": 3
+          },
+          {
+            "className": "note_delay_compensation_atom",
+            "classId": 1435,
+            "runtimeClass": "Aot",
+            "index": 4
+          },
+          {
+            "className": "module_grid",
+            "classId": 1901,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.gOr",
+            "index": 5
+          },
+          {
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "index": 6
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 7
+          },
+          {
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "index": 8
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 9
+          },
+          {
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "index": 10
+          },
+          {
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "index": 11
+          },
+          {
+            "className": "device_audio_output_collector_atom",
+            "classId": 3336,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DCg",
+            "index": 12
+          },
+          {
+            "className": "device_audio_output_collector_atom",
+            "classId": 3336,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DCg",
+            "index": 13
+          },
+          {
+            "className": "processing_delay_placeholder_component",
+            "classId": 1437,
+            "runtimeClass": "YoM",
+            "index": 14
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 15
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 16
+          },
+          {
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "index": 17
+          },
+          {
+            "className": "note_source_atom",
+            "classId": 3440,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.shO",
+            "index": 18
+          },
+          {
+            "className": "note_source_atom",
+            "classId": 3440,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.shO",
+            "index": 19
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 20
+          },
+          {
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "index": 21
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 22
+          },
+          {
+            "className": "integer_value_atom",
+            "classId": 394,
+            "runtimeClass": "elR",
+            "index": 23
+          },
+          {
+            "className": "integer_value_atom",
+            "classId": 394,
+            "runtimeClass": "elR",
+            "index": 24
+          },
+          {
+            "className": "indexed_value_atom",
+            "classId": 180,
+            "runtimeClass": "vNR",
+            "index": 25
+          },
+          {
+            "className": "transport_component",
+            "classId": 1839,
+            "runtimeClass": "ftf",
+            "index": 26
+          },
+          {
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "index": 27
+          },
+          {
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "index": 28
+          },
+          {
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "index": 29
+          },
+          {
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "index": 30
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 31
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 32
+          },
+          {
+            "className": "processing_delay_placeholder_component",
+            "classId": 1437,
+            "runtimeClass": "YoM",
+            "index": 33
+          },
+          {
+            "className": "note_delay_compensation_atom",
+            "classId": 1435,
+            "runtimeClass": "Aot",
+            "index": 34
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 35
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 36
+          },
+          {
+            "className": "delay_compensation_atom",
+            "classId": 1371,
+            "runtimeClass": "gUY",
+            "index": 37
+          },
+          {
+            "className": "note_sidechain_routing_component",
+            "classId": 860,
+            "runtimeClass": "aPe",
+            "index": 38
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 39
+          },
+          {
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "index": 40
+          },
+          {
+            "className": "device_note_output_collector_atom",
+            "classId": 4290,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.hqz",
+            "index": 41
+          },
+          {
+            "className": "note_voice_combiner_atom",
+            "classId": 4291,
+            "runtimeClass": "BDc",
+            "index": 42
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 43
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 44
+          },
+          {
+            "className": "note_delay_compensation_atom",
+            "classId": 1435,
+            "runtimeClass": "Aot",
+            "index": 45
+          },
+          {
+            "className": "note_delay_compensation_atom",
+            "classId": 1435,
+            "runtimeClass": "Aot",
+            "index": 46
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 47
+          },
+          {
+            "className": "int_source_atom",
+            "classId": 4645,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.dbF",
+            "index": 48
+          },
+          {
+            "className": "int_source_atom",
+            "classId": 4645,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.dbF",
+            "index": 49
+          },
+          {
+            "className": "ahdsr_atom",
+            "classId": 466,
+            "runtimeClass": "mvi",
+            "index": 50
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 51
+          },
+          {
+            "className": "constant_value_atom",
+            "classId": 314,
+            "runtimeClass": "Xdx",
+            "index": 52
+          },
+          {
+            "className": "constant_value_atom",
+            "classId": 314,
+            "runtimeClass": "Xdx",
+            "index": 53
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 54
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 55
+          },
+          {
+            "className": "audio_switcher_atom",
+            "classId": 401,
+            "runtimeClass": "zYG",
+            "index": 56
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 57
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 58
+          }
+        ]
+      },
+      {
+        "id": 6213,
+        "name": "panels",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 3,
+        "children": [
+          {
+            "className": "panel",
+            "classId": 1680,
+            "runtimeClass": "fMM",
+            "index": 0
+          },
+          {
+            "className": "panel",
+            "classId": 1680,
+            "runtimeClass": "fMM",
+            "index": 1
+          },
+          {
+            "className": "panel",
+            "classId": 1680,
+            "runtimeClass": "fMM",
+            "index": 2
+          }
+        ]
+      },
+      {
+        "id": 177,
+        "name": "proxy_in_ports",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 2,
+        "children": [
+          {
+            "className": "proxy_in_port_component",
+            "classId": 154,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.aqp",
+            "index": 0
+          },
+          {
+            "className": "proxy_in_port_component",
+            "classId": 154,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.aqp",
+            "index": 1
+          }
+        ]
+      },
+      {
+        "id": 178,
+        "name": "proxy_out_ports",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 2,
+        "children": [
+          {
+            "className": "proxy_out_port_component",
+            "classId": 50,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.TWF",
+            "index": 0
+          },
+          {
+            "className": "proxy_out_port_component",
+            "classId": 50,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.TWF",
+            "index": 1
+          }
+        ]
+      },
+      {
+        "id": 181,
+        "name": "device_editor_display_settings",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "device_editor_display_settings",
+            "classId": 224,
+            "runtimeClass": "fMl",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 182,
+        "name": "shared_resources",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 6566,
+        "name": "fft_order",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 11047,
+        "name": "analysis_fft_order",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 11110,
+        "name": "analysis_fft_fall_speed",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6834,
+        "name": "context_menu_panel",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 9820,
+        "name": "inspector_panel",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "panel",
+            "classId": 1680,
+            "runtimeClass": "fMM",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 13647,
+        "name": "device_revision",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6199,
+        "name": "components_to_execute",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 170,
+        "children": [
+          {
+            "className": "proxy_in_port_component",
+            "classId": 154,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.aqp",
+            "index": 0
+          },
+          {
+            "className": "proxy_in_port_component",
+            "classId": 154,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.aqp",
+            "index": 1
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 2
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 3
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 4
+          },
+          {
+            "className": "indexed_value_atom",
+            "classId": 180,
+            "runtimeClass": "vNR",
+            "index": 5
+          },
+          {
+            "className": "indexed_value_atom",
+            "classId": 180,
+            "runtimeClass": "vNR",
+            "index": 6
+          },
+          {
+            "className": "integer_value_atom",
+            "classId": 394,
+            "runtimeClass": "elR",
+            "index": 7
+          },
+          {
+            "className": "data_array_component",
+            "classId": 1870,
+            "runtimeClass": "USc",
+            "index": 8
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 9
+          },
+          {
+            "className": "transport_component",
+            "classId": 1839,
+            "runtimeClass": "ftf",
+            "index": 10
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 11
+          },
+          {
+            "className": "indexed_value_atom",
+            "classId": 180,
+            "runtimeClass": "vNR",
+            "index": 12
+          },
+          {
+            "className": "trigger_atom",
+            "classId": 239,
+            "runtimeClass": "GnQ",
+            "index": 13
+          },
+          {
+            "className": "trigger_atom",
+            "classId": 239,
+            "runtimeClass": "GnQ",
+            "index": 14
+          },
+          {
+            "className": "trigger_atom",
+            "classId": 239,
+            "runtimeClass": "GnQ",
+            "index": 15
+          },
+          {
+            "className": "trigger_atom",
+            "classId": 239,
+            "runtimeClass": "GnQ",
+            "index": 16
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 17
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 18
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 19
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 20
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 21
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 22
+          },
+          {
+            "className": "indexed_value_atom",
+            "classId": 180,
+            "runtimeClass": "vNR",
+            "index": 23
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 24
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 25
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 26
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 27
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 28
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 29
+          },
+          {
+            "className": "indexed_value_atom",
+            "classId": 180,
+            "runtimeClass": "vNR",
+            "index": 30
+          },
+          {
+            "className": "integer_value_atom",
+            "classId": 394,
+            "runtimeClass": "elR",
+            "index": 31
+          },
+          {
+            "className": "data_array_component",
+            "classId": 1870,
+            "runtimeClass": "USc",
+            "index": 32
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 33
+          },
+          {
+            "className": "transport_component",
+            "classId": 1839,
+            "runtimeClass": "ftf",
+            "index": 34
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 35
+          },
+          {
+            "className": "indexed_value_atom",
+            "classId": 180,
+            "runtimeClass": "vNR",
+            "index": 36
+          },
+          {
+            "className": "trigger_atom",
+            "classId": 239,
+            "runtimeClass": "GnQ",
+            "index": 37
+          },
+          {
+            "className": "trigger_atom",
+            "classId": 239,
+            "runtimeClass": "GnQ",
+            "index": 38
+          },
+          {
+            "className": "trigger_atom",
+            "classId": 239,
+            "runtimeClass": "GnQ",
+            "index": 39
+          },
+          {
+            "className": "trigger_atom",
+            "classId": 239,
+            "runtimeClass": "GnQ",
+            "index": 40
+          },
+          {
+            "className": "integer_value_atom",
+            "classId": 394,
+            "runtimeClass": "elR",
+            "index": 41
+          },
+          {
+            "className": "data_array_component",
+            "classId": 1870,
+            "runtimeClass": "USc",
+            "index": 42
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 43
+          },
+          {
+            "className": "transport_component",
+            "classId": 1839,
+            "runtimeClass": "ftf",
+            "index": 44
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 45
+          },
+          {
+            "className": "indexed_value_atom",
+            "classId": 180,
+            "runtimeClass": "vNR",
+            "index": 46
+          },
+          {
+            "className": "trigger_atom",
+            "classId": 239,
+            "runtimeClass": "GnQ",
+            "index": 47
+          },
+          {
+            "className": "trigger_atom",
+            "classId": 239,
+            "runtimeClass": "GnQ",
+            "index": 48
+          },
+          {
+            "className": "trigger_atom",
+            "classId": 239,
+            "runtimeClass": "GnQ",
+            "index": 49
+          },
+          {
+            "className": "trigger_atom",
+            "classId": 239,
+            "runtimeClass": "GnQ",
+            "index": 50
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 51
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 52
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 53
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 54
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 55
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 56
+          },
+          {
+            "className": "indexed_value_atom",
+            "classId": 180,
+            "runtimeClass": "vNR",
+            "index": 57
+          },
+          {
+            "className": "integer_value_atom",
+            "classId": 394,
+            "runtimeClass": "elR",
+            "index": 58
+          },
+          {
+            "className": "data_array_component",
+            "classId": 1870,
+            "runtimeClass": "USc",
+            "index": 59
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 60
+          },
+          {
+            "className": "transport_component",
+            "classId": 1839,
+            "runtimeClass": "ftf",
+            "index": 61
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 62
+          },
+          {
+            "className": "indexed_value_atom",
+            "classId": 180,
+            "runtimeClass": "vNR",
+            "index": 63
+          },
+          {
+            "className": "trigger_atom",
+            "classId": 239,
+            "runtimeClass": "GnQ",
+            "index": 64
+          },
+          {
+            "className": "trigger_atom",
+            "classId": 239,
+            "runtimeClass": "GnQ",
+            "index": 65
+          },
+          {
+            "className": "trigger_atom",
+            "classId": 239,
+            "runtimeClass": "GnQ",
+            "index": 66
+          },
+          {
+            "className": "trigger_atom",
+            "classId": 239,
+            "runtimeClass": "GnQ",
+            "index": 67
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 68
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 69
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 70
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 71
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 72
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 73
+          },
+          {
+            "className": "indexed_value_atom",
+            "classId": 180,
+            "runtimeClass": "vNR",
+            "index": 74
+          },
+          {
+            "className": "transport_component",
+            "classId": 1839,
+            "runtimeClass": "ftf",
+            "index": 75
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 76
+          },
+          {
+            "className": "integer_value_atom",
+            "classId": 394,
+            "runtimeClass": "elR",
+            "index": 77
+          },
+          {
+            "className": "integer_value_atom",
+            "classId": 394,
+            "runtimeClass": "elR",
+            "index": 78
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 79
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 80
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 81
+          },
+          {
+            "className": "integer_value_atom",
+            "classId": 394,
+            "runtimeClass": "elR",
+            "index": 82
+          },
+          {
+            "className": "integer_value_atom",
+            "classId": 394,
+            "runtimeClass": "elR",
+            "index": 83
+          },
+          {
+            "className": "indexed_value_atom",
+            "classId": 180,
+            "runtimeClass": "vNR",
+            "index": 84
+          },
+          {
+            "className": "transport_component",
+            "classId": 1839,
+            "runtimeClass": "ftf",
+            "index": 85
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 86
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 87
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 88
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 89
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 90
+          },
+          {
+            "className": "constant_value_atom",
+            "classId": 314,
+            "runtimeClass": "Xdx",
+            "index": 91
+          },
+          {
+            "className": "constant_value_atom",
+            "classId": 314,
+            "runtimeClass": "Xdx",
+            "index": 92
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 93
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 94
+          },
+          {
+            "className": "bipolar_toggleable_decimal_value_atom",
+            "classId": 1763,
+            "runtimeClass": "tqm",
+            "index": 95
+          },
+          {
+            "className": "bipolar_toggleable_decimal_value_atom",
+            "classId": 1763,
+            "runtimeClass": "tqm",
+            "index": 96
+          },
+          {
+            "className": "delay_compensation_atom",
+            "classId": 1371,
+            "runtimeClass": "gUY",
+            "index": 97
+          },
+          {
+            "className": "note_sidechain_routing_component",
+            "classId": 860,
+            "runtimeClass": "aPe",
+            "index": 98
+          },
+          {
+            "className": "note_delay_compensation_atom",
+            "classId": 1435,
+            "runtimeClass": "Aot",
+            "index": 99
+          },
+          {
+            "className": "last_voice_int_event_atom",
+            "classId": 2076,
+            "runtimeClass": "inq",
+            "index": 100
+          },
+          {
+            "className": "last_voice_int_event_atom",
+            "classId": 2076,
+            "runtimeClass": "inq",
+            "index": 101
+          },
+          {
+            "className": "last_voice_int_event_atom",
+            "classId": 2076,
+            "runtimeClass": "inq",
+            "index": 102
+          },
+          {
+            "className": "last_voice_int_event_atom",
+            "classId": 2076,
+            "runtimeClass": "inq",
+            "index": 103
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 104
+          },
+          {
+            "className": "nameable_modulation_source_atom",
+            "classId": 1929,
+            "runtimeClass": "c3d",
+            "index": 105
+          },
+          {
+            "className": "nameable_modulation_source_atom",
+            "classId": 1929,
+            "runtimeClass": "c3d",
+            "index": 106
+          },
+          {
+            "className": "nested_device_chain_slot",
+            "classId": 587,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.EiB",
+            "index": 107
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 108
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 109
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 110
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 111
+          },
+          {
+            "className": "indexed_value_atom",
+            "classId": 180,
+            "runtimeClass": "vNR",
+            "index": 112
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 113
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 114
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 115
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 116
+          },
+          {
+            "className": "note_delay_compensation_atom",
+            "classId": 1435,
+            "runtimeClass": "Aot",
+            "index": 117
+          },
+          {
+            "className": "processing_delay_placeholder_component",
+            "classId": 1437,
+            "runtimeClass": "YoM",
+            "index": 118
+          },
+          {
+            "className": "note_delay_compensation_atom",
+            "classId": 1435,
+            "runtimeClass": "Aot",
+            "index": 119
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 120
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 121
+          },
+          {
+            "className": "polyphonic_note_voice_atom",
+            "classId": 350,
+            "runtimeClass": "c3U",
+            "index": 122
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 123
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 124
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 125
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 126
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 127
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 128
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 129
+          },
+          {
+            "className": "note_voice_combiner_atom",
+            "classId": 4291,
+            "runtimeClass": "BDc",
+            "index": 130
+          },
+          {
+            "className": "ahdsr_atom",
+            "classId": 466,
+            "runtimeClass": "mvi",
+            "index": 131
+          },
+          {
+            "className": "sum_atom",
+            "classId": 305,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.GYV",
+            "index": 132
+          },
+          {
+            "className": "audio_voice_sum_atom",
+            "classId": 3469,
+            "runtimeClass": "Hki",
+            "index": 133
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 134
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 135
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 136
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 137
+          },
+          {
+            "className": "note_delay_compensation_atom",
+            "classId": 1435,
+            "runtimeClass": "Aot",
+            "index": 138
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 139
+          },
+          {
+            "className": "modulation_source_atom",
+            "classId": 766,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.NDn",
+            "index": 140
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 141
+          },
+          {
+            "className": "modulation_source_atom",
+            "classId": 766,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.NDn",
+            "index": 142
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 143
+          },
+          {
+            "className": "modulation_source_atom",
+            "classId": 766,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.NDn",
+            "index": 144
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 145
+          },
+          {
+            "className": "sum_atom",
+            "classId": 305,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.GYV",
+            "index": 146
+          },
+          {
+            "className": "modulation_source_atom",
+            "classId": 766,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.NDn",
+            "index": 147
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 148
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 149
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 150
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 151
+          },
+          {
+            "className": "proxy_out_port_component",
+            "classId": 50,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.TWF",
+            "index": 152
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 153
+          },
+          {
+            "className": "audio_switcher_atom",
+            "classId": 401,
+            "runtimeClass": "zYG",
+            "index": 154
+          },
+          {
+            "className": "audio_voice_combiner_atom",
+            "classId": 313,
+            "runtimeClass": "PAA",
+            "index": 155
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 156
+          },
+          {
+            "className": "processing_delay_placeholder_component",
+            "classId": 1437,
+            "runtimeClass": "YoM",
+            "index": 157
+          },
+          {
+            "className": "nested_device_chain_slot",
+            "classId": 587,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.EiB",
+            "index": 158
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 159
+          },
+          {
+            "className": "proxy_out_port_component",
+            "classId": 50,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.TWF",
+            "index": 160
+          },
+          {
+            "className": "polyphonic_observer_atom",
+            "classId": 1815,
+            "runtimeClass": "Ngv",
+            "index": 161
+          },
+          {
+            "className": "polyphonic_observer_atom",
+            "classId": 1815,
+            "runtimeClass": "Ngv",
+            "index": 162
+          },
+          {
+            "className": "polyphonic_observer_atom",
+            "classId": 1815,
+            "runtimeClass": "Ngv",
+            "index": 163
+          },
+          {
+            "className": "polyphonic_observer_atom",
+            "classId": 1815,
+            "runtimeClass": "Ngv",
+            "index": 164
+          },
+          {
+            "className": "polyphonic_observer_atom",
+            "classId": 1815,
+            "runtimeClass": "Ngv",
+            "index": 165
+          },
+          {
+            "className": "polyphonic_observer_atom",
+            "classId": 1815,
+            "runtimeClass": "Ngv",
+            "index": 166
+          },
+          {
+            "className": "polyphonic_observer_atom",
+            "classId": 1815,
+            "runtimeClass": "Ngv",
+            "index": 167
+          },
+          {
+            "className": "polyphonic_observer_atom",
+            "classId": 1815,
+            "runtimeClass": "Ngv",
+            "index": 168
+          },
+          {
+            "className": "polyphonic_observer_atom",
+            "classId": 1815,
+            "runtimeClass": "Ngv",
+            "index": 169
+          }
+        ]
+      },
+      {
+        "id": 1977,
+        "name": "sleep_level_threshold",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 1978,
+        "name": "sleep_level_timeout",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 10568,
+        "name": "processing_strategy",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 14608,
+        "name": "prevent_sleep",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 14932,
+        "name": "is_observed",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 179,
+        "name": "allocated_voices",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 10513,
+        "name": "true_mono",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 385,
+        "name": "device_UUID",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 386,
+        "name": "device_name",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 2057,
+        "name": "description",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 387,
+        "name": "creator",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 388,
+        "name": "comment",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 389,
+        "name": "keywords",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 390,
+        "name": "category",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 391,
+        "name": "device_type",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 4846,
+        "name": "suggest_for_note_input",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 4847,
+        "name": "suggest_for_audio_input",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 392,
+        "name": "has_been_modified",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6195,
+        "name": "audio_proxy_in_port",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 6196,
+        "name": "audio_proxy_out_port",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 6197,
+        "name": "note_proxy_in_port",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 6198,
+        "name": "note_proxy_out_port",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 13354,
+        "name": "color_tint",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6417,
+        "name": "header_area_panel",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 7549,
+        "name": "maximized_panel",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "panel",
+            "classId": 1680,
+            "runtimeClass": "fMM",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 10713,
+        "name": "synth_display_panel",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 10727,
+        "name": "synth_overview_panel",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 10992,
+        "name": "mixer_eq_panel",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 9657,
+        "name": "is_maximized_panel_shown",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 10663,
+        "name": "is_allowed_to_show_maximized_panel",
+        "serializerIncluded": true,
+        "relationship": false
+      }
+    ],
+    "work": 345,
+    "complete": true
+  },
+  "queryWork": 345,
+  "heapUsedAfter": 1067450368,
+  "documentTaskNanos": 1144292,
+  "completionNanos": 22273875
+}

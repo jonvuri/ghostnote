@@ -1,0 +1,29 @@
+{
+  "candidate": {
+    "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Humongous FeedPad.bwpreset",
+    "flavour": "Poly Grid",
+    "role": "Possible large graph; 30 modules is unverified",
+    "loaded": false
+  },
+  "target": {
+    "project": "gn-grid-spike",
+    "trackId": "b6baac91-8946-46dc-84bc-aa05d6a9bd43",
+    "trackName": "gn-9b-survey-86d7e03f",
+    "deviceIndex": 0,
+    "deviceName": "Poly Grid"
+  },
+  "devices": {
+    "devices": [
+      {
+        "index": 0,
+        "name": "Poly Grid",
+        "enabled": true
+      }
+    ],
+    "count": 1,
+    "itemCount": 1,
+    "trackChannelId": "b6baac91-8946-46dc-84bc-aa05d6a9bd43",
+    "trackPosition": 1,
+    "bankSize": 16
+  }
+}

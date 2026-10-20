@@ -1,0 +1,48 @@
+{
+  "complete": false,
+  "errors": [
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "schema-work-or-time-limit"
+  ],
+  "partialNodes": 163,
+  "paired": true,
+  "additions": [],
+  "schemas": 25,
+  "captures": 2,
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 7
+    }
+  ],
+  "measurements": [
+    {
+      "queryWork": 4097,
+      "graphWork": 878,
+      "bytes": 109350,
+      "documentMs": 3.436083,
+      "heapUsedBefore": 1451229184,
+      "heapUsedAfter": 1457520640
+    },
+    {
+      "queryWork": 4097,
+      "graphWork": 878,
+      "bytes": 109350,
+      "documentMs": 3.416,
+      "heapUsedBefore": 1457520640,
+      "heapUsedAfter": 1463812096
+    }
+  ],
+  "verdict": "incomplete-read-recorded"
+}

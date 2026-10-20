@@ -1,0 +1,205 @@
+{
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 5
+    },
+    {
+      "parentClass": "module_grid",
+      "propertyId": 6428,
+      "propertyName": "auxiliary_devices",
+      "index": 8
+    },
+    {
+      "parentClass": "module",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "module_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 14
+    }
+  ],
+  "marker": "9b-grid-survey-v14",
+  "epoch": "d7ce3071-4301-48b1-a27e-f8c98e4bcf92",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "queueNanos": 115083,
+  "heapUsedBefore": 905969664,
+  "schema": {
+    "className": "transport_component",
+    "classId": 1839,
+    "runtimeClass": "ftf",
+    "scope": "one-object schema and child headers; no scalar values or semantic gate",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 228,
+        "name": "in_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 229,
+        "name": "out_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 16,
+        "children": [
+          {
+            "className": "boolean_port",
+            "classId": 98,
+            "runtimeClass": "FEG",
+            "index": 0
+          },
+          {
+            "className": "audio_port",
+            "classId": 242,
+            "runtimeClass": "Kdl",
+            "index": 1
+          },
+          {
+            "className": "audio_port",
+            "classId": 242,
+            "runtimeClass": "Kdl",
+            "index": 2
+          },
+          {
+            "className": "audio_port",
+            "classId": 242,
+            "runtimeClass": "Kdl",
+            "index": 3
+          },
+          {
+            "className": "audio_port",
+            "classId": 242,
+            "runtimeClass": "Kdl",
+            "index": 4
+          },
+          {
+            "className": "decimal_port",
+            "classId": 254,
+            "runtimeClass": "tI1",
+            "index": 5
+          },
+          {
+            "className": "audio_port",
+            "classId": 242,
+            "runtimeClass": "Kdl",
+            "index": 6
+          },
+          {
+            "className": "audio_port",
+            "classId": 242,
+            "runtimeClass": "Kdl",
+            "index": 7
+          },
+          {
+            "className": "boolean_port",
+            "classId": 98,
+            "runtimeClass": "FEG",
+            "index": 8
+          },
+          {
+            "className": "audio_port",
+            "classId": 242,
+            "runtimeClass": "Kdl",
+            "index": 9
+          },
+          {
+            "className": "boolean_port",
+            "classId": 98,
+            "runtimeClass": "FEG",
+            "index": 10
+          },
+          {
+            "className": "audio_port",
+            "classId": 242,
+            "runtimeClass": "Kdl",
+            "index": 11
+          },
+          {
+            "className": "boolean_port",
+            "classId": 98,
+            "runtimeClass": "FEG",
+            "index": 12
+          },
+          {
+            "className": "audio_port",
+            "classId": 242,
+            "runtimeClass": "Kdl",
+            "index": 13
+          },
+          {
+            "className": "audio_port",
+            "classId": 242,
+            "runtimeClass": "Kdl",
+            "index": 14
+          },
+          {
+            "className": "integer_port",
+            "classId": 219,
+            "runtimeClass": "yxb",
+            "index": 15
+          }
+        ]
+      },
+      {
+        "id": 6194,
+        "name": "settings",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "component_settings",
+            "classId": 236,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 6550,
+        "name": "absolute_delay",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 10070,
+        "name": "use_double_precision_beattime",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 11467,
+        "name": "output_connection_mask",
+        "serializerIncluded": false,
+        "relationship": false
+      }
+    ],
+    "work": 217,
+    "complete": true
+  },
+  "queryWork": 217,
+  "heapUsedAfter": 905969664,
+  "documentTaskNanos": 630583,
+  "completionNanos": 24007958
+}

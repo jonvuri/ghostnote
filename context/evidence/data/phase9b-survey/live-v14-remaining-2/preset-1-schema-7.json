@@ -1,0 +1,125 @@
+{
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 4
+    },
+    {
+      "parentClass": "module_grid",
+      "propertyId": 6428,
+      "propertyName": "auxiliary_devices",
+      "index": 1
+    },
+    {
+      "parentClass": "module",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "module_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 4
+    },
+    {
+      "parentClass": "note_led_atom",
+      "propertyId": 6194,
+      "propertyName": "settings",
+      "index": 0
+    },
+    {
+      "parentClass": "component_settings",
+      "propertyId": 614,
+      "propertyName": "inport_connections",
+      "index": 0
+    }
+  ],
+  "marker": "9b-grid-survey-v14",
+  "epoch": "8b473e6a-6b78-46fa-a4ec-e170194add8f",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "queueNanos": 127750,
+  "heapUsedBefore": 807403520,
+  "schema": {
+    "className": "inport_connection",
+    "classId": 105,
+    "runtimeClass": "com.bitwig.flt.document.core.master.device.Uqf",
+    "scope": "one-object schema and child headers; no scalar values or semantic gate",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 248,
+        "name": "source_component",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 6204,
+        "name": "processable_source_component",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 249,
+        "name": "outport_index",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6397,
+        "name": "engine_outport_index",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 250,
+        "name": "label",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 6443,
+        "name": "unconnected_value",
+        "serializerIncluded": true,
+        "relationship": false
+      }
+    ],
+    "work": 220,
+    "complete": true
+  },
+  "queryWork": 220,
+  "heapUsedAfter": 807403520,
+  "documentTaskNanos": 370208,
+  "completionNanos": 22810208
+}

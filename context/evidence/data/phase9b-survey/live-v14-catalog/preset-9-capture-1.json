@@ -1,0 +1,709 @@
+{
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 5
+    }
+  ],
+  "projection": {
+    "module_grid": [
+      6428
+    ],
+    "module": [
+      15,
+      404,
+      406
+    ],
+    "module_contents": [
+      6369
+    ]
+  },
+  "marker": "9b-grid-survey-v14",
+  "epoch": "0d7e0e49-4adb-4d7d-a40f-b19e7430af48",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "queueNanos": 109333,
+  "heapUsedBefore": 958398464,
+  "graph": {
+    "complete": true,
+    "scope": "explicit property projection; semantic Grid gate not yet proved",
+    "identityScope": "capture-local; no cross-reload identity",
+    "root": 0,
+    "nodes": [
+      {
+        "id": 0,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.gOr",
+        "className": "module_grid",
+        "classId": 1901,
+        "properties": [
+          {
+            "inclusion": "explicit-projection",
+            "id": 6428,
+            "name": "auxiliary_devices",
+            "descriptorClass": "cYy",
+            "kind": "relationship",
+            "count": 10,
+            "refs": [
+              1,
+              3,
+              5,
+              7,
+              9,
+              11,
+              13,
+              15,
+              17,
+              19
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+        "className": "module",
+        "classId": 1902,
+        "properties": [
+          {
+            "inclusion": "explicit-projection",
+            "id": 15,
+            "name": "UUID",
+            "descriptorClass": "cYL",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.util.UUID",
+              "data": "3c3e31df-b322-4c07-b57b-e7c91818159b"
+            }
+          },
+          {
+            "inclusion": "explicit-projection",
+            "id": 404,
+            "name": "device_name",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": "Audio In"
+            }
+          },
+          {
+            "inclusion": "explicit-projection",
+            "id": 406,
+            "name": "device_contents",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              2
+            ]
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Wxc",
+        "className": "module_contents",
+        "classId": 1904,
+        "properties": [
+          {
+            "inclusion": "explicit-projection",
+            "id": 6369,
+            "name": "device_UUID",
+            "descriptorClass": "cYL",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.util.UUID",
+              "data": "b2a6b111-7afd-4c95-b380-6de8125af980"
+            }
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+        "className": "module",
+        "classId": 1902,
+        "properties": [
+          {
+            "inclusion": "explicit-projection",
+            "id": 15,
+            "name": "UUID",
+            "descriptorClass": "cYL",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.util.UUID",
+              "data": "164b0ed2-bb7e-4443-a6f0-04fc7af33e53"
+            }
+          },
+          {
+            "inclusion": "explicit-projection",
+            "id": 404,
+            "name": "device_name",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": "Audio Out"
+            }
+          },
+          {
+            "inclusion": "explicit-projection",
+            "id": 406,
+            "name": "device_contents",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              4
+            ]
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Wxc",
+        "className": "module_contents",
+        "classId": 1904,
+        "properties": [
+          {
+            "inclusion": "explicit-projection",
+            "id": 6369,
+            "name": "device_UUID",
+            "descriptorClass": "cYL",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.util.UUID",
+              "data": "af7b5503-c955-489e-9461-164107d56bb6"
+            }
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+        "className": "module",
+        "classId": 1902,
+        "properties": [
+          {
+            "inclusion": "explicit-projection",
+            "id": 15,
+            "name": "UUID",
+            "descriptorClass": "cYL",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.util.UUID",
+              "data": "9e862d61-fba0-4d5c-a566-1d950b267856"
+            }
+          },
+          {
+            "inclusion": "explicit-projection",
+            "id": 404,
+            "name": "device_name",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": "Triggers"
+            }
+          },
+          {
+            "inclusion": "explicit-projection",
+            "id": 406,
+            "name": "device_contents",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              6
+            ]
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Wxc",
+        "className": "module_contents",
+        "classId": 1904,
+        "properties": [
+          {
+            "inclusion": "explicit-projection",
+            "id": 6369,
+            "name": "device_UUID",
+            "descriptorClass": "cYL",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.util.UUID",
+              "data": "e75916a0-2594-4181-88a4-b19fdb77c0eb"
+            }
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+        "className": "module",
+        "classId": 1902,
+        "properties": [
+          {
+            "inclusion": "explicit-projection",
+            "id": 15,
+            "name": "UUID",
+            "descriptorClass": "cYL",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.util.UUID",
+              "data": "234a4cbe-eb58-4074-8694-14a14d4cc9e4"
+            }
+          },
+          {
+            "inclusion": "explicit-projection",
+            "id": 404,
+            "name": "device_name",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": "Quantize"
+            }
+          },
+          {
+            "inclusion": "explicit-projection",
+            "id": 406,
+            "name": "device_contents",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              8
+            ]
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Wxc",
+        "className": "module_contents",
+        "classId": 1904,
+        "properties": [
+          {
+            "inclusion": "explicit-projection",
+            "id": 6369,
+            "name": "device_UUID",
+            "descriptorClass": "cYL",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.util.UUID",
+              "data": "c1f45a63-edde-4c38-b588-efbd4c1e35ec"
+            }
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+        "className": "module",
+        "classId": 1902,
+        "properties": [
+          {
+            "inclusion": "explicit-projection",
+            "id": 15,
+            "name": "UUID",
+            "descriptorClass": "cYL",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.util.UUID",
+              "data": "e25f2f21-240d-463b-9278-79d135aeaece"
+            }
+          },
+          {
+            "inclusion": "explicit-projection",
+            "id": 404,
+            "name": "device_name",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": "Abs"
+            }
+          },
+          {
+            "inclusion": "explicit-projection",
+            "id": 406,
+            "name": "device_contents",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              10
+            ]
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Wxc",
+        "className": "module_contents",
+        "classId": 1904,
+        "properties": [
+          {
+            "inclusion": "explicit-projection",
+            "id": 6369,
+            "name": "device_UUID",
+            "descriptorClass": "cYL",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.util.UUID",
+              "data": "895470df-c2de-417f-9113-8bb6fe948b6d"
+            }
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+        "className": "module",
+        "classId": 1902,
+        "properties": [
+          {
+            "inclusion": "explicit-projection",
+            "id": 15,
+            "name": "UUID",
+            "descriptorClass": "cYL",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.util.UUID",
+              "data": "36fe1378-2a01-4402-bd21-e3463bf136e0"
+            }
+          },
+          {
+            "inclusion": "explicit-projection",
+            "id": 404,
+            "name": "device_name",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": "Lag"
+            }
+          },
+          {
+            "inclusion": "explicit-projection",
+            "id": 406,
+            "name": "device_contents",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              12
+            ]
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Wxc",
+        "className": "module_contents",
+        "classId": 1904,
+        "properties": [
+          {
+            "inclusion": "explicit-projection",
+            "id": 6369,
+            "name": "device_UUID",
+            "descriptorClass": "cYL",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.util.UUID",
+              "data": "a4d23895-2761-476b-9aad-cbe372d286ea"
+            }
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+        "className": "module",
+        "classId": 1902,
+        "properties": [
+          {
+            "inclusion": "explicit-projection",
+            "id": 15,
+            "name": "UUID",
+            "descriptorClass": "cYL",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.util.UUID",
+              "data": "b11c208b-62df-4657-a265-5c427d4f4da5"
+            }
+          },
+          {
+            "inclusion": "explicit-projection",
+            "id": 404,
+            "name": "device_name",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": "Sample / Hold"
+            }
+          },
+          {
+            "inclusion": "explicit-projection",
+            "id": 406,
+            "name": "device_contents",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              14
+            ]
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Wxc",
+        "className": "module_contents",
+        "classId": 1904,
+        "properties": [
+          {
+            "inclusion": "explicit-projection",
+            "id": 6369,
+            "name": "device_UUID",
+            "descriptorClass": "cYL",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.util.UUID",
+              "data": "8214fd6c-5131-49d2-a9a6-709760a46b82"
+            }
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+        "className": "module",
+        "classId": 1902,
+        "properties": [
+          {
+            "inclusion": "explicit-projection",
+            "id": 15,
+            "name": "UUID",
+            "descriptorClass": "cYL",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.util.UUID",
+              "data": "7b0090ec-fbb6-4275-8edb-64930db1c706"
+            }
+          },
+          {
+            "inclusion": "explicit-projection",
+            "id": 404,
+            "name": "device_name",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": "Stereo Width"
+            }
+          },
+          {
+            "inclusion": "explicit-projection",
+            "id": 406,
+            "name": "device_contents",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              16
+            ]
+          }
+        ]
+      },
+      {
+        "id": 16,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Wxc",
+        "className": "module_contents",
+        "classId": 1904,
+        "properties": [
+          {
+            "inclusion": "explicit-projection",
+            "id": 6369,
+            "name": "device_UUID",
+            "descriptorClass": "cYL",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.util.UUID",
+              "data": "a34edcba-25b3-4f07-86b2-81701b092d66"
+            }
+          }
+        ]
+      },
+      {
+        "id": 17,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+        "className": "module",
+        "classId": 1902,
+        "properties": [
+          {
+            "inclusion": "explicit-projection",
+            "id": 15,
+            "name": "UUID",
+            "descriptorClass": "cYL",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.util.UUID",
+              "data": "12a29d97-948a-439c-9d5c-cd55054f1c20"
+            }
+          },
+          {
+            "inclusion": "explicit-projection",
+            "id": 404,
+            "name": "device_name",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": "Crush"
+            }
+          },
+          {
+            "inclusion": "explicit-projection",
+            "id": 406,
+            "name": "device_contents",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              18
+            ]
+          }
+        ]
+      },
+      {
+        "id": 18,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Wxc",
+        "className": "module_contents",
+        "classId": 1904,
+        "properties": [
+          {
+            "inclusion": "explicit-projection",
+            "id": 6369,
+            "name": "device_UUID",
+            "descriptorClass": "cYL",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.util.UUID",
+              "data": "cfc56753-defc-4324-8a68-bf747ff45508"
+            }
+          }
+        ]
+      },
+      {
+        "id": 19,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+        "className": "module",
+        "classId": 1902,
+        "properties": [
+          {
+            "inclusion": "explicit-projection",
+            "id": 15,
+            "name": "UUID",
+            "descriptorClass": "cYL",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.util.UUID",
+              "data": "cdcce0b0-94f8-4edf-b775-2788c940cca1"
+            }
+          },
+          {
+            "inclusion": "explicit-projection",
+            "id": 404,
+            "name": "device_name",
+            "descriptorClass": "cYK",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.lang.String",
+              "data": "Steppy"
+            }
+          },
+          {
+            "inclusion": "explicit-projection",
+            "id": 406,
+            "name": "device_contents",
+            "descriptorClass": "cYz",
+            "kind": "relationship",
+            "count": 1,
+            "refs": [
+              20
+            ]
+          }
+        ]
+      },
+      {
+        "id": 20,
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Wxc",
+        "className": "module_contents",
+        "classId": 1904,
+        "properties": [
+          {
+            "inclusion": "explicit-projection",
+            "id": 6369,
+            "name": "device_UUID",
+            "descriptorClass": "cYL",
+            "kind": "value",
+            "domain": "unknown",
+            "value": {
+              "type": "java.util.UUID",
+              "data": "0f2a027d-2bc3-4789-8a56-4d079a7e6137"
+            }
+          }
+        ]
+      }
+    ],
+    "errors": [],
+    "errorCount": 0,
+    "work": 82,
+    "documentReadNanos": 541875,
+    "encodedBytes": 10288
+  },
+  "queryWork": 874,
+  "heapUsedAfter": 958398464,
+  "documentTaskNanos": 1508667,
+  "completionNanos": 24176125
+}

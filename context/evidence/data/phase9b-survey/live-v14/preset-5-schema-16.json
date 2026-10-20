@@ -1,0 +1,89 @@
+{
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 7
+    },
+    {
+      "parentClass": "module_grid",
+      "propertyId": 6428,
+      "propertyName": "auxiliary_devices",
+      "index": 1
+    },
+    {
+      "parentClass": "module",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "module_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 4
+    },
+    {
+      "parentClass": "modulation_source_atom",
+      "propertyId": 6194,
+      "propertyName": "settings",
+      "index": 0
+    },
+    {
+      "parentClass": "component_settings",
+      "propertyId": 612,
+      "propertyName": "desktop_settings",
+      "index": 0
+    }
+  ],
+  "marker": "9b-grid-survey-v14",
+  "epoch": "277bccb8-549c-4525-84f8-6bffda126cf1",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "queueNanos": 205000,
+  "heapUsedBefore": 2885681152,
+  "schema": {
+    "className": "desktop_settings",
+    "classId": 17,
+    "runtimeClass": "com.bitwig.flt.document.core.master.device.EeT",
+    "scope": "one-object schema and child headers; no scalar values or semantic gate",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 17,
+        "name": "x",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 18,
+        "name": "y",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 19,
+        "name": "color",
+        "serializerIncluded": true,
+        "relationship": false
+      }
+    ],
+    "work": 219,
+    "complete": true
+  },
+  "queryWork": 219,
+  "heapUsedAfter": 2885681152,
+  "documentTaskNanos": 448625,
+  "completionNanos": 24514125
+}

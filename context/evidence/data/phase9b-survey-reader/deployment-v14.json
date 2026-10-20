@@ -1,0 +1,15 @@
+{
+  "at": "2026-10-20T15:09:57.922906+00:00",
+  "command": "./gradlew copyProbeExtension",
+  "archive": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension",
+  "bytes": 739689,
+  "sha256": "92fc9eb746982c499c42f953035a90aacaf270977c3a9a4a822cf71abbdeb23a",
+  "deployedAtMs": 1792508908280.3347,
+  "runtimeProfile": "phase-8-probe-v1",
+  "methodCount": 118,
+  "methodsHash": "2e939035ea90b8b0",
+  "gridReadProbe": "9b-grid-survey-v14",
+  "operatorReplacementConfirmed": false,
+  "liveHello": "pending operator replacement",
+  "lastObservedRuntime": "V13 in E300"
+}

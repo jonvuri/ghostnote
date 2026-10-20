@@ -1,0 +1,10 @@
+{
+  "marker": "9b-grid-survey-v14",
+  "epoch": "8b473e6a-6b78-46fa-a4ec-e170194add8f",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "queueNanos": 236000,
+  "heapUsedBefore": 754974720,
+  "heapUsedAfter": 754974720,
+  "documentTaskNanos": 142958,
+  "completionNanos": 24915708
+}

@@ -1,0 +1,22 @@
+{
+  "candidate": {
+    "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/FX Grid/Adaptive Crush.bwpreset",
+    "flavour": "FX Grid",
+    "role": "Replacement FX candidate after no named top-level Grid",
+    "loaded": false
+  },
+  "devices": {
+    "devices": [
+      {
+        "index": 0,
+        "name": "FX Grid",
+        "enabled": true
+      }
+    ],
+    "count": 1,
+    "itemCount": 1,
+    "trackChannelId": "ee42f555-d5b1-4294-b7cf-ac5acc2d306c",
+    "trackPosition": 1,
+    "bankSize": 16
+  }
+}

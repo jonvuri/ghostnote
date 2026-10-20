@@ -2,7 +2,7 @@
 title: Ghostnote performance ledger
 kind: reference
 state: active
-updated: 2026-10-19
+updated: 2026-10-20
 parent: ../plan/phase-8/8h-cache-promotion-and-interface-simplification.md
 evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252, E253, E254, E256, E257, E258, E263, E264, E265, E267, E269, E271
 ---
@@ -288,6 +288,47 @@ planner: offline median 2.9 ms for 835 notes and 51.2 ms for 16,384 notes
 
 
 ## Limits
+
+[E302](../evidence/experiments/e302-stock-grid-survey.md) measures V14 on the
+control and stock presets. Control captures take 46.647–49.446 ms, within
+E276's 43.599–50.752 ms range. Broad captures take 41.587–52.908 ms wire and
+1.454–14.018 ms document; stock graphs are incomplete or refused. Catalog
+captures take 45.672–50.491 ms wire and 0.360–3.080 ms document, with
+424–2,449 work units and 4,414–30,860 bytes. A complete 31-module inventory
+fits. Seven read-session calls suffice per successful catalog preset.
+The 13-preset catalog batch uses 1,719 logged calls, totaling 40,694.520 ms
+of call time; concurrent public frames make this distinct from wall time.
+
+The driver now parks both survey cursors before scratch deletion. This adds
+two bounded points, a track read, and a repeated ownership/selection check;
+it prevents the stranded cursor observed after the first batch. Existing
+40-poll bounds apply. Catalog heap deltas are 0–2 MiB; broad deltas are
+2–38 MiB. These process samples do not isolate allocation or peak memory.
+The earlier 8 MiB allowance is not supported as a bound. Session 9b.2a must
+revise the model from focused traversal. No graph cap was raised, and no
+full-stock-graph performance claim is made. Product call budgets stay fixed.
+
+[E301](../evidence/experiments/e301-reusable-grid-survey-reader.md) prepares
+reusable V14 reads under the unchanged `probe.gridRead` method. Descriptor
+traversal and graph limits remain unchanged. The driver adds schema
+discovery and scratch setup: at most 64 schemas and 34 captures per preset,
+plus bind/status/release (101 read-session calls). The
+[session model](../plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b2--scratch-reader-and-survey-continuation)
+sets fixture/poll bounds and cites existing public setup costs. The earlier
+8 MiB temporary-host-heap allowance per capture is a planning figure.
+This was an offline model at E301. E302 below supplies live measurements;
+product call budgets do not change.
+
+[E300](../evidence/experiments/e300-grid-survey-preflight.md) measures the
+survey preflight only: 15 sequential wire calls total 347.033 ms, including
+one refused bind at 28.451 ms. Four identity reads precede five state reads,
+the refusal, and the same five state reads. V13 refuses on the used audio
+session before document work. No graph, query-work, document-time, or heap
+result was produced. Host work uses existing status paths and two bounded
+256-slot track scans. There is no fixture write or added product call.
+The E276 read model below is unchanged. A refusal is not a comparable
+graph-read timing sample. The continued survey must measure its new reader,
+schema discovery, and fixture workflow in 9b.2.
 
 9a research ([E274](../evidence/experiments/e274-grid-root-read-and-contents-bridge.md)):
 V1 reads only two outer-device nodes, not the Grid contents. Bind took

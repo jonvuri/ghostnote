@@ -1,0 +1,74 @@
+{
+  "complete": false,
+  "errors": [
+    "unsupported-value:v3K"
+  ],
+  "partialNodes": 78,
+  "paired": true,
+  "additions": [
+    {
+      "className": "transport_component",
+      "runtimeClass": "ftf",
+      "fields": [
+        6194,
+        10070
+      ],
+      "removedAbsentFields": []
+    },
+    {
+      "className": "component_settings",
+      "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+      "fields": [
+        612,
+        614,
+        615
+      ],
+      "removedAbsentFields": []
+    },
+    {
+      "className": "desktop_settings",
+      "runtimeClass": "com.bitwig.flt.document.core.master.device.EeT",
+      "fields": [
+        17,
+        18,
+        19
+      ],
+      "removedAbsentFields": []
+    }
+  ],
+  "schemas": 21,
+  "captures": 5,
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 5
+    }
+  ],
+  "measurements": [
+    {
+      "queryWork": 2216,
+      "graphWork": 413,
+      "bytes": 52110,
+      "documentMs": 1.684625,
+      "heapUsedBefore": 851443712,
+      "heapUsedAfter": 855638016
+    },
+    {
+      "queryWork": 2216,
+      "graphWork": 413,
+      "bytes": 52110,
+      "documentMs": 1.454458,
+      "heapUsedBefore": 855638016,
+      "heapUsedAfter": 857735168
+    }
+  ],
+  "verdict": "incomplete-read-recorded"
+}

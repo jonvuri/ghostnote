@@ -1,0 +1,135 @@
+{
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 5
+    },
+    {
+      "parentClass": "module_grid",
+      "propertyId": 6428,
+      "propertyName": "auxiliary_devices",
+      "index": 0
+    },
+    {
+      "parentClass": "module",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "module_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 1
+    }
+  ],
+  "marker": "9b-grid-survey-v14",
+  "epoch": "1d067668-c4e9-43d0-bd99-870e1bf2517a",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "queueNanos": 100292,
+  "heapUsedBefore": 861929472,
+  "schema": {
+    "className": "device_input_proxy_atom",
+    "classId": 3300,
+    "runtimeClass": "com.bitwig.flt.document.core.master.device.liz",
+    "scope": "one-object schema and child headers; no scalar values or semantic gate",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 228,
+        "name": "in_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 229,
+        "name": "out_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "audio_port",
+            "classId": 242,
+            "runtimeClass": "Kdl",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 6194,
+        "name": "settings",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "component_settings",
+            "classId": 236,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 607,
+        "name": "channel_count",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 608,
+        "name": "oversampling",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 9794,
+        "name": "device_source_ID",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 10295,
+        "name": "is_note_proxy",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 13501,
+        "name": "is_int_proxy",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 10555,
+        "name": "amount_control",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      }
+    ],
+    "work": 205,
+    "complete": true
+  },
+  "queryWork": 205,
+  "heapUsedAfter": 861929472,
+  "documentTaskNanos": 342041,
+  "completionNanos": 23375583
+}

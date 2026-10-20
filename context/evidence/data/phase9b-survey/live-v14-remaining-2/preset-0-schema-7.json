@@ -1,0 +1,274 @@
+{
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 5
+    },
+    {
+      "parentClass": "module_grid",
+      "propertyId": 6428,
+      "propertyName": "auxiliary_devices",
+      "index": 0
+    },
+    {
+      "parentClass": "module",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    }
+  ],
+  "marker": "9b-grid-survey-v14",
+  "epoch": "1d067668-c4e9-43d0-bd99-870e1bf2517a",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "queueNanos": 54166,
+  "heapUsedBefore": 859832320,
+  "schema": {
+    "className": "module_contents",
+    "classId": 1904,
+    "runtimeClass": "com.bitwig.flt.document.core.master.device.Wxc",
+    "scope": "one-object schema and child headers; no scalar values or semantic gate",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 228,
+        "name": "in_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 229,
+        "name": "out_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 6194,
+        "name": "settings",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 173,
+        "name": "child_components",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 2,
+        "children": [
+          {
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "index": 0
+          },
+          {
+            "className": "device_input_proxy_atom",
+            "classId": 3300,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.liz",
+            "index": 1
+          }
+        ]
+      },
+      {
+        "id": 6213,
+        "name": "panels",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 2,
+        "children": [
+          {
+            "className": "panel",
+            "classId": 1680,
+            "runtimeClass": "fMM",
+            "index": 0
+          },
+          {
+            "className": "panel",
+            "classId": 1680,
+            "runtimeClass": "fMM",
+            "index": 1
+          }
+        ]
+      },
+      {
+        "id": 177,
+        "name": "proxy_in_ports",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 178,
+        "name": "proxy_out_ports",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 181,
+        "name": "device_editor_display_settings",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "device_editor_display_settings",
+            "classId": 224,
+            "runtimeClass": "fMl",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 182,
+        "name": "shared_resources",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 6566,
+        "name": "fft_order",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 11047,
+        "name": "analysis_fft_order",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 11110,
+        "name": "analysis_fft_fall_speed",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6834,
+        "name": "context_menu_panel",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 9820,
+        "name": "inspector_panel",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 13647,
+        "name": "device_revision",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6369,
+        "name": "device_UUID",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6370,
+        "name": "device_name",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6371,
+        "name": "description",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6372,
+        "name": "creator",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6373,
+        "name": "comment",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6374,
+        "name": "keywords",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6375,
+        "name": "category",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6376,
+        "name": "has_been_modified",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6695,
+        "name": "detail_panel",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 9796,
+        "name": "accent_color",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 10243,
+        "name": "sort_order",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 11465,
+        "name": "embedded_panel",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      }
+    ],
+    "work": 197,
+    "complete": true
+  },
+  "queryWork": 197,
+  "heapUsedAfter": 859832320,
+  "documentTaskNanos": 137334,
+  "completionNanos": 25011250
+}

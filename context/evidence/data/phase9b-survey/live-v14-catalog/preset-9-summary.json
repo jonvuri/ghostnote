@@ -1,0 +1,111 @@
+{
+  "complete": true,
+  "moduleCount": 10,
+  "projectedAudioCableCount": null,
+  "modules": [
+    {
+      "index": 0,
+      "uuid": "3c3e31df-b322-4c07-b57b-e7c91818159b",
+      "name": "Audio In",
+      "typeUuid": "b2a6b111-7afd-4c95-b380-6de8125af980"
+    },
+    {
+      "index": 1,
+      "uuid": "164b0ed2-bb7e-4443-a6f0-04fc7af33e53",
+      "name": "Audio Out",
+      "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6"
+    },
+    {
+      "index": 2,
+      "uuid": "9e862d61-fba0-4d5c-a566-1d950b267856",
+      "name": "Triggers",
+      "typeUuid": "e75916a0-2594-4181-88a4-b19fdb77c0eb"
+    },
+    {
+      "index": 3,
+      "uuid": "234a4cbe-eb58-4074-8694-14a14d4cc9e4",
+      "name": "Quantize",
+      "typeUuid": "c1f45a63-edde-4c38-b588-efbd4c1e35ec"
+    },
+    {
+      "index": 4,
+      "uuid": "e25f2f21-240d-463b-9278-79d135aeaece",
+      "name": "Abs",
+      "typeUuid": "895470df-c2de-417f-9113-8bb6fe948b6d"
+    },
+    {
+      "index": 5,
+      "uuid": "36fe1378-2a01-4402-bd21-e3463bf136e0",
+      "name": "Lag",
+      "typeUuid": "a4d23895-2761-476b-9aad-cbe372d286ea"
+    },
+    {
+      "index": 6,
+      "uuid": "b11c208b-62df-4657-a265-5c427d4f4da5",
+      "name": "Sample / Hold",
+      "typeUuid": "8214fd6c-5131-49d2-a9a6-709760a46b82"
+    },
+    {
+      "index": 7,
+      "uuid": "7b0090ec-fbb6-4275-8edb-64930db1c706",
+      "name": "Stereo Width",
+      "typeUuid": "a34edcba-25b3-4f07-86b2-81701b092d66"
+    },
+    {
+      "index": 8,
+      "uuid": "12a29d97-948a-439c-9d5c-cd55054f1c20",
+      "name": "Crush",
+      "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508"
+    },
+    {
+      "index": 9,
+      "uuid": "cdcce0b0-94f8-4edf-b775-2788c940cca1",
+      "name": "Steppy",
+      "typeUuid": "0f2a027d-2bc3-4789-8a56-4d079a7e6137"
+    }
+  ],
+  "cables": [],
+  "classes": [
+    "module",
+    "module_contents",
+    "module_grid"
+  ],
+  "scope": "Module membership, names, and type UUIDs only. Cables and contents are not covered.",
+  "paired": true,
+  "additions": [],
+  "schemas": 2,
+  "captures": 2,
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 5
+    }
+  ],
+  "measurements": [
+    {
+      "queryWork": 874,
+      "graphWork": 82,
+      "bytes": 10288,
+      "documentMs": 1.598,
+      "heapUsedBefore": 958398464,
+      "heapUsedAfter": 958398464
+    },
+    {
+      "queryWork": 874,
+      "graphWork": 82,
+      "bytes": 10288,
+      "documentMs": 1.508667,
+      "heapUsedBefore": 958398464,
+      "heapUsedAfter": 958398464
+    }
+  ],
+  "verdict": "projected-read-agrees"
+}

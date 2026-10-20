@@ -1,0 +1,8 @@
+{
+  "status": "survey-blocked-before-fixture-setup",
+  "refused": true,
+  "preservedState": true,
+  "scratchTracksCreated": 0,
+  "graphCaptures": 0,
+  "next": "9b.2: prepare a separate scratch-target reader, then resume the survey"
+}

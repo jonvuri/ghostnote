@@ -1,0 +1,456 @@
+{
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 7
+    },
+    {
+      "parentClass": "module_grid",
+      "propertyId": 6428,
+      "propertyName": "auxiliary_devices",
+      "index": 0
+    },
+    {
+      "parentClass": "module",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    }
+  ],
+  "marker": "9b-grid-survey-v14",
+  "epoch": "0847975e-2d01-4926-bf94-0312fe75e757",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "queueNanos": 103666,
+  "heapUsedBefore": 1084227584,
+  "schema": {
+    "className": "module_contents",
+    "classId": 1904,
+    "runtimeClass": "com.bitwig.flt.document.core.master.device.Wxc",
+    "scope": "one-object schema and child headers; no scalar values or semantic gate",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 228,
+        "name": "in_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 229,
+        "name": "out_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 6194,
+        "name": "settings",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 173,
+        "name": "child_components",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 28,
+        "children": [
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 0
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 1
+          },
+          {
+            "className": "audio_source_atom",
+            "classId": 2000,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.WAr",
+            "index": 2
+          },
+          {
+            "className": "audio_destination_atom",
+            "classId": 2002,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ",
+            "index": 3
+          },
+          {
+            "className": "audio_destination_atom",
+            "classId": 2002,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ",
+            "index": 4
+          },
+          {
+            "className": "audio_destination_atom",
+            "classId": 2002,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ",
+            "index": 5
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 6
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 7
+          },
+          {
+            "className": "device_input_proxy_atom",
+            "classId": 3300,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.liz",
+            "index": 8
+          },
+          {
+            "className": "device_input_proxy_atom",
+            "classId": 3300,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.liz",
+            "index": 9
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 10
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 11
+          },
+          {
+            "className": "button_boolean_value_atom",
+            "classId": 3380,
+            "runtimeClass": "nQZ",
+            "index": 12
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 13
+          },
+          {
+            "className": "boolean_value_atom",
+            "classId": 87,
+            "runtimeClass": "QY",
+            "index": 14
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 15
+          },
+          {
+            "className": "integer_value_atom",
+            "classId": 394,
+            "runtimeClass": "elR",
+            "index": 16
+          },
+          {
+            "className": "integer_value_atom",
+            "classId": 394,
+            "runtimeClass": "elR",
+            "index": 17
+          },
+          {
+            "className": "wavetable_oscillator_atom",
+            "classId": 3867,
+            "runtimeClass": "upW",
+            "index": 18
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 19
+          },
+          {
+            "className": "audio_destination_atom",
+            "classId": 2002,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.mvZ",
+            "index": 20
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 21
+          },
+          {
+            "className": "nitro_atom",
+            "classId": 1721,
+            "runtimeClass": "dkb",
+            "index": 22
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 23
+          },
+          {
+            "className": "decimal_value_atom",
+            "classId": 289,
+            "runtimeClass": "bcf",
+            "index": 24
+          },
+          {
+            "className": "polyphonic_observer_atom",
+            "classId": 1815,
+            "runtimeClass": "Ngv",
+            "index": 25
+          },
+          {
+            "className": "indexed_value_atom",
+            "classId": 180,
+            "runtimeClass": "vNR",
+            "index": 26
+          },
+          {
+            "className": "boolean_panel_value",
+            "classId": 1751,
+            "runtimeClass": "yhl",
+            "index": 27
+          }
+        ]
+      },
+      {
+        "id": 6213,
+        "name": "panels",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 4,
+        "children": [
+          {
+            "className": "panel",
+            "classId": 1680,
+            "runtimeClass": "fMM",
+            "index": 0
+          },
+          {
+            "className": "panel",
+            "classId": 1680,
+            "runtimeClass": "fMM",
+            "index": 1
+          },
+          {
+            "className": "panel",
+            "classId": 1680,
+            "runtimeClass": "fMM",
+            "index": 2
+          },
+          {
+            "className": "panel",
+            "classId": 1680,
+            "runtimeClass": "fMM",
+            "index": 3
+          }
+        ]
+      },
+      {
+        "id": 177,
+        "name": "proxy_in_ports",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 178,
+        "name": "proxy_out_ports",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 181,
+        "name": "device_editor_display_settings",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "device_editor_display_settings",
+            "classId": 224,
+            "runtimeClass": "fMl",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 182,
+        "name": "shared_resources",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 6566,
+        "name": "fft_order",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 11047,
+        "name": "analysis_fft_order",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 11110,
+        "name": "analysis_fft_fall_speed",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6834,
+        "name": "context_menu_panel",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 9820,
+        "name": "inspector_panel",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "panel",
+            "classId": 1680,
+            "runtimeClass": "fMM",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 13647,
+        "name": "device_revision",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6369,
+        "name": "device_UUID",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6370,
+        "name": "device_name",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6371,
+        "name": "description",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6372,
+        "name": "creator",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6373,
+        "name": "comment",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6374,
+        "name": "keywords",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6375,
+        "name": "category",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6376,
+        "name": "has_been_modified",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6695,
+        "name": "detail_panel",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 9796,
+        "name": "accent_color",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 10243,
+        "name": "sort_order",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 11465,
+        "name": "embedded_panel",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "panel",
+            "classId": 1680,
+            "runtimeClass": "fMM",
+            "index": 0
+          }
+        ]
+      }
+    ],
+    "work": 227,
+    "complete": true
+  },
+  "queryWork": 227,
+  "heapUsedAfter": 1084227584,
+  "documentTaskNanos": 790750,
+  "completionNanos": 23566333
+}

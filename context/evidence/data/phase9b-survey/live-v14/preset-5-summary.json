@@ -1,0 +1,46 @@
+{
+  "complete": false,
+  "errors": [
+    "unsupported-value:v3K",
+    "node:139:java.lang.IllegalStateException: schema-work-or-time-limit",
+    "schema-work-or-time-limit"
+  ],
+  "partialNodes": 140,
+  "paired": true,
+  "additions": [],
+  "schemas": 22,
+  "captures": 2,
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 7
+    }
+  ],
+  "measurements": [
+    {
+      "queryWork": 4098,
+      "graphWork": 757,
+      "bytes": 97445,
+      "documentMs": 3.25725,
+      "heapUsedBefore": 2864709632,
+      "heapUsedAfter": 2868903936
+    },
+    {
+      "queryWork": 4098,
+      "graphWork": 757,
+      "bytes": 97445,
+      "documentMs": 9.3005,
+      "heapUsedBefore": 2871001088,
+      "heapUsedAfter": 2877292544
+    }
+  ],
+  "verdict": "incomplete-read-recorded"
+}

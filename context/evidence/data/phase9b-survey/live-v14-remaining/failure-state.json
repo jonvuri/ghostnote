@@ -1,0 +1,39 @@
+{
+  "tracks": [
+    {
+      "index": 0,
+      "name": "grid-probe",
+      "position": 0,
+      "type": "Instrument",
+      "channelId": "c784d25c-b753-47ca-af8d-c83d11cfd990"
+    },
+    {
+      "index": 1,
+      "name": "FX 1",
+      "position": 1,
+      "type": "Effect",
+      "channelId": "0c4835e2-1769-4ecc-9d03-cf0226bcb5a4"
+    },
+    {
+      "index": 2,
+      "name": "Master",
+      "position": 2,
+      "type": "Master",
+      "channelId": "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f"
+    }
+  ],
+  "selection": {
+    "project": "gn-grid-spike",
+    "mixerChannelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+    "trackIndex": -1,
+    "slotIndex": -1
+  },
+  "survey": {
+    "bound": false,
+    "busy": false,
+    "locked": false,
+    "nativeUnfinished": false,
+    "marker": "9b-grid-survey-v14",
+    "foreignOwner": false
+  }
+}

@@ -100,13 +100,13 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
   assert.equal(probeGolden.count, 118);
 });
 
-test('9a: hello and the live driver require the current Grid probe marker', () => {
+test('9b: hello and the survey driver require the current Grid probe marker', () => {
   const handler = readFileSync(join(process.cwd(), '..', 'extension', 'src', 'main', 'java',
-    'com', 'ghostnote', 'extension', 'handlers', 'GridEngineHandlers.java'), 'utf8');
+    'com', 'ghostnote', 'extension', 'handlers', 'GridSurveyHandlers.java'), 'utf8');
   const marker = handler.match(/MARKER = "([^"]+)"/)?.[1];
   assert.ok(marker, 'The extension must declare a Grid probe marker');
   const hello = readFileSync(join(process.cwd(), 'src', 'probes', 'gn-hello.ts'), 'utf8');
-  const driver = readFileSync(join(process.cwd(), 'src', 'probes', 'phase9a-grid-read.ts'), 'utf8');
+  const driver = readFileSync(join(process.cwd(), 'src', 'probes', 'phase9b-grid-survey.ts'), 'utf8');
   assert.ok(hello.includes(`rig['gridReadProbe'] === '${marker}'`), 'Hello expects an old marker');
   assert.ok(driver.includes(`assert.equal(rig.gridReadProbe, '${marker}')`), 'The live driver expects an old marker');
 });

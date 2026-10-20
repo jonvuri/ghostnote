@@ -1,0 +1,45 @@
+{
+  "schema": "ghostnote-track-add/1",
+  "applied": true,
+  "effects": [
+    {
+      "changeId": "e475203e-72a3-4a6c-989b-e914894fbcb8",
+      "target": {
+        "trackIds": [
+          "b739a5a2-3cb5-4204-b737-eb1e5d478f92"
+        ]
+      },
+      "summary": "Created 1 track(s).",
+      "fidelity": "exact"
+    },
+    {
+      "changeId": "bad01f52-c3db-4a90-8785-746c24ad91ea",
+      "target": {
+        "trackIds": [
+          "b739a5a2-3cb5-4204-b737-eb1e5d478f92"
+        ]
+      },
+      "summary": "Named the new track(s).",
+      "fidelity": "exact"
+    }
+  ],
+  "readback": {
+    "status": "verified",
+    "tracks": [
+      {
+        "trackId": "b739a5a2-3cb5-4204-b737-eb1e5d478f92",
+        "name": "gn-9b-survey-6aedf586",
+        "kind": "Instrument"
+      }
+    ]
+  },
+  "warnings": [
+    {
+      "code": "not-reversible",
+      "message": "revert_change does not remove a new track; use delete_track."
+    }
+  ],
+  "target": {
+    "tracks": 1
+  }
+}

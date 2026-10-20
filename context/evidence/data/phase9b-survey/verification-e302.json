@@ -1,0 +1,18 @@
+{
+  "evidence": "E302",
+  "probeHello": "all pass; V14 marker, 118 methods/hash, fresh initialization",
+  "operatorConfirmation": "Controller replaced; gn-grid-spike open with audio engine active",
+  "typecheck": "pass",
+  "focusedSurveyTests": {
+    "passed": 8,
+    "failed": 0
+  },
+  "offlineReport": "pass: baseline, snapshots, clean exits, released reader",
+  "contextCheck": {
+    "activeDocuments": 666,
+    "passed": true
+  },
+  "diffCheck": "pass",
+  "extensionChanges": "none since E301",
+  "toolDescriptionVersion": "ghostnote-description-v52"
+}

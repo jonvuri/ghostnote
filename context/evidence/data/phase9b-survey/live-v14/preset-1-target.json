@@ -1,0 +1,29 @@
+{
+  "candidate": {
+    "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/Whispering Loops.bwpreset",
+    "flavour": "Poly Grid",
+    "role": "Possible sample or audio-file content",
+    "loaded": false
+  },
+  "target": {
+    "project": "gn-grid-spike",
+    "trackId": "a6590a75-4885-4c30-b331-2bc1abbdb048",
+    "trackName": "gn-9b-survey-762dd0b1",
+    "deviceIndex": 0,
+    "deviceName": "Poly Grid"
+  },
+  "devices": {
+    "devices": [
+      {
+        "index": 0,
+        "name": "Poly Grid",
+        "enabled": true
+      }
+    ],
+    "count": 1,
+    "itemCount": 1,
+    "trackChannelId": "a6590a75-4885-4c30-b331-2bc1abbdb048",
+    "trackPosition": 1,
+    "bankSize": 16
+  }
+}

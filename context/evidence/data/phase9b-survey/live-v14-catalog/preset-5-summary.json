@@ -1,0 +1,99 @@
+{
+  "complete": true,
+  "moduleCount": 8,
+  "projectedAudioCableCount": null,
+  "modules": [
+    {
+      "index": 0,
+      "uuid": "a546ab0c-0668-40d7-ac60-6cc0ce286916",
+      "name": "Audio Out",
+      "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6"
+    },
+    {
+      "index": 1,
+      "uuid": "76848bad-1a2c-4df8-86e8-d1d2c28b66fa",
+      "name": "AR",
+      "typeUuid": "9eaf8e7d-b8f7-4134-85c1-c7c77dd9fe92"
+    },
+    {
+      "index": 2,
+      "uuid": "9b43b3a9-bf6c-493d-9e40-18143b1e712a",
+      "name": "Low-pass LD",
+      "typeUuid": "85ca7753-049a-419a-bb37-d8c358b10932"
+    },
+    {
+      "index": 3,
+      "uuid": "cdced1f5-a859-4d24-a78b-044874a1851d",
+      "name": "Swarm",
+      "typeUuid": "faea6af4-72db-42c6-adac-0f74d8ebdbbf"
+    },
+    {
+      "index": 4,
+      "uuid": "514a3b09-280c-412b-8675-c5743747401e",
+      "name": "Phase-1",
+      "typeUuid": "44da1c7d-5fef-4d7a-9b1c-739324a59a97"
+    },
+    {
+      "index": 5,
+      "uuid": "33ac9c06-9fc4-48cd-a898-868ed088ed87",
+      "name": "Mixer",
+      "typeUuid": "839e96da-cda4-45ce-b5a1-e0a40a176968"
+    },
+    {
+      "index": 6,
+      "uuid": "84a33a4b-1a1b-456c-a436-e82b4f2f0137",
+      "name": "Rectifier",
+      "typeUuid": "ac6de5ed-c143-4364-9989-3c7d299db380"
+    },
+    {
+      "index": 7,
+      "uuid": "324b2177-88dc-4d10-acf2-2afc9027241c",
+      "name": "Gain - dB",
+      "typeUuid": "b2c6ef93-8a14-4e10-b152-56bcee883e1c"
+    }
+  ],
+  "cables": [],
+  "classes": [
+    "module",
+    "module_contents",
+    "module_grid"
+  ],
+  "scope": "Module membership, names, and type UUIDs only. Cables and contents are not covered.",
+  "paired": true,
+  "additions": [],
+  "schemas": 2,
+  "captures": 2,
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 7
+    }
+  ],
+  "measurements": [
+    {
+      "queryWork": 724,
+      "graphWork": 66,
+      "bytes": 8326,
+      "documentMs": 1.395791,
+      "heapUsedBefore": 1486880768,
+      "heapUsedAfter": 1488977920
+    },
+    {
+      "queryWork": 724,
+      "graphWork": 66,
+      "bytes": 8326,
+      "documentMs": 1.49725,
+      "heapUsedBefore": 1488977920,
+      "heapUsedAfter": 1488977920
+    }
+  ],
+  "verdict": "projected-read-agrees"
+}

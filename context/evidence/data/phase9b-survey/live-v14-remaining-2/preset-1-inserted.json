@@ -1,0 +1,22 @@
+{
+  "candidate": {
+    "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Auto Scaler-Arp.bwpreset",
+    "flavour": "Note Grid",
+    "role": "Possible scale and note-generation content",
+    "loaded": false
+  },
+  "devices": {
+    "devices": [
+      {
+        "index": 0,
+        "name": "Note Grid",
+        "enabled": true
+      }
+    ],
+    "count": 1,
+    "itemCount": 1,
+    "trackChannelId": "d8433c0e-aae4-4f2b-a298-4de6f8e7867b",
+    "trackPosition": 1,
+    "bankSize": 16
+  }
+}

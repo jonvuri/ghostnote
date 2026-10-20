@@ -1,0 +1,285 @@
+{
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 5
+    }
+  ],
+  "marker": "9b-grid-survey-v14",
+  "epoch": "1d067668-c4e9-43d0-bd99-870e1bf2517a",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "queueNanos": 51833,
+  "heapUsedBefore": 859832320,
+  "schema": {
+    "className": "module_grid",
+    "classId": 1901,
+    "runtimeClass": "com.bitwig.flt.document.core.master.device.gOr",
+    "scope": "one-object schema and child headers; no scalar values or semantic gate",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 228,
+        "name": "in_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 229,
+        "name": "out_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 6194,
+        "name": "settings",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "component_settings",
+            "classId": 236,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 6729,
+        "name": "has_auxiliary_devices",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 6428,
+        "name": "auxiliary_devices",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 10,
+        "children": [
+          {
+            "className": "module",
+            "classId": 1902,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+            "index": 0
+          },
+          {
+            "className": "module",
+            "classId": 1902,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+            "index": 1
+          },
+          {
+            "className": "module",
+            "classId": 1902,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+            "index": 2
+          },
+          {
+            "className": "module",
+            "classId": 1902,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+            "index": 3
+          },
+          {
+            "className": "module",
+            "classId": 1902,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+            "index": 4
+          },
+          {
+            "className": "module",
+            "classId": 1902,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+            "index": 5
+          },
+          {
+            "className": "module",
+            "classId": 1902,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+            "index": 6
+          },
+          {
+            "className": "module",
+            "classId": 1902,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+            "index": 7
+          },
+          {
+            "className": "module",
+            "classId": 1902,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+            "index": 8
+          },
+          {
+            "className": "module",
+            "classId": 1902,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+            "index": 9
+          }
+        ]
+      },
+      {
+        "id": 6633,
+        "name": "playback_auxiliary_devices",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 10,
+        "children": [
+          {
+            "className": "module",
+            "classId": 1902,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+            "index": 0
+          },
+          {
+            "className": "module",
+            "classId": 1902,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+            "index": 1
+          },
+          {
+            "className": "module",
+            "classId": 1902,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+            "index": 2
+          },
+          {
+            "className": "module",
+            "classId": 1902,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+            "index": 3
+          },
+          {
+            "className": "module",
+            "classId": 1902,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+            "index": 4
+          },
+          {
+            "className": "module",
+            "classId": 1902,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+            "index": 5
+          },
+          {
+            "className": "module",
+            "classId": 1902,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+            "index": 6
+          },
+          {
+            "className": "module",
+            "classId": 1902,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+            "index": 7
+          },
+          {
+            "className": "module",
+            "classId": 1902,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+            "index": 8
+          },
+          {
+            "className": "module",
+            "classId": 1902,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.DbL",
+            "index": 9
+          }
+        ]
+      },
+      {
+        "id": 6723,
+        "name": "preview_insert_auxiliary_devices",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 11131,
+        "name": "drag_and_drop_preview_devices",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 6728,
+        "name": "display_settings",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "module_grid_display_settings",
+            "classId": 1910,
+            "runtimeClass": "NET",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 6765,
+        "name": "preset_identifier",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 10140,
+        "name": "preview_hide_modules",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 10351,
+        "name": "min_grid_x",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 10352,
+        "name": "max_grid_x",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 10353,
+        "name": "min_grid_y",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 10354,
+        "name": "max_grid_y",
+        "serializerIncluded": false,
+        "relationship": false
+      }
+    ],
+    "work": 145,
+    "complete": true
+  },
+  "queryWork": 145,
+  "heapUsedAfter": 859832320,
+  "documentTaskNanos": 151583,
+  "completionNanos": 24053291
+}

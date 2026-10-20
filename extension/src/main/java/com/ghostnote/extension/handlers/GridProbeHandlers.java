@@ -5,10 +5,11 @@ import com.ghostnote.extension.*;
 import com.google.gson.JsonObject;
 import java.util.UUID;
 
-/** 9a research entry points. Only the named disposable fixture is admitted. */
+/** Reusable survey reads and the retained fixed-fixture 9a research paths. */
 public final class GridProbeHandlers extends HandlerGroup {
-    public static final String MARKER = GridEngineHandlers.MARKER;
+    public static final String MARKER = GridSurveyHandlers.MARKER;
     private final GridEngineHandlers engine;
+    private final GridSurveyHandlers survey;
     private GridReadSymbols symbols;
     private GridReadEpoch epoch;
     private boolean busy;
@@ -18,11 +19,22 @@ public final class GridProbeHandlers extends HandlerGroup {
     private Target recoveryTarget;
     private Target epochTarget;
 
-    public GridProbeHandlers(ControllerHost host, Rig rig, ExecState state) { super(host, rig, state); engine = new GridEngineHandlers(host, rig, state); }
+    public GridProbeHandlers(ControllerHost host, Rig rig, ExecState state) {
+        super(host, rig, state);
+        engine = new GridEngineHandlers(host, rig, state);
+        survey = new GridSurveyHandlers(host, rig, state,
+            () -> engine.ownsGrid() || busy || job != null && job.unfinished()
+                || epoch != null || safety.locked() || safety.pendingReadback());
+        engine.otherGridOwner(survey::ownsGrid);
+    }
 
     @Override public void register(HandlerRegistry r) {
         engine.register(r);
-        r.onAsync("probe.gridRead", (params, reply) -> request(params, reply, Write.NONE));
+        r.onAsync("probe.gridRead", (params, reply) -> {
+            if (params.has("operation") && GridSurveyHandlers.OPERATIONS.contains(params.get("operation").getAsString()))
+                survey.request(params, reply);
+            else request(params, reply, Write.NONE);
+        });
         r.onAsync("probe.gridValue", (params, reply) -> request(params, reply, Write.VALUE));
         r.onAsync("probe.gridCable", (params, reply) -> request(params, reply, Write.CABLE));
         r.onAsync("probe.gridModuleDelete", (params, reply) -> request(params, reply, Write.DELETE));
@@ -48,6 +60,7 @@ public final class GridProbeHandlers extends HandlerGroup {
     private void request(JsonObject params, Bridge.Reply reply, Write kind) throws Exception {
 
         if (kind != Write.NONE) throw new IllegalStateException("V12 writes require the fixed engine protocol; V11 cohort is retired");
+        if (survey.ownsGrid()) throw new IllegalStateException("survey-session-owns-grid");
         if (engine.used() || engine.unfinished()) throw new IllegalStateException("engine-session-owns-grid; use probe.gridEngine");
         boolean write = kind != Write.NONE;
         String operation = write ? switch (kind) {

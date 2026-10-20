@@ -1,0 +1,16 @@
+{
+  "mode": "catalog",
+  "projection": {
+    "module_grid": [
+      6428
+    ],
+    "module": [
+      15,
+      404,
+      406
+    ],
+    "module_contents": [
+      6369
+    ]
+  }
+}

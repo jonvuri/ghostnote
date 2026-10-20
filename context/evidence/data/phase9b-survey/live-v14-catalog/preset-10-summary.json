@@ -1,0 +1,147 @@
+{
+  "complete": true,
+  "moduleCount": 16,
+  "projectedAudioCableCount": null,
+  "modules": [
+    {
+      "index": 0,
+      "uuid": "31021cb0-9cdf-43ec-81c4-0f3f3329d6f0",
+      "name": "Note In",
+      "typeUuid": "06c1eac9-4d64-4748-8d52-8bf18324d1e7"
+    },
+    {
+      "index": 1,
+      "uuid": "ae4d664f-fbf1-40ce-aed1-e0ccde8f5a6a",
+      "name": "Note Out",
+      "typeUuid": "70baf51d-271c-43c3-b2de-c98fc48f326d"
+    },
+    {
+      "index": 2,
+      "uuid": "14dde48c-70f5-4693-b572-1fd44420f1e2",
+      "name": "Select In",
+      "typeUuid": "c6923eb3-e161-4eed-8a93-a4554287a77b"
+    },
+    {
+      "index": 3,
+      "uuid": "008207b5-ba5a-49d8-a751-3c45cb385247",
+      "name": "Triggers",
+      "typeUuid": "e75916a0-2594-4181-88a4-b19fdb77c0eb"
+    },
+    {
+      "index": 4,
+      "uuid": "b4aec9a2-962f-41bf-9bb2-05539fe1e22a",
+      "name": "Transport",
+      "typeUuid": "997869ea-e649-4ac8-865e-bd4ac9e7b2a2"
+    },
+    {
+      "index": 5,
+      "uuid": "ac107c8a-7ade-4319-bb7d-3f0e915b1ff5",
+      "name": "Ø Reset",
+      "typeUuid": "d04bb748-5f66-4a4a-85d8-d3402c982e22"
+    },
+    {
+      "index": 6,
+      "uuid": "814c6d2b-7ccf-49d8-92e1-73e74b8fb80a",
+      "name": "LFO",
+      "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860"
+    },
+    {
+      "index": 7,
+      "uuid": "1f31d543-e76a-493f-856d-84e091d6c993",
+      "name": "Select In",
+      "typeUuid": "c6923eb3-e161-4eed-8a93-a4554287a77b"
+    },
+    {
+      "index": 8,
+      "uuid": "b7299e74-18a4-43b0-9120-47b5fbd9ef8a",
+      "name": "AutoArp",
+      "typeUuid": "c0281e6e-3d55-4e86-8c9b-0ce8cf3db67d"
+    },
+    {
+      "index": 9,
+      "uuid": "f64b2c19-3971-4cf2-9265-6540826aed5e",
+      "name": "ManuScale",
+      "typeUuid": "b1296326-cbf0-4797-9fc6-e2a6f2ce4a78"
+    },
+    {
+      "index": 10,
+      "uuid": "9b68c90b-4a4c-45d4-b110-1d6355f64a06",
+      "name": "Pitch Scaler",
+      "typeUuid": "c53fda13-4ed0-42fd-b410-19052ca6322d"
+    },
+    {
+      "index": 11,
+      "uuid": "35d0eaef-4c23-4301-a452-f86d46e962bd",
+      "name": "Sample / Hold",
+      "typeUuid": "8214fd6c-5131-49d2-a9a6-709760a46b82"
+    },
+    {
+      "index": 12,
+      "uuid": "37ee3c6f-7a1c-4520-9ac2-7014ae0f8f22",
+      "name": "Sum",
+      "typeUuid": "5b414321-7adb-4210-ab26-d2367a8b5d56"
+    },
+    {
+      "index": 13,
+      "uuid": "528ea10f-65b6-43fe-974a-9a2a666d9b78",
+      "name": "AutoScale",
+      "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508"
+    },
+    {
+      "index": 14,
+      "uuid": "e6e17b02-4b21-4b98-99a4-ee01605dcf6b",
+      "name": "Gain - Vol",
+      "typeUuid": "b1296326-cbf0-4797-9fc6-e2a6f2ce4a78"
+    },
+    {
+      "index": 15,
+      "uuid": "de50ab8a-9259-4130-8de6-328722e76758",
+      "name": "Octaver",
+      "typeUuid": "85c173a2-1eb3-4cc1-a19d-84bcb4bde00b"
+    }
+  ],
+  "cables": [],
+  "classes": [
+    "module",
+    "module_contents",
+    "module_grid"
+  ],
+  "scope": "Module membership, names, and type UUIDs only. Cables and contents are not covered.",
+  "paired": true,
+  "additions": [],
+  "schemas": 2,
+  "captures": 2,
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 4
+    }
+  ],
+  "measurements": [
+    {
+      "queryWork": 1324,
+      "graphWork": 130,
+      "bytes": 16171,
+      "documentMs": 1.128334,
+      "heapUsedBefore": 1042284544,
+      "heapUsedAfter": 1044381696
+    },
+    {
+      "queryWork": 1324,
+      "graphWork": 130,
+      "bytes": 16171,
+      "documentMs": 2.634875,
+      "heapUsedBefore": 1044381696,
+      "heapUsedAfter": 1046478848
+    }
+  ],
+  "verdict": "projected-read-agrees"
+}

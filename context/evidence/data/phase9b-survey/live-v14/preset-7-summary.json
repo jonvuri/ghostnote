@@ -1,0 +1,104 @@
+{
+  "complete": false,
+  "errors": [
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K"
+  ],
+  "partialNodes": 138,
+  "paired": true,
+  "additions": [
+    {
+      "className": "data_array_component",
+      "runtimeClass": "USc",
+      "fields": [
+        6194,
+        6614,
+        6609,
+        6613
+      ],
+      "removedAbsentFields": []
+    },
+    {
+      "className": "transport_component",
+      "runtimeClass": "ftf",
+      "fields": [
+        6194,
+        10070
+      ],
+      "removedAbsentFields": []
+    },
+    {
+      "className": "trigger_atom",
+      "runtimeClass": "GnQ",
+      "fields": [
+        6194,
+        607,
+        608,
+        701,
+        374,
+        821,
+        10561
+      ],
+      "removedAbsentFields": []
+    },
+    {
+      "className": "last_voice_int_event_atom",
+      "runtimeClass": "inq",
+      "fields": [
+        6194,
+        607,
+        14407
+      ],
+      "removedAbsentFields": []
+    }
+  ],
+  "schemas": 25,
+  "captures": 3,
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 5
+    }
+  ],
+  "measurements": [
+    {
+      "queryWork": 3178,
+      "graphWork": 858,
+      "bytes": 96451,
+      "documentMs": 14.017667,
+      "heapUsedBefore": 1077936128,
+      "heapUsedAfter": 1082130432
+    },
+    {
+      "queryWork": 3178,
+      "graphWork": 858,
+      "bytes": 96451,
+      "documentMs": 9.958167,
+      "heapUsedBefore": 1084227584,
+      "heapUsedAfter": 1088421888
+    }
+  ],
+  "verdict": "incomplete-read-recorded"
+}

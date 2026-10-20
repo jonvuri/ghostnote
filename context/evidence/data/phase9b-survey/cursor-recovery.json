@@ -1,0 +1,119 @@
+[
+  {
+    "method": "selection.status",
+    "params": {},
+    "value": {
+      "trackIndex": -1,
+      "slotIndex": -1,
+      "mixerTrackIndex": 0,
+      "mixerChannelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+      "changes": 0,
+      "revision": 21,
+      "slotProject": "",
+      "mixerProject": "gn-grid-spike",
+      "project": "gn-grid-spike"
+    }
+  },
+  {
+    "method": "cursor.pointTrack",
+    "params": {
+      "cursor": "0",
+      "trackIndex": 1
+    },
+    "value": {
+      "success": true
+    }
+  },
+  {
+    "method": "device.list",
+    "params": {
+      "cursor": 0
+    },
+    "value": {
+      "devices": [],
+      "count": 0,
+      "itemCount": 1,
+      "trackChannelId": "",
+      "trackPosition": -1,
+      "bankSize": 16
+    }
+  },
+  {
+    "method": "device.list",
+    "params": {
+      "cursor": 0
+    },
+    "value": {
+      "devices": [],
+      "count": 0,
+      "itemCount": 0,
+      "trackChannelId": "0c4835e2-1769-4ecc-9d03-cf0226bcb5a4",
+      "trackPosition": 1,
+      "bankSize": 16
+    }
+  },
+  {
+    "method": "cursor.pointTrack",
+    "params": {
+      "cursor": "0",
+      "trackIndex": 0
+    },
+    "value": {
+      "success": true
+    }
+  },
+  {
+    "method": "device.list",
+    "params": {
+      "cursor": 0
+    },
+    "value": {
+      "devices": [
+        {
+          "index": 0,
+          "name": "Poly Grid",
+          "enabled": true
+        }
+      ],
+      "count": 1,
+      "itemCount": 1,
+      "trackChannelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+      "trackPosition": 0,
+      "bankSize": 16
+    }
+  },
+  {
+    "method": "device.list",
+    "params": {
+      "cursor": 0
+    },
+    "value": {
+      "devices": [
+        {
+          "index": 0,
+          "name": "Poly Grid",
+          "enabled": true
+        }
+      ],
+      "count": 1,
+      "itemCount": 1,
+      "trackChannelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+      "trackPosition": 0,
+      "bankSize": 16
+    }
+  },
+  {
+    "method": "probe.gridRead",
+    "params": {
+      "operation": "status"
+    },
+    "value": {
+      "bound": false,
+      "busy": false,
+      "locked": false,
+      "nativeUnfinished": false,
+      "marker": "9b-grid-survey-v14",
+      "foreignOwner": false
+    }
+  }
+]

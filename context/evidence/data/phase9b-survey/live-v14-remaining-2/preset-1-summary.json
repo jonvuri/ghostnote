@@ -1,0 +1,133 @@
+{
+  "complete": false,
+  "errors": [
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "schema-work-or-time-limit"
+  ],
+  "partialNodes": 172,
+  "paired": true,
+  "additions": [
+    {
+      "className": "note_led_atom",
+      "runtimeClass": "ywq",
+      "fields": [
+        6194,
+        607,
+        374,
+        11002,
+        169
+      ],
+      "removedAbsentFields": []
+    },
+    {
+      "className": "device_note_output_proxy_atom",
+      "runtimeClass": "com.bitwig.flt.document.core.master.device.lkO",
+      "fields": [
+        6194,
+        607,
+        608,
+        9817
+      ],
+      "removedAbsentFields": []
+    },
+    {
+      "className": "value_led_atom",
+      "runtimeClass": "dLY",
+      "fields": [
+        6194,
+        607,
+        374,
+        11002
+      ],
+      "removedAbsentFields": []
+    },
+    {
+      "className": "modulation_source_atom",
+      "runtimeClass": "com.bitwig.flt.document.core.master.device.NDn",
+      "fields": [
+        6194,
+        607,
+        608,
+        10378,
+        3639,
+        3640,
+        5452
+      ],
+      "removedAbsentFields": []
+    },
+    {
+      "className": "string_panel_value",
+      "runtimeClass": "UcJ",
+      "fields": [
+        6194,
+        6387,
+        6391
+      ],
+      "removedAbsentFields": []
+    },
+    {
+      "className": "inport_connection",
+      "runtimeClass": "com.bitwig.flt.document.core.master.device.Uqf",
+      "fields": [
+        248,
+        249,
+        6443
+      ],
+      "removedAbsentFields": []
+    },
+    {
+      "className": "modulation_source_atom_display_settings",
+      "runtimeClass": "ZDj",
+      "fields": [
+        5455
+      ],
+      "removedAbsentFields": []
+    }
+  ],
+  "schemas": 26,
+  "captures": 4,
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 4
+    }
+  ],
+  "measurements": [
+    {
+      "queryWork": 4097,
+      "graphWork": 887,
+      "bytes": 109430,
+      "documentMs": 11.827833,
+      "heapUsedBefore": 809500672,
+      "heapUsedAfter": 813694976
+    },
+    {
+      "queryWork": 4097,
+      "graphWork": 887,
+      "bytes": 109430,
+      "documentMs": 11.656334,
+      "heapUsedBefore": 815792128,
+      "heapUsedAfter": 822083584
+    }
+  ],
+  "verdict": "incomplete-read-recorded"
+}

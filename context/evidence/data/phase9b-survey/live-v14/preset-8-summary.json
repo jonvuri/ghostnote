@@ -1,0 +1,97 @@
+{
+  "complete": false,
+  "errors": [
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "unsupported-value:v3K",
+    "node:166:java.lang.IllegalStateException: schema-work-or-time-limit",
+    "schema-work-or-time-limit"
+  ],
+  "partialNodes": 167,
+  "paired": true,
+  "additions": [
+    {
+      "className": "value_led_atom",
+      "runtimeClass": "dLY",
+      "fields": [
+        6194,
+        607,
+        374,
+        11002
+      ],
+      "removedAbsentFields": []
+    },
+    {
+      "className": "buffer_writer_atom",
+      "runtimeClass": "Obi",
+      "fields": [
+        6194,
+        607,
+        608,
+        752,
+        753,
+        754,
+        10558
+      ],
+      "removedAbsentFields": []
+    },
+    {
+      "className": "buffer_reader_atom",
+      "runtimeClass": "frb",
+      "fields": [
+        6194,
+        607,
+        608,
+        732,
+        733,
+        9822,
+        852,
+        10557
+      ],
+      "removedAbsentFields": []
+    }
+  ],
+  "schemas": 28,
+  "captures": 3,
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 5
+    }
+  ],
+  "measurements": [
+    {
+      "queryWork": 4098,
+      "graphWork": 897,
+      "bytes": 112980,
+      "documentMs": 12.978583,
+      "heapUsedBefore": 876609536,
+      "heapUsedAfter": 880803840
+    },
+    {
+      "queryWork": 4098,
+      "graphWork": 897,
+      "bytes": 112980,
+      "documentMs": 9.88725,
+      "heapUsedBefore": 882900992,
+      "heapUsedAfter": 889192448
+    }
+  ],
+  "verdict": "incomplete-read-recorded"
+}

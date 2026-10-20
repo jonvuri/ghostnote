@@ -1,0 +1,107 @@
+{
+  "calls": [
+    {
+      "method": "contract.hello",
+      "params": {},
+      "ms": 13.285250000000005,
+      "bytes": 155
+    },
+    {
+      "method": "rig.info",
+      "params": {},
+      "ms": 25.38600000000001,
+      "bytes": 1801
+    },
+    {
+      "method": "rig.stats",
+      "params": {},
+      "ms": 19.27745800000001,
+      "bytes": 2500
+    },
+    {
+      "method": "host.info",
+      "params": {},
+      "ms": 23.819999999999993,
+      "bytes": 148
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.502625000000023,
+      "bytes": 2432
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 25.52920899999998,
+      "bytes": 207
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.452124999999995,
+      "bytes": 381
+    },
+    {
+      "method": "devcursor.status",
+      "params": {},
+      "ms": 24.833833,
+      "bytes": 232
+    },
+    {
+      "method": "probe.gridEngine",
+      "params": {
+        "operation": "status"
+      },
+      "ms": 25.30000000000001,
+      "bytes": 1661
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "bind",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid"
+      },
+      "ms": 28.450625000000002,
+      "error": "BridgeError: Internal error: engine-session-owns-grid; use probe.gridEngine"
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 17.131583000000035,
+      "bytes": 2432
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 24.08004199999999,
+      "bytes": 207
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.138582999999983,
+      "bytes": 381
+    },
+    {
+      "method": "devcursor.status",
+      "params": {},
+      "ms": 23.714083999999957,
+      "bytes": 232
+    },
+    {
+      "method": "probe.gridEngine",
+      "params": {
+        "operation": "status"
+      },
+      "ms": 24.131167000000005,
+      "bytes": 1661
+    }
+  ],
+  "sequentialWireCalls": 15,
+  "wireMs": 347.032584
+}

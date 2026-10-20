@@ -2,8 +2,8 @@
 title: Phase 9b — Grid breadth, build discovery, and build-out planning
 kind: plan
 state: active
-status: Step 1 (breadth) starts with session 9b.1, a read-only survey of stock Grid presets on a scratch track.
-updated: 2026-10-19
+status: E302 completes the first survey. Session 9b.2a targets reader coverage before write probes.
+updated: 2026-10-20
 parent: README.md
 prev: 9a-live-grid-editing-spike.md
 ---
@@ -35,7 +35,7 @@ find it later. Drop the rest.
 - One short E record per experimental session: question, what ran, results,
   limits, next. Link the driver's JSON output under `context/evidence/data/phase9b-*/`.
   Add the index row. Planning and documentation cleanup need no new E record.
-  The next free number is E300.
+  The next free number is E303.
 - Build fixtures with the public surface on a **scratch track**: `track.create`,
   `device.insertFile` (absolute `.bwpreset` path), `track.setMixer` (mute),
   `track.delete`. The probe profile has all four. Delete the scratch track at
@@ -77,14 +77,26 @@ Dimensions, in priority order:
 
 Sessions:
 
-- **9b.1 — Stock preset survey, read-only.** Defined below. Classifies a–e
-  from reads alone and selects what needs a write probe.
-- **9b.2 — Write probes for the flagged dimensions.** Likely: connect and
-  disconnect a modulation input; factory and attach one stateful module and
-  load content if a path is found; one non-decimal write; one FX Grid and one
-  Note Grid edit. One probe build and one controller replacement.
-- **9b.3 — Engine-active checks, if 9b.2 needs them.** Operator listening in
-  the [E296 style](9a-operator-audio-test.md), with fewer checks.
+- **9b.1 — Survey preflight and offline inventory.** Stopped before fixture
+  setup in [E300](../../evidence/experiments/e300-grid-survey-preflight.md).
+  V13 refuses reads after its used audio session and only admits the original
+  named Poly Grid fixture. The catalog seed, sample candidates, and symbol
+  manifest are recorded. Breadth acceptance is not complete.
+- **9b.2 — Scratch reader and survey continuation.** Complete in
+  [E302](../../evidence/experiments/e302-stock-grid-survey.md): 12 stock presets,
+  the control, 55 observed type UUIDs, and a complete 31-module catalog read.
+  Full stock graphs remain incomplete or refused. V14 is loaded and verified.
+- **9b.2a — Focused reader coverage.** Defined below. Resolve schema caps and
+  parameter/resource read coverage before the new write probes.
+- **9b.3 — Write probes for the flagged dimensions.** Select one non-decimal
+  value, one knob-modulation edge, and one stateful factory case after 9b.2a
+  proves their readback. Use Gates/array or Wavetable evidence from E302.
+  Resource loading and FX/Note edits remain conditional on sufficient read
+  coverage. Batch admitted probes into one build. No native write is authorized
+  by a preset name or a partial read alone.
+- **9b.3a — Engine-active checks, if the write results require them.**
+  Operator listening in the [E296 style](9a-operator-audio-test.md), with fewer
+  checks. Set the scope in the 9b.3 result.
 
 Exit: a verdict per dimension (same model, extension needed, or unknown with
 the reason); the module catalog first pass; the symbol manifest complete for
@@ -148,29 +160,34 @@ Exit: the doctor passes on both builds, or a recorded reason it cannot.
 No implementation in 9b. Use the step 1 and 2 results to decide: which verbs,
 module families, and Grid flavours to support; placement and overlap policy
 for the native `llL` layout pass; layout writes; outgoing-consumer cleanup on
-delete; the cost model for real patch sizes (from the 9b.1 numbers); failure
+delete; the cost model for real patch sizes (from the continued survey); failure
 handling and recovery; the tool surface and descriptions. Output: an
 implementation plan as a new phase or 9c, with a cost model per the
 [ledger](../../contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md) rules.
 
 ## Session 9b.1 — Stock Grid preset survey (read-only)
 
-**Goal.** Run the existing read path over a sample of stock Grid presets on
-a scratch track. Classify dimensions a–e from what it sees. Select the write
-probes for 9b.2.
+**Disposition.** [E300](../../evidence/experiments/e300-grid-survey-preflight.md)
+records the V13 refusal and the offline work. No preset was loaded. Continue
+this survey in 9b.2 after the reader change below.
+
+**Goal.** Read a sample of stock Grid presets on a scratch track. Classify
+dimensions a–e from what it sees. Select the write probes for 9b.3.
 
 **Inputs.**
 
-- 255 stock Grid presets under
+- 254 preset paths matching `grid` under
   `~/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/`
-  (for example `Audio FX - Space, Time, Color/Grid Repeater.bwpreset`,
-  `Freeform/Curving Grid.bwpreset`). Find them with
+  (E300 path inventory; the original estimate was 255). This is a filename
+  search, not a complete content classification. Examples:
+  `Audio FX - Space, Time, Color/Grid Repeater.bwpreset` and
+  `Freeform/Curving Grid.bwpreset`. Find them with
   `rg --files <dir> -g '*.bwpreset' | rg -i grid`.
-- The V13 research probe, still deployed (NOW). `probe.gridRead` with the
+- The V13 reader implementation and
   [E276 semantic query](../../evidence/data/phase9a-grid-read/semantic-query.json)
-  and its `schema` operation. No extension change is expected, so no
-  controller replacement. If a read needs a new method, stop, record it, and
-  plan the build for 9b.2.
+  are source inputs. The original no-rebuild assumption failed: V13 cannot
+  survey scratch targets. E300 followed the stop-and-plan rule. A dedicated
+  read path is now planned for 9b.2.
 - Control preset:
   `~/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset`.
   [E298](../../evidence/experiments/e298-grid-operator-audio-live-test.md) and its
@@ -178,10 +195,11 @@ probes for 9b.2.
   identify the saved project, backup, preset, and verified hashes. Keep the
   existing `grid-probe` track unchanged. The E289 edited project is not a baseline.
 - `brain/src/probes/phase9a-grid-read.ts` as the starting driver. It asserts
-  the `grid-probe` track name and the 9a preset hash; the survey driver drops
-  both.
+  the `grid-probe` track name and the 9a preset hash. Those driver checks and
+  the extension's fixed-target checks must not be copied into the scratch
+  reader. Keep explicit project and owned-target guards.
 
-**Preparation (small code).** Add `brain/src/probes/phase9b-grid-survey.ts`
+**Preparation (9b.2).** Add `brain/src/probes/phase9b-grid-survey.ts`
 (or a mode on the 9a driver) that takes an output directory and a list of
 preset paths. For each preset: create the scratch track if absent, mute it
 with `track.setMixer`, insert the preset with `device.insertFile`, point the
@@ -210,15 +228,189 @@ symbols expected).
 
 **Acceptance.** A verdict per dimension a–e (same model, extension needed, or
 unknown with the reason); the catalog first pass; the manifest; a selected
-scope for 9b.2. The scratch track is deleted. The operator's project is
+scope for 9b.3. The scratch track is deleted. The operator's project is
 otherwise unchanged. The operator chooses the host project (suggest
 `gn-grid-spike` or a new empty project).
 
 **Rigor.** Two reads per preset must agree, with the control and graph checks
 above. Writes are limited to scratch track/device setup, muting, and cleanup.
 Evidence is the driver's JSON output in `context/evidence/data/phase9b-survey/`
-and one E record (E300).
+and one E record for the continuation. E300 contains the preflight only.
 
-**Cost note.** One 53-node read is about 15 calls and 0.6 s. A 40-module
-patch can exceed the 4,096 work cap or the 1 MiB graph cap; record it. Do
-not raise a cap in this session without noting the heap effect.
+**Cost note.** The paired 53-node read workflow is about 15 calls and 0.6 s.
+A 40-module patch can exceed the 4,096 work cap or the 1 MiB graph cap;
+record it. Do not raise a cap without noting the heap effect.
+
+## Session 9b.2 — Scratch reader and survey continuation
+
+**Disposition.** Complete in [E302](../../evidence/experiments/e302-stock-grid-survey.md).
+The implementation and original acceptance below remain the session record.
+
+**Source.** [E300](../../evidence/experiments/e300-grid-survey-preflight.md).
+The live refusal occurs before document work:
+`GridProbeHandlers` rejects `engine.used() || engine.unfinished()`.
+Its later target check admits only `gn-grid-spike` / `grid-probe` / `Poly Grid`.
+A fresh controller alone cannot remove that second restriction.
+
+**Prepared implementation.** [E301](../../evidence/experiments/e301-reusable-grid-survey-reader.md)
+adds reusable read sessions under the existing `probe.gridRead` method.
+The user authorized a flexible reader for this and later sessions. Reads
+accept any explicitly named native device in any project; the batch driver
+still owns its scratch tracks. Bind, schema, read, status, and release are
+separate from the fixed audio protocol. The host jar, target, epoch,
+document-thread, work, and unfinished-task checks remain. A timeout locks
+the reader until controller replacement. A completed and released audio
+session does not block it. No retired write route is enabled.
+
+Use bounded schema discovery to locate the `module_grid` child on each
+flavour. The old child-components index 7 is not a general route. When a
+capture exposes an unknown class or field, inspect its schema once and
+record the projection addition. Keep the current 32-class projection limit,
+4,096-work cap, 1 MiB result cap, and graph limits initially. Record cap
+refusals; do not turn them into partial success. If a projection cannot
+represent the sample within these bounds, record that limit and plan the
+required change from evidence.
+
+The [driver](../../../brain/src/probes/phase9b-grid-survey.ts) uses the public
+track tools for creation, muting, and deletion, and guarded
+`device.insertFile` for presets. A second cursor verifies insertion. It
+checks ownership and selection before writes and records uncertain state
+without an automatic write retry. Original track/device/mixer state and
+selection are checked at entry and exit. Track structure is also checked
+between presets. The fixture scope is at most 32 visible tracks and 32
+presets. Ask the operator to select the host project before setup.
+
+**Deployment.** Offline checks pass and `./gradlew copyProbeExtension`
+deployed V14 in E301. Defer full controller removal and replacement to the
+operator under [AGENTS.md](../../../AGENTS.md). Require the final matching
+product in the complete list. Wait for confirmation and run `probe:hello`
+before the live survey.
+
+**Inputs and acceptance.** Start with the
+[13 candidate paths](../../evidence/data/phase9b-survey/sample-plan.json),
+[catalog seed](../../evidence/data/phase9b-survey/catalog-seed.json), and
+[symbol manifest](9b-grid-symbol-manifest.md). Replace candidates if their
+contents do not cover the intended dimensions. Complete the paired reads,
+control/invariant checks, per-preset records, verdicts a–e, catalog coverage,
+and cleanup specified above. Add E302 or the next free E number. Define the
+9b.3 write scope from those reads. No Grid write probe is part of 9b.2.
+
+**Cost model.** Each native capture keeps the E276 descriptor/projection
+limits: 4,096 shared work units, depth 12, 256-element schema/scalar arrays,
+and 1 MiB result maximum. Keep the earlier 8 MiB temporary-host-heap planning
+allowance per capture; it is not a measured peak or a hard memory limit.
+Only weak target references survive release. The driver holds at most two
+final graphs for comparison, writes captures to disk, and retains compact
+summaries and call metadata. Projection tables stay within 32 classes and
+1,024 fields.
+
+Each preset permits at most 64 schema calls and 34 captures, plus bind,
+status, and release: at most 101 read-session wire calls. The normal complete
+case has two final captures, two route schemas, and one schema per observed
+class. Unknown classes and absent projected fields add bounded discovery
+captures. At 24 ms per wire turn, 101 calls have a rough 2.4 s transport
+floor; document work is additional. E276 semantic captures took
+43.599–50.752 ms each on the four-module control.
+
+Fixture stages reuse the public models: one-track create 41 wire calls and
+889–935 ms (E258); mute about 10 turns and 268 ms (E257); delete 26–29 calls
+and 492–594 ms (E258). Project, track, mixer, and selection reads guard the
+fixture stages. The driver adds one guarded preset insertion, at most
+80 insertion polls, and two cursor points with at most 40 device-list polls
+each. Polls have a 50 ms delay. Entry and exit preservation scans each point
+at most 32 visible tracks with the same 40-poll bound. Record actual wire,
+document, work, byte, and heap results after replacement. No real-size
+performance bound is established yet.
+
+### Reusable read-session use
+
+Point owned cursor 0 at the intended track before bind. Send `probe.gridRead`
+with `operation: "bind"` and explicit `project`, UUID `trackId`, `trackName`,
+integer `deviceIndex`, and `deviceName`. The names need not be the 9a names.
+The bound object must have the `native_device` descriptor. Subsequent schema
+and read requests use the same target and returned `epoch`.
+
+`schema` takes a bounded descriptor `path`. `read` takes a `path` and an
+explicit `projection`. See the E276 query for their shapes. `status` takes
+no target and reports bound/busy/locked/unfinished state. `release` takes the
+epoch and drops the binding. Release before another bind. There is no
+one-shot allowance. A busy, unfinished, or uncertain native session still
+refuses other Grid work. Status remains available for inspection.
+
+From `brain/`, run the batch after the operator chooses the project:
+
+```sh
+node --import tsx src/probes/phase9b-grid-survey.ts \
+  gn-grid-spike /absolute/new/output \
+  ../context/evidence/data/phase9b-survey/sample-plan.json
+```
+
+For read-only inspection of an existing target, save the five target fields
+above in `target.json`, then run:
+
+```sh
+node --import tsx src/probes/phase9b-grid-survey.ts \
+  read target.json /absolute/new/output optional-projection-query.json
+```
+
+Omit the last argument to use the E276 projection. Both driver modes discover
+the `module_grid` path. The low-level session also permits other bounded
+native descriptor paths for later research. The batch's control compares the
+saved 9a graph after normalizing instance UUIDs and managed IDs. Counts in
+the summary cover projected modules and audio cables; schema files retain
+omitted fields for analysis. They do not imply complete modulation or
+stateful-content coverage.
+
+### E302 catalog follow-up
+
+The first V14 stock captures reached the shared work cap and unsupported
+stateful values. Use a separate catalog projection for module membership,
+names, and type UUIDs. Do not traverse atoms or report cable counts in this
+mode. Two route schemas, two captures, bind, status, and release cost seven
+read-session calls per preset. The same host work, byte, and fixture limits
+apply. This reduces traversal and adds no host symbol or extension change.
+E302 records both passes and their costs. The driver parks both survey
+cursors on a preserved track before deletion: two bounded points plus a
+track read and a repeated ownership/selection check. A preset without one named
+top-level Grid is a target-scope result; record its device bank and clean up.
+
+## Session 9b.2a — Focused reader coverage
+
+**Source.** [E302](../../evidence/experiments/e302-stock-grid-survey.md), the
+[report](../../evidence/data/phase9b-survey/survey-report.json),
+[catalog](../../evidence/data/phase9b-survey/catalog-first-pass.json), and
+[schema inventory](../../evidence/data/phase9b-survey/observed-schemas.json).
+
+**Goal.** Read the data needed to verify later writes without traversing
+unrelated display or engine state. Keep the reusable V14 session model.
+
+- Add selective relationship schemas: report full counts, but enumerate
+  bounded headers only for requested fields. Route discovery must not fail
+  because an unrelated `device_contents` relationship exceeds 256 children.
+  Keep explicit completeness and truncation information; do not silently
+  treat a truncated relation as complete.
+- Read one knob-input edge and the relevant source/target mapping fields.
+  Inspect 3615, 3616, 11497, and `inport_connection` from E302. Distinguish
+  Grid signal inputs from outer Bitwig modulation. Record unknowns directly.
+- Read Gates array content and Wavetable resource identity through focused
+  projections. Find a confirmed Sampler or Audio File preset if needed for
+  coverage. Do not infer that content from Whispering Loops or other names.
+- Retry one Poly and one Note schema refusal, plus Grid Multi FX at 31
+  modules. Use per-module or other bounded reads if one full graph cannot fit.
+  Exclude editor color unless it is needed for the question. Keep two matching
+  captures and membership/connection checks for each claimed result.
+- Keep catalog UUIDs separate from editable names. Add observed aliases and
+  provenance; no canonical-name claim from filename overlap alone.
+
+**Cost and checks.** Before implementation, state the requested schema-header
+and traversal bounds. Keep 4,096 work and 1 MiB per capture unless evidence
+justifies a change. Measure wire/document time and heap deltas. E302 observed
+38 MiB process-heap increases on first discovery, so the earlier 8 MiB figure
+is not a supported bound. Add focused offline tests and a small live sample.
+Batch extension changes into one build; operator replacement remains required.
+Use the chosen project and muted scratch tracks, park cursors before deletion,
+and compare preserved state at exit. No native Grid write belongs here.
+
+**Output.** E303 or the next free record, updated catalog/schema evidence,
+and a specific 9b.3 write scope with an independent readback path for each
+admitted operation. Unknown content or unsupported families can remain limits.

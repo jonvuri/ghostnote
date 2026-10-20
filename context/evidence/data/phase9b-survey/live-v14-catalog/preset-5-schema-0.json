@@ -1,0 +1,593 @@
+{
+  "path": [],
+  "marker": "9b-grid-survey-v14",
+  "epoch": "ccdb3d8e-9a4d-4d58-9d06-bc55cb995802",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "queueNanos": 70000,
+  "heapUsedBefore": 1486880768,
+  "schema": {
+    "className": "native_device",
+    "classId": 163,
+    "runtimeClass": "com.bitwig.flt.document.core.master.device.S2E",
+    "scope": "one-object schema and child headers; no scalar values or semantic gate",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 228,
+        "name": "in_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 229,
+        "name": "out_ports",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 6194,
+        "name": "settings",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 15,
+        "name": "UUID",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 404,
+        "name": "device_name",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 6785,
+        "name": "remote_controls",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "device_remote_controls",
+            "classId": 1919,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.bGD",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 406,
+        "name": "device_contents",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "device_contents",
+            "classId": 151,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.esS",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 825,
+        "name": "display_settings",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "device_display_settings",
+            "classId": 392,
+            "runtimeClass": "BtH",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 5466,
+        "name": "user_device_name",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 2785,
+        "name": "display_title",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 407,
+        "name": "preset_to_serialize",
+        "serializerIncluded": true,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 5478,
+        "name": "top_level_device_for_assigning_preset",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 0,
+        "children": []
+      },
+      {
+        "id": 409,
+        "name": "preset_name",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 4835,
+        "name": "displayed_preset_name",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 5914,
+        "name": "has_preset_been_chosen",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 410,
+        "name": "preset_category",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 411,
+        "name": "preset_creator",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 1364,
+        "name": "preset_keywords",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 3744,
+        "name": "preset_category_filter",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 3745,
+        "name": "preset_creator_filter",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6237,
+        "name": "preset_comment",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 13649,
+        "name": "preset_revision",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 5521,
+        "name": "is_being_hot_swapped",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 5550,
+        "name": "context_insert_session",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 6054,
+        "name": "browsing_session_state",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "browsing_session_state",
+            "classId": 1661,
+            "runtimeClass": "qOW",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 413,
+        "name": "last_loaded_preset_path",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 14003,
+        "name": "is_device_licensed",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 14415,
+        "name": "is_device_effectively_licensed",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 7582,
+        "name": "human_friendly_path",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 405,
+        "name": "enabled",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "device_enabled_value_atom",
+            "classId": 1497,
+            "runtimeClass": "Ejd",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 6815,
+        "name": "is_frozen",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6727,
+        "name": "modulator_grid",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "modulator_grid",
+            "classId": 1886,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.Ruv",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 895,
+        "name": "device_type",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 2031,
+        "name": "output_meter",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "device_chain_meter",
+            "classId": 559,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.AUW",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 2107,
+        "name": "has_note_input",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 2108,
+        "name": "has_note_output",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 2109,
+        "name": "has_audio_input",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 2110,
+        "name": "has_audio_output",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 4848,
+        "name": "suggest_for_note_input",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 4849,
+        "name": "suggest_for_audio_input",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 3358,
+        "name": "device_contents_delay",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 4991,
+        "name": "active",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 5343,
+        "name": "effective_active",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 5044,
+        "name": "device_output_source",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "engine_device_audio_source",
+            "classId": 1316,
+            "runtimeClass": "Zom",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 5655,
+        "name": "device_note_output_source",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "engine_device_note_source",
+            "classId": 1380,
+            "runtimeClass": "bIP",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 5400,
+        "name": "is_engine_processing",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 5401,
+        "name": "engine_shared_memory_helper",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "engine_shared_memory_helper",
+            "classId": 757,
+            "runtimeClass": "KzN",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 5438,
+        "name": "modulation_sources",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 3,
+        "children": [
+          {
+            "className": "modulation_source_atom",
+            "classId": 766,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.NDn",
+            "index": 0
+          },
+          {
+            "className": "modulation_source_atom",
+            "classId": 766,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.NDn",
+            "index": 1
+          },
+          {
+            "className": "nameable_modulation_source_atom",
+            "classId": 1929,
+            "runtimeClass": "c3d",
+            "index": 2
+          }
+        ]
+      },
+      {
+        "id": 6798,
+        "name": "default_is_expanded_display_setting",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 6799,
+        "name": "default_are_remote_controls_visible_display_setting",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 6826,
+        "name": "default_are_modulators_visible_display_setting",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 7030,
+        "name": "default_selected_remote_controls_page",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 1,
+        "children": [
+          {
+            "className": "remote_controls_page_id",
+            "classId": 1969,
+            "runtimeClass": "com.bitwig.flt.document.core.master.device.vIS",
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": 7037,
+        "name": "additional_remote_controls_page_selectors",
+        "serializerIncluded": false,
+        "relationship": true,
+        "count": 16,
+        "children": [
+          {
+            "className": "additional_remote_controls_page_selector",
+            "classId": 5080,
+            "runtimeClass": "dKU",
+            "index": 0
+          },
+          {
+            "className": "additional_remote_controls_page_selector",
+            "classId": 5080,
+            "runtimeClass": "dKU",
+            "index": 1
+          },
+          {
+            "className": "additional_remote_controls_page_selector",
+            "classId": 5080,
+            "runtimeClass": "dKU",
+            "index": 2
+          },
+          {
+            "className": "additional_remote_controls_page_selector",
+            "classId": 5080,
+            "runtimeClass": "dKU",
+            "index": 3
+          },
+          {
+            "className": "additional_remote_controls_page_selector",
+            "classId": 5080,
+            "runtimeClass": "dKU",
+            "index": 4
+          },
+          {
+            "className": "additional_remote_controls_page_selector",
+            "classId": 5080,
+            "runtimeClass": "dKU",
+            "index": 5
+          },
+          {
+            "className": "additional_remote_controls_page_selector",
+            "classId": 5080,
+            "runtimeClass": "dKU",
+            "index": 6
+          },
+          {
+            "className": "additional_remote_controls_page_selector",
+            "classId": 5080,
+            "runtimeClass": "dKU",
+            "index": 7
+          },
+          {
+            "className": "additional_remote_controls_page_selector",
+            "classId": 5080,
+            "runtimeClass": "dKU",
+            "index": 8
+          },
+          {
+            "className": "additional_remote_controls_page_selector",
+            "classId": 5080,
+            "runtimeClass": "dKU",
+            "index": 9
+          },
+          {
+            "className": "additional_remote_controls_page_selector",
+            "classId": 5080,
+            "runtimeClass": "dKU",
+            "index": 10
+          },
+          {
+            "className": "additional_remote_controls_page_selector",
+            "classId": 5080,
+            "runtimeClass": "dKU",
+            "index": 11
+          },
+          {
+            "className": "additional_remote_controls_page_selector",
+            "classId": 5080,
+            "runtimeClass": "dKU",
+            "index": 12
+          },
+          {
+            "className": "additional_remote_controls_page_selector",
+            "classId": 5080,
+            "runtimeClass": "dKU",
+            "index": 13
+          },
+          {
+            "className": "additional_remote_controls_page_selector",
+            "classId": 5080,
+            "runtimeClass": "dKU",
+            "index": 14
+          },
+          {
+            "className": "additional_remote_controls_page_selector",
+            "classId": 5080,
+            "runtimeClass": "dKU",
+            "index": 15
+          }
+        ]
+      },
+      {
+        "id": 4954,
+        "name": "was_device_window_open_last_time_track_was_shown",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 5262,
+        "name": "was_device_window_open_when_all_windows_were_hidden",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 11550,
+        "name": "is_engine_ready",
+        "serializerIncluded": false,
+        "relationship": false
+      }
+    ],
+    "work": 88,
+    "complete": true
+  },
+  "queryWork": 88,
+  "heapUsedAfter": 1486880768,
+  "documentTaskNanos": 263250,
+  "completionNanos": 24007167
+}

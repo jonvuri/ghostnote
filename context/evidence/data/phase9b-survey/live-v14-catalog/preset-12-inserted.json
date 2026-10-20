@@ -1,0 +1,22 @@
+{
+  "candidate": {
+    "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Poly Pitch Envelopes.bwpreset",
+    "flavour": "Note Grid",
+    "role": "Possible polyphonic modulation",
+    "loaded": false
+  },
+  "devices": {
+    "devices": [
+      {
+        "index": 0,
+        "name": "Note Grid",
+        "enabled": true
+      }
+    ],
+    "count": 1,
+    "itemCount": 1,
+    "trackChannelId": "deabcc69-c1ef-4643-8615-e1b4aeeac583",
+    "trackPosition": 1,
+    "bankSize": 16
+  }
+}

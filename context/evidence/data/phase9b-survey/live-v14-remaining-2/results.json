@@ -1,0 +1,223 @@
+[
+  {
+    "path": [
+      {
+        "parentClass": "native_device",
+        "propertyId": 406,
+        "propertyName": "device_contents",
+        "index": 0
+      },
+      {
+        "parentClass": "device_contents",
+        "propertyId": 173,
+        "propertyName": "child_components",
+        "index": 5
+      }
+    ],
+    "flavour": "FX Grid",
+    "complete": false,
+    "errors": [
+      "unsupported-value:v3K"
+    ],
+    "partialNodes": 78,
+    "paired": true,
+    "additions": [
+      {
+        "className": "transport_component",
+        "runtimeClass": "ftf",
+        "fields": [
+          6194,
+          10070
+        ],
+        "removedAbsentFields": []
+      },
+      {
+        "className": "component_settings",
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.r2",
+        "fields": [
+          612,
+          614,
+          615
+        ],
+        "removedAbsentFields": []
+      },
+      {
+        "className": "desktop_settings",
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.EeT",
+        "fields": [
+          17,
+          18,
+          19
+        ],
+        "removedAbsentFields": []
+      }
+    ],
+    "schemas": 21,
+    "captures": 5,
+    "measurements": [
+      {
+        "queryWork": 2216,
+        "graphWork": 413,
+        "bytes": 52110,
+        "documentMs": 1.684625,
+        "heapUsedBefore": 851443712,
+        "heapUsedAfter": 855638016
+      },
+      {
+        "queryWork": 2216,
+        "graphWork": 413,
+        "bytes": 52110,
+        "documentMs": 1.454458,
+        "heapUsedBefore": 855638016,
+        "heapUsedAfter": 857735168
+      }
+    ],
+    "verdict": "incomplete-read-recorded"
+  },
+  {
+    "path": [
+      {
+        "parentClass": "native_device",
+        "propertyId": 406,
+        "propertyName": "device_contents",
+        "index": 0
+      },
+      {
+        "parentClass": "device_contents",
+        "propertyId": 173,
+        "propertyName": "child_components",
+        "index": 4
+      }
+    ],
+    "flavour": "Note Grid",
+    "complete": false,
+    "errors": [
+      "unsupported-value:v3K",
+      "unsupported-value:v3K",
+      "unsupported-value:v3K",
+      "unsupported-value:v3K",
+      "unsupported-value:v3K",
+      "unsupported-value:v3K",
+      "unsupported-value:v3K",
+      "unsupported-value:v3K",
+      "unsupported-value:v3K",
+      "unsupported-value:v3K",
+      "unsupported-value:v3K",
+      "unsupported-value:v3K",
+      "schema-work-or-time-limit"
+    ],
+    "partialNodes": 172,
+    "paired": true,
+    "additions": [
+      {
+        "className": "note_led_atom",
+        "runtimeClass": "ywq",
+        "fields": [
+          6194,
+          607,
+          374,
+          11002,
+          169
+        ],
+        "removedAbsentFields": []
+      },
+      {
+        "className": "device_note_output_proxy_atom",
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.lkO",
+        "fields": [
+          6194,
+          607,
+          608,
+          9817
+        ],
+        "removedAbsentFields": []
+      },
+      {
+        "className": "value_led_atom",
+        "runtimeClass": "dLY",
+        "fields": [
+          6194,
+          607,
+          374,
+          11002
+        ],
+        "removedAbsentFields": []
+      },
+      {
+        "className": "modulation_source_atom",
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.NDn",
+        "fields": [
+          6194,
+          607,
+          608,
+          10378,
+          3639,
+          3640,
+          5452
+        ],
+        "removedAbsentFields": []
+      },
+      {
+        "className": "string_panel_value",
+        "runtimeClass": "UcJ",
+        "fields": [
+          6194,
+          6387,
+          6391
+        ],
+        "removedAbsentFields": []
+      },
+      {
+        "className": "inport_connection",
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Uqf",
+        "fields": [
+          248,
+          249,
+          6443
+        ],
+        "removedAbsentFields": []
+      },
+      {
+        "className": "modulation_source_atom_display_settings",
+        "runtimeClass": "ZDj",
+        "fields": [
+          5455
+        ],
+        "removedAbsentFields": []
+      }
+    ],
+    "schemas": 26,
+    "captures": 4,
+    "measurements": [
+      {
+        "queryWork": 4097,
+        "graphWork": 887,
+        "bytes": 109430,
+        "documentMs": 11.827833,
+        "heapUsedBefore": 809500672,
+        "heapUsedAfter": 813694976
+      },
+      {
+        "queryWork": 4097,
+        "graphWork": 887,
+        "bytes": 109430,
+        "documentMs": 11.656334,
+        "heapUsedBefore": 815792128,
+        "heapUsedAfter": 822083584
+      }
+    ],
+    "verdict": "incomplete-read-recorded"
+  },
+  {
+    "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Stutter Steps.bwpreset",
+    "flavour": "Note Grid",
+    "verdict": "cap-refusal",
+    "error": "BridgeError: Internal error: grid-operation-failed:java.lang.IllegalStateException: schema-child-limit"
+  },
+  {
+    "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Notes in Motion/Note Grid/Poly Pitch Envelopes.bwpreset",
+    "flavour": "Note Grid",
+    "verdict": "cap-refusal",
+    "error": "BridgeError: Internal error: grid-operation-failed:java.lang.IllegalStateException: schema-child-limit"
+  }
+]

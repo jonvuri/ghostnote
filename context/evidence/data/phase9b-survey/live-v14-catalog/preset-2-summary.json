@@ -1,0 +1,165 @@
+{
+  "complete": true,
+  "moduleCount": 19,
+  "projectedAudioCableCount": null,
+  "modules": [
+    {
+      "index": 0,
+      "uuid": "fd7d6338-00a0-4d32-844f-53e1316b31ab",
+      "name": "Wavetable",
+      "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04"
+    },
+    {
+      "index": 1,
+      "uuid": "17598c42-fee9-4c46-8faf-8e9974394f04",
+      "name": "ADSR",
+      "typeUuid": "7e09068b-fee5-457e-afe4-7017661ebbd3"
+    },
+    {
+      "index": 2,
+      "uuid": "b923e928-bf1d-4480-bc51-4daac5d09188",
+      "name": "Audio Out",
+      "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6"
+    },
+    {
+      "index": 3,
+      "uuid": "252b15c1-c8d4-401f-812b-5c27f8960cae",
+      "name": "Attenuate",
+      "typeUuid": "cfc56753-defc-4324-8a68-bf747ff45508"
+    },
+    {
+      "index": 4,
+      "uuid": "f7b9b469-8a92-484e-b87b-53b7de681bb7",
+      "name": "Wavetable",
+      "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04"
+    },
+    {
+      "index": 5,
+      "uuid": "4039c6c5-2930-42a2-8e54-c896cd2b16e9",
+      "name": "Wavetable",
+      "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04"
+    },
+    {
+      "index": 6,
+      "uuid": "8bc0c9de-5706-445a-a91d-cfb63225688f",
+      "name": "Transport",
+      "typeUuid": "997869ea-e649-4ac8-865e-bd4ac9e7b2a2"
+    },
+    {
+      "index": 7,
+      "uuid": "9b76f914-6e51-4e05-a3d2-95248b7ca1e7",
+      "name": "Gate In",
+      "typeUuid": "4e00fda6-20f6-45a9-9d7e-02867cf09b82"
+    },
+    {
+      "index": 8,
+      "uuid": "9bd7f8fe-5a5d-4d13-84e8-a8161a41ef36",
+      "name": "AND",
+      "typeUuid": "1e330c79-9a6f-4015-8dfa-da507c1bb15a"
+    },
+    {
+      "index": 9,
+      "uuid": "5ffdfc00-2c91-4504-9bd2-dc21ebe3b982",
+      "name": "Gates",
+      "typeUuid": "8d644ad7-8d77-4f05-a36e-04a57f719635"
+    },
+    {
+      "index": 10,
+      "uuid": "7cac4e69-2c83-4e1c-b644-bb82775a7971",
+      "name": "Ø Reset",
+      "typeUuid": "d04bb748-5f66-4a4a-85d8-d3402c982e22"
+    },
+    {
+      "index": 11,
+      "uuid": "ac94f9ad-233f-406a-83dd-ee807343aa0a",
+      "name": "Merge",
+      "typeUuid": "c10b5ffa-0d10-4005-ad49-a39253ee26eb"
+    },
+    {
+      "index": 12,
+      "uuid": "55c78c4f-84ae-4b65-b385-2f146e4d0980",
+      "name": "Ø Counter",
+      "typeUuid": "f9b5157c-0a41-403c-810b-9bbf9a133110"
+    },
+    {
+      "index": 13,
+      "uuid": "0041ea6c-67ac-4392-873e-d627766ec411",
+      "name": "Wavetable",
+      "typeUuid": "19749bf6-0974-4356-9bce-6ab3b5a1af04"
+    },
+    {
+      "index": 14,
+      "uuid": "52df0d58-546b-4dab-a9ce-0afd07fe5fcd",
+      "name": "LFO",
+      "typeUuid": "b89c1bce-203a-46be-8869-a44eb7868860"
+    },
+    {
+      "index": 15,
+      "uuid": "a606c60f-bd98-433d-9fb9-c88fb8ec82ae",
+      "name": "Pan",
+      "typeUuid": "43600afd-7226-4408-bbb6-b7b9cc2a6cee"
+    },
+    {
+      "index": 16,
+      "uuid": "40c700bf-dc48-4c91-ab9c-c54dc3598111",
+      "name": "Pan",
+      "typeUuid": "43600afd-7226-4408-bbb6-b7b9cc2a6cee"
+    },
+    {
+      "index": 17,
+      "uuid": "d31436f9-90fc-4a9d-913d-d9c6585aa9f9",
+      "name": "Pan",
+      "typeUuid": "43600afd-7226-4408-bbb6-b7b9cc2a6cee"
+    },
+    {
+      "index": 18,
+      "uuid": "2e32ee05-c81d-4c70-8895-0a14bc4a1f1a",
+      "name": "Pan",
+      "typeUuid": "43600afd-7226-4408-bbb6-b7b9cc2a6cee"
+    }
+  ],
+  "cables": [],
+  "classes": [
+    "module",
+    "module_contents",
+    "module_grid"
+  ],
+  "scope": "Module membership, names, and type UUIDs only. Cables and contents are not covered.",
+  "paired": true,
+  "additions": [],
+  "schemas": 2,
+  "captures": 2,
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 7
+    }
+  ],
+  "measurements": [
+    {
+      "queryWork": 1549,
+      "graphWork": 154,
+      "bytes": 19073,
+      "documentMs": 1.62525,
+      "heapUsedBefore": 910163968,
+      "heapUsedAfter": 910163968
+    },
+    {
+      "queryWork": 1549,
+      "graphWork": 154,
+      "bytes": 19073,
+      "documentMs": 1.615917,
+      "heapUsedBefore": 912261120,
+      "heapUsedAfter": 912261120
+    }
+  ],
+  "verdict": "projected-read-agrees"
+}

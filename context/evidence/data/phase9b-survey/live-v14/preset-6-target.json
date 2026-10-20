@@ -1,0 +1,29 @@
+{
+  "candidate": {
+    "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Audio FX - Space, Time, Color/Grid Repeater.bwpreset",
+    "flavour": "FX Grid",
+    "role": "Repeater; flavour inferred from package",
+    "loaded": false
+  },
+  "target": {
+    "project": "gn-grid-spike",
+    "trackId": "b739a5a2-3cb5-4204-b737-eb1e5d478f92",
+    "trackName": "gn-9b-survey-6aedf586",
+    "deviceIndex": 0,
+    "deviceName": "FX Grid"
+  },
+  "devices": {
+    "devices": [
+      {
+        "index": 0,
+        "name": "FX Grid",
+        "enabled": true
+      }
+    ],
+    "count": 1,
+    "itemCount": 1,
+    "trackChannelId": "b739a5a2-3cb5-4204-b737-eb1e5d478f92",
+    "trackPosition": 1,
+    "bankSize": 16
+  }
+}

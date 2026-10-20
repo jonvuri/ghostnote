@@ -1,0 +1,71 @@
+{
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 4
+    },
+    {
+      "parentClass": "module_grid",
+      "propertyId": 6428,
+      "propertyName": "auxiliary_devices",
+      "index": 6
+    },
+    {
+      "parentClass": "module",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "module_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 13
+    },
+    {
+      "parentClass": "modulation_source_atom",
+      "propertyId": 5452,
+      "propertyName": "display_settings",
+      "index": 0
+    }
+  ],
+  "marker": "9b-grid-survey-v14",
+  "epoch": "8b473e6a-6b78-46fa-a4ec-e170194add8f",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "queueNanos": 136750,
+  "heapUsedBefore": 807403520,
+  "schema": {
+    "className": "modulation_source_atom_display_settings",
+    "classId": 1488,
+    "runtimeClass": "ZDj",
+    "scope": "one-object schema and child headers; no scalar values or semantic gate",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 5455,
+        "name": "is_source_expanded_in_inspector",
+        "serializerIncluded": true,
+        "relationship": false
+      }
+    ],
+    "work": 211,
+    "complete": true
+  },
+  "queryWork": 211,
+  "heapUsedAfter": 807403520,
+  "documentTaskNanos": 377417,
+  "completionNanos": 24373834
+}

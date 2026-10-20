@@ -1,0 +1,36 @@
+{
+  "session": "9b.2-preparation",
+  "extensionCheck": {
+    "command": "./gradlew check",
+    "passed": true,
+    "includes": [
+      "clipReaderTest",
+      "gridReadTest with GridSurveyTest",
+      "verifyExtensionArchives"
+    ]
+  },
+  "typecheck": {
+    "command": "npm run typecheck",
+    "passed": true
+  },
+  "focusedTests": {
+    "command": "node --import tsx --test src/probes/phase9b-grid-survey.test.ts src/adapters/live/wiremap.test.ts src/probes/phase9a-grid-engine.test.ts src/surface/call-budget.test.ts",
+    "passed": 83,
+    "failed": 0
+  },
+  "finalSurveyTests": {
+    "command": "node --import tsx --test src/probes/phase9b-grid-survey.test.ts",
+    "passed": 7,
+    "failed": 0
+  },
+  "contextCheck": {
+    "activeDocuments": 665,
+    "passed": true
+  },
+  "changedSectionLinks": "passed",
+  "diffCheck": "passed",
+  "liveVerification": "pending operator replacement and project choice",
+  "productCallBudgets": "unchanged",
+  "toolDescriptionVersion": "ghostnote-description-v52",
+  "newObfuscatedSymbols": 0
+}

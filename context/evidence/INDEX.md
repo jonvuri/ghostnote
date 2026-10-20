@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-10-19
+updated: 2026-10-20
 ---
 
 # Evidence index
@@ -18,6 +18,9 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E302 | V14 surveys 12 stock presets and the control; 55 type UUIDs, paired catalog inventories to 31 modules; broad graphs remain incomplete/refused; scratch cleanup and baseline preservation pass; focused reader coverage next [K] (2026-10-20) | [open](experiments/e302-stock-grid-survey.md) |
+| E301 | V14 reusable native-device read sessions and scratch survey driver checked and deployed; fixed-name and used-audio restrictions removed from reads; identity, bounds, and timeout locks retained; replacement and live survey pending [K] (2026-10-20) | [open](experiments/e301-reusable-grid-survey-reader.md) |
+| E300 | 9b.1 stops before scratch setup: used V13 session refuses Grid reads; fixed-target guard also excludes survey targets. Offline catalog seed and 64-member symbol manifest recorded; 9b.2 adds the reader and continues the survey [K] (2026-10-20) | [open](experiments/e300-grid-survey-preflight.md) |
 | E299 | 9a closes with bounded native module/cable CRUD, readback, persistence, operator audio, and exact restoration; research probe retained by operator choice; further planning separate, no live calls [K] (2026-10-19) | [open](experiments/e299-grid-spike-close-out.md) |
 | E298 | V13 passes all eight operator audio checks, eleven native graph stages, and exact saved-baseline restoration in 240 calls; one factory, zero notes, session released; bounded close-out next, 9a active [K] (2026-10-19) | [open](experiments/e298-grid-operator-audio-live-test.md) |
 | E297 | V13 operator audio runner checked and deployed: eight explicit answers, eleven graph stages, 240 calls, no meter or note injection; 244 TypeScript tests and Java checks pass; replacement and live listening next, 9a active [K] (2026-10-19) | [open](experiments/e297-grid-operator-audio-probe.md) |

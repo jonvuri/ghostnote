@@ -1,0 +1,4 @@
+{
+  "verdict": "cap-refusal",
+  "error": "BridgeError: Internal error: grid-operation-failed:java.lang.IllegalStateException: schema-child-limit"
+}

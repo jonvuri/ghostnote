@@ -82,7 +82,7 @@ const goldenFiles: Record<string, string> = {
 const goldenFile = goldenFiles[hello.runtimeProfile];
 check('runtime profile has an active golden', goldenFile !== undefined, hello);
 if (hello.runtimeProfile === 'phase-8-probe-v1') {
-  check('the 9a research build marker is present', rig['gridReadProbe'] === '9a-grid-audio-v13',
+  check('the 9b survey build marker is present', rig['gridReadProbe'] === '9b-grid-survey-v14',
     { gridReadProbe: rig['gridReadProbe'] });
 }
 if (goldenFile === undefined) throw new Error(`unknown runtime profile: ${hello.runtimeProfile}`);

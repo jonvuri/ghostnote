@@ -1,0 +1,133 @@
+[
+  {
+    "method": "track.list",
+    "params": {},
+    "value": {
+      "tracks": [
+        {
+          "index": 0,
+          "name": "grid-probe",
+          "position": 0,
+          "type": "Instrument",
+          "channelId": "c784d25c-b753-47ca-af8d-c83d11cfd990"
+        },
+        {
+          "index": 1,
+          "name": "FX 1",
+          "position": 1,
+          "type": "Effect",
+          "channelId": "0c4835e2-1769-4ecc-9d03-cf0226bcb5a4"
+        },
+        {
+          "index": 2,
+          "name": "Master",
+          "position": 2,
+          "type": "Master",
+          "channelId": "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f"
+        }
+      ],
+      "count": 3,
+      "itemCount": 3,
+      "bankSize": 256
+    }
+  },
+  {
+    "method": "selection.status",
+    "params": {},
+    "value": {
+      "trackIndex": -1,
+      "slotIndex": -1,
+      "mixerTrackIndex": 0,
+      "mixerChannelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+      "changes": 0,
+      "revision": 21,
+      "slotProject": "",
+      "mixerProject": "gn-grid-spike",
+      "project": "gn-grid-spike"
+    }
+  },
+  {
+    "method": "device.list",
+    "params": {
+      "cursor": 0
+    },
+    "value": {
+      "devices": [],
+      "count": 0,
+      "itemCount": 1,
+      "trackChannelId": "",
+      "trackPosition": -1,
+      "bankSize": 16
+    }
+  },
+  {
+    "method": "devcursor.status",
+    "params": {
+      "cursor": 0
+    },
+    "value": {
+      "exists": true,
+      "name": "Poly Grid",
+      "enabled": true,
+      "isPinned": false,
+      "deviceIndex": 0,
+      "trackChannelId": "",
+      "trackPosition": -1,
+      "cursorTrackPinned": true,
+      "isNested": false,
+      "routeSignature": "-1:[]:[]:[]:[]"
+    }
+  },
+  {
+    "method": "cursor.pointTrack",
+    "params": {
+      "cursor": "0",
+      "trackIndex": 0
+    },
+    "value": {
+      "success": true
+    }
+  },
+  {
+    "method": "device.list",
+    "params": {
+      "cursor": 0
+    },
+    "value": {
+      "devices": [],
+      "count": 0,
+      "itemCount": 1,
+      "trackChannelId": "",
+      "trackPosition": -1,
+      "bankSize": 16
+    }
+  },
+  {
+    "method": "device.list",
+    "params": {
+      "cursor": 0
+    },
+    "value": {
+      "devices": [],
+      "count": 0,
+      "itemCount": 1,
+      "trackChannelId": "",
+      "trackPosition": -1,
+      "bankSize": 16
+    }
+  },
+  {
+    "method": "probe.gridRead",
+    "params": {
+      "operation": "status"
+    },
+    "value": {
+      "bound": false,
+      "busy": false,
+      "locked": false,
+      "nativeUnfinished": false,
+      "marker": "9b-grid-survey-v14",
+      "foreignOwner": false
+    }
+  }
+]
