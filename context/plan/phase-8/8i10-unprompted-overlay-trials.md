@@ -1,9 +1,9 @@
 ---
 title: Phase 8i10 unprompted overlay trials
 kind: plan
-state: done
+state: archived
 status: Complete (E259). First runs made no timing claims; descriptions v45 route timing-feel tasks to Timing overlays and reference revision 4 adds an analysis method; in the reruns, both timing tasks made and used claims without a request.
-updated: 2026-10-09
+updated: 2026-10-19
 parent: README.md
 prev: 8i8-selection-and-readback-results.md
 next: 8i11-claim-replacement-repair.md
@@ -11,6 +11,10 @@ evidence: E256, E259; D45, D47
 ---
 
 # Phase 8i10 unprompted overlay trials
+
+Historical Phase 8 record. Procedures and project retention instructions below
+apply to the completed trials. Use the [dogfood archive](../../archive/outcomes/PHASE-8-DOGFOOD.md)
+for results, related sessions, and the end of project tracking.
 
 The 8i9 operator trial passed
 ([E256](../../evidence/experiments/e256-overlay-authoring-and-creation.md#operator-trial)),

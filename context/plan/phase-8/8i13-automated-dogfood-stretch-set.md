@@ -1,9 +1,9 @@
 ---
 title: Phase 8i13 automated dogfood stretch set
 kind: plan
-state: done
+state: archived
 status: Complete (E262). The operator selected all five tasks with both clients; each of the ten sessions met its goal; the operator reviewed the issue log (D9 and D8 get fix sessions, 8i14 and 8i15).
-updated: 2026-10-11
+updated: 2026-10-19
 parent: README.md
 prev: 8i12-automated-dogfood-process-proof.md
 next: 8i14-clip-copy-to-any-row.md
@@ -11,6 +11,10 @@ evidence: E261, E262
 ---
 
 # Phase 8i13 automated dogfood stretch set
+
+Historical Phase 8 record. Procedures and project retention instructions below
+apply to the completed trials. Use the [dogfood archive](../../archive/outcomes/PHASE-8-DOGFOOD.md)
+for results, related sessions, and the end of project tracking.
 
 [8i12](8i12-automated-dogfood-process-proof.md) proved the automated loop
 ([E261](../../evidence/experiments/e261-automated-dogfood-process-proof.md)).

@@ -1,12 +1,16 @@
 ---
 title: 8i dogfood issue log
 kind: reference
-state: active
-updated: 2026-10-16
+state: archived
+updated: 2026-10-19
 parent: 8i-agent-native-hybrid-dogfood.md
 ---
 
 # 8i dogfood issue log
+
+Historical Phase 8 record. Procedures and project retention instructions below
+apply to the completed trials. Use the [dogfood archive](../../archive/outcomes/PHASE-8-DOGFOOD.md)
+for results, related sessions, and the end of project tracking.
 
 The driving agent of an automated dogfood session
 ([runbook](8i-automated-dogfood-runbook.md)) adds one row for each issue.

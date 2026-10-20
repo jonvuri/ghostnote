@@ -9,6 +9,8 @@ updated: 2026-10-19
 
 Experimental evidence is split by E-number so agents can load only the result
 needed by a plan or decision. Content is preserved from the original findings log.
+The [Phase 8 dogfood archive](../archive/outcomes/PHASE-8-DOGFOOD.md) groups
+E249–E272 by result and links the related sessions and transcripts.
 
 The [8g intermediate review](format/PHASE8G_INTERMEDIATE_REVIEW.md) records
 component acceptance, two P2 findings, the full staged inventory, and five

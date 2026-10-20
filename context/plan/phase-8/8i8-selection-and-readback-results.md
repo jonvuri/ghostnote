@@ -1,9 +1,9 @@
 ---
 title: Phase 8i8 selection effects and unavailable readback
 kind: plan
-state: done
+state: archived
 status: Complete (E258). A failed verification read reports unavailable on every write tool; clip and track writes restore the selection or warn. Descriptions v44.
-updated: 2026-10-09
+updated: 2026-10-19
 parent: README.md
 prev: 8i7-track-mixer.md
 next: 8i10-unprompted-overlay-trials.md
@@ -11,6 +11,10 @@ evidence: E250, E251, E258; D43
 ---
 
 # Phase 8i8 selection effects and unavailable readback
+
+Historical Phase 8 record. Procedures and project retention instructions below
+apply to the completed trials. Use the [dogfood archive](../../archive/outcomes/PHASE-8-DOGFOOD.md)
+for results, related sessions, and the end of project tracking.
 
 Close three result defects that E250 and E251 found live. Each one makes a
 result state less than, or other than, what happened.

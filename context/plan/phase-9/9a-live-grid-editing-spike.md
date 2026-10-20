@@ -5,6 +5,7 @@ state: complete
 status: E299 closes the spike. Native Grid operations and operator audio pass on the fixed fixture. The research probe stays deployed.
 updated: 2026-10-19
 parent: README.md
+next: 9b-grid-breadth-discovery-and-build-out.md
 ---
 
 # Phase 9a — Live Grid editing spike
@@ -60,5 +61,6 @@ close-out requested after E298. The operator chose to keep the research
 or live request ran during close-out. Its completed session is used and
 released. Do not repeat its preparation, run, or restoration workflow.
 
-The user will select next steps in a separate planning session. No next
-implementation scope is selected here. Wider Phase 9 remains provisional.
+Next steps are planned in
+[9b](9b-grid-breadth-discovery-and-build-out.md): breadth, build symbol
+discovery, then build-out planning.

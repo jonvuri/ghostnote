@@ -180,3 +180,21 @@ node --expose-gc --import tsx src/probes/phase8i16-midi-files.ts /absolute/midi/
 The driver uses 120 BPM, verifies round trips and repeatability, and deletes its
 generated MIDI outputs. It prints only aggregate measurements and hashes. The
 operator's source files are not changed or copied into the repository.
+
+Additional drivers, from `brain/`:
+
+- `node --import tsx src/probes/phase8i19-document-files.ts <absolute MIDI file>`
+  checks document file routes and removes its output files.
+- `node --import tsx src/probes/phase8i20-tempo-report.ts <absolute MIDI file>...`
+  checks the tempo report and overlap pre-check, and removes its output files.
+- `node --import tsx src/probes/phase8i19-live-read.ts <track name> <row>`
+  checks the live document file route. Use the live entry checks in
+  [AGENTS.md](../../AGENTS.md).
+
+R07 normalization can produce same-pitch overlaps. Keep FIFO pairing; do not
+shorten notes to hide an overlap. A clip write refuses the overlap before any
+host call and names the pairs in `detail.overlaps` ([E271](../evidence/experiments/e271-midi-tempo-report-and-overlap-precheck.md)).
+The E270 Ghostworks inputs have no equal consecutive tempo values (E271), so
+equal-tempo merging does not reduce their maps. Omit `targetBpm` to keep source
+beats and the map. In comparisons, identify the source file version: E266 and
+E268 used the earlier 60 BPM files.

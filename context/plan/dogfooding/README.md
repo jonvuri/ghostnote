@@ -1,12 +1,16 @@
 ---
 title: First dogfooding loop
 kind: plan
-state: deferred
-updated: 2026-09-12
+state: archived
+updated: 2026-10-19
 parent: ../ROADMAP.md
 ---
 
 # First dogfooding loop
+
+Historical loop. Do not resume its procedures. For Phase 8 results, use the
+[dogfood archive](../../archive/outcomes/PHASE-8-DOGFOOD.md); for a selected new
+trial, use the [reusable runbook](../phase-8/8i-automated-dogfood-runbook.md).
 
 This loop records the first real-workflow iteration. The operator deferred its
 remaining menu while Phase 6 explores the music workstation direction. The

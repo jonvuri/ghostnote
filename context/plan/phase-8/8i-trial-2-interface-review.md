@@ -1,12 +1,16 @@
 ---
 title: Second 8i trial interface review
 kind: reference
-state: active
-updated: 2026-10-09
+state: archived
+updated: 2026-10-19
 parent: 8i-agent-native-hybrid-dogfood.md
 ---
 
 # Second 8i trial interface review
+
+Historical Phase 8 record. Procedures and project retention instructions below
+apply to the completed trials. Use the [dogfood archive](../../archive/outcomes/PHASE-8-DOGFOOD.md)
+for results, related sessions, and the end of project tracking.
 
 The 2026-10-09 bass and sound trial passed the operator's musical verdict.
 The agent made 52 Ghostnote call attempts: 19 for the first draft, 7 for

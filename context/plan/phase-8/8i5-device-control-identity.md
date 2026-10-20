@@ -1,9 +1,9 @@
 ---
 title: Phase 8i5 device control identity
 kind: plan
-state: done
+state: archived
 status: Complete (E254, D46). Remote selectors resolve by host index; the modulation writers claim the route and the route suite keeps the live proof; first-read Patch guidance removed repeat reads. Next: the remaining 8i trials.
-updated: 2026-10-09
+updated: 2026-10-19
 parent: README.md
 prev: 8i4-overlay-basis-sealing.md
 next: 8i-agent-native-hybrid-dogfood.md
@@ -11,6 +11,10 @@ evidence: E85, E97, E244, E252, E254; D15, D44, D46
 ---
 
 # Phase 8i5 device control identity
+
+Historical Phase 8 record. Procedures and project retention instructions below
+apply to the completed trials. Use the [dogfood archive](../../archive/outcomes/PHASE-8-DOGFOOD.md)
+for results, related sessions, and the end of project tracking.
 
 Fix two failures from the 2026-10-09 bass and sound trial. Preserve the
 accepted result in "ice jungle". Use owned fixtures for implementation and

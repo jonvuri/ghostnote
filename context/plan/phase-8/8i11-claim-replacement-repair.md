@@ -1,9 +1,9 @@
 ---
 title: Phase 8i11 claim replacement repair
 kind: plan
-state: done
+state: archived
 status: Complete (E260). A duplicate current claim returns repair duplicate-claim, R15 names the onset floor, reference revision 5 states step 7 for unmoved notes, descriptions v46; the operator rerun had no refusal.
-updated: 2026-10-09
+updated: 2026-10-19
 parent: README.md
 prev: 8i10-unprompted-overlay-trials.md
 next: 8i12-automated-dogfood-process-proof.md
@@ -11,6 +11,10 @@ evidence: E256, E259, E260; D45, D47
 ---
 
 # Phase 8i11 claim replacement repair
+
+Historical Phase 8 record. Procedures and project retention instructions below
+apply to the completed trials. Use the [dogfood archive](../../archive/outcomes/PHASE-8-DOGFOOD.md)
+for results, related sessions, and the end of project tracking.
 
 The 8i10 reruns passed, but the claim edits cost five refusals
 ([E259](../../evidence/experiments/e259-unprompted-overlay-trials.md#decision-rule-after-the-reruns)):

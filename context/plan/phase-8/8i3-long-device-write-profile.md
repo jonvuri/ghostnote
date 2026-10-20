@@ -1,9 +1,9 @@
 ---
 title: Phase 8i3 long device write profile
 kind: plan
-state: done
+state: archived
 status: Complete (E252, D44). Nine guard-keeping optimizations, then D44 limits; the longest admitted call is 33.5 s, and no admitted call reaches 45 s. Next: 8i4.
-updated: 2026-10-08
+updated: 2026-10-19
 parent: README.md
 prev: 8i2-collapsed-group-live-verification.md
 next: 8i4-overlay-basis-sealing.md
@@ -11,6 +11,10 @@ evidence: E45, E47, E238, E244, E247, E248, E252; D15, D18, D39, D41, D44
 ---
 
 # Phase 8i3 long device write profile
+
+Historical Phase 8 record. Procedures and project retention instructions below
+apply to the completed trials. Use the [dogfood archive](../../archive/outcomes/PHASE-8-DOGFOOD.md)
+for results, related sessions, and the end of project tracking.
 
 ## Result
 

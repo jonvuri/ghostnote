@@ -1,9 +1,9 @@
 ---
 title: Phase 8i — Agent-native hybrid dogfood
 kind: plan
-state: done
+state: archived
 status: Final Phase 8 gate, closed (E272). 8i0–8i16 and 8i18–8i20 are complete (E249–E271, D42–D51); the groove and overlay trials passed (E256), timing claims are used without a leading prompt (E259, E260), the automated dogfood loop is proved (E261, E262), and the issue log D1–D16 is decided. 8i17 is a separate planned survey.
-updated: 2026-10-16
+updated: 2026-10-19
 parent: README.md
 prev: 8i5-device-control-identity.md
 next: ../phase-9/README.md
@@ -11,6 +11,10 @@ evidence: E120, E121, E127-E134, E209, E213, E247, E249-E272; D25, D39, D40, D42
 ---
 
 # Phase 8i — Agent-native hybrid dogfood
+
+Historical Phase 8 record. Procedures and project retention instructions below
+apply to the completed trials. Use the [dogfood archive](../../archive/outcomes/PHASE-8-DOGFOOD.md)
+for results, related sessions, and the end of project tracking.
 
 [8i0](8i0-clip-metadata-and-colour-tolerance.md) is complete
 ([E249](../../evidence/experiments/e249-clip-metadata-and-colour-tolerance.md),

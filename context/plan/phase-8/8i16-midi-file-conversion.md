@@ -1,14 +1,18 @@
 ---
 title: Phase 8i16 — Inline MIDI file conversion
 kind: plan
-state: done
+state: archived
 status: Complete. E265 verifies both offline tools and all six operator files.
-updated: 2026-10-14
+updated: 2026-10-19
 parent: README.md
 next: 8i17-midi-musical-navigation-survey.md
 ---
 
 # Phase 8i16 — Inline MIDI file conversion
+
+Historical Phase 8 record. Procedures and project retention instructions below
+apply to the completed trials. Use the [dogfood archive](../../archive/outcomes/PHASE-8-DOGFOOD.md)
+for results, related sessions, and the end of project tracking.
 
 ## Scope
 

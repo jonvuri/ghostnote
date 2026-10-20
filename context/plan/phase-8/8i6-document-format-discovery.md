@@ -1,9 +1,9 @@
 ---
 title: Phase 8i6 document format discovery and repair
 kind: plan
-state: done
+state: archived
 status: Complete (E255). Document inputs state the format and carry a valid example; get_document_reference returns the reference and templates with no host call; a refused document returns detail.repair. Five fresh agents had no format rejection in the normal trials. Descriptions v41.
-updated: 2026-10-09
+updated: 2026-10-19
 parent: README.md
 prev: 8i5-device-control-identity.md
 next: 8i7-track-mixer.md
@@ -11,6 +11,10 @@ evidence: E255
 ---
 
 # Phase 8i6 document format discovery and repair
+
+Historical Phase 8 record. Procedures and project retention instructions below
+apply to the completed trials. Use the [dogfood archive](../../archive/outcomes/PHASE-8-DOGFOOD.md)
+for results, related sessions, and the end of project tracking.
 
 Make Ghostnote Document 1.0 clear and usable from every tool that accepts
 it. Test all three changes: local examples, format repair guidance, and

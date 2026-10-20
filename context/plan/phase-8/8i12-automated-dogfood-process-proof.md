@@ -1,9 +1,9 @@
 ---
 title: Phase 8i12 automated dogfood process proof
 kind: plan
-state: done
+state: archived
 status: Complete (E261). One Codex and one Claude session met the P1 goal on the E257 route with no operator action; the runbook, the issue log, and the stretch-set proposal (8i13) exist.
-updated: 2026-10-11
+updated: 2026-10-19
 parent: README.md
 prev: 8i11-claim-replacement-repair.md
 next: 8i13-automated-dogfood-stretch-set.md
@@ -11,6 +11,10 @@ evidence: E255, E257, E259, E260, E261
 ---
 
 # Phase 8i12 automated dogfood process proof
+
+Historical Phase 8 record. Procedures and project retention instructions below
+apply to the completed trials. Use the [dogfood archive](../../archive/outcomes/PHASE-8-DOGFOOD.md)
+for results, related sessions, and the end of project tracking.
 
 The 8i trials stretched some parts of Ghostnote only a little: the mixer
 tools in real work, device structure writes, work that the D44 limits

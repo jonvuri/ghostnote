@@ -1,14 +1,18 @@
 ---
 title: Phase 8i20 — MIDI tempo report and overlap pre-check
 kind: plan
-state: done
+state: archived
 status: Complete (E271). Issues D15 and D16 fixed; descriptions v52.
-updated: 2026-10-16
+updated: 2026-10-19
 parent: README.md
 prev: 8i19-document-file-paths.md
 ---
 
 # Phase 8i20 — MIDI tempo report and overlap pre-check
+
+Historical Phase 8 record. Procedures and project retention instructions below
+apply to the completed trials. Use the [dogfood archive](../../archive/outcomes/PHASE-8-DOGFOOD.md)
+for results, related sessions, and the end of project tracking.
 
 ## Source and scope
 

@@ -1,9 +1,9 @@
 ---
 title: Phase 8i14 clip copy to any row
 kind: plan
-state: done
+state: archived
 status: Complete (E263). `copy_launcher_clips` copies a clip to any empty slot of an Instrument or Hybrid track with `slot.copyTo`; S4 rerun passed with one copy write.
-updated: 2026-10-11
+updated: 2026-10-19
 parent: README.md
 prev: 8i13-automated-dogfood-stretch-set.md
 next: 8i15-device-add-revert-report.md
@@ -11,6 +11,10 @@ evidence: E20b, E43, E262, E263
 ---
 
 # Phase 8i14 clip copy to any row
+
+Historical Phase 8 record. Procedures and project retention instructions below
+apply to the completed trials. Use the [dogfood archive](../../archive/outcomes/PHASE-8-DOGFOOD.md)
+for results, related sessions, and the end of project tracking.
 
 Complete: [E263](../../evidence/experiments/e263-clip-copy-to-any-row.md).
 The result differs from this plan in two places. Every copy uses the new

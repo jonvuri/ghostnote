@@ -1,14 +1,18 @@
 ---
 title: Phase 8i19 — Document file paths
 kind: plan
-state: done
+state: archived
 status: Complete. E268 records the two-client trial; E269 verifies the file paths (D51).
-updated: 2026-10-15
+updated: 2026-10-19
 parent: README.md
 prev: 8i18-midi-snapshot-export.md
 ---
 
 # Phase 8i19 — Document file paths
+
+Historical Phase 8 record. Procedures and project retention instructions below
+apply to the completed trials. Use the [dogfood archive](../../archive/outcomes/PHASE-8-DOGFOOD.md)
+for results, related sessions, and the end of project tracking.
 
 ## Source and scope
 

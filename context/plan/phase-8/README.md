@@ -3,7 +3,7 @@ title: Phase 8 — Agent-native live engine
 kind: plan
 state: done
 status: Complete. The 8i gate is closed (E272): every criterion is met or void, each Phase 8 interface has a verdict, and 10b has the handoff. 8i17 is a separate planned survey under this phase.
-updated: 2026-10-16
+updated: 2026-10-19
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
 next: ../phase-9/README.md
@@ -390,72 +390,13 @@ owns the migration details.
    closeout; complete in [E247](../../evidence/experiments/e247-performance-review-and-closeout.md)).
    8h is complete. 8h3c and 8h3e replace the earlier 8h1 and 8h2b plans.
 29. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
-   [8i0 — Clip metadata and colour tolerance](8i0-clip-metadata-and-colour-tolerance.md)
-   is complete (E249, D42). It removed the colour refusal that the first
-   musical trial exposed before a length edit. The 8i1 reader repair is
-   complete ([E250](../../evidence/experiments/e250-reader-follow-mode-repair.md),
-   D43): every owned cursor track stays pinned, because a saved project made
-   unpinned cursors follow the selection and every read refuse.
-   The Phase 8 review adds three sessions before the next trial:
-   [8i2 — Collapsed-group live verification](8i2-collapsed-group-live-verification.md)
-   (complete, E251),
-   [8i3 — Long device write profile](8i3-long-device-write-profile.md)
-   (complete, E252, D44), and
-   [8i4 — Overlay basis sealing](8i4-overlay-basis-sealing.md) (complete,
-   E253, D45), and
-   [8i5 — Device control identity](8i5-device-control-identity.md)
-   (complete, E254, D46).
-   The second musical trial passed on 2026-10-09; 8i5 repaired its two
-   device failures. The groove and overlay dependency trials passed in the
-   8i9 operator trial (E256). The
-   [interface review](8i-trial-2-interface-review.md) records the causes of
-   extra calls and separate improvement candidates.
-   The fresh-project trial adds two planned follow-ups:
-   [8i6 — Document format discovery and repair](8i6-document-format-discovery.md)
-   (complete, E255) and [8i7 — Bounded track mixer controls](8i7-track-mixer.md)
-   (complete, E257, D48).
-   [8i8 — Selection effects and unavailable readback](8i8-selection-and-readback-results.md)
-   fixes the result defects of E250 and E251 (complete, E258).
-   [8i9 — Overlay authoring and creation](8i9-overlay-authoring-and-creation.md)
-   (complete, E256, D47) adds the timing example and templates, claim repair,
-   and claims on clip creation. The operator's fresh-client
-   [overlay trial](8i-agent-native-hybrid-dogfood.md#operator-overlay-trial)
-   passed; it closes the groove and overlay trials.
-   [8i10 — Unprompted overlay trials](8i10-unprompted-overlay-trials.md)
-   (complete, E259): after routing in the descriptions (v45) and a method
-   note in the reference (revision 4), fresh agents made and used timing
-   claims without a leading prompt.
-   [8i11 — Claim replacement repair](8i11-claim-replacement-repair.md)
-   (complete, E260) repairs the duplicate-claim and onset-floor refusals of
-   the reruns.
-   [8i12 — Automated dogfood process proof](8i12-automated-dogfood-process-proof.md)
-   (complete, E261) proves the automated loop with Codex and Claude. [8i13 — Automated dogfood stretch set](8i13-automated-dogfood-stretch-set.md)
-   (complete, E262) ran five stretch tasks with both clients; each met its
-   goal; the operator reviewed its issue log.
-   [8i14 — Clip copy to any row](8i14-clip-copy-to-any-row.md) (complete,
-   E263) lets `copy_launcher_clips` copy to any empty slot.
-   [8i15 — Device-add revert report](8i15-device-add-revert-report.md)
-   (complete, E264, D49) makes `check_revert` and `revert_change` name
-   each removed device and clip.
-   [8i16 — Inline MIDI file conversion](8i16-midi-file-conversion.md)
-   (complete, E265, D50) adds full-document read and new-file write tools.
+   Complete in [E272](../../evidence/experiments/e272-8i-gate-close-out.md).
+   The [dogfood archive](../../archive/outcomes/PHASE-8-DOGFOOD.md) links results,
+   repair sessions, issue dispositions, and transcripts. Completed procedures
+   remain at their existing paths as history. The reusable
+   [runbook](8i-automated-dogfood-runbook.md) remains available for new trials.
    [8i17 — MIDI musical navigation survey](8i17-midi-musical-navigation-survey.md)
-   is a separate planned survey, with the E266 operator trial as a baseline example.
-   [8i18 — MIDI snapshot export](8i18-midi-snapshot-export.md) (complete,
-   E266, E267) records the trial and fixes the snapshot coverage refusal.
-   [8i19 — Document file paths](8i19-document-file-paths.md) (complete,
-   E268, E269, D51) adds `documentPath` and `documentOutputPath`; E270
-   reruns the trial with them.
-   [8i20 — MIDI tempo report and overlap pre-check](8i20-midi-tempo-report-and-overlap-precheck.md)
-   (complete, E270, E271) bounds the tempo report, fixes the `targetBpm` text,
-   and refuses clip overlaps before the clip exists.
-   The gate close-out is complete
-   ([E272](../../evidence/experiments/e272-8i-gate-close-out.md)): the
-   criteria, interface verdicts, and the 10b handoff with the artifact
-   inventory. The main Phase 8 verdict is "instrument".
-   None requires a skill.
-   Test ordinary work in fresh agent sessions and decide whether the engine,
-   format, and surface are ready for Phase 10 publication review.
+   is a separate planned survey; E266 and E268 supply its operator baselines.
 
 ## Cross-session rules
 

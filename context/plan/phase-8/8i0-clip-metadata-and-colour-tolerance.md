@@ -1,9 +1,9 @@
 ---
 title: Phase 8i0 clip metadata and colour tolerance
 kind: plan
-state: done
+state: archived
 status: Complete (E249, D42). Property writes own their changed fields; any RGB is verified within one byte.
-updated: 2026-10-08
+updated: 2026-10-19
 parent: README.md
 prev: 8h4g-performance-review-and-closeout.md
 next: 8i-agent-native-hybrid-dogfood.md
@@ -11,6 +11,10 @@ evidence: E43, E83, E247, E248, E249; D15, D38, D40, D42
 ---
 
 # Phase 8i0 clip metadata and colour tolerance
+
+Historical Phase 8 record. Procedures and project retention instructions below
+apply to the completed trials. Use the [dogfood archive](../../archive/outcomes/PHASE-8-DOGFOOD.md)
+for results, related sessions, and the end of project tracking.
 
 **Complete.** [E249](../../evidence/experiments/e249-clip-metadata-and-colour-tolerance.md)
 records the implementation and the live checks;

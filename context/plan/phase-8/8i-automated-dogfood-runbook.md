@@ -2,18 +2,26 @@
 title: 8i automated dogfood runbook
 kind: reference
 state: active
-updated: 2026-10-11
+updated: 2026-10-19
 parent: 8i-agent-native-hybrid-dogfood.md
 ---
 
 # 8i automated dogfood runbook
 
-This runbook is the loop that worked in 8i12
-([E261](../../evidence/experiments/e261-automated-dogfood-process-proof.md)).
-A driving agent runs fresh agent sessions on mechanical tasks in the owned
-project `gn-scale-test`, checks each transcript and the project state, and
-logs issues. It does not use computer use, and it does not change product
-code or tool descriptions.
+This reusable runbook comes from 8i12 and 8i13 ([E261](../../evidence/experiments/e261-automated-dogfood-process-proof.md),
+[E262](../../evidence/experiments/e262-automated-dogfood-stretch-set.md)).
+The [dogfood archive](../../archive/outcomes/PHASE-8-DOGFOOD.md) holds their
+results. A selected new session defines its task, clients, fixture, allowed
+interfaces, and acceptance checks. Use fresh clients and check the resulting
+state independently. A trial records defects; its scope does not include
+product fixes unless the selected session includes them.
+
+The commands below are the retained Phase 8 recipes for `gn-scale-test`.
+They do not establish that project's current state or authorize a deployment.
+Read the selected driver's build and fixture requirements before reuse. The
+normal 8i15 build is recorded in [E272](../../evidence/experiments/e272-8i-gate-close-out.md);
+[NOW](../../NOW.md) identifies the current deployment. If they differ, use the
+selected session's deployment or driver plan before running the recipe.
 
 Run each command from the repository root unless the step says `brain/`.
 Run one session at a time. In zsh, write each command out; a variable does
@@ -21,18 +29,22 @@ not split into words.
 
 ## 1. Entry checks (once)
 
-1. Ask the operator to open Bitwig with `gn-scale-test`. Wait for the
-   answer; a project that still loads gives a wrong track list.
-2. `pgrep -f phase8` must print nothing.
-3. In `brain/`: `npm run probe:hello`. Require ALL PASS and the build
-   markers of `context/NOW.md`.
-4. In `brain/`: `node --import tsx src/probes/phase8i7-mixer.ts trial-state
-   all > <run-dir>/state-entry.jsonl`. The last row must have `"project":
-   "gn-scale-test"`. Keep the file: it is the baseline for the final
-   comparison.
-5. Record `codex --version`, `claude --version`, and
-   `TOOL_DESCRIPTION_VERSION` (`brain/src/surface/description-cohort.ts`).
-   The models are in the first `source` rows of each extract.
+1. Confirm the operator's chosen project, target, and selection. When a
+   project must be opened, wait for loading to finish and read its name.
+   A successful hello alone can report tracks from the prior project (E261).
+2. Check current probe drivers and Ghostnote clients for competing live work.
+   Use process names for this session, not a fixed `phase8` search. Run one
+   foreground driver chain and one live writer at a time. See [AGENTS.md](../../../AGENTS.md#live-work).
+3. In `brain/`: `npm run probe:hello`. Require ALL PASS and the profile,
+   method hash/count, and markers expected by the selected driver. Controller
+   replacement, when needed, follows AGENTS.md.
+4. Capture the relevant fixture and preserved state before setup. For the
+   old fixture, run `node --import tsx src/probes/phase8i7-mixer.ts trial-state
+   all > <run-dir>/state-entry.jsonl` in `brain/`; its project must be
+   `gn-scale-test`. Keep this state for the final comparison.
+5. Record the versions of the clients used and `TOOL_DESCRIPTION_VERSION`
+   (`brain/src/surface/description-cohort.ts`). The models are in the first
+   `source` rows of each extract.
 
 `<run-dir>` is a directory in `/tmp`, for example `/tmp/gn-8i13`.
 
@@ -42,12 +54,14 @@ A task file is plain text in `tools/dogfood/tasks/<id>-<name>.txt`. It
 holds the prompt only, as an operator would write it: no tool name, no
 sequence, no repository path. The runner adds the line "Use Ghostnote.";
 with `--no-ghostnote-line` as the fourth argument it does not (S5 of 8i13).
-Each task also has, in its plan: the setup command, the check, the
-baseline (when one exists), and the cleanup command.
+For a hybrid trial, put "Use Ghostnote and computer use as you see fit."
+at the end of the task file and pass `--no-ghostnote-line`. Keep a discovery
+trial's prompt unchanged when tool discovery is its question. Each selected
+task states its setup, result check, relevant preserved state, and cleanup.
 
 ## 3. One run
 
-For each task and each client (`codex`, then `claude`):
+For each selected task and client (the Phase 8 order was Codex, then Claude):
 
 1. Setup. Run the task's setup command in `brain/`. For P1:
    `node --import tsx src/probes/phase8i7-mixer.ts trial-setup`.
@@ -63,12 +77,14 @@ For each task and each client (`codex`, then `claude`):
 5. Extract:
    `node tools/dogfood/extract.mjs <client> <out-dir>/session.jsonl > <out-dir>/extract.jsonl`.
 6. Evaluate (section 5).
-7. Cleanup. Run the task's cleanup command (P1: `trial-cleanup`), then the
-   state command again. It must equal `state-entry.jsonl` (`diff` prints
-   nothing). Do not start the next run before it does. After a clip
-   write, `selection.status` keeps the last slot of a deleted track
-   (issue D11): compare without `slotTrackIndex` and `slotIndex`
-   (`jq -c 'del(.slotTrackIndex, .slotIndex)'` on each file).
+7. Cleanup. Remove the owned fixture (P1: `trial-cleanup`) and compare the
+   relevant preserved state with the entry state. Investigate a difference
+   before another run. For the old `trial-state all` comparison, omit only
+   `slotTrackIndex` and `slotIndex`: `selection.status` can retain a deleted
+   track's slot (8i issue D11). Use
+   `jq -c 'del(.slotTrackIndex, .slotIndex)'` on each file. Do not omit content
+   or mixer differences. Saved-file hashes are needed only for a persistence
+   test or an explicit saved-file preservation requirement.
 
 The 8i13 tasks S1 to S4 use `node --import tsx
 src/probes/phase8i13-stretch.ts <task> setup|state|cleanup`. Its `state`
@@ -116,13 +132,13 @@ directory.
 - The Codex rollout log cuts a tool result over about 24,000 characters.
   The extract cuts at 2,000 characters and gives the full length in `cut`;
   pass a larger third argument to `extract.mjs` when a result matters.
-- The sessions load the client's global instruction file only ("Stay
-  concise and to the point."). Check the `instructions` row of each
-  extract.
-- Computer use is not enabled. The Codex computer-use plug-in (`cua_repl`)
-  stays available to the agent; a call to it is a detour. A `getState`
-  call returns the list of the applications on the operator's computer
-  (issue D10): remove that list from the evidence copy.
+- Check the loaded instructions and available tools in each extract. The
+  Phase 8 sessions loaded only the client's global instruction file. Do not
+  assume a later client's environment is identical.
+- Phase 8 mechanical tasks did not need computer use, but Codex could still
+  discover `cua_repl`. Judge its use against the selected task's allowed
+  interfaces. A `getState` result can list the operator's applications (8i
+  issue D10); remove that list from the evidence copy.
 
 ## 5. Evaluation checklist
 
@@ -133,25 +149,23 @@ Write one verdict for each run in the E record:
   must not change.
 - **Report**: `last.txt` agrees with the state. Name each claim that the
   state does not support.
-- **Route**: from `extract.jsonl`, count the `ghostnote` rows, the `tool`
-  and `script` rows, the rows with a status other than `completed` or a
-  `failure` in the result (refusals), the retries, and the repeat reads.
-  Give the runner wall time and the time from the first to the last
-  session row. Name each detour with its `line`: a computer-use attempt, a
-  shell or file action (`workdir.txt` must be empty), a help or reference
-  request that the task did not need, or a call that repeats a result the
-  agent had. The client's tool discovery (a Codex tool-listing script, a
-  Claude `ToolSearch`) is not a detour; count it. Compare with the task
-  baseline.
+- **Route**, when discovery, call count, or latency is part of the question:
+  count calls from the full client session file, using `extract.jsonl` as the
+  index. Report relevant refusals, retries, repeat reads, and detours with
+  source lines. Separate runner wall time from active session time. Compare
+  with a baseline only when the tasks and conditions match. Tool discovery
+  counts as a call, but is not itself a detour. Other trials need only the
+  transcript details that explain a result or defect.
 - **Residue**: none after cleanup.
 
 State a cause as an inference when the transcript has no reasoning text.
 
 ## 6. Issue log and evidence
 
-- Add each issue that a verdict names to the
-  [issue log](8i-dogfood-issues.md), with the next free `D` number of that
-  log. Leave the decision column empty.
+- Record actionable defects and other limits in the selected session's
+  record. The [8i issue log](8i-dogfood-issues.md) is closed history; do not
+  append new issues there. Follow the repository's session-planning rule for
+  follow-up work.
 - Copy `extract.jsonl`, `events.jsonl`, `meta.json`, `last.txt`,
   `prompt.txt`, and the state files to
   `context/evidence/data/<session>/<task>-<client>/`. In a Claude
@@ -162,7 +176,8 @@ State a cause as an inference when the transcript has no reasoning text.
 
 ## 7. Exit checks
 
-- `trial-state all` equals `state-entry.jsonl` (the slot fields apart,
-  issue D11).
-- `ls /tmp | grep gn-dogfood` prints nothing.
+- Owned scratch objects are removed and relevant preserved state matches
+  entry. The old fixture uses `trial-state all` with the D11 slot exception.
+- This run's temporary work directory is removed and needed evidence is
+  retained. Do not require all unrelated `gn-dogfood` directories to be absent.
 - The operator stops the transport when a task launched a clip.

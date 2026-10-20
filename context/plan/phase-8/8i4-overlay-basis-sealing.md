@@ -1,9 +1,9 @@
 ---
 title: Phase 8i4 overlay basis sealing
 kind: plan
-state: done
+state: archived
 status: Complete (E253, D45). edit_launcher_clip computes the R22 basis of each claim that the call states. Next: 8i5 device control identity before the remaining 8i trials.
-updated: 2026-10-09
+updated: 2026-10-19
 parent: README.md
 prev: 8i3-long-device-write-profile.md
 next: 8i5-device-control-identity.md
@@ -11,6 +11,10 @@ evidence: E235, E236, E245, E253; D21, D35, D36, D45
 ---
 
 # Phase 8i4 overlay basis sealing
+
+Historical Phase 8 record. Procedures and project retention instructions below
+apply to the completed trials. Use the [dogfood archive](../../archive/outcomes/PHASE-8-DOGFOOD.md)
+for results, related sessions, and the end of project tracking.
 
 ## Result
 

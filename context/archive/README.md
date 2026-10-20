@@ -2,13 +2,16 @@
 title: Historical context archive
 kind: index
 state: archived
-updated: 2026-08-10
+updated: 2026-10-19
 ---
 
 # Archive
 
 These documents preserve project history and original reasoning. They are not
 current instructions. Start from [context/README.md](../README.md) for active work.
+
+- [Phase 8 dogfood](outcomes/PHASE-8-DOGFOOD.md): results, fixes, sessions,
+  transcripts, and the end of project tracking.
 
 - `prompts/`: original project prompts and premises.
 - `plans/`: superseded or completed plans in their original form.

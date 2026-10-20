@@ -1,9 +1,9 @@
 ---
 title: Phase 8i9 overlay authoring and creation
 kind: plan
-state: done
+state: archived
 status: Complete (E256, D47). Timing example and templates, claim repair, and claims on clip creation; descriptions v42. The operator's fresh-client trial passed.
-updated: 2026-10-09
+updated: 2026-10-19
 parent: README.md
 prev: 8i6-document-format-discovery.md
 next: 8i-agent-native-hybrid-dogfood.md
@@ -11,6 +11,10 @@ evidence: E253, E255, E256; D44, D45, D47
 ---
 
 # Phase 8i9 overlay authoring and creation
+
+Historical Phase 8 record. Procedures and project retention instructions below
+apply to the completed trials. Use the [dogfood archive](../../archive/outcomes/PHASE-8-DOGFOOD.md)
+for results, related sessions, and the end of project tracking.
 
 **Complete** ([E256](../../evidence/experiments/e256-overlay-authoring-and-creation.md),
 [D47](../../decisions/d47-clip-creation-binds-claims-to-the-live-clip.md)).

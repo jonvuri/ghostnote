@@ -1,9 +1,9 @@
 ---
 title: Phase 8i2 collapsed-group live verification
 kind: plan
-state: done
+state: archived
 status: Complete (E251). The collapsed-group read and point routes pass live on the D43 build; no product path changed.
-updated: 2026-10-08
+updated: 2026-10-19
 parent: README.md
 prev: 8i0-clip-metadata-and-colour-tolerance.md
 next: 8i3-long-device-write-profile.md
@@ -11,6 +11,10 @@ evidence: E240, E241, E242, E243, E250, E251; D34, D43
 ---
 
 # Phase 8i2 collapsed-group live verification
+
+Historical Phase 8 record. Procedures and project retention instructions below
+apply to the completed trials. Use the [dogfood archive](../../archive/outcomes/PHASE-8-DOGFOOD.md)
+for results, related sessions, and the end of project tracking.
 
 **Complete.** [E251](../../evidence/experiments/e251-collapsed-group-live-verification.md):
 every arm passed with no product change. Correction to Work item 2: the

@@ -18,11 +18,14 @@ session as a change that moves a number.
 
 ## Rules
 
-1. **Cost model in the plan.** A plan that adds or changes a live path states
-   its expected cost before the work starts: the host turns, the cold reads,
-   the write stages, and the heap. State it for the typical case and for the
-   largest admitted case. Compare it with the probe or primitive number in this
-   ledger and explain the difference.
+1. **Cost model in the plan.** For a new product path, or a change to host
+   calls, traversal, waits, allocation, or admitted limits, state the expected
+   host turns, cold reads, write stages, and heap before the work. Cover the
+   typical and largest admitted cases. Compare with the relevant measured
+   path or primitive. An unchanged path can cite its existing model. A research
+   probe needs a short cost note with bounded host work and memory; use existing
+   measurements where applicable. A full product study is needed only when
+   the session makes a product performance claim.
 2. **Call budgets.** The offline call-budget tests fail when a tool, the
    executor, or the live adapter adds a host call:
    `brain/src/surface/call-budget.test.ts` (adapter calls for each tool and
@@ -34,11 +37,15 @@ session as a change that moves a number.
    budget changes on purpose, update the test and this ledger, and state the
    cost in the E record. `phase8h4g-inventory.test.ts` holds the offline time
    budget of the edit planner.
-3. **Remeasure.** A session that changes a live path reruns the matching
-   measurement (for example `phase8h4c-edit.ts cost` or
-   `phase8h4g-inventory.ts inventory`) and records it here. A regression of
-   more than 20 percent, or a new host turn, needs a named cause and an
-   accepted reason in the E record.
+3. **Remeasure the changed cost.** When host calls, traversal, waits,
+   allocation, or admitted limits change, run the matching live measurement
+   and record it here. An unchanged host path needs no performance rerun.
+   Use the same workload and comparable per-call results; separate cold work,
+   queue delay, and operator time. A regression over 20 percent, or a new host
+   turn, needs a cause and an accepted reason in the E record. If the cause
+   remains unknown, record that limit and do not claim a stable performance
+   bound. Repeat only when safe and needed to distinguish timing noise. Never
+   repeat an uncertain write to obtain a timing sample.
 
 ## Unit costs
 

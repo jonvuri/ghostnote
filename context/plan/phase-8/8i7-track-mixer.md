@@ -1,15 +1,19 @@
 ---
 title: Phase 8i7 bounded track mixer controls
 kind: plan
-state: done
+state: archived
 status: Complete (E257, D48). The raw volume unit passed the gate; read_track_mixer and set_track_mixer ship in descriptions v43.
-updated: 2026-10-09
+updated: 2026-10-19
 parent: README.md
 prev: 8i6-document-format-discovery.md
 next: 8i8-selection-and-readback-results.md
 ---
 
 # Phase 8i7 bounded track mixer controls
+
+Historical Phase 8 record. Procedures and project retention instructions below
+apply to the completed trials. Use the [dogfood archive](../../archive/outcomes/PHASE-8-DOGFOOD.md)
+for results, related sessions, and the end of project tracking.
 
 Investigate and, if the small route passes, add track mixer read and write
 tools to `agent-native-v1`. The primary task is to read and set exact track

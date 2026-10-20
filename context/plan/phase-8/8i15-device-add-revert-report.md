@@ -1,9 +1,9 @@
 ---
 title: Phase 8i15 device-add revert report
 kind: plan
-state: done
+state: archived
 status: Complete (E264, D49). `check_revert` and `revert_change` name each removed device and clip; the revert fidelity states what the revert restored; `slot.duplicateClip` is probe-only.
-updated: 2026-10-11
+updated: 2026-10-19
 parent: README.md
 prev: 8i14-clip-copy-to-any-row.md
 next: 8i-agent-native-hybrid-dogfood.md
@@ -11,6 +11,10 @@ evidence: E262, E263, E264
 ---
 
 # Phase 8i15 device-add revert report
+
+Historical Phase 8 record. Procedures and project retention instructions below
+apply to the completed trials. Use the [dogfood archive](../../archive/outcomes/PHASE-8-DOGFOOD.md)
+for results, related sessions, and the end of project tracking.
 
 Result: [E264](../../evidence/experiments/e264-device-add-revert-report.md)
 and [D49](../../decisions/d49-revert-fidelity-states-what-the-revert-restored.md).
