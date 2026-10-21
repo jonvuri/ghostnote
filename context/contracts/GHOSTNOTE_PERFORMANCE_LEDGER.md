@@ -988,3 +988,126 @@ All 69 member rows and 55 type roles match the pinned oracle. This is one
 process sample after development scans, not a cold-disk benchmark or a stable
 latency bound. There is no comparable prior resolver measurement. Host-call
 budgets and live paths are unchanged.
+
+## 9b.5 Grid doctor — model before implementation
+
+The doctor uses a separate, consent-gated research path. The offline scan
+keeps the 9b.4 limits. Transfer at most 128 KiB of candidate metadata and
+128 KiB of selectors in the extension resource. Validate 55 types and 72
+members without initialization. E312 adds three traced undo roles. Hash at most 64 MiB from the host jar once.
+Check its canonical path, size, and nanosecond modification time as well.
+An offline pass gives no product write authority.
+
+Use one foreground driver and one native writer. Admit one pass per exact
+fingerprint. Keep a durable attempt record before the first scratch write.
+Use at most three scratch tracks in sequence, never together. Each is muted.
+Record the engine state and connection identity; do not change either.
+The fixed scalar/cable/factory/delete/attachment fixture has four modules
+(five during attachment), 61 projected nodes at most, and at most 256 owned
+objects per detached tree. The two breadth cases keep E310's 64-module,
+4,096-work, one-second snapshot, and 48 MiB planning allowance.
+
+Each command needs two prior equal snapshots, a fresh pre-command capture,
+and two independent post-command snapshots. Admit at most 16 native command
+requests, 64 read requests, and 96 doctor document tasks. Bound one native
+task to the existing five-second timeout and four-second pre-call deadline.
+A timeout latches uncertainty; do not repeat a command. The timeout cannot
+interrupt an entered native command. Limit the complete driver to 1,500
+wire calls, 15 minutes, and 64 MiB of retained evidence. Cursor and insertion
+polls retain the survey's 40/80 poll bounds and 50 ms interval. Preserve at
+most 32 tracks. Scan time, transfer bytes, wire time, queue time, document
+time, traversal work, and heap samples must be reported separately. The
+heap allowance is a planning bound, not an OS cap. No product latency claim
+or product call-budget change is planned.
+
+Acceptance requires every role, scratch teardown, and independent baseline
+comparison. An incomplete or failed pass cannot create an accepted cache.
+
+[E312](../evidence/experiments/e312-grid-doctor-preparation.md) records the
+preparation scan: 4,607.087 ms, 189,759,488 bytes peak RSS, 126 retained code
+classes, and 48 call-trace work units. Candidate and selector resources are
+26,143 and 47,585 bytes. The scan is 2.2 percent slower than E311's sample;
+this is not a stable latency claim. The successful native plan has 16 command
+requests, 38 independent read requests, and three binds: 57 document tasks.
+Commands also take fresh before captures. The sentinel checks at most five
+512-property schemas per task, with a 64-module relationship bound. Detached
+captures repeat the bounded ownership walk and reject foreign references.
+These costs remain within the planning allowance. Public call budgets remain
+unchanged.
+
+[E313](../evidence/experiments/e313-grid-doctor-undo-failure.md) records the
+failed live pass: 445 wire calls, 12,051.603 ms summed wire time, and
+1,205,337 successful-response bytes. Runtime metadata validation takes
+39.034 ms. The pass attempts 47 doctor tasks: three binds, 30 reads,
+13 commands, and one failure inspection. Forty-six tasks return timing
+receipts; the failed Undo task does not. Those receipts sum to 240.571 ms
+of document work, with a 21.828 ms maximum. Maximum queue time is 1.156 ms.
+Core graph/query work is 235–279/1,379–1,607. Core snapshot time is
+1.183–8.437 ms. Whole-JVM heap samples peak at 978 MiB; the largest positive
+task delta is 8 MiB. A later read reports 404 MiB. These are heap samples,
+not retained allocation or peak RSS measurements.
+
+The comparable E308 native samples increase by 66.5 percent for boolean
+enable, 130.8 percent for mapping removal, and 116.1 percent for mapping
+restoration. Boolean restoration decreases by 27.9 percent. Each is one
+sample. Added sentinel work explains a changed task budget, but does not
+establish the cause of the native-command increase. No command is repeated
+for timing after the Undo failure. Session 9b.5a must account for these
+research latency increases when it models a corrected caller. No product
+budget or product latency claim changes. The failed pass does not establish
+complete teardown cost or live acceptance.
+
+## 9b.5a Undo correction — model before implementation
+
+The V20 candidate keeps 55 types and expands to 76 members. The journal
+Undo role is replaced by the traced document Undo method. Four read roles
+check the document gate, document manager, journal replay head, and recording
+edit. The exact jar, metadata, resource, and offline scan bounds stay the
+same. Existing E312 and E313 tables remain evidence for V19.
+
+Keep the same 16 command requests, 38 independent reads, three binds, and
+57 successful doctor tasks. Each Undo adds two bounded state captures
+around one document Undo call; no begin/end edit is added. Each capture
+uses at most 24 reflective getter/field accesses and one lookup in the
+existing journal map. Each core witness adds two journal-state getters.
+No extra wire call, document task, wait, or projected object is added. The
+existing five-module, 256-owned-object, reply, lifetime, and timeout limits
+still apply. Exceptions retain the uncertain claim; no replay field is
+reset by Ghostnote. No automatic second pass is admitted.
+
+E313's native timing increases remain unexplained by one-sample results.
+The correction changes only core Undo and its read guards. It does not
+claim to fix boolean or mapping latency. Record the new per-call costs in
+the separately authorized live pass. Do not repeat an uncertain command for
+timing. Product descriptions and host-call budgets remain unchanged.
+
+
+[E315](../evidence/experiments/e315-grid-doctor-document-undo.md) measures
+V20's offline scan at 4,420.617 ms and 186,974,208 bytes peak RSS. It retains
+129 code classes and uses 72 call-trace work units. Candidate and selector
+resources are 27,485 and 49,606 bytes. All original scan and resource limits
+hold. These are preparation samples; no new live timing is available.
+The 9b.5b live session owns the corrected Undo measurements and comparison
+with E313. No native command is run for this preparation.
+
+
+[E316](../evidence/experiments/e316-grid-doctor-606-acceptance.md) measures the
+complete V20 pass: 542 driver calls, 15,080.174 ms summed wire time, and
+1,671,828 response bytes. Attempt-to-cache time is 16,248 ms; it excludes
+preflight. Metadata validation takes 37.818 ms. All 57 planned doctor tasks
+return timing receipts: 16 command requests, 38 reads, and three binds.
+Document time totals 229.244 ms, with a 28.944 ms maximum; maximum queue time
+is 2.294 ms. Core graph/query work is 235–321/1,379–1,833. Core snapshot time
+is 1.035–5.362 ms. Whole-JVM heap samples peak at 1,148 MiB, with an 8 MiB
+maximum positive task delta. These are not retained allocation or RSS
+measurements. A separate seven-call read-only check confirms final state.
+
+Delete Undo takes 3.984 ms, attachment 21.660 ms, and attachment Undo
+1.039 ms. Against E313's per-command samples, mapping removal increases
+88.3 percent, detached creation 79.4 percent, and disposal 23.3 percent.
+Mapping restoration decreases 27.2 percent but remains above E308's sample.
+These native bodies are unchanged; the added core witness getters are
+outside their command timer. One sample per pass cannot establish the cause.
+Keep these research latency limits for the planned 9b.6 comparison. No timing
+repeat runs. All admitted bounds hold; public budgets and latency claims
+remain unchanged. The complete pass and teardown permit the research cache.

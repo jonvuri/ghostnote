@@ -51,6 +51,50 @@ public final class GridAttachmentSymbols implements GridModuleAttachment.Host {
                     || managedId.getReturnType() != int.class || registered.getReturnType() != base)
                 throw new IllegalStateException("attachment-symbol-signature");
         }
+        public Symbols(GridDoctorSymbols table) {
+            grid = table.type("grid"); module = table.type("module");
+            focusClass = table.type("focus-wrapper"); nitro = table.type("nitro-atom");
+            emptyLocks = Array.newInstance(table.type("edit-lock"), 0);
+            members = table.method("members");
+            hiddenCount = table.method("hidden-count");
+            x = table.method("x");
+            y = table.method("y");
+            width = table.method("width");
+            height = table.method("height");
+            owner = table.method("owner");
+            parent = table.method("module-parent-2");
+            disposed = table.method("disposed-flag");
+            uuid = table.method("instance-uuid");
+            context = table.method("context");
+            recording = table.method("recording");
+            manager = table.method("manager");
+            document = table.method("document");
+            display = table.method("display-key");
+            active = table.method("journal-active");
+            currentEdit = table.method("current-journal-edit");
+            documentEdit = table.method("current-document-edit");
+            replay = table.method("replay-flag");
+            replaying = table.method("replaying-flag");
+            label = table.method("insert-label");
+            begin = table.method("begin");
+            associate = table.method("associate-edit");
+            insert = table.method("insert-body");
+            close = table.method("close");
+            focusTarget = table.method("focus-target");
+            managedId = table.method("managed-id");
+            registered = table.method("registered-lookup");
+            stack = table.field("frame-stack");
+            instant = table.field("instant-edits");
+            longer = table.field("long-edits");
+            locks = table.field("lock-count");
+            lockSet = table.field("lock-set");
+            journalMap = table.field("journal-map");
+            associated = table.field("associated-edit");
+            displayMap = table.field("display-map");
+            selectionState = table.field("selection-state");
+            selected = table.field("selected-modules");
+            focus = table.field("focus");
+        }
         private static Class<?> type(ClassLoader loader, String name) throws Exception { return Class.forName(name, false, loader); }
         private static Method method(Class<?> type, String name, Class<?>... args) throws Exception {
             Method m = type.getDeclaredMethod(name, args); m.setAccessible(true); return m;
@@ -74,6 +118,14 @@ public final class GridAttachmentSymbols implements GridModuleAttachment.Host {
     private Selection selection;
     private Edit idle, ownedEdit;
     private GridAttachmentLayout.Rect detached;
+    private boolean doctorTrace;
+    private final JsonArray trace = new JsonArray();
+    public JsonArray transactionTrace() { return trace.deepCopy(); }
+    private void trace(String stage, Edit edit) {
+        if (!doctorTrace) return;
+        if (trace.size() >= 16) throw new IllegalStateException("attachment-trace-limit");
+        JsonObject row = editJson(edit); row.addProperty("stage", stage); trace.add(row);
+    }
 
     public GridAttachmentSymbols(GridReadSymbols reader, Object grid, JsonObject graph, List<String> uuids,
             Guard route, Runnable factoryAttempt) throws Exception {
@@ -82,6 +134,13 @@ public final class GridAttachmentSymbols implements GridModuleAttachment.Host {
         this.route = route; this.factoryAttempt = factoryAttempt;
         if (grid.getClass() != s.grid) throw new IllegalStateException("attachment-wrong-grid-class");
     }
+    public GridAttachmentSymbols(GridReadSymbols reader, GridDoctorSymbols table, Object grid, JsonObject graph,
+            List<String> uuids, Guard route, Runnable factoryAttempt) {
+        s = new Symbols(table); doctorTrace = true; this.reader = reader; this.grid = grid; this.graph = graph;
+        factory = new GridFactorySymbols(reader, table, uuids); this.route = route; this.factoryAttempt = factoryAttempt;
+        if (grid.getClass() != s.grid) throw new IllegalStateException("attachment-wrong-grid-class");
+    }
+
     static Object existing(Map<?, ?> map, Object key) {
         Object value = map.get(key);
         if (value == null) throw new IllegalStateException("attachment-existing-state-absent");
@@ -134,7 +193,7 @@ public final class GridAttachmentSymbols implements GridModuleAttachment.Host {
             throw new IllegalStateException("attachment-edit-not-idle");
     }
     public void requireIdle() throws Exception {
-        Edit e = edit(); idle(e);
+        Edit e = edit(); idle(e); trace("idle", e);
         if (idle != null && !sameContext(idle, e)) throw new IllegalStateException("attachment-edit-context-changed");
     }
     private Selection selection(List<?> items, Edit edit) throws Exception {
@@ -219,7 +278,7 @@ public final class GridAttachmentSymbols implements GridModuleAttachment.Host {
         return result;
     }
     public void preflight() throws Exception {
-        idle = edit(); idle(idle); original = members();
+        idle = edit(); idle(idle); trace("before", idle); original = members();
         if (original.size() != 4 || (int) s.hiddenCount.invoke(grid) != 0) throw new IllegalStateException("attachment-membership-changed");
         rectangles = rectangles(original); selection = selection(original, idle); witness();
     }
@@ -233,11 +292,15 @@ public final class GridAttachmentSymbols implements GridModuleAttachment.Host {
         result.add("selection", selection.json.deepCopy()); return result;
     }
     public boolean begin(Object module) throws Exception {
-        return (boolean) s.begin.invoke(grid, s.label.invoke(grid, List.of(module)), s.emptyLocks);
+        Object label = s.label.invoke(grid, List.of(module));
+        if (!(label instanceof String text) || text.isBlank() || text.length() > 256)
+            throw new IllegalStateException("attachment-insert-label");
+        if (doctorTrace) { JsonObject row = new JsonObject(); row.addProperty("stage", "label"); row.addProperty("label", text); trace.add(row); }
+        return (boolean) s.begin.invoke(grid, label, s.emptyLocks);
     }
     public void proveEdit() throws Exception {
         Edit e = edit();
-        requireNewEdit(idle, e, s.documentEdit.invoke(e.document)); ownedEdit = e;
+        requireNewEdit(idle, e, s.documentEdit.invoke(e.document)); ownedEdit = e; trace("owned", e);
     }
     public void associate() throws Exception {
         s.associate.invoke(grid);
@@ -245,7 +308,7 @@ public final class GridAttachmentSymbols implements GridModuleAttachment.Host {
     }
     public void requireOwnedEdit() throws Exception {
         Edit e = edit();
-        requireSameEdit(ownedEdit, e, s.documentEdit.invoke(e.document));
+        requireSameEdit(ownedEdit, e, s.documentEdit.invoke(e.document)); trace("same-owned-edit", e);
     }
     static void requireNewEdit(Edit idle, Edit e, Object current) {
         if (!sameContext(idle, e) || e.frames != 1 || e.frame == null || e.instant != 1 || e.longer != 0 || e.locks != 0

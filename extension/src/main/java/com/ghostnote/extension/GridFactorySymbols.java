@@ -13,6 +13,7 @@ public final class GridFactorySymbols implements GridDetachedFactory.Host {
     private final Class<?> moduleClass;
     private final Method factory, owner, children, disposed, dispose, parent, uuid;
     private final Field helper, remoteHelper;
+    private boolean doctor;
 
     public GridFactorySymbols(GridReadSymbols symbols, ClassLoader loader, List<String> liveUuids) throws Exception {
         this.symbols = symbols; this.liveUuids = Set.copyOf(liveUuids);
@@ -25,6 +26,15 @@ public final class GridFactorySymbols implements GridDetachedFactory.Host {
         parent = moduleClass.getMethod("Fuu"); uuid = device.getMethod("VEb");
         helper = device.getDeclaredField("kyi"); remoteHelper = device.getDeclaredField("rdo");
         helper.setAccessible(true); remoteHelper.setAccessible(true);
+    }
+
+    public GridFactorySymbols(GridReadSymbols reader, GridDoctorSymbols table, List<String> liveUuids) {
+        doctor = true; symbols = reader; this.liveUuids = Set.copyOf(liveUuids); moduleClass = table.type("module");
+        factory = table.method("module-factory"); owner = table.method("owner");
+        children = table.method("owned-children"); disposed = table.method("disposed-flag");
+        dispose = table.method("disposal"); parent = table.method("module-parent-2");
+        uuid = table.method("instance-uuid"); helper = table.field("initialization-helper");
+        remoteHelper = table.field("remote-helper");
     }
 
     public static GridFixtureCable.Input parse(JsonObject params) {
@@ -56,12 +66,44 @@ public final class GridFactorySymbols implements GridDetachedFactory.Host {
     }
     public JsonObject capture(Object module) throws Exception {
         GridReadExplore explore = new GridReadExplore(symbols);
-        JsonObject graph = new GridGraphRead(explore.project(query().projection())).capture(module);
+        GridGraphRead.Reader projection = explore.project(query().projection());
+        if (doctor) {
+            Set<Object> scope = Collections.newSetFromMap(new IdentityHashMap<>());
+            scope.addAll(GridDetachedFactory.ownership(this, module));
+            projection = ownedProjection(projection, scope);
+        }
+        JsonObject graph = new GridGraphRead(projection).capture(module);
         graph.addProperty("queryWork", explore.workUnits());
         for (int i = 0; i < 3; i++)
             graph.addProperty("encodedBytes", graph.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8).length);
         requireGraph(graph, uuid.invoke(module).toString());
         return graph;
+    }
+    /** Detached capture IDs refer only to objects in the proved owned tree. */
+    private static GridGraphRead.Reader ownedProjection(GridGraphRead.Reader r, Set<Object> owned) {
+        return new GridGraphRead.Reader() {
+            public String scope() { return r.scope(); }
+            public String inclusion() { return r.inclusion(); }
+            public void work() { r.work(); }
+            public String name(Object o) throws Exception {
+                if (!owned.contains(o)) throw new IllegalStateException("doctor-detached-foreign-object");
+                return r.name(o);
+            }
+            public int classId(Object o) throws Exception { return r.classId(o); }
+            public List<?> properties(Object o) throws Exception { return r.properties(o); }
+            public int id(Object p) throws Exception { return r.id(p); }
+            public String propertyName(Object p) throws Exception { return r.propertyName(p); }
+            public boolean included(Object p, Object o) throws Exception { return r.included(p, o); }
+            public boolean rootBridge(Object p, Object o) throws Exception { return r.rootBridge(p, o); }
+            public boolean relationship(Object p) { return r.relationship(p); }
+            public int childCount(Object p, Object o) throws Exception { return r.childCount(p, o); }
+            public Object child(Object p, Object o, int i) throws Exception {
+                Object child = r.child(p, o, i);
+                if (!owned.contains(child)) throw new IllegalStateException("doctor-detached-foreign-reference");
+                return child;
+            }
+            public Object value(Object p, Object o) throws Exception { return r.value(p, o); }
+        };
     }
     public static void requireGraph(JsonObject graph, String uuid) {
         if (!graph.get("complete").getAsBoolean() || graph.get("errorCount").getAsInt() != 0

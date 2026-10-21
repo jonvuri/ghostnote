@@ -1,0 +1,79 @@
+{"preset":"WT Parkour.bwpreset","verdict":"passed"}
+{"preset":"SEMtex Motion Seq.bwpreset","verdict":"passed"}
+/Users/jonvuri/Development/ghostnote/brain/src/client.ts:214
+      pending.reject(new BridgeError(response.error.code, response.error.message));
+                     ^
+
+BridgeError: Internal error: grid-operation-failed:java.lang.reflect.InvocationTargetException: null; caused by java.lang.IllegalStateException: Error undoing change Undo Delete Amplify:
+java.lang.IllegalStateException: Could not insert item into 1-many relationship auxiliary_devices in class float_core.module_grid for an object located in the document at float_core.float_document/track_group/owned_main_tracks#1/device_chain/devices#0/device_contents/child_components#7:
+java.lang.NullPointerException: Cannot invoke "cZv.eOi(cYy, com.bitwig.ramona.core.HEV, com.bitwig.ramona.core.HEV, int, boolean, cZl)" because "<local6>" is null
+	at daR.eOi(SourceFile:651)
+	at cZn.aboutToInsertItem(SourceFile:1595)
+	at com.bitwig.ramona.core.aPZ.ffA(SourceFile:368)
+	at com.bitwig.ramona.core.HEV.ffA(SourceFile:1630)
+	at com.bitwig.ramona.core.HEV.ffA(SourceFile:1638)
+	at com.bitwig.ramona.core.HEV.ffA(SourceFile:1638)
+	at com.bitwig.ramona.core.HEV.ffA(SourceFile:1638)
+	at com.bitwig.ramona.core.HEV.ffA(SourceFile:1638)
+	at com.bitwig.ramona.core.HEV.ffA(SourceFile:1638)
+	at com.bitwig.ramona.core.HEV.ffA(SourceFile:1638)
+	at com.bitwig.flt.document.core.master.device.NHx.ffA(SourceFile:311)
+	at com.bitwig.flt.document.core.master.device.cbl.ffA(SourceFile:277)
+	at com.bitwig.flt.document.core.master.device.gOr.ffA(SourceFile:525)
+	at com.bitwig.flt.document.core.master.device.Grz.ffA(SourceFile:745)
+	at com.bitwig.flt.document.core.master.device.Grz.ffA(SourceFile:9)
+	at cYy.ffA(SourceFile:329)
+	at das.Uhv(SourceFile:90)
+	at daK.ffA(SourceFile:30)
+	at cZD.ffA(SourceFile:77)
+	at cZv.eJS(SourceFile:479)
+	at daR.wi2(SourceFile:414)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at com.ghostnote.extension.GridDoctorHost.command(GridDoctorHost.java:222)
+	at com.ghostnote.extension.GridDoctorProtocol.command(GridDoctorProtocol.java:53)
+	at com.ghostnote.extension.handlers.GridDoctorHandlers.lambda$request$3(GridDoctorHandlers.java:136)
+	at com.ghostnote.extension.GridReadJob.lambda$start$1(GridReadJob.java:34)
+	at com.bitwig.flt.control_surface.proxy.ControlSurfaceObject$1.run(SourceFile:181)
+	at han.process(SourceFile:44)
+	at com.bitwig.flt.app.rmP.ffA(SourceFile:2913)
+	at div.cG3(SourceFile:1233)
+	at div.eOi(SourceFile:1197)
+	at com.bitwig.flt.app.KGh.eOi(SourceFile:2069)
+	at div.fRF(SourceFile:920)
+	at com.bitwig.flt.app.BitwigStudioMain.ffA(SourceFile:234)
+	at com.bitwig.flt.app.BitwigStudioMain.main(SourceFile:49)
+
+	at das.Uhv(SourceFile:98)
+	at daK.ffA(SourceFile:30)
+	at cZD.ffA(SourceFile:77)
+	at cZv.eJS(SourceFile:479)
+	at daR.wi2(SourceFile:414)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at com.ghostnote.extension.GridDoctorHost.command(GridDoctorHost.java:222)
+	at com.ghostnote.extension.GridDoctorProtocol.command(GridDoctorProtocol.java:53)
+	at com.ghostnote.extension.handlers.GridDoctorHandlers.lambda$request$3(GridDoctorHandlers.java:136)
+	at com.ghostnote.extension.GridReadJob.lambda$start$1(GridReadJob.java:34)
+	at com.bitwig.flt.control_surface.proxy.ControlSurfaceObject$1.run(SourceFile:181)
+	at han.process(SourceFile:44)
+	at com.bitwig.flt.app.rmP.ffA(SourceFile:2913)
+	at div.cG3(SourceFile:1233)
+	at div.eOi(SourceFile:1197)
+	at com.bitwig.flt.app.KGh.eOi(SourceFile:2069)
+	at div.fRF(SourceFile:920)
+	at com.bitwig.flt.app.BitwigStudioMain.ffA(SourceFile:234)
+	at com.bitwig.flt.app.BitwigStudioMain.main(SourceFile:49)
+
+    at BridgeClient.handleResponse (/Users/jonvuri/Development/ghostnote/brain/src/client.ts:214:22)
+    at BridgeClient.handleData (/Users/jonvuri/Development/ghostnote/brain/src/client.ts:201:12)
+    at Socket.<anonymous> (/Users/jonvuri/Development/ghostnote/brain/src/client.ts:109:48)
+    at Socket.emit (node:events:508:28)
+    at addChunk (node:internal/streams/readable:559:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+    at Readable.push (node:internal/streams/readable:390:5)
+    at TCP.onStreamRead (node:internal/stream_base_commons:189:23) {
+  code: -32603
+}
+
+Node.js v24.11.1

@@ -18,6 +18,11 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E316 | V20 doctor passes on 6.0.6: 76 roles, both Undo stages, final counters, and teardown; baseline restored; research cache written; 6.1.x remains separate [K] (2026-10-20) | [open](experiments/e316-grid-doctor-606-acceptance.md) |
+| E315 | V20 uses traced document Undo; 76 roles resolve, offline checks pass, archive deployed; explicit replacement and revised-pass consent precede live validation [K] (2026-10-20) | [open](experiments/e315-grid-doctor-document-undo.md) |
+| E314 | Operator restart recovery passes; scratch removed; tracks, mixer, device banks, selection, and paired control match baseline; probes unbound and unlocked; attempt record retained [K] (2026-10-20) | [open](experiments/e314-grid-doctor-recovery.md) |
+| E313 | V19 doctor stops at native delete Undo; 12 commands pass paired reads; uncertain scratch remains locked; no cache or complete baseline; recovery and caller trace planned [K] (2026-10-20) | [open](experiments/e313-grid-doctor-undo-failure.md) |
+| E312 | V19 doctor implemented, checked, and deployed; 72 roles include three traced undo guards; operator replacement and consent precede the live pass; no cache or live acceptance [K] (2026-10-20) | [open](experiments/e312-grid-doctor-preparation.md) |
 | E311 | Offline resolution matches all 69 manifest members and 55 type roles; 21 tests include full name removal; scan 4.510 s and 181.875 MiB RSS; no live authority; next 9b.5 doctor [K] (2026-10-20) | [open](experiments/e311-grid-offline-resolvers.md) |
 | E310 | Gates factory/defaults/disposal pass on V18; scratch removed; entry/exit and E308 preserved state match; 9b.3 complete, next offline resolvers [K] (2026-10-20) | [open](experiments/e310-grid-factory-acceptance-and-breadth-close.md) |
 | E309 | Authorized process recovery discards test changes; old process exits; saved project opens with V18 and no scratch or lock; factory acceptance pending [K] (2026-10-20) | [open](experiments/e309-grid-factory-process-recovery.md) |

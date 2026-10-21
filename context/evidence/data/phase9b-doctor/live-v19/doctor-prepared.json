@@ -1,0 +1,30 @@
+{
+  "host": {
+    "hostApiVersion": 25,
+    "hostProduct": "Bitwig Studio",
+    "hostVendor": "Bitwig",
+    "hostVersion": "6.0.6",
+    "javaVersion": "25",
+    "javaVendor": "Azul Systems, Inc."
+  },
+  "prepared": {
+    "phase": 0,
+    "failed": false,
+    "marker": "9b-grid-doctor-v19",
+    "bound": false,
+    "busy": false,
+    "used": false,
+    "timeoutLocked": false,
+    "nativeUnfinished": false,
+    "foreignOwner": false,
+    "metadata": {
+      "fingerprint": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93:34686665:1777550247000000000",
+      "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+      "selectorSha256": "ece655301176485a7f79bba8ad600ef0d02c09a7c5f7a3efc7e82accf86ca72d",
+      "members": 72,
+      "types": 55,
+      "validationNanos": 39034042,
+      "writeAuthority": false
+    }
+  }
+}

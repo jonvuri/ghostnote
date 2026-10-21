@@ -24,6 +24,11 @@ public final class GridBreadthHost implements GridBreadthProtocol.Host {
         commands = new GridBreadthCommands(grid.getClass().getClassLoader());
         witness = new GridBreadthWitness(grid.getClass().getClassLoader());
     }
+    public GridBreadthHost(GridReadSymbols symbols, GridDoctorSymbols table, Object grid, Object document, String kind) {
+        if (!Set.of("boolean", "mapping").contains(kind)) throw new IllegalArgumentException("doctor-breadth-case");
+        this.symbols = symbols; this.grid = grid; this.document = document; this.kind = kind;
+        commands = new GridBreadthCommands(table); witness = new GridBreadthWitness(table);
+    }
     public JsonObject metrics() { return metrics.deepCopy(); }
     public void requireTarget(Object grid, Object document) {
         if (this.grid != grid || this.document != document)

@@ -1,0 +1,20 @@
+{
+  "marker": "9b-grid-doctor-v20",
+  "builtArchive": "/Users/jonvuri/Development/ghostnote/extension/build/libs/ghostnote-0.0.1-probe.bwextension",
+  "deployedArchive": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension",
+  "archiveSha256": "9627bb8d23587de365aee75ae0703e81b32c71faeb5eb13c29e8dec791b0d481",
+  "archiveBytes": 846170,
+  "builtEqualsDeployed": true,
+  "bundledResourcesMatch": true,
+  "memberRoles": 76,
+  "typeRoles": 55,
+  "candidateBytes": 27485,
+  "selectorBytes": 49606,
+  "scanElapsedMs": 4420.617,
+  "peakRssBytes": 186974208,
+  "originalAttemptUnchanged": true,
+  "v20AttemptExists": false,
+  "acceptedCacheExists": false,
+  "liveValidation": "not-run",
+  "writeAuthority": false
+}

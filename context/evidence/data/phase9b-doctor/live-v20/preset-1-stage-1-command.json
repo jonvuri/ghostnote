@@ -1,0 +1,28 @@
+{
+  "marker": "9b-grid-doctor-v20",
+  "session": "0ccdfd93-7acd-4a2b-99f8-39ca2427e841",
+  "receipt": {
+    "action": "mapping-restore",
+    "nativeCommandNanos": 12892375,
+    "commandReturned": true,
+    "readback": "pending-independent-pair"
+  },
+  "metrics": {
+    "descriptorWork": 1517,
+    "snapshotNanos": 833375
+  },
+  "queueNanos": 66334,
+  "documentTaskNanos": 14453291,
+  "heapBefore": 1191182336,
+  "heapAfter": 1199570944,
+  "status": {
+    "case": "mapping",
+    "commands": 2,
+    "reads": 0,
+    "locked": false,
+    "finished": false,
+    "inspections": 0,
+    "failure": ""
+  },
+  "completionNanos": 25254125
+}

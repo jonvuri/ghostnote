@@ -2,7 +2,7 @@
 title: 9b — Grid symbol manifest
 kind: note
 state: active
-status: E311 resolves all 69 member rows and 55 type dependencies offline. Live validation belongs to 9b.5.
+status: E316 passes all 76 V20 role checks on 6.0.6. The 6.1.x doctor remains separate.
 updated: 2026-10-20
 parent: 9b-grid-breadth-discovery-and-build-out.md
 ---
@@ -290,3 +290,51 @@ check descriptor IDs/names, helper initialization, disposed-tree ownership,
 selection identity, edit ownership, and engine connection identity. Keep the
 E307 project-root/edit-document distinction and E308 detached identity scope.
 An offline match does not satisfy any of these live checks.
+
+
+## E312 doctor-only undo supplement
+
+The original 69 rows and E311 selectors remain unchanged. The 9b.5 doctor
+adds three candidates after the local trace in
+[E312](../../evidence/experiments/e312-grid-doctor-preparation.md):
+`daR.MkF(): cZv` is the undo head, `daR.kG(): boolean` is its availability
+predicate, and `daR.wi2(): void` is the journal undo command. The
+[supplemental selectors](../../../brain/src/probes/grid_doctor/undo-selectors.json)
+resolve by normalized use traces. The combined candidate table has 72 rows
+and the same 55 types. The active current-edit getter is not an undo-head
+witness after close. [E313](../../evidence/experiments/e313-grid-doctor-undo-failure.md)
+tests the candidate path. The direct journal undo call throws because the
+relationship insertion hook has no recording edit. Head identity and
+availability do not establish that context. The full caller, recording edit,
+replay state, and exception cleanup contract belong to
+[9b.5a](9b-grid-breadth-discovery-and-build-out.md#session-9b5a--recover-and-trace-the-undo-caller).
+The original selectors and candidate report remain unchanged. No complete
+live role acceptance or accepted cache exists.
+
+
+## E315 document Undo correction
+
+[E315](../../evidence/experiments/e315-grid-doctor-document-undo.md) completes
+9b.5a's caller trace. The relationship hooks must skip recording while the
+document replay flag is set. No new recording edit is required. V20 replaces
+`undo-command` with `cZl.OTd(): void` and adds `document-undo-enabled`,
+`document-manager`, `journal-replay-head`, and `journal-recording-edit`.
+The table has 76 members and 55 types. A two-edge call trace distinguishes
+Undo from same-shape Redo. The original 69 selectors and V19 evidence remain
+unchanged. Both Undo stages require the exact prior head after return and
+independent graph restoration. Exceptions keep the latch; Ghostnote does
+not reset native replay state. Live acceptance belongs to
+[9b.5b](9b-grid-breadth-discovery-and-build-out.md#session-9b5b--revised-v20-live-doctor).
+
+
+## E316 live acceptance on 6.0.6
+
+[E316](../../evidence/experiments/e316-grid-doctor-606-acceptance.md)
+completes the 76-role V20 doctor on the exact E315 jar fingerprint. Both
+document Undo stages and the final owned-edit counter trace pass. All
+three scratch tracks are removed; paired control and complete preserved
+state match the baseline. The accepted research cache is written only
+then. This acceptance covers the fixed fixtures and declared projection.
+It does not grant product write authority or accept another Bitwig build.
+The separate [9b.6 session](9b-grid-breadth-discovery-and-build-out.md#session-9b6--doctor-on-61x)
+owns the 6.1.x result after the operator update audit.

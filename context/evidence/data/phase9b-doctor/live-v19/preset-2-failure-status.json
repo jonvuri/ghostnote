@@ -1,0 +1,31 @@
+{
+  "completed": 8,
+  "reads": 0,
+  "attempted": true,
+  "locked": true,
+  "released": false,
+  "failure": "java.lang.reflect.InvocationTargetException",
+  "inspections": 0,
+  "phase": 2,
+  "failed": true,
+  "marker": "9b-grid-doctor-v19",
+  "bound": true,
+  "busy": false,
+  "used": true,
+  "timeoutLocked": false,
+  "nativeUnfinished": false,
+  "foreignOwner": false,
+  "metadata": {
+    "fingerprint": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93:34686665:1777550247000000000",
+    "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+    "selectorSha256": "ece655301176485a7f79bba8ad600ef0d02c09a7c5f7a3efc7e82accf86ca72d",
+    "members": 72,
+    "types": 55,
+    "validationNanos": 39034042,
+    "writeAuthority": false
+  },
+  "session": "7f1352f0-99ab-4f8c-9192-52c378a71ab8",
+  "diagnostics": {
+    "nativeCommands": 9
+  }
+}

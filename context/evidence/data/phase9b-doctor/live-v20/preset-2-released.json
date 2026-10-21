@@ -1,0 +1,27 @@
+{
+  "completed": 12,
+  "reads": 2,
+  "attempted": true,
+  "locked": false,
+  "released": true,
+  "failure": "",
+  "inspections": 0,
+  "phase": 3,
+  "failed": false,
+  "marker": "9b-grid-doctor-v20",
+  "bound": false,
+  "busy": false,
+  "used": true,
+  "timeoutLocked": false,
+  "nativeUnfinished": false,
+  "foreignOwner": false,
+  "metadata": {
+    "fingerprint": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93:34686665:1777550247000000000",
+    "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+    "selectorSha256": "151ebb81d946d1ffc5c281a04f7cd1d3a4442c754f601a7c04e84aa485171d99",
+    "members": 76,
+    "types": 55,
+    "validationNanos": 37818166,
+    "writeAuthority": false
+  }
+}

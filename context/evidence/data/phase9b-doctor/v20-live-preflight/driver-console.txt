@@ -1,0 +1,3 @@
+{"preset":"WT Parkour.bwpreset","verdict":"passed"}
+{"preset":"SEMtex Motion Seq.bwpreset","verdict":"passed"}
+{"preset":"gn-grid-spike-baseline.bwpreset","verdict":"passed"}

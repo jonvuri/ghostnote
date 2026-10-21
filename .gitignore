@@ -21,3 +21,6 @@ brain/.e14-marker
 
 # Python probe modules
 __pycache__/
+
+# Durable local Grid doctor attempt and acceptance records
+.local/grid-doctor/

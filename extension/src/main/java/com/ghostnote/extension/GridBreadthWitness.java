@@ -12,6 +12,9 @@ public final class GridBreadthWitness {
         s = new GridAttachmentSymbols.Symbols(loader);
         engine = new GridEngineSymbols.Symbols(loader);
     }
+    public GridBreadthWitness(GridDoctorSymbols table) {
+        s = new GridAttachmentSymbols.Symbols(table); engine = new GridEngineSymbols.Symbols(table);
+    }
     public void requireAtom(Object module, Object contents, Object atom) throws Exception {
         if (s.owner.invoke(contents) != module || s.owner.invoke(atom) != contents
                 || (boolean) s.disposed.invoke(contents) || (boolean) s.disposed.invoke(atom))

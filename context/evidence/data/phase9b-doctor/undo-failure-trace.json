@@ -1,0 +1,55 @@
+{
+  "source": "Bitwig 6.0.6 local class bytes; javap -c -p daR",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "classSha256": "e2a6561eeb1602b13303968892565a81f51329260411b925b50966718ebd12a6",
+  "vendorClassesInitialized": 0,
+  "hostCalls": 0,
+  "method": "daR.wi2(): void",
+  "exceptionHandlers": [],
+  "observations": [
+    {
+      "method": "daR.eOi(cYy, HEV, HEV, int, boolean)",
+      "offsets": [
+        79,
+        80,
+        83,
+        115,
+        128
+      ],
+      "trace": "Call YLA; store local 6; invoke cZv.eOi on local 6. The live exception identifies this local as null."
+    },
+    {
+      "method": "daR.YLA(): cZv",
+      "offsets": [
+        0,
+        1,
+        4,
+        7,
+        8,
+        11,
+        12,
+        13,
+        16
+      ],
+      "trace": "Return field wi2 if non-null; otherwise return field NaF. No lookup of the undo head MkF or replay head kG."
+    },
+    {
+      "method": "daR.wi2(): void",
+      "offsets": [
+        169,
+        170,
+        173,
+        174,
+        175,
+        176,
+        179,
+        180,
+        183,
+        184,
+        185
+      ],
+      "trace": "Load MkF into local 1; set field kG to local 1; invoke cZv.eJS; clear kG after normal return. No write to wi2 or NaF; no exception handler."
+    }
+  ],
+  "conclusion": "The failed low-level journal call did not establish the required recording context. The full supported caller remains to be traced. No corrected live path is inferred."
+}

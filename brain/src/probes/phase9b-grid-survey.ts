@@ -39,6 +39,11 @@ export function presetList(input: unknown): Wire[] {
   });
 }
 export type ScratchWorkflow = {
+  marker?: string;
+  stopOnRefusal?: boolean;
+  budget?: { calls: number; milliseconds: number; bytes: number };
+  prepare?(request: Request, save: (name: string, value: unknown) => void): Promise<void>;
+  complete?(request: Request, results: Wire[], before: Wire, after: Wire): Promise<void>;
   run(request: Request, target: Wire, candidate: Wire, save: (name: string, value: unknown) => void): Promise<Wire>;
 };
 export async function runSurvey(args: string[], workflow?: ScratchWorkflow) {
@@ -70,11 +75,17 @@ export async function runSurvey(args: string[], workflow?: ScratchWorkflow) {
   const calls: Wire[] = [], results: Wire[] = [];
   let scratch: string | undefined, uncertain = false;
   let before: Wire | undefined;
-  let serial = 0;
+  let serial = 0, evidenceBytes = 0;
+  const started = performance.now();
   const request = async (method: string, params: Wire = {}, timeout?: number): Promise<Wire> => {
     const start = performance.now();
+    if (workflow?.budget) {
+      assert.ok(calls.length < workflow.budget.calls && start - started < workflow.budget.milliseconds
+        && evidenceBytes < workflow.budget.bytes, 'doctor-driver-budget');
+    }
     try {
       const result = await client.request(method, params, timeout) as Wire;
+      evidenceBytes += Buffer.byteLength(JSON.stringify(result));
       calls.push({ method, params, ms: performance.now() - start, bytes: Buffer.byteLength(JSON.stringify(result)) });
       return result;
     } catch (error) {
@@ -169,7 +180,7 @@ export async function runSurvey(args: string[], workflow?: ScratchWorkflow) {
     assert.equal(hello.methodCount, 118); assert.equal(hello.methodsHash, '2e939035ea90b8b0');
     assert.equal(compareDeployment(deployedAtMs(), stats.initEpochMs ?? -1).state, 'fresh');
     const status = await request('probe.gridRead', { operation: 'status' });
-    assert.equal(status.marker, '9b-grid-writes-v18');
+    assert.equal(status.marker, workflow?.marker ?? '9b-grid-writes-v18');
     assert.ok(!status.bound && !status.busy && !status.locked && !status.nativeUnfinished && !status.foreignOwner);
     save('entry', { hello, rig, stats, status, project, candidates });
     if (readOnly) {
@@ -179,6 +190,7 @@ export async function runSurvey(args: string[], workflow?: ScratchWorkflow) {
       assert.deepEqual(await selection(), selected);
       save('result', result); return;
     }
+    if (workflow?.prepare) await workflow.prepare(request, save);
     await adapter.hello();
     before = await snapshot(); save('before', before);
     assert.ok(!before.tracks.some((t: Wire) => /^gn-9b-(survey|write)-/.test(t.name)), 'Inspect old scratch residue first');
@@ -240,6 +252,7 @@ export async function runSurvey(args: string[], workflow?: ScratchWorkflow) {
       results.push({ presetPath: candidate.path, flavour: grids[0].name, ...result });
       await cleanup();
       assert.deepEqual(await tracks(), before.tracks, 'track-state-changed-after-cleanup');
+      if (workflow?.stopOnRefusal && result.verdict !== 'passed') break;
       console.log(JSON.stringify({ preset: basename(candidate.path), verdict: result.verdict,
         modules: result.moduleCount, cables: result.projectedAudioCableCount }));
     }
@@ -247,6 +260,7 @@ export async function runSurvey(args: string[], workflow?: ScratchWorkflow) {
     const after = await snapshot(); save('after', after);
     assert.deepEqual(after, before, 'preserved-state-changed-after-survey');
     save('results', results);
+    if (workflow?.complete) await workflow.complete(request, results, before, after);
   } catch (error) {
     save('failure', { error: String(error), scratch, uncertain });
     // Inspect after uncertainty. Do not repeat a write or delete an uncertain fixture.

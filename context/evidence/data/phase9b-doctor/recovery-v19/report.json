@@ -1,0 +1,49 @@
+{
+  "result": "recovered",
+  "preservedStateMatchesE313Entry": true,
+  "entryEqualsExit": true,
+  "scratchTracks": 0,
+  "control": {
+    "paired": true,
+    "modules": 4,
+    "cables": 2,
+    "normalizedE276": true
+  },
+  "finalStatus": {
+    "status": {
+      "bound": false,
+      "busy": false,
+      "locked": false,
+      "nativeUnfinished": false,
+      "marker": "9b-grid-doctor-v19",
+      "foreignOwner": false
+    },
+    "breadthStatus": {
+      "bound": false,
+      "busy": false,
+      "timeoutLocked": false,
+      "nativeUnfinished": false,
+      "marker": "9b-grid-doctor-v19",
+      "foreignOwner": false
+    },
+    "doctorStatus": {
+      "phase": 0,
+      "failed": false,
+      "marker": "9b-grid-doctor-v19",
+      "bound": false,
+      "busy": false,
+      "used": false,
+      "timeoutLocked": false,
+      "nativeUnfinished": false,
+      "foreignOwner": false
+    }
+  },
+  "nativeWriteCommands": 0,
+  "calls": 64,
+  "wireMs": 2049.551332,
+  "responseBytes": 155016,
+  "elapsedMs": 2577.793416,
+  "preservedStateMatchesE310": true,
+  "attemptRecordUnchanged": true,
+  "acceptedCacheExists": false
+}

@@ -15,6 +15,7 @@ public final class GridReadSymbols implements GridGraphRead.Reader {
     private final Method childCount, child;
     private final Class<?> relationship;
     private final Object filterInstance;
+    private Class<?> nativeDevice;
 
     public GridReadSymbols(Class<?> hostClass) throws Exception {
         Path jar = Path.of(hostClass.getProtectionDomain().getCodeSource().getLocation().toURI());
@@ -45,6 +46,17 @@ public final class GridReadSymbols implements GridGraphRead.Reader {
         child = relationship.getMethod("eOi", atom, int.class);
     }
 
+    /** Use a structurally validated candidate table in the scratch doctor only. */
+    public GridReadSymbols(GridDoctorSymbols table) throws Exception {
+        nativeDevice = table.type("native-device");
+        descriptor = table.method("descriptor"); classId = table.method("class-id");
+        name = table.method("name"); properties = table.method("properties");
+        propertyId = table.method("property-id"); enabled = table.method("enabled-field");
+        filter = table.method("serialization-filter"); filterInstance = table.field("filter-instance").get(null);
+        value = table.method("scalar-read"); childCount = table.method("child-count");
+        child = table.method("child-read"); relationship = table.type("relationship");
+    }
+
     public String name(Object object) throws Exception { return (String) name.invoke(descriptor.invoke(object)); }
     public int classId(Object object) throws Exception { return (int) classId.invoke(descriptor.invoke(object)); }
     public List<?> properties(Object object) throws Exception { return (List<?>) properties.invoke(descriptor.invoke(object)); }
@@ -55,8 +67,8 @@ public final class GridReadSymbols implements GridGraphRead.Reader {
     }
     /** E274: property 406 is an existing child excluded by the file serializer. */
     public boolean rootBridge(Object property, Object object) throws Exception {
-        if (!object.getClass().getName().equals("com.bitwig.flt.document.core.master.device.S2E")
-                || id(property) != 406) return false;
+        if ((nativeDevice != null ? object.getClass() != nativeDevice
+                : !object.getClass().getName().equals("com.bitwig.flt.document.core.master.device.S2E")) || id(property) != 406) return false;
         if (!propertyName(property).equals("device_contents") || !relationship(property)
                 || !(boolean) enabled.invoke(property))
             throw new IllegalStateException("unexpected-device-contents-descriptor");

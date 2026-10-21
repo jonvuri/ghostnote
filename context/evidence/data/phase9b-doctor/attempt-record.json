@@ -1,0 +1,15 @@
+{
+  "fingerprint": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93:34686665:1777550247000000000",
+  "host": {
+    "hostApiVersion": 25,
+    "hostProduct": "Bitwig Studio",
+    "hostVendor": "Bitwig",
+    "hostVersion": "6.0.6",
+    "javaVersion": "25",
+    "javaVendor": "Azul Systems, Inc."
+  },
+  "consent": "I saved first. I consent to one scratch doctor pass. A failed check can require a Bitwig restart.",
+  "output": "/Users/jonvuri/Development/ghostnote/context/evidence/data/phase9b-doctor/live-v19",
+  "started": "2026-10-21T04:10:27.353Z",
+  "writeAuthority": false
+}

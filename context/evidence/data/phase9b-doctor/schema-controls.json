@@ -1,0 +1,806 @@
+{
+  "device_contents": {
+    "classId": 151,
+    "source": "context/evidence/data/phase9a-grid-read/live-03-contents-schema/capture-0.json",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 228,
+        "name": "in_ports",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 229,
+        "name": "out_ports",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 6194,
+        "name": "settings",
+        "serializerIncluded": true,
+        "relationship": true
+      },
+      {
+        "id": 173,
+        "name": "child_components",
+        "serializerIncluded": true,
+        "relationship": true
+      },
+      {
+        "id": 6213,
+        "name": "panels",
+        "serializerIncluded": true,
+        "relationship": true
+      },
+      {
+        "id": 177,
+        "name": "proxy_in_ports",
+        "serializerIncluded": true,
+        "relationship": true
+      },
+      {
+        "id": 178,
+        "name": "proxy_out_ports",
+        "serializerIncluded": true,
+        "relationship": true
+      },
+      {
+        "id": 181,
+        "name": "device_editor_display_settings",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 182,
+        "name": "shared_resources",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 6566,
+        "name": "fft_order",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 11047,
+        "name": "analysis_fft_order",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 11110,
+        "name": "analysis_fft_fall_speed",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6834,
+        "name": "context_menu_panel",
+        "serializerIncluded": true,
+        "relationship": true
+      },
+      {
+        "id": 9820,
+        "name": "inspector_panel",
+        "serializerIncluded": true,
+        "relationship": true
+      },
+      {
+        "id": 13647,
+        "name": "device_revision",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6199,
+        "name": "components_to_execute",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 1977,
+        "name": "sleep_level_threshold",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 1978,
+        "name": "sleep_level_timeout",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 10568,
+        "name": "processing_strategy",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 14608,
+        "name": "prevent_sleep",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 14932,
+        "name": "is_observed",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 179,
+        "name": "allocated_voices",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 10513,
+        "name": "true_mono",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 385,
+        "name": "device_UUID",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 386,
+        "name": "device_name",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 2057,
+        "name": "description",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 387,
+        "name": "creator",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 388,
+        "name": "comment",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 389,
+        "name": "keywords",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 390,
+        "name": "category",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 391,
+        "name": "device_type",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 4846,
+        "name": "suggest_for_note_input",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 4847,
+        "name": "suggest_for_audio_input",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 392,
+        "name": "has_been_modified",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6195,
+        "name": "audio_proxy_in_port",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 6196,
+        "name": "audio_proxy_out_port",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 6197,
+        "name": "note_proxy_in_port",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 6198,
+        "name": "note_proxy_out_port",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 13354,
+        "name": "color_tint",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6417,
+        "name": "header_area_panel",
+        "serializerIncluded": true,
+        "relationship": true
+      },
+      {
+        "id": 7549,
+        "name": "maximized_panel",
+        "serializerIncluded": true,
+        "relationship": true
+      },
+      {
+        "id": 10713,
+        "name": "synth_display_panel",
+        "serializerIncluded": true,
+        "relationship": true
+      },
+      {
+        "id": 10727,
+        "name": "synth_overview_panel",
+        "serializerIncluded": true,
+        "relationship": true
+      },
+      {
+        "id": 10992,
+        "name": "mixer_eq_panel",
+        "serializerIncluded": true,
+        "relationship": true
+      },
+      {
+        "id": 9657,
+        "name": "is_maximized_panel_shown",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 10663,
+        "name": "is_allowed_to_show_maximized_panel",
+        "serializerIncluded": true,
+        "relationship": false
+      }
+    ]
+  },
+  "module_grid": {
+    "classId": 1901,
+    "source": "context/evidence/data/phase9a-grid-read/live-04-grid-schema/capture-0.json",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 228,
+        "name": "in_ports",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 229,
+        "name": "out_ports",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 6194,
+        "name": "settings",
+        "serializerIncluded": true,
+        "relationship": true
+      },
+      {
+        "id": 6729,
+        "name": "has_auxiliary_devices",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 6428,
+        "name": "auxiliary_devices",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 6633,
+        "name": "playback_auxiliary_devices",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 6723,
+        "name": "preview_insert_auxiliary_devices",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 11131,
+        "name": "drag_and_drop_preview_devices",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 6728,
+        "name": "display_settings",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 6765,
+        "name": "preset_identifier",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 10140,
+        "name": "preview_hide_modules",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 10351,
+        "name": "min_grid_x",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 10352,
+        "name": "max_grid_x",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 10353,
+        "name": "min_grid_y",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 10354,
+        "name": "max_grid_y",
+        "serializerIncluded": false,
+        "relationship": false
+      }
+    ]
+  },
+  "module": {
+    "classId": 1902,
+    "source": "context/evidence/data/phase9a-grid-read/live-05-module-schema/capture-0.json",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 228,
+        "name": "in_ports",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 229,
+        "name": "out_ports",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 6194,
+        "name": "settings",
+        "serializerIncluded": true,
+        "relationship": true
+      },
+      {
+        "id": 15,
+        "name": "UUID",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 404,
+        "name": "device_name",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 6785,
+        "name": "remote_controls",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 406,
+        "name": "device_contents",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 825,
+        "name": "display_settings",
+        "serializerIncluded": true,
+        "relationship": true
+      },
+      {
+        "id": 5466,
+        "name": "user_device_name",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 2785,
+        "name": "display_title",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 407,
+        "name": "preset_to_serialize",
+        "serializerIncluded": true,
+        "relationship": true
+      },
+      {
+        "id": 5478,
+        "name": "top_level_device_for_assigning_preset",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 409,
+        "name": "preset_name",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 4835,
+        "name": "displayed_preset_name",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 5914,
+        "name": "has_preset_been_chosen",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 410,
+        "name": "preset_category",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 411,
+        "name": "preset_creator",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 1364,
+        "name": "preset_keywords",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 3744,
+        "name": "preset_category_filter",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 3745,
+        "name": "preset_creator_filter",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6237,
+        "name": "preset_comment",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 13649,
+        "name": "preset_revision",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 5521,
+        "name": "is_being_hot_swapped",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 5550,
+        "name": "context_insert_session",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 6054,
+        "name": "browsing_session_state",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 413,
+        "name": "last_loaded_preset_path",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 14003,
+        "name": "is_device_licensed",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 14415,
+        "name": "is_device_effectively_licensed",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 6679,
+        "name": "grid_x",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6680,
+        "name": "grid_y",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6977,
+        "name": "active",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6978,
+        "name": "effective_active",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 7048,
+        "name": "is_visible_in_device_chain",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 7049,
+        "name": "is_previewed_in_device_chain",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 10559,
+        "name": "grid_width",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 10560,
+        "name": "grid_height",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 9807,
+        "name": "user_grid_width",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 9808,
+        "name": "user_grid_height",
+        "serializerIncluded": true,
+        "relationship": false
+      }
+    ]
+  },
+  "module_contents": {
+    "classId": 1904,
+    "source": "context/evidence/data/phase9a-grid-read/live-06-module-contents-schema/capture-0.json",
+    "properties": [
+      {
+        "id": 14,
+        "name": "managed_object_ID",
+        "serializerIncluded": false,
+        "relationship": false
+      },
+      {
+        "id": 228,
+        "name": "in_ports",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 229,
+        "name": "out_ports",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 6194,
+        "name": "settings",
+        "serializerIncluded": true,
+        "relationship": true
+      },
+      {
+        "id": 173,
+        "name": "child_components",
+        "serializerIncluded": true,
+        "relationship": true
+      },
+      {
+        "id": 6213,
+        "name": "panels",
+        "serializerIncluded": true,
+        "relationship": true
+      },
+      {
+        "id": 177,
+        "name": "proxy_in_ports",
+        "serializerIncluded": true,
+        "relationship": true
+      },
+      {
+        "id": 178,
+        "name": "proxy_out_ports",
+        "serializerIncluded": true,
+        "relationship": true
+      },
+      {
+        "id": 181,
+        "name": "device_editor_display_settings",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 182,
+        "name": "shared_resources",
+        "serializerIncluded": false,
+        "relationship": true
+      },
+      {
+        "id": 6566,
+        "name": "fft_order",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 11047,
+        "name": "analysis_fft_order",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 11110,
+        "name": "analysis_fft_fall_speed",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6834,
+        "name": "context_menu_panel",
+        "serializerIncluded": true,
+        "relationship": true
+      },
+      {
+        "id": 9820,
+        "name": "inspector_panel",
+        "serializerIncluded": true,
+        "relationship": true
+      },
+      {
+        "id": 13647,
+        "name": "device_revision",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6369,
+        "name": "device_UUID",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6370,
+        "name": "device_name",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6371,
+        "name": "description",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6372,
+        "name": "creator",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6373,
+        "name": "comment",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6374,
+        "name": "keywords",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6375,
+        "name": "category",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6376,
+        "name": "has_been_modified",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 6695,
+        "name": "detail_panel",
+        "serializerIncluded": true,
+        "relationship": true
+      },
+      {
+        "id": 9796,
+        "name": "accent_color",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 10243,
+        "name": "sort_order",
+        "serializerIncluded": true,
+        "relationship": false
+      },
+      {
+        "id": 11465,
+        "name": "embedded_panel",
+        "serializerIncluded": true,
+        "relationship": true
+      }
+    ]
+  }
+}

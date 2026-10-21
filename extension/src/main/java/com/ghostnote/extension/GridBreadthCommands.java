@@ -37,6 +37,14 @@ public final class GridBreadthCommands {
             throw new IllegalStateException("breadth-command-signature");
     }
 
+    public GridBreadthCommands(GridDoctorSymbols table) {
+        booleanAtom = table.type("boolean-atom"); sourceAtom = table.type("mapping-source");
+        targetAtom = table.type("mapping-target"); transfer = table.type("transfer");
+        setBoolean = table.method("boolean-command"); removeMapping = table.method("remove-mapping");
+        restoreMapping = table.method("restore-mapping"); targetDomain = table.method("target-domain");
+        domainExtent = table.method("domain-extent");
+    }
+
     private static Class<?> type(ClassLoader loader, String name) throws ClassNotFoundException {
         return Class.forName(name, false, loader);
     }

@@ -283,3 +283,18 @@ tasks.register('gridBreadthCommandsTest', JavaExec) {
     mainClass = 'com.ghostnote.extension.GridBreadthCommandsTest'
     args '/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar'
 }
+
+// These are offline candidates. A resource does not grant live write authority.
+tasks.named('processResources') {
+    from('../context/evidence/data/phase9b-doctor/v20-preparation/candidate.json') { rename { 'grid-doctor-candidate.json' } }
+    from('../context/evidence/data/phase9b-doctor/v20-preparation/selectors.json') { rename { 'grid-doctor-selectors.json' } }
+    from('../context/evidence/data/phase9a-grid-read/live-23-semantic-baseline/capture-0.json') { rename { 'grid-doctor-control.json' } }
+    from('../context/evidence/data/phase9b-doctor/schema-controls.json') { rename { 'grid-doctor-schema-controls.json' } }
+}
+
+tasks.register('gridDoctorTest', JavaExec) {
+    dependsOn harnessTestClasses
+    classpath = sourceSets.harnessTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.GridDoctorTest'
+    args '/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar'
+}

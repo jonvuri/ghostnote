@@ -1,0 +1,5 @@
+{
+  "result": "refused",
+  "reason": "undo-command:expected-one-candidate:found-2",
+  "writeAuthority": false
+}

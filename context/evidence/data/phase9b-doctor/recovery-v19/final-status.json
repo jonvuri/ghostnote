@@ -1,0 +1,29 @@
+{
+  "status": {
+    "bound": false,
+    "busy": false,
+    "locked": false,
+    "nativeUnfinished": false,
+    "marker": "9b-grid-doctor-v19",
+    "foreignOwner": false
+  },
+  "breadthStatus": {
+    "bound": false,
+    "busy": false,
+    "timeoutLocked": false,
+    "nativeUnfinished": false,
+    "marker": "9b-grid-doctor-v19",
+    "foreignOwner": false
+  },
+  "doctorStatus": {
+    "phase": 0,
+    "failed": false,
+    "marker": "9b-grid-doctor-v19",
+    "bound": false,
+    "busy": false,
+    "used": false,
+    "timeoutLocked": false,
+    "nativeUnfinished": false,
+    "foreignOwner": false
+  }
+}

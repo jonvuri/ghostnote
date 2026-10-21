@@ -1,0 +1,102 @@
+{
+  "complete": true,
+  "moduleCount": 4,
+  "projectedAudioCableCount": 2,
+  "modules": [
+    {
+      "index": 0,
+      "uuid": "da0f56b4-0d22-4ffb-8a3b-be67dca8a67b",
+      "name": "Sine",
+      "typeUuid": "ca05aebd-ecaf-4d57-b0f6-c04ce81674c4"
+    },
+    {
+      "index": 1,
+      "uuid": "342e646f-a74a-47b6-98dc-b7893eeed536",
+      "name": "Amplify",
+      "typeUuid": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2"
+    },
+    {
+      "index": 2,
+      "uuid": "81e2eccc-6c90-4f5f-b40d-b313a71d2ace",
+      "name": "Audio Out",
+      "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6"
+    },
+    {
+      "index": 3,
+      "uuid": "ed42525c-75c9-41f8-b51c-c6a0c21c083c",
+      "name": "Amplify",
+      "typeUuid": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2"
+    }
+  ],
+  "cables": [
+    {
+      "sourceModule": 0,
+      "sourceNode": 5,
+      "destinationModule": 1,
+      "destinationNode": 29
+    },
+    {
+      "sourceModule": 1,
+      "sourceNode": 26,
+      "destinationModule": 2,
+      "destinationNode": 34
+    }
+  ],
+  "classes": [
+    "audio_destination_atom",
+    "audio_source_atom",
+    "audio_voice_sum_atom",
+    "bipolar_toggleable_decimal_value_atom",
+    "boolean_panel_value",
+    "boolean_value_atom",
+    "button_boolean_value_atom",
+    "decimal_value_atom",
+    "device_audio_output_proxy_atom",
+    "device_input_proxy_atom",
+    "indexed_value_atom",
+    "integer_value_atom",
+    "module",
+    "module_contents",
+    "module_grid",
+    "nitro_atom",
+    "polyphonic_observer_atom"
+  ],
+  "scope": "Explicit projection. Omitted fields and outer-device modulators are not covered.",
+  "paired": true,
+  "additions": [],
+  "schemas": 19,
+  "captures": 2,
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 7
+    }
+  ],
+  "measurements": [
+    {
+      "queryWork": 1606,
+      "graphWork": 278,
+      "bytes": 35828,
+      "documentMs": 6.574792,
+      "heapUsedBefore": 457179136,
+      "heapUsedAfter": 459276288
+    },
+    {
+      "queryWork": 1606,
+      "graphWork": 278,
+      "bytes": 35828,
+      "documentMs": 4.549292,
+      "heapUsedBefore": 459276288,
+      "heapUsedAfter": 461373440
+    }
+  ],
+  "verdict": "projected-read-agrees"
+}

@@ -8,7 +8,7 @@ import java.util.function.BooleanSupplier;
 
 /** Private 9b.3 writer. Commands use methods classified as WRITE by RuntimeProfile. */
 public final class GridBreadthHandlers extends HandlerGroup {
-    public static String marker() { return "9b-grid-writes-v18"; }
+    public static String marker() { return GridDoctorHandlers.marker(); }
     public static final Set<String> READS = Set.of("breadthStatus", "breadthBind", "breadthRead",
         "breadthInspect", "breadthRelease");
     private final BooleanSupplier foreignOwner;

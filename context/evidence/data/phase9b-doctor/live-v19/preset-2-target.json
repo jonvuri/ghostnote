@@ -1,0 +1,27 @@
+{
+  "candidate": {
+    "case": "core",
+    "path": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset"
+  },
+  "target": {
+    "project": "gn-grid-spike",
+    "trackId": "dbe98766-c544-48fd-98a5-46e62d553be4",
+    "trackName": "gn-9b-write-969c9fda-a8c8-4e03-9417-9bf16b03c2be",
+    "deviceIndex": 0,
+    "deviceName": "Poly Grid"
+  },
+  "devices": {
+    "devices": [
+      {
+        "index": 0,
+        "name": "Poly Grid",
+        "enabled": true
+      }
+    ],
+    "count": 1,
+    "itemCount": 1,
+    "trackChannelId": "dbe98766-c544-48fd-98a5-46e62d553be4",
+    "trackPosition": 1,
+    "bankSize": 16
+  }
+}

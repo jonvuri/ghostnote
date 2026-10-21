@@ -1,0 +1,30 @@
+✔ candidate metadata requires all roles, invariants, and no prior live authority (2.4005ms)
+✔ acceptance requires every unique role and clean teardown (0.616916ms)
+✔ counter proof requires a transition and preserved zero long-edit and lock counters (2.105291ms)
+✔ an uncertain command is inspected once and never repeated or released (0.39425ms)
+✔ survey discovers a different Grid child, verifies control, reads twice, and releases (3.250291ms)
+✔ catalog reads validate membership without claiming cable coverage or scanning atom schemas (1.052458ms)
+✔ unknown classes get one schema and an explicit projection before paired reads (1.605833ms)
+✔ a paired cap refusal is recorded and the session is released (1.293375ms)
+✔ an absent projected field is reconciled once and its removal is recorded (1.457167ms)
+✔ a changing graph stops; a timeout does not retry or release unfinished native work (2.720708ms)
+✔ graph checks reject dangling cables and duplicate module identities (3.773167ms)
+✔ input and projection limits fail before a host call (1.291125ms)
+✔ bounded boolean sequence and call budget (1.941208ms)
+✔ bounded mapping sequence and call budget (2.516542ms)
+✔ bounded factory sequence and call budget (0.921834ms)
+✔ a receipt cannot replace independent readback or authorize a restore (2.648042ms)
+✔ uncertain command is inspected at most twice and never retried or released (0.51925ms)
+✔ a refusal before any command can cancel and release the scratch claim (0.195833ms)
+✔ unequal initial reads prevent a command (0.695333ms)
+✔ a proved domain refusal before native entry can release the fixture (0.617375ms)
+✔ mapping permits only the selected new identities and selected list position (6.505208ms)
+✔ factory requires fresh UUID, empty external connections, and disposal evidence (2.380792ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 371.877875

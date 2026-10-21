@@ -1,0 +1,2 @@
+COMMAND     PID    USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+BitwigStu 24537 jonvuri  673u  IPv6 0x4b14c9e439e87113      0t0  TCP 127.0.0.1:8686 (LISTEN)

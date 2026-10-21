@@ -1,0 +1,35 @@
+[
+  {
+    "role": "undo-head",
+    "lookupType": "journal",
+    "declaringType": "journal",
+    "kind": "method",
+    "flags": 1,
+    "shape": "()Lbaeb60de77a5391b55c28bb5ce1bc002d0e9a8b7ba5b92e6bfd82bbef31e1ebb;",
+    "signature": "()@edit;",
+    "trace": "db527ec1427ce0ab6d185ba7798912d37d48d19df68a58b4c3f826eac9f5a767",
+    "liveInvariant": "Head changes to the owned completed edit; exact identity remains before undo."
+  },
+  {
+    "role": "undo-available",
+    "lookupType": "journal",
+    "declaringType": "journal",
+    "kind": "method",
+    "flags": 1,
+    "shape": "()Z",
+    "signature": "()Z",
+    "trace": "1a08dc0dccd447c65a50b9cf3ed8dc70c9e08a566a83da8b888473959e6f5c71",
+    "liveInvariant": "True for the owned head while the journal is idle."
+  },
+  {
+    "role": "undo-command",
+    "lookupType": "journal",
+    "declaringType": "journal",
+    "kind": "method",
+    "flags": 1,
+    "shape": "()V",
+    "signature": "()V",
+    "trace": "d91239cceed7336a9a9e3ec43d7a90234cb0d20cf3b37e48085d1b201c630a83",
+    "liveInvariant": "One call removes only the owned edit; independent paired descriptors restore the prior graph."
+  }
+]

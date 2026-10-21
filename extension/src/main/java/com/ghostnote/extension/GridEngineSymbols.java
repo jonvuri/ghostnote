@@ -17,6 +17,11 @@ public final class GridEngineSymbols {
             if (state.getReturnType() != connected.getType() || !connection.getReturnType().getName().equals("cYQ"))
                 throw new IllegalStateException("engine-symbol-signature");
         }
+        public Symbols(GridDoctorSymbols table) {
+            document = table.type("project-root"); state = table.method("engine-state");
+            connection = table.method("connection"); connected = table.field("connected-state");
+            inactive = table.field("inactive-state");
+        }
     }
     private final Symbols s;
     private GridEngineIdentity identity;

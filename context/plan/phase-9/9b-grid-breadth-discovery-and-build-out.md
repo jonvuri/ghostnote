@@ -2,7 +2,7 @@
 title: Phase 9b — Grid breadth, build discovery, and build-out planning
 kind: plan
 state: active
-status: E311 completes 9b.4 offline resolution. Next is 9b.5 live doctor on 6.0.6.
+status: E316 completes the 6.0.6 doctor. Next is 9b.6 after the operator update audit.
 updated: 2026-10-20
 parent: README.md
 prev: 9a-live-grid-editing-spike.md
@@ -139,7 +139,10 @@ Sessions:
   member rows and 55 type roles match the pinned table. Failure and renamed
   model tests pass. The bounded scan takes 4.510 seconds. No live authority
   or cross-build acceptance follows.
-- **9b.5 — Live doctor on 6.0.6.** Scratch track, preset insert, read
+- **9b.5 — Live doctor on 6.0.6.** Complete in
+  [E316](../../evidence/experiments/e316-grid-doctor-606-acceptance.md),
+  after the V19 failure and V20 correction. The fixed scope covers scratch
+  track, preset insert, read
   sentinel, value, cable, factory, attach and undo, delete and undo, teardown,
   cache write. Measure. Set the budget, consent, and failure policy: one pass
   per fingerprint, no retry on uncertainty, engine state recorded but not
@@ -750,6 +753,12 @@ scale, and non-boolean-write limits into that planning.
 
 ## Session 9b.5 — Live doctor on 6.0.6
 
+**Disposition.** Complete in
+[E316](../../evidence/experiments/e316-grid-doctor-606-acceptance.md): all
+76 V20 role checks, both Undo stages, final counters, and teardown pass.
+The research cache is written only after baseline verification. E313–E315
+record the failed V19 attempt, recovery, and corrected document Undo path.
+
 **Source.** Read [E311](../../evidence/experiments/e311-grid-offline-resolvers.md),
 the [resolved table and live-invariant list](../../evidence/data/phase9b-resolvers/report.json),
 the [resolver instructions](../../../brain/src/probes/grid_symbols/README.md),
@@ -789,3 +798,158 @@ If a structural selector refuses the new build, inspect the changed shape
 and record the new trace before changing the selector. Never regenerate
 selectors from guessed obfuscated names as a fallback. Step 2 stays open
 until the explicit two-build doctor result is recorded.
+
+
+### 9b.5 continuation — Operator-gated live pass
+
+Sources: [E312](../../evidence/experiments/e312-grid-doctor-preparation.md),
+[E313](../../evidence/experiments/e313-grid-doctor-undo-failure.md), and the
+[driver instructions](../../../brain/src/probes/grid_doctor/README.md).
+
+The operator confirmed replacement and consented to the full scratch pass.
+The hello check verifies V19, a fresh initialization, and all expected
+markers. Boolean and mapping checks pass and their scratch tracks are
+removed. Eight core commands pass paired readback. The next command,
+`undo-delete`, throws in the native journal. Attachment and the final
+edit-counter trace are not reached. The doctor remains bound and locked.
+The muted core scratch track remains. No accepted cache exists, and the
+complete exit baseline is not verified. E313 records the partial results,
+measurements, failure inspection, and final read-only state.
+
+### Session 9b.5a — Recover and trace the Undo caller
+
+**Source.** Read E313, its failure trace and final state, E312, the symbol
+manifest, the performance ledger, and the doctor implementation. This is
+recovery and a corrected command-contract investigation. It does not
+permit another V19 doctor attempt.
+
+Preparation is complete in
+[E315](../../evidence/experiments/e315-grid-doctor-document-undo.md). V20
+uses document Undo and passes offline checks. Its archive is deployed; no
+V20 live pass runs. Continue with 9b.5b below. Recovery steps 1 and 2 pass in
+[E314](../../evidence/experiments/e314-grid-doctor-recovery.md). The scratch
+track is gone. Both preserved-state snapshots match E313 entry and E310;
+the control pair matches normalized E276. All probe claims are unbound and
+unlocked. Keep the attempt record. Do not repeat the recovery procedure
+without a new reason.
+
+1. Have the operator restart Bitwig and reopen the saved `gn-grid-spike`
+   project without saving the failed scratch state. Do not run Undo, delete
+   the uncertain scratch, release its claim, or reset the latch. Keep the
+   attempt record and all E313 evidence. Controller replacement remains an
+   operator action if required. Run `npm run probe:hello` after restart.
+2. Check the project, selection, tracks, mixer, device banks, and both
+   independent control reads. Compare with the E313 entry/E310 baseline.
+   Verify that no scratch track remains and no writer is bound or locked.
+   Do not infer restoration from a successful restart. Record any saved
+   project difference before a write. Claims from the failed pass do not
+   transfer.
+3. Trace the supported caller of `daR.wi2()` offline. Follow the recording
+   edit, begin/end, replay, exception, and cleanup paths. E313 shows that
+   the head and availability predicate alone do not establish the required
+   context. Do not invent a wrapper, use global Undo as a fallback, or
+   weaken the ownership checks. Change structural selectors only after the
+   new trace proves their roles.
+4. Implement the corrected bounded command only after the caller contract
+   is complete. Add failure tests for missing recording context and replay
+   exceptions. Test both delete and attachment Undo admission. Preserve
+   exact edit ownership, independent pairs, timeout and uncertainty locks,
+   and the complete-pass cache rule. Model any added tasks, calls, waits,
+   and allocations before implementation. Account for E313's native timing
+   increases; do not repeat uncertain writes for timing.
+5. Prepare and verify any changed archive. Record the result in a new E
+   record. Define a separate revised live session with its exact scratch
+   scope and recovery boundary. A new pass on the same fingerprint needs
+   an explicit exception to the one-pass rule and fresh operator consent.
+   Preserve the original attempt record; do not delete it to enable a run.
+   Keep passed breadth and 9a audio tests out of that scope unless a stated
+   acceptance dependency requires them and the operator authorizes them.
+
+Acceptance: independently verified recovery, a complete supported Undo
+caller trace or a proved limitation, bounded implementation and focused
+checks if feasible, and an explicit plan for any required new live pass.
+No 6.0.6 acceptance or 9b.6 transition follows from partial role results.
+
+
+### Session 9b.5b — Revised V20 live doctor
+
+**Source.** Read [E315](../../evidence/experiments/e315-grid-doctor-document-undo.md),
+[E314](../../evidence/experiments/e314-grid-doctor-recovery.md), E313,
+the performance ledger, and the
+[driver instructions](../../../brain/src/probes/grid_doctor/README.md).
+**Disposition.** Complete in
+[E316](../../evidence/experiments/e316-grid-doctor-606-acceptance.md).
+The operator confirmed replacement and consented to the revised pass.
+All three cases and teardown pass. The research cache is written. Keep
+both attempt records and do not run this pass again.
+
+1. Obtain operator confirmation of full controller replacement. Require
+   full removal and the final matching `ghostnote probe` product in the
+   complete list. A toggle or earlier duplicate can load cached classes.
+   Run `npm run probe:hello`; require fresh initialization, profile
+   `phase-8-probe-v1`, 118 methods, hash `2e939035ea90b8b0`, and marker
+   `9b-grid-doctor-v20` on all direct handlers and `rig.info`.
+2. Obtain explicit consent for one revised V20 pass on the same fingerprint.
+   State save first, the possible restart, and the new boolean and mapping
+   checks. This is a specific exception to the original one-pass rule.
+   The complete 76-role acceptance uses the fixed three-case plan. Do not
+   infer consent from the V19 answer or the implementation request.
+3. Check project, target, selection, stopped transport, competing drivers,
+   and clients. Keep `grid-probe` unchanged. Run one foreground driver with
+   three new muted scratch fixtures in sequence. Preserve the E313 attempt
+   bytes. A distinct exclusive V20 attempt record admits only this new pass.
+4. Require document-manager identity, exact owned/prior undo heads, idle
+   recording and replay state, and paired descriptors for both Undo stages.
+   Validate the owned edit-counter transition last. On a native exception,
+   retain the latch and fixture; do not clear replay flags or retry. The
+   existing bounded inspection and operator-recovery rules still apply.
+5. Verify all 76 roles, both final control reads, full preserved-state
+   comparison, scratch removal, and clean status before cache creation.
+   Record queue, document, wire, traversal, and heap measurements. Compare
+   the E313 per-command samples, including its unresolved timing increases.
+   Never repeat an uncertain write for timing. Use a new E record for the
+   actual outcome, and update the handoff from the measured state.
+
+Acceptance: one complete V20 pass plus teardown, or an exact refusal/failure
+record with its recovery plan. Partial results grant no acceptance. The
+6.1.x step remains separate and follows the general update audit. Do not
+repeat the completed 9a audio flow or unrelated breadth writes.
+
+
+## Session 9b.6 — Doctor on 6.1.x
+
+**Source.** Read [E316](../../evidence/experiments/e316-grid-doctor-606-acceptance.md),
+E315's Undo caller trace, the symbol manifest, E311's resolver instructions,
+and the performance ledger. Start after the operator's general feature
+update audit, with the 6.0.6 install copied aside. This session is separate
+from the completed 6.0.6 pass. It does not authorize an update or another
+6.0.6 write.
+
+1. Record the new install, jar fingerprint, API version, and operator audit
+   result. Preserve the 6.0.6 evidence, attempt files, and acceptance cache.
+   The two installs share the deployed extension path; keep deployments
+   separate and require the correct product after controller replacement.
+2. Run bounded offline discovery on the new jar. Compare all required roles
+   with E315. Record changed symbols and changed logic separately. If a
+   selector refuses, trace the changed shape before changing that selector.
+   Do not guess obfuscated names or infer live acceptance from a match.
+3. Adapt the pinned driver, candidate resources, host-version guard, and
+   attempt policy for the new fingerprint. The V20 driver deliberately
+   requires 6.0.6 and its specific E313 retry record; do not use it unchanged.
+   A new fingerprint gets its own first-attempt record. It cannot reuse the
+   6.0.6 cache or reset an old attempt. Keep complete-pass cache admission,
+   fixed scratch ownership, paired readback, selection protection, and the
+   uncertain-state latch. Model and test any changed host work first.
+4. Prepare the new probe, pass focused offline checks, and defer controller
+   replacement to the operator. Run hello after confirmation. Obtain fresh
+   scratch consent: save first; failure can require restart. Admit one pass
+   for the new fingerprint. Keep the existing control unchanged.
+5. Run the required role checks and teardown. Record engine state without
+   requiring it. Validate edit counters last. Compare per-call costs with
+   E316, including its unresolved mapping and factory timing increases.
+   Repeat no uncertain command. Write a cache only after every role and
+   baseline check passes. Record a new E result and the exact final state.
+
+Acceptance: a complete new-build doctor result, or a traced and measured
+reason it cannot pass. Close step 2 only with the explicit two-build result.
+Product cache enforcement and public tool descriptions remain in 9b.7.

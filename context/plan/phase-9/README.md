@@ -2,7 +2,7 @@
 title: Phase 9 — Overlap investigation
 kind: plan
 state: active
-status: 9a, bounded 9b breadth, and offline resolution are complete (E299, E310, E311). Next is 9b.5 live doctor.
+status: The 6.0.6 doctor is complete (E316). Next is 9b.6 after the operator update audit.
 updated: 2026-10-20
 parent: ../ROADMAP.md
 prev: ../phase-8/README.md
@@ -41,10 +41,14 @@ boolean and mapping writes. [E310](../../evidence/experiments/e310-grid-factory-
 passes the Gates detached factory and disposal case after E309 recovery.
 Session 9b.3 and the bounded breadth investigation are complete.
 [E311](../../evidence/experiments/e311-grid-offline-resolvers.md) completes
-9b.4: all 69 manifest rows and 55 type dependencies resolve offline. The next
-session is [9b.5 live doctor](9b-grid-breadth-discovery-and-build-out.md#session-9b5--live-doctor-on-606).
+9b.4: all 69 manifest rows and 55 type dependencies resolve offline.
+[E316](../../evidence/experiments/e316-grid-doctor-606-acceptance.md)
+completes the 6.0.6 doctor with 76 roles, both Undo stages, final counters,
+and clean teardown. The next session is
+[9b.6 on 6.1.x](9b-grid-breadth-discovery-and-build-out.md#session-9b6--doctor-on-61x)
+after the operator's general update audit, with 6.0.6 copied aside.
 
-The research probe remains deployed. V18 is loaded and verified. All scratch
+The research probe remains deployed. V20 is loaded and verified. All scratch
 tracks are deleted; the reader and writer are released and unlocked. Full
 preserved-state and normalized E276 control checks pass. Public descriptions
 remain v52. Do not repeat the completed 9a audio flow. The former Phase 9

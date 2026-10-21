@@ -1,0 +1,5 @@
+24535     1 /Applications/Bitwig Studio.app/Contents/MacOS/BitwigStudio
+24537 24535 /Applications/Bitwig Studio.app/Contents/MacOS/BitwigStudio --launch
+24541 24537 /Applications/Bitwig Studio.app/Contents/MacOS/Bitwig Audio Engine ARM64-NEON.app/Contents/MacOS/BitwigAudioEngine-ARM64-NEON 1234 11 not-dpi-aware
+42858 81716 /bin/zsh -c ps -axo pid,ppid,command | rg 'Bitwig|phase9b-grid-doctor|phase9b-grid-writes|phase9b-grid-survey|ghostnote-9b5-final-read|ghostnote-brain' > context/evidence/data/phase9b-doctor/exit-processes.txt\012lsof -nP -iTCP:8686 > context/evidence/data/phase9b-doctor/exit-sockets.txt
+42860 42858 rg Bitwig|phase9b-grid-doctor|phase9b-grid-writes|phase9b-grid-survey|ghostnote-9b5-final-read|ghostnote-brain

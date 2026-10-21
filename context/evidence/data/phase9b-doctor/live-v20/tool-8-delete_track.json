@@ -1,0 +1,33 @@
+{
+  "schema": "ghostnote-track-delete/1",
+  "applied": true,
+  "effects": [
+    {
+      "changeId": "8de7a84e-5d2e-4ff2-9cbc-42c7c518428e",
+      "target": {
+        "trackIds": [
+          "ecbc8368-993c-4c35-aff8-8c4e556fca46"
+        ]
+      },
+      "summary": "Deleted 1 track(s).",
+      "fidelity": "none"
+    }
+  ],
+  "readback": {
+    "status": "verified",
+    "removed": [
+      "ecbc8368-993c-4c35-aff8-8c4e556fca46"
+    ]
+  },
+  "warnings": [
+    {
+      "code": "not-reversible",
+      "message": "revert_change cannot put a deleted track back."
+    }
+  ],
+  "target": {
+    "trackIds": [
+      "ecbc8368-993c-4c35-aff8-8c4e556fca46"
+    ]
+  }
+}

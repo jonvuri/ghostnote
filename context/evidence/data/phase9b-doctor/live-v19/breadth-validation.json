@@ -1,0 +1,17 @@
+{
+  "checks": [
+    "boolean stage 0 read 0: passed",
+    "boolean stage 0 read 1: passed",
+    "boolean stage 1 read 0: passed",
+    "boolean stage 1 read 1: passed",
+    "boolean stage 2 read 0: passed",
+    "boolean stage 2 read 1: passed",
+    "mapping stage 0 read 0: passed",
+    "mapping stage 0 read 1: passed",
+    "mapping stage 1 read 0: passed",
+    "mapping stage 1 read 1: passed",
+    "mapping stage 2 read 0: passed",
+    "mapping stage 2 read 1: passed"
+  ],
+  "mapping": "Restored mapping and reference IDs are new; all semantic fields and unrelated state match."
+}

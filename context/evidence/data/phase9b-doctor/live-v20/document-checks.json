@@ -1,0 +1,22 @@
+{
+  "documents": [
+    "context/NOW.md",
+    "context/evidence/INDEX.md",
+    "context/evidence/experiments/e316-grid-doctor-606-acceptance.md",
+    "context/contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md",
+    "context/plan/ROADMAP.md",
+    "context/plan/phase-9/README.md",
+    "context/plan/phase-9/9b-grid-breadth-discovery-and-build-out.md",
+    "context/plan/phase-9/9b-grid-symbol-manifest.md",
+    "brain/src/probes/grid_doctor/README.md"
+  ],
+  "localLinksChecked": 571,
+  "linkErrors": [],
+  "captureFilesVerified": 80,
+  "callRecords": 542,
+  "evidenceChecks": 51,
+  "acceptedCacheMatches": true,
+  "originalAttemptUnchanged": true,
+  "v20AttemptMatches": true,
+  "priorEvidenceRecordsUnchanged": true
+}

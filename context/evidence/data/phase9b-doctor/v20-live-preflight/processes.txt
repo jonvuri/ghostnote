@@ -1,0 +1,5 @@
+42941     1 /Applications/Bitwig Studio.app/Contents/MacOS/BitwigStudio
+42943 42941 /Applications/Bitwig Studio.app/Contents/MacOS/BitwigStudio --launch
+42947 42943 /Applications/Bitwig Studio.app/Contents/MacOS/Bitwig Audio Engine ARM64-NEON.app/Contents/MacOS/BitwigAudioEngine-ARM64-NEON 1234 11 not-dpi-aware
+46960 81716 /bin/zsh -c mkdir -p context/evidence/data/phase9b-doctor/v20-live-preflight\012ps -axo pid,ppid,command | rg 'Bitwig|phase9b-grid-doctor|phase9b-grid-writes|phase9b-grid-survey|ghostnote-brain' > context/evidence/data/phase9b-doctor/v20-live-preflight/processes.txt\012lsof -nP -iTCP:8686 > context/evidence/data/phase9b-doctor/v20-live-preflight/sockets.txt
+46963 46960 rg Bitwig|phase9b-grid-doctor|phase9b-grid-writes|phase9b-grid-survey|ghostnote-brain

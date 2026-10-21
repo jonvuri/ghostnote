@@ -1,0 +1,27 @@
+test_complete_table_and_renamed_jar_model (grid_symbols.test_resolve.PinnedJarTests.test_complete_table_and_renamed_jar_model) ... ok
+test_abstract_dispatch_requires_runtime_type (grid_symbols.test_resolve.ResolverTests.test_abstract_dispatch_requires_runtime_type) ... ok
+test_all_zero_fields_are_ambiguous (grid_symbols.test_resolve.ResolverTests.test_all_zero_fields_are_ambiguous) ... ok
+test_ambiguous_member_trace (grid_symbols.test_resolve.ResolverTests.test_ambiguous_member_trace) ... ok
+test_ambiguous_type (grid_symbols.test_resolve.ResolverTests.test_ambiguous_type) ... ok
+test_fabricated_member_is_rejected_by_validation (grid_symbols.test_resolve.ResolverTests.test_fabricated_member_is_rejected_by_validation) ... ok
+test_inheritance_bound (grid_symbols.test_resolve.ResolverTests.test_inheritance_bound) ... ok
+test_inheritance_cycle (grid_symbols.test_resolve.ResolverTests.test_inheritance_cycle) ... ok
+test_inherited_candidate (grid_symbols.test_resolve.ResolverTests.test_inherited_candidate) ... ok
+test_jar_limits (grid_symbols.test_resolve.ResolverTests.test_jar_limits) ... ok
+test_missing_member_trace (grid_symbols.test_resolve.ResolverTests.test_missing_member_trace) ... ok
+test_missing_type (grid_symbols.test_resolve.ResolverTests.test_missing_type) ... ok
+test_operation_reference_selects_an_equivalent_getter (grid_symbols.test_resolve.ResolverTests.test_operation_reference_selects_an_equivalent_getter) ... ok
+test_operation_reference_to_wrong_receiver_is_refused (grid_symbols.test_resolve.ResolverTests.test_operation_reference_to_wrong_receiver_is_refused) ... ok
+test_receiver_must_inherit_declaration (grid_symbols.test_resolve.ResolverTests.test_receiver_must_inherit_declaration) ... ok
+test_static_does_not_match_instance (grid_symbols.test_resolve.ResolverTests.test_static_does_not_match_instance) ... ok
+test_truncated_class (grid_symbols.test_resolve.ResolverTests.test_truncated_class) ... ok
+test_truncated_instruction (grid_symbols.test_resolve.ResolverTests.test_truncated_instruction) ... ok
+test_type_names_and_member_order_are_not_selectors (grid_symbols.test_resolve.ResolverTests.test_type_names_and_member_order_are_not_selectors) ... ok
+test_wrong_receiver (grid_symbols.test_resolve.ResolverTests.test_wrong_receiver) ... ok
+test_wrong_return_type (grid_symbols.test_resolve.ResolverTests.test_wrong_return_type) ... ok
+test_supplement_and_renamed_model (grid_doctor.test_resolve.DoctorIntegration.test_supplement_and_renamed_model) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 13.860s
+
+OK

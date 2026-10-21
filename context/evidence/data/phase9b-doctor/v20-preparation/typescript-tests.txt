@@ -1,0 +1,31 @@
+✔ a revised pass requires explicit consent, preserves the original record, and cannot repeat (4.420375ms)
+✔ candidate metadata requires all roles, invariants, and no prior live authority (0.8095ms)
+✔ acceptance requires every unique role and clean teardown (0.609583ms)
+✔ counter proof requires a transition and preserved zero long-edit and lock counters (2.028708ms)
+✔ an uncertain command is inspected once and never repeated or released (0.374667ms)
+✔ survey discovers a different Grid child, verifies control, reads twice, and releases (3.2225ms)
+✔ catalog reads validate membership without claiming cable coverage or scanning atom schemas (1.117375ms)
+✔ unknown classes get one schema and an explicit projection before paired reads (1.317958ms)
+✔ a paired cap refusal is recorded and the session is released (0.919167ms)
+✔ an absent projected field is reconciled once and its removal is recorded (1.12325ms)
+✔ a changing graph stops; a timeout does not retry or release unfinished native work (2.315042ms)
+✔ graph checks reject dangling cables and duplicate module identities (3.537042ms)
+✔ input and projection limits fail before a host call (1.006125ms)
+✔ bounded boolean sequence and call budget (2.008625ms)
+✔ bounded mapping sequence and call budget (2.610166ms)
+✔ bounded factory sequence and call budget (0.9145ms)
+✔ a receipt cannot replace independent readback or authorize a restore (2.746625ms)
+✔ uncertain command is inspected at most twice and never retried or released (0.612875ms)
+✔ a refusal before any command can cancel and release the scratch claim (0.234084ms)
+✔ unequal initial reads prevent a command (0.824084ms)
+✔ a proved domain refusal before native entry can release the fixture (0.721917ms)
+✔ mapping permits only the selected new identities and selected list position (5.573541ms)
+✔ factory requires fresh UUID, empty external connections, and disposal evidence (2.365083ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 363.745583

@@ -1,0 +1,30 @@
+{
+  "marker": "9b-grid-doctor-v19",
+  "session": "7f1352f0-99ab-4f8c-9192-52c378a71ab8",
+  "receipt": {
+    "nativeCommandNanos": 13624916,
+    "commandReturned": true,
+    "action": "delete",
+    "readback": "pending-independent-pair"
+  },
+  "metrics": {
+    "graphReadNanos": 1216083,
+    "graphWork": 279,
+    "queryWork": 1607,
+    "snapshotNanos": 3092917
+  },
+  "queueNanos": 88459,
+  "documentTaskNanos": 17732625,
+  "heapBefore": 1006632960,
+  "heapAfter": 1012924416,
+  "status": {
+    "completed": 8,
+    "reads": 0,
+    "attempted": true,
+    "locked": false,
+    "released": false,
+    "failure": "",
+    "inspections": 0
+  },
+  "completionNanos": 23739709
+}

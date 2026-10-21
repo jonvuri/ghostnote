@@ -11,6 +11,7 @@ public final class GridProbeHandlers extends HandlerGroup {
     private final GridEngineHandlers engine;
     private final GridSurveyHandlers survey;
     private final GridBreadthHandlers breadth;
+    private final GridDoctorHandlers doctor;
     private GridReadSymbols symbols;
     private GridReadEpoch epoch;
     private boolean busy;
@@ -25,18 +26,24 @@ public final class GridProbeHandlers extends HandlerGroup {
         engine = new GridEngineHandlers(host, rig, state);
         survey = new GridSurveyHandlers(host, rig, state,
             () -> engine.ownsGrid() || busy || job != null && job.unfinished()
-                || epoch != null || safety.locked() || safety.pendingReadback() || breadthOwns());
+                || epoch != null || safety.locked() || safety.pendingReadback() || breadthOwns() || doctorOwns());
         breadth = new GridBreadthHandlers(host, rig, state,
             () -> engine.ownsGrid() || survey.ownsGrid() || busy || job != null && job.unfinished()
-                || epoch != null || safety.locked() || safety.pendingReadback());
-        engine.otherGridOwner(() -> survey.ownsGrid() || breadth.ownsGrid());
+                || epoch != null || safety.locked() || safety.pendingReadback() || doctorOwns());
+        doctor = new GridDoctorHandlers(host, rig, state,
+            () -> engine.ownsGrid() || survey.ownsGrid() || breadth.ownsGrid() || busy
+                || job != null && job.unfinished() || epoch != null || safety.locked() || safety.pendingReadback());
+        engine.otherGridOwner(() -> survey.ownsGrid() || breadth.ownsGrid() || doctorOwns());
     }
+    private boolean doctorOwns() { return doctor != null && doctor.ownsGrid(); }
     private boolean breadthOwns() { return breadth != null && breadth.ownsGrid(); }
 
     @Override public void register(HandlerRegistry r) {
         engine.register(r);
         r.onAsync("probe.gridRead", (params, reply) -> {
-            if (params.has("operation") && GridBreadthHandlers.READS.contains(params.get("operation").getAsString()))
+            if (params.has("operation") && GridDoctorHandlers.READS.contains(params.get("operation").getAsString()))
+                doctor.request(params, reply, false);
+            else if (params.has("operation") && GridBreadthHandlers.READS.contains(params.get("operation").getAsString()))
                 breadth.request(params, reply, null);
             else if (params.has("operation") && GridSurveyHandlers.OPERATIONS.contains(params.get("operation").getAsString()))
                 survey.request(params, reply);
@@ -46,7 +53,10 @@ public final class GridProbeHandlers extends HandlerGroup {
         r.onAsync("probe.gridCable", (params, reply) -> breadthOrLegacy(params, reply, Write.CABLE, "mapping"));
         r.onAsync("probe.gridModuleDelete", (params, reply) -> request(params, reply, Write.DELETE));
         r.onAsync("probe.gridModuleFactory", (params, reply) -> breadthOrLegacy(params, reply, Write.FACTORY, "factory"));
-        r.onAsync("probe.gridModuleAttach", (params, reply) -> request(params, reply, Write.ATTACH));
+        r.onAsync("probe.gridModuleAttach", (params, reply) -> {
+            if (params.has("operation") && params.get("operation").getAsString().equals("doctorCommand")) doctor.request(params, reply, true);
+            else request(params, reply, Write.ATTACH);
+        });
     }
 
     private enum Write { NONE, VALUE, CABLE, DELETE, FACTORY, ATTACH }
@@ -71,6 +81,7 @@ public final class GridProbeHandlers extends HandlerGroup {
 
     private void request(JsonObject params, Bridge.Reply reply, Write kind) throws Exception {
 
+        if (doctorOwns()) throw new IllegalStateException("doctor-session-owns-grid");
         if (kind != Write.NONE) throw new IllegalStateException("V12 writes require the fixed engine protocol; V11 cohort is retired");
         if (breadth.ownsGrid()) throw new IllegalStateException("breadth-session-owns-grid");
         if (survey.ownsGrid()) throw new IllegalStateException("survey-session-owns-grid");

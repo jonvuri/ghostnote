@@ -1,0 +1,18 @@
+{
+  "marker": "9b-grid-doctor-v19",
+  "archiveSha256": "1a3dd60a8a71cbb4c6c3cfe3f4a5653336d6c03e5032a81acc68c6496acb39dd",
+  "archiveBytes": 840941,
+  "deployedPath": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension",
+  "deployedMtimeNs": "1792554968920547634",
+  "archiveMatchesDeployed": true,
+  "runtimeProfile": "phase-8-probe-v1",
+  "expectedMethodCount": 118,
+  "expectedMethodsHash": "2e939035ea90b8b0",
+  "operatorReplacement": "pending",
+  "liveHello": "not-run",
+  "liveWrites": 0,
+  "acceptedCache": "not-created",
+  "bridgePidObserved": 24537,
+  "competingDriversObserved": false,
+  "establishedBridgeClientsObserved": 0
+}

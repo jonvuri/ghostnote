@@ -1,0 +1,49 @@
+{
+  "result": "pass",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "jarPath": "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar",
+  "jarMtimeNs": 1777550247000000000,
+  "jarMtimeNsText": "1777550247000000000",
+  "selectorSha256": "151ebb81d946d1ffc5c281a04f7cd1d3a4442c754f601a7c04e84aa485171d99",
+  "scanElapsedMs": 4420.617,
+  "timingsMs": {
+    "fingerprintMs": 12.55112499347888,
+    "enumerationMetadataMs": 2669.1571660048794,
+    "typeRefinementMs": 1288.3367920003366,
+    "candidateSearchMs": 445.22729198797606,
+    "validationMs": 3.606082987971604
+  },
+  "counts": {
+    "jarBytes": 34686665,
+    "entries": 30968,
+    "classes": 30940,
+    "classBytes": 69199765,
+    "members": 454111,
+    "defaultPackageClasses": 24240,
+    "callTraceWork": 72,
+    "codeClasses": 129
+  },
+  "limits": {
+    "jar_bytes": 67108864,
+    "entries": 50000,
+    "classes": 40000,
+    "class_bytes": 1048576,
+    "total_bytes": 134217728,
+    "members": 1000000,
+    "depth": 128,
+    "code_classes": 256,
+    "call_work": 4096,
+    "call_depth": 2,
+    "rss": 805306368,
+    "seconds": 120
+  },
+  "peakRssBytes": 186974208,
+  "verdict": {
+    "structuralValidation": "pass",
+    "liveValidation": "not-run",
+    "writeAuthority": false
+  },
+  "bridgeCalls": 0,
+  "nativeCommands": 0,
+  "vendorClassesInitialized": 0
+}

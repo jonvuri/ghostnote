@@ -1,0 +1,502 @@
+{
+  "at": "2026-10-21T04:12:09.073Z",
+  "revision": {
+    "revision": 11,
+    "generation": "f856d59e-f49b-4ef7-9f58-e13ddb77b7e1",
+    "project": "gn-grid-spike",
+    "projectStatus": "marked",
+    "sceneEpoch": 2,
+    "sceneCount": 8,
+    "contentEpoch": 32768,
+    "unpinnedCursorTracks": [],
+    "contentEvents": [
+      {
+        "seq": 32745,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 104,
+        "filled": false
+      },
+      {
+        "seq": 32746,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 105,
+        "filled": false
+      },
+      {
+        "seq": 32747,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 106,
+        "filled": false
+      },
+      {
+        "seq": 32748,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 107,
+        "filled": false
+      },
+      {
+        "seq": 32749,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 108,
+        "filled": false
+      },
+      {
+        "seq": 32750,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 109,
+        "filled": false
+      },
+      {
+        "seq": 32751,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 110,
+        "filled": false
+      },
+      {
+        "seq": 32752,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 111,
+        "filled": false
+      },
+      {
+        "seq": 32753,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 112,
+        "filled": false
+      },
+      {
+        "seq": 32754,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 113,
+        "filled": false
+      },
+      {
+        "seq": 32755,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 114,
+        "filled": false
+      },
+      {
+        "seq": 32756,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 115,
+        "filled": false
+      },
+      {
+        "seq": 32757,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 116,
+        "filled": false
+      },
+      {
+        "seq": 32758,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 117,
+        "filled": false
+      },
+      {
+        "seq": 32759,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 118,
+        "filled": false
+      },
+      {
+        "seq": 32760,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 119,
+        "filled": false
+      },
+      {
+        "seq": 32761,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 120,
+        "filled": false
+      },
+      {
+        "seq": 32762,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 121,
+        "filled": false
+      },
+      {
+        "seq": 32763,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 122,
+        "filled": false
+      },
+      {
+        "seq": 32764,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 123,
+        "filled": false
+      },
+      {
+        "seq": 32765,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 124,
+        "filled": false
+      },
+      {
+        "seq": 32766,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 125,
+        "filled": false
+      },
+      {
+        "seq": 32767,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 126,
+        "filled": false
+      },
+      {
+        "seq": 32768,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 127,
+        "filled": false
+      }
+    ]
+  },
+  "tracks": {
+    "tracks": [
+      {
+        "index": 0,
+        "name": "grid-probe",
+        "position": 0,
+        "type": "Instrument",
+        "channelId": "c784d25c-b753-47ca-af8d-c83d11cfd990"
+      },
+      {
+        "index": 1,
+        "name": "gn-9b-write-969c9fda-a8c8-4e03-9417-9bf16b03c2be",
+        "position": 1,
+        "type": "Instrument",
+        "channelId": "dbe98766-c544-48fd-98a5-46e62d553be4"
+      },
+      {
+        "index": 2,
+        "name": "FX 1",
+        "position": 2,
+        "type": "Effect",
+        "channelId": "0c4835e2-1769-4ecc-9d03-cf0226bcb5a4"
+      },
+      {
+        "index": 3,
+        "name": "Master",
+        "position": 3,
+        "type": "Master",
+        "channelId": "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f"
+      }
+    ],
+    "count": 4,
+    "itemCount": 4,
+    "bankSize": 256
+  },
+  "mixer": {
+    "tracks": [
+      {
+        "trackIndex": 0,
+        "channelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "matches": true,
+        "type": "Instrument",
+        "volumeRaw": 0.6812920690579614,
+        "volumeNormalized": 0.5407418735600996,
+        "volumeDisplayed": "-10.0 dB",
+        "volumeAutomated": false,
+        "panRaw": 0,
+        "panAutomated": false,
+        "mute": true,
+        "solo": false
+      },
+      {
+        "trackIndex": 1,
+        "channelId": "dbe98766-c544-48fd-98a5-46e62d553be4",
+        "matches": true,
+        "type": "Instrument",
+        "volumeRaw": 0.6812920690579614,
+        "volumeNormalized": 0.5407418735600996,
+        "volumeDisplayed": "-10.0 dB",
+        "volumeAutomated": false,
+        "panRaw": 0,
+        "panAutomated": false,
+        "mute": true,
+        "solo": false
+      },
+      {
+        "trackIndex": 2,
+        "channelId": "0c4835e2-1769-4ecc-9d03-cf0226bcb5a4",
+        "matches": true,
+        "type": "Effect",
+        "volumeRaw": 1,
+        "volumeNormalized": 0.7937005259840999,
+        "volumeDisplayed": "0.0 dB",
+        "volumeAutomated": false,
+        "panRaw": 0,
+        "panAutomated": false,
+        "mute": false,
+        "solo": false
+      },
+      {
+        "trackIndex": 3,
+        "channelId": "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f",
+        "matches": true,
+        "type": "Master",
+        "volumeRaw": 1,
+        "volumeNormalized": 0.7937005259840999,
+        "volumeDisplayed": "0.0 dB",
+        "volumeAutomated": false,
+        "panRaw": 0,
+        "panAutomated": false,
+        "mute": false,
+        "solo": false
+      }
+    ]
+  },
+  "selection": {
+    "trackIndex": -1,
+    "slotIndex": -1,
+    "mixerTrackIndex": 0,
+    "mixerChannelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+    "changes": 0,
+    "revision": 7,
+    "slotProject": "",
+    "mixerProject": "gn-grid-spike",
+    "project": "gn-grid-spike"
+  },
+  "doctor": {
+    "completed": 8,
+    "reads": 0,
+    "attempted": true,
+    "locked": true,
+    "released": false,
+    "failure": "java.lang.reflect.InvocationTargetException",
+    "inspections": 1,
+    "phase": 2,
+    "failed": true,
+    "marker": "9b-grid-doctor-v19",
+    "bound": true,
+    "busy": false,
+    "used": true,
+    "timeoutLocked": false,
+    "nativeUnfinished": false,
+    "foreignOwner": false,
+    "metadata": {
+      "fingerprint": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93:34686665:1777550247000000000",
+      "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+      "selectorSha256": "ece655301176485a7f79bba8ad600ef0d02c09a7c5f7a3efc7e82accf86ca72d",
+      "members": 72,
+      "types": 55,
+      "validationNanos": 39034042,
+      "writeAuthority": false
+    },
+    "session": "7f1352f0-99ab-4f8c-9192-52c378a71ab8",
+    "diagnostics": {
+      "nativeCommands": 9
+    }
+  },
+  "stats": {
+    "runtimeProfile": "phase-8-probe-v1",
+    "config": {
+      "tracks": 256,
+      "scenes": 128,
+      "gridSteps": 64,
+      "gridKeys": 128,
+      "cursorPool": 8,
+      "sends": 4,
+      "deviceBank": 16,
+      "fineSteps": 4194304,
+      "noteReadSteps": 2048,
+      "paramHandles": 64,
+      "remotePages": 16,
+      "cacheShadowSteps": 131072,
+      "cacheKneeResearch": false,
+      "changeWatchCursors": 0,
+      "contentFilter": "ALL_CHANNELS",
+      "directObservers": true,
+      "stamp": "default",
+      "fromFile": true
+    },
+    "rigConstructMicros": 45271,
+    "initMicros": 64394,
+    "initEpochMs": 1792555661553,
+    "upMs": 267520,
+    "clipReader": {
+      "revision": "clip-reader-v3",
+      "closeRule": "confirm-before-release-v1",
+      "openRule": "subscribe-before-unpin-v1",
+      "groupRule": "expand-collapsed-parent-v1",
+      "limitRule": "sounding-cell-limit-v1",
+      "format": "notes-v1",
+      "width": 4194304,
+      "grid": 0.001953125,
+      "page": 131072,
+      "deadlineMs": 2000,
+      "soundingCells": 2097152,
+      "reads": 0,
+      "refusals": 0,
+      "lastRefusal": "",
+      "lateCallbacks": 0,
+      "strayCallbacks": 0,
+      "releaseCallbacks": 0,
+      "releaseEmpty": 0,
+      "releaseSustain": 0,
+      "releaseOn": 0,
+      "subscribed": false,
+      "open": false,
+      "state": {
+        "parkChannelId": "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f",
+        "trackChannelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackPinned": true,
+        "clipTrackChannelId": "",
+        "clipExists": false,
+        "clipPinned": false,
+        "sceneIndex": 0,
+        "subscribed": false,
+        "atPark": false
+      },
+      "writeGate": {
+        "readOpen": false,
+        "waiting": 0,
+        "leases": 0,
+        "limit": 256,
+        "queuedTotal": 0,
+        "refusedTotal": 0
+      },
+      "groupPoint": {
+        "rule": "expand-collapsed-point-v1",
+        "points": 0,
+        "refusals": 0,
+        "lastRefusal": "",
+        "open": false
+      }
+    },
+    "cursorTrackPins": {
+      "rule": "owned-tracks-pinned-v1",
+      "tracks": 14,
+      "unpinned": [],
+      "repins": 0,
+      "untargeted": 0
+    },
+    "slotObjects": 32768,
+    "markedValues": 207360,
+    "resources": {
+      "cursorDeviceBanks": 8,
+      "siblingDeviceBanks": 1,
+      "layerDeviceBanks": 8,
+      "slotDeviceBanks": 15,
+      "namedSlotDeviceBanks": 0,
+      "drumPadDeviceBanks": 16,
+      "deviceBanks": 48,
+      "cursorDeviceSlots": 128,
+      "cursorDeviceEnabledValues": 128,
+      "layerDeviceSlots": 32,
+      "slotDeviceSlots": 60,
+      "drumPadDeviceSlots": 256,
+      "namedSlotDeviceSlots": 0,
+      "deviceSlots": 492,
+      "cursorDevices": 1,
+      "specificDeviceViews": 4,
+      "typedParameterHandles": 75,
+      "remotePageCursors": 16,
+      "remoteParameterHandles": 128,
+      "directParameterObservers": 4,
+      "noteObserverCursors": 1,
+      "noteStepObservers": 1,
+      "stepDataObservers": 1,
+      "trackSendBanks": 0,
+      "trackSendHandles": 0,
+      "trackVuObservers": 0,
+      "historicalActionHandles": 0,
+      "historicalSelectionObservers": 0,
+      "equalsProxies": 32,
+      "transportProxies": 1,
+      "masterRecorderProxies": 0,
+      "cursorTracks": 11,
+      "cursorClips": 13,
+      "layerBanks": 4,
+      "layerHandles": 23,
+      "layerSendBanks": 0,
+      "layerSendHandles": 0,
+      "explicitHostObjects": 33895,
+      "observerCallbacks": 839
+    },
+    "heapUsedMb": 404,
+    "heapMaxMb": 3072
+  },
+  "calls": [
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 27.8095
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 25.632875
+    },
+    {
+      "method": "track.mixer",
+      "params": {
+        "tracks": [
+          {
+            "trackIndex": 0,
+            "channelId": "c784d25c-b753-47ca-af8d-c83d11cfd990"
+          },
+          {
+            "trackIndex": 1,
+            "channelId": "dbe98766-c544-48fd-98a5-46e62d553be4"
+          },
+          {
+            "trackIndex": 2,
+            "channelId": "0c4835e2-1769-4ecc-9d03-cf0226bcb5a4"
+          },
+          {
+            "trackIndex": 3,
+            "channelId": "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f"
+          }
+        ]
+      },
+      "ms": 23.452208999999996
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 23.823624999999993
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorStatus"
+      },
+      "ms": 22.867958999999985
+    },
+    {
+      "method": "rig.stats",
+      "params": {},
+      "ms": 24.59337499999998
+    }
+  ]
+}
