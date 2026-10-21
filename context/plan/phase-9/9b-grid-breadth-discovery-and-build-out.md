@@ -2,8 +2,8 @@
 title: Phase 9b — Grid breadth, build discovery, and build-out planning
 kind: plan
 state: active
-status: E316 completes the 6.0.6 doctor. Next is 9b.6 after the operator update audit.
-updated: 2026-10-20
+status: E316 completes the 6.0.6 doctor. Next is the general update audit, then 9b.6.
+updated: 2026-10-21
 parent: README.md
 prev: 9a-live-grid-editing-spike.md
 ---
@@ -148,7 +148,10 @@ Sessions:
   per fingerprint, no retry on uncertainty, engine state recorded but not
   required, "save first; a failed check can need a Bitwig restart" in the
   consent text.
-- **9b.6 — Live doctor on 6.1.x.** After the operator's general update audit,
+- **General update audit.** Follow the [audit plan](9b-update-audit.md).
+  Prepare the driver while the operator backs up 6.0.6 and installs 6.1.x.
+  Complete normal-product and Sampler checks before 9b.6.
+- **9b.6 — Live doctor on 6.1.x.** After the general update audit,
   with 6.0.6 copied aside. Record which symbols moved and whether any logic
   moved. Step 2 cannot close without this session.
 - **9b.7 — Refine into a tool.** A consent-gated check tool with a fingerprint
@@ -745,8 +748,9 @@ scope remain required invariants. All work in this session is offline.
    Acceptance requires the exact pinned table, focused failure tests, and
    measured scan cost. Do not claim cross-build acceptance from 6.0.6 alone.
 
-The 6.1.x update belongs to the operator after the general feature audit,
-with 6.0.6 copied aside. It is not a prerequisite for this offline session.
+The operator preserves 6.0.6 before the 6.1.x update. The
+[general audit](9b-update-audit.md) prepares checks before the update and
+runs them on the new version. It is not a prerequisite for this offline session.
 The existing 9b.5/9b.6 doctor and step-3 build-out plan own the broader live
 scope. Carry E310's unproved resource, outer-modulator, attachment, flavour,
 scale, and non-boolean-write limits into that planning.
@@ -920,8 +924,10 @@ repeat the completed 9a audio flow or unrelated breadth writes.
 
 **Source.** Read [E316](../../evidence/experiments/e316-grid-doctor-606-acceptance.md),
 E315's Undo caller trace, the symbol manifest, E311's resolver instructions,
-and the performance ledger. Start after the operator's general feature
-update audit, with the 6.0.6 install copied aside. This session is separate
+and the performance ledger. Start after the
+[general update audit](9b-update-audit.md), with the 6.0.6 install copied
+aside. That plan owns parallel offline preparation and the operator update,
+then normal-product live checks on 6.1.x. This session is separate
 from the completed 6.0.6 pass. It does not authorize an update or another
 6.0.6 write.
 

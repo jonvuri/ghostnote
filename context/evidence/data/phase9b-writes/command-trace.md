@@ -1,3 +1,12 @@
+---
+title: Bounded write command trace
+kind: evidence
+state: active
+updated: 2026-10-21
+owner: phase-9b
+evidence: E305
+---
+
 # Bounded write command trace
 
 The [manifest](trace-manifest.json) pins the local Bitwig 6.0.6 jar and

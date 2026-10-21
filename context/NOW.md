@@ -2,19 +2,27 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-10-20
+updated: 2026-10-21
 phase: phase-9-overlap-investigation
-session: 9b.6-doctor-61x-after-operator-audit
+session: 9b-update-audit
 ---
 
 ## Next session
 
-**9b.6 — Doctor on 6.1.x, after the operator update audit.** Read the
+**Start the [Bitwig update audit](plan/phase-9/9b-update-audit.md).** The
+operator approved the plan. Implement section 2A offline now while the
+operator performs section 1: preserve 6.0.6, save a separate recovery copy,
+back up user state, and install 6.1.x. The plan gives exact paths. Do not
+connect or deploy during that work. Section 2B starts after the operator's
+handoff. Audit the normal product, including Sampler, then record section 3.
+The update and backups have not been reported complete.
+
+**Then 9b.6 — Doctor on 6.1.x.** Read the
 [session brief](plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6--doctor-on-61x),
 [E316](evidence/experiments/e316-grid-doctor-606-acceptance.md),
 [E315 caller trace](evidence/experiments/e315-grid-doctor-document-undo.md),
 and [symbol manifest](plan/phase-9/9b-grid-symbol-manifest.md).
-The operator's general feature audit and a copy of 6.0.6 precede the update.
+Complete the general product audit before the new-build doctor.
 Resolve and trace the new jar before live validation. Adapt the pinned
 driver and first-attempt policy for the new fingerprint; V20 deliberately
 requires 6.0.6 and the E313 retry record. Do not reuse its cache for 6.1.x.
@@ -33,12 +41,13 @@ v52. E316 records the per-call timing comparisons and their limits.
 
 ## Deployment and live state
 
-V20 is loaded and verified: `phase-8-probe-v1`, 118 methods,
+Last verified deployment (E316): V20, `phase-8-probe-v1`, 118 methods,
 `2e939035ea90b8b0`, marker `9b-grid-doctor-v20` on all direct handlers and
 `rig.info`, initialization `2026-10-21T04:38:35.619Z`. Bridge PID 42943.
 Archive SHA-256:
 `9627bb8d23587de365aee75ae0703e81b32c71faeb5eb13c29e8dec791b0d481`.
-Run `npm run probe:hello` from `brain/` before later live work. The normal
+The planning session made no live check. Run `npm run probe:hello` from
+`brain/` before later live work, after the update handoff. The normal
 profile is not restored. Controller replacement remains an operator action.
 
 Project: `gn-grid-spike`. Only `grid-probe`, `FX 1`, and `Master` remain.
@@ -104,6 +113,6 @@ are untested. This is an in-memory baseline check.
   E304 [catalog](evidence/data/phase9b-focused/catalog-updated.json), and saved
   `gn-grid-spike-baseline.bwpreset`. The E289 edited project is not a baseline.
 
-Do not repeat the completed 9a audio flow. The 6.1.x update follows the
-general feature audit, with 6.0.6 copied aside. See the
+Do not repeat the completed 9a audio flow. Preserve 6.0.6 before the update;
+run the general product audit on the new version before 9b.6. See the
 [roadmap](plan/ROADMAP.md) for the independent 8i17 survey and Phase 10.

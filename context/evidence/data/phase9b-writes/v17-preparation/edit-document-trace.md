@@ -1,3 +1,12 @@
+---
+title: Edit-document receiver trace
+kind: evidence
+state: active
+updated: 2026-10-21
+owner: phase-9b
+evidence: E307
+---
+
 # Edit-document receiver trace
 
 Pinned host: Bitwig 6.0.6, with the E305 jar hash. This is local bytecode
