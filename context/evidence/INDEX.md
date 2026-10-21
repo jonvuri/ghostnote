@@ -18,6 +18,7 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E311 | Offline resolution matches all 69 manifest members and 55 type roles; 21 tests include full name removal; scan 4.510 s and 181.875 MiB RSS; no live authority; next 9b.5 doctor [K] (2026-10-20) | [open](experiments/e311-grid-offline-resolvers.md) |
 | E310 | Gates factory/defaults/disposal pass on V18; scratch removed; entry/exit and E308 preserved state match; 9b.3 complete, next offline resolvers [K] (2026-10-20) | [open](experiments/e310-grid-factory-acceptance-and-breadth-close.md) |
 | E309 | Authorized process recovery discards test changes; old process exits; saved project opens with V18 and no scratch or lock; factory acceptance pending [K] (2026-10-20) | [open](experiments/e309-grid-factory-process-recovery.md) |
 | E308 | Boolean and mapping writes pass; Gates factory read locks on detached IDs; scratch retained; V18 correction checked/deployed; process recovery pending [K] (2026-10-20) | [open](experiments/e308-grid-write-live-and-factory-lock.md) |

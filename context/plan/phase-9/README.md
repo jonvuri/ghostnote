@@ -2,7 +2,7 @@
 title: Phase 9 — Overlap investigation
 kind: plan
 state: active
-status: 9a and bounded 9b breadth are complete (E299, E310). Next is 9b.4 offline symbol resolution.
+status: 9a, bounded 9b breadth, and offline resolution are complete (E299, E310, E311). Next is 9b.5 live doctor.
 updated: 2026-10-20
 parent: ../ROADMAP.md
 prev: ../phase-8/README.md
@@ -39,8 +39,10 @@ E304 extends the reader to focused values, mapping endpoints, Gates data,
 Wavetable resource identity, and a 31-module patch. E308 passes the selected
 boolean and mapping writes. [E310](../../evidence/experiments/e310-grid-factory-acceptance-and-breadth-close.md)
 passes the Gates detached factory and disposal case after E309 recovery.
-Session 9b.3 and the bounded breadth investigation are complete. The next
-session is [9b.4 offline resolvers](9b-grid-breadth-discovery-and-build-out.md#session-9b4--offline-resolvers).
+Session 9b.3 and the bounded breadth investigation are complete.
+[E311](../../evidence/experiments/e311-grid-offline-resolvers.md) completes
+9b.4: all 69 manifest rows and 55 type dependencies resolve offline. The next
+session is [9b.5 live doctor](9b-grid-breadth-discovery-and-build-out.md#session-9b5--live-doctor-on-606).
 
 The research probe remains deployed. V18 is loaded and verified. All scratch
 tracks are deleted; the reader and writer are released and unlocked. Full

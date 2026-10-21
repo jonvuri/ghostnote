@@ -2,7 +2,7 @@
 title: 9b — Grid symbol manifest
 kind: note
 state: active
-status: E308 proves boolean/mapping writes; E310 proves Gates detached defaults and disposal. Manifest is the 9b.4 offline resolver input.
+status: E311 resolves all 69 member rows and 55 type dependencies offline. Live validation belongs to 9b.5.
 updated: 2026-10-20
 parent: 9b-grid-breadth-discovery-and-build-out.md
 ---
@@ -263,3 +263,30 @@ pass. The existing factory/lifecycle symbols now have this additional typed
 case; their first-E entries above stay unchanged. No Gates attachment or
 resource loading is proved. Use ownership-scoped identities for detached
 reads and document IDs for attached objects. No new member is pinned.
+
+## E311 offline resolution
+
+[E311](../../evidence/experiments/e311-grid-offline-resolvers.md) resolves all
+69 rows above and 55 type dependencies on the pinned 6.0.6 jar. The
+[resolved table](../../evidence/data/phase9b-resolvers/report.json) records
+lookup and declaring classes separately. `MTu.NCM()` is declared on `TNT`;
+`TNT` is therefore a resolver dependency. The `llL` layout class is included
+because the 9b.4 brief requires it. No layout command is admitted.
+
+The [selectors](../../../brain/src/probes/grid_symbols/selectors.json) use
+name-free class shapes and normalized use traces. The pinned manifest is
+the test oracle. Missing and ambiguous candidates are refused. A complete
+renaming of the inert jar model reproduces the same roles. This proves the
+tested structural selection, not cross-build behavior or write authority.
+
+The members getter is linked to the insertion body. The document-edit getter
+is linked to edit association. Value and boolean wrapper traces follow the
+fixed fixture runtime types. The three edit counters use distinct bytecode
+use traces; zero values do not identify them. Their runtime meanings still
+need the final throwaway-edit stage of 9b.5.
+
+Every live invariant in the tables remains a 9b.5 requirement. In particular,
+check descriptor IDs/names, helper initialization, disposed-tree ownership,
+selection identity, edit ownership, and engine connection identity. Keep the
+E307 project-root/edit-document distinction and E308 detached identity scope.
+An offline match does not satisfy any of these live checks.

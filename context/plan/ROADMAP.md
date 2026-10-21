@@ -19,7 +19,7 @@ updated: 2026-10-20
 | [6 — music workstation exploration](phase-6/README.md) | done | Contracts and verification costs audited; Phase 7 implementation followed |
 | [7 — workstation dogfood](phase-7/README.md) | done | Focused modules, hybrid dogfood, and the played-range follow-up pass |
 | [8 — agent-native live engine](phase-8/README.md) | done | FIELDS/JSON 1.0 contract, codec, model reference, and the agent-native surface; the 8i gate closed (E272). [8i17](phase-8/8i17-midi-musical-navigation-survey.md) remains a planned survey |
-| [9 — overlap investigation](phase-9/README.md) | active | 9a and bounded 9b breadth are complete (E299, E310). Next: 9b.4 offline symbol resolution, then live build discovery and Grid build-out planning |
+| [9 — overlap investigation](phase-9/README.md) | active | 9a, bounded 9b breadth, and offline resolution are complete (E299, E310, E311). Next: 9b.5 live doctor on 6.0.6, then 6.1.x discovery and Grid build-out planning |
 | [10 — breadth and release](phase-10/README.md) | deferred | Former Phase 9: publication reviews 10a/10b, the release live suite 10c, and the existing breadth backlog |
 
 ## Cross-phase work

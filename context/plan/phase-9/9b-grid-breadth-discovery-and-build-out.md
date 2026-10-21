@@ -2,7 +2,7 @@
 title: Phase 9b — Grid breadth, build discovery, and build-out planning
 kind: plan
 state: active
-status: E310 completes 9b.3 and bounded breadth investigation. All three selected cases pass; next is 9b.4 offline resolvers.
+status: E311 completes 9b.4 offline resolution. Next is 9b.5 live doctor on 6.0.6.
 updated: 2026-10-20
 parent: README.md
 prev: 9a-live-grid-editing-spike.md
@@ -134,10 +134,11 @@ the read, value, and cable stages validate.
 
 Sessions:
 
-- **9b.4 — Offline resolvers.** Shape resolvers for every manifest row;
-  fake-host tests; jar-scan timing on 6.0.6. Must reproduce the hand-pinned
-  table exactly. Enumerate jar entries for default-package classes (`a`,
-  `llL`); do not guess names.
+- **9b.4 — Offline resolvers.** Complete in
+  [E311](../../evidence/experiments/e311-grid-offline-resolvers.md): all 69
+  member rows and 55 type roles match the pinned table. Failure and renamed
+  model tests pass. The bounded scan takes 4.510 seconds. No live authority
+  or cross-build acceptance follows.
 - **9b.5 — Live doctor on 6.0.6.** Scratch track, preset insert, read
   sentinel, value, cable, factory, attach and undo, delete and undo, teardown,
   cache write. Measure. Set the budget, consent, and failure policy: one pass
@@ -707,6 +708,9 @@ for the stored-state verdicts; no audible-behavior claim follows.
 
 ## Session 9b.4 — Offline resolvers
 
+**Disposition.** Complete in [E311](../../evidence/experiments/e311-grid-offline-resolvers.md).
+The requirements below remain the acceptance criteria for this session.
+
 **Source.** Start with the [symbol manifest](9b-grid-symbol-manifest.md),
 [E310 breadth disposition](../../evidence/experiments/e310-grid-factory-acceptance-and-breadth-close.md#breadth-disposition-and-limits),
 and the [E305 command trace](../../evidence/data/phase9b-writes/command-trace.md).
@@ -743,3 +747,45 @@ with 6.0.6 copied aside. It is not a prerequisite for this offline session.
 The existing 9b.5/9b.6 doctor and step-3 build-out plan own the broader live
 scope. Carry E310's unproved resource, outer-modulator, attachment, flavour,
 scale, and non-boolean-write limits into that planning.
+
+## Session 9b.5 — Live doctor on 6.0.6
+
+**Source.** Read [E311](../../evidence/experiments/e311-grid-offline-resolvers.md),
+the [resolved table and live-invariant list](../../evidence/data/phase9b-resolvers/report.json),
+the [resolver instructions](../../../brain/src/probes/grid_symbols/README.md),
+the symbol manifest, E310, and the performance ledger. This session owns
+live integration. The Python resolver is an offline prototype; it has no
+bridge entry point and creates no accepted-build cache.
+
+1. Integrate the resolved role table with the doctor. Bind it to the exact
+   jar fingerprint. Keep discovery separate from live validation. Refuse a
+   missing, ambiguous, changed, or unvalidated role. Preserve the project
+   root/edit-document distinction. Use owned-tree IDs for detached objects.
+2. Define the doctor call, traversal, wait, and memory budgets before adding
+   the live path. Include scan time and result transfer. The E311 sample is
+   not a cold-disk or stable latency bound. Keep public descriptions and all
+   tool consumers accurate if this session changes a public tool.
+3. Prepare a bounded scratch-track doctor and obtain explicit operator
+   consent before its live writes. Consent must state: save first; a failed
+   check can need a Bitwig restart. Allow one pass per fingerprint. Record
+   engine state; do not require it. Do not retry an uncertain command.
+4. Test the read sentinel, value, cable, detached factory, attachment/undo,
+   and delete/undo stages. Resolve and test the edit counters last, with the
+   throwaway edit and transaction trace. Check every manifest live invariant,
+   including helper roles and connection identity. Do not infer identity
+   from an idle zero or a non-null helper alone.
+5. Preserve selection and unrelated state. Require independent readback,
+   clean up owned scratch objects, and verify the agreed baseline. Write an
+   accepted-build cache only after every required stage and teardown pass.
+   Record measurements and limits in a new E record.
+
+Controller replacement remains an operator action. Follow the repository
+reload and hello checks if the extension changes. Do not reuse E310 claims.
+No new live pass was run in 9b.4. Retain E310's resource, outer-modulator,
+Gates-attachment, flavour, scale, and non-boolean-write limits for step 3.
+
+Session 9b.6 owns the 6.1.x test after the operator's general update audit.
+If a structural selector refuses the new build, inspect the changed shape
+and record the new trace before changing the selector. Never regenerate
+selectors from guessed obfuscated names as a fallback. Step 2 stays open
+until the explicit two-build doctor result is recorded.

@@ -1,0 +1,1656 @@
+{
+  "format": 1,
+  "selector": "name-free-class-shape-and-normalized-use-trace-v1",
+  "types": {
+    "boolean-atom": {
+      "shape": "0f04553a88166bf7bc4c168af740b6f131a57c5cace766ea2159b15fa10e9b38",
+      "fieldCount": 2,
+      "methodCount": 54
+    },
+    "boolean-base": {
+      "shape": "5a4198543eae648f6250b93fcc856771583b009a9631b1c8976fe3bdaa01e07c",
+      "fieldCount": 7,
+      "methodCount": 58
+    },
+    "child-object": {
+      "shape": "bca8423cd7e365c01d5652002e1c878c2d53b6261365b4f80f552805cbd44e93",
+      "fieldCount": 0,
+      "methodCount": 24
+    },
+    "connection": {
+      "shape": "13fc2cf0d9ef0bfa2d6c4e1685722bd7d3f8d1ede4fd4eb8b4a0b2544b06f62d",
+      "fieldCount": 35,
+      "methodCount": 66
+    },
+    "container": {
+      "shape": "cad169fe03e06acfd24d014e03ca3b7a6a778fada1786ee3b850eb1e08a2183b",
+      "fieldCount": 1,
+      "methodCount": 44
+    },
+    "context": {
+      "shape": "86cbd86dc4cbaedcdc82c930cdc92f0d3cf0f8ffdd814ee5a477cecacac792df",
+      "fieldCount": 28,
+      "methodCount": 76
+    },
+    "decimal-atom": {
+      "shape": "e592b11cebd1b5bc57cc017f86b3c0981922bdea93a81d3fd47b8183bed6d1a0",
+      "fieldCount": 5,
+      "methodCount": 15
+    },
+    "descriptor": {
+      "shape": "6da054d097b730a5697e55944630614106d5464c0b1e457625e9058466d562b7",
+      "fieldCount": 1,
+      "methodCount": 15
+    },
+    "descriptor-base": {
+      "shape": "5e8b15f126e5a06d0b6eb421d781ff3a461bc64b1d4655b037ec1dc63b0966a6",
+      "fieldCount": 16,
+      "methodCount": 202
+    },
+    "destination-atom": {
+      "shape": "2234746fe0c3167a4a7702d7c84f6ac785e48d093adb4cfa7cc54fb77bb41b44",
+      "fieldCount": 1,
+      "methodCount": 6,
+      "codeTrace": "ff1146257cece0f633b0b71e6388c77fa836254290f5a46f80f81e6e57ab7918"
+    },
+    "destination-base": {
+      "shape": "090d3bf7d921a5f5f3046a1265fef36d1b84487f3861ca34da3a4b261f48ba2e",
+      "fieldCount": 11,
+      "methodCount": 68
+    },
+    "device-base": {
+      "shape": "d58bf60d1d8adf704f8456b2b666af1a447a7f5994fa0a9554f0476cab0fcffb",
+      "fieldCount": 48,
+      "methodCount": 236
+    },
+    "display-state": {
+      "shape": "b115a0b994d40c031cfc9afc61472fc536c4c8c2208097f90ace40a024d026e7",
+      "fieldCount": 2,
+      "methodCount": 14
+    },
+    "document-object": {
+      "shape": "175726bf91d668c3fc2bcf7e0bd0be3746d85210fd5580b2447be661a85d12bd",
+      "fieldCount": 2,
+      "methodCount": 48
+    },
+    "domain": {
+      "shape": "20a9aab836e0eaae31fe2e76df172a295d4d18e81285e74327baf93eda3f27b0",
+      "fieldCount": 1,
+      "methodCount": 19
+    },
+    "domain-base": {
+      "shape": "f41220eb5e4e4e418efe2d96974f3a5e6530f915f5d98c2aa333f445ee88339a",
+      "fieldCount": 0,
+      "methodCount": 15
+    },
+    "edit": {
+      "shape": "baeb60de77a5391b55c28bb5ce1bc002d0e9a8b7ba5b92e6bfd82bbef31e1ebb",
+      "fieldCount": 14,
+      "methodCount": 44
+    },
+    "edit-document": {
+      "shape": "1cf6463ca39529a7f2f56195b2af9e5804c6d7076d8b22f4abf51d5c5cca691e",
+      "fieldCount": 29,
+      "methodCount": 101
+    },
+    "edit-lock": {
+      "shape": "f828f1423861584eabce481492a6b7b49fa01d5258a476c627f2c8105f61ad00",
+      "fieldCount": 6,
+      "methodCount": 13
+    },
+    "engine-state": {
+      "shape": "29d6be8aaf8496bce53650300c1a551b0a0089cbf01ea9e6bacebed0e02c6859",
+      "fieldCount": 8,
+      "methodCount": 11,
+      "codeTrace": "2afcc97c0e50e491c515fc631a5611db1ea93ef54f47d53ef4fb5cc30b891bcb"
+    },
+    "engine-state-base": {
+      "shape": "b25ed01cbc43ea70687c544879b25367b4fe831d72dd814f7fa3618dd77aaf0a",
+      "fieldCount": 257,
+      "methodCount": 1399
+    },
+    "focus-base": {
+      "shape": "99ff209079a662c7d604479ae82bbd1763d979175c040172773805a09a5e3a37",
+      "fieldCount": 0,
+      "methodCount": 6
+    },
+    "focus-target-base": {
+      "shape": "3b8f755a2a496764fc00bab7b7a841f3f77b2c774302072b3b3d484ab1e878e4",
+      "fieldCount": 2,
+      "methodCount": 14
+    },
+    "focus-wrapper": {
+      "shape": "77eb369b040cdb48784b0df33d297cc90e437601aa0bc9398c5c2a378cc16b73",
+      "fieldCount": 1,
+      "methodCount": 8
+    },
+    "grid": {
+      "shape": "60a4cfc018a22e52e374201eb66869357e431a6279aa1ca4e3c3d56f17c8130a",
+      "fieldCount": 3,
+      "methodCount": 117
+    },
+    "grid-base": {
+      "shape": "a42d37fe1df60faf79604bb1000524a1a3ebb3660d15ad8b198bf4649ec38998",
+      "fieldCount": 12,
+      "methodCount": 81
+    },
+    "initialization-helper": {
+      "shape": "3dee214ca825d8a7b36e92b773baeb5f920da13d58cda6a081e6dcbf9cf9f156",
+      "fieldCount": 4,
+      "methodCount": 36
+    },
+    "insert-callback": {
+      "shape": "5ec664966cc7eb35a984f19a43acaaaea1395e808728f4f800eea5fb783f4ae4",
+      "fieldCount": 5,
+      "methodCount": 5
+    },
+    "journal": {
+      "shape": "1f9ee2fa124309bcdbffab24dcea621640b8bfe45b741e4dd689fd897776e844",
+      "fieldCount": 16,
+      "methodCount": 33
+    },
+    "layout-pass": {
+      "shape": "572c96a99b522d42cbb01b06c67dd6b5a388310d1cc2e2092327b8056ddc6366",
+      "fieldCount": 1,
+      "methodCount": 7
+    },
+    "manager": {
+      "shape": "ed25c46c1588377324547da610d3d20b56b3e42812eed68249f658b39a1baaba",
+      "fieldCount": 13,
+      "methodCount": 25
+    },
+    "mapping-source": {
+      "shape": "67233928bf2e05c792fe522fad4913569c2af0c8f9ec26fbe52afdbac351c26e",
+      "fieldCount": 2,
+      "methodCount": 74
+    },
+    "mapping-source-base": {
+      "shape": "213437190367a889c3eaba230910e4fe635c5daa7769def79a1eb2e2466d25eb",
+      "fieldCount": 9,
+      "methodCount": 89
+    },
+    "mapping-target": {
+      "shape": "cb8cbf56f5f617b726ed2b5d816ffcad83c551cb0c9c0925a92e6f465677bcdb",
+      "fieldCount": 10,
+      "methodCount": 128
+    },
+    "module": {
+      "shape": "3b6ea5136e46275b408a66381baff4acafee8c9e346a6413f7ebcf11f823136d",
+      "fieldCount": 1,
+      "methodCount": 73
+    },
+    "module-base": {
+      "shape": "2f73c12663c2622270d5daaa2eb36fd9b86bdc7a1232e10e5b3c0a14e601270f",
+      "fieldCount": 1,
+      "methodCount": 28
+    },
+    "named-base": {
+      "shape": "667daf729e90dc9e035e21afeae10e49ed89f3391b230ac4848f7652df407e53",
+      "fieldCount": 2,
+      "methodCount": 10
+    },
+    "native-device": {
+      "shape": "5ad096a63ba0cafd843742c0253410c04c887058ecf9a3f056c7ef53d29475ea",
+      "fieldCount": 1,
+      "methodCount": 83
+    },
+    "nitro-atom": {
+      "shape": "72c670118092b7c2ca596ea55587186a6108da4161475c4223f17a751ad08758",
+      "fieldCount": 13,
+      "methodCount": 83
+    },
+    "object": {
+      "shape": "4e0b993655fa82af16cf087b452d9f726050274824528ba303967d73e8203bb7",
+      "fieldCount": 7,
+      "methodCount": 119
+    },
+    "position-base": {
+      "shape": "27a66a462ce6c1b3b1845524595c3ea5bfdce160fabfb2c7ca55bd28b5b052ac",
+      "fieldCount": 9,
+      "methodCount": 64
+    },
+    "project-root": {
+      "shape": "6dc23568dba3a36dffacd6ba33c70b041d4ff478c3add9b85e1bd665cd6f3de3",
+      "fieldCount": 102,
+      "methodCount": 640
+    },
+    "property": {
+      "shape": "814ba8a4d84ba0f3a28a5e62c5284af4b3f894e270ff29042aa8b67c0a6cbabd",
+      "fieldCount": 2,
+      "methodCount": 26
+    },
+    "property-base": {
+      "shape": "9560409b6592e30d8eccf62316aca59468a2604f370c210163b0ccbe5743fcb6",
+      "fieldCount": 3,
+      "methodCount": 12
+    },
+    "rectangle-base": {
+      "shape": "9736e4b259276fd6f1edbfcff7b2d6d9526782e9975159b0a7ee9d5a5e40a304",
+      "fieldCount": 13,
+      "methodCount": 87
+    },
+    "relationship": {
+      "shape": "d89c8bf121e2cfc8c3535e3f4dcd94183e01f80abbe7cea03b2c2cf018966e43",
+      "fieldCount": 4,
+      "methodCount": 28
+    },
+    "remote-helper": {
+      "shape": "a57f37ca76ff0c5cf6b82f974c2dfe2b8db9af1d1a3a9ccc10e8131e6ec2d232",
+      "fieldCount": 5,
+      "methodCount": 16
+    },
+    "selection-base": {
+      "shape": "0835ec0d53a5a2485acaef8ecd4d375fa81750476d6a7b08c59084f7e2b97043",
+      "fieldCount": 116,
+      "methodCount": 676
+    },
+    "selection-state": {
+      "shape": "289cf968e98f94a0d2c00baea42c24be530a57bf4baed1eb5dd5ef99c7ba7935",
+      "fieldCount": 0,
+      "methodCount": 4
+    },
+    "serialization-filter": {
+      "shape": "4d560d6721dc52e9e0d839672c3289ed6196badd2ae1bc9c3b1d2bec70ece177",
+      "fieldCount": 5,
+      "methodCount": 12
+    },
+    "source-atom": {
+      "shape": "8e0799f530b15ae71839a0da504df9b234a4f94555fcdb7c8676fcabcaa86e78",
+      "fieldCount": 1,
+      "methodCount": 5
+    },
+    "source-base": {
+      "shape": "2747e836dd196b046b5db94bb4510fafd9945b50d7c9473f966e7cf7200f7a72",
+      "fieldCount": 0,
+      "methodCount": 9
+    },
+    "source-interface": {
+      "shape": "1170e6389629e19a324a941022730d862f1caa7d7ff753b9b9d8474c6364b4aa",
+      "fieldCount": 0,
+      "methodCount": 0
+    },
+    "transfer": {
+      "shape": "379d9364980b89826a89de702517fd54ddf1c930351462ddf59f20dbfbd3c9e8",
+      "fieldCount": 12,
+      "methodCount": 11,
+      "codeTrace": "3534284f7286c85425067c418c978551d1df490712d2129d1a42b2ab2e9550d8"
+    },
+    "value-base": {
+      "shape": "d18d71202f7204501047acd1168911fa123e8491c84407d9898dbd5633f4355e",
+      "fieldCount": 32,
+      "methodCount": 206
+    }
+  },
+  "members": [
+    {
+      "role": "descriptor",
+      "lookupType": "object",
+      "declaringType": "object",
+      "kind": "method",
+      "flags": 1025,
+      "shape": "()L6da054d097b730a5697e55944630614106d5464c0b1e457625e9058466d562b7;",
+      "signature": "()@descriptor;",
+      "trace": "7f09ace0fcaea652193c064b07a3249c953d47d405c6135968fc0a9d2ab1af1a",
+      "liveInvariant": "Known object reports `native_device`, `module_grid`, or `module`"
+    },
+    {
+      "role": "class-id",
+      "lookupType": "descriptor-base",
+      "declaringType": "descriptor-base",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()I",
+      "signature": "()I",
+      "trace": "77f03b3273dcb763ed9eb9e6be3719941cf7b63a213d6955c92f3ed9926e8dc4",
+      "liveInvariant": "ID and name agree with saved control schema"
+    },
+    {
+      "role": "name",
+      "lookupType": "named-base",
+      "declaringType": "named-base",
+      "kind": "method",
+      "flags": 17,
+      "shape": "()Ljava/lang/String;",
+      "signature": "()Ljava/lang/String;",
+      "trace": "e23105c20c25bc0e0238d715e9e8dd0411295185269b33355f981403da568aba",
+      "liveInvariant": "Names include `device_contents` and `child_components`"
+    },
+    {
+      "role": "properties",
+      "lookupType": "descriptor-base",
+      "declaringType": "descriptor-base",
+      "kind": "method",
+      "flags": 17,
+      "shape": "()Ljava/util/List;",
+      "signature": "()Ljava/util/List;",
+      "trace": "2d276201f4452f1b66bba7f89baf78140e1cbde93bfd3e120ee97c07a451c20f",
+      "liveInvariant": "Unique IDs include 406, 173, and 6428 on the appropriate objects"
+    },
+    {
+      "role": "property-id",
+      "lookupType": "property-base",
+      "declaringType": "property-base",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()I",
+      "signature": "()I",
+      "trace": "355ddae956daaf4ad5b109874a3758621ff4e03f9fed611d487b4196a275c688",
+      "liveInvariant": "ID/name pairs agree with control schema"
+    },
+    {
+      "role": "enabled-field",
+      "lookupType": "property",
+      "declaringType": "property",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()Z",
+      "signature": "()Z",
+      "trace": "62de37bcb797f16a3585ece16e890614fd8a31ef1184155d510f838126851c52",
+      "liveInvariant": "Root contents field 406 is enabled"
+    },
+    {
+      "role": "serialization-filter",
+      "lookupType": "serialization-filter",
+      "declaringType": "serialization-filter",
+      "kind": "method",
+      "flags": 1,
+      "shape": "(L814ba8a4d84ba0f3a28a5e62c5284af4b3f894e270ff29042aa8b67c0a6cbabd;L4e0b993655fa82af16cf087b452d9f726050274824528ba303967d73e8203bb7;)Z",
+      "signature": "(@property;@object;)Z",
+      "trace": "ee1cc243db463927d7fa224203b255523593c1fb160399bfa7d609b3e04c5676",
+      "liveInvariant": "Root contents is excluded; explicit bridge admits it"
+    },
+    {
+      "role": "filter-instance",
+      "lookupType": "serialization-filter",
+      "declaringType": "serialization-filter",
+      "kind": "field",
+      "flags": 25,
+      "shape": "L4d560d6721dc52e9e0d839672c3289ed6196badd2ae1bc9c3b1d2bec70ece177;",
+      "signature": "@serialization-filter;",
+      "trace": "caa6b857a8202216e639b45f2d7b6a4c37f32609f158caa9a5ad10b5ae2dd57f",
+      "liveInvariant": "Filter result agrees with the serializer control"
+    },
+    {
+      "role": "scalar-read",
+      "lookupType": "property",
+      "declaringType": "property",
+      "kind": "method",
+      "flags": 1025,
+      "shape": "(L4e0b993655fa82af16cf087b452d9f726050274824528ba303967d73e8203bb7;)Ljava/lang/Object;",
+      "signature": "(@object;)Ljava/lang/Object;",
+      "trace": "948ae9e42a2649919177439bae00fb03e85bde1b6c1f0cb1608fc12ff0e61bbe",
+      "liveInvariant": "Known name, type UUID, and stored scalar agree"
+    },
+    {
+      "role": "child-count",
+      "lookupType": "relationship",
+      "declaringType": "relationship",
+      "kind": "method",
+      "flags": 1025,
+      "shape": "(L4e0b993655fa82af16cf087b452d9f726050274824528ba303967d73e8203bb7;)I",
+      "signature": "(@object;)I",
+      "trace": "d34026b3d74ff61f39740bc832914139a252fec6e524159a500829fe64d85575",
+      "liveInvariant": "Counts agree with enumerated children and bounds"
+    },
+    {
+      "role": "child-read",
+      "lookupType": "relationship",
+      "declaringType": "relationship",
+      "kind": "method",
+      "flags": 1025,
+      "shape": "(L4e0b993655fa82af16cf087b452d9f726050274824528ba303967d73e8203bb7;I)Lbca8423cd7e365c01d5652002e1c878c2d53b6261365b4f80f552805cbd44e93;",
+      "signature": "(@object;I)@child-object;",
+      "trace": "c36007a291820a4a7b7fa0d5862b240d3db20e0c2cc4b4ce96122de4f20dcd9c",
+      "liveInvariant": "Children have expected descriptor classes and identities"
+    },
+    {
+      "role": "native-value-setter",
+      "lookupType": "value-base",
+      "declaringType": "value-base",
+      "kind": "method",
+      "flags": 17,
+      "shape": "(D)V",
+      "signature": "(D)V",
+      "trace": "ac66e9ec753e35847224aa1ac8a0d212e4b0c7d4f950735f13ef09e732588152",
+      "liveInvariant": "Independent stored value changes; unrelated graph stays equal",
+      "dispatchType": "decimal-atom",
+      "callTrace": "4f6aa59254b681bb5c345066badcdc1e0f4bf0a23f0b5c9b7154ccf50ffe4365"
+    },
+    {
+      "role": "cable-source-getter",
+      "lookupType": "destination-base",
+      "declaringType": "destination-base",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()L2747e836dd196b046b5db94bb4510fafd9945b50d7c9473f966e7cf7200f7a72;",
+      "signature": "()@source-base;",
+      "trace": "c509b434ede4e980202b2a0a17916fb5294020eb065c19bb45717d7c398067fa",
+      "liveInvariant": "Result is the exact before-source object"
+    },
+    {
+      "role": "cable-source-setter",
+      "lookupType": "destination-base",
+      "declaringType": "destination-base",
+      "kind": "method",
+      "flags": 17,
+      "shape": "(L1170e6389629e19a324a941022730d862f1caa7d7ff753b9b9d8474c6364b4aa;)V",
+      "signature": "(@source-interface;)V",
+      "trace": "1eb3a77e666cbf1add9c77b902957141ffd1a94163511ff3ddb5c68689b1b970",
+      "liveInvariant": "Independent destination field 7125 has the expected edge"
+    },
+    {
+      "role": "module-parent",
+      "lookupType": "module-base",
+      "declaringType": "module-base",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()Lcad169fe03e06acfd24d014e03ca3b7a6a778fada1786ee3b850eb1e08a2183b;",
+      "signature": "()@container;",
+      "trace": "b2c63bcd052c643867537813f13dc19b6522401b756910f44816338087c41407",
+      "liveInvariant": "Exact parent is the bound Grid"
+    },
+    {
+      "role": "module-delete",
+      "lookupType": "module-base",
+      "declaringType": "module-base",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()V",
+      "signature": "()V",
+      "trace": "28c131ca10c4f8ab22004b2429f7fc84b26755d14ea5cc0bf27aaa20973d7c17",
+      "liveInvariant": "Membership removes only the named spare; incoming edge disappears"
+    },
+    {
+      "role": "module-factory",
+      "lookupType": "module",
+      "declaringType": "module",
+      "kind": "method",
+      "flags": 9,
+      "shape": "(Ljava/util/UUID;)L3b6ea5136e46275b408a66381baff4acafee8c9e346a6413f7ebcf11f823136d;",
+      "signature": "(Ljava/util/UUID;)@module;",
+      "trace": "4dc4881fc8d852d6592fd42be2cb5a11de259243ca14bf98070216c1ac09e7e1",
+      "liveInvariant": "Amplify type round trip; detached object; fresh instance UUID"
+    },
+    {
+      "role": "owner",
+      "lookupType": "object",
+      "declaringType": "object",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()L4e0b993655fa82af16cf087b452d9f726050274824528ba303967d73e8203bb7;",
+      "signature": "()@object;",
+      "trace": "ae45fcb831406e4a53215fd13842c51047e234b9be7904149991424ce0fb7203",
+      "liveInvariant": "Detached root has null owner; contents owner is module"
+    },
+    {
+      "role": "owned-children",
+      "lookupType": "object",
+      "declaringType": "object",
+      "kind": "method",
+      "flags": 1,
+      "shape": "(Ljava/lang/String;)Ljava/util/List;",
+      "signature": "(Ljava/lang/String;)Ljava/util/List;",
+      "trace": "0c6a9205405b8e956a52f7dd912ac44aaabfc898abfd2ee836ce9889ee10ed20",
+      "liveInvariant": "Bounded acyclic owned tree; every child's owner agrees"
+    },
+    {
+      "role": "disposed-flag",
+      "lookupType": "object",
+      "declaringType": "object",
+      "kind": "method",
+      "flags": 17,
+      "shape": "()Z",
+      "signature": "()Z",
+      "trace": "78d0eb78990b4578c10ada126b6514f8cc32e76bc44b5852984e72bdb17f86da",
+      "liveInvariant": "False before disposal; true for all owned objects after disposal"
+    },
+    {
+      "role": "disposal",
+      "lookupType": "object",
+      "declaringType": "object",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()V",
+      "signature": "()V",
+      "trace": "3948fe15e15d36c0a178a8dbcfb4ec8bf772077263468fe82728ed7a08989f77",
+      "liveInvariant": "Independent lifecycle checks prove disposal of the detached tree"
+    },
+    {
+      "role": "module-parent-2",
+      "lookupType": "module",
+      "declaringType": "module",
+      "kind": "method",
+      "flags": 4097,
+      "shape": "()Lcad169fe03e06acfd24d014e03ca3b7a6a778fada1786ee3b850eb1e08a2183b;",
+      "signature": "()@container;",
+      "trace": "b725b5cc81e470de29d1f5da91ed06fc0a5604fa336237513980ca25e1dabc80",
+      "liveInvariant": "Null before attach; bound Grid after attach"
+    },
+    {
+      "role": "instance-uuid",
+      "lookupType": "device-base",
+      "declaringType": "device-base",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()Ljava/util/UUID;",
+      "signature": "()Ljava/util/UUID;",
+      "trace": "ed1d6df300a5f1d28350d0c2157c3d7276c5c77dd1de0324ec1ee6c53902764f",
+      "liveInvariant": "Matches field 15; factory UUID differs from live UUIDs"
+    },
+    {
+      "role": "initialization-helper",
+      "lookupType": "device-base",
+      "declaringType": "device-base",
+      "kind": "field",
+      "flags": 4,
+      "shape": "L3dee214ca825d8a7b36e92b773baeb5f920da13d58cda6a081e6dcbf9cf9f156;",
+      "signature": "@initialization-helper;",
+      "trace": "696b2a73f36868fca00f23d4eb9007def016af078e9f25089cf89b3e1976c992",
+      "liveInvariant": "Non-null after factory initialization"
+    },
+    {
+      "role": "remote-helper",
+      "lookupType": "device-base",
+      "declaringType": "device-base",
+      "kind": "field",
+      "flags": 4,
+      "shape": "La57f37ca76ff0c5cf6b82f974c2dfe2b8db9af1d1a3a9ccc10e8131e6ec2d232;",
+      "signature": "@remote-helper;",
+      "trace": "436f2c1fd43030978b07970c88df437f7dc6e974e037ef886ba6d436e1c9d8db",
+      "liveInvariant": "Non-null after factory initialization"
+    },
+    {
+      "role": "members",
+      "lookupType": "grid-base",
+      "declaringType": "grid-base",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()Ljava/util/List;",
+      "signature": "()Ljava/util/List;",
+      "trace": "c45c6ab636af8455a95cd39a049d1307f90f8cd6cc5d20c320c85582d5d454de",
+      "liveInvariant": "Membership and UUID order match field 6428",
+      "referencedBy": "insert-body"
+    },
+    {
+      "role": "hidden-count",
+      "lookupType": "grid-base",
+      "declaringType": "grid-base",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()I",
+      "signature": "()I",
+      "trace": "d034b363655e102a915d9e68b065d7cfe2c80ba61e713e3f347ac3eef43cbe16",
+      "liveInvariant": "Zero in the admitted fixture"
+    },
+    {
+      "role": "x",
+      "lookupType": "position-base",
+      "declaringType": "position-base",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()I",
+      "signature": "()I",
+      "trace": "f56c67a5e54db39e0be41e1eb8d607e78a9cb576b72f07bca4547f52087c708a",
+      "liveInvariant": "Equals module field 6679"
+    },
+    {
+      "role": "y",
+      "lookupType": "position-base",
+      "declaringType": "position-base",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()I",
+      "signature": "()I",
+      "trace": "8ee5c1b241da318ff508d1e264abf96fb81dbac17d2331bca0da24b16aaeb4ca",
+      "liveInvariant": "Equals module field 6680"
+    },
+    {
+      "role": "width",
+      "lookupType": "rectangle-base",
+      "declaringType": "rectangle-base",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()I",
+      "signature": "()I",
+      "trace": "abbb910b63d250382211ac84d46f4ae8fa741bf7c18693c9f8f98e086ab2584f",
+      "liveInvariant": "Positive bounded rectangle; detached/attached width agrees"
+    },
+    {
+      "role": "height",
+      "lookupType": "rectangle-base",
+      "declaringType": "rectangle-base",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()I",
+      "signature": "()I",
+      "trace": "0bdbd7fe071165b57fbaddef8a32f84c2e42d9a807fd672775a1a4550cf1399e",
+      "liveInvariant": "Positive bounded rectangle; detached/attached height agrees"
+    },
+    {
+      "role": "context",
+      "lookupType": "document-object",
+      "declaringType": "document-object",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()L86cbd86dc4cbaedcdc82c930cdc92f0d3cf0f8ffdd814ee5a477cecacac792df;",
+      "signature": "()@context;",
+      "trace": "61f564cfa9bd2915c3813486471c74d47499b40e07bb337437273683d447822e",
+      "liveInvariant": "Grid and managed atom share the bound context"
+    },
+    {
+      "role": "recording",
+      "lookupType": "context",
+      "declaringType": "context",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()Z",
+      "signature": "()Z",
+      "trace": "13340c0638fd88f396403e7dfaf2c586b1f424a78572f60d43df54db0d8b6dd8",
+      "liveInvariant": "True before the admitted edit"
+    },
+    {
+      "role": "manager",
+      "lookupType": "context",
+      "declaringType": "context",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()Led25c46c1588377324547da610d3d20b56b3e42812eed68249f658b39a1baaba;",
+      "signature": "()@manager;",
+      "trace": "cc8a32e30e54b22dc88e0c70bd85dfdbe5d5139383dead3d4828b13d00f3b822",
+      "liveInvariant": "Stable manager identity through the edit"
+    },
+    {
+      "role": "document",
+      "lookupType": "edit-document",
+      "declaringType": "edit-document",
+      "kind": "method",
+      "flags": 9,
+      "shape": "(L175726bf91d668c3fc2bcf7e0bd0be3746d85210fd5580b2447be661a85d12bd;)L1cf6463ca39529a7f2f56195b2af9e5804c6d7076d8b22f4abf51d5c5cca691e;",
+      "signature": "(@document-object;)@edit-document;",
+      "trace": "2ecdc573ec7c7ab2a213912a5406ab4543c58f7ff3584c4ee90fd6ee6ded432c",
+      "liveInvariant": "Same document as the proxy and edit context"
+    },
+    {
+      "role": "display-key",
+      "lookupType": "manager",
+      "declaringType": "manager",
+      "kind": "method",
+      "flags": 17,
+      "shape": "()Ljava/lang/String;",
+      "signature": "()Ljava/lang/String;",
+      "trace": "11113a8bc781d8318097352272ee10f17399fb7e3b58b19481bc21de2e517c89",
+      "liveInvariant": "Existing key in the Grid display map"
+    },
+    {
+      "role": "journal-active",
+      "lookupType": "journal",
+      "declaringType": "journal",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()Z",
+      "signature": "()Z",
+      "trace": "ec8556b2c4d255d8f03f13b974e23ee90b8312955754dd9faad922a92c2b6406",
+      "liveInvariant": "False at idle, true only in the owned edit"
+    },
+    {
+      "role": "current-journal-edit",
+      "lookupType": "journal",
+      "declaringType": "journal",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()Lbaeb60de77a5391b55c28bb5ce1bc002d0e9a8b7ba5b92e6bfd82bbef31e1ebb;",
+      "signature": "()@edit;",
+      "trace": "6b7c1284c5fa0fda2529a984908b0338788c6ad58f355e64d1cdb6409a4330a7",
+      "liveInvariant": "Identity equals document current edit after begin"
+    },
+    {
+      "role": "current-document-edit",
+      "lookupType": "edit-document",
+      "declaringType": "edit-document",
+      "kind": "method",
+      "flags": 17,
+      "shape": "()Lbaeb60de77a5391b55c28bb5ce1bc002d0e9a8b7ba5b92e6bfd82bbef31e1ebb;",
+      "signature": "()@edit;",
+      "trace": "8a812635b45471689212037c984e2b0c9fc76ce80c80b10cf8d5bb997e950f49",
+      "liveInvariant": "Same owned edit before insertion and close",
+      "referencedBy": "associate-edit"
+    },
+    {
+      "role": "replay-flag",
+      "lookupType": "edit-document",
+      "declaringType": "edit-document",
+      "kind": "method",
+      "flags": 17,
+      "shape": "()Z",
+      "signature": "()Z",
+      "trace": "56fd5c6da0fac1edc70b794e4c64d1eeb1004a80e9ae0e9cc2358b17db35ec9a",
+      "liveInvariant": "False before and during the admitted edit"
+    },
+    {
+      "role": "replaying-flag",
+      "lookupType": "edit-document",
+      "declaringType": "edit-document",
+      "kind": "method",
+      "flags": 17,
+      "shape": "()Z",
+      "signature": "()Z",
+      "trace": "35c95aa97bb3004aab87b3159edb711348e4cfdf811bb77d7ab6044ba02a1c8f",
+      "liveInvariant": "False before and during the admitted edit"
+    },
+    {
+      "role": "insert-label",
+      "lookupType": "grid",
+      "declaringType": "grid",
+      "kind": "method",
+      "flags": 2,
+      "shape": "(Ljava/util/Collection;)Ljava/lang/String;",
+      "signature": "(Ljava/util/Collection;)Ljava/lang/String;",
+      "trace": "cf6579e8cbd5962c0dd03babf4503bab2bba6f18c38bde1b1eae07ba5d56f3b2",
+      "liveInvariant": "Native insert label for the one-module collection"
+    },
+    {
+      "role": "begin",
+      "lookupType": "document-object",
+      "declaringType": "document-object",
+      "kind": "method",
+      "flags": 148,
+      "shape": "(Ljava/lang/String;[Lf828f1423861584eabce481492a6b7b49fa01d5258a476c627f2c8105f61ad00;)Z",
+      "signature": "(Ljava/lang/String;[@edit-lock;)Z",
+      "trace": "a64b3f6d90e31e03d4adf902d2344bf44452b767326643fea109644a1abea0cd",
+      "liveInvariant": "True; one owned frame and instant counter 1"
+    },
+    {
+      "role": "close",
+      "lookupType": "document-object",
+      "declaringType": "document-object",
+      "kind": "method",
+      "flags": 20,
+      "shape": "()Z",
+      "signature": "()Z",
+      "trace": "9cc8e2c643bae797e20f8ed0f98f85c960e03fc8b7460ca912b340dd859b743c",
+      "liveInvariant": "True; idle frame/counter state after one close"
+    },
+    {
+      "role": "associate-edit",
+      "lookupType": "grid",
+      "declaringType": "grid",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()V",
+      "signature": "()V",
+      "trace": "c12bd23c6783d30ed75fbbd782e6b3710a37a7b38cf9eb130aea23c263c00a15",
+      "liveInvariant": "Associated field is the owned edit"
+    },
+    {
+      "role": "insert-body",
+      "lookupType": "grid",
+      "declaringType": "grid",
+      "kind": "method",
+      "flags": 0,
+      "shape": "(Ljava/util/Collection;IIZL5ec664966cc7eb35a984f19a43acaaaea1395e808728f4f800eea5fb783f4ae4;)V",
+      "signature": "(Ljava/util/Collection;IIZ@insert-callback;)V",
+      "trace": "5944e12254cf141d0a0f6289457bbaefd12773ef607c8044bf47f8c19a67f04a",
+      "liveInvariant": "False copy mode, null callback; ownership transfers and old layout stays equal"
+    },
+    {
+      "role": "frame-stack",
+      "lookupType": "manager",
+      "declaringType": "manager",
+      "kind": "field",
+      "flags": 18,
+      "shape": "Ljava/util/Stack;",
+      "signature": "Ljava/util/Stack;",
+      "trace": "2fe32a0ab0c51dfc7d53d7bce3acb9194dac5cb19d0b9cb2f7d4e856b6e6b6e8",
+      "liveInvariant": "Size 0 \u2192 1 \u2192 0; frame identity stays fixed during edit"
+    },
+    {
+      "role": "instant-edits",
+      "lookupType": "manager",
+      "declaringType": "manager",
+      "kind": "field",
+      "flags": 2,
+      "shape": "I",
+      "signature": "I",
+      "trace": "d9b8794d351cbe47c272e65e3b87e621f68678dc4ae132c5ba5918558963142a",
+      "liveInvariant": "0 \u2192 1 \u2192 0 in the owned edit"
+    },
+    {
+      "role": "long-edits",
+      "lookupType": "manager",
+      "declaringType": "manager",
+      "kind": "field",
+      "flags": 2,
+      "shape": "I",
+      "signature": "I",
+      "trace": "55b67d871546907b56f29b91b17f230d35e74f8d12b9f16178aca349e1fce70b",
+      "liveInvariant": "Stays zero in the owned instant edit"
+    },
+    {
+      "role": "lock-count",
+      "lookupType": "manager",
+      "declaringType": "manager",
+      "kind": "field",
+      "flags": 2,
+      "shape": "I",
+      "signature": "I",
+      "trace": "6a6cc1d383fd3ea4965ad5a9af6f1dd2bea4d410300e761aad07875105a1e8d0",
+      "liveInvariant": "Stays zero with the empty lock array"
+    },
+    {
+      "role": "lock-set",
+      "lookupType": "manager",
+      "declaringType": "manager",
+      "kind": "field",
+      "flags": 2,
+      "shape": "Ljava/util/Set;",
+      "signature": "Ljava/util/Set;",
+      "trace": "5257fd13caa82ff167eba14e31d0ece942094e8939f1cee4d26186e14cf27efa",
+      "liveInvariant": "Null throughout the admitted edit"
+    },
+    {
+      "role": "journal-map",
+      "lookupType": "edit-document",
+      "declaringType": "edit-document",
+      "kind": "field",
+      "flags": 18,
+      "shape": "Ljava/util/Map;",
+      "signature": "Ljava/util/Map;",
+      "trace": "0b9f810aa33d91b09181e5472235efa152708472ae4353d7e236160903cce4b6",
+      "liveInvariant": "Existing manager key returns the same journal; no creation"
+    },
+    {
+      "role": "associated-edit",
+      "lookupType": "grid",
+      "declaringType": "grid",
+      "kind": "field",
+      "flags": 2,
+      "shape": "Lbaeb60de77a5391b55c28bb5ce1bc002d0e9a8b7ba5b92e6bfd82bbef31e1ebb;",
+      "signature": "@edit;",
+      "trace": "b0d891477ca34f6670b722db16b6d7299b4d8c41d2bb2bd4cd1ba4e1a96646e5",
+      "liveInvariant": "Exact owned edit after associate"
+    },
+    {
+      "role": "display-map",
+      "lookupType": "grid-base",
+      "declaringType": "grid-base",
+      "kind": "field",
+      "flags": 20,
+      "shape": "Ljava/util/Map;",
+      "signature": "Ljava/util/Map;",
+      "trace": "0016c4f1b2ffe972abb85cb8f56fcca5b7a3637ffa86b32eabbfbd8a4f6dcaf0",
+      "liveInvariant": "Existing display-key entry; no state creation"
+    },
+    {
+      "role": "selection-state",
+      "lookupType": "display-state",
+      "declaringType": "display-state",
+      "kind": "field",
+      "flags": 4,
+      "shape": "L289cf968e98f94a0d2c00baea42c24be530a57bf4baed1eb5dd5ef99c7ba7935;",
+      "signature": "@selection-state;",
+      "trace": "a7138b8c038b417a7273da26bad6b21b4b2f4f07c07b885d958d942653634758",
+      "liveInvariant": "Existing live selection object"
+    },
+    {
+      "role": "selected-modules",
+      "lookupType": "selection-base",
+      "declaringType": "selection-base",
+      "kind": "field",
+      "flags": 4,
+      "shape": "Ljava/util/List;",
+      "signature": "Ljava/util/List;",
+      "trace": "d648c6c7aa892b9fa0ee7ba5b6a869ee5b40c4c69f707469007fca95095e5f7e",
+      "liveInvariant": "Every selected object is a Grid member; exact preservation"
+    },
+    {
+      "role": "focus",
+      "lookupType": "selection-base",
+      "declaringType": "selection-base",
+      "kind": "field",
+      "flags": 4,
+      "shape": "L99ff209079a662c7d604479ae82bbd1763d979175c040172773805a09a5e3a37;",
+      "signature": "@focus-base;",
+      "trace": "4d7729d34014b10992a176840dfda1b38f62ad6b6fe2da3da64024d6eb3cec8b",
+      "liveInvariant": "Null or mbe whose target is selected"
+    },
+    {
+      "role": "focus-target",
+      "lookupType": "focus-target-base",
+      "declaringType": "focus-target-base",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()L4e0b993655fa82af16cf087b452d9f726050274824528ba303967d73e8203bb7;",
+      "signature": "()@object;",
+      "trace": "cbe5483254cebb07e3a29a7ee8f5b5a698d1a636466cf4a74bf8b898082e4d6a",
+      "liveInvariant": "Target is one of the selected member identities"
+    },
+    {
+      "role": "managed-id",
+      "lookupType": "object",
+      "declaringType": "object",
+      "kind": "method",
+      "flags": 17,
+      "shape": "()I",
+      "signature": "()I",
+      "trace": "f6e48bc4dc427b662d8901575b2f840ecddf8ae852d9cf7cae6756a6420aad6c",
+      "liveInvariant": "Positive ID on the attached nitro atom"
+    },
+    {
+      "role": "registered-lookup",
+      "lookupType": "context",
+      "declaringType": "context",
+      "kind": "method",
+      "flags": 1,
+      "shape": "(I)L4e0b993655fa82af16cf087b452d9f726050274824528ba303967d73e8203bb7;",
+      "signature": "(I)@object;",
+      "trace": "7b7c0f6d2cfad445fa8cf202fb719e57542a20f3d3556b47256773700b71e4b5",
+      "liveInvariant": "Lookup returns the exact attached atom"
+    },
+    {
+      "role": "engine-state",
+      "lookupType": "engine-state-base",
+      "declaringType": "engine-state-base",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()L29d6be8aaf8496bce53650300c1a551b0a0089cbf01ea9e6bacebed0e02c6859;",
+      "signature": "()@engine-state;",
+      "trace": "d6185c224038f687be56d6038baf86f82489b60c16057fda8e2f611d78f7e412",
+      "liveInvariant": "Connected/inactive value agrees with connection state"
+    },
+    {
+      "role": "connection",
+      "lookupType": "project-root",
+      "declaringType": "project-root",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()L13fc2cf0d9ef0bfa2d6c4e1685722bd7d3f8d1ede4fd4eb8b4a0b2544b06f62d;",
+      "signature": "()@connection;",
+      "trace": "c23bf304c82b3c0e687ccfb28ceb9c26cb441bd0c32decb065aff6b873ea0ee5",
+      "liveInvariant": "Non-null and stable during active test; null when inactive"
+    },
+    {
+      "role": "connected-state",
+      "lookupType": "engine-state",
+      "declaringType": "engine-state",
+      "kind": "field",
+      "flags": 16409,
+      "shape": "L29d6be8aaf8496bce53650300c1a551b0a0089cbf01ea9e6bacebed0e02c6859;",
+      "signature": "@engine-state;",
+      "trace": "bd630881d66982bcda389949c5d571dfd3d663916954975841271c707e30b3ce",
+      "liveInvariant": "Identity equals active state with non-null connection"
+    },
+    {
+      "role": "inactive-state",
+      "lookupType": "engine-state",
+      "declaringType": "engine-state",
+      "kind": "field",
+      "flags": 16409,
+      "shape": "L29d6be8aaf8496bce53650300c1a551b0a0089cbf01ea9e6bacebed0e02c6859;",
+      "signature": "@engine-state;",
+      "trace": "f92aa5db6326baa40d85eeb8aeb30522f92ee9b1f099d000d1d1538efed296a8",
+      "liveInvariant": "Identity equals inactive state with null connection"
+    },
+    {
+      "role": "boolean-command",
+      "lookupType": "boolean-base",
+      "declaringType": "boolean-base",
+      "kind": "method",
+      "flags": 17,
+      "shape": "(Z)V",
+      "signature": "(Z)V",
+      "trace": "f1c792042455c1456371123372077cc205343c81acc374ad14979235fa5e0d26",
+      "liveInvariant": "Runtime class QY; Gates DEVICE_PHASE; independent field 210 changes and restores",
+      "dispatchType": "boolean-atom",
+      "callTrace": "c8f0a0f37c91b598ed8be2a80baca9157123b7fb63ebb82e56e460ee3185c43f"
+    },
+    {
+      "role": "remove-mapping",
+      "lookupType": "mapping-source-base",
+      "declaringType": "mapping-source-base",
+      "kind": "method",
+      "flags": 17,
+      "shape": "(Lcb8cbf56f5f617b726ed2b5d816ffcad83c551cb0c9c0925a92e6f465677bcdb;)V",
+      "signature": "(@mapping-target;)V",
+      "trace": "cb55904d9e7847b48a35a7298df537049db77a7441958292df50f37fa10a8870",
+      "liveInvariant": "Runtime source NDn; exactly one matching target; both endpoint lists lose only that mapping"
+    },
+    {
+      "role": "restore-mapping",
+      "lookupType": "mapping-source-base",
+      "declaringType": "mapping-source-base",
+      "kind": "method",
+      "flags": 17,
+      "shape": "(Lcb8cbf56f5f617b726ed2b5d816ffcad83c551cb0c9c0925a92e6f465677bcdb;DZL379d9364980b89826a89de702517fd54ddf1c930351462ddf59f20dbfbd3c9e8;L67233928bf2e05c792fe522fad4913569c2af0c8f9ec26fbe52afdbac351c26e;)V",
+      "signature": "(@mapping-target;DZ@transfer;@mapping-source;)V",
+      "trace": "edcc30ba1d2eda4fe58f730c080146c16c59456fd20bb6b4c6f17d1eca81efdc",
+      "liveInvariant": "Exact target and native amount; no auxiliary source; new mapping restores all observed fields"
+    },
+    {
+      "role": "target-domain",
+      "lookupType": "mapping-target",
+      "declaringType": "value-base",
+      "kind": "method",
+      "flags": 1,
+      "shape": "()L20a9aab836e0eaae31fe2e76df172a295d4d18e81285e74327baf93eda3f27b0;",
+      "signature": "()@domain;",
+      "trace": "d7031442a8a63300793d6d45f31523fb5b1fe7edc8a137fc70beb054ca783f6e",
+      "liveInvariant": "Same target atom as the destination reference"
+    },
+    {
+      "role": "domain-extent",
+      "lookupType": "domain",
+      "declaringType": "domain-base",
+      "kind": "method",
+      "flags": 1025,
+      "shape": "()D",
+      "signature": "()D",
+      "trace": "be94e2909bf4c83d551f8be9ad25cb880fb65b298e3e77b09b01aa3810631d71",
+      "liveInvariant": "Finite native extent admits 129 without clamping"
+    }
+  ],
+  "assignable": [
+    [
+      "boolean-atom",
+      "boolean-base"
+    ],
+    [
+      "boolean-atom",
+      "child-object"
+    ],
+    [
+      "boolean-atom",
+      "document-object"
+    ],
+    [
+      "boolean-atom",
+      "mapping-target"
+    ],
+    [
+      "boolean-atom",
+      "object"
+    ],
+    [
+      "boolean-atom",
+      "value-base"
+    ],
+    [
+      "boolean-base",
+      "child-object"
+    ],
+    [
+      "boolean-base",
+      "document-object"
+    ],
+    [
+      "boolean-base",
+      "mapping-target"
+    ],
+    [
+      "boolean-base",
+      "object"
+    ],
+    [
+      "boolean-base",
+      "value-base"
+    ],
+    [
+      "container",
+      "child-object"
+    ],
+    [
+      "container",
+      "document-object"
+    ],
+    [
+      "container",
+      "grid-base"
+    ],
+    [
+      "container",
+      "object"
+    ],
+    [
+      "decimal-atom",
+      "child-object"
+    ],
+    [
+      "decimal-atom",
+      "document-object"
+    ],
+    [
+      "decimal-atom",
+      "mapping-target"
+    ],
+    [
+      "decimal-atom",
+      "object"
+    ],
+    [
+      "decimal-atom",
+      "value-base"
+    ],
+    [
+      "descriptor",
+      "descriptor-base"
+    ],
+    [
+      "descriptor",
+      "named-base"
+    ],
+    [
+      "descriptor-base",
+      "named-base"
+    ],
+    [
+      "destination-atom",
+      "child-object"
+    ],
+    [
+      "destination-atom",
+      "destination-base"
+    ],
+    [
+      "destination-atom",
+      "document-object"
+    ],
+    [
+      "destination-atom",
+      "object"
+    ],
+    [
+      "destination-base",
+      "child-object"
+    ],
+    [
+      "destination-base",
+      "document-object"
+    ],
+    [
+      "destination-base",
+      "object"
+    ],
+    [
+      "device-base",
+      "child-object"
+    ],
+    [
+      "device-base",
+      "document-object"
+    ],
+    [
+      "device-base",
+      "object"
+    ],
+    [
+      "display-state",
+      "child-object"
+    ],
+    [
+      "display-state",
+      "document-object"
+    ],
+    [
+      "display-state",
+      "object"
+    ],
+    [
+      "domain",
+      "child-object"
+    ],
+    [
+      "domain",
+      "document-object"
+    ],
+    [
+      "domain",
+      "domain-base"
+    ],
+    [
+      "domain",
+      "object"
+    ],
+    [
+      "domain-base",
+      "child-object"
+    ],
+    [
+      "edit-lock",
+      "document-object"
+    ],
+    [
+      "engine-state-base",
+      "child-object"
+    ],
+    [
+      "engine-state-base",
+      "document-object"
+    ],
+    [
+      "engine-state-base",
+      "object"
+    ],
+    [
+      "focus-base",
+      "child-object"
+    ],
+    [
+      "focus-base",
+      "document-object"
+    ],
+    [
+      "focus-base",
+      "object"
+    ],
+    [
+      "focus-target-base",
+      "child-object"
+    ],
+    [
+      "focus-target-base",
+      "document-object"
+    ],
+    [
+      "focus-target-base",
+      "focus-base"
+    ],
+    [
+      "focus-target-base",
+      "object"
+    ],
+    [
+      "focus-wrapper",
+      "child-object"
+    ],
+    [
+      "focus-wrapper",
+      "document-object"
+    ],
+    [
+      "focus-wrapper",
+      "focus-base"
+    ],
+    [
+      "focus-wrapper",
+      "focus-target-base"
+    ],
+    [
+      "focus-wrapper",
+      "object"
+    ],
+    [
+      "grid",
+      "child-object"
+    ],
+    [
+      "grid",
+      "container"
+    ],
+    [
+      "grid",
+      "document-object"
+    ],
+    [
+      "grid",
+      "grid-base"
+    ],
+    [
+      "grid",
+      "object"
+    ],
+    [
+      "grid-base",
+      "child-object"
+    ],
+    [
+      "grid-base",
+      "document-object"
+    ],
+    [
+      "grid-base",
+      "object"
+    ],
+    [
+      "initialization-helper",
+      "child-object"
+    ],
+    [
+      "initialization-helper",
+      "document-object"
+    ],
+    [
+      "initialization-helper",
+      "object"
+    ],
+    [
+      "mapping-source",
+      "child-object"
+    ],
+    [
+      "mapping-source",
+      "document-object"
+    ],
+    [
+      "mapping-source",
+      "mapping-source-base"
+    ],
+    [
+      "mapping-source",
+      "object"
+    ],
+    [
+      "mapping-source",
+      "source-atom"
+    ],
+    [
+      "mapping-source",
+      "source-base"
+    ],
+    [
+      "mapping-source",
+      "source-interface"
+    ],
+    [
+      "mapping-source-base",
+      "child-object"
+    ],
+    [
+      "mapping-source-base",
+      "document-object"
+    ],
+    [
+      "mapping-source-base",
+      "object"
+    ],
+    [
+      "mapping-source-base",
+      "source-atom"
+    ],
+    [
+      "mapping-source-base",
+      "source-base"
+    ],
+    [
+      "mapping-source-base",
+      "source-interface"
+    ],
+    [
+      "mapping-target",
+      "child-object"
+    ],
+    [
+      "mapping-target",
+      "document-object"
+    ],
+    [
+      "mapping-target",
+      "object"
+    ],
+    [
+      "mapping-target",
+      "value-base"
+    ],
+    [
+      "module",
+      "child-object"
+    ],
+    [
+      "module",
+      "device-base"
+    ],
+    [
+      "module",
+      "document-object"
+    ],
+    [
+      "module",
+      "module-base"
+    ],
+    [
+      "module",
+      "object"
+    ],
+    [
+      "module",
+      "position-base"
+    ],
+    [
+      "module",
+      "rectangle-base"
+    ],
+    [
+      "module-base",
+      "child-object"
+    ],
+    [
+      "module-base",
+      "device-base"
+    ],
+    [
+      "module-base",
+      "document-object"
+    ],
+    [
+      "module-base",
+      "object"
+    ],
+    [
+      "module-base",
+      "position-base"
+    ],
+    [
+      "native-device",
+      "child-object"
+    ],
+    [
+      "native-device",
+      "device-base"
+    ],
+    [
+      "native-device",
+      "document-object"
+    ],
+    [
+      "native-device",
+      "object"
+    ],
+    [
+      "nitro-atom",
+      "child-object"
+    ],
+    [
+      "nitro-atom",
+      "document-object"
+    ],
+    [
+      "nitro-atom",
+      "object"
+    ],
+    [
+      "object",
+      "child-object"
+    ],
+    [
+      "object",
+      "document-object"
+    ],
+    [
+      "position-base",
+      "child-object"
+    ],
+    [
+      "position-base",
+      "device-base"
+    ],
+    [
+      "position-base",
+      "document-object"
+    ],
+    [
+      "position-base",
+      "object"
+    ],
+    [
+      "project-root",
+      "child-object"
+    ],
+    [
+      "project-root",
+      "document-object"
+    ],
+    [
+      "project-root",
+      "engine-state-base"
+    ],
+    [
+      "project-root",
+      "object"
+    ],
+    [
+      "property",
+      "named-base"
+    ],
+    [
+      "property",
+      "property-base"
+    ],
+    [
+      "property-base",
+      "named-base"
+    ],
+    [
+      "rectangle-base",
+      "child-object"
+    ],
+    [
+      "rectangle-base",
+      "device-base"
+    ],
+    [
+      "rectangle-base",
+      "document-object"
+    ],
+    [
+      "rectangle-base",
+      "module-base"
+    ],
+    [
+      "rectangle-base",
+      "object"
+    ],
+    [
+      "rectangle-base",
+      "position-base"
+    ],
+    [
+      "relationship",
+      "named-base"
+    ],
+    [
+      "relationship",
+      "property"
+    ],
+    [
+      "relationship",
+      "property-base"
+    ],
+    [
+      "remote-helper",
+      "child-object"
+    ],
+    [
+      "remote-helper",
+      "document-object"
+    ],
+    [
+      "remote-helper",
+      "object"
+    ],
+    [
+      "selection-base",
+      "child-object"
+    ],
+    [
+      "selection-base",
+      "document-object"
+    ],
+    [
+      "selection-base",
+      "object"
+    ],
+    [
+      "selection-state",
+      "child-object"
+    ],
+    [
+      "selection-state",
+      "document-object"
+    ],
+    [
+      "selection-state",
+      "object"
+    ],
+    [
+      "selection-state",
+      "selection-base"
+    ],
+    [
+      "source-atom",
+      "child-object"
+    ],
+    [
+      "source-atom",
+      "document-object"
+    ],
+    [
+      "source-atom",
+      "object"
+    ],
+    [
+      "source-atom",
+      "source-base"
+    ],
+    [
+      "source-atom",
+      "source-interface"
+    ],
+    [
+      "source-base",
+      "child-object"
+    ],
+    [
+      "source-base",
+      "document-object"
+    ],
+    [
+      "source-base",
+      "object"
+    ],
+    [
+      "source-base",
+      "source-interface"
+    ],
+    [
+      "source-interface",
+      "child-object"
+    ],
+    [
+      "value-base",
+      "child-object"
+    ],
+    [
+      "value-base",
+      "document-object"
+    ],
+    [
+      "value-base",
+      "object"
+    ]
+  ],
+  "distinct": [
+    [
+      "project-root",
+      "edit-document"
+    ]
+  ],
+  "writeAuthority": false
+}

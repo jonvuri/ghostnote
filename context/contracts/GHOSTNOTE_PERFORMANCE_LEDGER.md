@@ -949,3 +949,42 @@ Each item is a measured cost with a named cause. None needs a fix before 8i.
   values; no 8h4g change touches their stage.
 - `rename_track` reads the bank once to refuse a missing track (+1 call): the
   executor records the rename of a missing track as a failed op.
+
+## 9b.4 offline Grid symbol scan — model before implementation
+
+The scan reads the jar as data. It does not load vendor classes or use the
+bridge. Host calls, document tasks, native commands, and waits are zero.
+The output is a candidate table. It cannot authorize a live operation.
+
+Bound the input to 64 MiB compressed, 50,000 entries, 40,000 classes,
+128 MiB of class bytes, and 1 MiB per class. Read one class at a time.
+Retain metadata and normalized structural digests, not the complete jar or
+vendor method bodies. Bound members to 1,000,000 in total, inheritance to
+128 levels, and structural refinement to two passes. Use a 768 MiB process
+RSS refusal threshold and a 120-second scan deadline. Check both between
+classes and phases. These checks are refusal thresholds, not OS hard caps.
+A single bounded class parse can allocate before the next check.
+
+Cost includes one sequential jar read, one class parse per entry, and
+per-class member sorting. Type refinement uses two passes. Candidate search
+is indexed by type shape; each member search scans one bounded declaration.
+Call traces follow two edges at most, with 4,096 work units. Retain code for
+at most 256 classes. Operation-edge checks use the same bounded code cache. Index candidates
+by shape. Validation checks the resolved signatures, inheritance, use
+traces, and receiver roles. It does not run the required live invariants.
+Report fingerprint/hash time, enumeration/metadata time, candidate search,
+and validation separately. Report entry/class/member counts, default-package
+counts, input bytes, and peak process RSS. Measure one complete 6.0.6 scan;
+repeat only if a failure or implementation change requires another check.
+
+[E311](../evidence/experiments/e311-grid-offline-resolvers.md) measures the
+completed scan on the 34,686,665-byte 6.0.6 jar: 30,968 entries, 30,940 classes,
+454,111 members, and 69,199,765 uncompressed class bytes. The complete scan
+uses 4,509.769 ms: fingerprint 12.278 ms; enumeration and metadata 2,757.065 ms;
+type refinement 1,355.356 ms; candidate search 379.612 ms; validation 3.879 ms.
+These stage times exclude minor CLI overhead. Peak process RSS is 190,709,760
+bytes (181.875 MiB). Code is retained for 126 classes; call-trace work is 48.
+All 69 member rows and 55 type roles match the pinned oracle. This is one
+process sample after development scans, not a cold-disk benchmark or a stable
+latency bound. There is no comparable prior resolver measurement. Host-call
+budgets and live paths are unchanged.
