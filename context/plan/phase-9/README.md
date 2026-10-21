@@ -2,7 +2,7 @@
 title: Phase 9 — Overlap investigation
 kind: plan
 state: active
-status: The 6.0.6 doctor is complete (E316). Next is the general update audit, then 9b.6.
+status: E316 completes the 6.0.6 doctor. E330 accepts the normal-product update audit on 6.1.4, with cleanup and clean save complete. Next is 9b.6 offline discovery and doctor preparation.
 updated: 2026-10-21
 parent: ../ROADMAP.md
 prev: ../phase-8/README.md
@@ -44,14 +44,41 @@ Session 9b.3 and the bounded breadth investigation are complete.
 9b.4: all 69 manifest rows and 55 type dependencies resolve offline.
 [E316](../../evidence/experiments/e316-grid-doctor-606-acceptance.md)
 completes the 6.0.6 doctor with 76 roles, both Undo stages, final counters,
-and clean teardown. Start the
-[general update audit](9b-update-audit.md): implement its offline driver
-while the operator preserves 6.0.6 and installs 6.1.x. Run the normal-product
-checks, including Sampler, after the operator handoff. Then start
-[9b.6 on 6.1.x](9b-grid-breadth-discovery-and-build-out.md#session-9b6--doctor-on-61x).
+and clean teardown. The
+[general update audit](9b-update-audit.md) has an offline driver and passing
+checks ([E317](../../evidence/experiments/e317-update-audit-offline-preparation.md)).
+Use the [driver guide](9b-update-audit-driver.md) for the normal-product
+checks, including Sampler. [E318](../../evidence/experiments/e318-update-audit-614-deployment.md)
+records the 6.1.4 handoff and normal deployment. Hello passes after replacement.
+[E320](../../evidence/experiments/e320-update-audit-614-device-compatibility.md)
+records successful recovery, passed note/clip/mixer/control/structure cases,
+and two adapter corrections. Sampler stopped on a parameter-name mismatch.
+[E321](../../evidence/experiments/e321-update-audit-sampler-library-export.md)
+verifies the host export and tests the name fix. [E322](../../evidence/experiments/e322-update-audit-sampler-recovery.md)
+passes recovery and the corrected live identity check. [E324](../../evidence/experiments/e324-update-audit-sampler-case-pass.md)
+completes both Sampler export/reversal checks and the full fixture comparison.
+[E325](../../evidence/experiments/e325-update-audit-selection-write-pass.md)
+passes the selection write/reversal. Selection restoration passes.
+[E326](../../evidence/experiments/e326-update-audit-collapsed-group-pass.md)
+passes the collapsed-group case after a snapshot correction. Complete
+ungrouped fixture and selection restoration now pass.
+[E327](../../evidence/experiments/e327-update-audit-project-switch-pass.md)
+passes project return and a fresh mixer write/reversal. Original Sampler
+observations and saved-file capture now pass.
+[E328](../../evidence/experiments/e328-update-audit-reopen-pass.md) passes
+reopen file identity, full fixture equality, and fresh writes. The operator
+confirmed the after-reopen Sampler observations.
+[E329](../../evidence/experiments/e329-update-audit-listening-and-cleanup.md)
+passes listening, the final observation checkpoint, and live cleanup.
+[E330](../../evidence/experiments/e330-update-audit-614-acceptance.md) completes
+the clean save and accepts the tested normal-product scope. Next is
+[9b.6 on 6.1.x](9b-grid-breadth-discovery-and-build-out.md#session-9b6--doctor-on-61x),
+starting with offline jar discovery and a new first-attempt policy. General
+acceptance grants no native Grid write authority.
 
-The research probe remains deployed. V20 is loaded and verified. All scratch
-tracks are deleted; the reader and writer are released and unlocked. Full
-preserved-state and normalized E276 control checks pass. Public descriptions
+The normal archive is deployed and its loaded profile is verified on 6.1.4.
+E316 records the last verified V20 state on 6.0.6: all scratch tracks deleted,
+reader and writer released and unlocked, with full preserved-state and
+normalized E276 control checks passed. Public descriptions
 remain v52. Do not repeat the completed 9a audio flow. The former Phase 9
 publication and release plans are in [Phase 10](../phase-10/README.md).

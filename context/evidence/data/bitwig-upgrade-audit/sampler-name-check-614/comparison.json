@@ -1,0 +1,33 @@
+{
+  "routeComparisonPassed": true,
+  "resourceReferencesEqual": true,
+  "selection": {
+    "mixer": "gn-ua-0b6c3297-single",
+    "track": "Inst 1",
+    "slot": 0
+  },
+  "expectedSelection": {
+    "mixer": "Inst 1",
+    "track": "Inst 1",
+    "slot": 0
+  },
+  "devices": [
+    {
+      "devicePosition": 0,
+      "name": "Sampler",
+      "enabled": true
+    },
+    {
+      "devicePosition": 1,
+      "name": "Sampler",
+      "enabled": true
+    }
+  ],
+  "controlPositions": [
+    0,
+    1
+  ],
+  "originalControlsUnchanged": true,
+  "sameParameterValues": true,
+  "outsideInsertedSamplerUnchanged": true
+}

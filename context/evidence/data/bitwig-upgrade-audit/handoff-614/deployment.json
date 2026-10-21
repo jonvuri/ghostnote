@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-10-21T13:27:02.667477+00:00",
+  "appPath": "/Applications/Bitwig Studio.app",
+  "version": "6.1.4",
+  "jar": {
+    "path": "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar",
+    "bytes": 35778607,
+    "sha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+    "mtimeMs": 1790948299000.0
+  },
+  "builtArchive": {
+    "path": "extension/build/libs/ghostnote-0.0.1.bwextension",
+    "bytes": 846149,
+    "sha256": "25a5be4398f8825a7eabd2a541e49559ed60002f2d8d6b9db795f45664e4d9d2",
+    "mtimeMs": 1792557138890.9321
+  },
+  "deployedArchive": {
+    "path": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension",
+    "bytes": 846149,
+    "sha256": "25a5be4398f8825a7eabd2a541e49559ed60002f2d8d6b9db795f45664e4d9d2",
+    "mtimeMs": 1792589211890.2893
+  },
+  "controllerReplacementConfirmed": false,
+  "bridgeConnected": false,
+  "installedPlugin": "/Library/Audio/Plug-Ins/CLAP/u-he/Diva.clap"
+}

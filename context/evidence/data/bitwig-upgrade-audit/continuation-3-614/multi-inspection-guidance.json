@@ -1,0 +1,11 @@
+{
+  "status": "waiting-for-individual-resource-and-zone-observations",
+  "operatorReport": "Preset saved. ASM Chord C overview is visible, device makes noise when played, Inst 1 selection restored. Individual samples and zones not yet confirmed.",
+  "sourceGuides": [
+    "https://www.bitwig.com/userguide/latest/synth/",
+    "https://www.bitwig.com/userguide/latest/introduction_to_devices/"
+  ],
+  "instructions": "Open Expanded Device View using the outlined rectangle above Remote Controls. Choose All Zones. Select each zone in the list and check its waveform, sample name, and ranges. Restore selection, mixer baseline, and stopped transport before resuming.",
+  "driverResumed": false,
+  "terminalSessionId": 88497
+}

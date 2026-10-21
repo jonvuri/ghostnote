@@ -137,6 +137,7 @@ interface WireInventoryScope {
   status?: string;
   deviceExists?: boolean;
   deviceName?: string;
+  hasLayers?: boolean;
   hasSlots?: boolean;
   slotNames?: string[];
   chains?: WireInventoryChain[];
@@ -503,6 +504,8 @@ const PARAMETER_INVENTORY_ACQUISITIONS = 3;
 const PARAMETER_COHORT_POLLS = 4;
 /** 8i3: named-slot descents of one container scope read before it answers with the slots incomplete. */
 const CONTAINER_SLOT_DESCENTS = 2;
+/** Observe delayed enabled values without repeating the setter. */
+const DEVICE_ENABLED_READ_ATTEMPTS = 8;
 /**
  * 8h4e (E244): extra polls for the display text after the values are stable. The text arrives one turn after
  * the arm, so the normal case uses none of them.
@@ -2852,7 +2855,8 @@ export class LiveAdapter implements BitwigAdapter {
             && c.deviceCount <= deviceBank && (c.devices ?? []).length === c.deviceCount,
           ...(deviceBank === undefined ? {} : { devicesBankSize: deviceBank }),
         })),
-        chainsComplete: chainBank !== undefined && typeof scope.chainCount === 'number'
+        chainsComplete: scope.hasLayers === false ? chains.length === 0
+          : chainBank !== undefined && typeof scope.chainCount === 'number'
           && scope.chainCount <= chainBank && chains.length === scope.chainCount
           && chains.every((chain, index) => chain.index === index),
         // ⚠ Carried through so a guard can count a container it has no second
@@ -5822,6 +5826,7 @@ export class LiveAdapter implements BitwigAdapter {
         ? stage.ops[0]
         : undefined;
       let enabledBefore: WireDevice | undefined;
+      let enabledChainBefore: ChainSnapshot | undefined;
       if (enabledOp !== undefined) {
         const chain = await this.deviceChain(enabledOp.device.track);
         let names: readonly string[];
@@ -5845,6 +5850,7 @@ export class LiveAdapter implements BitwigAdapter {
           );
         }
         enabledBefore = found;
+        enabledChainBefore = chain;
         this.deviceNames.set(addressKey(enabledOp.device), found.name);
         this.deviceEnabledValues.set(addressKey(enabledOp.device), found.enabled);
         this.deviceChainNames.set(
@@ -6241,15 +6247,26 @@ export class LiveAdapter implements BitwigAdapter {
           receipts[receipts.length - 1] = { ...receipts[receipts.length - 1]!, ops };
         }
       }
-      if (enabledOp !== undefined && enabledBefore !== undefined
+      if (enabledOp !== undefined && enabledBefore !== undefined && enabledChainBefore !== undefined
           && receipts[receipts.length - 1]!.ops.every((entry) => entry.ok)) {
-        const after = await this.deviceChain(enabledOp.device.track);
-        const state = after?.devices.find((item) => item.index === enabledOp.device.chainIndex);
-        const sameStructure = after !== undefined && !after.blind
-          && after.devices.length > enabledOp.device.chainIndex
-          && state?.name === enabledBefore.name;
+        let state: WireDevice | undefined;
+        let sameStructure = false;
+        for (let attempt = 0; attempt < DEVICE_ENABLED_READ_ATTEMPTS; attempt++) {
+          if (attempt > 0) await this.settle('cursorPoint');
+          const after = await this.deviceChain(enabledOp.device.track);
+          state = after?.devices.find((item) => item.index === enabledOp.device.chainIndex);
+          sameStructure = after !== undefined && !after.blind
+            && typeof state?.enabled === 'boolean'
+            && after.devices.length === enabledChainBefore.devices.length
+            && after.devices.every((item, index) => {
+              const prior = enabledChainBefore!.devices[index]!;
+              return item.index === prior.index && item.name === prior.name
+                && (item.index === enabledOp.device.chainIndex || item.enabled === prior.enabled);
+            });
+          if (!sameStructure || state?.enabled === enabledOp.enabled) break;
+        }
         if (!sameStructure || state?.enabled !== enabledOp.enabled) {
-          const why = state === undefined
+          const why = !sameStructure ? 'device enabled readback chain changed or was incomplete' : state === undefined
             ? 'device enabled readback was missing'
             : `device enabled readback disagreed: requested ${enabledOp.enabled}, got ${state.enabled ?? 'unobserved'}`;
           const ops = receipts[receipts.length - 1]!.ops.map((entry) =>

@@ -1,0 +1,332 @@
+{
+  "compositionTargets": {
+    "polysynth-filter-frequency": {
+      "deviceName": "Polysynth",
+      "route": "CONTENTS/F1FREQ",
+      "parameterId": "CONTENTS/F1FREQ",
+      "parameterName": "Filter Frequency"
+    },
+    "polysynth-filter-resonance": {
+      "deviceName": "Polysynth",
+      "route": "CONTENTS/F1RESO",
+      "parameterId": "CONTENTS/F1RESO",
+      "parameterName": "Filter Resonance"
+    },
+    "sampler-amp-attack": {
+      "deviceName": "Sampler",
+      "route": "CONTENTS/AMP_ATTACK_TIME",
+      "parameterId": "CONTENTS/AMP_ATTACK_TIME",
+      "parameterName": "AEG Attack Time"
+    }
+  },
+  "retained": [
+    {
+      "name": "gn_sampler_bare.bwpreset",
+      "sha256": "118f7140cb9925ca18d9a21f027f168a0ba91af0aa0bcbe09a8f74af4986d3b1",
+      "inventory": {
+        "supported": true,
+        "fingerprint": {
+          "algorithm": "sha256",
+          "sha256": "118f7140cb9925ca18d9a21f027f168a0ba91af0aa0bcbe09a8f74af4986d3b1",
+          "byteLength": 9124
+        },
+        "host": {
+          "tier": "tier-2",
+          "format": "native",
+          "name": "Sampler",
+          "creator": "Bitwig"
+        },
+        "containerKind": null,
+        "entries": [],
+        "modulation": [
+          {
+            "location": {
+              "kind": "self"
+            },
+            "modulators": []
+          }
+        ],
+        "complete": true
+      }
+    },
+    {
+      "name": "gn_sampler_lfo_random.bwpreset",
+      "sha256": "daa302dc2f6c265e47642f03bab1bd2a44109e639ebfdf66fe478bcc3e50ece0",
+      "inventory": {
+        "supported": true,
+        "fingerprint": {
+          "algorithm": "sha256",
+          "sha256": "daa302dc2f6c265e47642f03bab1bd2a44109e639ebfdf66fe478bcc3e50ece0",
+          "byteLength": 10789
+        },
+        "host": {
+          "tier": "tier-2",
+          "format": "native",
+          "name": "Sampler",
+          "creator": "Bitwig"
+        },
+        "containerKind": null,
+        "entries": [],
+        "modulation": [
+          {
+            "location": {
+              "kind": "self"
+            },
+            "modulators": [
+              {
+                "position": 0,
+                "name": "LFO",
+                "category": "LFO",
+                "routes": [
+                  {
+                    "position": 0,
+                    "amount": 3.0600000000000014,
+                    "rangeLo": -3,
+                    "rangeHi": 1,
+                    "target": {
+                      "standing": "resolved",
+                      "parameter": {
+                        "parameterId": "CONTENTS/AMP_ATTACK_TIME",
+                        "parameterName": "AEG Attack Time"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "position": 1,
+                "name": "Random",
+                "category": "LFO",
+                "routes": [
+                  {
+                    "position": 0,
+                    "amount": 1.4000000000000008,
+                    "rangeLo": -3,
+                    "rangeHi": 1,
+                    "target": {
+                      "standing": "resolved",
+                      "parameter": {
+                        "parameterId": "CONTENTS/AMP_ATTACK_TIME",
+                        "parameterName": "AEG Attack Time"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "complete": true
+      }
+    },
+    {
+      "name": "gn_sampler_multi_bare.bwpreset",
+      "sha256": "d33bed32e991c7bf49b60e8918539bb26cd5fa1bc537da1d9b9d9e6d9559c6a5",
+      "inventory": {
+        "supported": true,
+        "fingerprint": {
+          "algorithm": "sha256",
+          "sha256": "d33bed32e991c7bf49b60e8918539bb26cd5fa1bc537da1d9b9d9e6d9559c6a5",
+          "byteLength": 10384
+        },
+        "host": {
+          "tier": "tier-2",
+          "format": "native",
+          "name": "Sampler",
+          "creator": "Bitwig"
+        },
+        "containerKind": null,
+        "entries": [],
+        "modulation": [
+          {
+            "location": {
+              "kind": "self"
+            },
+            "modulators": []
+          }
+        ],
+        "complete": true
+      }
+    },
+    {
+      "name": "gn_sampler_multi_one_lfo.bwpreset",
+      "sha256": "56879dee0a1eafbffd6c35c70e327e02eadba0a61be3ef901d2a05eac2712a42",
+      "inventory": {
+        "supported": true,
+        "fingerprint": {
+          "algorithm": "sha256",
+          "sha256": "56879dee0a1eafbffd6c35c70e327e02eadba0a61be3ef901d2a05eac2712a42",
+          "byteLength": 11264
+        },
+        "host": {
+          "tier": "tier-2",
+          "format": "native",
+          "name": "Sampler",
+          "creator": "Bitwig"
+        },
+        "containerKind": null,
+        "entries": [],
+        "modulation": [
+          {
+            "location": {
+              "kind": "self"
+            },
+            "modulators": [
+              {
+                "position": 0,
+                "name": "LFO",
+                "category": "LFO",
+                "routes": [
+                  {
+                    "position": 0,
+                    "amount": 1.5200000000000005,
+                    "rangeLo": -3,
+                    "rangeHi": 1,
+                    "target": {
+                      "standing": "resolved",
+                      "parameter": {
+                        "parameterId": "CONTENTS/AMP_ATTACK_TIME",
+                        "parameterName": "AEG Attack Time"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "complete": true
+      }
+    },
+    {
+      "name": "gn_sampler_no_sample.bwpreset",
+      "sha256": "0e12eecd608fb4bdb8bb72a47f0300a408492908fff64b8b2f93b9242f5f7733",
+      "inventory": {
+        "supported": true,
+        "fingerprint": {
+          "algorithm": "sha256",
+          "sha256": "0e12eecd608fb4bdb8bb72a47f0300a408492908fff64b8b2f93b9242f5f7733",
+          "byteLength": 8333
+        },
+        "host": {
+          "tier": "tier-1",
+          "format": "native",
+          "name": "Sampler",
+          "creator": "Bitwig"
+        },
+        "containerKind": null,
+        "entries": [],
+        "modulation": [
+          {
+            "location": {
+              "kind": "self"
+            },
+            "modulators": []
+          }
+        ],
+        "complete": true
+      }
+    },
+    {
+      "name": "gn_sampler_one_lfo.bwpreset",
+      "sha256": "13f86029971163a15086a150a72efa2209669cafa323883722714670d08deee4",
+      "inventory": {
+        "supported": true,
+        "fingerprint": {
+          "algorithm": "sha256",
+          "sha256": "13f86029971163a15086a150a72efa2209669cafa323883722714670d08deee4",
+          "byteLength": 10004
+        },
+        "host": {
+          "tier": "tier-2",
+          "format": "native",
+          "name": "Sampler",
+          "creator": "Bitwig"
+        },
+        "containerKind": null,
+        "entries": [],
+        "modulation": [
+          {
+            "location": {
+              "kind": "self"
+            },
+            "modulators": [
+              {
+                "position": 0,
+                "name": "LFO",
+                "category": "LFO",
+                "routes": [
+                  {
+                    "position": 0,
+                    "amount": 3.0600000000000014,
+                    "rangeLo": -3,
+                    "rangeHi": 1,
+                    "target": {
+                      "standing": "resolved",
+                      "parameter": {
+                        "parameterId": "CONTENTS/AMP_ATTACK_TIME",
+                        "parameterName": "AEG Attack Time"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "complete": true
+      }
+    },
+    {
+      "name": "gn_sampler_one_random.bwpreset",
+      "sha256": "a49a56a6f5e2b4a42b19c88c20aba7375cceceef370fe3f988451165e833749d",
+      "inventory": {
+        "supported": true,
+        "fingerprint": {
+          "algorithm": "sha256",
+          "sha256": "a49a56a6f5e2b4a42b19c88c20aba7375cceceef370fe3f988451165e833749d",
+          "byteLength": 9912
+        },
+        "host": {
+          "tier": "tier-2",
+          "format": "native",
+          "name": "Sampler",
+          "creator": "Bitwig"
+        },
+        "containerKind": null,
+        "entries": [],
+        "modulation": [
+          {
+            "location": {
+              "kind": "self"
+            },
+            "modulators": [
+              {
+                "position": 0,
+                "name": "Random",
+                "category": "LFO",
+                "routes": [
+                  {
+                    "position": 0,
+                    "amount": 1.4000000000000006,
+                    "rangeLo": -3,
+                    "rangeHi": 1,
+                    "target": {
+                      "standing": "resolved",
+                      "parameter": {
+                        "parameterId": "CONTENTS/AMP_ATTACK_TIME",
+                        "parameterName": "AEG Attack Time"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "complete": true
+      }
+    }
+  ],
+  "scope": "Repository Sampler presets and named composition targets. This is not a host parameter inventory."
+}

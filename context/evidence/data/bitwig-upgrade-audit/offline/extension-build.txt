@@ -1,0 +1,61 @@
+Starting a Gradle Daemon (subsequent builds will be faster)
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :normalRuntimeProfileResource UP-TO-DATE
+> Task :jar UP-TO-DATE
+> Task :assemble UP-TO-DATE
+> Task :compileHarnessTestJava UP-TO-DATE
+> Task :processHarnessTestResources UP-TO-DATE
+> Task :harnessTestClasses UP-TO-DATE
+
+> Task :clipReaderTest
+ok - one batch and the exists task close the read
+ok - an empty clip closes on the exists task
+ok - callbacks after the close are counted and do not change the copy
+ok - release callbacks have state counters and cannot change the close copy
+ok - synthetic faults and research routes require the research profile
+ok - the open task subscribes before it removes the pins (E232)
+ok - the bind task selects the row at park, then points (E228)
+ok - a read expands collapsed parents at park and collapses them before the restore (E240)
+ok - the group point route unpins, finds the parents, binds, then pins (8h4a5)
+ok - a same-type device settles on name and value callbacks under its own target (E243)
+ok - display text counts only under the armed stamp; the CLAP callback form maps to the listed ID (E244)
+ok - a second callback for one cell is a duplicate
+ok - sounding cells past the limit stop decoding and mark the capture (8h4c2)
+ok - a false clipExists value is no start signal
+ok - the notes-v1 frame matches the wire golden
+ok - frame encodings: const, dict u8/u16, raw f64/i32, and pages
+ok - reads run at once; writes wait behind an open read in FIFO order
+ok - a clip read waits for a write lease and for earlier entries
+ok - a full queue refuses before the request runs
+ok - every method has a gate class; undo, redo, actions, and unknown methods are writes
+Clip reader: 20 test groups passed.
+
+> Task :gridReadTest
+Breadth: typed fixtures, command order, independent pairs, identity limits, failure locks, and late return pass.
+Grid exploration: schema isolation, bounded paths, projections, and query controls pass.
+Detached factory: ownership bounds, failures, cleanup, and late completion pass.
+Attachment: edit failures, partial insertion, readback, layout, limits, and late completion pass.
+Engine operator gates, lifetime, sequence, and graph checks pass.
+Survey target validation, repeated sessions, stale targets, exclusion, and timeout lock pass.
+Grid read: bounds, completeness, identity, fresh reads, async outcomes, and profile checks pass.
+
+> Task :captureRuntimeProfileResource UP-TO-DATE
+> Task :captureJar UP-TO-DATE
+> Task :probeRuntimeProfileResource UP-TO-DATE
+> Task :probeJar UP-TO-DATE
+> Task :compileTestJava NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+
+> Task :verifyExtensionArchives
+Extension archive registrations and runtime profiles agree.
+
+> Task :check
+> Task :build
+
+BUILD SUCCESSFUL in 2s
+13 actionable tasks: 3 executed, 10 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.6.1/userguide/configuration_cache_enabling.html

@@ -2,7 +2,7 @@
 title: Phase 9b — Grid breadth, build discovery, and build-out planning
 kind: plan
 state: active
-status: E316 completes the 6.0.6 doctor. Next is the general update audit, then 9b.6.
+status: E316 completes the 6.0.6 doctor. E330 accepts the normal-product update audit on 6.1.4. Next is 9b.6 offline discovery and doctor preparation.
 updated: 2026-10-21
 parent: README.md
 prev: 9a-live-grid-editing-spike.md
@@ -148,9 +148,10 @@ Sessions:
   per fingerprint, no retry on uncertainty, engine state recorded but not
   required, "save first; a failed check can need a Bitwig restart" in the
   consent text.
-- **General update audit.** Follow the [audit plan](9b-update-audit.md).
-  Prepare the driver while the operator backs up 6.0.6 and installs 6.1.x.
-  Complete normal-product and Sampler checks before 9b.6.
+- **General update audit.** Complete on 6.1.4 in
+  [E330](../../evidence/experiments/e330-update-audit-614-acceptance.md).
+  The [audit plan](9b-update-audit.md) covers the preserved 6.0.6 install,
+  normal-product and Sampler checks, persistence, and clean teardown.
 - **9b.6 — Live doctor on 6.1.x.** After the general update audit,
   with 6.0.6 copied aside. Record which symbols moved and whether any logic
   moved. Step 2 cannot close without this session.
@@ -921,6 +922,12 @@ repeat the completed 9a audio flow or unrelated breadth writes.
 
 
 ## Session 9b.6 — Doctor on 6.1.x
+
+**Entry ready.** [E330](../../evidence/experiments/e330-update-audit-614-acceptance.md)
+accepts the normal-product audit on 6.1.4 and records the jar fingerprint,
+normal deployment, cleanup, and clean save. Start with offline discovery.
+This acceptance does not grant native write authority or replace the fresh
+scratch consent in step 4.
 
 **Source.** Read [E316](../../evidence/experiments/e316-grid-doctor-606-acceptance.md),
 E315's Undo caller trace, the symbol manifest, E311's resolver instructions,

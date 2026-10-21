@@ -1,0 +1,64 @@
+[
+  {
+    "devicePosition": 0,
+    "name": "FX Layer",
+    "enabled": true,
+    "container": {
+      "containerKind": "FX Layer",
+      "layerChains": [
+        {
+          "position": 0,
+          "name": "A",
+          "solo": false,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": {
+            "red": 0,
+            "green": 0.616,
+            "blue": 0.267
+          },
+          "devices": [
+            {
+              "devicePosition": 0,
+              "name": "Polysynth"
+            },
+            {
+              "devicePosition": 1,
+              "name": "Delay+"
+            }
+          ],
+          "devicesComplete": true,
+          "deviceCapacity": 4
+        },
+        {
+          "position": 1,
+          "name": "B",
+          "solo": false,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": {
+            "red": 0,
+            "green": 0.616,
+            "blue": 0.267
+          },
+          "devices": [
+            {
+              "devicePosition": 0,
+              "name": "Tool"
+            },
+            {
+              "devicePosition": 1,
+              "name": "Delay+"
+            }
+          ],
+          "devicesComplete": true,
+          "deviceCapacity": 4
+        }
+      ],
+      "complete": true,
+      "capacity": 5
+    }
+  }
+]

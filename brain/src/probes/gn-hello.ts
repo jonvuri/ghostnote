@@ -72,7 +72,7 @@ const hello = (await client.request('contract.hello')) as {
 };
 note(`contract.hello -> ${JSON.stringify(hello)}`);
 check('contract version is v0', hello.contractVersion === 0, hello);
-check('host API version is 25 (Bitwig 6.0.6)', hello.hostApiVersion === 25, hello);
+check('host API version matches the compiled extension API (25)', hello.hostApiVersion === 25, hello);
 
 const goldenFiles: Record<string, string> = {
   'normal-v1': 'methods.golden.json',

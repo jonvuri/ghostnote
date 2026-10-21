@@ -1,0 +1,525 @@
+{
+  "commandId": "3eb38e1d-42bc-4196-b221-c9c2b33d5c80",
+  "cleanedAt": 1792620714611,
+  "entry": {
+    "project": "gn-upgrade-audit",
+    "scenes": 8,
+    "selection": {
+      "mixer": "Inst 1",
+      "track": "Inst 1",
+      "slot": 0
+    },
+    "tracks": [
+      {
+        "id": "13283095-956c-40f2-a077-46c56d33d0ce",
+        "index": 0,
+        "name": "Inst 1",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.6812920690579614,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": false
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "88a46256-90da-4f17-ae16-215691733ca2",
+        "index": 1,
+        "name": "Audio 2",
+        "type": "Audio",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.6812920690579614,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": false
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "a1f126c2-a7cc-443c-8bfb-350823c52aa2",
+        "index": 2,
+        "name": "FX 1",
+        "type": "Effect",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 1,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "83f918dd-8eae-47e2-900d-61f7e92d75d7",
+        "index": 3,
+        "name": "Master",
+        "type": "Master",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 1,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [],
+        "devices": [],
+        "controls": []
+      }
+    ]
+  },
+  "after": {
+    "project": "gn-upgrade-audit",
+    "scenes": 8,
+    "selection": {
+      "mixer": "Inst 1",
+      "track": "Inst 1",
+      "slot": 0
+    },
+    "tracks": [
+      {
+        "id": "13283095-956c-40f2-a077-46c56d33d0ce",
+        "index": 0,
+        "name": "Inst 1",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.6812920690579614,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": false
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "88a46256-90da-4f17-ae16-215691733ca2",
+        "index": 1,
+        "name": "Audio 2",
+        "type": "Audio",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.6812920690579614,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": false
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "a1f126c2-a7cc-443c-8bfb-350823c52aa2",
+        "index": 2,
+        "name": "FX 1",
+        "type": "Effect",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 1,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "83f918dd-8eae-47e2-900d-61f7e92d75d7",
+        "index": 3,
+        "name": "Master",
+        "type": "Master",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 1,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [],
+        "devices": [],
+        "controls": []
+      }
+    ]
+  },
+  "ownedTracksRemaining": 0,
+  "preservedBaselineEqual": true,
+  "costs": [
+    {
+      "tool": "delete_track",
+      "elapsedMs": 550.0371249999989,
+      "logicalCalls": 28,
+      "wireTurns": 15,
+      "result": {
+        "schema": "ghostnote-track-delete/1",
+        "applied": true,
+        "effects": [
+          {
+            "changeId": "09084111-cd31-43d5-8d13-b0dd59733e77",
+            "target": {
+              "trackIds": [
+                "934a7d7d-fb8d-44a2-88f7-0f757a6a7c6a"
+              ]
+            },
+            "summary": "Deleted 1 track(s).",
+            "fidelity": "none"
+          }
+        ],
+        "readback": {
+          "status": "verified",
+          "removed": [
+            "934a7d7d-fb8d-44a2-88f7-0f757a6a7c6a"
+          ]
+        },
+        "warnings": [
+          {
+            "code": "not-reversible",
+            "message": "revert_change cannot put a deleted track back."
+          }
+        ],
+        "target": {
+          "trackIds": [
+            "934a7d7d-fb8d-44a2-88f7-0f757a6a7c6a"
+          ]
+        }
+      }
+    },
+    {
+      "tool": "delete_track",
+      "elapsedMs": 544.0421660000011,
+      "logicalCalls": 28,
+      "wireTurns": 15,
+      "result": {
+        "schema": "ghostnote-track-delete/1",
+        "applied": true,
+        "effects": [
+          {
+            "changeId": "fe7417b0-4bd2-4589-8847-0ba848b4d308",
+            "target": {
+              "trackIds": [
+                "5e275187-467c-43cc-a7c8-f591b0eab039"
+              ]
+            },
+            "summary": "Deleted 1 track(s).",
+            "fidelity": "none"
+          }
+        ],
+        "readback": {
+          "status": "verified",
+          "removed": [
+            "5e275187-467c-43cc-a7c8-f591b0eab039"
+          ]
+        },
+        "warnings": [
+          {
+            "code": "not-reversible",
+            "message": "revert_change cannot put a deleted track back."
+          }
+        ],
+        "target": {
+          "trackIds": [
+            "5e275187-467c-43cc-a7c8-f591b0eab039"
+          ]
+        }
+      }
+    },
+    {
+      "tool": "delete_track",
+      "elapsedMs": 584.3031250000004,
+      "logicalCalls": 29,
+      "wireTurns": 16,
+      "result": {
+        "schema": "ghostnote-track-delete/1",
+        "applied": true,
+        "effects": [
+          {
+            "changeId": "53329f7f-57cd-46b8-a86b-119f8c4faca9",
+            "target": {
+              "trackIds": [
+                "3e0caeae-c9f3-4712-a1b3-c72874b50587"
+              ]
+            },
+            "summary": "Deleted 1 track(s).",
+            "fidelity": "none"
+          }
+        ],
+        "readback": {
+          "status": "verified",
+          "removed": [
+            "3e0caeae-c9f3-4712-a1b3-c72874b50587"
+          ]
+        },
+        "warnings": [
+          {
+            "code": "not-reversible",
+            "message": "revert_change cannot put a deleted track back."
+          }
+        ],
+        "target": {
+          "trackIds": [
+            "3e0caeae-c9f3-4712-a1b3-c72874b50587"
+          ]
+        }
+      }
+    },
+    {
+      "tool": "delete_track",
+      "elapsedMs": 599.0984580000004,
+      "logicalCalls": 29,
+      "wireTurns": 16,
+      "result": {
+        "schema": "ghostnote-track-delete/1",
+        "applied": true,
+        "effects": [
+          {
+            "changeId": "69e29498-eef7-4f2a-b49a-cf3ed9e8f7f1",
+            "target": {
+              "trackIds": [
+                "7e6356c8-af6c-463e-8095-a29244835daf"
+              ]
+            },
+            "summary": "Deleted 1 track(s).",
+            "fidelity": "none"
+          }
+        ],
+        "readback": {
+          "status": "verified",
+          "removed": [
+            "7e6356c8-af6c-463e-8095-a29244835daf"
+          ]
+        },
+        "warnings": [
+          {
+            "code": "not-reversible",
+            "message": "revert_change cannot put a deleted track back."
+          }
+        ],
+        "target": {
+          "trackIds": [
+            "7e6356c8-af6c-463e-8095-a29244835daf"
+          ]
+        }
+      }
+    },
+    {
+      "tool": "delete_track",
+      "elapsedMs": 602.8209999999999,
+      "logicalCalls": 29,
+      "wireTurns": 16,
+      "result": {
+        "schema": "ghostnote-track-delete/1",
+        "applied": true,
+        "effects": [
+          {
+            "changeId": "8b431201-5298-4d07-b91e-82452f3b6b78",
+            "target": {
+              "trackIds": [
+                "861a3fc4-f0db-4c18-9d51-77243f7db6c1"
+              ]
+            },
+            "summary": "Deleted 1 track(s).",
+            "fidelity": "none"
+          }
+        ],
+        "readback": {
+          "status": "verified",
+          "removed": [
+            "861a3fc4-f0db-4c18-9d51-77243f7db6c1"
+          ]
+        },
+        "warnings": [
+          {
+            "code": "not-reversible",
+            "message": "revert_change cannot put a deleted track back."
+          }
+        ],
+        "target": {
+          "trackIds": [
+            "861a3fc4-f0db-4c18-9d51-77243f7db6c1"
+          ]
+        }
+      }
+    },
+    {
+      "tool": "delete_track",
+      "elapsedMs": 548.5003339999985,
+      "logicalCalls": 28,
+      "wireTurns": 15,
+      "result": {
+        "schema": "ghostnote-track-delete/1",
+        "applied": true,
+        "effects": [
+          {
+            "changeId": "70c97591-6d06-4641-aa59-fa071f9969df",
+            "target": {
+              "trackIds": [
+                "0005f25f-b4c2-4199-83a4-101f09b1def9"
+              ]
+            },
+            "summary": "Deleted 1 track(s).",
+            "fidelity": "none"
+          }
+        ],
+        "readback": {
+          "status": "verified",
+          "removed": [
+            "0005f25f-b4c2-4199-83a4-101f09b1def9"
+          ]
+        },
+        "warnings": [
+          {
+            "code": "not-reversible",
+            "message": "revert_change cannot put a deleted track back."
+          }
+        ],
+        "target": {
+          "trackIds": [
+            "0005f25f-b4c2-4199-83a4-101f09b1def9"
+          ]
+        }
+      }
+    }
+  ],
+  "pending": "Operator save of the clean working project; report and section 3 acceptance follow."
+}

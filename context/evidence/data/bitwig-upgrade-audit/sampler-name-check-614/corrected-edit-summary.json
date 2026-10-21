@@ -1,0 +1,43 @@
+{
+  "commandId": "7e46a0eb-7916-463d-8d40-3fdc7144c387",
+  "elapsedMs": 2266.7515840000015,
+  "brainCpuMs": 45.504,
+  "turns": 57,
+  "wireMs": 1309,
+  "methods": {
+    "selection.status": 7,
+    "slot.status": 4,
+    "track.list": 9,
+    "cursor.pointTrack": 5,
+    "device.list": 11,
+    "slot.select": 4,
+    "revision.get": 7,
+    "batch.run": 1,
+    "cursor.pin": 8,
+    "devcursor.pin": 4,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 2,
+    "remote.list": 3,
+    "directparam.list": 3,
+    "param.list": 1
+  },
+  "clipReads": 0,
+  "stages": 1,
+  "verified": {
+    "passed": true,
+    "insertedHost": true,
+    "pages": true,
+    "behaviors": [
+      {
+        "passed": true
+      }
+    ]
+  },
+  "change": {
+    "changeId": "013138fb-37e2-4d99-a03f-94722abc6057",
+    "applied": true,
+    "places": [],
+    "canBeUndone": true,
+    "cannotBeUndone": []
+  }
+}

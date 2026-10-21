@@ -48,6 +48,8 @@ export interface ModulatorParameterWitness {
   readonly parameterId: string;
   /** Exact name returned with `parameterId` in the same stable inventory. */
   readonly parameterName: string;
+  /** Internal named recipes can admit measured host labels. Explicit targets stay exact. */
+  readonly parameterNameAliases?: readonly string[];
   readonly samples?: number;
   readonly sampleIntervalMs?: number;
   /** Complete-inventory attempts after a new preset load. */
@@ -720,7 +722,8 @@ export async function verifyModulations(
   const sampleSelectors: (ParamAddress | RemoteAddress | undefined)[] = [...selectors];
   const failures: (string | undefined)[] = witnesses.map((witness, index) => {
     const selected = originals[index];
-    if (selected?.name === witness.parameterName) return undefined;
+    if (selected !== undefined && (selected.name === witness.parameterName
+        || witness.parameterNameAliases?.includes(selected.name))) return undefined;
     return `DirectParameter id ${JSON.stringify(witness.parameterId)} has name `
       + `${JSON.stringify(selected?.name ?? 'missing')}, not ${JSON.stringify(witness.parameterName)}`;
   });
@@ -764,7 +767,7 @@ export async function verifyModulations(
       const value = remoteResult.value.entries[addressKey(inventoryAddress)]?.value;
       const pages = value?.of === 'remotes' ? value.remotes.pages : [];
       for (const index of fallbackIndices) {
-        const name = witnesses[index]!.parameterName;
+        const name = originals[index]!.name;
         const matches = pages.flatMap((page) => page.controls
           .filter((control) => control.name === name)
           .map((control) => remote(device, page.index, page.name, control.index, control.name)));
@@ -806,7 +809,7 @@ export async function verifyModulations(
             } };
           }
           const name = value.of === 'param' ? value.param.name : value.remote.name;
-          if (name !== witness.parameterName) {
+          if (name !== originals[index]!.name) {
             return { complete: false as const, progress: {
               stage: 'behavior-samples',
               detail: `sample ${round + 1} changed name to ${JSON.stringify(name)}`,

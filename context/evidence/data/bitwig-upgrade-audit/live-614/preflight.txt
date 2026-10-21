@@ -1,0 +1,3 @@
+
+> ghostnote-brain@0.0.1 probe:upgrade-audit
+> tsx src/probes/bitwig-upgrade-audit.ts preflight /Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/preparation /Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/preparation/config.json

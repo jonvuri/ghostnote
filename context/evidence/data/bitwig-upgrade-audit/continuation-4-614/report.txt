@@ -1,0 +1,9 @@
+{
+  "status": "live-matrix-complete",
+  "missing": [],
+  "failure": null,
+  "active": null,
+  "pending": null,
+  "cleaned": true,
+  "note": "Section 3 still records exact-build release notes and comparable performance results."
+}

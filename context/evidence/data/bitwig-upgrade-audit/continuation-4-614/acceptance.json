@@ -1,0 +1,218 @@
+{
+  "schema": "ghostnote-upgrade-audit-acceptance/1",
+  "status": "accepted-for-tested-normal-product-scope",
+  "record": "E330",
+  "acceptedAt": "2026-10-21T22:16:40.160Z",
+  "version": "6.1.4",
+  "driverReport": {
+    "status": "live-matrix-complete",
+    "missing": [],
+    "failure": null,
+    "active": null,
+    "pending": null,
+    "cleaned": true,
+    "note": "Section 3 still records exact-build release notes and comparable performance results."
+  },
+  "matrix": [
+    {
+      "boundary": "startup-discovery",
+      "status": "pass",
+      "evidence": [
+        {
+          "path": "continuation-4-614/cleanup-saved.json",
+          "sha256": "2c49f2ea11404e64086d283c5dc9bac2070e76f776dd3dfc42c729623b9ff7f5"
+        },
+        {
+          "path": "handoff-614/deployment.json",
+          "sha256": "8d9d8fd310dd06c9b128172d4b8be917f778934a1f65147495970ff6bc1fba06"
+        }
+      ]
+    },
+    {
+      "boundary": "notes-documents",
+      "status": "pass",
+      "evidence": [
+        {
+          "path": "attempt-2-614/notes.json",
+          "sha256": "cef4309078dd31488e11fcca2f8b0174b953e96c0c14e55e5e25af4c49eec38a"
+        }
+      ]
+    },
+    {
+      "boundary": "clip-track-structure",
+      "status": "pass",
+      "evidence": [
+        {
+          "path": "attempt-2-614/clips.json",
+          "sha256": "cef4309078dd31488e11fcca2f8b0174b953e96c0c14e55e5e25af4c49eec38a"
+        }
+      ]
+    },
+    {
+      "boundary": "mixer-selection",
+      "status": "pass",
+      "evidence": [
+        {
+          "path": "attempt-2-614/mixer.json",
+          "sha256": "cef4309078dd31488e11fcca2f8b0174b953e96c0c14e55e5e25af4c49eec38a"
+        },
+        {
+          "path": "continuation-3-614/selection-restored.json",
+          "sha256": "ff23bfd2091d053c7cfe8add0f474c82d40f7eaa74586baaa8f4e913fd11cb87"
+        },
+        {
+          "path": "continuation-4-614/group-result-summary.json",
+          "sha256": "9cd36411f2f11b6c847cd04e28e09bfc5b5a85c54f9ec5e1fdbf57ff5e8abc8c"
+        },
+        {
+          "path": "continuation-4-614/group-restored.json",
+          "sha256": "68eb594d844ff594e887679bac636427289e535ed89c81bf37a2ceb55613c45d"
+        }
+      ]
+    },
+    {
+      "boundary": "device-controls",
+      "status": "pass",
+      "evidence": [
+        {
+          "path": "continuation-614/controls.json",
+          "sha256": "cef4309078dd31488e11fcca2f8b0174b953e96c0c14e55e5e25af4c49eec38a"
+        }
+      ]
+    },
+    {
+      "boundary": "device-structure",
+      "status": "pass",
+      "evidence": [
+        {
+          "path": "continuation-2-614/structure.json",
+          "sha256": "cef4309078dd31488e11fcca2f8b0174b953e96c0c14e55e5e25af4c49eec38a"
+        }
+      ]
+    },
+    {
+      "boundary": "presets-modulation",
+      "status": "pass",
+      "evidence": [
+        {
+          "path": "continuation-3-614/sampler.json",
+          "sha256": "cef4309078dd31488e11fcca2f8b0174b953e96c0c14e55e5e25af4c49eec38a"
+        },
+        {
+          "path": "continuation-3-614/sampler-case-summary.json",
+          "sha256": "8c8e1427ce1269c8ef42439338e2f8dc6616da35b93120577a964ab44dcdb9c7"
+        },
+        {
+          "path": "continuation-4-614/sampler-observation-input.json",
+          "sha256": "e0bfe978d3f9a47dffff2cf080718e3fa6c80204330b28792b4027dec520d101"
+        },
+        {
+          "path": "continuation-4-614/removed-target-evidence.json",
+          "sha256": "a3d11199a74b710ac2fe8253660af9096ea8cc8fb5da9f0bbad860b383faf146"
+        }
+      ]
+    },
+    {
+      "boundary": "freshness-lifecycle",
+      "status": "pass",
+      "evidence": [
+        {
+          "path": "attempt-2-614/notes.json",
+          "sha256": "cef4309078dd31488e11fcca2f8b0174b953e96c0c14e55e5e25af4c49eec38a"
+        },
+        {
+          "path": "continuation-4-614/switch-result-summary.json",
+          "sha256": "ade5e6afc5ff81a7e1e15c548436132136af552d436518beaf2e29eba273aa87"
+        }
+      ]
+    },
+    {
+      "boundary": "persistence-playback",
+      "status": "pass",
+      "evidence": [
+        {
+          "path": "continuation-4-614/reopen-result-summary.json",
+          "sha256": "dcce7d3c1b76e6c107b16f194154ddfcaba1380e59b98192f57d8f7a192c606b"
+        },
+        {
+          "path": "continuation-4-614/sampler-listening-operator.json",
+          "sha256": "31d70665d141e0c7606c4d4bc70313df2e595b0eaa596f99a90764ae9212e0cc"
+        },
+        {
+          "path": "continuation-4-614/sampler-observation.json",
+          "sha256": "44ab64e1efb20699d530919223bccd505e6ad55d28a51f3725af9b1890cec190"
+        }
+      ]
+    },
+    {
+      "boundary": "cleanup",
+      "status": "pass",
+      "evidence": [
+        {
+          "path": "continuation-4-614/cleanup.json",
+          "sha256": "685d011c7c44e7135ca7f826f0cc898f0480df2e6d6ee6cc8a6f99a58a1d9849"
+        },
+        {
+          "path": "continuation-4-614/cleanup-saved.json",
+          "sha256": "2c49f2ea11404e64086d283c5dc9bac2070e76f776dd3dfc42c729623b9ff7f5"
+        },
+        {
+          "path": "continuation-4-614/clean-saved-file.json",
+          "sha256": "437bdd3698dd2870a2bf2eb2657cb1542d1b42817ff3cab8eb3474f55e68a1d3"
+        }
+      ]
+    }
+  ],
+  "identity": {
+    "appPath": "/Applications/Bitwig Studio.app",
+    "jarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+    "archiveSha256": "25a5be4398f8825a7eabd2a541e49559ed60002f2d8d6b9db795f45664e4d9d2",
+    "profile": "normal-v1",
+    "methods": 92,
+    "methodsHash": "8be1975eaa99d78f",
+    "host": {
+      "hostApiVersion": 25,
+      "hostProduct": "Bitwig Studio",
+      "hostVendor": "Bitwig",
+      "hostVersion": "6.1.4",
+      "javaVersion": "25.0.4.1",
+      "javaVendor": "Azul Systems, Inc."
+    },
+    "initialization": 1792589476452
+  },
+  "cleanFile": {
+    "path": "/Users/jonvuri/Bitwig Upgrade Work/2026-10-21/gn-upgrade-audit/gn-upgrade-audit.bwproject",
+    "sha256": "573084e28ef7e241e3d52fd24265b1302d6f8cc22695270e3d11386e80d4398f",
+    "observedAt": "2026-10-21T22:16:40.160Z",
+    "byteLength": 34259
+  },
+  "preservedPersistenceFile": {
+    "path": "/Users/jonvuri/Bitwig Upgrade Work/2026-10-21/gn-upgrade-audit/gn-upgrade-audit.bwproject",
+    "sha256": "b01ba21f2f2a6d790fddbc9663a278721d23d14935a4dc067f76e4bdf809970b",
+    "byteLength": 72901,
+    "copy": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-4-614/saved-project.bwproject"
+  },
+  "finalTracks": [
+    "Inst 1",
+    "Audio 2",
+    "FX 1",
+    "Master"
+  ],
+  "finalSelection": {
+    "mixer": "Inst 1",
+    "track": "Inst 1",
+    "slot": 0
+  },
+  "ownedCount": 0,
+  "inheritedProofCount": 20,
+  "limitations": [
+    "Only the tested normal-product paths and fixtures are accepted. Native Grid requires the separate 9b.6 doctor.",
+    "Removed target migration/rejection is not tested; source routes are absent and inspected host inventory names are absent.",
+    "Multi preset was a bit quiet; no loudness or audio-latency measurement was made.",
+    "Collapsed versus ungrouped timing differs by more than 20 percent on different cursor paths; no matched version performance verdict or capacity claim.",
+    "Final clean save is confirmed by the operator, live baseline, file modification time, and changed file hash. The clean saved file was not reopened a second time.",
+    "Original-project missing-asset checks were not exhaustive.",
+    "Exclusive engine activation is operator-confirmed, not independently measured."
+  ],
+  "nextSession": "9b.6: offline jar discovery, pinned driver adaptation, fresh first-attempt policy; separate deployment and operator scratch consent before live doctor."
+}

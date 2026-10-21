@@ -1,0 +1,155 @@
+{
+  "singleHostExport": {
+    "path": "/Users/jonvuri/Bitwig Upgrade Work/2026-10-21/gn-ua-0b6c3297-single-edited.bwpreset",
+    "copy": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-3-614/sampler-single-host-export.bwpreset",
+    "sha256": "0fb789227b67543fa6650ccc02e4c6b3f123894046aeb630e934d469c2ad496e",
+    "meta": {
+      "application_version_name": "6.1.4",
+      "branch": "releases",
+      "comment": "",
+      "creator": "jrajav",
+      "device_category": "Synth",
+      "device_creator": "Bitwig",
+      "device_id": "468bc14b-b2e7-45a1-9666-e83117fe404e",
+      "device_name": "Sampler",
+      "device_type": "note_to_audio",
+      "preset_category": "",
+      "referenced_device_ids": [
+        "468bc14b-b2e7-45a1-9666-e83117fe404e"
+      ],
+      "referenced_modulator_ids": [
+        "ad947004-f1d3-40a1-bd15-3ec721ee7c65"
+      ],
+      "referenced_module_ids": [],
+      "referenced_packaged_file_ids": [
+        "Bitwig/Crossfading Synths:3/samples/7 Reso Chime.aiff"
+      ],
+      "revision_id": "ec15d6fed6aedb20bbe2eb320ff1d95a3484b42e",
+      "revision_no": 164112,
+      "tags": "",
+      "type": "application/bitwig-preset"
+    },
+    "operator": {
+      "operator": "jonvuri",
+      "resourcesResolved": true,
+      "zonesChecked": true,
+      "details": "Operator confirms 7 Reso Chime.aiff, Single mode, loaded waveform, and no missing-sample warning. This is one sample; no multisample-zone claim. Both Inst 1 mixer header and first empty Launcher cell restored; transport stopped.",
+      "selectionRestored": true
+    }
+  },
+  "writes": [
+    {
+      "tool": "edit_preset_modulation",
+      "args": {
+        "trackId": "5e275187-467c-43cc-a7c8-f591b0eab039",
+        "presetPath": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/attempt-2-614/fixtures/gn_sampler_one_lfo.bwpreset",
+        "fingerprint": {
+          "algorithm": "sha256",
+          "sha256": "13f86029971163a15086a150a72efa2209669cafa323883722714670d08deee4",
+          "byteLength": 10004
+        },
+        "location": {
+          "kind": "self"
+        },
+        "operation": {
+          "kind": "add",
+          "modulator": "lfo",
+          "target": "sampler-amp-attack",
+          "amount": 0.3
+        }
+      },
+      "elapsedMs": 2266.7515840000015,
+      "logicalCalls": 71,
+      "wireTurns": 57,
+      "summedWireMs": 1309,
+      "brainCpuMs": 45.504,
+      "applied": true,
+      "verified": {
+        "passed": true,
+        "insertedHost": true,
+        "pages": true,
+        "behaviors": [
+          {
+            "passed": true
+          }
+        ]
+      },
+      "failure": null,
+      "readback": null
+    },
+    {
+      "tool": "revert_change",
+      "args": {
+        "changeId": "013138fb-37e2-4d99-a03f-94722abc6057"
+      },
+      "elapsedMs": 1396.5862920000218,
+      "logicalCalls": 50,
+      "wireTurns": 35,
+      "summedWireMs": 815,
+      "brainCpuMs": 21.999,
+      "applied": true,
+      "verified": null,
+      "failure": null,
+      "readback": {
+        "status": "verified",
+        "restored": [],
+        "removed": [
+          {
+            "what": "device",
+            "trackId": "5e275187-467c-43cc-a7c8-f591b0eab039",
+            "devicePosition": 1,
+            "name": "Sampler"
+          }
+        ],
+        "notRestored": []
+      }
+    },
+    {
+      "tool": "edit_preset_modulation",
+      "args": {
+        "trackId": "934a7d7d-fb8d-44a2-88f7-0f757a6a7c6a",
+        "presetPath": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/attempt-2-614/fixtures/gn_sampler_multi_one_lfo.bwpreset",
+        "fingerprint": {
+          "algorithm": "sha256",
+          "sha256": "56879dee0a1eafbffd6c35c70e327e02eadba0a61be3ef901d2a05eac2712a42",
+          "byteLength": 11264
+        },
+        "location": {
+          "kind": "self"
+        },
+        "operation": {
+          "kind": "add",
+          "modulator": "lfo",
+          "target": "sampler-amp-attack",
+          "amount": 0.3
+        }
+      },
+      "elapsedMs": 2245.0711659999797,
+      "logicalCalls": 71,
+      "wireTurns": 57,
+      "summedWireMs": 1303,
+      "brainCpuMs": 34.174,
+      "applied": true,
+      "verified": {
+        "passed": true,
+        "insertedHost": true,
+        "pages": true,
+        "behaviors": [
+          {
+            "passed": true
+          }
+        ]
+      },
+      "failure": null,
+      "readback": null
+    }
+  ],
+  "operatorPause": {
+    "role": "multi",
+    "path": "/Users/jonvuri/Bitwig Upgrade Work/2026-10-21/gn-ua-0b6c3297-multi-edited.bwpreset",
+    "started": 1792595343093
+  },
+  "pendingWrite": null,
+  "failure": null,
+  "terminalSessionId": 88497
+}

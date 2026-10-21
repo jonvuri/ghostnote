@@ -1,0 +1,37 @@
+Owned setup material removed. Content baseline restored; the original mixer track, row 0, remains selected. Keep this failed attempt. Prepare a new directory.
+Enabled state restored and owned container removed. Complete fixture restored. Keep this failed record; fork-recovered creates a separate continuation.
+Inserted control-test devices removed. Complete fixture restored. Keep this failed record; fork-recovered creates a separate continuation.
+✔ preflight requires an empty selected slot on a preserved track (3.162ms)
+✔ empty-selection recovery admits only the observed setup failure and unchanged content (10.740416ms)
+✔ write verification admits boolean and combined verdicts and refuses false or unknown verdicts (0.2245ms)
+✔ structure recovery requires independently proved disable and restores before removal (2.223917ms)
+✔ control recovery proves the completed write and preserves passed cases in a separate record (5.092458ms)
+✔ process entry permits idle MCP servers and the current driver ancestry (0.327208ms)
+✔ process entry refuses any established bridge connection and absent inventory (0.248042ms)
+✔ audit recipe notes: real product dispatch on fake host (34.162375ms)
+✔ audit recipe clips: real product dispatch on fake host (14.31775ms)
+✔ audit recipe mixer: real product dispatch on fake host (5.535625ms)
+✔ audit recipe controls: real product dispatch on fake host (15.526292ms)
+Offline fixtures prepared. Complete config.example.json after the section 1 handoff and normal controller replacement.
+✔ audit structure recipe: current schemas, nested source and destination proof (11.546875ms)
+✔ a reused name never grants ownership (0.18625ms)
+✔ failed, interrupted, and completed cases cannot resume (0.130125ms)
+✔ a refusal with a write or partial effect fails (0.086042ms)
+✔ probe bounds reject excessive work before dispatch (0.145125ms)
+✔ stable exact 6.1 build and section 1 handoff are required (0.247625ms)
+✔ persistence comparison ignores only transient track identities and indices (0.125708ms)
+✔ offline preparation copies and inventories both donors without a live config (4.741791ms)
+✔ evidence cap reserves failure space and never truncates existing records (0.659458ms)
+✔ offline success and incomplete live rows are never upgrade acceptance (0.070708ms)
+✔ runtime write guard refuses a different project, selection, or owned identity before dispatch (0.655875ms)
+✔ cleanup cannot adopt unowned state after an inspection (0.393459ms)
+✔ Sampler recipe checks an independent export before each supported reversal (14.822084ms)
+✔ host export must keep original routes and add the exact attack amount (1.296916ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 451.846459

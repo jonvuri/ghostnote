@@ -1,0 +1,12 @@
+{
+  "recordedAt": "2026-10-21T13:43:05.547018+00:00",
+  "operatorConfirmed": "Done",
+  "requestedAction": "Select Inst 1 first empty Launcher cell, keep playback stopped.",
+  "readback": {
+    "mixer": "Inst 1",
+    "track": "Inst 1",
+    "slot": 0
+  },
+  "recoveryCompleted": true,
+  "originalFailureRetained": true
+}

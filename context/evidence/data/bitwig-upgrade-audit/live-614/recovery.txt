@@ -1,0 +1,5 @@
+
+> ghostnote-brain@0.0.1 probe:upgrade-audit
+> tsx src/probes/bitwig-upgrade-audit.ts recover-empty-selection /Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/preparation
+
+Owned setup material removed. Content baseline restored; the original mixer track, row 0, remains selected. Keep this failed attempt. Prepare a new directory.

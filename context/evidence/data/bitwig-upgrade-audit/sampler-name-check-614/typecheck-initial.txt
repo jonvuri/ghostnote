@@ -1,0 +1,5 @@
+
+> ghostnote-brain@0.0.1 typecheck
+> tsc --noEmit
+
+src/engine/modulator-authoring.test.ts(1139,32): error TS2353: Object literal may only specify known properties, and 'maxAttempts' does not exist in type 'SettlementOptions'.

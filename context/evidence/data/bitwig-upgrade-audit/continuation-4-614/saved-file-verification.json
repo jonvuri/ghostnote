@@ -1,0 +1,19 @@
+{
+  "commandId": "0f06034f-8ed7-4550-aee3-3ff40008f1f6",
+  "completedAt": "2026-10-21T21:50:19.237Z",
+  "file": {
+    "path": "/Users/jonvuri/Bitwig Upgrade Work/2026-10-21/gn-upgrade-audit/gn-upgrade-audit.bwproject",
+    "sha256": "b01ba21f2f2a6d790fddbc9663a278721d23d14935a4dc067f76e4bdf809970b",
+    "byteLength": 72901,
+    "copy": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-4-614/saved-project.bwproject"
+  },
+  "sourceAndCopySha256Equal": true,
+  "preSaveSha256": "d5cbe77197e6de47e9a928f9c66b8b7a1e8885f2af3e7c96521b0102c9088a27",
+  "savedFileChanged": true,
+  "operatorSaveConfirmed": true,
+  "writeBatchCount": 0,
+  "limits": [
+    "Reopen comparison has not run.",
+    "No agent save, engine, or transport command was sent."
+  ]
+}

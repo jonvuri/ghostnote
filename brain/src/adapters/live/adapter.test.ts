@@ -2502,6 +2502,52 @@ test('4g-device-enabled: a silent live no-op fails independent readback', async 
     ? unchangedEntry.value.enabled : undefined, true);
 });
 
+test('6.1 enabled readback: delayed observers poll within eight reads and never repeat the write', async () => {
+  for (const delay of [0, 3, 20]) {
+    class DelayedEnabled extends DeviceEnabledTransport {
+      written = false;
+      postReads = 0;
+      override async send(frame: Frame): Promise<unknown> {
+        const reply = await super.send(frame) as Record<string, any>;
+        if (frame.method === WIRE.batchRun) this.written = true;
+        if (frame.method === WIRE.deviceList && this.written) {
+          this.postReads++;
+          if (this.postReads <= delay) return { ...reply, devices: reply['devices'].map((d: any) => d.index === 0 ? { ...d, enabled: true } : d) };
+        }
+        return reply;
+      }
+    }
+    const wire = new DelayedEnabled();
+    const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+    const receipt = await adapter.apply({ ops: [{ op: 'device.setEnabled', device: deviceAt(TRACK, 0), enabled: false, expectedName: 'Tool' }] });
+    assert.equal(receipt.stages.flatMap(stage => stage.ops).every(op => op.ok), delay < 8);
+    assert.equal(wire.postReads, Math.min(delay + 1, 8), 'Fast path one read; at most seven added reads');
+    assert.equal(wire.frames.filter(frame => frame.method === WIRE.batchRun).length, 1);
+  }
+});
+
+test('6.1 enabled readback: unrelated chain changes refuse on the first read', async () => {
+  class ChangedEnabled extends DeviceEnabledTransport {
+    written = false;
+    postReads = 0;
+    override async send(frame: Frame): Promise<unknown> {
+      const reply = await super.send(frame) as Record<string, any>;
+      if (frame.method === WIRE.batchRun) this.written = true;
+      if (frame.method === WIRE.deviceList && this.written) {
+        this.postReads++;
+        return { ...reply, devices: reply['devices'].map((d: any) => d.index === 1 ? { ...d, enabled: false } : d) };
+      }
+      return reply;
+    }
+  }
+  const wire = new ChangedEnabled();
+  const receipt = await new UntimedAdapter({ transport: wire, cursorPool: 3 }).apply({ ops: [{
+    op: 'device.setEnabled', device: deviceAt(TRACK, 0), enabled: false, expectedName: 'Tool',
+  }] });
+  assert(receipt.stages.flatMap(stage => stage.ops).some(op => !op.ok));
+  assert.equal(wire.postReads, 1);
+});
+
 test('4g-device-enabled: caller-owned prior state reaches the immediate wire guard', async () => {
   const wire = new DeviceEnabledTransport();
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
@@ -3271,6 +3317,25 @@ const CONTAINER_SCOPE = (chains: {
 });
 
 const OTHER_ID = 'e4a1c0de-0000-4000-8000-000000000002';
+
+test('6.1 scope: a non-layer device does not inherit the previous container layer count', async () => {
+  for (const hasLayers of [false, true, undefined]) {
+    for (const staleChildren of [false, true]) {
+      const scope = { ...CONTAINER_SCOPE(staleChildren ? [{ index: 0, name: 'Old layer' }] : []),
+        deviceName: 'Sampler', hasLayers, chainCount: 2, hasSlots: true,
+        slotNames: ['FX', 'Note', 'Release'], namedSlotStatus: 'held', namedSlotComplete: false };
+      const wire = new InventoryTransport(new Map([[0, CHANNEL_ID]]), new Map([[CHANNEL_ID, [scope]]]));
+      const target = deviceAt(TRACK, 0);
+      const snapshot = await new UntimedAdapter({ transport: wire, cursorPool: 3 }).read([target], { structure: true });
+      const entry = snapshot.entries[addressKey(target)];
+      assert.equal(entry?.value.of, 'device');
+      const container = entry?.value.of === 'device' ? entry.value.device.container : undefined;
+      assert.equal(container?.chainsComplete, hasLayers === false && !staleChildren);
+      assert.equal(container?.slotsComplete, false, 'No new named-slot coverage claim');
+      assert.equal(wire.frames.filter(frame => frame.method === WIRE.chainInventory).length, 1);
+    }
+  }
+});
 
 test('L-direct-param: stable inventories do not retain the prior device values', async () => {
   const wire = new ParameterTransport();

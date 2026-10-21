@@ -1,0 +1,32 @@
+Owned setup material removed. Content baseline restored; the original mixer track, row 0, remains selected. Keep this failed attempt. Prepare a new directory.
+✔ preflight requires an empty selected slot on a preserved track (2.70875ms)
+✔ empty-selection recovery admits only the observed setup failure and unchanged content (10.16175ms)
+✔ process entry permits idle MCP servers and the current driver ancestry (0.226791ms)
+✔ process entry refuses any established bridge connection and absent inventory (0.207834ms)
+✔ audit recipe notes: real product dispatch on fake host (34.546ms)
+✔ audit recipe clips: real product dispatch on fake host (12.485333ms)
+✔ audit recipe mixer: real product dispatch on fake host (6.090375ms)
+✔ audit recipe controls: real product dispatch on fake host (16.635583ms)
+Offline fixtures prepared. Complete config.example.json after the section 1 handoff and normal controller replacement.
+✔ audit structure recipe: current schemas, nested source and destination proof (11.649333ms)
+✔ a reused name never grants ownership (0.22675ms)
+✔ failed, interrupted, and completed cases cannot resume (0.140875ms)
+✔ a refusal with a write or partial effect fails (0.107584ms)
+✔ probe bounds reject excessive work before dispatch (0.152333ms)
+✔ stable exact 6.1 build and section 1 handoff are required (0.295792ms)
+✔ persistence comparison ignores only transient track identities and indices (0.145292ms)
+✔ offline preparation copies and inventories both donors without a live config (7.376917ms)
+✔ evidence cap reserves failure space and never truncates existing records (0.983375ms)
+✔ offline success and incomplete live rows are never upgrade acceptance (0.094667ms)
+✔ runtime write guard refuses a different project, selection, or owned identity before dispatch (0.769667ms)
+✔ cleanup cannot adopt unowned state after an inspection (0.486125ms)
+✔ Sampler recipe checks an independent export before each supported reversal (16.883542ms)
+✔ host export must keep original routes and add the exact attack amount (1.381542ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 455.361458

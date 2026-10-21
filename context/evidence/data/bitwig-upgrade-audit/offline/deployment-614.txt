@@ -1,0 +1,12 @@
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :normalRuntimeProfileResource UP-TO-DATE
+> Task :jar UP-TO-DATE
+
+> Task :copyExtension
+Deployed (atomic rename) to: /Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension
+
+BUILD SUCCESSFUL in 484ms
+5 actionable tasks: 1 executed, 4 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.6.1/userguide/configuration_cache_enabling.html

@@ -1,0 +1,21 @@
+{
+  "operator": "jonvuri",
+  "recordedAt": "2026-10-21T22:10:57.908252+00:00",
+  "source": "All done. I heard both Samplers. Multi was inherently a bit quiet (easily fixed), but played audio with no other issues.",
+  "engineActivatedForAudit": true,
+  "playbackStopped": true,
+  "mixerAndSelectionRestored": true,
+  "single": {
+    "audible": true,
+    "details": "Operator heard the single Sampler; no audible problem reported."
+  },
+  "multi": {
+    "audible": true,
+    "details": "Operator heard the multi Sampler. It was a bit quiet, described as inherent and easily fixed; no other audible issue was reported."
+  },
+  "limits": [
+    "Engine activation and restoration are operator-confirmed; independent fixture verification follows.",
+    "No loudness measurement or equal-level comparison was made.",
+    "No request to change the fixture gain was made."
+  ]
+}

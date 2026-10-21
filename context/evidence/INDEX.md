@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-10-20
+updated: 2026-10-21
 ---
 
 # Evidence index
@@ -18,6 +18,20 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E330 | Bitwig 6.1.4 normal-product update audit accepted: all matrix rows, Sampler, persistence, cleanup, and clean save pass; limits retained; next is separate 9b.6 preparation [K] (2026-10-21) | [open](experiments/e330-update-audit-614-acceptance.md) |
+| E329 | Both Samplers heard; restored fixture and six-track cleanup pass; preserved baseline matches; final clean save and consolidated acceptance remain pending [K] (2026-10-21) | [open](experiments/e329-update-audit-listening-and-cleanup.md) |
+| E328 | Saved file is unchanged after reopen; full fixture and selections match; fresh mixer write/reversal pass; Sampler UI inspection and listening remain pending [K] (2026-10-21) | [open](experiments/e328-update-audit-reopen-pass.md) |
+| E327 | Project switch and fresh return mixer write/reversal pass; full fixture and selections restored; original Sampler observations required before save/reopen [K] (2026-10-21) | [open](experiments/e327-update-audit-project-switch-pass.md) |
+| E326 | Group snapshot refusal occurs before writes; bounded read-only recovery and corrected collapsed-group note edits/reversals pass; full grouped state preserved; ungroup pending [K] (2026-10-21) | [open](experiments/e326-update-audit-collapsed-group-pass.md) |
+| E325 | Operator sentinel selection observed; guarded mixer write and reversal preserve selection and full fixture; Inst 1 restoration pending before group work [K] (2026-10-21) | [open](experiments/e325-update-audit-selection-write-pass.md) |
+| E324 | Both Sampler edits, exports, and reversals pass; two loaded multi zones confirmed; full fixture restored; selection checkpoint prepared; audible listening still pending [K] (2026-10-21) | [open](experiments/e324-update-audit-sampler-case-pass.md) |
+| E323 | Fresh single Sampler export preserves routes/resources; supported reversal leaves the original unchanged; multi identity passes and active driver awaits its export [K] (2026-10-21) | [open](experiments/e323-update-audit-single-sampler-pass.md) |
+| E322 | Sampler recovery restores the full fixture; corrected live edit passes identity at unchanged call count; active driver pauses for fresh single export before reversal [K] (2026-10-21) | [open](experiments/e322-update-audit-sampler-recovery.md) |
+| E321 | Sampler library preset copied and verified; host routes, sample reference, and preserved live content match; named-recipe label fix passes 2,450 tests; recovery awaits mixer selection [K] (2026-10-21) | [open](experiments/e321-update-audit-sampler-library-export.md) |
+| E320 | 6.1.4 notes, clips, mixer, controls, and structure pass after guarded recoveries; bounded device readback fixes pass 2,446 tests; Sampler name mismatch awaits host export [K] (2026-10-21) | [open](experiments/e320-update-audit-614-device-compatibility.md) |
+| E319 | Normal 6.1.4 hello passes; setup stops on the documented no-entry-slot warning; original content intact; guarded recovery prepared; six scratch tracks remain [K] (2026-10-21) | [open](experiments/e319-update-audit-614-first-entry.md) |
+| E318 | 6.1.4 handoff recorded; app and jar verified; normal archive deployed; idle-client guard corrected; controller replacement and live audit pending [K] (2026-10-21) | [open](experiments/e318-update-audit-614-deployment.md) |
+| E317 | Update audit section 2A: bounded normal-product driver, Sampler export checkpoints, offline gates pass; no connection or deployment; operator handoff pending [K] (2026-10-21) | [open](experiments/e317-update-audit-offline-preparation.md) |
 | E316 | V20 doctor passes on 6.0.6: 76 roles, both Undo stages, final counters, and teardown; baseline restored; research cache written; 6.1.x remains separate [K] (2026-10-20) | [open](experiments/e316-grid-doctor-606-acceptance.md) |
 | E315 | V20 uses traced document Undo; 76 roles resolve, offline checks pass, archive deployed; explicit replacement and revised-pass consent precede live validation [K] (2026-10-20) | [open](experiments/e315-grid-doctor-document-undo.md) |
 | E314 | Operator restart recovery passes; scratch removed; tracks, mixer, device banks, selection, and paired control match baseline; probes unbound and unlocked; attempt record retained [K] (2026-10-20) | [open](experiments/e314-grid-doctor-recovery.md) |

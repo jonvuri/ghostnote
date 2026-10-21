@@ -1,0 +1,1 @@
+Ungroup the two audit tracks, remove the empty gn-ua-0b6c3297-group, and restore selection {"mixer":"Inst 1","track":"Inst 1","slot":0}. Then run checkpoint group-restored.

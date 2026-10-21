@@ -248,7 +248,8 @@
     "probe:phase8g-ui-note-controls": "node --import tsx src/probes/phase8g-ui-note-controls.ts",
     "probe:phase8g-snapshot-memory": "node --import tsx src/probes/phase8g-snapshot-memory.ts",
     "probe:phase8g-v5-artifacts": "node --import tsx src/probes/phase8g-v5-artifacts.ts",
-    "probe:phase8h3a-visual": "node --import tsx src/probes/phase8h3a-dealbreakers.ts visual ../context/evidence/data/phase8h3a-dealbreakers/visual-labelled.json.gz ../context/evidence/data/phase8h3a-dealbreakers/state.json 3"
+    "probe:phase8h3a-visual": "node --import tsx src/probes/phase8h3a-dealbreakers.ts visual ../context/evidence/data/phase8h3a-dealbreakers/visual-labelled.json.gz ../context/evidence/data/phase8h3a-dealbreakers/state.json 3",
+    "probe:upgrade-audit": "tsx src/probes/bitwig-upgrade-audit.ts"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

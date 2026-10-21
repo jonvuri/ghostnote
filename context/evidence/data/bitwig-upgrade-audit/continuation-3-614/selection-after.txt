@@ -1,0 +1,1 @@
+Restore the original selection {"mixer":"Inst 1","track":"Inst 1","slot":0}. Then run checkpoint selection-restored.

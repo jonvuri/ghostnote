@@ -1,0 +1,92 @@
+{
+  "inspection": {
+    "supported": true,
+    "fingerprint": {
+      "algorithm": "sha256",
+      "sha256": "56879dee0a1eafbffd6c35c70e327e02eadba0a61be3ef901d2a05eac2712a42",
+      "byteLength": 11264
+    },
+    "host": {
+      "tier": "tier-2",
+      "format": "native",
+      "name": "Sampler",
+      "creator": "Bitwig"
+    },
+    "containerKind": null,
+    "entries": [],
+    "modulation": [
+      {
+        "location": {
+          "kind": "self"
+        },
+        "modulators": [
+          {
+            "position": 0,
+            "name": "LFO",
+            "category": "LFO",
+            "routes": [
+              {
+                "position": 0,
+                "amount": 1.5200000000000005,
+                "rangeLo": -3,
+                "rangeHi": 1,
+                "target": {
+                  "standing": "resolved",
+                  "parameter": {
+                    "parameterId": "CONTENTS/AMP_ATTACK_TIME",
+                    "parameterName": "AEG Attack Time"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "complete": true
+  },
+  "meta": {
+    "application_version_name": "6.0.6",
+    "branch": "releases",
+    "comment": "",
+    "creator": "jrajav",
+    "device_category": "Synth",
+    "device_creator": "Bitwig",
+    "device_id": "468bc14b-b2e7-45a1-9666-e83117fe404e",
+    "device_name": "Sampler",
+    "device_type": "note_to_audio",
+    "preset_category": "",
+    "referenced_device_ids": [
+      "468bc14b-b2e7-45a1-9666-e83117fe404e"
+    ],
+    "referenced_modulator_ids": [
+      "ad947004-f1d3-40a1-bd15-3ec721ee7c65"
+    ],
+    "referenced_module_ids": [],
+    "referenced_packaged_file_ids": [
+      "Bitwig/Sampled Synths Vol. 1:13/samples/ASM Chords/ASM Chord C7.wav",
+      "Bitwig/Sampled Synths Vol. 1:13/samples/ASM Chords/ASM Chord C9.wav"
+    ],
+    "revision_id": "9244933ec29bf8a78484df80647f9686b64960e1",
+    "revision_no": 170345,
+    "tags": "",
+    "type": "application/bitwig-preset"
+  },
+  "removedTargets": [
+    {
+      "target": "Play Mode",
+      "presentInRetainedInventory": false,
+      "verdict": "Retained source only; host migration and resource resolution require section 2B."
+    },
+    {
+      "target": "Freeze Playhead",
+      "presentInRetainedInventory": false,
+      "verdict": "Retained source only; host migration and resource resolution require section 2B."
+    },
+    {
+      "target": "Envelope Mode",
+      "presentInRetainedInventory": false,
+      "verdict": "Retained source only; host migration and resource resolution require section 2B."
+    }
+  ]
+}

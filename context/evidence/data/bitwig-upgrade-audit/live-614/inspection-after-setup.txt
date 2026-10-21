@@ -1,0 +1,5 @@
+
+> ghostnote-brain@0.0.1 probe:upgrade-audit
+> tsx src/probes/bitwig-upgrade-audit.ts inspect /Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/preparation
+
+Read-only inspection saved. No write or automatic recovery was performed.

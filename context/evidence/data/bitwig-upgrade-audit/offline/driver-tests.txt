@@ -1,0 +1,27 @@
+✔ audit recipe notes: real product dispatch on fake host (40.859917ms)
+✔ audit recipe clips: real product dispatch on fake host (12.435334ms)
+✔ audit recipe mixer: real product dispatch on fake host (7.731458ms)
+✔ audit recipe controls: real product dispatch on fake host (14.868125ms)
+Offline fixtures prepared. Complete config.example.json after the section 1 handoff and normal controller replacement.
+✔ audit structure recipe: current schemas, nested source and destination proof (11.335333ms)
+✔ a reused name never grants ownership (1.513ms)
+✔ failed, interrupted, and completed cases cannot resume (0.184ms)
+✔ a refusal with a write or partial effect fails (0.141166ms)
+✔ probe bounds reject excessive work before dispatch (0.179167ms)
+✔ stable exact 6.1 build and section 1 handoff are required (1.14175ms)
+✔ persistence comparison ignores only transient track identities and indices (0.248834ms)
+✔ offline preparation copies and inventories both donors without a live config (5.693166ms)
+✔ evidence cap reserves failure space and never truncates existing records (0.875916ms)
+✔ offline success and incomplete live rows are never upgrade acceptance (0.082042ms)
+✔ runtime write guard refuses a different project, selection, or owned identity before dispatch (0.885834ms)
+✔ cleanup cannot adopt unowned state after an inspection (0.595667ms)
+✔ Sampler recipe checks an independent export before each supported reversal (15.318333ms)
+✔ host export must keep original routes and add the exact attack amount (1.028958ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 428.350542

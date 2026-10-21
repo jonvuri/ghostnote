@@ -1,0 +1,201 @@
+{
+  "recordedAt": "2026-10-21T22:05:38.749165+00:00",
+  "method": "Offline analysis of preserved donor inventories, live direct-control reads, and independent Bitwig 6.1.4 host exports. No new live call.",
+  "roles": {
+    "single": {
+      "record": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-3-614/sampler-single-edit.json",
+      "recordSha256": "7620e22d850a9df9774ca2d46011d99ae02b99498e972eed7d36fee56a71da8a",
+      "hostExportSha256": "0fb789227b67543fa6650ccc02e4c6b3f123894046aeb630e934d469c2ad496e",
+      "hostVersion": "6.1.4",
+      "directParameterCount": 53,
+      "directParameterNames": [
+        "Pitch Transpose",
+        "Output",
+        "Gated Attack Time",
+        "Gated Hold Time",
+        "Gated Decay Time",
+        "Gated Sustain Level",
+        "Gated Release Time",
+        "Gated Attack Curve",
+        "Gated Decay Curve",
+        "Gated Release Curve",
+        "Velocity Sensitivity",
+        "Filter Mode",
+        "Filter Frequency",
+        "Filter Resonance",
+        "Play / Position Offset",
+        "Loop Offset",
+        "Loop Length",
+        "Voice Gain / Drive",
+        "Pan",
+        "Filter Keytrack",
+        "Grain Size in Time",
+        "Select",
+        "Speed",
+        "Formant",
+        "One-shot Fade In",
+        "One-shot Fade Out",
+        "Playhead Motion",
+        "Release Note Length",
+        "Release Velocity Mode",
+        "Formant Shift Amount",
+        "Repitch Color",
+        "Repitch Distortion",
+        "Grain Rate in Time",
+        "Fragments Grain Envelope",
+        "Grain Size in Beats",
+        "Fragments Grain Rate in Beats",
+        "Sync Grains",
+        "Fragments Grain Repeats",
+        "Spectral Harmonic Bend",
+        "Spectral Phase Dispersion",
+        "Fragments Grain Density",
+        "Fragments Use Grain Density",
+        "Bell Filter Gain",
+        "Spectral Onset Sensitivity",
+        "Spectral Harmonic Quantization Amount",
+        "Cycles Pulse Width",
+        "Cycles Partials Harmonic Split",
+        "Cycles Partials Fundamental Level",
+        "Cycles Phase Modulation Amount",
+        "Cycles Phase Modulator Harmonics",
+        "Use Global Key",
+        "Local Key",
+        "Local Scale/Mode"
+      ],
+      "sourceTargets": [
+        {
+          "parameterId": "CONTENTS/AMP_ATTACK_TIME",
+          "parameterName": "AEG Attack Time"
+        }
+      ],
+      "hostExportTargets": [
+        {
+          "parameterId": "CONTENTS/AMP_ATTACK_TIME",
+          "parameterName": "AEG Attack Time"
+        },
+        {
+          "parameterId": "CONTENTS/AMP_ATTACK_TIME",
+          "parameterName": "AEG Attack Time"
+        }
+      ],
+      "removedTargets": [
+        {
+          "name": "Play Mode",
+          "verdict": "absent",
+          "evidence": "Play Mode is absent by exact name from the 53-parameter stable live direct-control read in sampler-single-edit.json and from its complete source and Bitwig 6.1.4 host-export route inventories. All inspected routes target CONTENTS/AMP_ATTACK_TIME. The source has no Play Mode route; migration was not exercised."
+        },
+        {
+          "name": "Freeze Playhead",
+          "verdict": "absent",
+          "evidence": "Freeze Playhead is absent by exact name from the 53-parameter stable live direct-control read in sampler-single-edit.json and from its complete source and Bitwig 6.1.4 host-export route inventories. All inspected routes target CONTENTS/AMP_ATTACK_TIME. The source has no Freeze Playhead route; migration was not exercised."
+        },
+        {
+          "name": "Envelope Mode",
+          "verdict": "absent",
+          "evidence": "Envelope Mode is absent by exact name from the 53-parameter stable live direct-control read in sampler-single-edit.json and from its complete source and Bitwig 6.1.4 host-export route inventories. All inspected routes target CONTENTS/AMP_ATTACK_TIME. The source has no Envelope Mode route; migration was not exercised."
+        }
+      ]
+    },
+    "multi": {
+      "record": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-3-614/sampler-multi-edit.json",
+      "recordSha256": "f28d90323f299638f015f6653e7bb154503e0d6a18dcd005d1b5e3cc10604f73",
+      "hostExportSha256": "7a74aaf75e2cb5181ab2b1c6a013ee74965fd20d87b3960b4dc44b6f2c824e99",
+      "hostVersion": "6.1.4",
+      "directParameterCount": 53,
+      "directParameterNames": [
+        "Pitch Transpose",
+        "Output",
+        "Gated Attack Time",
+        "Gated Hold Time",
+        "Gated Decay Time",
+        "Gated Sustain Level",
+        "Gated Release Time",
+        "Gated Attack Curve",
+        "Gated Decay Curve",
+        "Gated Release Curve",
+        "Velocity Sensitivity",
+        "Filter Mode",
+        "Filter Frequency",
+        "Filter Resonance",
+        "Play / Position Offset",
+        "Loop Offset",
+        "Loop Length",
+        "Voice Gain / Drive",
+        "Pan",
+        "Filter Keytrack",
+        "Grain Size in Time",
+        "Select",
+        "Speed",
+        "Formant",
+        "One-shot Fade In",
+        "One-shot Fade Out",
+        "Playhead Motion",
+        "Release Note Length",
+        "Release Velocity Mode",
+        "Formant Shift Amount",
+        "Repitch Color",
+        "Repitch Distortion",
+        "Grain Rate in Time",
+        "Fragments Grain Envelope",
+        "Grain Size in Beats",
+        "Fragments Grain Rate in Beats",
+        "Sync Grains",
+        "Fragments Grain Repeats",
+        "Spectral Harmonic Bend",
+        "Spectral Phase Dispersion",
+        "Fragments Grain Density",
+        "Fragments Use Grain Density",
+        "Bell Filter Gain",
+        "Spectral Onset Sensitivity",
+        "Spectral Harmonic Quantization Amount",
+        "Cycles Pulse Width",
+        "Cycles Partials Harmonic Split",
+        "Cycles Partials Fundamental Level",
+        "Cycles Phase Modulation Amount",
+        "Cycles Phase Modulator Harmonics",
+        "Use Global Key",
+        "Local Key",
+        "Local Scale/Mode"
+      ],
+      "sourceTargets": [
+        {
+          "parameterId": "CONTENTS/AMP_ATTACK_TIME",
+          "parameterName": "AEG Attack Time"
+        }
+      ],
+      "hostExportTargets": [
+        {
+          "parameterId": "CONTENTS/AMP_ATTACK_TIME",
+          "parameterName": "AEG Attack Time"
+        },
+        {
+          "parameterId": "CONTENTS/AMP_ATTACK_TIME",
+          "parameterName": "AEG Attack Time"
+        }
+      ],
+      "removedTargets": [
+        {
+          "name": "Play Mode",
+          "verdict": "absent",
+          "evidence": "Play Mode is absent by exact name from the 53-parameter stable live direct-control read in sampler-multi-edit.json and from its complete source and Bitwig 6.1.4 host-export route inventories. All inspected routes target CONTENTS/AMP_ATTACK_TIME. The source has no Play Mode route; migration was not exercised."
+        },
+        {
+          "name": "Freeze Playhead",
+          "verdict": "absent",
+          "evidence": "Freeze Playhead is absent by exact name from the 53-parameter stable live direct-control read in sampler-multi-edit.json and from its complete source and Bitwig 6.1.4 host-export route inventories. All inspected routes target CONTENTS/AMP_ATTACK_TIME. The source has no Freeze Playhead route; migration was not exercised."
+        },
+        {
+          "name": "Envelope Mode",
+          "verdict": "absent",
+          "evidence": "Envelope Mode is absent by exact name from the 53-parameter stable live direct-control read in sampler-multi-edit.json and from its complete source and Bitwig 6.1.4 host-export route inventories. All inspected routes target CONTENTS/AMP_ATTACK_TIME. The source has no Envelope Mode route; migration was not exercised."
+        }
+      ]
+    }
+  },
+  "limits": [
+    "Absence refers to the exact target names and inspected route inventories. It is not a global host capability claim.",
+    "The donor fixtures have no route to these removed targets, so their migration or rejection is not exercised.",
+    "No successful preservation of a removed target is claimed."
+  ]
+}

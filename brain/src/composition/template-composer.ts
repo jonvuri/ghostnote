@@ -121,6 +121,7 @@ export interface CompositionEditWitness {
     readonly expected: 'active' | 'inactive';
     readonly parameterId: string;
     readonly parameterName: string;
+    readonly parameterNameAliases?: readonly string[];
   };
 }
 
@@ -489,6 +490,7 @@ function applyNamedEdit(
           expected: amount === 0 ? 'inactive' : 'active',
           parameterId: target.parameterId,
           parameterName: target.parameterName,
+          ...(target.parameterNameAliases === undefined ? {} : { parameterNameAliases: target.parameterNameAliases }),
         },
       }),
     },

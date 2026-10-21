@@ -1,0 +1,29 @@
+✔ process entry permits idle MCP servers and the current driver ancestry (2.172416ms)
+✔ process entry refuses any established bridge connection and absent inventory (0.313917ms)
+✔ audit recipe notes: real product dispatch on fake host (39.946625ms)
+✔ audit recipe clips: real product dispatch on fake host (18.244708ms)
+✔ audit recipe mixer: real product dispatch on fake host (4.911542ms)
+✔ audit recipe controls: real product dispatch on fake host (17.187459ms)
+Offline fixtures prepared. Complete config.example.json after the section 1 handoff and normal controller replacement.
+✔ audit structure recipe: current schemas, nested source and destination proof (13.763125ms)
+✔ a reused name never grants ownership (0.214583ms)
+✔ failed, interrupted, and completed cases cannot resume (0.207375ms)
+✔ a refusal with a write or partial effect fails (0.13125ms)
+✔ probe bounds reject excessive work before dispatch (0.158166ms)
+✔ stable exact 6.1 build and section 1 handoff are required (1.22325ms)
+✔ persistence comparison ignores only transient track identities and indices (0.207958ms)
+✔ offline preparation copies and inventories both donors without a live config (6.936166ms)
+✔ evidence cap reserves failure space and never truncates existing records (0.784333ms)
+✔ offline success and incomplete live rows are never upgrade acceptance (0.068875ms)
+✔ runtime write guard refuses a different project, selection, or owned identity before dispatch (0.714708ms)
+✔ cleanup cannot adopt unowned state after an inspection (0.413458ms)
+✔ Sampler recipe checks an independent export before each supported reversal (15.475208ms)
+✔ host export must keep original routes and add the exact attack amount (0.900958ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 533.588417

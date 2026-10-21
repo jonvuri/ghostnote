@@ -1,0 +1,4139 @@
+[
+  {
+    "directory": "preparation",
+    "completed": [
+      "preflight"
+    ],
+    "failure": {
+      "command": "run",
+      "arg": "setup",
+      "commandId": "9766c81e-efe4-4b5a-a971-88158208f66c",
+      "error": "AssertionError [ERR_ASSERTION]: add_launcher_clip: selection changed\n+ actual - expected\n\n+ '{\"mixer\":\"Inst 1\",\"slot\":0,\"track\":\"gn-ua-62178847-sentinel\"}'\n- '{\"mixer\":\"Inst 1\",\"slot\":-1,\"track\":null}'\n",
+      "at": "2026-10-21T13:32:55.058Z"
+    },
+    "recoveryCompleted": true,
+    "commands": {
+      "9489e00c-154b-40ac-a295-7a8c2485efb8": {
+        "calls": 59,
+        "wireMs": 1374.7811640000004,
+        "responseBytes": 18744
+      },
+      "9766c81e-efe4-4b5a-a971-88158208f66c": {
+        "calls": 435,
+        "wireMs": 10516.000872999986,
+        "responseBytes": 366820
+      },
+      "d78c7146-583c-4a21-b43f-136fcaf63d66": {
+        "calls": 188,
+        "wireMs": 4555.871781000003,
+        "responseBytes": 61352
+      },
+      "909ce2c1-92a8-4e4f-95da-27c3182c3125": {
+        "calls": 471,
+        "wireMs": 10889.044956000025,
+        "responseBytes": 241632
+      }
+    },
+    "writes": [
+      {
+        "commandId": "9766c81e-efe4-4b5a-a971-88158208f66c",
+        "name": "add_tracks",
+        "args": {
+          "tracks": [
+            {
+              "name": "gn-ua-62178847-sentinel"
+            }
+          ]
+        },
+        "elapsedMs": 915.5384589999999,
+        "brainCpuMs": 20.748,
+        "wireCalls": 40,
+        "turns": 22,
+        "methods": {
+          "selection.status": 4,
+          "revision.get": 11,
+          "track.list": 14,
+          "batch.run": 2,
+          "cursor.pin": 8,
+          "selection.restoreMixer": 1
+        },
+        "readback": {
+          "status": "verified",
+          "tracks": [
+            {
+              "trackId": "cae27420-a5d3-4fef-973b-8a0c930b1eae",
+              "name": "gn-ua-62178847-sentinel",
+              "kind": "Instrument"
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "9766c81e-efe4-4b5a-a971-88158208f66c",
+        "name": "add_tracks",
+        "args": {
+          "tracks": [
+            {
+              "name": "gn-ua-62178847-notes"
+            }
+          ]
+        },
+        "elapsedMs": 924.0689999999995,
+        "brainCpuMs": 15.163,
+        "wireCalls": 40,
+        "turns": 22,
+        "methods": {
+          "selection.status": 4,
+          "revision.get": 11,
+          "track.list": 14,
+          "batch.run": 2,
+          "cursor.pin": 8,
+          "selection.restoreMixer": 1
+        },
+        "readback": {
+          "status": "verified",
+          "tracks": [
+            {
+              "trackId": "81a34861-e91c-4161-b1bc-6107caa343f6",
+              "name": "gn-ua-62178847-notes",
+              "kind": "Instrument"
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "9766c81e-efe4-4b5a-a971-88158208f66c",
+        "name": "add_tracks",
+        "args": {
+          "tracks": [
+            {
+              "name": "gn-ua-62178847-spare"
+            }
+          ]
+        },
+        "elapsedMs": 902.1283329999997,
+        "brainCpuMs": 15.742,
+        "wireCalls": 40,
+        "turns": 22,
+        "methods": {
+          "selection.status": 4,
+          "revision.get": 11,
+          "track.list": 14,
+          "batch.run": 2,
+          "cursor.pin": 8,
+          "selection.restoreMixer": 1
+        },
+        "readback": {
+          "status": "verified",
+          "tracks": [
+            {
+              "trackId": "60cfcac8-098d-42f5-80aa-63ee48ab5b33",
+              "name": "gn-ua-62178847-spare",
+              "kind": "Instrument"
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "9766c81e-efe4-4b5a-a971-88158208f66c",
+        "name": "add_tracks",
+        "args": {
+          "tracks": [
+            {
+              "name": "gn-ua-62178847-devices"
+            }
+          ]
+        },
+        "elapsedMs": 917.8167090000006,
+        "brainCpuMs": 13.885,
+        "wireCalls": 40,
+        "turns": 22,
+        "methods": {
+          "selection.status": 4,
+          "revision.get": 11,
+          "track.list": 14,
+          "batch.run": 2,
+          "cursor.pin": 8,
+          "selection.restoreMixer": 1
+        },
+        "readback": {
+          "status": "verified",
+          "tracks": [
+            {
+              "trackId": "e17ebcdb-f945-4afe-b500-ef6cbf4b33ee",
+              "name": "gn-ua-62178847-devices",
+              "kind": "Instrument"
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "9766c81e-efe4-4b5a-a971-88158208f66c",
+        "name": "add_tracks",
+        "args": {
+          "tracks": [
+            {
+              "name": "gn-ua-62178847-single"
+            }
+          ]
+        },
+        "elapsedMs": 915.2056670000002,
+        "brainCpuMs": 14.646,
+        "wireCalls": 40,
+        "turns": 22,
+        "methods": {
+          "selection.status": 4,
+          "revision.get": 11,
+          "track.list": 14,
+          "batch.run": 2,
+          "cursor.pin": 8,
+          "selection.restoreMixer": 1
+        },
+        "readback": {
+          "status": "verified",
+          "tracks": [
+            {
+              "trackId": "e1c91f0f-2bc8-4bc2-ad6c-1ee47991368d",
+              "name": "gn-ua-62178847-single",
+              "kind": "Instrument"
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "9766c81e-efe4-4b5a-a971-88158208f66c",
+        "name": "add_tracks",
+        "args": {
+          "tracks": [
+            {
+              "name": "gn-ua-62178847-multi"
+            }
+          ]
+        },
+        "elapsedMs": 905.5498749999997,
+        "brainCpuMs": 12.096,
+        "wireCalls": 40,
+        "turns": 22,
+        "methods": {
+          "selection.status": 4,
+          "revision.get": 11,
+          "track.list": 14,
+          "batch.run": 2,
+          "cursor.pin": 8,
+          "selection.restoreMixer": 1
+        },
+        "readback": {
+          "status": "verified",
+          "tracks": [
+            {
+              "trackId": "0adb2b67-eaaf-4afa-b464-65f489c04c13",
+              "name": "gn-ua-62178847-multi",
+              "kind": "Instrument"
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "9766c81e-efe4-4b5a-a971-88158208f66c",
+        "name": "add_launcher_clip",
+        "args": {
+          "trackId": "cae27420-a5d3-4fef-973b-8a0c930b1eae",
+          "row": 0,
+          "format": "json",
+          "document": {
+            "format": "ghostnote-document",
+            "version": "1.0",
+            "kind": "desired",
+            "clips": [
+              {
+                "id": "c1",
+                "length": "4",
+                "loop": {
+                  "from": "0",
+                  "to": "4"
+                }
+              }
+            ],
+            "coverage": [
+              {
+                "clip": "c1",
+                "channels": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16
+                ],
+                "fields": "all",
+                "status": "complete",
+                "from": "0",
+                "to": "4"
+              }
+            ],
+            "events": [
+              {
+                "id": "n1",
+                "clip": "c1",
+                "at": "0",
+                "duration": "1/2",
+                "pitch": 60,
+                "velocity": 90,
+                "channel": 1
+              },
+              {
+                "id": "n2",
+                "clip": "c1",
+                "at": "17/16",
+                "duration": "7/16",
+                "pitch": 64,
+                "velocity": 83,
+                "channel": 2,
+                "expression": {
+                  "velocitySpread": 0,
+                  "gain": 0.8,
+                  "pan": -0.25,
+                  "pressure": 0,
+                  "timbre": 0.4,
+                  "transpose": 0.25
+                }
+              },
+              {
+                "id": "n3",
+                "clip": "c1",
+                "at": "2",
+                "duration": "1/4",
+                "pitch": 67,
+                "velocity": 75,
+                "channel": 1
+              },
+              {
+                "id": "n4",
+                "clip": "c1",
+                "at": "49/16",
+                "duration": "5/16",
+                "pitch": 72,
+                "velocity": 86,
+                "channel": 2
+              }
+            ],
+            "overlays": []
+          }
+        },
+        "elapsedMs": 2391.150917000001,
+        "brainCpuMs": 45.255,
+        "wireCalls": 74,
+        "turns": 50,
+        "methods": {
+          "revision.get": 16,
+          "track.list": 17,
+          "slot.status": 12,
+          "selection.status": 1,
+          "batch.run": 3,
+          "cursor.pin": 10,
+          "clip.read": 3,
+          "cursor.pointTrack": 1,
+          "slot.select": 1,
+          "cursor.status": 4,
+          "cursor.setStepSize": 3,
+          "cursor.scrollToStep": 3
+        },
+        "readback": {
+          "status": "verified",
+          "base": {
+            "sha256": "3e981e7bfa13e9922adff7b0e1080effcf897d73fcc95ae095598a547922c81d",
+            "ref": "gnb1.UvCENx7gm6f2"
+          },
+          "identity": "written",
+          "retainedIds": 4,
+          "mintedIds": 0,
+          "discrepancies": []
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "909ce2c1-92a8-4e4f-95da-27c3182c3125",
+        "name": "delete_track",
+        "args": {
+          "trackIds": [
+            "0adb2b67-eaaf-4afa-b464-65f489c04c13"
+          ]
+        },
+        "elapsedMs": 606.3983749999998,
+        "brainCpuMs": 13.429,
+        "wireCalls": 29,
+        "turns": 16,
+        "methods": {
+          "track.list": 8,
+          "selection.status": 4,
+          "slot.status": 1,
+          "revision.get": 6,
+          "batch.run": 1,
+          "cursor.pin": 8,
+          "selection.restoreMixer": 1
+        },
+        "readback": {
+          "status": "verified",
+          "removed": [
+            "0adb2b67-eaaf-4afa-b464-65f489c04c13"
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "909ce2c1-92a8-4e4f-95da-27c3182c3125",
+        "name": "delete_track",
+        "args": {
+          "trackIds": [
+            "e1c91f0f-2bc8-4bc2-ad6c-1ee47991368d"
+          ]
+        },
+        "elapsedMs": 602.9924170000004,
+        "brainCpuMs": 10.274,
+        "wireCalls": 29,
+        "turns": 16,
+        "methods": {
+          "track.list": 8,
+          "selection.status": 4,
+          "slot.status": 1,
+          "revision.get": 6,
+          "batch.run": 1,
+          "cursor.pin": 8,
+          "selection.restoreMixer": 1
+        },
+        "readback": {
+          "status": "verified",
+          "removed": [
+            "e1c91f0f-2bc8-4bc2-ad6c-1ee47991368d"
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "909ce2c1-92a8-4e4f-95da-27c3182c3125",
+        "name": "delete_track",
+        "args": {
+          "trackIds": [
+            "e17ebcdb-f945-4afe-b500-ef6cbf4b33ee"
+          ]
+        },
+        "elapsedMs": 605.780834000001,
+        "brainCpuMs": 9.857,
+        "wireCalls": 29,
+        "turns": 16,
+        "methods": {
+          "track.list": 8,
+          "selection.status": 4,
+          "slot.status": 1,
+          "revision.get": 6,
+          "batch.run": 1,
+          "cursor.pin": 8,
+          "selection.restoreMixer": 1
+        },
+        "readback": {
+          "status": "verified",
+          "removed": [
+            "e17ebcdb-f945-4afe-b500-ef6cbf4b33ee"
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "909ce2c1-92a8-4e4f-95da-27c3182c3125",
+        "name": "delete_track",
+        "args": {
+          "trackIds": [
+            "60cfcac8-098d-42f5-80aa-63ee48ab5b33"
+          ]
+        },
+        "elapsedMs": 603.2669999999998,
+        "brainCpuMs": 8.978,
+        "wireCalls": 29,
+        "turns": 16,
+        "methods": {
+          "track.list": 8,
+          "selection.status": 4,
+          "slot.status": 1,
+          "revision.get": 6,
+          "batch.run": 1,
+          "cursor.pin": 8,
+          "selection.restoreMixer": 1
+        },
+        "readback": {
+          "status": "verified",
+          "removed": [
+            "60cfcac8-098d-42f5-80aa-63ee48ab5b33"
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "909ce2c1-92a8-4e4f-95da-27c3182c3125",
+        "name": "delete_track",
+        "args": {
+          "trackIds": [
+            "81a34861-e91c-4161-b1bc-6107caa343f6"
+          ]
+        },
+        "elapsedMs": 583.851125000001,
+        "brainCpuMs": 10.123,
+        "wireCalls": 29,
+        "turns": 16,
+        "methods": {
+          "track.list": 8,
+          "selection.status": 4,
+          "slot.status": 1,
+          "revision.get": 6,
+          "batch.run": 1,
+          "cursor.pin": 8,
+          "selection.restoreMixer": 1
+        },
+        "readback": {
+          "status": "verified",
+          "removed": [
+            "81a34861-e91c-4161-b1bc-6107caa343f6"
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "909ce2c1-92a8-4e4f-95da-27c3182c3125",
+        "name": "delete_track",
+        "args": {
+          "trackIds": [
+            "cae27420-a5d3-4fef-973b-8a0c930b1eae"
+          ]
+        },
+        "elapsedMs": 581.4029159999991,
+        "brainCpuMs": 9.674,
+        "wireCalls": 29,
+        "turns": 16,
+        "methods": {
+          "track.list": 8,
+          "selection.status": 4,
+          "slot.status": 1,
+          "revision.get": 6,
+          "batch.run": 1,
+          "cursor.pin": 8,
+          "selection.restoreMixer": 1
+        },
+        "readback": {
+          "status": "verified",
+          "removed": [
+            "cae27420-a5d3-4fef-973b-8a0c930b1eae"
+          ]
+        },
+        "verified": null,
+        "failure": null
+      }
+    ]
+  },
+  {
+    "directory": "attempt-2-614",
+    "completed": [
+      "preflight",
+      "setup",
+      "notes",
+      "clips",
+      "mixer"
+    ],
+    "failure": {
+      "command": "run",
+      "arg": "controls",
+      "commandId": "99dfb051-03c7-440b-8aa3-b61cb9a1984a",
+      "error": "AssertionError [ERR_ASSERTION]: set_device_controls: verification failed\n+ actual - expected\n\n+ undefined\n- true\n",
+      "at": "2026-10-21T13:46:20.971Z"
+    },
+    "recoveryCompleted": true,
+    "commands": {
+      "42f3b912-5e24-4dc5-b256-c46f928ac6ff": {
+        "calls": 71,
+        "wireMs": 1656.659582,
+        "responseBytes": 20571
+      },
+      "ce79068f-3f9f-46b9-a6c8-2c189d8ab433": {
+        "calls": 1268,
+        "wireMs": 32131.82301899994,
+        "responseBytes": 1021629
+      },
+      "bcc89eee-f682-4f7c-8629-9a63eb4b1ed9": {
+        "calls": 931,
+        "wireMs": 26036.843362999978,
+        "responseBytes": 738551
+      },
+      "f2f0a4d6-fda0-4ce6-8f55-f5d4e0f40e8d": {
+        "calls": 967,
+        "wireMs": 25710.166573999973,
+        "responseBytes": 786424
+      },
+      "477bedde-a592-4508-be55-28d6e6bd8e16": {
+        "calls": 621,
+        "wireMs": 15720.943463000014,
+        "responseBytes": 427149
+      },
+      "99dfb051-03c7-440b-8aa3-b61cb9a1984a": {
+        "calls": 619,
+        "wireMs": 14909.578531999981,
+        "responseBytes": 572967
+      },
+      "aadf4d1a-7616-4e8f-b910-8e8348bab376": {
+        "calls": 370,
+        "wireMs": 9104.152172999997,
+        "responseBytes": 323126
+      },
+      "574978e1-36a4-48a6-a4c7-8f5716ab9d53": {
+        "calls": 909,
+        "wireMs": 20710.68991300006,
+        "responseBytes": 750728
+      }
+    },
+    "writes": [
+      {
+        "commandId": "ce79068f-3f9f-46b9-a6c8-2c189d8ab433",
+        "name": "add_tracks",
+        "args": {
+          "tracks": [
+            {
+              "name": "gn-ua-0b6c3297-sentinel"
+            }
+          ]
+        },
+        "elapsedMs": 944.353834,
+        "brainCpuMs": 20.203,
+        "wireCalls": 41,
+        "turns": 23,
+        "methods": {
+          "selection.status": 4,
+          "slot.status": 1,
+          "revision.get": 11,
+          "track.list": 14,
+          "batch.run": 2,
+          "cursor.pin": 8,
+          "selection.restoreMixer": 1
+        },
+        "readback": {
+          "status": "verified",
+          "tracks": [
+            {
+              "trackId": "0005f25f-b4c2-4199-83a4-101f09b1def9",
+              "name": "gn-ua-0b6c3297-sentinel",
+              "kind": "Instrument"
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "ce79068f-3f9f-46b9-a6c8-2c189d8ab433",
+        "name": "add_tracks",
+        "args": {
+          "tracks": [
+            {
+              "name": "gn-ua-0b6c3297-notes"
+            }
+          ]
+        },
+        "elapsedMs": 930.2739589999996,
+        "brainCpuMs": 14.405,
+        "wireCalls": 41,
+        "turns": 23,
+        "methods": {
+          "selection.status": 4,
+          "slot.status": 1,
+          "revision.get": 11,
+          "track.list": 14,
+          "batch.run": 2,
+          "cursor.pin": 8,
+          "selection.restoreMixer": 1
+        },
+        "readback": {
+          "status": "verified",
+          "tracks": [
+            {
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "name": "gn-ua-0b6c3297-notes",
+              "kind": "Instrument"
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "ce79068f-3f9f-46b9-a6c8-2c189d8ab433",
+        "name": "add_tracks",
+        "args": {
+          "tracks": [
+            {
+              "name": "gn-ua-0b6c3297-spare"
+            }
+          ]
+        },
+        "elapsedMs": 916.6015419999994,
+        "brainCpuMs": 15.157,
+        "wireCalls": 41,
+        "turns": 23,
+        "methods": {
+          "selection.status": 4,
+          "slot.status": 1,
+          "revision.get": 11,
+          "track.list": 14,
+          "batch.run": 2,
+          "cursor.pin": 8,
+          "selection.restoreMixer": 1
+        },
+        "readback": {
+          "status": "verified",
+          "tracks": [
+            {
+              "trackId": "7e6356c8-af6c-463e-8095-a29244835daf",
+              "name": "gn-ua-0b6c3297-spare",
+              "kind": "Instrument"
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "ce79068f-3f9f-46b9-a6c8-2c189d8ab433",
+        "name": "add_tracks",
+        "args": {
+          "tracks": [
+            {
+              "name": "gn-ua-0b6c3297-devices"
+            }
+          ]
+        },
+        "elapsedMs": 935.1311669999996,
+        "brainCpuMs": 15.263,
+        "wireCalls": 41,
+        "turns": 23,
+        "methods": {
+          "selection.status": 4,
+          "slot.status": 1,
+          "revision.get": 11,
+          "track.list": 14,
+          "batch.run": 2,
+          "cursor.pin": 8,
+          "selection.restoreMixer": 1
+        },
+        "readback": {
+          "status": "verified",
+          "tracks": [
+            {
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "name": "gn-ua-0b6c3297-devices",
+              "kind": "Instrument"
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "ce79068f-3f9f-46b9-a6c8-2c189d8ab433",
+        "name": "add_tracks",
+        "args": {
+          "tracks": [
+            {
+              "name": "gn-ua-0b6c3297-single"
+            }
+          ]
+        },
+        "elapsedMs": 936.1428749999995,
+        "brainCpuMs": 14.933,
+        "wireCalls": 41,
+        "turns": 23,
+        "methods": {
+          "selection.status": 4,
+          "slot.status": 1,
+          "revision.get": 11,
+          "track.list": 14,
+          "batch.run": 2,
+          "cursor.pin": 8,
+          "selection.restoreMixer": 1
+        },
+        "readback": {
+          "status": "verified",
+          "tracks": [
+            {
+              "trackId": "5e275187-467c-43cc-a7c8-f591b0eab039",
+              "name": "gn-ua-0b6c3297-single",
+              "kind": "Instrument"
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "ce79068f-3f9f-46b9-a6c8-2c189d8ab433",
+        "name": "add_tracks",
+        "args": {
+          "tracks": [
+            {
+              "name": "gn-ua-0b6c3297-multi"
+            }
+          ]
+        },
+        "elapsedMs": 919.8664159999989,
+        "brainCpuMs": 13.301,
+        "wireCalls": 41,
+        "turns": 23,
+        "methods": {
+          "selection.status": 4,
+          "slot.status": 1,
+          "revision.get": 11,
+          "track.list": 14,
+          "batch.run": 2,
+          "cursor.pin": 8,
+          "selection.restoreMixer": 1
+        },
+        "readback": {
+          "status": "verified",
+          "tracks": [
+            {
+              "trackId": "934a7d7d-fb8d-44a2-88f7-0f757a6a7c6a",
+              "name": "gn-ua-0b6c3297-multi",
+              "kind": "Instrument"
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "ce79068f-3f9f-46b9-a6c8-2c189d8ab433",
+        "name": "add_launcher_clip",
+        "args": {
+          "trackId": "0005f25f-b4c2-4199-83a4-101f09b1def9",
+          "row": 0,
+          "format": "json",
+          "document": {
+            "format": "ghostnote-document",
+            "version": "1.0",
+            "kind": "desired",
+            "clips": [
+              {
+                "id": "c1",
+                "length": "4",
+                "loop": {
+                  "from": "0",
+                  "to": "4"
+                }
+              }
+            ],
+            "coverage": [
+              {
+                "clip": "c1",
+                "channels": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16
+                ],
+                "fields": "all",
+                "status": "complete",
+                "from": "0",
+                "to": "4"
+              }
+            ],
+            "events": [
+              {
+                "id": "n1",
+                "clip": "c1",
+                "at": "0",
+                "duration": "1/2",
+                "pitch": 60,
+                "velocity": 90,
+                "channel": 1
+              },
+              {
+                "id": "n2",
+                "clip": "c1",
+                "at": "17/16",
+                "duration": "7/16",
+                "pitch": 64,
+                "velocity": 83,
+                "channel": 2,
+                "expression": {
+                  "velocitySpread": 0,
+                  "gain": 0.8,
+                  "pan": -0.25,
+                  "pressure": 0,
+                  "timbre": 0.4,
+                  "transpose": 0.25
+                }
+              },
+              {
+                "id": "n3",
+                "clip": "c1",
+                "at": "2",
+                "duration": "1/4",
+                "pitch": 67,
+                "velocity": 75,
+                "channel": 1
+              },
+              {
+                "id": "n4",
+                "clip": "c1",
+                "at": "49/16",
+                "duration": "5/16",
+                "pitch": 72,
+                "velocity": 86,
+                "channel": 2
+              }
+            ],
+            "overlays": []
+          }
+        },
+        "elapsedMs": 2428.4341669999994,
+        "brainCpuMs": 48.212,
+        "wireCalls": 77,
+        "turns": 53,
+        "methods": {
+          "revision.get": 16,
+          "track.list": 17,
+          "slot.status": 13,
+          "selection.status": 2,
+          "batch.run": 3,
+          "cursor.pin": 10,
+          "clip.read": 3,
+          "cursor.pointTrack": 1,
+          "slot.select": 2,
+          "cursor.status": 4,
+          "cursor.setStepSize": 3,
+          "cursor.scrollToStep": 3
+        },
+        "readback": {
+          "status": "verified",
+          "base": {
+            "sha256": "3e981e7bfa13e9922adff7b0e1080effcf897d73fcc95ae095598a547922c81d",
+            "ref": "gnb1.eO4ruOR6E3J6"
+          },
+          "identity": "written",
+          "retainedIds": 4,
+          "mintedIds": 0,
+          "discrepancies": []
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "ce79068f-3f9f-46b9-a6c8-2c189d8ab433",
+        "name": "add_launcher_clip",
+        "args": {
+          "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+          "row": 0,
+          "format": "json",
+          "document": {
+            "format": "ghostnote-document",
+            "version": "1.0",
+            "kind": "desired",
+            "clips": [
+              {
+                "id": "c1",
+                "length": "4",
+                "loop": {
+                  "from": "0",
+                  "to": "4"
+                }
+              }
+            ],
+            "coverage": [
+              {
+                "clip": "c1",
+                "channels": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16
+                ],
+                "fields": "all",
+                "status": "complete",
+                "from": "0",
+                "to": "4"
+              }
+            ],
+            "events": [
+              {
+                "id": "n1",
+                "clip": "c1",
+                "at": "0",
+                "duration": "1/2",
+                "pitch": 60,
+                "velocity": 90,
+                "channel": 1
+              },
+              {
+                "id": "n2",
+                "clip": "c1",
+                "at": "17/16",
+                "duration": "7/16",
+                "pitch": 64,
+                "velocity": 83,
+                "channel": 2,
+                "expression": {
+                  "velocitySpread": 0,
+                  "gain": 0.8,
+                  "pan": -0.25,
+                  "pressure": 0,
+                  "timbre": 0.4,
+                  "transpose": 0.25
+                }
+              },
+              {
+                "id": "n3",
+                "clip": "c1",
+                "at": "2",
+                "duration": "1/4",
+                "pitch": 67,
+                "velocity": 75,
+                "channel": 1
+              },
+              {
+                "id": "n4",
+                "clip": "c1",
+                "at": "49/16",
+                "duration": "5/16",
+                "pitch": 72,
+                "velocity": 86,
+                "channel": 2
+              }
+            ],
+            "overlays": []
+          }
+        },
+        "elapsedMs": 2409.8369999999995,
+        "brainCpuMs": 34.62,
+        "wireCalls": 77,
+        "turns": 53,
+        "methods": {
+          "revision.get": 16,
+          "track.list": 17,
+          "slot.status": 13,
+          "selection.status": 2,
+          "batch.run": 3,
+          "cursor.pin": 10,
+          "clip.read": 3,
+          "cursor.pointTrack": 1,
+          "slot.select": 2,
+          "cursor.status": 4,
+          "cursor.setStepSize": 3,
+          "cursor.scrollToStep": 3
+        },
+        "readback": {
+          "status": "verified",
+          "base": {
+            "sha256": "1612d4210a73e504ace8b6f65a4ee57438eb1601b7b90895fd1c276410c2f0ca",
+            "ref": "gnb1.6ISB7-M2nO-j"
+          },
+          "identity": "written",
+          "retainedIds": 4,
+          "mintedIds": 0,
+          "discrepancies": []
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "ce79068f-3f9f-46b9-a6c8-2c189d8ab433",
+        "name": "add_launcher_clip",
+        "args": {
+          "trackId": "5e275187-467c-43cc-a7c8-f591b0eab039",
+          "row": 0,
+          "format": "json",
+          "document": {
+            "format": "ghostnote-document",
+            "version": "1.0",
+            "kind": "desired",
+            "clips": [
+              {
+                "id": "c1",
+                "length": "4",
+                "loop": {
+                  "from": "0",
+                  "to": "4"
+                }
+              }
+            ],
+            "coverage": [
+              {
+                "clip": "c1",
+                "channels": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16
+                ],
+                "fields": "all",
+                "status": "complete",
+                "from": "0",
+                "to": "4"
+              }
+            ],
+            "events": [
+              {
+                "id": "n1",
+                "clip": "c1",
+                "at": "0",
+                "duration": "1/2",
+                "pitch": 60,
+                "velocity": 90,
+                "channel": 1
+              },
+              {
+                "id": "n2",
+                "clip": "c1",
+                "at": "17/16",
+                "duration": "7/16",
+                "pitch": 64,
+                "velocity": 83,
+                "channel": 2,
+                "expression": {
+                  "velocitySpread": 0,
+                  "gain": 0.8,
+                  "pan": -0.25,
+                  "pressure": 0,
+                  "timbre": 0.4,
+                  "transpose": 0.25
+                }
+              },
+              {
+                "id": "n3",
+                "clip": "c1",
+                "at": "2",
+                "duration": "1/4",
+                "pitch": 67,
+                "velocity": 75,
+                "channel": 1
+              },
+              {
+                "id": "n4",
+                "clip": "c1",
+                "at": "49/16",
+                "duration": "5/16",
+                "pitch": 72,
+                "velocity": 86,
+                "channel": 2
+              }
+            ],
+            "overlays": []
+          }
+        },
+        "elapsedMs": 2426.1719999999987,
+        "brainCpuMs": 34.488,
+        "wireCalls": 77,
+        "turns": 53,
+        "methods": {
+          "revision.get": 16,
+          "track.list": 17,
+          "slot.status": 13,
+          "selection.status": 2,
+          "batch.run": 3,
+          "cursor.pin": 10,
+          "clip.read": 3,
+          "cursor.pointTrack": 1,
+          "slot.select": 2,
+          "cursor.status": 4,
+          "cursor.setStepSize": 3,
+          "cursor.scrollToStep": 3
+        },
+        "readback": {
+          "status": "verified",
+          "base": {
+            "sha256": "0e5482cde0871696fef7416f5bb6aa7f4c0fde3c61eebcb5cf0d90ee717cecd8",
+            "ref": "gnb1.HHJJ8X78BuGA"
+          },
+          "identity": "written",
+          "retainedIds": 4,
+          "mintedIds": 0,
+          "discrepancies": []
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "ce79068f-3f9f-46b9-a6c8-2c189d8ab433",
+        "name": "add_launcher_clip",
+        "args": {
+          "trackId": "934a7d7d-fb8d-44a2-88f7-0f757a6a7c6a",
+          "row": 0,
+          "format": "json",
+          "document": {
+            "format": "ghostnote-document",
+            "version": "1.0",
+            "kind": "desired",
+            "clips": [
+              {
+                "id": "c1",
+                "length": "4",
+                "loop": {
+                  "from": "0",
+                  "to": "4"
+                }
+              }
+            ],
+            "coverage": [
+              {
+                "clip": "c1",
+                "channels": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16
+                ],
+                "fields": "all",
+                "status": "complete",
+                "from": "0",
+                "to": "4"
+              }
+            ],
+            "events": [
+              {
+                "id": "n1",
+                "clip": "c1",
+                "at": "0",
+                "duration": "1/2",
+                "pitch": 60,
+                "velocity": 90,
+                "channel": 1
+              },
+              {
+                "id": "n2",
+                "clip": "c1",
+                "at": "17/16",
+                "duration": "7/16",
+                "pitch": 64,
+                "velocity": 83,
+                "channel": 2,
+                "expression": {
+                  "velocitySpread": 0,
+                  "gain": 0.8,
+                  "pan": -0.25,
+                  "pressure": 0,
+                  "timbre": 0.4,
+                  "transpose": 0.25
+                }
+              },
+              {
+                "id": "n3",
+                "clip": "c1",
+                "at": "2",
+                "duration": "1/4",
+                "pitch": 67,
+                "velocity": 75,
+                "channel": 1
+              },
+              {
+                "id": "n4",
+                "clip": "c1",
+                "at": "49/16",
+                "duration": "5/16",
+                "pitch": 72,
+                "velocity": 86,
+                "channel": 2
+              }
+            ],
+            "overlays": []
+          }
+        },
+        "elapsedMs": 2470.215417000003,
+        "brainCpuMs": 31.975,
+        "wireCalls": 78,
+        "turns": 54,
+        "methods": {
+          "revision.get": 16,
+          "track.list": 17,
+          "slot.status": 13,
+          "selection.status": 3,
+          "batch.run": 3,
+          "cursor.pin": 10,
+          "clip.read": 3,
+          "cursor.pointTrack": 1,
+          "slot.select": 2,
+          "cursor.status": 4,
+          "cursor.setStepSize": 3,
+          "cursor.scrollToStep": 3
+        },
+        "readback": {
+          "status": "verified",
+          "base": {
+            "sha256": "1ea5bd4d9f72bc29729b80a30d292f13e4a43ea206df7ca5c87fe15422973324",
+            "ref": "gnb1.2vMSPENcCp5O"
+          },
+          "identity": "written",
+          "retainedIds": 4,
+          "mintedIds": 0,
+          "discrepancies": []
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "ce79068f-3f9f-46b9-a6c8-2c189d8ab433",
+        "name": "set_track_mixer",
+        "args": {
+          "tracks": [
+            {
+              "trackId": "0005f25f-b4c2-4199-83a4-101f09b1def9",
+              "volumeDb": -18,
+              "mute": true
+            },
+            {
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "volumeDb": -18,
+              "mute": true
+            },
+            {
+              "trackId": "7e6356c8-af6c-463e-8095-a29244835daf",
+              "volumeDb": -18,
+              "mute": true
+            },
+            {
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "volumeDb": -18,
+              "mute": true
+            },
+            {
+              "trackId": "5e275187-467c-43cc-a7c8-f591b0eab039",
+              "volumeDb": -18,
+              "mute": true
+            },
+            {
+              "trackId": "934a7d7d-fb8d-44a2-88f7-0f757a6a7c6a",
+              "volumeDb": -18,
+              "mute": true
+            }
+          ]
+        },
+        "elapsedMs": 267.6477500000001,
+        "brainCpuMs": 7.843,
+        "wireCalls": 15,
+        "turns": 10,
+        "methods": {
+          "revision.get": 5,
+          "track.list": 5,
+          "track.mixer": 2,
+          "selection.status": 1,
+          "slot.status": 1,
+          "batch.run": 1
+        },
+        "readback": {
+          "status": "verified",
+          "tracks": [
+            {
+              "trackId": "0005f25f-b4c2-4199-83a4-101f09b1def9",
+              "name": "gn-ua-0b6c3297-sentinel",
+              "fields": {
+                "volume": {
+                  "status": "verified",
+                  "requestedDb": -18,
+                  "db": -18,
+                  "display": "-18.0 dB"
+                },
+                "mute": {
+                  "status": "verified",
+                  "requested": true,
+                  "value": true
+                }
+              }
+            },
+            {
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "name": "gn-ua-0b6c3297-notes",
+              "fields": {
+                "volume": {
+                  "status": "verified",
+                  "requestedDb": -18,
+                  "db": -18,
+                  "display": "-18.0 dB"
+                },
+                "mute": {
+                  "status": "verified",
+                  "requested": true,
+                  "value": true
+                }
+              }
+            },
+            {
+              "trackId": "7e6356c8-af6c-463e-8095-a29244835daf",
+              "name": "gn-ua-0b6c3297-spare",
+              "fields": {
+                "volume": {
+                  "status": "verified",
+                  "requestedDb": -18,
+                  "db": -18,
+                  "display": "-18.0 dB"
+                },
+                "mute": {
+                  "status": "verified",
+                  "requested": true,
+                  "value": true
+                }
+              }
+            },
+            {
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "name": "gn-ua-0b6c3297-devices",
+              "fields": {
+                "volume": {
+                  "status": "verified",
+                  "requestedDb": -18,
+                  "db": -18,
+                  "display": "-18.0 dB"
+                },
+                "mute": {
+                  "status": "verified",
+                  "requested": true,
+                  "value": true
+                }
+              }
+            },
+            {
+              "trackId": "5e275187-467c-43cc-a7c8-f591b0eab039",
+              "name": "gn-ua-0b6c3297-single",
+              "fields": {
+                "volume": {
+                  "status": "verified",
+                  "requestedDb": -18,
+                  "db": -18,
+                  "display": "-18.0 dB"
+                },
+                "mute": {
+                  "status": "verified",
+                  "requested": true,
+                  "value": true
+                }
+              }
+            },
+            {
+              "trackId": "934a7d7d-fb8d-44a2-88f7-0f757a6a7c6a",
+              "name": "gn-ua-0b6c3297-multi",
+              "fields": {
+                "volume": {
+                  "status": "verified",
+                  "requestedDb": -18,
+                  "db": -18,
+                  "display": "-18.0 dB"
+                },
+                "mute": {
+                  "status": "verified",
+                  "requested": true,
+                  "value": true
+                }
+              }
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "ce79068f-3f9f-46b9-a6c8-2c189d8ab433",
+        "name": "add_devices",
+        "args": {
+          "trackId": "5e275187-467c-43cc-a7c8-f591b0eab039",
+          "devices": [
+            {
+              "kind": "preset",
+              "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/attempt-2-614/fixtures/gn_sampler_one_lfo.bwpreset"
+            }
+          ]
+        },
+        "elapsedMs": 1849.5652499999997,
+        "brainCpuMs": 21.85,
+        "wireCalls": 55,
+        "turns": 43,
+        "methods": {
+          "selection.status": 5,
+          "slot.status": 3,
+          "track.list": 8,
+          "cursor.pointTrack": 5,
+          "device.list": 15,
+          "slot.select": 3,
+          "revision.get": 5,
+          "batch.run": 1,
+          "cursor.pin": 8,
+          "devcursor.pin": 2
+        },
+        "readback": {
+          "status": "verified",
+          "added": [
+            {
+              "deviceIndex": 0,
+              "source": "preset",
+              "devicePosition": 0
+            }
+          ],
+          "topLevel": [
+            {
+              "devicePosition": 0,
+              "name": "Sampler",
+              "enabled": true
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "ce79068f-3f9f-46b9-a6c8-2c189d8ab433",
+        "name": "add_devices",
+        "args": {
+          "trackId": "934a7d7d-fb8d-44a2-88f7-0f757a6a7c6a",
+          "devices": [
+            {
+              "kind": "preset",
+              "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/attempt-2-614/fixtures/gn_sampler_multi_one_lfo.bwpreset"
+            }
+          ]
+        },
+        "elapsedMs": 1373.3833330000016,
+        "brainCpuMs": 18.593,
+        "wireCalls": 51,
+        "turns": 39,
+        "methods": {
+          "selection.status": 5,
+          "slot.status": 3,
+          "track.list": 8,
+          "cursor.pointTrack": 5,
+          "device.list": 11,
+          "slot.select": 3,
+          "revision.get": 5,
+          "batch.run": 1,
+          "cursor.pin": 8,
+          "devcursor.pin": 2
+        },
+        "readback": {
+          "status": "verified",
+          "added": [
+            {
+              "deviceIndex": 0,
+              "source": "preset",
+              "devicePosition": 0
+            }
+          ],
+          "topLevel": [
+            {
+              "devicePosition": 0,
+              "name": "Sampler",
+              "enabled": true
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "bcc89eee-f682-4f7c-8629-9a63eb4b1ed9",
+        "name": "edit_launcher_clip",
+        "args": {
+          "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+          "row": 0,
+          "document": "DOC ghostnote-document 1.0 patch\nBASE {\"sha256\":\"31c223084ae43db43a41e65bccbd82b11d7ba438af8db5358ec02dc5d501da8d\",\"ref\":\"gnb1.ZM5eNFvFmwzY\"}\nFIELDS id clip at duration pitch velocity channel\nUPDATE e7 {\"velocity\":55}\n"
+        },
+        "elapsedMs": 2025.2991660000007,
+        "brainCpuMs": 37.797,
+        "wireCalls": 56,
+        "turns": 44,
+        "methods": {
+          "revision.get": 11,
+          "track.list": 11,
+          "selection.status": 3,
+          "slot.status": 11,
+          "clip.read": 3,
+          "cursor.pin": 2,
+          "cursor.pointTrack": 1,
+          "slot.select": 2,
+          "cursor.status": 4,
+          "cursor.setStepSize": 3,
+          "cursor.scrollToStep": 3,
+          "batch.run": 2
+        },
+        "readback": {
+          "status": "verified",
+          "base": {
+            "sha256": "46795d068288925d97921a313f2af1dadeab441a357580cd27aa0712fdc82e28",
+            "ref": "gnb1.Ne9QcTq1ExUH"
+          },
+          "identity": "written",
+          "retainedIds": 4,
+          "mintedIds": 0,
+          "discrepancies": []
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "bcc89eee-f682-4f7c-8629-9a63eb4b1ed9",
+        "name": "edit_launcher_clip",
+        "args": {
+          "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+          "row": 0,
+          "document": "DOC ghostnote-document 1.0 patch\nBASE {\"sha256\":\"31c223084ae43db43a41e65bccbd82b11d7ba438af8db5358ec02dc5d501da8d\",\"ref\":\"gnb1.ZM5eNFvFmwzY\"}\nFIELDS id clip at duration pitch velocity channel\nUPDATE e7 {\"velocity\":44}\n"
+        },
+        "elapsedMs": 358.42575000000033,
+        "brainCpuMs": 6.493,
+        "wireCalls": 12,
+        "turns": 9,
+        "methods": {
+          "revision.get": 3,
+          "track.list": 3,
+          "selection.status": 1,
+          "slot.status": 4,
+          "clip.read": 1
+        },
+        "readback": null,
+        "verified": null,
+        "failure": {
+          "code": "stale",
+          "stage": "guard",
+          "effects": []
+        }
+      },
+      {
+        "commandId": "bcc89eee-f682-4f7c-8629-9a63eb4b1ed9",
+        "name": "revert_change",
+        "args": {
+          "changeId": "f25e99a6-f350-400f-814f-d43f608ec99c"
+        },
+        "elapsedMs": 2059.183332999999,
+        "brainCpuMs": 25.603,
+        "wireCalls": 48,
+        "turns": 39,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 8,
+          "selection.status": 4,
+          "slot.status": 5,
+          "clip.read": 3,
+          "slot.select": 3,
+          "cursor.pin": 2,
+          "cursor.pointTrack": 1,
+          "cursor.status": 4,
+          "cursor.setStepSize": 3,
+          "cursor.scrollToStep": 3,
+          "batch.run": 4
+        },
+        "readback": {
+          "status": "verified",
+          "restored": [
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 1
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 2
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 3
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 4
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 5
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 6
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 7
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 8
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 9
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 10
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 11
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 12
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 13
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 14
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 15
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 16
+            }
+          ],
+          "removed": [],
+          "notRestored": []
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "bcc89eee-f682-4f7c-8629-9a63eb4b1ed9",
+        "name": "edit_launcher_clip",
+        "args": {
+          "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+          "row": 0,
+          "document": "DOC ghostnote-document 1.0 desired\nBASE {\"ref\":\"gnb1.aBieZYegeUZS\",\"sha256\":\"31c223084ae43db43a41e65bccbd82b11d7ba438af8db5358ec02dc5d501da8d\"}\nCLIP {\"id\":\"c6\",\"length\":\"4\",\"loop\":{\"from\":\"0\",\"to\":\"4\"}}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"c6\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"4\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT e7 c6 0 1/2 60 90 1 false\nEVENT e9 c6 17/16 7/16 64 83 2 false WITH {\"expression\":{\"gain\":0.8,\"pan\":-0.25,\"pressure\":0,\"timbre\":0.4,\"transpose\":0.25,\"velocitySpread\":0}}\nEVENT e8 c6 2 1/4 67 52 1 false\nEVENT ea c6 49/16 5/16 72 86 2 false\n",
+          "readback": "document"
+        },
+        "elapsedMs": 1987.777709,
+        "brainCpuMs": 34.606,
+        "wireCalls": 56,
+        "turns": 44,
+        "methods": {
+          "revision.get": 11,
+          "track.list": 11,
+          "selection.status": 3,
+          "slot.status": 11,
+          "clip.read": 3,
+          "cursor.pin": 2,
+          "cursor.pointTrack": 1,
+          "slot.select": 2,
+          "cursor.status": 4,
+          "cursor.setStepSize": 3,
+          "cursor.scrollToStep": 3,
+          "batch.run": 2
+        },
+        "readback": {
+          "status": "verified",
+          "base": {
+            "sha256": "3a7cc6cf0c4b1660dd60e7168508ca344c2e062927105b8fb8a0dac74c0f9ede",
+            "ref": "gnb1.y1mEBawvueR1"
+          },
+          "identity": "written",
+          "retainedIds": 4,
+          "mintedIds": 0,
+          "discrepancies": [],
+          "format": "fields",
+          "document": "DOC ghostnote-document 1.0 snapshot\nCLIP {\"id\":\"c6\",\"length\":\"4\",\"loop\":{\"from\":\"0\",\"to\":\"4\"}}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"c6\",\"fields\":[\"at\",\"chance\",\"channel\",\"clip\",\"duration\",\"expression\",\"id\",\"mute\",\"occurrence\",\"pitch\",\"recurrence\",\"releaseVelocity\",\"velocity\"],\"from\":\"0\",\"status\":\"complete\",\"to\":\"4\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT e7 c6 0 1/2 60 90 1 false\nEVENT e9 c6 17/16 7/16 64 83 2 false WITH {\"expression\":{\"gain\":0.8,\"pan\":-0.25,\"pressure\":0,\"timbre\":0.4,\"transpose\":0.25,\"velocitySpread\":0}}\nEVENT e8 c6 2 1/4 67 52 1 false\nEVENT ea c6 49/16 5/16 72 86 2 false\n"
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "bcc89eee-f682-4f7c-8629-9a63eb4b1ed9",
+        "name": "revert_change",
+        "args": {
+          "changeId": "9d194a6d-e956-406a-beb9-d97b71f52aee"
+        },
+        "elapsedMs": 2059.2025420000027,
+        "brainCpuMs": 22.102,
+        "wireCalls": 48,
+        "turns": 39,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 8,
+          "selection.status": 4,
+          "slot.status": 5,
+          "clip.read": 3,
+          "slot.select": 3,
+          "cursor.pin": 2,
+          "cursor.pointTrack": 1,
+          "cursor.status": 4,
+          "cursor.setStepSize": 3,
+          "cursor.scrollToStep": 3,
+          "batch.run": 4
+        },
+        "readback": {
+          "status": "verified",
+          "restored": [
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 1
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 2
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 3
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 4
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 5
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 6
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 7
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 8
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 9
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 10
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 11
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 12
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 13
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 14
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 15
+            },
+            {
+              "what": "launcher_clip",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 0,
+              "channel": 16
+            }
+          ],
+          "removed": [],
+          "notRestored": []
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "f2f0a4d6-fda0-4ce6-8f55-f5d4e0f40e8d",
+        "name": "copy_launcher_clips",
+        "args": {
+          "copies": [
+            {
+              "source": {
+                "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+                "row": 0
+              },
+              "destination": {
+                "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+                "row": 4
+              }
+            }
+          ]
+        },
+        "elapsedMs": 869.414417,
+        "brainCpuMs": 17.961,
+        "wireCalls": 37,
+        "turns": 22,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 9,
+          "slot.status": 9,
+          "selection.status": 1,
+          "batch.run": 1,
+          "cursor.pin": 8,
+          "clip.read": 1
+        },
+        "readback": {
+          "status": "verified",
+          "copies": [
+            {
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 4,
+              "occupancy": "occupied"
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "f2f0a4d6-fda0-4ce6-8f55-f5d4e0f40e8d",
+        "name": "copy_launcher_clips",
+        "args": {
+          "copies": [
+            {
+              "source": {
+                "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+                "row": 0
+              },
+              "destination": {
+                "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+                "row": 4
+              }
+            }
+          ]
+        },
+        "elapsedMs": 94.93099999999868,
+        "brainCpuMs": 2.516,
+        "wireCalls": 6,
+        "turns": 4,
+        "methods": {
+          "revision.get": 2,
+          "track.list": 2,
+          "slot.status": 2
+        },
+        "readback": null,
+        "verified": null,
+        "failure": {
+          "code": "occupied",
+          "stage": "acquire",
+          "effects": []
+        }
+      },
+      {
+        "commandId": "f2f0a4d6-fda0-4ce6-8f55-f5d4e0f40e8d",
+        "name": "move_launcher_clips",
+        "args": {
+          "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+          "firstRow": 4,
+          "lastRow": 4,
+          "destinationFirstRow": 6
+        },
+        "elapsedMs": 1135.9532909999998,
+        "brainCpuMs": 14.771,
+        "wireCalls": 42,
+        "turns": 27,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 9,
+          "slot.status": 13,
+          "selection.status": 1,
+          "clip.read": 2,
+          "batch.run": 1,
+          "cursor.pin": 8
+        },
+        "readback": {
+          "status": "verified",
+          "firstRow": 6,
+          "lastRow": 6
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "f2f0a4d6-fda0-4ce6-8f55-f5d4e0f40e8d",
+        "name": "move_launcher_clips",
+        "args": {
+          "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+          "firstRow": 6,
+          "lastRow": 6,
+          "destinationFirstRow": 4
+        },
+        "elapsedMs": 1162.194916999999,
+        "brainCpuMs": 16.062,
+        "wireCalls": 42,
+        "turns": 27,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 9,
+          "slot.status": 13,
+          "selection.status": 1,
+          "clip.read": 2,
+          "batch.run": 1,
+          "cursor.pin": 8
+        },
+        "readback": {
+          "status": "verified",
+          "firstRow": 4,
+          "lastRow": 4
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "f2f0a4d6-fda0-4ce6-8f55-f5d4e0f40e8d",
+        "name": "delete_launcher_clip",
+        "args": {
+          "clips": [
+            {
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 4
+            }
+          ]
+        },
+        "elapsedMs": 843.4378749999996,
+        "brainCpuMs": 15.577,
+        "wireCalls": 36,
+        "turns": 21,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 9,
+          "slot.status": 8,
+          "selection.status": 1,
+          "clip.read": 1,
+          "batch.run": 1,
+          "cursor.pin": 8
+        },
+        "readback": {
+          "status": "verified",
+          "clips": [
+            {
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "row": 4,
+              "occupancy": "empty"
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "f2f0a4d6-fda0-4ce6-8f55-f5d4e0f40e8d",
+        "name": "duplicate_track",
+        "args": {
+          "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+          "name": "gn-ua-0b6c3297-duplicate"
+        },
+        "elapsedMs": 957.1940410000007,
+        "brainCpuMs": 17.63,
+        "wireCalls": 42,
+        "turns": 24,
+        "methods": {
+          "track.list": 15,
+          "selection.status": 4,
+          "slot.status": 1,
+          "revision.get": 11,
+          "batch.run": 2,
+          "cursor.pin": 8,
+          "selection.restoreMixer": 1
+        },
+        "readback": {
+          "status": "verified",
+          "copy": {
+            "trackId": "f630aa90-0395-4be6-aeca-049d335d401e",
+            "name": "gn-ua-0b6c3297-duplicate",
+            "kind": "Instrument",
+            "position": 4
+          }
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "f2f0a4d6-fda0-4ce6-8f55-f5d4e0f40e8d",
+        "name": "delete_track",
+        "args": {
+          "trackIds": [
+            "f630aa90-0395-4be6-aeca-049d335d401e"
+          ]
+        },
+        "elapsedMs": 602.453207999999,
+        "brainCpuMs": 8.895,
+        "wireCalls": 29,
+        "turns": 16,
+        "methods": {
+          "track.list": 8,
+          "selection.status": 4,
+          "slot.status": 1,
+          "revision.get": 6,
+          "batch.run": 1,
+          "cursor.pin": 8,
+          "selection.restoreMixer": 1
+        },
+        "readback": {
+          "status": "verified",
+          "removed": [
+            "f630aa90-0395-4be6-aeca-049d335d401e"
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "477bedde-a592-4508-be55-28d6e6bd8e16",
+        "name": "set_track_mixer",
+        "args": {
+          "tracks": [
+            {
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "volumeDb": -12,
+              "pan": -0.4,
+              "mute": false,
+              "solo": true
+            }
+          ]
+        },
+        "elapsedMs": 267.748458,
+        "brainCpuMs": 10.716,
+        "wireCalls": 15,
+        "turns": 10,
+        "methods": {
+          "revision.get": 5,
+          "track.list": 5,
+          "track.mixer": 2,
+          "selection.status": 1,
+          "slot.status": 1,
+          "batch.run": 1
+        },
+        "readback": {
+          "status": "verified",
+          "tracks": [
+            {
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "name": "gn-ua-0b6c3297-notes",
+              "fields": {
+                "volume": {
+                  "status": "verified",
+                  "requestedDb": -12,
+                  "db": -12,
+                  "display": "-12.0 dB"
+                },
+                "pan": {
+                  "status": "verified",
+                  "requested": -0.4,
+                  "value": -0.4
+                },
+                "mute": {
+                  "status": "verified",
+                  "requested": false,
+                  "value": false
+                },
+                "solo": {
+                  "status": "verified",
+                  "requested": true,
+                  "value": true
+                }
+              }
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "477bedde-a592-4508-be55-28d6e6bd8e16",
+        "name": "revert_change",
+        "args": {
+          "changeId": "229f9034-66eb-46be-a5b7-3d1f1c2de834"
+        },
+        "elapsedMs": 367.5299589999995,
+        "brainCpuMs": 12.082,
+        "wireCalls": 22,
+        "turns": 14,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 8,
+          "track.mixer": 3,
+          "selection.status": 1,
+          "slot.status": 1,
+          "batch.run": 1
+        },
+        "readback": {
+          "status": "verified",
+          "restored": [
+            {
+              "what": "track",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "mixerField": "volume"
+            },
+            {
+              "what": "track",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "mixerField": "pan"
+            },
+            {
+              "what": "track",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "mixerField": "mute"
+            },
+            {
+              "what": "track",
+              "trackId": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+              "mixerField": "solo"
+            }
+          ],
+          "removed": [],
+          "notRestored": []
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "99dfb051-03c7-440b-8aa3-b61cb9a1984a",
+        "name": "add_devices",
+        "args": {
+          "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+          "devices": [
+            {
+              "kind": "native",
+              "name": "Polysynth"
+            },
+            {
+              "kind": "native",
+              "name": "Polysynth"
+            },
+            {
+              "kind": "clap",
+              "id": "com.u-he.Diva"
+            }
+          ]
+        },
+        "elapsedMs": 3814.354125,
+        "brainCpuMs": 61.173,
+        "wireCalls": 139,
+        "turns": 103,
+        "methods": {
+          "selection.status": 11,
+          "slot.status": 7,
+          "track.list": 22,
+          "cursor.pointTrack": 11,
+          "device.list": 31,
+          "slot.select": 7,
+          "revision.get": 15,
+          "batch.run": 3,
+          "cursor.pin": 24,
+          "devcursor.pin": 8
+        },
+        "readback": {
+          "status": "verified",
+          "added": [
+            {
+              "deviceIndex": 0,
+              "source": "native",
+              "devicePosition": 0,
+              "name": "Polysynth"
+            },
+            {
+              "deviceIndex": 1,
+              "source": "native",
+              "devicePosition": 1,
+              "name": "Polysynth"
+            },
+            {
+              "deviceIndex": 2,
+              "source": "clap",
+              "devicePosition": 2
+            }
+          ],
+          "topLevel": [
+            {
+              "devicePosition": 0,
+              "name": "Polysynth",
+              "enabled": true
+            },
+            {
+              "devicePosition": 1,
+              "name": "Polysynth",
+              "enabled": true
+            },
+            {
+              "devicePosition": 2,
+              "name": "Diva",
+              "enabled": true
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "99dfb051-03c7-440b-8aa3-b61cb9a1984a",
+        "name": "set_device_controls",
+        "args": {
+          "settings": [
+            {
+              "kind": "direct",
+              "device": {
+                "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+                "devicePosition": 0
+              },
+              "parameterId": "CONTENTS/PW1",
+              "normalizedValue": 0.25
+            }
+          ]
+        },
+        "elapsedMs": 2411.7056669999984,
+        "brainCpuMs": 33.645,
+        "wireCalls": 66,
+        "turns": 61,
+        "methods": {
+          "selection.status": 6,
+          "slot.status": 3,
+          "track.list": 6,
+          "devcursor.pin": 8,
+          "cursor.pointTrack": 5,
+          "device.list": 5,
+          "slot.select": 3,
+          "revision.get": 5,
+          "devcursor.selectAt": 4,
+          "devcursor.status": 4,
+          "directparam.list": 9,
+          "param.list": 3,
+          "chain.inventory": 2,
+          "batch.run": 1,
+          "directparam.completion": 2
+        },
+        "readback": null,
+        "verified": true,
+        "failure": null
+      },
+      {
+        "commandId": "574978e1-36a4-48a6-a4c7-8f5716ab9d53",
+        "name": "delete_device",
+        "args": {
+          "devices": [
+            {
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "devicePosition": 2
+            },
+            {
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "devicePosition": 1
+            },
+            {
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "devicePosition": 0
+            }
+          ]
+        },
+        "elapsedMs": 7124.989167,
+        "brainCpuMs": 113.788,
+        "wireCalls": 241,
+        "turns": 201,
+        "methods": {
+          "revision.get": 19,
+          "track.list": 29,
+          "selection.status": 22,
+          "slot.status": 11,
+          "devcursor.pin": 26,
+          "cursor.pointTrack": 26,
+          "devcursor.selectAt": 14,
+          "chain.inventory": 12,
+          "slot.select": 11,
+          "device.list": 26,
+          "devcursor.status": 4,
+          "directparam.list": 9,
+          "param.list": 3,
+          "devcursor.selectFirstInSlot": 2,
+          "batch.run": 3,
+          "cursor.pin": 24
+        },
+        "readback": {
+          "status": "verified",
+          "removed": [
+            {
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "position": 2,
+              "name": "Diva"
+            },
+            {
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "position": 1,
+              "name": "Polysynth"
+            },
+            {
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "position": 0,
+              "name": "Polysynth"
+            }
+          ],
+          "removedLayerChains": []
+        },
+        "verified": null,
+        "failure": null
+      }
+    ]
+  },
+  {
+    "directory": "continuation-614",
+    "completed": [
+      "preflight",
+      "setup",
+      "notes",
+      "clips",
+      "mixer",
+      "controls"
+    ],
+    "failure": {
+      "command": "run",
+      "arg": "structure",
+      "commandId": "a42e4398-69de-4cc0-86fa-2fb0201c8cf4",
+      "error": "AssertionError [ERR_ASSERTION]: set_device_enabled: readback unavailable or differs",
+      "at": "2026-10-21T13:53:17.720Z"
+    },
+    "recoveryCompleted": true,
+    "commands": {
+      "a855e759-c277-4981-a049-26790b1ace57": {
+        "calls": 1718,
+        "wireMs": 38239.200545000065,
+        "responseBytes": 2709058
+      },
+      "a42e4398-69de-4cc0-86fa-2fb0201c8cf4": {
+        "calls": 1052,
+        "wireMs": 23326.215615999972,
+        "responseBytes": 714961
+      },
+      "c1b258b0-b89f-4a14-92f6-02fd67a0419c": {
+        "calls": 212,
+        "wireMs": 5412.256087000002,
+        "responseBytes": 109811
+      },
+      "ea52cb26-a9ae-46fa-b401-b886a4c3e58a": {
+        "calls": 212,
+        "wireMs": 5390.095954,
+        "responseBytes": 109806
+      },
+      "c450ec46-69b8-4901-a93d-d0abe46a1958": {
+        "calls": 314,
+        "wireMs": 7904.6104499999965,
+        "responseBytes": 192890
+      },
+      "3c033a46-6788-4928-99ae-b8348918e853": {
+        "calls": 754,
+        "wireMs": 17663.59087000004,
+        "responseBytes": 474874
+      }
+    },
+    "writes": [
+      {
+        "commandId": "a855e759-c277-4981-a049-26790b1ace57",
+        "name": "add_devices",
+        "args": {
+          "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+          "devices": [
+            {
+              "kind": "native",
+              "name": "Polysynth"
+            },
+            {
+              "kind": "native",
+              "name": "Polysynth"
+            },
+            {
+              "kind": "clap",
+              "id": "com.u-he.Diva"
+            }
+          ]
+        },
+        "elapsedMs": 3470.4288749999996,
+        "brainCpuMs": 58.741,
+        "wireCalls": 137,
+        "turns": 101,
+        "methods": {
+          "selection.status": 11,
+          "slot.status": 7,
+          "track.list": 22,
+          "cursor.pointTrack": 11,
+          "device.list": 29,
+          "slot.select": 7,
+          "revision.get": 15,
+          "batch.run": 3,
+          "cursor.pin": 24,
+          "devcursor.pin": 8
+        },
+        "readback": {
+          "status": "verified",
+          "added": [
+            {
+              "deviceIndex": 0,
+              "source": "native",
+              "devicePosition": 0,
+              "name": "Polysynth"
+            },
+            {
+              "deviceIndex": 1,
+              "source": "native",
+              "devicePosition": 1,
+              "name": "Polysynth"
+            },
+            {
+              "deviceIndex": 2,
+              "source": "clap",
+              "devicePosition": 2
+            }
+          ],
+          "topLevel": [
+            {
+              "devicePosition": 0,
+              "name": "Polysynth",
+              "enabled": true
+            },
+            {
+              "devicePosition": 1,
+              "name": "Polysynth",
+              "enabled": true
+            },
+            {
+              "devicePosition": 2,
+              "name": "Diva",
+              "enabled": true
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "a855e759-c277-4981-a049-26790b1ace57",
+        "name": "set_device_controls",
+        "args": {
+          "settings": [
+            {
+              "kind": "direct",
+              "device": {
+                "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+                "devicePosition": 0
+              },
+              "parameterId": "CONTENTS/PW1",
+              "normalizedValue": 0.25
+            }
+          ]
+        },
+        "elapsedMs": 2312.6205420000006,
+        "brainCpuMs": 33.459,
+        "wireCalls": 66,
+        "turns": 61,
+        "methods": {
+          "selection.status": 6,
+          "slot.status": 3,
+          "track.list": 6,
+          "devcursor.pin": 8,
+          "cursor.pointTrack": 5,
+          "device.list": 5,
+          "slot.select": 3,
+          "revision.get": 5,
+          "devcursor.selectAt": 4,
+          "devcursor.status": 4,
+          "directparam.list": 9,
+          "param.list": 3,
+          "chain.inventory": 2,
+          "batch.run": 1,
+          "directparam.completion": 2
+        },
+        "readback": null,
+        "verified": true,
+        "failure": null
+      },
+      {
+        "commandId": "a855e759-c277-4981-a049-26790b1ace57",
+        "name": "revert_change",
+        "args": {
+          "changeId": "d66737b9-0f03-4379-9f68-addfa1f3da2b"
+        },
+        "elapsedMs": 2770.593166999999,
+        "brainCpuMs": 34.635,
+        "wireCalls": 67,
+        "turns": 59,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 8,
+          "selection.status": 4,
+          "slot.status": 2,
+          "devcursor.pin": 4,
+          "cursor.pointTrack": 2,
+          "device.list": 2,
+          "devcursor.selectAt": 2,
+          "devcursor.status": 6,
+          "directparam.list": 18,
+          "param.list": 6,
+          "slot.select": 2,
+          "batch.run": 1,
+          "directparam.completion": 2
+        },
+        "readback": {
+          "status": "verified",
+          "restored": [
+            {
+              "what": "device_control",
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "devicePosition": 0,
+              "parameter": "CONTENTS/PW1"
+            }
+          ],
+          "removed": [],
+          "notRestored": []
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "a855e759-c277-4981-a049-26790b1ace57",
+        "name": "set_device_controls",
+        "args": {
+          "settings": [
+            {
+              "kind": "direct",
+              "device": {
+                "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+                "devicePosition": 1
+              },
+              "parameterId": "CONTENTS/PW1",
+              "normalizedValue": 0.25
+            }
+          ]
+        },
+        "elapsedMs": 2308.566541999997,
+        "brainCpuMs": 31.863,
+        "wireCalls": 66,
+        "turns": 61,
+        "methods": {
+          "selection.status": 6,
+          "slot.status": 3,
+          "track.list": 6,
+          "devcursor.pin": 8,
+          "cursor.pointTrack": 5,
+          "device.list": 5,
+          "slot.select": 3,
+          "revision.get": 5,
+          "devcursor.selectAt": 4,
+          "devcursor.status": 4,
+          "directparam.list": 9,
+          "param.list": 3,
+          "chain.inventory": 2,
+          "batch.run": 1,
+          "directparam.completion": 2
+        },
+        "readback": null,
+        "verified": true,
+        "failure": null
+      },
+      {
+        "commandId": "a855e759-c277-4981-a049-26790b1ace57",
+        "name": "revert_change",
+        "args": {
+          "changeId": "fd1e6f07-a01a-4dff-8313-cae597dacef4"
+        },
+        "elapsedMs": 2775.975166999997,
+        "brainCpuMs": 29.807,
+        "wireCalls": 67,
+        "turns": 59,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 8,
+          "selection.status": 4,
+          "slot.status": 2,
+          "devcursor.pin": 4,
+          "cursor.pointTrack": 2,
+          "device.list": 2,
+          "devcursor.selectAt": 2,
+          "devcursor.status": 6,
+          "directparam.list": 18,
+          "param.list": 6,
+          "slot.select": 2,
+          "batch.run": 1,
+          "directparam.completion": 2
+        },
+        "readback": {
+          "status": "verified",
+          "restored": [
+            {
+              "what": "device_control",
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "devicePosition": 1,
+              "parameter": "CONTENTS/PW1"
+            }
+          ],
+          "removed": [],
+          "notRestored": []
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "a855e759-c277-4981-a049-26790b1ace57",
+        "name": "set_device_controls",
+        "args": {
+          "settings": [
+            {
+              "kind": "direct",
+              "device": {
+                "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+                "devicePosition": 2
+              },
+              "parameterId": "CONTENTS/PID0",
+              "normalizedValue": 0.75
+            }
+          ]
+        },
+        "elapsedMs": 3445.5305829999998,
+        "brainCpuMs": 35.375,
+        "wireCalls": 80,
+        "turns": 75,
+        "methods": {
+          "selection.status": 6,
+          "slot.status": 3,
+          "track.list": 6,
+          "devcursor.pin": 9,
+          "cursor.pointTrack": 6,
+          "device.list": 5,
+          "slot.select": 3,
+          "revision.get": 5,
+          "devcursor.selectAt": 6,
+          "devcursor.status": 4,
+          "directparam.list": 9,
+          "param.list": 3,
+          "chain.inventory": 8,
+          "devcursor.selectFirstInSlot": 4,
+          "batch.run": 1,
+          "directparam.completion": 2
+        },
+        "readback": null,
+        "verified": true,
+        "failure": null
+      },
+      {
+        "commandId": "a855e759-c277-4981-a049-26790b1ace57",
+        "name": "revert_change",
+        "args": {
+          "changeId": "2943bc51-e9e6-4361-bc09-dfbdd32d812a"
+        },
+        "elapsedMs": 2800.8287090000013,
+        "brainCpuMs": 32.423,
+        "wireCalls": 67,
+        "turns": 59,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 8,
+          "selection.status": 4,
+          "slot.status": 2,
+          "devcursor.pin": 4,
+          "cursor.pointTrack": 2,
+          "device.list": 2,
+          "devcursor.selectAt": 2,
+          "devcursor.status": 6,
+          "directparam.list": 18,
+          "param.list": 6,
+          "slot.select": 2,
+          "batch.run": 1,
+          "directparam.completion": 2
+        },
+        "readback": {
+          "status": "verified",
+          "restored": [
+            {
+              "what": "device_control",
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "devicePosition": 2,
+              "parameter": "CONTENTS/PID0"
+            }
+          ],
+          "removed": [],
+          "notRestored": []
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "a855e759-c277-4981-a049-26790b1ace57",
+        "name": "revert_change",
+        "args": {
+          "changeId": "685e7858-787c-4a5c-86c7-4be1fbd8f1a8"
+        },
+        "elapsedMs": 1922.396166999999,
+        "brainCpuMs": 23.738,
+        "wireCalls": 56,
+        "turns": 41,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 9,
+          "selection.status": 2,
+          "slot.status": 1,
+          "devcursor.pin": 4,
+          "cursor.pointTrack": 2,
+          "device.list": 4,
+          "devcursor.selectAt": 4,
+          "devcursor.status": 1,
+          "directparam.list": 3,
+          "param.list": 1,
+          "chain.inventory": 5,
+          "devcursor.selectFirstInSlot": 2,
+          "batch.run": 1,
+          "cursor.pin": 8,
+          "slot.select": 1
+        },
+        "readback": {
+          "status": "verified",
+          "restored": [],
+          "removed": [
+            {
+              "what": "device",
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "devicePosition": 2
+            }
+          ],
+          "notRestored": [],
+          "caveats": [
+            "this removes a device at the position its insertion was seen to produce. A track's device list exposes names and order but no durable device identity. This generic reversal did not retain a full managed-chain witness, so a later rearrangement can make the position name a different device."
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "a855e759-c277-4981-a049-26790b1ace57",
+        "name": "revert_change",
+        "args": {
+          "changeId": "0ab60c2b-d2a1-4eed-ba11-70311cda5602"
+        },
+        "elapsedMs": 1327.314250000003,
+        "brainCpuMs": 17.787,
+        "wireCalls": 50,
+        "turns": 35,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 9,
+          "selection.status": 2,
+          "slot.status": 1,
+          "devcursor.pin": 4,
+          "cursor.pointTrack": 2,
+          "device.list": 4,
+          "devcursor.selectAt": 3,
+          "devcursor.status": 1,
+          "directparam.list": 3,
+          "param.list": 1,
+          "chain.inventory": 2,
+          "batch.run": 1,
+          "cursor.pin": 8,
+          "slot.select": 1
+        },
+        "readback": {
+          "status": "verified",
+          "restored": [],
+          "removed": [
+            {
+              "what": "device",
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "devicePosition": 1,
+              "name": "Polysynth"
+            }
+          ],
+          "notRestored": []
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "a855e759-c277-4981-a049-26790b1ace57",
+        "name": "revert_change",
+        "args": {
+          "changeId": "3e5297ec-db10-4590-a0a8-4731a9f6fae8"
+        },
+        "elapsedMs": 1516.8138749999998,
+        "brainCpuMs": 20.144,
+        "wireCalls": 56,
+        "turns": 41,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 9,
+          "selection.status": 2,
+          "slot.status": 1,
+          "devcursor.pin": 6,
+          "cursor.pointTrack": 4,
+          "device.list": 4,
+          "devcursor.selectAt": 4,
+          "devcursor.status": 2,
+          "directparam.list": 3,
+          "param.list": 1,
+          "chain.inventory": 2,
+          "batch.run": 1,
+          "cursor.pin": 8,
+          "slot.select": 1
+        },
+        "readback": {
+          "status": "verified",
+          "restored": [],
+          "removed": [
+            {
+              "what": "device",
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "devicePosition": 0,
+              "name": "Polysynth"
+            }
+          ],
+          "notRestored": []
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "a42e4398-69de-4cc0-86fa-2fb0201c8cf4",
+        "name": "compose_devices",
+        "args": {
+          "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+          "containerKind": "FX Layer",
+          "layerChains": [
+            {
+              "name": "A",
+              "devices": [
+                {
+                  "source": {
+                    "kind": "native",
+                    "name": "Polysynth"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "B",
+              "devices": [
+                {
+                  "source": {
+                    "kind": "native",
+                    "name": "Tool"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "elapsedMs": 10689.511333,
+        "brainCpuMs": 218.251,
+        "wireCalls": 418,
+        "turns": 330,
+        "methods": {
+          "selection.status": 40,
+          "slot.status": 22,
+          "track.list": 67,
+          "cursor.pointTrack": 31,
+          "device.list": 49,
+          "slot.select": 21,
+          "revision.get": 53,
+          "batch.run": 7,
+          "cursor.pin": 40,
+          "devcursor.pin": 28,
+          "devcursor.selectAt": 22,
+          "chain.inventory": 20,
+          "devcursor.status": 6,
+          "layer.list": 2,
+          "devcursor.selectInLayer": 2,
+          "directparam.list": 6,
+          "param.list": 2
+        },
+        "readback": {
+          "status": "verified",
+          "backend": "staged",
+          "containerPosition": 0,
+          "structure": [
+            {
+              "entryIndex": 0,
+              "entryName": "A",
+              "devices": [
+                {
+                  "position": 0,
+                  "name": "Polysynth",
+                  "enabled": true
+                }
+              ]
+            },
+            {
+              "entryIndex": 1,
+              "entryName": "B",
+              "devices": [
+                {
+                  "position": 0,
+                  "name": "Tool",
+                  "enabled": true
+                }
+              ]
+            }
+          ],
+          "layerChains": [
+            {
+              "entryIndex": 0,
+              "deviceIndex": 0,
+              "entryName": "A",
+              "sourceKind": "native",
+              "sourceIdentity": {
+                "kind": "native",
+                "exactCatalogName": "Polysynth"
+              },
+              "observed": {
+                "deviceName": "Polysynth",
+                "enabled": true,
+                "position": 0
+              },
+              "instance": "new",
+              "stateClaim": "The source created a new device instance.",
+              "scalarFingerprint": {
+                "after": {
+                  "algorithm": "sha256",
+                  "sha256": "182dac11e829bc76378a693dfc1086e77e4fee2eb709a0350697f17206a55d42",
+                  "parameterCount": 55
+                }
+              },
+              "pages": {
+                "verified": true,
+                "actualPages": [],
+                "witnesses": []
+              },
+              "containerPages": {
+                "verified": true,
+                "actualPages": [],
+                "witnesses": []
+              },
+              "behaviors": [],
+              "verified": true
+            },
+            {
+              "entryIndex": 1,
+              "deviceIndex": 0,
+              "entryName": "B",
+              "sourceKind": "native",
+              "sourceIdentity": {
+                "kind": "native",
+                "exactCatalogName": "Tool"
+              },
+              "observed": {
+                "deviceName": "Tool",
+                "enabled": true,
+                "position": 0
+              },
+              "instance": "new",
+              "stateClaim": "The source created a new device instance.",
+              "scalarFingerprint": {
+                "after": {
+                  "algorithm": "sha256",
+                  "sha256": "c8375a4e3e550034ec297d895cd612c7a7ed8d97709f8f3b570629d66208cf7b",
+                  "parameterCount": 7
+                }
+              },
+              "pages": {
+                "verified": true,
+                "actualPages": [],
+                "witnesses": []
+              },
+              "containerPages": {
+                "verified": true,
+                "actualPages": [],
+                "witnesses": []
+              },
+              "behaviors": [],
+              "verified": true
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "a42e4398-69de-4cc0-86fa-2fb0201c8cf4",
+        "name": "add_devices",
+        "args": {
+          "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+          "devices": [
+            {
+              "kind": "native",
+              "name": "Delay+"
+            }
+          ]
+        },
+        "elapsedMs": 1344.3455409999988,
+        "brainCpuMs": 19.617,
+        "wireCalls": 54,
+        "turns": 42,
+        "methods": {
+          "selection.status": 5,
+          "slot.status": 3,
+          "track.list": 8,
+          "devcursor.pin": 5,
+          "cursor.pointTrack": 5,
+          "device.list": 11,
+          "slot.select": 3,
+          "revision.get": 5,
+          "batch.run": 1,
+          "cursor.pin": 8
+        },
+        "readback": {
+          "status": "verified",
+          "added": [
+            {
+              "deviceIndex": 0,
+              "source": "native",
+              "devicePosition": 1,
+              "name": "Delay+"
+            }
+          ],
+          "topLevel": [
+            {
+              "devicePosition": 0,
+              "name": "FX Layer",
+              "enabled": true
+            },
+            {
+              "devicePosition": 1,
+              "name": "Delay+",
+              "enabled": true
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "a42e4398-69de-4cc0-86fa-2fb0201c8cf4",
+        "name": "copy_devices",
+        "args": {
+          "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+          "devices": [
+            {
+              "from": "top-level",
+              "devicePosition": 1
+            }
+          ],
+          "destination": {
+            "to": "layer-chain",
+            "containerPosition": 0,
+            "layerChain": "A"
+          }
+        },
+        "elapsedMs": 1805.2929159999985,
+        "brainCpuMs": 29.637,
+        "wireCalls": 79,
+        "turns": 65,
+        "methods": {
+          "selection.status": 10,
+          "slot.status": 5,
+          "track.list": 10,
+          "devcursor.pin": 7,
+          "cursor.pointTrack": 7,
+          "device.list": 7,
+          "slot.select": 5,
+          "revision.get": 7,
+          "devcursor.selectAt": 6,
+          "chain.inventory": 6,
+          "batch.run": 1,
+          "cursor.pin": 8
+        },
+        "readback": {
+          "status": "verified",
+          "topLevel": [
+            {
+              "devicePosition": 0,
+              "name": "FX Layer",
+              "enabled": true
+            },
+            {
+              "devicePosition": 1,
+              "name": "Delay+",
+              "enabled": true
+            }
+          ],
+          "topLevelComplete": true,
+          "layerChains": [
+            {
+              "containerPosition": 0,
+              "position": 0,
+              "name": "A",
+              "solo": false,
+              "mute": false,
+              "volume": 0.7937005259840999,
+              "pan": 0.5,
+              "color": {
+                "red": 0,
+                "green": 0.616,
+                "blue": 0.267
+              },
+              "devices": [
+                {
+                  "devicePosition": 0,
+                  "name": "Polysynth"
+                },
+                {
+                  "devicePosition": 1,
+                  "name": "Delay+"
+                }
+              ],
+              "devicesComplete": true,
+              "deviceCapacity": 4
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "a42e4398-69de-4cc0-86fa-2fb0201c8cf4",
+        "name": "move_devices",
+        "args": {
+          "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+          "devices": [
+            {
+              "from": "top-level",
+              "devicePosition": 1
+            }
+          ],
+          "destination": {
+            "to": "layer-chain",
+            "containerPosition": 0,
+            "layerChain": "B"
+          }
+        },
+        "elapsedMs": 2002.794665999998,
+        "brainCpuMs": 29.816,
+        "wireCalls": 82,
+        "turns": 68,
+        "methods": {
+          "selection.status": 10,
+          "slot.status": 5,
+          "track.list": 10,
+          "devcursor.pin": 7,
+          "cursor.pointTrack": 7,
+          "device.list": 8,
+          "slot.select": 5,
+          "revision.get": 7,
+          "devcursor.selectAt": 7,
+          "chain.inventory": 7,
+          "batch.run": 1,
+          "cursor.pin": 8
+        },
+        "readback": {
+          "status": "verified",
+          "topLevel": [
+            {
+              "devicePosition": 0,
+              "name": "FX Layer",
+              "enabled": true
+            }
+          ],
+          "topLevelComplete": true,
+          "layerChains": [
+            {
+              "containerPosition": 0,
+              "position": 1,
+              "name": "B",
+              "solo": false,
+              "mute": false,
+              "volume": 0.7937005259840999,
+              "pan": 0.5,
+              "color": {
+                "red": 0,
+                "green": 0.616,
+                "blue": 0.267
+              },
+              "devices": [
+                {
+                  "devicePosition": 0,
+                  "name": "Tool"
+                },
+                {
+                  "devicePosition": 1,
+                  "name": "Delay+"
+                }
+              ],
+              "devicesComplete": true,
+              "deviceCapacity": 4
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "a42e4398-69de-4cc0-86fa-2fb0201c8cf4",
+        "name": "set_device_enabled",
+        "args": {
+          "settings": [
+            {
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "devicePosition": 0,
+              "enabled": false
+            }
+          ]
+        },
+        "elapsedMs": 771.674750000002,
+        "brainCpuMs": 16.337,
+        "wireCalls": 34,
+        "turns": 28,
+        "methods": {
+          "selection.status": 3,
+          "slot.status": 2,
+          "track.list": 7,
+          "devcursor.pin": 3,
+          "cursor.pointTrack": 3,
+          "device.list": 7,
+          "slot.select": 2,
+          "revision.get": 6,
+          "batch.run": 1
+        },
+        "readback": {
+          "status": "differs"
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "3c033a46-6788-4928-99ae-b8348918e853",
+        "name": "set_device_enabled",
+        "args": {
+          "settings": [
+            {
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "devicePosition": 0,
+              "enabled": true
+            }
+          ]
+        },
+        "elapsedMs": 706.2882499999996,
+        "brainCpuMs": 17.841,
+        "wireCalls": 31,
+        "turns": 25,
+        "methods": {
+          "selection.status": 3,
+          "slot.status": 2,
+          "track.list": 7,
+          "cursor.pointTrack": 3,
+          "device.list": 7,
+          "slot.select": 2,
+          "revision.get": 6,
+          "batch.run": 1
+        },
+        "readback": {
+          "status": "verified"
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "3c033a46-6788-4928-99ae-b8348918e853",
+        "name": "delete_device",
+        "args": {
+          "devices": [
+            {
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "devicePosition": 0
+            }
+          ]
+        },
+        "elapsedMs": 2408.967584,
+        "brainCpuMs": 37.809,
+        "wireCalls": 85,
+        "turns": 71,
+        "methods": {
+          "revision.get": 7,
+          "track.list": 11,
+          "selection.status": 10,
+          "slot.status": 5,
+          "devcursor.pin": 6,
+          "cursor.pointTrack": 10,
+          "devcursor.selectAt": 4,
+          "chain.inventory": 3,
+          "slot.select": 5,
+          "device.list": 10,
+          "devcursor.status": 1,
+          "directparam.list": 3,
+          "param.list": 1,
+          "batch.run": 1,
+          "cursor.pin": 8
+        },
+        "readback": {
+          "status": "verified",
+          "removed": [
+            {
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "position": 0,
+              "name": "FX Layer"
+            }
+          ],
+          "removedLayerChains": [
+            {
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "position": 0,
+              "containerKind": "FX Layer",
+              "layerChains": [
+                {
+                  "name": "A",
+                  "devices": [
+                    "Polysynth",
+                    "Delay+"
+                  ]
+                },
+                {
+                  "name": "B",
+                  "devices": [
+                    "Tool",
+                    "Delay+"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      }
+    ]
+  },
+  {
+    "directory": "continuation-2-614",
+    "completed": [
+      "preflight",
+      "setup",
+      "notes",
+      "clips",
+      "mixer",
+      "controls",
+      "structure"
+    ],
+    "failure": {
+      "command": "run",
+      "arg": "sampler",
+      "commandId": "107c1a49-be2f-4d59-b0d0-27a0649b42ca",
+      "error": "AssertionError [ERR_ASSERTION]: edit_preset_modulation: {\"schema\":\"ghostnote-preset-modulation-edit/2\",\"failure\":{\"code\":\"unavailable\",\"stage\":\"readback\",\"effects\":[{\"changeId\":\"dccd3303-512c-40a7-9c2b-99118e297cbc\",\"target\":{\"tool\":\"edit_preset_modulation\"},\"summary\":\"One recorded write.\",\"fidelity\":\"exact\"}]},\"applied\":true,\"requested\":{\"fingerprint\":{\"algorithm\":\"sha256\",\"sha256\":\"13f86029971163a15086a150a72efa2209669cafa323883722714670d08deee4\",\"byteLength\":10004},\"location\":{\"kind\":\"self\"},\"operation\":{\"kind\":\"add\",\"modulator\":\"lfo\",\"target\":\"sampler-amp-attack\",\"amount\":0.3},\"structuralCheck\":null,\"pageChecks\":[],\"behaviorChecks\":[]},\"decoded\":{\"host\":{\"tier\":\"tier-2\",\"format\":\"native\",\"name\":\"Sampler\",\"creator\":\"Bitwig\"},\"containerKind\":null,\"entries\":[],\"complete\":true},\"edited\":{\"location\":{\"kind\":\"self\"},\"before\":[{\"position\":0,\"name\":\"LFO\",\"category\":\"LFO\",\"routes\":[{\"position\":0,\"amount\":3.0600000000000014,\"rangeLo\":-3,\"rangeHi\":1,\"target\":{\"standing\":\"resolved\",\"parameter\":{\"parameterId\":\"CONTENTS/AMP_ATTACK_TIME\",\"parameterName\":\"AEG Attack Time\"}}}]}],\"after\":[{\"position\":0,\"name\":\"LFO\",\"category\":\"LFO\",\"routes\":[{\"position\":0,\"amount\":3.0600000000000014,\"rangeLo\":-3,\"rangeHi\":1,\"target\":{\"standing\":\"resolved\",\"parameter\":{\"parameterId\":\"CONTENTS/AMP_ATTACK_TIME\",\"parameterName\":\"AEG Attack Time\"}}}]},{\"position\":1,\"name\":\"LFO\",\"category\":\"LFO\",\"routes\":[{\"position\":0,\"amount\":0.3,\"rangeLo\":-3,\"rangeHi\":1,\"target\":{\"standing\":\"resolved\",\"parameter\":{\"parameterId\":\"CONTENTS/AMP_ATTACK_TIME\",\"parameterName\":\"AEG Attack Time\"}}}]}],\"siblingInventoriesUnchanged\":true,\"sampledPreset\":true,\"adjustedSampleReferences\":2},\"observed\":{\"insertedDevicePosition\":1,\"pages\":{\"verified\":true,\"actualPages\":[\"Page 1\",\"Playhead\",\"Filter\",\"Amp EG\",\"LFO 1\",\"LFO 2\"],\"checks\":[{\"pageName\":\"LFO\",\"expectedCount\":2,\"actualCount\":2}]},\"behaviors\":[{\"verified\":false,\"why\":\"DirectParameter id \\\"CONTENTS/AMP_ATTACK_TIME\\\" has name \\\"Gated Attack Time\\\", not \\\"AEG Attack Time\\\"\",\"selector\":{\"parameterId\":\"CONTENTS/AMP_ATTACK_TIME\"},\"samples\":[],\"maximumDivergence\":0,\"baseSpread\":0,\"settlement\":{\"deadlineMs\":12000,\"attempts\":1,\"elapsedMs\":592,\"lastProgress\":{\"stage\":\"direct-parameters\",\"detail\":\"all exact parameters are stable\"},\"cause\":\"complete\"}}]},\"verified\":{\"passed\":false,\"insertedHost\":true,\"pages\":true,\"behaviors\":[{\"passed\":false,\"why\":\"DirectParameter id \\\"CONTENTS/AMP_ATTACK_TIME\\\" has name \\\"Gated Attack Time\\\", not \\\"AEG Attack Time\\\"\"}]},\"modulation\":{\"behaviorWitness\":\"not-run\",\"claim\":\"Each route was written from the exact DirectParameter id through a route form that the conformance suite proves live. Ghostnote does not observe target activity in this profile. Listen to confirm the sound.\"},\"change\":{\"changeId\":\"dccd3303-512c-40a7-9c2b-99118e297cbc\",\"applied\":true,\"places\":[],\"canBeUndone\":true,\"cannotBeUndone\":[]},\"reversal\":\"revert_change removes the inserted device while its last proved position remains valid.\"}",
+      "at": "2026-10-21T14:03:01.132Z"
+    },
+    "recoveryCompleted": null,
+    "commands": {
+      "debaee8d-eacb-48d8-85c0-1cf8d1b01fb4": {
+        "calls": 1523,
+        "wireMs": 34391.26592799993,
+        "responseBytes": 1013628
+      },
+      "107c1a49-be2f-4d59-b0d0-27a0649b42ca": {
+        "calls": 381,
+        "wireMs": 8937.497371999983,
+        "responseBytes": 288552
+      }
+    },
+    "writes": [
+      {
+        "commandId": "debaee8d-eacb-48d8-85c0-1cf8d1b01fb4",
+        "name": "compose_devices",
+        "args": {
+          "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+          "containerKind": "FX Layer",
+          "layerChains": [
+            {
+              "name": "A",
+              "devices": [
+                {
+                  "source": {
+                    "kind": "native",
+                    "name": "Polysynth"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "B",
+              "devices": [
+                {
+                  "source": {
+                    "kind": "native",
+                    "name": "Tool"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "elapsedMs": 10767.435083000002,
+        "brainCpuMs": 182.639,
+        "wireCalls": 418,
+        "turns": 330,
+        "methods": {
+          "selection.status": 40,
+          "slot.status": 22,
+          "track.list": 67,
+          "cursor.pointTrack": 31,
+          "device.list": 49,
+          "slot.select": 21,
+          "revision.get": 53,
+          "batch.run": 7,
+          "cursor.pin": 40,
+          "devcursor.pin": 28,
+          "devcursor.selectAt": 22,
+          "chain.inventory": 20,
+          "devcursor.status": 6,
+          "layer.list": 2,
+          "devcursor.selectInLayer": 2,
+          "directparam.list": 6,
+          "param.list": 2
+        },
+        "readback": {
+          "status": "verified",
+          "backend": "staged",
+          "containerPosition": 0,
+          "structure": [
+            {
+              "entryIndex": 0,
+              "entryName": "A",
+              "devices": [
+                {
+                  "position": 0,
+                  "name": "Polysynth",
+                  "enabled": true
+                }
+              ]
+            },
+            {
+              "entryIndex": 1,
+              "entryName": "B",
+              "devices": [
+                {
+                  "position": 0,
+                  "name": "Tool",
+                  "enabled": true
+                }
+              ]
+            }
+          ],
+          "layerChains": [
+            {
+              "entryIndex": 0,
+              "deviceIndex": 0,
+              "entryName": "A",
+              "sourceKind": "native",
+              "sourceIdentity": {
+                "kind": "native",
+                "exactCatalogName": "Polysynth"
+              },
+              "observed": {
+                "deviceName": "Polysynth",
+                "enabled": true,
+                "position": 0
+              },
+              "instance": "new",
+              "stateClaim": "The source created a new device instance.",
+              "scalarFingerprint": {
+                "after": {
+                  "algorithm": "sha256",
+                  "sha256": "182dac11e829bc76378a693dfc1086e77e4fee2eb709a0350697f17206a55d42",
+                  "parameterCount": 55
+                }
+              },
+              "pages": {
+                "verified": true,
+                "actualPages": [],
+                "witnesses": []
+              },
+              "containerPages": {
+                "verified": true,
+                "actualPages": [],
+                "witnesses": []
+              },
+              "behaviors": [],
+              "verified": true
+            },
+            {
+              "entryIndex": 1,
+              "deviceIndex": 0,
+              "entryName": "B",
+              "sourceKind": "native",
+              "sourceIdentity": {
+                "kind": "native",
+                "exactCatalogName": "Tool"
+              },
+              "observed": {
+                "deviceName": "Tool",
+                "enabled": true,
+                "position": 0
+              },
+              "instance": "new",
+              "stateClaim": "The source created a new device instance.",
+              "scalarFingerprint": {
+                "after": {
+                  "algorithm": "sha256",
+                  "sha256": "c8375a4e3e550034ec297d895cd612c7a7ed8d97709f8f3b570629d66208cf7b",
+                  "parameterCount": 7
+                }
+              },
+              "pages": {
+                "verified": true,
+                "actualPages": [],
+                "witnesses": []
+              },
+              "containerPages": {
+                "verified": true,
+                "actualPages": [],
+                "witnesses": []
+              },
+              "behaviors": [],
+              "verified": true
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "debaee8d-eacb-48d8-85c0-1cf8d1b01fb4",
+        "name": "add_devices",
+        "args": {
+          "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+          "devices": [
+            {
+              "kind": "native",
+              "name": "Delay+"
+            }
+          ]
+        },
+        "elapsedMs": 1339.4275000000016,
+        "brainCpuMs": 20.73,
+        "wireCalls": 54,
+        "turns": 42,
+        "methods": {
+          "selection.status": 5,
+          "slot.status": 3,
+          "track.list": 8,
+          "devcursor.pin": 5,
+          "cursor.pointTrack": 5,
+          "device.list": 11,
+          "slot.select": 3,
+          "revision.get": 5,
+          "batch.run": 1,
+          "cursor.pin": 8
+        },
+        "readback": {
+          "status": "verified",
+          "added": [
+            {
+              "deviceIndex": 0,
+              "source": "native",
+              "devicePosition": 1,
+              "name": "Delay+"
+            }
+          ],
+          "topLevel": [
+            {
+              "devicePosition": 0,
+              "name": "FX Layer",
+              "enabled": true
+            },
+            {
+              "devicePosition": 1,
+              "name": "Delay+",
+              "enabled": true
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "debaee8d-eacb-48d8-85c0-1cf8d1b01fb4",
+        "name": "copy_devices",
+        "args": {
+          "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+          "devices": [
+            {
+              "from": "top-level",
+              "devicePosition": 1
+            }
+          ],
+          "destination": {
+            "to": "layer-chain",
+            "containerPosition": 0,
+            "layerChain": "A"
+          }
+        },
+        "elapsedMs": 1831.0871669999979,
+        "brainCpuMs": 30.865,
+        "wireCalls": 79,
+        "turns": 65,
+        "methods": {
+          "selection.status": 10,
+          "slot.status": 5,
+          "track.list": 10,
+          "devcursor.pin": 7,
+          "cursor.pointTrack": 7,
+          "device.list": 7,
+          "slot.select": 5,
+          "revision.get": 7,
+          "devcursor.selectAt": 6,
+          "chain.inventory": 6,
+          "batch.run": 1,
+          "cursor.pin": 8
+        },
+        "readback": {
+          "status": "verified",
+          "topLevel": [
+            {
+              "devicePosition": 0,
+              "name": "FX Layer",
+              "enabled": true
+            },
+            {
+              "devicePosition": 1,
+              "name": "Delay+",
+              "enabled": true
+            }
+          ],
+          "topLevelComplete": true,
+          "layerChains": [
+            {
+              "containerPosition": 0,
+              "position": 0,
+              "name": "A",
+              "solo": false,
+              "mute": false,
+              "volume": 0.7937005259840999,
+              "pan": 0.5,
+              "color": {
+                "red": 0,
+                "green": 0.616,
+                "blue": 0.267
+              },
+              "devices": [
+                {
+                  "devicePosition": 0,
+                  "name": "Polysynth"
+                },
+                {
+                  "devicePosition": 1,
+                  "name": "Delay+"
+                }
+              ],
+              "devicesComplete": true,
+              "deviceCapacity": 4
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "debaee8d-eacb-48d8-85c0-1cf8d1b01fb4",
+        "name": "move_devices",
+        "args": {
+          "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+          "devices": [
+            {
+              "from": "top-level",
+              "devicePosition": 1
+            }
+          ],
+          "destination": {
+            "to": "layer-chain",
+            "containerPosition": 0,
+            "layerChain": "B"
+          }
+        },
+        "elapsedMs": 2046.7563750000008,
+        "brainCpuMs": 30.508,
+        "wireCalls": 82,
+        "turns": 68,
+        "methods": {
+          "selection.status": 10,
+          "slot.status": 5,
+          "track.list": 10,
+          "devcursor.pin": 7,
+          "cursor.pointTrack": 7,
+          "device.list": 8,
+          "slot.select": 5,
+          "revision.get": 7,
+          "devcursor.selectAt": 7,
+          "chain.inventory": 7,
+          "batch.run": 1,
+          "cursor.pin": 8
+        },
+        "readback": {
+          "status": "verified",
+          "topLevel": [
+            {
+              "devicePosition": 0,
+              "name": "FX Layer",
+              "enabled": true
+            }
+          ],
+          "topLevelComplete": true,
+          "layerChains": [
+            {
+              "containerPosition": 0,
+              "position": 1,
+              "name": "B",
+              "solo": false,
+              "mute": false,
+              "volume": 0.7937005259840999,
+              "pan": 0.5,
+              "color": {
+                "red": 0,
+                "green": 0.616,
+                "blue": 0.267
+              },
+              "devices": [
+                {
+                  "devicePosition": 0,
+                  "name": "Tool"
+                },
+                {
+                  "devicePosition": 1,
+                  "name": "Delay+"
+                }
+              ],
+              "devicesComplete": true,
+              "deviceCapacity": 4
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "debaee8d-eacb-48d8-85c0-1cf8d1b01fb4",
+        "name": "set_device_enabled",
+        "args": {
+          "settings": [
+            {
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "devicePosition": 0,
+              "enabled": false
+            }
+          ]
+        },
+        "elapsedMs": 762.9175409999989,
+        "brainCpuMs": 14.485,
+        "wireCalls": 34,
+        "turns": 28,
+        "methods": {
+          "selection.status": 3,
+          "slot.status": 2,
+          "track.list": 7,
+          "devcursor.pin": 3,
+          "cursor.pointTrack": 3,
+          "device.list": 7,
+          "slot.select": 2,
+          "revision.get": 6,
+          "batch.run": 1
+        },
+        "readback": {
+          "status": "verified"
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "debaee8d-eacb-48d8-85c0-1cf8d1b01fb4",
+        "name": "revert_change",
+        "args": {
+          "changeId": "bcc36407-864e-45fb-ba09-8df3e1844333"
+        },
+        "elapsedMs": 679.3876249999994,
+        "brainCpuMs": 14.04,
+        "wireCalls": 34,
+        "turns": 26,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 8,
+          "selection.status": 3,
+          "slot.status": 2,
+          "devcursor.pin": 2,
+          "cursor.pointTrack": 2,
+          "device.list": 6,
+          "slot.select": 2,
+          "batch.run": 1
+        },
+        "readback": {
+          "status": "verified",
+          "restored": [
+            {
+              "what": "device",
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "devicePosition": 0
+            }
+          ],
+          "removed": [],
+          "notRestored": []
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "debaee8d-eacb-48d8-85c0-1cf8d1b01fb4",
+        "name": "delete_device",
+        "args": {
+          "devices": [
+            {
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "devicePosition": 0
+            }
+          ]
+        },
+        "elapsedMs": 2443.521790999999,
+        "brainCpuMs": 33.151,
+        "wireCalls": 89,
+        "turns": 75,
+        "methods": {
+          "revision.get": 7,
+          "track.list": 11,
+          "selection.status": 10,
+          "slot.status": 5,
+          "devcursor.pin": 11,
+          "cursor.pointTrack": 9,
+          "devcursor.selectAt": 4,
+          "chain.inventory": 3,
+          "slot.select": 5,
+          "device.list": 10,
+          "devcursor.status": 1,
+          "directparam.list": 3,
+          "param.list": 1,
+          "batch.run": 1,
+          "cursor.pin": 8
+        },
+        "readback": {
+          "status": "verified",
+          "removed": [
+            {
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "position": 0,
+              "name": "FX Layer"
+            }
+          ],
+          "removedLayerChains": [
+            {
+              "trackId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+              "position": 0,
+              "containerKind": "FX Layer",
+              "layerChains": [
+                {
+                  "name": "A",
+                  "devices": [
+                    "Polysynth",
+                    "Delay+"
+                  ]
+                },
+                {
+                  "name": "B",
+                  "devices": [
+                    "Tool",
+                    "Delay+"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "verified": null,
+        "failure": null
+      },
+      {
+        "commandId": "107c1a49-be2f-4d59-b0d0-27a0649b42ca",
+        "name": "edit_preset_modulation",
+        "args": {
+          "trackId": "5e275187-467c-43cc-a7c8-f591b0eab039",
+          "presetPath": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/attempt-2-614/fixtures/gn_sampler_one_lfo.bwpreset",
+          "fingerprint": {
+            "algorithm": "sha256",
+            "sha256": "13f86029971163a15086a150a72efa2209669cafa323883722714670d08deee4",
+            "byteLength": 10004
+          },
+          "location": {
+            "kind": "self"
+          },
+          "operation": {
+            "kind": "add",
+            "modulator": "lfo",
+            "target": "sampler-amp-attack",
+            "amount": 0.3
+          }
+        },
+        "elapsedMs": 2150.0356249999986,
+        "brainCpuMs": 43.569,
+        "wireCalls": 71,
+        "turns": 57,
+        "methods": {
+          "selection.status": 7,
+          "slot.status": 4,
+          "track.list": 9,
+          "cursor.pointTrack": 5,
+          "device.list": 11,
+          "slot.select": 4,
+          "revision.get": 7,
+          "batch.run": 1,
+          "cursor.pin": 8,
+          "devcursor.pin": 4,
+          "devcursor.selectAt": 2,
+          "devcursor.status": 2,
+          "remote.list": 3,
+          "directparam.list": 3,
+          "param.list": 1
+        },
+        "readback": null,
+        "verified": {
+          "passed": false,
+          "insertedHost": true,
+          "pages": true,
+          "behaviors": [
+            {
+              "passed": false,
+              "why": "DirectParameter id \"CONTENTS/AMP_ATTACK_TIME\" has name \"Gated Attack Time\", not \"AEG Attack Time\""
+            }
+          ]
+        },
+        "failure": {
+          "code": "unavailable",
+          "stage": "readback",
+          "effects": [
+            {
+              "changeId": "dccd3303-512c-40a7-9c2b-99118e297cbc",
+              "target": {
+                "tool": "edit_preset_modulation"
+              },
+              "summary": "One recorded write.",
+              "fidelity": "exact"
+            }
+          ]
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,40 @@
+{
+  "version": "REPLACE_WITH_EXACT_6.1.x",
+  "operatorHandoff": false,
+  "recovery606Checked": false,
+  "noMissingAssets": false,
+  "backupPath": "/Users/jonvuri/Bitwig Upgrade Backups/2026-10-21-pre-6.1",
+  "workingPath": "/Users/jonvuri/Bitwig Upgrade Work/2026-10-21",
+  "appPath": "/Applications/Bitwig Studio.app",
+  "jarPath": "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar",
+  "jarSha256": "",
+  "archivePath": "/Users/jonvuri/Development/ghostnote/extension/build/libs/ghostnote-0.0.1.bwextension",
+  "deployedArchivePath": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension",
+  "archiveSha256": "",
+  "replacedAfterMs": 0,
+  "playbackStopped": false,
+  "projectFile": "/Users/jonvuri/Bitwig Upgrade Work/2026-10-21/gn-upgrade-audit/gn-upgrade-audit.bwproject",
+  "processCheck": {
+    "checkedAt": "",
+    "portOwnerPid": 0,
+    "noCompetingClients": false
+  },
+  "plugin": {
+    "kind": "clap",
+    "id": "com.u-he.Diva"
+  },
+  "presets": {
+    "single": {
+      "source": "/Users/jonvuri/Development/ghostnote/brain/fixtures/Sampler/gn_sampler_one_lfo.bwpreset",
+      "copy": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/attempt-2-614/fixtures/gn_sampler_one_lfo.bwpreset",
+      "sha256": "13f86029971163a15086a150a72efa2209669cafa323883722714670d08deee4",
+      "bytes": 10004
+    },
+    "multi": {
+      "source": "/Users/jonvuri/Development/ghostnote/brain/fixtures/Sampler/gn_sampler_multi_one_lfo.bwpreset",
+      "copy": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/attempt-2-614/fixtures/gn_sampler_multi_one_lfo.bwpreset",
+      "sha256": "56879dee0a1eafbffd6c35c70e327e02eadba0a61be3ef901d2a05eac2712a42",
+      "bytes": 11264
+    }
+  }
+}

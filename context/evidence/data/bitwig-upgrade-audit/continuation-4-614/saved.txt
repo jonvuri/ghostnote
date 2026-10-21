@@ -1,0 +1,1 @@
+Close and reopen only gn-upgrade-audit from its full working path. Keep it stopped and restore the prior selection. Run checkpoint reopen.

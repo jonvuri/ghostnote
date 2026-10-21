@@ -11,9 +11,10 @@ export interface CompositionTargetRecipe {
   readonly route: string;
   readonly parameterId: string;
   readonly parameterName: string;
+  readonly parameterNameAliases?: readonly string[];
 }
 
-/** Named routes that have exact live remote-control witnesses. */
+/** Named routes with measured parameter identities. */
 export const COMPOSITION_TARGETS: Readonly<Record<CompositionTargetId, CompositionTargetRecipe>> = {
   'polysynth-filter-frequency': {
     deviceName: 'Polysynth',
@@ -32,5 +33,7 @@ export const COMPOSITION_TARGETS: Readonly<Record<CompositionTargetId, Compositi
     route: 'CONTENTS/AMP_ATTACK_TIME',
     parameterId: 'CONTENTS/AMP_ATTACK_TIME',
     parameterName: 'AEG Attack Time',
+    // E321: 6.1.4 keeps the route ID and reports this live label.
+    parameterNameAliases: ['Gated Attack Time'],
   },
 };

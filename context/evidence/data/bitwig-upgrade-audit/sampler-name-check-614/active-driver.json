@@ -1,0 +1,10 @@
+{
+  "terminalSessionId": 88497,
+  "attempt": "continuation-3-614",
+  "commandId": "7e46a0eb-7916-463d-8d40-3fdc7144c387",
+  "pause": "single host export",
+  "hostCallsWhilePaused": false,
+  "requestedPresetName": "gn-ua-0b6c3297-single-edited",
+  "requestedPath": "/Users/jonvuri/Bitwig Upgrade Work/2026-10-21/gn-ua-0b6c3297-single-edited.bwpreset",
+  "next": "Copy and verify the fresh library export after operator confirmation. Send confirmed observations to this driver; do not start another client."
+}

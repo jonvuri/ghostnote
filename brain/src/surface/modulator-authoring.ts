@@ -4,6 +4,7 @@ import { readFile } from 'node:fs/promises';
 import { isAbsolute } from 'node:path';
 
 import { z } from 'zod';
+import { COMPOSITION_TARGETS } from '../composition/targets.js';
 
 import { track as trackAt } from '../contract/index.js';
 import { donorType, listDonorTypes } from '../bwmod/index.js';
@@ -380,19 +381,32 @@ export async function runModulatorAuthoring(
       ...check,
       ...(nestedDevice === undefined ? {} : { nestedDevice }),
     })) ?? [];
-    // D46: without sampling, the exact id and name of an add or retarget target are still checked after the
-    // insertion (an identity witness), so a missing or renamed target is a recorded post-write failure.
+    // D46: check target identity after insertion even without behavior samples.
+    // Explicit names stay exact. Named recipes can admit a measured host label below.
     const operationTarget = 'target' in input.operation ? input.operation.target : undefined;
     const behaviorInputs = !sampled
       ? operationTarget === undefined ? [] : [{ expected: 'identity' as const, target: operationTarget }]
       : input.behaviorChecks ?? (input.operation.kind === 'add' && !structuralOnly
         ? [{ expected: 'active' as const, target: input.operation.target }]
         : []);
+    const location = input.location;
+    const selectedDeviceName = !inspection.supported ? undefined
+      : location.kind !== 'entry' ? inspection.host.name
+      : inspection.entries.find(entry => entry.position === location.entry.position
+        && entry.name === location.entry.name)?.devices.find(item =>
+          location.devicePath.length === 1 && item.position === location.devicePath[0]!.position
+          && item.name === location.devicePath[0]!.name)?.name;
     const behaviorWitnesses = behaviorInputs.map((check) => {
       const target = resolveTarget(check.target);
       return {
         expected: check.expected,
         ...target,
+        ...(typeof check.target === 'string' && inspection.supported
+          && inspection.host.format === 'native'
+          && selectedDeviceName
+            === COMPOSITION_TARGETS[check.target].deviceName
+          && COMPOSITION_TARGETS[check.target].parameterNameAliases !== undefined
+          ? { parameterNameAliases: COMPOSITION_TARGETS[check.target].parameterNameAliases } : {}),
         ...(nestedDevice === undefined ? {} : { nestedDevice }),
       };
     });

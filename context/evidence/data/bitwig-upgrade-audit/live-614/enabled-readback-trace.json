@@ -1,0 +1,434 @@
+[
+  {
+    "directory": "continuation-614",
+    "commandId": "a42e4398-69de-4cc0-86fa-2fb0201c8cf4",
+    "request": {
+      "cursor": "0",
+      "deviceIndex": 0,
+      "enabled": false,
+      "expectedTrackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+      "expectedDeviceNames": [
+        "FX Layer"
+      ],
+      "expectedDeviceEnabled": [
+        true
+      ],
+      "expectedName": "FX Layer",
+      "expectedEnabled": true
+    },
+    "reads": [
+      {
+        "afterReplyMs": 43.76345799999763,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 129.84983300000022,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "directory": "continuation-614",
+    "commandId": "3c033a46-6788-4928-99ae-b8348918e853",
+    "request": {
+      "cursor": "5",
+      "deviceIndex": 0,
+      "enabled": true,
+      "expectedTrackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+      "expectedDeviceNames": [
+        "FX Layer"
+      ],
+      "expectedDeviceEnabled": [
+        false
+      ],
+      "expectedName": "FX Layer",
+      "expectedEnabled": false
+    },
+    "reads": [
+      {
+        "afterReplyMs": 41.237833999999566,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 146.25770899999952,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 374.73712499999965,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 465.06574999999975,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 1231.4685840000002,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 1323.5091250000005,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 1503.6222500000003,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 1596.4783749999988,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 1787.469208999999,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 1906.7355420000004,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 2409.5035420000004,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "directory": "continuation-2-614",
+    "commandId": "debaee8d-eacb-48d8-85c0-1cf8d1b01fb4",
+    "request": {
+      "cursor": "0",
+      "deviceIndex": 0,
+      "enabled": false,
+      "expectedTrackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+      "expectedDeviceNames": [
+        "FX Layer"
+      ],
+      "expectedDeviceEnabled": [
+        true
+      ],
+      "expectedName": "FX Layer",
+      "expectedEnabled": true
+    },
+    "reads": [
+      {
+        "afterReplyMs": 45.686249999998836,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": false
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 134.2207500000004,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": false
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 389.45579200000066,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": false
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 494.7741669999996,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": false
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 1050.090250000001,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": false
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 1272.9118329999983,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": false
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 1321.8468329999996,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": false
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 1362.6505419999994,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "directory": "continuation-2-614",
+    "commandId": "debaee8d-eacb-48d8-85c0-1cf8d1b01fb4",
+    "request": {
+      "cursor": "0",
+      "deviceIndex": 0,
+      "enabled": true,
+      "expectedTrackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+      "expectedDeviceNames": [
+        "FX Layer"
+      ],
+      "expectedDeviceEnabled": [
+        false
+      ],
+      "expectedName": "FX Layer",
+      "expectedEnabled": false
+    },
+    "reads": [
+      {
+        "afterReplyMs": 47.63895799999955,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 136.73999999999796,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 385.5436669999981,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 496.37412499999846,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 1300.8804999999993,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 1417.446082999999,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 1610.5466669999987,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 1728.2485830000005,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 1922.6423329999998,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 2010.823457999999,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ]
+      },
+      {
+        "afterReplyMs": 2507.037874999998,
+        "trackChannelId": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "devices": [
+          {
+            "index": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ]
+      }
+    ]
+  }
+]

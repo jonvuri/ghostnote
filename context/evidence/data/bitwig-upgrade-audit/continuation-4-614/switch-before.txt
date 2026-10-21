@@ -1,0 +1,1 @@
+Open a separate empty gn-upgrade-audit-switch project under /Users/jonvuri/Bitwig Upgrade Work/2026-10-21. Keep it stopped. Run checkpoint switch-away.

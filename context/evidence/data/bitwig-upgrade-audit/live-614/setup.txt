@@ -1,0 +1,9 @@
+
+> ghostnote-brain@0.0.1 probe:upgrade-audit
+> tsx src/probes/bitwig-upgrade-audit.ts run /Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/preparation setup
+
+AssertionError [ERR_ASSERTION]: add_launcher_clip: selection changed
++ actual - expected
+
++ '{"mixer":"Inst 1","slot":0,"track":"gn-ua-62178847-sentinel"}'
+- '{"mixer":"Inst 1","slot":-1,"track":null}'

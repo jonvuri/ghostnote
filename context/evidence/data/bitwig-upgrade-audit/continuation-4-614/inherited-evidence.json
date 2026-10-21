@@ -1,0 +1,100 @@
+{
+  "sourceDir": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-3-614",
+  "proof": [
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/attempt-2-614/state.json",
+      "sha256": "7958d6f49d4c92851a2ca9e356f737687cb066397d5f2352e42164b3b9a6d1a3"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/attempt-2-614/control-reply-recovery.json",
+      "sha256": "edb2fbc7128e14d7de505867f2681e2805b8c3fae44a9df963e4868204c0a702"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/attempt-2-614/entry.json",
+      "sha256": "8705bae904d1638dd19dba3b1f45e4f6b8c896d252e2b71815d5f77d9a6a24d0"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/attempt-2-614/setup.json",
+      "sha256": "d3f351b79d7fa0fea9b9887d8bcc066efd383c11379a7bb6168382444a36842a"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/attempt-2-614/notes.json",
+      "sha256": "cef4309078dd31488e11fcca2f8b0174b953e96c0c14e55e5e25af4c49eec38a"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/attempt-2-614/clips.json",
+      "sha256": "cef4309078dd31488e11fcca2f8b0174b953e96c0c14e55e5e25af4c49eec38a"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/attempt-2-614/mixer.json",
+      "sha256": "cef4309078dd31488e11fcca2f8b0174b953e96c0c14e55e5e25af4c49eec38a"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-614/state.json",
+      "sha256": "5207e421ad1372a92bd1eb1b668e6404e6f6c4fa2fdcb92c224d129ef6f773a0"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-614/structure-readback-recovery.json",
+      "sha256": "f1a1c2344401f152d7cbd55ac52ce94ddcd493ed4f6ed72f121337b8994c6ded"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-614/controls.json",
+      "sha256": "cef4309078dd31488e11fcca2f8b0174b953e96c0c14e55e5e25af4c49eec38a"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-2-614/state.json",
+      "sha256": "abe6645101cfe6fc2a7d8c19ee682c566b5578137427a6c135229e0546824abe"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-2-614/sampler-name-recovery.json",
+      "sha256": "44b97b9cfdb866386bfbaead88a705e7c82346e2419e8b1f561ab9de6a0acddf"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-2-614/structure.json",
+      "sha256": "cef4309078dd31488e11fcca2f8b0174b953e96c0c14e55e5e25af4c49eec38a"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-3-614/state.json",
+      "sha256": "dc6c4fb2ead01bcd73d2b0b29becc9a01ca4a781a6326ef059335a3c4b66afbc"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-3-614/group-snapshot-recovery.json",
+      "sha256": "bb50c91c793aa737411e7aae6a29aece6b786ab197d36f7e1facd23c75c802c5"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-3-614/sampler.json",
+      "sha256": "cef4309078dd31488e11fcca2f8b0174b953e96c0c14e55e5e25af4c49eec38a"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-3-614/selection-before.json",
+      "sha256": "74e26ce7e53d67ec6c32d7ccc36f2a93df5f7a6f9de5e6d1be50822b24744c9f"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-3-614/selection-after.json",
+      "sha256": "4dbe9daee66b019296cd24facf858649ad5ddc95106f80cb0abba448442c3327"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-3-614/selection-restored.json",
+      "sha256": "ff23bfd2091d053c7cfe8add0f474c82d40f7eaa74586baaa8f4e913fd11cb87"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-3-614/group-before.json",
+      "sha256": "50b58ae7bb16d8585c52d2cf727aa7241f89a164f63d693cb5fb7cba3e4f0862"
+    }
+  ],
+  "completed": [
+    "preflight",
+    "setup",
+    "notes",
+    "clips",
+    "mixer",
+    "controls",
+    "structure",
+    "sampler",
+    "selection-before",
+    "selection-after",
+    "selection-restored",
+    "group-before"
+  ],
+  "reason": "Keep proved cases after independent recovery. The failed case must run from its start."
+}

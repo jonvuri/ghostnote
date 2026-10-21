@@ -1,0 +1,8 @@
+{
+  "archive": "/Users/jonvuri/Development/ghostnote/extension/build/libs/ghostnote-0.0.1.bwextension",
+  "sha256": "25a5be4398f8825a7eabd2a541e49559ed60002f2d8d6b9db795f45664e4d9d2",
+  "size": 846149,
+  "profile": "normal-v1",
+  "registration": "com.ghostnote.extension.GhostnoteExtensionDefinition",
+  "manifest": "Manifest-Version: 1.0\r\nExtension-Class: com.ghostnote.extension.GhostnoteExtensionDefinition\r\n\r\n"
+}

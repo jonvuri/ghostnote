@@ -1,0 +1,5 @@
+
+> ghostnote-brain@0.0.1 probe:upgrade-audit
+> tsx src/probes/bitwig-upgrade-audit.ts recover-sampler-name ../context/evidence/data/bitwig-upgrade-audit/continuation-2-614 /Users/jonvuri/Bitwig Upgrade Work/2026-10-21/gn-ua-0b6c3297-single-name-check.bwpreset
+
+Inserted Sampler removed after independent proof. Complete fixture restored. Keep this failure and fork a new continuation.

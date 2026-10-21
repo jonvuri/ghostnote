@@ -1,0 +1,5 @@
+
+> ghostnote-brain@0.0.1 probe:upgrade-audit
+> tsx src/probes/bitwig-upgrade-audit.ts recover-control-reply /Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/attempt-2-614
+
+Inserted control-test devices removed. Complete fixture restored. Keep this failed record; fork-recovered creates a separate continuation.

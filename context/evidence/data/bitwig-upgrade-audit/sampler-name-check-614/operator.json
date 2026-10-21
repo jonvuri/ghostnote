@@ -1,0 +1,20 @@
+{
+  "source": "User report and attached screenshot, 2026-10-21",
+  "sampleName": "7 Reso Chime.aiff",
+  "sampleRateHz": 44100,
+  "sampleRateBasis": "operator report",
+  "mode": "Single",
+  "modeBasis": "screenshot",
+  "waveformVisible": true,
+  "rootKey": "C3",
+  "gainDb": 0,
+  "playStartMs": 0,
+  "playEndSeconds": 2.03,
+  "loopStartMs": 0,
+  "loopEndSeconds": 2.03,
+  "zoneObservation": "Operator reports this is a single sample, not a multisampler. Screenshot shows Single mode. No multisample zone claim.",
+  "selectionRestored": true,
+  "selection": "Inst 1 first empty Launcher cell",
+  "transportStopped": true,
+  "resourceObservationLimit": "Visible named waveform supports a loaded sample. Operator did not separately report a missing-resource scan."
+}

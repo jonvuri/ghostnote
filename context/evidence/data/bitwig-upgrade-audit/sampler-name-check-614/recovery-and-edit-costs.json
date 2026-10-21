@@ -1,0 +1,35 @@
+[
+  {
+    "record": "continuation-2-614",
+    "tool": "edit_preset_modulation",
+    "commandId": "107c1a49-be2f-4d59-b0d0-27a0649b42ca",
+    "elapsedMs": 2150.0356249999986,
+    "logicalCalls": 71,
+    "wireTurns": 57,
+    "summedWireMs": 1183,
+    "brainCpuMs": 43.569,
+    "stages": 1
+  },
+  {
+    "record": "continuation-2-614",
+    "tool": "delete_device",
+    "commandId": "7bac59a5-e53f-49e1-90e1-90a0d5237570",
+    "elapsedMs": 2489.033333000001,
+    "logicalCalls": 85,
+    "wireTurns": 71,
+    "summedWireMs": 1635,
+    "brainCpuMs": 40.102,
+    "stages": 1
+  },
+  {
+    "record": "continuation-3-614",
+    "tool": "edit_preset_modulation",
+    "commandId": "7e46a0eb-7916-463d-8d40-3fdc7144c387",
+    "elapsedMs": 2266.7515840000015,
+    "logicalCalls": 71,
+    "wireTurns": 57,
+    "summedWireMs": 1309,
+    "brainCpuMs": 45.504,
+    "stages": 1
+  }
+]

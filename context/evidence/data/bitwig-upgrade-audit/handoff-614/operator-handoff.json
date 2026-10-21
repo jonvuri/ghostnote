@@ -1,0 +1,16 @@
+{
+  "recordedAt": "2026-10-21T13:28:44.482072+00:00",
+  "source": "Operator message in this session",
+  "backupPath": "/Users/jonvuri/Bitwig Upgrade Backups/2026-10-21-pre-6.1/",
+  "workingPath": "/Users/jonvuri/Bitwig Upgrade Work/2026-10-21/",
+  "recovery606Checked": true,
+  "version": "6.1.4",
+  "project": "gn-upgrade-audit",
+  "playbackStopped": true,
+  "assets": {
+    "gn-grid-spike": "Operator reports no assets.",
+    "gn-scale-test": "Operator reports no assets.",
+    "otherProjects": "No known missing assets. The operator did not check all other projects."
+  },
+  "scope": "Manual launch and visible recovery check. No claim of complete saved-file or native graph equality."
+}

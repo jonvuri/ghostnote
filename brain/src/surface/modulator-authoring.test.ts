@@ -26,7 +26,7 @@ interface Fixture {
   readonly appliedPresets: Buffer[];
 }
 
-function fixture(): Fixture {
+function fixture(attackName = 'AEG Attack Time'): Fixture {
   const fake = new FakeAdapter({ tracks: ['Authoring'], scenes: 1 });
   const trackId = fake.model.visibleTracks()[0]!.channelId;
   const stash = new Stash({ now: () => 1 });
@@ -67,7 +67,7 @@ function fixture(): Fixture {
               modulatedValue: active('CONTENTS/F1RESO') ? 0.65 : 0.3, hasAutomation: false,
             },
             {
-              id: 'CONTENTS/AMP_ATTACK_TIME', name: 'AEG Attack Time', value: 0.2,
+              id: 'CONTENTS/AMP_ATTACK_TIME', name: attackName, value: 0.2,
               modulatedValue: active('CONTENTS/AMP_ATTACK_TIME') ? 0.55 : 0.2,
               hasAutomation: false,
             },
@@ -547,5 +547,26 @@ test('8i5 review: agent-native authoring keeps the exact target identity check',
     assert.equal(result['failure']?.stage, 'readback', text);
     assert.equal(result['failure']?.effects.length, 1, text);
     assert.ok(result['change']?.changeId, 'the insertion stays recorded for revert_change');
+  }
+});
+
+
+test('6.1 Sampler recipe accepts the measured label; explicit targets and other devices stay exact', async () => {
+  for (const [name, target, deviceName, passed] of [
+    ['AEG Attack Time', 'sampler-amp-attack', 'Sampler', true],
+    ['Gated Attack Time', 'sampler-amp-attack', 'Sampler', true],
+    ['Unknown Attack', 'sampler-amp-attack', 'Sampler', false],
+    ['Gated Attack Time', { parameterId: 'CONTENTS/AMP_ATTACK_TIME', parameterName: 'AEG Attack Time' }, 'Sampler', false],
+    ['Gated Attack Time', { parameterId: 'CONTENTS/AMP_ATTACK_TIME', parameterName: 'Gated Attack Time' }, 'Sampler', true],
+    ['Gated Attack Time', 'sampler-amp-attack', 'Polysynth', false],
+  ] as const) {
+    const fx = fixture(name);
+    const path = join(FIXTURE_DIR, deviceName, deviceName === 'Sampler' ? 'gn_sampler_bare.bwpreset' : 'mp_bare.bwpreset');
+    const result = await callTool(fx.workspace, 'edit_preset_modulation', {
+      trackId: fx.trackId, presetPath: path, ...semanticSelf(path),
+      operation: { kind: 'add', modulator: 'lfo', target, amount: 0.3 },
+    }, AGENT_NATIVE_TOOL_PROFILE) as any;
+    assert.equal(result.verified.passed, passed, JSON.stringify(result));
+    assert.equal(fx.appliedPresets.length, 1);
   }
 });

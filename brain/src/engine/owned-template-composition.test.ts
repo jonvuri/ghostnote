@@ -22,7 +22,7 @@ interface CompositionFixture {
   readonly presets: Buffer[];
 }
 
-function fixture(entries: readonly CompositionEntryRequest[]): CompositionFixture {
+function fixture(entries: readonly CompositionEntryRequest[], attackName = 'AEG Attack Time'): CompositionFixture {
   const fake = new FakeAdapter({ tracks: ['Composition'], scenes: 1 });
   const trackRef = track(fake.model.visibleTracks()[0]!.channelId);
   const executor = new Executor(fake, { newId: () => 'composition-take', now: () => 5 });
@@ -54,7 +54,8 @@ function fixture(entries: readonly CompositionEntryRequest[]): CompositionFixtur
           devices: [{
             name: entry.deviceName,
             paramsLive: true,
-            params: directParameters(preset!, index + 1),
+            params: directParameters(preset!, index + 1).map(parameter => parameter.id === 'CONTENTS/AMP_ATTACK_TIME'
+              ? { ...parameter, name: attackName } : parameter),
             remotePages: remotePages(preset!, index + 1),
           }],
         }));
@@ -239,4 +240,15 @@ test('5g-workflow: a superseded active-route witness does not cross apply', asyn
       && /conflicts with the final route/.test(error.message),
   );
   assert.equal(fx.calls.length, 0);
+});
+
+
+test('6.1 owned composition carries the Sampler named-recipe label witness', async () => {
+  const entries = liveEntries();
+  const fx = fixture(entries, 'Gated Attack Time');
+  const result = await buildOwnedTemplateComposition(fx.host, {
+    track: fx.track, entries, expectedChain: [], expectedEnabledChain: [],
+  }, { wait: async () => undefined, behaviorWitness: 'identity' });
+  assert.equal(result.verification.verified, true);
+  assert.equal(fx.calls.length, 1);
 });

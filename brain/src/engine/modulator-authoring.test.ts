@@ -1114,3 +1114,29 @@ test('5l-sampled: semantic object edits relocate every stub and unknown footprin
   }), /footprint/);
   assert.equal(fx.calls.length, 0);
 });
+
+
+test('named-recipe alias pins the observed label for later samples', async () => {
+  const fake = new FakeAdapter({ tracks: ['Alias'], scenes: 1 });
+  const row = fake.model.visibleTracks()[0]!;
+  row.devices.push({ name: 'Sampler', enabled: true, paramsLive: true, params: [{
+    id: 'CONTENTS/AMP_ATTACK_TIME', name: 'Gated Attack Time', value: 0.2,
+    modulatedValue: 0.6, hasAutomation: false,
+  }] });
+  let reads = 0;
+  const host: ModulatorAuthoringHost = {
+    async read(addresses) {
+      reads++;
+      if (reads > 1) row.devices[0]!.params![0]!.name = 'AEG Attack Time';
+      return fake.read(addresses);
+    },
+    async apply() { throw new Error('No writes permitted'); },
+  };
+  const [result] = await verifyModulations(host, device(track(row.channelId), 0), [{
+    parameterId: 'CONTENTS/AMP_ATTACK_TIME', parameterName: 'AEG Attack Time',
+    parameterNameAliases: ['Gated Attack Time'], samples: 1, sampleIntervalMs: 0,
+    inventoryAttempts: 1,
+  }], async () => undefined);
+  assert.equal(result!.verified, false);
+  assert.match(result!.verified ? '' : result!.why, /changed name/);
+});

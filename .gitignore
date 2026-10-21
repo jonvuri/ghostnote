@@ -24,3 +24,6 @@ __pycache__/
 
 # Durable local Grid doctor attempt and acceptance records
 .local/grid-doctor/
+
+# Active upgrade-audit process locks
+context/evidence/data/bitwig-upgrade-audit/**/driver.lock

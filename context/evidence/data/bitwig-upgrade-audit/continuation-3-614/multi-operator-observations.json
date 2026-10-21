@@ -1,0 +1,7 @@
+{
+  "operator": "jonvuri",
+  "resourcesResolved": true,
+  "zonesChecked": true,
+  "details": "Operator confirms both samples show healthy waveforms without warnings. All Zones shows two zones: ASM Chord C7.wav, keys C-2 through B2, root C7; ASM Chord C9.wav, keys C3 through G8, root G8. Both show velocity 1-127, Select 0-127, gain 0 dB, and play range 0 ms to 2.00 s. Inst 1 mixer header and first empty Launcher cell restored. No mixer settings changed; tracks remain muted at their audit values. Operator observed signal on the post-device dB meter while muted, not an audible listening pass.",
+  "selectionRestored": true
+}

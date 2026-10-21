@@ -1,0 +1,27 @@
+{
+  "operator": "jonvuri",
+  "recordedAt": "2026-10-21T20:02:55.909425+00:00",
+  "stage": "before-save",
+  "source": "Operator confirmed both requested original Sampler inspections and restored selection.",
+  "selectionRestored": true,
+  "single": {
+    "track": "gn-ua-0b6c3297-single",
+    "attackMappingBeforeSave": true,
+    "resourcesResolved": true,
+    "zonesChecked": true,
+    "details": "Operator confirms the remaining original Sampler retains its LFO-to-Attack mapping and a healthy waveform for 7 Reso Chime.aiff without a missing-sample warning. Single-sample device; no multisample zones."
+  },
+  "multi": {
+    "track": "gn-ua-0b6c3297-multi",
+    "attackMappingBeforeSave": true,
+    "resourcesResolved": true,
+    "zonesChecked": true,
+    "details": "Operator confirms the remaining original Sampler retains its LFO-to-Attack mapping and healthy waveforms for both ASM Chord C7.wav and ASM Chord C9.wav without missing-sample warnings."
+  },
+  "limits": [
+    "No new audible listening confirmation.",
+    "No after-reopen observation yet.",
+    "No new observation of removed modulation targets.",
+    "Record time is not an independently measured inspection time."
+  ]
+}

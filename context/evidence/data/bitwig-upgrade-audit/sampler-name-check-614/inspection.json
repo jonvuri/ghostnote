@@ -1,0 +1,170 @@
+{
+  "original": {
+    "supported": true,
+    "fingerprint": {
+      "algorithm": "sha256",
+      "sha256": "13f86029971163a15086a150a72efa2209669cafa323883722714670d08deee4",
+      "byteLength": 10004
+    },
+    "host": {
+      "tier": "tier-2",
+      "format": "native",
+      "name": "Sampler",
+      "creator": "Bitwig"
+    },
+    "containerKind": null,
+    "entries": [],
+    "modulation": [
+      {
+        "location": {
+          "kind": "self"
+        },
+        "modulators": [
+          {
+            "position": 0,
+            "name": "LFO",
+            "category": "LFO",
+            "routes": [
+              {
+                "position": 0,
+                "amount": 3.0600000000000014,
+                "rangeLo": -3,
+                "rangeHi": 1,
+                "target": {
+                  "standing": "resolved",
+                  "parameter": {
+                    "parameterId": "CONTENTS/AMP_ATTACK_TIME",
+                    "parameterName": "AEG Attack Time"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "complete": true
+  },
+  "exported": {
+    "supported": true,
+    "fingerprint": {
+      "algorithm": "sha256",
+      "sha256": "4fff38ebccb992c3474edea1f1b181f0333c1541a83cd014956c4233b176388b",
+      "byteLength": 12081
+    },
+    "host": {
+      "tier": "tier-2",
+      "format": "native",
+      "name": "Sampler",
+      "creator": "Bitwig"
+    },
+    "containerKind": null,
+    "entries": [],
+    "modulation": [
+      {
+        "location": {
+          "kind": "self"
+        },
+        "modulators": [
+          {
+            "position": 0,
+            "name": "LFO 1",
+            "category": "LFO",
+            "routes": [
+              {
+                "position": 0,
+                "amount": 3.0600000000000014,
+                "rangeLo": -3,
+                "rangeHi": 1,
+                "target": {
+                  "standing": "resolved",
+                  "parameter": {
+                    "parameterId": "CONTENTS/AMP_ATTACK_TIME",
+                    "parameterName": "AEG Attack Time"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "position": 1,
+            "name": "LFO 2",
+            "category": "LFO",
+            "routes": [
+              {
+                "position": 0,
+                "amount": 0.3,
+                "rangeLo": -3,
+                "rangeHi": 1,
+                "target": {
+                  "standing": "resolved",
+                  "parameter": {
+                    "parameterId": "CONTENTS/AMP_ATTACK_TIME",
+                    "parameterName": "AEG Attack Time"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "complete": true
+  },
+  "comparison": {
+    "passed": false,
+    "error": "AssertionError [ERR_ASSERTION]: A retained source route was lost in the host export"
+  },
+  "sourceMeta": {
+    "application_version_name": "6.0.6",
+    "branch": "releases",
+    "comment": "",
+    "creator": "jrajav",
+    "device_category": "Synth",
+    "device_creator": "Bitwig",
+    "device_id": "468bc14b-b2e7-45a1-9666-e83117fe404e",
+    "device_name": "Sampler",
+    "device_type": "note_to_audio",
+    "preset_category": "",
+    "referenced_device_ids": [
+      "468bc14b-b2e7-45a1-9666-e83117fe404e"
+    ],
+    "referenced_modulator_ids": [
+      "ad947004-f1d3-40a1-bd15-3ec721ee7c65"
+    ],
+    "referenced_module_ids": [],
+    "referenced_packaged_file_ids": [
+      "Bitwig/Crossfading Synths:3/samples/7 Reso Chime.aiff"
+    ],
+    "revision_id": "9244933ec29bf8a78484df80647f9686b64960e1",
+    "revision_no": 170345,
+    "tags": "",
+    "type": "application/bitwig-preset"
+  },
+  "exportMeta": {
+    "application_version_name": "6.1.4",
+    "branch": "releases",
+    "comment": "",
+    "creator": "jrajav",
+    "device_category": "Synth",
+    "device_creator": "Bitwig",
+    "device_id": "468bc14b-b2e7-45a1-9666-e83117fe404e",
+    "device_name": "Sampler",
+    "device_type": "note_to_audio",
+    "preset_category": "",
+    "referenced_device_ids": [
+      "468bc14b-b2e7-45a1-9666-e83117fe404e"
+    ],
+    "referenced_modulator_ids": [
+      "ad947004-f1d3-40a1-bd15-3ec721ee7c65"
+    ],
+    "referenced_module_ids": [],
+    "referenced_packaged_file_ids": [
+      "Bitwig/Crossfading Synths:3/samples/7 Reso Chime.aiff"
+    ],
+    "revision_id": "ec15d6fed6aedb20bbe2eb320ff1d95a3484b42e",
+    "revision_no": 164112,
+    "tags": "",
+    "type": "application/bitwig-preset"
+  }
+}

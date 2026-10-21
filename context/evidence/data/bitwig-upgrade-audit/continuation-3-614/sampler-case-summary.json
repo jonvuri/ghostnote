@@ -1,0 +1,174 @@
+{
+  "completedSampler": true,
+  "passed": true,
+  "selectionAfterSampler": {
+    "mixer": "Inst 1",
+    "track": "Inst 1",
+    "slot": 0
+  },
+  "writes": [
+    {
+      "tool": "edit_preset_modulation",
+      "elapsedMs": 2266.7515840000015,
+      "logicalCalls": 71,
+      "wireTurns": 57,
+      "summedWireMs": 1309,
+      "applied": true,
+      "verified": {
+        "passed": true,
+        "insertedHost": true,
+        "pages": true,
+        "behaviors": [
+          {
+            "passed": true
+          }
+        ]
+      },
+      "readback": null,
+      "failure": null
+    },
+    {
+      "tool": "revert_change",
+      "elapsedMs": 1396.5862920000218,
+      "logicalCalls": 50,
+      "wireTurns": 35,
+      "summedWireMs": 815,
+      "applied": true,
+      "verified": null,
+      "readback": {
+        "status": "verified",
+        "restored": [],
+        "removed": [
+          {
+            "what": "device",
+            "trackId": "5e275187-467c-43cc-a7c8-f591b0eab039",
+            "devicePosition": 1,
+            "name": "Sampler"
+          }
+        ],
+        "notRestored": []
+      },
+      "failure": null
+    },
+    {
+      "tool": "edit_preset_modulation",
+      "elapsedMs": 2245.0711659999797,
+      "logicalCalls": 71,
+      "wireTurns": 57,
+      "summedWireMs": 1303,
+      "applied": true,
+      "verified": {
+        "passed": true,
+        "insertedHost": true,
+        "pages": true,
+        "behaviors": [
+          {
+            "passed": true
+          }
+        ]
+      },
+      "readback": null,
+      "failure": null
+    },
+    {
+      "tool": "revert_change",
+      "elapsedMs": 1402.8807500000112,
+      "logicalCalls": 50,
+      "wireTurns": 35,
+      "summedWireMs": 823,
+      "applied": true,
+      "verified": null,
+      "readback": {
+        "status": "verified",
+        "restored": [],
+        "removed": [
+          {
+            "what": "device",
+            "trackId": "934a7d7d-fb8d-44a2-88f7-0f757a6a7c6a",
+            "devicePosition": 1,
+            "name": "Sampler"
+          }
+        ],
+        "notRestored": []
+      },
+      "failure": null
+    }
+  ],
+  "exports": {
+    "single": {
+      "path": "/Users/jonvuri/Bitwig Upgrade Work/2026-10-21/gn-ua-0b6c3297-single-edited.bwpreset",
+      "sha256": "0fb789227b67543fa6650ccc02e4c6b3f123894046aeb630e934d469c2ad496e",
+      "operator": {
+        "operator": "jonvuri",
+        "resourcesResolved": true,
+        "zonesChecked": true,
+        "details": "Operator confirms 7 Reso Chime.aiff, Single mode, loaded waveform, and no missing-sample warning. This is one sample; no multisample-zone claim. Both Inst 1 mixer header and first empty Launcher cell restored; transport stopped.",
+        "selectionRestored": true
+      },
+      "meta": {
+        "application_version_name": "6.1.4",
+        "branch": "releases",
+        "comment": "",
+        "creator": "jrajav",
+        "device_category": "Synth",
+        "device_creator": "Bitwig",
+        "device_id": "468bc14b-b2e7-45a1-9666-e83117fe404e",
+        "device_name": "Sampler",
+        "device_type": "note_to_audio",
+        "preset_category": "",
+        "referenced_device_ids": [
+          "468bc14b-b2e7-45a1-9666-e83117fe404e"
+        ],
+        "referenced_modulator_ids": [
+          "ad947004-f1d3-40a1-bd15-3ec721ee7c65"
+        ],
+        "referenced_module_ids": [],
+        "referenced_packaged_file_ids": [
+          "Bitwig/Crossfading Synths:3/samples/7 Reso Chime.aiff"
+        ],
+        "revision_id": "ec15d6fed6aedb20bbe2eb320ff1d95a3484b42e",
+        "revision_no": 164112,
+        "tags": "",
+        "type": "application/bitwig-preset"
+      }
+    },
+    "multi": {
+      "path": "/Users/jonvuri/Bitwig Upgrade Work/2026-10-21/gn-ua-0b6c3297-multi-edited.bwpreset",
+      "sha256": "7a74aaf75e2cb5181ab2b1c6a013ee74965fd20d87b3960b4dc44b6f2c824e99",
+      "operator": {
+        "operator": "jonvuri",
+        "resourcesResolved": true,
+        "zonesChecked": true,
+        "details": "Both named samples show healthy waveforms without warnings. Two zones: ASM Chord C7.wav spans C-2 through B2, root C7; ASM Chord C9.wav spans C3 through G8, root G8. Both show velocity 1-127, Select 0-127, gain 0 dB, and play range 0 ms to 2.00 s. Operator restored Inst 1 mixer and first empty Launcher cell. Mixer settings unchanged; tracks remain muted. Signal was observed on the post-device meter while muted; audible listening remains untested.",
+        "selectionRestored": true
+      },
+      "meta": {
+        "application_version_name": "6.1.4",
+        "branch": "releases",
+        "comment": "",
+        "creator": "jrajav",
+        "device_category": "Synth",
+        "device_creator": "Bitwig",
+        "device_id": "468bc14b-b2e7-45a1-9666-e83117fe404e",
+        "device_name": "Sampler",
+        "device_type": "note_to_audio",
+        "preset_category": "",
+        "referenced_device_ids": [
+          "468bc14b-b2e7-45a1-9666-e83117fe404e"
+        ],
+        "referenced_modulator_ids": [
+          "ad947004-f1d3-40a1-bd15-3ec721ee7c65"
+        ],
+        "referenced_module_ids": [],
+        "referenced_packaged_file_ids": [
+          "Bitwig/Sampled Synths Vol. 1:13/samples/ASM Chords/ASM Chord C7.wav",
+          "Bitwig/Sampled Synths Vol. 1:13/samples/ASM Chords/ASM Chord C9.wav"
+        ],
+        "revision_id": "ec15d6fed6aedb20bbe2eb320ff1d95a3484b42e",
+        "revision_no": 164112,
+        "tags": "",
+        "type": "application/bitwig-preset"
+      }
+    }
+  }
+}

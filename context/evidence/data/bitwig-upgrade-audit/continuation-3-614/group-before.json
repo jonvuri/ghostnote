@@ -1,0 +1,3069 @@
+{
+  "snapshot": {
+    "project": "gn-upgrade-audit",
+    "scenes": 8,
+    "selection": {
+      "mixer": "Inst 1",
+      "track": "Inst 1",
+      "slot": 0
+    },
+    "tracks": [
+      {
+        "id": "13283095-956c-40f2-a077-46c56d33d0ce",
+        "index": 0,
+        "name": "Inst 1",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.6812920690579614,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": false
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "88a46256-90da-4f17-ae16-215691733ca2",
+        "index": 1,
+        "name": "Audio 2",
+        "type": "Audio",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.6812920690579614,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": false
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "0005f25f-b4c2-4199-83a4-101f09b1def9",
+        "index": 2,
+        "name": "gn-ua-0b6c3297-sentinel",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.5011872336272722,
+          "panRaw": 0,
+          "mute": true,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": true,
+            "music": {
+              "clips": [
+                {
+                  "length": "4",
+                  "loop": {
+                    "from": "0",
+                    "to": "4"
+                  }
+                }
+              ],
+              "events": [
+                {
+                  "at": "0",
+                  "duration": "1/2",
+                  "pitch": 60,
+                  "velocity": 90
+                },
+                {
+                  "at": "17/16",
+                  "channel": 2,
+                  "duration": "7/16",
+                  "expression": {
+                    "gain": 0.8,
+                    "pan": -0.25,
+                    "pressure": 0,
+                    "timbre": 0.4,
+                    "transpose": 0.25,
+                    "velocitySpread": 0
+                  },
+                  "pitch": 64,
+                  "velocity": 83
+                },
+                {
+                  "at": "2",
+                  "duration": "1/4",
+                  "pitch": 67,
+                  "velocity": 75
+                },
+                {
+                  "at": "49/16",
+                  "channel": 2,
+                  "duration": "5/16",
+                  "pitch": 72,
+                  "velocity": 86
+                }
+              ]
+            },
+            "metadata": {
+              "name": "",
+              "color": {
+                "red": 255,
+                "green": 87,
+                "blue": 3
+              },
+              "lengthBeats": 4,
+              "playStartBeats": 0,
+              "loopEnabled": true,
+              "loopStartBeats": 0,
+              "loopEndBeats": 4
+            },
+            "channels": [
+              {
+                "channel": 1,
+                "notes": [
+                  {
+                    "startBeats": 0,
+                    "pitch": 60,
+                    "velocity": 90,
+                    "durationBeats": 0.5,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  },
+                  {
+                    "startBeats": 2,
+                    "pitch": 67,
+                    "velocity": 75,
+                    "durationBeats": 0.25,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  }
+                ]
+              },
+              {
+                "channel": 2,
+                "notes": [
+                  {
+                    "startBeats": 1.0625,
+                    "pitch": 64,
+                    "velocity": 83,
+                    "durationBeats": 0.4375,
+                    "releaseVelocity": 0.7874015748031497,
+                    "gain": 0.9283177667225558,
+                    "pan": -0.25,
+                    "timbre": -0.19999999999999996,
+                    "transpose": 0.25,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  },
+                  {
+                    "startBeats": 3.0625,
+                    "pitch": 72,
+                    "velocity": 86,
+                    "durationBeats": 0.3125,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+        "index": 3,
+        "name": "gn-ua-0b6c3297-notes",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.5011872336272722,
+          "panRaw": 0,
+          "mute": true,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": true,
+            "music": {
+              "clips": [
+                {
+                  "length": "4",
+                  "loop": {
+                    "from": "0",
+                    "to": "4"
+                  }
+                }
+              ],
+              "events": [
+                {
+                  "at": "0",
+                  "duration": "1/2",
+                  "pitch": 60,
+                  "velocity": 90
+                },
+                {
+                  "at": "17/16",
+                  "channel": 2,
+                  "duration": "7/16",
+                  "expression": {
+                    "gain": 0.8,
+                    "pan": -0.25,
+                    "pressure": 0,
+                    "timbre": 0.4,
+                    "transpose": 0.25,
+                    "velocitySpread": 0
+                  },
+                  "pitch": 64,
+                  "velocity": 83
+                },
+                {
+                  "at": "2",
+                  "duration": "1/4",
+                  "pitch": 67,
+                  "velocity": 75
+                },
+                {
+                  "at": "49/16",
+                  "channel": 2,
+                  "duration": "5/16",
+                  "pitch": 72,
+                  "velocity": 86
+                }
+              ]
+            },
+            "metadata": {
+              "name": "",
+              "color": {
+                "red": 217,
+                "green": 157,
+                "blue": 13
+              },
+              "lengthBeats": 4,
+              "playStartBeats": 0,
+              "loopEnabled": true,
+              "loopStartBeats": 0,
+              "loopEndBeats": 4
+            },
+            "channels": [
+              {
+                "channel": 1,
+                "notes": [
+                  {
+                    "startBeats": 0,
+                    "pitch": 60,
+                    "velocity": 90,
+                    "durationBeats": 0.5,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  },
+                  {
+                    "startBeats": 2,
+                    "pitch": 67,
+                    "velocity": 75,
+                    "durationBeats": 0.25,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  }
+                ]
+              },
+              {
+                "channel": 2,
+                "notes": [
+                  {
+                    "startBeats": 1.0625,
+                    "pitch": 64,
+                    "velocity": 83,
+                    "durationBeats": 0.4375,
+                    "releaseVelocity": 0.7874015748031497,
+                    "gain": 0.9283177667225558,
+                    "pan": -0.25,
+                    "timbre": -0.19999999999999996,
+                    "transpose": 0.25,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  },
+                  {
+                    "startBeats": 3.0625,
+                    "pitch": 72,
+                    "velocity": 86,
+                    "durationBeats": 0.3125,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "7e6356c8-af6c-463e-8095-a29244835daf",
+        "index": 4,
+        "name": "gn-ua-0b6c3297-spare",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.5011872336272722,
+          "panRaw": 0,
+          "mute": true,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": false
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "index": 5,
+        "name": "gn-ua-0b6c3297-devices",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.5011872336272722,
+          "panRaw": 0,
+          "mute": true,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": false
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "5e275187-467c-43cc-a7c8-f591b0eab039",
+        "index": 6,
+        "name": "gn-ua-0b6c3297-single",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.5011872336272722,
+          "panRaw": 0,
+          "mute": true,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": true,
+            "music": {
+              "clips": [
+                {
+                  "length": "4",
+                  "loop": {
+                    "from": "0",
+                    "to": "4"
+                  }
+                }
+              ],
+              "events": [
+                {
+                  "at": "0",
+                  "duration": "1/2",
+                  "pitch": 60,
+                  "velocity": 90
+                },
+                {
+                  "at": "17/16",
+                  "channel": 2,
+                  "duration": "7/16",
+                  "expression": {
+                    "gain": 0.8,
+                    "pan": -0.25,
+                    "pressure": 0,
+                    "timbre": 0.4,
+                    "transpose": 0.25,
+                    "velocitySpread": 0
+                  },
+                  "pitch": 64,
+                  "velocity": 83
+                },
+                {
+                  "at": "2",
+                  "duration": "1/4",
+                  "pitch": 67,
+                  "velocity": 75
+                },
+                {
+                  "at": "49/16",
+                  "channel": 2,
+                  "duration": "5/16",
+                  "pitch": 72,
+                  "velocity": 86
+                }
+              ]
+            },
+            "metadata": {
+              "name": "",
+              "color": {
+                "red": 0,
+                "green": 166,
+                "blue": 145
+              },
+              "lengthBeats": 4,
+              "playStartBeats": 0,
+              "loopEnabled": true,
+              "loopStartBeats": 0,
+              "loopEndBeats": 4
+            },
+            "channels": [
+              {
+                "channel": 1,
+                "notes": [
+                  {
+                    "startBeats": 0,
+                    "pitch": 60,
+                    "velocity": 90,
+                    "durationBeats": 0.5,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  },
+                  {
+                    "startBeats": 2,
+                    "pitch": 67,
+                    "velocity": 75,
+                    "durationBeats": 0.25,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  }
+                ]
+              },
+              {
+                "channel": 2,
+                "notes": [
+                  {
+                    "startBeats": 1.0625,
+                    "pitch": 64,
+                    "velocity": 83,
+                    "durationBeats": 0.4375,
+                    "releaseVelocity": 0.7874015748031497,
+                    "gain": 0.9283177667225558,
+                    "pan": -0.25,
+                    "timbre": -0.19999999999999996,
+                    "transpose": 0.25,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  },
+                  {
+                    "startBeats": 3.0625,
+                    "pitch": 72,
+                    "velocity": 86,
+                    "durationBeats": 0.3125,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [
+          {
+            "devicePosition": 0,
+            "name": "Sampler",
+            "enabled": true
+          }
+        ],
+        "controls": [
+          {
+            "position": 0,
+            "parameters": [
+              {
+                "id": "CONTENTS/TRANSPOSE",
+                "name": "Pitch Transpose",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/OUTPUT",
+                "name": "Output",
+                "normalizedValue": 0.7942811755361399
+              },
+              {
+                "id": "CONTENTS/AMP_ATTACK_TIME",
+                "name": "Gated Attack Time",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/AMP_HOLD_TIME",
+                "name": "Gated Hold Time",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/AMP_DECAY_TIME",
+                "name": "Gated Decay Time",
+                "normalizedValue": 0.4849999999999996
+              },
+              {
+                "id": "CONTENTS/AMP_SUSTAIN_LEVEL",
+                "name": "Gated Sustain Level",
+                "normalizedValue": 1
+              },
+              {
+                "id": "CONTENTS/AMP_RELEASE_TIME",
+                "name": "Gated Release Time",
+                "normalizedValue": 0.27499999999999997
+              },
+              {
+                "id": "CONTENTS/AMP_ATTACK_SHAPE",
+                "name": "Gated Attack Curve",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/AMP_DECAY_SHAPE",
+                "name": "Gated Decay Curve",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/AMP_RELEASE_SHAPE",
+                "name": "Gated Release Curve",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/VELOCITY_SENSITIVETY",
+                "name": "Velocity Sensitivity",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/FILTER_TYPE",
+                "name": "Filter Mode",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/FILT_FREQ",
+                "name": "Filter Frequency",
+                "normalizedValue": 0.6674911712063288
+              },
+              {
+                "id": "CONTENTS/FILT_RESO",
+                "name": "Filter Resonance",
+                "normalizedValue": 0.4997498749374687
+              },
+              {
+                "id": "CONTENTS/SAMPLE_START",
+                "name": "Play / Position Offset",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/LOOP_START",
+                "name": "Loop Offset",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/LOOP_LENGTH",
+                "name": "Loop Length",
+                "normalizedValue": 1
+              },
+              {
+                "id": "CONTENTS/GAIN",
+                "name": "Voice Gain / Drive",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/PAN",
+                "name": "Pan",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/FILTER_KEYTRACK",
+                "name": "Filter Keytrack",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/GRAIN_SIZE",
+                "name": "Grain Size in Time",
+                "normalizedValue": 0.416435313714603
+              },
+              {
+                "id": "CONTENTS/SELECT",
+                "name": "Select",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/SPEED",
+                "name": "Speed",
+                "normalizedValue": 0.625
+              },
+              {
+                "id": "CONTENTS/FORMANT",
+                "name": "Formant",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/FADE_IN",
+                "name": "One-shot Fade In",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/FADE_OUT",
+                "name": "One-shot Fade Out",
+                "normalizedValue": 0.27144176165949063
+              },
+              {
+                "id": "CONTENTS/PLAYHEAD_MOTION",
+                "name": "Playhead Motion",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/RELEASE_NOTE_LENGTH",
+                "name": "Release Note Length",
+                "normalizedValue": 0.19839679358717432
+              },
+              {
+                "id": "CONTENTS/RELEASE_VELOCITY_MODE",
+                "name": "Release Velocity Mode",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/PHASEVOCODER_PARAMETER_1",
+                "name": "Formant Shift Amount",
+                "normalizedValue": 0.8181818181818182
+              },
+              {
+                "id": "CONTENTS/CHARACTER_X",
+                "name": "Repitch Color",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/CHARACTER_Y",
+                "name": "Repitch Distortion",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/GRAIN_RATE",
+                "name": "Grain Rate in Time",
+                "normalizedValue": 0.5604137457918624
+              },
+              {
+                "id": "CONTENTS/GRAIN_ENVELOPE",
+                "name": "Fragments Grain Envelope",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/GRAIN_SIZE_TIMEBASE",
+                "name": "Grain Size in Beats",
+                "normalizedValue": 0.26666666666666666
+              },
+              {
+                "id": "CONTENTS/GRAIN_DENSITY_TIMEBASE",
+                "name": "Fragments Grain Rate in Beats",
+                "normalizedValue": 0.8666666666666667
+              },
+              {
+                "id": "CONTENTS/GRAINS_SYNCED",
+                "name": "Sync Grains",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/GRAIN_REPEATS",
+                "name": "Fragments Grain Repeats",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/PHASE_VOCODER_BEND",
+                "name": "Spectral Harmonic Bend",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/PHASE_VOCODER_PHASE_RANDOMIZATION",
+                "name": "Spectral Phase Dispersion",
+                "normalizedValue": 0.6666666666666666
+              },
+              {
+                "id": "CONTENTS/GRAIN_DENSITY",
+                "name": "Fragments Grain Density",
+                "normalizedValue": 0.6666666666666667
+              },
+              {
+                "id": "CONTENTS/GRAIN_APPLY_DENSITY",
+                "name": "Fragments Use Grain Density",
+                "normalizedValue": 1
+              },
+              {
+                "id": "CONTENTS/FILTER_GAIN",
+                "name": "Bell Filter Gain",
+                "normalizedValue": 0.625
+              },
+              {
+                "id": "CONTENTS/SPECTRAL_ONSET_PROCESSING_THRESHOLD",
+                "name": "Spectral Onset Sensitivity",
+                "normalizedValue": 1
+              },
+              {
+                "id": "CONTENTS/QUANTIZATION_AMOUNT",
+                "name": "Spectral Harmonic Quantization Amount",
+                "normalizedValue": 1
+              },
+              {
+                "id": "CONTENTS/CYCLES_PW",
+                "name": "Cycles Pulse Width",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/CYCLES_HARMONICS",
+                "name": "Cycles Partials Harmonic Split",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/CYCLES_FUNDAMENTAL",
+                "name": "Cycles Partials Fundamental Level",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/CYCLES_PM",
+                "name": "Cycles Phase Modulation Amount",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/CYCLES_PM_HARMONICS",
+                "name": "Cycles Phase Modulator Harmonics",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/USE_GLOBAL_KEY",
+                "name": "Use Global Key",
+                "normalizedValue": 1
+              },
+              {
+                "id": "CONTENTS/KEY",
+                "name": "Local Key",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/SCALE",
+                "name": "Local Scale/Mode",
+                "normalizedValue": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "934a7d7d-fb8d-44a2-88f7-0f757a6a7c6a",
+        "index": 7,
+        "name": "gn-ua-0b6c3297-multi",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.5011872336272722,
+          "panRaw": 0,
+          "mute": true,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": true,
+            "music": {
+              "clips": [
+                {
+                  "length": "4",
+                  "loop": {
+                    "from": "0",
+                    "to": "4"
+                  }
+                }
+              ],
+              "events": [
+                {
+                  "at": "0",
+                  "duration": "1/2",
+                  "pitch": 60,
+                  "velocity": 90
+                },
+                {
+                  "at": "17/16",
+                  "channel": 2,
+                  "duration": "7/16",
+                  "expression": {
+                    "gain": 0.8,
+                    "pan": -0.25,
+                    "pressure": 0,
+                    "timbre": 0.4,
+                    "transpose": 0.25,
+                    "velocitySpread": 0
+                  },
+                  "pitch": 64,
+                  "velocity": 83
+                },
+                {
+                  "at": "2",
+                  "duration": "1/4",
+                  "pitch": 67,
+                  "velocity": 75
+                },
+                {
+                  "at": "49/16",
+                  "channel": 2,
+                  "duration": "5/16",
+                  "pitch": 72,
+                  "velocity": 86
+                }
+              ]
+            },
+            "metadata": {
+              "name": "",
+              "color": {
+                "red": 0,
+                "green": 153,
+                "blue": 214
+              },
+              "lengthBeats": 4,
+              "playStartBeats": 0,
+              "loopEnabled": true,
+              "loopStartBeats": 0,
+              "loopEndBeats": 4
+            },
+            "channels": [
+              {
+                "channel": 1,
+                "notes": [
+                  {
+                    "startBeats": 0,
+                    "pitch": 60,
+                    "velocity": 90,
+                    "durationBeats": 0.5,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  },
+                  {
+                    "startBeats": 2,
+                    "pitch": 67,
+                    "velocity": 75,
+                    "durationBeats": 0.25,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  }
+                ]
+              },
+              {
+                "channel": 2,
+                "notes": [
+                  {
+                    "startBeats": 1.0625,
+                    "pitch": 64,
+                    "velocity": 83,
+                    "durationBeats": 0.4375,
+                    "releaseVelocity": 0.7874015748031497,
+                    "gain": 0.9283177667225558,
+                    "pan": -0.25,
+                    "timbre": -0.19999999999999996,
+                    "transpose": 0.25,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  },
+                  {
+                    "startBeats": 3.0625,
+                    "pitch": 72,
+                    "velocity": 86,
+                    "durationBeats": 0.3125,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [
+          {
+            "devicePosition": 0,
+            "name": "Sampler",
+            "enabled": true
+          }
+        ],
+        "controls": [
+          {
+            "position": 0,
+            "parameters": [
+              {
+                "id": "CONTENTS/TRANSPOSE",
+                "name": "Pitch Transpose",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/OUTPUT",
+                "name": "Output",
+                "normalizedValue": 0.7942811755361399
+              },
+              {
+                "id": "CONTENTS/AMP_ATTACK_TIME",
+                "name": "Gated Attack Time",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/AMP_HOLD_TIME",
+                "name": "Gated Hold Time",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/AMP_DECAY_TIME",
+                "name": "Gated Decay Time",
+                "normalizedValue": 0.4849999999999996
+              },
+              {
+                "id": "CONTENTS/AMP_SUSTAIN_LEVEL",
+                "name": "Gated Sustain Level",
+                "normalizedValue": 1
+              },
+              {
+                "id": "CONTENTS/AMP_RELEASE_TIME",
+                "name": "Gated Release Time",
+                "normalizedValue": 0.27499999999999997
+              },
+              {
+                "id": "CONTENTS/AMP_ATTACK_SHAPE",
+                "name": "Gated Attack Curve",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/AMP_DECAY_SHAPE",
+                "name": "Gated Decay Curve",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/AMP_RELEASE_SHAPE",
+                "name": "Gated Release Curve",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/VELOCITY_SENSITIVETY",
+                "name": "Velocity Sensitivity",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/FILTER_TYPE",
+                "name": "Filter Mode",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/FILT_FREQ",
+                "name": "Filter Frequency",
+                "normalizedValue": 0.6674911712063288
+              },
+              {
+                "id": "CONTENTS/FILT_RESO",
+                "name": "Filter Resonance",
+                "normalizedValue": 0.4997498749374687
+              },
+              {
+                "id": "CONTENTS/SAMPLE_START",
+                "name": "Play / Position Offset",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/LOOP_START",
+                "name": "Loop Offset",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/LOOP_LENGTH",
+                "name": "Loop Length",
+                "normalizedValue": 1
+              },
+              {
+                "id": "CONTENTS/GAIN",
+                "name": "Voice Gain / Drive",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/PAN",
+                "name": "Pan",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/FILTER_KEYTRACK",
+                "name": "Filter Keytrack",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/GRAIN_SIZE",
+                "name": "Grain Size in Time",
+                "normalizedValue": 0.416435313714603
+              },
+              {
+                "id": "CONTENTS/SELECT",
+                "name": "Select",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/SPEED",
+                "name": "Speed",
+                "normalizedValue": 0.625
+              },
+              {
+                "id": "CONTENTS/FORMANT",
+                "name": "Formant",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/FADE_IN",
+                "name": "One-shot Fade In",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/FADE_OUT",
+                "name": "One-shot Fade Out",
+                "normalizedValue": 0.27144176165949063
+              },
+              {
+                "id": "CONTENTS/PLAYHEAD_MOTION",
+                "name": "Playhead Motion",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/RELEASE_NOTE_LENGTH",
+                "name": "Release Note Length",
+                "normalizedValue": 0.19839679358717432
+              },
+              {
+                "id": "CONTENTS/RELEASE_VELOCITY_MODE",
+                "name": "Release Velocity Mode",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/PHASEVOCODER_PARAMETER_1",
+                "name": "Formant Shift Amount",
+                "normalizedValue": 0.8181818181818182
+              },
+              {
+                "id": "CONTENTS/CHARACTER_X",
+                "name": "Repitch Color",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/CHARACTER_Y",
+                "name": "Repitch Distortion",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/GRAIN_RATE",
+                "name": "Grain Rate in Time",
+                "normalizedValue": 0.5604137457918624
+              },
+              {
+                "id": "CONTENTS/GRAIN_ENVELOPE",
+                "name": "Fragments Grain Envelope",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/GRAIN_SIZE_TIMEBASE",
+                "name": "Grain Size in Beats",
+                "normalizedValue": 0.26666666666666666
+              },
+              {
+                "id": "CONTENTS/GRAIN_DENSITY_TIMEBASE",
+                "name": "Fragments Grain Rate in Beats",
+                "normalizedValue": 0.8666666666666667
+              },
+              {
+                "id": "CONTENTS/GRAINS_SYNCED",
+                "name": "Sync Grains",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/GRAIN_REPEATS",
+                "name": "Fragments Grain Repeats",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/PHASE_VOCODER_BEND",
+                "name": "Spectral Harmonic Bend",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/PHASE_VOCODER_PHASE_RANDOMIZATION",
+                "name": "Spectral Phase Dispersion",
+                "normalizedValue": 0.6666666666666666
+              },
+              {
+                "id": "CONTENTS/GRAIN_DENSITY",
+                "name": "Fragments Grain Density",
+                "normalizedValue": 0.6666666666666667
+              },
+              {
+                "id": "CONTENTS/GRAIN_APPLY_DENSITY",
+                "name": "Fragments Use Grain Density",
+                "normalizedValue": 1
+              },
+              {
+                "id": "CONTENTS/FILTER_GAIN",
+                "name": "Bell Filter Gain",
+                "normalizedValue": 0.625
+              },
+              {
+                "id": "CONTENTS/SPECTRAL_ONSET_PROCESSING_THRESHOLD",
+                "name": "Spectral Onset Sensitivity",
+                "normalizedValue": 1
+              },
+              {
+                "id": "CONTENTS/QUANTIZATION_AMOUNT",
+                "name": "Spectral Harmonic Quantization Amount",
+                "normalizedValue": 1
+              },
+              {
+                "id": "CONTENTS/CYCLES_PW",
+                "name": "Cycles Pulse Width",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/CYCLES_HARMONICS",
+                "name": "Cycles Partials Harmonic Split",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/CYCLES_FUNDAMENTAL",
+                "name": "Cycles Partials Fundamental Level",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/CYCLES_PM",
+                "name": "Cycles Phase Modulation Amount",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/CYCLES_PM_HARMONICS",
+                "name": "Cycles Phase Modulator Harmonics",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/USE_GLOBAL_KEY",
+                "name": "Use Global Key",
+                "normalizedValue": 1
+              },
+              {
+                "id": "CONTENTS/KEY",
+                "name": "Local Key",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/SCALE",
+                "name": "Local Scale/Mode",
+                "normalizedValue": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a1f126c2-a7cc-443c-8bfb-350823c52aa2",
+        "index": 8,
+        "name": "FX 1",
+        "type": "Effect",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 1,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "83f918dd-8eae-47e2-900d-61f7e92d75d7",
+        "index": 9,
+        "name": "Master",
+        "type": "Master",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 1,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [],
+        "devices": [],
+        "controls": []
+      }
+    ]
+  },
+  "checkpoint": {
+    "project": "gn-upgrade-audit",
+    "scenes": 8,
+    "selection": {
+      "mixer": "Inst 1",
+      "track": "Inst 1",
+      "slot": 0
+    },
+    "tracks": [
+      {
+        "id": "13283095-956c-40f2-a077-46c56d33d0ce",
+        "index": 0,
+        "name": "Inst 1",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.6812920690579614,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": false
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "88a46256-90da-4f17-ae16-215691733ca2",
+        "index": 1,
+        "name": "Audio 2",
+        "type": "Audio",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.6812920690579614,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": false
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "0005f25f-b4c2-4199-83a4-101f09b1def9",
+        "index": 2,
+        "name": "gn-ua-0b6c3297-sentinel",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.5011872336272722,
+          "panRaw": 0,
+          "mute": true,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": true,
+            "music": {
+              "clips": [
+                {
+                  "length": "4",
+                  "loop": {
+                    "from": "0",
+                    "to": "4"
+                  }
+                }
+              ],
+              "events": [
+                {
+                  "at": "0",
+                  "duration": "1/2",
+                  "pitch": 60,
+                  "velocity": 90
+                },
+                {
+                  "at": "17/16",
+                  "channel": 2,
+                  "duration": "7/16",
+                  "expression": {
+                    "gain": 0.8,
+                    "pan": -0.25,
+                    "pressure": 0,
+                    "timbre": 0.4,
+                    "transpose": 0.25,
+                    "velocitySpread": 0
+                  },
+                  "pitch": 64,
+                  "velocity": 83
+                },
+                {
+                  "at": "2",
+                  "duration": "1/4",
+                  "pitch": 67,
+                  "velocity": 75
+                },
+                {
+                  "at": "49/16",
+                  "channel": 2,
+                  "duration": "5/16",
+                  "pitch": 72,
+                  "velocity": 86
+                }
+              ]
+            },
+            "metadata": {
+              "name": "",
+              "color": {
+                "red": 255,
+                "green": 87,
+                "blue": 3
+              },
+              "lengthBeats": 4,
+              "playStartBeats": 0,
+              "loopEnabled": true,
+              "loopStartBeats": 0,
+              "loopEndBeats": 4
+            },
+            "channels": [
+              {
+                "channel": 1,
+                "notes": [
+                  {
+                    "startBeats": 0,
+                    "pitch": 60,
+                    "velocity": 90,
+                    "durationBeats": 0.5,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  },
+                  {
+                    "startBeats": 2,
+                    "pitch": 67,
+                    "velocity": 75,
+                    "durationBeats": 0.25,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  }
+                ]
+              },
+              {
+                "channel": 2,
+                "notes": [
+                  {
+                    "startBeats": 1.0625,
+                    "pitch": 64,
+                    "velocity": 83,
+                    "durationBeats": 0.4375,
+                    "releaseVelocity": 0.7874015748031497,
+                    "gain": 0.9283177667225558,
+                    "pan": -0.25,
+                    "timbre": -0.19999999999999996,
+                    "transpose": 0.25,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  },
+                  {
+                    "startBeats": 3.0625,
+                    "pitch": 72,
+                    "velocity": 86,
+                    "durationBeats": 0.3125,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "861a3fc4-f0db-4c18-9d51-77243f7db6c1",
+        "index": 3,
+        "name": "gn-ua-0b6c3297-notes",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.5011872336272722,
+          "panRaw": 0,
+          "mute": true,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": true,
+            "music": {
+              "clips": [
+                {
+                  "length": "4",
+                  "loop": {
+                    "from": "0",
+                    "to": "4"
+                  }
+                }
+              ],
+              "events": [
+                {
+                  "at": "0",
+                  "duration": "1/2",
+                  "pitch": 60,
+                  "velocity": 90
+                },
+                {
+                  "at": "17/16",
+                  "channel": 2,
+                  "duration": "7/16",
+                  "expression": {
+                    "gain": 0.8,
+                    "pan": -0.25,
+                    "pressure": 0,
+                    "timbre": 0.4,
+                    "transpose": 0.25,
+                    "velocitySpread": 0
+                  },
+                  "pitch": 64,
+                  "velocity": 83
+                },
+                {
+                  "at": "2",
+                  "duration": "1/4",
+                  "pitch": 67,
+                  "velocity": 75
+                },
+                {
+                  "at": "49/16",
+                  "channel": 2,
+                  "duration": "5/16",
+                  "pitch": 72,
+                  "velocity": 86
+                }
+              ]
+            },
+            "metadata": {
+              "name": "",
+              "color": {
+                "red": 217,
+                "green": 157,
+                "blue": 13
+              },
+              "lengthBeats": 4,
+              "playStartBeats": 0,
+              "loopEnabled": true,
+              "loopStartBeats": 0,
+              "loopEndBeats": 4
+            },
+            "channels": [
+              {
+                "channel": 1,
+                "notes": [
+                  {
+                    "startBeats": 0,
+                    "pitch": 60,
+                    "velocity": 90,
+                    "durationBeats": 0.5,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  },
+                  {
+                    "startBeats": 2,
+                    "pitch": 67,
+                    "velocity": 75,
+                    "durationBeats": 0.25,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  }
+                ]
+              },
+              {
+                "channel": 2,
+                "notes": [
+                  {
+                    "startBeats": 1.0625,
+                    "pitch": 64,
+                    "velocity": 83,
+                    "durationBeats": 0.4375,
+                    "releaseVelocity": 0.7874015748031497,
+                    "gain": 0.9283177667225558,
+                    "pan": -0.25,
+                    "timbre": -0.19999999999999996,
+                    "transpose": 0.25,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  },
+                  {
+                    "startBeats": 3.0625,
+                    "pitch": 72,
+                    "velocity": 86,
+                    "durationBeats": 0.3125,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "7e6356c8-af6c-463e-8095-a29244835daf",
+        "index": 4,
+        "name": "gn-ua-0b6c3297-spare",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.5011872336272722,
+          "panRaw": 0,
+          "mute": true,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": false
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "3e0caeae-c9f3-4712-a1b3-c72874b50587",
+        "index": 5,
+        "name": "gn-ua-0b6c3297-devices",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.5011872336272722,
+          "panRaw": 0,
+          "mute": true,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": false
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "5e275187-467c-43cc-a7c8-f591b0eab039",
+        "index": 6,
+        "name": "gn-ua-0b6c3297-single",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.5011872336272722,
+          "panRaw": 0,
+          "mute": true,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": true,
+            "music": {
+              "clips": [
+                {
+                  "length": "4",
+                  "loop": {
+                    "from": "0",
+                    "to": "4"
+                  }
+                }
+              ],
+              "events": [
+                {
+                  "at": "0",
+                  "duration": "1/2",
+                  "pitch": 60,
+                  "velocity": 90
+                },
+                {
+                  "at": "17/16",
+                  "channel": 2,
+                  "duration": "7/16",
+                  "expression": {
+                    "gain": 0.8,
+                    "pan": -0.25,
+                    "pressure": 0,
+                    "timbre": 0.4,
+                    "transpose": 0.25,
+                    "velocitySpread": 0
+                  },
+                  "pitch": 64,
+                  "velocity": 83
+                },
+                {
+                  "at": "2",
+                  "duration": "1/4",
+                  "pitch": 67,
+                  "velocity": 75
+                },
+                {
+                  "at": "49/16",
+                  "channel": 2,
+                  "duration": "5/16",
+                  "pitch": 72,
+                  "velocity": 86
+                }
+              ]
+            },
+            "metadata": {
+              "name": "",
+              "color": {
+                "red": 0,
+                "green": 166,
+                "blue": 145
+              },
+              "lengthBeats": 4,
+              "playStartBeats": 0,
+              "loopEnabled": true,
+              "loopStartBeats": 0,
+              "loopEndBeats": 4
+            },
+            "channels": [
+              {
+                "channel": 1,
+                "notes": [
+                  {
+                    "startBeats": 0,
+                    "pitch": 60,
+                    "velocity": 90,
+                    "durationBeats": 0.5,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  },
+                  {
+                    "startBeats": 2,
+                    "pitch": 67,
+                    "velocity": 75,
+                    "durationBeats": 0.25,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  }
+                ]
+              },
+              {
+                "channel": 2,
+                "notes": [
+                  {
+                    "startBeats": 1.0625,
+                    "pitch": 64,
+                    "velocity": 83,
+                    "durationBeats": 0.4375,
+                    "releaseVelocity": 0.7874015748031497,
+                    "gain": 0.9283177667225558,
+                    "pan": -0.25,
+                    "timbre": -0.19999999999999996,
+                    "transpose": 0.25,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  },
+                  {
+                    "startBeats": 3.0625,
+                    "pitch": 72,
+                    "velocity": 86,
+                    "durationBeats": 0.3125,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [
+          {
+            "devicePosition": 0,
+            "name": "Sampler",
+            "enabled": true
+          }
+        ],
+        "controls": [
+          {
+            "position": 0,
+            "parameters": [
+              {
+                "id": "CONTENTS/TRANSPOSE",
+                "name": "Pitch Transpose",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/OUTPUT",
+                "name": "Output",
+                "normalizedValue": 0.7942811755361399
+              },
+              {
+                "id": "CONTENTS/AMP_ATTACK_TIME",
+                "name": "Gated Attack Time",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/AMP_HOLD_TIME",
+                "name": "Gated Hold Time",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/AMP_DECAY_TIME",
+                "name": "Gated Decay Time",
+                "normalizedValue": 0.4849999999999996
+              },
+              {
+                "id": "CONTENTS/AMP_SUSTAIN_LEVEL",
+                "name": "Gated Sustain Level",
+                "normalizedValue": 1
+              },
+              {
+                "id": "CONTENTS/AMP_RELEASE_TIME",
+                "name": "Gated Release Time",
+                "normalizedValue": 0.27499999999999997
+              },
+              {
+                "id": "CONTENTS/AMP_ATTACK_SHAPE",
+                "name": "Gated Attack Curve",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/AMP_DECAY_SHAPE",
+                "name": "Gated Decay Curve",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/AMP_RELEASE_SHAPE",
+                "name": "Gated Release Curve",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/VELOCITY_SENSITIVETY",
+                "name": "Velocity Sensitivity",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/FILTER_TYPE",
+                "name": "Filter Mode",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/FILT_FREQ",
+                "name": "Filter Frequency",
+                "normalizedValue": 0.6674911712063288
+              },
+              {
+                "id": "CONTENTS/FILT_RESO",
+                "name": "Filter Resonance",
+                "normalizedValue": 0.4997498749374687
+              },
+              {
+                "id": "CONTENTS/SAMPLE_START",
+                "name": "Play / Position Offset",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/LOOP_START",
+                "name": "Loop Offset",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/LOOP_LENGTH",
+                "name": "Loop Length",
+                "normalizedValue": 1
+              },
+              {
+                "id": "CONTENTS/GAIN",
+                "name": "Voice Gain / Drive",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/PAN",
+                "name": "Pan",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/FILTER_KEYTRACK",
+                "name": "Filter Keytrack",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/GRAIN_SIZE",
+                "name": "Grain Size in Time",
+                "normalizedValue": 0.416435313714603
+              },
+              {
+                "id": "CONTENTS/SELECT",
+                "name": "Select",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/SPEED",
+                "name": "Speed",
+                "normalizedValue": 0.625
+              },
+              {
+                "id": "CONTENTS/FORMANT",
+                "name": "Formant",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/FADE_IN",
+                "name": "One-shot Fade In",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/FADE_OUT",
+                "name": "One-shot Fade Out",
+                "normalizedValue": 0.27144176165949063
+              },
+              {
+                "id": "CONTENTS/PLAYHEAD_MOTION",
+                "name": "Playhead Motion",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/RELEASE_NOTE_LENGTH",
+                "name": "Release Note Length",
+                "normalizedValue": 0.19839679358717432
+              },
+              {
+                "id": "CONTENTS/RELEASE_VELOCITY_MODE",
+                "name": "Release Velocity Mode",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/PHASEVOCODER_PARAMETER_1",
+                "name": "Formant Shift Amount",
+                "normalizedValue": 0.8181818181818182
+              },
+              {
+                "id": "CONTENTS/CHARACTER_X",
+                "name": "Repitch Color",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/CHARACTER_Y",
+                "name": "Repitch Distortion",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/GRAIN_RATE",
+                "name": "Grain Rate in Time",
+                "normalizedValue": 0.5604137457918624
+              },
+              {
+                "id": "CONTENTS/GRAIN_ENVELOPE",
+                "name": "Fragments Grain Envelope",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/GRAIN_SIZE_TIMEBASE",
+                "name": "Grain Size in Beats",
+                "normalizedValue": 0.26666666666666666
+              },
+              {
+                "id": "CONTENTS/GRAIN_DENSITY_TIMEBASE",
+                "name": "Fragments Grain Rate in Beats",
+                "normalizedValue": 0.8666666666666667
+              },
+              {
+                "id": "CONTENTS/GRAINS_SYNCED",
+                "name": "Sync Grains",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/GRAIN_REPEATS",
+                "name": "Fragments Grain Repeats",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/PHASE_VOCODER_BEND",
+                "name": "Spectral Harmonic Bend",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/PHASE_VOCODER_PHASE_RANDOMIZATION",
+                "name": "Spectral Phase Dispersion",
+                "normalizedValue": 0.6666666666666666
+              },
+              {
+                "id": "CONTENTS/GRAIN_DENSITY",
+                "name": "Fragments Grain Density",
+                "normalizedValue": 0.6666666666666667
+              },
+              {
+                "id": "CONTENTS/GRAIN_APPLY_DENSITY",
+                "name": "Fragments Use Grain Density",
+                "normalizedValue": 1
+              },
+              {
+                "id": "CONTENTS/FILTER_GAIN",
+                "name": "Bell Filter Gain",
+                "normalizedValue": 0.625
+              },
+              {
+                "id": "CONTENTS/SPECTRAL_ONSET_PROCESSING_THRESHOLD",
+                "name": "Spectral Onset Sensitivity",
+                "normalizedValue": 1
+              },
+              {
+                "id": "CONTENTS/QUANTIZATION_AMOUNT",
+                "name": "Spectral Harmonic Quantization Amount",
+                "normalizedValue": 1
+              },
+              {
+                "id": "CONTENTS/CYCLES_PW",
+                "name": "Cycles Pulse Width",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/CYCLES_HARMONICS",
+                "name": "Cycles Partials Harmonic Split",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/CYCLES_FUNDAMENTAL",
+                "name": "Cycles Partials Fundamental Level",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/CYCLES_PM",
+                "name": "Cycles Phase Modulation Amount",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/CYCLES_PM_HARMONICS",
+                "name": "Cycles Phase Modulator Harmonics",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/USE_GLOBAL_KEY",
+                "name": "Use Global Key",
+                "normalizedValue": 1
+              },
+              {
+                "id": "CONTENTS/KEY",
+                "name": "Local Key",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/SCALE",
+                "name": "Local Scale/Mode",
+                "normalizedValue": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "934a7d7d-fb8d-44a2-88f7-0f757a6a7c6a",
+        "index": 7,
+        "name": "gn-ua-0b6c3297-multi",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.5011872336272722,
+          "panRaw": 0,
+          "mute": true,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": true,
+            "music": {
+              "clips": [
+                {
+                  "length": "4",
+                  "loop": {
+                    "from": "0",
+                    "to": "4"
+                  }
+                }
+              ],
+              "events": [
+                {
+                  "at": "0",
+                  "duration": "1/2",
+                  "pitch": 60,
+                  "velocity": 90
+                },
+                {
+                  "at": "17/16",
+                  "channel": 2,
+                  "duration": "7/16",
+                  "expression": {
+                    "gain": 0.8,
+                    "pan": -0.25,
+                    "pressure": 0,
+                    "timbre": 0.4,
+                    "transpose": 0.25,
+                    "velocitySpread": 0
+                  },
+                  "pitch": 64,
+                  "velocity": 83
+                },
+                {
+                  "at": "2",
+                  "duration": "1/4",
+                  "pitch": 67,
+                  "velocity": 75
+                },
+                {
+                  "at": "49/16",
+                  "channel": 2,
+                  "duration": "5/16",
+                  "pitch": 72,
+                  "velocity": 86
+                }
+              ]
+            },
+            "metadata": {
+              "name": "",
+              "color": {
+                "red": 0,
+                "green": 153,
+                "blue": 214
+              },
+              "lengthBeats": 4,
+              "playStartBeats": 0,
+              "loopEnabled": true,
+              "loopStartBeats": 0,
+              "loopEndBeats": 4
+            },
+            "channels": [
+              {
+                "channel": 1,
+                "notes": [
+                  {
+                    "startBeats": 0,
+                    "pitch": 60,
+                    "velocity": 90,
+                    "durationBeats": 0.5,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  },
+                  {
+                    "startBeats": 2,
+                    "pitch": 67,
+                    "velocity": 75,
+                    "durationBeats": 0.25,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  }
+                ]
+              },
+              {
+                "channel": 2,
+                "notes": [
+                  {
+                    "startBeats": 1.0625,
+                    "pitch": 64,
+                    "velocity": 83,
+                    "durationBeats": 0.4375,
+                    "releaseVelocity": 0.7874015748031497,
+                    "gain": 0.9283177667225558,
+                    "pan": -0.25,
+                    "timbre": -0.19999999999999996,
+                    "transpose": 0.25,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  },
+                  {
+                    "startBeats": 3.0625,
+                    "pitch": 72,
+                    "velocity": 86,
+                    "durationBeats": 0.3125,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [
+          {
+            "devicePosition": 0,
+            "name": "Sampler",
+            "enabled": true
+          }
+        ],
+        "controls": [
+          {
+            "position": 0,
+            "parameters": [
+              {
+                "id": "CONTENTS/TRANSPOSE",
+                "name": "Pitch Transpose",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/OUTPUT",
+                "name": "Output",
+                "normalizedValue": 0.7942811755361399
+              },
+              {
+                "id": "CONTENTS/AMP_ATTACK_TIME",
+                "name": "Gated Attack Time",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/AMP_HOLD_TIME",
+                "name": "Gated Hold Time",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/AMP_DECAY_TIME",
+                "name": "Gated Decay Time",
+                "normalizedValue": 0.4849999999999996
+              },
+              {
+                "id": "CONTENTS/AMP_SUSTAIN_LEVEL",
+                "name": "Gated Sustain Level",
+                "normalizedValue": 1
+              },
+              {
+                "id": "CONTENTS/AMP_RELEASE_TIME",
+                "name": "Gated Release Time",
+                "normalizedValue": 0.27499999999999997
+              },
+              {
+                "id": "CONTENTS/AMP_ATTACK_SHAPE",
+                "name": "Gated Attack Curve",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/AMP_DECAY_SHAPE",
+                "name": "Gated Decay Curve",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/AMP_RELEASE_SHAPE",
+                "name": "Gated Release Curve",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/VELOCITY_SENSITIVETY",
+                "name": "Velocity Sensitivity",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/FILTER_TYPE",
+                "name": "Filter Mode",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/FILT_FREQ",
+                "name": "Filter Frequency",
+                "normalizedValue": 0.6674911712063288
+              },
+              {
+                "id": "CONTENTS/FILT_RESO",
+                "name": "Filter Resonance",
+                "normalizedValue": 0.4997498749374687
+              },
+              {
+                "id": "CONTENTS/SAMPLE_START",
+                "name": "Play / Position Offset",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/LOOP_START",
+                "name": "Loop Offset",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/LOOP_LENGTH",
+                "name": "Loop Length",
+                "normalizedValue": 1
+              },
+              {
+                "id": "CONTENTS/GAIN",
+                "name": "Voice Gain / Drive",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/PAN",
+                "name": "Pan",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/FILTER_KEYTRACK",
+                "name": "Filter Keytrack",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/GRAIN_SIZE",
+                "name": "Grain Size in Time",
+                "normalizedValue": 0.416435313714603
+              },
+              {
+                "id": "CONTENTS/SELECT",
+                "name": "Select",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/SPEED",
+                "name": "Speed",
+                "normalizedValue": 0.625
+              },
+              {
+                "id": "CONTENTS/FORMANT",
+                "name": "Formant",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/FADE_IN",
+                "name": "One-shot Fade In",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/FADE_OUT",
+                "name": "One-shot Fade Out",
+                "normalizedValue": 0.27144176165949063
+              },
+              {
+                "id": "CONTENTS/PLAYHEAD_MOTION",
+                "name": "Playhead Motion",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/RELEASE_NOTE_LENGTH",
+                "name": "Release Note Length",
+                "normalizedValue": 0.19839679358717432
+              },
+              {
+                "id": "CONTENTS/RELEASE_VELOCITY_MODE",
+                "name": "Release Velocity Mode",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/PHASEVOCODER_PARAMETER_1",
+                "name": "Formant Shift Amount",
+                "normalizedValue": 0.8181818181818182
+              },
+              {
+                "id": "CONTENTS/CHARACTER_X",
+                "name": "Repitch Color",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/CHARACTER_Y",
+                "name": "Repitch Distortion",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/GRAIN_RATE",
+                "name": "Grain Rate in Time",
+                "normalizedValue": 0.5604137457918624
+              },
+              {
+                "id": "CONTENTS/GRAIN_ENVELOPE",
+                "name": "Fragments Grain Envelope",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/GRAIN_SIZE_TIMEBASE",
+                "name": "Grain Size in Beats",
+                "normalizedValue": 0.26666666666666666
+              },
+              {
+                "id": "CONTENTS/GRAIN_DENSITY_TIMEBASE",
+                "name": "Fragments Grain Rate in Beats",
+                "normalizedValue": 0.8666666666666667
+              },
+              {
+                "id": "CONTENTS/GRAINS_SYNCED",
+                "name": "Sync Grains",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/GRAIN_REPEATS",
+                "name": "Fragments Grain Repeats",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/PHASE_VOCODER_BEND",
+                "name": "Spectral Harmonic Bend",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/PHASE_VOCODER_PHASE_RANDOMIZATION",
+                "name": "Spectral Phase Dispersion",
+                "normalizedValue": 0.6666666666666666
+              },
+              {
+                "id": "CONTENTS/GRAIN_DENSITY",
+                "name": "Fragments Grain Density",
+                "normalizedValue": 0.6666666666666667
+              },
+              {
+                "id": "CONTENTS/GRAIN_APPLY_DENSITY",
+                "name": "Fragments Use Grain Density",
+                "normalizedValue": 1
+              },
+              {
+                "id": "CONTENTS/FILTER_GAIN",
+                "name": "Bell Filter Gain",
+                "normalizedValue": 0.625
+              },
+              {
+                "id": "CONTENTS/SPECTRAL_ONSET_PROCESSING_THRESHOLD",
+                "name": "Spectral Onset Sensitivity",
+                "normalizedValue": 1
+              },
+              {
+                "id": "CONTENTS/QUANTIZATION_AMOUNT",
+                "name": "Spectral Harmonic Quantization Amount",
+                "normalizedValue": 1
+              },
+              {
+                "id": "CONTENTS/CYCLES_PW",
+                "name": "Cycles Pulse Width",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/CYCLES_HARMONICS",
+                "name": "Cycles Partials Harmonic Split",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/CYCLES_FUNDAMENTAL",
+                "name": "Cycles Partials Fundamental Level",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/CYCLES_PM",
+                "name": "Cycles Phase Modulation Amount",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/CYCLES_PM_HARMONICS",
+                "name": "Cycles Phase Modulator Harmonics",
+                "normalizedValue": 0.5
+              },
+              {
+                "id": "CONTENTS/USE_GLOBAL_KEY",
+                "name": "Use Global Key",
+                "normalizedValue": 1
+              },
+              {
+                "id": "CONTENTS/KEY",
+                "name": "Local Key",
+                "normalizedValue": 0
+              },
+              {
+                "id": "CONTENTS/SCALE",
+                "name": "Local Scale/Mode",
+                "normalizedValue": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a1f126c2-a7cc-443c-8bfb-350823c52aa2",
+        "index": 8,
+        "name": "FX 1",
+        "type": "Effect",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 1,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "83f918dd-8eae-47e2-900d-61f7e92d75d7",
+        "index": 9,
+        "name": "Master",
+        "type": "Master",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 1,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [],
+        "devices": [],
+        "controls": []
+      }
+    ]
+  },
+  "completedAt": "2026-10-21T16:04:41.935Z"
+}

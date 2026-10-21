@@ -1,0 +1,1 @@
+Read-only group inspection passed. No write was sent. Keep this failure and fork a separate continuation for group-after.

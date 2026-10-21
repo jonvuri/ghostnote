@@ -1,13 +1,25 @@
 ---
 title: Bitwig 6.1.x update audit
 kind: plan
-state: active
+state: complete
+status: E330 accepts the tested normal-product scope on 6.1.4. All matrix rows and clean save pass. Next is separate 9b.6 preparation.
 updated: 2026-10-21
 parent: README.md
 next: 9b-grid-breadth-discovery-and-build-out.md#session-9b6--doctor-on-61x
 ---
 
 # Bitwig 6.1.x update audit
+
+## Accepted result
+
+[E330](../../evidence/experiments/e330-update-audit-614-acceptance.md) completes
+sections 1, 2A, 2B, and 3 on Bitwig 6.1.4. The normal-product matrix, both
+Samplers, save/reopen, listening, cleanup, and clean save pass. The
+[final report](../../evidence/data/bitwig-upgrade-audit/continuation-4-614/report.json)
+is `live-matrix-complete`, with no missing check or pending action. Preserve
+all failures and recovery evidence. The limits and performance comparisons
+are in E330. Next is separate 9b.6 offline preparation; live Grid still needs
+its own prepared build, controller replacement, and fresh scratch consent.
 
 ## Scope and start
 
@@ -34,6 +46,65 @@ Read these sources before implementation:
   [D15 verification](../../decisions/d15-verification-discipline-settled-2026-07-25.md).
 - [Bitwig 6.1 release notes](https://downloads.bitwig.com/6.1/Release-Notes-6.1.html)
   and the release notes for the exact patch selected by the operator.
+
+## Section 2A result
+
+Offline preparation is complete in
+[E317](../../evidence/experiments/e317-update-audit-offline-preparation.md).
+Use the [driver guide](9b-update-audit-driver.md) for the current commands,
+matrix mapping, and operator checkpoints. The prepared configuration does
+not authorize a connection. The operator has now completed the section 1
+handoff for 6.1.4. [E318](../../evidence/experiments/e318-update-audit-614-deployment.md)
+records the paths, recovery check, asset limits, jar, and normal deployment.
+The operator confirmed replacement, and hello passes on 6.1.4.
+[E319](../../evidence/experiments/e319-update-audit-614-first-entry.md) records
+the first setup stop. Its recovery passed after the operator selected an
+empty slot on `Inst 1`. [E320](../../evidence/experiments/e320-update-audit-614-device-compatibility.md)
+records passed notes, clips, mixer, controls, and structure, two further
+recoveries, and the tested adapter corrections. Sampler stopped after
+insertion on the `AEG Attack Time` / `Gated Attack Time` name mismatch.
+[E321](../../evidence/experiments/e321-update-audit-sampler-library-export.md)
+records the library export and matching working copy. Both routes and the
+sample reference are preserved. The named-recipe compatibility fix and
+bounded recovery pass offline checks. [E322](../../evidence/experiments/e322-update-audit-sampler-recovery.md)
+records passed recovery after both selections were restored. The corrected
+single edit passes live identity checks.
+[E323](../../evidence/experiments/e323-update-audit-single-sampler-pass.md)
+records the fresh single export and reversal pass.
+[E324](../../evidence/experiments/e324-update-audit-sampler-case-pass.md)
+completes the multi export and reversal, with both zones observed and the
+full fixture restored. The Sampler case and its driver are complete.
+
+[E325](../../evidence/experiments/e325-update-audit-selection-write-pass.md)
+passes the mixer write/reversal after operator selection, with the full
+fixture unchanged. The subsequent
+[selection-restored](../../evidence/data/bitwig-upgrade-audit/continuation-3-614/selection-restored.json)
+and [group-before](../../evidence/data/bitwig-upgrade-audit/continuation-3-614/group-before.json)
+checks pass. [E326](../../evidence/experiments/e326-update-audit-collapsed-group-pass.md)
+records a pre-write snapshot refusal, its read-only recovery, and the passed
+collapsed-group case. The subsequent group restoration passes complete
+fixture and selection equality. [E327](../../evidence/experiments/e327-update-audit-project-switch-pass.md)
+passes the project switch and fresh return mixer write/reversal. Complete
+fixture and selection equality pass. The operator confirmed both original
+Samplers' retained Attack mappings and healthy waveforms. The save and
+saved checkpoints pass. The evidence copy matches the 72,901-byte working
+file; its identity is in the
+[saved-file verification](../../evidence/data/bitwig-upgrade-audit/continuation-4-614/saved-file-verification.json).
+[E328](../../evidence/experiments/e328-update-audit-reopen-pass.md) passes
+reopen file identity, complete fixture equality, and the fresh mixer
+write/reversal. The operator confirmed both original Samplers' mappings and
+healthy waveforms after reopen, then restored selection.
+[E329](../../evidence/experiments/e329-update-audit-listening-and-cleanup.md)
+passes listening, the final Sampler observation checkpoint, and removal of
+all six owned tracks. The complete preserved baseline matches.
+[E330](../../evidence/experiments/e330-update-audit-614-acceptance.md) records
+the passed clean save, final report, and consolidated acceptance. The
+[removed-target evidence](../../evidence/data/bitwig-upgrade-audit/continuation-4-614/removed-target-evidence.json)
+records absence in preserved direct-control reads and complete source/host
+route inventories. Removed-target migration is not exercised by these donors.
+Keep continuation 3 and its failure unchanged. Actual audible listening
+is confirmed separately from the earlier meter-only observation. Section 3
+is complete. Keep failures, recoveries, exports, and parent proof hashes.
 
 ## 1. Operator: preserve 6.0.6 and install the update
 

@@ -1,0 +1,858 @@
+{
+  "commandId": "909ce2c1-92a8-4e4f-95da-27c3182c3125",
+  "before": {
+    "project": "gn-upgrade-audit",
+    "scenes": 8,
+    "selection": {
+      "mixer": "Inst 1",
+      "track": "Inst 1",
+      "slot": 0
+    },
+    "tracks": [
+      {
+        "id": "13283095-956c-40f2-a077-46c56d33d0ce",
+        "index": 0,
+        "name": "Inst 1",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.6812920690579614,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": false
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "88a46256-90da-4f17-ae16-215691733ca2",
+        "index": 1,
+        "name": "Audio 2",
+        "type": "Audio",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.6812920690579614,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": false
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "cae27420-a5d3-4fef-973b-8a0c930b1eae",
+        "index": 2,
+        "name": "gn-ua-62178847-sentinel",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.6812920690579614,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": true,
+            "music": {
+              "clips": [
+                {
+                  "length": "4",
+                  "loop": {
+                    "from": "0",
+                    "to": "4"
+                  }
+                }
+              ],
+              "events": [
+                {
+                  "at": "0",
+                  "duration": "1/2",
+                  "pitch": 60,
+                  "velocity": 90
+                },
+                {
+                  "at": "17/16",
+                  "channel": 2,
+                  "duration": "7/16",
+                  "expression": {
+                    "gain": 0.8,
+                    "pan": -0.25,
+                    "pressure": 0,
+                    "timbre": 0.4,
+                    "transpose": 0.25,
+                    "velocitySpread": 0
+                  },
+                  "pitch": 64,
+                  "velocity": 83
+                },
+                {
+                  "at": "2",
+                  "duration": "1/4",
+                  "pitch": 67,
+                  "velocity": 75
+                },
+                {
+                  "at": "49/16",
+                  "channel": 2,
+                  "duration": "5/16",
+                  "pitch": 72,
+                  "velocity": 86
+                }
+              ]
+            },
+            "metadata": {
+              "name": "",
+              "color": {
+                "red": 198,
+                "green": 159,
+                "blue": 109
+              },
+              "lengthBeats": 4,
+              "playStartBeats": 0,
+              "loopEnabled": true,
+              "loopStartBeats": 0,
+              "loopEndBeats": 4
+            },
+            "channels": [
+              {
+                "channel": 1,
+                "notes": [
+                  {
+                    "startBeats": 0,
+                    "pitch": 60,
+                    "velocity": 90,
+                    "durationBeats": 0.5,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  },
+                  {
+                    "startBeats": 2,
+                    "pitch": 67,
+                    "velocity": 75,
+                    "durationBeats": 0.25,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  }
+                ]
+              },
+              {
+                "channel": 2,
+                "notes": [
+                  {
+                    "startBeats": 1.0625,
+                    "pitch": 64,
+                    "velocity": 83,
+                    "durationBeats": 0.4375,
+                    "releaseVelocity": 0.7874015748031497,
+                    "gain": 0.9283177667225558,
+                    "pan": -0.25,
+                    "timbre": -0.19999999999999996,
+                    "transpose": 0.25,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  },
+                  {
+                    "startBeats": 3.0625,
+                    "pitch": 72,
+                    "velocity": 86,
+                    "durationBeats": 0.3125,
+                    "releaseVelocity": 0.7874015748031497,
+                    "isChanceEnabled": true,
+                    "isOccurrenceEnabled": true,
+                    "isRecurrenceEnabled": true,
+                    "isRepeatEnabled": true,
+                    "recurrence": [
+                      1,
+                      1
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "81a34861-e91c-4161-b1bc-6107caa343f6",
+        "index": 3,
+        "name": "gn-ua-62178847-notes",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.6812920690579614,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": false
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "60cfcac8-098d-42f5-80aa-63ee48ab5b33",
+        "index": 4,
+        "name": "gn-ua-62178847-spare",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.6812920690579614,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": false
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "e17ebcdb-f945-4afe-b500-ef6cbf4b33ee",
+        "index": 5,
+        "name": "gn-ua-62178847-devices",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.6812920690579614,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": false
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "e1c91f0f-2bc8-4bc2-ad6c-1ee47991368d",
+        "index": 6,
+        "name": "gn-ua-62178847-single",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.6812920690579614,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": false
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "0adb2b67-eaaf-4afa-b464-65f489c04c13",
+        "index": 7,
+        "name": "gn-ua-62178847-multi",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.6812920690579614,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": false
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "a1f126c2-a7cc-443c-8bfb-350823c52aa2",
+        "index": 8,
+        "name": "FX 1",
+        "type": "Effect",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 1,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "83f918dd-8eae-47e2-900d-61f7e92d75d7",
+        "index": 9,
+        "name": "Master",
+        "type": "Master",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 1,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [],
+        "devices": [],
+        "controls": []
+      }
+    ]
+  },
+  "target": {
+    "project": "gn-upgrade-audit",
+    "scenes": 8,
+    "selection": {
+      "mixer": "Inst 1",
+      "track": "Inst 1",
+      "slot": 0
+    },
+    "tracks": [
+      {
+        "id": "13283095-956c-40f2-a077-46c56d33d0ce",
+        "index": 0,
+        "name": "Inst 1",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.6812920690579614,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": false
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "88a46256-90da-4f17-ae16-215691733ca2",
+        "index": 1,
+        "name": "Audio 2",
+        "type": "Audio",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.6812920690579614,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": false
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "a1f126c2-a7cc-443c-8bfb-350823c52aa2",
+        "index": 2,
+        "name": "FX 1",
+        "type": "Effect",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 1,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "83f918dd-8eae-47e2-900d-61f7e92d75d7",
+        "index": 3,
+        "name": "Master",
+        "type": "Master",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 1,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [],
+        "devices": [],
+        "controls": []
+      }
+    ]
+  },
+  "completed": true,
+  "reason": "E258 no-entry-slot warning. The operator selected the original mixer track, row 0.",
+  "after": {
+    "project": "gn-upgrade-audit",
+    "scenes": 8,
+    "selection": {
+      "mixer": "Inst 1",
+      "track": "Inst 1",
+      "slot": 0
+    },
+    "tracks": [
+      {
+        "id": "13283095-956c-40f2-a077-46c56d33d0ce",
+        "index": 0,
+        "name": "Inst 1",
+        "type": "Instrument",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.6812920690579614,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": false
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "88a46256-90da-4f17-ae16-215691733ca2",
+        "index": 1,
+        "name": "Audio 2",
+        "type": "Audio",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 0.6812920690579614,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [
+          {
+            "row": 0,
+            "occupied": false
+          },
+          {
+            "row": 1,
+            "occupied": false
+          },
+          {
+            "row": 2,
+            "occupied": false
+          },
+          {
+            "row": 3,
+            "occupied": false
+          },
+          {
+            "row": 4,
+            "occupied": false
+          },
+          {
+            "row": 5,
+            "occupied": false
+          },
+          {
+            "row": 6,
+            "occupied": false
+          },
+          {
+            "row": 7,
+            "occupied": false
+          }
+        ],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "a1f126c2-a7cc-443c-8bfb-350823c52aa2",
+        "index": 2,
+        "name": "FX 1",
+        "type": "Effect",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 1,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [],
+        "devices": [],
+        "controls": []
+      },
+      {
+        "id": "83f918dd-8eae-47e2-900d-61f7e92d75d7",
+        "index": 3,
+        "name": "Master",
+        "type": "Master",
+        "hidden": false,
+        "mixer": {
+          "volumeRaw": 1,
+          "panRaw": 0,
+          "mute": false,
+          "solo": false
+        },
+        "clips": [],
+        "devices": [],
+        "controls": []
+      }
+    ]
+  }
+}

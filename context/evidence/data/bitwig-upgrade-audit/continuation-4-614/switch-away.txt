@@ -1,0 +1,1 @@
+Return to gn-upgrade-audit, stopped, with selection {"mixer":"Inst 1","track":"Inst 1","slot":0}. Run checkpoint switch-back.

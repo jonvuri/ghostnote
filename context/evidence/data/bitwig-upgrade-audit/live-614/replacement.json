@@ -1,0 +1,11 @@
+{
+  "operatorConfirmed": true,
+  "confirmation": "Controller replaced.",
+  "recordedAt": "2026-10-21T13:32:17.923207+00:00",
+  "replacementLowerBoundMs": 1792589222667.4768,
+  "lowerBoundSource": "Deployment verification before the replacement request.",
+  "helloInit": "2026-10-21T13:31:16.452Z",
+  "runtimeProfile": "normal-v1",
+  "methodCount": 92,
+  "methodsHash": "8be1975eaa99d78f"
+}

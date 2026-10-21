@@ -1,0 +1,54 @@
+{
+  "sourceDir": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-614",
+  "proof": [
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/attempt-2-614/state.json",
+      "sha256": "7958d6f49d4c92851a2ca9e356f737687cb066397d5f2352e42164b3b9a6d1a3"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/attempt-2-614/control-reply-recovery.json",
+      "sha256": "edb2fbc7128e14d7de505867f2681e2805b8c3fae44a9df963e4868204c0a702"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/attempt-2-614/entry.json",
+      "sha256": "8705bae904d1638dd19dba3b1f45e4f6b8c896d252e2b71815d5f77d9a6a24d0"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/attempt-2-614/setup.json",
+      "sha256": "d3f351b79d7fa0fea9b9887d8bcc066efd383c11379a7bb6168382444a36842a"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/attempt-2-614/notes.json",
+      "sha256": "cef4309078dd31488e11fcca2f8b0174b953e96c0c14e55e5e25af4c49eec38a"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/attempt-2-614/clips.json",
+      "sha256": "cef4309078dd31488e11fcca2f8b0174b953e96c0c14e55e5e25af4c49eec38a"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/attempt-2-614/mixer.json",
+      "sha256": "cef4309078dd31488e11fcca2f8b0174b953e96c0c14e55e5e25af4c49eec38a"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-614/state.json",
+      "sha256": "5207e421ad1372a92bd1eb1b668e6404e6f6c4fa2fdcb92c224d129ef6f773a0"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-614/structure-readback-recovery.json",
+      "sha256": "f1a1c2344401f152d7cbd55ac52ce94ddcd493ed4f6ed72f121337b8994c6ded"
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-614/controls.json",
+      "sha256": "cef4309078dd31488e11fcca2f8b0174b953e96c0c14e55e5e25af4c49eec38a"
+    }
+  ],
+  "completed": [
+    "preflight",
+    "setup",
+    "notes",
+    "clips",
+    "mixer",
+    "controls"
+  ],
+  "reason": "Keep proved cases after independent recovery. The failed case must run from its start."
+}

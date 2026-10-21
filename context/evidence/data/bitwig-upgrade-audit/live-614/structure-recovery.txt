@@ -1,0 +1,5 @@
+
+> ghostnote-brain@0.0.1 probe:upgrade-audit
+> tsx src/probes/bitwig-upgrade-audit.ts recover-structure-readback /Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-614
+
+Enabled state restored and owned container removed. Complete fixture restored. Keep this failed record; fork-recovered creates a separate continuation.

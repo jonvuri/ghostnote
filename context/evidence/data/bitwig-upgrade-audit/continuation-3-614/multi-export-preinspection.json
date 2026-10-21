@@ -1,0 +1,85 @@
+{
+  "sha256": "7a74aaf75e2cb5181ab2b1c6a013ee74965fd20d87b3960b4dc44b6f2c824e99",
+  "bytes": 13409,
+  "routeComparisonPassed": true,
+  "resourceReferencesEqual": true,
+  "sourceReferences": {
+    "referenced_packaged_file_ids": [
+      "Bitwig/Sampled Synths Vol. 1:13/samples/ASM Chords/ASM Chord C7.wav",
+      "Bitwig/Sampled Synths Vol. 1:13/samples/ASM Chords/ASM Chord C9.wav"
+    ]
+  },
+  "hostReferences": {
+    "referenced_packaged_file_ids": [
+      "Bitwig/Sampled Synths Vol. 1:13/samples/ASM Chords/ASM Chord C7.wav",
+      "Bitwig/Sampled Synths Vol. 1:13/samples/ASM Chords/ASM Chord C9.wav"
+    ]
+  },
+  "exported": {
+    "supported": true,
+    "fingerprint": {
+      "algorithm": "sha256",
+      "sha256": "7a74aaf75e2cb5181ab2b1c6a013ee74965fd20d87b3960b4dc44b6f2c824e99",
+      "byteLength": 13409
+    },
+    "host": {
+      "tier": "tier-2",
+      "format": "native",
+      "name": "Sampler",
+      "creator": "Bitwig"
+    },
+    "containerKind": null,
+    "entries": [],
+    "modulation": [
+      {
+        "location": {
+          "kind": "self"
+        },
+        "modulators": [
+          {
+            "position": 0,
+            "name": "LFO 1",
+            "category": "LFO",
+            "routes": [
+              {
+                "position": 0,
+                "amount": 1.5200000000000005,
+                "rangeLo": -3,
+                "rangeHi": 1,
+                "target": {
+                  "standing": "resolved",
+                  "parameter": {
+                    "parameterId": "CONTENTS/AMP_ATTACK_TIME",
+                    "parameterName": "AEG Attack Time"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "position": 1,
+            "name": "LFO 2",
+            "category": "LFO",
+            "routes": [
+              {
+                "position": 0,
+                "amount": 0.3,
+                "rangeLo": -3,
+                "rangeHi": 1,
+                "target": {
+                  "standing": "resolved",
+                  "parameter": {
+                    "parameterId": "CONTENTS/AMP_ATTACK_TIME",
+                    "parameterName": "AEG Attack Time"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "complete": true
+  },
+  "operatorResourceAndZoneCheckPending": true
+}

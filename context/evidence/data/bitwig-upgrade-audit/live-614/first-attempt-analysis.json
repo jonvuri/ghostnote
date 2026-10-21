@@ -1,0 +1,239 @@
+{
+  "recordedAt": "2026-10-21T13:37:40.478Z",
+  "sentinelNoteContentMatchesDesired": true,
+  "preservedContentMatchesEntry": true,
+  "selectionRestored": false,
+  "pendingWrite": null,
+  "commands": {
+    "9489e00c-154b-40ac-a295-7a8c2485efb8": {
+      "calls": 59,
+      "wireMs": 1374.7811640000004,
+      "responseBytes": 18744,
+      "methods": {
+        "contract.hello": 2,
+        "rig.methods": 1,
+        "host.info": 2,
+        "rig.info": 2,
+        "rig.stats": 1,
+        "selection.status": 7,
+        "cursor.playState": 1,
+        "track.list": 7,
+        "scene.count": 1,
+        "track.mixer": 1,
+        "slot.status": 16,
+        "devcursor.pin": 2,
+        "cursor.pointTrack": 8,
+        "device.list": 8
+      }
+    },
+    "9766c81e-efe4-4b5a-a971-88158208f66c": {
+      "calls": 435,
+      "wireMs": 10516.000872999986,
+      "responseBytes": 366820,
+      "methods": {
+        "contract.hello": 2,
+        "rig.methods": 1,
+        "host.info": 9,
+        "rig.info": 2,
+        "rig.stats": 8,
+        "selection.status": 46,
+        "cursor.playState": 8,
+        "track.list": 135,
+        "scene.count": 1,
+        "track.mixer": 1,
+        "slot.status": 28,
+        "devcursor.pin": 2,
+        "cursor.pointTrack": 9,
+        "device.list": 8,
+        "revision.get": 82,
+        "batch.run": 15,
+        "cursor.pin": 58,
+        "selection.restoreMixer": 6,
+        "clip.read": 3,
+        "slot.select": 1,
+        "cursor.status": 4,
+        "cursor.setStepSize": 3,
+        "cursor.scrollToStep": 3
+      }
+    },
+    "d78c7146-583c-4a21-b43f-136fcaf63d66": {
+      "calls": 188,
+      "wireMs": 4555.871781000003,
+      "responseBytes": 61352,
+      "methods": {
+        "contract.hello": 2,
+        "rig.methods": 1,
+        "host.info": 2,
+        "rig.info": 2,
+        "rig.stats": 1,
+        "selection.status": 24,
+        "cursor.playState": 1,
+        "track.list": 16,
+        "scene.count": 1,
+        "track.mixer": 2,
+        "slot.status": 78,
+        "devcursor.pin": 4,
+        "cursor.pointTrack": 20,
+        "device.list": 20,
+        "slot.select": 10,
+        "revision.get": 3,
+        "clip.read": 1
+      }
+    }
+  },
+  "writes": [
+    {
+      "name": "add_tracks",
+      "elapsedMs": 915.5384589999999,
+      "brainCpuMs": 20.748,
+      "turns": 22,
+      "methods": {
+        "selection.status": 4,
+        "revision.get": 11,
+        "track.list": 14,
+        "batch.run": 2,
+        "cursor.pin": 8,
+        "selection.restoreMixer": 1
+      },
+      "readback": "verified",
+      "warnings": [
+        {
+          "code": "not-reversible",
+          "message": "revert_change does not remove a new track; use delete_track."
+        }
+      ]
+    },
+    {
+      "name": "add_tracks",
+      "elapsedMs": 924.0689999999995,
+      "brainCpuMs": 15.163,
+      "turns": 22,
+      "methods": {
+        "selection.status": 4,
+        "revision.get": 11,
+        "track.list": 14,
+        "batch.run": 2,
+        "cursor.pin": 8,
+        "selection.restoreMixer": 1
+      },
+      "readback": "verified",
+      "warnings": [
+        {
+          "code": "not-reversible",
+          "message": "revert_change does not remove a new track; use delete_track."
+        }
+      ]
+    },
+    {
+      "name": "add_tracks",
+      "elapsedMs": 902.1283329999997,
+      "brainCpuMs": 15.742,
+      "turns": 22,
+      "methods": {
+        "selection.status": 4,
+        "revision.get": 11,
+        "track.list": 14,
+        "batch.run": 2,
+        "cursor.pin": 8,
+        "selection.restoreMixer": 1
+      },
+      "readback": "verified",
+      "warnings": [
+        {
+          "code": "not-reversible",
+          "message": "revert_change does not remove a new track; use delete_track."
+        }
+      ]
+    },
+    {
+      "name": "add_tracks",
+      "elapsedMs": 917.8167090000006,
+      "brainCpuMs": 13.885,
+      "turns": 22,
+      "methods": {
+        "selection.status": 4,
+        "revision.get": 11,
+        "track.list": 14,
+        "batch.run": 2,
+        "cursor.pin": 8,
+        "selection.restoreMixer": 1
+      },
+      "readback": "verified",
+      "warnings": [
+        {
+          "code": "not-reversible",
+          "message": "revert_change does not remove a new track; use delete_track."
+        }
+      ]
+    },
+    {
+      "name": "add_tracks",
+      "elapsedMs": 915.2056670000002,
+      "brainCpuMs": 14.646,
+      "turns": 22,
+      "methods": {
+        "selection.status": 4,
+        "revision.get": 11,
+        "track.list": 14,
+        "batch.run": 2,
+        "cursor.pin": 8,
+        "selection.restoreMixer": 1
+      },
+      "readback": "verified",
+      "warnings": [
+        {
+          "code": "not-reversible",
+          "message": "revert_change does not remove a new track; use delete_track."
+        }
+      ]
+    },
+    {
+      "name": "add_tracks",
+      "elapsedMs": 905.5498749999997,
+      "brainCpuMs": 12.096,
+      "turns": 22,
+      "methods": {
+        "selection.status": 4,
+        "revision.get": 11,
+        "track.list": 14,
+        "batch.run": 2,
+        "cursor.pin": 8,
+        "selection.restoreMixer": 1
+      },
+      "readback": "verified",
+      "warnings": [
+        {
+          "code": "not-reversible",
+          "message": "revert_change does not remove a new track; use delete_track."
+        }
+      ]
+    },
+    {
+      "name": "add_launcher_clip",
+      "elapsedMs": 2391.150917000001,
+      "brainCpuMs": 45.255,
+      "turns": 50,
+      "methods": {
+        "revision.get": 16,
+        "track.list": 17,
+        "slot.status": 12,
+        "selection.status": 1,
+        "batch.run": 3,
+        "cursor.pin": 10,
+        "clip.read": 3,
+        "cursor.pointTrack": 1,
+        "slot.select": 1,
+        "cursor.status": 4,
+        "cursor.setStepSize": 3,
+        "cursor.scrollToStep": 3
+      },
+      "readback": "verified",
+      "warnings": [
+        {
+          "code": "slot-selection-moved",
+          "message": "Bitwig selected the new clip, and the earlier Launcher slot selection was not restored: no slot was selected before the call."
+        }
+      ]
+    }
+  ]
+}

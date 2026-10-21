@@ -1,0 +1,141 @@
+{
+  "project": "gn-upgrade-audit",
+  "scenes": 8,
+  "selection": {
+    "mixer": "Inst 1",
+    "track": "Inst 1",
+    "slot": 0
+  },
+  "tracks": [
+    {
+      "id": "13283095-956c-40f2-a077-46c56d33d0ce",
+      "index": 0,
+      "name": "Inst 1",
+      "type": "Instrument",
+      "hidden": false,
+      "mixer": {
+        "volumeRaw": 0.6812920690579614,
+        "panRaw": 0,
+        "mute": false,
+        "solo": false
+      },
+      "clips": [
+        {
+          "row": 0,
+          "occupied": false
+        },
+        {
+          "row": 1,
+          "occupied": false
+        },
+        {
+          "row": 2,
+          "occupied": false
+        },
+        {
+          "row": 3,
+          "occupied": false
+        },
+        {
+          "row": 4,
+          "occupied": false
+        },
+        {
+          "row": 5,
+          "occupied": false
+        },
+        {
+          "row": 6,
+          "occupied": false
+        },
+        {
+          "row": 7,
+          "occupied": false
+        }
+      ],
+      "devices": [],
+      "controls": []
+    },
+    {
+      "id": "88a46256-90da-4f17-ae16-215691733ca2",
+      "index": 1,
+      "name": "Audio 2",
+      "type": "Audio",
+      "hidden": false,
+      "mixer": {
+        "volumeRaw": 0.6812920690579614,
+        "panRaw": 0,
+        "mute": false,
+        "solo": false
+      },
+      "clips": [
+        {
+          "row": 0,
+          "occupied": false
+        },
+        {
+          "row": 1,
+          "occupied": false
+        },
+        {
+          "row": 2,
+          "occupied": false
+        },
+        {
+          "row": 3,
+          "occupied": false
+        },
+        {
+          "row": 4,
+          "occupied": false
+        },
+        {
+          "row": 5,
+          "occupied": false
+        },
+        {
+          "row": 6,
+          "occupied": false
+        },
+        {
+          "row": 7,
+          "occupied": false
+        }
+      ],
+      "devices": [],
+      "controls": []
+    },
+    {
+      "id": "a1f126c2-a7cc-443c-8bfb-350823c52aa2",
+      "index": 2,
+      "name": "FX 1",
+      "type": "Effect",
+      "hidden": false,
+      "mixer": {
+        "volumeRaw": 1,
+        "panRaw": 0,
+        "mute": false,
+        "solo": false
+      },
+      "clips": [],
+      "devices": [],
+      "controls": []
+    },
+    {
+      "id": "83f918dd-8eae-47e2-900d-61f7e92d75d7",
+      "index": 3,
+      "name": "Master",
+      "type": "Master",
+      "hidden": false,
+      "mixer": {
+        "volumeRaw": 1,
+        "panRaw": 0,
+        "mute": false,
+        "solo": false
+      },
+      "clips": [],
+      "devices": [],
+      "controls": []
+    }
+  ]
+}

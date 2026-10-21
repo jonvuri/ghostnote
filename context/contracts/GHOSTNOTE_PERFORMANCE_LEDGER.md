@@ -1111,3 +1111,189 @@ outside their command timer. One sample per pass cannot establish the cause.
 Keep these research latency limits for the planned 9b.6 comparison. No timing
 repeat runs. All admitted bounds hold; public budgets and latency claims
 remain unchanged. The complete pass and teardown permit the research cache.
+
+## 9b update audit driver: model before implementation
+
+The offline preparation uses no host call. The live driver uses the normal
+product paths below without a new product operation. E247, E250, E252,
+E254, E257, E258, E263, and E264 supply the path models. Each write guard adds five serial reads: selection, host version, initialization,
+transport state, tracks, and the post-write track/selection pair adds two more.
+Each tool call
+records elapsed time, wire calls, cold clip reads, and write stages. Operator
+pauses have no poll. Lifecycle pauses end the command. A Sampler host export
+uses an input pause in the same server session; it adds no host call and its
+time is outside the active deadline.
+
+Admit at most eight owned instrument tracks, eight scene rows, 256 notes
+per clip, four device units per composition, and 16 controls per call.
+The initial fixture uses six tracks and four notes per clip. A duplicate
+track uses a seventh track. A manual group can add one group track. Refuse
+an entry project with more than eight tracks or eight scenes. Do not add
+scenes. A complete snapshot reads at most 16 tracks, 128 slots, 128 small
+clips, 16 device banks, and two mixer batches. Device controls are read
+only on the bounded owned fixture. Empty entry device banks are required.
+
+Each case has a 15-minute deadline, 6,000 wire-call limit, and 60-second
+request deadline. The product keeps its finite settle polls and insertion
+deadlines. The driver adds no retry or poll loop. A typical snapshot costs
+about 100 wire calls with empty slots; the maximum small fixture costs
+less than 1,000. Allow 2,000 calls for a typical case and up to 6,000 for
+the structure or Sampler case, including independent reads. This is an
+abort bound, not a latency claim. At the E246 24 ms turn cost, 2,000 serial
+calls cost 48 seconds before product waits. Independent snapshot calls
+are serial. The driver retains at most 64 MiB of evidence per audit,
+reserves 2 MiB for failure records, and caps each wire response at 2 MiB.
+It writes call records to disk as they complete. A failure ends the write
+chain. Inspection is read-only; cleanup requires a separate command.
+
+These bounds do not establish product capacity. Section 2B measures the
+actual fixture. Compare only equal per-call workloads. Never repeat an
+uncertain write for timing.
+
+[E318](../evidence/experiments/e318-update-audit-614-deployment.md) adds one
+local socket inventory command before connection. It distinguishes idle
+MCP servers from established bridge clients. It adds no host call or poll
+and changes no product call budget. No host timing was measured at deployment.
+
+[E319](../evidence/experiments/e319-update-audit-614-first-entry.md) records
+59 preflight, 435 setup, and 188 inspection calls before the driver stops on
+the documented absent-entry-slot warning. Six one-track adds take
+902.128–924.069 ms and 40 calls each; E258 measured 889–935 ms and 41 calls.
+The four-note clip add takes 2,391.151 ms and 74 calls. Its content and entry
+selection differ from E258, so this is not a matched clip timing comparison.
+The prepared recovery uses two bounded snapshots, at most six existing
+delete operations, the current write guards, and a tool log capped at 2 MiB.
+It adds no product path or poll. E320 records successful recovery. The entry
+precondition adds no host call. The remaining matrix and section 3 comparison
+must complete before an upgrade performance verdict.
+
+The control-reply recovery uses two bounded snapshots, one independent
+device-bank read, and one existing delete call for three inserted devices.
+The same write guards and 2 MiB tool-log limit apply. A separate continuation
+records source-file hashes and checks them locally before each live
+command. The first continuation has seven hashes. Later continuations also
+check transitive proofs and their new passed cases. These checks add no host call. Boolean verification parsing changes
+no product path, call budget, wait, or admitted fixture limit. E320 records the recovery costs.
+
+Before the 6.1.4 enabled-state correction: retain the first independent
+post-write device-chain read. If only the target enabled value is still old,
+admit at most seven more reads, with one 25 ms cursor-point wait before each.
+The complete track-bound chain must keep its names, order, and all unrelated
+enabled values. A changed or incomplete chain refuses. The fast path retains
+one read; the delayed path adds at most seven host reads and 175 ms of waits.
+Never repeat the setter. Tests must cover delayed delivery, a silent no-op,
+and unrelated changes. Remeasure the affected live path before acceptance.
+
+A non-layer scope with no visible layers can retain the previous container's
+layer count on 6.1.4. Use the already returned `hasLayers: false` and empty
+layer list as the absence proof. A nonempty list remains incomplete. This
+changes no host call, allocation bound, or named-slot coverage claim.
+
+Structure recovery uses the existing snapshot bounds, one guarded enabled
+restore, one owned-container deletion, and independent complete device-bank
+reads before and after deletion. It validates at most 2 MiB of tool evidence.
+The failed disable is not repeated. Measure the restore and the subsequent
+new structure case to validate the corrected enabled-read path.
+
+[E320](../evidence/experiments/e320-update-audit-614-device-compatibility.md)
+measures the corrected live enabled-state fast path: disable takes
+762.918 ms and reversal takes 679.388 ms, with 34 calls each. Both first
+reads see the requested state. Delayed-read bounds are tested offline;
+this live pass does not measure all eight reads. Recovery enable takes
+706.288 ms and 31 calls. The three-device control recovery delete takes
+7,124.989 ms and 241 calls; structure recovery delete takes 2,408.968 ms
+and 85 calls. Full per-command costs remain in E320's data. Representative
+control, mixer, and clip costs remain near the earlier measurements, with
+workload limits stated in E320. Sampler and the remaining matrix still
+prevent a complete upgrade performance verdict. No timing-only write
+repeat was made. Product descriptions remain v52.
+
+The Sampler label correction uses one internal alias on the named Sampler
+attack recipe. It adds no host call or wait. One lookup in the already
+bounded preset entry list binds the alias to Sampler. Explicit parameter
+targets remain exact. Subsequent behavior reads must keep the first observed
+name. The audit compares route identity, position, range, and amount while
+admitting only the observed complete numbered LFO label sequence. This is
+bounded by the existing preset inspection limits and adds no host call.
+
+Sampler-name recovery reads a host export of at most 2 MiB and the bounded
+fixture copy. It uses two complete snapshots, one guarded deletion at the
+proved inserted position, and one independent device-bank read. It adds no
+new product operation or poll. The original failure and resolved intent
+remain. A fresh continuation must repeat only the failed Sampler case.
+
+[E322](../evidence/experiments/e322-update-audit-sampler-recovery.md) measures
+Sampler recovery deletion at 2,489.033 ms, 85 logical calls, and 71 wire turns.
+The corrected single edit takes 2,266.752 ms, 71 logical calls, and 57 wire
+turns. The failed E320 edit used the same calls and turns at 2,150.036 ms.
+The corrected sample is about 5.4% slower with a passing identity verdict.
+This is one local comparison; it does not establish cross-version capacity.
+The export pause is excluded. No timing-only write repeat was made.
+
+[E323](../evidence/experiments/e323-update-audit-single-sampler-pass.md) records
+the single reversal at 1,396.586 ms, 50 logical calls, and 35 wire turns.
+The multi edit takes 2,245.071 ms, 71 logical calls, and 57 wire turns.
+These retain the existing model. Single and multi resource workloads differ;
+this is not an equal-workload capacity comparison. Export pause time is
+excluded. No timing-only repeat or implementation change was made.
+
+[E324](../evidence/experiments/e324-update-audit-sampler-case-pass.md) measures
+the multi reversal at 1,402.881 ms, 50 logical calls, 35 wire turns, and
+823 ms summed wire time. The whole Sampler case passes its final independent
+fixture comparison. The existing model applies; no product path changed.
+Operator pauses are excluded. No timing-only repeat was made.
+
+[E325](../evidence/experiments/e325-update-audit-selection-write-pass.md)
+measures the same four-field mixer write after operator selection at
+264.815 ms and 15 logical calls; reversal takes 363.644 ms and 22 calls.
+The write is about 1.1% faster than E320's 267.748 ms sample with the same
+call count. No model changed and no timing-only repeat was made.
+
+Group snapshot correction: retain the existing maximum of eight slot-status
+reads per group. Store aggregate occupancy with a group-slot marker; do not
+request note documents for those slots. Read child clips through their own
+track IDs as before. This removes the refused group-clip request and adds no
+host call or poll. Local group validation is bounded by 16 tracks and eight
+slots. Read-only recovery uses one complete snapshot and at most 2 MiB of
+tool-log evidence to prove the exact pre-write failure. A separate continuation
+keeps the original checkpoint and transitive proof hashes. No product write
+or new product capability is added by recovery.
+
+[E326](../evidence/experiments/e326-update-audit-collapsed-group-pass.md)
+passes the corrected grouped case. Note edits take 2,429.237–2,457.785 ms
+with 50 logical calls and 38 wire turns. Reversals take 2,492.378–2,496.825 ms
+with 42 calls and 33 turns. These are 21–22% slower than the earlier ungrouped
+case, despite six fewer calls and turns. The collapsed cursor path differs;
+these single samples do not isolate a version regression. The stale refusal
+takes 482.638 ms, 12 calls, and nine turns, 34.7% above the ungrouped sample.
+No timing-only repeat was made. Retain this limit in section 3. The driver
+fix removes the invalid group document request; it adds no call or poll.
+
+[E327](../evidence/experiments/e327-update-audit-project-switch-pass.md)
+passes a fresh mixer write and reversal after project return. The write takes
+266.076 ms, 15 logical calls, and 10 wire turns. Reversal takes 361.299 ms,
+22 calls, and 14 turns. Against E325's same operations, time changes by
++0.5% and -0.6%; call counts stay equal. No implementation or model changed.
+No timing-only repeat was made. This check does not measure audio playback.
+
+[E328](../evidence/experiments/e328-update-audit-reopen-pass.md) passes a fresh
+mixer write and reversal after saved-project reopen. The write takes
+261.630 ms, 15 logical calls, and 10 wire turns. Reversal takes 359.557 ms,
+22 calls, and 14 turns. Against E327's same operations, time changes by
+-1.7% and -0.5%; call counts stay equal. No implementation or model changed.
+No timing-only repeat was made. Audio playback remains untested.
+
+[E329](../evidence/experiments/e329-update-audit-listening-and-cleanup.md)
+removes six owned tracks with independent absence and complete baseline
+checks. Individual deletions take 544.042–602.821 ms, 28–29 logical calls,
+and 15–16 wire turns. The 29-call, 16-turn samples take 584.303–602.821 ms,
+against E258's 594 ms same-count result (-1.6% to +1.5%). Track contents
+and sessions differ. No timing-only repeat or model change was made.
+The operator hears both Samplers; no audio latency or loudness is measured.
+
+[E330](../evidence/experiments/e330-update-audit-614-acceptance.md) consolidates
+the accepted 6.1.4 normal-product audit. It retains the E326 grouped timing
+comparison limit and separates it from the same-workload mixer comparisons.
+All live checks and clean save pass. The final close-out adds no host write,
+product call, or performance model change. Native Grid timing remains a
+separate 9b.6 result.

@@ -1,0 +1,24 @@
+{
+  "status": "pending",
+  "sourceAttempt": "continuation-2-614",
+  "failedCommandId": "107c1a49-be2f-4d59-b0d0-27a0649b42ca",
+  "track": "gn-ua-0b6c3297-single",
+  "devicePosition": 1,
+  "deviceOrdinal": 2,
+  "deviceName": "Sampler",
+  "exportPath": "/Users/jonvuri/Bitwig Upgrade Work/2026-10-21/gn-ua-0b6c3297-single-name-check.bwpreset",
+  "requestedObservations": [
+    "sample name",
+    "resource resolution",
+    "sample and zone state"
+  ],
+  "restoreSelection": {
+    "mixer": "Inst 1",
+    "track": "Inst 1",
+    "slot": 0
+  },
+  "playback": "stopped",
+  "driverRunning": false,
+  "oldChangeIdReusable": false,
+  "next": "Inspect host export and fresh complete live state before identity adaptation or recovery."
+}

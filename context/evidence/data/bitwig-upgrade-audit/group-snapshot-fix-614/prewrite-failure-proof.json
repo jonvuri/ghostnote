@@ -1,0 +1,40 @@
+{
+  "failedCommandId": "f1ed8e41-34de-4a76-af3b-479297d10ec2",
+  "failure": {
+    "command": "checkpoint",
+    "arg": "group-after",
+    "commandId": "f1ed8e41-34de-4a76-af3b-479297d10ec2",
+    "error": "AssertionError [ERR_ASSERTION]: read_launcher_clip: {\"code\":\"group-slot\",\"stage\":\"resolve\",\"effects\":[]}",
+    "at": "2026-10-21T16:11:54.578Z"
+  },
+  "activeAtFailure": null,
+  "pendingWriteAtFailure": null,
+  "allToolsAreReaders": true,
+  "writeBatchCount": 0,
+  "methods": {
+    "contract.hello": 2,
+    "rig.methods": 1,
+    "host.info": 2,
+    "rig.info": 2,
+    "rig.stats": 1,
+    "selection.status": 9,
+    "cursor.playState": 1,
+    "track.list": 9,
+    "scene.count": 1,
+    "track.mixer": 1,
+    "slot.status": 32,
+    "devcursor.pin": 2,
+    "cursor.pointTrack": 6,
+    "device.list": 6,
+    "slot.select": 3,
+    "revision.get": 4,
+    "clip.read": 1
+  },
+  "toolNames": [
+    "read_devices",
+    "read_devices",
+    "read_launcher_clip",
+    "read_devices",
+    "read_launcher_clip"
+  ]
+}

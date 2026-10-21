@@ -1,0 +1,1163 @@
+{
+  "source": {
+    "schema": "ghostnote-preset-modulation/1",
+    "supported": true,
+    "fingerprint": {
+      "algorithm": "sha256",
+      "sha256": "56879dee0a1eafbffd6c35c70e327e02eadba0a61be3ef901d2a05eac2712a42",
+      "byteLength": 11264
+    },
+    "host": {
+      "tier": "tier-2",
+      "format": "native",
+      "name": "Sampler",
+      "creator": "Bitwig"
+    },
+    "containerKind": null,
+    "entries": [],
+    "modulation": [
+      {
+        "location": {
+          "kind": "self"
+        },
+        "modulators": [
+          {
+            "position": 0,
+            "name": "LFO",
+            "category": "LFO",
+            "routes": [
+              {
+                "position": 0,
+                "amount": 1.5200000000000005,
+                "rangeLo": -3,
+                "rangeHi": 1,
+                "target": {
+                  "standing": "resolved",
+                  "parameter": {
+                    "parameterId": "CONTENTS/AMP_ATTACK_TIME",
+                    "parameterName": "AEG Attack Time"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "complete": true
+  },
+  "controls": {
+    "schema": "ghostnote-device-controls/1",
+    "device": {
+      "trackId": "934a7d7d-fb8d-44a2-88f7-0f757a6a7c6a",
+      "devicePosition": 1
+    },
+    "view": "direct",
+    "deviceName": "Sampler",
+    "standing": "stable",
+    "displayComplete": true,
+    "parameters": [
+      {
+        "id": "CONTENTS/TRANSPOSE",
+        "name": "Pitch Transpose",
+        "normalizedValue": 0.5,
+        "display": "0.00 st"
+      },
+      {
+        "id": "CONTENTS/OUTPUT",
+        "name": "Output",
+        "normalizedValue": 0.7942811755361399,
+        "display": "0.0 dB"
+      },
+      {
+        "id": "CONTENTS/AMP_ATTACK_TIME",
+        "name": "Gated Attack Time",
+        "normalizedValue": 0,
+        "display": "1.00 ms"
+      },
+      {
+        "id": "CONTENTS/AMP_HOLD_TIME",
+        "name": "Gated Hold Time",
+        "normalizedValue": 0,
+        "display": "1.00 ms"
+      },
+      {
+        "id": "CONTENTS/AMP_DECAY_TIME",
+        "name": "Gated Decay Time",
+        "normalizedValue": 0.4849999999999996,
+        "display": "285 ms"
+      },
+      {
+        "id": "CONTENTS/AMP_SUSTAIN_LEVEL",
+        "name": "Gated Sustain Level",
+        "normalizedValue": 1,
+        "display": "100 %"
+      },
+      {
+        "id": "CONTENTS/AMP_RELEASE_TIME",
+        "name": "Gated Release Time",
+        "normalizedValue": 0.27499999999999997,
+        "display": "66.8 ms"
+      },
+      {
+        "id": "CONTENTS/AMP_ATTACK_SHAPE",
+        "name": "Gated Attack Curve",
+        "normalizedValue": 0.5,
+        "display": "0.00 %"
+      },
+      {
+        "id": "CONTENTS/AMP_DECAY_SHAPE",
+        "name": "Gated Decay Curve",
+        "normalizedValue": 0.5,
+        "display": "0.00 %"
+      },
+      {
+        "id": "CONTENTS/AMP_RELEASE_SHAPE",
+        "name": "Gated Release Curve",
+        "normalizedValue": 0.5,
+        "display": "0.00 %"
+      },
+      {
+        "id": "CONTENTS/VELOCITY_SENSITIVETY",
+        "name": "Velocity Sensitivity",
+        "normalizedValue": 0.5,
+        "display": "+30.0 dB"
+      },
+      {
+        "id": "CONTENTS/FILTER_TYPE",
+        "name": "Filter Mode",
+        "normalizedValue": 0,
+        "display": "Bypass"
+      },
+      {
+        "id": "CONTENTS/FILT_FREQ",
+        "name": "Filter Frequency",
+        "normalizedValue": 0.6674911712063288,
+        "display": "2.64 kHz"
+      },
+      {
+        "id": "CONTENTS/FILT_RESO",
+        "name": "Filter Resonance",
+        "normalizedValue": 0.4997498749374687,
+        "display": "50.0 %"
+      },
+      {
+        "id": "CONTENTS/SAMPLE_START",
+        "name": "Play / Position Offset",
+        "normalizedValue": 0,
+        "display": "0.00 %"
+      },
+      {
+        "id": "CONTENTS/LOOP_START",
+        "name": "Loop Offset",
+        "normalizedValue": 0,
+        "display": "0.00 %"
+      },
+      {
+        "id": "CONTENTS/LOOP_LENGTH",
+        "name": "Loop Length",
+        "normalizedValue": 1,
+        "display": "100 %"
+      },
+      {
+        "id": "CONTENTS/GAIN",
+        "name": "Voice Gain / Drive",
+        "normalizedValue": 0.5,
+        "display": "0.0 dB"
+      },
+      {
+        "id": "CONTENTS/PAN",
+        "name": "Pan",
+        "normalizedValue": 0.5,
+        "display": "0.00 %"
+      },
+      {
+        "id": "CONTENTS/FILTER_KEYTRACK",
+        "name": "Filter Keytrack",
+        "normalizedValue": 0,
+        "display": "0.00 %"
+      },
+      {
+        "id": "CONTENTS/GRAIN_SIZE",
+        "name": "Grain Size in Time",
+        "normalizedValue": 0.416435313714603,
+        "display": "31.6 ms"
+      },
+      {
+        "id": "CONTENTS/SELECT",
+        "name": "Select",
+        "normalizedValue": 0,
+        "display": "0.0"
+      },
+      {
+        "id": "CONTENTS/SPEED",
+        "name": "Speed",
+        "normalizedValue": 0.625,
+        "display": "100 %"
+      },
+      {
+        "id": "CONTENTS/FORMANT",
+        "name": "Formant",
+        "normalizedValue": 0.5,
+        "display": "0.00 st"
+      },
+      {
+        "id": "CONTENTS/FADE_IN",
+        "name": "One-shot Fade In",
+        "normalizedValue": 0,
+        "display": "0.00 ms"
+      },
+      {
+        "id": "CONTENTS/FADE_OUT",
+        "name": "One-shot Fade Out",
+        "normalizedValue": 0.27144176165949063,
+        "display": "20.0 ms"
+      },
+      {
+        "id": "CONTENTS/PLAYHEAD_MOTION",
+        "name": "Playhead Motion",
+        "normalizedValue": 0,
+        "display": "0.00 %"
+      },
+      {
+        "id": "CONTENTS/RELEASE_NOTE_LENGTH",
+        "name": "Release Note Length",
+        "normalizedValue": 0.19839679358717432,
+        "display": "1.00 s"
+      },
+      {
+        "id": "CONTENTS/RELEASE_VELOCITY_MODE",
+        "name": "Release Velocity Mode",
+        "normalizedValue": 0,
+        "display": "On"
+      },
+      {
+        "id": "CONTENTS/PHASEVOCODER_PARAMETER_1",
+        "name": "Formant Shift Amount",
+        "normalizedValue": 0.8181818181818182,
+        "display": "100 %"
+      },
+      {
+        "id": "CONTENTS/CHARACTER_X",
+        "name": "Repitch Color",
+        "normalizedValue": 0.5,
+        "display": "0.00 %"
+      },
+      {
+        "id": "CONTENTS/CHARACTER_Y",
+        "name": "Repitch Distortion",
+        "normalizedValue": 0,
+        "display": "0.00 %"
+      },
+      {
+        "id": "CONTENTS/GRAIN_RATE",
+        "name": "Grain Rate in Time",
+        "normalizedValue": 0.5604137457918624,
+        "display": "4.80 Hz"
+      },
+      {
+        "id": "CONTENTS/GRAIN_ENVELOPE",
+        "name": "Fragments Grain Envelope",
+        "normalizedValue": 0.5,
+        "display": "50.0 %"
+      },
+      {
+        "id": "CONTENTS/GRAIN_SIZE_TIMEBASE",
+        "name": "Grain Size in Beats",
+        "normalizedValue": 0.26666666666666666,
+        "display": "16th note"
+      },
+      {
+        "id": "CONTENTS/GRAIN_DENSITY_TIMEBASE",
+        "name": "Fragments Grain Rate in Beats",
+        "normalizedValue": 0.8666666666666667,
+        "display": "Triplet 8th note"
+      },
+      {
+        "id": "CONTENTS/GRAINS_SYNCED",
+        "name": "Sync Grains",
+        "normalizedValue": 0,
+        "display": "Off"
+      },
+      {
+        "id": "CONTENTS/GRAIN_REPEATS",
+        "name": "Fragments Grain Repeats",
+        "normalizedValue": 0,
+        "display": "1"
+      },
+      {
+        "id": "CONTENTS/PHASE_VOCODER_BEND",
+        "name": "Spectral Harmonic Bend",
+        "normalizedValue": 0.5,
+        "display": "0.00 st"
+      },
+      {
+        "id": "CONTENTS/PHASE_VOCODER_PHASE_RANDOMIZATION",
+        "name": "Spectral Phase Dispersion",
+        "normalizedValue": 0.6666666666666666,
+        "display": "66.7 %"
+      },
+      {
+        "id": "CONTENTS/GRAIN_DENSITY",
+        "name": "Fragments Grain Density",
+        "normalizedValue": 0.6666666666666667,
+        "display": "10.00"
+      },
+      {
+        "id": "CONTENTS/GRAIN_APPLY_DENSITY",
+        "name": "Fragments Use Grain Density",
+        "normalizedValue": 1,
+        "display": "On"
+      },
+      {
+        "id": "CONTENTS/FILTER_GAIN",
+        "name": "Bell Filter Gain",
+        "normalizedValue": 0.625,
+        "display": "+6.0 dB"
+      },
+      {
+        "id": "CONTENTS/SPECTRAL_ONSET_PROCESSING_THRESHOLD",
+        "name": "Spectral Onset Sensitivity",
+        "normalizedValue": 1,
+        "display": "100 %"
+      },
+      {
+        "id": "CONTENTS/QUANTIZATION_AMOUNT",
+        "name": "Spectral Harmonic Quantization Amount",
+        "normalizedValue": 1,
+        "display": "100 %"
+      },
+      {
+        "id": "CONTENTS/CYCLES_PW",
+        "name": "Cycles Pulse Width",
+        "normalizedValue": 0.5,
+        "display": "0.00 %"
+      },
+      {
+        "id": "CONTENTS/CYCLES_HARMONICS",
+        "name": "Cycles Partials Harmonic Split",
+        "normalizedValue": 0.5,
+        "display": "0.00 %"
+      },
+      {
+        "id": "CONTENTS/CYCLES_FUNDAMENTAL",
+        "name": "Cycles Partials Fundamental Level",
+        "normalizedValue": 0,
+        "display": "0.00 %"
+      },
+      {
+        "id": "CONTENTS/CYCLES_PM",
+        "name": "Cycles Phase Modulation Amount",
+        "normalizedValue": 0,
+        "display": "0.00 %"
+      },
+      {
+        "id": "CONTENTS/CYCLES_PM_HARMONICS",
+        "name": "Cycles Phase Modulator Harmonics",
+        "normalizedValue": 0.5,
+        "display": "0.00 %"
+      },
+      {
+        "id": "CONTENTS/USE_GLOBAL_KEY",
+        "name": "Use Global Key",
+        "normalizedValue": 1,
+        "display": "On"
+      },
+      {
+        "id": "CONTENTS/KEY",
+        "name": "Local Key",
+        "normalizedValue": 0,
+        "display": "C"
+      },
+      {
+        "id": "CONTENTS/SCALE",
+        "name": "Local Scale/Mode",
+        "normalizedValue": 0,
+        "display": "Maj"
+      }
+    ],
+    "valueCapabilities": {
+      "normalized": {
+        "readable": true,
+        "writable": true,
+        "minimum": 0,
+        "maximum": 1
+      },
+      "displayed": {
+        "readable": "when-observed",
+        "writable": false,
+        "invertible": false,
+        "meaning": "Opaque host-formatted text for the current normalized value."
+      },
+      "discrete": {
+        "readable": "when-host-proved",
+        "writable": "returned-normalized-values-only"
+      },
+      "semantic": {
+        "readable": false,
+        "writable": false,
+        "reason": "API 25 has no text parser or exact displayed-value inverse conversion."
+      }
+    },
+    "warnings": [],
+    "elapsedMs": 745
+  },
+  "remotes": {
+    "schema": "ghostnote-device-controls/1",
+    "device": {
+      "trackId": "934a7d7d-fb8d-44a2-88f7-0f757a6a7c6a",
+      "devicePosition": 1
+    },
+    "view": "remote-controls",
+    "standing": "stable",
+    "remotePages": [
+      {
+        "position": 0,
+        "name": "Page 1",
+        "controls": [
+          {
+            "position": 0,
+            "name": "Speed",
+            "normalizedValue": 0.625,
+            "display": "100 %",
+            "origin": 0.5,
+            "modulatedValue": 0.625,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 1,
+            "name": "Pitch",
+            "normalizedValue": 0.5,
+            "display": "0.00 st",
+            "origin": 0.5,
+            "modulatedValue": 0.5,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 2,
+            "name": "Start",
+            "normalizedValue": 0,
+            "display": "0.00 %",
+            "origin": 0,
+            "modulatedValue": 0,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 3,
+            "name": "Glide time",
+            "normalizedValue": 0,
+            "display": "0.00 ms",
+            "origin": 0,
+            "modulatedValue": 0,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 4,
+            "name": "Pan",
+            "normalizedValue": 0.5,
+            "display": "0.00 %",
+            "origin": 0.5,
+            "modulatedValue": 0.5,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 5,
+            "name": "Vel Sens.",
+            "normalizedValue": 0.5,
+            "display": "+30.0 dB",
+            "origin": 0,
+            "modulatedValue": 0.5,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 6,
+            "name": "Gain",
+            "normalizedValue": 0.5,
+            "display": "0.0 dB",
+            "origin": 0,
+            "modulatedValue": 0.5,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 7,
+            "name": "Output",
+            "normalizedValue": 0.7942811755361399,
+            "display": "0.0 dB",
+            "origin": 0,
+            "modulatedValue": 0.7942811755361399,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          }
+        ]
+      },
+      {
+        "position": 1,
+        "name": "Playhead",
+        "controls": [
+          {
+            "position": 0,
+            "name": "Speed",
+            "normalizedValue": 0.625,
+            "display": "100 %",
+            "origin": 0.5,
+            "modulatedValue": 0.625,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 1,
+            "name": "Pitch",
+            "normalizedValue": 0.5,
+            "display": "0.00 st",
+            "origin": 0.5,
+            "modulatedValue": 0.5,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 4,
+            "name": "Start",
+            "normalizedValue": 0,
+            "display": "0.00 %",
+            "origin": 0,
+            "modulatedValue": 0,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 5,
+            "name": "↔ Offset",
+            "normalizedValue": 0,
+            "display": "0.00 %",
+            "origin": 0,
+            "modulatedValue": 0,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 6,
+            "name": "↔ Len",
+            "normalizedValue": 1,
+            "display": "100 %",
+            "origin": 0,
+            "modulatedValue": 1,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          }
+        ]
+      },
+      {
+        "position": 2,
+        "name": "Filter",
+        "controls": [
+          {
+            "position": 0,
+            "name": "Filt Mode",
+            "normalizedValue": 0,
+            "display": "Bypass",
+            "origin": 0,
+            "discreteValueCount": 9,
+            "discreteNormalizedValues": [
+              0,
+              0.125,
+              0.25,
+              0.375,
+              0.5,
+              0.625,
+              0.75,
+              0.875,
+              1
+            ],
+            "discreteValueNames": [
+              "Bypass",
+              "Low-pass (2-pole)",
+              "Low-pass (4-pole)",
+              "Band-pass (2-pole)",
+              "Band-pass (4-pole)",
+              "High-pass (2-pole)",
+              "High-pass (4-pole)",
+              "Notch",
+              "Bell"
+            ],
+            "modulatedValue": 0,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 1,
+            "name": "Filt Freq",
+            "normalizedValue": 0.6674911712063288,
+            "display": "2.64 kHz",
+            "origin": 0,
+            "modulatedValue": 0.6674911712063288,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 2,
+            "name": "Filt KBT",
+            "normalizedValue": 0,
+            "display": "0.00 %",
+            "origin": 0,
+            "modulatedValue": 0,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 3,
+            "name": "Filt Reso",
+            "normalizedValue": 0.4997498749374687,
+            "display": "0.00 %",
+            "origin": 0,
+            "modulatedValue": 0.4997498749374687,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 4,
+            "name": "Gain",
+            "normalizedValue": 0.5,
+            "display": "0.0 dB",
+            "origin": 0,
+            "modulatedValue": 0.5,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 7,
+            "name": "Bell Gain",
+            "normalizedValue": 0.625,
+            "display": "+6.0 dB",
+            "origin": 0.5,
+            "modulatedValue": 0.625,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          }
+        ]
+      },
+      {
+        "position": 3,
+        "name": "Amp EG",
+        "controls": [
+          {
+            "position": 0,
+            "name": "Attack",
+            "normalizedValue": 0,
+            "display": "1.00 ms",
+            "origin": 0,
+            "modulatedValue": 0,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 1,
+            "name": "Decay",
+            "normalizedValue": 0.4849999999999996,
+            "display": "285 ms",
+            "origin": 0,
+            "modulatedValue": 0.4849999999999996,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 2,
+            "name": "Sustain",
+            "normalizedValue": 1,
+            "display": "100 %",
+            "origin": 0,
+            "modulatedValue": 1,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 3,
+            "name": "Release",
+            "normalizedValue": 0.27499999999999997,
+            "display": "66.8 ms",
+            "origin": 0,
+            "modulatedValue": 0.27499999999999997,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 4,
+            "name": "A Curve",
+            "normalizedValue": 0.5,
+            "display": "0.00 %",
+            "origin": 0,
+            "modulatedValue": 0.5,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 5,
+            "name": "D Curve",
+            "normalizedValue": 0.5,
+            "display": "0.00 %",
+            "origin": 0,
+            "modulatedValue": 0.5,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 6,
+            "name": "Hold",
+            "normalizedValue": 0,
+            "display": "1.00 ms",
+            "origin": 0,
+            "modulatedValue": 0,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 7,
+            "name": "R Curve",
+            "normalizedValue": 0.5,
+            "display": "0.00 %",
+            "origin": 0,
+            "modulatedValue": 0.5,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          }
+        ]
+      },
+      {
+        "position": 4,
+        "name": "LFO 1",
+        "controls": [
+          {
+            "position": 0,
+            "name": "Rate",
+            "normalizedValue": 0.5001471020888496,
+            "display": "1.00",
+            "origin": 0,
+            "modulatedValue": 0.5001471020888496,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 1,
+            "name": "Timebase",
+            "normalizedValue": 0,
+            "display": "Hertz",
+            "origin": 0,
+            "discreteValueCount": 22,
+            "discreteNormalizedValues": [
+              0,
+              0.047619047619047616,
+              0.09523809523809523,
+              0.14285714285714285,
+              0.19047619047619047,
+              0.23809523809523808,
+              0.2857142857142857,
+              0.3333333333333333,
+              0.38095238095238093,
+              0.42857142857142855,
+              0.47619047619047616,
+              0.5238095238095238,
+              0.5714285714285714,
+              0.6190476190476191,
+              0.6666666666666666,
+              0.7142857142857143,
+              0.7619047619047619,
+              0.8095238095238095,
+              0.8571428571428571,
+              0.9047619047619048,
+              0.9523809523809523,
+              1
+            ],
+            "discreteValueNames": [
+              "Hertz",
+              "Kilohertz",
+              "Bar",
+              "Half note",
+              "Quarter note",
+              "8th note",
+              "16th note",
+              "32nd note",
+              "Dotted half note",
+              "Dotted quarter note",
+              "Dotted 8th note",
+              "Dotted 16th note",
+              "Dotted 32nd note",
+              "Triplet half note",
+              "Triplet quarter note",
+              "Triplet 8th note",
+              "Triplet 16th note",
+              "Triplet 32nd note",
+              "Pitch (of current note)",
+              "Hold (rate of zero)",
+              "1/1.",
+              "2/3"
+            ],
+            "modulatedValue": 0,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 2,
+            "name": "Tilt",
+            "normalizedValue": 0.5,
+            "display": "0.00 %",
+            "origin": 0.5,
+            "modulatedValue": 0.5,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 3,
+            "name": "Curve",
+            "normalizedValue": 1,
+            "display": "100 %",
+            "origin": 0.5,
+            "modulatedValue": 1,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 4,
+            "name": "Delay",
+            "normalizedValue": 0,
+            "display": "0.00 ms",
+            "origin": 0,
+            "modulatedValue": 0,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 5,
+            "name": "Fade-in",
+            "normalizedValue": 0,
+            "display": "0.00 ms",
+            "origin": 0,
+            "modulatedValue": 0,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 6,
+            "name": "Mode",
+            "normalizedValue": 0,
+            "display": "Free",
+            "origin": 0,
+            "discreteValueCount": 5,
+            "discreteNormalizedValues": [
+              0,
+              0.25,
+              0.5,
+              0.75,
+              1
+            ],
+            "discreteValueNames": [
+              "Free",
+              "Note",
+              "Sync",
+              "Grv",
+              "Rand"
+            ],
+            "modulatedValue": 0,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 7,
+            "name": "Amount",
+            "normalizedValue": 1,
+            "display": "100 %",
+            "origin": 0,
+            "modulatedValue": 1,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          }
+        ]
+      },
+      {
+        "position": 5,
+        "name": "LFO 2",
+        "controls": [
+          {
+            "position": 0,
+            "name": "Rate",
+            "normalizedValue": 0.5001471020888496,
+            "display": "1.00",
+            "origin": 0,
+            "modulatedValue": 0.5001471020888496,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 1,
+            "name": "Timebase",
+            "normalizedValue": 0,
+            "display": "Hertz",
+            "origin": 0,
+            "discreteValueCount": 22,
+            "discreteNormalizedValues": [
+              0,
+              0.047619047619047616,
+              0.09523809523809523,
+              0.14285714285714285,
+              0.19047619047619047,
+              0.23809523809523808,
+              0.2857142857142857,
+              0.3333333333333333,
+              0.38095238095238093,
+              0.42857142857142855,
+              0.47619047619047616,
+              0.5238095238095238,
+              0.5714285714285714,
+              0.6190476190476191,
+              0.6666666666666666,
+              0.7142857142857143,
+              0.7619047619047619,
+              0.8095238095238095,
+              0.8571428571428571,
+              0.9047619047619048,
+              0.9523809523809523,
+              1
+            ],
+            "discreteValueNames": [
+              "Hertz",
+              "Kilohertz",
+              "Bar",
+              "Half note",
+              "Quarter note",
+              "8th note",
+              "16th note",
+              "32nd note",
+              "Dotted half note",
+              "Dotted quarter note",
+              "Dotted 8th note",
+              "Dotted 16th note",
+              "Dotted 32nd note",
+              "Triplet half note",
+              "Triplet quarter note",
+              "Triplet 8th note",
+              "Triplet 16th note",
+              "Triplet 32nd note",
+              "Pitch (of current note)",
+              "Hold (rate of zero)",
+              "1/1.",
+              "2/3"
+            ],
+            "modulatedValue": 0,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 2,
+            "name": "Tilt",
+            "normalizedValue": 0.5,
+            "display": "0.00 %",
+            "origin": 0.5,
+            "modulatedValue": 0.5,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 3,
+            "name": "Curve",
+            "normalizedValue": 1,
+            "display": "100 %",
+            "origin": 0.5,
+            "modulatedValue": 1,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 4,
+            "name": "Delay",
+            "normalizedValue": 0,
+            "display": "0.00 ms",
+            "origin": 0,
+            "modulatedValue": 0,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 5,
+            "name": "Fade-in",
+            "normalizedValue": 0,
+            "display": "0.00 ms",
+            "origin": 0,
+            "modulatedValue": 0,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 6,
+            "name": "Mode",
+            "normalizedValue": 0,
+            "display": "Free",
+            "origin": 0,
+            "discreteValueCount": 5,
+            "discreteNormalizedValues": [
+              0,
+              0.25,
+              0.5,
+              0.75,
+              1
+            ],
+            "discreteValueNames": [
+              "Free",
+              "Note",
+              "Sync",
+              "Grv",
+              "Rand"
+            ],
+            "modulatedValue": 0,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          },
+          {
+            "position": 7,
+            "name": "Amount",
+            "normalizedValue": 0.49999999999999956,
+            "display": "50.0 %",
+            "origin": 0,
+            "modulatedValue": 0.49999999999999956,
+            "isBeingMapped": false,
+            "hasAutomation": false
+          }
+        ]
+      }
+    ],
+    "valueCapabilities": {
+      "normalized": {
+        "readable": true,
+        "writable": true,
+        "minimum": 0,
+        "maximum": 1
+      },
+      "displayed": {
+        "readable": "when-observed",
+        "writable": false,
+        "invertible": false,
+        "meaning": "Opaque host-formatted text for the current normalized value."
+      },
+      "discrete": {
+        "readable": "when-host-proved",
+        "writable": "returned-normalized-values-only"
+      },
+      "semantic": {
+        "readable": false,
+        "writable": false,
+        "reason": "API 25 has no text parser or exact displayed-value inverse conversion."
+      }
+    },
+    "warnings": [],
+    "elapsedMs": 600
+  },
+  "hostExport": {
+    "path": "/Users/jonvuri/Bitwig Upgrade Work/2026-10-21/gn-ua-0b6c3297-multi-edited.bwpreset",
+    "copy": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-3-614/sampler-multi-host-export.bwpreset",
+    "sha256": "7a74aaf75e2cb5181ab2b1c6a013ee74965fd20d87b3960b4dc44b6f2c824e99",
+    "inspection": {
+      "supported": true,
+      "fingerprint": {
+        "algorithm": "sha256",
+        "sha256": "7a74aaf75e2cb5181ab2b1c6a013ee74965fd20d87b3960b4dc44b6f2c824e99",
+        "byteLength": 13409
+      },
+      "host": {
+        "tier": "tier-2",
+        "format": "native",
+        "name": "Sampler",
+        "creator": "Bitwig"
+      },
+      "containerKind": null,
+      "entries": [],
+      "modulation": [
+        {
+          "location": {
+            "kind": "self"
+          },
+          "modulators": [
+            {
+              "position": 0,
+              "name": "LFO 1",
+              "category": "LFO",
+              "routes": [
+                {
+                  "position": 0,
+                  "amount": 1.5200000000000005,
+                  "rangeLo": -3,
+                  "rangeHi": 1,
+                  "target": {
+                    "standing": "resolved",
+                    "parameter": {
+                      "parameterId": "CONTENTS/AMP_ATTACK_TIME",
+                      "parameterName": "AEG Attack Time"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "name": "LFO 2",
+              "category": "LFO",
+              "routes": [
+                {
+                  "position": 0,
+                  "amount": 0.3,
+                  "rangeLo": -3,
+                  "rangeHi": 1,
+                  "target": {
+                    "standing": "resolved",
+                    "parameter": {
+                      "parameterId": "CONTENTS/AMP_ATTACK_TIME",
+                      "parameterName": "AEG Attack Time"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "complete": true
+    },
+    "meta": {
+      "application_version_name": "6.1.4",
+      "branch": "releases",
+      "comment": "",
+      "creator": "jrajav",
+      "device_category": "Synth",
+      "device_creator": "Bitwig",
+      "device_id": "468bc14b-b2e7-45a1-9666-e83117fe404e",
+      "device_name": "Sampler",
+      "device_type": "note_to_audio",
+      "preset_category": "",
+      "referenced_device_ids": [
+        "468bc14b-b2e7-45a1-9666-e83117fe404e"
+      ],
+      "referenced_modulator_ids": [
+        "ad947004-f1d3-40a1-bd15-3ec721ee7c65"
+      ],
+      "referenced_module_ids": [],
+      "referenced_packaged_file_ids": [
+        "Bitwig/Sampled Synths Vol. 1:13/samples/ASM Chords/ASM Chord C7.wav",
+        "Bitwig/Sampled Synths Vol. 1:13/samples/ASM Chords/ASM Chord C9.wav"
+      ],
+      "revision_id": "ec15d6fed6aedb20bbe2eb320ff1d95a3484b42e",
+      "revision_no": 164112,
+      "tags": "",
+      "type": "application/bitwig-preset"
+    },
+    "operator": {
+      "operator": "jonvuri",
+      "resourcesResolved": true,
+      "zonesChecked": true,
+      "details": "Both named samples show healthy waveforms without warnings. Two zones: ASM Chord C7.wav spans C-2 through B2, root C7; ASM Chord C9.wav spans C3 through G8, root G8. Both show velocity 1-127, Select 0-127, gain 0 dB, and play range 0 ms to 2.00 s. Operator restored Inst 1 mixer and first empty Launcher cell. Mixer settings unchanged; tracks remain muted. Signal was observed on the post-device meter while muted; audible listening remains untested.",
+      "selectionRestored": true
+    }
+  }
+}

@@ -1,0 +1,9 @@
+
+> ghostnote-brain@0.0.1 probe:upgrade-audit
+> tsx src/probes/bitwig-upgrade-audit.ts inspect /Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-614
+
+AssertionError [ERR_ASSERTION]: Complete device bank required
++ actual - expected
+
++ 'partial'
+- 'complete'

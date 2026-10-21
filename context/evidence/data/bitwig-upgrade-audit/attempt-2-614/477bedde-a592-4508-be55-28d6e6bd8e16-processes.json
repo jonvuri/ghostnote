@@ -1,0 +1,149 @@
+{
+  "owners": [
+    69259
+  ],
+  "ownerCommand": "/Applications/Bitwig Studio.app/Contents/MacOS/BitwigStudio --launch",
+  "candidates": [
+    {
+      "pid": 6573,
+      "ppid": 81716,
+      "command": "node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 10085,
+      "ppid": 9889,
+      "command": "node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 10134,
+      "ppid": 9874,
+      "command": "node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 18507,
+      "ppid": 9881,
+      "command": "node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 29321,
+      "ppid": 81716,
+      "command": "node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 36576,
+      "ppid": 9881,
+      "command": "node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 38761,
+      "ppid": 9881,
+      "command": "node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 39275,
+      "ppid": 81716,
+      "command": "node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 42504,
+      "ppid": 9881,
+      "command": "node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 45180,
+      "ppid": 9881,
+      "command": "node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 46020,
+      "ppid": 9881,
+      "command": "node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 49789,
+      "ppid": 81716,
+      "command": "node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 50133,
+      "ppid": 9881,
+      "command": "node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 50661,
+      "ppid": 81716,
+      "command": "node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 52786,
+      "ppid": 81716,
+      "command": "node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 54680,
+      "ppid": 81716,
+      "command": "node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 54996,
+      "ppid": 9881,
+      "command": "node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 56094,
+      "ppid": 81716,
+      "command": "node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 56438,
+      "ppid": 9881,
+      "command": "node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 62876,
+      "ppid": 9881,
+      "command": "node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 63291,
+      "ppid": 63273,
+      "command": "/Users/jonvuri/.nvm/versions/node/v24.11.1/bin/node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 66858,
+      "ppid": 66840,
+      "command": "/Users/jonvuri/.nvm/versions/node/v24.11.1/bin/node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 68266,
+      "ppid": 68253,
+      "command": "/Users/jonvuri/.nvm/versions/node/v24.11.1/bin/node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 70415,
+      "ppid": 81716,
+      "command": "node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 77466,
+      "ppid": 81716,
+      "command": "node --import tsx src/mcp-server.ts"
+    },
+    {
+      "pid": 84813,
+      "ppid": 84339,
+      "command": "node /Users/jonvuri/Development/ghostnote/brain/node_modules/.bin/tsx src/probes/bitwig-upgrade-audit.ts run /Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/attempt-2-614 mixer"
+    },
+    {
+      "pid": 84814,
+      "ppid": 84813,
+      "command": "/Users/jonvuri/.nvm/versions/node/v24.11.1/bin/node --require /Users/jonvuri/Development/ghostnote/brain/node_modules/tsx/dist/preflight.cjs --import file:///Users/jonvuri/Development/ghostnote/brain/node_modules/tsx/dist/loader.mjs src/probes/bitwig-upgrade-audit.ts run /Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/attempt-2-614 mixer"
+    },
+    {
+      "pid": 90957,
+      "ppid": 81716,
+      "command": "node --import tsx src/mcp-server.ts"
+    }
+  ],
+  "sockets": "p69259\ncBitwigStudio\nf828\nn127.0.0.1:8686\nTST=LISTEN\nTQR=0\nTQS=0\n"
+}

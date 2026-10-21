@@ -168,6 +168,7 @@ export async function buildOwnedTemplateComposition(
         : await verifyModulation(host, nested, {
           parameterId: edit.behavior.parameterId,
           parameterName: edit.behavior.parameterName,
+          ...(edit.behavior.parameterNameAliases === undefined ? {} : { parameterNameAliases: edit.behavior.parameterNameAliases }),
         }, pause, options.behaviorWitness === 'identity' ? 'identity' : edit.behavior.expected);
       witnesses.push({
         request: edit,

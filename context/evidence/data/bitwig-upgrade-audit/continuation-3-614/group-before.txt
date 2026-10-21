@@ -1,0 +1,1 @@
+Group only gn-ua-0b6c3297-notes and gn-ua-0b6c3297-spare in a new group named gn-ua-0b6c3297-group, then collapse it. Run checkpoint group-after.
