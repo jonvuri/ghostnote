@@ -1,0 +1,217 @@
+{
+  "result": "pass",
+  "checks": [
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/.local/grid-doctor/fd829f5381cd55021de542d9581accfb20ca82ed2c975c3863a562fe083ed87a.attempt.json",
+      "bytes": 596,
+      "sha256": "dfd68b5b9ac9bccc32aa05248fed3dc0bb563e176c79e4de77a4a1c0979d540b",
+      "expectedSha256": "dfd68b5b9ac9bccc32aa05248fed3dc0bb563e176c79e4de77a4a1c0979d540b",
+      "matches": true
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/.local/grid-doctor/fd829f5381cd55021de542d9581accfb20ca82ed2c975c3863a562fe083ed87a.v20.attempt.json",
+      "bytes": 796,
+      "sha256": "05e252134d1aacbddd44f652cc5237eadcbba23dc60d3dd541d6f9b732b6dd9c",
+      "expectedSha256": "05e252134d1aacbddd44f652cc5237eadcbba23dc60d3dd541d6f9b732b6dd9c",
+      "matches": true
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/.local/grid-doctor/fd829f5381cd55021de542d9581accfb20ca82ed2c975c3863a562fe083ed87a.accepted.json",
+      "bytes": 4133,
+      "sha256": "f0d5ad79b531a869f80ce42a8e0712298bc95f2e76960f955108599883142041",
+      "expectedSha256": "f0d5ad79b531a869f80ce42a8e0712298bc95f2e76960f955108599883142041",
+      "matches": true
+    },
+    {
+      "path": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension",
+      "bytes": 846149,
+      "sha256": "25a5be4398f8825a7eabd2a541e49559ed60002f2d8d6b9db795f45664e4d9d2",
+      "expectedSha256": "25a5be4398f8825a7eabd2a541e49559ed60002f2d8d6b9db795f45664e4d9d2",
+      "matches": true
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-4-614/saved-project.bwproject",
+      "bytes": 72901,
+      "sha256": "b01ba21f2f2a6d790fddbc9663a278721d23d14935a4dc067f76e4bdf809970b",
+      "expectedSha256": "b01ba21f2f2a6d790fddbc9663a278721d23d14935a4dc067f76e4bdf809970b",
+      "matches": true
+    },
+    {
+      "path": "/Users/jonvuri/Bitwig Upgrade Work/2026-10-21/gn-upgrade-audit/gn-upgrade-audit.bwproject",
+      "bytes": 34259,
+      "sha256": "573084e28ef7e241e3d52fd24265b1302d6f8cc22695270e3d11386e80d4398f",
+      "expectedSha256": "573084e28ef7e241e3d52fd24265b1302d6f8cc22695270e3d11386e80d4398f",
+      "matches": true
+    },
+    {
+      "path": "brain/src/probes/grid_symbols/selectors.json",
+      "bytes": 46375,
+      "sha256": "33a1705fe9252bb0565033e014dd3fb233a676ff2e7f6441523ed18305cb15ab",
+      "expectedSha256": "33a1705fe9252bb0565033e014dd3fb233a676ff2e7f6441523ed18305cb15ab",
+      "matches": true
+    },
+    {
+      "path": "brain/src/probes/grid_doctor/undo-selectors.json",
+      "bytes": 1147,
+      "sha256": "adf4dfd407a0fe097c37f9d792fe973a1b02fc83d385ed4bbfadb5a43a909607",
+      "expectedSha256": "adf4dfd407a0fe097c37f9d792fe973a1b02fc83d385ed4bbfadb5a43a909607",
+      "matches": true
+    },
+    {
+      "path": "brain/src/probes/grid_doctor/undo-selectors-v20.json",
+      "bytes": 3078,
+      "sha256": "a00e204f9b08a3e81edb4ed9dc2d05a8181e630e913bd75accd782796128ebf5",
+      "expectedSha256": "a00e204f9b08a3e81edb4ed9dc2d05a8181e630e913bd75accd782796128ebf5",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/v20-preparation/candidate.json",
+      "bytes": 27485,
+      "sha256": "02d215359e4da1aca25575d6b102187385fb5302fd55aa4fcdcf6d3b0fca1f58",
+      "expectedSha256": "02d215359e4da1aca25575d6b102187385fb5302fd55aa4fcdcf6d3b0fca1f58",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/v20-preparation/selectors.json",
+      "bytes": 49606,
+      "sha256": "151ebb81d946d1ffc5c281a04f7cd1d3a4442c754f601a7c04e84aa485171d99",
+      "expectedSha256": "151ebb81d946d1ffc5c281a04f7cd1d3a4442c754f601a7c04e84aa485171d99",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/v20-preparation/undo-caller-trace.json",
+      "bytes": 29298,
+      "sha256": "9988fbf0b451c5821f3bbda9e3d84458f3cb027da2092789b8e8157ae2959934",
+      "expectedSha256": "9988fbf0b451c5821f3bbda9e3d84458f3cb027da2092789b8e8157ae2959934",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/accepted.json",
+      "bytes": 4133,
+      "sha256": "f0d5ad79b531a869f80ce42a8e0712298bc95f2e76960f955108599883142041",
+      "expectedSha256": "f0d5ad79b531a869f80ce42a8e0712298bc95f2e76960f955108599883142041",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/report.json",
+      "bytes": 36086,
+      "sha256": "9e55f254e83b5fdf8ce14d5db4e72fdcb2795b00fa6e8226bb9f847548983e92",
+      "expectedSha256": "9e55f254e83b5fdf8ce14d5db4e72fdcb2795b00fa6e8226bb9f847548983e92",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/attempt-record.json",
+      "bytes": 796,
+      "sha256": "05e252134d1aacbddd44f652cc5237eadcbba23dc60d3dd541d6f9b732b6dd9c",
+      "expectedSha256": "05e252134d1aacbddd44f652cc5237eadcbba23dc60d3dd541d6f9b732b6dd9c",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-preparation/diagnosis.json",
+      "bytes": 69336,
+      "sha256": "8a41cae41de61c85ccbb7fdb41689062a5bbaf4f80c9d0211e68d162476cb046",
+      "expectedSha256": "8a41cae41de61c85ccbb7fdb41689062a5bbaf4f80c9d0211e68d162476cb046",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-structural/contract-tests.txt",
+      "bytes": 1729,
+      "sha256": "a6fd9facd2fa2ceb2415d1216ed869da7a99cf562229e06311d27175f6e02d56",
+      "expectedSha256": "a6fd9facd2fa2ceb2415d1216ed869da7a99cf562229e06311d27175f6e02d56",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-structural/legacy-tests.txt",
+      "bytes": 3343,
+      "sha256": "734d73e9cb473e1e83590c56ecd532006b378ac77407f4a76d49e85409cc6078",
+      "expectedSha256": "734d73e9cb473e1e83590c56ecd532006b378ac77407f4a76d49e85409cc6078",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-structural/link-check.json",
+      "bytes": 42,
+      "sha256": "b0858eca4f1ea633b21c68b63d760a38100c1e7767684f47511a0d3564496c8e",
+      "expectedSha256": "b0858eca4f1ea633b21c68b63d760a38100c1e7767684f47511a0d3564496c8e",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-structural/migration.json",
+      "bytes": 161815,
+      "sha256": "daec36cf52cd66ab8fdfe4bc3d530ff16ca23fa4f1403c28279a6b5422288be5",
+      "expectedSha256": "daec36cf52cd66ab8fdfe4bc3d530ff16ca23fa4f1403c28279a6b5422288be5",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-structural/preservation.json",
+      "bytes": 5650,
+      "sha256": "79ec67d75237015f6db27012b2bc51513e36a9ee5cd9b8df6e01c8fda3ebbdfc",
+      "expectedSha256": "79ec67d75237015f6db27012b2bc51513e36a9ee5cd9b8df6e01c8fda3ebbdfc",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-structural/source-control.json",
+      "bytes": 142720,
+      "sha256": "02615c2400b0795e1b904f8d6b54fd383f0c33114ec13c2ad78bc2e0bf0cd850",
+      "expectedSha256": "02615c2400b0795e1b904f8d6b54fd383f0c33114ec13c2ad78bc2e0bf0cd850",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-preparation/diagnosis.json",
+      "bytes": 69336,
+      "sha256": "8a41cae41de61c85ccbb7fdb41689062a5bbaf4f80c9d0211e68d162476cb046",
+      "expectedSha256": "8a41cae41de61c85ccbb7fdb41689062a5bbaf4f80c9d0211e68d162476cb046",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-preparation/initial-scan/candidate.json",
+      "bytes": 112,
+      "sha256": "a2dada5310dd60cf835836dd02a0ff08d6b1b1850935f76796500ba92898368b",
+      "expectedSha256": "a2dada5310dd60cf835836dd02a0ff08d6b1b1850935f76796500ba92898368b",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-preparation/initial-scan/selectors.json",
+      "bytes": 49606,
+      "sha256": "151ebb81d946d1ffc5c281a04f7cd1d3a4442c754f601a7c04e84aa485171d99",
+      "expectedSha256": "151ebb81d946d1ffc5c281a04f7cd1d3a4442c754f601a7c04e84aa485171d99",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-preparation/preservation.json",
+      "bytes": 2646,
+      "sha256": "c80d57c0503fb572a0b0d902c52044a5f39ba09225396ef26410a07b86641e79",
+      "expectedSha256": "c80d57c0503fb572a0b0d902c52044a5f39ba09225396ef26410a07b86641e79",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-preparation/python-integration-tests.txt",
+      "bytes": 3343,
+      "sha256": "a2ba1f7ca9ac8ab784cbda13ca4d34ac319f19cef7052e3816f64bcf7fb29ff2",
+      "expectedSha256": "a2ba1f7ca9ac8ab784cbda13ca4d34ac319f19cef7052e3816f64bcf7fb29ff2",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-preparation/python-tests.txt",
+      "bytes": 3293,
+      "sha256": "a9d2d3079bbe9098588e253a2d21069b5e0c40164dfb9fa95f45e3f18447fea5",
+      "expectedSha256": "a9d2d3079bbe9098588e253a2d21069b5e0c40164dfb9fa95f45e3f18447fea5",
+      "matches": true
+    }
+  ],
+  "localRecordsBefore": [
+    ".local/grid-doctor/fd829f5381cd55021de542d9581accfb20ca82ed2c975c3863a562fe083ed87a.accepted.json",
+    ".local/grid-doctor/fd829f5381cd55021de542d9581accfb20ca82ed2c975c3863a562fe083ed87a.attempt.json",
+    ".local/grid-doctor/fd829f5381cd55021de542d9581accfb20ca82ed2c975c3863a562fe083ed87a.v20.attempt.json"
+  ],
+  "localRecordsAfter": [
+    ".local/grid-doctor/fd829f5381cd55021de542d9581accfb20ca82ed2c975c3863a562fe083ed87a.accepted.json",
+    ".local/grid-doctor/fd829f5381cd55021de542d9581accfb20ca82ed2c975c3863a562fe083ed87a.attempt.json",
+    ".local/grid-doctor/fd829f5381cd55021de542d9581accfb20ca82ed2c975c3863a562fe083ed87a.v20.attempt.json"
+  ],
+  "newFingerprint": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f:35778607:1790948299000000000",
+  "newRecordKey": "d0d92c1ea5a30fb6fca4975500ad1729736dead4807a7a05c3436f47c223c101",
+  "newAttemptOrCacheFiles": [],
+  "liveStateRechecked": false,
+  "bridgeCalls": 0,
+  "nativeCommands": 0
+}

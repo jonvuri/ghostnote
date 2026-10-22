@@ -1,0 +1,52 @@
+{
+  "result": "pass",
+  "tests": {
+    "ownership": 11,
+    "regression": 39,
+    "total": 50
+  },
+  "links": {
+    "result": "pass",
+    "files": 9,
+    "links": 622,
+    "failures": []
+  },
+  "diffCheck": "pass",
+  "artifacts": [
+    {
+      "path": "brain/src/probes/grid_doctor/ownership.py",
+      "bytes": 11241,
+      "sha256": "9fb4b3a4aa071a797f6de45df5706276d2d82a6982b5176a2ec7144b6f8a3952"
+    },
+    {
+      "path": "brain/src/probes/grid_doctor/test_ownership.py",
+      "bytes": 7574,
+      "sha256": "46cf025d406a366e6884fb8241c0fe4c397bc150d5674a1ca9a207b4acd79c91"
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-ownership/ownership-tests.txt",
+      "bytes": 1793,
+      "sha256": "37b8f478f6eef562daa1c26491e4a71daf4c3fee4ecdfdba7f6ccf6f8eccf2a8"
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-ownership/preservation.json",
+      "bytes": 10204,
+      "sha256": "2dd9ea8e085d715e0ae6a523b570b00277d26e1a4a53566d1e6e21cb67420167"
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-ownership/regression-tests.txt",
+      "bytes": 4972,
+      "sha256": "f016f830db55bb0d4c086b94460ad2af0b09a1503b64bfd8fa586c68c036faf1"
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-ownership/trace.json",
+      "bytes": 6138076,
+      "sha256": "f3d35e245d91c3810d50f8193f52d6977435af34de8c8388a371f95619f58e55"
+    }
+  ],
+  "publicDescriptionVersion": 52,
+  "completeResolver": false,
+  "liveAcceptance": false,
+  "bridgeCalls": 0,
+  "nativeCommands": 0
+}

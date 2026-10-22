@@ -124,7 +124,37 @@ disposal prefix comparison is diagnostic evidence only. Neither can select
 a live member. Dynamic calls require bootstrap evidence that this utility
 does not yet support; they cause refusal when required.
 
-Continue with
-[9b.6b](../../../../context/plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6b--trace-new-ownership-and-disposal-contracts).
-That session must finish the changed contracts and the complete reusable
-resolver before it prepares a probe. Keep the V20 driver unchanged.
+E333 extends these trace inputs as described below. Keep the V20 driver
+unchanged.
+
+## 6.1.4 ownership and disposal admission
+
+[E333](../../../../context/evidence/experiments/e333-grid-doctor-614-ownership-admission.md)
+records a measured refusal. Document ownership helpers scan retained history.
+Global disposal tracking has debug mode writers and an uncapped queue drain.
+The fixed scratch-object limit does not bound those paths. Continue with
+[9b.6c](../../../../context/plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6c--establish-bounded-admission-and-complete-resolution).
+
+Reproduce the diagnostic from the repository root. The report path must not
+exist. The jar must match E332's target hash and seed traces. Explicit owner
+expansions follow verified direct references; they are investigation inputs
+for this jar, not reusable selectors.
+
+```sh
+PYTHONPATH=brain/src/probes python3 -B -m grid_doctor.ownership \
+  --jar '/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar' \
+  --seed context/evidence/data/phase9b-doctor/614-structural/migration.json \
+  --expand-owner dgJ --expand-owner cQy --expand-owner cQz \
+  --expand-owner eTi --expand-owner com/bitwig/ramona/core/zjj \
+  --expand-owner dfb --expand-owner com/bitwig/ramona/core/oDc \
+  --expand-owner com/bitwig/ramona/core/bnq \
+  --report /absolute/new/trace.json
+```
+
+Exit zero means the reference scan completed. The report still has
+`result: refused`, `completeTable: false`, and `writeAuthority: false`.
+Read its method traces and `limitsOfEvidence`. Dynamic-call bootstrap
+entries are retained as evidence; this does not add dynamic-call equivalence
+to the shared resolver. The scan cannot measure the runtime tracking mode,
+queue size, or document history. Do not initialize vendor classes, change
+the mode, or deploy a partial table to obtain those facts.

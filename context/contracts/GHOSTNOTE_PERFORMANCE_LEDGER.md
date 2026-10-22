@@ -1331,6 +1331,39 @@ static iteration cap. Its runtime mode and queue size are not measured.
 Session 9b.6b must establish admission and a cost model before probe
 preparation. The unchanged product budgets do not cover this research path.
 
+## 9b.6b ownership and disposal trace — model before implementation
+
+Read the installed jar as data. Check its hash and the trace seeds against
+E332 before use. Keep the existing per-jar input limits, a 120-second
+deadline, and the 768 MiB RSS refusal threshold. Stream each class once
+for direct references and method handles to the required ownership and
+tracking types. Bound the scan to 1,000,000 methods, 16,000,000 instructions,
+and 16,000 retained reference sites. Retain at most 256 code classes and
+512 method traces. Limit the report to 8 MiB. These are refusal thresholds,
+not OS caps. Record dynamic-call and external-code limits explicitly.
+
+Trace the document set, edit ownership, cleanup, tracking flag writers,
+and queue users before changing any admission rule. Do not initialize
+vendor classes or infer a runtime mode from an initializer. No host call,
+native command, deployment, attempt, or cache write is part of this scan.
+The E315/E316 live model stays unchanged. A required path with an unbounded
+global queue or unresolved mode must refuse probe preparation.
+
+[E333](../evidence/experiments/e333-grid-doctor-614-ownership-admission.md)
+measures 11,538.089 ms and 188,383,232 bytes peak RSS. The scan reads 31,627
+classes, 393,713 methods, and 6,574,509 instructions. It retains 6,073
+reference sites, 475 method traces, and 14 code classes. Its report is
+6,138,076 bytes. All declared limits hold. This workload differs from E332;
+the samples do not establish a comparable latency regression.
+
+The new document helpers scan retained helper lists and identity sets.
+The set's constructor capacity of ten is not an admission limit. Enabled
+disposal tracking adds one volatile read, monitor entry, and possible weak
+reference allocation per object, plus global queue removal and set growth.
+Queue length, global set size, monitor wait, and mode stability are not
+bounded by the 256-owned-object limit. No finite new live admission is
+established. No live timing, product budget, or public description changes.
+
 ## 9b.6 offline refusal diagnosis — model before implementation
 
 Keep the E315 resolver and all live paths unchanged. The diagnostic reads

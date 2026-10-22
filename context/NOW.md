@@ -4,37 +4,36 @@ kind: status
 state: active
 updated: 2026-10-21
 phase: phase-9-overlap-investigation
-session: 9b6b-doctor-614-command-contracts
+session: 9b6c-doctor-614-bounded-admission
 ---
 
 ## Next session
 
-**Start 9b.6b: trace new ownership and disposal contracts.**
-[E332](evidence/experiments/e332-grid-doctor-614-command-contracts.md) records
-9b.6a's traced refusal. The Undo caller subset matches, but relationship
-hooks add object/edit bookkeeping and disposal adds conditional global
-tracking. The recording-edit getter also changes access. No probe is built
-or deployed. The complete reusable resolver and 6.1.4 live doctor are
-incomplete.
+**Start 9b.6c: establish bounded admission and complete resolution.**
+[E333](evidence/experiments/e333-grid-doctor-614-ownership-admission.md) records
+9b.6b's measured refusal. The new ownership hooks retain and scan document
+history. Disposal tracking has app debug mode writers, global producers,
+and an uncapped queue drain. No bounded admission or complete table exists.
+No probe is prepared or deployed.
 
-Read the [9b.6b brief](plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6b--trace-new-ownership-and-disposal-contracts),
-E332's [trace](evidence/data/phase9b-doctor/614-structural/migration.json),
-E331's [complete census](evidence/data/phase9b-doctor/614-preparation/diagnosis.json),
-E315's caller trace, the symbol manifest, and the performance ledger.
-The new local comparator supplies eight type trace inputs, not a complete
-table. All 55 types, 76 members, and full resilience criteria remain in the
-9b.6b plan. Preserve original selectors, attempts, and caches.
+Read the [9b.6c brief](plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6c--establish-bounded-admission-and-complete-resolution),
+E333's [trace](evidence/data/phase9b-doctor/614-ownership/trace.json), E332's
+command comparison, E331's complete census, E315/E316, the symbol manifest,
+and the performance ledger. The diagnostic retains cleanup bootstrap
+entries; the shared comparator still refuses unchecked dynamic calls.
+All 55 types, 76 members, and full resilience criteria remain in 9b.6c.
+Preserve original selectors, attempts, caches, and evidence.
 
-Only a complete passing table can proceed to new driver and probe
-preparation. V20 still requires 6.0.6 and E313's specific retry record.
-Controller replacement is an operator action. Fresh scratch consent and
-project verification are required before the new-build doctor. E330 grants
-no native write authority. Step 2 stays open; 9b.7 owns product cache
-enforcement. Do not repeat the live 6.0.6 doctor or the 9a audio flow.
+Only complete resolution and bounded admission can proceed to new driver
+and probe preparation. V20 still requires 6.0.6 and E313's specific retry
+record. Controller replacement is an operator action. Fresh scratch consent
+and project verification remain required before the new-build doctor.
+E330 grants no native write authority. Step 2 stays open; 9b.7 owns product
+cache enforcement. Do not repeat the live 6.0.6 doctor or the 9a audio flow.
 
 ## Deployment and live state
 
-Last verified in E330. E331 and E332 make no live request.
+Last verified in E330. E331–E333 make no live request.
 
 - App: `/Applications/Bitwig Studio.app`, **6.1.4**, API 25.
 - Jar SHA-256: `5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f`.
@@ -62,6 +61,11 @@ The copied 6.0.6 launch and recovery check passed. Original-project asset
 checks were not exhaustive. Do not modify backups or donor sources.
 
 ## Material to preserve
+
+- E333 [ownership and tracking trace](evidence/data/phase9b-doctor/614-ownership/trace.json),
+  diagnostic tests, regression tests, and
+  [preservation check](evidence/data/phase9b-doctor/614-ownership/preservation.json).
+  No new-build candidate, attempt, cache, or deployment exists.
 
 - E332 [command trace](evidence/data/phase9b-doctor/614-structural/migration.json),
   [source control](evidence/data/phase9b-doctor/614-structural/source-control.json),

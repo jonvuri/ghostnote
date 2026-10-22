@@ -2,7 +2,7 @@
 title: 9b — Grid symbol manifest
 kind: note
 state: active
-status: E316 passes all 76 V20 roles on 6.0.6. E331 records 53 missing 6.1.4 type roles. No new-build member table exists.
+status: E316 passes all 76 V20 roles on 6.0.6. E333 refuses changed ownership and disposal admission. No complete 6.1.4 table exists.
 updated: 2026-10-21
 parent: 9b-grid-breadth-discovery-and-build-out.md
 ---

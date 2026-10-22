@@ -1,0 +1,16 @@
+test_cleanup_bootstrap_points_to_traced_predicate (grid_doctor.test_ownership.OwnershipIntegration.test_cleanup_bootstrap_points_to_traced_predicate) ... ok
+test_complete_jar_census_stays_diagnostic (grid_doctor.test_ownership.OwnershipIntegration.test_complete_jar_census_stays_diagnostic) ... ok
+test_mode_writers_and_debug_caller_are_in_census (grid_doctor.test_ownership.OwnershipIntegration.test_mode_writers_and_debug_caller_are_in_census) ... ok
+test_seed_trace_changes_and_unlinked_expansion_refuse (grid_doctor.test_ownership.OwnershipIntegration.test_seed_trace_changes_and_unlinked_expansion_refuse) ... ok
+test_set_census_covers_constructors_and_all_three_hooks (grid_doctor.test_ownership.OwnershipIntegration.test_set_census_covers_constructors_and_all_three_hooks) ... ok
+test_work_limits_refuse (grid_doctor.test_ownership.OwnershipIntegration.test_work_limits_refuse) ... ok
+test_bootstrap_identity_and_dynamic_index_are_retained (grid_doctor.test_ownership.OwnershipUnitTests.test_bootstrap_identity_and_dynamic_index_are_retained) ... ok
+test_duplicate_and_truncated_attributes_refuse (grid_doctor.test_ownership.OwnershipUnitTests.test_duplicate_and_truncated_attributes_refuse) ... ok
+test_missing_bootstrap_refuses_method_trace (grid_doctor.test_ownership.OwnershipUnitTests.test_missing_bootstrap_refuses_method_trace) ... ok
+test_report_limit_and_exclusive_creation_preserve_existing_bytes (grid_doctor.test_ownership.OwnershipUnitTests.test_report_limit_and_exclusive_creation_preserve_existing_bytes) ... ok
+test_seed_jar_mismatch_refuses_before_any_code_read (grid_doctor.test_ownership.OwnershipUnitTests.test_seed_jar_mismatch_refuses_before_any_code_read) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 11.529s
+
+OK
