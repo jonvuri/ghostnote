@@ -1,0 +1,3286 @@
+{
+  "format": 1,
+  "result": "diagnostic",
+  "writeAuthority": false,
+  "bridgeCalls": 0,
+  "nativeCommands": 0,
+  "vendorClassesInitialized": 0,
+  "strictResolution": {
+    "result": "refused",
+    "reason": "boolean-atom:expected-one-candidate:found-0"
+  },
+  "typeCensus": [
+    {
+      "role": "boolean-atom",
+      "oldType": "QY",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "RuU"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "boolean-base",
+      "oldType": "Xuo",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "Qe"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "child-object",
+      "oldType": "com/bitwig/ramona/core/FZ1",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "com/bitwig/ramona/core/OLR"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "connection",
+      "oldType": "cYQ",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "dfn"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "container",
+      "oldType": "com/bitwig/flt/document/core/master/device/cbl",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "com/bitwig/flt/document/core/master/device/Vzt"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "context",
+      "oldType": "com/bitwig/ramona/core/uX1",
+      "rounds": [
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "decimal-atom",
+      "oldType": "tqm",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "Hgx"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "descriptor",
+      "oldType": "cYx",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "deS"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "descriptor-base",
+      "oldType": "cXV",
+      "rounds": [
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "destination-atom",
+      "oldType": "com/bitwig/flt/document/core/master/device/mvZ",
+      "rounds": [
+        {
+          "count": 2,
+          "names": [
+            "com/bitwig/flt/document/core/master/device/Wkj",
+            "com/bitwig/flt/document/core/master/device/gHP"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 2,
+          "names": [
+            "com/bitwig/flt/document/core/master/device/Wkj",
+            "com/bitwig/flt/document/core/master/device/gHP"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "destination-base",
+      "oldType": "com/bitwig/flt/document/core/master/device/UL",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "com/bitwig/flt/document/core/master/device/cXR"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "device-base",
+      "oldType": "com/bitwig/flt/document/core/master/device/OEf",
+      "rounds": [
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "display-state",
+      "oldType": "nST",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "Ltw"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "document-object",
+      "oldType": "com/bitwig/ramona/core/ikl",
+      "rounds": [
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "domain",
+      "oldType": "MTu",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "bU"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "domain-base",
+      "oldType": "TNT",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "vcm"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "edit",
+      "oldType": "cZv",
+      "rounds": [
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "edit-document",
+      "oldType": "cZl",
+      "rounds": [
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "edit-lock",
+      "oldType": "com/bitwig/ramona/core/wfl",
+      "rounds": [
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "engine-state",
+      "oldType": "rjH",
+      "rounds": [
+        {
+          "count": 68,
+          "names": [
+            "Apn",
+            "CLZ",
+            "GFA",
+            "I1a",
+            "Jeb",
+            "LXZ",
+            "MQ2",
+            "Rq",
+            "S2P",
+            "UaE",
+            "Ueq",
+            "Vx",
+            "W2j",
+            "WPe",
+            "Wdt",
+            "Xub",
+            "ajN",
+            "ali",
+            "cKK",
+            "cOu",
+            "cb",
+            "cc",
+            "ce",
+            "cf",
+            "cg",
+            "ck",
+            "co",
+            "com/bitwig/flt/document/core/master/Jkg",
+            "com/bitwig/flt/document/core/master/Rzi",
+            "com/bitwig/flt/packaging/manager/CHR",
+            "com/bitwig/flt/prefs/Abw",
+            "com/bitwig/flt/prefs/B3C",
+            "com/bitwig/flt/prefs/BEx",
+            "com/bitwig/flt/prefs/DPr",
+            "com/bitwig/flt/prefs/XuI",
+            "com/bitwig/flt/prefs/cuN",
+            "com/bitwig/flt/prefs/moQ",
+            "com/bitwig/flt/prefs/yrc",
+            "cp",
+            "dSV",
+            "dVv",
+            "dW",
+            "dpI",
+            "dqR",
+            "dr",
+            "dv",
+            "dzd",
+            "fK",
+            "fO",
+            "fP",
+            "fV",
+            "fi",
+            "hGF",
+            "inn",
+            "iqV",
+            "jCn",
+            "jOS",
+            "lsl",
+            "m1j",
+            "o1x",
+            "p1K",
+            "qI",
+            "sJv",
+            "sih",
+            "tVQ",
+            "uZS",
+            "wai",
+            "zaq"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 68,
+          "names": [
+            "Apn",
+            "CLZ",
+            "GFA",
+            "I1a",
+            "Jeb",
+            "LXZ",
+            "MQ2",
+            "Rq",
+            "S2P",
+            "UaE",
+            "Ueq",
+            "Vx",
+            "W2j",
+            "WPe",
+            "Wdt",
+            "Xub",
+            "ajN",
+            "ali",
+            "cKK",
+            "cOu",
+            "cb",
+            "cc",
+            "ce",
+            "cf",
+            "cg",
+            "ck",
+            "co",
+            "com/bitwig/flt/document/core/master/Jkg",
+            "com/bitwig/flt/document/core/master/Rzi",
+            "com/bitwig/flt/packaging/manager/CHR",
+            "com/bitwig/flt/prefs/Abw",
+            "com/bitwig/flt/prefs/B3C",
+            "com/bitwig/flt/prefs/BEx",
+            "com/bitwig/flt/prefs/DPr",
+            "com/bitwig/flt/prefs/XuI",
+            "com/bitwig/flt/prefs/cuN",
+            "com/bitwig/flt/prefs/moQ",
+            "com/bitwig/flt/prefs/yrc",
+            "cp",
+            "dSV",
+            "dVv",
+            "dW",
+            "dpI",
+            "dqR",
+            "dr",
+            "dv",
+            "dzd",
+            "fK",
+            "fO",
+            "fP",
+            "fV",
+            "fi",
+            "hGF",
+            "inn",
+            "iqV",
+            "jCn",
+            "jOS",
+            "lsl",
+            "m1j",
+            "o1x",
+            "p1K",
+            "qI",
+            "sJv",
+            "sih",
+            "tVQ",
+            "uZS",
+            "wai",
+            "zaq"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "engine-state-base",
+      "oldType": "com/bitwig/flt/document/core/master/Ymq",
+      "rounds": [
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "focus-base",
+      "oldType": "rez",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "bYE"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "focus-target-base",
+      "oldType": "QAi",
+      "rounds": [
+        {
+          "count": 2,
+          "names": [
+            "com/bitwig/flt/document/core/master/aEy",
+            "e1g"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "focus-wrapper",
+      "oldType": "mbe",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "SYw"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "grid",
+      "oldType": "com/bitwig/flt/document/core/master/device/gOr",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "com/bitwig/flt/document/core/master/device/IcG"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "grid-base",
+      "oldType": "com/bitwig/flt/document/core/master/device/NHx",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "com/bitwig/flt/document/core/master/device/BZG"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "initialization-helper",
+      "oldType": "com/bitwig/flt/document/core/master/device/XuU",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "com/bitwig/flt/document/core/master/device/JHr"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "insert-callback",
+      "oldType": "com/bitwig/flt/document/core/master/device/RHk",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "com/bitwig/flt/document/core/master/device/htp"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "journal",
+      "oldType": "daR",
+      "rounds": [
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "layout-pass",
+      "oldType": "llL",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "axc"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 1,
+          "names": [
+            "axc"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 1,
+          "names": [
+            "axc"
+          ],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 1,
+        "names": [
+          "axc"
+        ],
+        "truncated": false
+      }
+    },
+    {
+      "role": "manager",
+      "oldType": "com/bitwig/ramona/core/Ibf",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "com/bitwig/ramona/core/XKG"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "mapping-source",
+      "oldType": "com/bitwig/flt/document/core/master/device/NDn",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "com/bitwig/flt/document/core/master/device/xMq"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "mapping-source-base",
+      "oldType": "com/bitwig/flt/document/core/master/device/Net",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "com/bitwig/flt/document/core/master/device/LFj"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "mapping-target",
+      "oldType": "Hjt",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "bDH"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "module",
+      "oldType": "com/bitwig/flt/document/core/master/device/DbL",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "com/bitwig/flt/document/core/master/device/rSf"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "module-base",
+      "oldType": "com/bitwig/flt/document/core/master/device/had",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "com/bitwig/flt/document/core/master/device/JXO"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "named-base",
+      "oldType": "cXZ",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "dev"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 1,
+          "names": [
+            "dev"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "native-device",
+      "oldType": "com/bitwig/flt/document/core/master/device/S2E",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "com/bitwig/flt/document/core/master/device/AxS"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "nitro-atom",
+      "oldType": "dkb",
+      "rounds": [
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "object",
+      "oldType": "com/bitwig/ramona/core/HEV",
+      "rounds": [
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "position-base",
+      "oldType": "com/bitwig/flt/document/core/master/device/DtR",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "com/bitwig/flt/document/core/master/device/gJi"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "project-root",
+      "oldType": "com/bitwig/flt/document/core/master/Svr",
+      "rounds": [
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "property",
+      "oldType": "cYF",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "deZ"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "property-base",
+      "oldType": "cYs",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "deN"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "rectangle-base",
+      "oldType": "com/bitwig/flt/document/core/master/device/QHo",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "com/bitwig/flt/document/core/master/device/CEE"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "relationship",
+      "oldType": "cYH",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "dfb"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "remote-helper",
+      "oldType": "qOW",
+      "rounds": [
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "selection-base",
+      "oldType": "YJr",
+      "rounds": [
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "selection-state",
+      "oldType": "Tu",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "ici"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 1,
+          "names": [
+            "ici"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "serialization-filter",
+      "oldType": "com/bitwig/ramona/serial/vWM",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "com/bitwig/ramona/serial/iYN"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "source-atom",
+      "oldType": "com/bitwig/flt/document/core/master/device/WAr",
+      "rounds": [
+        {
+          "count": 26,
+          "names": [
+            "DqB",
+            "Fik",
+            "Iix",
+            "JsI",
+            "KOk",
+            "Mxr",
+            "Nfz",
+            "Quw",
+            "QwN",
+            "RSu",
+            "Ule",
+            "Unx",
+            "WlA",
+            "Znu",
+            "com/bitwig/flt/document/core/master/device/OKo",
+            "com/bitwig/flt/document/core/master/device/OdC",
+            "com/bitwig/flt/document/core/master/device/QYb",
+            "com/bitwig/flt/document/core/master/device/RKg",
+            "com/bitwig/flt/document/core/master/device/kwu",
+            "eem",
+            "fv",
+            "gHD",
+            "iRl",
+            "k1p",
+            "rFX",
+            "rWa"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 3,
+          "names": [
+            "com/bitwig/flt/document/core/master/device/OdC",
+            "com/bitwig/flt/document/core/master/device/RKg",
+            "com/bitwig/flt/document/core/master/device/kwu"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "source-base",
+      "oldType": "com/bitwig/flt/document/core/master/device/yWH",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "com/bitwig/flt/document/core/master/device/xOa"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 1,
+          "names": [
+            "com/bitwig/flt/document/core/master/device/xOa"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "source-interface",
+      "oldType": "a",
+      "rounds": [
+        {
+          "count": 6170,
+          "names": [
+            "A1i",
+            "A2",
+            "A2d",
+            "A3O",
+            "AAm",
+            "ACL",
+            "ADH",
+            "ADY",
+            "AEk",
+            "AGC",
+            "AHG",
+            "AKD",
+            "AKz",
+            "ALC",
+            "ANZ",
+            "APT",
+            "ART",
+            "ASJ",
+            "ASZ",
+            "ATv",
+            "AWy",
+            "AYu",
+            "Ab",
+            "AbD",
+            "Ad3",
+            "AmX",
+            "An",
+            "ApM",
+            "Apu",
+            "Ars",
+            "AtS",
+            "Au",
+            "AuB",
+            "Axl",
+            "AyD",
+            "Ayo",
+            "BFH",
+            "BFx",
+            "BH",
+            "BJw",
+            "BL1",
+            "BMg",
+            "BNt",
+            "BOA",
+            "BPi",
+            "BS",
+            "BSy",
+            "BUG",
+            "BUw",
+            "BWH",
+            "BZY",
+            "BaS",
+            "Bae",
+            "Baj",
+            "Bep",
+            "Bf2",
+            "Bff",
+            "BgZ",
+            "BhF",
+            "BhW",
+            "Bil",
+            "Bke",
+            "Bmf",
+            "BnU",
+            "Bna",
+            "BrU",
+            "Bsf",
+            "Bug",
+            "C13",
+            "C1P",
+            "C1X",
+            "C3K",
+            "CCW",
+            "CCr",
+            "CEd",
+            "CFk",
+            "CGh",
+            "CIm",
+            "CMu",
+            "CNG",
+            "CNv",
+            "CO",
+            "CPu",
+            "CQ",
+            "CR",
+            "CVW",
+            "CWw",
+            "CXP",
+            "CYS",
+            "CYU",
+            "CYl",
+            "CaK",
+            "CbH",
+            "CbR",
+            "Cbu",
+            "Cc",
+            "Cc2",
+            "Cff",
+            "ChJ",
+            "Chw",
+            "Ciu",
+            "CmI",
+            "CpP",
+            "CpX",
+            "Cpj",
+            "CuS",
+            "CvQ",
+            "DAK",
+            "DCC",
+            "DCD",
+            "DFa",
+            "DKq",
+            "DKy",
+            "DKz",
+            "DLT",
+            "DPX",
+            "DQ",
+            "DQt",
+            "DRt",
+            "DRz",
+            "DTB",
+            "DU2",
+            "DaW",
+            "Dcn",
+            "Dd",
+            "DdF",
+            "Dew",
+            "DfD"
+          ],
+          "truncated": true
+        },
+        {
+          "count": 1,
+          "names": [
+            "led"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 1,
+          "names": [
+            "led"
+          ],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 1,
+        "names": [
+          "led"
+        ],
+        "truncated": false
+      }
+    },
+    {
+      "role": "transfer",
+      "oldType": "jas",
+      "rounds": [
+        {
+          "count": 9,
+          "names": [
+            "BrZ",
+            "KKR",
+            "WgD",
+            "Xx1",
+            "YSu",
+            "cS2",
+            "dAt",
+            "eeE",
+            "fmc"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 9,
+          "names": [
+            "BrZ",
+            "KKR",
+            "WgD",
+            "Xx1",
+            "YSu",
+            "cS2",
+            "dAt",
+            "eeE",
+            "fmc"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    },
+    {
+      "role": "value-base",
+      "oldType": "ccA",
+      "rounds": [
+        {
+          "count": 1,
+          "names": [
+            "aLw"
+          ],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        },
+        {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      ],
+      "strict": {
+        "count": 0,
+        "names": [],
+        "truncated": false
+      }
+    }
+  ],
+  "memberCensus": [
+    {
+      "role": "descriptor",
+      "unresolvedTypes": [
+        "descriptor",
+        "object"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "class-id",
+      "unresolvedTypes": [
+        "descriptor-base"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "name",
+      "unresolvedTypes": [
+        "named-base"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "properties",
+      "unresolvedTypes": [
+        "descriptor-base"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "property-id",
+      "unresolvedTypes": [
+        "property-base"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "enabled-field",
+      "unresolvedTypes": [
+        "property"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "serialization-filter",
+      "unresolvedTypes": [
+        "object",
+        "property",
+        "serialization-filter"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "filter-instance",
+      "unresolvedTypes": [
+        "serialization-filter"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "scalar-read",
+      "unresolvedTypes": [
+        "object",
+        "property"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "child-count",
+      "unresolvedTypes": [
+        "object",
+        "relationship"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "child-read",
+      "unresolvedTypes": [
+        "child-object",
+        "object",
+        "relationship"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "native-value-setter",
+      "unresolvedTypes": [
+        "decimal-atom",
+        "value-base"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "cable-source-getter",
+      "unresolvedTypes": [
+        "destination-base",
+        "source-base"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "cable-source-setter",
+      "unresolvedTypes": [
+        "destination-base"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "module-parent",
+      "unresolvedTypes": [
+        "container",
+        "module-base"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "module-delete",
+      "unresolvedTypes": [
+        "module-base"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "module-factory",
+      "unresolvedTypes": [
+        "module"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "owner",
+      "unresolvedTypes": [
+        "object"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "owned-children",
+      "unresolvedTypes": [
+        "object"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "disposed-flag",
+      "unresolvedTypes": [
+        "object"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "disposal",
+      "unresolvedTypes": [
+        "object"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "module-parent-2",
+      "unresolvedTypes": [
+        "container",
+        "module"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "instance-uuid",
+      "unresolvedTypes": [
+        "device-base"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "initialization-helper",
+      "unresolvedTypes": [
+        "device-base",
+        "initialization-helper"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "remote-helper",
+      "unresolvedTypes": [
+        "device-base",
+        "remote-helper"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "members",
+      "unresolvedTypes": [
+        "grid-base"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "hidden-count",
+      "unresolvedTypes": [
+        "grid-base"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "x",
+      "unresolvedTypes": [
+        "position-base"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "y",
+      "unresolvedTypes": [
+        "position-base"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "width",
+      "unresolvedTypes": [
+        "rectangle-base"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "height",
+      "unresolvedTypes": [
+        "rectangle-base"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "context",
+      "unresolvedTypes": [
+        "context",
+        "document-object"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "recording",
+      "unresolvedTypes": [
+        "context"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "manager",
+      "unresolvedTypes": [
+        "context",
+        "manager"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "document",
+      "unresolvedTypes": [
+        "document-object",
+        "edit-document"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "display-key",
+      "unresolvedTypes": [
+        "manager"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "journal-active",
+      "unresolvedTypes": [
+        "journal"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "current-journal-edit",
+      "unresolvedTypes": [
+        "edit",
+        "journal"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "current-document-edit",
+      "unresolvedTypes": [
+        "edit",
+        "edit-document"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "replay-flag",
+      "unresolvedTypes": [
+        "edit-document"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "replaying-flag",
+      "unresolvedTypes": [
+        "edit-document"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "insert-label",
+      "unresolvedTypes": [
+        "grid"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "begin",
+      "unresolvedTypes": [
+        "document-object",
+        "edit-lock"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "close",
+      "unresolvedTypes": [
+        "document-object"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "associate-edit",
+      "unresolvedTypes": [
+        "grid"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "insert-body",
+      "unresolvedTypes": [
+        "grid",
+        "insert-callback"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "frame-stack",
+      "unresolvedTypes": [
+        "manager"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "instant-edits",
+      "unresolvedTypes": [
+        "manager"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "long-edits",
+      "unresolvedTypes": [
+        "manager"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "lock-count",
+      "unresolvedTypes": [
+        "manager"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "lock-set",
+      "unresolvedTypes": [
+        "manager"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "journal-map",
+      "unresolvedTypes": [
+        "edit-document"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "associated-edit",
+      "unresolvedTypes": [
+        "edit",
+        "grid"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "display-map",
+      "unresolvedTypes": [
+        "grid-base"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "selection-state",
+      "unresolvedTypes": [
+        "display-state",
+        "selection-state"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "selected-modules",
+      "unresolvedTypes": [
+        "selection-base"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "focus",
+      "unresolvedTypes": [
+        "focus-base",
+        "selection-base"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "focus-target",
+      "unresolvedTypes": [
+        "focus-target-base",
+        "object"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "managed-id",
+      "unresolvedTypes": [
+        "object"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "registered-lookup",
+      "unresolvedTypes": [
+        "context",
+        "object"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "engine-state",
+      "unresolvedTypes": [
+        "engine-state",
+        "engine-state-base"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "connection",
+      "unresolvedTypes": [
+        "connection",
+        "project-root"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "connected-state",
+      "unresolvedTypes": [
+        "engine-state"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "inactive-state",
+      "unresolvedTypes": [
+        "engine-state"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "boolean-command",
+      "unresolvedTypes": [
+        "boolean-atom",
+        "boolean-base"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "remove-mapping",
+      "unresolvedTypes": [
+        "mapping-source-base",
+        "mapping-target"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "restore-mapping",
+      "unresolvedTypes": [
+        "mapping-source",
+        "mapping-source-base",
+        "mapping-target",
+        "transfer"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "target-domain",
+      "unresolvedTypes": [
+        "domain",
+        "mapping-target",
+        "value-base"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "domain-extent",
+      "unresolvedTypes": [
+        "domain",
+        "domain-base"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "undo-head",
+      "unresolvedTypes": [
+        "edit",
+        "journal"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "undo-available",
+      "unresolvedTypes": [
+        "journal"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "undo-command",
+      "unresolvedTypes": [
+        "edit-document"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "document-undo-enabled",
+      "unresolvedTypes": [
+        "edit-document"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "document-manager",
+      "unresolvedTypes": [
+        "edit-document",
+        "manager"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "journal-replay-head",
+      "unresolvedTypes": [
+        "edit",
+        "journal"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    },
+    {
+      "role": "journal-recording-edit",
+      "unresolvedTypes": [
+        "edit",
+        "journal"
+      ],
+      "memberValidation": "not-run",
+      "writeAuthority": false
+    }
+  ],
+  "booleanTrace": {
+    "result": "diagnostic-hypothesis-only",
+    "writeAuthority": false,
+    "basis": "Unique shallow atom shape, then declared superclass edges. No runtime identity proof.",
+    "chain": [
+      {
+        "old": "QY",
+        "newHypothesis": "RuU",
+        "oldParent": "Xuo",
+        "newParent": "Qe",
+        "oldClassSha256": "d643e3cfa8fb37c18c3f16a38962063f96be42899b56c4a6c0c18f77a5fb2898",
+        "newClassSha256": "5e9b13b091f3b7f8ee1f3a2bbdce8d2f0601a89e15ec9365507e2619c5747242",
+        "equalShallowShape": true,
+        "oldCounts": {
+          "fields": 2,
+          "methods": 54
+        },
+        "newCounts": {
+          "fields": 2,
+          "methods": 54
+        },
+        "fields": {
+          "removed": [],
+          "added": []
+        },
+        "methods": {
+          "removed": [],
+          "added": []
+        }
+      },
+      {
+        "old": "Xuo",
+        "newHypothesis": "Qe",
+        "oldParent": "Hjt",
+        "newParent": "bDH",
+        "oldClassSha256": "929a5584d40805ad328bcc28608e0d8c1816204dc145b231bbe0104c18241425",
+        "newClassSha256": "93ebd179c86a53a696a9688cc0d58a4681a67ea24e0df0fe9895c6975238f2c6",
+        "equalShallowShape": true,
+        "oldCounts": {
+          "fields": 7,
+          "methods": 58
+        },
+        "newCounts": {
+          "fields": 7,
+          "methods": 58
+        },
+        "fields": {
+          "removed": [],
+          "added": []
+        },
+        "methods": {
+          "removed": [],
+          "added": []
+        }
+      },
+      {
+        "old": "Hjt",
+        "newHypothesis": "bDH",
+        "oldParent": "ccA",
+        "newParent": "aLw",
+        "oldClassSha256": "929946ef84091a03f76563e48a736c6411cd3e14c607b0b825b52216b85bcd37",
+        "newClassSha256": "8801419dc09f970e01da4e7dc190d45e31f26d461484dd20d48366e7f9ae9388",
+        "equalShallowShape": true,
+        "oldCounts": {
+          "fields": 10,
+          "methods": 128
+        },
+        "newCounts": {
+          "fields": 10,
+          "methods": 128
+        },
+        "fields": {
+          "removed": [],
+          "added": []
+        },
+        "methods": {
+          "removed": [],
+          "added": []
+        }
+      },
+      {
+        "old": "ccA",
+        "newHypothesis": "aLw",
+        "oldParent": "ILB",
+        "newParent": "WRZ",
+        "oldClassSha256": "baab5cb75a55add732d18bf63c28627cd35e8c642b0eaf978baa55a79cf71ea7",
+        "newClassSha256": "1bcdca165de7081291ff6ccecdf4eaeb0fd2c92003bcbd8aef352b77be5beb7f",
+        "equalShallowShape": true,
+        "oldCounts": {
+          "fields": 32,
+          "methods": 206
+        },
+        "newCounts": {
+          "fields": 32,
+          "methods": 206
+        },
+        "fields": {
+          "removed": [],
+          "added": []
+        },
+        "methods": {
+          "removed": [],
+          "added": []
+        }
+      },
+      {
+        "old": "ILB",
+        "newHypothesis": "WRZ",
+        "oldParent": "shw",
+        "newParent": "rBL",
+        "oldClassSha256": "555612a6b92b01bdfdda154968f778698e9f24339cfbc20a5507f0559fcba4b7",
+        "newClassSha256": "8ddd50f170938e778af707a5c996328f211e7a2a9c76500c1bc6f1b5e4022b91",
+        "equalShallowShape": true,
+        "oldCounts": {
+          "fields": 0,
+          "methods": 5
+        },
+        "newCounts": {
+          "fields": 0,
+          "methods": 5
+        },
+        "fields": {
+          "removed": [],
+          "added": []
+        },
+        "methods": {
+          "removed": [],
+          "added": []
+        }
+      },
+      {
+        "old": "shw",
+        "newHypothesis": "rBL",
+        "oldParent": "KSO",
+        "newParent": "Mzl",
+        "oldClassSha256": "674a0098a86a7751adf85e1ec18f5316fc8bf68faa5b22411874dd0fd648002d",
+        "newClassSha256": "20d6d324e52a8accb05d0587feaf59c269bdc04180512b6752f5473237720d58",
+        "equalShallowShape": true,
+        "oldCounts": {
+          "fields": 9,
+          "methods": 55
+        },
+        "newCounts": {
+          "fields": 9,
+          "methods": 55
+        },
+        "fields": {
+          "removed": [],
+          "added": []
+        },
+        "methods": {
+          "removed": [],
+          "added": []
+        }
+      },
+      {
+        "old": "KSO",
+        "newHypothesis": "Mzl",
+        "oldParent": "EiO",
+        "newParent": "tNn",
+        "oldClassSha256": "fd5ee7b4e44410cf19b5f64925f9bc866d89a913d45ded03f6c2b6d87b1b092b",
+        "newClassSha256": "e39e26be93eb3290f7dda6a8c02cc1c0eff8a8ceb3f0c02e51d41bd449762c99",
+        "equalShallowShape": true,
+        "oldCounts": {
+          "fields": 0,
+          "methods": 7
+        },
+        "newCounts": {
+          "fields": 0,
+          "methods": 7
+        },
+        "fields": {
+          "removed": [],
+          "added": []
+        },
+        "methods": {
+          "removed": [],
+          "added": []
+        }
+      },
+      {
+        "old": "EiO",
+        "newHypothesis": "tNn",
+        "oldParent": "uM3",
+        "newParent": "uz",
+        "oldClassSha256": "f84ab823dcde7d809f6e758f05a54a27b946570c86ad87cb04ce16e9907b0e06",
+        "newClassSha256": "1dc06ebb66dd76cd1c1725728edd919d093f14a8ba350b965caddf04130e5e31",
+        "equalShallowShape": true,
+        "oldCounts": {
+          "fields": 3,
+          "methods": 26
+        },
+        "newCounts": {
+          "fields": 3,
+          "methods": 26
+        },
+        "fields": {
+          "removed": [],
+          "added": []
+        },
+        "methods": {
+          "removed": [],
+          "added": []
+        }
+      },
+      {
+        "old": "uM3",
+        "newHypothesis": "uz",
+        "oldParent": "ri3",
+        "newParent": "gK1",
+        "oldClassSha256": "835787cd799c9345773543eb5b27a640a92ac6135e5477e9bab3b56516a83df7",
+        "newClassSha256": "89968c6cc5bc211d0fc520736023ef99812cdaa044a60689ab0f9e0ff6555f8d",
+        "equalShallowShape": true,
+        "oldCounts": {
+          "fields": 0,
+          "methods": 4
+        },
+        "newCounts": {
+          "fields": 0,
+          "methods": 4
+        },
+        "fields": {
+          "removed": [],
+          "added": []
+        },
+        "methods": {
+          "removed": [],
+          "added": []
+        }
+      },
+      {
+        "old": "ri3",
+        "newHypothesis": "gK1",
+        "oldParent": "iYc",
+        "newParent": "K2G",
+        "oldClassSha256": "1f1c4a80edacfeb14e7e3da28b350d989f3331d7f14634aa663884530d0b3d2c",
+        "newClassSha256": "0339e790380a5a780dd04d012072d97a2622c070455aa92a91f9182c5ee83096",
+        "equalShallowShape": true,
+        "oldCounts": {
+          "fields": 3,
+          "methods": 24
+        },
+        "newCounts": {
+          "fields": 3,
+          "methods": 24
+        },
+        "fields": {
+          "removed": [],
+          "added": []
+        },
+        "methods": {
+          "removed": [],
+          "added": []
+        }
+      },
+      {
+        "old": "iYc",
+        "newHypothesis": "K2G",
+        "oldParent": "DHY",
+        "newParent": "to",
+        "oldClassSha256": "cdc1d94cba2cf9f7df23f53a3bffa9f47d3927b963c99920b8c7619142f91962",
+        "newClassSha256": "06e0f762b182ee874dd76e0c2d04e0b7324eb9cd572ba7fc5a59f8fcafbfda48",
+        "equalShallowShape": true,
+        "oldCounts": {
+          "fields": 4,
+          "methods": 70
+        },
+        "newCounts": {
+          "fields": 4,
+          "methods": 70
+        },
+        "fields": {
+          "removed": [],
+          "added": []
+        },
+        "methods": {
+          "removed": [],
+          "added": []
+        }
+      },
+      {
+        "old": "DHY",
+        "newHypothesis": "to",
+        "oldParent": "rpR",
+        "newParent": "sw3",
+        "oldClassSha256": "4ad0568ce491e66222ce08f2ad9227412b312dd384443904c84158da83075ad2",
+        "newClassSha256": "45eab72ef896736f812e0ab067acc74dee5848763a8c79bd798f0c170c0c662e",
+        "equalShallowShape": true,
+        "oldCounts": {
+          "fields": 7,
+          "methods": 56
+        },
+        "newCounts": {
+          "fields": 7,
+          "methods": 56
+        },
+        "fields": {
+          "removed": [],
+          "added": []
+        },
+        "methods": {
+          "removed": [],
+          "added": []
+        }
+      },
+      {
+        "old": "rpR",
+        "newHypothesis": "sw3",
+        "oldParent": "zrk",
+        "newParent": "erm",
+        "oldClassSha256": "fcdfe1c37094166729ebd13ad06b009b25e9dde294554ec816fc2a5046f4a0d1",
+        "newClassSha256": "92a8cc5311d1aa8f506a369be5cd32291e473b9c0d7cf725ac270fe21319a74c",
+        "equalShallowShape": true,
+        "oldCounts": {
+          "fields": 0,
+          "methods": 4
+        },
+        "newCounts": {
+          "fields": 0,
+          "methods": 4
+        },
+        "fields": {
+          "removed": [],
+          "added": []
+        },
+        "methods": {
+          "removed": [],
+          "added": []
+        }
+      },
+      {
+        "old": "zrk",
+        "newHypothesis": "erm",
+        "oldParent": "com/bitwig/ramona/core/HEV",
+        "newParent": "com/bitwig/ramona/core/oDc",
+        "oldClassSha256": "1aa91d712aec421347f2d07b394915aa93a33c57baa832785e3da244041ceae1",
+        "newClassSha256": "12f4cc760c13d60656c6e2da7ec7cd838425d28caf972f3977b49f6fde93aeca",
+        "equalShallowShape": true,
+        "oldCounts": {
+          "fields": 0,
+          "methods": 9
+        },
+        "newCounts": {
+          "fields": 0,
+          "methods": 9
+        },
+        "fields": {
+          "removed": [],
+          "added": []
+        },
+        "methods": {
+          "removed": [],
+          "added": []
+        }
+      },
+      {
+        "old": "com/bitwig/ramona/core/HEV",
+        "newHypothesis": "com/bitwig/ramona/core/oDc",
+        "oldParent": "com/bitwig/ramona/core/ikl",
+        "newParent": "com/bitwig/ramona/core/AVL",
+        "oldClassSha256": "1e8942c158fbcd7c4747dcd75f7095b797a08191eae3762300e00ef37379d77b",
+        "newClassSha256": "ca07af87d61561a317fc70c53c959031ad192dad9da2689ed38525362d076782",
+        "equalShallowShape": false,
+        "oldCounts": {
+          "fields": 7,
+          "methods": 119
+        },
+        "newCounts": {
+          "fields": 8,
+          "methods": 124
+        },
+        "fields": {
+          "removed": [],
+          "added": [
+            [
+              0,
+              "Lvendor;"
+            ]
+          ]
+        },
+        "methods": {
+          "removed": [],
+          "added": [
+            [
+              "method",
+              1,
+              "()V"
+            ],
+            [
+              "method",
+              2,
+              "(Ljava/lang/Runnable;Lvendor;)V"
+            ],
+            [
+              "method",
+              17,
+              "()Lvendor;"
+            ],
+            [
+              "method",
+              17,
+              "()Lvendor;"
+            ],
+            [
+              "method",
+              4098,
+              "(Lvendor;Ljava/lang/Runnable;)V"
+            ]
+          ]
+        }
+      },
+      {
+        "old": "com/bitwig/ramona/core/ikl",
+        "newHypothesis": "com/bitwig/ramona/core/AVL",
+        "oldParent": "java/lang/Object",
+        "newParent": "java/lang/Object",
+        "oldClassSha256": "5b691bebf66702e31dc5ec040c0ab1a525846b4b867bfdec5ce6af34f2bea5fd",
+        "newClassSha256": "7811b00305752c5489d16f0b86f24756be6e7f0e5295c61c891c39647f695d79",
+        "equalShallowShape": false,
+        "oldCounts": {
+          "fields": 2,
+          "methods": 48
+        },
+        "newCounts": {
+          "fields": 2,
+          "methods": 49
+        },
+        "fields": {
+          "removed": [],
+          "added": []
+        },
+        "methods": {
+          "removed": [],
+          "added": [
+            [
+              "method",
+              1025,
+              "()Lvendor;"
+            ]
+          ]
+        }
+      }
+    ],
+    "directDependencies": [
+      {
+        "oldType": "Aa",
+        "shallowMatchesAmongNewReferences": {
+          "count": 1,
+          "names": [
+            "ril"
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "HbM",
+        "shallowMatchesAmongNewReferences": {
+          "count": 1,
+          "names": [
+            "ISy"
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "Hjt",
+        "shallowMatchesAmongNewReferences": {
+          "count": 1,
+          "names": [
+            "bDH"
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "Hng",
+        "shallowMatchesAmongNewReferences": {
+          "count": 1,
+          "names": [
+            "cx"
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "Iry",
+        "shallowMatchesAmongNewReferences": {
+          "count": 1,
+          "names": [
+            "LJt"
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "KvU",
+        "shallowMatchesAmongNewReferences": {
+          "count": 1,
+          "names": [
+            "rmy"
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "LXE",
+        "shallowMatchesAmongNewReferences": {
+          "count": 1,
+          "names": [
+            "kJX"
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "Lck",
+        "shallowMatchesAmongNewReferences": {
+          "count": 1,
+          "names": [
+            "xcs"
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "MUT",
+        "shallowMatchesAmongNewReferences": {
+          "count": 1,
+          "names": [
+            "pZk"
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "Npn",
+        "shallowMatchesAmongNewReferences": {
+          "count": 1,
+          "names": [
+            "foz"
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "PEc",
+        "shallowMatchesAmongNewReferences": {
+          "count": 1,
+          "names": [
+            "cFw"
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "QY",
+        "shallowMatchesAmongNewReferences": {
+          "count": 1,
+          "names": [
+            "RuU"
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "TNT",
+        "shallowMatchesAmongNewReferences": {
+          "count": 1,
+          "names": [
+            "vcm"
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "Xuo",
+        "shallowMatchesAmongNewReferences": {
+          "count": 1,
+          "names": [
+            "Qe"
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "YhG",
+        "shallowMatchesAmongNewReferences": {
+          "count": 1,
+          "names": [
+            "Qib"
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "agh",
+        "shallowMatchesAmongNewReferences": {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "cXR",
+        "shallowMatchesAmongNewReferences": {
+          "count": 0,
+          "names": [],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "com/bitwig/base/platform/hwy",
+        "shallowMatchesAmongNewReferences": {
+          "count": 1,
+          "names": [
+            "com/bitwig/base/platform/RYd"
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "com/bitwig/ramona/serial/GCp",
+        "shallowMatchesAmongNewReferences": {
+          "count": 1,
+          "names": [
+            "com/bitwig/ramona/serial/rsB"
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "iEc",
+        "shallowMatchesAmongNewReferences": {
+          "count": 1,
+          "names": [
+            "bKV"
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "nVg",
+        "shallowMatchesAmongNewReferences": {
+          "count": 1,
+          "names": [
+            "iek"
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "qHc",
+        "shallowMatchesAmongNewReferences": {
+          "count": 1,
+          "names": [
+            "Fbf"
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "qLM",
+        "shallowMatchesAmongNewReferences": {
+          "count": 1,
+          "names": [
+            "aBn"
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "rOW",
+        "shallowMatchesAmongNewReferences": {
+          "count": 1,
+          "names": [
+            "WOu"
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "rpR",
+        "shallowMatchesAmongNewReferences": {
+          "count": 1,
+          "names": [
+            "sw3"
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "oldType": "uNh",
+        "shallowMatchesAmongNewReferences": {
+          "count": 1,
+          "names": [
+            "Xk3"
+          ],
+          "truncated": false
+        }
+      }
+    ]
+  },
+  "summary": {
+    "strictUniqueTypes": 2,
+    "strictMissingTypes": 53,
+    "shallowUniqueTypes": 35,
+    "shallowMissingTypes": 14,
+    "shallowAmbiguousTypes": 6,
+    "membersWithUnresolvedTypes": 76
+  },
+  "inputs": [
+    {
+      "path": "/Users/jonvuri/Bitwig Upgrade Backups/2026-10-21-pre-6.1/apps/Bitwig Studio 6.0.6.app/Contents/Java/bitwig.jar",
+      "sha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+      "mtimeNs": "1792586918211744413",
+      "counts": {
+        "jarBytes": 34686665,
+        "entries": 30968,
+        "classes": 30940,
+        "classBytes": 69199765,
+        "members": 454111,
+        "defaultPackageClasses": 24240,
+        "callTraceWork": 72,
+        "codeClasses": 129
+      },
+      "timingsMs": {
+        "fingerprintMs": 12.801375007256866,
+        "enumerationMetadataMs": 2936.0524169751443,
+        "typeRefinementMs": 1483.300624997355,
+        "candidateSearchMs": 484.9149170331657,
+        "validationMs": 4.071958013810217
+      },
+      "retainedCodeClasses": 129
+    },
+    {
+      "path": "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar",
+      "sha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+      "mtimeNs": "1790948299000000000",
+      "counts": {
+        "jarBytes": 35778607,
+        "entries": 31655,
+        "classes": 31627,
+        "classBytes": 71461507,
+        "members": 466601,
+        "defaultPackageClasses": 24702
+      },
+      "timingsMs": {
+        "fingerprintMs": 12.972917000297457,
+        "enumerationMetadataMs": 3165.635999990627,
+        "typeRefinementMs": 1543.937292008195
+      },
+      "retainedCodeClasses": 0
+    }
+  ],
+  "elapsedMs": 12933.436,
+  "peakRssBytes": 354861056,
+  "limitsPerJar": {
+    "jar_bytes": 67108864,
+    "entries": 50000,
+    "classes": 40000,
+    "class_bytes": 1048576,
+    "total_bytes": 134217728,
+    "members": 1000000,
+    "depth": 128,
+    "code_classes": 256,
+    "call_work": 4096,
+    "call_depth": 2,
+    "rss": 805306368,
+    "seconds": 120
+  },
+  "diagnosticLimits": {
+    "jars": 2,
+    "seconds": 120,
+    "rssBytes": 805306368,
+    "retainedCodeClasses": 256,
+    "candidateNamesPerRow": 128,
+    "reportBytes": 1048576
+  }
+}

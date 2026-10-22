@@ -2,8 +2,8 @@
 title: 9b — Grid symbol manifest
 kind: note
 state: active
-status: E316 passes all 76 V20 role checks on 6.0.6. The 6.1.x doctor remains separate.
-updated: 2026-10-20
+status: E316 passes all 76 V20 roles on 6.0.6. E331 records 53 missing 6.1.4 type roles. No new-build member table exists.
+updated: 2026-10-21
 parent: 9b-grid-breadth-discovery-and-build-out.md
 ---
 
@@ -338,3 +338,19 @@ then. This acceptance covers the fixed fixtures and declared projection.
 It does not grant product write authority or accept another Bitwig build.
 The separate [9b.6 session](9b-grid-breadth-discovery-and-build-out.md#session-9b6--doctor-on-61x)
 owns the 6.1.x result after the operator update audit.
+
+
+## E331 cross-build refusal on 6.1.4
+
+[E331](../../evidence/experiments/e331-grid-doctor-614-resolver-refusal.md)
+compares the unchanged E315 rules with the installed 6.1.4 jar. Only the
+layout type (`llL` → `axc`) and source interface (`a` → `led`) pass strict
+type selection. The other 53 type roles have no match. All 76 members have
+unresolved type dependencies, so no 6.1.4 member table is accepted.
+
+The [diagnostic census](../../evidence/data/phase9b-doctor/614-preparation/diagnosis.json)
+records all roles and a boolean-atom ancestor hypothesis. Added fields and
+methods explain structural drift; shallow matches do not prove identities
+or command behavior. Keep the pinned manifest above as the 6.0.6 record.
+[9b.6a](9b-grid-breadth-discovery-and-build-out.md#session-9b6a--resolve-changed-614-structure)
+must trace the new types and commands before revising selectors.

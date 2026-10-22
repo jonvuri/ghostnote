@@ -2,7 +2,7 @@
 title: Phase 9 — Overlap investigation
 kind: plan
 state: active
-status: E316 completes the 6.0.6 doctor. E330 accepts the normal-product update audit on 6.1.4, with cleanup and clean save complete. Next is 9b.6 offline discovery and doctor preparation.
+status: E330 accepts the normal-product update audit. E331 records the 6.1.4 Grid resolver refusal. Next is 9b.6a structural migration.
 updated: 2026-10-21
 parent: ../ROADMAP.md
 prev: ../phase-8/README.md
@@ -71,10 +71,12 @@ confirmed the after-reopen Sampler observations.
 [E329](../../evidence/experiments/e329-update-audit-listening-and-cleanup.md)
 passes listening, the final observation checkpoint, and live cleanup.
 [E330](../../evidence/experiments/e330-update-audit-614-acceptance.md) completes
-the clean save and accepts the tested normal-product scope. Next is
-[9b.6 on 6.1.x](9b-grid-breadth-discovery-and-build-out.md#session-9b6--doctor-on-61x),
-starting with offline jar discovery and a new first-attempt policy. General
-acceptance grants no native Grid write authority.
+the clean save and accepts the tested normal-product scope.
+[E331](../../evidence/experiments/e331-grid-doctor-614-resolver-refusal.md)
+records the 6.1.4 Grid resolver refusal: 53 missing type roles and 76 blocked
+members. Next is [9b.6a structural migration](9b-grid-breadth-discovery-and-build-out.md#session-9b6a--resolve-changed-614-structure).
+No new probe is deployed. The 6.1.4 live doctor remains incomplete.
+General acceptance grants no native Grid write authority.
 
 The normal archive is deployed and its loaded profile is verified on 6.1.4.
 E316 records the last verified V20 state on 6.0.6: all scratch tracks deleted,

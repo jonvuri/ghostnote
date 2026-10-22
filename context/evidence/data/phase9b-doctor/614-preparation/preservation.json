@@ -1,0 +1,55 @@
+{
+  "result": "pass",
+  "installedAppVersion": "6.1.4",
+  "apiVersion": 25,
+  "apiVersionSource": "E330; no live recheck",
+  "newFingerprint": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f:35778607:1790948299000000000",
+  "newAttemptOrCachePresent": false,
+  "checks": [
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/.local/grid-doctor/fd829f5381cd55021de542d9581accfb20ca82ed2c975c3863a562fe083ed87a.attempt.json",
+      "bytes": 596,
+      "sha256": "dfd68b5b9ac9bccc32aa05248fed3dc0bb563e176c79e4de77a4a1c0979d540b",
+      "expectedSha256": "dfd68b5b9ac9bccc32aa05248fed3dc0bb563e176c79e4de77a4a1c0979d540b",
+      "matches": true
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/.local/grid-doctor/fd829f5381cd55021de542d9581accfb20ca82ed2c975c3863a562fe083ed87a.v20.attempt.json",
+      "bytes": 796,
+      "sha256": "05e252134d1aacbddd44f652cc5237eadcbba23dc60d3dd541d6f9b732b6dd9c",
+      "expectedSha256": "05e252134d1aacbddd44f652cc5237eadcbba23dc60d3dd541d6f9b732b6dd9c",
+      "matches": true
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/.local/grid-doctor/fd829f5381cd55021de542d9581accfb20ca82ed2c975c3863a562fe083ed87a.accepted.json",
+      "bytes": 4133,
+      "sha256": "f0d5ad79b531a869f80ce42a8e0712298bc95f2e76960f955108599883142041",
+      "expectedSha256": "f0d5ad79b531a869f80ce42a8e0712298bc95f2e76960f955108599883142041",
+      "matches": true
+    },
+    {
+      "path": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension",
+      "bytes": 846149,
+      "sha256": "25a5be4398f8825a7eabd2a541e49559ed60002f2d8d6b9db795f45664e4d9d2",
+      "expectedSha256": "25a5be4398f8825a7eabd2a541e49559ed60002f2d8d6b9db795f45664e4d9d2",
+      "matches": true
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-4-614/saved-project.bwproject",
+      "bytes": 72901,
+      "sha256": "b01ba21f2f2a6d790fddbc9663a278721d23d14935a4dc067f76e4bdf809970b",
+      "expectedSha256": "b01ba21f2f2a6d790fddbc9663a278721d23d14935a4dc067f76e4bdf809970b",
+      "matches": true
+    },
+    {
+      "path": "/Users/jonvuri/Bitwig Upgrade Work/2026-10-21/gn-upgrade-audit/gn-upgrade-audit.bwproject",
+      "bytes": 34259,
+      "sha256": "573084e28ef7e241e3d52fd24265b1302d6f8cc22695270e3d11386e80d4398f",
+      "expectedSha256": "573084e28ef7e241e3d52fd24265b1302d6f8cc22695270e3d11386e80d4398f",
+      "matches": true
+    }
+  ],
+  "diagnosisSummaryVerified": true,
+  "diagnosisSha256": "8a41cae41de61c85ccbb7fdb41689062a5bbaf4f80c9d0211e68d162476cb046",
+  "liveStateRechecked": false
+}

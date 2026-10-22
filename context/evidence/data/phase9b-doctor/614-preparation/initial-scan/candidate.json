@@ -1,0 +1,5 @@
+{
+  "result": "refused",
+  "reason": "boolean-atom:expected-one-candidate:found-0",
+  "writeAuthority": false
+}

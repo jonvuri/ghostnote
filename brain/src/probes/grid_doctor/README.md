@@ -65,3 +65,28 @@ or edit the original to enable a retry. A complete pass creates the matching
 The product does not consume this cache. An uncertain native write retains
 its claim and scratch state. Inspect it; do not repeat the command or delete
 its fixture automatically.
+
+## 6.1.4 offline refusal
+
+[E331](../../../../context/evidence/experiments/e331-grid-doctor-614-resolver-refusal.md)
+records 53 missing type roles and 76 blocked members. V20 remains unchanged.
+Do not deploy its table for 6.1.4. Continue with
+[9b.6a](../../../../context/plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6a--resolve-changed-614-structure).
+
+Reproduce the bounded diagnosis from the repository root. The report path
+must not exist. Both jars are read as data. No vendor class is initialized.
+The diagnostic checks the old table against E315 before comparing builds.
+
+```sh
+PYTHONPATH=brain/src/probes python3 -m grid_doctor.diagnose \
+  --old-jar '/Users/jonvuri/Bitwig Upgrade Backups/2026-10-21-pre-6.1/apps/Bitwig Studio 6.0.6.app/Contents/Java/bitwig.jar' \
+  --new-jar '/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar' \
+  --selectors context/evidence/data/phase9b-doctor/v20-preparation/selectors.json \
+  --old-candidate context/evidence/data/phase9b-doctor/v20-preparation/candidate.json \
+  --report /absolute/new/diagnosis.json
+```
+
+Exit zero means the diagnostic completed. It does not mean resolution
+passed. Inspect `strictResolution`, `typeCensus`, and `memberCensus`.
+Shallow candidates and ancestor pairs are hypotheses only. This command
+cannot produce a live candidate table or write an acceptance cache.

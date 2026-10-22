@@ -19,7 +19,7 @@ updated: 2026-10-21
 | [6 — music workstation exploration](phase-6/README.md) | done | Contracts and verification costs audited; Phase 7 implementation followed |
 | [7 — workstation dogfood](phase-7/README.md) | done | Focused modules, hybrid dogfood, and the played-range follow-up pass |
 | [8 — agent-native live engine](phase-8/README.md) | done | FIELDS/JSON 1.0 contract, codec, model reference, and the agent-native surface; the 8i gate closed (E272). [8i17](phase-8/8i17-midi-musical-navigation-survey.md) remains a planned survey |
-| [9 — overlap investigation](phase-9/README.md) | active | E316 completes the 6.0.6 doctor. E330 accepts the [6.1.4 normal-product update audit](phase-9/9b-update-audit.md), including Sampler, persistence, listening, cleanup, and clean save. Next: 9b.6 offline discovery and separate new-build doctor |
+| [9 — overlap investigation](phase-9/README.md) | active | E316 completes the 6.0.6 doctor. E330 accepts the [6.1.4 normal-product update audit](phase-9/9b-update-audit.md), including Sampler, persistence, listening, cleanup, and clean save. E331 records the Grid resolver refusal. Next: 9b.6a structural migration before the new-build doctor |
 | [10 — breadth and release](phase-10/README.md) | deferred | Former Phase 9: publication reviews 10a/10b, the release live suite 10c, and the existing breadth backlog |
 
 ## Cross-phase work

@@ -4,34 +4,38 @@ kind: status
 state: active
 updated: 2026-10-21
 phase: phase-9-overlap-investigation
-session: 9b6-doctor-614-preparation
+session: 9b6a-doctor-614-structural-migration
 ---
 
 ## Next session
 
-**Start 9b.6 offline preparation for Bitwig 6.1.4.** The general update audit
-is complete and accepted for its tested normal-product scope in
-[E330](evidence/experiments/e330-update-audit-614-acceptance.md).
-All required cases, Sampler observations/listening, persistence, cleanup,
-and the final clean save pass. Public descriptions remain v52.
+**Start 9b.6a: resolve the changed 6.1.4 structure.**
+[E331](evidence/experiments/e331-grid-doctor-614-resolver-refusal.md) records
+9b.6's offline refusal: 53 of 55 type selectors have no match, and all 76
+member roles depend on unresolved types. A shallow match is not authority.
+No new probe is built or deployed. The 6.1.4 live doctor remains incomplete.
 
-Read the [9b.6 brief](plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6--doctor-on-61x),
-[E316](evidence/experiments/e316-grid-doctor-606-acceptance.md),
+Read the [9b.6a brief](plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6a--resolve-changed-614-structure),
+E331's [diagnosis](evidence/data/phase9b-doctor/614-preparation/diagnosis.json),
 [E315 caller trace](evidence/experiments/e315-grid-doctor-document-undo.md),
 [E311 resolver instructions](evidence/experiments/e311-grid-offline-resolvers.md),
-[symbol manifest](plan/phase-9/9b-grid-symbol-manifest.md), and
+the [symbol manifest](plan/phase-9/9b-grid-symbol-manifest.md), and
 [performance ledger](contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md).
 
-Resolve and trace the new jar before live validation. Adapt the pinned driver,
-candidate resources, host guard, and first-attempt policy for its fingerprint.
-V20 deliberately requires 6.0.6 and E313's specific retry record. Do not reuse
-its cache or reset old attempts. Prepare and test the new probe offline.
-Controller replacement remains an operator action. Obtain fresh scratch
-consent before the new-build doctor. E330 grants no native write authority.
-Step 2 still needs the separate 6.1.4 doctor; 9b.7 owns product cache enforcement.
-Do not repeat the completed 6.0.6 doctor or 9a audio flow.
+Trace changed types and commands before revising selectors. Preserve the
+6.0.6 selectors, attempts, and cache. Build a reusable resolution procedure
+and test its resilience on both jars and inert models as required by 9b.6a.
+Only after a complete new table passes may the session adapt the driver,
+resources, host guard, and first-attempt policy. V20 still requires 6.0.6
+and E313's specific retry record. Controller
+replacement is an operator action. Fresh scratch consent is required before
+the new-build doctor. E330 grants no native write authority. Step 2 stays
+open; 9b.7 owns product cache enforcement. Do not repeat the live 6.0.6 doctor
+or the 9a audio flow.
 
 ## Deployment and live state
+
+Last verified in E330. E331 makes no live request.
 
 - App: `/Applications/Bitwig Studio.app`, **6.1.4**, API 25.
 - Jar SHA-256: `5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f`.
@@ -59,6 +63,11 @@ The copied 6.0.6 launch and recovery check passed. Original-project asset
 checks were not exhaustive. Do not modify backups or donor sources.
 
 ## Material to preserve
+
+- E331 [initial refusal](evidence/data/phase9b-doctor/614-preparation/initial-scan/candidate.json),
+  [complete diagnosis](evidence/data/phase9b-doctor/614-preparation/diagnosis.json),
+  tests, and [preservation check](evidence/data/phase9b-doctor/614-preparation/preservation.json).
+  No new-build candidate, native attempt, or acceptance cache exists.
 
 - E330 [acceptance and matrix hashes](evidence/data/bitwig-upgrade-audit/continuation-4-614/acceptance.json),
   [final report](evidence/data/bitwig-upgrade-audit/continuation-4-614/report.json),

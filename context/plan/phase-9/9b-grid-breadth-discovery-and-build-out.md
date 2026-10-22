@@ -2,7 +2,7 @@
 title: Phase 9b — Grid breadth, build discovery, and build-out planning
 kind: plan
 state: active
-status: E316 completes the 6.0.6 doctor. E330 accepts the normal-product update audit on 6.1.4. Next is 9b.6 offline discovery and doctor preparation.
+status: E331 records the 6.1.4 resolver refusal. Next is 9b.6a structural migration. The live doctor remains incomplete.
 updated: 2026-10-21
 parent: README.md
 prev: 9a-live-grid-editing-spike.md
@@ -152,9 +152,10 @@ Sessions:
   [E330](../../evidence/experiments/e330-update-audit-614-acceptance.md).
   The [audit plan](9b-update-audit.md) covers the preserved 6.0.6 install,
   normal-product and Sampler checks, persistence, and clean teardown.
-- **9b.6 — Live doctor on 6.1.x.** After the general update audit,
-  with 6.0.6 copied aside. Record which symbols moved and whether any logic
-  moved. Step 2 cannot close without this session.
+- **9b.6 — Live doctor on 6.1.x.** Offline discovery refuses in
+  [E331](../../evidence/experiments/e331-grid-doctor-614-resolver-refusal.md).
+  Session 9b.6a owns structural migration before new probe preparation.
+  Record changed symbols and logic separately. Step 2 remains incomplete.
 - **9b.7 — Refine into a tool.** A consent-gated check tool with a fingerprint
   cache; Grid tools refuse without a cached pass for the current fingerprint;
   descriptions bump and the usual tool-addition consumers.
@@ -923,6 +924,11 @@ repeat the completed 9a audio flow or unrelated breadth writes.
 
 ## Session 9b.6 — Doctor on 6.1.x
 
+**Offline result.** [E331](../../evidence/experiments/e331-grid-doctor-614-resolver-refusal.md)
+records 53 missing strict type roles and 76 blocked member roles. The
+boolean candidate's ancestor trace shows added fields and methods. No live
+attempt or deployment occurs. Continue with 9b.6a below before steps 3–5.
+
 **Entry ready.** [E330](../../evidence/experiments/e330-update-audit-614-acceptance.md)
 accepts the normal-product audit on 6.1.4 and records the jar fingerprint,
 normal deployment, cleanup, and clean save. Start with offline discovery.
@@ -966,3 +972,90 @@ from the completed 6.0.6 pass. It does not authorize an update or another
 Acceptance: a complete new-build doctor result, or a traced and measured
 reason it cannot pass. Close step 2 only with the explicit two-build result.
 Product cache enforcement and public tool descriptions remain in 9b.7.
+
+
+### Session 9b.6a — Resolve changed 6.1.4 structure
+
+**Source.** [E331](../../evidence/experiments/e331-grid-doctor-614-resolver-refusal.md),
+its [diagnosis](../../evidence/data/phase9b-doctor/614-preparation/diagnosis.json),
+E311's resolver rules, E315's caller trace, and E316's acceptance limits.
+The 6.1.4 normal-product audit remains accepted in E330.
+
+**Reusable resolution.** Build a reusable method for future updates. Use
+6.0.6 and 6.1.4 as test cases for the same resolution procedure. Replacing
+the 6.0.6 hashes with 6.1.4 hashes alone does not meet this goal.
+
+Identify each role from the evidence needed for that role: signatures,
+inheritance, descriptor IDs, caller relationships, and bounded command
+traces. Limit each selector's dependencies to those needed to distinguish
+the role and check its contract. An unrelated field or method addition must
+not invalidate the role solely because a whole-class hash changes. Retain
+enough evidence to refuse missing, ambiguous, or incompatible candidates.
+
+This method need not resolve every future build automatically. If a required
+relationship or command behavior changes, refuse and require a new trace.
+A structural match still requires the consent-gated live doctor before
+acceptance is cached for that exact build fingerprint. Product enforcement
+of that cache remains in 9b.7.
+
+**Work.** Establish the new type identities from structural relationships,
+stable entry points, descriptor contracts, and bounded code traces. The
+35 unique shallow hypotheses are investigation inputs only. Resolve the
+14 missing shallow types and six ambiguous pools without a name or position
+fallback. In particular, trace object/context, project root, edit document,
+journal, and recording/replay ownership. Explain added members separately
+from changed command bodies. Retrace the complete document Undo caller and
+its relationship hooks on 6.1.4; E315 is not a new-build proof.
+
+Preserve the E311/E315 selectors and all old evidence. Record each changed
+selector's evidence before revising the rules. Keep the shared resolution
+procedure separate from any required build-specific rule variants. Each
+variant needs a traced contract difference; a changed build number or hash
+alone is not a reason to add one. Keep the missing/ambiguous refusal behavior.
+Test added members and changed reference types as well as full renaming and
+enumeration changes. Require all 55 type roles and 76 member roles,
+signatures, receiver relationships, and operation
+edges to validate. Compare the complete table with E315. A partial table
+cannot be bundled for live use. Model any added scan work before implementation.
+
+After complete offline resolution, perform 9b.6 steps 3–4: adapt the driver,
+candidate resources, exact jar/host guard, deliberate build marker, and a
+new-fingerprint first-attempt record. Test wrong-build cache refusal,
+duplicate attempts, old-record preservation, incomplete-role refusal, and
+uncertain-write retention. Keep paired independent readback, fixed scratch
+ownership, selection guards, and complete-pass cache admission. Preserve
+all 6.0.6 attempt and cache bytes. A changed host path needs a revised cost
+model; otherwise cite the E315/E316 model.
+
+Build and deploy only after the offline checks pass. Ask the operator to
+fully remove the controller and select the final matching `ghostnote probe`
+product in the complete list. Wait for confirmation, then run hello and
+check the fresh initialization, profile, method count/hash, and markers.
+Obtain fresh save-first scratch consent with the possible-restart warning
+before 9b.6 step 5. Recheck the project, target, selection, and competing
+clients. The current project was last verified as `gn-upgrade-audit`; the
+fixed doctor expects `gn-grid-spike`. Do not infer a project switch or consent.
+
+**Resilience checks.** Test the shared procedure on both jars as data. Do not
+repeat the accepted 6.0.6 live doctor. Add inert-model tests that show:
+
+- Renaming and enumeration changes preserve the resolved roles.
+- Unrelated added fields and methods preserve the resolved roles, including
+  additions to referenced types that do not change a required contract.
+- Changes to required signatures, receiver relationships, operation edges,
+  or command traces cause refusal until supported by new evidence.
+- Missing candidates and duplicate candidates cause refusal. A weaker
+  fallback cannot turn an ambiguous result into acceptance.
+
+Require complete resolution of all 55 type roles and 76 member roles on both
+jars through the shared procedure. Record which contracts are shared, which
+need traced variants, and which future changes still require investigation.
+Two passing builds and these tests establish only the tested resilience.
+They do not establish support for all future updates.
+
+**Acceptance.** A reusable resolver that passes the resilience checks, a
+complete traced candidate table, and a tested probe ready for operator
+replacement, or a specific traced refusal with the next work
+planned from that result. A ready probe is not live acceptance. The live
+role checks, teardown, E316 timing comparison, and two-build result remain
+requirements of 9b.6. Public cache enforcement remains in 9b.7.

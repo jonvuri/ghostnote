@@ -18,6 +18,7 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E331 | 6.1.4 offline doctor refuses: 53/55 type selectors absent; all 76 members blocked; bounded diagnosis and 27 tests pass; no deployment or live attempt [K] (2026-10-21) | [open](experiments/e331-grid-doctor-614-resolver-refusal.md) |
 | E330 | Bitwig 6.1.4 normal-product update audit accepted: all matrix rows, Sampler, persistence, cleanup, and clean save pass; limits retained; next is separate 9b.6 preparation [K] (2026-10-21) | [open](experiments/e330-update-audit-614-acceptance.md) |
 | E329 | Both Samplers heard; restored fixture and six-track cleanup pass; preserved baseline matches; final clean save and consolidated acceptance remain pending [K] (2026-10-21) | [open](experiments/e329-update-audit-listening-and-cleanup.md) |
 | E328 | Saved file is unchanged after reopen; full fixture and selections match; fresh mixer write/reversal pass; Sampler UI inspection and listening remain pending [K] (2026-10-21) | [open](experiments/e328-update-audit-reopen-pass.md) |

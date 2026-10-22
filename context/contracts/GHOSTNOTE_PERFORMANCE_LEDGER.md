@@ -2,7 +2,7 @@
 title: Ghostnote performance ledger
 kind: reference
 state: active
-updated: 2026-10-20
+updated: 2026-10-21
 parent: ../plan/phase-8/8h-cache-promotion-and-interface-simplification.md
 evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252, E253, E254, E256, E257, E258, E263, E264, E265, E267, E269, E271
 ---
@@ -1297,3 +1297,30 @@ comparison limit and separates it from the same-workload mixer comparisons.
 All live checks and clean save pass. The final close-out adds no host write,
 product call, or performance model change. Native Grid timing remains a
 separate 9b.6 result.
+
+## 9b.6 offline refusal diagnosis — model before implementation
+
+Keep the E315 resolver and all live paths unchanged. The diagnostic reads
+one preserved 6.0.6 jar and the installed 6.1.4 jar as data. Each input keeps
+the 9b.4 size, entry, class, member, and inheritance limits. Retain metadata
+for at most two jars. Use one 120-second diagnostic deadline and the existing
+768 MiB process RSS threshold. These are refusal thresholds, not OS caps.
+
+Compare the 55 type selectors at the base shape and both refinement rounds.
+Use indexed lookups and retain at most 128 candidate names per diagnostic
+row. Report all 76 member dependencies without selecting an unresolved
+receiver. Trace the boolean atom's candidate superclass chain to at most
+128 levels. Class hashes and shape differences are evidence, not selectors.
+Retain at most 256 code classes across both jars. Bound the report to 1 MiB.
+No bridge call, vendor initialization, document task, wait, native command,
+cache write, or deployment is part of this diagnosis. The diagnostic cannot
+emit a live candidate table. Weaker matches grant no write authority.
+
+[E331](../evidence/experiments/e331-grid-doctor-614-resolver-refusal.md)
+measures the complete two-jar diagnosis at 12,933.436 ms and 354,861,056 bytes
+peak RSS. It retains 129 old code classes and no new code classes. The report
+is 69,336 bytes. All bounds hold. The 6.1.4 metadata scan reads 31,627
+classes and 466,601 members. Enumeration takes 3,165.636 ms; refinement takes
+1,543.937 ms. It cannot reach complete member validation: 53 strict type
+roles are missing. These costs are not comparable with E315's complete
+candidate scan. No live timing, call budget, or host path changes.
