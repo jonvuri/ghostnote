@@ -18,6 +18,7 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E335 | 6.1.4 receiver trace finds a descriptor predicate override, ancestor allocation, and a nested event pump; fixed-command exclusion and history bounds unproved; no probe or live work [K] (2026-10-21) | [open](experiments/e335-grid-doctor-614-receiver-dispatch.md) |
 | E334 | 6.1.4 admission refusal: ancestor and parent getter census plus queued tracking dispatch; history bounds and command non-reentrancy unproved; 64 tests pass; no probe or live work [K] (2026-10-21) | [open](experiments/e334-grid-doctor-614-admission-boundaries.md) |
 | E333 | 6.1.4 ownership and disposal admission refused: document history and global tracking exceed scratch bounds; direct-reference census and 50 tests pass; no probe or live work [K] (2026-10-21) | [open](experiments/e333-grid-doctor-614-ownership-admission.md) |
 | E332 | 6.1.4 command trace refuses changed ownership hooks, disposal tracking, and recording-edit access; shared subset checks and 39 tests pass; complete resolver and live doctor remain incomplete [K] (2026-10-21) | [open](experiments/e332-grid-doctor-614-command-contracts.md) |

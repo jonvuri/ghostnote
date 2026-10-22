@@ -1424,3 +1424,37 @@ helper also need limits. None follows from 256 scratch objects. The debug
 mode writer uses the application event queue, but command non-reentrancy
 is unproved. No finite live admission is established. No live timing,
 product budget, or public description changes.
+
+## 9b.6d receiver and event contracts — model before implementation
+
+Read the installed jar as data. Verify E334's jar identity and seed traces.
+Keep the existing per-jar input limits, 120-second deadline, 768 MiB RSS
+threshold, and 256 retained code classes. Enumerate at most eight receiver
+slots with 4,000,000 superclass edges. Scan at most 1,000,000 methods and
+16,000,000 instructions. Resolve incoming symbolic references through
+superclasses, with at most 16,384 cached lookups. Do not infer interface
+dispatch or runtime receiver identity from symbolic resolution.
+
+Retain at most 16,000 reference sites, 512 method traces, and 128 explicit
+method inputs. Limit each report to 8 MiB and its plan to 64 KiB. These are
+refusal thresholds, not OS caps. Keep dynamic bootstrap entries as evidence;
+do not change the strict comparator. Include queue entry, dispatch, callback,
+descriptor, and storage paths in the investigation. No host call, vendor
+initialization, native command, deployment, attempt, or cache write is part
+of this scan. E315/E316 remain the unchanged live model. A missing history
+growth bound or command re-entry proof must refuse probe preparation.
+
+[E335](../evidence/experiments/e335-grid-doctor-614-receiver-dispatch.md)
+measures 13,347.272 ms and 196,411,392 bytes peak RSS. The scan reads 31,627
+classes, 393,713 methods, and 6,574,509 instructions. It uses 1,241,300
+hierarchy edges and 2,409 cached symbolic lookups. It retains 238 method
+traces and 52 code classes; the report is 1,797,252 bytes. All limits hold.
+The workload differs from E334; no comparable regression claim follows.
+
+The relationship ancestor step can allocate a wrapper through `deU.E3`.
+The live depth bound must cover this allocation as well as traversal.
+`deX.nVd()` returns true regardless of the base `0x20` flag. A base-field
+guard alone cannot exclude retained-history work. The round-trip callback
+can dispatch another app event. Empty-set callback completion excludes
+one wait, not every command path. No finite new live admission or timing
+claim is established. Product budgets and descriptions remain unchanged.

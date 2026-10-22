@@ -1,0 +1,502 @@
+{
+  "jarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "purpose": "Pinned investigation inputs from E334 and its outgoing references. Not role selectors.",
+  "methods": [
+    {
+      "owner": "com/bitwig/flt/control_surface/proxy/ControlSurfaceObject",
+      "name": "exec",
+      "descriptor": "(Ljava/lang/Runnable;)V"
+    },
+    {
+      "owner": "com/bitwig/flt/control_surface/proxy/ControlSurfaceObject",
+      "name": "postEvent",
+      "descriptor": "(LgGV;)V"
+    },
+    {
+      "owner": "com/bitwig/flt/control_surface/proxy/ControlSurfaceObject",
+      "name": "isDocumentThread",
+      "descriptor": "()Z"
+    },
+    {
+      "owner": "com/bitwig/flt/control_surface/proxy/ControlSurfaceObject$1",
+      "name": "run",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "sdu",
+      "name": "Grk",
+      "descriptor": "()Z"
+    },
+    {
+      "owner": "sdu",
+      "name": "cfM",
+      "descriptor": "(LgGV;)V"
+    },
+    {
+      "owner": "dpN",
+      "name": "asyncExec",
+      "descriptor": "(Ljava/lang/Runnable;)V"
+    },
+    {
+      "owner": "dpN",
+      "name": "TVZ",
+      "descriptor": "()LdpN;"
+    },
+    {
+      "owner": "com/bitwig/flt/app/CHR",
+      "name": "Grk",
+      "descriptor": "()Lcom/bitwig/flt/app/CHR;"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/zjj",
+      "name": "Hnt",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/zjj",
+      "name": "cfM",
+      "descriptor": "(Ldfb;Lcom/bitwig/ramona/core/oDc;)Z"
+    },
+    {
+      "owner": "dfb",
+      "name": "nVd",
+      "descriptor": "()Z"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/Huq",
+      "name": "TMF",
+      "descriptor": "()Lcom/bitwig/flt/document/core/master/TrM;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/shB",
+      "name": "TMF",
+      "descriptor": "()Lcom/bitwig/flt/document/core/master/sxY;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/oxY",
+      "name": "qoU",
+      "descriptor": "()Lcom/bitwig/flt/document/core/master/ron;"
+    },
+    {
+      "owner": "gNG",
+      "name": "MIO",
+      "descriptor": "()Lg3K;"
+    },
+    {
+      "owner": "PUL",
+      "name": "LEd",
+      "descriptor": "()LSEC;"
+    },
+    {
+      "owner": "RBc",
+      "name": "jFL",
+      "descriptor": "()Lcom/bitwig/flt/document/core/master/TL;"
+    },
+    {
+      "owner": "tWF",
+      "name": "ifN",
+      "descriptor": "()Lcom/bitwig/flt/document/core/master/g2L;"
+    },
+    {
+      "owner": "mQw",
+      "name": "TMF",
+      "descriptor": "()LfK1;"
+    },
+    {
+      "owner": "idq",
+      "name": "SI",
+      "descriptor": "()LtWF;"
+    },
+    {
+      "owner": "hPk",
+      "name": "Pgx",
+      "descriptor": "()Lcom/bitwig/flt/document/core/master/zwV;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/file_preview/hgq",
+      "name": "SQN",
+      "descriptor": "()LOsS;"
+    },
+    {
+      "owner": "hQY",
+      "name": "FzB",
+      "descriptor": "()LVnb;"
+    },
+    {
+      "owner": "NiV",
+      "name": "BNq",
+      "descriptor": "()LyrU;"
+    },
+    {
+      "owner": "ynw",
+      "name": "znC",
+      "descriptor": "()LosE;"
+    },
+    {
+      "owner": "btv",
+      "name": "Nnn",
+      "descriptor": "()LJQZ;"
+    },
+    {
+      "owner": "yZL",
+      "name": "Vr",
+      "descriptor": "()LxK1;"
+    },
+    {
+      "owner": "zXf",
+      "name": "gt_",
+      "descriptor": "()LNh;"
+    },
+    {
+      "owner": "xsp",
+      "name": "wGc",
+      "descriptor": "()Lzvs;"
+    },
+    {
+      "owner": "HBS",
+      "name": "gt_",
+      "descriptor": "()LNh;"
+    },
+    {
+      "owner": "nJW",
+      "name": "QNk",
+      "descriptor": "()LjdO;"
+    },
+    {
+      "owner": "hvO",
+      "name": "NC",
+      "descriptor": "()LrIK;"
+    },
+    {
+      "owner": "SEC",
+      "name": "LEd",
+      "descriptor": "()Ltwb;"
+    },
+    {
+      "owner": "iav",
+      "name": "QNk",
+      "descriptor": "()Lsyf;"
+    },
+    {
+      "owner": "lSj",
+      "name": "Zyp",
+      "descriptor": "()Lsyf;"
+    },
+    {
+      "owner": "VDz",
+      "name": "UZr",
+      "descriptor": "()LGgU;"
+    },
+    {
+      "owner": "JxM",
+      "name": "sut",
+      "descriptor": "()Lcom/bitwig/flt/document/core/master/TL;"
+    },
+    {
+      "owner": "MHj",
+      "name": "UNj",
+      "descriptor": "()LmNh;"
+    },
+    {
+      "owner": "ieI",
+      "name": "jhH",
+      "descriptor": "()LkzS;"
+    },
+    {
+      "owner": "rXd",
+      "name": "FzB",
+      "descriptor": "()LWYt;"
+    },
+    {
+      "owner": "kzS",
+      "name": "Nnn",
+      "descriptor": "()LmNh;"
+    },
+    {
+      "owner": "liX",
+      "name": "LaE",
+      "descriptor": "()LWoe;"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/oDc",
+      "name": "J_",
+      "descriptor": "()Lcom/bitwig/ramona/core/oDc;"
+    },
+    {
+      "owner": "dpN",
+      "name": "TbN",
+      "descriptor": "()Ldnm;"
+    },
+    {
+      "owner": "dpN",
+      "name": "s_",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "dpN",
+      "name": "isEventDispatchThread",
+      "descriptor": "()Z"
+    },
+    {
+      "owner": "dpN",
+      "name": "Wby",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "dpN",
+      "name": "MRY",
+      "descriptor": "(LeoG;)V"
+    },
+    {
+      "owner": "dpN",
+      "name": "Hnt",
+      "descriptor": "(LeoG;)V"
+    },
+    {
+      "owner": "dpN",
+      "name": "cfM",
+      "descriptor": "(LeoG;)V"
+    },
+    {
+      "owner": "dpN",
+      "name": "skE",
+      "descriptor": "()Z"
+    },
+    {
+      "owner": "dpN",
+      "name": "Oas",
+      "descriptor": "()Z"
+    },
+    {
+      "owner": "com/bitwig/flt/app/CHR",
+      "name": "cfM",
+      "descriptor": "(LeoG;)V"
+    },
+    {
+      "owner": "Dr2",
+      "name": "cfM",
+      "descriptor": "(LgGV;)V"
+    },
+    {
+      "owner": "Dr2",
+      "name": "ucQ",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "Dr2",
+      "name": "FzB",
+      "descriptor": "(Ljava/lang/Runnable;)V"
+    },
+    {
+      "owner": "Dr2",
+      "name": "run",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "Dr2",
+      "name": "cfM",
+      "descriptor": "([LgGV;)V"
+    },
+    {
+      "owner": "dnm",
+      "name": "cfM",
+      "descriptor": "(LeoG;)V"
+    },
+    {
+      "owner": "dnm",
+      "name": "cfM",
+      "descriptor": "()LeoG;"
+    },
+    {
+      "owner": "dnm",
+      "name": "MRY",
+      "descriptor": "()Z"
+    },
+    {
+      "owner": "gGV",
+      "name": "process",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "eov",
+      "name": "run",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "deT",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)Lcom/bitwig/ramona/core/brd;"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/CbE",
+      "name": "<init>",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;LdeU;)V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/Rzi",
+      "name": "UNj",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/Rzi",
+      "name": "wGc",
+      "descriptor": "()Z"
+    },
+    {
+      "owner": "dqr",
+      "name": "IwV",
+      "descriptor": "()Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/XKG",
+      "name": "Hnt",
+      "descriptor": "(Ljava/util/Set;)Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/XKG",
+      "name": "cfM",
+      "descriptor": "(Ljava/util/Set;Ljava/lang/Runnable;)V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/LBo",
+      "name": "run",
+      "descriptor": "()V"
+    }
+  ],
+  "slots": [
+    {
+      "receiverBase": "com/bitwig/ramona/core/oDc",
+      "name": "wxc",
+      "descriptor": "()Z"
+    },
+    {
+      "receiverBase": "com/bitwig/ramona/core/oDc",
+      "name": "H_",
+      "descriptor": "()Lcom/bitwig/ramona/core/oDc;"
+    },
+    {
+      "receiverBase": "com/bitwig/ramona/core/oDc",
+      "name": "lkC",
+      "descriptor": "()Lcom/bitwig/ramona/core/bnq;"
+    },
+    {
+      "receiverBase": "deS",
+      "name": "X_",
+      "descriptor": "()Z"
+    },
+    {
+      "receiverBase": "dfb",
+      "name": "nVd",
+      "descriptor": "()Z"
+    },
+    {
+      "receiverBase": "dfb",
+      "name": "E3",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)Lcom/bitwig/ramona/core/bnq;"
+    },
+    {
+      "receiverBase": "com/bitwig/ramona/core/bnq",
+      "name": "iHb",
+      "descriptor": "()Ldfb;"
+    },
+    {
+      "receiverBase": "com/bitwig/ramona/core/bnq",
+      "name": "J_",
+      "descriptor": "()Lcom/bitwig/ramona/core/oDc;"
+    }
+  ],
+  "targets": [
+    {
+      "kind": "method",
+      "owner": "dpN",
+      "name": "MRY",
+      "descriptor": "(LeoG;)V"
+    },
+    {
+      "kind": "method",
+      "owner": "dnm",
+      "name": "cfM",
+      "descriptor": "()LeoG;"
+    },
+    {
+      "kind": "field",
+      "owner": "deZ",
+      "name": "FzB",
+      "descriptor": "I"
+    },
+    {
+      "kind": "field",
+      "owner": "eTi",
+      "name": "cfM",
+      "descriptor": "[Ljava/lang/Object;"
+    },
+    {
+      "kind": "field",
+      "owner": "dfI",
+      "name": "dnz",
+      "descriptor": "Ljava/util/Set;"
+    },
+    {
+      "kind": "field",
+      "owner": "dfI",
+      "name": "Z1C",
+      "descriptor": "Ljava/util/List;"
+    },
+    {
+      "kind": "field",
+      "owner": "dfI",
+      "name": "dEI",
+      "descriptor": "LdgJ;"
+    },
+    {
+      "kind": "field",
+      "owner": "thz",
+      "name": "Hnt",
+      "descriptor": "Z"
+    },
+    {
+      "kind": "method",
+      "owner": "dqr",
+      "name": "UNj",
+      "descriptor": "()V"
+    },
+    {
+      "kind": "method",
+      "owner": "com/bitwig/ramona/core/Rzi",
+      "name": "UNj",
+      "descriptor": "()V"
+    },
+    {
+      "kind": "method",
+      "owner": "com/bitwig/ramona/core/XKG",
+      "name": "cfM",
+      "descriptor": "(Ljava/util/Set;)Z"
+    },
+    {
+      "kind": "method",
+      "owner": "cQq",
+      "name": "Hnt",
+      "descriptor": "()Ljava/lang/Object;"
+    },
+    {
+      "kind": "method",
+      "owner": "cQq",
+      "name": "cfM",
+      "descriptor": "(LdeV;Lcom/bitwig/ramona/core/oDc;[Ljava/lang/Object;)Ljava/lang/Object;"
+    }
+  ],
+  "sources": [
+    "../614-admission/trace.json",
+    "../614-admission/trace-plan.json",
+    "../614-ownership/trace.json",
+    "../614-structural/migration.json"
+  ],
+  "investigationEdges": [
+    "E334 ControlSurfaceObject.exec -> sdu.cfM(gGV) -> Dr2.cfM(gGV). Follow Dr2.ucQ and its array callback bootstrap.",
+    "Follow dpN.asyncExec -> dnm.cfM(eoG), incoming dnm.cfM() -> dpN.Wby and dqr.UNj, then dpN.MRY(eoG).",
+    "Follow AVL.xmC -> wxc, H_, ng_, deS.X_; zjj.Hnt -> oDc.lkC -> dfb.E3 -> bnq.iHb/J_.",
+    "Resolve dfb.nVd field FzB through deZ and its interfaces. Scan all matching symbolic field uses.",
+    "Follow dqr.UNj override slot Rzi.UNj, then incoming XKG.cfM(Set) and cQq.Hnt. Trace the edit-opening caller and request callback.",
+    "Follow E333 dnz, Z1C, dEI and identity-set eTi array references. Retain both tracking-mode writers."
+  ]
+}

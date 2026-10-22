@@ -1,0 +1,28 @@
+test_changed_signature_and_missing_superclass_stay_unresolved (grid_doctor.test_receiver_trace.DeclarationTests.test_changed_signature_and_missing_superclass_stay_unresolved) ... ok
+test_duplicate_method_refuses (grid_doctor.test_receiver_trace.DeclarationTests.test_duplicate_method_refuses) ... ok
+test_empty_interface_permits_superclass_field (grid_doctor.test_receiver_trace.DeclarationTests.test_empty_interface_permits_superclass_field) ... ok
+test_external_and_ambiguous_interface_fields_do_not_select_parent (grid_doctor.test_receiver_trace.DeclarationTests.test_external_and_ambiguous_interface_fields_do_not_select_parent) ... ok
+test_hierarchy_and_interface_cycles_refuse (grid_doctor.test_receiver_trace.DeclarationTests.test_hierarchy_and_interface_cycles_refuse) ... ok
+test_inherited_method_preserves_symbolic_owner_and_declaration (grid_doctor.test_receiver_trace.DeclarationTests.test_inherited_method_preserves_symbolic_owner_and_declaration) ... ok
+test_interface_diamond_keeps_one_declaration (grid_doctor.test_receiver_trace.DeclarationTests.test_interface_diamond_keeps_one_declaration) ... ok
+test_interface_field_precedes_superclass_field (grid_doctor.test_receiver_trace.DeclarationTests.test_interface_field_precedes_superclass_field) ... ok
+test_interface_methods_are_not_inferred (grid_doctor.test_receiver_trace.DeclarationTests.test_interface_methods_are_not_inferred) ... ok
+test_lookup_cache_is_bounded (grid_doctor.test_receiver_trace.DeclarationTests.test_lookup_cache_is_bounded) ... ok
+test_native_and_abstract_declarations_are_evidence_not_execution (grid_doctor.test_receiver_trace.DeclarationTests.test_native_and_abstract_declarations_are_evidence_not_execution) ... ok
+test_override_does_not_alias_the_parent (grid_doctor.test_receiver_trace.DeclarationTests.test_override_does_not_alias_the_parent) ... ok
+test_renamed_local_model_preserves_inherited_lookup (grid_doctor.test_receiver_trace.DeclarationTests.test_renamed_local_model_preserves_inherited_lookup) ... ok
+test_unrelated_additions_and_order_do_not_change_the_result (grid_doctor.test_receiver_trace.DeclarationTests.test_unrelated_additions_and_order_do_not_change_the_result) ... ok
+test_batch_bootstrap_and_runnable_body_are_retained (grid_doctor.test_receiver_trace.ReceiverIntegration.test_batch_bootstrap_and_runnable_body_are_retained) ... ok
+test_changed_seed_and_wrong_plan_refuse (grid_doctor.test_receiver_trace.ReceiverIntegration.test_changed_seed_and_wrong_plan_refuse) ... ok
+test_complete_scan_keeps_refusal (grid_doctor.test_receiver_trace.ReceiverIntegration.test_complete_scan_keeps_refusal) ... ok
+test_flag_override_cannot_be_replaced_by_the_base_bit_test (grid_doctor.test_receiver_trace.ReceiverIntegration.test_flag_override_cannot_be_replaced_by_the_base_bit_test) ... ok
+test_inherited_descriptor_field_sites_are_retained (grid_doctor.test_receiver_trace.ReceiverIntegration.test_inherited_descriptor_field_sites_are_retained) ... ok
+test_missing_and_duplicate_plan_inputs_refuse (grid_doctor.test_receiver_trace.ReceiverIntegration.test_missing_and_duplicate_plan_inputs_refuse) ... ok
+test_relationship_parent_step_can_allocate (grid_doctor.test_receiver_trace.ReceiverIntegration.test_relationship_parent_step_can_allocate) ... ok
+test_round_trip_pump_and_both_waiting_callers_are_retained (grid_doctor.test_receiver_trace.ReceiverIntegration.test_round_trip_pump_and_both_waiting_callers_are_retained) ... ok
+test_work_limits_refuse (grid_doctor.test_receiver_trace.ReceiverIntegration.test_work_limits_refuse) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 18.783s
+
+OK

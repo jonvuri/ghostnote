@@ -2,7 +2,7 @@
 title: 9b — Grid symbol manifest
 kind: note
 state: active
-status: E316 passes all 76 V20 roles on 6.0.6. E334 traces ownership and event dispatch; bounded admission and the complete 6.1.4 table remain incomplete.
+status: E316 passes all 76 V20 roles on 6.0.6. E335 traces descriptor overrides and a nested event pump; bounded admission and the complete 6.1.4 table remain incomplete.
 updated: 2026-10-21
 parent: 9b-grid-breadth-discovery-and-build-out.md
 ---

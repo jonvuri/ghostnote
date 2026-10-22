@@ -187,3 +187,31 @@ runtime fixture types or external subclasses. Bootstrap entries are evidence;
 the shared comparator still refuses unchecked dynamic calls. No vendor
 class is initialized, and no host or debug request is sent. Do not change
 the tracking mode or deploy a partial table to bypass this refusal.
+
+## 6.1.4 receiver and event contracts
+
+[E335](../../../../context/evidence/experiments/e335-grid-doctor-614-receiver-dispatch.md)
+records a descriptor predicate override, ancestor-step allocation, and a
+round-trip event pump. Fixed-command exclusion and history growth remain
+unproved. Continue with
+[9b.6e](../../../../context/plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6e--fixture-contracts-and-command-closure).
+
+Run the offline diagnostic from the repository root. The output path must
+not exist. The utility verifies E334's jar and seed traces before it scans
+the explicit plan. Plan names are investigation inputs, not role selectors.
+
+```sh
+PYTHONPATH=brain/src/probes python3 -B -m grid_doctor.receiver_trace \
+  --jar '/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar' \
+  --seed context/evidence/data/phase9b-doctor/614-admission/trace.json \
+  --plan context/evidence/data/phase9b-doctor/614-receivers/trace-plan.json \
+  --report /absolute/new/trace.json
+```
+
+Exit zero means the diagnostic completed. It still reports `result: refused`,
+`completeTable: false`, `boundedAdmission: false`, and `writeAuthority: false`.
+Resolved sites identify symbolic declarations. They do not select runtime
+virtual targets. Unresolved references with matching signatures are reported
+separately; they are not proved target callers. No vendor class is initialized,
+and no host request, candidate table, attempt, or cache is produced. The
+strict comparator and V20 driver remain unchanged.

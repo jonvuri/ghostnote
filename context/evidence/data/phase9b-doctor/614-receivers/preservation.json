@@ -1,0 +1,1192 @@
+{
+  "result": "pass",
+  "checks": [
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/.local/grid-doctor/fd829f5381cd55021de542d9581accfb20ca82ed2c975c3863a562fe083ed87a.attempt.json",
+      "bytes": 596,
+      "sha256": "dfd68b5b9ac9bccc32aa05248fed3dc0bb563e176c79e4de77a4a1c0979d540b",
+      "expectedSha256": "dfd68b5b9ac9bccc32aa05248fed3dc0bb563e176c79e4de77a4a1c0979d540b",
+      "matches": true
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/.local/grid-doctor/fd829f5381cd55021de542d9581accfb20ca82ed2c975c3863a562fe083ed87a.v20.attempt.json",
+      "bytes": 796,
+      "sha256": "05e252134d1aacbddd44f652cc5237eadcbba23dc60d3dd541d6f9b732b6dd9c",
+      "expectedSha256": "05e252134d1aacbddd44f652cc5237eadcbba23dc60d3dd541d6f9b732b6dd9c",
+      "matches": true
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/.local/grid-doctor/fd829f5381cd55021de542d9581accfb20ca82ed2c975c3863a562fe083ed87a.accepted.json",
+      "bytes": 4133,
+      "sha256": "f0d5ad79b531a869f80ce42a8e0712298bc95f2e76960f955108599883142041",
+      "expectedSha256": "f0d5ad79b531a869f80ce42a8e0712298bc95f2e76960f955108599883142041",
+      "matches": true
+    },
+    {
+      "path": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension",
+      "bytes": 846149,
+      "sha256": "25a5be4398f8825a7eabd2a541e49559ed60002f2d8d6b9db795f45664e4d9d2",
+      "expectedSha256": "25a5be4398f8825a7eabd2a541e49559ed60002f2d8d6b9db795f45664e4d9d2",
+      "matches": true
+    },
+    {
+      "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/bitwig-upgrade-audit/continuation-4-614/saved-project.bwproject",
+      "bytes": 72901,
+      "sha256": "b01ba21f2f2a6d790fddbc9663a278721d23d14935a4dc067f76e4bdf809970b",
+      "expectedSha256": "b01ba21f2f2a6d790fddbc9663a278721d23d14935a4dc067f76e4bdf809970b",
+      "matches": true
+    },
+    {
+      "path": "/Users/jonvuri/Bitwig Upgrade Work/2026-10-21/gn-upgrade-audit/gn-upgrade-audit.bwproject",
+      "bytes": 34259,
+      "sha256": "573084e28ef7e241e3d52fd24265b1302d6f8cc22695270e3d11386e80d4398f",
+      "expectedSha256": "573084e28ef7e241e3d52fd24265b1302d6f8cc22695270e3d11386e80d4398f",
+      "matches": true
+    },
+    {
+      "path": "brain/src/probes/grid_symbols/selectors.json",
+      "bytes": 46375,
+      "sha256": "33a1705fe9252bb0565033e014dd3fb233a676ff2e7f6441523ed18305cb15ab",
+      "expectedSha256": "33a1705fe9252bb0565033e014dd3fb233a676ff2e7f6441523ed18305cb15ab",
+      "matches": true
+    },
+    {
+      "path": "brain/src/probes/grid_doctor/undo-selectors.json",
+      "bytes": 1147,
+      "sha256": "adf4dfd407a0fe097c37f9d792fe973a1b02fc83d385ed4bbfadb5a43a909607",
+      "expectedSha256": "adf4dfd407a0fe097c37f9d792fe973a1b02fc83d385ed4bbfadb5a43a909607",
+      "matches": true
+    },
+    {
+      "path": "brain/src/probes/grid_doctor/undo-selectors-v20.json",
+      "bytes": 3078,
+      "sha256": "a00e204f9b08a3e81edb4ed9dc2d05a8181e630e913bd75accd782796128ebf5",
+      "expectedSha256": "a00e204f9b08a3e81edb4ed9dc2d05a8181e630e913bd75accd782796128ebf5",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/v20-preparation/candidate.json",
+      "bytes": 27485,
+      "sha256": "02d215359e4da1aca25575d6b102187385fb5302fd55aa4fcdcf6d3b0fca1f58",
+      "expectedSha256": "02d215359e4da1aca25575d6b102187385fb5302fd55aa4fcdcf6d3b0fca1f58",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/v20-preparation/selectors.json",
+      "bytes": 49606,
+      "sha256": "151ebb81d946d1ffc5c281a04f7cd1d3a4442c754f601a7c04e84aa485171d99",
+      "expectedSha256": "151ebb81d946d1ffc5c281a04f7cd1d3a4442c754f601a7c04e84aa485171d99",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/v20-preparation/undo-caller-trace.json",
+      "bytes": 29298,
+      "sha256": "9988fbf0b451c5821f3bbda9e3d84458f3cb027da2092789b8e8157ae2959934",
+      "expectedSha256": "9988fbf0b451c5821f3bbda9e3d84458f3cb027da2092789b8e8157ae2959934",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/accepted.json",
+      "bytes": 4133,
+      "sha256": "f0d5ad79b531a869f80ce42a8e0712298bc95f2e76960f955108599883142041",
+      "expectedSha256": "f0d5ad79b531a869f80ce42a8e0712298bc95f2e76960f955108599883142041",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/report.json",
+      "bytes": 36086,
+      "sha256": "9e55f254e83b5fdf8ce14d5db4e72fdcb2795b00fa6e8226bb9f847548983e92",
+      "expectedSha256": "9e55f254e83b5fdf8ce14d5db4e72fdcb2795b00fa6e8226bb9f847548983e92",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/attempt-record.json",
+      "bytes": 796,
+      "sha256": "05e252134d1aacbddd44f652cc5237eadcbba23dc60d3dd541d6f9b732b6dd9c",
+      "expectedSha256": "05e252134d1aacbddd44f652cc5237eadcbba23dc60d3dd541d6f9b732b6dd9c",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-preparation/diagnosis.json",
+      "bytes": 69336,
+      "sha256": "8a41cae41de61c85ccbb7fdb41689062a5bbaf4f80c9d0211e68d162476cb046",
+      "expectedSha256": "8a41cae41de61c85ccbb7fdb41689062a5bbaf4f80c9d0211e68d162476cb046",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-structural/contract-tests.txt",
+      "bytes": 1729,
+      "sha256": "a6fd9facd2fa2ceb2415d1216ed869da7a99cf562229e06311d27175f6e02d56",
+      "expectedSha256": "a6fd9facd2fa2ceb2415d1216ed869da7a99cf562229e06311d27175f6e02d56",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-structural/legacy-tests.txt",
+      "bytes": 3343,
+      "sha256": "734d73e9cb473e1e83590c56ecd532006b378ac77407f4a76d49e85409cc6078",
+      "expectedSha256": "734d73e9cb473e1e83590c56ecd532006b378ac77407f4a76d49e85409cc6078",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-structural/link-check.json",
+      "bytes": 42,
+      "sha256": "b0858eca4f1ea633b21c68b63d760a38100c1e7767684f47511a0d3564496c8e",
+      "expectedSha256": "b0858eca4f1ea633b21c68b63d760a38100c1e7767684f47511a0d3564496c8e",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-structural/migration.json",
+      "bytes": 161815,
+      "sha256": "daec36cf52cd66ab8fdfe4bc3d530ff16ca23fa4f1403c28279a6b5422288be5",
+      "expectedSha256": "daec36cf52cd66ab8fdfe4bc3d530ff16ca23fa4f1403c28279a6b5422288be5",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-structural/preservation.json",
+      "bytes": 5650,
+      "sha256": "79ec67d75237015f6db27012b2bc51513e36a9ee5cd9b8df6e01c8fda3ebbdfc",
+      "expectedSha256": "79ec67d75237015f6db27012b2bc51513e36a9ee5cd9b8df6e01c8fda3ebbdfc",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-structural/source-control.json",
+      "bytes": 142720,
+      "sha256": "02615c2400b0795e1b904f8d6b54fd383f0c33114ec13c2ad78bc2e0bf0cd850",
+      "expectedSha256": "02615c2400b0795e1b904f8d6b54fd383f0c33114ec13c2ad78bc2e0bf0cd850",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-preparation/initial-scan/candidate.json",
+      "bytes": 112,
+      "sha256": "a2dada5310dd60cf835836dd02a0ff08d6b1b1850935f76796500ba92898368b",
+      "expectedSha256": "a2dada5310dd60cf835836dd02a0ff08d6b1b1850935f76796500ba92898368b",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-preparation/initial-scan/selectors.json",
+      "bytes": 49606,
+      "sha256": "151ebb81d946d1ffc5c281a04f7cd1d3a4442c754f601a7c04e84aa485171d99",
+      "expectedSha256": "151ebb81d946d1ffc5c281a04f7cd1d3a4442c754f601a7c04e84aa485171d99",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-preparation/preservation.json",
+      "bytes": 2646,
+      "sha256": "c80d57c0503fb572a0b0d902c52044a5f39ba09225396ef26410a07b86641e79",
+      "expectedSha256": "c80d57c0503fb572a0b0d902c52044a5f39ba09225396ef26410a07b86641e79",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-preparation/python-integration-tests.txt",
+      "bytes": 3343,
+      "sha256": "a2ba1f7ca9ac8ab784cbda13ca4d34ac319f19cef7052e3816f64bcf7fb29ff2",
+      "expectedSha256": "a2ba1f7ca9ac8ab784cbda13ca4d34ac319f19cef7052e3816f64bcf7fb29ff2",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-preparation/python-tests.txt",
+      "bytes": 3293,
+      "sha256": "a9d2d3079bbe9098588e253a2d21069b5e0c40164dfb9fa95f45e3f18447fea5",
+      "expectedSha256": "a9d2d3079bbe9098588e253a2d21069b5e0c40164dfb9fa95f45e3f18447fea5",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-ownership/trace.json",
+      "bytes": 6138076,
+      "sha256": "f3d35e245d91c3810d50f8193f52d6977435af34de8c8388a371f95619f58e55",
+      "expectedSha256": "f3d35e245d91c3810d50f8193f52d6977435af34de8c8388a371f95619f58e55",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-ownership/regression-tests.txt",
+      "bytes": 4972,
+      "sha256": "f016f830db55bb0d4c086b94460ad2af0b09a1503b64bfd8fa586c68c036faf1",
+      "expectedSha256": "f016f830db55bb0d4c086b94460ad2af0b09a1503b64bfd8fa586c68c036faf1",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-ownership/preservation.json",
+      "bytes": 10204,
+      "sha256": "2dd9ea8e085d715e0ae6a523b570b00277d26e1a4a53566d1e6e21cb67420167",
+      "expectedSha256": "2dd9ea8e085d715e0ae6a523b570b00277d26e1a4a53566d1e6e21cb67420167",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-ownership/verification.json",
+      "bytes": 1542,
+      "sha256": "53a1171deeb0eb78e4d22caccc621b498784903a14df0059e467f2072d4954a6",
+      "expectedSha256": "53a1171deeb0eb78e4d22caccc621b498784903a14df0059e467f2072d4954a6",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-ownership/ownership-tests.txt",
+      "bytes": 1793,
+      "sha256": "37b8f478f6eef562daa1c26491e4a71daf4c3fee4ecdfdba7f6ccf6f8eccf2a8",
+      "expectedSha256": "37b8f478f6eef562daa1c26491e4a71daf4c3fee4ecdfdba7f6ccf6f8eccf2a8",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/v20-preparation/python-tests.txt",
+      "bytes": 122,
+      "sha256": "499acf3da3a4bd62bcb39ccd781f4adae2e9767b24ae1942b9f7d686df98bdf2",
+      "expectedSha256": "499acf3da3a4bd62bcb39ccd781f4adae2e9767b24ae1942b9f7d686df98bdf2",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/v20-preparation/typescript-tests.txt",
+      "bytes": 2072,
+      "sha256": "3f126bb2660d3ee4aaeb4b1322c4a126143e7dfd88f98dc086922e68a8fa1d2e",
+      "expectedSha256": "3f126bb2660d3ee4aaeb4b1322c4a126143e7dfd88f98dc086922e68a8fa1d2e",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/v20-preparation/java-tests.txt",
+      "bytes": 2263,
+      "sha256": "d7d42145506706bb5a5e6d1c70ac93915910ab64f224127604c7502052eff14d",
+      "expectedSha256": "d7d42145506706bb5a5e6d1c70ac93915910ab64f224127604c7502052eff14d",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/v20-preparation/document-checks.json",
+      "bytes": 206,
+      "sha256": "3a2078ed272d6df2149374c26afae635350a243e9e82a40a72eabd652993f48e",
+      "expectedSha256": "3a2078ed272d6df2149374c26afae635350a243e9e82a40a72eabd652993f48e",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/v20-preparation/deployment.txt",
+      "bytes": 521,
+      "sha256": "609685c87f2218754f08f75e0fe58072f64e5402e1cdac7e4051b4432b916800",
+      "expectedSha256": "609685c87f2218754f08f75e0fe58072f64e5402e1cdac7e4051b4432b916800",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/v20-preparation/scan.txt",
+      "bytes": 1360,
+      "sha256": "aa9f13d46cad75822bc541c20f4f0351a2f04fc551bf449e004dd6fb6594f919",
+      "expectedSha256": "aa9f13d46cad75822bc541c20f4f0351a2f04fc551bf449e004dd6fb6594f919",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/v20-preparation/verification.json",
+      "bytes": 735,
+      "sha256": "8aa77c655ce5142d9ab97ead2de96fa5122a035dc93aa70d33f7b7b63e9766cf",
+      "expectedSha256": "8aa77c655ce5142d9ab97ead2de96fa5122a035dc93aa70d33f7b7b63e9766cf",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/v20-preparation/typecheck.txt",
+      "bytes": 50,
+      "sha256": "1b03e9de90ffc44642cdcb5a29c5cb52f31bc4706815be7ce4ada75c9992643a",
+      "expectedSha256": "1b03e9de90ffc44642cdcb5a29c5cb52f31bc4706815be7ce4ada75c9992643a",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/v20-preparation/ambiguous-caller-refusal.json",
+      "bytes": 112,
+      "sha256": "f5120636b1f8f439d5cf445ef9149baac2dd96ad31bcaefb31d9dbed4d98a01d",
+      "expectedSha256": "f5120636b1f8f439d5cf445ef9149baac2dd96ad31bcaefb31d9dbed4d98a01d",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/before.json",
+      "bytes": 2702,
+      "sha256": "a9239cb1463a00ce67b2ff9e53d61ef2a69fc3db66fc49662ca45b93cf919f9c",
+      "expectedSha256": "a9239cb1463a00ce67b2ff9e53d61ef2a69fc3db66fc49662ca45b93cf919f9c",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/control-after-status-before-release.json",
+      "bytes": 195,
+      "sha256": "e3f51b7f7bd4422f9136006abbd14428562ab843c7e2dd687d37cc13a1563f58",
+      "expectedSha256": "e3f51b7f7bd4422f9136006abbd14428562ab843c7e2dd687d37cc13a1563f58",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-2-inserted.json",
+      "bytes": 430,
+      "sha256": "047424aec4980a9f02083f7d1cb4dd5e29d9ba46d0ee972bcbec034a205a6518",
+      "expectedSha256": "047424aec4980a9f02083f7d1cb4dd5e29d9ba46d0ee972bcbec034a205a6518",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/entry.json",
+      "bytes": 6996,
+      "sha256": "8202784b377df168a5cc23f1b7c9f97b28c4e87f882bfe6f0c3c7a16957eb6e6",
+      "expectedSha256": "8202784b377df168a5cc23f1b7c9f97b28c4e87f882bfe6f0c3c7a16957eb6e6",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/exit.json",
+      "bytes": 69,
+      "sha256": "862b1213f040740d4bd3d287ac17c189b521641ba55063cc8f74da7d4f04986c",
+      "expectedSha256": "862b1213f040740d4bd3d287ac17c189b521641ba55063cc8f74da7d4f04986c",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/tool-4-set_track_mixer.json",
+      "bytes": 1112,
+      "sha256": "dbb4472a354e93c15c50a6b12d551b519c7f5cca860bd8653ec1a2a0af117467",
+      "expectedSha256": "dbb4472a354e93c15c50a6b12d551b519c7f5cca860bd8653ec1a2a0af117467",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/tool-1-set_track_mixer.json",
+      "bytes": 1112,
+      "sha256": "147ff30a5ac0a5ea0e79a3e714a59cd8c9d8a0c1925eb2920f1decb3316d9977",
+      "expectedSha256": "147ff30a5ac0a5ea0e79a3e714a59cd8c9d8a0c1925eb2920f1decb3316d9977",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-0-target.json",
+      "bytes": 706,
+      "sha256": "564a84ec8f623445bef68633dc0efb9d6e15a960a0bb4a0ccc78c3ab818ec1dd",
+      "expectedSha256": "564a84ec8f623445bef68633dc0efb9d6e15a960a0bb4a0ccc78c3ab818ec1dd",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/final-read-only.json",
+      "bytes": 8339,
+      "sha256": "276bfa87f2792f890b6887a527b5edf6f89fa63d280072fe80ff9bb46e7fee84",
+      "expectedSha256": "276bfa87f2792f890b6887a527b5edf6f89fa63d280072fe80ff9bb46e7fee84",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/tool-8-delete_track.json",
+      "bytes": 659,
+      "sha256": "d8d61344e009faf73e4fafb86e2b6fbc42bc2f11a4bff8271d5e5e460a3c5f44",
+      "expectedSha256": "d8d61344e009faf73e4fafb86e2b6fbc42bc2f11a4bff8271d5e5e460a3c5f44",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-1-inserted.json",
+      "bytes": 486,
+      "sha256": "52aabf1aef73cdb20f85483a1cb5a1392b9094f0eb92d3211ee234f1148a6b78",
+      "expectedSha256": "52aabf1aef73cdb20f85483a1cb5a1392b9094f0eb92d3211ee234f1148a6b78",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-2-bind.json",
+      "bytes": 410,
+      "sha256": "6916b909124214c7dbed9b873acd8f836d2136db6210dc117ebef1438a50ffde",
+      "expectedSha256": "6916b909124214c7dbed9b873acd8f836d2136db6210dc117ebef1438a50ffde",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-2-stage-0-command.json",
+      "bytes": 669,
+      "sha256": "6595d8cfbc78f58750febc0a51729ccabea4f9f6786c99998105deae5ec6b147",
+      "expectedSha256": "6595d8cfbc78f58750febc0a51729ccabea4f9f6786c99998105deae5ec6b147",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-2-stage-7-command.json",
+      "bytes": 666,
+      "sha256": "f92e1c15a6fcb36f630c55c43bded9c06f7a61e1b15501af3df07937cf32c901",
+      "expectedSha256": "f92e1c15a6fcb36f630c55c43bded9c06f7a61e1b15501af3df07937cf32c901",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/tool-3-add_tracks.json",
+      "bytes": 993,
+      "sha256": "587932beb362507ca49b3e348b11d1de291847638c5ddbe9a31e513a7b42be34",
+      "expectedSha256": "587932beb362507ca49b3e348b11d1de291847638c5ddbe9a31e513a7b42be34",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/results.json",
+      "bytes": 2640,
+      "sha256": "e060045f350f57021aa35f992f118002b60e4f480577f4987faa26482adab078",
+      "expectedSha256": "e060045f350f57021aa35f992f118002b60e4f480577f4987faa26482adab078",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-2-released.json",
+      "bytes": 740,
+      "sha256": "82576b8aa515f3aec7f02e114d2d5c713d72230b4396c4816e845238719e022a",
+      "expectedSha256": "82576b8aa515f3aec7f02e114d2d5c713d72230b4396c4816e845238719e022a",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/control-before-status-before-release.json",
+      "bytes": 195,
+      "sha256": "222f79d382ca9eb9103230168100238960a34311bcdf27ed334994bcbd5b4131",
+      "expectedSha256": "222f79d382ca9eb9103230168100238960a34311bcdf27ed334994bcbd5b4131",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/exit-sockets.txt",
+      "bytes": 167,
+      "sha256": "1930232a5d3ef92b95ada259ac63eaf07c82f8231ec2f28563e3d122c4087679",
+      "expectedSha256": "1930232a5d3ef92b95ada259ac63eaf07c82f8231ec2f28563e3d122c4087679",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-2-stage-6-command.json",
+      "bytes": 674,
+      "sha256": "e3a6379a981b07594c6f81a6732a661bef51f7c7aad1611c2edbeb0e2707bf88",
+      "expectedSha256": "e3a6379a981b07594c6f81a6732a661bef51f7c7aad1611c2edbeb0e2707bf88",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-2-stage-1-command.json",
+      "bytes": 673,
+      "sha256": "9aeca92cc6b01596e53613f9ff80793018bc8a86f78c330704087ce5ea52da6a",
+      "expectedSha256": "9aeca92cc6b01596e53613f9ff80793018bc8a86f78c330704087ce5ea52da6a",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/capture-manifest.json",
+      "bytes": 12296,
+      "sha256": "2caf9f388d1d70cea549c01afea8c58d86afc6a81072638cf22b1f9c0bbe8927",
+      "expectedSha256": "2caf9f388d1d70cea549c01afea8c58d86afc6a81072638cf22b1f9c0bbe8927",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-1-released.json",
+      "bytes": 738,
+      "sha256": "c22bf2f5bbb6592b67762333ff4001612faa5079abed2e162361777f269b7101",
+      "expectedSha256": "c22bf2f5bbb6592b67762333ff4001612faa5079abed2e162361777f269b7101",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/document-checks.json",
+      "bytes": 710,
+      "sha256": "ba731c147cf2a57180378969e59a92dd60fced2f919cc32110bb1d27cb748152",
+      "expectedSha256": "ba731c147cf2a57180378969e59a92dd60fced2f919cc32110bb1d27cb748152",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/after.json",
+      "bytes": 2702,
+      "sha256": "a9239cb1463a00ce67b2ff9e53d61ef2a69fc3db66fc49662ca45b93cf919f9c",
+      "expectedSha256": "a9239cb1463a00ce67b2ff9e53d61ef2a69fc3db66fc49662ca45b93cf919f9c",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/calls.json.gz",
+      "bytes": 10206,
+      "sha256": "7ccd324dadc68150c5e4ec18d9b622fbcf3f6264338fd09a462ea6277fb4023e",
+      "expectedSha256": "7ccd324dadc68150c5e4ec18d9b622fbcf3f6264338fd09a462ea6277fb4023e",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-0-released.json",
+      "bytes": 738,
+      "sha256": "dd2a9bce08dce1274d76a28afea871e4c250b7ed9fe99d7a0a32c7a8bcea102e",
+      "expectedSha256": "dd2a9bce08dce1274d76a28afea871e4c250b7ed9fe99d7a0a32c7a8bcea102e",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/captures.zip",
+      "bytes": 194972,
+      "sha256": "21e407669112987740947a258cd7d6a8878a036f518d5921705e15824d97523d",
+      "expectedSha256": "21e407669112987740947a258cd7d6a8878a036f518d5921705e15824d97523d",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-2-stage-3-command.json",
+      "bytes": 676,
+      "sha256": "9bea17a9b97ccf3430dbcd2b0f0e13deb4f348b1592555d13a17e3aa454a0556",
+      "expectedSha256": "9bea17a9b97ccf3430dbcd2b0f0e13deb4f348b1592555d13a17e3aa454a0556",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-2-stage-11-command.json",
+      "bytes": 713,
+      "sha256": "5deb50815d41023206e26ef1599a516b831e97732625e9b8682962702b97be6d",
+      "expectedSha256": "5deb50815d41023206e26ef1599a516b831e97732625e9b8682962702b97be6d",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-2-stage-4-command.json",
+      "bytes": 674,
+      "sha256": "450300ba5d1d7bc3fc6ee78f03a7058c7b8b2c43c111fa054a65833d26d1847d",
+      "expectedSha256": "450300ba5d1d7bc3fc6ee78f03a7058c7b8b2c43c111fa054a65833d26d1847d",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-1-stage-1-command.json",
+      "bytes": 630,
+      "sha256": "0d7446e961c57c6356270e63d770069211ddead5611ff31f14a08698674f4c3f",
+      "expectedSha256": "0d7446e961c57c6356270e63d770069211ddead5611ff31f14a08698674f4c3f",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-1-target.json",
+      "bytes": 713,
+      "sha256": "fc725792ee0d5d0a9c4198d0d30104d235bd751dd82eb3705cbac20b776e65fd",
+      "expectedSha256": "fc725792ee0d5d0a9c4198d0d30104d235bd751dd82eb3705cbac20b776e65fd",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/control-before-summary.json",
+      "bytes": 2382,
+      "sha256": "3857e11df90761d3bfe0e2e8668ead5064bc6914e712e5769d29b959e220dbd5",
+      "expectedSha256": "3857e11df90761d3bfe0e2e8668ead5064bc6914e712e5769d29b959e220dbd5",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-2-stage-5-command.json",
+      "bytes": 676,
+      "sha256": "db21a3a3bd9a5195e721267da9c5ba995962d82d2279bd4be26c5f6eb1021ce9",
+      "expectedSha256": "db21a3a3bd9a5195e721267da9c5ba995962d82d2279bd4be26c5f6eb1021ce9",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-2-stage-2-command.json",
+      "bytes": 674,
+      "sha256": "9fbbcb3230e02805d4846933a8fd5f637073cb4396bdc05a4211a0687977f0da",
+      "expectedSha256": "9fbbcb3230e02805d4846933a8fd5f637073cb4396bdc05a4211a0687977f0da",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-2-stage-10-command.json",
+      "bytes": 29202,
+      "sha256": "c83451e6e6e65f59af46d51ea4637d2091793a253c4fc27d644631ebc9e704a9",
+      "expectedSha256": "c83451e6e6e65f59af46d51ea4637d2091793a253c4fc27d644631ebc9e704a9",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/capture-validation.json",
+      "bytes": 3739,
+      "sha256": "fbe81f965d1b2a229cda4eaf22b91aadd53a3e33b1d69b2157df7e484ef6a457",
+      "expectedSha256": "fbe81f965d1b2a229cda4eaf22b91aadd53a3e33b1d69b2157df7e484ef6a457",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-0-bind.json",
+      "bytes": 409,
+      "sha256": "f51941cdae06ca74970fd08d484be090ed4a8ae10b7129e53136bbff58eb1872",
+      "expectedSha256": "f51941cdae06ca74970fd08d484be090ed4a8ae10b7129e53136bbff58eb1872",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-1-stage-0-command.json",
+      "bytes": 631,
+      "sha256": "3285ba67ea9fe3e0bc8f8eb0fc5234a53f11aa6f0875a7632f35bc10403355cf",
+      "expectedSha256": "3285ba67ea9fe3e0bc8f8eb0fc5234a53f11aa6f0875a7632f35bc10403355cf",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/control-before-binding.json",
+      "bytes": 318,
+      "sha256": "6a43b661040f5cc45fe7c432330054f8c616fbed4a4fb6bc621d108a5fbb999b",
+      "expectedSha256": "6a43b661040f5cc45fe7c432330054f8c616fbed4a4fb6bc621d108a5fbb999b",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/tool-6-add_tracks.json",
+      "bytes": 993,
+      "sha256": "0de5d210e2c68e83e606da7de61f13e1141cae3a8e9b25d6ec8d0911db6abf15",
+      "expectedSha256": "0de5d210e2c68e83e606da7de61f13e1141cae3a8e9b25d6ec8d0911db6abf15",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/tool-2-delete_track.json",
+      "bytes": 659,
+      "sha256": "2198519a551d8bbda8329df3f8f303ddbbf4457371ee7ad82de2c0a528877861",
+      "expectedSha256": "2198519a551d8bbda8329df3f8f303ddbbf4457371ee7ad82de2c0a528877861",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-0-stage-1-command.json",
+      "bytes": 624,
+      "sha256": "e23a10b3d4f323c4747352138d288a61aae48f8c753b85e0f9add70159b65b6b",
+      "expectedSha256": "e23a10b3d4f323c4747352138d288a61aae48f8c753b85e0f9add70159b65b6b",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/doctor-prepared.json",
+      "bytes": 866,
+      "sha256": "614f9bb68a1d40ce715340e39d2158e683670d3f6c09d6e5e6e00467c2ee228c",
+      "expectedSha256": "614f9bb68a1d40ce715340e39d2158e683670d3f6c09d6e5e6e00467c2ee228c",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/control-after-binding.json",
+      "bytes": 318,
+      "sha256": "c19bfea9af3647d230ed9e0633066d95afb611ac4976388fcc6a8e62eec89541",
+      "expectedSha256": "c19bfea9af3647d230ed9e0633066d95afb611ac4976388fcc6a8e62eec89541",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-0-inserted.json",
+      "bytes": 479,
+      "sha256": "3b19b80bb2f8b67b2f157f6b9864895813add00a3ebc4cca7ba04b2d02b44d24",
+      "expectedSha256": "3b19b80bb2f8b67b2f157f6b9864895813add00a3ebc4cca7ba04b2d02b44d24",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-2-stage-8-command.json",
+      "bytes": 712,
+      "sha256": "f82a490e11fe706e8b2a5d54d298b89d99102b5ad0e299c82a9abacb6663a5f9",
+      "expectedSha256": "f82a490e11fe706e8b2a5d54d298b89d99102b5ad0e299c82a9abacb6663a5f9",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-2-target.json",
+      "bytes": 657,
+      "sha256": "1b353396141cf273feb150f552031662e036594a899278320c6fa055d33e4bce",
+      "expectedSha256": "1b353396141cf273feb150f552031662e036594a899278320c6fa055d33e4bce",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/tool-0-add_tracks.json",
+      "bytes": 993,
+      "sha256": "5fca6676d4b315b13546faed81db30e9f2398339a97f0465d7b143012da35565",
+      "expectedSha256": "5fca6676d4b315b13546faed81db30e9f2398339a97f0465d7b143012da35565",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/tool-5-delete_track.json",
+      "bytes": 659,
+      "sha256": "a5c95632c03b4458a84e577dca99e8ef8d441d1a2629fd9926abfde1fe44f363",
+      "expectedSha256": "a5c95632c03b4458a84e577dca99e8ef8d441d1a2629fd9926abfde1fe44f363",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/tool-7-set_track_mixer.json",
+      "bytes": 1112,
+      "sha256": "b2b2830181d80d864896332c7f47c13da1ae36228a75c4f6c8b79f463e1512f6",
+      "expectedSha256": "b2b2830181d80d864896332c7f47c13da1ae36228a75c4f6c8b79f463e1512f6",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-0-stage-0-command.json",
+      "bytes": 624,
+      "sha256": "23d82bb3d35103ff8fdd987c9704cbbf2455a0fa1cd9a71cc0aec00d45acbc53",
+      "expectedSha256": "23d82bb3d35103ff8fdd987c9704cbbf2455a0fa1cd9a71cc0aec00d45acbc53",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-1-bind.json",
+      "bytes": 410,
+      "sha256": "f57c42efb53000540a9b0683079511006330299b4f9b349634fa9496303717af",
+      "expectedSha256": "f57c42efb53000540a9b0683079511006330299b4f9b349634fa9496303717af",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/control-after-summary.json",
+      "bytes": 2384,
+      "sha256": "64076856a629955ba78df5b6a7507e42ed0723c30dde6f274e0fd1b23e09d6c2",
+      "expectedSha256": "64076856a629955ba78df5b6a7507e42ed0723c30dde6f274e0fd1b23e09d6c2",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/preset-2-stage-9-command.json",
+      "bytes": 678,
+      "sha256": "7bfd1de3d34f4e976114f8a8238b41d9e73d4fccd2b45177af71c853d15bee8f",
+      "expectedSha256": "7bfd1de3d34f4e976114f8a8238b41d9e73d4fccd2b45177af71c853d15bee8f",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v20/exit-processes.txt",
+      "bytes": 741,
+      "sha256": "fcd5cc1222730efe59ff49fee68bc7b0043bc48bcdb4cf2a6fac6d5a7869753a",
+      "expectedSha256": "fcd5cc1222730efe59ff49fee68bc7b0043bc48bcdb4cf2a6fac6d5a7869753a",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/before.json",
+      "bytes": 2702,
+      "sha256": "a9239cb1463a00ce67b2ff9e53d61ef2a69fc3db66fc49662ca45b93cf919f9c",
+      "expectedSha256": "a9239cb1463a00ce67b2ff9e53d61ef2a69fc3db66fc49662ca45b93cf919f9c",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-2-inserted.json",
+      "bytes": 430,
+      "sha256": "b9b2a32dabd0ebfccf0b78d619d622e13359f2865d7ee6c9f33ba5a9ff055c3e",
+      "expectedSha256": "b9b2a32dabd0ebfccf0b78d619d622e13359f2865d7ee6c9f33ba5a9ff055c3e",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/entry.json",
+      "bytes": 6997,
+      "sha256": "bf4539694568945d8e0baa2f2acfc046e67240924fb6ae174e5a4fa3e14f4f0a",
+      "expectedSha256": "bf4539694568945d8e0baa2f2acfc046e67240924fb6ae174e5a4fa3e14f4f0a",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/exit.json",
+      "bytes": 102,
+      "sha256": "be070b550ecf039021dfbddc1137f6ee92385230d95e085a60f347f8c5b64776",
+      "expectedSha256": "be070b550ecf039021dfbddc1137f6ee92385230d95e085a60f347f8c5b64776",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/failure-state.json",
+      "bytes": 1034,
+      "sha256": "1cf431f560509811568f0a36a7a625cddcb10054d263be52df74af26513bb852",
+      "expectedSha256": "1cf431f560509811568f0a36a7a625cddcb10054d263be52df74af26513bb852",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/tool-4-set_track_mixer.json",
+      "bytes": 1112,
+      "sha256": "56f3dbaa645c9d63d270be6f773321bddac4b3a7a1446008b699c5c97d2619df",
+      "expectedSha256": "56f3dbaa645c9d63d270be6f773321bddac4b3a7a1446008b699c5c97d2619df",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/tool-1-set_track_mixer.json",
+      "bytes": 1112,
+      "sha256": "758427fa56d4a0a7e263b62fbbf0816a98131ebbf86496fdb6205d732d3afa1e",
+      "expectedSha256": "758427fa56d4a0a7e263b62fbbf0816a98131ebbf86496fdb6205d732d3afa1e",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-0-target.json",
+      "bytes": 706,
+      "sha256": "3ac0b091936dd9fc416e7afc51de1d05147ea5655743033a470643e945beec88",
+      "expectedSha256": "3ac0b091936dd9fc416e7afc51de1d05147ea5655743033a470643e945beec88",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/report.json",
+      "bytes": 26845,
+      "sha256": "cbbd4d773629386965dfd578ead113974d37278855e1861ef32beaccccec9c89",
+      "expectedSha256": "cbbd4d773629386965dfd578ead113974d37278855e1861ef32beaccccec9c89",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-1-inserted.json",
+      "bytes": 486,
+      "sha256": "26d1f78f45963fc222fb9827a655cc7620b15d4410781a921f0ca1abddddf68f",
+      "expectedSha256": "26d1f78f45963fc222fb9827a655cc7620b15d4410781a921f0ca1abddddf68f",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-2-bind.json",
+      "bytes": 409,
+      "sha256": "0117e37110ae673622ff36f57cf514e1b786f332cf5f776b6f3d3a5c896e6a15",
+      "expectedSha256": "0117e37110ae673622ff36f57cf514e1b786f332cf5f776b6f3d3a5c896e6a15",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-2-stage-0-command.json",
+      "bytes": 671,
+      "sha256": "92198f8576c451d3bdcc0e65503e7805a81836054723ce5188918baf16ce9fc5",
+      "expectedSha256": "92198f8576c451d3bdcc0e65503e7805a81836054723ce5188918baf16ce9fc5",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-2-stage-7-command.json",
+      "bytes": 671,
+      "sha256": "e1d99357f884a9d9642ad99e189a42e028421597a5d7434d6ab1122957f6dc8d",
+      "expectedSha256": "e1d99357f884a9d9642ad99e189a42e028421597a5d7434d6ab1122957f6dc8d",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/tool-3-add_tracks.json",
+      "bytes": 993,
+      "sha256": "ce941fdbbd8cbff4d68d86b0cf175758f85e2b9e54933979c9d3038b1b5d37f2",
+      "expectedSha256": "ce941fdbbd8cbff4d68d86b0cf175758f85e2b9e54933979c9d3038b1b5d37f2",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/control-before-status-before-release.json",
+      "bytes": 195,
+      "sha256": "88c7d1815a097ac7b1c63a0e19acb2f4c14f78bc21bfa92f8a100eb83c2e619f",
+      "expectedSha256": "88c7d1815a097ac7b1c63a0e19acb2f4c14f78bc21bfa92f8a100eb83c2e619f",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-2-stage-6-command.json",
+      "bytes": 677,
+      "sha256": "f6e18591a6a9db6b462f9ae4c14b0e6d6c0d06dccc56131e1add0440970babe0",
+      "expectedSha256": "f6e18591a6a9db6b462f9ae4c14b0e6d6c0d06dccc56131e1add0440970babe0",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-2-stage-1-command.json",
+      "bytes": 674,
+      "sha256": "bddcc3e71cb24a0eb9a5de98647f07a4d9664afaa90bce04c52a9b4ec314fbe1",
+      "expectedSha256": "bddcc3e71cb24a0eb9a5de98647f07a4d9664afaa90bce04c52a9b4ec314fbe1",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/capture-manifest.json",
+      "bytes": 7851,
+      "sha256": "8b90f498b8870cd956737f7c35c322bc9f07152d8e623ec258a7f39c7e1ad2e0",
+      "expectedSha256": "8b90f498b8870cd956737f7c35c322bc9f07152d8e623ec258a7f39c7e1ad2e0",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-1-released.json",
+      "bytes": 738,
+      "sha256": "2b911378126a1ff8bdcb5394971a2a00153f9147a3f86e7e5d669d7a1c809c32",
+      "expectedSha256": "2b911378126a1ff8bdcb5394971a2a00153f9147a3f86e7e5d669d7a1c809c32",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/calls.json.gz",
+      "bytes": 8806,
+      "sha256": "121b6cd512e72c16294f421bd99a9284f8b948b6ec4c371828e38fc0668ffb7c",
+      "expectedSha256": "121b6cd512e72c16294f421bd99a9284f8b948b6ec4c371828e38fc0668ffb7c",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-0-released.json",
+      "bytes": 738,
+      "sha256": "0b3bb15198b9c2d34a028822fe28b524e95a3382b26484eb51b08244cc33a1c7",
+      "expectedSha256": "0b3bb15198b9c2d34a028822fe28b524e95a3382b26484eb51b08244cc33a1c7",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/captures.zip",
+      "bytes": 135534,
+      "sha256": "19ed54a75f3ccb11488690f698ceb2aae326063739e4f78e711799a7b317216e",
+      "expectedSha256": "19ed54a75f3ccb11488690f698ceb2aae326063739e4f78e711799a7b317216e",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-2-stage-3-command.json",
+      "bytes": 678,
+      "sha256": "bd2cc0546538da6733842a1660354b99c89a96ac590d655a775c5988dd30cc6c",
+      "expectedSha256": "bd2cc0546538da6733842a1660354b99c89a96ac590d655a775c5988dd30cc6c",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-2-stage-4-command.json",
+      "bytes": 674,
+      "sha256": "30c14f93715af510f200653cebbcf614c05cf3aec7ea74c0cd3791b2cffcb52b",
+      "expectedSha256": "30c14f93715af510f200653cebbcf614c05cf3aec7ea74c0cd3791b2cffcb52b",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-1-stage-1-command.json",
+      "bytes": 629,
+      "sha256": "9ab885dc23ae2c6eead9a4068ae38bf0d0614a5508d7de57d3e1418b71873e47",
+      "expectedSha256": "9ab885dc23ae2c6eead9a4068ae38bf0d0614a5508d7de57d3e1418b71873e47",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-1-target.json",
+      "bytes": 713,
+      "sha256": "146681efacad6a99e10051d147c5bac65e94f6b826e3730b4be3dd64bbb19d68",
+      "expectedSha256": "146681efacad6a99e10051d147c5bac65e94f6b826e3730b4be3dd64bbb19d68",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/control-before-summary.json",
+      "bytes": 2384,
+      "sha256": "d724e9c4604d350ebee377f3b502309a8e4a9d3fd53ea6f498ba3a44270700ab",
+      "expectedSha256": "d724e9c4604d350ebee377f3b502309a8e4a9d3fd53ea6f498ba3a44270700ab",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-2-stage-5-command.json",
+      "bytes": 674,
+      "sha256": "23360c592ea99e2a232a377a5d38c0422ef42929f75f33faa46793acc1aa40b7",
+      "expectedSha256": "23360c592ea99e2a232a377a5d38c0422ef42929f75f33faa46793acc1aa40b7",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-2-stage-2-command.json",
+      "bytes": 675,
+      "sha256": "7a17e1beb1f885a2b15a9324fc659145b687489bf075ae8717a4392f132cf865",
+      "expectedSha256": "7a17e1beb1f885a2b15a9324fc659145b687489bf075ae8717a4392f132cf865",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-0-bind.json",
+      "bytes": 409,
+      "sha256": "677db05163431960c5dad6af0c9ed0a3e4a6b03d9369f2e639ddb0d4ab2bf070",
+      "expectedSha256": "677db05163431960c5dad6af0c9ed0a3e4a6b03d9369f2e639ddb0d4ab2bf070",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-1-stage-0-command.json",
+      "bytes": 629,
+      "sha256": "65b1a061367d1ca1495ac189888dd2b9ec65b7c1cafdf00c973970dfa32ef05f",
+      "expectedSha256": "65b1a061367d1ca1495ac189888dd2b9ec65b7c1cafdf00c973970dfa32ef05f",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/control-before-binding.json",
+      "bytes": 319,
+      "sha256": "52abf6136fceac94b4ad8425cbc60545af3d78682571da767e8c1b6526a3d2ac",
+      "expectedSha256": "52abf6136fceac94b4ad8425cbc60545af3d78682571da767e8c1b6526a3d2ac",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/breadth-validation.json",
+      "bytes": 584,
+      "sha256": "f23f5613025802f7e98c209b37899e276398e03668e296cbaaa3e2de1e87a216",
+      "expectedSha256": "f23f5613025802f7e98c209b37899e276398e03668e296cbaaa3e2de1e87a216",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/tool-6-add_tracks.json",
+      "bytes": 993,
+      "sha256": "6d44e2583e36d5de862dde5169d12977a2bb91bb04679ee7cf88686861e7818d",
+      "expectedSha256": "6d44e2583e36d5de862dde5169d12977a2bb91bb04679ee7cf88686861e7818d",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-2-inspection.json",
+      "bytes": 62663,
+      "sha256": "f751835d7ca227b794a0c92b75cdde61971e919dc6ea7f99d81381a1e12b3c13",
+      "expectedSha256": "f751835d7ca227b794a0c92b75cdde61971e919dc6ea7f99d81381a1e12b3c13",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/tool-2-delete_track.json",
+      "bytes": 659,
+      "sha256": "0b9eb583a8489a349e4c1ebf0fe4f406cf92f953e9f4869c999b91ee006a4e0c",
+      "expectedSha256": "0b9eb583a8489a349e4c1ebf0fe4f406cf92f953e9f4869c999b91ee006a4e0c",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-0-stage-1-command.json",
+      "bytes": 625,
+      "sha256": "d512532ba9c840ace301d1ea8b4a019e09bc94bdec6b1e6a666e2882b5ddeab1",
+      "expectedSha256": "d512532ba9c840ace301d1ea8b4a019e09bc94bdec6b1e6a666e2882b5ddeab1",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/failure.json",
+      "bytes": 3794,
+      "sha256": "21dd8edb60cd9613621b7d5b2ba46b7c3b71ade312b94e482866f84b1e4470bf",
+      "expectedSha256": "21dd8edb60cd9613621b7d5b2ba46b7c3b71ade312b94e482866f84b1e4470bf",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/doctor-prepared.json",
+      "bytes": 866,
+      "sha256": "5cfd2f835d38f386bc8806719d0aa2bac46bfc1660db3a7912031465c6b58749",
+      "expectedSha256": "5cfd2f835d38f386bc8806719d0aa2bac46bfc1660db3a7912031465c6b58749",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-0-inserted.json",
+      "bytes": 479,
+      "sha256": "20c581b356e0392b5334aee5069798c02269a33c103d19aa49f93c2178d8fcb7",
+      "expectedSha256": "20c581b356e0392b5334aee5069798c02269a33c103d19aa49f93c2178d8fcb7",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-2-failure-status.json",
+      "bytes": 881,
+      "sha256": "b72876c8ecd02ae9c4b24cac47dea6c0558def193ae92c113a988a2ef8e10240",
+      "expectedSha256": "b72876c8ecd02ae9c4b24cac47dea6c0558def193ae92c113a988a2ef8e10240",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-2-target.json",
+      "bytes": 657,
+      "sha256": "3482182f42109e0e020033389205bd8d6df80975dde3e39c66d9841075b2aeab",
+      "expectedSha256": "3482182f42109e0e020033389205bd8d6df80975dde3e39c66d9841075b2aeab",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/tool-0-add_tracks.json",
+      "bytes": 993,
+      "sha256": "35050bac7766aa04b103959428746f186ac23c4c3e81772bd26765ef94680fc5",
+      "expectedSha256": "35050bac7766aa04b103959428746f186ac23c4c3e81772bd26765ef94680fc5",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/tool-5-delete_track.json",
+      "bytes": 659,
+      "sha256": "9db49a4ada4cc9846c8c8dd9e187336064593f7fd4d7616a0cc1716a8056b360",
+      "expectedSha256": "9db49a4ada4cc9846c8c8dd9e187336064593f7fd4d7616a0cc1716a8056b360",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/tool-7-set_track_mixer.json",
+      "bytes": 1112,
+      "sha256": "33b142fc5953289c40a9c359994443ff7a699b72154bdc3bfa0fa961ef693104",
+      "expectedSha256": "33b142fc5953289c40a9c359994443ff7a699b72154bdc3bfa0fa961ef693104",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-0-stage-0-command.json",
+      "bytes": 625,
+      "sha256": "54b91f4fc6ea7dbd314d364b312be3b19fdc2ff044b513c310cabc0a073ad805",
+      "expectedSha256": "54b91f4fc6ea7dbd314d364b312be3b19fdc2ff044b513c310cabc0a073ad805",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/live-v19/preset-1-bind.json",
+      "bytes": 406,
+      "sha256": "3d27af6fe20f70a4acab8279c1988df1408d4037ac788fa10774b8e37215db9d",
+      "expectedSha256": "3d27af6fe20f70a4acab8279c1988df1408d4037ac788fa10774b8e37215db9d",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/recovery-v19/before.json",
+      "bytes": 2702,
+      "sha256": "a9239cb1463a00ce67b2ff9e53d61ef2a69fc3db66fc49662ca45b93cf919f9c",
+      "expectedSha256": "a9239cb1463a00ce67b2ff9e53d61ef2a69fc3db66fc49662ca45b93cf919f9c",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/recovery-v19/entry.json",
+      "bytes": 4410,
+      "sha256": "cfad9eb1754e4413538d4f49ec9228f361ebb45831adae55a09036935e3f7a93",
+      "expectedSha256": "cfad9eb1754e4413538d4f49ec9228f361ebb45831adae55a09036935e3f7a93",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/recovery-v19/sockets.txt",
+      "bytes": 167,
+      "sha256": "d50f45eac92a1ef9ddd81a46e5d15c53e493c83571f93e8801bebfa364da5113",
+      "expectedSha256": "d50f45eac92a1ef9ddd81a46e5d15c53e493c83571f93e8801bebfa364da5113",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/recovery-v19/report.json",
+      "bytes": 1123,
+      "sha256": "835202549124534e8a5db2b9f20eef23df01086afc0321800fb7f6c14393c11b",
+      "expectedSha256": "835202549124534e8a5db2b9f20eef23df01086afc0321800fb7f6c14393c11b",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/recovery-v19/control-status-before-release.json",
+      "bytes": 195,
+      "sha256": "ebfb14a5e47980e420277433061e52b9fcc05c7eddd25afb67eea576cf9f3227",
+      "expectedSha256": "ebfb14a5e47980e420277433061e52b9fcc05c7eddd25afb67eea576cf9f3227",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/recovery-v19/capture-manifest.json",
+      "bytes": 3084,
+      "sha256": "5ea3f42b31347c989ac2aa361d7f2fbee4ec342096ddf53c409ed35107c7c609",
+      "expectedSha256": "5ea3f42b31347c989ac2aa361d7f2fbee4ec342096ddf53c409ed35107c7c609",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/recovery-v19/document-checks.json",
+      "bytes": 72,
+      "sha256": "4b827053379fe5a5e5baf3a304fb22f4331793dd97d08bc2df69652087c25420",
+      "expectedSha256": "4b827053379fe5a5e5baf3a304fb22f4331793dd97d08bc2df69652087c25420",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/recovery-v19/control-captures.zip",
+      "bytes": 29387,
+      "sha256": "7a69551e06ce77049ee794e35d49697e5fc8c1b2f2ccc791e4e6eeb579f25855",
+      "expectedSha256": "7a69551e06ce77049ee794e35d49697e5fc8c1b2f2ccc791e4e6eeb579f25855",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/recovery-v19/after.json",
+      "bytes": 2702,
+      "sha256": "a9239cb1463a00ce67b2ff9e53d61ef2a69fc3db66fc49662ca45b93cf919f9c",
+      "expectedSha256": "a9239cb1463a00ce67b2ff9e53d61ef2a69fc3db66fc49662ca45b93cf919f9c",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/recovery-v19/processes.txt",
+      "bytes": 765,
+      "sha256": "7993024e3f17b5c80e68ec80f9805b3c8b4b5259f36a6ede2e429db812392ce9",
+      "expectedSha256": "7993024e3f17b5c80e68ec80f9805b3c8b4b5259f36a6ede2e429db812392ce9",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/recovery-v19/final-status.json",
+      "bytes": 602,
+      "sha256": "bc4bbb85417ffdfc08846483cf7e15378057ae18bb7052d48659f95b599709d9",
+      "expectedSha256": "bc4bbb85417ffdfc08846483cf7e15378057ae18bb7052d48659f95b599709d9",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/recovery-v19/console.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expectedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/recovery-v19/control-binding.json",
+      "bytes": 320,
+      "sha256": "c93701797ae60365414ee4db52672c33c8a5b5b1d7464e1034d2d0b2905b7f74",
+      "expectedSha256": "c93701797ae60365414ee4db52672c33c8a5b5b1d7464e1034d2d0b2905b7f74",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/recovery-v19/hello.txt",
+      "bytes": 14664,
+      "sha256": "321dc2438caa0635c37387d92e4d0e95b33f4876c41a4c51d80b32929a965a51",
+      "expectedSha256": "321dc2438caa0635c37387d92e4d0e95b33f4876c41a4c51d80b32929a965a51",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/recovery-v19/calls.json",
+      "bytes": 35619,
+      "sha256": "6f49f854e9a03227de7c844fc607fb666d6b28be82b09a92f5e8e7df5ba9747b",
+      "expectedSha256": "6f49f854e9a03227de7c844fc607fb666d6b28be82b09a92f5e8e7df5ba9747b",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/recovery-v19/control-summary.json",
+      "bytes": 2384,
+      "sha256": "c4cd097af11e7d2f59c75fabf5efd76351652380c7befe244b6f66ac5d33379b",
+      "expectedSha256": "c4cd097af11e7d2f59c75fabf5efd76351652380c7befe244b6f66ac5d33379b",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-admission/admission-tests.txt",
+      "bytes": 2394,
+      "sha256": "ba528e144acb0873e3f0061ec1db0250da462a8c33c9b5ef16d2d7932031362f",
+      "expectedSha256": "ba528e144acb0873e3f0061ec1db0250da462a8c33c9b5ef16d2d7932031362f",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-admission/link-check.json",
+      "bytes": 69,
+      "sha256": "6d1e732b81fc61f3f81efae7c06d4c058568a5c29aba387032e175205d034353",
+      "expectedSha256": "6d1e732b81fc61f3f81efae7c06d4c058568a5c29aba387032e175205d034353",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-admission/preservation.json",
+      "bytes": 52513,
+      "sha256": "6971877ed678261bea3df2649ec4b4354d3102bfc7c75ffdc4c702c964ed9a4e",
+      "expectedSha256": "6971877ed678261bea3df2649ec4b4354d3102bfc7c75ffdc4c702c964ed9a4e",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-admission/regression-tests.txt",
+      "bytes": 6665,
+      "sha256": "8e7098b90099fb0449c15b28b75dbd47cdcf38bc8dd0d7aa7c709bb11bd87acc",
+      "expectedSha256": "8e7098b90099fb0449c15b28b75dbd47cdcf38bc8dd0d7aa7c709bb11bd87acc",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-admission/scan.txt",
+      "bytes": 160,
+      "sha256": "11ba1c055f6ca05e0187851143f609d1c1149b2c3633c396636de824b88ec2b7",
+      "expectedSha256": "11ba1c055f6ca05e0187851143f609d1c1149b2c3633c396636de824b88ec2b7",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-admission/trace-plan.json",
+      "bytes": 5634,
+      "sha256": "7a5c629d9544103a5fbef2cc9007fb1c6a03fab91d7dc3003384ab972bedcb05",
+      "expectedSha256": "7a5c629d9544103a5fbef2cc9007fb1c6a03fab91d7dc3003384ab972bedcb05",
+      "matches": true
+    },
+    {
+      "path": "context/evidence/data/phase9b-doctor/614-admission/trace.json",
+      "bytes": 1660925,
+      "sha256": "db7fc09b1b36dde966ed37d03f8be0f5a2ca4a6054f99cad7453087f1d148837",
+      "expectedSha256": "db7fc09b1b36dde966ed37d03f8be0f5a2ca4a6054f99cad7453087f1d148837",
+      "matches": true
+    }
+  ],
+  "localInventoryBefore": [
+    ".local/grid-doctor/fd829f5381cd55021de542d9581accfb20ca82ed2c975c3863a562fe083ed87a.accepted.json",
+    ".local/grid-doctor/fd829f5381cd55021de542d9581accfb20ca82ed2c975c3863a562fe083ed87a.attempt.json",
+    ".local/grid-doctor/fd829f5381cd55021de542d9581accfb20ca82ed2c975c3863a562fe083ed87a.v20.attempt.json"
+  ],
+  "localInventoryAfter": [
+    ".local/grid-doctor/fd829f5381cd55021de542d9581accfb20ca82ed2c975c3863a562fe083ed87a.accepted.json",
+    ".local/grid-doctor/fd829f5381cd55021de542d9581accfb20ca82ed2c975c3863a562fe083ed87a.attempt.json",
+    ".local/grid-doctor/fd829f5381cd55021de542d9581accfb20ca82ed2c975c3863a562fe083ed87a.v20.attempt.json"
+  ],
+  "inventoryUnchanged": true
+}

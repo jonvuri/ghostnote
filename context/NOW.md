@@ -4,28 +4,29 @@ kind: status
 state: active
 updated: 2026-10-21
 phase: phase-9-overlap-investigation
-session: 9b6d-doctor-614-receiver-contracts
+session: 9b6e-doctor-614-fixture-closure
 ---
 
 ## Next session
 
-**Start 9b.6d: complete receiver contracts and admission.**
-[E334](evidence/experiments/e334-grid-doctor-614-admission-boundaries.md) records
-9b.6c's measured refusal. The ancestor and parent getter census covers 2,818
-concrete object classes. Debug tracking commands use the application event
-queue. Document history bounds and native command non-reentrancy remain
-unproved. No complete table or probe exists.
+**Start 9b.6e: fixture contracts and command closure.**
+[E335](evidence/experiments/e335-grid-doctor-614-receiver-dispatch.md) records
+9b.6d's measured refusal. A relationship subtype always returns true for
+`nVd`; the base `0x20` test is insufficient. An ancestor step can allocate.
+The round-trip context callback can dispatch another app event. Empty-set
+callback completion excludes one wait only. Fixed-command reachability and
+history growth remain unproved. No complete table or probe exists.
 
-Read the [9b.6d brief](plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6d--complete-receiver-contracts-and-admission),
-E334's [trace](evidence/data/phase9b-doctor/614-admission/trace.json) and
-[trace plan](evidence/data/phase9b-doctor/614-admission/trace-plan.json),
-E333, E332, E331, E315/E316, the symbol manifest, and the performance ledger.
-The complete 55-type/76-member resolver, descriptor contracts, history caps,
-event re-entry proof, resilience tests, and new-build driver belong to 9b.6d.
-Keep the strict comparator and all original selectors, attempts, and caches.
+Read the [9b.6e brief](plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6e--fixture-contracts-and-command-closure),
+E335's [trace](evidence/data/phase9b-doctor/614-receivers/trace.json) and
+[plan](evidence/data/phase9b-doctor/614-receivers/trace-plan.json), E334–E331,
+E315/E316, the symbol manifest, and the performance ledger. Bind the complete
+55-type/76-member table and fixed descriptor receivers. Trace both waiting
+paths and each command's history growth. Keep all original selectors,
+attempts, caches, and the strict comparator.
 
-Only complete resolution and bounded admission can proceed to probe
-preparation. V20 still requires 6.0.6 and E313's specific retry record.
+Only complete resolution and bounded admission can proceed to driver and
+probe preparation. V20 still requires 6.0.6 and E313's specific retry record.
 Controller replacement is an operator action. Fresh scratch consent and
 project verification remain required before the new-build doctor. E330
 grants no native write authority. Step 2 stays open; 9b.7 owns product cache
@@ -33,7 +34,7 @@ enforcement. Do not repeat the live 6.0.6 doctor or the 9a audio flow.
 
 ## Deployment and live state
 
-Last verified in E330. E331–E334 make no live request.
+Last verified in E330. E331–E335 make no live request.
 
 - App: `/Applications/Bitwig Studio.app`, **6.1.4**, API 25.
 - Jar SHA-256: `5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f`.
@@ -61,6 +62,11 @@ The copied 6.0.6 launch and recovery check passed. Original-project asset
 checks were not exhaustive. Do not modify backups or donor sources.
 
 ## Material to preserve
+
+- E335 [receiver and event trace](evidence/data/phase9b-doctor/614-receivers/trace.json),
+  [trace plan](evidence/data/phase9b-doctor/614-receivers/trace-plan.json), tests,
+  and [preservation check](evidence/data/phase9b-doctor/614-receivers/preservation.json).
+  No new-build candidate, attempt, cache, or deployment exists.
 
 - E334 [admission boundary trace](evidence/data/phase9b-doctor/614-admission/trace.json),
   [trace plan](evidence/data/phase9b-doctor/614-admission/trace-plan.json),

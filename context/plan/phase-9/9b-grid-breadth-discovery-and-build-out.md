@@ -2,7 +2,7 @@
 title: Phase 9b — Grid breadth, build discovery, and build-out planning
 kind: plan
 state: active
-status: E334 traces ancestor dispatch and queued tracking commands. History bounds and command non-reentrancy remain unproved. Next is 9b.6d.
+status: E335 traces descriptor overrides and a nested event pump. Fixed-command exclusion and history bounds remain unproved. Next is 9b.6e.
 updated: 2026-10-21
 parent: README.md
 prev: 9a-live-grid-editing-spike.md
@@ -156,7 +156,8 @@ Sessions:
   [E331](../../evidence/experiments/e331-grid-doctor-614-resolver-refusal.md).
   E332 traces changed command contracts. E333 traces document history and
   global disposal tracking. E334 traces inherited parent getters and debug
-  event dispatch. Session 9b.6d must complete receiver contracts and bounded
+  event dispatch. E335 finds descriptor overrides and a nested event pump.
+  Session 9b.6e must complete fixture contracts and bounded
   admission before new probe preparation.
   Record changed symbols and logic separately. Step 2 remains incomplete.
 - **9b.7 — Refine into a tool.** A consent-gated check tool with a fingerprint
@@ -931,8 +932,8 @@ repeat the completed 9a audio flow or unrelated breadth writes.
 records 53 missing strict type roles and 76 blocked member roles. The
 boolean candidate's ancestor trace shows added fields and methods. No live
 attempt or deployment occurs. E332 then traces changed command contracts
-in 9b.6a. E333 records the 9b.6b admission refusal. Continue with 9b.6c below
-before steps 3–5.
+in 9b.6a. E333–E335 record the later admission traces and refusals.
+Continue with 9b.6e below before steps 3–5.
 
 **Entry ready.** [E330](../../evidence/experiments/e330-update-audit-614-acceptance.md)
 accepts the normal-product audit on 6.1.4 and records the jar fingerprint,
@@ -1192,6 +1193,13 @@ that result passes. Product cache enforcement remains in 9b.7.
 
 ### Session 9b.6d — Complete receiver contracts and admission
 
+**Result.** [E335](../../evidence/experiments/e335-grid-doctor-614-receiver-dispatch.md)
+records a measured refusal. The receiver census finds a flag-test override
+and ancestor-step allocation. The event trace finds a round-trip pump and
+two waiting paths. Fixed-command exclusion and history growth remain
+unproved. The complete resolver and probe remain incomplete. Continue with
+9b.6e below.
+
 **Source.** [E334](../../evidence/experiments/e334-grid-doctor-614-admission-boundaries.md),
 its [trace](../../evidence/data/phase9b-doctor/614-admission/trace.json) and
 [explicit investigation plan](../../evidence/data/phase9b-doctor/614-admission/trace-plan.json),
@@ -1249,3 +1257,65 @@ operator replacement, or a specific measured refusal with next work planned.
 The new-build live role checks, full teardown, E316 per-call comparison, and
 explicit two-build result remain requirements of 9b.6. Step 2 stays open.
 Product cache enforcement remains in 9b.7.
+
+
+### Session 9b.6e — Fixture contracts and command closure
+
+**Source.** [E335](../../evidence/experiments/e335-grid-doctor-614-receiver-dispatch.md),
+its [trace](../../evidence/data/phase9b-doctor/614-receivers/trace.json) and
+[investigation plan](../../evidence/data/phase9b-doctor/614-receivers/trace-plan.json),
+E334's parent getter census, E333's history paths, E332's command comparison,
+E331's complete role census, and all 9b.6a/9b.6d criteria. E330 remains the
+last verified live state. Keep original selectors, evidence, attempts,
+caches, the deployed archive, and saved fixtures unchanged.
+
+1. Complete the shared 55-type/76-member role procedure on both jars. Use
+   signatures, receiver relationships, descriptor IDs, and operation edges.
+   Separate unrelated additions from changed required bodies. Trace every
+   required variant before admission. Keep the strict comparator and
+   missing, duplicate, ambiguous, and incompatible refusal. Investigation
+   names and whole-class replacement hashes cannot serve as selectors.
+2. Bind the fixed fixture's descriptor subtypes and parent chains. Account
+   for `deX.nVd()` returning true, all `X_()` overrides that the fixture can
+   reach, and the `deU.E3()` wrapper allocation. Complete E334's covariant
+   parent delegates and `xmC` context dependencies. Keep symbolic declaration
+   lookup separate from virtual dispatch. A class census is not a runtime
+   fixture receiver proof.
+3. Trace each admitted command, replay, disposal, and failure callback to
+   exclude or bound the E335 event pumps. Follow `XKG.cfM(Set)` through the
+   edit-opening lock-set construction and `cQq.Hnt()` through its request
+   caller `AJH.MRY(cQq)`. Bind the actual `Rzi.UNj()` receiver. The empty-set
+   callback proof applies only to that exact call; entry lock count zero
+   does not prove that every nested call has an empty set. Retain unresolved
+   interface, native, reflection, and external edges. Do not infer absence
+   from a missing direct caller or acquire a new vendor monitor. Preserve
+   E334's mode-writer census and E335's single/batch queue paths.
+4. Derive enforceable entry and fixed-sequence growth limits for `dnz`,
+   `Z1C`, `dEI`, helper-set entries, storage capacities, and ancestor depth.
+   Include wrapper allocation, pending helpers, ordinary recording, replay,
+   cleanup, and partial failure. Do not derive these limits from 256 scratch
+   objects or from one size read. Keep freshness, selection, journal identity,
+   recording/replay/owned-head checks, the write lock, and the uncertainty
+   latch. Do not change tracking mode or drain a queue to obtain admission.
+5. Run the complete-table resilience suite required by 9b.6a on both jars
+   and inert models. Cover full renaming and reordering, unrelated additions
+   on receivers and referenced types, and changed signatures, receivers,
+   operation edges, command traces, missing roles, and duplicate candidates.
+   E335's 23 diagnostic tests do not replace these checks.
+6. Only complete resolution and bounded admission can proceed to 9b.6
+   steps 3–4. Adapt and test the driver, exact build guard, resources, marker,
+   and new-fingerprint first attempt. Test wrong-build caches, duplicate
+   attempts, incomplete roles, uncertain-write retention, and exact old
+   record preservation. Deploy only a complete tested probe. The operator
+   must fully remove the controller and select the final matching
+   `ghostnote probe` product from the complete list. Wait for confirmation,
+   then run hello and verify profile, method count/hash, fresh initialization,
+   and markers. Obtain fresh save-first scratch consent with the restart
+   warning, and verify project, target, selection, and competing clients.
+   Do not infer a project switch or repeat the accepted 6.0.6 or 9a flows.
+
+**Acceptance.** A complete reusable resolver and bounded, tested probe ready
+for operator replacement, or a specific measured refusal with next work
+planned. The new-build live role checks, teardown, E316 per-call comparison,
+and explicit two-build result remain requirements of 9b.6. Step 2 stays
+open. Product cache enforcement remains in 9b.7.
