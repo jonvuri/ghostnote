@@ -2,7 +2,7 @@
 title: 9b — Grid symbol manifest
 kind: note
 state: active
-status: E316 passes all 76 V20 roles on 6.0.6. E335 traces descriptor overrides and a nested event pump; bounded admission and the complete 6.1.4 table remain incomplete.
+status: E316 passes all 76 V20 roles on 6.0.6. E336 completes the local member census; complete 6.1.4 bindings and bounded admission remain incomplete.
 updated: 2026-10-21
 parent: 9b-grid-breadth-discovery-and-build-out.md
 ---
@@ -382,3 +382,21 @@ resolver and all resilience criteria remain in
 [9b.6d](9b-grid-breadth-discovery-and-build-out.md#session-9b6d--complete-receiver-contracts-and-admission).
 The trace plan is an investigation input. No selector, public tool
 description, candidate resource, or deployed probe changes.
+
+## E336 complete local census on both jars
+
+[E336](../../evidence/experiments/e336-grid-doctor-614-fixture-contracts.md)
+checks local contracts for all 76 members. On 6.1.4, 15 executable bodies
+have one local match and 36 have multiple matches. Disposal, membership,
+and recording-edit access have no exact match. Sixteen fields need operation
+bindings; five abstract methods need dispatch bindings. The managed-ID body
+needs bootstrap support. No 6.1.4 type or member table is accepted.
+
+The exact insertion body maps the membership call to `IcG.Grk`, whose
+`EYY` delegate reaches `BZG.Grk` through `Vzt`. The old route also has a
+delegate. The terminal getter replaces `Collections.EMPTY_LIST` with
+`Collections.emptyList()`. The strict comparator refuses this difference.
+The empty-array begin route skips one lock wait; other collectors and the
+synchronous ping path do not inherit that exclusion. Continue with
+[9b.6f](9b-grid-breadth-discovery-and-build-out.md#session-9b6f--role-bindings-and-traced-variants).
+Pinned source roles and all original selectors remain unchanged.

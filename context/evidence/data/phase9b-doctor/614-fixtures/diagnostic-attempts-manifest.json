@@ -1,0 +1,67 @@
+[
+  {
+    "path": "edge-refusal-role-contracts.json",
+    "bytes": 1074521,
+    "sha256": "dfadc647925973c07cb5d33c34544a6540b48a246c6339a5bad375ebf854e807"
+  },
+  {
+    "path": "edge-refusal-role-scan.txt",
+    "bytes": 140,
+    "sha256": "0e6edbe25b07298ac26861d1d86b0cd5d741c528689483d7f4a8cb207c35cec8"
+  },
+  {
+    "path": "initial-role-contracts.json",
+    "bytes": 1074607,
+    "sha256": "3d969bf5b73da8544bca99e6ce312bb0a603b6b5acefd4408f52f66872db7476"
+  },
+  {
+    "path": "initial-role-scan.txt",
+    "bytes": 157,
+    "sha256": "fc01e0edd5f1b257388bceb54a888f879fe897fdcd3be5a1ba62d822180ec6b3"
+  },
+  {
+    "path": "initial-trace-plan.json",
+    "bytes": 12192,
+    "sha256": "32dc094ff94a48f6877bdc8012106f01d102feb40bb7bc86e75d922f28b4714f"
+  },
+  {
+    "path": "initial-trace-scan.txt",
+    "bytes": 139,
+    "sha256": "1419e47c23f1a163580efe712eff162786092f0e4b3dffc46585be2851cc1c7b"
+  },
+  {
+    "path": "initial-trace.json",
+    "bytes": 1309,
+    "sha256": "2d8fce0a4e3f64a4fd1d069c93c492367e62f6fc611d05b6a078e3ba1ddd8100"
+  },
+  {
+    "path": "partial-trace-plan.json",
+    "bytes": 13646,
+    "sha256": "0f8fa75da9b06b9c927f8b4ea13624a58cb1f57b9dd445a563a78786e12be942"
+  },
+  {
+    "path": "partial-trace-scan.txt",
+    "bytes": 165,
+    "sha256": "0374da23084beaeb81507bdc0824d3dbc88e1090680b4eeff42b5cda84eeafb5"
+  },
+  {
+    "path": "partial-trace.json",
+    "bytes": 1680202,
+    "sha256": "c4af17d8ee35f885865aa37433bb477787b3815ecc362e1ca37af52f05c90d8e"
+  },
+  {
+    "path": "second-trace-plan.json",
+    "bytes": 13556,
+    "sha256": "1456d37bfdd1955e7f04817a07cc062d27375a5b7d82855c17b13a8f251f836b"
+  },
+  {
+    "path": "second-trace-scan.txt",
+    "bytes": 152,
+    "sha256": "185aa67c96b3e45e1117eb7d21520e3c795c7c2feb84d34ff7e41596f7ef8c46"
+  },
+  {
+    "path": "second-trace.json",
+    "bytes": 1322,
+    "sha256": "822bb1089715a0ac660c7545793d4bdb75a4ecb37fac59b857d8b408935be914"
+  }
+]

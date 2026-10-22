@@ -1,0 +1,529 @@
+{
+  "jarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "purpose": "Pinned E335 investigation edges only. No role selection or command admission.",
+  "methods": [
+    {
+      "owner": "com/bitwig/ramona/core/WzZ",
+      "name": "<init>",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/WzZ",
+      "name": "cfM",
+      "descriptor": "()Lcom/bitwig/ramona/core/kJI;"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/WzZ",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/kJI;)V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/WzZ",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;Ljava/lang/String;Lcom/bitwig/ramona/core/CuM;Z)Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/WzZ",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;Ljava/lang/String;Ljava/lang/String;Lcom/bitwig/ramona/core/CuM;Z)Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/WzZ",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;Ljava/lang/String;Lcom/bitwig/ramona/core/CuM;)Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/WzZ",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;Ljava/lang/String;Ljava/lang/String;Lcom/bitwig/ramona/core/CuM;)Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/WzZ",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;Ljava/lang/String;)Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/WzZ",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;Ljava/lang/String;Ljava/lang/String;)Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/WzZ",
+      "name": "MRY",
+      "descriptor": "()Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/WzZ",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/base/async/Dgc;)Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/WzZ",
+      "name": "<clinit>",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/kJI",
+      "name": "<init>",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/kJI",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/IOJ;)V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/kJI",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;Lcom/bitwig/ramona/core/oDc;)V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/kJI",
+      "name": "cfM",
+      "descriptor": "()Ljava/util/Set;"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/kJI",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/kJI;)Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/kJI",
+      "name": "MRY",
+      "descriptor": "()Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/kJI",
+      "name": "Hnt",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/kJI",
+      "name": "<clinit>",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/AVL",
+      "name": "wxc",
+      "descriptor": "()Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/AVL",
+      "name": "xmC",
+      "descriptor": "()Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/AVL",
+      "name": "cfM",
+      "descriptor": "(Ljava/lang/String;Ljava/util/Set;)Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/AVL",
+      "name": "cfM",
+      "descriptor": "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;)Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/AVL",
+      "name": "cfM",
+      "descriptor": "(Ljava/lang/String;[Lcom/bitwig/ramona/core/IOJ;)Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/AVL",
+      "name": "cfM",
+      "descriptor": "(Ljava/lang/String;Lcom/bitwig/ramona/core/oDc;Lcom/bitwig/ramona/core/CuM;)V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/AVL",
+      "name": "cfM",
+      "descriptor": "(Ljava/lang/String;Ljava/lang/String;Lcom/bitwig/ramona/core/oDc;Lcom/bitwig/ramona/core/CuM;)V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/AVL",
+      "name": "ULc",
+      "descriptor": "()Lcom/bitwig/ramona/core/Rzi;"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/Rzi",
+      "name": "wGc",
+      "descriptor": "()Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/Rzi",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/AVL;)Lcom/bitwig/ramona/core/Rzi;"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/Rzi",
+      "name": "eLY",
+      "descriptor": "()Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/Rzi",
+      "name": "vpw",
+      "descriptor": "()Lcom/bitwig/ramona/core/XKG;"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/XKG",
+      "name": "cfM",
+      "descriptor": "(Ljava/lang/String;)V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/XKG",
+      "name": "FzB",
+      "descriptor": "()Lcom/bitwig/ramona/core/Rzi;"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/XKG",
+      "name": "cfM",
+      "descriptor": "(Ljava/lang/String;Ljava/lang/String;Lcom/bitwig/ramona/core/WzZ;Lcom/bitwig/ramona/core/oDc;Lcom/bitwig/ramona/core/CuM;Z)Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/XKG",
+      "name": "cfM",
+      "descriptor": "(Ljava/lang/String;Ljava/lang/String;Lcom/bitwig/ramona/core/WzZ;)Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/XKG",
+      "name": "cfM",
+      "descriptor": "(Ljava/lang/String;Ljava/lang/String;Z)Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/XKG",
+      "name": "cfM",
+      "descriptor": "(Ljava/lang/String;Ljava/lang/String;Lcom/bitwig/ramona/core/oDc;Lcom/bitwig/ramona/core/CuM;)Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/XKG",
+      "name": "cfM",
+      "descriptor": "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;)Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/XKG",
+      "name": "cfM",
+      "descriptor": "(Ljava/util/Set;)Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/XKG",
+      "name": "cfM",
+      "descriptor": "(Ljava/util/Set;Ljava/lang/Runnable;)V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/XKG",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/XKG;Ljava/util/Set;Ljava/lang/Runnable;)V"
+    },
+    {
+      "owner": "dqr",
+      "name": "<init>",
+      "descriptor": "(LdpN;Lcom/bitwig/ramona/core/oDc;LcQx;)V"
+    },
+    {
+      "owner": "dqr",
+      "name": "<init>",
+      "descriptor": "(LdpN;Lcom/bitwig/ramona/core/oDc;Ljava/lang/String;I)V"
+    },
+    {
+      "owner": "dqr",
+      "name": "UNj",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "cQq",
+      "name": "<init>",
+      "descriptor": "(Lcom/bitwig/ramona/protocol/OCK;Ljava/lang/String;Ljava/lang/String;LdeO;)V"
+    },
+    {
+      "owner": "cQq",
+      "name": "cfM",
+      "descriptor": "(LdeV;Lcom/bitwig/ramona/core/oDc;[Ljava/lang/Object;)Ljava/lang/Object;"
+    },
+    {
+      "owner": "cQq",
+      "name": "Hnt",
+      "descriptor": "()Ljava/lang/Object;"
+    },
+    {
+      "owner": "cQq",
+      "name": "MRY",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)V"
+    },
+    {
+      "owner": "cQq",
+      "name": "Hnt",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)V"
+    },
+    {
+      "owner": "cQq",
+      "name": "cfM",
+      "descriptor": "(LdeV;Lcom/bitwig/ramona/core/oDc;Ljava/util/List;Z)V"
+    },
+    {
+      "owner": "cQq",
+      "name": "cfM",
+      "descriptor": "(Ljava/lang/Throwable;)V"
+    },
+    {
+      "owner": "cQq",
+      "name": "FzB",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)V"
+    },
+    {
+      "owner": "cQq",
+      "name": "MRY",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;LcQx;)Lcom/bitwig/ramona/core/Rzi;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/AJH",
+      "name": "cfM",
+      "descriptor": "(LcQq;)V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/AJH",
+      "name": "MRY",
+      "descriptor": "(LcQq;)V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/AJH",
+      "name": "Hnt",
+      "descriptor": "(LcQq;)V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/AJH",
+      "name": "FzB",
+      "descriptor": "(LcQq;)V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/Ljp",
+      "name": "Yt",
+      "descriptor": "()LdeV;"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/LBo",
+      "name": "<init>",
+      "descriptor": "(Lcom/bitwig/ramona/core/XKG;[Z)V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/LBo",
+      "name": "run",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "dfI",
+      "name": "wGc",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "dfI",
+      "name": "UNj",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)V"
+    },
+    {
+      "owner": "dfI",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;LdfT;)V"
+    },
+    {
+      "owner": "dfI",
+      "name": "hUR",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)V"
+    },
+    {
+      "owner": "dfI",
+      "name": "cfM",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "dgJ",
+      "name": "<init>",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)V"
+    },
+    {
+      "owner": "dgJ",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)V"
+    },
+    {
+      "owner": "dgJ",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;LdfT;)Z"
+    },
+    {
+      "owner": "dgJ",
+      "name": "MRY",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)V"
+    },
+    {
+      "owner": "dgJ",
+      "name": "Hnt",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)V"
+    },
+    {
+      "owner": "dgJ",
+      "name": "FzB",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)V"
+    },
+    {
+      "owner": "dgJ",
+      "name": "cfM",
+      "descriptor": "()Z"
+    },
+    {
+      "owner": "dgJ",
+      "name": "IwV",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)Z"
+    },
+    {
+      "owner": "dgJ",
+      "name": "appendChanges",
+      "descriptor": "(Ljava/lang/Runnable;)V"
+    },
+    {
+      "owner": "dgJ",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;Lcom/bitwig/ramona/core/oDc;)Z"
+    },
+    {
+      "owner": "dgJ",
+      "name": "<clinit>",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "ql",
+      "name": "UNj",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/JXO",
+      "name": "UNj",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/Rzi",
+      "name": "UNj",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/device/EYY",
+      "name": "Grk",
+      "descriptor": "()Ljava/util/List;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/device/BZG",
+      "name": "Grk",
+      "descriptor": "()Ljava/util/List;"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/Swj",
+      "name": "<init>",
+      "descriptor": "(Lcom/bitwig/ramona/core/XKG;Ljava/util/Set;)V"
+    },
+    {
+      "owner": "cQq",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/AVL;)LcQq;"
+    }
+  ],
+  "slots": [
+    {
+      "receiverBase": "com/bitwig/ramona/core/WzZ",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/kJI;)V"
+    },
+    {
+      "receiverBase": "com/bitwig/ramona/core/WzZ",
+      "name": "cfM",
+      "descriptor": "()Lcom/bitwig/ramona/core/kJI;"
+    },
+    {
+      "receiverBase": "com/bitwig/ramona/core/oDc",
+      "name": "ULc",
+      "descriptor": "()Lcom/bitwig/ramona/core/Rzi;"
+    },
+    {
+      "receiverBase": "com/bitwig/ramona/core/oDc",
+      "name": "cj_",
+      "descriptor": "()Lcom/bitwig/ramona/core/IOJ;"
+    }
+  ],
+  "targets": [
+    {
+      "kind": "method",
+      "owner": "com/bitwig/flt/document/core/master/AJH",
+      "name": "MRY",
+      "descriptor": "(LcQq;)V"
+    },
+    {
+      "kind": "method",
+      "owner": "com/bitwig/ramona/core/kJI",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;Lcom/bitwig/ramona/core/oDc;)V"
+    },
+    {
+      "kind": "method",
+      "owner": "com/bitwig/ramona/core/WzZ",
+      "name": "cfM",
+      "descriptor": "()Lcom/bitwig/ramona/core/kJI;"
+    },
+    {
+      "kind": "method",
+      "owner": "dqr",
+      "name": "<init>",
+      "descriptor": "(LdpN;Lcom/bitwig/ramona/core/oDc;LcQx;)V"
+    },
+    {
+      "kind": "method",
+      "owner": "dqr",
+      "name": "<init>",
+      "descriptor": "(LdpN;Lcom/bitwig/ramona/core/oDc;Ljava/lang/String;I)V"
+    }
+  ],
+  "sources": [
+    "../614-receivers/trace.json",
+    "../614-receivers/trace-plan.json",
+    "../614-ownership/trace.json"
+  ],
+  "investigationEdges": [
+    "E335 XKG edit opening -> WzZ.cfM() -> virtual lock collector -> kJI.",
+    "E335 AJH.MRY(cQq) -> Ljp.Yt -> synchronous request -> cQq.Hnt -> Rzi.UNj.",
+    "E334 AVL.xmC -> ULc -> Rzi.cfM; enumerate overrides, do not infer runtime identity.",
+    "E333 pending helper, completion append, transfer and cleanup.",
+    "The exact insertion-body contract maps its membership call to IcG.Grk. Superclass declaration lookup reaches EYY.Grk -> Vzt.Grk. This is not a runtime receiver proof. Vzt inherits the terminal body from BZG. The explicit method input uses that declaration."
+  ],
+  "contextHierarchy": [
+    {
+      "owner": "com/bitwig/flt/app/OcA",
+      "parent": "dqr",
+      "flags": 32
+    },
+    {
+      "owner": "ql",
+      "parent": "com/bitwig/ramona/core/Rzi",
+      "flags": 33
+    },
+    {
+      "owner": "ayT",
+      "parent": "dqr",
+      "flags": 32
+    },
+    {
+      "owner": "dqr",
+      "parent": "com/bitwig/ramona/core/Rzi",
+      "flags": 33
+    },
+    {
+      "owner": "com/bitwig/ramona/core/JXO",
+      "parent": "com/bitwig/ramona/core/Rzi",
+      "flags": 33
+    },
+    {
+      "owner": "com/bitwig/ramona/core/Rzi",
+      "parent": "java/lang/Object",
+      "flags": 1057
+    },
+    {
+      "owner": "dfG",
+      "parent": "com/bitwig/ramona/core/JXO",
+      "flags": 48
+    }
+  ]
+}

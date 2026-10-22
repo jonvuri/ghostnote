@@ -215,3 +215,39 @@ virtual targets. Unresolved references with matching signatures are reported
 separately; they are not proved target callers. No vendor class is initialized,
 and no host request, candidate table, attempt, or cache is produced. The
 strict comparator and V20 driver remain unchanged.
+
+## 6.1.4 complete local role census and fixture trace
+
+[E336](../../../../context/evidence/experiments/e336-grid-doctor-614-fixture-contracts.md)
+records the local census for all 76 members on both jars. It also follows
+the membership call through the exact insertion-body contract. The changed
+terminal getter, disposal tail, and recording-access contracts remain
+refused. A local method pool is not a complete receiver or operation binding.
+
+Run from the repository root. Each report path must not exist:
+
+```sh
+PYTHONPATH=brain/src/probes python3 -B -m grid_doctor.role_contracts \
+  --old-jar '/Users/jonvuri/Bitwig Upgrade Backups/2026-10-21-pre-6.1/apps/Bitwig Studio 6.0.6.app/Contents/Java/bitwig.jar' \
+  --new-jar '/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar' \
+  --report /absolute/new/role-contracts.json
+
+PYTHONPATH=brain/src/probes python3 -B -m grid_doctor.receiver_trace \
+  --jar '/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar' \
+  --seed context/evidence/data/phase9b-doctor/614-receivers/trace.json \
+  --plan context/evidence/data/phase9b-doctor/614-fixtures/trace-plan.json \
+  --report /absolute/new/fixture-trace.json
+```
+
+Exit zero means the diagnostic completed, not that admission passed.
+The reports retain `completeTable: false` and `writeAuthority: false`.
+Fields, abstract methods, and unsupported source contracts are separate
+from executable method pools. A truncated pool retains its complete count
+and cannot select a role. The strict comparator is unchanged.
+
+The fixture trace reproduces E335's seed methods. Its plan contains pinned
+investigation inputs, not selectors. The exact empty-array begin route
+skips one lock wait. This does not close nested commands or establish
+history bounds. No vendor class is initialized and no host request is sent.
+Continue with
+[9b.6f](../../../../context/plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6f--role-bindings-and-traced-variants).

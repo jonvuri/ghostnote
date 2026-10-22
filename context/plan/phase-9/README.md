@@ -2,7 +2,7 @@
 title: Phase 9 — Overlap investigation
 kind: plan
 state: active
-status: E330 accepts the normal-product update audit. E335 finds descriptor overrides and a nested event pump. Next is 9b.6e fixture contracts and command closure.
+status: E330 accepts the normal-product update audit. E336 records the local role census and a changed membership getter. Next is 9b.6f role bindings and traced variants.
 updated: 2026-10-21
 parent: ../ROADMAP.md
 prev: ../phase-8/README.md
@@ -81,9 +81,11 @@ refuses admission for document history and global tracking work.
 [E334](../../evidence/experiments/e334-grid-doctor-614-admission-boundaries.md)
 traces inherited parent getters and queued tracking dispatch.
 [E335](../../evidence/experiments/e335-grid-doctor-614-receiver-dispatch.md)
-finds a descriptor predicate override and a round-trip event pump. History
-bounds and fixed-command exclusion remain unproved. Next is
-[9b.6e](9b-grid-breadth-discovery-and-build-out.md#session-9b6e--fixture-contracts-and-command-closure).
+finds a descriptor predicate override and a round-trip event pump.
+[E336](../../evidence/experiments/e336-grid-doctor-614-fixture-contracts.md)
+completes the local member census and traces a changed membership getter.
+Complete bindings and bounded admission remain unproved. Next is
+[9b.6f](9b-grid-breadth-discovery-and-build-out.md#session-9b6f--role-bindings-and-traced-variants).
 No new probe is deployed. The 6.1.4 live doctor remains incomplete.
 General acceptance grants no native Grid write authority.
 

@@ -1458,3 +1458,43 @@ guard alone cannot exclude retained-history work. The round-trip callback
 can dispatch another app event. Empty-set callback completion excludes
 one wait, not every command path. No finite new live admission or timing
 claim is established. Product budgets and descriptions remain unchanged.
+
+## 9b.6e fixture contracts — model before implementation
+
+Read both jars as data. Validate the source against the complete E315 table.
+Use the unchanged local comparator to census all method roles in one streamed
+pass per jar. Keep field and abstract roles separate from executable bodies.
+Retain at most 128 exact matches per role, with a complete match count.
+Trace the membership call through the exact insertion-body contract and
+at most eight simple superclass delegates. Keep symbolic lookup separate
+from runtime dispatch. No local match selects a receiver or grants write
+authority. Bound combined
+work to 1,000,000 methods and 16,000,000 instructions, 256 retained code
+classes, 120 seconds, 768 MiB RSS, and a 4 MiB report.
+
+For the focused lock, request, and context trace, retain E335's scan bounds:
+128 explicit methods, eight slots, 32 targets, 512 method traces, 16,000
+sites, 4,000,000 hierarchy edges, 16,384 lookups, and an 8 MiB report.
+Verify E335's seed methods before use. Plans are investigation inputs.
+These are refusal thresholds, not OS caps. No vendor class initialization,
+host call, native command, deployment, attempt, or cache write is permitted
+by these diagnostics. Live costs remain E315/E316; product budgets do not
+change. Missing receiver contracts or growth bounds still refuse admission.
+
+[E336](../evidence/experiments/e336-grid-doctor-614-fixture-contracts.md)
+measures the two-jar role census and membership trace at 24,227.186 ms and
+332,120,064 bytes peak RSS. It scans 777,386 methods and 12,935,844
+instructions, retains 133 code classes, and writes a 1,107,556-byte report.
+The focused trace takes 11,964.105 ms and peaks at 201,424,896 bytes RSS.
+It scans 31,627 classes, 393,713 methods, and 6,574,509 instructions, with
+615,692 hierarchy edges and 12 cached lookups. It retains 345 method traces
+and 129 code classes; the report is 1,686,636 bytes. Final scans meet all
+limits. An earlier broad slot scan refused at the existing 512-trace bound;
+E336 retains that attempt. No limit was raised.
+
+The empty-array begin route allocates sets and a collector but skips the
+lock wait. Other collectors can walk ancestor chains. The terminal
+membership getter adds an external method call in place of a static field
+read. Neither observation admits a live path. Context, descriptor, command
+closure, and history growth remain unproved. No live timing or product call
+budget changes. Different offline workloads do not establish a regression.

@@ -2,7 +2,7 @@
 title: Phase 9b — Grid breadth, build discovery, and build-out planning
 kind: plan
 state: active
-status: E335 traces descriptor overrides and a nested event pump. Fixed-command exclusion and history bounds remain unproved. Next is 9b.6e.
+status: E336 completes the local role census and traces a changed membership getter. Complete bindings and bounded admission remain unproved. Next is 9b.6f.
 updated: 2026-10-21
 parent: README.md
 prev: 9a-live-grid-editing-spike.md
@@ -157,8 +157,9 @@ Sessions:
   E332 traces changed command contracts. E333 traces document history and
   global disposal tracking. E334 traces inherited parent getters and debug
   event dispatch. E335 finds descriptor overrides and a nested event pump.
-  Session 9b.6e must complete fixture contracts and bounded
-  admission before new probe preparation.
+  E336 completes the local role census and traces the changed membership
+  getter and lock construction. Session 9b.6f must complete role bindings
+  and bounded admission before new probe preparation.
   Record changed symbols and logic separately. Step 2 remains incomplete.
 - **9b.7 — Refine into a tool.** A consent-gated check tool with a fingerprint
   cache; Grid tools refuse without a cached pass for the current fingerprint;
@@ -932,8 +933,8 @@ repeat the completed 9a audio flow or unrelated breadth writes.
 records 53 missing strict type roles and 76 blocked member roles. The
 boolean candidate's ancestor trace shows added fields and methods. No live
 attempt or deployment occurs. E332 then traces changed command contracts
-in 9b.6a. E333–E335 record the later admission traces and refusals.
-Continue with 9b.6e below before steps 3–5.
+in 9b.6a. E333–E336 record the later contract and admission refusals.
+Continue with 9b.6f below before steps 3–5.
 
 **Entry ready.** [E330](../../evidence/experiments/e330-update-audit-614-acceptance.md)
 accepts the normal-product audit on 6.1.4 and records the jar fingerprint,
@@ -1261,6 +1262,14 @@ Product cache enforcement remains in 9b.7.
 
 ### Session 9b.6e — Fixture contracts and command closure
 
+**Result.** [E336](../../evidence/experiments/e336-grid-doctor-614-fixture-contracts.md)
+records a measured refusal. The local census covers all 76 members on both
+jars. It finds a changed terminal membership getter in addition to E332's
+disposal and recording-access changes. The exact empty-array begin route
+skips one lock wait; nested command closure and history growth remain
+unproved. Complete role bindings and descriptor subtypes remain unresolved.
+No complete table, driver, or probe is prepared. Continue with 9b.6f.
+
 **Source.** [E335](../../evidence/experiments/e335-grid-doctor-614-receiver-dispatch.md),
 its [trace](../../evidence/data/phase9b-doctor/614-receivers/trace.json) and
 [investigation plan](../../evidence/data/phase9b-doctor/614-receivers/trace-plan.json),
@@ -1319,3 +1328,57 @@ for operator replacement, or a specific measured refusal with next work
 planned. The new-build live role checks, teardown, E316 per-call comparison,
 and explicit two-build result remain requirements of 9b.6. Step 2 stays
 open. Product cache enforcement remains in 9b.7.
+
+### Session 9b.6f — Role bindings and traced variants
+
+**Source.** [E336](../../evidence/experiments/e336-grid-doctor-614-fixture-contracts.md),
+its [role census and membership routes](../../evidence/data/phase9b-doctor/614-fixtures/role-contracts.json),
+[focused trace](../../evidence/data/phase9b-doctor/614-fixtures/trace.json),
+[plan](../../evidence/data/phase9b-doctor/614-fixtures/trace-plan.json), and
+all 9b.6a/9b.6e criteria. Read E335–E331, E315/E316, the symbol manifest,
+and the performance ledger. E330 remains the last verified live state.
+Preserve original selectors, diagnostic code and evidence, attempts,
+caches, deployed archive, and saved fixtures.
+
+1. Complete the shared 55-type/76-member binding procedure on both jars.
+   Use E336's exact method pools as inputs, not accepted roles. Bind the
+   16 fields through operation edges and the five abstract methods through
+   receiver contracts. Resolve ambiguous bodies without name or order
+   fallbacks. Trace the managed-ID bootstrap before any comparator variant.
+   Keep incomplete, duplicate, ambiguous, and incompatible refusal.
+2. Trace variants for disposal, recording-edit access, and the terminal
+   membership getter. Both builds already have a superclass delegate.
+   Account for `Collections.EMPTY_LIST` versus `Collections.emptyList()`,
+   external-call and initialization costs, and actual receiver dispatch.
+   Keep the strict comparator unchanged unless a separate, tested variant
+   has explicit evidence. Do not normalize calls and field reads globally.
+3. Bind the fixed descriptor IDs, subtypes, parent getters, `X_`, `nVd`, and
+   `deU.E3` allocation. Account for the null `dve.ULc` override and the
+   inherited parent/context walk. Bind the actual context among the six
+   concrete classes; the hierarchy census is not runtime evidence.
+4. Complete every fixed command's normal, replay, close, disposal, and
+   failure closure. E336 excludes the lock wait only for the exact empty-array
+   begin route. Bind other collectors and their ancestor-derived lock sets.
+   Trace the `AJH.bLK` → `MRY(cQq)` → `ping` wait path and its command
+   reachability. Keep E335's queue and mode-writer evidence. Retain unresolved
+   interface, native, reflection, and external edges; do not infer absence.
+5. Derive enforceable entry and fixed-sequence growth limits for `dnz`,
+   `Z1C`, `dEI`, helper sets, storage, and ancestor depth. Include pending
+   helpers, wrappers, ordinary recording, replay, cleanup, and partial
+   failure. No limit follows from one size read or 256 scratch objects.
+   Do not change tracking mode, drain a queue, or acquire a new vendor monitor.
+   Keep all selection, freshness, journal, recording/replay, owned-head,
+   write-lock, and uncertain-state guards.
+6. Run the full 9b.6a resilience suite against complete tables on both jars
+   and inert models. E336's diagnostic tests do not replace that suite.
+   Only complete resolution and bounded admission can proceed to the
+   9b.6 steps 3–4 driver, exact build guard, resources, marker, and first
+   attempt. Retain all wrong-build, duplicate-attempt, incomplete-role,
+   uncertain-write, and exact old-record preservation checks.
+
+**Acceptance.** A complete reusable resolver and bounded, tested probe ready
+for operator replacement, or a specific measured refusal with next work
+planned. Operator replacement, fresh save-first scratch consent, project
+and client verification, new-build live role checks, teardown, and E316
+per-call comparison remain later gates. Do not repeat the accepted 6.0.6
+doctor or 9a audio flow. Step 2 stays open; 9b.7 owns product cache enforcement.

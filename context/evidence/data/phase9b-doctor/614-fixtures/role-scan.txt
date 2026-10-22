@@ -1,0 +1,1 @@
+{"result": "refused", "reason": "receiver-bindings-and-command-closure-unproved", "elapsedMs": 24227.186, "peakRssBytes": 332120064, "reportBytes": 1107556}
