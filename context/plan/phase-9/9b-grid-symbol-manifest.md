@@ -2,7 +2,7 @@
 title: 9b — Grid symbol manifest
 kind: note
 state: active
-status: E316 passes all 76 V20 roles on 6.0.6. E333 refuses changed ownership and disposal admission. No complete 6.1.4 table exists.
+status: E316 passes all 76 V20 roles on 6.0.6. E334 traces ownership and event dispatch; bounded admission and the complete 6.1.4 table remain incomplete.
 updated: 2026-10-21
 parent: 9b-grid-breadth-discovery-and-build-out.md
 ---
@@ -370,3 +370,15 @@ refuses these contracts. No original selector or manifest pin changes.
 [9b.6b](9b-grid-breadth-discovery-and-build-out.md#session-9b6b--trace-new-ownership-and-disposal-contracts)
 must finish the changed contracts, cost model, complete role resolution,
 and resilience checks before probe preparation.
+
+
+## E334 admission boundary trace on 6.1.4
+
+[E334](../../evidence/experiments/e334-grid-doctor-614-admission-boundaries.md)
+traces inherited ancestor checks, parent getter declarations and delegates,
+and the queued debug tracking command. It does not establish bounded
+history or native command non-reentrancy. The complete 55-type/76-member
+resolver and all resilience criteria remain in
+[9b.6d](9b-grid-breadth-discovery-and-build-out.md#session-9b6d--complete-receiver-contracts-and-admission).
+The trace plan is an investigation input. No selector, public tool
+description, candidate resource, or deployed probe changes.

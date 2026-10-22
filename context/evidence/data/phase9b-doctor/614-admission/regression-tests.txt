@@ -1,0 +1,55 @@
+test_complete_table_and_renamed_jar_model (grid_symbols.test_resolve.PinnedJarTests.test_complete_table_and_renamed_jar_model) ... ok
+test_abstract_dispatch_requires_runtime_type (grid_symbols.test_resolve.ResolverTests.test_abstract_dispatch_requires_runtime_type) ... ok
+test_all_zero_fields_are_ambiguous (grid_symbols.test_resolve.ResolverTests.test_all_zero_fields_are_ambiguous) ... ok
+test_ambiguous_member_trace (grid_symbols.test_resolve.ResolverTests.test_ambiguous_member_trace) ... ok
+test_ambiguous_type (grid_symbols.test_resolve.ResolverTests.test_ambiguous_type) ... ok
+test_fabricated_member_is_rejected_by_validation (grid_symbols.test_resolve.ResolverTests.test_fabricated_member_is_rejected_by_validation) ... ok
+test_inheritance_bound (grid_symbols.test_resolve.ResolverTests.test_inheritance_bound) ... ok
+test_inheritance_cycle (grid_symbols.test_resolve.ResolverTests.test_inheritance_cycle) ... ok
+test_inherited_candidate (grid_symbols.test_resolve.ResolverTests.test_inherited_candidate) ... ok
+test_jar_limits (grid_symbols.test_resolve.ResolverTests.test_jar_limits) ... ok
+test_missing_member_trace (grid_symbols.test_resolve.ResolverTests.test_missing_member_trace) ... ok
+test_missing_type (grid_symbols.test_resolve.ResolverTests.test_missing_type) ... ok
+test_operation_reference_selects_an_equivalent_getter (grid_symbols.test_resolve.ResolverTests.test_operation_reference_selects_an_equivalent_getter) ... ok
+test_operation_reference_to_wrong_receiver_is_refused (grid_symbols.test_resolve.ResolverTests.test_operation_reference_to_wrong_receiver_is_refused) ... ok
+test_receiver_must_inherit_declaration (grid_symbols.test_resolve.ResolverTests.test_receiver_must_inherit_declaration) ... ok
+test_static_does_not_match_instance (grid_symbols.test_resolve.ResolverTests.test_static_does_not_match_instance) ... ok
+test_truncated_class (grid_symbols.test_resolve.ResolverTests.test_truncated_class) ... ok
+test_truncated_instruction (grid_symbols.test_resolve.ResolverTests.test_truncated_instruction) ... ok
+test_type_names_and_member_order_are_not_selectors (grid_symbols.test_resolve.ResolverTests.test_type_names_and_member_order_are_not_selectors) ... ok
+test_wrong_receiver (grid_symbols.test_resolve.ResolverTests.test_wrong_receiver) ... ok
+test_wrong_return_type (grid_symbols.test_resolve.ResolverTests.test_wrong_return_type) ... ok
+test_supplement_and_renamed_model (grid_doctor.test_resolve.DoctorIntegration.test_supplement_and_renamed_model) ... ok
+test_ambiguous_names_are_reported_without_selection (grid_doctor.test_diagnose.DiagnosticTests.test_ambiguous_names_are_reported_without_selection) ... ok
+test_dependency_change_does_not_promote_shallow_match (grid_doctor.test_diagnose.DiagnosticTests.test_dependency_change_does_not_promote_shallow_match) ... ok
+test_name_list_is_bounded_and_count_is_exact (grid_doctor.test_diagnose.DiagnosticTests.test_name_list_is_bounded_and_count_is_exact) ... ok
+test_shape_delta_retains_multiplicity (grid_doctor.test_diagnose.DiagnosticTests.test_shape_delta_retains_multiplicity) ... ok
+test_signature_and_dispatch_dependencies_block_members (grid_doctor.test_diagnose.DiagnosticTests.test_signature_and_dispatch_dependencies_block_members) ... ok
+test_handlers_change_refuses (grid_doctor.test_contracts.ContractTests.test_handlers_change_refuses) ... ok
+test_literals_and_branch_changes_refuse (grid_doctor.test_contracts.ContractTests.test_literals_and_branch_changes_refuse) ... ok
+test_missing_and_duplicate_candidates_refuse (grid_doctor.test_contracts.ContractTests.test_missing_and_duplicate_candidates_refuse) ... ok
+test_operation_edge_and_receiver_alias_conflicts_refuse (grid_doctor.test_contracts.ContractTests.test_operation_edge_and_receiver_alias_conflicts_refuse) ... ok
+test_reference_alias_change_refuses (grid_doctor.test_contracts.ContractTests.test_reference_alias_change_refuses) ... ok
+test_reference_type_replacement_preserves_local_shape_but_conflicts_with_binding (grid_doctor.test_contracts.ContractTests.test_reference_type_replacement_preserves_local_shape_but_conflicts_with_binding) ... ok
+test_renaming_and_enumeration (grid_doctor.test_contracts.ContractTests.test_renaming_and_enumeration) ... ok
+test_required_signature_and_access_change_refuse (grid_doctor.test_contracts.ContractTests.test_required_signature_and_access_change_refuse) ... ok
+test_unchecked_bootstrap_refuses (grid_doctor.test_contracts.ContractTests.test_unchecked_bootstrap_refuses) ... ok
+test_unrelated_members_and_reference_additions (grid_doctor.test_contracts.ContractTests.test_unrelated_members_and_reference_additions) ... ok
+test_work_limits_refuse (grid_doctor.test_contracts.ContractTests.test_work_limits_refuse) ... ok
+test_shared_trace_procedure_on_both_jars (grid_doctor.test_contracts.MigrationIntegration.test_shared_trace_procedure_on_both_jars) ... ok
+test_cleanup_bootstrap_points_to_traced_predicate (grid_doctor.test_ownership.OwnershipIntegration.test_cleanup_bootstrap_points_to_traced_predicate) ... ok
+test_complete_jar_census_stays_diagnostic (grid_doctor.test_ownership.OwnershipIntegration.test_complete_jar_census_stays_diagnostic) ... ok
+test_mode_writers_and_debug_caller_are_in_census (grid_doctor.test_ownership.OwnershipIntegration.test_mode_writers_and_debug_caller_are_in_census) ... ok
+test_seed_trace_changes_and_unlinked_expansion_refuse (grid_doctor.test_ownership.OwnershipIntegration.test_seed_trace_changes_and_unlinked_expansion_refuse) ... ok
+test_set_census_covers_constructors_and_all_three_hooks (grid_doctor.test_ownership.OwnershipIntegration.test_set_census_covers_constructors_and_all_three_hooks) ... ok
+test_work_limits_refuse (grid_doctor.test_ownership.OwnershipIntegration.test_work_limits_refuse) ... ok
+test_bootstrap_identity_and_dynamic_index_are_retained (grid_doctor.test_ownership.OwnershipUnitTests.test_bootstrap_identity_and_dynamic_index_are_retained) ... ok
+test_duplicate_and_truncated_attributes_refuse (grid_doctor.test_ownership.OwnershipUnitTests.test_duplicate_and_truncated_attributes_refuse) ... ok
+test_missing_bootstrap_refuses_method_trace (grid_doctor.test_ownership.OwnershipUnitTests.test_missing_bootstrap_refuses_method_trace) ... ok
+test_report_limit_and_exclusive_creation_preserve_existing_bytes (grid_doctor.test_ownership.OwnershipUnitTests.test_report_limit_and_exclusive_creation_preserve_existing_bytes) ... ok
+test_seed_jar_mismatch_refuses_before_any_code_read (grid_doctor.test_ownership.OwnershipUnitTests.test_seed_jar_mismatch_refuses_before_any_code_read) ... ok
+
+----------------------------------------------------------------------
+Ran 50 tests in 53.206s
+
+OK

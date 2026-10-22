@@ -1,0 +1,19 @@
+test_changed_seed_instructions_refuse (grid_doctor.test_admission.AdmissionIntegration.test_changed_seed_instructions_refuse) ... ok
+test_complete_census_has_no_admission_authority (grid_doctor.test_admission.AdmissionIntegration.test_complete_census_has_no_admission_authority) ... ok
+test_debug_registration_retains_dispatch_mode_and_callback_bootstrap (grid_doctor.test_admission.AdmissionIntegration.test_debug_registration_retains_dispatch_mode_and_callback_bootstrap) ... ok
+test_inherited_ancestor_walk_and_parent_getter_are_retained (grid_doctor.test_admission.AdmissionIntegration.test_inherited_ancestor_walk_and_parent_getter_are_retained) ... ok
+test_plan_identity_required_methods_and_limits_refuse (grid_doctor.test_admission.AdmissionIntegration.test_plan_identity_required_methods_and_limits_refuse) ... ok
+test_changed_required_signature_and_receiver_edge_refuse (grid_doctor.test_admission.AdmissionUnitTests.test_changed_required_signature_and_receiver_edge_refuse) ... ok
+test_cycle_depth_and_work_limits_refuse (grid_doctor.test_admission.AdmissionUnitTests.test_cycle_depth_and_work_limits_refuse) ... ok
+test_local_census_survives_complete_model_renaming (grid_doctor.test_admission.AdmissionUnitTests.test_local_census_survives_complete_model_renaming) ... ok
+test_lookup_uses_superclass_not_enumeration_or_unrelated_declaration (grid_doctor.test_admission.AdmissionUnitTests.test_lookup_uses_superclass_not_enumeration_or_unrelated_declaration) ... ok
+test_missing_and_duplicate_declarations_refuse (grid_doctor.test_admission.AdmissionUnitTests.test_missing_and_duplicate_declarations_refuse) ... ok
+test_missing_base_empty_receivers_and_interface_default_do_not_pass (grid_doctor.test_admission.AdmissionUnitTests.test_missing_base_empty_receivers_and_interface_default_do_not_pass) ... ok
+test_nonconcrete_private_static_and_native_slots_refuse (grid_doctor.test_admission.AdmissionUnitTests.test_nonconcrete_private_static_and_native_slots_refuse) ... ok
+test_override_is_retained_as_a_distinct_receiver_contract (grid_doctor.test_admission.AdmissionUnitTests.test_override_is_retained_as_a_distinct_receiver_contract) ... ok
+test_wrong_jar_refuses_before_code_access (grid_doctor.test_admission.AdmissionUnitTests.test_wrong_jar_refuses_before_code_access) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 14.790s
+
+OK

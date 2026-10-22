@@ -2,7 +2,7 @@
 title: Phase 9 — Overlap investigation
 kind: plan
 state: active
-status: E330 accepts the normal-product update audit. E333 refuses unbounded Grid ownership and disposal work. Next is 9b.6c bounded admission and complete resolution.
+status: E330 accepts the normal-product update audit. E334 traces ownership and event dispatch. Next is 9b.6d receiver contracts and admission.
 updated: 2026-10-21
 parent: ../ROADMAP.md
 prev: ../phase-8/README.md
@@ -77,8 +77,11 @@ records the 6.1.4 Grid resolver refusal: 53 missing type roles and 76 blocked
 members. [E332](../../evidence/experiments/e332-grid-doctor-614-command-contracts.md)
 traces changed ownership and disposal contracts.
 [E333](../../evidence/experiments/e333-grid-doctor-614-ownership-admission.md)
-refuses admission for document history and global tracking work. Next is
-[9b.6c](9b-grid-breadth-discovery-and-build-out.md#session-9b6c--establish-bounded-admission-and-complete-resolution).
+refuses admission for document history and global tracking work.
+[E334](../../evidence/experiments/e334-grid-doctor-614-admission-boundaries.md)
+traces inherited parent getters and queued tracking dispatch. History bounds
+and native command non-reentrancy remain unproved. Next is
+[9b.6d](9b-grid-breadth-discovery-and-build-out.md#session-9b6d--complete-receiver-contracts-and-admission).
 No new probe is deployed. The 6.1.4 live doctor remains incomplete.
 General acceptance grants no native Grid write authority.
 

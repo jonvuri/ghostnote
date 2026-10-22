@@ -1390,3 +1390,37 @@ classes and 466,601 members. Enumeration takes 3,165.636 ms; refinement takes
 1,543.937 ms. It cannot reach complete member validation: 53 strict type
 roles are missing. These costs are not comparable with E315's complete
 candidate scan. No live timing, call budget, or host path changes.
+
+
+## 9b.6c admission boundary trace — model before implementation
+
+Read the installed jar as data. Verify E333's jar identity and imported
+method traces. Keep the existing per-jar limits, 120-second deadline,
+768 MiB RSS threshold, and 256 retained code classes. Trace superclass
+method lookup and all in-jar declarations for the required virtual slots.
+Bound hierarchy work to 4,000,000 edges. Stream one complete code scan for
+incoming references and method handles to the selected debug types. Bound
+that scan to 1,000,000 methods and 16,000,000 instructions. Retain at most
+16,000 sites and 512 method traces. Limit each report to 8 MiB.
+
+These are refusal thresholds, not OS caps. Names from E333 are investigation
+inputs, not reusable selectors. No vendor class is initialized. No bridge
+call, native command, deployment, attempt, or cache write is part of this
+trace. A missing mode-stability or history bound must refuse admission.
+The E315/E316 live model and product call budgets remain unchanged.
+
+
+[E334](../evidence/experiments/e334-grid-doctor-614-admission-boundaries.md)
+measures 11,300.429 ms and 211,877,888 bytes peak RSS. It scans 31,627 classes,
+393,713 methods, and 6,574,509 instructions, with 507,978 hierarchy edges.
+It retains 398 sites, 204 method traces, and 16 code classes. The report is
+1,660,925 bytes. All limits hold. The workload differs from E333; no live or
+cross-version latency claim follows.
+
+For one ownership hook, helper matching can require work proportional to
+H + S × D, where H is retained helper count, S is total retained helper-set
+entries, and D is ancestor depth. Document-set capacity and the pending
+helper also need limits. None follows from 256 scratch objects. The debug
+mode writer uses the application event queue, but command non-reentrancy
+is unproved. No finite live admission is established. No live timing,
+product budget, or public description changes.

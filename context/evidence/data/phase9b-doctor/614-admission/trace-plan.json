@@ -1,0 +1,257 @@
+{
+  "jarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "purpose": "Pinned offline investigation inputs. No selectors or live authority.",
+  "slots": [
+    {
+      "receiverBase": "com/bitwig/ramona/core/oDc",
+      "name": "LaE",
+      "descriptor": "(Lcom/bitwig/ramona/core/OLR;)Z"
+    },
+    {
+      "receiverBase": "com/bitwig/ramona/core/oDc",
+      "name": "J_",
+      "descriptor": "()Lcom/bitwig/ramona/core/oDc;"
+    },
+    {
+      "receiverBase": "com/bitwig/ramona/core/oDc",
+      "name": "xmC",
+      "descriptor": "()Z"
+    }
+  ],
+  "traceOwners": [
+    "com/bitwig/flt/app/agent_debug/tfK",
+    "com/bitwig/flt/app/agent_debug/lBQ",
+    "com/bitwig/flt/app/agent_debug/RKg",
+    "com/bitwig/flt/app/agent_debug/pYi",
+    "com/bitwig/flt/app/agent_debug/MVg",
+    "thz"
+  ],
+  "incomingOwners": [
+    "com/bitwig/flt/app/agent_debug/tfK",
+    "com/bitwig/flt/app/agent_debug/lBQ",
+    "com/bitwig/flt/app/agent_debug/MVg",
+    "thz"
+  ],
+  "methods": [
+    {
+      "owner": "com/bitwig/flt/control_surface/proxy/ControlSurfaceObject",
+      "name": "exec",
+      "descriptor": "(Ljava/lang/Runnable;)V"
+    },
+    {
+      "owner": "com/bitwig/flt/control_surface/proxy/ControlSurfaceObject",
+      "name": "postEvent",
+      "descriptor": "(LgGV;)V"
+    },
+    {
+      "owner": "com/bitwig/flt/control_surface/proxy/ControlSurfaceObject",
+      "name": "isDocumentThread",
+      "descriptor": "()Z"
+    },
+    {
+      "owner": "com/bitwig/flt/control_surface/proxy/ControlSurfaceObject$1",
+      "name": "run",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "sdu",
+      "name": "Grk",
+      "descriptor": "()Z"
+    },
+    {
+      "owner": "sdu",
+      "name": "cfM",
+      "descriptor": "(LgGV;)V"
+    },
+    {
+      "owner": "dpN",
+      "name": "asyncExec",
+      "descriptor": "(Ljava/lang/Runnable;)V"
+    },
+    {
+      "owner": "dpN",
+      "name": "TVZ",
+      "descriptor": "()LdpN;"
+    },
+    {
+      "owner": "com/bitwig/flt/app/CHR",
+      "name": "Grk",
+      "descriptor": "()Lcom/bitwig/flt/app/CHR;"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/zjj",
+      "name": "Hnt",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)Z"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/zjj",
+      "name": "cfM",
+      "descriptor": "(Ldfb;Lcom/bitwig/ramona/core/oDc;)Z"
+    },
+    {
+      "owner": "dfb",
+      "name": "nVd",
+      "descriptor": "()Z"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/Huq",
+      "name": "TMF",
+      "descriptor": "()Lcom/bitwig/flt/document/core/master/TrM;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/shB",
+      "name": "TMF",
+      "descriptor": "()Lcom/bitwig/flt/document/core/master/sxY;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/oxY",
+      "name": "qoU",
+      "descriptor": "()Lcom/bitwig/flt/document/core/master/ron;"
+    },
+    {
+      "owner": "gNG",
+      "name": "MIO",
+      "descriptor": "()Lg3K;"
+    },
+    {
+      "owner": "PUL",
+      "name": "LEd",
+      "descriptor": "()LSEC;"
+    },
+    {
+      "owner": "RBc",
+      "name": "jFL",
+      "descriptor": "()Lcom/bitwig/flt/document/core/master/TL;"
+    },
+    {
+      "owner": "tWF",
+      "name": "ifN",
+      "descriptor": "()Lcom/bitwig/flt/document/core/master/g2L;"
+    },
+    {
+      "owner": "mQw",
+      "name": "TMF",
+      "descriptor": "()LfK1;"
+    },
+    {
+      "owner": "idq",
+      "name": "SI",
+      "descriptor": "()LtWF;"
+    },
+    {
+      "owner": "hPk",
+      "name": "Pgx",
+      "descriptor": "()Lcom/bitwig/flt/document/core/master/zwV;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/file_preview/hgq",
+      "name": "SQN",
+      "descriptor": "()LOsS;"
+    },
+    {
+      "owner": "hQY",
+      "name": "FzB",
+      "descriptor": "()LVnb;"
+    },
+    {
+      "owner": "NiV",
+      "name": "BNq",
+      "descriptor": "()LyrU;"
+    },
+    {
+      "owner": "ynw",
+      "name": "znC",
+      "descriptor": "()LosE;"
+    },
+    {
+      "owner": "btv",
+      "name": "Nnn",
+      "descriptor": "()LJQZ;"
+    },
+    {
+      "owner": "yZL",
+      "name": "Vr",
+      "descriptor": "()LxK1;"
+    },
+    {
+      "owner": "zXf",
+      "name": "gt_",
+      "descriptor": "()LNh;"
+    },
+    {
+      "owner": "xsp",
+      "name": "wGc",
+      "descriptor": "()Lzvs;"
+    },
+    {
+      "owner": "HBS",
+      "name": "gt_",
+      "descriptor": "()LNh;"
+    },
+    {
+      "owner": "nJW",
+      "name": "QNk",
+      "descriptor": "()LjdO;"
+    },
+    {
+      "owner": "hvO",
+      "name": "NC",
+      "descriptor": "()LrIK;"
+    },
+    {
+      "owner": "SEC",
+      "name": "LEd",
+      "descriptor": "()Ltwb;"
+    },
+    {
+      "owner": "iav",
+      "name": "QNk",
+      "descriptor": "()Lsyf;"
+    },
+    {
+      "owner": "lSj",
+      "name": "Zyp",
+      "descriptor": "()Lsyf;"
+    },
+    {
+      "owner": "VDz",
+      "name": "UZr",
+      "descriptor": "()LGgU;"
+    },
+    {
+      "owner": "JxM",
+      "name": "sut",
+      "descriptor": "()Lcom/bitwig/flt/document/core/master/TL;"
+    },
+    {
+      "owner": "MHj",
+      "name": "UNj",
+      "descriptor": "()LmNh;"
+    },
+    {
+      "owner": "ieI",
+      "name": "jhH",
+      "descriptor": "()LkzS;"
+    },
+    {
+      "owner": "rXd",
+      "name": "FzB",
+      "descriptor": "()LWYt;"
+    },
+    {
+      "owner": "kzS",
+      "name": "Nnn",
+      "descriptor": "()LmNh;"
+    },
+    {
+      "owner": "liX",
+      "name": "LaE",
+      "descriptor": "()LWoe;"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/oDc",
+      "name": "J_",
+      "descriptor": "()Lcom/bitwig/ramona/core/oDc;"
+    }
+  ]
+}

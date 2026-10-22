@@ -158,3 +158,32 @@ entries are retained as evidence; this does not add dynamic-call equivalence
 to the shared resolver. The scan cannot measure the runtime tracking mode,
 queue size, or document history. Do not initialize vendor classes, change
 the mode, or deploy a partial table to obtain those facts.
+
+
+## 6.1.4 admission boundaries
+
+[E334](../../../../context/evidence/experiments/e334-grid-doctor-614-admission-boundaries.md)
+records inherited parent getters and the queued debug tracking command.
+Document history bounds and native command non-reentrancy remain unproved.
+Continue with
+[9b.6d](../../../../context/plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6d--complete-receiver-contracts-and-admission).
+
+Run the offline trace from the repository root. The output path must not
+exist. The utility validates E333's jar and seed methods before it uses the
+explicit investigation plan. Plan names are not reusable selectors.
+
+```sh
+PYTHONPATH=brain/src/probes python3 -B -m grid_doctor.admission \
+  --jar '/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar' \
+  --seed context/evidence/data/phase9b-doctor/614-ownership/trace.json \
+  --plan context/evidence/data/phase9b-doctor/614-admission/trace-plan.json \
+  --report /absolute/new/trace.json
+```
+
+Exit zero means the diagnostic completed. It still reports `result: refused`,
+`boundedAdmission: false`, `completeTable: false`, and `writeAuthority: false`.
+Superclass results cover in-jar concrete class receivers. They do not prove
+runtime fixture types or external subclasses. Bootstrap entries are evidence;
+the shared comparator still refuses unchecked dynamic calls. No vendor
+class is initialized, and no host or debug request is sent. Do not change
+the tracking mode or deploy a partial table to bypass this refusal.

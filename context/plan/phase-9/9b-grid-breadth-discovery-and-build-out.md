@@ -2,7 +2,7 @@
 title: Phase 9b — Grid breadth, build discovery, and build-out planning
 kind: plan
 state: active
-status: E333 refuses unbounded ownership and disposal work. Next is 9b.6c bounded admission and complete resolution. The live doctor remains incomplete.
+status: E334 traces ancestor dispatch and queued tracking commands. History bounds and command non-reentrancy remain unproved. Next is 9b.6d.
 updated: 2026-10-21
 parent: README.md
 prev: 9a-live-grid-editing-spike.md
@@ -155,8 +155,9 @@ Sessions:
 - **9b.6 — Live doctor on 6.1.x.** Offline discovery refuses in
   [E331](../../evidence/experiments/e331-grid-doctor-614-resolver-refusal.md).
   E332 traces changed command contracts. E333 traces document history and
-  global disposal tracking. Session 9b.6c must establish bounded admission
-  and complete structural migration before new probe preparation.
+  global disposal tracking. E334 traces inherited parent getters and debug
+  event dispatch. Session 9b.6d must complete receiver contracts and bounded
+  admission before new probe preparation.
   Record changed symbols and logic separately. Step 2 remains incomplete.
 - **9b.7 — Refine into a tool.** A consent-gated check tool with a fingerprint
   cache; Grid tools refuse without a cached pass for the current fingerprint;
@@ -1127,6 +1128,12 @@ remain in 9b.6. Product cache enforcement remains in 9b.7.
 
 ### Session 9b.6c — Establish bounded admission and complete resolution
 
+**Result.** [E334](../../evidence/experiments/e334-grid-doctor-614-admission-boundaries.md)
+records a specific measured refusal. The ancestor walk and parent getter
+census cover 2,818 concrete object classes. Debug tracking commands use the
+application event queue. History limits and command non-reentrancy remain
+unproved. No complete table or probe exists. Continue with 9b.6d below.
+
 **Source.** [E333](../../evidence/experiments/e333-grid-doctor-614-ownership-admission.md),
 its [trace](../../evidence/data/phase9b-doctor/614-ownership/trace.json),
 E332's command comparison, E331's complete census, E315/E316, the symbol
@@ -1181,3 +1188,64 @@ planned. No live check is authorized by a trace or candidate table alone.
 The 6.1.4 live role checks, complete cleanup, E316 per-call timing comparison,
 and explicit two-build result still belong to 9b.6. Step 2 stays open until
 that result passes. Product cache enforcement remains in 9b.7.
+
+
+### Session 9b.6d — Complete receiver contracts and admission
+
+**Source.** [E334](../../evidence/experiments/e334-grid-doctor-614-admission-boundaries.md),
+its [trace](../../evidence/data/phase9b-doctor/614-admission/trace.json) and
+[explicit investigation plan](../../evidence/data/phase9b-doctor/614-admission/trace-plan.json),
+E333's retained-history trace, E332's command comparison, E331's complete
+census, and the unchanged 9b.6a/9b.6c criteria above. All old selectors,
+attempts, caches, and evidence remain preservation inputs. E330 is the last
+verified live state.
+
+1. Complete the structural role and descriptor contracts as offline work.
+   Use the shared resolver on both jars for all 55 types and 76 members.
+   Preserve signatures, receiver relationships, operation edges, and strict
+   missing/ambiguous/incompatible refusal. Separate added class members from
+   changed required bodies. Trace before adding a build variant. Do not
+   weaken the comparator for an unchecked dynamic call. E334's names and
+   superclass census are investigation inputs, not reusable selectors.
+2. Use those contracts to identify the fixed fixture's descriptor flags and
+   runtime receiver requirements. Follow `LaE`, all admitted parent getters,
+   covariant delegates, the `xmC` assertion dependencies, and the relationship
+   ancestor walk. Derive checks for `dnz`, `Z1C`, `dEI`, helper sets, storage
+   capacity, and ancestor depth. Include normal edits, replay, cleanup,
+   allocation, and failure paths. A size read is not a bound on later growth;
+   the fixed command sequence needs a traced maximum. Do not infer an empty
+   history or a history bound from 256 scratch objects.
+3. Finish the event contract from `ControlSurfaceObject.exec` through
+   `sdu.cfM(gGV)`, `Dr2.cfM(gGV)`, the event drain, and runnable execution.
+   E334 traces `leaks` registration to `dpN.asyncExec` and the shared app
+   singleton. Check native callback paths for nested event dispatch before
+   using a disabled-mode read within the same task. Trace all relevant mode
+   writers and any proposed exclusion. A shared thread check alone is not
+   admission. Do not change the mode, drain the queue, or acquire a new vendor
+   monitor. Any synchronization proposal needs lock-order and exception proof.
+4. Run every complete-table resilience check from 9b.6a on both jars and
+   inert models. Require renaming and enumeration independence, unrelated
+   additions on receivers and referenced types, and refusal for changed
+   signatures, receivers, operation edges, command traces, missing roles,
+   and duplicate candidates. E334's local lookup tests do not satisfy this.
+5. Only a complete table and bounded admission can proceed to 9b.6 steps
+   3–4. Adapt and test the driver, resources, exact host/jar guard, build
+   marker, and new-fingerprint first-attempt record. Test wrong-build caches,
+   duplicate attempts, incomplete roles, uncertain-write retention, and exact
+   preservation of the 6.0.6 records. Retain independent paired readback,
+   fixed ownership, journal/recording/replay/owned-head checks, freshness,
+   selection guards, the write lock, and the uncertain-state latch.
+6. Deploy only a complete tested probe. Controller replacement remains an
+   operator action: full removal, then the final matching `ghostnote probe`
+   product in the complete list. Wait for confirmation before hello. Check
+   fresh initialization, profile, method count/hash, and markers. Obtain
+   fresh save-first scratch consent with the restart warning. Verify the
+   fixed project, target, selection, and competing clients. Do not infer a
+   switch from `gn-upgrade-audit`. Do not repeat the accepted 6.0.6 live
+   doctor or the 9a audio flow.
+
+**Acceptance.** A complete reusable resolver and tested probe ready for
+operator replacement, or a specific measured refusal with next work planned.
+The new-build live role checks, full teardown, E316 per-call comparison, and
+explicit two-build result remain requirements of 9b.6. Step 2 stays open.
+Product cache enforcement remains in 9b.7.
