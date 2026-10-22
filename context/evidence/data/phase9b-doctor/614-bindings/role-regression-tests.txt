@@ -1,0 +1,16 @@
+test_both_complete_role_censuses_reproduce (grid_doctor.test_role_contracts.CensusIntegration.test_both_complete_role_censuses_reproduce) ... ok
+test_combined_work_limits_refuse (grid_doctor.test_role_contracts.CensusTests.test_combined_work_limits_refuse) ... ok
+test_duplicate_pool_is_counted_and_bounded (grid_doctor.test_role_contracts.CensusTests.test_duplicate_pool_is_counted_and_bounded) ... ok
+test_field_and_abstract_roles_need_bindings (grid_doctor.test_role_contracts.CensusTests.test_field_and_abstract_roles_need_bindings) ... ok
+test_full_model_renaming_and_enumeration (grid_doctor.test_role_contracts.CensusTests.test_full_model_renaming_and_enumeration) ... ok
+test_missing_candidate (grid_doctor.test_role_contracts.CensusTests.test_missing_candidate) ... ok
+test_signature_flags_and_operation_changes_are_missing (grid_doctor.test_role_contracts.CensusTests.test_signature_flags_and_operation_changes_are_missing) ... ok
+test_source_missing_or_duplicate_refuses (grid_doctor.test_role_contracts.CensusTests.test_source_missing_or_duplicate_refuses) ... ok
+test_unique_body_does_not_select_a_receiver (grid_doctor.test_role_contracts.CensusTests.test_unique_body_does_not_select_a_receiver) ... ok
+test_unrelated_receiver_and_dependency_members (grid_doctor.test_role_contracts.CensusTests.test_unrelated_receiver_and_dependency_members) ... ok
+test_unsupported_source_is_not_missing_or_equal (grid_doctor.test_role_contracts.CensusTests.test_unsupported_source_is_not_missing_or_equal) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 23.509s
+
+OK

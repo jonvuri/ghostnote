@@ -4,30 +4,34 @@ kind: status
 state: active
 updated: 2026-10-21
 phase: phase-9-overlap-investigation
-session: 9b6f-doctor-614-role-variants
+session: 9b6g-doctor-614-descriptor-bootstrap
 ---
 
 ## Next session
 
-**Start [9b.6f: role bindings and traced variants](plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6f--role-bindings-and-traced-variants).**
-[E336](evidence/experiments/e336-grid-doctor-614-fixture-contracts.md) records
-the measured refusal. The two-jar local census covers all 76 members.
-On 6.1.4 it finds 15 unique bodies, 36 ambiguous bodies, and three missing
-contracts: disposal, membership, and recording-edit access. Fields, abstract
-methods, and the managed-ID bootstrap need separate bindings. No complete
-table exists. Both membership routes have delegates; the new terminal getter
-calls `Collections.emptyList()` instead of reading `Collections.EMPTY_LIST`.
+**Start [9b.6g: sustained offline resolution and probe preparation](plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6g--descriptor-anchors-and-bootstrap-contracts).**
+[E337](evidence/experiments/e337-grid-doctor-614-operation-bindings.md) records
+9b.6f's measured offline refusal. The shared procedure links 36 executable
+contracts, nine fields, and 25 type inputs on 6.1.4. It covers all 76 member
+roles but does not produce a complete table. Seven fields and all five
+abstract dispatch contracts remain unbound. Disposal, membership, recording
+access, and managed ID remain refused.
 
-Read E336's [role census](evidence/data/phase9b-doctor/614-fixtures/role-contracts.json),
-[trace](evidence/data/phase9b-doctor/614-fixtures/trace.json), and
-[plan](evidence/data/phase9b-doctor/614-fixtures/trace-plan.json), E335–E331,
-E315/E316, the symbol manifest, and the performance ledger. The exact
-empty-array begin route skips one lock wait. Other collectors walk ancestors.
-The synchronous request is descriptor `ping`, ID 951. Its fixed-command
-reachability remains unproved. Context getters include a null override.
-No runtime receiver or fixed-sequence history bound is established.
+Read E337's [report](evidence/data/phase9b-doctor/614-bindings/bindings.json),
+E336–E331, E315/E316, the symbol manifest, and the performance ledger.
+The managed-ID assertion supplier reaches a second bootstrap, descriptor
+dispatch, and reporting helpers. No comparator variant is admitted.
+E336's empty-array begin excludes one wait only. Runtime receivers, ping
+reachability, full command closure, and history growth remain unproved.
+Use one work list in 9b.6g. Continue through role resolution, bounded
+admission, complete resilience tests, and driver/probe preparation. New
+trace findings and diagnostic refusals are checkpoints. Stop at the ready
+probe's operator replacement gate, a concrete external blocker, or a
+demonstrated incompatibility that requires a scope decision. Complete
+independent offline work before a blocker handoff. Keep interrupted work
+under 9b.6g; do not create another session for the same remaining tasks.
 
-Only complete resolution and bounded admission can proceed to driver and
+Complete resolution and bounded admission are required before driver or
 probe preparation. Keep the strict comparator and original selectors.
 V20 still requires 6.0.6 and E313's specific retry record. Controller
 replacement is an operator action. Fresh scratch consent and project
@@ -37,7 +41,7 @@ Do not repeat the accepted 6.0.6 doctor or the 9a audio flow.
 
 ## Deployment and live state
 
-Last verified in E330. E331–E336 make no live request.
+Last verified in E330. E331–E337 make no live request.
 
 - App: `/Applications/Bitwig Studio.app`, **6.1.4**, API 25.
 - Jar SHA-256: `5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f`.
@@ -66,6 +70,9 @@ checks were not exhaustive. Do not modify backups or donor sources.
 
 ## Material to preserve
 
+- E337's operation bindings, variant traces, tests, development attempts, and
+  [preservation check](evidence/data/phase9b-doctor/614-bindings/preservation.json).
+  No new-build candidate, attempt, cache, or deployment exists.
 - E336's census, traces, plans, diagnostic attempts, tests, and
   [preservation check](evidence/data/phase9b-doctor/614-fixtures/preservation.json).
   No new-build candidate, attempt, cache, or deployment exists.

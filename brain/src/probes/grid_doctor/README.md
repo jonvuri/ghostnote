@@ -251,3 +251,35 @@ skips one lock wait. This does not close nested commands or establish
 history bounds. No vendor class is initialized and no host request is sent.
 Continue with
 [9b.6f](../../../../context/plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6f--role-bindings-and-traced-variants).
+
+## 6.1.4 operation bindings and variant evidence
+
+[E337](../../../../context/evidence/experiments/e337-grid-doctor-614-operation-bindings.md)
+links 36 executable role contracts, nine fields, and 25 type inputs on 6.1.4.
+It traces the managed-ID supplier and its second bootstrap. Complete role
+resolution and bounded admission remain refused. Continue with
+[9b.6g](../../../../context/plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6g--descriptor-anchors-and-bootstrap-contracts).
+
+Run from the repository root. The report path must not exist:
+
+```sh
+PYTHONPATH=brain/src/probes python3 -B -m grid_doctor.role_bindings \
+  --old-jar '/Users/jonvuri/Bitwig Upgrade Backups/2026-10-21-pre-6.1/apps/Bitwig Studio 6.0.6.app/Contents/Java/bitwig.jar' \
+  --new-jar '/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar' \
+  --report /absolute/new/bindings.json
+```
+
+The diagnostic validates the old table and reproduces E336's censuses and
+membership routes before it propagates exact operation identities. It never
+selects from a truncated global pool. Fields require a linked operation,
+matching access, and a matching lookup declaration. The variant traces
+retain E332's disposal and recording snapshots, the membership routes,
+and managed-ID bootstrap dependencies. They admit no comparator variant.
+
+Exit zero means the diagnostic completed. It does not mean resolution or
+admission passed. Read every member status, unbound type, unclosed call,
+and unsupported contract. The report always has `completeTable: false`,
+`boundedAdmission: false`, and `writeAuthority: false`. No vendor class is
+initialized. No host call, candidate, attempt, or acceptance cache is produced.
+Run large diagnostic test groups in separate processes so earlier groups'
+peak RSS does not trigger a later scan's unchanged process limit.

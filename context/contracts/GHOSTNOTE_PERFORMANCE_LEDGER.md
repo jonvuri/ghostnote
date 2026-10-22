@@ -1498,3 +1498,37 @@ membership getter adds an external method call in place of a static field
 read. Neither observation admits a live path. Context, descriptor, command
 closure, and history growth remain unproved. No live timing or product call
 budget changes. Different offline workloads do not establish a regression.
+
+## 9b.6f operation bindings — model before implementation
+
+Read both jars as data and reproduce E336's complete local census before
+using its pools. Validate the source against E315. Propagate exact method
+contracts and their reference identities. Recheck all methods on a bound
+declaring class when a global pool is truncated. Never select from a partial
+pool. Keep symbolic declarations separate from runtime receiver contracts.
+Fields require an operation edge; a signature alone cannot select a field.
+
+Keep the 120-second combined deadline, 768 MiB RSS threshold, 256 retained
+code classes, and the existing jar limits. Bound census work to 1,000,000
+methods and 16,000,000 instructions. Bound binding work separately to
+100,000 comparisons, 2,000,000 instructions, 128 rounds, 16,384 declaration
+lookups, and 4,000,000 hierarchy edges. Stream candidate code and retain
+only selected traces. Limit the report to 8 MiB and variant traces to 128
+methods. These are refusal thresholds, not OS caps.
+
+Trace unsupported bootstrap and changed contracts without changing the
+strict comparator. No vendor class initialization, host call, native command,
+deployment, attempt, or acceptance cache is part of this work. Unresolved
+roles or admission bounds prevent probe preparation. The live model remains
+E315/E316. Product budgets and descriptions do not change.
+
+[E337](../evidence/experiments/e337-grid-doctor-614-operation-bindings.md)
+measures 26,431.782 ms and 344,113,152 bytes peak RSS. Census work is
+777,386 methods and 12,935,844 instructions. Operation binding compares
+813 target methods on 6.0.6 and 630 on 6.1.4, over 8,938 and 7,921
+normalized target instructions. Each build has 35 source field witnesses.
+Declaration work uses 12,223 hierarchy edges and 2,132 lookups in total.
+The scan retains 133 code classes. Its report is 1,095,413 bytes.
+Variant traces retain 12 unique methods for the source comparison and 24
+for the target comparison. All declared bounds hold. The live path is
+unchanged. No comparable per-call regression or new product cost follows.

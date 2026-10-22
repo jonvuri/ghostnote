@@ -1,0 +1,11 @@
+test_complete_scan_reproduces_and_keeps_refusal (grid_doctor.test_fixture_trace.FixtureTraceIntegration.test_complete_scan_reproduces_and_keeps_refusal) ... ok
+test_context_getter_has_a_null_override (grid_doctor.test_fixture_trace.FixtureTraceIntegration.test_context_getter_has_a_null_override) ... ok
+test_context_hierarchy_is_complete_but_not_a_runtime_binding (grid_doctor.test_fixture_trace.FixtureTraceIntegration.test_context_hierarchy_is_complete_but_not_a_runtime_binding) ... ok
+test_explicit_set_collector_preserves_the_set (grid_doctor.test_fixture_trace.FixtureTraceIntegration.test_explicit_set_collector_preserves_the_set) ... ok
+test_other_collectors_have_ancestor_walks (grid_doctor.test_fixture_trace.FixtureTraceIntegration.test_other_collectors_have_ancestor_walks) ... ok
+test_ping_request_has_a_concrete_descriptor_and_wait (grid_doctor.test_fixture_trace.FixtureTraceIntegration.test_ping_request_has_a_concrete_descriptor_and_wait) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 12.113s
+
+OK

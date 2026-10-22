@@ -2,7 +2,7 @@
 title: Phase 9b — Grid breadth, build discovery, and build-out planning
 kind: plan
 state: active
-status: E336 completes the local role census and traces a changed membership getter. Complete bindings and bounded admission remain unproved. Next is 9b.6f.
+status: E337 links 36 executable contracts and nine fields on 6.1.4. Complete bindings and bounded admission remain unproved. Next is sustained 9b.6g work through probe preparation or a concrete external blocker.
 updated: 2026-10-21
 parent: README.md
 prev: 9a-live-grid-editing-spike.md
@@ -158,8 +158,9 @@ Sessions:
   global disposal tracking. E334 traces inherited parent getters and debug
   event dispatch. E335 finds descriptor overrides and a nested event pump.
   E336 completes the local role census and traces the changed membership
-  getter and lock construction. Session 9b.6f must complete role bindings
-  and bounded admission before new probe preparation.
+  getter and lock construction. E337 links operation contracts and nine
+  fields, and traces the managed-ID bootstraps. Session 9b.6g must complete
+  resolution and bounded admission before new probe preparation.
   Record changed symbols and logic separately. Step 2 remains incomplete.
 - **9b.7 — Refine into a tool.** A consent-gated check tool with a fingerprint
   cache; Grid tools refuse without a cached pass for the current fingerprint;
@@ -933,8 +934,8 @@ repeat the completed 9a audio flow or unrelated breadth writes.
 records 53 missing strict type roles and 76 blocked member roles. The
 boolean candidate's ancestor trace shows added fields and methods. No live
 attempt or deployment occurs. E332 then traces changed command contracts
-in 9b.6a. E333–E336 record the later contract and admission refusals.
-Continue with 9b.6f below before steps 3–5.
+in 9b.6a. E333–E337 record the later contract and admission refusals.
+Continue with 9b.6g below before steps 3–5.
 
 **Entry ready.** [E330](../../evidence/experiments/e330-update-audit-614-acceptance.md)
 accepts the normal-product audit on 6.1.4 and records the jar fingerprint,
@@ -1331,6 +1332,13 @@ open. Product cache enforcement remains in 9b.7.
 
 ### Session 9b.6f — Role bindings and traced variants
 
+**Result.** [E337](../../evidence/experiments/e337-grid-doctor-614-operation-bindings.md)
+records a measured refusal. The shared procedure links 36 executable role
+contracts, nine fields, and 25 type inputs on 6.1.4. Seven fields and all
+five abstract dispatch contracts remain unbound. The managed-ID supplier
+has a second bootstrap and descriptor dependencies. No strict comparator
+variant is admitted. No complete table or probe is ready. Continue with 9b.6g.
+
 **Source.** [E336](../../evidence/experiments/e336-grid-doctor-614-fixture-contracts.md),
 its [role census and membership routes](../../evidence/data/phase9b-doctor/614-fixtures/role-contracts.json),
 [focused trace](../../evidence/data/phase9b-doctor/614-fixtures/trace.json),
@@ -1382,3 +1390,130 @@ planned. Operator replacement, fresh save-first scratch consent, project
 and client verification, new-build live role checks, teardown, and E316
 per-call comparison remain later gates. Do not repeat the accepted 6.0.6
 doctor or 9a audio flow. Step 2 stays open; 9b.7 owns product cache enforcement.
+
+
+### Session 9b.6g — Descriptor anchors and bootstrap contracts
+
+**Source.** [E337](../../evidence/experiments/e337-grid-doctor-614-operation-bindings.md)
+and its [operation and variant report](../../evidence/data/phase9b-doctor/614-bindings/bindings.json).
+Read E336–E331, E315/E316, the symbol manifest, and the performance ledger.
+Keep the technical and safety criteria from 9b.6a and 9b.6f. The completion
+and stop rules below replace their generic "measured refusal with next work
+planned" endpoint for this session. Preserve original
+selectors, diagnostic code and evidence, attempts, caches, deployed normal
+archive, saved fixtures, and the E337 entry inventory. E330 remains the last
+verified live state.
+
+**Objective and session boundary.** Complete the remaining offline work in
+one sustained session: reusable resolution on both jars, bounded admission,
+the resilience tests, and new-build driver and probe preparation. Descriptor
+anchors and bootstrap contracts are the starting tasks. Continue through
+all seven work items below. A new proof gap, diagnostic refusal, or completed
+trace is an intermediate result. Keep actionable offline work in 9b.6g.
+Do not create 9b.6h solely to carry that work forward.
+
+**Execution and progress.** Keep one work list in this session plan. At entry,
+map each missing role or admission condition to its evidence, dependency,
+and next concrete check. Distinguish a diagnostic type input from an accepted
+role. Track complete role coverage, closed command paths, enforceable bounds,
+and passing integration checks. Counts of tests, traces, or E records alone
+do not establish completion.
+
+Work first on dependencies that block several requirements. Reuse the
+preserved census and traces when their inputs and contracts are unchanged.
+If a check fails, inspect its cause, implement or trace the next justified
+step, and continue other independent offline work. Add newly found work to
+this same list. If a requirement cannot be met under the current scope,
+record the evidence and the effect on the fixed doctor before proposing a
+scope change. Do not weaken a guard to obtain a complete table.
+
+Keep intermediate outputs as checkpoints. A context handoff or interruption
+continues 9b.6g from that checkpoint; it does not create a new session or
+justify another full census. Run focused tests at each changed boundary.
+Run the complete resilience and driver suites at their integration gates.
+Repeat passed checks only after a relevant change, failure, or unresolved
+risk. Use separate processes for large test groups under the existing RSS
+limit. Keep one entry inventory and a final preservation check for an
+uninterrupted offline session. Recheck inputs after a restart or possible
+external change. Write the final E record and handoff at the session outcome;
+an intermediate trace does not require a separate E record.
+
+**Work.**
+
+1. Complete the shared 55-type/76-member procedure on both jars. Use E337's
+   exact operation links as trace inputs. Supply descriptor or stable entry
+   anchors for the 30 unbound type roles, seven fields, four ambiguous
+   executable roles, and eleven unbound truncated pools. The seven fields
+   are initialization helper, remote helper, selection state, selected
+   modules, focus, connected state, and inactive state. Do not enlarge a
+   retained sample to infer uniqueness. Require operation edges, access,
+   signatures, and lookup receiver relationships for every accepted role.
+2. Trace and test explicit bootstrap contracts before adding support.
+   Managed ID uses both LambdaMetafactory and StringConcatFactory. Bind the
+   implementation handle, method types, recipe, captured receiver, descriptor
+   getter, name getter, and assertion/reporting branches. Account for class
+   initialization and external calls. Keep unsupported forms refused.
+   Do not modify the strict comparator globally to erase dynamic calls.
+3. Finish the separate disposal, recording-access, and membership variants.
+   The membership terminal changes a field read to an external call. Trace
+   the applicable JDK dependency and its initialization assumptions before
+   making an equivalence or cost claim. Both builds already have delegates.
+   Keep the tracking-mode, queue, failure, and uncertain-state requirements.
+4. Bind all five abstract roles through fixed receiver contracts. Bind the
+   fixed descriptor IDs, subtypes, parent getters, X_, nVd, and deU.E3 wrapper
+   allocation. Account for the null context override and parent/context
+   walks. Identify the actual context among the six concrete classes.
+   A hierarchy census or operation type input is not runtime evidence.
+5. Complete every fixed command's normal, replay, close, disposal, and
+   failure closure. Preserve E336's narrow empty-array exclusion. Bind the
+   other lock collectors and ancestor-derived sets. Establish reachability
+   or exclusion of AJH.bLK → MRY(cQq) → ping and its wait. Keep E335's
+   event-pump and mode-writer evidence. Retain unresolved interface, native,
+   reflection, dynamic, and external edges; do not infer their absence.
+6. Derive enforceable entry and fixed-sequence growth limits for dnz, Z1C,
+   dEI, helper sets, storage, ancestor depth, pending helpers, and wrappers.
+   Include ordinary recording, replay, cleanup, and partial failure. Keep
+   H + S × D. Do not change tracking mode, drain a queue, or acquire a new
+   vendor monitor. Preserve all selection, freshness, journal, replay,
+   owned-head, write-lock, and uncertain-state guards.
+7. Run the complete 9b.6a resilience suite on both complete tables and inert
+   models. E337's diagnostic tests do not replace it. Only complete resolution
+   and bounded admission permit 9b.6 steps 3–4: new-build driver, exact build
+   guard, resources, marker, and first-attempt policy. Retain wrong-build,
+   duplicate-attempt, incomplete-role, uncertain-write, and exact old-record
+   preservation checks. After those gates pass, finish the driver, resources,
+   build guard, first-attempt policy, and probe in this session. Build and
+   deploy with `copyProbeExtension`, then request operator replacement under
+   the repository procedure. Do not defer ready preparation to another
+   session merely because offline resolution has finished.
+
+**Completion and stop rules.** End the offline session at one of these
+reviewable outcomes:
+
+- Complete resolution on both jars, bounded and tested admission, and the
+  prepared and deployed probe. Report the verification and request full
+  operator controller replacement. This is the normal operator boundary.
+- A specific external dependency that prevents further required progress.
+  First complete the independent offline work. State the missing input,
+  unavailable artifact, required runtime observation, or user decision;
+  cite the evidence; and identify the exact action that permits continuation.
+  An untraced call or unsupported comparator form is not by itself such a
+  dependency. Explain why the available offline checks cannot resolve it.
+- A demonstrated incompatibility with a required contract or work bound.
+  Supply a reproducible result, assess the feasible alternatives, and state
+  which requirement or scope decision would have to change. Keep the path
+  refused and request that decision. Another partial diagnostic report does
+  not meet this condition.
+
+An explicit operator request to stop also ends work. If work is interrupted
+for another reason, report it as incomplete and retain a concrete checkpoint
+under 9b.6g. Do not mark that checkpoint as accepted completion or copy the
+same remaining work into a successor session.
+
+After replacement confirmation, run hello and verify the fresh profile and
+markers. Fresh save-first scratch consent, project and client verification,
+live role checks, teardown, and E316 per-call comparison remain the 9b.6 live
+gates. A need for runtime evidence does not authorize a partial table, native
+write, or new probe deployment before its existing preparation gates pass.
+Do not repeat the accepted 6.0.6 doctor or the 9a audio flow. Step 2 stays
+open until the explicit two-build result; 9b.7 owns product cache enforcement.

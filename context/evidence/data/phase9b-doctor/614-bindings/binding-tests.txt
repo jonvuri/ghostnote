@@ -1,0 +1,20 @@
+test_both_jar_bindings_and_variants_reproduce (grid_doctor.test_role_bindings.BindingIntegration.test_both_jar_bindings_and_variants_reproduce) ... ok
+test_abstract_reference_does_not_prove_runtime_dispatch (grid_doctor.test_role_bindings.BindingTests.test_abstract_reference_does_not_prove_runtime_dispatch) ... ok
+test_census_hash_coverage_and_source_checked (grid_doctor.test_role_bindings.BindingTests.test_census_hash_coverage_and_source_checked) ... ok
+test_changed_required_signature_and_operation (grid_doctor.test_role_bindings.BindingTests.test_changed_required_signature_and_operation) ... ok
+test_conflicting_unique_anchors_refuse_as_a_round (grid_doctor.test_role_bindings.BindingTests.test_conflicting_unique_anchors_refuse_as_a_round) ... ok
+test_duplicate_candidates_remain_ambiguous (grid_doctor.test_role_bindings.BindingTests.test_duplicate_candidates_remain_ambiguous) ... ok
+test_exact_operation_and_field_do_not_admit_table (grid_doctor.test_role_bindings.BindingTests.test_exact_operation_and_field_do_not_admit_table) ... ok
+test_existing_report_is_not_overwritten (grid_doctor.test_role_bindings.BindingTests.test_existing_report_is_not_overwritten) ... ok
+test_field_access_change_does_not_bind_field (grid_doctor.test_role_bindings.BindingTests.test_field_access_change_does_not_bind_field) ... ok
+test_field_lookup_receiver_must_reach_declaration (grid_doctor.test_role_bindings.BindingTests.test_field_lookup_receiver_must_reach_declaration) ... ok
+test_missing_candidate (grid_doctor.test_role_bindings.BindingTests.test_missing_candidate) ... ok
+test_rename_and_enumeration (grid_doctor.test_role_bindings.BindingTests.test_rename_and_enumeration) ... ok
+test_truncated_pool_cannot_choose_retained_candidate (grid_doctor.test_role_bindings.BindingTests.test_truncated_pool_cannot_choose_retained_candidate) ... ok
+test_unrelated_receiver_and_dependency_members (grid_doctor.test_role_bindings.BindingTests.test_unrelated_receiver_and_dependency_members) ... ok
+test_work_limits (grid_doctor.test_role_bindings.BindingTests.test_work_limits) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 9.673s
+
+OK

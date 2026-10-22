@@ -2,7 +2,7 @@
 title: 9b — Grid symbol manifest
 kind: note
 state: active
-status: E316 passes all 76 V20 roles on 6.0.6. E336 completes the local member census; complete 6.1.4 bindings and bounded admission remain incomplete.
+status: E316 passes all 76 V20 roles on 6.0.6. E337 links 36 executable contracts and nine fields on 6.1.4; complete resolution and bounded admission remain incomplete.
 updated: 2026-10-21
 parent: 9b-grid-breadth-discovery-and-build-out.md
 ---
@@ -400,3 +400,18 @@ The empty-array begin route skips one lock wait; other collectors and the
 synchronous ping path do not inherit that exclusion. Continue with
 [9b.6f](9b-grid-breadth-discovery-and-build-out.md#session-9b6f--role-bindings-and-traced-variants).
 Pinned source roles and all original selectors remain unchanged.
+
+
+## E337 operation bindings and bootstrap trace
+
+[E337](../../evidence/experiments/e337-grid-doctor-614-operation-bindings.md)
+links 36 executable contracts, nine fields, and 25 type inputs on 6.1.4.
+The nine fields include all five edit-state fields, distinguished by exact
+operation use. Seven fields and all five abstract dispatch contracts still
+need bindings. No complete table or runtime receiver proof exists.
+
+Managed ID uses a lambda supplier whose body has a string-concatenation
+bootstrap and abstract descriptor dispatch. The strict comparator remains
+unchanged. Disposal, recording access, and membership variants stay refused.
+Continue with [9b.6g](9b-grid-breadth-discovery-and-build-out.md#session-9b6g--descriptor-anchors-and-bootstrap-contracts).
+Pinned source roles and original selectors remain unchanged.

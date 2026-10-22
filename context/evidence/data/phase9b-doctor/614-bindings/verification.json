@@ -1,0 +1,32 @@
+{
+  "result": "pass",
+  "testsPassed": 119,
+  "testGroups": [
+    {
+      "source": "regression-tests.txt",
+      "passed": 87,
+      "note": "Earlier groups pass before two later RSS guard errors."
+    },
+    {
+      "source": "role-regression-tests.txt",
+      "passed": 11,
+      "result": "pass"
+    },
+    {
+      "source": "fixture-regression-tests.txt",
+      "passed": 6,
+      "result": "pass"
+    },
+    {
+      "source": "binding-tests.txt",
+      "passed": 15,
+      "result": "pass"
+    }
+  ],
+  "pythonSyntax": [
+    "brain/src/probes/grid_doctor/role_bindings.py",
+    "brain/src/probes/grid_doctor/role_variants.py",
+    "brain/src/probes/grid_doctor/test_role_bindings.py"
+  ],
+  "noLimitRaised": true
+}
