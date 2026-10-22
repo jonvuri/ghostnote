@@ -90,3 +90,41 @@ Exit zero means the diagnostic completed. It does not mean resolution
 passed. Inspect `strictResolution`, `typeCensus`, and `memberCensus`.
 Shallow candidates and ancestor pairs are hypotheses only. This command
 cannot produce a live candidate table or write an acceptance cache.
+
+## 6.1.4 command-contract trace
+
+[E332](../../../../context/evidence/experiments/e332-grid-doctor-614-command-contracts.md)
+records changed relationship hooks, a disposal tail call, and recording-edit
+access. These changes prevent reuse of the old command contracts. The new
+trace utility does not replace the complete resolver. It cannot prepare a
+probe, create an attempt record, or write an acceptance cache.
+
+Run the shared diagnostic on either target jar. The source must be the
+preserved E315 jar. It validates that jar against the complete E315 table
+and caller trace first. The report path must not exist.
+
+```sh
+PYTHONPATH=brain/src/probes python3 -m grid_doctor.migrate \
+  --old-jar '/Users/jonvuri/Bitwig Upgrade Backups/2026-10-21-pre-6.1/apps/Bitwig Studio 6.0.6.app/Contents/Java/bitwig.jar' \
+  --new-jar '/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar' \
+  --report /absolute/new/migration.json
+```
+
+Exit zero means that the diagnostic completed. Read `result`, `reason`, and
+`coverage`. A `traced-subset` result is not complete resolution. A `refused`
+result with `changed-required-contracts` records a traced incompatibility.
+Both results have `completeTable: false` and `writeAuthority: false`.
+
+The method contract keeps flags, signatures, local reference identities,
+literals, control flow, and exception handlers. Unrelated class members do
+not contribute to the key. Cross-method bindings keep shared type and member
+identities equal. They distinguish document Undo from same-shape Redo.
+Missing or multiple matches cause refusal. A body-only access comparison or
+disposal prefix comparison is diagnostic evidence only. Neither can select
+a live member. Dynamic calls require bootstrap evidence that this utility
+does not yet support; they cause refusal when required.
+
+Continue with
+[9b.6b](../../../../context/plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6b--trace-new-ownership-and-disposal-contracts).
+That session must finish the changed contracts and the complete reusable
+resolver before it prepares a probe. Keep the V20 driver unchanged.

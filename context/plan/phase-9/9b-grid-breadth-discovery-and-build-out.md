@@ -2,7 +2,7 @@
 title: Phase 9b — Grid breadth, build discovery, and build-out planning
 kind: plan
 state: active
-status: E331 records the 6.1.4 resolver refusal. Next is 9b.6a structural migration. The live doctor remains incomplete.
+status: E332 traces changed 6.1.4 command contracts. Next is 9b.6b ownership, disposal, and complete resolution. The live doctor remains incomplete.
 updated: 2026-10-21
 parent: README.md
 prev: 9a-live-grid-editing-spike.md
@@ -154,7 +154,8 @@ Sessions:
   normal-product and Sampler checks, persistence, and clean teardown.
 - **9b.6 — Live doctor on 6.1.x.** Offline discovery refuses in
   [E331](../../evidence/experiments/e331-grid-doctor-614-resolver-refusal.md).
-  Session 9b.6a owns structural migration before new probe preparation.
+  E332 traces changed command contracts. Session 9b.6b carries forward
+  structural migration before new probe preparation.
   Record changed symbols and logic separately. Step 2 remains incomplete.
 - **9b.7 — Refine into a tool.** A consent-gated check tool with a fingerprint
   cache; Grid tools refuse without a cached pass for the current fingerprint;
@@ -927,7 +928,8 @@ repeat the completed 9a audio flow or unrelated breadth writes.
 **Offline result.** [E331](../../evidence/experiments/e331-grid-doctor-614-resolver-refusal.md)
 records 53 missing strict type roles and 76 blocked member roles. The
 boolean candidate's ancestor trace shows added fields and methods. No live
-attempt or deployment occurs. Continue with 9b.6a below before steps 3–5.
+attempt or deployment occurs. E332 then traces changed command contracts
+in 9b.6a. Continue with 9b.6b below before steps 3–5.
 
 **Entry ready.** [E330](../../evidence/experiments/e330-update-audit-614-acceptance.md)
 accepts the normal-product audit on 6.1.4 and records the jar fingerprint,
@@ -975,6 +977,13 @@ Product cache enforcement and public tool descriptions remain in 9b.7.
 
 
 ### Session 9b.6a — Resolve changed 6.1.4 structure
+
+**Result.** [E332](../../evidence/experiments/e332-grid-doctor-614-command-contracts.md)
+records a specific traced refusal. The shared local comparator matches the
+Undo caller subset but refuses changed relationship hooks, a disposal tail
+call, and recording-edit access. It is not the complete reusable resolver.
+No probe is prepared. Session 9b.6b below carries forward all incomplete
+criteria from this brief.
 
 **Source.** [E331](../../evidence/experiments/e331-grid-doctor-614-resolver-refusal.md),
 its [diagnosis](../../evidence/data/phase9b-doctor/614-preparation/diagnosis.json),
@@ -1059,3 +1068,50 @@ replacement, or a specific traced refusal with the next work
 planned from that result. A ready probe is not live acceptance. The live
 role checks, teardown, E316 timing comparison, and two-build result remain
 requirements of 9b.6. Public cache enforcement remains in 9b.7.
+
+### Session 9b.6b — Trace new ownership and disposal contracts
+
+**Source.** [E332](../../evidence/experiments/e332-grid-doctor-614-command-contracts.md),
+its [migration trace](../../evidence/data/phase9b-doctor/614-structural/migration.json),
+the [6.0.6 subset control](../../evidence/data/phase9b-doctor/614-structural/source-control.json),
+E331's complete type census, and the 9b.6a criteria above. Keep all prior
+evidence and original selectors unchanged. The last live state remains E330.
+
+1. Trace producers, consumers, and cleanup for the new document-owned set
+   `dfI.dnz` and object/edit helpers reached by `dfL` insertion and removal.
+   Establish their behavior during ordinary edits, document replay, and
+   exceptions. Keep the journal identity, recording edit, replay-head,
+   owned-head, and selection checks. The recording getter has the same body
+   with changed access. Record that contract difference before adding a rule
+   variant. Do not infer safety from the unchanged outer Undo body.
+2. Trace the new disposal tracking mode and its callers. The enabled
+   `thz.cfM(Object)` branch uses a monitor, drains a global reference queue,
+   and allocates a reference for each disposed object. Establish a bounded
+   admission and cost model, or refuse the path. Do not assume the mode is
+   disabled, change its flag, or initialize classes during offline discovery.
+3. Complete the shared role resolver under all 9b.6a criteria. E332's local
+   comparator is a component, not a type or member table. It provides eight
+   type trace inputs; the other 47 still require investigation. Resolve all
+   55 types and 76 members on both jars. Use descriptor contracts, required
+   signatures, receiver relationships, and operation edges. Retain strict
+   refusal for missing, ambiguous, and incompatible candidates. Trace any
+   required dynamic-call bootstrap before adding support. Separate local
+   changes from class additions. Record evidence before any rule revision.
+4. Run the full resilience suite on both jars and inert models. Test complete
+   renaming and enumeration changes; unrelated additions on receivers and
+   referenced types; and refusal for changed required signatures, receivers,
+   operation edges, command traces, missing roles, and duplicates. The local
+   E332 tests do not replace these complete-table tests.
+5. Only after a complete table and the changed cost model pass, perform
+   9b.6 steps 3–4. Prepare and test the new driver, resources, exact host/jar
+   guard, build marker, and first-attempt policy. Preserve old attempt/cache
+   bytes and test wrong-build, duplicate, incomplete-role, and uncertain-write
+   refusal. Deploy only a complete tested probe. Controller replacement is
+   an operator action; wait for confirmation before hello. Fresh save-first
+   scratch consent and the fixed project are still required for live work.
+
+**Acceptance.** A complete reusable resolver and tested probe ready for
+operator replacement, or a specific measured refusal with its next work
+planned. E332 does not grant new-build or product write authority. The live
+doctor, cleanup, per-call comparison with E316, and explicit two-build result
+remain in 9b.6. Product cache enforcement remains in 9b.7.

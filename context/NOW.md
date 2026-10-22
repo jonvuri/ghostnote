@@ -4,38 +4,37 @@ kind: status
 state: active
 updated: 2026-10-21
 phase: phase-9-overlap-investigation
-session: 9b6a-doctor-614-structural-migration
+session: 9b6b-doctor-614-command-contracts
 ---
 
 ## Next session
 
-**Start 9b.6a: resolve the changed 6.1.4 structure.**
-[E331](evidence/experiments/e331-grid-doctor-614-resolver-refusal.md) records
-9b.6's offline refusal: 53 of 55 type selectors have no match, and all 76
-member roles depend on unresolved types. A shallow match is not authority.
-No new probe is built or deployed. The 6.1.4 live doctor remains incomplete.
+**Start 9b.6b: trace new ownership and disposal contracts.**
+[E332](evidence/experiments/e332-grid-doctor-614-command-contracts.md) records
+9b.6a's traced refusal. The Undo caller subset matches, but relationship
+hooks add object/edit bookkeeping and disposal adds conditional global
+tracking. The recording-edit getter also changes access. No probe is built
+or deployed. The complete reusable resolver and 6.1.4 live doctor are
+incomplete.
 
-Read the [9b.6a brief](plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6a--resolve-changed-614-structure),
-E331's [diagnosis](evidence/data/phase9b-doctor/614-preparation/diagnosis.json),
-[E315 caller trace](evidence/experiments/e315-grid-doctor-document-undo.md),
-[E311 resolver instructions](evidence/experiments/e311-grid-offline-resolvers.md),
-the [symbol manifest](plan/phase-9/9b-grid-symbol-manifest.md), and
-[performance ledger](contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md).
+Read the [9b.6b brief](plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6b--trace-new-ownership-and-disposal-contracts),
+E332's [trace](evidence/data/phase9b-doctor/614-structural/migration.json),
+E331's [complete census](evidence/data/phase9b-doctor/614-preparation/diagnosis.json),
+E315's caller trace, the symbol manifest, and the performance ledger.
+The new local comparator supplies eight type trace inputs, not a complete
+table. All 55 types, 76 members, and full resilience criteria remain in the
+9b.6b plan. Preserve original selectors, attempts, and caches.
 
-Trace changed types and commands before revising selectors. Preserve the
-6.0.6 selectors, attempts, and cache. Build a reusable resolution procedure
-and test its resilience on both jars and inert models as required by 9b.6a.
-Only after a complete new table passes may the session adapt the driver,
-resources, host guard, and first-attempt policy. V20 still requires 6.0.6
-and E313's specific retry record. Controller
-replacement is an operator action. Fresh scratch consent is required before
-the new-build doctor. E330 grants no native write authority. Step 2 stays
-open; 9b.7 owns product cache enforcement. Do not repeat the live 6.0.6 doctor
-or the 9a audio flow.
+Only a complete passing table can proceed to new driver and probe
+preparation. V20 still requires 6.0.6 and E313's specific retry record.
+Controller replacement is an operator action. Fresh scratch consent and
+project verification are required before the new-build doctor. E330 grants
+no native write authority. Step 2 stays open; 9b.7 owns product cache
+enforcement. Do not repeat the live 6.0.6 doctor or the 9a audio flow.
 
 ## Deployment and live state
 
-Last verified in E330. E331 makes no live request.
+Last verified in E330. E331 and E332 make no live request.
 
 - App: `/Applications/Bitwig Studio.app`, **6.1.4**, API 25.
 - Jar SHA-256: `5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f`.
@@ -63,6 +62,11 @@ The copied 6.0.6 launch and recovery check passed. Original-project asset
 checks were not exhaustive. Do not modify backups or donor sources.
 
 ## Material to preserve
+
+- E332 [command trace](evidence/data/phase9b-doctor/614-structural/migration.json),
+  [source control](evidence/data/phase9b-doctor/614-structural/source-control.json),
+  tests, and [preservation check](evidence/data/phase9b-doctor/614-structural/preservation.json).
+  No new-build candidate, attempt, cache, or deployment exists.
 
 - E331 [initial refusal](evidence/data/phase9b-doctor/614-preparation/initial-scan/candidate.json),
   [complete diagnosis](evidence/data/phase9b-doctor/614-preparation/diagnosis.json),

@@ -354,3 +354,19 @@ methods explain structural drift; shallow matches do not prove identities
 or command behavior. Keep the pinned manifest above as the 6.0.6 record.
 [9b.6a](9b-grid-breadth-discovery-and-build-out.md#session-9b6a--resolve-changed-614-structure)
 must trace the new types and commands before revising selectors.
+
+## E332 command-contract refusal on 6.1.4
+
+[E332](../../evidence/experiments/e332-grid-doctor-614-command-contracts.md)
+traces the project/document/journal Undo chain with a local contract key
+that excludes unrelated class members. Cross-method bindings distinguish
+Undo from Redo. Eight type roles have trace inputs, not accepted runtime
+identities. No complete 6.1.4 member table exists.
+
+The relationship hooks add document-owned set and object/edit operations.
+Object disposal adds conditional global tracking with a queue-drain loop.
+The recording-edit getter keeps its body but changes access. The diagnostic
+refuses these contracts. No original selector or manifest pin changes.
+[9b.6b](9b-grid-breadth-discovery-and-build-out.md#session-9b6b--trace-new-ownership-and-disposal-contracts)
+must finish the changed contracts, cost model, complete role resolution,
+and resilience checks before probe preparation.

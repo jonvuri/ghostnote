@@ -1,0 +1,6144 @@
+{
+  "writeAuthority": false,
+  "completeTable": false,
+  "bridgeCalls": 0,
+  "nativeCommands": 0,
+  "vendorClassesInitialized": 0,
+  "journalAnchor": {
+    "old": {
+      "owner": "daR",
+      "name": "wi2",
+      "descriptor": "()V",
+      "flags": 1,
+      "codeBytes": 282,
+      "classSha256": "e2a6561eeb1602b13303968892565a81f51329260411b925b50966718ebd12a6",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 154,
+          "target": 24
+        },
+        {
+          "offset": 13,
+          "opcode": 154,
+          "target": 24
+        },
+        {
+          "offset": 27,
+          "opcode": 154,
+          "target": 63
+        },
+        {
+          "offset": 41,
+          "opcode": 166,
+          "target": 48
+        },
+        {
+          "offset": 45,
+          "opcode": 167,
+          "target": 49
+        },
+        {
+          "offset": 52,
+          "opcode": 154,
+          "target": 63
+        },
+        {
+          "offset": 66,
+          "opcode": 154,
+          "target": 102
+        },
+        {
+          "offset": 73,
+          "opcode": 154,
+          "target": 87
+        },
+        {
+          "offset": 80,
+          "opcode": 154,
+          "target": 87
+        },
+        {
+          "offset": 84,
+          "opcode": 167,
+          "target": 88
+        },
+        {
+          "offset": 91,
+          "opcode": 154,
+          "target": 102
+        },
+        {
+          "offset": 105,
+          "opcode": 154,
+          "target": 134
+        },
+        {
+          "offset": 112,
+          "opcode": 199,
+          "target": 119
+        },
+        {
+          "offset": 116,
+          "opcode": 167,
+          "target": 120
+        },
+        {
+          "offset": 123,
+          "opcode": 154,
+          "target": 134
+        },
+        {
+          "offset": 137,
+          "opcode": 154,
+          "target": 169
+        },
+        {
+          "offset": 147,
+          "opcode": 154,
+          "target": 154
+        },
+        {
+          "offset": 151,
+          "opcode": 167,
+          "target": 155
+        },
+        {
+          "offset": 158,
+          "opcode": 154,
+          "target": 169
+        },
+        {
+          "offset": 214,
+          "opcode": 154,
+          "target": 235
+        },
+        {
+          "offset": 224,
+          "opcode": 154,
+          "target": 235
+        },
+        {
+          "offset": 238,
+          "opcode": 154,
+          "target": 281
+        },
+        {
+          "offset": 245,
+          "opcode": 198,
+          "target": 266
+        },
+        {
+          "offset": 255,
+          "opcode": 154,
+          "target": 262
+        },
+        {
+          "offset": 259,
+          "opcode": 167,
+          "target": 267
+        },
+        {
+          "offset": 263,
+          "opcode": 167,
+          "target": 267
+        },
+        {
+          "offset": 270,
+          "opcode": 154,
+          "target": 281
+        }
+      ],
+      "references": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "owner": "daR",
+          "name": "ffA",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 7,
+          "opcode": 182,
+          "owner": "daR",
+          "name": "kG",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 10,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 20,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 24,
+          "opcode": 178,
+          "owner": "daR",
+          "name": "ffA",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 31,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "MkF",
+          "descriptor": "LcZv;"
+        },
+        {
+          "offset": 34,
+          "opcode": 182,
+          "owner": "cZv",
+          "name": "VoD",
+          "descriptor": "()Lcom/bitwig/ramona/core/Ibf;"
+        },
+        {
+          "offset": 38,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "cG3",
+          "descriptor": "Lcom/bitwig/ramona/core/Ibf;"
+        },
+        {
+          "offset": 49,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 59,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 63,
+          "opcode": 178,
+          "owner": "daR",
+          "name": "ffA",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 70,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "pvN",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 77,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "QiZ",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 88,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 98,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 102,
+          "opcode": 178,
+          "owner": "daR",
+          "name": "ffA",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 109,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "kG",
+          "descriptor": "LcZv;"
+        },
+        {
+          "offset": 120,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 130,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 134,
+          "opcode": 178,
+          "owner": "daR",
+          "name": "ffA",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 141,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "MkF",
+          "descriptor": "LcZv;"
+        },
+        {
+          "offset": 144,
+          "opcode": 182,
+          "owner": "cZv",
+          "name": "Uhv",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 155,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 165,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 170,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "MkF",
+          "descriptor": "LcZv;"
+        },
+        {
+          "offset": 176,
+          "opcode": 181,
+          "owner": "daR",
+          "name": "kG",
+          "descriptor": "LcZv;"
+        },
+        {
+          "offset": 180,
+          "opcode": 182,
+          "owner": "cZv",
+          "name": "eJS",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 185,
+          "opcode": 181,
+          "owner": "daR",
+          "name": "kG",
+          "descriptor": "LcZv;"
+        },
+        {
+          "offset": 190,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "Uhv",
+          "descriptor": "LcZl;"
+        },
+        {
+          "offset": 193,
+          "opcode": 182,
+          "owner": "cZl",
+          "name": "pvN",
+          "descriptor": "()LcZj;"
+        },
+        {
+          "offset": 197,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "MkF",
+          "descriptor": "LcZv;"
+        },
+        {
+          "offset": 200,
+          "opcode": 182,
+          "owner": "cZj",
+          "name": "eOi",
+          "descriptor": "(LcZv;)LcZv;"
+        },
+        {
+          "offset": 203,
+          "opcode": 181,
+          "owner": "daR",
+          "name": "MkF",
+          "descriptor": "LcZv;"
+        },
+        {
+          "offset": 208,
+          "opcode": 181,
+          "owner": "daR",
+          "name": "SRu",
+          "descriptor": "Lcom/bitwig/ramona/core/ziZ;"
+        },
+        {
+          "offset": 211,
+          "opcode": 178,
+          "owner": "daR",
+          "name": "ffA",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 218,
+          "opcode": 182,
+          "owner": "cZv",
+          "name": "Uhv",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 221,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 231,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 235,
+          "opcode": 178,
+          "owner": "daR",
+          "name": "ffA",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 242,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "MkF",
+          "descriptor": "LcZv;"
+        },
+        {
+          "offset": 249,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "MkF",
+          "descriptor": "LcZv;"
+        },
+        {
+          "offset": 252,
+          "opcode": 182,
+          "owner": "cZv",
+          "name": "Uhv",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 267,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 277,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        }
+      ]
+    },
+    "new": {
+      "owner": "daR",
+      "name": "wi2",
+      "descriptor": "()V",
+      "flags": 1,
+      "codeBytes": 282,
+      "classSha256": "e2a6561eeb1602b13303968892565a81f51329260411b925b50966718ebd12a6",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 154,
+          "target": 24
+        },
+        {
+          "offset": 13,
+          "opcode": 154,
+          "target": 24
+        },
+        {
+          "offset": 27,
+          "opcode": 154,
+          "target": 63
+        },
+        {
+          "offset": 41,
+          "opcode": 166,
+          "target": 48
+        },
+        {
+          "offset": 45,
+          "opcode": 167,
+          "target": 49
+        },
+        {
+          "offset": 52,
+          "opcode": 154,
+          "target": 63
+        },
+        {
+          "offset": 66,
+          "opcode": 154,
+          "target": 102
+        },
+        {
+          "offset": 73,
+          "opcode": 154,
+          "target": 87
+        },
+        {
+          "offset": 80,
+          "opcode": 154,
+          "target": 87
+        },
+        {
+          "offset": 84,
+          "opcode": 167,
+          "target": 88
+        },
+        {
+          "offset": 91,
+          "opcode": 154,
+          "target": 102
+        },
+        {
+          "offset": 105,
+          "opcode": 154,
+          "target": 134
+        },
+        {
+          "offset": 112,
+          "opcode": 199,
+          "target": 119
+        },
+        {
+          "offset": 116,
+          "opcode": 167,
+          "target": 120
+        },
+        {
+          "offset": 123,
+          "opcode": 154,
+          "target": 134
+        },
+        {
+          "offset": 137,
+          "opcode": 154,
+          "target": 169
+        },
+        {
+          "offset": 147,
+          "opcode": 154,
+          "target": 154
+        },
+        {
+          "offset": 151,
+          "opcode": 167,
+          "target": 155
+        },
+        {
+          "offset": 158,
+          "opcode": 154,
+          "target": 169
+        },
+        {
+          "offset": 214,
+          "opcode": 154,
+          "target": 235
+        },
+        {
+          "offset": 224,
+          "opcode": 154,
+          "target": 235
+        },
+        {
+          "offset": 238,
+          "opcode": 154,
+          "target": 281
+        },
+        {
+          "offset": 245,
+          "opcode": 198,
+          "target": 266
+        },
+        {
+          "offset": 255,
+          "opcode": 154,
+          "target": 262
+        },
+        {
+          "offset": 259,
+          "opcode": 167,
+          "target": 267
+        },
+        {
+          "offset": 263,
+          "opcode": 167,
+          "target": 267
+        },
+        {
+          "offset": 270,
+          "opcode": 154,
+          "target": 281
+        }
+      ],
+      "references": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "owner": "daR",
+          "name": "ffA",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 7,
+          "opcode": 182,
+          "owner": "daR",
+          "name": "kG",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 10,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 20,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 24,
+          "opcode": 178,
+          "owner": "daR",
+          "name": "ffA",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 31,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "MkF",
+          "descriptor": "LcZv;"
+        },
+        {
+          "offset": 34,
+          "opcode": 182,
+          "owner": "cZv",
+          "name": "VoD",
+          "descriptor": "()Lcom/bitwig/ramona/core/Ibf;"
+        },
+        {
+          "offset": 38,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "cG3",
+          "descriptor": "Lcom/bitwig/ramona/core/Ibf;"
+        },
+        {
+          "offset": 49,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 59,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 63,
+          "opcode": 178,
+          "owner": "daR",
+          "name": "ffA",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 70,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "pvN",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 77,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "QiZ",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 88,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 98,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 102,
+          "opcode": 178,
+          "owner": "daR",
+          "name": "ffA",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 109,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "kG",
+          "descriptor": "LcZv;"
+        },
+        {
+          "offset": 120,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 130,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 134,
+          "opcode": 178,
+          "owner": "daR",
+          "name": "ffA",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 141,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "MkF",
+          "descriptor": "LcZv;"
+        },
+        {
+          "offset": 144,
+          "opcode": 182,
+          "owner": "cZv",
+          "name": "Uhv",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 155,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 165,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 170,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "MkF",
+          "descriptor": "LcZv;"
+        },
+        {
+          "offset": 176,
+          "opcode": 181,
+          "owner": "daR",
+          "name": "kG",
+          "descriptor": "LcZv;"
+        },
+        {
+          "offset": 180,
+          "opcode": 182,
+          "owner": "cZv",
+          "name": "eJS",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 185,
+          "opcode": 181,
+          "owner": "daR",
+          "name": "kG",
+          "descriptor": "LcZv;"
+        },
+        {
+          "offset": 190,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "Uhv",
+          "descriptor": "LcZl;"
+        },
+        {
+          "offset": 193,
+          "opcode": 182,
+          "owner": "cZl",
+          "name": "pvN",
+          "descriptor": "()LcZj;"
+        },
+        {
+          "offset": 197,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "MkF",
+          "descriptor": "LcZv;"
+        },
+        {
+          "offset": 200,
+          "opcode": 182,
+          "owner": "cZj",
+          "name": "eOi",
+          "descriptor": "(LcZv;)LcZv;"
+        },
+        {
+          "offset": 203,
+          "opcode": 181,
+          "owner": "daR",
+          "name": "MkF",
+          "descriptor": "LcZv;"
+        },
+        {
+          "offset": 208,
+          "opcode": 181,
+          "owner": "daR",
+          "name": "SRu",
+          "descriptor": "Lcom/bitwig/ramona/core/ziZ;"
+        },
+        {
+          "offset": 211,
+          "opcode": 178,
+          "owner": "daR",
+          "name": "ffA",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 218,
+          "opcode": 182,
+          "owner": "cZv",
+          "name": "Uhv",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 221,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 231,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 235,
+          "opcode": 178,
+          "owner": "daR",
+          "name": "ffA",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 242,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "MkF",
+          "descriptor": "LcZv;"
+        },
+        {
+          "offset": 249,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "MkF",
+          "descriptor": "LcZv;"
+        },
+        {
+          "offset": 252,
+          "opcode": 182,
+          "owner": "cZv",
+          "name": "Uhv",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 267,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 277,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        }
+      ]
+    }
+  },
+  "matchedCallerMethods": [
+    {
+      "old": {
+        "owner": "cZl",
+        "name": "OTd",
+        "descriptor": "()V",
+        "flags": 17,
+        "codeBytes": 68,
+        "classSha256": "6ab8f46007df3439bedca7fcbfdf07509e16f44cd3783e3e1a4d831b56487bae",
+        "exceptionHandlers": [],
+        "branches": [
+          {
+            "offset": 4,
+            "opcode": 154,
+            "target": 8
+          },
+          {
+            "offset": 17,
+            "opcode": 154,
+            "target": 21
+          },
+          {
+            "offset": 24,
+            "opcode": 154,
+            "target": 53
+          },
+          {
+            "offset": 31,
+            "opcode": 154,
+            "target": 38
+          },
+          {
+            "offset": 35,
+            "opcode": 167,
+            "target": 39
+          },
+          {
+            "offset": 42,
+            "opcode": 154,
+            "target": 53
+          }
+        ],
+        "references": [
+          {
+            "offset": 1,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "eJS",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 9,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "Ode",
+            "descriptor": "()LdaR;"
+          },
+          {
+            "offset": 14,
+            "opcode": 182,
+            "owner": "daR",
+            "name": "kG",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 21,
+            "opcode": 178,
+            "owner": "cZl",
+            "name": "Uhv",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 28,
+            "opcode": 180,
+            "owner": "cZl",
+            "name": "EbT",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 39,
+            "opcode": 184,
+            "owner": "cJT",
+            "name": "eOi",
+            "descriptor": "(Z)Z"
+          },
+          {
+            "offset": 49,
+            "opcode": 183,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 55,
+            "opcode": 181,
+            "owner": "cZl",
+            "name": "EbT",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 59,
+            "opcode": 182,
+            "owner": "daR",
+            "name": "wi2",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 64,
+            "opcode": 181,
+            "owner": "cZl",
+            "name": "EbT",
+            "descriptor": "Z"
+          }
+        ]
+      },
+      "new": {
+        "owner": "cZl",
+        "name": "OTd",
+        "descriptor": "()V",
+        "flags": 17,
+        "codeBytes": 68,
+        "classSha256": "6ab8f46007df3439bedca7fcbfdf07509e16f44cd3783e3e1a4d831b56487bae",
+        "exceptionHandlers": [],
+        "branches": [
+          {
+            "offset": 4,
+            "opcode": 154,
+            "target": 8
+          },
+          {
+            "offset": 17,
+            "opcode": 154,
+            "target": 21
+          },
+          {
+            "offset": 24,
+            "opcode": 154,
+            "target": 53
+          },
+          {
+            "offset": 31,
+            "opcode": 154,
+            "target": 38
+          },
+          {
+            "offset": 35,
+            "opcode": 167,
+            "target": 39
+          },
+          {
+            "offset": 42,
+            "opcode": 154,
+            "target": 53
+          }
+        ],
+        "references": [
+          {
+            "offset": 1,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "eJS",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 9,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "Ode",
+            "descriptor": "()LdaR;"
+          },
+          {
+            "offset": 14,
+            "opcode": 182,
+            "owner": "daR",
+            "name": "kG",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 21,
+            "opcode": 178,
+            "owner": "cZl",
+            "name": "Uhv",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 28,
+            "opcode": 180,
+            "owner": "cZl",
+            "name": "EbT",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 39,
+            "opcode": 184,
+            "owner": "cJT",
+            "name": "eOi",
+            "descriptor": "(Z)Z"
+          },
+          {
+            "offset": 49,
+            "opcode": 183,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 55,
+            "opcode": 181,
+            "owner": "cZl",
+            "name": "EbT",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 59,
+            "opcode": 182,
+            "owner": "daR",
+            "name": "wi2",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 64,
+            "opcode": 181,
+            "owner": "cZl",
+            "name": "EbT",
+            "descriptor": "Z"
+          }
+        ]
+      }
+    },
+    {
+      "old": {
+        "owner": "cZl",
+        "name": "eJS",
+        "descriptor": "()Z",
+        "flags": 17,
+        "codeBytes": 45,
+        "classSha256": "6ab8f46007df3439bedca7fcbfdf07509e16f44cd3783e3e1a4d831b56487bae",
+        "exceptionHandlers": [],
+        "branches": [
+          {
+            "offset": 3,
+            "opcode": 154,
+            "target": 32
+          },
+          {
+            "offset": 10,
+            "opcode": 155,
+            "target": 17
+          },
+          {
+            "offset": 14,
+            "opcode": 167,
+            "target": 18
+          },
+          {
+            "offset": 21,
+            "opcode": 154,
+            "target": 32
+          },
+          {
+            "offset": 36,
+            "opcode": 154,
+            "target": 43
+          },
+          {
+            "offset": 40,
+            "opcode": 167,
+            "target": 44
+          }
+        ],
+        "references": [
+          {
+            "offset": 0,
+            "opcode": 178,
+            "owner": "cZl",
+            "name": "Uhv",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 7,
+            "opcode": 180,
+            "owner": "cZl",
+            "name": "Ode",
+            "descriptor": "I"
+          },
+          {
+            "offset": 18,
+            "opcode": 184,
+            "owner": "cJT",
+            "name": "eOi",
+            "descriptor": "(Z)Z"
+          },
+          {
+            "offset": 28,
+            "opcode": 183,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 33,
+            "opcode": 180,
+            "owner": "cZl",
+            "name": "Ode",
+            "descriptor": "I"
+          }
+        ]
+      },
+      "new": {
+        "owner": "cZl",
+        "name": "eJS",
+        "descriptor": "()Z",
+        "flags": 17,
+        "codeBytes": 45,
+        "classSha256": "6ab8f46007df3439bedca7fcbfdf07509e16f44cd3783e3e1a4d831b56487bae",
+        "exceptionHandlers": [],
+        "branches": [
+          {
+            "offset": 3,
+            "opcode": 154,
+            "target": 32
+          },
+          {
+            "offset": 10,
+            "opcode": 155,
+            "target": 17
+          },
+          {
+            "offset": 14,
+            "opcode": 167,
+            "target": 18
+          },
+          {
+            "offset": 21,
+            "opcode": 154,
+            "target": 32
+          },
+          {
+            "offset": 36,
+            "opcode": 154,
+            "target": 43
+          },
+          {
+            "offset": 40,
+            "opcode": 167,
+            "target": 44
+          }
+        ],
+        "references": [
+          {
+            "offset": 0,
+            "opcode": 178,
+            "owner": "cZl",
+            "name": "Uhv",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 7,
+            "opcode": 180,
+            "owner": "cZl",
+            "name": "Ode",
+            "descriptor": "I"
+          },
+          {
+            "offset": 18,
+            "opcode": 184,
+            "owner": "cJT",
+            "name": "eOi",
+            "descriptor": "(Z)Z"
+          },
+          {
+            "offset": 28,
+            "opcode": 183,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 33,
+            "opcode": 180,
+            "owner": "cZl",
+            "name": "Ode",
+            "descriptor": "I"
+          }
+        ]
+      }
+    },
+    {
+      "old": {
+        "owner": "cZl",
+        "name": "nrP",
+        "descriptor": "()Lcom/bitwig/ramona/core/Ibf;",
+        "flags": 17,
+        "codeBytes": 8,
+        "classSha256": "6ab8f46007df3439bedca7fcbfdf07509e16f44cd3783e3e1a4d831b56487bae",
+        "exceptionHandlers": [],
+        "branches": [],
+        "references": [
+          {
+            "offset": 1,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "Fmu",
+            "descriptor": "()Lcom/bitwig/ramona/core/uX1;"
+          },
+          {
+            "offset": 4,
+            "opcode": 182,
+            "owner": "com/bitwig/ramona/core/uX1",
+            "name": "Ode",
+            "descriptor": "()Lcom/bitwig/ramona/core/Ibf;"
+          }
+        ]
+      },
+      "new": {
+        "owner": "cZl",
+        "name": "nrP",
+        "descriptor": "()Lcom/bitwig/ramona/core/Ibf;",
+        "flags": 17,
+        "codeBytes": 8,
+        "classSha256": "6ab8f46007df3439bedca7fcbfdf07509e16f44cd3783e3e1a4d831b56487bae",
+        "exceptionHandlers": [],
+        "branches": [],
+        "references": [
+          {
+            "offset": 1,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "Fmu",
+            "descriptor": "()Lcom/bitwig/ramona/core/uX1;"
+          },
+          {
+            "offset": 4,
+            "opcode": 182,
+            "owner": "com/bitwig/ramona/core/uX1",
+            "name": "Ode",
+            "descriptor": "()Lcom/bitwig/ramona/core/Ibf;"
+          }
+        ]
+      }
+    },
+    {
+      "old": {
+        "owner": "cZl",
+        "name": "Ode",
+        "descriptor": "()LdaR;",
+        "flags": 17,
+        "codeBytes": 35,
+        "classSha256": "6ab8f46007df3439bedca7fcbfdf07509e16f44cd3783e3e1a4d831b56487bae",
+        "exceptionHandlers": [],
+        "branches": [
+          {
+            "offset": 8,
+            "opcode": 154,
+            "target": 23
+          },
+          {
+            "offset": 12,
+            "opcode": 199,
+            "target": 23
+          },
+          {
+            "offset": 24,
+            "opcode": 199,
+            "target": 29
+          }
+        ],
+        "references": [
+          {
+            "offset": 1,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "nrP",
+            "descriptor": "()Lcom/bitwig/ramona/core/Ibf;"
+          },
+          {
+            "offset": 5,
+            "opcode": 178,
+            "owner": "cZl",
+            "name": "Uhv",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 19,
+            "opcode": 183,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 31,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "ffA",
+            "descriptor": "(Lcom/bitwig/ramona/core/Ibf;)LdaR;"
+          }
+        ]
+      },
+      "new": {
+        "owner": "cZl",
+        "name": "Ode",
+        "descriptor": "()LdaR;",
+        "flags": 17,
+        "codeBytes": 35,
+        "classSha256": "6ab8f46007df3439bedca7fcbfdf07509e16f44cd3783e3e1a4d831b56487bae",
+        "exceptionHandlers": [],
+        "branches": [
+          {
+            "offset": 8,
+            "opcode": 154,
+            "target": 23
+          },
+          {
+            "offset": 12,
+            "opcode": 199,
+            "target": 23
+          },
+          {
+            "offset": 24,
+            "opcode": 199,
+            "target": 29
+          }
+        ],
+        "references": [
+          {
+            "offset": 1,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "nrP",
+            "descriptor": "()Lcom/bitwig/ramona/core/Ibf;"
+          },
+          {
+            "offset": 5,
+            "opcode": 178,
+            "owner": "cZl",
+            "name": "Uhv",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 19,
+            "opcode": 183,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 31,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "ffA",
+            "descriptor": "(Lcom/bitwig/ramona/core/Ibf;)LdaR;"
+          }
+        ]
+      }
+    },
+    {
+      "old": {
+        "owner": "cZl",
+        "name": "ffA",
+        "descriptor": "(Lcom/bitwig/ramona/core/Ibf;)LdaR;",
+        "flags": 17,
+        "codeBytes": 71,
+        "classSha256": "6ab8f46007df3439bedca7fcbfdf07509e16f44cd3783e3e1a4d831b56487bae",
+        "exceptionHandlers": [],
+        "branches": [
+          {
+            "offset": 3,
+            "opcode": 154,
+            "target": 29
+          },
+          {
+            "offset": 7,
+            "opcode": 198,
+            "target": 14
+          },
+          {
+            "offset": 11,
+            "opcode": 167,
+            "target": 15
+          },
+          {
+            "offset": 18,
+            "opcode": 154,
+            "target": 29
+          },
+          {
+            "offset": 44,
+            "opcode": 199,
+            "target": 69
+          }
+        ],
+        "references": [
+          {
+            "offset": 0,
+            "opcode": 178,
+            "owner": "cZl",
+            "name": "Uhv",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 15,
+            "opcode": 184,
+            "owner": "cJT",
+            "name": "eOi",
+            "descriptor": "(Z)Z"
+          },
+          {
+            "offset": 25,
+            "opcode": 183,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 30,
+            "opcode": 180,
+            "owner": "cZl",
+            "name": "W2P",
+            "descriptor": "Ljava/util/Map;"
+          },
+          {
+            "offset": 34,
+            "opcode": 185,
+            "owner": "java/util/Map",
+            "name": "get",
+            "descriptor": "(Ljava/lang/Object;)Ljava/lang/Object;"
+          },
+          {
+            "offset": 53,
+            "opcode": 183,
+            "owner": "daR",
+            "name": "<init>",
+            "descriptor": "(Lcom/bitwig/ramona/core/Ibf;LcZl;)V"
+          },
+          {
+            "offset": 58,
+            "opcode": 180,
+            "owner": "cZl",
+            "name": "W2P",
+            "descriptor": "Ljava/util/Map;"
+          },
+          {
+            "offset": 63,
+            "opcode": 185,
+            "owner": "java/util/Map",
+            "name": "put",
+            "descriptor": "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;"
+          }
+        ]
+      },
+      "new": {
+        "owner": "cZl",
+        "name": "ffA",
+        "descriptor": "(Lcom/bitwig/ramona/core/Ibf;)LdaR;",
+        "flags": 17,
+        "codeBytes": 71,
+        "classSha256": "6ab8f46007df3439bedca7fcbfdf07509e16f44cd3783e3e1a4d831b56487bae",
+        "exceptionHandlers": [],
+        "branches": [
+          {
+            "offset": 3,
+            "opcode": 154,
+            "target": 29
+          },
+          {
+            "offset": 7,
+            "opcode": 198,
+            "target": 14
+          },
+          {
+            "offset": 11,
+            "opcode": 167,
+            "target": 15
+          },
+          {
+            "offset": 18,
+            "opcode": 154,
+            "target": 29
+          },
+          {
+            "offset": 44,
+            "opcode": 199,
+            "target": 69
+          }
+        ],
+        "references": [
+          {
+            "offset": 0,
+            "opcode": 178,
+            "owner": "cZl",
+            "name": "Uhv",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 15,
+            "opcode": 184,
+            "owner": "cJT",
+            "name": "eOi",
+            "descriptor": "(Z)Z"
+          },
+          {
+            "offset": 25,
+            "opcode": 183,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 30,
+            "opcode": 180,
+            "owner": "cZl",
+            "name": "W2P",
+            "descriptor": "Ljava/util/Map;"
+          },
+          {
+            "offset": 34,
+            "opcode": 185,
+            "owner": "java/util/Map",
+            "name": "get",
+            "descriptor": "(Ljava/lang/Object;)Ljava/lang/Object;"
+          },
+          {
+            "offset": 53,
+            "opcode": 183,
+            "owner": "daR",
+            "name": "<init>",
+            "descriptor": "(Lcom/bitwig/ramona/core/Ibf;LcZl;)V"
+          },
+          {
+            "offset": 58,
+            "opcode": 180,
+            "owner": "cZl",
+            "name": "W2P",
+            "descriptor": "Ljava/util/Map;"
+          },
+          {
+            "offset": 63,
+            "opcode": 185,
+            "owner": "java/util/Map",
+            "name": "put",
+            "descriptor": "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;"
+          }
+        ]
+      }
+    },
+    {
+      "old": {
+        "owner": "cZl",
+        "name": "Mkn",
+        "descriptor": "()Z",
+        "flags": 17,
+        "codeBytes": 5,
+        "classSha256": "6ab8f46007df3439bedca7fcbfdf07509e16f44cd3783e3e1a4d831b56487bae",
+        "exceptionHandlers": [],
+        "branches": [],
+        "references": [
+          {
+            "offset": 1,
+            "opcode": 180,
+            "owner": "cZl",
+            "name": "EbT",
+            "descriptor": "Z"
+          }
+        ]
+      },
+      "new": {
+        "owner": "cZl",
+        "name": "Mkn",
+        "descriptor": "()Z",
+        "flags": 17,
+        "codeBytes": 5,
+        "classSha256": "6ab8f46007df3439bedca7fcbfdf07509e16f44cd3783e3e1a4d831b56487bae",
+        "exceptionHandlers": [],
+        "branches": [],
+        "references": [
+          {
+            "offset": 1,
+            "opcode": 180,
+            "owner": "cZl",
+            "name": "EbT",
+            "descriptor": "Z"
+          }
+        ]
+      }
+    },
+    {
+      "old": {
+        "owner": "daR",
+        "name": "wi2",
+        "descriptor": "()V",
+        "flags": 1,
+        "codeBytes": 282,
+        "classSha256": "e2a6561eeb1602b13303968892565a81f51329260411b925b50966718ebd12a6",
+        "exceptionHandlers": [],
+        "branches": [
+          {
+            "offset": 3,
+            "opcode": 154,
+            "target": 24
+          },
+          {
+            "offset": 13,
+            "opcode": 154,
+            "target": 24
+          },
+          {
+            "offset": 27,
+            "opcode": 154,
+            "target": 63
+          },
+          {
+            "offset": 41,
+            "opcode": 166,
+            "target": 48
+          },
+          {
+            "offset": 45,
+            "opcode": 167,
+            "target": 49
+          },
+          {
+            "offset": 52,
+            "opcode": 154,
+            "target": 63
+          },
+          {
+            "offset": 66,
+            "opcode": 154,
+            "target": 102
+          },
+          {
+            "offset": 73,
+            "opcode": 154,
+            "target": 87
+          },
+          {
+            "offset": 80,
+            "opcode": 154,
+            "target": 87
+          },
+          {
+            "offset": 84,
+            "opcode": 167,
+            "target": 88
+          },
+          {
+            "offset": 91,
+            "opcode": 154,
+            "target": 102
+          },
+          {
+            "offset": 105,
+            "opcode": 154,
+            "target": 134
+          },
+          {
+            "offset": 112,
+            "opcode": 199,
+            "target": 119
+          },
+          {
+            "offset": 116,
+            "opcode": 167,
+            "target": 120
+          },
+          {
+            "offset": 123,
+            "opcode": 154,
+            "target": 134
+          },
+          {
+            "offset": 137,
+            "opcode": 154,
+            "target": 169
+          },
+          {
+            "offset": 147,
+            "opcode": 154,
+            "target": 154
+          },
+          {
+            "offset": 151,
+            "opcode": 167,
+            "target": 155
+          },
+          {
+            "offset": 158,
+            "opcode": 154,
+            "target": 169
+          },
+          {
+            "offset": 214,
+            "opcode": 154,
+            "target": 235
+          },
+          {
+            "offset": 224,
+            "opcode": 154,
+            "target": 235
+          },
+          {
+            "offset": 238,
+            "opcode": 154,
+            "target": 281
+          },
+          {
+            "offset": 245,
+            "opcode": 198,
+            "target": 266
+          },
+          {
+            "offset": 255,
+            "opcode": 154,
+            "target": 262
+          },
+          {
+            "offset": 259,
+            "opcode": 167,
+            "target": 267
+          },
+          {
+            "offset": 263,
+            "opcode": 167,
+            "target": 267
+          },
+          {
+            "offset": 270,
+            "opcode": 154,
+            "target": 281
+          }
+        ],
+        "references": [
+          {
+            "offset": 0,
+            "opcode": 178,
+            "owner": "daR",
+            "name": "ffA",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 7,
+            "opcode": 182,
+            "owner": "daR",
+            "name": "kG",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 10,
+            "opcode": 184,
+            "owner": "cJT",
+            "name": "eOi",
+            "descriptor": "(Z)Z"
+          },
+          {
+            "offset": 20,
+            "opcode": 183,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 24,
+            "opcode": 178,
+            "owner": "daR",
+            "name": "ffA",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 31,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "MkF",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 34,
+            "opcode": 182,
+            "owner": "cZv",
+            "name": "VoD",
+            "descriptor": "()Lcom/bitwig/ramona/core/Ibf;"
+          },
+          {
+            "offset": 38,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "cG3",
+            "descriptor": "Lcom/bitwig/ramona/core/Ibf;"
+          },
+          {
+            "offset": 49,
+            "opcode": 184,
+            "owner": "cJT",
+            "name": "eOi",
+            "descriptor": "(Z)Z"
+          },
+          {
+            "offset": 59,
+            "opcode": 183,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 63,
+            "opcode": 178,
+            "owner": "daR",
+            "name": "ffA",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 70,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "pvN",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 77,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "QiZ",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 88,
+            "opcode": 184,
+            "owner": "cJT",
+            "name": "eOi",
+            "descriptor": "(Z)Z"
+          },
+          {
+            "offset": 98,
+            "opcode": 183,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 102,
+            "opcode": 178,
+            "owner": "daR",
+            "name": "ffA",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 109,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "kG",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 120,
+            "opcode": 184,
+            "owner": "cJT",
+            "name": "eOi",
+            "descriptor": "(Z)Z"
+          },
+          {
+            "offset": 130,
+            "opcode": 183,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 134,
+            "opcode": 178,
+            "owner": "daR",
+            "name": "ffA",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 141,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "MkF",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 144,
+            "opcode": 182,
+            "owner": "cZv",
+            "name": "Uhv",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 155,
+            "opcode": 184,
+            "owner": "cJT",
+            "name": "eOi",
+            "descriptor": "(Z)Z"
+          },
+          {
+            "offset": 165,
+            "opcode": 183,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 170,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "MkF",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 176,
+            "opcode": 181,
+            "owner": "daR",
+            "name": "kG",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 180,
+            "opcode": 182,
+            "owner": "cZv",
+            "name": "eJS",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 185,
+            "opcode": 181,
+            "owner": "daR",
+            "name": "kG",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 190,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "Uhv",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 193,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "pvN",
+            "descriptor": "()LcZj;"
+          },
+          {
+            "offset": 197,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "MkF",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 200,
+            "opcode": 182,
+            "owner": "cZj",
+            "name": "eOi",
+            "descriptor": "(LcZv;)LcZv;"
+          },
+          {
+            "offset": 203,
+            "opcode": 181,
+            "owner": "daR",
+            "name": "MkF",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 208,
+            "opcode": 181,
+            "owner": "daR",
+            "name": "SRu",
+            "descriptor": "Lcom/bitwig/ramona/core/ziZ;"
+          },
+          {
+            "offset": 211,
+            "opcode": 178,
+            "owner": "daR",
+            "name": "ffA",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 218,
+            "opcode": 182,
+            "owner": "cZv",
+            "name": "Uhv",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 221,
+            "opcode": 184,
+            "owner": "cJT",
+            "name": "eOi",
+            "descriptor": "(Z)Z"
+          },
+          {
+            "offset": 231,
+            "opcode": 183,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 235,
+            "opcode": 178,
+            "owner": "daR",
+            "name": "ffA",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 242,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "MkF",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 249,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "MkF",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 252,
+            "opcode": 182,
+            "owner": "cZv",
+            "name": "Uhv",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 267,
+            "opcode": 184,
+            "owner": "cJT",
+            "name": "eOi",
+            "descriptor": "(Z)Z"
+          },
+          {
+            "offset": 277,
+            "opcode": 183,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        ]
+      },
+      "new": {
+        "owner": "daR",
+        "name": "wi2",
+        "descriptor": "()V",
+        "flags": 1,
+        "codeBytes": 282,
+        "classSha256": "e2a6561eeb1602b13303968892565a81f51329260411b925b50966718ebd12a6",
+        "exceptionHandlers": [],
+        "branches": [
+          {
+            "offset": 3,
+            "opcode": 154,
+            "target": 24
+          },
+          {
+            "offset": 13,
+            "opcode": 154,
+            "target": 24
+          },
+          {
+            "offset": 27,
+            "opcode": 154,
+            "target": 63
+          },
+          {
+            "offset": 41,
+            "opcode": 166,
+            "target": 48
+          },
+          {
+            "offset": 45,
+            "opcode": 167,
+            "target": 49
+          },
+          {
+            "offset": 52,
+            "opcode": 154,
+            "target": 63
+          },
+          {
+            "offset": 66,
+            "opcode": 154,
+            "target": 102
+          },
+          {
+            "offset": 73,
+            "opcode": 154,
+            "target": 87
+          },
+          {
+            "offset": 80,
+            "opcode": 154,
+            "target": 87
+          },
+          {
+            "offset": 84,
+            "opcode": 167,
+            "target": 88
+          },
+          {
+            "offset": 91,
+            "opcode": 154,
+            "target": 102
+          },
+          {
+            "offset": 105,
+            "opcode": 154,
+            "target": 134
+          },
+          {
+            "offset": 112,
+            "opcode": 199,
+            "target": 119
+          },
+          {
+            "offset": 116,
+            "opcode": 167,
+            "target": 120
+          },
+          {
+            "offset": 123,
+            "opcode": 154,
+            "target": 134
+          },
+          {
+            "offset": 137,
+            "opcode": 154,
+            "target": 169
+          },
+          {
+            "offset": 147,
+            "opcode": 154,
+            "target": 154
+          },
+          {
+            "offset": 151,
+            "opcode": 167,
+            "target": 155
+          },
+          {
+            "offset": 158,
+            "opcode": 154,
+            "target": 169
+          },
+          {
+            "offset": 214,
+            "opcode": 154,
+            "target": 235
+          },
+          {
+            "offset": 224,
+            "opcode": 154,
+            "target": 235
+          },
+          {
+            "offset": 238,
+            "opcode": 154,
+            "target": 281
+          },
+          {
+            "offset": 245,
+            "opcode": 198,
+            "target": 266
+          },
+          {
+            "offset": 255,
+            "opcode": 154,
+            "target": 262
+          },
+          {
+            "offset": 259,
+            "opcode": 167,
+            "target": 267
+          },
+          {
+            "offset": 263,
+            "opcode": 167,
+            "target": 267
+          },
+          {
+            "offset": 270,
+            "opcode": 154,
+            "target": 281
+          }
+        ],
+        "references": [
+          {
+            "offset": 0,
+            "opcode": 178,
+            "owner": "daR",
+            "name": "ffA",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 7,
+            "opcode": 182,
+            "owner": "daR",
+            "name": "kG",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 10,
+            "opcode": 184,
+            "owner": "cJT",
+            "name": "eOi",
+            "descriptor": "(Z)Z"
+          },
+          {
+            "offset": 20,
+            "opcode": 183,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 24,
+            "opcode": 178,
+            "owner": "daR",
+            "name": "ffA",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 31,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "MkF",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 34,
+            "opcode": 182,
+            "owner": "cZv",
+            "name": "VoD",
+            "descriptor": "()Lcom/bitwig/ramona/core/Ibf;"
+          },
+          {
+            "offset": 38,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "cG3",
+            "descriptor": "Lcom/bitwig/ramona/core/Ibf;"
+          },
+          {
+            "offset": 49,
+            "opcode": 184,
+            "owner": "cJT",
+            "name": "eOi",
+            "descriptor": "(Z)Z"
+          },
+          {
+            "offset": 59,
+            "opcode": 183,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 63,
+            "opcode": 178,
+            "owner": "daR",
+            "name": "ffA",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 70,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "pvN",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 77,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "QiZ",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 88,
+            "opcode": 184,
+            "owner": "cJT",
+            "name": "eOi",
+            "descriptor": "(Z)Z"
+          },
+          {
+            "offset": 98,
+            "opcode": 183,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 102,
+            "opcode": 178,
+            "owner": "daR",
+            "name": "ffA",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 109,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "kG",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 120,
+            "opcode": 184,
+            "owner": "cJT",
+            "name": "eOi",
+            "descriptor": "(Z)Z"
+          },
+          {
+            "offset": 130,
+            "opcode": 183,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 134,
+            "opcode": 178,
+            "owner": "daR",
+            "name": "ffA",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 141,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "MkF",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 144,
+            "opcode": 182,
+            "owner": "cZv",
+            "name": "Uhv",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 155,
+            "opcode": 184,
+            "owner": "cJT",
+            "name": "eOi",
+            "descriptor": "(Z)Z"
+          },
+          {
+            "offset": 165,
+            "opcode": 183,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 170,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "MkF",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 176,
+            "opcode": 181,
+            "owner": "daR",
+            "name": "kG",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 180,
+            "opcode": 182,
+            "owner": "cZv",
+            "name": "eJS",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 185,
+            "opcode": 181,
+            "owner": "daR",
+            "name": "kG",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 190,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "Uhv",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 193,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "pvN",
+            "descriptor": "()LcZj;"
+          },
+          {
+            "offset": 197,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "MkF",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 200,
+            "opcode": 182,
+            "owner": "cZj",
+            "name": "eOi",
+            "descriptor": "(LcZv;)LcZv;"
+          },
+          {
+            "offset": 203,
+            "opcode": 181,
+            "owner": "daR",
+            "name": "MkF",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 208,
+            "opcode": 181,
+            "owner": "daR",
+            "name": "SRu",
+            "descriptor": "Lcom/bitwig/ramona/core/ziZ;"
+          },
+          {
+            "offset": 211,
+            "opcode": 178,
+            "owner": "daR",
+            "name": "ffA",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 218,
+            "opcode": 182,
+            "owner": "cZv",
+            "name": "Uhv",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 221,
+            "opcode": 184,
+            "owner": "cJT",
+            "name": "eOi",
+            "descriptor": "(Z)Z"
+          },
+          {
+            "offset": 231,
+            "opcode": 183,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 235,
+            "opcode": 178,
+            "owner": "daR",
+            "name": "ffA",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 242,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "MkF",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 249,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "MkF",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 252,
+            "opcode": 182,
+            "owner": "cZv",
+            "name": "Uhv",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 267,
+            "opcode": 184,
+            "owner": "cJT",
+            "name": "eOi",
+            "descriptor": "(Z)Z"
+          },
+          {
+            "offset": 277,
+            "opcode": 183,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        ]
+      }
+    },
+    {
+      "old": {
+        "owner": "daR",
+        "name": "YLA",
+        "descriptor": "()LcZv;",
+        "flags": 2,
+        "codeBytes": 17,
+        "classSha256": "e2a6561eeb1602b13303968892565a81f51329260411b925b50966718ebd12a6",
+        "exceptionHandlers": [],
+        "branches": [
+          {
+            "offset": 4,
+            "opcode": 198,
+            "target": 12
+          }
+        ],
+        "references": [
+          {
+            "offset": 1,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "wi2",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 8,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "wi2",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 13,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "NaF",
+            "descriptor": "LcZv;"
+          }
+        ]
+      },
+      "new": {
+        "owner": "daR",
+        "name": "YLA",
+        "descriptor": "()LcZv;",
+        "flags": 2,
+        "codeBytes": 17,
+        "classSha256": "e2a6561eeb1602b13303968892565a81f51329260411b925b50966718ebd12a6",
+        "exceptionHandlers": [],
+        "branches": [
+          {
+            "offset": 4,
+            "opcode": 198,
+            "target": 12
+          }
+        ],
+        "references": [
+          {
+            "offset": 1,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "wi2",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 8,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "wi2",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 13,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "NaF",
+            "descriptor": "LcZv;"
+          }
+        ]
+      }
+    },
+    {
+      "old": {
+        "owner": "daR",
+        "name": "kG",
+        "descriptor": "()Z",
+        "flags": 1,
+        "codeBytes": 33,
+        "classSha256": "e2a6561eeb1602b13303968892565a81f51329260411b925b50966718ebd12a6",
+        "exceptionHandlers": [],
+        "branches": [
+          {
+            "offset": 4,
+            "opcode": 199,
+            "target": 9
+          },
+          {
+            "offset": 13,
+            "opcode": 154,
+            "target": 23
+          },
+          {
+            "offset": 20,
+            "opcode": 153,
+            "target": 25
+          }
+        ],
+        "references": [
+          {
+            "offset": 1,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "MkF",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 10,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "pvN",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 17,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "QiZ",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 26,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "MkF",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 29,
+            "opcode": 182,
+            "owner": "cZv",
+            "name": "iUG",
+            "descriptor": "()Z"
+          }
+        ]
+      },
+      "new": {
+        "owner": "daR",
+        "name": "kG",
+        "descriptor": "()Z",
+        "flags": 1,
+        "codeBytes": 33,
+        "classSha256": "e2a6561eeb1602b13303968892565a81f51329260411b925b50966718ebd12a6",
+        "exceptionHandlers": [],
+        "branches": [
+          {
+            "offset": 4,
+            "opcode": 199,
+            "target": 9
+          },
+          {
+            "offset": 13,
+            "opcode": 154,
+            "target": 23
+          },
+          {
+            "offset": 20,
+            "opcode": 153,
+            "target": 25
+          }
+        ],
+        "references": [
+          {
+            "offset": 1,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "MkF",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 10,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "pvN",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 17,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "QiZ",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 26,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "MkF",
+            "descriptor": "LcZv;"
+          },
+          {
+            "offset": 29,
+            "opcode": 182,
+            "owner": "cZv",
+            "name": "iUG",
+            "descriptor": "()Z"
+          }
+        ]
+      }
+    },
+    {
+      "old": {
+        "owner": "daR",
+        "name": "kyi",
+        "descriptor": "()LcZv;",
+        "flags": 1,
+        "codeBytes": 5,
+        "classSha256": "e2a6561eeb1602b13303968892565a81f51329260411b925b50966718ebd12a6",
+        "exceptionHandlers": [],
+        "branches": [],
+        "references": [
+          {
+            "offset": 1,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "kG",
+            "descriptor": "LcZv;"
+          }
+        ]
+      },
+      "new": {
+        "owner": "daR",
+        "name": "kyi",
+        "descriptor": "()LcZv;",
+        "flags": 1,
+        "codeBytes": 5,
+        "classSha256": "e2a6561eeb1602b13303968892565a81f51329260411b925b50966718ebd12a6",
+        "exceptionHandlers": [],
+        "branches": [],
+        "references": [
+          {
+            "offset": 1,
+            "opcode": 180,
+            "owner": "daR",
+            "name": "kG",
+            "descriptor": "LcZv;"
+          }
+        ]
+      }
+    }
+  ],
+  "projectCaller": [
+    {
+      "old": {
+        "owner": "com/bitwig/flt/document/core/master/Svr",
+        "name": "Cix",
+        "descriptor": "()LcZl;",
+        "flags": 1,
+        "codeBytes": 5,
+        "classSha256": "a1d4972c4f6144da548b5f430af205e7b6b1499d9c7eed6433bd40470e9ebafd",
+        "exceptionHandlers": [],
+        "branches": [],
+        "references": [
+          {
+            "offset": 1,
+            "opcode": 184,
+            "owner": "cZl",
+            "name": "ffA",
+            "descriptor": "(Lcom/bitwig/ramona/core/ikl;)LcZl;"
+          }
+        ]
+      },
+      "new": {
+        "owner": "com/bitwig/flt/document/core/master/Svr",
+        "name": "Cix",
+        "descriptor": "()LcZl;",
+        "flags": 1,
+        "codeBytes": 5,
+        "classSha256": "a1d4972c4f6144da548b5f430af205e7b6b1499d9c7eed6433bd40470e9ebafd",
+        "exceptionHandlers": [],
+        "branches": [],
+        "references": [
+          {
+            "offset": 1,
+            "opcode": 184,
+            "owner": "cZl",
+            "name": "ffA",
+            "descriptor": "(Lcom/bitwig/ramona/core/ikl;)LcZl;"
+          }
+        ]
+      }
+    },
+    {
+      "old": {
+        "owner": "com/bitwig/flt/document/core/master/Svr",
+        "name": "plz",
+        "descriptor": "()V",
+        "flags": 1,
+        "codeBytes": 12,
+        "classSha256": "a1d4972c4f6144da548b5f430af205e7b6b1499d9c7eed6433bd40470e9ebafd",
+        "exceptionHandlers": [],
+        "branches": [],
+        "references": [
+          {
+            "offset": 1,
+            "opcode": 182,
+            "owner": "com/bitwig/flt/document/core/master/Svr",
+            "name": "Cix",
+            "descriptor": "()LcZl;"
+          },
+          {
+            "offset": 4,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "OTd",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 8,
+            "opcode": 182,
+            "owner": "com/bitwig/flt/document/core/master/Svr",
+            "name": "rFJ",
+            "descriptor": "()V"
+          }
+        ]
+      },
+      "new": {
+        "owner": "com/bitwig/flt/document/core/master/Svr",
+        "name": "plz",
+        "descriptor": "()V",
+        "flags": 1,
+        "codeBytes": 12,
+        "classSha256": "a1d4972c4f6144da548b5f430af205e7b6b1499d9c7eed6433bd40470e9ebafd",
+        "exceptionHandlers": [],
+        "branches": [],
+        "references": [
+          {
+            "offset": 1,
+            "opcode": 182,
+            "owner": "com/bitwig/flt/document/core/master/Svr",
+            "name": "Cix",
+            "descriptor": "()LcZl;"
+          },
+          {
+            "offset": 4,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "OTd",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 8,
+            "opcode": 182,
+            "owner": "com/bitwig/flt/document/core/master/Svr",
+            "name": "rFJ",
+            "descriptor": "()V"
+          }
+        ]
+      }
+    }
+  ],
+  "projectRefresh": {
+    "old": {
+      "owner": "com/bitwig/flt/document/core/master/Svr",
+      "name": "rFJ",
+      "descriptor": "()V",
+      "flags": 1,
+      "codeBytes": 113,
+      "classSha256": "a1d4972c4f6144da548b5f430af205e7b6b1499d9c7eed6433bd40470e9ebafd",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 27,
+          "opcode": 153,
+          "target": 35
+        },
+        {
+          "offset": 46,
+          "opcode": 153,
+          "target": 60
+        },
+        {
+          "offset": 53,
+          "opcode": 153,
+          "target": 60
+        },
+        {
+          "offset": 57,
+          "opcode": 167,
+          "target": 61
+        },
+        {
+          "offset": 75,
+          "opcode": 153,
+          "target": 83
+        },
+        {
+          "offset": 94,
+          "opcode": 153,
+          "target": 108
+        },
+        {
+          "offset": 101,
+          "opcode": 153,
+          "target": 108
+        },
+        {
+          "offset": 105,
+          "opcode": 167,
+          "target": 109
+        }
+      ],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 184,
+          "owner": "com/bitwig/ramona/core/uX1",
+          "name": "eOi",
+          "descriptor": "(Lcom/bitwig/ramona/core/ikl;)Lcom/bitwig/ramona/core/Ibf;"
+        },
+        {
+          "offset": 6,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/Svr",
+          "name": "Cix",
+          "descriptor": "()LcZl;"
+        },
+        {
+          "offset": 12,
+          "opcode": 182,
+          "owner": "cZl",
+          "name": "ffA",
+          "descriptor": "(Lcom/bitwig/ramona/core/Ibf;)LdaR;"
+        },
+        {
+          "offset": 17,
+          "opcode": 182,
+          "owner": "daR",
+          "name": "asI",
+          "descriptor": "()Ljava/lang/String;"
+        },
+        {
+          "offset": 24,
+          "opcode": 182,
+          "owner": "java/lang/String",
+          "name": "isEmpty",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 30,
+          "opcode": 184,
+          "owner": "EBi",
+          "name": "ffA",
+          "descriptor": "()Ljava/lang/String;"
+        },
+        {
+          "offset": 38,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/Svr",
+          "name": "Vcu",
+          "descriptor": "(Ljava/lang/String;)V"
+        },
+        {
+          "offset": 43,
+          "opcode": 182,
+          "owner": "cZl",
+          "name": "eJS",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 50,
+          "opcode": 182,
+          "owner": "daR",
+          "name": "kG",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 61,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/Svr",
+          "name": "IpW",
+          "descriptor": "(Z)V"
+        },
+        {
+          "offset": 65,
+          "opcode": 182,
+          "owner": "daR",
+          "name": "EbT",
+          "descriptor": "()Ljava/lang/String;"
+        },
+        {
+          "offset": 72,
+          "opcode": 182,
+          "owner": "java/lang/String",
+          "name": "isEmpty",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 78,
+          "opcode": 184,
+          "owner": "EBi",
+          "name": "eOi",
+          "descriptor": "()Ljava/lang/String;"
+        },
+        {
+          "offset": 86,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/Svr",
+          "name": "qON",
+          "descriptor": "(Ljava/lang/String;)V"
+        },
+        {
+          "offset": 91,
+          "opcode": 182,
+          "owner": "cZl",
+          "name": "eJS",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 98,
+          "opcode": 182,
+          "owner": "daR",
+          "name": "pvN",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 109,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/Svr",
+          "name": "tZk",
+          "descriptor": "(Z)V"
+        }
+      ]
+    },
+    "new": {
+      "owner": "com/bitwig/flt/document/core/master/Svr",
+      "name": "rFJ",
+      "descriptor": "()V",
+      "flags": 1,
+      "codeBytes": 113,
+      "classSha256": "a1d4972c4f6144da548b5f430af205e7b6b1499d9c7eed6433bd40470e9ebafd",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 27,
+          "opcode": 153,
+          "target": 35
+        },
+        {
+          "offset": 46,
+          "opcode": 153,
+          "target": 60
+        },
+        {
+          "offset": 53,
+          "opcode": 153,
+          "target": 60
+        },
+        {
+          "offset": 57,
+          "opcode": 167,
+          "target": 61
+        },
+        {
+          "offset": 75,
+          "opcode": 153,
+          "target": 83
+        },
+        {
+          "offset": 94,
+          "opcode": 153,
+          "target": 108
+        },
+        {
+          "offset": 101,
+          "opcode": 153,
+          "target": 108
+        },
+        {
+          "offset": 105,
+          "opcode": 167,
+          "target": 109
+        }
+      ],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 184,
+          "owner": "com/bitwig/ramona/core/uX1",
+          "name": "eOi",
+          "descriptor": "(Lcom/bitwig/ramona/core/ikl;)Lcom/bitwig/ramona/core/Ibf;"
+        },
+        {
+          "offset": 6,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/Svr",
+          "name": "Cix",
+          "descriptor": "()LcZl;"
+        },
+        {
+          "offset": 12,
+          "opcode": 182,
+          "owner": "cZl",
+          "name": "ffA",
+          "descriptor": "(Lcom/bitwig/ramona/core/Ibf;)LdaR;"
+        },
+        {
+          "offset": 17,
+          "opcode": 182,
+          "owner": "daR",
+          "name": "asI",
+          "descriptor": "()Ljava/lang/String;"
+        },
+        {
+          "offset": 24,
+          "opcode": 182,
+          "owner": "java/lang/String",
+          "name": "isEmpty",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 30,
+          "opcode": 184,
+          "owner": "EBi",
+          "name": "ffA",
+          "descriptor": "()Ljava/lang/String;"
+        },
+        {
+          "offset": 38,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/Svr",
+          "name": "Vcu",
+          "descriptor": "(Ljava/lang/String;)V"
+        },
+        {
+          "offset": 43,
+          "opcode": 182,
+          "owner": "cZl",
+          "name": "eJS",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 50,
+          "opcode": 182,
+          "owner": "daR",
+          "name": "kG",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 61,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/Svr",
+          "name": "IpW",
+          "descriptor": "(Z)V"
+        },
+        {
+          "offset": 65,
+          "opcode": 182,
+          "owner": "daR",
+          "name": "EbT",
+          "descriptor": "()Ljava/lang/String;"
+        },
+        {
+          "offset": 72,
+          "opcode": 182,
+          "owner": "java/lang/String",
+          "name": "isEmpty",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 78,
+          "opcode": 184,
+          "owner": "EBi",
+          "name": "eOi",
+          "descriptor": "()Ljava/lang/String;"
+        },
+        {
+          "offset": 86,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/Svr",
+          "name": "qON",
+          "descriptor": "(Ljava/lang/String;)V"
+        },
+        {
+          "offset": 91,
+          "opcode": 182,
+          "owner": "cZl",
+          "name": "eJS",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 98,
+          "opcode": 182,
+          "owner": "daR",
+          "name": "pvN",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 109,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/Svr",
+          "name": "tZk",
+          "descriptor": "(Z)V"
+        }
+      ]
+    },
+    "equalContract": true
+  },
+  "relationshipHooks": [
+    {
+      "old": {
+        "owner": "cZn",
+        "name": "aboutToInsertItem",
+        "descriptor": "(LcYy;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;I)V",
+        "flags": 1,
+        "codeBytes": 133,
+        "classSha256": "28d041232487f119bc5007719574791ff4f408292fcf9b4e2c8e0a19858298ad",
+        "exceptionHandlers": [],
+        "branches": [
+          {
+            "offset": 7,
+            "opcode": 166,
+            "target": 14
+          },
+          {
+            "offset": 11,
+            "opcode": 167,
+            "target": 15
+          },
+          {
+            "offset": 30,
+            "opcode": 154,
+            "target": 132
+          },
+          {
+            "offset": 37,
+            "opcode": 153,
+            "target": 119
+          },
+          {
+            "offset": 47,
+            "opcode": 154,
+            "target": 112
+          },
+          {
+            "offset": 57,
+            "opcode": 154,
+            "target": 112
+          },
+          {
+            "offset": 70,
+            "opcode": 154,
+            "target": 112
+          },
+          {
+            "offset": 75,
+            "opcode": 153,
+            "target": 92
+          },
+          {
+            "offset": 89,
+            "opcode": 167,
+            "target": 93
+          },
+          {
+            "offset": 121,
+            "opcode": 153,
+            "target": 132
+          }
+        ],
+        "references": [
+          {
+            "offset": 1,
+            "opcode": 182,
+            "owner": "cYy",
+            "name": "Ode",
+            "descriptor": "()LcNL;"
+          },
+          {
+            "offset": 4,
+            "opcode": 178,
+            "owner": "cNL",
+            "name": "cG3",
+            "descriptor": "LcNL;"
+          },
+          {
+            "offset": 18,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 23,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "ffA",
+            "descriptor": "(LcYH;Lcom/bitwig/ramona/core/HEV;)Z"
+          },
+          {
+            "offset": 34,
+            "opcode": 182,
+            "owner": "cYy",
+            "name": "hhJ",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 41,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 44,
+            "opcode": 180,
+            "owner": "cZl",
+            "name": "EbT",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 51,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 54,
+            "opcode": 180,
+            "owner": "cZl",
+            "name": "OTd",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 61,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 64,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "Fmu",
+            "descriptor": "()Lcom/bitwig/ramona/core/uX1;"
+          },
+          {
+            "offset": 67,
+            "opcode": 182,
+            "owner": "com/bitwig/ramona/core/uX1",
+            "name": "Mkn",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 79,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 82,
+            "opcode": 180,
+            "owner": "cZl",
+            "name": "kyi",
+            "descriptor": "LcKh;"
+          },
+          {
+            "offset": 86,
+            "opcode": 182,
+            "owner": "cKh",
+            "name": "contains",
+            "descriptor": "(Ljava/lang/Object;)Z"
+          },
+          {
+            "offset": 96,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 99,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "Ode",
+            "descriptor": "()LdaR;"
+          },
+          {
+            "offset": 109,
+            "opcode": 182,
+            "owner": "daR",
+            "name": "eOi",
+            "descriptor": "(LcYy;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;IZ)V"
+          },
+          {
+            "offset": 113,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 116,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "zmC",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 125,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 129,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "cG3",
+            "descriptor": "(Lcom/bitwig/ramona/core/HEV;)V"
+          }
+        ]
+      },
+      "new": {
+        "owner": "cZn",
+        "name": "aboutToInsertItem",
+        "descriptor": "(LcYy;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;I)V",
+        "flags": 1,
+        "codeBytes": 133,
+        "classSha256": "28d041232487f119bc5007719574791ff4f408292fcf9b4e2c8e0a19858298ad",
+        "exceptionHandlers": [],
+        "branches": [
+          {
+            "offset": 7,
+            "opcode": 166,
+            "target": 14
+          },
+          {
+            "offset": 11,
+            "opcode": 167,
+            "target": 15
+          },
+          {
+            "offset": 30,
+            "opcode": 154,
+            "target": 132
+          },
+          {
+            "offset": 37,
+            "opcode": 153,
+            "target": 119
+          },
+          {
+            "offset": 47,
+            "opcode": 154,
+            "target": 112
+          },
+          {
+            "offset": 57,
+            "opcode": 154,
+            "target": 112
+          },
+          {
+            "offset": 70,
+            "opcode": 154,
+            "target": 112
+          },
+          {
+            "offset": 75,
+            "opcode": 153,
+            "target": 92
+          },
+          {
+            "offset": 89,
+            "opcode": 167,
+            "target": 93
+          },
+          {
+            "offset": 121,
+            "opcode": 153,
+            "target": 132
+          }
+        ],
+        "references": [
+          {
+            "offset": 1,
+            "opcode": 182,
+            "owner": "cYy",
+            "name": "Ode",
+            "descriptor": "()LcNL;"
+          },
+          {
+            "offset": 4,
+            "opcode": 178,
+            "owner": "cNL",
+            "name": "cG3",
+            "descriptor": "LcNL;"
+          },
+          {
+            "offset": 18,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 23,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "ffA",
+            "descriptor": "(LcYH;Lcom/bitwig/ramona/core/HEV;)Z"
+          },
+          {
+            "offset": 34,
+            "opcode": 182,
+            "owner": "cYy",
+            "name": "hhJ",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 41,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 44,
+            "opcode": 180,
+            "owner": "cZl",
+            "name": "EbT",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 51,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 54,
+            "opcode": 180,
+            "owner": "cZl",
+            "name": "OTd",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 61,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 64,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "Fmu",
+            "descriptor": "()Lcom/bitwig/ramona/core/uX1;"
+          },
+          {
+            "offset": 67,
+            "opcode": 182,
+            "owner": "com/bitwig/ramona/core/uX1",
+            "name": "Mkn",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 79,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 82,
+            "opcode": 180,
+            "owner": "cZl",
+            "name": "kyi",
+            "descriptor": "LcKh;"
+          },
+          {
+            "offset": 86,
+            "opcode": 182,
+            "owner": "cKh",
+            "name": "contains",
+            "descriptor": "(Ljava/lang/Object;)Z"
+          },
+          {
+            "offset": 96,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 99,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "Ode",
+            "descriptor": "()LdaR;"
+          },
+          {
+            "offset": 109,
+            "opcode": 182,
+            "owner": "daR",
+            "name": "eOi",
+            "descriptor": "(LcYy;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;IZ)V"
+          },
+          {
+            "offset": 113,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 116,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "zmC",
+            "descriptor": "()V"
+          },
+          {
+            "offset": 125,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 129,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "cG3",
+            "descriptor": "(Lcom/bitwig/ramona/core/HEV;)V"
+          }
+        ]
+      },
+      "equalContract": true
+    },
+    {
+      "old": {
+        "owner": "cZn",
+        "name": "aboutToRemoveItem",
+        "descriptor": "(LcYy;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;IZ)V",
+        "flags": 1,
+        "codeBytes": 95,
+        "classSha256": "28d041232487f119bc5007719574791ff4f408292fcf9b4e2c8e0a19858298ad",
+        "exceptionHandlers": [],
+        "branches": [
+          {
+            "offset": 13,
+            "opcode": 154,
+            "target": 94
+          },
+          {
+            "offset": 23,
+            "opcode": 166,
+            "target": 36
+          },
+          {
+            "offset": 40,
+            "opcode": 153,
+            "target": 94
+          },
+          {
+            "offset": 50,
+            "opcode": 154,
+            "target": 87
+          },
+          {
+            "offset": 60,
+            "opcode": 154,
+            "target": 87
+          },
+          {
+            "offset": 73,
+            "opcode": 154,
+            "target": 87
+          }
+        ],
+        "references": [
+          {
+            "offset": 1,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 6,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "ffA",
+            "descriptor": "(LcYH;Lcom/bitwig/ramona/core/HEV;)Z"
+          },
+          {
+            "offset": 17,
+            "opcode": 182,
+            "owner": "cYy",
+            "name": "Ode",
+            "descriptor": "()LcNL;"
+          },
+          {
+            "offset": 20,
+            "opcode": 178,
+            "owner": "cNL",
+            "name": "cG3",
+            "descriptor": "LcNL;"
+          },
+          {
+            "offset": 27,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 33,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "ffA",
+            "descriptor": "(Lcom/bitwig/ramona/core/HEV;Z)V"
+          },
+          {
+            "offset": 37,
+            "opcode": 182,
+            "owner": "cYy",
+            "name": "hhJ",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 44,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 47,
+            "opcode": 180,
+            "owner": "cZl",
+            "name": "EbT",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 54,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 57,
+            "opcode": 180,
+            "owner": "cZl",
+            "name": "OTd",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 64,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 67,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "Fmu",
+            "descriptor": "()Lcom/bitwig/ramona/core/uX1;"
+          },
+          {
+            "offset": 70,
+            "opcode": 182,
+            "owner": "com/bitwig/ramona/core/uX1",
+            "name": "Mkn",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 84,
+            "opcode": 182,
+            "owner": "cZn",
+            "name": "ffA",
+            "descriptor": "(LcYy;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;IZ)V"
+          },
+          {
+            "offset": 88,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 91,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "zmC",
+            "descriptor": "()V"
+          }
+        ]
+      },
+      "new": {
+        "owner": "cZn",
+        "name": "aboutToRemoveItem",
+        "descriptor": "(LcYy;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;IZ)V",
+        "flags": 1,
+        "codeBytes": 95,
+        "classSha256": "28d041232487f119bc5007719574791ff4f408292fcf9b4e2c8e0a19858298ad",
+        "exceptionHandlers": [],
+        "branches": [
+          {
+            "offset": 13,
+            "opcode": 154,
+            "target": 94
+          },
+          {
+            "offset": 23,
+            "opcode": 166,
+            "target": 36
+          },
+          {
+            "offset": 40,
+            "opcode": 153,
+            "target": 94
+          },
+          {
+            "offset": 50,
+            "opcode": 154,
+            "target": 87
+          },
+          {
+            "offset": 60,
+            "opcode": 154,
+            "target": 87
+          },
+          {
+            "offset": 73,
+            "opcode": 154,
+            "target": 87
+          }
+        ],
+        "references": [
+          {
+            "offset": 1,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 6,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "ffA",
+            "descriptor": "(LcYH;Lcom/bitwig/ramona/core/HEV;)Z"
+          },
+          {
+            "offset": 17,
+            "opcode": 182,
+            "owner": "cYy",
+            "name": "Ode",
+            "descriptor": "()LcNL;"
+          },
+          {
+            "offset": 20,
+            "opcode": 178,
+            "owner": "cNL",
+            "name": "cG3",
+            "descriptor": "LcNL;"
+          },
+          {
+            "offset": 27,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 33,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "ffA",
+            "descriptor": "(Lcom/bitwig/ramona/core/HEV;Z)V"
+          },
+          {
+            "offset": 37,
+            "opcode": 182,
+            "owner": "cYy",
+            "name": "hhJ",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 44,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 47,
+            "opcode": 180,
+            "owner": "cZl",
+            "name": "EbT",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 54,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 57,
+            "opcode": 180,
+            "owner": "cZl",
+            "name": "OTd",
+            "descriptor": "Z"
+          },
+          {
+            "offset": 64,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 67,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "Fmu",
+            "descriptor": "()Lcom/bitwig/ramona/core/uX1;"
+          },
+          {
+            "offset": 70,
+            "opcode": 182,
+            "owner": "com/bitwig/ramona/core/uX1",
+            "name": "Mkn",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 84,
+            "opcode": 182,
+            "owner": "cZn",
+            "name": "ffA",
+            "descriptor": "(LcYy;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;IZ)V"
+          },
+          {
+            "offset": 88,
+            "opcode": 180,
+            "owner": "cZn",
+            "name": "eOi",
+            "descriptor": "LcZl;"
+          },
+          {
+            "offset": 91,
+            "opcode": 182,
+            "owner": "cZl",
+            "name": "zmC",
+            "descriptor": "()V"
+          }
+        ]
+      },
+      "equalContract": true
+    }
+  ],
+  "typeTraceInputs": {
+    "context": "com/bitwig/ramona/core/uX1",
+    "document-object": "com/bitwig/ramona/core/ikl",
+    "edit": "cZv",
+    "edit-document": "cZl",
+    "journal": "daR",
+    "manager": "com/bitwig/ramona/core/Ibf",
+    "object": "com/bitwig/ramona/core/HEV",
+    "project-root": "com/bitwig/flt/document/core/master/Svr"
+  },
+  "typeChanges": {
+    "context": {
+      "old": "com/bitwig/ramona/core/uX1",
+      "newHypothesis": "com/bitwig/ramona/core/uX1",
+      "oldParent": "java/lang/Object",
+      "newParent": "java/lang/Object",
+      "oldClassSha256": "d0ad4115d14e46543d53a5383041074eee66be3bb108badc6c52b899b6ecffa8",
+      "newClassSha256": "d0ad4115d14e46543d53a5383041074eee66be3bb108badc6c52b899b6ecffa8",
+      "equalShallowShape": true,
+      "oldCounts": {
+        "fields": 28,
+        "methods": 76
+      },
+      "newCounts": {
+        "fields": 28,
+        "methods": 76
+      },
+      "fields": {
+        "removed": [],
+        "added": []
+      },
+      "methods": {
+        "removed": [],
+        "added": []
+      }
+    },
+    "document-object": {
+      "old": "com/bitwig/ramona/core/ikl",
+      "newHypothesis": "com/bitwig/ramona/core/ikl",
+      "oldParent": "java/lang/Object",
+      "newParent": "java/lang/Object",
+      "oldClassSha256": "5b691bebf66702e31dc5ec040c0ab1a525846b4b867bfdec5ce6af34f2bea5fd",
+      "newClassSha256": "5b691bebf66702e31dc5ec040c0ab1a525846b4b867bfdec5ce6af34f2bea5fd",
+      "equalShallowShape": true,
+      "oldCounts": {
+        "fields": 2,
+        "methods": 48
+      },
+      "newCounts": {
+        "fields": 2,
+        "methods": 48
+      },
+      "fields": {
+        "removed": [],
+        "added": []
+      },
+      "methods": {
+        "removed": [],
+        "added": []
+      }
+    },
+    "edit": {
+      "old": "cZv",
+      "newHypothesis": "cZv",
+      "oldParent": "java/lang/Object",
+      "newParent": "java/lang/Object",
+      "oldClassSha256": "6326bc02ae1cca4d27aeab02d8e0c87e4b285ba5dc31d427b7eb322b8dc3ef25",
+      "newClassSha256": "6326bc02ae1cca4d27aeab02d8e0c87e4b285ba5dc31d427b7eb322b8dc3ef25",
+      "equalShallowShape": true,
+      "oldCounts": {
+        "fields": 14,
+        "methods": 44
+      },
+      "newCounts": {
+        "fields": 14,
+        "methods": 44
+      },
+      "fields": {
+        "removed": [],
+        "added": []
+      },
+      "methods": {
+        "removed": [],
+        "added": []
+      }
+    },
+    "edit-document": {
+      "old": "cZl",
+      "newHypothesis": "cZl",
+      "oldParent": "java/lang/Object",
+      "newParent": "java/lang/Object",
+      "oldClassSha256": "6ab8f46007df3439bedca7fcbfdf07509e16f44cd3783e3e1a4d831b56487bae",
+      "newClassSha256": "6ab8f46007df3439bedca7fcbfdf07509e16f44cd3783e3e1a4d831b56487bae",
+      "equalShallowShape": true,
+      "oldCounts": {
+        "fields": 29,
+        "methods": 101
+      },
+      "newCounts": {
+        "fields": 29,
+        "methods": 101
+      },
+      "fields": {
+        "removed": [],
+        "added": []
+      },
+      "methods": {
+        "removed": [],
+        "added": []
+      }
+    },
+    "journal": {
+      "old": "daR",
+      "newHypothesis": "daR",
+      "oldParent": "java/lang/Object",
+      "newParent": "java/lang/Object",
+      "oldClassSha256": "e2a6561eeb1602b13303968892565a81f51329260411b925b50966718ebd12a6",
+      "newClassSha256": "e2a6561eeb1602b13303968892565a81f51329260411b925b50966718ebd12a6",
+      "equalShallowShape": true,
+      "oldCounts": {
+        "fields": 16,
+        "methods": 33
+      },
+      "newCounts": {
+        "fields": 16,
+        "methods": 33
+      },
+      "fields": {
+        "removed": [],
+        "added": []
+      },
+      "methods": {
+        "removed": [],
+        "added": []
+      }
+    },
+    "manager": {
+      "old": "com/bitwig/ramona/core/Ibf",
+      "newHypothesis": "com/bitwig/ramona/core/Ibf",
+      "oldParent": "java/lang/Object",
+      "newParent": "java/lang/Object",
+      "oldClassSha256": "7185411bfb94c7bcab874a8d20d16020c7529729b8935ff1215f4967ec5d29ab",
+      "newClassSha256": "7185411bfb94c7bcab874a8d20d16020c7529729b8935ff1215f4967ec5d29ab",
+      "equalShallowShape": true,
+      "oldCounts": {
+        "fields": 13,
+        "methods": 25
+      },
+      "newCounts": {
+        "fields": 13,
+        "methods": 25
+      },
+      "fields": {
+        "removed": [],
+        "added": []
+      },
+      "methods": {
+        "removed": [],
+        "added": []
+      }
+    },
+    "object": {
+      "old": "com/bitwig/ramona/core/HEV",
+      "newHypothesis": "com/bitwig/ramona/core/HEV",
+      "oldParent": "com/bitwig/ramona/core/ikl",
+      "newParent": "com/bitwig/ramona/core/ikl",
+      "oldClassSha256": "1e8942c158fbcd7c4747dcd75f7095b797a08191eae3762300e00ef37379d77b",
+      "newClassSha256": "1e8942c158fbcd7c4747dcd75f7095b797a08191eae3762300e00ef37379d77b",
+      "equalShallowShape": true,
+      "oldCounts": {
+        "fields": 7,
+        "methods": 119
+      },
+      "newCounts": {
+        "fields": 7,
+        "methods": 119
+      },
+      "fields": {
+        "removed": [],
+        "added": []
+      },
+      "methods": {
+        "removed": [],
+        "added": []
+      }
+    },
+    "project-root": {
+      "old": "com/bitwig/flt/document/core/master/Svr",
+      "newHypothesis": "com/bitwig/flt/document/core/master/Svr",
+      "oldParent": "com/bitwig/flt/document/core/master/Ymq",
+      "newParent": "com/bitwig/flt/document/core/master/Ymq",
+      "oldClassSha256": "a1d4972c4f6144da548b5f430af205e7b6b1499d9c7eed6433bd40470e9ebafd",
+      "newClassSha256": "a1d4972c4f6144da548b5f430af205e7b6b1499d9c7eed6433bd40470e9ebafd",
+      "equalShallowShape": true,
+      "oldCounts": {
+        "fields": 102,
+        "methods": 640
+      },
+      "newCounts": {
+        "fields": 102,
+        "methods": 640
+      },
+      "fields": {
+        "removed": [],
+        "added": []
+      },
+      "methods": {
+        "removed": [],
+        "added": []
+      }
+    }
+  },
+  "recordingEdit": {
+    "old": {
+      "owner": "daR",
+      "name": "YLA",
+      "descriptor": "()LcZv;",
+      "flags": 2,
+      "codeBytes": 17,
+      "classSha256": "e2a6561eeb1602b13303968892565a81f51329260411b925b50966718ebd12a6",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 4,
+          "opcode": 198,
+          "target": 12
+        }
+      ],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "wi2",
+          "descriptor": "LcZv;"
+        },
+        {
+          "offset": 8,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "wi2",
+          "descriptor": "LcZv;"
+        },
+        {
+          "offset": 13,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "NaF",
+          "descriptor": "LcZv;"
+        }
+      ]
+    },
+    "new": {
+      "owner": "daR",
+      "name": "YLA",
+      "descriptor": "()LcZv;",
+      "flags": 2,
+      "codeBytes": 17,
+      "classSha256": "e2a6561eeb1602b13303968892565a81f51329260411b925b50966718ebd12a6",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 4,
+          "opcode": 198,
+          "target": 12
+        }
+      ],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "wi2",
+          "descriptor": "LcZv;"
+        },
+        {
+          "offset": 8,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "wi2",
+          "descriptor": "LcZv;"
+        },
+        {
+          "offset": 13,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "NaF",
+          "descriptor": "LcZv;"
+        }
+      ]
+    },
+    "equalBody": true,
+    "equalAccess": true
+  },
+  "unmatchedCallerMethods": [],
+  "disposal": {
+    "old": {
+      "owner": "com/bitwig/ramona/core/HEV",
+      "name": "dC_",
+      "descriptor": "()V",
+      "flags": 1,
+      "codeBytes": 138,
+      "classSha256": "1e8942c158fbcd7c4747dcd75f7095b797a08191eae3762300e00ef37379d77b",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 154,
+          "target": 32
+        },
+        {
+          "offset": 10,
+          "opcode": 154,
+          "target": 17
+        },
+        {
+          "offset": 14,
+          "opcode": 167,
+          "target": 18
+        },
+        {
+          "offset": 21,
+          "opcode": 154,
+          "target": 32
+        },
+        {
+          "offset": 35,
+          "opcode": 154,
+          "target": 53
+        },
+        {
+          "offset": 42,
+          "opcode": 154,
+          "target": 53
+        },
+        {
+          "offset": 57,
+          "opcode": 153,
+          "target": 65
+        },
+        {
+          "offset": 82,
+          "opcode": 153,
+          "target": 102
+        },
+        {
+          "offset": 99,
+          "opcode": 167,
+          "target": 76
+        },
+        {
+          "offset": 116,
+          "opcode": 154,
+          "target": 137
+        },
+        {
+          "offset": 126,
+          "opcode": 154,
+          "target": 137
+        }
+      ],
+      "references": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "b3M",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 7,
+          "opcode": 182,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "J_",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 18,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 28,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 32,
+          "opcode": 178,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "b3M",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 39,
+          "opcode": 182,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "kh3",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 49,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 54,
+          "opcode": 182,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "H_",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 62,
+          "opcode": 182,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "MkF",
+          "descriptor": "(Z)V"
+        },
+        {
+          "offset": 67,
+          "opcode": 182,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "dpx",
+          "descriptor": "(Ljava/lang/String;)Ljava/util/List;"
+        },
+        {
+          "offset": 70,
+          "opcode": 185,
+          "owner": "java/util/List",
+          "name": "iterator",
+          "descriptor": "()Ljava/util/Iterator;"
+        },
+        {
+          "offset": 77,
+          "opcode": 185,
+          "owner": "java/util/Iterator",
+          "name": "hasNext",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 86,
+          "opcode": 185,
+          "owner": "java/util/Iterator",
+          "name": "next",
+          "descriptor": "()Ljava/lang/Object;"
+        },
+        {
+          "offset": 96,
+          "opcode": 182,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "dC_",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 104,
+          "opcode": 180,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "cG3",
+          "descriptor": "I"
+        },
+        {
+          "offset": 110,
+          "opcode": 181,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "cG3",
+          "descriptor": "I"
+        },
+        {
+          "offset": 113,
+          "opcode": 178,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "b3M",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 120,
+          "opcode": 182,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "J_",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 123,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 133,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        }
+      ]
+    },
+    "new": {
+      "owner": "com/bitwig/ramona/core/HEV",
+      "name": "dC_",
+      "descriptor": "()V",
+      "flags": 1,
+      "codeBytes": 138,
+      "classSha256": "1e8942c158fbcd7c4747dcd75f7095b797a08191eae3762300e00ef37379d77b",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 154,
+          "target": 32
+        },
+        {
+          "offset": 10,
+          "opcode": 154,
+          "target": 17
+        },
+        {
+          "offset": 14,
+          "opcode": 167,
+          "target": 18
+        },
+        {
+          "offset": 21,
+          "opcode": 154,
+          "target": 32
+        },
+        {
+          "offset": 35,
+          "opcode": 154,
+          "target": 53
+        },
+        {
+          "offset": 42,
+          "opcode": 154,
+          "target": 53
+        },
+        {
+          "offset": 57,
+          "opcode": 153,
+          "target": 65
+        },
+        {
+          "offset": 82,
+          "opcode": 153,
+          "target": 102
+        },
+        {
+          "offset": 99,
+          "opcode": 167,
+          "target": 76
+        },
+        {
+          "offset": 116,
+          "opcode": 154,
+          "target": 137
+        },
+        {
+          "offset": 126,
+          "opcode": 154,
+          "target": 137
+        }
+      ],
+      "references": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "b3M",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 7,
+          "opcode": 182,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "J_",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 18,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 28,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 32,
+          "opcode": 178,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "b3M",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 39,
+          "opcode": 182,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "kh3",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 49,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 54,
+          "opcode": 182,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "H_",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 62,
+          "opcode": 182,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "MkF",
+          "descriptor": "(Z)V"
+        },
+        {
+          "offset": 67,
+          "opcode": 182,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "dpx",
+          "descriptor": "(Ljava/lang/String;)Ljava/util/List;"
+        },
+        {
+          "offset": 70,
+          "opcode": 185,
+          "owner": "java/util/List",
+          "name": "iterator",
+          "descriptor": "()Ljava/util/Iterator;"
+        },
+        {
+          "offset": 77,
+          "opcode": 185,
+          "owner": "java/util/Iterator",
+          "name": "hasNext",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 86,
+          "opcode": 185,
+          "owner": "java/util/Iterator",
+          "name": "next",
+          "descriptor": "()Ljava/lang/Object;"
+        },
+        {
+          "offset": 96,
+          "opcode": 182,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "dC_",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 104,
+          "opcode": 180,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "cG3",
+          "descriptor": "I"
+        },
+        {
+          "offset": 110,
+          "opcode": 181,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "cG3",
+          "descriptor": "I"
+        },
+        {
+          "offset": 113,
+          "opcode": 178,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "b3M",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 120,
+          "opcode": 182,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "J_",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 123,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 133,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        }
+      ]
+    },
+    "equalContract": true,
+    "basis": "Exact old body prefix, excluding its final return. Diagnostic only."
+  },
+  "newCallees": [
+    {
+      "owner": "cZl",
+      "name": "ffA",
+      "descriptor": "(LcYH;Lcom/bitwig/ramona/core/HEV;)Z",
+      "flags": 1,
+      "codeBytes": 6,
+      "classSha256": "6ab8f46007df3439bedca7fcbfdf07509e16f44cd3783e3e1a4d831b56487bae",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 2,
+          "opcode": 184,
+          "owner": "com/bitwig/ramona/core/oQq",
+          "name": "ffA",
+          "descriptor": "(LcYH;Lcom/bitwig/ramona/core/HEV;)Z"
+        }
+      ]
+    },
+    {
+      "owner": "cZl",
+      "name": "ffA",
+      "descriptor": "(Lcom/bitwig/ramona/core/HEV;Z)V",
+      "flags": 4,
+      "codeBytes": 196,
+      "classSha256": "6ab8f46007df3439bedca7fcbfdf07509e16f44cd3783e3e1a4d831b56487bae",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 154,
+          "target": 29
+        },
+        {
+          "offset": 7,
+          "opcode": 198,
+          "target": 14
+        },
+        {
+          "offset": 11,
+          "opcode": 167,
+          "target": 15
+        },
+        {
+          "offset": 18,
+          "opcode": 154,
+          "target": 29
+        },
+        {
+          "offset": 32,
+          "opcode": 154,
+          "target": 61
+        },
+        {
+          "offset": 39,
+          "opcode": 198,
+          "target": 46
+        },
+        {
+          "offset": 43,
+          "opcode": 167,
+          "target": 47
+        },
+        {
+          "offset": 50,
+          "opcode": 154,
+          "target": 61
+        },
+        {
+          "offset": 64,
+          "opcode": 154,
+          "target": 94
+        },
+        {
+          "offset": 68,
+          "opcode": 153,
+          "target": 79
+        },
+        {
+          "offset": 76,
+          "opcode": 167,
+          "target": 80
+        },
+        {
+          "offset": 83,
+          "opcode": 154,
+          "target": 94
+        },
+        {
+          "offset": 97,
+          "opcode": 154,
+          "target": 130
+        },
+        {
+          "offset": 108,
+          "opcode": 154,
+          "target": 115
+        },
+        {
+          "offset": 112,
+          "opcode": 167,
+          "target": 116
+        },
+        {
+          "offset": 119,
+          "opcode": 154,
+          "target": 130
+        },
+        {
+          "offset": 131,
+          "opcode": 154,
+          "target": 195
+        },
+        {
+          "offset": 165,
+          "opcode": 154,
+          "target": 195
+        },
+        {
+          "offset": 173,
+          "opcode": 166,
+          "target": 180
+        },
+        {
+          "offset": 177,
+          "opcode": 167,
+          "target": 181
+        },
+        {
+          "offset": 184,
+          "opcode": 154,
+          "target": 195
+        }
+      ],
+      "references": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "owner": "cZl",
+          "name": "Uhv",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 15,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 25,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 29,
+          "opcode": 178,
+          "owner": "cZl",
+          "name": "Uhv",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 36,
+          "opcode": 182,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "I_",
+          "descriptor": "()Lcom/bitwig/ramona/core/HEV;"
+        },
+        {
+          "offset": 47,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 57,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 61,
+          "opcode": 178,
+          "owner": "cZl",
+          "name": "Uhv",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 73,
+          "opcode": 182,
+          "owner": "cZl",
+          "name": "kyi",
+          "descriptor": "(Lcom/bitwig/ramona/core/HEV;)Z"
+        },
+        {
+          "offset": 80,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 90,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 94,
+          "opcode": 178,
+          "owner": "cZl",
+          "name": "Uhv",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 101,
+          "opcode": 180,
+          "owner": "cZl",
+          "name": "kyi",
+          "descriptor": "LcKh;"
+        },
+        {
+          "offset": 105,
+          "opcode": 182,
+          "owner": "cKh",
+          "name": "contains",
+          "descriptor": "(Ljava/lang/Object;)Z"
+        },
+        {
+          "offset": 116,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 126,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 136,
+          "opcode": 180,
+          "owner": "cZl",
+          "name": "NaF",
+          "descriptor": "Lcom/bitwig/ramona/core/jbx;"
+        },
+        {
+          "offset": 139,
+          "opcode": 182,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "ffA",
+          "descriptor": "(Lcom/bitwig/ramona/core/jbx;)V"
+        },
+        {
+          "offset": 143,
+          "opcode": 180,
+          "owner": "cZl",
+          "name": "kyi",
+          "descriptor": "LcKh;"
+        },
+        {
+          "offset": 147,
+          "opcode": 182,
+          "owner": "cKh",
+          "name": "add",
+          "descriptor": "(Ljava/lang/Object;)Z"
+        },
+        {
+          "offset": 151,
+          "opcode": 178,
+          "owner": "cZl",
+          "name": "ffA",
+          "descriptor": "Ljava/util/Map;"
+        },
+        {
+          "offset": 156,
+          "opcode": 185,
+          "owner": "java/util/Map",
+          "name": "put",
+          "descriptor": "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;"
+        },
+        {
+          "offset": 162,
+          "opcode": 178,
+          "owner": "cZl",
+          "name": "Uhv",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 169,
+          "opcode": 184,
+          "owner": "cZl",
+          "name": "ffA",
+          "descriptor": "(Lcom/bitwig/ramona/core/ikl;)LcZl;"
+        },
+        {
+          "offset": 181,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 191,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        }
+      ]
+    },
+    {
+      "owner": "cZl",
+      "name": "Fmu",
+      "descriptor": "()Lcom/bitwig/ramona/core/uX1;",
+      "flags": 17,
+      "codeBytes": 5,
+      "classSha256": "6ab8f46007df3439bedca7fcbfdf07509e16f44cd3783e3e1a4d831b56487bae",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 180,
+          "owner": "cZl",
+          "name": "MkF",
+          "descriptor": "Lcom/bitwig/ramona/core/uX1;"
+        }
+      ]
+    },
+    {
+      "owner": "com/bitwig/ramona/core/uX1",
+      "name": "Mkn",
+      "descriptor": "()Z",
+      "flags": 1,
+      "codeBytes": 5,
+      "classSha256": "d0ad4115d14e46543d53a5383041074eee66be3bb108badc6c52b899b6ecffa8",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 180,
+          "owner": "com/bitwig/ramona/core/uX1",
+          "name": "zVi",
+          "descriptor": "Z"
+        }
+      ]
+    },
+    {
+      "owner": "cZn",
+      "name": "ffA",
+      "descriptor": "(LcYy;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;IZ)V",
+      "flags": 2,
+      "codeBytes": 18,
+      "classSha256": "28d041232487f119bc5007719574791ff4f408292fcf9b4e2c8e0a19858298ad",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 180,
+          "owner": "cZn",
+          "name": "eOi",
+          "descriptor": "LcZl;"
+        },
+        {
+          "offset": 4,
+          "opcode": 182,
+          "owner": "cZl",
+          "name": "Ode",
+          "descriptor": "()LdaR;"
+        },
+        {
+          "offset": 14,
+          "opcode": 182,
+          "owner": "daR",
+          "name": "ffA",
+          "descriptor": "(LcYy;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;IZ)V"
+        }
+      ]
+    },
+    {
+      "owner": "cZl",
+      "name": "zmC",
+      "descriptor": "()V",
+      "flags": 4,
+      "codeBytes": 1,
+      "classSha256": "6ab8f46007df3439bedca7fcbfdf07509e16f44cd3783e3e1a4d831b56487bae",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": []
+    },
+    {
+      "owner": "cZl",
+      "name": "Ode",
+      "descriptor": "()LdaR;",
+      "flags": 17,
+      "codeBytes": 35,
+      "classSha256": "6ab8f46007df3439bedca7fcbfdf07509e16f44cd3783e3e1a4d831b56487bae",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 8,
+          "opcode": 154,
+          "target": 23
+        },
+        {
+          "offset": 12,
+          "opcode": 199,
+          "target": 23
+        },
+        {
+          "offset": 24,
+          "opcode": 199,
+          "target": 29
+        }
+      ],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 182,
+          "owner": "cZl",
+          "name": "nrP",
+          "descriptor": "()Lcom/bitwig/ramona/core/Ibf;"
+        },
+        {
+          "offset": 5,
+          "opcode": 178,
+          "owner": "cZl",
+          "name": "Uhv",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 19,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 31,
+          "opcode": 182,
+          "owner": "cZl",
+          "name": "ffA",
+          "descriptor": "(Lcom/bitwig/ramona/core/Ibf;)LdaR;"
+        }
+      ]
+    },
+    {
+      "owner": "daR",
+      "name": "eOi",
+      "descriptor": "(LcYy;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;IZ)V",
+      "flags": 4,
+      "codeBytes": 132,
+      "classSha256": "e2a6561eeb1602b13303968892565a81f51329260411b925b50966718ebd12a6",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 154,
+          "target": 35
+        },
+        {
+          "offset": 13,
+          "opcode": 154,
+          "target": 20
+        },
+        {
+          "offset": 17,
+          "opcode": 167,
+          "target": 21
+        },
+        {
+          "offset": 24,
+          "opcode": 154,
+          "target": 35
+        },
+        {
+          "offset": 38,
+          "opcode": 154,
+          "target": 79
+        },
+        {
+          "offset": 43,
+          "opcode": 153,
+          "target": 64
+        },
+        {
+          "offset": 53,
+          "opcode": 166,
+          "target": 60
+        },
+        {
+          "offset": 57,
+          "opcode": 167,
+          "target": 65
+        },
+        {
+          "offset": 61,
+          "opcode": 167,
+          "target": 65
+        },
+        {
+          "offset": 68,
+          "opcode": 154,
+          "target": 79
+        },
+        {
+          "offset": 88,
+          "opcode": 154,
+          "target": 115
+        },
+        {
+          "offset": 93,
+          "opcode": 198,
+          "target": 100
+        },
+        {
+          "offset": 97,
+          "opcode": 167,
+          "target": 101
+        },
+        {
+          "offset": 104,
+          "opcode": 154,
+          "target": 115
+        }
+      ],
+      "references": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "owner": "daR",
+          "name": "ffA",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 7,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "Uhv",
+          "descriptor": "LcZl;"
+        },
+        {
+          "offset": 10,
+          "opcode": 182,
+          "owner": "cZl",
+          "name": "Mkn",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 21,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 31,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 35,
+          "opcode": 178,
+          "owner": "daR",
+          "name": "ffA",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 47,
+          "opcode": 182,
+          "owner": "cYy",
+          "name": "Ode",
+          "descriptor": "()LcNL;"
+        },
+        {
+          "offset": 50,
+          "opcode": 178,
+          "owner": "cNL",
+          "name": "cG3",
+          "descriptor": "LcNL;"
+        },
+        {
+          "offset": 65,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 75,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 80,
+          "opcode": 182,
+          "owner": "daR",
+          "name": "YLA",
+          "descriptor": "()LcZv;"
+        },
+        {
+          "offset": 85,
+          "opcode": 178,
+          "owner": "daR",
+          "name": "ffA",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 101,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 111,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 125,
+          "opcode": 180,
+          "owner": "daR",
+          "name": "Uhv",
+          "descriptor": "LcZl;"
+        },
+        {
+          "offset": 128,
+          "opcode": 182,
+          "owner": "cZv",
+          "name": "eOi",
+          "descriptor": "(LcYy;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;IZLcZl;)V"
+        }
+      ]
+    },
+    {
+      "owner": "cZl",
+      "name": "cG3",
+      "descriptor": "(Lcom/bitwig/ramona/core/HEV;)V",
+      "flags": 4,
+      "codeBytes": 120,
+      "classSha256": "6ab8f46007df3439bedca7fcbfdf07509e16f44cd3783e3e1a4d831b56487bae",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 154,
+          "target": 29
+        },
+        {
+          "offset": 7,
+          "opcode": 198,
+          "target": 14
+        },
+        {
+          "offset": 11,
+          "opcode": 167,
+          "target": 15
+        },
+        {
+          "offset": 18,
+          "opcode": 154,
+          "target": 29
+        },
+        {
+          "offset": 32,
+          "opcode": 154,
+          "target": 65
+        },
+        {
+          "offset": 43,
+          "opcode": 154,
+          "target": 50
+        },
+        {
+          "offset": 47,
+          "opcode": 167,
+          "target": 51
+        },
+        {
+          "offset": 54,
+          "opcode": 154,
+          "target": 65
+        },
+        {
+          "offset": 75,
+          "opcode": 153,
+          "target": 119
+        },
+        {
+          "offset": 89,
+          "opcode": 154,
+          "target": 119
+        },
+        {
+          "offset": 97,
+          "opcode": 166,
+          "target": 104
+        },
+        {
+          "offset": 101,
+          "opcode": 167,
+          "target": 105
+        },
+        {
+          "offset": 108,
+          "opcode": 154,
+          "target": 119
+        }
+      ],
+      "references": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "owner": "cZl",
+          "name": "Uhv",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 15,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 25,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 29,
+          "opcode": 178,
+          "owner": "cZl",
+          "name": "Uhv",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 37,
+          "opcode": 180,
+          "owner": "cZl",
+          "name": "QiZ",
+          "descriptor": "Lcom/bitwig/ramona/core/HEV;"
+        },
+        {
+          "offset": 40,
+          "opcode": 182,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "eJS",
+          "descriptor": "(Lcom/bitwig/ramona/core/FZ1;)Z"
+        },
+        {
+          "offset": 51,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 61,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 66,
+          "opcode": 180,
+          "owner": "cZl",
+          "name": "kyi",
+          "descriptor": "LcKh;"
+        },
+        {
+          "offset": 70,
+          "opcode": 182,
+          "owner": "cKh",
+          "name": "remove",
+          "descriptor": "(Ljava/lang/Object;)Z"
+        },
+        {
+          "offset": 80,
+          "opcode": 180,
+          "owner": "cZl",
+          "name": "NaF",
+          "descriptor": "Lcom/bitwig/ramona/core/jbx;"
+        },
+        {
+          "offset": 83,
+          "opcode": 182,
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "eOi",
+          "descriptor": "(Lcom/bitwig/ramona/core/jbx;)V"
+        },
+        {
+          "offset": 86,
+          "opcode": 178,
+          "owner": "cZl",
+          "name": "Uhv",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 93,
+          "opcode": 184,
+          "owner": "cZl",
+          "name": "ffA",
+          "descriptor": "(Lcom/bitwig/ramona/core/ikl;)LcZl;"
+        },
+        {
+          "offset": 105,
+          "opcode": 184,
+          "owner": "cJT",
+          "name": "eOi",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 115,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        }
+      ]
+    }
+  ],
+  "calleeFields": {
+    "cZl": [
+      {
+        "name": "ffA",
+        "descriptor": "Ljava/util/Map;",
+        "flags": 26
+      },
+      {
+        "name": "NaF",
+        "descriptor": "Lcom/bitwig/ramona/core/jbx;",
+        "flags": 18
+      },
+      {
+        "name": "kyi",
+        "descriptor": "LcKh;",
+        "flags": 18
+      },
+      {
+        "name": "kG",
+        "descriptor": "Lcom/bitwig/ramona/core/Rm;",
+        "flags": 18
+      },
+      {
+        "name": "wi2",
+        "descriptor": "LcZu;",
+        "flags": 18
+      },
+      {
+        "name": "pvN",
+        "descriptor": "Lcom/bitwig/ramona/serial/GCp;",
+        "flags": 18
+      },
+      {
+        "name": "QiZ",
+        "descriptor": "Lcom/bitwig/ramona/core/HEV;",
+        "flags": 18
+      },
+      {
+        "name": "MkF",
+        "descriptor": "Lcom/bitwig/ramona/core/uX1;",
+        "flags": 18
+      },
+      {
+        "name": "SRu",
+        "descriptor": "Ljava/io/File;",
+        "flags": 18
+      },
+      {
+        "name": "W2P",
+        "descriptor": "Ljava/util/Map;",
+        "flags": 18
+      },
+      {
+        "name": "asI",
+        "descriptor": "LcZj;",
+        "flags": 18
+      },
+      {
+        "name": "EbT",
+        "descriptor": "Z",
+        "flags": 2
+      },
+      {
+        "name": "VoD",
+        "descriptor": "I",
+        "flags": 2
+      },
+      {
+        "name": "YLA",
+        "descriptor": "Z",
+        "flags": 2
+      },
+      {
+        "name": "iUG",
+        "descriptor": "Ljava/util/List;",
+        "flags": 18
+      },
+      {
+        "name": "eJS",
+        "descriptor": "I",
+        "flags": 2
+      },
+      {
+        "name": "OTd",
+        "descriptor": "Z",
+        "flags": 2
+      },
+      {
+        "name": "hhJ",
+        "descriptor": "Lhqz;",
+        "flags": 18
+      },
+      {
+        "name": "Mkn",
+        "descriptor": "[B",
+        "flags": 18
+      },
+      {
+        "name": "zVi",
+        "descriptor": "[B",
+        "flags": 18
+      },
+      {
+        "name": "ZzB",
+        "descriptor": "LdD;",
+        "flags": 18
+      },
+      {
+        "name": "eOi",
+        "descriptor": "I",
+        "flags": 0
+      },
+      {
+        "name": "nrP",
+        "descriptor": "Z",
+        "flags": 2
+      },
+      {
+        "name": "Ode",
+        "descriptor": "I",
+        "flags": 2
+      },
+      {
+        "name": "cG3",
+        "descriptor": "Z",
+        "flags": 9
+      },
+      {
+        "name": "jBn",
+        "descriptor": "Ljava/util/Deque;",
+        "flags": 2
+      },
+      {
+        "name": "MDs",
+        "descriptor": "Ljava/lang/ThreadLocal;",
+        "flags": 26
+      },
+      {
+        "name": "Fmu",
+        "descriptor": "Z",
+        "flags": 26
+      },
+      {
+        "name": "Uhv",
+        "descriptor": "Z",
+        "flags": 4120
+      }
+    ],
+    "cZn": [
+      {
+        "name": "ffA",
+        "descriptor": "Z",
+        "flags": 4120
+      },
+      {
+        "name": "eOi",
+        "descriptor": "LcZl;",
+        "flags": 4112
+      }
+    ],
+    "com/bitwig/ramona/core/uX1": [
+      {
+        "name": "ffA",
+        "descriptor": "Ljava/util/Map;",
+        "flags": 26
+      },
+      {
+        "name": "cG3",
+        "descriptor": "Lcom/bitwig/ramona/core/xFg;",
+        "flags": 26
+      },
+      {
+        "name": "Uhv",
+        "descriptor": "Lcom/bitwig/ramona/core/HEV;",
+        "flags": 18
+      },
+      {
+        "name": "NaF",
+        "descriptor": "Lcom/bitwig/ramona/core/UL;",
+        "flags": 18
+      },
+      {
+        "name": "kyi",
+        "descriptor": "Ljava/util/List;",
+        "flags": 18
+      },
+      {
+        "name": "kG",
+        "descriptor": "LKq2;",
+        "flags": 18
+      },
+      {
+        "name": "wi2",
+        "descriptor": "Ljava/util/List;",
+        "flags": 18
+      },
+      {
+        "name": "pvN",
+        "descriptor": "Ljava/lang/String;",
+        "flags": 18
+      },
+      {
+        "name": "QiZ",
+        "descriptor": "Ljava/util/List;",
+        "flags": 18
+      },
+      {
+        "name": "MkF",
+        "descriptor": "Ljava/lang/Object;",
+        "flags": 18
+      },
+      {
+        "name": "SRu",
+        "descriptor": "I",
+        "flags": 2
+      },
+      {
+        "name": "W2P",
+        "descriptor": "Z",
+        "flags": 18
+      },
+      {
+        "name": "asI",
+        "descriptor": "I",
+        "flags": 2
+      },
+      {
+        "name": "EbT",
+        "descriptor": "J",
+        "flags": 2
+      },
+      {
+        "name": "VoD",
+        "descriptor": "Lcom/bitwig/ramona/core/jbx;",
+        "flags": 18
+      },
+      {
+        "name": "YLA",
+        "descriptor": "Z",
+        "flags": 2
+      },
+      {
+        "name": "iUG",
+        "descriptor": "Ljava/util/Set;",
+        "flags": 2
+      },
+      {
+        "name": "eJS",
+        "descriptor": "I",
+        "flags": 18
+      },
+      {
+        "name": "OTd",
+        "descriptor": "I",
+        "flags": 18
+      },
+      {
+        "name": "hhJ",
+        "descriptor": "I",
+        "flags": 18
+      },
+      {
+        "name": "Mkn",
+        "descriptor": "I",
+        "flags": 18
+      },
+      {
+        "name": "zVi",
+        "descriptor": "Z",
+        "flags": 2
+      },
+      {
+        "name": "ZzB",
+        "descriptor": "Z",
+        "flags": 2
+      },
+      {
+        "name": "nrP",
+        "descriptor": "I",
+        "flags": 2
+      },
+      {
+        "name": "Ode",
+        "descriptor": "Lcom/bitwig/ramona/core/jbx;",
+        "flags": 18
+      },
+      {
+        "name": "jBn",
+        "descriptor": "LcKh;",
+        "flags": 18
+      },
+      {
+        "name": "MDs",
+        "descriptor": "LcKh;",
+        "flags": 18
+      },
+      {
+        "name": "eOi",
+        "descriptor": "Z",
+        "flags": 4120
+      }
+    ],
+    "daR": [
+      {
+        "name": "eOi",
+        "descriptor": "Lcom/bitwig/ramona/core/ziZ;",
+        "flags": 26
+      },
+      {
+        "name": "cG3",
+        "descriptor": "Lcom/bitwig/ramona/core/Ibf;",
+        "flags": 18
+      },
+      {
+        "name": "Uhv",
+        "descriptor": "LcZl;",
+        "flags": 18
+      },
+      {
+        "name": "NaF",
+        "descriptor": "LcZv;",
+        "flags": 2
+      },
+      {
+        "name": "kyi",
+        "descriptor": "LcZv;",
+        "flags": 2
+      },
+      {
+        "name": "kG",
+        "descriptor": "LcZv;",
+        "flags": 2
+      },
+      {
+        "name": "wi2",
+        "descriptor": "LcZv;",
+        "flags": 2
+      },
+      {
+        "name": "pvN",
+        "descriptor": "Z",
+        "flags": 2
+      },
+      {
+        "name": "QiZ",
+        "descriptor": "Z",
+        "flags": 2
+      },
+      {
+        "name": "MkF",
+        "descriptor": "LcZv;",
+        "flags": 2
+      },
+      {
+        "name": "SRu",
+        "descriptor": "Lcom/bitwig/ramona/core/ziZ;",
+        "flags": 2
+      },
+      {
+        "name": "W2P",
+        "descriptor": "Lcom/bitwig/ramona/core/HEV;",
+        "flags": 2
+      },
+      {
+        "name": "asI",
+        "descriptor": "J",
+        "flags": 2
+      },
+      {
+        "name": "EbT",
+        "descriptor": "Z",
+        "flags": 2
+      },
+      {
+        "name": "VoD",
+        "descriptor": "Ljava/util/List;",
+        "flags": 18
+      },
+      {
+        "name": "ffA",
+        "descriptor": "Z",
+        "flags": 4120
+      }
+    ]
+  },
+  "coverage": {
+    "requiredTypes": 55,
+    "requiredMembers": 76,
+    "typeTraceInputs": 8,
+    "validatedNewTableMembers": 0,
+    "untracedTypeRoles": [
+      "boolean-atom",
+      "boolean-base",
+      "child-object",
+      "connection",
+      "container",
+      "decimal-atom",
+      "descriptor",
+      "descriptor-base",
+      "destination-atom",
+      "destination-base",
+      "device-base",
+      "display-state",
+      "domain",
+      "domain-base",
+      "edit-lock",
+      "engine-state",
+      "engine-state-base",
+      "focus-base",
+      "focus-target-base",
+      "focus-wrapper",
+      "grid",
+      "grid-base",
+      "initialization-helper",
+      "insert-callback",
+      "layout-pass",
+      "mapping-source",
+      "mapping-source-base",
+      "mapping-target",
+      "module",
+      "module-base",
+      "named-base",
+      "native-device",
+      "nitro-atom",
+      "position-base",
+      "property",
+      "property-base",
+      "rectangle-base",
+      "relationship",
+      "remote-helper",
+      "selection-base",
+      "selection-state",
+      "serialization-filter",
+      "source-atom",
+      "source-base",
+      "source-interface",
+      "transfer",
+      "value-base"
+    ]
+  },
+  "work": {
+    "methods": 3899,
+    "instructions": 13148,
+    "streamedCodeClasses": 19942
+  },
+  "result": "traced-subset",
+  "reason": "complete-resolver-not-implemented",
+  "inputs": [
+    {
+      "path": "/Users/jonvuri/Bitwig Upgrade Backups/2026-10-21-pre-6.1/apps/Bitwig Studio 6.0.6.app/Contents/Java/bitwig.jar",
+      "sha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+      "counts": {
+        "jarBytes": 34686665,
+        "entries": 30968,
+        "classes": 30940,
+        "classBytes": 69199765,
+        "members": 454111,
+        "defaultPackageClasses": 24240,
+        "callTraceWork": 72,
+        "codeClasses": 129
+      },
+      "retainedCodeClasses": 130
+    },
+    {
+      "path": "/Users/jonvuri/Bitwig Upgrade Backups/2026-10-21-pre-6.1/apps/Bitwig Studio 6.0.6.app/Contents/Java/bitwig.jar",
+      "sha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+      "counts": {
+        "jarBytes": 34686665,
+        "entries": 30968,
+        "classes": 30940,
+        "classBytes": 69199765,
+        "members": 454111,
+        "defaultPackageClasses": 24240
+      },
+      "retainedCodeClasses": 8
+    }
+  ],
+  "elapsedMs": 14297.46,
+  "peakRssBytes": 322846720,
+  "limits": {
+    "jar_bytes": 67108864,
+    "entries": 50000,
+    "classes": 40000,
+    "class_bytes": 1048576,
+    "total_bytes": 134217728,
+    "members": 1000000,
+    "depth": 128,
+    "code_classes": 256,
+    "call_work": 4096,
+    "call_depth": 2,
+    "rss": 805306368,
+    "seconds": 120
+  }
+}

@@ -2,7 +2,7 @@
 title: Phase 9 — Overlap investigation
 kind: plan
 state: active
-status: E330 accepts the normal-product update audit. E331 records the 6.1.4 Grid resolver refusal. Next is 9b.6a structural migration.
+status: E330 accepts the normal-product update audit. E332 traces changed 6.1.4 Grid command contracts. Next is 9b.6b ownership, disposal, and complete resolution.
 updated: 2026-10-21
 parent: ../ROADMAP.md
 prev: ../phase-8/README.md
@@ -74,7 +74,9 @@ passes listening, the final observation checkpoint, and live cleanup.
 the clean save and accepts the tested normal-product scope.
 [E331](../../evidence/experiments/e331-grid-doctor-614-resolver-refusal.md)
 records the 6.1.4 Grid resolver refusal: 53 missing type roles and 76 blocked
-members. Next is [9b.6a structural migration](9b-grid-breadth-discovery-and-build-out.md#session-9b6a--resolve-changed-614-structure).
+members. [E332](../../evidence/experiments/e332-grid-doctor-614-command-contracts.md)
+traces changed ownership and disposal contracts. Next is
+[9b.6b](9b-grid-breadth-discovery-and-build-out.md#session-9b6b--trace-new-ownership-and-disposal-contracts).
 No new probe is deployed. The 6.1.4 live doctor remains incomplete.
 General acceptance grants no native Grid write authority.
 

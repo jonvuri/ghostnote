@@ -1298,6 +1298,39 @@ All live checks and clean save pass. The final close-out adds no host write,
 product call, or performance model change. Native Grid timing remains a
 separate 9b.6 result.
 
+## 9b.6a contract trace migration — model before implementation
+
+Read both jars as data under the 9b.4 per-jar input limits. Keep a combined
+120-second deadline and a 768 MiB process RSS refusal threshold. Scan method
+bodies only for required signatures. Retain at most 256 code classes across
+both jars; stream other classes and discard their code after comparison.
+Bound comparison work to 1,000,000 methods and 16,000,000 instructions.
+Retain at most 128 matches per role and a 2 MiB report. These limits are
+refusal thresholds, not OS caps.
+
+Compare local command contracts with vendor names removed. Keep signatures,
+flags, literals, control flow, exception handlers, and reference identity
+relationships. Do not include unrelated class members in a command key.
+Use exact matches only as trace inputs until receiver and operation edges
+validate. A missing or ambiguous contract must not produce a live table.
+The scan makes no host call, initializes no vendor class, and writes no
+attempt or acceptance cache. Live paths retain the E315/E316 model.
+
+[E332](../evidence/experiments/e332-grid-doctor-614-command-contracts.md)
+measures 14,508.833 ms and 326,320,128 bytes peak RSS. The diagnostic performs
+4,073 method comparisons over 13,724 normalized instructions. It streams
+20,332 class-code reads and retains 140 code classes across both jars. Its
+report is 161,815 bytes. All declared limits hold. This workload differs
+from the earlier shape census and complete resolver scans; no comparable
+latency regression is established.
+
+The changed 6.1.4 disposal body adds conditional global tracking. When
+enabled, the added helper takes a monitor, drains a reference queue, and
+allocates a reference per disposed object. The traced drain loop has no
+static iteration cap. Its runtime mode and queue size are not measured.
+Session 9b.6b must establish admission and a cost model before probe
+preparation. The unchanged product budgets do not cover this research path.
+
 ## 9b.6 offline refusal diagnosis — model before implementation
 
 Keep the E315 resolver and all live paths unchanged. The diagnostic reads
