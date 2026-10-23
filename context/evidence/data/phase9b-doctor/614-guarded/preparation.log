@@ -1,0 +1,21 @@
+{
+  "candidate": {
+    "bytes": 28052,
+    "sha256": "e47612953f89745b4e09357e7d2dcdf54ffe230ace648d3a53e40411321b5a23"
+  },
+  "selectors": {
+    "bytes": 49832,
+    "sha256": "0739d6dd3ab19ab42a6ede124ada8d1d5107eb2afd19c7ce37e71abbc9759853"
+  },
+  "guards": {
+    "bytes": 8762,
+    "sha256": "92100a9c2e4ef873aacf9e5c5589b96ccfaddf7a188042197714ab671a13dbf5"
+  },
+  "scanElapsedMs": 5295.34,
+  "peakRssBytes": 187580416,
+  "guardCounts": {
+    "types": 1,
+    "fields": 5,
+    "ownedTreeClasses": 33
+  }
+}

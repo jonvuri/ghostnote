@@ -415,3 +415,19 @@ bootstrap and abstract descriptor dispatch. The strict comparator remains
 unchanged. Disposal, recording access, and membership variants stay refused.
 Continue with [9b.6g](9b-grid-breadth-discovery-and-build-out.md#session-9b6g--descriptor-anchors-and-bootstrap-contracts).
 Pinned source roles and original selectors remain unchanged.
+
+
+## E339 guarded doctor on 6.1.4
+
+[E339](../../evidence/experiments/e339-grid-doctor-614-guarded-attempt.md)
+prepares the 6.1.4 candidate from the resolved checkpoint-2 symbol table.
+All 55 types and 76 members keep their roles; the 6.1.4 names are in
+`614-guarded/candidate.json`, not in the pinned tables above. One selector
+variant is recorded: `journal-recording-edit` is package-private on 6.1.4
+(flags 2 to 0). Five guard roles are build-specific pins, not selectors:
+`helper-list` (`dfI.Z1C`), `pending-helper` (`dfI.dEI`), `pending-list`
+(`dfI.LaE`), `disposal-tracking-flag` (`thz.Hnt`), and
+`listener-tracking-flag` (`apd.Hnt`), with the `project-document` type
+`master/tj2` and the 33-class owned-tree set. The guarded boolean case
+passes on 6.1.4; the mapping removal ran once as an uncertain write. No
+6.1.4 acceptance or cache exists. The pinned 6.0.6 tables stay unchanged.

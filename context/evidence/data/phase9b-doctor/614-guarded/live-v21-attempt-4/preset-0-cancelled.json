@@ -1,0 +1,37 @@
+{
+  "case": "boolean",
+  "commands": 0,
+  "reads": 0,
+  "locked": true,
+  "finished": true,
+  "inspections": 0,
+  "failure": "java.lang.IllegalStateException: breadth-gates-phase-atom",
+  "phase": 0,
+  "failed": true,
+  "marker": "9b-grid-doctor-v21",
+  "bound": false,
+  "busy": false,
+  "used": true,
+  "timeoutLocked": false,
+  "nativeUnfinished": false,
+  "foreignOwner": false,
+  "metadata": {
+    "fingerprint": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f:35778607:1790948299000000000",
+    "jarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+    "selectorSha256": "0739d6dd3ab19ab42a6ede124ada8d1d5107eb2afd19c7ce37e71abbc9759853",
+    "members": 76,
+    "types": 55,
+    "validationNanos": 23468417,
+    "writeAuthority": false
+  },
+  "guards": {
+    "format": "grid-doctor-guards-v1",
+    "types": 1,
+    "fields": 5,
+    "ownedTreeClasses": 33,
+    "guardsSha256": "92100a9c2e4ef873aacf9e5c5589b96ccfaddf7a188042197714ab671a13dbf5",
+    "candidateSha256": "e47612953f89745b4e09357e7d2dcdf54ffe230ace648d3a53e40411321b5a23",
+    "validationNanos": 834625,
+    "writeAuthority": false
+  }
+}

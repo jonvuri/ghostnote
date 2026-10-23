@@ -2,114 +2,87 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-10-22
+updated: 2026-10-23
 phase: phase-9-overlap-investigation
-session: 9b6h-guarded-doctor-614
+session: 9b6i-recovered-baseline-and-second-guarded-pass
 ---
 
 ## Next session
 
-**Start [9b.6h: guarded doctor on 6.1.4](plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6h--guarded-doctor-on-614).**
-[D52](decisions/d52-grid-upgrade-admission-policy.md) settles the upgrade
-admission policy: offline structural resolution stays required; complete
-offline bounded admission is replaced by a body-change report, bounded
-traces of changed bodies only, runtime entry guards, and the consent-gated
-doctor with per-call timing. [E338](evidence/experiments/e338-grid-doctor-614-offline-closeout.md)
-closes 9b.6g: all 55 type roles, 76 member roles, and 16 fields resolve on
-both jars; the conditional bounds of checkpoints 1–17 stand; no command has
-offline bounded admission, and that criterion does not converge.
+**Start [9b.6i: recovered baseline and second guarded pass](plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6i--recovered-baseline-and-second-guarded-pass).**
+[E339](evidence/experiments/e339-grid-doctor-614-guarded-attempt.md)
+completes the 9b.6h preparation under [D52](decisions/d52-grid-upgrade-admission-policy.md):
+body-change report, changed-body decisions, runtime entry guards, the V21
+driver, and the V21 probe. The live result is incomplete: the boolean case
+passes with the guards; the mapping removal ran once as an uncertain write
+and refused on the paired readback in the last build-pinned fixture rule;
+the core case did not run. That rule is fixed, tested, and built but not
+deployed. No 6.1.4 cache exists.
 
-Read D52, E338, [checkpoint 17](evidence/data/phase9b-doctor/614-resolution/checkpoint-17/README.md),
-E316, E315, the symbol manifest, the performance ledger, and the 9b.6
-steps 3–5. Work items 1–3 (body-change report, changed-body decisions,
-runtime guards with modeled host cost) are offline and come first. Items
-4–5 (driver, probe, deployment, operator replacement, consent, one doctor
-pass) follow. Item 6 (toolkit consolidation and `/tmp` cleanup after
-manifest hash verification) can move to 9b.7. The 98 diagnostic modules
-under `brain/src/probes/grid_doctor/` are the trace tools; the
-[2026-10-22 handoff](plan/phase-9/9b6g-agent-handoff-2026-10-22.md) gives
-tool navigation and artifact recovery.
-
-Retained limits to cover by guard or timing, not proof: the `agent_debug`
-tracking-mode writer, the global property listener monitor, generic
-listener registrations on the Hgx chain, the replay worker hang (parity on
-both builds), the 6.1.4 validation observer notification, and the cold
-first factory call in a fresh process. Keep the strict comparator and
-original selectors. V20 still requires 6.0.6 and E313's specific retry
-record. Controller replacement is an operator action. Fresh scratch
-consent and project verification remain required before the new-build
-doctor. E330 grants no native write authority. Step 2 stays open; 9b.7
-owns product cache enforcement and the upgrade tool. Do not repeat the
-accepted 6.0.6 doctor or the 9a audio flow.
+Read E339, the [driver instructions](../brain/src/probes/grid_doctor/README.md),
+the 9b.6i plan, D52, E316, and the performance ledger. Before any consent,
+rehearse every read-only path on the installed build: the control read and
+a survey read of each fixture preset. Then deploy the built probe
+(`/tmp/gn-9b6h-probe-built-5.bwextension` equals the current `extension/`
+build, SHA-256 `c08544cd…bcf8`), ask for full controller replacement, run
+hello, and obtain fresh consent with a new consent string and a separate
+attempt-file policy. The driver refuses a seventh attempt on the six
+existing records; keep every record unchanged. Compare per-call timing with
+E316 and E339. Never repeat an uncertain command. 9b.7 keeps product cache
+enforcement, the toolkit consolidation, the `/tmp` cleanup, and public
+descriptions. Do not repeat the accepted 6.0.6 doctor or the 9a audio flow.
 
 ## Deployment and live state
 
-Last verified in E330. E331–E337 and the 9b.6g checkpoints make no live request.
+Last verified in E339's recovery check (read-only, 35 calls).
 
-- App: `/Applications/Bitwig Studio.app`, **6.1.4**, API 25.
-- Jar SHA-256: `5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f`.
-- Deployed **normal** profile: `normal-v1`, 92 methods, hash
-  `8be1975eaa99d78f`; initialization `2026-10-21T13:31:16.452Z`.
-- Archive SHA-256: `25a5be4398f8825a7eabd2a541e49559ed60002f2d8d6b9db795f45664e4d9d2`.
-  Bridge PID 69259 was verified at the final command. Recheck before live work.
-- Active project: cleaned `gn-upgrade-audit`, stopped. Only `Inst 1`,
-  `Audio 2`, `FX 1`, and `Master` remain. Complete preserved state matches
-  entry. Mixer and Launcher selection are `Inst 1`, row 0.
-- The operator saved the clean working file. SHA-256:
-  `573084e28ef7e241e3d52fd24265b1302d6f8cc22695270e3d11386e80d4398f`,
-  34,259 bytes. The final clean file was not reopened a second time.
-- No owned audit track, active driver, lock, failure, or uncertain write
-  remains in the accepted continuation. Prior failure records are retained.
-- The operator retains `gn-upgrade-audit-switch` under the working folder.
-  Its four default tracks were verified during the switch check.
-- The operator activated the audit engine for listening; exclusive ownership
-  was not independently measured. The agent sent no engine, transport,
-  save, controller, or native Grid command during the audit.
-
-Backup: `/Users/jonvuri/Bitwig Upgrade Backups/2026-10-21-pre-6.1/`.
-Working folder: `/Users/jonvuri/Bitwig Upgrade Work/2026-10-21/`.
-The copied 6.0.6 launch and recovery check passed. Original-project asset
-checks were not exhaustive. Do not modify backups or donor sources.
+- App: `/Applications/Bitwig Studio.app`, **6.1.4**, API 25. Jar SHA-256
+  `5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f`,
+  35,778,607 bytes, mtime `1790948299000000000`.
+- Deployed **probe** profile `phase-8-probe-v1`, 118 methods, hash
+  `2e939035ea90b8b0`, marker `9b-grid-doctor-v21`; initialization
+  `2026-10-23T04:09:14.066Z` after the operator's restart. Bridge PID 99464.
+  Archive SHA-256 `4c2e738166473f15310fbf62e0e024e9f6f602bfad2d25733e3b16d7ea05d98a`
+  (858,389 bytes). This archive lacks the final `compareFixture` fix. The
+  normal archive from E330 is replaced; redeploy `copyExtension` for product
+  work.
+- Active project: saved `gn-grid-spike` reopened after restart. Only
+  `grid-probe` (muted), `FX 1`, and `Master`. Mixer channel
+  `c784d25c-b753-47ca-af8d-c83d11cfd990`; Launcher selection is unset
+  (trackIndex -1). One control pair matches normalized E276: four modules
+  and two cables. Transport reported stopped. Saved-file identity not
+  tested.
+- No scratch track, claim, lock, failure, or uncertain state remains after
+  the restart. The six attempt records for fingerprint key `d0d92c1e…c101`
+  under `.local/grid-doctor/` are retained; the sixth records the uncertain
+  mapping removal. The three 6.0.6 records are byte-equal to their copies.
+- The 6.0.6 install, backups, and donor sources are unchanged:
+  `/Users/jonvuri/Bitwig Upgrade Backups/2026-10-21-pre-6.1/`. The
+  working folder `/Users/jonvuri/Bitwig Upgrade Work/2026-10-21/` keeps the
+  clean `gn-upgrade-audit` file (SHA-256 `573084e2…4398f`).
 
 ## Material to preserve
 
-- [E338](evidence/experiments/e338-grid-doctor-614-offline-closeout.md) and its
-  [preservation check](evidence/data/phase9b-doctor/614-resolution/preservation.json):
-  224 entry files unchanged.
-- 9b.6g [checkpoints 1–17](evidence/data/phase9b-doctor/614-resolution/)
-  and the [handoff supplement](evidence/data/phase9b-doctor/614-resolution/handoff-2026-10-22/README.md):
-  diagnostic source snapshots, development archives, selected reports, and
-  the immutable [entry inventory](evidence/data/phase9b-doctor/614-resolution/entry-inventory.json).
+- [E339](evidence/experiments/e339-grid-doctor-614-guarded-attempt.md) and
+  [`614-guarded/`](evidence/data/phase9b-doctor/614-guarded/): guard plan,
+  candidate, selectors, guards, body-change report, decisions, six attempt
+  directories, preflight and recovery checks, deployment and test logs, and
+  the [preservation check](evidence/data/phase9b-doctor/614-guarded/preservation.json)
+  (223 of 224 entry files unchanged; the deployed archive changed on purpose).
+- All six attempt records under `.local/grid-doctor/` and the three 6.0.6
+  records. Do not remove or edit any to enable a run.
+- [E338](evidence/experiments/e338-grid-doctor-614-offline-closeout.md),
+  checkpoints 1–17, the handoff supplement, and the immutable
+  [entry inventory](evidence/data/phase9b-doctor/614-resolution/entry-inventory.json).
   Do not regenerate the entry inventory.
-- E337's operation bindings, variant traces, tests, development attempts, and
-  [preservation check](evidence/data/phase9b-doctor/614-bindings/preservation.json).
-  No new-build candidate, attempt, cache, or deployment exists.
-- E336's census, traces, plans, diagnostic attempts, tests, and
-  [preservation check](evidence/data/phase9b-doctor/614-fixtures/preservation.json).
-  No new-build candidate, attempt, cache, or deployment exists.
-- All [E331–E335 evidence](evidence/data/phase9b-doctor/), original selectors,
-  and diagnostic code. Their source hashes and preserved files are indexed
-  by E336's entry and exit inventories.
-- [E330](evidence/experiments/e330-update-audit-614-acceptance.md): acceptance,
-  clean-save proof, all audit attempts, recoveries, parent proofs, and logs.
-  Keep the separate saved-project copy unchanged: 72,901 bytes, SHA-256
-  `b01ba21f2f2a6d790fddbc9663a278721d23d14935a4dc067f76e4bdf809970b`.
-  Keep host exports, operator reports, and observation input. Do not rerun
-  passed cases. The final clean working file was not reopened a second time.
-- [E316](evidence/experiments/e316-grid-doctor-606-acceptance.md):
-  accepted 6.0.6 research cache, both attempts, captures, and logs, including
-  `.local/grid-doctor/`. This cache grants no product write authority.
-  Keep E315's table, caller trace, selectors, and V20 supplement. Keep E313's
-  failed attempt and E314's recovery evidence unchanged. Per-call timing
-  limits remain.
-- [E310](evidence/experiments/e310-grid-factory-acceptance-and-breadth-close.md):
-  factory control and `gn-grid-spike-baseline.bwpreset`. Resource,
-  outer-modulator, Gates-attachment, flavour, scale, and non-boolean write
-  limits remain. The E289 edited project is not a baseline.
+- E331–E337 evidence, original selectors, the V20 driver and its
+  `v20-preparation` resources, [E316](evidence/experiments/e316-grid-doctor-606-acceptance.md)
+  with its accepted 6.0.6 research cache, [E330](evidence/experiments/e330-update-audit-614-acceptance.md)
+  with its saved-project copy (72,901 bytes, SHA-256 `b01ba21f…9970b`),
+  and [E310](evidence/experiments/e310-grid-factory-acceptance-and-breadth-close.md)
+  with `gn-grid-spike-baseline.bwpreset`. Per-call timing limits remain.
 
-Historical Grid control: E316 verified `gn-grid-spike` with only `grid-probe`,
-`FX 1`, and `Master`; `grid-probe` was selected, muted, and at -10 dB. Both
-control pairs matched normalized E276: four modules and two cables. Keep
-that control unchanged. E316 proved in-memory preservation, not saved-file
-identity. Old claims and native IDs do not transfer to another session.
-See the [roadmap](plan/ROADMAP.md) for the independent 8i17 survey and Phase 10.
+Historical Grid control: `gn-grid-spike` with only `grid-probe`, `FX 1`,
+and `Master`; `grid-probe` muted. The E339 recovery pair matches normalized
+E276. Old claims and native IDs do not transfer to another session. See the
+[roadmap](plan/ROADMAP.md) for the independent 8i17 survey and Phase 10.

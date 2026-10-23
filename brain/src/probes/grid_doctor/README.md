@@ -283,3 +283,59 @@ and unsupported contract. The report always has `completeTable: false`,
 initialized. No host call, candidate, attempt, or acceptance cache is produced.
 Run large diagnostic test groups in separate processes so earlier groups'
 peak RSS does not trigger a later scan's unchanged process limit.
+
+## 6.1.4 guarded doctor (9b.6h)
+
+[E339](../../../../context/evidence/experiments/e339-grid-doctor-614-guarded-attempt.md)
+records the V21 preparation under [D52](../../../../context/decisions/d52-grid-upgrade-admission-policy.md)
+and the first guarded live attempt on 6.1.4. The V20 driver and its 6.0.6
+records stay pinned and unchanged. Do not run V20 again.
+
+Prepare the 6.1.4 resources from the resolved checkpoint-2 symbol table.
+The output files must not exist. Every pin in the guard plan is verified
+against the jar as data; no vendor class is loaded.
+
+```sh
+PYTHONPATH=brain/src/probes python3 -B -m grid_doctor.guarded_candidate \
+  --jar '/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar' \
+  --symbols context/evidence/data/phase9b-doctor/614-resolution/checkpoint-2/symbols.json \
+  --plan context/evidence/data/phase9b-doctor/614-guarded/guard-plan.json \
+  --collector-report context/evidence/data/phase9b-doctor/614-resolution/checkpoint-17/collection-conditions-17.json \
+  --output /absolute/new/output-directory
+```
+
+The body-change report compares the 76 role bodies and 71 traced callee
+bodies between 6.0.6 and 6.1.4. The report path must not exist:
+
+```sh
+PYTHONPATH=brain/src/probes python3 -B -m grid_doctor.body_change \
+  --old-jar '/Users/jonvuri/Bitwig Upgrade Backups/2026-10-21-pre-6.1/apps/Bitwig Studio 6.0.6.app/Contents/Java/bitwig.jar' \
+  --new-jar '/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar' \
+  --report /absolute/new/body-change.json
+```
+
+`decisions.json` in `614-guarded/` answers the D52 question for each changed
+body and maps it to a guard or a timed live step. The extension bundles
+`grid-doctor-candidate.json`, `grid-doctor-selectors.json`, and
+`grid-doctor-guards.json` from `614-guarded/`. `GridDoctorGuards` checks the
+project-document class, the same manager, the empty helper list, the null
+pending helper, the empty pending list, and the two false tracking flags
+before each native command, and the exact-class owned tree before disposal.
+
+The V21 driver requires host version 6.1.4, the marker `9b-grid-doctor-v21`,
+and the exact consent string in its source. Run it from `brain/` with a new
+absolute evidence directory:
+
+```sh
+node --import tsx src/probes/phase9b-grid-doctor-614.ts /absolute/new/evidence-directory '<consent>'
+```
+
+The first run creates `.local/grid-doctor/<fingerprint-hash>.attempt.json`
+with exclusive creation. A retry is admitted only with the explicit
+`--retry-after-refused-preflight <prior evidence dirs> '<retry consent>'`
+arguments, only when every prior record proves that no native command ran,
+and at most six attempts in total. E339 records six attempts on 6.1.4: five
+refused before any native command, and the sixth as an uncertain write
+after the mapping removal. No seventh attempt is admitted by the driver.
+Do not remove or edit any attempt record to enable a run. A new pass needs
+its own session, consent, and an explicit exception recorded in the plan.

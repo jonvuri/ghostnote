@@ -16,6 +16,7 @@ public final class GridReadSymbols implements GridGraphRead.Reader {
     private final Class<?> relationship;
     private final Object filterInstance;
     private Class<?> nativeDevice;
+    private final String jarSha256;
 
     public GridReadSymbols(Class<?> hostClass) throws Exception {
         Path jar = Path.of(hostClass.getProtectionDomain().getCodeSource().getLocation().toURI());
@@ -26,6 +27,7 @@ public final class GridReadSymbols implements GridGraphRead.Reader {
         }
         String actual = HexFormat.of().formatHex(digest.digest());
         if (!JAR_SHA256.equals(actual)) throw new IllegalStateException("unsupported-host-jar:" + actual);
+        jarSha256 = actual;
         ClassLoader loader = hostClass.getClassLoader();
         Class<?> atom = Class.forName("com.bitwig.ramona.core.HEV", false, loader);
         Class<?> schema = Class.forName("cXV", false, loader);
@@ -48,7 +50,7 @@ public final class GridReadSymbols implements GridGraphRead.Reader {
 
     /** Use a structurally validated candidate table in the scratch doctor only. */
     public GridReadSymbols(GridDoctorSymbols table) throws Exception {
-        nativeDevice = table.type("native-device");
+        nativeDevice = table.type("native-device"); jarSha256 = table.metadata().get("jarSha256").getAsString();
         descriptor = table.method("descriptor"); classId = table.method("class-id");
         name = table.method("name"); properties = table.method("properties");
         propertyId = table.method("property-id"); enabled = table.method("enabled-field");
@@ -57,6 +59,19 @@ public final class GridReadSymbols implements GridGraphRead.Reader {
         child = table.method("child-read"); relationship = table.type("relationship");
     }
 
+    public String jarSha256() { return jarSha256; }
+    /**
+     * Read-only reader for the host jar. The pinned 6.0.6 reader is first. On another jar the
+     * structurally validated doctor table supplies the same read roles (9b.6h). Write paths
+     * keep the pinned constructor and refuse other jars.
+     */
+    public static GridReadSymbols forReads(Class<?> hostClass) throws Exception {
+        try { return new GridReadSymbols(hostClass); }
+        catch (IllegalStateException error) {
+            if (!String.valueOf(error.getMessage()).startsWith("unsupported-host-jar:")) throw error;
+            return new GridReadSymbols(new GridDoctorSymbols(hostClass));
+        }
+    }
     public String name(Object object) throws Exception { return (String) name.invoke(descriptor.invoke(object)); }
     public int classId(Object object) throws Exception { return (int) classId.invoke(descriptor.invoke(object)); }
     public List<?> properties(Object object) throws Exception { return (List<?>) properties.invoke(descriptor.invoke(object)); }

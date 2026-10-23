@@ -1,0 +1,133 @@
+{
+  "format": "grid-doctor-body-change-decisions-v1",
+  "policy": "D52: one question per changed body. Same operation and effects on the fixed doctor path, or a new wait, monitor, queue, compile, or callback that a runtime guard or a timed live step must cover.",
+  "inputs": {
+    "bodyChange": "body-change.json",
+    "guards": "guards.json",
+    "traces": ["E332", "E333", "E334", "E335", "E336", "E337", "E338", "614-resolution/checkpoint-17"]
+  },
+  "decisions": [
+    {
+      "body": "disposal",
+      "kind": "role",
+      "change": "oDc.ix_ appends thz.cfM(this) after the owned-child disposal loop.",
+      "question": "new effect",
+      "effect": "Conditional global queue drain under a monitor when the volatile flag thz.Hnt is true. The false path is three instructions.",
+      "cover": "guard:disposal-tracking-flag (read before every command) + timed step: factory-dispose",
+      "source": "E333, E338, checkpoint-17 command-closure-2 (dispose branch table)"
+    },
+    {
+      "body": "members",
+      "kind": "role",
+      "change": "BZG.Grk returns Collections.emptyList() instead of the EMPTY_LIST field.",
+      "question": "same operation",
+      "effect": "One JDK static call that returns the shared immutable empty list. No wait, monitor, queue, compile, or callback.",
+      "cover": "none; cost model cites the explicit variant jdk-empty-list-access",
+      "source": "E336, checkpoint-2 localVariants"
+    },
+    {
+      "body": "journal-recording-edit",
+      "kind": "role",
+      "change": "dhu.Hnt keeps the identical body; access changes from private to package.",
+      "question": "same operation",
+      "effect": "None. Reflective access with setAccessible is unchanged.",
+      "cover": "none; recorded as the one selector variant (flags 2 to 0)",
+      "source": "E337, checkpoint-2 localVariants"
+    },
+    {
+      "body": "validation",
+      "kind": "callee",
+      "change": "Kiy.ODA appends this.MIO(), one observer notification, at the end of project validation.",
+      "question": "new effect",
+      "effect": "One callback with open fan-out. It runs inside the edit close path of every command.",
+      "cover": "timed step: every command (per-call timing compared with E316) + the uncertain-state latch; no offline bound",
+      "source": "checkpoint-17 command-closure-2 bodyDifferences"
+    },
+    {
+      "body": "pending-add",
+      "kind": "callee",
+      "change": "dfI.cfM(Runnable,Z) adds a 14-instruction assertion block before the pending record is queued.",
+      "question": "same operation",
+      "effect": "Assertions are disabled at run time; the block costs one static read and one branch. The queue itself is the pending list.",
+      "cover": "guard:pending-list (empty at entry)",
+      "source": "checkpoint-17 command-closure-2 labels pending-add, pending-run"
+    },
+    {
+      "body": "listener-removal",
+      "kind": "callee",
+      "change": "TT.removeListener stores a single listener or a list and consults apd.Hnt() before removal.",
+      "question": "new effect",
+      "effect": "When apd.Hnt is true the removal records to a global map under a monitor. The false path is two instructions.",
+      "cover": "guard:listener-tracking-flag + timed step: factory-dispose (two Hgx listener removals per object)",
+      "source": "checkpoint-17 collection-conditions-21, checkpoint-16"
+    },
+    {
+      "body": "hook-aboutToInsertItem",
+      "kind": "callee",
+      "change": "dfL hook removes the item from the document retained set dnz and attaches the edit through dfI.cfM(oDc,dfT), which scans the helper list Z1C.",
+      "question": "new effect",
+      "effect": "History helper bookkeeping: a set operation and a scan of the helper list. Cost is constant when the helper list is empty and the pending helper is null (history-growth-4).",
+      "cover": "guard:helper-list + guard:pending-helper + timed steps: attach, delete, undo-delete, undo-attach, cable-connect, cable-disconnect",
+      "source": "E332, E334, checkpoint-17 history-growth-4"
+    },
+    {
+      "body": "hook-aboutToRemoveItem",
+      "kind": "callee",
+      "change": "dfL hook adds the removed item to dnz and calls dfI.hUR(oDc), which scans Z1C.",
+      "question": "new effect",
+      "effect": "Same helper bookkeeping as the insert hook.",
+      "cover": "guard:helper-list + guard:pending-helper + timed steps: delete, undo-delete, undo-attach",
+      "source": "E332, checkpoint-17 history-growth-4"
+    },
+    {
+      "body": "hook-aboutToChangeOneToOneRelationship",
+      "kind": "callee",
+      "change": "dfL hook adds set operations on both targets, helper attach, and a notify call.",
+      "question": "new effect",
+      "effect": "Same helper bookkeeping plus one notification on the fixed cable and mapping path.",
+      "cover": "guard:helper-list + guard:pending-helper + timed steps: cable-connect, cable-disconnect, delete-connect, delete-disconnect, mapping-remove, mapping-restore",
+      "source": "E332, E335, checkpoint-17 history-growth-4"
+    },
+    {
+      "body": "disposal-tail",
+      "kind": "callee",
+      "change": "New class thz. cfM(Object) reads thz.Hnt; the true path drains a global queue under a monitor.",
+      "question": "new effect",
+      "effect": "Covered with the disposal role.",
+      "cover": "guard:disposal-tracking-flag",
+      "source": "E333"
+    },
+    {
+      "body": "history-helper",
+      "kind": "callee",
+      "change": "New class dgJ with a set of objects and parent-walk matching.",
+      "question": "new effect",
+      "effect": "Reached only through the hooks above. Growth is zero when no helper record exists at entry.",
+      "cover": "guard:helper-list + guard:pending-helper",
+      "source": "checkpoint-17 history-growth-4"
+    }
+  ],
+  "runtimeGuards": [
+    {"guard": "projectDocumentClass", "reads": "editDocument.getClass() == project-document (master/tj2)", "covers": "the exact document class pinned by the journal field (command-closure-2 pins)"},
+    {"guard": "sameManager", "reads": "document-manager(editDocument) == context manager", "covers": "manager switch paths (Rzi -> dqr.E3 -> WWV drain) excluded for the fixed sequence"},
+    {"guard": "helperList", "reads": "dfI.Z1C isEmpty", "covers": "constant history hook cost"},
+    {"guard": "pendingHelper", "reads": "dfI.dEI == null", "covers": "constant history hook cost"},
+    {"guard": "pendingList", "reads": "dfI.LaE isEmpty", "covers": "no pending runnables at entry"},
+    {"guard": "disposalTrackingFalse", "reads": "thz.Hnt == false", "covers": "disposal tail queue drain"},
+    {"guard": "listenerTrackingFalse", "reads": "apd.Hnt == false", "covers": "listener removal recording"},
+    {"guard": "ownedTree", "reads": "one extra ownership pass; every class in the 33-class set; exactly one managed node; depth <= 12; nodes <= 256", "covers": "collector and tree formulas of checkpoint-17 (M = 1, R = N - 1)"}
+  ],
+  "timedLiveSteps": [
+    {"step": "factory-create", "reason": "cold first factory call in a fresh process compiles; unavoidable on the first add", "consent": "stated in the V21 consent string"},
+    {"step": "every command", "reason": "validation observer notification, global property listener monitor, generic Hgx listener registrations, replay worker parity", "comparison": "E316 per-command samples; a change over 20 percent is recorded, not a gate"}
+  ],
+  "retainedLimits": [
+    "The agent_debug tracking-mode writers exist; the flags are read, not proved stable, between the guard and the command.",
+    "The global property listener map monitor wait is measured, not bounded.",
+    "A replay worker failure hangs the document thread on both builds.",
+    "The validation observer fan-out is open.",
+    "A guard reads one instant; concurrent change between the guard and the command is not excluded."
+  ],
+  "writeAuthority": false,
+  "boundedAdmission": false
+}

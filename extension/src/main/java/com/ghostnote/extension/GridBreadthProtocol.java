@@ -13,13 +13,15 @@ public final class GridBreadthProtocol {
     }
     @FunctionalInterface public interface Guard { void check() throws Exception; }
     private final String kind;
+    private final GridBreadthRules.Runtime runtime;
     private JsonObject initial, pair, current;
     private int reads, commands, inspections;
     private boolean locked, finished;
     private String failure = "";
-    public GridBreadthProtocol(String kind) {
+    public GridBreadthProtocol(String kind) { this(kind, GridBreadthRules.Runtime.PINNED_606); }
+    public GridBreadthProtocol(String kind, GridBreadthRules.Runtime runtime) {
         if (!CASES.contains(kind)) throw new IllegalArgumentException("breadth-case");
-        this.kind = kind;
+        this.kind = kind; this.runtime = runtime;
     }
     public synchronized void requireRead() {
         requireOpen();
@@ -43,21 +45,21 @@ public final class GridBreadthProtocol {
         GridBreadthRules.require(snapshot.getAsJsonObject("witness").get("editIdle").getAsBoolean(), "edit-not-idle");
         if (initial == null) {
             if (kind.equals("mapping"))
-                GridBreadthRules.require(GridBreadthRules.selectedMapping(fixture) != null, "missing-initial-mapping");
+                GridBreadthRules.require(GridBreadthRules.selectedMapping(fixture, runtime) != null, "missing-initial-mapping");
             else {
-                GridBreadthRules.gates(GridBreadthRules.module(fixture, 9));
+                GridBreadthRules.gates(GridBreadthRules.module(fixture, 9), runtime);
                 GridBreadthRules.require(!GridBreadthRules.fields(GridBreadthRules.atom(fixture, 9, 7))
                     .get("210").getAsBoolean(), "initial-phase-not-false");
             }
             GridBreadthRules.require(!snapshot.has("detached") && !snapshot.has("disposed"), "initial-factory-state");
         } else {
-            GridBreadthRules.compareFixture(initial.getAsJsonObject("fixture"), fixture, kind, commands);
+            GridBreadthRules.compareFixture(initial.getAsJsonObject("fixture"), fixture, kind, commands, runtime);
             GridBreadthRules.require(initial.get("witness").equals(snapshot.get("witness")), "witness-readback-differs");
         }
         if (kind.equals("factory") && commands == 1) {
             JsonObject detached = snapshot.getAsJsonObject("detached");
             GridBreadthRules.require(detached != null && !snapshot.has("disposed"), "detached-read-required");
-            GridBreadthRules.gates(detached.getAsJsonObject("module"));
+            GridBreadthRules.gates(detached.getAsJsonObject("module"), runtime);
             String uuid = detached.getAsJsonObject("module").get("uuid").getAsString();
             for (JsonElement module : fixture.getAsJsonArray("modules"))
                 GridBreadthRules.require(!uuid.equals(module.getAsJsonObject().get("uuid").getAsString()), "factory-uuid-reused");

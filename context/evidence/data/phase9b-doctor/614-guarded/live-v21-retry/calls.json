@@ -1,0 +1,276 @@
+{
+  "calls": [
+    {
+      "method": "contract.hello",
+      "params": {},
+      "ms": 19.098957999999982,
+      "bytes": 155
+    },
+    {
+      "method": "rig.info",
+      "params": {},
+      "ms": 24.893250000000023,
+      "bytes": 1802
+    },
+    {
+      "method": "rig.stats",
+      "params": {},
+      "ms": 23.698166000000015,
+      "bytes": 2499
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "status"
+      },
+      "ms": 22.064750000000004,
+      "bytes": 119
+    },
+    {
+      "method": "host.info",
+      "params": {},
+      "ms": 24.15166700000003,
+      "bytes": 154
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorPrepare"
+      },
+      "ms": 79.32204100000001,
+      "bytes": 827
+    },
+    {
+      "method": "contract.hello",
+      "params": {},
+      "ms": 3.778458999999998,
+      "bytes": 155
+    },
+    {
+      "method": "host.info",
+      "params": {},
+      "ms": 24.888499999999965,
+      "bytes": 154
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.590082999999993,
+      "bytes": 381
+    },
+    {
+      "method": "rig.info",
+      "params": {},
+      "ms": 24.981374999999957,
+      "bytes": 1802
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.994459000000006,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.954791999999998,
+      "bytes": 381
+    },
+    {
+      "method": "track.mixer",
+      "params": {
+        "tracks": [
+          {
+            "trackIndex": 0,
+            "channelId": "c784d25c-b753-47ca-af8d-c83d11cfd990"
+          },
+          {
+            "trackIndex": 1,
+            "channelId": "0c4835e2-1769-4ecc-9d03-cf0226bcb5a4"
+          },
+          {
+            "trackIndex": 2,
+            "channelId": "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f"
+          }
+        ]
+      },
+      "ms": 23.734959000000003,
+      "bytes": 814
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 0
+      },
+      "ms": 24.002250000000004,
+      "bytes": 16
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 23.330999999999904,
+      "bytes": 171
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 22.36795900000004,
+      "bytes": 171
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 1
+      },
+      "ms": 23.594832999999994,
+      "bytes": 16
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 25.34608400000002,
+      "bytes": 171
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 24.832292000000052,
+      "bytes": 126
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 24.21658400000001,
+      "bytes": 126
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 2
+      },
+      "ms": 24.251792000000023,
+      "bytes": 16
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 24.643374999999992,
+      "bytes": 126
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 20.399749999999926,
+      "bytes": 126
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 24.549625000000106,
+      "bytes": 207
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 18.55595799999992,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 26.338999999999942,
+      "bytes": 381
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 0
+      },
+      "ms": 23.9826250000001,
+      "bytes": 16
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 28.44291700000008,
+      "bytes": 126
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 21.148916999999983,
+      "bytes": 171
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 22.753834000000097,
+      "bytes": 171
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "bind",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid"
+      },
+      "ms": 43.13887499999987,
+      "error": "BridgeError: Internal error: unsupported-host-jar:5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f"
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 5.978749999999991,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.960208000000193,
+      "bytes": 381
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 25.629000000000133,
+      "bytes": 207
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "status"
+      },
+      "ms": 24.369667000000163,
+      "bytes": 119
+    }
+  ],
+  "count": 35,
+  "wireMs": 870.9867540000005
+}

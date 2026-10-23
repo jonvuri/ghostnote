@@ -286,8 +286,10 @@ tasks.register('gridBreadthCommandsTest', JavaExec) {
 
 // These are offline candidates. A resource does not grant live write authority.
 tasks.named('processResources') {
-    from('../context/evidence/data/phase9b-doctor/v20-preparation/candidate.json') { rename { 'grid-doctor-candidate.json' } }
-    from('../context/evidence/data/phase9b-doctor/v20-preparation/selectors.json') { rename { 'grid-doctor-selectors.json' } }
+    // 9b.6h: the 6.1.4 guarded table. The V20 files under v20-preparation stay as 6.0.6 evidence.
+    from('../context/evidence/data/phase9b-doctor/614-guarded/candidate.json') { rename { 'grid-doctor-candidate.json' } }
+    from('../context/evidence/data/phase9b-doctor/614-guarded/selectors.json') { rename { 'grid-doctor-selectors.json' } }
+    from('../context/evidence/data/phase9b-doctor/614-guarded/guards.json') { rename { 'grid-doctor-guards.json' } }
     from('../context/evidence/data/phase9a-grid-read/live-23-semantic-baseline/capture-0.json') { rename { 'grid-doctor-control.json' } }
     from('../context/evidence/data/phase9b-doctor/schema-controls.json') { rename { 'grid-doctor-schema-controls.json' } }
 }

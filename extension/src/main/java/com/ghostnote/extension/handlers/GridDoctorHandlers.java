@@ -8,11 +8,13 @@ import java.util.function.BooleanSupplier;
 
 /** The scratch doctor uses the existing WRITE-classified attachment method. */
 public final class GridDoctorHandlers extends HandlerGroup {
-    public static final String CONSENT = "I saved first. I consent to one revised V20 scratch doctor pass on the same fingerprint, including boolean and mapping checks. A failed check can require a Bitwig restart.";
-    public static String marker() { return "9b-grid-doctor-v20"; }
+    /** V21: the D52 guarded doctor on the 6.1.4 fingerprint. V20 evidence stays pinned to 6.0.6. */
+    public static final String CONSENT = "I saved first. I consent to one guarded scratch doctor pass on the 6.1.4 fingerprint, including boolean and mapping checks and the cold first factory call. A failed check can require a Bitwig restart.";
+    public static String marker() { return "9b-grid-doctor-v21"; }
     public static final Set<String> READS = Set.of("doctorStatus", "doctorPrepare", "doctorBind", "doctorRead", "doctorInspect", "doctorRelease");
     private final BooleanSupplier foreign;
     private GridDoctorSymbols symbols;
+    private GridDoctorGuards guards;
     private GridDoctorProtocol protocol;
     private GridDoctorHost nativeHost;
     private GridBreadthHost breadthHost;
@@ -42,6 +44,7 @@ public final class GridDoctorHandlers extends HandlerGroup {
         r.addProperty("used", used); r.addProperty("timeoutLocked", timeoutLocked); r.addProperty("nativeUnfinished", unfinished());
         r.addProperty("foreignOwner", foreign.getAsBoolean());
         if (symbols != null) r.add("metadata", symbols.metadata());
+        if (guards != null) r.add("guards", guards.metadata());
         if (session != null) r.addProperty("session", session);
         if (nativeHost != null) r.add("diagnostics", nativeHost.diagnostics()); return r;
     }
@@ -70,10 +73,11 @@ public final class GridDoctorHandlers extends HandlerGroup {
         if (op.equals("doctorPrepare")) {
             if (used || ownsGrid()) throw new IllegalStateException("doctor-already-used");
             if (symbols == null) symbols = new GridDoctorSymbols(host.getClass());
+            if (guards == null) guards = new GridDoctorGuards(symbols, host.getClass());
             symbols.requireFresh(); reply.result(status(), 0); return;
         }
         if (bind) {
-            if (failed || ownsGrid() || phase >= CASES.size() || symbols == null) throw new IllegalStateException("doctor-unprepared-or-used");
+            if (failed || ownsGrid() || phase >= CASES.size() || symbols == null || guards == null) throw new IllegalStateException("doctor-unprepared-or-used");
             if (!CONSENT.equals(GridSurveySession.text(p, "consent"))
                     || !symbols.fingerprint.equals(GridSurveySession.text(p, "fingerprint")))
                 throw new IllegalArgumentException("doctor-consent-or-fingerprint");
@@ -87,7 +91,8 @@ public final class GridDoctorHandlers extends HandlerGroup {
             target = next; client = reply; expires = System.nanoTime() + 900_000_000_000L;
             try { guard(false); } catch (Exception error) { clear(); throw error; }
             used = true; protocol = kind.equals("core") ? new GridDoctorProtocol() : null;
-            breadth = kind.equals("core") ? null : new GridBreadthProtocol(kind); session = UUID.randomUUID().toString();
+            breadth = kind.equals("core") ? null : new GridBreadthProtocol(kind, GridBreadthRules.Runtime.of(new GridBreadthCommands(symbols)));
+            session = UUID.randomUUID().toString();
             String token = session;
             reply.onClientDisconnect(() -> { if (token.equals(session)) fail("client-disconnected"); });
             host.scheduleTask(() -> { if (token.equals(session)) fail("session-expired"); }, 900_000);
@@ -126,14 +131,21 @@ public final class GridDoctorHandlers extends HandlerGroup {
             if (bind) {
                 if (breadth != null) {
                     GridReadSymbols reader = new GridReadSymbols(symbols);
-                    breadthHost = new GridBreadthHost(reader, symbols, new GridBreadthRead(reader).grid(device), project, kind);
-                } else nativeHost = new GridDoctorHost(symbols, device, project, writeGuard);
+                    breadthHost = new GridBreadthHost(reader, symbols, guards, new GridBreadthRead(reader).grid(device), project, kind);
+                } else nativeHost = new GridDoctorHost(symbols, guards, device, project, writeGuard);
             }
             if (nativeHost != null) nativeHost.guard(writeGuard);
             JsonObject r = new JsonObject(); r.addProperty("marker", marker()); r.addProperty("session", token);
-            if (command) r.add("receipt", breadth != null
-                ? breadth.command(GridSurveySession.text(p, "action"), breadthHost, writeGuard::check)
-                : protocol.command(GridSurveySession.text(p, "action"), nativeHost, writeGuard));
+            if (command) {
+                JsonObject receipt;
+                if (breadth != null) {
+                    receipt = breadth.command(GridSurveySession.text(p, "action"), breadthHost, writeGuard::check);
+                    JsonObject entry = breadthHost.lastGuards();
+                    if (entry == null) throw new IllegalStateException("doctor-entry-guard-missing");
+                    receipt.add("guards", entry);
+                } else receipt = protocol.command(GridSurveySession.text(p, "action"), nativeHost, writeGuard);
+                r.add("receipt", receipt);
+            }
             else if (!bind) r.add("snapshot", breadth != null
                 ? (inspect ? breadthHost.inspect() : breadth.read(breadthHost))
                 : (inspect ? nativeHost.read() : protocol.read(nativeHost)));

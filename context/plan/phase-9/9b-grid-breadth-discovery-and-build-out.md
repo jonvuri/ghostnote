@@ -1570,6 +1570,19 @@ open until the explicit two-build result; 9b.7 owns product cache enforcement.
 
 ### Session 9b.6h — Guarded doctor on 6.1.4
 
+**Disposition.** Items 1–4 are complete in
+[E339](../../evidence/experiments/e339-grid-doctor-614-guarded-attempt.md):
+the body-change report, the changed-body decisions, the runtime entry
+guards with their cost model, and the V21 driver and probe. Item 5 ran six
+live attempts. Five refused before any native command on build-pinned
+read and fixture rules that the offline checks did not cover; each was
+fixed, tested, and redeployed. The sixth attempt passed the boolean case
+with the guards, then ran the mapping removal natively and refused in the
+last pinned rule on the paired readback. That is an uncertain write; the
+operator restarted Bitwig and reopened the saved project. Item 6 moves to
+9b.7. No cache exists. The 6.1.4 doctor result is incomplete. Continue with
+[9b.6i](#session-9b6i--recovered-baseline-and-second-guarded-pass).
+
 **Source.** [D52](../../decisions/d52-grid-upgrade-admission-policy.md),
 [E338](../../evidence/experiments/e338-grid-doctor-614-offline-closeout.md),
 [checkpoint 17](../../evidence/data/phase9b-doctor/614-resolution/checkpoint-17/README.md),
@@ -1640,3 +1653,39 @@ body-change report, and per-call timing; or a traced and measured reason
 it cannot pass under D52. Close step 2 only with the explicit two-build
 result. Product cache enforcement, the deterministic upgrade tool, and
 public descriptions remain in 9b.7.
+
+### Session 9b.6i — Recovered baseline and second guarded pass
+
+**Source.** [E339](../../evidence/experiments/e339-grid-doctor-614-guarded-attempt.md),
+its `614-guarded/` evidence, the six attempt records under
+`.local/grid-doctor/`, [D52](../../decisions/d52-grid-upgrade-admission-policy.md),
+E316, E314, the [driver instructions](../../../brain/src/probes/grid_doctor/README.md),
+and the performance ledger. This session is the explicit exception to the
+one-attempt rule for the 6.1.4 fingerprint, in the same form as 9b.5b.
+
+1. Confirm the recovered baseline before any write: `gn-grid-spike` with
+   only `grid-probe`, `FX 1`, and `Master`; both control pairs match the
+   normalized E276 control; no scratch track, claim, lock, or uncertain
+   state remains. E339 records the read-only check after the restart. Do
+   not infer recovery from a successful restart alone.
+2. Deploy the built probe with the complete `GridBreadthRules.Runtime`
+   fix (`/tmp/gn-9b6h-probe-built-5.bwextension` equals the current
+   `extension/` build), ask the operator for full controller replacement,
+   and run hello. Before consent, run the read-only control read and the
+   survey read of each fixture on the installed build so that no pinned
+   name can refuse after a bind; add any missing offline rule test first.
+3. Obtain fresh save-first consent for one second V21 pass with a new
+   consent string and a new attempt file name. The driver must refuse the
+   six existing records as a reason to run; this session adds a separate,
+   explicit policy, with the operator's answer recorded. Keep every prior
+   record unchanged.
+4. Run the complete pass: boolean, mapping, and core, with the guards, the
+   paired readback, and per-call timing compared with E316 and E339. Never
+   repeat an uncertain command. Write the cache only after all 76 roles,
+   teardown, both control reads, and the complete preserved-state check
+   pass. Record a new E result and the exact final state.
+
+**Acceptance.** A complete 6.1.4 doctor result with the guard set, or a
+traced and measured reason it cannot pass under D52. Close step 2 only
+with the explicit two-build result. 9b.7 keeps product cache enforcement,
+the toolkit consolidation, the `/tmp` cleanup, and public descriptions.

@@ -1,0 +1,5571 @@
+{
+ "boundedAdmission": false,
+ "bridgeCalls": 0,
+ "callees": [
+  {
+   "bodyDigestNew": "f70db0b115a2240bdacbc922cf9e45c0dfce95e301f0156c6d0fc03f7df63899",
+   "bodyDigestOld": "f70db0b115a2240bdacbc922cf9e45c0dfce95e301f0156c6d0fc03f7df63899",
+   "comparator": "contract",
+   "digestNew": "9f14b7cafb914bdd52b8ba0f130da4890dd32861d0af15e9087d02126e580ffc",
+   "digestOld": "9f14b7cafb914bdd52b8ba0f130da4890dd32861d0af15e9087d02126e580ffc",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "unique-fingerprint",
+   "instructionsNew": 599,
+   "instructionsOld": 599,
+   "label": "project-dispatch",
+   "new": {
+    "descriptor": "(Lcom/bitwig/flt/document/core/master/g2L;ILjava/util/List;)Ljava/lang/Object;",
+    "name": "MRY",
+    "owner": "com/bitwig/flt/document/core/master/Ljp"
+   },
+   "old": {
+    "descriptor": "(Lcom/bitwig/flt/document/core/master/Svr;ILjava/util/List;)Ljava/lang/Object;",
+    "name": "eOi",
+    "owner": "com/bitwig/flt/document/core/master/HVJ"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "16eae0b822831f238e623aa6a22b6c0aa2fb5138d1ac58d8f21e5c16705deab9",
+   "bodyDigestOld": "16eae0b822831f238e623aa6a22b6c0aa2fb5138d1ac58d8f21e5c16705deab9",
+   "comparator": "contract",
+   "digestNew": "fd8cc43960c4affd1afdfa94eb33fb9bc75e3d3ad6ef07c157328bf1d632c0e6",
+   "digestOld": "fd8cc43960c4affd1afdfa94eb33fb9bc75e3d3ad6ef07c157328bf1d632c0e6",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:project-dispatch@1134",
+   "instructionsNew": 21,
+   "instructionsOld": 21,
+   "label": "ping-action",
+   "new": {
+    "descriptor": "()V",
+    "name": "bLK",
+    "owner": "com/bitwig/flt/document/core/master/AJH"
+   },
+   "old": {
+    "descriptor": "()V",
+    "name": "cWn",
+    "owner": "com/bitwig/flt/document/core/master/Ymq"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "3c26508021b49609bed7e40fcaa39cdbab0913b42193a5d3b5bd01d991705108",
+   "bodyDigestOld": "3c26508021b49609bed7e40fcaa39cdbab0913b42193a5d3b5bd01d991705108",
+   "comparator": "contract",
+   "digestNew": "002db37765631c84f655c5efc1a1cd8fc6344c81a0bffc33ecde462e737ab69a",
+   "digestOld": "002db37765631c84f655c5efc1a1cd8fc6344c81a0bffc33ecde462e737ab69a",
+   "flagsNew": 4,
+   "flagsOld": 4,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:ping-action@32",
+   "instructionsNew": 31,
+   "instructionsOld": 31,
+   "label": "ping-send",
+   "new": {
+    "descriptor": "(LcQq;)V",
+    "name": "MRY",
+    "owner": "com/bitwig/flt/document/core/master/AJH"
+   },
+   "old": {
+    "descriptor": "(LcKb;)V",
+    "name": "eOi",
+    "owner": "com/bitwig/flt/document/core/master/Ymq"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "066603903d93438eff03c327cadf86be9c831058085428a83ffda243384b51c0",
+   "bodyDigestOld": "066603903d93438eff03c327cadf86be9c831058085428a83ffda243384b51c0",
+   "comparator": "contract",
+   "digestNew": "c70764efc96564a4d1fefd6aac0f28b74ac0239cc7b81aacb10a5d485a840199",
+   "digestOld": "c70764efc96564a4d1fefd6aac0f28b74ac0239cc7b81aacb10a5d485a840199",
+   "flagsNew": 9,
+   "flagsOld": 9,
+   "handlersNew": 2,
+   "handlersOld": 2,
+   "how": "call-at:ping-action@22",
+   "instructionsNew": 17,
+   "instructionsOld": 17,
+   "label": "ping-client",
+   "new": {
+    "descriptor": "(Lcom/bitwig/ramona/core/AVL;)LcQq;",
+    "name": "cfM",
+    "owner": "cQq"
+   },
+   "old": {
+    "descriptor": "(Lcom/bitwig/ramona/core/ikl;)LcKb;",
+    "name": "ffA",
+    "owner": "cKb"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "52874b639ee0f2246f857ad8706214476f29bece7b5a6a86675f944912d9916a",
+   "bodyDigestOld": "52874b639ee0f2246f857ad8706214476f29bece7b5a6a86675f944912d9916a",
+   "comparator": "contract",
+   "digestNew": "47f45540e5144347ab4c59284c2d24d82b68e94fc5a729040cea472e3d597b58",
+   "digestOld": "47f45540e5144347ab4c59284c2d24d82b68e94fc5a729040cea472e3d597b58",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 1,
+   "handlersOld": 1,
+   "how": "call-at:ping-send@60",
+   "instructionsNew": 118,
+   "instructionsOld": 118,
+   "label": "ping-request",
+   "new": {
+    "descriptor": "(LdeV;Lcom/bitwig/ramona/core/oDc;[Ljava/lang/Object;)Ljava/lang/Object;",
+    "name": "cfM",
+    "owner": "cQq"
+   },
+   "old": {
+    "descriptor": "(LcYA;Lcom/bitwig/ramona/core/HEV;[Ljava/lang/Object;)Ljava/lang/Object;",
+    "name": "ffA",
+    "owner": "cKb"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "763262508fb17d382abb45b6593f1d6103bb7a67c519c3e732341c8022e165b9",
+   "bodyDigestOld": "763262508fb17d382abb45b6593f1d6103bb7a67c519c3e732341c8022e165b9",
+   "comparator": "contract",
+   "digestNew": "eb72a6f0c92e25dd05001f6a34704144dc6f8471514317577fe409225748d8d3",
+   "digestOld": "eb72a6f0c92e25dd05001f6a34704144dc6f8471514317577fe409225748d8d3",
+   "flagsNew": 2,
+   "flagsOld": 2,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:ping-request@242",
+   "instructionsNew": 84,
+   "instructionsOld": 84,
+   "label": "ping-wait",
+   "new": {
+    "descriptor": "()Ljava/lang/Object;",
+    "name": "Hnt",
+    "owner": "cQq"
+   },
+   "old": {
+    "descriptor": "()Ljava/lang/Object;",
+    "name": "cG3",
+    "owner": "cKb"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "b67451281be5b98b3b1206e16d83c1d6180f6901b11f3bf809547fac1bfe3cde",
+   "bodyDigestOld": "b67451281be5b98b3b1206e16d83c1d6180f6901b11f3bf809547fac1bfe3cde",
+   "comparator": "contract",
+   "digestNew": "b4df5bb2829c1f48e9a5c13ccdc7f833c58faebac0f7d6cefc6f454082cf6469",
+   "digestOld": "b4df5bb2829c1f48e9a5c13ccdc7f833c58faebac0f7d6cefc6f454082cf6469",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:ping-send@55",
+   "instructionsNew": 32,
+   "instructionsOld": 32,
+   "label": "ping-registry",
+   "new": {
+    "descriptor": "()LdeV;",
+    "name": "Yt",
+    "owner": "com/bitwig/flt/document/core/master/Ljp"
+   },
+   "old": {
+    "descriptor": "()LcYA;",
+    "name": "Zbc",
+    "owner": "com/bitwig/flt/document/core/master/HVJ"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "2b7dacf4bb23caccced3f90c78bf511a77bd0a3dba98531df751eda5154406db",
+   "bodyDigestOld": "2b7dacf4bb23caccced3f90c78bf511a77bd0a3dba98531df751eda5154406db",
+   "comparator": "contract",
+   "digestNew": "5557035f6047e1a4826faeba858f6c1dd9ecce3b3f26d456ee5842c8875f78fd",
+   "digestOld": "5557035f6047e1a4826faeba858f6c1dd9ecce3b3f26d456ee5842c8875f78fd",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "unique-fingerprint",
+   "instructionsNew": 10,
+   "instructionsOld": 10,
+   "label": "action-invoke",
+   "new": {
+    "descriptor": "(Lcom/bitwig/ramona/core/oDc;Ljava/util/List;)Ljava/lang/Object;",
+    "name": "cfM",
+    "owner": "deV"
+   },
+   "old": {
+    "descriptor": "(Lcom/bitwig/ramona/core/HEV;Ljava/util/List;)Ljava/lang/Object;",
+    "name": "ffA",
+    "owner": "cYA"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "d91bc172238605ce27d89ee216a5877376ebdb29f19d77f35db983eefc1e864e",
+   "bodyDigestOld": "d91bc172238605ce27d89ee216a5877376ebdb29f19d77f35db983eefc1e864e",
+   "comparator": "contract",
+   "digestNew": "7e919b78c908c3b748ab92225ea2031ca8232751e7cdf655a6779cf1f96a4770",
+   "digestOld": "7e919b78c908c3b748ab92225ea2031ca8232751e7cdf655a6779cf1f96a4770",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:action-invoke@8",
+   "instructionsNew": 3,
+   "instructionsOld": 3,
+   "label": "action-id",
+   "new": {
+    "descriptor": "()I",
+    "name": "E3",
+    "owner": "deN"
+   },
+   "old": {
+    "descriptor": "()I",
+    "name": "QiZ",
+    "owner": "cYs"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "2bf54846b8208567c36754d00d0e0bc5bc5cdf85f34a8603e0f1129249bfe86f",
+   "bodyDigestOld": "2bf54846b8208567c36754d00d0e0bc5bc5cdf85f34a8603e0f1129249bfe86f",
+   "comparator": "contract",
+   "digestNew": "b029405f1d81d22b9eae262277f5748c908784c8777303a55cb56b8318dfcfba",
+   "digestOld": "b029405f1d81d22b9eae262277f5748c908784c8777303a55cb56b8318dfcfba",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:action-invoke@12",
+   "instructionsNew": 4,
+   "instructionsOld": 4,
+   "label": "action-dispatch-slot",
+   "new": {
+    "descriptor": "(Lcom/bitwig/ramona/core/OLR;ILjava/util/List;)Ljava/lang/Object;",
+    "name": "MRY",
+    "owner": "der"
+   },
+   "old": {
+    "descriptor": "(Lcom/bitwig/ramona/core/FZ1;ILjava/util/List;)Ljava/lang/Object;",
+    "name": "eOi",
+    "owner": "cXV"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "521c6f49651ffca9f8bf2cf7fd290920776b99ce80e97938b58ac943c500930e",
+   "bodyDigestOld": "521c6f49651ffca9f8bf2cf7fd290920776b99ce80e97938b58ac943c500930e",
+   "comparator": "contract",
+   "digestNew": "abed525d32a6df5ca1ca92a60360c1d31edbcd474ef36c4cb79d1eee523723dd",
+   "digestOld": "abed525d32a6df5ca1ca92a60360c1d31edbcd474ef36c4cb79d1eee523723dd",
+   "flagsNew": 4,
+   "flagsOld": 4,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "unique-fingerprint",
+   "instructionsNew": 12,
+   "instructionsOld": 12,
+   "label": "ui-action",
+   "new": {
+    "descriptor": "(Lcom/bitwig/ramona/core/oDc;)V",
+    "name": "UNj",
+    "owner": "eIS"
+   },
+   "old": {
+    "descriptor": "(Lcom/bitwig/ramona/core/HEV;)V",
+    "name": "kyi",
+    "owner": "cls"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "b6e1eb9892861ccab8ea97f764ef8c2f73f7a1d50136220daa04e0bd90fc57b9",
+   "bodyDigestOld": "b6e1eb9892861ccab8ea97f764ef8c2f73f7a1d50136220daa04e0bd90fc57b9",
+   "comparator": "contract",
+   "digestNew": "1ca564f0fe5827dd7dda6b1c39476144038326fcec7a7bd79b68807ca8a03f2e",
+   "digestOld": "1ca564f0fe5827dd7dda6b1c39476144038326fcec7a7bd79b68807ca8a03f2e",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "fingerprint-among-action-invoke-callers",
+   "instructionsNew": 7,
+   "instructionsOld": 7,
+   "label": "action-wrapper",
+   "new": {
+    "descriptor": "(Ljava/util/List;)Ljava/lang/Object;",
+    "name": "cfM",
+    "owner": "com/bitwig/ramona/core/cuN"
+   },
+   "old": {
+    "descriptor": "(Ljava/util/List;)Ljava/lang/Object;",
+    "name": "ffA",
+    "owner": "com/bitwig/ramona/core/wv3"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "4fd95f775dc301bcb7461b2de1bc3fe26eaf9363d96ffd0e057bb3e070adef9d",
+   "bodyDigestOld": "4fd95f775dc301bcb7461b2de1bc3fe26eaf9363d96ffd0e057bb3e070adef9d",
+   "comparator": "contract",
+   "digestNew": "aed9f63311d8af1d22dd17d7d5ae2166b95289a48158773bde81e45050a9c7a6",
+   "digestOld": "aed9f63311d8af1d22dd17d7d5ae2166b95289a48158773bde81e45050a9c7a6",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "unique-fingerprint",
+   "instructionsNew": 138,
+   "instructionsOld": 138,
+   "label": "protocol-request",
+   "new": {
+    "descriptor": "(LdeV;Lcom/bitwig/ramona/core/oDc;Ljava/util/List;Z)V",
+    "name": "cfM",
+    "owner": "cQq"
+   },
+   "old": {
+    "descriptor": "(LcYA;Lcom/bitwig/ramona/core/HEV;Ljava/util/List;Z)V",
+    "name": "ffA",
+    "owner": "cKb"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "1c623e63f113e3adce2738dec1fce994cff47754ec04fbdd919c7319b2f4cca5",
+   "bodyDigestOld": "1c623e63f113e3adce2738dec1fce994cff47754ec04fbdd919c7319b2f4cca5",
+   "comparator": "contract",
+   "digestNew": "21538efabdd42dd6396c1bd21a5b769e338a58769c2558012b7210f779474745",
+   "digestOld": "21538efabdd42dd6396c1bd21a5b769e338a58769c2558012b7210f779474745",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 2,
+   "handlersOld": 2,
+   "how": "unique-fingerprint",
+   "instructionsNew": 142,
+   "instructionsOld": 142,
+   "label": "connection-request",
+   "new": {
+    "descriptor": "(LdeV;Lcom/bitwig/ramona/core/oDc;Ljava/util/List;Z)V",
+    "name": "cfM",
+    "owner": "dfn"
+   },
+   "old": {
+    "descriptor": "(LcYA;Lcom/bitwig/ramona/core/HEV;Ljava/util/List;Z)V",
+    "name": "ffA",
+    "owner": "cYQ"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "445205ffd01c25a7c09cf3d3802321d6ec852269c505ad5e585d43c2233ab72e",
+   "bodyDigestOld": "445205ffd01c25a7c09cf3d3802321d6ec852269c505ad5e585d43c2233ab72e",
+   "comparator": "contract",
+   "digestNew": "ada8496b9d4b9b8cffd8733cfcbb761a11af981f6c59b57fbb57e776ac150586",
+   "digestOld": "ada8496b9d4b9b8cffd8733cfcbb761a11af981f6c59b57fbb57e776ac150586",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "unique-fingerprint",
+   "instructionsNew": 232,
+   "instructionsOld": 232,
+   "label": "opener",
+   "new": {
+    "descriptor": "(Ljava/lang/String;Ljava/lang/String;Lcom/bitwig/ramona/core/WzZ;Lcom/bitwig/ramona/core/oDc;Lcom/bitwig/ramona/core/CuM;Z)Z",
+    "name": "cfM",
+    "owner": "com/bitwig/ramona/core/XKG"
+   },
+   "old": {
+    "descriptor": "(Ljava/lang/String;Ljava/lang/String;Lcom/bitwig/ramona/core/ytV;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/ziZ;Z)Z",
+    "name": "ffA",
+    "owner": "com/bitwig/ramona/core/Ibf"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "5d5afa02ffceb15bf6248fa7a82d6f9f62e9aaf9716cd38d4c9cee97355ac474",
+   "bodyDigestOld": "5d5afa02ffceb15bf6248fa7a82d6f9f62e9aaf9716cd38d4c9cee97355ac474",
+   "comparator": "contract",
+   "digestNew": "600cc217fed5198f7ae25d4528df57c1033c2c6a406f8985e2455692550099c7",
+   "digestOld": "600cc217fed5198f7ae25d4528df57c1033c2c6a406f8985e2455692550099c7",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 1,
+   "handlersOld": 1,
+   "how": "call-at:opener@295",
+   "instructionsNew": 74,
+   "instructionsOld": 74,
+   "label": "lock-wait",
+   "new": {
+    "descriptor": "(Ljava/util/Set;)Z",
+    "name": "cfM",
+    "owner": "com/bitwig/ramona/core/XKG"
+   },
+   "old": {
+    "descriptor": "(Ljava/util/Set;)Z",
+    "name": "ffA",
+    "owner": "com/bitwig/ramona/core/Ibf"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "bef4b93a8fffc7f62b4fb2591d3d2a5cbdffaadf6508f42bd7ca8c9fc0e9b1a3",
+   "bodyDigestOld": "bef4b93a8fffc7f62b4fb2591d3d2a5cbdffaadf6508f42bd7ca8c9fc0e9b1a3",
+   "comparator": "contract",
+   "digestNew": "fd50601d310c37a3c96cf75a55e97833ac4d5e3a375d8fdf76915a5412e3c0f8",
+   "digestOld": "fd50601d310c37a3c96cf75a55e97833ac4d5e3a375d8fdf76915a5412e3c0f8",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:lock-wait@111",
+   "instructionsNew": 127,
+   "instructionsOld": 127,
+   "label": "lock-callback",
+   "new": {
+    "descriptor": "(Ljava/util/Set;Ljava/lang/Runnable;)V",
+    "name": "cfM",
+    "owner": "com/bitwig/ramona/core/XKG"
+   },
+   "old": {
+    "descriptor": "(Ljava/util/Set;Ljava/lang/Runnable;)V",
+    "name": "ffA",
+    "owner": "com/bitwig/ramona/core/Ibf"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "bf58ddb6608eb954aece27637feafec3fb08a315694374f58a3b226c900385cc",
+   "bodyDigestOld": "bf58ddb6608eb954aece27637feafec3fb08a315694374f58a3b226c900385cc",
+   "comparator": "contract",
+   "digestNew": "946c38f90b7ca9e58d0d8caf988cec0052f7ad1eb9319900e1bc3dfc130388fc",
+   "digestOld": "946c38f90b7ca9e58d0d8caf988cec0052f7ad1eb9319900e1bc3dfc130388fc",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:opener@87",
+   "instructionsNew": 9,
+   "instructionsOld": 9,
+   "label": "collect",
+   "new": {
+    "descriptor": "()Lcom/bitwig/ramona/core/kJI;",
+    "name": "cfM",
+    "owner": "com/bitwig/ramona/core/WzZ"
+   },
+   "old": {
+    "descriptor": "()Lcom/bitwig/ramona/core/toM;",
+    "name": "ffA",
+    "owner": "com/bitwig/ramona/core/ytV"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "a5ebd9f9b0cd7ac0b118671c70ac021d64d5d1e6e12f35300ad77ef121985e6a",
+   "bodyDigestOld": "a5ebd9f9b0cd7ac0b118671c70ac021d64d5d1e6e12f35300ad77ef121985e6a",
+   "comparator": "contract",
+   "digestNew": "25c3d90d0df5b1ad73bb2cfae64a14523a503d25640ba106af9ec4b87fbdf506",
+   "digestOld": "25c3d90d0df5b1ad73bb2cfae64a14523a503d25640ba106af9ec4b87fbdf506",
+   "flagsNew": 1028,
+   "flagsOld": 1028,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:collect@10",
+   "instructionsNew": 0,
+   "instructionsOld": 0,
+   "label": "collect-fill",
+   "new": {
+    "descriptor": "(Lcom/bitwig/ramona/core/kJI;)V",
+    "name": "cfM",
+    "owner": "com/bitwig/ramona/core/WzZ"
+   },
+   "old": {
+    "descriptor": "(Lcom/bitwig/ramona/core/toM;)V",
+    "name": "ffA",
+    "owner": "com/bitwig/ramona/core/ytV"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "14b191844f354b2ed0cd6ac92fbeb8fe9398159f0222828cb7fad78007f0b735",
+   "bodyDigestOld": "14b191844f354b2ed0cd6ac92fbeb8fe9398159f0222828cb7fad78007f0b735",
+   "comparator": "contract",
+   "digestNew": "1db3f7aa9ae90b49d135c1c1642397b7a732417341ed29440e7341810c6241d5",
+   "digestOld": "1db3f7aa9ae90b49d135c1c1642397b7a732417341ed29440e7341810c6241d5",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "unique-fingerprint",
+   "instructionsNew": 13,
+   "instructionsOld": 13,
+   "label": "default-collect",
+   "new": {
+    "descriptor": "()Lcom/bitwig/ramona/core/kJI;",
+    "name": "cfM",
+    "owner": "com/bitwig/ramona/core/BKi"
+   },
+   "old": {
+    "descriptor": "()Lcom/bitwig/ramona/core/toM;",
+    "name": "ffA",
+    "owner": "com/bitwig/ramona/core/nAR"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "5f87f35a00da02b8988918269b7684cddbc39458a038b8753c3cb60099bc08f7",
+   "bodyDigestOld": "5f87f35a00da02b8988918269b7684cddbc39458a038b8753c3cb60099bc08f7",
+   "comparator": "contract",
+   "digestNew": "be76eb9643df13afcd34ac30cfd744579a630e2970ebf301a88ff10475fa6481",
+   "digestOld": "be76eb9643df13afcd34ac30cfd744579a630e2970ebf301a88ff10475fa6481",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "unique-fingerprint",
+   "instructionsNew": 19,
+   "instructionsOld": 19,
+   "label": "manager-ctor",
+   "new": {
+    "descriptor": "(Ljava/lang/String;I)V",
+    "name": "<init>",
+    "owner": "com/bitwig/ramona/core/XKG"
+   },
+   "old": {
+    "descriptor": "(Ljava/lang/String;I)V",
+    "name": "<init>",
+    "owner": "com/bitwig/ramona/core/Ibf"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "ba65d73e23432e62e11e367ffbf2164067e647efb999765052dad2f3f5400c13",
+   "bodyDigestOld": "ba65d73e23432e62e11e367ffbf2164067e647efb999765052dad2f3f5400c13",
+   "comparator": "contract",
+   "digestNew": "7705c7060684fa16833ba22ca2de4bfc4af46b416691a87c4b8d1a9a4a015def",
+   "digestOld": "7705c7060684fa16833ba22ca2de4bfc4af46b416691a87c4b8d1a9a4a015def",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "unique-fingerprint",
+   "instructionsNew": 10,
+   "instructionsOld": 10,
+   "label": "implicit-begin",
+   "new": {
+    "descriptor": "(Ljava/lang/String;Ljava/lang/String;Lcom/bitwig/ramona/core/oDc;Lcom/bitwig/ramona/core/CuM;)Z",
+    "name": "cfM",
+    "owner": "com/bitwig/ramona/core/XKG"
+   },
+   "old": {
+    "descriptor": "(Ljava/lang/String;Ljava/lang/String;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/ziZ;)Z",
+    "name": "ffA",
+    "owner": "com/bitwig/ramona/core/Ibf"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "ecf7a99fa298fbd005cf876b018d2126350983d16d3af0f1efea11434811d51f",
+   "bodyDigestOld": "ecf7a99fa298fbd005cf876b018d2126350983d16d3af0f1efea11434811d51f",
+   "comparator": "contract",
+   "digestNew": "39ddfff88dba9fec5f8f93946624dbfccc99362dc6749a4ebbc0864ca34a0dd8",
+   "digestOld": "39ddfff88dba9fec5f8f93946624dbfccc99362dc6749a4ebbc0864ca34a0dd8",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "unique-fingerprint",
+   "instructionsNew": 10,
+   "instructionsOld": 10,
+   "label": "set-begin",
+   "new": {
+    "descriptor": "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;)Z",
+    "name": "cfM",
+    "owner": "com/bitwig/ramona/core/XKG"
+   },
+   "old": {
+    "descriptor": "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;)Z",
+    "name": "ffA",
+    "owner": "com/bitwig/ramona/core/Ibf"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "4c98a9e01eb8b3c4957e0064b2453f7cf7bf05a231b76d8d0675d34a5b5335a6",
+   "bodyDigestOld": "4c98a9e01eb8b3c4957e0064b2453f7cf7bf05a231b76d8d0675d34a5b5335a6",
+   "comparator": "contract",
+   "digestNew": "a48eab5b7983aa3f8e9db12ae74270532087fb1800470dfc66510c1318b761ea",
+   "digestOld": "a48eab5b7983aa3f8e9db12ae74270532087fb1800470dfc66510c1318b761ea",
+   "flagsNew": 2,
+   "flagsOld": 2,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "unique-fingerprint",
+   "instructionsNew": 7,
+   "instructionsOld": 7,
+   "label": "delete-fill",
+   "new": {
+    "descriptor": "(Lcom/bitwig/ramona/core/kJI;Ljava/util/List;)V",
+    "name": "cfM",
+    "owner": "com/bitwig/flt/document/core/master/device/Vzt"
+   },
+   "old": {
+    "descriptor": "(Lcom/bitwig/ramona/core/toM;Ljava/util/List;)V",
+    "name": "ffA",
+    "owner": "com/bitwig/flt/document/core/master/device/cbl"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "db4acd15cd8908932a7b45a98148e0d5cc40d3176805b61865de2a19018f4b70",
+   "bodyDigestOld": "db4acd15cd8908932a7b45a98148e0d5cc40d3176805b61865de2a19018f4b70",
+   "comparator": "contract",
+   "digestNew": "f75902a3ca33de34bf9441df2048f1b330da039c6e668b59681f3be39d24085a",
+   "digestOld": "f75902a3ca33de34bf9441df2048f1b330da039c6e668b59681f3be39d24085a",
+   "flagsNew": 4,
+   "flagsOld": 4,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "fingerprint-among-delete-fill-callers",
+   "instructionsNew": 7,
+   "instructionsOld": 7,
+   "label": "delete-collector-fill",
+   "new": {
+    "descriptor": "(Lcom/bitwig/ramona/core/kJI;)V",
+    "name": "cfM",
+    "owner": "com/bitwig/flt/document/core/master/device/hLr"
+   },
+   "old": {
+    "descriptor": "(Lcom/bitwig/ramona/core/toM;)V",
+    "name": "ffA",
+    "owner": "com/bitwig/flt/document/core/master/device/l2U"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "4869502fc8ff1b982f06ccb451b26b6ec6aa91c9fc9bbc4a63aa4b944cccf9f1",
+   "bodyDigestOld": "4869502fc8ff1b982f06ccb451b26b6ec6aa91c9fc9bbc4a63aa4b944cccf9f1",
+   "comparator": "contract",
+   "digestNew": "80eef855df1297ce4b1906785d8408bcfd13c6d25bf629fc7856be5acea2978d",
+   "digestOld": "80eef855df1297ce4b1906785d8408bcfd13c6d25bf629fc7856be5acea2978d",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "role-table:manager",
+   "instructionsNew": 20,
+   "instructionsOld": 20,
+   "label": "manager-top",
+   "new": {
+    "descriptor": "()Lcom/bitwig/ramona/core/XKG;",
+    "name": "vpw",
+    "owner": "com/bitwig/ramona/core/Rzi"
+   },
+   "old": {
+    "descriptor": "()Lcom/bitwig/ramona/core/Ibf;",
+    "name": "Ode",
+    "owner": "com/bitwig/ramona/core/uX1"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "a3343aaa193f4f9d13b08c2706dc6a92924d3bdf8875e2c45cbe27b81b0f00fb",
+   "bodyDigestOld": "a3343aaa193f4f9d13b08c2706dc6a92924d3bdf8875e2c45cbe27b81b0f00fb",
+   "comparator": "contract",
+   "digestNew": "af8cb3e9f6ca8f72ebd5eae2d7f3ac27ac8145267f8eeb76c7f6697da4eb1232",
+   "digestOld": "af8cb3e9f6ca8f72ebd5eae2d7f3ac27ac8145267f8eeb76c7f6697da4eb1232",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "unique-fingerprint",
+   "instructionsNew": 26,
+   "instructionsOld": 26,
+   "label": "manager-push",
+   "new": {
+    "descriptor": "(Lcom/bitwig/ramona/core/XKG;)V",
+    "name": "cfM",
+    "owner": "com/bitwig/ramona/core/Rzi"
+   },
+   "old": {
+    "descriptor": "(Lcom/bitwig/ramona/core/Ibf;)V",
+    "name": "ffA",
+    "owner": "com/bitwig/ramona/core/uX1"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "5a82268fd62998fc0c4e0b88eb611bb3175d67dcfd96d1d00cd0f933b5108a86",
+   "bodyDigestOld": "5a82268fd62998fc0c4e0b88eb611bb3175d67dcfd96d1d00cd0f933b5108a86",
+   "comparator": "contract",
+   "digestNew": "869d4ec0696107ce1e5556591c91c29394b578ed8e36d2bea6c015f375ab1324",
+   "digestOld": "869d4ec0696107ce1e5556591c91c29394b578ed8e36d2bea6c015f375ab1324",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "unique-fingerprint",
+   "instructionsNew": 36,
+   "instructionsOld": 36,
+   "label": "manager-pop",
+   "new": {
+    "descriptor": "()V",
+    "name": "ERO",
+    "owner": "com/bitwig/ramona/core/Rzi"
+   },
+   "old": {
+    "descriptor": "()V",
+    "name": "jBn",
+    "owner": "com/bitwig/ramona/core/uX1"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "f16157f0246a1bf8be729a08a6e9ba0fcd626a6430845e4a43157cac66d06c60",
+   "bodyDigestOld": "f16157f0246a1bf8be729a08a6e9ba0fcd626a6430845e4a43157cac66d06c60",
+   "comparator": "contract",
+   "digestNew": "b6275f00d19ed48b50b3005ea8edfb03630f45b5c566a45cd7da6a48eebd7224",
+   "digestOld": "b6275f00d19ed48b50b3005ea8edfb03630f45b5c566a45cd7da6a48eebd7224",
+   "flagsNew": 2,
+   "flagsOld": 2,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:manager-push@39",
+   "instructionsNew": 3,
+   "instructionsOld": 3,
+   "label": "manager-change",
+   "new": {
+    "descriptor": "()V",
+    "name": "MJ",
+    "owner": "com/bitwig/ramona/core/Rzi"
+   },
+   "old": {
+    "descriptor": "()V",
+    "name": "pfb",
+    "owner": "com/bitwig/ramona/core/uX1"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "dd2e03d7edc49efa048896efbadfa6960782b3d5e6e08376e2601c96d3e9fb0a",
+   "bodyDigestOld": "dd2e03d7edc49efa048896efbadfa6960782b3d5e6e08376e2601c96d3e9fb0a",
+   "comparator": "contract",
+   "digestNew": "c8c80a5d988caf256f3134f0bc5f07ee46650ffbebc12bb517ad843fbfe140c8",
+   "digestOld": "c8c80a5d988caf256f3134f0bc5f07ee46650ffbebc12bb517ad843fbfe140c8",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "unique-fingerprint",
+   "instructionsNew": 53,
+   "instructionsOld": 53,
+   "label": "reopen",
+   "new": {
+    "descriptor": "()V",
+    "name": "UNj",
+    "owner": "dfT"
+   },
+   "old": {
+    "descriptor": "()V",
+    "name": "kyi",
+    "owner": "cZv"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "3f76ec039481682f86ece698fc73fc7dcf985b2f92098ed10b976c99986ab593",
+   "bodyDigestOld": "3f76ec039481682f86ece698fc73fc7dcf985b2f92098ed10b976c99986ab593",
+   "comparator": "contract",
+   "digestNew": "6b1371e8d0bf5e85e1e29763906239ac89aafe6afe291d0de95c9fc66bc01da6",
+   "digestOld": "6b1371e8d0bf5e85e1e29763906239ac89aafe6afe291d0de95c9fc66bc01da6",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "unique-fingerprint",
+   "instructionsNew": 40,
+   "instructionsOld": 40,
+   "label": "reopen-close",
+   "new": {
+    "descriptor": "()V",
+    "name": "hUR",
+    "owner": "dfT"
+   },
+   "old": {
+    "descriptor": "()V",
+    "name": "kG",
+    "owner": "cZv"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "dae15496ce2bae301e1e8f167ab1b0a9b4b85e7a40a6e439372dde3ab378e93e",
+   "bodyDigestOld": "dae15496ce2bae301e1e8f167ab1b0a9b4b85e7a40a6e439372dde3ab378e93e",
+   "comparator": "contract",
+   "digestNew": "315ac3e98dad6339a3f02adf482be438b642a0ecfed93211494c571419c5dd7f",
+   "digestOld": "315ac3e98dad6339a3f02adf482be438b642a0ecfed93211494c571419c5dd7f",
+   "flagsNew": 4,
+   "flagsOld": 4,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "unique-fingerprint",
+   "instructionsNew": 97,
+   "instructionsOld": 97,
+   "label": "record-change",
+   "new": {
+    "descriptor": "(Lden;Lcom/bitwig/ramona/core/oDc;Ljava/lang/Object;)V",
+    "name": "cfM",
+    "owner": "dhu"
+   },
+   "old": {
+    "descriptor": "(LcXR;Lcom/bitwig/ramona/core/HEV;Ljava/lang/Object;)V",
+    "name": "ffA",
+    "owner": "daR"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "8a5f94ad5e6bb568529008dc5401eaf1ed4dcba353837f4da723b270f9e12c0b",
+   "bodyDigestOld": "8a5f94ad5e6bb568529008dc5401eaf1ed4dcba353837f4da723b270f9e12c0b",
+   "comparator": "contract",
+   "digestNew": "ecbb18b1659fc2b64255e6e3974cd87fa97d3acd84125bc9cc5368d2941cfa8f",
+   "digestOld": "ecbb18b1659fc2b64255e6e3974cd87fa97d3acd84125bc9cc5368d2941cfa8f",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "unique-fingerprint",
+   "instructionsNew": 19,
+   "instructionsOld": 19,
+   "label": "journal-select",
+   "new": {
+    "descriptor": "()Ldhu;",
+    "name": "ejd",
+    "owner": "dfI"
+   },
+   "old": {
+    "descriptor": "()LdaR;",
+    "name": "Ode",
+    "owner": "cZl"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "54572b1de5c797d782d334b9fd96f82e2bdd532b5c7e6f15480953fad2b73a96",
+   "bodyDigestOld": "54572b1de5c797d782d334b9fd96f82e2bdd532b5c7e6f15480953fad2b73a96",
+   "comparator": "contract",
+   "digestNew": "36e6694ef0db36cffdcaa26fa985197ed629d43183306ea753842e372906f3d4",
+   "digestOld": "36e6694ef0db36cffdcaa26fa985197ed629d43183306ea753842e372906f3d4",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:journal-select@31",
+   "instructionsNew": 35,
+   "instructionsOld": 35,
+   "label": "journal-for",
+   "new": {
+    "descriptor": "(Lcom/bitwig/ramona/core/XKG;)Ldhu;",
+    "name": "cfM",
+    "owner": "dfI"
+   },
+   "old": {
+    "descriptor": "(Lcom/bitwig/ramona/core/Ibf;)LdaR;",
+    "name": "ffA",
+    "owner": "cZl"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "ae031ff73f2d6e4c02da64326d1ae69d3675cf9fd6165c3259e306c578df7e43",
+   "bodyDigestOld": "ae031ff73f2d6e4c02da64326d1ae69d3675cf9fd6165c3259e306c578df7e43",
+   "comparator": "contract",
+   "digestNew": "cb5fd03ddd660b7ccea2da792c2c71009de87f7d64edc83b5aba7eb5a86afd12",
+   "digestOld": "cb5fd03ddd660b7ccea2da792c2c71009de87f7d64edc83b5aba7eb5a86afd12",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "role-table:document-manager",
+   "instructionsNew": 4,
+   "instructionsOld": 4,
+   "label": "document-manager",
+   "new": {
+    "descriptor": "()Lcom/bitwig/ramona/core/XKG;",
+    "name": "ERO",
+    "owner": "dfI"
+   },
+   "old": {
+    "descriptor": "()Lcom/bitwig/ramona/core/Ibf;",
+    "name": "nrP",
+    "owner": "cZl"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "9c027cec3a8b07812dbd4750aebf6fbe7cf0e5b3a3b9ecd64fbf90c2be943dbd",
+   "bodyDigestOld": "9c027cec3a8b07812dbd4750aebf6fbe7cf0e5b3a3b9ecd64fbf90c2be943dbd",
+   "comparator": "contract",
+   "digestNew": "dc20b8a73ad4422e2e09642065c3f4576be3488a2706bd01314aa666afb67410",
+   "digestOld": "dc20b8a73ad4422e2e09642065c3f4576be3488a2706bd01314aa666afb67410",
+   "flagsNew": 4,
+   "flagsOld": 4,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "unique-fingerprint",
+   "instructionsNew": 10,
+   "instructionsOld": 10,
+   "label": "validation-hook",
+   "new": {
+    "descriptor": "()V",
+    "name": "Hnt",
+    "owner": "com/bitwig/flt/document/core/master/tj2"
+   },
+   "old": {
+    "descriptor": "()V",
+    "name": "cG3",
+    "owner": "com/bitwig/flt/document/core/master/mhb"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "ca7ad04c6bc7bbe363d3055ae2b1f64f6a14c41543aeee1f3ffb4233b3388157",
+   "bodyDigestOld": "ca7ad04c6bc7bbe363d3055ae2b1f64f6a14c41543aeee1f3ffb4233b3388157",
+   "comparator": "contract",
+   "digestNew": "ea79a8d26860bf88d35a33b8836c499c6b8f973e09bf7b66f38c3e60f396f4c6",
+   "digestOld": "ea79a8d26860bf88d35a33b8836c499c6b8f973e09bf7b66f38c3e60f396f4c6",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:validation-hook@7",
+   "instructionsNew": 5,
+   "instructionsOld": 5,
+   "label": "validation-entry",
+   "new": {
+    "descriptor": "()LdfE;",
+    "name": "UNj",
+    "owner": "com/bitwig/flt/document/core/master/Kiy"
+   },
+   "old": {
+    "descriptor": "()LcZg;",
+    "name": "kyi",
+    "owner": "com/bitwig/flt/document/core/master/jwx"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "141407244e703d7c8b3dbace229f4624a42485c6c34cdcef495a76b48a315980",
+   "bodyDigestOld": "348a832bb129227339f9e6159ed1b4d90e79bcc446b312e7e0c224634fc2bff1",
+   "comparator": "contract",
+   "diff": {
+    "blockCount": 1,
+    "blocks": [
+     [
+      "insert",
+      98,
+      98,
+      98,
+      100
+     ]
+    ],
+    "tokens": [
+     {
+      "position": 98,
+      "side": "new",
+      "token": [
+       42,
+       []
+      ]
+     },
+     {
+      "position": 99,
+      "side": "new",
+      "token": [
+       182,
+       [
+        10,
+        "self",
+        "member-23",
+        "()V"
+       ],
+       []
+      ]
+     }
+    ],
+    "tokensOnlyNew": 2,
+    "tokensOnlyOld": 0,
+    "tokensTruncated": false
+   },
+   "digestNew": "3c44a12f6bc8b187fe47fd8c0c325de95d3f2a9749bc2118f659cefd8b70b34b",
+   "digestOld": "ad80296b41377e3898a3071f4a2ca0ba845c3d3403c766890c53fe3a10585711",
+   "flagsNew": 2,
+   "flagsOld": 2,
+   "handlersNew": 1,
+   "handlersOld": 1,
+   "how": "call-at:validation-entry@1",
+   "instructionsNew": 101,
+   "instructionsOld": 99,
+   "label": "validation",
+   "new": {
+    "descriptor": "()V",
+    "name": "ODA",
+    "owner": "com/bitwig/flt/document/core/master/Kiy"
+   },
+   "old": {
+    "descriptor": "()V",
+    "name": "zVi",
+    "owner": "com/bitwig/flt/document/core/master/jwx"
+   },
+   "result": "changed-body",
+   "source": "command-closure",
+   "storedBodyEqual": false
+  },
+  {
+   "bodyDigestNew": "3cbb1e6facf6ac329714c95f48e5cf0a1f2f671d512aef2fac572aa02e7139d8",
+   "bodyDigestOld": "3cbb1e6facf6ac329714c95f48e5cf0a1f2f671d512aef2fac572aa02e7139d8",
+   "comparator": "contract",
+   "digestNew": "96260027eb9b12398a55ef3fc24079732626a94c7ae33a90507018178aeda932",
+   "digestOld": "96260027eb9b12398a55ef3fc24079732626a94c7ae33a90507018178aeda932",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:validation@206:equal-opcode-prefix",
+   "instructionsNew": 29,
+   "instructionsOld": 29,
+   "label": "validation-project",
+   "new": {
+    "descriptor": "()V",
+    "name": "zab",
+    "owner": "com/bitwig/flt/document/core/master/g2L"
+   },
+   "old": {
+    "descriptor": "()V",
+    "name": "Oqt",
+    "owner": "com/bitwig/flt/document/core/master/Svr"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "b33f4cd905ad4b95ec3919d8ccfe0fa7fe09f7c705660e5e7062c52cccefeaca",
+   "bodyDigestOld": "b33f4cd905ad4b95ec3919d8ccfe0fa7fe09f7c705660e5e7062c52cccefeaca",
+   "comparator": "contract",
+   "digestNew": "ddde7859721342922158dc1fdd8c02857f281108e761e10759b75cb66200f560",
+   "digestOld": "ddde7859721342922158dc1fdd8c02857f281108e761e10759b75cb66200f560",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:validation-project@22",
+   "instructionsNew": 3,
+   "instructionsOld": 3,
+   "label": "validation-setting",
+   "new": {
+    "descriptor": "()LAQw;",
+    "name": "TMF",
+    "owner": "com/bitwig/flt/document/core/master/Kiy"
+   },
+   "old": {
+    "descriptor": "()LPZ1;",
+    "name": "wi2",
+    "owner": "com/bitwig/flt/document/core/master/jwx"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "2f080217a61dc24e8076b846af62d0379a71ccba77902ec6aec692aab8ef81ea",
+   "bodyDigestOld": "2f080217a61dc24e8076b846af62d0379a71ccba77902ec6aec692aab8ef81ea",
+   "comparator": "contract",
+   "digestNew": "b812792d6914cba6e49bca145195cb3c8b04febbdd6d5e9c11dccd63649efe71",
+   "digestOld": "b812792d6914cba6e49bca145195cb3c8b04febbdd6d5e9c11dccd63649efe71",
+   "flagsNew": 2,
+   "flagsOld": 2,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:validation@193:equal-opcode-prefix",
+   "instructionsNew": 5,
+   "instructionsOld": 5,
+   "label": "validation-set-a",
+   "new": {
+    "descriptor": "(Z)V",
+    "name": "MRY",
+    "owner": "com/bitwig/flt/document/core/master/Kiy"
+   },
+   "old": {
+    "descriptor": "(Z)V",
+    "name": "eOi",
+    "owner": "com/bitwig/flt/document/core/master/jwx"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "4704341731e14a99a58e0a7774fb7ac36e4c05480fad8dd722f5ebf63a9fe89d",
+   "bodyDigestOld": "4704341731e14a99a58e0a7774fb7ac36e4c05480fad8dd722f5ebf63a9fe89d",
+   "comparator": "contract",
+   "digestNew": "32d3fece870b57913133a1a89b622612da5ca43e0a0e9841ac14c861c734ae48",
+   "digestOld": "32d3fece870b57913133a1a89b622612da5ca43e0a0e9841ac14c861c734ae48",
+   "flagsNew": 2,
+   "flagsOld": 2,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:validation@170:equal-opcode-prefix",
+   "instructionsNew": 6,
+   "instructionsOld": 6,
+   "label": "validation-set-b",
+   "new": {
+    "descriptor": "(Z)V",
+    "name": "cfM",
+    "owner": "com/bitwig/flt/document/core/master/Kiy"
+   },
+   "old": {
+    "descriptor": "(Z)V",
+    "name": "ffA",
+    "owner": "com/bitwig/flt/document/core/master/jwx"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "91ee6ef3b1277f125074dcf9edead6b65dda872b845c61f23655fcadddedaabe",
+   "bodyDigestOld": "91ee6ef3b1277f125074dcf9edead6b65dda872b845c61f23655fcadddedaabe",
+   "comparator": "contract",
+   "digestNew": "ca244ec99567309c04abf25d052e28ed413465c3476bc863a2cb1132ebdc1c0c",
+   "digestOld": "ca244ec99567309c04abf25d052e28ed413465c3476bc863a2cb1132ebdc1c0c",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:validation-set-a@5",
+   "instructionsNew": 19,
+   "instructionsOld": 19,
+   "label": "setting-write",
+   "new": {
+    "descriptor": "(Z)V",
+    "name": "setBoolValue",
+    "owner": "bDS"
+   },
+   "old": {
+    "descriptor": "(Z)V",
+    "name": "setBoolValue",
+    "owner": "Gus"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "859561644919883a903414700520d9c93df8f4cf5868c6038b62de8a72580f46",
+   "bodyDigestOld": "859561644919883a903414700520d9c93df8f4cf5868c6038b62de8a72580f46",
+   "comparator": "contract",
+   "digestNew": "0a60be00b54939b024d85161c616d043e28513c1f155af9e3b7ccd40dedab3b0",
+   "digestOld": "0a60be00b54939b024d85161c616d043e28513c1f155af9e3b7ccd40dedab3b0",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "unique-fingerprint",
+   "instructionsNew": 66,
+   "instructionsOld": 66,
+   "label": "pending-run",
+   "new": {
+    "descriptor": "()V",
+    "name": "ucQ",
+    "owner": "dfI"
+   },
+   "old": {
+    "descriptor": "()V",
+    "name": "VoD",
+    "owner": "cZl"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "ce232fea0a789ccafa215acfc8897ad00a91b3d86fb5faddf2d7acda3ad7548d",
+   "bodyDigestOld": "6d2d29890f8707109215a46523ba41b0061b876222a66173eabd8bfc52eba1b8",
+   "comparator": "contract",
+   "diff": {
+    "blockCount": 7,
+    "blocks": [
+     [
+      "insert",
+      4,
+      4,
+      4,
+      18
+     ],
+     [
+      "replace",
+      27,
+      28,
+      41,
+      42
+     ],
+     [
+      "replace",
+      34,
+      35,
+      48,
+      49
+     ],
+     [
+      "replace",
+      38,
+      39,
+      52,
+      53
+     ],
+     [
+      "replace",
+      41,
+      42,
+      55,
+      56
+     ],
+     [
+      "replace",
+      48,
+      49,
+      62,
+      63
+     ],
+     [
+      "replace",
+      50,
+      51,
+      64,
+      65
+     ]
+    ],
+    "tokens": [
+     {
+      "position": 4,
+      "side": "new",
+      "token": [
+       184,
+       [
+        10,
+        "type-1",
+        "member-2",
+        "(Z)Z"
+       ],
+       []
+      ]
+     },
+     {
+      "position": 5,
+      "side": "new",
+      "token": [
+       154,
+       5
+      ]
+     },
+     {
+      "position": 6,
+      "side": "new",
+      "token": [
+       187,
+       [
+        "type",
+        "java/lang/AssertionError"
+       ],
+       []
+      ]
+     },
+     {
+      "position": 7,
+      "side": "new",
+      "token": [
+       89,
+       []
+      ]
+     },
+     {
+      "position": 8,
+      "side": "new",
+      "token": [
+       183,
+       [
+        10,
+        "java/lang/AssertionError",
+        "<init>",
+        "()V"
+       ],
+       []
+      ]
+     },
+     {
+      "position": 9,
+      "side": "new",
+      "token": [
+       191,
+       []
+      ]
+     },
+     {
+      "position": 10,
+      "side": "new",
+      "token": [
+       178,
+       [
+        9,
+        "self",
+        "member-0",
+        "Z"
+       ],
+       []
+      ]
+     },
+     {
+      "position": 11,
+      "side": "new",
+      "token": [
+       154,
+       13
+      ]
+     },
+     {
+      "position": 12,
+      "side": "new",
+      "token": [
+       42,
+       []
+      ]
+     },
+     {
+      "position": 13,
+      "side": "new",
+      "token": [
+       180,
+       [
+        9,
+        "self",
+        "member-3",
+        "Ltype-2;"
+       ],
+       []
+      ]
+     },
+     {
+      "position": 14,
+      "side": "new",
+      "token": [
+       199,
+       3
+      ]
+     },
+     {
+      "position": 15,
+      "side": "new",
+      "token": [
+       4,
+       []
+      ]
+     },
+     {
+      "position": 16,
+      "side": "new",
+      "token": [
+       167,
+       2
+      ]
+     },
+     {
+      "position": 17,
+      "side": "new",
+      "token": [
+       3,
+       []
+      ]
+     },
+     {
+      "position": 27,
+      "side": "old",
+      "token": [
+       182,
+       [
+        10,
+        "self",
+        "member-3",
+        "(Ljava/lang/Runnable;)Z"
+       ],
+       []
+      ]
+     },
+     {
+      "position": 41,
+      "side": "new",
+      "token": [
+       182,
+       [
+        10,
+        "self",
+        "member-4",
+        "(Ljava/lang/Runnable;)Z"
+       ],
+       []
+      ]
+     }
+    ],
+    "tokensOnlyNew": 20,
+    "tokensOnlyOld": 6,
+    "tokensTruncated": true
+   },
+   "digestNew": "40c2411422b37eb93c7ea27e07e0f102013f93b9ed160806a55ab526125cfdc6",
+   "digestOld": "a9d78db45c436b2b8933569f3eb6b2ae95c3a90bcb3a7f2930fc910e3bd70cf2",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "unique-allocator-of:pending-record",
+   "instructionsNew": 66,
+   "instructionsOld": 52,
+   "label": "pending-add",
+   "new": {
+    "descriptor": "(Ljava/lang/Runnable;Z)V",
+    "name": "cfM",
+    "owner": "dfI"
+   },
+   "old": {
+    "descriptor": "(Ljava/lang/Runnable;Z)V",
+    "name": "ffA",
+    "owner": "cZl"
+   },
+   "result": "changed-body",
+   "source": "command-closure",
+   "storedBodyEqual": false
+  },
+  {
+   "bodyDigestNew": "e0a10b09debf9c22d5202ad926e4a0cd9a38774050e8cb9f95725db74ff19ad4",
+   "bodyDigestOld": "e0a10b09debf9c22d5202ad926e4a0cd9a38774050e8cb9f95725db74ff19ad4",
+   "comparator": "contract",
+   "digestNew": "98df538e229fd1f2e1afc96b9ba68c6bb098379d8458fae6c68d02278c3d4864",
+   "digestOld": "98df538e229fd1f2e1afc96b9ba68c6bb098379d8458fae6c68d02278c3d4864",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:pending-run@123",
+   "instructionsNew": 21,
+   "instructionsOld": 21,
+   "label": "pending-record",
+   "new": {
+    "descriptor": "()V",
+    "name": "cfM",
+    "owner": "dfP"
+   },
+   "old": {
+    "descriptor": "()V",
+    "name": "ffA",
+    "owner": "cZr"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "a79fc067cf481c89395d68817a62aeb04727aca52b9622a6e4bb0191f80ade7c",
+   "bodyDigestOld": "a79fc067cf481c89395d68817a62aeb04727aca52b9622a6e4bb0191f80ade7c",
+   "comparator": "contract",
+   "digestNew": "27898a8b1c9849100d6bd12d2de1b864f64f70f108582a572f5a0e69fb3d5154",
+   "digestOld": "27898a8b1c9849100d6bd12d2de1b864f64f70f108582a572f5a0e69fb3d5154",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "role-table:undo-command",
+   "instructionsNew": 34,
+   "instructionsOld": 34,
+   "label": "undo",
+   "new": {
+    "descriptor": "()V",
+    "name": "tp2",
+    "owner": "dfI"
+   },
+   "old": {
+    "descriptor": "()V",
+    "name": "OTd",
+    "owner": "cZl"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "2bd1739056e310163e91f838a9f64018ccf2ef2ad26d7beb8681eb62f77799cb",
+   "bodyDigestOld": "2bd1739056e310163e91f838a9f64018ccf2ef2ad26d7beb8681eb62f77799cb",
+   "comparator": "contract",
+   "digestNew": "271cf9d03236ed66ac3a515f7c8423f86ee022dc4f3efe0d4455358e65a79bdd",
+   "digestOld": "271cf9d03236ed66ac3a515f7c8423f86ee022dc4f3efe0d4455358e65a79bdd",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:undo@59",
+   "instructionsNew": 126,
+   "instructionsOld": 126,
+   "label": "journal-undo",
+   "new": {
+    "descriptor": "()V",
+    "name": "lYc",
+    "owner": "dhu"
+   },
+   "old": {
+    "descriptor": "()V",
+    "name": "wi2",
+    "owner": "daR"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "568d6290db52e0b281146977d878aa62c2848f1f88d4a70a9693f6292fa885a8",
+   "bodyDigestOld": "568d6290db52e0b281146977d878aa62c2848f1f88d4a70a9693f6292fa885a8",
+   "comparator": "dynamic-contract",
+   "digestNew": "012980ad5be7b34ba6731b28d0903ffb7129623aa2f597a93eb532b4d7c4e27a",
+   "digestOld": "012980ad5be7b34ba6731b28d0903ffb7129623aa2f597a93eb532b4d7c4e27a",
+   "flagsNew": 0,
+   "flagsOld": 0,
+   "handlersNew": 1,
+   "handlersOld": 1,
+   "how": "call-at:journal-undo@180",
+   "instructionsNew": 86,
+   "instructionsOld": 86,
+   "label": "replay-undo",
+   "new": {
+    "descriptor": "()V",
+    "name": "LaE",
+    "owner": "dfT"
+   },
+   "old": {
+    "descriptor": "()V",
+    "name": "eJS",
+    "owner": "cZv"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "74f85ab828fc8a17f4d98035456599034dc4779039d8b8732eb85ed5cfdfd58c",
+   "bodyDigestOld": "74f85ab828fc8a17f4d98035456599034dc4779039d8b8732eb85ed5cfdfd58c",
+   "comparator": "dynamic-contract",
+   "digestNew": "36834bfe13bb08b09ad025939f1dc4b587ecfd2d237bd2c68df2070e75a961f9",
+   "digestOld": "36834bfe13bb08b09ad025939f1dc4b587ecfd2d237bd2c68df2070e75a961f9",
+   "flagsNew": 0,
+   "flagsOld": 0,
+   "handlersNew": 1,
+   "handlersOld": 1,
+   "how": "unique-fingerprint",
+   "instructionsNew": 69,
+   "instructionsOld": 69,
+   "label": "replay-redo",
+   "new": {
+    "descriptor": "()V",
+    "name": "Grk",
+    "owner": "dfT"
+   },
+   "old": {
+    "descriptor": "()V",
+    "name": "hhJ",
+    "owner": "cZv"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "2fed7ab8d973bc7b027fb350dae48eb66b5b56807ff29231dc1a85fcb23bae67",
+   "bodyDigestOld": "2fed7ab8d973bc7b027fb350dae48eb66b5b56807ff29231dc1a85fcb23bae67",
+   "comparator": "dynamic-contract",
+   "digestNew": "d8b588fa39527d1d4fe9d7e6b736e6465de46af7e77ba4d0aff8c564fe244b8f",
+   "digestOld": "d8b588fa39527d1d4fe9d7e6b736e6465de46af7e77ba4d0aff8c564fe244b8f",
+   "flagsNew": 2,
+   "flagsOld": 2,
+   "handlersNew": 1,
+   "handlersOld": 1,
+   "how": "call-at:replay-undo@126",
+   "instructionsNew": 39,
+   "instructionsOld": 39,
+   "label": "replay-wait",
+   "new": {
+    "descriptor": "(Z)Ljava/util/List;",
+    "name": "MRY",
+    "owner": "dfT"
+   },
+   "old": {
+    "descriptor": "(Z)Ljava/util/List;",
+    "name": "eOi",
+    "owner": "cZv"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "a68297a068824b14b057afb2acc2dd76fe9ccdfa2d9e0b8effe13fd50fbab4ee",
+   "bodyDigestOld": "a68297a068824b14b057afb2acc2dd76fe9ccdfa2d9e0b8effe13fd50fbab4ee",
+   "comparator": "contract",
+   "digestNew": "3ee095c9357cfcc0a27cf78b266f1617fa94d542eedd5450484279ed68999e86",
+   "digestOld": "3ee095c9357cfcc0a27cf78b266f1617fa94d542eedd5450484279ed68999e86",
+   "flagsNew": 4098,
+   "flagsOld": 4098,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "unique-fingerprint",
+   "instructionsNew": 7,
+   "instructionsOld": 7,
+   "label": "replay-worker",
+   "new": {
+    "descriptor": "(Ljava/util/ArrayList;ZLjava/util/concurrent/Semaphore;)V",
+    "name": "cfM",
+    "owner": "dfT"
+   },
+   "old": {
+    "descriptor": "(Ljava/util/ArrayList;ZLjava/util/concurrent/Semaphore;)V",
+    "name": "ffA",
+    "owner": "cZv"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "611a34ce37d1652925acfd9716bcc2e8ed07a1a6b735659523453f47e7090eda",
+   "bodyDigestOld": "611a34ce37d1652925acfd9716bcc2e8ed07a1a6b735659523453f47e7090eda",
+   "comparator": "contract",
+   "digestNew": "90785a49d455ce32eed40673d284c2fdebbd9a658762b1dbaa45808a98c868d0",
+   "digestOld": "90785a49d455ce32eed40673d284c2fdebbd9a658762b1dbaa45808a98c868d0",
+   "flagsNew": 2,
+   "flagsOld": 2,
+   "handlersNew": 4,
+   "handlersOld": 4,
+   "how": "call-at:replay-worker@3",
+   "instructionsNew": 65,
+   "instructionsOld": 65,
+   "label": "replay-read",
+   "new": {
+    "descriptor": "(Ljava/util/ArrayList;Z)V",
+    "name": "cfM",
+    "owner": "dfT"
+   },
+   "old": {
+    "descriptor": "(Ljava/util/ArrayList;Z)V",
+    "name": "ffA",
+    "owner": "cZv"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "c4ba7e2e528d6d0caa18418547115bcfd8cb4ab165bfd6323c2457e2917385e4",
+   "bodyDigestOld": "c4ba7e2e528d6d0caa18418547115bcfd8cb4ab165bfd6323c2457e2917385e4",
+   "comparator": "contract",
+   "digestNew": "2e3116ef6278de1e1db4810e0b907dad88c5b37922d57ff8fcefb828ed2692b1",
+   "digestOld": "2e3116ef6278de1e1db4810e0b907dad88c5b37922d57ff8fcefb828ed2692b1",
+   "flagsNew": 16,
+   "flagsOld": 16,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:replay-wait@58",
+   "instructionsNew": 19,
+   "instructionsOld": 19,
+   "label": "worker-submit",
+   "new": {
+    "descriptor": "(Ljava/lang/Runnable;)V",
+    "name": "cfM",
+    "owner": "dfI"
+   },
+   "old": {
+    "descriptor": "(Ljava/lang/Runnable;)V",
+    "name": "ffA",
+    "owner": "cZl"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "57d1a520b0bc54dc113e9d135e095735c2111f6ceb59013d8aa1ccc867b5c8eb",
+   "bodyDigestOld": "57d1a520b0bc54dc113e9d135e095735c2111f6ceb59013d8aa1ccc867b5c8eb",
+   "comparator": "contract",
+   "digestNew": "45aa22fc59760aff771d6c523af1ddb10ea18d2c25aa93086b398e9c72c2a1f9",
+   "digestOld": "45aa22fc59760aff771d6c523af1ddb10ea18d2c25aa93086b398e9c72c2a1f9",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 1,
+   "handlersOld": 1,
+   "how": "call-at:worker-submit@37",
+   "instructionsNew": 23,
+   "instructionsOld": 23,
+   "label": "executor-put",
+   "new": {
+    "descriptor": "(Ljava/lang/Runnable;)V",
+    "name": "a_",
+    "owner": "AUY"
+   },
+   "old": {
+    "descriptor": "(Ljava/lang/Runnable;)V",
+    "name": "a_",
+    "owner": "hqz"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "a794654218dbd3c80ca75acfcd1ea68e2264a547ef01834e95508dbd4d9126e2",
+   "bodyDigestOld": "a794654218dbd3c80ca75acfcd1ea68e2264a547ef01834e95508dbd4d9126e2",
+   "comparator": "contract",
+   "digestNew": "6b5d9b4b6e11e386368421e6713bbaddce9333d0a961e428b50304f8ef3b923d",
+   "digestOld": "6b5d9b4b6e11e386368421e6713bbaddce9333d0a961e428b50304f8ef3b923d",
+   "flagsNew": 9,
+   "flagsOld": 9,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:pending-run@61",
+   "instructionsNew": 7,
+   "instructionsOld": 7,
+   "label": "debug-enter",
+   "new": {
+    "descriptor": "()V",
+    "name": "SQN",
+    "owner": "dfI"
+   },
+   "old": {
+    "descriptor": "()V",
+    "name": "IeI",
+    "owner": "cZl"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "a794654218dbd3c80ca75acfcd1ea68e2264a547ef01834e95508dbd4d9126e2",
+   "bodyDigestOld": "a794654218dbd3c80ca75acfcd1ea68e2264a547ef01834e95508dbd4d9126e2",
+   "comparator": "contract",
+   "digestNew": "6b5d9b4b6e11e386368421e6713bbaddce9333d0a961e428b50304f8ef3b923d",
+   "digestOld": "6b5d9b4b6e11e386368421e6713bbaddce9333d0a961e428b50304f8ef3b923d",
+   "flagsNew": 9,
+   "flagsOld": 9,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:pending-run@132",
+   "instructionsNew": 7,
+   "instructionsOld": 7,
+   "label": "debug-exit",
+   "new": {
+    "descriptor": "()V",
+    "name": "Esj",
+    "owner": "dfI"
+   },
+   "old": {
+    "descriptor": "()V",
+    "name": "xFs",
+    "owner": "cZl"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "a794654218dbd3c80ca75acfcd1ea68e2264a547ef01834e95508dbd4d9126e2",
+   "bodyDigestOld": "a794654218dbd3c80ca75acfcd1ea68e2264a547ef01834e95508dbd4d9126e2",
+   "comparator": "contract",
+   "digestNew": "6b5d9b4b6e11e386368421e6713bbaddce9333d0a961e428b50304f8ef3b923d",
+   "digestOld": "6b5d9b4b6e11e386368421e6713bbaddce9333d0a961e428b50304f8ef3b923d",
+   "flagsNew": 9,
+   "flagsOld": 9,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:opener@29",
+   "instructionsNew": 7,
+   "instructionsOld": 7,
+   "label": "debug-begin",
+   "new": {
+    "descriptor": "()V",
+    "name": "z3I",
+    "owner": "dfI"
+   },
+   "old": {
+    "descriptor": "()V",
+    "name": "RCa",
+    "owner": "cZl"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "01ca22fcbafdedee4378596bb3d931cd298bd7200355eca1f3713dd448cb46de",
+   "bodyDigestOld": "01ca22fcbafdedee4378596bb3d931cd298bd7200355eca1f3713dd448cb46de",
+   "comparator": "contract",
+   "digestNew": "ccde7ff5a3f2d986f5cc108c547d715ed59f5b82b758da9e5bef818a8d754710",
+   "digestOld": "ccde7ff5a3f2d986f5cc108c547d715ed59f5b82b758da9e5bef818a8d754710",
+   "flagsNew": 0,
+   "flagsOld": 0,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:debug-begin@15",
+   "instructionsNew": 17,
+   "instructionsOld": 17,
+   "label": "debug-check",
+   "new": {
+    "descriptor": "()V",
+    "name": "UNj",
+    "owner": "dfQ"
+   },
+   "old": {
+    "descriptor": "()V",
+    "name": "kyi",
+    "owner": "cZs"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "c63bddf99e706390732cc987cdf702145f4c8c855be8d62af0c60d0e9e333540",
+   "bodyDigestOld": "c63bddf99e706390732cc987cdf702145f4c8c855be8d62af0c60d0e9e333540",
+   "comparator": "contract",
+   "digestNew": "1835f0f5a8a016aacd57a97bfa9baa15617491a3199c7e8429100e5f5d0e4a0b",
+   "digestOld": "1835f0f5a8a016aacd57a97bfa9baa15617491a3199c7e8429100e5f5d0e4a0b",
+   "flagsNew": 4,
+   "flagsOld": 4,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "fingerprint-in-owner-of:context-pump",
+   "instructionsNew": 14,
+   "instructionsOld": 14,
+   "label": "context-drain",
+   "new": {
+    "descriptor": "()V",
+    "name": "E3",
+    "owner": "dqr"
+   },
+   "old": {
+    "descriptor": "()V",
+    "name": "QiZ",
+    "owner": "diY"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "c010fbc28f64f901e26db1d34abaf224288204fce75b6ed1089a385143789e29",
+   "bodyDigestOld": "c010fbc28f64f901e26db1d34abaf224288204fce75b6ed1089a385143789e29",
+   "comparator": "contract",
+   "digestNew": "2761ab2853735e2ea2e7fd7c5f29aa92e98f9b25a0afa7661df41887e92629bb",
+   "digestOld": "2761ab2853735e2ea2e7fd7c5f29aa92e98f9b25a0afa7661df41887e92629bb",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "call-at:context-drain@28",
+   "instructionsNew": 125,
+   "instructionsOld": 125,
+   "label": "event-drain",
+   "new": {
+    "descriptor": "()V",
+    "name": "Hnt",
+    "owner": "WWV"
+   },
+   "old": {
+    "descriptor": "()V",
+    "name": "cG3",
+    "owner": "Wjn"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "cdbaf267fd0321313e2f41c24b9b9d490717832ec4f7f98edc80011ef6b7fbe0",
+   "bodyDigestOld": "cdbaf267fd0321313e2f41c24b9b9d490717832ec4f7f98edc80011ef6b7fbe0",
+   "comparator": "contract",
+   "digestNew": "d3f58975bfca1c65b769f73f91a5ad67b66446c3b5f1124bdabbf0901b602601",
+   "digestOld": "d3f58975bfca1c65b769f73f91a5ad67b66446c3b5f1124bdabbf0901b602601",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "unique-fingerprint",
+   "instructionsNew": 32,
+   "instructionsOld": 32,
+   "label": "context-pump",
+   "new": {
+    "descriptor": "()V",
+    "name": "UNj",
+    "owner": "dqr"
+   },
+   "old": {
+    "descriptor": "()V",
+    "name": "kyi",
+    "owner": "diY"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "6667965f04473056fcf5a8c48bb27bc633ec0a33d6786120febd28b1f5d3778f",
+   "bodyDigestOld": "6667965f04473056fcf5a8c48bb27bc633ec0a33d6786120febd28b1f5d3778f",
+   "comparator": "contract",
+   "digestNew": "d6874bcc81e3c98ff68459f9ec97a51f1ff43c67ed19f4c5888eb6f9b0c08848",
+   "digestOld": "d6874bcc81e3c98ff68459f9ec97a51f1ff43c67ed19f4c5888eb6f9b0c08848",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 1,
+   "handlersOld": 1,
+   "how": "unique-fingerprint",
+   "instructionsNew": 176,
+   "instructionsOld": 176,
+   "label": "event-dispatch",
+   "new": {
+    "descriptor": "(LeoG;)V",
+    "name": "MRY",
+    "owner": "dpN"
+   },
+   "old": {
+    "descriptor": "(Lehs;)V",
+    "name": "eOi",
+    "owner": "div"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "7befef5b17d38bf43ec2be34737de346dec4b88cd4f62e6e59ea3d48768b557e",
+   "bodyDigestOld": "7befef5b17d38bf43ec2be34737de346dec4b88cd4f62e6e59ea3d48768b557e",
+   "comparator": "contract",
+   "digestNew": "4d8cb2399adac4589ed7d4c5f8b64a4cedefcd246fc7a46c26157eda7f282f55",
+   "digestOld": "4d8cb2399adac4589ed7d4c5f8b64a4cedefcd246fc7a46c26157eda7f282f55",
+   "flagsNew": 20,
+   "flagsOld": 20,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "unobfuscated-same-key",
+   "instructionsNew": 34,
+   "instructionsOld": 34,
+   "label": "surface-exec",
+   "new": {
+    "descriptor": "(Ljava/lang/Runnable;)V",
+    "name": "exec",
+    "owner": "com/bitwig/flt/control_surface/proxy/ControlSurfaceObject"
+   },
+   "old": {
+    "descriptor": "(Ljava/lang/Runnable;)V",
+    "name": "exec",
+    "owner": "com/bitwig/flt/control_surface/proxy/ControlSurfaceObject"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "8d72edeeffdcb18bf84c65373af2a0fcc7ff99c1660b06dd42eceeb9839750c4",
+   "bodyDigestOld": "8d72edeeffdcb18bf84c65373af2a0fcc7ff99c1660b06dd42eceeb9839750c4",
+   "comparator": "contract",
+   "digestNew": "14260878f25f6476a5de1becc4838057310b8ae4962de2d2b3520706ddcd8d74",
+   "digestOld": "14260878f25f6476a5de1becc4838057310b8ae4962de2d2b3520706ddcd8d74",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "unobfuscated-same-key",
+   "instructionsNew": 5,
+   "instructionsOld": 5,
+   "label": "surface-document-thread",
+   "new": {
+    "descriptor": "()Z",
+    "name": "isDocumentThread",
+    "owner": "com/bitwig/flt/control_surface/proxy/ControlSurfaceObject"
+   },
+   "old": {
+    "descriptor": "()Z",
+    "name": "isDocumentThread",
+    "owner": "com/bitwig/flt/control_surface/proxy/ControlSurfaceObject"
+   },
+   "result": "same-body",
+   "source": "command-closure",
+   "storedBodyEqual": true
+  },
+  {
+   "bodyDigestNew": "e69c2c628ab9ad365d27c4bc5dabdd39a620a52d5079bbaaae07c4ef6730bc1b",
+   "bodyDigestOld": "3a0a70e19a0fb2b8c61a80f5a4756f5c3a79d43e282f2a510ecf0fecde48f380",
+   "comparator": "contract",
+   "diff": {
+    "blockCount": 7,
+    "blocks": [
+     [
+      "insert",
+      13,
+      13,
+      13,
+      15
+     ],
+     [
+      "replace",
+      14,
+      15,
+      16,
+      20
+     ],
+     [
+      "insert",
+      26,
+      26,
+      31,
+      48
+     ],
+     [
+      "replace",
+      27,
+      30,
+      49,
+      51
+     ],
+     [
+      "replace",
+      38,
+      40,
+      59,
+      60
+     ],
+     [
+      "insert",
+      43,
+      43,
+      63,
+      69
+     ],
+     [
+      "insert",
+      44,
+      44,
+      70,
+      80
+     ]
+    ],
+    "tokens": [
+     {
+      "position": 13,
+      "side": "new",
+      "token": [
+       184,
+       [
+        10,
+        "type-3",
+        "member-2",
+        "()Z"
+       ],
+       []
+      ]
+     },
+     {
+      "position": 14,
+      "side": "new",
+      "token": [
+       153,
+       4
+      ]
+     },
+     {
+      "position": 14,
+      "side": "old",
+      "token": [
+       180,
+       [
+        9,
+        "self",
+        "member-2",
+        "Ljava/util/List;"
+       ],
+       []
+      ]
+     },
+     {
+      "position": 16,
+      "side": "new",
+      "token": [
+       43,
+       []
+      ]
+     },
+     {
+      "position": 17,
+      "side": "new",
+      "token": [
+       184,
+       [
+        10,
+        "type-3",
+        "member-3",
+        "(Ljava/lang/Object;Ljava/lang/Object;)V"
+       ],
+       []
+      ]
+     },
+     {
+      "position": 18,
+      "side": "new",
+      "token": [
+       42,
+       []
+      ]
+     },
+     {
+      "position": 19,
+      "side": "new",
+      "token": [
+       180,
+       [
+        9,
+        "self",
+        "member-4",
+        "Ljava/lang/Object;"
+       ],
+       []
+      ]
+     },
+     {
+      "position": 31,
+      "side": "new",
+      "token": [
+       42,
+       []
+      ]
+     },
+     {
+      "position": 32,
+      "side": "new",
+      "token": [
+       180,
+       [
+        9,
+        "self",
+        "member-4",
+        "Ljava/lang/Object;"
+       ],
+       []
+      ]
+     },
+     {
+      "position": 33,
+      "side": "new",
+      "token": [
+       43,
+       []
+      ]
+     },
+     {
+      "position": 34,
+      "side": "new",
+      "token": [
+       166,
+       5
+      ]
+     },
+     {
+      "position": 35,
+      "side": "new",
+      "token": [
+       42,
+       []
+      ]
+     },
+     {
+      "position": 36,
+      "side": "new",
+      "token": [
+       1,
+       []
+      ]
+     },
+     {
+      "position": 37,
+      "side": "new",
+      "token": [
+       181,
+       [
+        9,
+        "self",
+        "member-4",
+        "Ljava/lang/Object;"
+       ],
+       []
+      ]
+     },
+     {
+      "position": 38,
+      "side": "new",
+      "token": [
+       177,
+       []
+      ]
+     },
+     {
+      "position": 39,
+      "side": "new",
+      "token": [
+       42,
+       []
+      ]
+     }
+    ],
+    "tokensOnlyNew": 42,
+    "tokensOnlyOld": 6,
+    "tokensTruncated": true
+   },
+   "digestNew": "f5b2764b5d8da6485f67e4ed40fc9f289dae230adab314d33bd565906683eb98",
+   "digestOld": "a89f7667111830a367140eb4b27e9169829df751f4d800deaff0a1a9018956c7",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "removal-method",
+   "instructionsNew": 80,
+   "instructionsOld": 44,
+   "label": "listener-removal",
+   "new": {
+    "descriptor": "(Lfoz;)V",
+    "name": "removeListener",
+    "owner": "TT"
+   },
+   "old": {
+    "descriptor": "(LNpn;)V",
+    "name": "removeListener",
+    "owner": "rHF"
+   },
+   "result": "changed-body",
+   "source": "collection-conditions"
+  },
+  {
+   "bodyDigestNew": "5fbba83f9487acc33ee1ded92c0111885ee0754445af39d5a7fdbf4cb43c9716",
+   "bodyDigestOld": "bdd61390d852e05cae1bd72e21cdb42c2eeb6ad66546c21aa67c26dc9f18ae40",
+   "comparator": "contract",
+   "diff": {
+    "blockCount": 10,
+    "blocks": [
+     [
+      "replace",
+      15,
+      16,
+      15,
+      16
+     ],
+     [
+      "replace",
+      18,
+      19,
+      18,
+      19
+     ],
+     [
+      "replace",
+      22,
+      23,
+      22,
+      23
+     ],
+     [
+      "replace",
+      26,
+      27,
+      26,
+      27
+     ],
+     [
+      "replace",
+      31,
+      32,
+      31,
+      32
+     ],
+     [
+      "insert",
+      42,
+      42,
+      42,
+      44
+     ],
+     [
+      "replace",
+      44,
+      45,
+      46,
+      61
+     ],
+     [
+      "replace",
+      50,
+      51,
+      66,
+      67
+     ],
+     [
+      "replace",
+      53,
+      54,
+      69,
+      70
+     ],
+     [
+      "replace",
+      59,
+      60,
+      75,
+      90
+     ]
+    ],
+    "tokens": [
+     {
+      "position": 15,
+      "side": "old",
+      "token": [
+       154,
+       45
+      ]
+     },
+     {
+      "position": 15,
+      "side": "new",
+      "token": [
+       154,
+       61
+      ]
+     },
+     {
+      "position": 18,
+      "side": "old",
+      "token": [
+       153,
+       36
+      ]
+     },
+     {
+      "position": 18,
+      "side": "new",
+      "token": [
+       153,
+       52
+      ]
+     },
+     {
+      "position": 22,
+      "side": "old",
+      "token": [
+       154,
+       29
+      ]
+     },
+     {
+      "position": 22,
+      "side": "new",
+      "token": [
+       154,
+       45
+      ]
+     },
+     {
+      "position": 26,
+      "side": "old",
+      "token": [
+       154,
+       25
+      ]
+     },
+     {
+      "position": 26,
+      "side": "new",
+      "token": [
+       154,
+       41
+      ]
+     },
+     {
+      "position": 31,
+      "side": "old",
+      "token": [
+       154,
+       20
+      ]
+     },
+     {
+      "position": 31,
+      "side": "new",
+      "token": [
+       154,
+       36
+      ]
+     },
+     {
+      "position": 42,
+      "side": "new",
+      "token": [
+       21,
+       [
+        5
+       ]
+      ]
+     },
+     {
+      "position": 43,
+      "side": "new",
+      "token": [
+       153,
+       15
+      ]
+     },
+     {
+      "position": 44,
+      "side": "old",
+      "token": [
+       182,
+       [
+        10,
+        "type-4",
+        "member-11",
+        "()Ltype-8;"
+       ],
+       []
+      ]
+     },
+     {
+      "position": 46,
+      "side": "new",
+      "token": [
+       180,
+       [
+        9,
+        "type-4",
+        "member-11",
+        "Ljava/util/Set;"
+       ],
+       []
+      ]
+     },
+     {
+      "position": 47,
+      "side": "new",
+      "token": [
+       45,
+       []
+      ]
+     },
+     {
+      "position": 48,
+      "side": "new",
+      "token": [
+       185,
+       [
+        11,
+        "java/util/Set",
+        "remove",
+        "(Ljava/lang/Object;)Z"
+       ],
+       [
+        2,
+        0
+       ]
+      ]
+     }
+    ],
+    "tokensOnlyNew": 39,
+    "tokensOnlyOld": 9,
+    "tokensTruncated": true
+   },
+   "digestNew": "c9e44bcc0ca72b48fdef9e0a5b9697321dc75724b295d74aad369d489875cc18",
+   "digestOld": "aa4fb5039db1c959943925c2ea400e2b56cdf2427c78658f7df321d907d67eed",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "migration-owner-and-hook-census",
+   "instructionsNew": 91,
+   "instructionsOld": 61,
+   "label": "hook-aboutToInsertItem",
+   "new": {
+    "descriptor": "(LdeT;Lcom/bitwig/ramona/core/oDc;Lcom/bitwig/ramona/core/oDc;I)V",
+    "name": "aboutToInsertItem",
+    "owner": "dfL"
+   },
+   "old": {
+    "descriptor": "(LcYy;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;I)V",
+    "name": "aboutToInsertItem",
+    "owner": "cZn"
+   },
+   "result": "changed-body",
+   "source": "relationship-hook"
+  },
+  {
+   "bodyDigestNew": "75275267572a31c6c56175f198978ee6274e87eb045a3934faa32b9da5758cce",
+   "bodyDigestOld": "d64a8f2d24adc7120ef87cacdf6fa6d8614eb9e0c861459cbfb3c0e02041db60",
+   "comparator": "contract",
+   "diff": {
+    "blockCount": 3,
+    "blocks": [
+     [
+      "delete",
+      6,
+      8,
+      6,
+      6
+     ],
+     [
+      "replace",
+      11,
+      12,
+      9,
+      18
+     ],
+     [
+      "insert",
+      43,
+      43,
+      49,
+      67
+     ]
+    ],
+    "tokens": [
+     {
+      "position": 6,
+      "side": "old",
+      "token": [
+       21,
+       [
+        6
+       ]
+      ]
+     },
+     {
+      "position": 7,
+      "side": "old",
+      "token": [
+       154,
+       36
+      ]
+     },
+     {
+      "position": 11,
+      "side": "old",
+      "token": [
+       166,
+       6
+      ]
+     },
+     {
+      "position": 9,
+      "side": "new",
+      "token": [
+       166,
+       3
+      ]
+     },
+     {
+      "position": 10,
+      "side": "new",
+      "token": [
+       4,
+       []
+      ]
+     },
+     {
+      "position": 11,
+      "side": "new",
+      "token": [
+       167,
+       2
+      ]
+     },
+     {
+      "position": 12,
+      "side": "new",
+      "token": [
+       3,
+       []
+      ]
+     },
+     {
+      "position": 13,
+      "side": "new",
+      "token": [
+       54,
+       [
+        7
+       ]
+      ]
+     },
+     {
+      "position": 14,
+      "side": "new",
+      "token": [
+       21,
+       [
+        6
+       ]
+      ]
+     },
+     {
+      "position": 15,
+      "side": "new",
+      "token": [
+       154,
+       34
+      ]
+     },
+     {
+      "position": 16,
+      "side": "new",
+      "token": [
+       21,
+       [
+        7
+       ]
+      ]
+     },
+     {
+      "position": 17,
+      "side": "new",
+      "token": [
+       153,
+       6
+      ]
+     },
+     {
+      "position": 49,
+      "side": "new",
+      "token": [
+       21,
+       [
+        6
+       ]
+      ]
+     },
+     {
+      "position": 50,
+      "side": "new",
+      "token": [
+       153,
+       11
+      ]
+     },
+     {
+      "position": 51,
+      "side": "new",
+      "token": [
+       21,
+       [
+        7
+       ]
+      ]
+     },
+     {
+      "position": 52,
+      "side": "new",
+      "token": [
+       153,
+       9
+      ]
+     }
+    ],
+    "tokensOnlyNew": 27,
+    "tokensOnlyOld": 3,
+    "tokensTruncated": true
+   },
+   "digestNew": "8dc8f5cba20f940be8fa1cf458503b14b04fa845871beed579966afc6fc9b735",
+   "digestOld": "333e247a19a183dd909cbbd3de56788fb9103ea066a26271116975f7a696cd2d",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "migration-owner-and-hook-census",
+   "instructionsNew": 68,
+   "instructionsOld": 44,
+   "label": "hook-aboutToRemoveItem",
+   "new": {
+    "descriptor": "(LdeT;Lcom/bitwig/ramona/core/oDc;Lcom/bitwig/ramona/core/oDc;IZ)V",
+    "name": "aboutToRemoveItem",
+    "owner": "dfL"
+   },
+   "old": {
+    "descriptor": "(LcYy;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;IZ)V",
+    "name": "aboutToRemoveItem",
+    "owner": "cZn"
+   },
+   "result": "changed-body",
+   "source": "relationship-hook"
+  },
+  {
+   "bodyDigestNew": "24ac815e7f0884c7ea7653b41f8d8a99711e664ab6707cbdf3d9c5e0df234c67",
+   "bodyDigestOld": "fd61269e60983e8d1e2904ef249f299be212366ef6f9a5d13cd07b956766697c",
+   "comparator": "contract",
+   "diff": {
+    "blockCount": 22,
+    "blocks": [
+     [
+      "delete",
+      0,
+      2,
+      0,
+      0
+     ],
+     [
+      "replace",
+      3,
+      11,
+      1,
+      3
+     ],
+     [
+      "insert",
+      15,
+      15,
+      7,
+      13
+     ],
+     [
+      "insert",
+      16,
+      16,
+      14,
+      27
+     ],
+     [
+      "insert",
+      17,
+      17,
+      28,
+      30
+     ],
+     [
+      "replace",
+      20,
+      21,
+      33,
+      34
+     ],
+     [
+      "replace",
+      26,
+      27,
+      39,
+      40
+     ],
+     [
+      "replace",
+      29,
+      30,
+      42,
+      43
+     ],
+     [
+      "replace",
+      31,
+      34,
+      44,
+      47
+     ],
+     [
+      "replace",
+      36,
+      37,
+      49,
+      50
+     ],
+     [
+      "replace",
+      39,
+      40,
+      52,
+      53
+     ],
+     [
+      "replace",
+      46,
+      49,
+      59,
+      62
+     ],
+     [
+      "replace",
+      50,
+      53,
+      63,
+      66
+     ],
+     [
+      "replace",
+      54,
+      59,
+      67,
+      72
+     ],
+     [
+      "replace",
+      63,
+      65,
+      76,
+      78
+     ],
+     [
+      "replace",
+      66,
+      67,
+      79,
+      80
+     ]
+    ],
+    "tokens": [
+     {
+      "position": 0,
+      "side": "old",
+      "token": [
+       42,
+       []
+      ]
+     },
+     {
+      "position": 1,
+      "side": "old",
+      "token": [
+       180,
+       [
+        9,
+        "self",
+        "member-0",
+        "Ltype-3;"
+       ],
+       []
+      ]
+     },
+     {
+      "position": 3,
+      "side": "old",
+      "token": [
+       44,
+       []
+      ]
+     },
+     {
+      "position": 4,
+      "side": "old",
+      "token": [
+       182,
+       [
+        10,
+        "type-3",
+        "member-1",
+        "(Ltype-4;Ltype-2;)Z"
+       ],
+       []
+      ]
+     },
+     {
+      "position": 5,
+      "side": "old",
+      "token": [
+       54,
+       [
+        5
+       ]
+      ]
+     },
+     {
+      "position": 6,
+      "side": "old",
+      "token": [
+       21,
+       [
+        5
+       ]
+      ]
+     },
+     {
+      "position": 7,
+      "side": "old",
+      "token": [
+       154,
+       83
+      ]
+     },
+     {
+      "position": 8,
+      "side": "old",
+      "token": [
+       43,
+       []
+      ]
+     },
+     {
+      "position": 9,
+      "side": "old",
+      "token": [
+       182,
+       [
+        10,
+        "type-1",
+        "member-2",
+        "()Ltype-5;"
+       ],
+       []
+      ]
+     },
+     {
+      "position": 10,
+      "side": "old",
+      "token": [
+       178,
+       [
+        9,
+        "type-5",
+        "member-3",
+        "Ltype-5;"
+       ],
+       []
+      ]
+     },
+     {
+      "position": 1,
+      "side": "new",
+      "token": [
+       182,
+       [
+        10,
+        "type-1",
+        "member-0",
+        "()Ltype-3;"
+       ],
+       []
+      ]
+     },
+     {
+      "position": 2,
+      "side": "new",
+      "token": [
+       178,
+       [
+        9,
+        "type-3",
+        "member-1",
+        "Ltype-3;"
+       ],
+       []
+      ]
+     },
+     {
+      "position": 7,
+      "side": "new",
+      "token": [
+       54,
+       [
+        5
+       ]
+      ]
+     },
+     {
+      "position": 8,
+      "side": "new",
+      "token": [
+       42,
+       []
+      ]
+     },
+     {
+      "position": 9,
+      "side": "new",
+      "token": [
+       180,
+       [
+        9,
+        "self",
+        "member-2",
+        "Ltype-4;"
+       ],
+       []
+      ]
+     },
+     {
+      "position": 10,
+      "side": "new",
+      "token": [
+       43,
+       []
+      ]
+     }
+    ],
+    "tokensOnlyNew": 128,
+    "tokensOnlyOld": 40,
+    "tokensTruncated": true
+   },
+   "digestNew": "ce24befa61eb109757ecad128d0c55f6d838380f117a45b6d6cdac4ccf1bd188",
+   "digestOld": "2d8169e47cdf9b79558bc281cb00584a1c87929c9660fc9d167b0c3dd857e678",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "how": "migration-owner-and-hook-census",
+   "instructionsNew": 179,
+   "instructionsOld": 91,
+   "label": "hook-aboutToChangeOneToOneRelationship",
+   "new": {
+    "descriptor": "(LdeU;Lcom/bitwig/ramona/core/oDc;Lcom/bitwig/ramona/core/oDc;Z)V",
+    "name": "aboutToChangeOneToOneRelationship",
+    "owner": "dfL"
+   },
+   "old": {
+    "descriptor": "(LcYz;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;Z)V",
+    "name": "aboutToChangeOneToOneRelationship",
+    "owner": "cZn"
+   },
+   "result": "changed-body",
+   "source": "relationship-hook"
+  },
+  {
+   "bodyDigestNew": "30a38caf520e50e73c9728186386684a930fc70dbe2471061bb8aebe2f132a34",
+   "digestNew": "53ad3df5fb147ca3ba334bac4b3c2a8ee30c156f60b7f58a3928a7e0bc9e933c",
+   "flagsNew": 9,
+   "handlersNew": 2,
+   "instructionsNew": 24,
+   "label": "disposal-tail",
+   "new": {
+    "descriptor": "(Ljava/lang/Object;)V",
+    "name": "cfM",
+    "owner": "thz"
+   },
+   "old": null,
+   "oldOwnerShapeMatches": 0,
+   "result": "new-only",
+   "source": "disposal-tail"
+  },
+  {
+   "fieldCount": 3,
+   "flagsNew": 48,
+   "label": "history-helper",
+   "methodCount": 11,
+   "new": {
+    "owner": "dgJ"
+   },
+   "old": null,
+   "oldClassShapeMatches": 0,
+   "oldCounterpart": null,
+   "result": "new-only",
+   "source": "new-helper-class"
+  }
+ ],
+ "changed": [
+  {
+   "result": "changed-body",
+   "role": "disposal"
+  },
+  {
+   "result": "changed-body",
+   "role": "members"
+  },
+  {
+   "result": "access-change-only",
+   "role": "journal-recording-edit"
+  },
+  {
+   "label": "validation",
+   "result": "changed-body"
+  },
+  {
+   "label": "pending-add",
+   "result": "changed-body"
+  },
+  {
+   "label": "listener-removal",
+   "result": "changed-body"
+  },
+  {
+   "label": "hook-aboutToInsertItem",
+   "result": "changed-body"
+  },
+  {
+   "label": "hook-aboutToRemoveItem",
+   "result": "changed-body"
+  },
+  {
+   "label": "hook-aboutToChangeOneToOneRelationship",
+   "result": "changed-body"
+  },
+  {
+   "label": "disposal-tail",
+   "result": "new-only"
+  },
+  {
+   "label": "history-helper",
+   "result": "new-only"
+  }
+ ],
+ "checkpointVariants": {
+  "disposal": "exact-prefix-plus-tracking-tail",
+  "journal-recording-edit": "private-to-package-access-only",
+  "members": "jdk-empty-list-access"
+ },
+ "conditions": [
+  "Bodies are compared as class-file data. No vendor class is loaded or initialized.",
+  "Equal body digests prove equal local logic modulo renaming only. Flags are compared separately.",
+  "Callee bodies outside the compared role and callee set are not covered.",
+  "A changed body needs a decision under D52 before any admission.",
+  "A body with an invokedynamic call site is compared with the explicit dynamic contract. It keeps every bootstrap payload. It does not run the bootstrap.",
+  "The diff positions are instruction ordinals. Member labels follow first use, so one added reference can relabel later tokens."
+ ],
+ "elapsedMs": 10290.023,
+ "format": "grid-doctor-body-change-v1",
+ "inputHashes": {
+  "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "/Users/jonvuri/Bitwig Upgrade Backups/2026-10-21-pre-6.1/apps/Bitwig Studio 6.0.6.app/Contents/Java/bitwig.jar": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "/Users/jonvuri/Development/ghostnote/context/evidence/data/phase9b-doctor/614-resolution/checkpoint-17/collection-conditions-21.json": "7f307f5c9ce08e3eb60d46e5987726c3b163951f17a588e42e6a51b30ef1ad12",
+  "/Users/jonvuri/Development/ghostnote/context/evidence/data/phase9b-doctor/614-resolution/checkpoint-17/command-closure-2.json": "0d7f4edef560f0afdf681e6c256f4f3b9f47a2c930c0f9a4f7679ebfee75519f",
+  "/Users/jonvuri/Development/ghostnote/context/evidence/data/phase9b-doctor/614-resolution/checkpoint-2/symbols.json": "38ffee693f3363d640bcc0c75ddbca649f69624d51ab010e372f8219aca4c8ce",
+  "/Users/jonvuri/Development/ghostnote/context/evidence/data/phase9b-doctor/614-structural/migration.json": "daec36cf52cd66ab8fdfe4bc3d530ff16ca23fa4f1403c28279a6b5422288be5",
+  "/Users/jonvuri/Development/ghostnote/context/evidence/data/phase9b-doctor/v20-preparation/candidate.json": "02d215359e4da1aca25575d6b102187385fb5302fd55aa4fcdcf6d3b0fca1f58"
+ },
+ "nativeCommands": 0,
+ "peakRssBytes": 341213184,
+ "result": "compared",
+ "roles": [
+  {
+   "bodyDigestNew": "7e9dafe4d57e1a5b0260383cfe6024ad00cab58a15ffbca8e65e83b05f183758",
+   "bodyDigestOld": "7e9dafe4d57e1a5b0260383cfe6024ad00cab58a15ffbca8e65e83b05f183758",
+   "checkpointStatus": "abstract-slot-bound",
+   "comparator": "contract",
+   "digestNew": "5dd1ddb2258c83dfeffa9c618203784e56574457d0a3bced1b3a11583b008fa0",
+   "digestOld": "5dd1ddb2258c83dfeffa9c618203784e56574457d0a3bced1b3a11583b008fa0",
+   "flagsNew": 1025,
+   "flagsOld": 1025,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 0,
+   "instructionsOld": 0,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/ramona/core/oDc",
+    "descriptor": "()LdeS;",
+    "flags": 1025,
+    "lookup": "com/bitwig/ramona/core/oDc",
+    "name": "ng_"
+   },
+   "old": {
+    "declaring": "com/bitwig/ramona/core/HEV",
+    "descriptor": "()LcYx;",
+    "flags": 1025,
+    "lookup": "com/bitwig/ramona/core/HEV",
+    "name": "mW_"
+   },
+   "result": "same-body",
+   "role": "descriptor"
+  },
+  {
+   "bodyDigestNew": "d91bc172238605ce27d89ee216a5877376ebdb29f19d77f35db983eefc1e864e",
+   "bodyDigestOld": "d91bc172238605ce27d89ee216a5877376ebdb29f19d77f35db983eefc1e864e",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "7e919b78c908c3b748ab92225ea2031ca8232751e7cdf655a6779cf1f96a4770",
+   "digestOld": "7e919b78c908c3b748ab92225ea2031ca8232751e7cdf655a6779cf1f96a4770",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 3,
+   "instructionsOld": 3,
+   "kind": "method",
+   "new": {
+    "declaring": "der",
+    "descriptor": "()I",
+    "flags": 1,
+    "lookup": "der",
+    "name": "ej"
+   },
+   "old": {
+    "declaring": "cXV",
+    "descriptor": "()I",
+    "flags": 1,
+    "lookup": "cXV",
+    "name": "pea"
+   },
+   "result": "same-body",
+   "role": "class-id"
+  },
+  {
+   "bodyDigestNew": "b26232acfa89ef3fc2831d163254bda5ef0f462313aaca43edb2c364278abf85",
+   "bodyDigestOld": "b26232acfa89ef3fc2831d163254bda5ef0f462313aaca43edb2c364278abf85",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "f9cfeef21ad775fe48f80ddba9fe92cbcb68cfd2f51decf787456b3ecbdc126e",
+   "digestOld": "f9cfeef21ad775fe48f80ddba9fe92cbcb68cfd2f51decf787456b3ecbdc126e",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 3,
+   "instructionsOld": 3,
+   "kind": "method",
+   "new": {
+    "declaring": "dev",
+    "descriptor": "()Ljava/lang/String;",
+    "flags": 17,
+    "lookup": "dev",
+    "name": "WVl"
+   },
+   "old": {
+    "declaring": "cXZ",
+    "descriptor": "()Ljava/lang/String;",
+    "flags": 17,
+    "lookup": "cXZ",
+    "name": "lSJ"
+   },
+   "result": "same-body",
+   "role": "name"
+  },
+  {
+   "bodyDigestNew": "28aa20b61ee785876e0c23218d2a9812beafeaac3adb163ac45adb9839f1e30d",
+   "bodyDigestOld": "28aa20b61ee785876e0c23218d2a9812beafeaac3adb163ac45adb9839f1e30d",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "d391d059c248b668c419a3a47b1ec57414452389762bf4a74808186c2efc363d",
+   "digestOld": "d391d059c248b668c419a3a47b1ec57414452389762bf4a74808186c2efc363d",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 9,
+   "instructionsOld": 9,
+   "kind": "method",
+   "new": {
+    "declaring": "der",
+    "descriptor": "()Ljava/util/List;",
+    "flags": 17,
+    "lookup": "der",
+    "name": "oZd"
+   },
+   "old": {
+    "declaring": "cXV",
+    "descriptor": "()Ljava/util/List;",
+    "flags": 17,
+    "lookup": "cXV",
+    "name": "ciZ"
+   },
+   "result": "same-body",
+   "role": "properties"
+  },
+  {
+   "bodyDigestNew": "d91bc172238605ce27d89ee216a5877376ebdb29f19d77f35db983eefc1e864e",
+   "bodyDigestOld": "d91bc172238605ce27d89ee216a5877376ebdb29f19d77f35db983eefc1e864e",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "7e919b78c908c3b748ab92225ea2031ca8232751e7cdf655a6779cf1f96a4770",
+   "digestOld": "7e919b78c908c3b748ab92225ea2031ca8232751e7cdf655a6779cf1f96a4770",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 3,
+   "instructionsOld": 3,
+   "kind": "method",
+   "new": {
+    "declaring": "deN",
+    "descriptor": "()I",
+    "flags": 1,
+    "lookup": "deN",
+    "name": "E3"
+   },
+   "old": {
+    "declaring": "cYs",
+    "descriptor": "()I",
+    "flags": 1,
+    "lookup": "cYs",
+    "name": "QiZ"
+   },
+   "result": "same-body",
+   "role": "property-id"
+  },
+  {
+   "bodyDigestNew": "62c3369465b20123484d4b0b0ae88dfa1b77c02cb854f1aa11119f758e8c1f4a",
+   "bodyDigestOld": "62c3369465b20123484d4b0b0ae88dfa1b77c02cb854f1aa11119f758e8c1f4a",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "23496ed7c67983a535a1cb71eef8109db2f9bbcb881c7f9017bae16783bf040f",
+   "digestOld": "23496ed7c67983a535a1cb71eef8109db2f9bbcb881c7f9017bae16783bf040f",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 2,
+   "instructionsOld": 2,
+   "kind": "method",
+   "new": {
+    "declaring": "deZ",
+    "descriptor": "()Z",
+    "flags": 1,
+    "lookup": "deZ",
+    "name": "nW_"
+   },
+   "old": {
+    "declaring": "cYF",
+    "descriptor": "()Z",
+    "flags": 1,
+    "lookup": "cYF",
+    "name": "nM_"
+   },
+   "result": "same-body",
+   "role": "enabled-field"
+  },
+  {
+   "bodyDigestNew": "3e4d9d15acacbad92076999ea230e5acf3c3056244ff55267991f4c3797cf86b",
+   "bodyDigestOld": "3e4d9d15acacbad92076999ea230e5acf3c3056244ff55267991f4c3797cf86b",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "eecab81eefe957a670615be5129acaf31c1f5c5a2dabd66c410764f0a019ef29",
+   "digestOld": "eecab81eefe957a670615be5129acaf31c1f5c5a2dabd66c410764f0a019ef29",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 19,
+   "instructionsOld": 19,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/ramona/serial/iYN",
+    "descriptor": "(LdeZ;Lcom/bitwig/ramona/core/oDc;)Z",
+    "flags": 1,
+    "lookup": "com/bitwig/ramona/serial/iYN",
+    "name": "cfM"
+   },
+   "old": {
+    "declaring": "com/bitwig/ramona/serial/vWM",
+    "descriptor": "(LcYF;Lcom/bitwig/ramona/core/HEV;)Z",
+    "flags": 1,
+    "lookup": "com/bitwig/ramona/serial/vWM",
+    "name": "ffA"
+   },
+   "result": "same-body",
+   "role": "serialization-filter"
+  },
+  {
+   "checkpointStatus": "field-operation-bound",
+   "flagsNew": 25,
+   "flagsOld": 25,
+   "kind": "field",
+   "new": {
+    "declaring": "com/bitwig/ramona/serial/iYN",
+    "descriptor": "Lcom/bitwig/ramona/serial/iYN;",
+    "flags": 25,
+    "lookup": "com/bitwig/ramona/serial/iYN",
+    "name": "Hnt"
+   },
+   "old": {
+    "declaring": "com/bitwig/ramona/serial/vWM",
+    "descriptor": "Lcom/bitwig/ramona/serial/vWM;",
+    "flags": 25,
+    "lookup": "com/bitwig/ramona/serial/vWM",
+    "name": "cG3"
+   },
+   "result": "field-same",
+   "role": "filter-instance",
+   "shapeNew": "Lself;",
+   "shapeOld": "Lself;"
+  },
+  {
+   "bodyDigestNew": "2156676e707ecfc821643e225166cf5660798467d2e06130b86fa65e3fb6b57d",
+   "bodyDigestOld": "2156676e707ecfc821643e225166cf5660798467d2e06130b86fa65e3fb6b57d",
+   "checkpointStatus": "abstract-slot-bound",
+   "comparator": "contract",
+   "digestNew": "532298e5f6963ee7137294c1a4e0571aaccaea9e2c2b853ed84c4dd2a818716b",
+   "digestOld": "532298e5f6963ee7137294c1a4e0571aaccaea9e2c2b853ed84c4dd2a818716b",
+   "flagsNew": 1025,
+   "flagsOld": 1025,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 0,
+   "instructionsOld": 0,
+   "kind": "method",
+   "new": {
+    "declaring": "deZ",
+    "descriptor": "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;",
+    "flags": 1025,
+    "lookup": "deZ",
+    "name": "MRY"
+   },
+   "old": {
+    "declaring": "cYF",
+    "descriptor": "(Lcom/bitwig/ramona/core/HEV;)Ljava/lang/Object;",
+    "flags": 1025,
+    "lookup": "cYF",
+    "name": "eOi"
+   },
+   "result": "same-body",
+   "role": "scalar-read"
+  },
+  {
+   "bodyDigestNew": "215cd36694c9c60766f8581dd21aa0fee7e856d9b7ee16bdb06c1b4d6773ed34",
+   "bodyDigestOld": "215cd36694c9c60766f8581dd21aa0fee7e856d9b7ee16bdb06c1b4d6773ed34",
+   "checkpointStatus": "abstract-slot-bound",
+   "comparator": "contract",
+   "digestNew": "c356ca78447ec901b057eb0d9a86d5411f6028c1cd25ab8873b2b9fa23c3c061",
+   "digestOld": "c356ca78447ec901b057eb0d9a86d5411f6028c1cd25ab8873b2b9fa23c3c061",
+   "flagsNew": 1025,
+   "flagsOld": 1025,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 0,
+   "instructionsOld": 0,
+   "kind": "method",
+   "new": {
+    "declaring": "dfb",
+    "descriptor": "(Lcom/bitwig/ramona/core/oDc;)I",
+    "flags": 1025,
+    "lookup": "dfb",
+    "name": "TMF"
+   },
+   "old": {
+    "declaring": "cYH",
+    "descriptor": "(Lcom/bitwig/ramona/core/HEV;)I",
+    "flags": 1025,
+    "lookup": "cYH",
+    "name": "wi2"
+   },
+   "result": "same-body",
+   "role": "child-count"
+  },
+  {
+   "bodyDigestNew": "91f896440acdf0d619bc87a9f2f7bbca13371db121d38b3fbd70e992c51f2025",
+   "bodyDigestOld": "91f896440acdf0d619bc87a9f2f7bbca13371db121d38b3fbd70e992c51f2025",
+   "checkpointStatus": "abstract-slot-bound",
+   "comparator": "contract",
+   "digestNew": "29b9349486cebb79f4dc1e716f5740a6aef75aba0c80c55628b0e776b9edbc5c",
+   "digestOld": "29b9349486cebb79f4dc1e716f5740a6aef75aba0c80c55628b0e776b9edbc5c",
+   "flagsNew": 1025,
+   "flagsOld": 1025,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 0,
+   "instructionsOld": 0,
+   "kind": "method",
+   "new": {
+    "declaring": "dfb",
+    "descriptor": "(Lcom/bitwig/ramona/core/oDc;I)Lcom/bitwig/ramona/core/OLR;",
+    "flags": 1025,
+    "lookup": "dfb",
+    "name": "MRY"
+   },
+   "old": {
+    "declaring": "cYH",
+    "descriptor": "(Lcom/bitwig/ramona/core/HEV;I)Lcom/bitwig/ramona/core/FZ1;",
+    "flags": 1025,
+    "lookup": "cYH",
+    "name": "eOi"
+   },
+   "result": "same-body",
+   "role": "child-read"
+  },
+  {
+   "bodyDigestNew": "3adf97ba58d1a99e8d8ef77f2140bc97c1db257753852202bd7aed83787f6b93",
+   "bodyDigestOld": "3adf97ba58d1a99e8d8ef77f2140bc97c1db257753852202bd7aed83787f6b93",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "757b20c4910dcb52de65f32811e56e0ae332fe76d8f7a8decd571bf86a7dcdd6",
+   "digestOld": "757b20c4910dcb52de65f32811e56e0ae332fe76d8f7a8decd571bf86a7dcdd6",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 13,
+   "instructionsOld": 13,
+   "kind": "method",
+   "new": {
+    "declaring": "aLw",
+    "descriptor": "(D)V",
+    "flags": 17,
+    "lookup": "aLw",
+    "name": "UNj"
+   },
+   "old": {
+    "declaring": "ccA",
+    "descriptor": "(D)V",
+    "flags": 17,
+    "lookup": "ccA",
+    "name": "kyi"
+   },
+   "result": "same-body",
+   "role": "native-value-setter"
+  },
+  {
+   "bodyDigestNew": "a2871d7d9a41abbe0637e8ee770248ebad6a5fe9d0fee8027c6ff978b5cda3b7",
+   "bodyDigestOld": "a2871d7d9a41abbe0637e8ee770248ebad6a5fe9d0fee8027c6ff978b5cda3b7",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "1341dfbb27d92fa066479977fe94060be581ba560486321df209c40b388342a3",
+   "digestOld": "1341dfbb27d92fa066479977fe94060be581ba560486321df209c40b388342a3",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 12,
+   "instructionsOld": 12,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/flt/document/core/master/device/cXR",
+    "descriptor": "()Lcom/bitwig/flt/document/core/master/device/xOa;",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/device/cXR",
+    "name": "Scv"
+   },
+   "old": {
+    "declaring": "com/bitwig/flt/document/core/master/device/UL",
+    "descriptor": "()Lcom/bitwig/flt/document/core/master/device/yWH;",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/device/UL",
+    "name": "D1G"
+   },
+   "result": "same-body",
+   "role": "cable-source-getter"
+  },
+  {
+   "bodyDigestNew": "bb145f0671c291ccad5c948659e8b6a6bed4861973ecffb4419d5bf0e10b6018",
+   "bodyDigestOld": "bb145f0671c291ccad5c948659e8b6a6bed4861973ecffb4419d5bf0e10b6018",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "34a35a10994a7d27cac963c428458f5f5df5fcc25be709f680f4d3aa72e79cde",
+   "digestOld": "34a35a10994a7d27cac963c428458f5f5df5fcc25be709f680f4d3aa72e79cde",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 13,
+   "instructionsOld": 13,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/flt/document/core/master/device/cXR",
+    "descriptor": "(Lled;)V",
+    "flags": 17,
+    "lookup": "com/bitwig/flt/document/core/master/device/cXR",
+    "name": "cfM"
+   },
+   "old": {
+    "declaring": "com/bitwig/flt/document/core/master/device/UL",
+    "descriptor": "(La;)V",
+    "flags": 17,
+    "lookup": "com/bitwig/flt/document/core/master/device/UL",
+    "name": "ffA"
+   },
+   "result": "same-body",
+   "role": "cable-source-setter"
+  },
+  {
+   "bodyDigestNew": "387b1b8b4b2f4b88250c677367b8d1c690589e48bc27a2dea11e1527848e22bd",
+   "bodyDigestOld": "387b1b8b4b2f4b88250c677367b8d1c690589e48bc27a2dea11e1527848e22bd",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "3e5e34d4363766ac6ff22ec0213844b75957b11770d3efaf812f88790fdd8e68",
+   "digestOld": "3e5e34d4363766ac6ff22ec0213844b75957b11770d3efaf812f88790fdd8e68",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 5,
+   "instructionsOld": 5,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/flt/document/core/master/device/JXO",
+    "descriptor": "()Lcom/bitwig/flt/document/core/master/device/Vzt;",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/device/JXO",
+    "name": "jG"
+   },
+   "old": {
+    "declaring": "com/bitwig/flt/document/core/master/device/had",
+    "descriptor": "()Lcom/bitwig/flt/document/core/master/device/cbl;",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/device/had",
+    "name": "Fuu"
+   },
+   "result": "same-body",
+   "role": "module-parent"
+  },
+  {
+   "bodyDigestNew": "bc82a14a34978d794350d2a5db37fbb3548f6f8aadbac39eaa508c0cf60de4cc",
+   "bodyDigestOld": "bc82a14a34978d794350d2a5db37fbb3548f6f8aadbac39eaa508c0cf60de4cc",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "221173714b3dcab1d7caf1770652da3e2bd5aeb7364232b9029ebef4cf4ceaae",
+   "digestOld": "221173714b3dcab1d7caf1770652da3e2bd5aeb7364232b9029ebef4cf4ceaae",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 8,
+   "instructionsOld": 8,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/flt/document/core/master/device/JXO",
+    "descriptor": "()V",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/device/JXO",
+    "name": "JJY"
+   },
+   "old": {
+    "declaring": "com/bitwig/flt/document/core/master/device/had",
+    "descriptor": "()V",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/device/had",
+    "name": "qON"
+   },
+   "result": "same-body",
+   "role": "module-delete"
+  },
+  {
+   "bodyDigestNew": "6df20ea9446d41599c496c48e7c2b644011624204a50479cad5dd259cc02319c",
+   "bodyDigestOld": "6df20ea9446d41599c496c48e7c2b644011624204a50479cad5dd259cc02319c",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "ea61e0ecdae3f1969949458ec7b86de946b7d499d535895fb0642029efe95ada",
+   "digestOld": "ea61e0ecdae3f1969949458ec7b86de946b7d499d535895fb0642029efe95ada",
+   "flagsNew": 9,
+   "flagsOld": 9,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 7,
+   "instructionsOld": 7,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/flt/document/core/master/device/rSf",
+    "descriptor": "(Ljava/util/UUID;)Lcom/bitwig/flt/document/core/master/device/rSf;",
+    "flags": 9,
+    "lookup": "com/bitwig/flt/document/core/master/device/rSf",
+    "name": "lYc"
+   },
+   "old": {
+    "declaring": "com/bitwig/flt/document/core/master/device/DbL",
+    "descriptor": "(Ljava/util/UUID;)Lcom/bitwig/flt/document/core/master/device/DbL;",
+    "flags": 9,
+    "lookup": "com/bitwig/flt/document/core/master/device/DbL",
+    "name": "pvN"
+   },
+   "result": "same-body",
+   "role": "module-factory"
+  },
+  {
+   "bodyDigestNew": "2f2e929ace8e60cb653b931ce64366f10c3f71ba453bfda3872ca7af47a703a7",
+   "bodyDigestOld": "2f2e929ace8e60cb653b931ce64366f10c3f71ba453bfda3872ca7af47a703a7",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "c7b3469c6addb0746890d9716d811c76ac7fc0f183bef72057fb1b01c3c129d6",
+   "digestOld": "c7b3469c6addb0746890d9716d811c76ac7fc0f183bef72057fb1b01c3c129d6",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 3,
+   "instructionsOld": 3,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/ramona/core/oDc",
+    "descriptor": "()Lcom/bitwig/ramona/core/oDc;",
+    "flags": 1,
+    "lookup": "com/bitwig/ramona/core/oDc",
+    "name": "J_"
+   },
+   "old": {
+    "declaring": "com/bitwig/ramona/core/HEV",
+    "descriptor": "()Lcom/bitwig/ramona/core/HEV;",
+    "flags": 1,
+    "lookup": "com/bitwig/ramona/core/HEV",
+    "name": "I_"
+   },
+   "result": "same-body",
+   "role": "owner"
+  },
+  {
+   "bodyDigestNew": "fb6c81357a9588eaa04068efd90ba82baab247b71f9261859b545e6d5e2e2b8d",
+   "bodyDigestOld": "fb6c81357a9588eaa04068efd90ba82baab247b71f9261859b545e6d5e2e2b8d",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "50766068463b1fa1aa371d229e9c0fad53946cde50e227a5c70cf3a693848d6e",
+   "digestOld": "50766068463b1fa1aa371d229e9c0fad53946cde50e227a5c70cf3a693848d6e",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 63,
+   "instructionsOld": 63,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/ramona/core/oDc",
+    "descriptor": "(Ljava/lang/String;)Ljava/util/List;",
+    "flags": 1,
+    "lookup": "com/bitwig/ramona/core/oDc",
+    "name": "tB1"
+   },
+   "old": {
+    "declaring": "com/bitwig/ramona/core/HEV",
+    "descriptor": "(Ljava/lang/String;)Ljava/util/List;",
+    "flags": 1,
+    "lookup": "com/bitwig/ramona/core/HEV",
+    "name": "dpx"
+   },
+   "result": "same-body",
+   "role": "owned-children"
+  },
+  {
+   "bodyDigestNew": "85e1cb039a74542a84897860ba2d5a07decf18e21575a0c75efed0c6550e0e35",
+   "bodyDigestOld": "85e1cb039a74542a84897860ba2d5a07decf18e21575a0c75efed0c6550e0e35",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "868212099667ed945e24f1f7ba56517b5cbda041aba4aec3739f6a367d1d1b6e",
+   "digestOld": "868212099667ed945e24f1f7ba56517b5cbda041aba4aec3739f6a367d1d1b6e",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 9,
+   "instructionsOld": 9,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/ramona/core/oDc",
+    "descriptor": "()Z",
+    "flags": 17,
+    "lookup": "com/bitwig/ramona/core/oDc",
+    "name": "K_"
+   },
+   "old": {
+    "declaring": "com/bitwig/ramona/core/HEV",
+    "descriptor": "()Z",
+    "flags": 17,
+    "lookup": "com/bitwig/ramona/core/HEV",
+    "name": "J_"
+   },
+   "result": "same-body",
+   "role": "disposed-flag"
+  },
+  {
+   "bodyDigestNew": "f6bbb08d84c32a6eeca68257c9b9793fc8addefb6f9a6a527eb83d663b52757c",
+   "bodyDigestOld": "be8b1b767f5e2f53a59616cb8461cb3db6c295f3573292832ff33929aca8c2a2",
+   "checkpointStatus": "required-body-difference",
+   "comparator": "contract",
+   "diff": {
+    "blockCount": 1,
+    "blocks": [
+     [
+      "insert",
+      60,
+      60,
+      60,
+      62
+     ]
+    ],
+    "tokens": [
+     {
+      "position": 60,
+      "side": "new",
+      "token": [
+       42,
+       []
+      ]
+     },
+     {
+      "position": 61,
+      "side": "new",
+      "token": [
+       184,
+       [
+        10,
+        "type-2",
+        "member-9",
+        "(Ljava/lang/Object;)V"
+       ],
+       []
+      ]
+     }
+    ],
+    "tokensOnlyNew": 2,
+    "tokensOnlyOld": 0,
+    "tokensTruncated": false
+   },
+   "digestNew": "eca7e306b21ab1da42fadf23cf0000f592ceae0c0520781b598f605cc30ecb34",
+   "digestOld": "73d6c9f25cd491b5bf82a4350689099257eda74ea6065406e95f45ea45515d70",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 63,
+   "instructionsOld": 61,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/ramona/core/oDc",
+    "descriptor": "()V",
+    "flags": 1,
+    "lookup": "com/bitwig/ramona/core/oDc",
+    "name": "ix_"
+   },
+   "old": {
+    "declaring": "com/bitwig/ramona/core/HEV",
+    "descriptor": "()V",
+    "flags": 1,
+    "lookup": "com/bitwig/ramona/core/HEV",
+    "name": "dC_"
+   },
+   "result": "changed-body",
+   "role": "disposal"
+  },
+  {
+   "bodyDigestNew": "b6c1fff63f5e28134401dbfa6e4d3b3a4f8875a835d3b69f88df577493eacbaf",
+   "bodyDigestOld": "b6c1fff63f5e28134401dbfa6e4d3b3a4f8875a835d3b69f88df577493eacbaf",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "6a420516763b599ccecbb67d8ee709cf8fb12ae6ae2738edbc8fa3d562481dd3",
+   "digestOld": "6a420516763b599ccecbb67d8ee709cf8fb12ae6ae2738edbc8fa3d562481dd3",
+   "flagsNew": 4097,
+   "flagsOld": 4097,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 3,
+   "instructionsOld": 3,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/flt/document/core/master/device/rSf",
+    "descriptor": "()Lcom/bitwig/flt/document/core/master/device/Vzt;",
+    "flags": 4097,
+    "lookup": "com/bitwig/flt/document/core/master/device/rSf",
+    "name": "jG"
+   },
+   "old": {
+    "declaring": "com/bitwig/flt/document/core/master/device/DbL",
+    "descriptor": "()Lcom/bitwig/flt/document/core/master/device/cbl;",
+    "flags": 4097,
+    "lookup": "com/bitwig/flt/document/core/master/device/DbL",
+    "name": "Fuu"
+   },
+   "result": "same-body",
+   "role": "module-parent-2"
+  },
+  {
+   "bodyDigestNew": "67c34d81cdfaf968af92660362dbef5b1e90fffc60c0ee87f41da8b70e4024e2",
+   "bodyDigestOld": "67c34d81cdfaf968af92660362dbef5b1e90fffc60c0ee87f41da8b70e4024e2",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "7aa8180b32a43a1fe0df27f1ca7f1fc91d6537361ab24e074934e1e2ecb52f08",
+   "digestOld": "7aa8180b32a43a1fe0df27f1ca7f1fc91d6537361ab24e074934e1e2ecb52f08",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 12,
+   "instructionsOld": 12,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/flt/document/core/master/device/Dgc",
+    "descriptor": "()Ljava/util/UUID;",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/device/Dgc",
+    "name": "kFU"
+   },
+   "old": {
+    "declaring": "com/bitwig/flt/document/core/master/device/OEf",
+    "descriptor": "()Ljava/util/UUID;",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/device/OEf",
+    "name": "VEb"
+   },
+   "result": "same-body",
+   "role": "instance-uuid"
+  },
+  {
+   "checkpointStatus": "field-operation-bound",
+   "flagsNew": 4,
+   "flagsOld": 4,
+   "kind": "field",
+   "new": {
+    "declaring": "com/bitwig/flt/document/core/master/device/Dgc",
+    "descriptor": "Lcom/bitwig/flt/document/core/master/device/JHr;",
+    "flags": 4,
+    "lookup": "com/bitwig/flt/document/core/master/device/Dgc",
+    "name": "UNj"
+   },
+   "old": {
+    "declaring": "com/bitwig/flt/document/core/master/device/OEf",
+    "descriptor": "Lcom/bitwig/flt/document/core/master/device/XuU;",
+    "flags": 4,
+    "lookup": "com/bitwig/flt/document/core/master/device/OEf",
+    "name": "kyi"
+   },
+   "result": "field-same",
+   "role": "initialization-helper",
+   "shapeNew": "Lvendor;",
+   "shapeOld": "Lvendor;"
+  },
+  {
+   "checkpointStatus": "field-operation-bound",
+   "flagsNew": 4,
+   "flagsOld": 4,
+   "kind": "field",
+   "new": {
+    "declaring": "com/bitwig/flt/document/core/master/device/Dgc",
+    "descriptor": "LEIm;",
+    "flags": 4,
+    "lookup": "com/bitwig/flt/document/core/master/device/Dgc",
+    "name": "BNq"
+   },
+   "old": {
+    "declaring": "com/bitwig/flt/document/core/master/device/OEf",
+    "descriptor": "LqOW;",
+    "flags": 4,
+    "lookup": "com/bitwig/flt/document/core/master/device/OEf",
+    "name": "rdo"
+   },
+   "result": "field-same",
+   "role": "remote-helper",
+   "shapeNew": "Lvendor;",
+   "shapeOld": "Lvendor;"
+  },
+  {
+   "bodyDigestNew": "9b7aa857b27e9f1f86d8ecda0a67f428210fecd42fad613d15aca5292bc8d6ef",
+   "bodyDigestOld": "9c05c4bcdd06f5c86ba38c102702772dd7e664287fb87542fadb60526d63d64d",
+   "checkpointStatus": "required-body-difference",
+   "comparator": "contract",
+   "diff": {
+    "blockCount": 1,
+    "blocks": [
+     [
+      "replace",
+      12,
+      13,
+      12,
+      13
+     ]
+    ],
+    "tokens": [
+     {
+      "position": 12,
+      "side": "old",
+      "token": [
+       178,
+       [
+        9,
+        "java/util/Collections",
+        "EMPTY_LIST",
+        "Ljava/util/List;"
+       ],
+       []
+      ]
+     },
+     {
+      "position": 12,
+      "side": "new",
+      "token": [
+       184,
+       [
+        10,
+        "java/util/Collections",
+        "emptyList",
+        "()Ljava/util/List;"
+       ],
+       []
+      ]
+     }
+    ],
+    "tokensOnlyNew": 1,
+    "tokensOnlyOld": 1,
+    "tokensTruncated": false
+   },
+   "digestNew": "5d4323013d1f775415a6fe2c87a82541fce564ff46a49e621717c9ea42eb0eea",
+   "digestOld": "b4384937b13a4130fb246ee747f6a2705f0d592ff3ac349726b50a327cf55e2c",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 18,
+   "instructionsOld": 18,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/flt/document/core/master/device/BZG",
+    "descriptor": "()Ljava/util/List;",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/device/BZG",
+    "name": "Grk"
+   },
+   "old": {
+    "declaring": "com/bitwig/flt/document/core/master/device/NHx",
+    "descriptor": "()Ljava/util/List;",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/device/NHx",
+    "name": "eJS"
+   },
+   "result": "changed-body",
+   "role": "members"
+  },
+  {
+   "bodyDigestNew": "66b69c49871b7ef867917e59a292010b2c0ae65c1554a2eb27b723ebb78d7bfe",
+   "bodyDigestOld": "66b69c49871b7ef867917e59a292010b2c0ae65c1554a2eb27b723ebb78d7bfe",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "84a1cd9feadfda5e54631cffbccb9602ccf26e84fb9fc0c4743f62b6caf37747",
+   "digestOld": "84a1cd9feadfda5e54631cffbccb9602ccf26e84fb9fc0c4743f62b6caf37747",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 18,
+   "instructionsOld": 18,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/flt/document/core/master/device/BZG",
+    "descriptor": "()I",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/device/BZG",
+    "name": "uva"
+   },
+   "old": {
+    "declaring": "com/bitwig/flt/document/core/master/device/NHx",
+    "descriptor": "()I",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/device/NHx",
+    "name": "vl"
+   },
+   "result": "same-body",
+   "role": "hidden-count"
+  },
+  {
+   "bodyDigestNew": "15a26bd3f9f34ee662d27aa3b85189df680767e024477db222dcd0c276e8d52a",
+   "bodyDigestOld": "15a26bd3f9f34ee662d27aa3b85189df680767e024477db222dcd0c276e8d52a",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "021c34cc335cef57b501d5c54902d9954ad3ffd178b1ace11d4fdc336a36b8dd",
+   "digestOld": "021c34cc335cef57b501d5c54902d9954ad3ffd178b1ace11d4fdc336a36b8dd",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 12,
+   "instructionsOld": 12,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/flt/document/core/master/device/gJi",
+    "descriptor": "()I",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/device/gJi",
+    "name": "FzB"
+   },
+   "old": {
+    "declaring": "com/bitwig/flt/document/core/master/device/DtR",
+    "descriptor": "()I",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/device/DtR",
+    "name": "cI_"
+   },
+   "result": "same-body",
+   "role": "x"
+  },
+  {
+   "bodyDigestNew": "15a26bd3f9f34ee662d27aa3b85189df680767e024477db222dcd0c276e8d52a",
+   "bodyDigestOld": "15a26bd3f9f34ee662d27aa3b85189df680767e024477db222dcd0c276e8d52a",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "021c34cc335cef57b501d5c54902d9954ad3ffd178b1ace11d4fdc336a36b8dd",
+   "digestOld": "021c34cc335cef57b501d5c54902d9954ad3ffd178b1ace11d4fdc336a36b8dd",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 12,
+   "instructionsOld": 12,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/flt/document/core/master/device/gJi",
+    "descriptor": "()I",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/device/gJi",
+    "name": "UNj"
+   },
+   "old": {
+    "declaring": "com/bitwig/flt/document/core/master/device/DtR",
+    "descriptor": "()I",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/device/DtR",
+    "name": "kyi"
+   },
+   "result": "same-body",
+   "role": "y"
+  },
+  {
+   "bodyDigestNew": "0bd978535ddd3f336640a4b4af466977a31ad114ac871e09ca0474ec09b8600d",
+   "bodyDigestOld": "0bd978535ddd3f336640a4b4af466977a31ad114ac871e09ca0474ec09b8600d",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "337c5349b11ad7a6b4623e7e1f1408c0abb69a4a70899bf6dc0c6ade090180ec",
+   "digestOld": "337c5349b11ad7a6b4623e7e1f1408c0abb69a4a70899bf6dc0c6ade090180ec",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 12,
+   "instructionsOld": 12,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/flt/document/core/master/device/CEE",
+    "descriptor": "()I",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/device/CEE",
+    "name": "HL"
+   },
+   "old": {
+    "declaring": "com/bitwig/flt/document/core/master/device/QHo",
+    "descriptor": "()I",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/device/QHo",
+    "name": "pfb"
+   },
+   "result": "same-body",
+   "role": "width"
+  },
+  {
+   "bodyDigestNew": "0bd978535ddd3f336640a4b4af466977a31ad114ac871e09ca0474ec09b8600d",
+   "bodyDigestOld": "0bd978535ddd3f336640a4b4af466977a31ad114ac871e09ca0474ec09b8600d",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "337c5349b11ad7a6b4623e7e1f1408c0abb69a4a70899bf6dc0c6ade090180ec",
+   "digestOld": "337c5349b11ad7a6b4623e7e1f1408c0abb69a4a70899bf6dc0c6ade090180ec",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 12,
+   "instructionsOld": 12,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/flt/document/core/master/device/CEE",
+    "descriptor": "()I",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/device/CEE",
+    "name": "E1b"
+   },
+   "old": {
+    "declaring": "com/bitwig/flt/document/core/master/device/QHo",
+    "descriptor": "()I",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/device/QHo",
+    "name": "rdo"
+   },
+   "result": "same-body",
+   "role": "height"
+  },
+  {
+   "bodyDigestNew": "0718331e87fe3ec52fe5e23a61ab26fff862489dbcad5f59d7879141d7377100",
+   "bodyDigestOld": "0718331e87fe3ec52fe5e23a61ab26fff862489dbcad5f59d7879141d7377100",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "3b9f19e732561fb5fe71a14424adfc367458d33cdf12a6b2272fea34494c37b9",
+   "digestOld": "3b9f19e732561fb5fe71a14424adfc367458d33cdf12a6b2272fea34494c37b9",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 3,
+   "instructionsOld": 3,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/ramona/core/AVL",
+    "descriptor": "()Lcom/bitwig/ramona/core/Rzi;",
+    "flags": 1,
+    "lookup": "com/bitwig/ramona/core/AVL",
+    "name": "ULc"
+   },
+   "old": {
+    "declaring": "com/bitwig/ramona/core/ikl",
+    "descriptor": "()Lcom/bitwig/ramona/core/uX1;",
+    "flags": 1,
+    "lookup": "com/bitwig/ramona/core/ikl",
+    "name": "mSv"
+   },
+   "result": "same-body",
+   "role": "context"
+  },
+  {
+   "bodyDigestNew": "9515d79ec18da091a2437fbff48f82f257c0f45b070bbf7d0eab311f7aa478c1",
+   "bodyDigestOld": "9515d79ec18da091a2437fbff48f82f257c0f45b070bbf7d0eab311f7aa478c1",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "6c3d9403b8208d3068d7ef3bacb48797785dad8059add50d6c9f8f272451cb17",
+   "digestOld": "6c3d9403b8208d3068d7ef3bacb48797785dad8059add50d6c9f8f272451cb17",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 3,
+   "instructionsOld": 3,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/ramona/core/Rzi",
+    "descriptor": "()Z",
+    "flags": 1,
+    "lookup": "com/bitwig/ramona/core/Rzi",
+    "name": "eLY"
+   },
+   "old": {
+    "declaring": "com/bitwig/ramona/core/uX1",
+    "descriptor": "()Z",
+    "flags": 1,
+    "lookup": "com/bitwig/ramona/core/uX1",
+    "name": "MkF"
+   },
+   "result": "same-body",
+   "role": "recording"
+  },
+  {
+   "bodyDigestNew": "4869502fc8ff1b982f06ccb451b26b6ec6aa91c9fc9bbc4a63aa4b944cccf9f1",
+   "bodyDigestOld": "4869502fc8ff1b982f06ccb451b26b6ec6aa91c9fc9bbc4a63aa4b944cccf9f1",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "80eef855df1297ce4b1906785d8408bcfd13c6d25bf629fc7856be5acea2978d",
+   "digestOld": "80eef855df1297ce4b1906785d8408bcfd13c6d25bf629fc7856be5acea2978d",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 20,
+   "instructionsOld": 20,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/ramona/core/Rzi",
+    "descriptor": "()Lcom/bitwig/ramona/core/XKG;",
+    "flags": 1,
+    "lookup": "com/bitwig/ramona/core/Rzi",
+    "name": "vpw"
+   },
+   "old": {
+    "declaring": "com/bitwig/ramona/core/uX1",
+    "descriptor": "()Lcom/bitwig/ramona/core/Ibf;",
+    "flags": 1,
+    "lookup": "com/bitwig/ramona/core/uX1",
+    "name": "Ode"
+   },
+   "result": "same-body",
+   "role": "manager"
+  },
+  {
+   "bodyDigestNew": "1e7c696dffa2da3f3c063e24408b22ef5e0309443184f37262eb92697a0131f8",
+   "bodyDigestOld": "1e7c696dffa2da3f3c063e24408b22ef5e0309443184f37262eb92697a0131f8",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "ada909cbb8796c1864a072759384a047cfb528130901501ba8c8a9564920afba",
+   "digestOld": "ada909cbb8796c1864a072759384a047cfb528130901501ba8c8a9564920afba",
+   "flagsNew": 9,
+   "flagsOld": 9,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 41,
+   "instructionsOld": 41,
+   "kind": "method",
+   "new": {
+    "declaring": "dfI",
+    "descriptor": "(Lcom/bitwig/ramona/core/AVL;)LdfI;",
+    "flags": 9,
+    "lookup": "dfI",
+    "name": "cfM"
+   },
+   "old": {
+    "declaring": "cZl",
+    "descriptor": "(Lcom/bitwig/ramona/core/ikl;)LcZl;",
+    "flags": 9,
+    "lookup": "cZl",
+    "name": "ffA"
+   },
+   "result": "same-body",
+   "role": "document"
+  },
+  {
+   "bodyDigestNew": "3b6f9b3696eba64583dc6749725f01bb889937c8b6aaac027d2b3f327777e3de",
+   "bodyDigestOld": "3b6f9b3696eba64583dc6749725f01bb889937c8b6aaac027d2b3f327777e3de",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "2d80ce22b268e9ed21b20a86637d72913b5e7ae85fbf60ec0cfc9c7d160a3553",
+   "digestOld": "2d80ce22b268e9ed21b20a86637d72913b5e7ae85fbf60ec0cfc9c7d160a3553",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 3,
+   "instructionsOld": 3,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/ramona/core/XKG",
+    "descriptor": "()Ljava/lang/String;",
+    "flags": 17,
+    "lookup": "com/bitwig/ramona/core/XKG",
+    "name": "IwV"
+   },
+   "old": {
+    "declaring": "com/bitwig/ramona/core/Ibf",
+    "descriptor": "()Ljava/lang/String;",
+    "flags": 17,
+    "lookup": "com/bitwig/ramona/core/Ibf",
+    "name": "NaF"
+   },
+   "result": "same-body",
+   "role": "display-key"
+  },
+  {
+   "bodyDigestNew": "79a2b8ce117a295269208569da659b44bfe744e6c2cd06f4a33e9a7fe672d100",
+   "bodyDigestOld": "79a2b8ce117a295269208569da659b44bfe744e6c2cd06f4a33e9a7fe672d100",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "ffbe723816171211275d4adf06e8bf818114763524c59c24e433bb9d2a947120",
+   "digestOld": "ffbe723816171211275d4adf06e8bf818114763524c59c24e433bb9d2a947120",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 10,
+   "instructionsOld": 10,
+   "kind": "method",
+   "new": {
+    "declaring": "dhu",
+    "descriptor": "()Z",
+    "flags": 1,
+    "lookup": "dhu",
+    "name": "MRY"
+   },
+   "old": {
+    "declaring": "daR",
+    "descriptor": "()Z",
+    "flags": 1,
+    "lookup": "daR",
+    "name": "eOi"
+   },
+   "result": "same-body",
+   "role": "journal-active"
+  },
+  {
+   "bodyDigestNew": "ddfa5ab0418cf1346e73ee98976309923784681ce9aa0c55136384c1608ee13c",
+   "bodyDigestOld": "ddfa5ab0418cf1346e73ee98976309923784681ce9aa0c55136384c1608ee13c",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "eb9b7f64e1572428930bf66b385de83ab1ac34ca3e0050fb2fb599009fdf6aa5",
+   "digestOld": "eb9b7f64e1572428930bf66b385de83ab1ac34ca3e0050fb2fb599009fdf6aa5",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 3,
+   "instructionsOld": 3,
+   "kind": "method",
+   "new": {
+    "declaring": "dhu",
+    "descriptor": "()LdfT;",
+    "flags": 1,
+    "lookup": "dhu",
+    "name": "UNj"
+   },
+   "old": {
+    "declaring": "daR",
+    "descriptor": "()LcZv;",
+    "flags": 1,
+    "lookup": "daR",
+    "name": "NaF"
+   },
+   "result": "same-body",
+   "role": "current-journal-edit"
+  },
+  {
+   "bodyDigestNew": "c0e82df889edff57960f4c25a09a4a42e29203ad03b442205d97bd1ee0dc7a3c",
+   "bodyDigestOld": "c0e82df889edff57960f4c25a09a4a42e29203ad03b442205d97bd1ee0dc7a3c",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "f11eeb164ff8b259eb5a18db9083105cf6fa7c44fd8f26f594346fb5995e69f2",
+   "digestOld": "f11eeb164ff8b259eb5a18db9083105cf6fa7c44fd8f26f594346fb5995e69f2",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 14,
+   "instructionsOld": 14,
+   "kind": "method",
+   "new": {
+    "declaring": "dfI",
+    "descriptor": "()LdfT;",
+    "flags": 17,
+    "lookup": "dfI",
+    "name": "uWE"
+   },
+   "old": {
+    "declaring": "cZl",
+    "descriptor": "()LcZv;",
+    "flags": 17,
+    "lookup": "cZl",
+    "name": "jBn"
+   },
+   "result": "same-body",
+   "role": "current-document-edit"
+  },
+  {
+   "bodyDigestNew": "9515d79ec18da091a2437fbff48f82f257c0f45b070bbf7d0eab311f7aa478c1",
+   "bodyDigestOld": "9515d79ec18da091a2437fbff48f82f257c0f45b070bbf7d0eab311f7aa478c1",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "308af7d7774c9d487d941e15ac94e18f1db692c2459ec0e23611b83e9e80ad81",
+   "digestOld": "308af7d7774c9d487d941e15ac94e18f1db692c2459ec0e23611b83e9e80ad81",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 3,
+   "instructionsOld": 3,
+   "kind": "method",
+   "new": {
+    "declaring": "dfI",
+    "descriptor": "()Z",
+    "flags": 17,
+    "lookup": "dfI",
+    "name": "nVd"
+   },
+   "old": {
+    "declaring": "cZl",
+    "descriptor": "()Z",
+    "flags": 17,
+    "lookup": "cZl",
+    "name": "EbT"
+   },
+   "result": "same-body",
+   "role": "replay-flag"
+  },
+  {
+   "bodyDigestNew": "9515d79ec18da091a2437fbff48f82f257c0f45b070bbf7d0eab311f7aa478c1",
+   "bodyDigestOld": "9515d79ec18da091a2437fbff48f82f257c0f45b070bbf7d0eab311f7aa478c1",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "308af7d7774c9d487d941e15ac94e18f1db692c2459ec0e23611b83e9e80ad81",
+   "digestOld": "308af7d7774c9d487d941e15ac94e18f1db692c2459ec0e23611b83e9e80ad81",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 3,
+   "instructionsOld": 3,
+   "kind": "method",
+   "new": {
+    "declaring": "dfI",
+    "descriptor": "()Z",
+    "flags": 17,
+    "lookup": "dfI",
+    "name": "iCS"
+   },
+   "old": {
+    "declaring": "cZl",
+    "descriptor": "()Z",
+    "flags": 17,
+    "lookup": "cZl",
+    "name": "Mkn"
+   },
+   "result": "same-body",
+   "role": "replaying-flag"
+  },
+  {
+   "bodyDigestNew": "c193c8df704a49a92384b5dd21a12618183f414094ef95b11754456c004827c0",
+   "bodyDigestOld": "c193c8df704a49a92384b5dd21a12618183f414094ef95b11754456c004827c0",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "a4e9c2ee31a771bc701c1214fa2427ed08277665d60ef6b7dc7d02203b11b991",
+   "digestOld": "a4e9c2ee31a771bc701c1214fa2427ed08277665d60ef6b7dc7d02203b11b991",
+   "flagsNew": 2,
+   "flagsOld": 2,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 22,
+   "instructionsOld": 22,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/flt/document/core/master/device/IcG",
+    "descriptor": "(Ljava/util/Collection;)Ljava/lang/String;",
+    "flags": 2,
+    "lookup": "com/bitwig/flt/document/core/master/device/IcG",
+    "name": "cfM"
+   },
+   "old": {
+    "declaring": "com/bitwig/flt/document/core/master/device/gOr",
+    "descriptor": "(Ljava/util/Collection;)Ljava/lang/String;",
+    "flags": 2,
+    "lookup": "com/bitwig/flt/document/core/master/device/gOr",
+    "name": "ffA"
+   },
+   "result": "same-body",
+   "role": "insert-label"
+  },
+  {
+   "bodyDigestNew": "19246e05285c39815bc4ac91d0efd89feab1527edc246675e17c127207cc6733",
+   "bodyDigestOld": "19246e05285c39815bc4ac91d0efd89feab1527edc246675e17c127207cc6733",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "d41b5d0e96bed5f9d5d4935bc7a181c57deb59cccc89fbf782e00366f290c279",
+   "digestOld": "d41b5d0e96bed5f9d5d4935bc7a181c57deb59cccc89fbf782e00366f290c279",
+   "flagsNew": 148,
+   "flagsOld": 148,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 39,
+   "instructionsOld": 39,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/ramona/core/AVL",
+    "descriptor": "(Ljava/lang/String;[Lcom/bitwig/ramona/core/IOJ;)Z",
+    "flags": 148,
+    "lookup": "com/bitwig/ramona/core/AVL",
+    "name": "cfM"
+   },
+   "old": {
+    "declaring": "com/bitwig/ramona/core/ikl",
+    "descriptor": "(Ljava/lang/String;[Lcom/bitwig/ramona/core/wfl;)Z",
+    "flags": 148,
+    "lookup": "com/bitwig/ramona/core/ikl",
+    "name": "ffA"
+   },
+   "result": "same-body",
+   "role": "begin"
+  },
+  {
+   "bodyDigestNew": "f933300154bd01a64997a5b1d4aa8ef3a6465883eb32345f00b19fb199b271a4",
+   "bodyDigestOld": "f933300154bd01a64997a5b1d4aa8ef3a6465883eb32345f00b19fb199b271a4",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "525e6326a28cfbf34129abd1fdd76eba2fd315a13da68847fe1b9ead03ce5272",
+   "digestOld": "525e6326a28cfbf34129abd1fdd76eba2fd315a13da68847fe1b9ead03ce5272",
+   "flagsNew": 20,
+   "flagsOld": 20,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 4,
+   "instructionsOld": 4,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/ramona/core/AVL",
+    "descriptor": "()Z",
+    "flags": 20,
+    "lookup": "com/bitwig/ramona/core/AVL",
+    "name": "RpC"
+   },
+   "old": {
+    "declaring": "com/bitwig/ramona/core/ikl",
+    "descriptor": "()Z",
+    "flags": 20,
+    "lookup": "com/bitwig/ramona/core/ikl",
+    "name": "hoE"
+   },
+   "result": "same-body",
+   "role": "close"
+  },
+  {
+   "bodyDigestNew": "7ae495aa67afdf1d665c8bbfadc9c43833774bc7d33106353689dd4a55ae48ea",
+   "bodyDigestOld": "7ae495aa67afdf1d665c8bbfadc9c43833774bc7d33106353689dd4a55ae48ea",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "44afce15b86e26ac4fac9e34e3f8bb77e088dbab573ec8094cbb8ad33e4360e6",
+   "digestOld": "44afce15b86e26ac4fac9e34e3f8bb77e088dbab573ec8094cbb8ad33e4360e6",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 6,
+   "instructionsOld": 6,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/flt/document/core/master/device/IcG",
+    "descriptor": "()V",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/device/IcG",
+    "name": "Bpn"
+   },
+   "old": {
+    "declaring": "com/bitwig/flt/document/core/master/device/gOr",
+    "descriptor": "()V",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/device/gOr",
+    "name": "aJp"
+   },
+   "result": "same-body",
+   "role": "associate-edit"
+  },
+  {
+   "bodyDigestNew": "a0f3630e129cb19125e2ebf3797783b6f960a2036cc44e53896d433a5be4f859",
+   "bodyDigestOld": "a0f3630e129cb19125e2ebf3797783b6f960a2036cc44e53896d433a5be4f859",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "a44296d2625cfbaeab4f5a2572c67a177912cd85af88a8a7114628386384c09c",
+   "digestOld": "a44296d2625cfbaeab4f5a2572c67a177912cd85af88a8a7114628386384c09c",
+   "flagsNew": 0,
+   "flagsOld": 0,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 81,
+   "instructionsOld": 81,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/flt/document/core/master/device/IcG",
+    "descriptor": "(Ljava/util/Collection;IIZLcom/bitwig/flt/document/core/master/device/htp;)V",
+    "flags": 0,
+    "lookup": "com/bitwig/flt/document/core/master/device/IcG",
+    "name": "cfM"
+   },
+   "old": {
+    "declaring": "com/bitwig/flt/document/core/master/device/gOr",
+    "descriptor": "(Ljava/util/Collection;IIZLcom/bitwig/flt/document/core/master/device/RHk;)V",
+    "flags": 0,
+    "lookup": "com/bitwig/flt/document/core/master/device/gOr",
+    "name": "ffA"
+   },
+   "result": "same-body",
+   "role": "insert-body"
+  },
+  {
+   "checkpointStatus": "field-operation-bound",
+   "flagsNew": 18,
+   "flagsOld": 18,
+   "kind": "field",
+   "new": {
+    "declaring": "com/bitwig/ramona/core/XKG",
+    "descriptor": "Ljava/util/Stack;",
+    "flags": 18,
+    "lookup": "com/bitwig/ramona/core/XKG",
+    "name": "eLY"
+   },
+   "old": {
+    "declaring": "com/bitwig/ramona/core/Ibf",
+    "descriptor": "Ljava/util/Stack;",
+    "flags": 18,
+    "lookup": "com/bitwig/ramona/core/Ibf",
+    "name": "SRu"
+   },
+   "result": "field-same",
+   "role": "frame-stack",
+   "shapeNew": "Ljava/util/Stack;",
+   "shapeOld": "Ljava/util/Stack;"
+  },
+  {
+   "checkpointStatus": "field-operation-bound",
+   "flagsNew": 2,
+   "flagsOld": 2,
+   "kind": "field",
+   "new": {
+    "declaring": "com/bitwig/ramona/core/XKG",
+    "descriptor": "I",
+    "flags": 2,
+    "lookup": "com/bitwig/ramona/core/XKG",
+    "name": "lYc"
+   },
+   "old": {
+    "declaring": "com/bitwig/ramona/core/Ibf",
+    "descriptor": "I",
+    "flags": 2,
+    "lookup": "com/bitwig/ramona/core/Ibf",
+    "name": "pvN"
+   },
+   "result": "field-same",
+   "role": "instant-edits",
+   "shapeNew": "I",
+   "shapeOld": "I"
+  },
+  {
+   "checkpointStatus": "field-operation-bound",
+   "flagsNew": 2,
+   "flagsOld": 2,
+   "kind": "field",
+   "new": {
+    "declaring": "com/bitwig/ramona/core/XKG",
+    "descriptor": "I",
+    "flags": 2,
+    "lookup": "com/bitwig/ramona/core/XKG",
+    "name": "E3"
+   },
+   "old": {
+    "declaring": "com/bitwig/ramona/core/Ibf",
+    "descriptor": "I",
+    "flags": 2,
+    "lookup": "com/bitwig/ramona/core/Ibf",
+    "name": "QiZ"
+   },
+   "result": "field-same",
+   "role": "long-edits",
+   "shapeNew": "I",
+   "shapeOld": "I"
+  },
+  {
+   "checkpointStatus": "field-operation-bound",
+   "flagsNew": 2,
+   "flagsOld": 2,
+   "kind": "field",
+   "new": {
+    "declaring": "com/bitwig/ramona/core/XKG",
+    "descriptor": "I",
+    "flags": 2,
+    "lookup": "com/bitwig/ramona/core/XKG",
+    "name": "TMF"
+   },
+   "old": {
+    "declaring": "com/bitwig/ramona/core/Ibf",
+    "descriptor": "I",
+    "flags": 2,
+    "lookup": "com/bitwig/ramona/core/Ibf",
+    "name": "wi2"
+   },
+   "result": "field-same",
+   "role": "lock-count",
+   "shapeNew": "I",
+   "shapeOld": "I"
+  },
+  {
+   "checkpointStatus": "field-operation-bound",
+   "flagsNew": 2,
+   "flagsOld": 2,
+   "kind": "field",
+   "new": {
+    "declaring": "com/bitwig/ramona/core/XKG",
+    "descriptor": "Ljava/util/Set;",
+    "flags": 2,
+    "lookup": "com/bitwig/ramona/core/XKG",
+    "name": "wGc"
+   },
+   "old": {
+    "declaring": "com/bitwig/ramona/core/Ibf",
+    "descriptor": "Ljava/util/Set;",
+    "flags": 2,
+    "lookup": "com/bitwig/ramona/core/Ibf",
+    "name": "MkF"
+   },
+   "result": "field-same",
+   "role": "lock-set",
+   "shapeNew": "Ljava/util/Set;",
+   "shapeOld": "Ljava/util/Set;"
+  },
+  {
+   "checkpointStatus": "field-operation-bound",
+   "flagsNew": 18,
+   "flagsOld": 18,
+   "kind": "field",
+   "new": {
+    "declaring": "dfI",
+    "descriptor": "Ljava/util/Map;",
+    "flags": 18,
+    "lookup": "dfI",
+    "name": "TtY"
+   },
+   "old": {
+    "declaring": "cZl",
+    "descriptor": "Ljava/util/Map;",
+    "flags": 18,
+    "lookup": "cZl",
+    "name": "W2P"
+   },
+   "result": "field-same",
+   "role": "journal-map",
+   "shapeNew": "Ljava/util/Map;",
+   "shapeOld": "Ljava/util/Map;"
+  },
+  {
+   "checkpointStatus": "field-operation-bound",
+   "flagsNew": 2,
+   "flagsOld": 2,
+   "kind": "field",
+   "new": {
+    "declaring": "com/bitwig/flt/document/core/master/device/IcG",
+    "descriptor": "LdfT;",
+    "flags": 2,
+    "lookup": "com/bitwig/flt/document/core/master/device/IcG",
+    "name": "lYc"
+   },
+   "old": {
+    "declaring": "com/bitwig/flt/document/core/master/device/gOr",
+    "descriptor": "LcZv;",
+    "flags": 2,
+    "lookup": "com/bitwig/flt/document/core/master/device/gOr",
+    "name": "pvN"
+   },
+   "result": "field-same",
+   "role": "associated-edit",
+   "shapeNew": "Lvendor;",
+   "shapeOld": "Lvendor;"
+  },
+  {
+   "checkpointStatus": "field-operation-bound",
+   "flagsNew": 20,
+   "flagsOld": 20,
+   "kind": "field",
+   "new": {
+    "declaring": "com/bitwig/flt/document/core/master/device/BZG",
+    "descriptor": "Ljava/util/Map;",
+    "flags": 20,
+    "lookup": "com/bitwig/flt/document/core/master/device/BZG",
+    "name": "hUR"
+   },
+   "old": {
+    "declaring": "com/bitwig/flt/document/core/master/device/NHx",
+    "descriptor": "Ljava/util/Map;",
+    "flags": 20,
+    "lookup": "com/bitwig/flt/document/core/master/device/NHx",
+    "name": "kG"
+   },
+   "result": "field-same",
+   "role": "display-map",
+   "shapeNew": "Ljava/util/Map;",
+   "shapeOld": "Ljava/util/Map;"
+  },
+  {
+   "checkpointStatus": "field-operation-bound",
+   "flagsNew": 4,
+   "flagsOld": 4,
+   "kind": "field",
+   "new": {
+    "declaring": "Ltw",
+    "descriptor": "Lici;",
+    "flags": 4,
+    "lookup": "Ltw",
+    "name": "cfM"
+   },
+   "old": {
+    "declaring": "nST",
+    "descriptor": "LTu;",
+    "flags": 4,
+    "lookup": "nST",
+    "name": "ffA"
+   },
+   "result": "field-same",
+   "role": "selection-state",
+   "shapeNew": "Lvendor;",
+   "shapeOld": "Lvendor;"
+  },
+  {
+   "checkpointStatus": "field-operation-bound",
+   "flagsNew": 4,
+   "flagsOld": 4,
+   "kind": "field",
+   "new": {
+    "declaring": "zRo",
+    "descriptor": "Ljava/util/List;",
+    "flags": 4,
+    "lookup": "zRo",
+    "name": "iW2"
+   },
+   "old": {
+    "declaring": "YJr",
+    "descriptor": "Ljava/util/List;",
+    "flags": 4,
+    "lookup": "YJr",
+    "name": "JD1"
+   },
+   "result": "field-same",
+   "role": "selected-modules",
+   "shapeNew": "Ljava/util/List;",
+   "shapeOld": "Ljava/util/List;"
+  },
+  {
+   "checkpointStatus": "field-operation-bound",
+   "flagsNew": 4,
+   "flagsOld": 4,
+   "kind": "field",
+   "new": {
+    "declaring": "zRo",
+    "descriptor": "LbYE;",
+    "flags": 4,
+    "lookup": "zRo",
+    "name": "nfq"
+   },
+   "old": {
+    "declaring": "YJr",
+    "descriptor": "Lrez;",
+    "flags": 4,
+    "lookup": "YJr",
+    "name": "GC"
+   },
+   "result": "field-same",
+   "role": "focus",
+   "shapeNew": "Lvendor;",
+   "shapeOld": "Lvendor;"
+  },
+  {
+   "bodyDigestNew": "ddfa5ab0418cf1346e73ee98976309923784681ce9aa0c55136384c1608ee13c",
+   "bodyDigestOld": "ddfa5ab0418cf1346e73ee98976309923784681ce9aa0c55136384c1608ee13c",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "eb9b7f64e1572428930bf66b385de83ab1ac34ca3e0050fb2fb599009fdf6aa5",
+   "digestOld": "eb9b7f64e1572428930bf66b385de83ab1ac34ca3e0050fb2fb599009fdf6aa5",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 3,
+   "instructionsOld": 3,
+   "kind": "method",
+   "new": {
+    "declaring": "e1g",
+    "descriptor": "()Lcom/bitwig/ramona/core/oDc;",
+    "flags": 1,
+    "lookup": "e1g",
+    "name": "lYc"
+   },
+   "old": {
+    "declaring": "QAi",
+    "descriptor": "()Lcom/bitwig/ramona/core/HEV;",
+    "flags": 1,
+    "lookup": "QAi",
+    "name": "pvN"
+   },
+   "result": "same-body",
+   "role": "focus-target"
+  },
+  {
+   "bodyDigestNew": "c1bb9910e28aaf027b4a6cc3bf0a23ea813298643d91d77baaf69df381bf2659",
+   "bodyDigestOld": "c1bb9910e28aaf027b4a6cc3bf0a23ea813298643d91d77baaf69df381bf2659",
+   "checkpointStatus": "bootstrap-local-contract",
+   "comparator": "dynamic-contract",
+   "digestNew": "07ae17b629eea70a268fc13eb2c93fdb87872a4aefad7febfdfd5e77f0e169d3",
+   "digestOld": "07ae17b629eea70a268fc13eb2c93fdb87872a4aefad7febfdfd5e77f0e169d3",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 45,
+   "instructionsOld": 45,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/ramona/core/oDc",
+    "descriptor": "()I",
+    "flags": 17,
+    "lookup": "com/bitwig/ramona/core/oDc",
+    "name": "vdx"
+   },
+   "old": {
+    "declaring": "com/bitwig/ramona/core/HEV",
+    "descriptor": "()I",
+    "flags": 17,
+    "lookup": "com/bitwig/ramona/core/HEV",
+    "name": "WKy"
+   },
+   "result": "same-body",
+   "role": "managed-id"
+  },
+  {
+   "bodyDigestNew": "d1b18dce83a51879a8bdd0b450135541946530ffdf44e237e35b5dda661b9b00",
+   "bodyDigestOld": "d1b18dce83a51879a8bdd0b450135541946530ffdf44e237e35b5dda661b9b00",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "ee2c922b8ec4b7226a6fd8d703efbc3ef06c2c557140af4d31b443876ea321d9",
+   "digestOld": "ee2c922b8ec4b7226a6fd8d703efbc3ef06c2c557140af4d31b443876ea321d9",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 29,
+   "instructionsOld": 29,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/ramona/core/Rzi",
+    "descriptor": "(I)Lcom/bitwig/ramona/core/oDc;",
+    "flags": 1,
+    "lookup": "com/bitwig/ramona/core/Rzi",
+    "name": "cfM"
+   },
+   "old": {
+    "declaring": "com/bitwig/ramona/core/uX1",
+    "descriptor": "(I)Lcom/bitwig/ramona/core/HEV;",
+    "flags": 1,
+    "lookup": "com/bitwig/ramona/core/uX1",
+    "name": "ffA"
+   },
+   "result": "same-body",
+   "role": "registered-lookup"
+  },
+  {
+   "bodyDigestNew": "a2871d7d9a41abbe0637e8ee770248ebad6a5fe9d0fee8027c6ff978b5cda3b7",
+   "bodyDigestOld": "a2871d7d9a41abbe0637e8ee770248ebad6a5fe9d0fee8027c6ff978b5cda3b7",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "1341dfbb27d92fa066479977fe94060be581ba560486321df209c40b388342a3",
+   "digestOld": "1341dfbb27d92fa066479977fe94060be581ba560486321df209c40b388342a3",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 12,
+   "instructionsOld": 12,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/flt/document/core/master/AJH",
+    "descriptor": "()LMQ2;",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/AJH",
+    "name": "EUG"
+   },
+   "old": {
+    "declaring": "com/bitwig/flt/document/core/master/Ymq",
+    "descriptor": "()LrjH;",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/Ymq",
+    "name": "AAO"
+   },
+   "result": "same-body",
+   "role": "engine-state"
+  },
+  {
+   "bodyDigestNew": "ddfa5ab0418cf1346e73ee98976309923784681ce9aa0c55136384c1608ee13c",
+   "bodyDigestOld": "ddfa5ab0418cf1346e73ee98976309923784681ce9aa0c55136384c1608ee13c",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "eb9b7f64e1572428930bf66b385de83ab1ac34ca3e0050fb2fb599009fdf6aa5",
+   "digestOld": "eb9b7f64e1572428930bf66b385de83ab1ac34ca3e0050fb2fb599009fdf6aa5",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 3,
+   "instructionsOld": 3,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/flt/document/core/master/g2L",
+    "descriptor": "()Ldfn;",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/g2L",
+    "name": "kAs"
+   },
+   "old": {
+    "declaring": "com/bitwig/flt/document/core/master/Svr",
+    "descriptor": "()LcYQ;",
+    "flags": 1,
+    "lookup": "com/bitwig/flt/document/core/master/Svr",
+    "name": "jnZ"
+   },
+   "result": "same-body",
+   "role": "connection"
+  },
+  {
+   "checkpointStatus": "field-operation-bound",
+   "flagsNew": 16409,
+   "flagsOld": 16409,
+   "kind": "field",
+   "new": {
+    "declaring": "MQ2",
+    "descriptor": "LMQ2;",
+    "flags": 16409,
+    "lookup": "MQ2",
+    "name": "Hnt"
+   },
+   "old": {
+    "declaring": "rjH",
+    "descriptor": "LrjH;",
+    "flags": 16409,
+    "lookup": "rjH",
+    "name": "cG3"
+   },
+   "result": "field-same",
+   "role": "connected-state",
+   "shapeNew": "Lself;",
+   "shapeOld": "Lself;"
+  },
+  {
+   "checkpointStatus": "field-operation-bound",
+   "flagsNew": 16409,
+   "flagsOld": 16409,
+   "kind": "field",
+   "new": {
+    "declaring": "MQ2",
+    "descriptor": "LMQ2;",
+    "flags": 16409,
+    "lookup": "MQ2",
+    "name": "cfM"
+   },
+   "old": {
+    "declaring": "rjH",
+    "descriptor": "LrjH;",
+    "flags": 16409,
+    "lookup": "rjH",
+    "name": "ffA"
+   },
+   "result": "field-same",
+   "role": "inactive-state",
+   "shapeNew": "Lself;",
+   "shapeOld": "Lself;"
+  },
+  {
+   "bodyDigestNew": "c3f90188ebec402c6dbf04d35cbc85cbade2f3189e15a28108b36aa31069d997",
+   "bodyDigestOld": "c3f90188ebec402c6dbf04d35cbc85cbade2f3189e15a28108b36aa31069d997",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "d57a438cf6ecb411347abe0afbdd2477446526acb9311516633d175e38d2995a",
+   "digestOld": "d57a438cf6ecb411347abe0afbdd2477446526acb9311516633d175e38d2995a",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 13,
+   "instructionsOld": 13,
+   "kind": "method",
+   "new": {
+    "declaring": "Qe",
+    "descriptor": "(Z)V",
+    "flags": 17,
+    "lookup": "Qe",
+    "name": "MRY"
+   },
+   "old": {
+    "declaring": "Xuo",
+    "descriptor": "(Z)V",
+    "flags": 17,
+    "lookup": "Xuo",
+    "name": "eOi"
+   },
+   "result": "same-body",
+   "role": "boolean-command"
+  },
+  {
+   "bodyDigestNew": "bb145f0671c291ccad5c948659e8b6a6bed4861973ecffb4419d5bf0e10b6018",
+   "bodyDigestOld": "bb145f0671c291ccad5c948659e8b6a6bed4861973ecffb4419d5bf0e10b6018",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "34a35a10994a7d27cac963c428458f5f5df5fcc25be709f680f4d3aa72e79cde",
+   "digestOld": "34a35a10994a7d27cac963c428458f5f5df5fcc25be709f680f4d3aa72e79cde",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 13,
+   "instructionsOld": 13,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/flt/document/core/master/device/LFj",
+    "descriptor": "(LbDH;)V",
+    "flags": 17,
+    "lookup": "com/bitwig/flt/document/core/master/device/LFj",
+    "name": "Hnt"
+   },
+   "old": {
+    "declaring": "com/bitwig/flt/document/core/master/device/Net",
+    "descriptor": "(LHjt;)V",
+    "flags": 17,
+    "lookup": "com/bitwig/flt/document/core/master/device/Net",
+    "name": "cG3"
+   },
+   "result": "same-body",
+   "role": "remove-mapping"
+  },
+  {
+   "bodyDigestNew": "c71a3e4865e0c87343282de193a13bdf73a1fb72a6a44fb55805ad7032deb7e3",
+   "bodyDigestOld": "c71a3e4865e0c87343282de193a13bdf73a1fb72a6a44fb55805ad7032deb7e3",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "d5fc468036797d75437247fbd8ca4062c48f17727a714e6cd93b10fe19d0307b",
+   "digestOld": "d5fc468036797d75437247fbd8ca4062c48f17727a714e6cd93b10fe19d0307b",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 17,
+   "instructionsOld": 17,
+   "kind": "method",
+   "new": {
+    "declaring": "com/bitwig/flt/document/core/master/device/LFj",
+    "descriptor": "(LbDH;DZLcS2;Lcom/bitwig/flt/document/core/master/device/xMq;)V",
+    "flags": 17,
+    "lookup": "com/bitwig/flt/document/core/master/device/LFj",
+    "name": "MRY"
+   },
+   "old": {
+    "declaring": "com/bitwig/flt/document/core/master/device/Net",
+    "descriptor": "(LHjt;DZLjas;Lcom/bitwig/flt/document/core/master/device/NDn;)V",
+    "flags": 17,
+    "lookup": "com/bitwig/flt/document/core/master/device/Net",
+    "name": "eOi"
+   },
+   "result": "same-body",
+   "role": "restore-mapping"
+  },
+  {
+   "bodyDigestNew": "ddfa5ab0418cf1346e73ee98976309923784681ce9aa0c55136384c1608ee13c",
+   "bodyDigestOld": "ddfa5ab0418cf1346e73ee98976309923784681ce9aa0c55136384c1608ee13c",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "eb9b7f64e1572428930bf66b385de83ab1ac34ca3e0050fb2fb599009fdf6aa5",
+   "digestOld": "eb9b7f64e1572428930bf66b385de83ab1ac34ca3e0050fb2fb599009fdf6aa5",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 3,
+   "instructionsOld": 3,
+   "kind": "method",
+   "new": {
+    "declaring": "aLw",
+    "descriptor": "()LbU;",
+    "flags": 1,
+    "lookup": "bDH",
+    "name": "SVQ"
+   },
+   "old": {
+    "declaring": "ccA",
+    "descriptor": "()LMTu;",
+    "flags": 1,
+    "lookup": "Hjt",
+    "name": "aGJ"
+   },
+   "result": "same-body",
+   "role": "target-domain"
+  },
+  {
+   "bodyDigestNew": "3a983b194411a34251431a246cc280ec90c7c420309dc7b06a7f1fd6343fccbc",
+   "bodyDigestOld": "3a983b194411a34251431a246cc280ec90c7c420309dc7b06a7f1fd6343fccbc",
+   "checkpointStatus": "abstract-slot-bound",
+   "comparator": "contract",
+   "digestNew": "7d9bfa70bb2399b098ed8328951b553b02764232ba5818c4c07913715601cbe8",
+   "digestOld": "7d9bfa70bb2399b098ed8328951b553b02764232ba5818c4c07913715601cbe8",
+   "flagsNew": 1025,
+   "flagsOld": 1025,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 0,
+   "instructionsOld": 0,
+   "kind": "method",
+   "new": {
+    "declaring": "vcm",
+    "descriptor": "()D",
+    "flags": 1025,
+    "lookup": "bU",
+    "name": "uWE"
+   },
+   "old": {
+    "declaring": "TNT",
+    "descriptor": "()D",
+    "flags": 1025,
+    "lookup": "MTu",
+    "name": "NCM"
+   },
+   "result": "same-body",
+   "role": "domain-extent"
+  },
+  {
+   "bodyDigestNew": "ddfa5ab0418cf1346e73ee98976309923784681ce9aa0c55136384c1608ee13c",
+   "bodyDigestOld": "ddfa5ab0418cf1346e73ee98976309923784681ce9aa0c55136384c1608ee13c",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "eb9b7f64e1572428930bf66b385de83ab1ac34ca3e0050fb2fb599009fdf6aa5",
+   "digestOld": "eb9b7f64e1572428930bf66b385de83ab1ac34ca3e0050fb2fb599009fdf6aa5",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 3,
+   "instructionsOld": 3,
+   "kind": "method",
+   "new": {
+    "declaring": "dhu",
+    "descriptor": "()LdfT;",
+    "flags": 1,
+    "lookup": "dhu",
+    "name": "eLY"
+   },
+   "old": {
+    "declaring": "daR",
+    "descriptor": "()LcZv;",
+    "flags": 1,
+    "lookup": "daR",
+    "name": "MkF"
+   },
+   "result": "same-body",
+   "role": "undo-head"
+  },
+  {
+   "bodyDigestNew": "cb0393f67a6cdaca5aac4b933543d622446fb580bb807c976daacb086063c546",
+   "bodyDigestOld": "cb0393f67a6cdaca5aac4b933543d622446fb580bb807c976daacb086063c546",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "cef44b87eb6679217dfc1b8e31cfb5dcd4320a519b11f346dcb55a733ccb8da7",
+   "digestOld": "cef44b87eb6679217dfc1b8e31cfb5dcd4320a519b11f346dcb55a733ccb8da7",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 17,
+   "instructionsOld": 17,
+   "kind": "method",
+   "new": {
+    "declaring": "dhu",
+    "descriptor": "()Z",
+    "flags": 1,
+    "lookup": "dhu",
+    "name": "TMF"
+   },
+   "old": {
+    "declaring": "daR",
+    "descriptor": "()Z",
+    "flags": 1,
+    "lookup": "daR",
+    "name": "kG"
+   },
+   "result": "same-body",
+   "role": "undo-available"
+  },
+  {
+   "bodyDigestNew": "a79fc067cf481c89395d68817a62aeb04727aca52b9622a6e4bb0191f80ade7c",
+   "bodyDigestOld": "a79fc067cf481c89395d68817a62aeb04727aca52b9622a6e4bb0191f80ade7c",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "27898a8b1c9849100d6bd12d2de1b864f64f70f108582a572f5a0e69fb3d5154",
+   "digestOld": "27898a8b1c9849100d6bd12d2de1b864f64f70f108582a572f5a0e69fb3d5154",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 34,
+   "instructionsOld": 34,
+   "kind": "method",
+   "new": {
+    "declaring": "dfI",
+    "descriptor": "()V",
+    "flags": 17,
+    "lookup": "dfI",
+    "name": "tp2"
+   },
+   "old": {
+    "declaring": "cZl",
+    "descriptor": "()V",
+    "flags": 17,
+    "lookup": "cZl",
+    "name": "OTd"
+   },
+   "result": "same-body",
+   "role": "undo-command"
+  },
+  {
+   "bodyDigestNew": "550ef90a5da22c466aad98b4fd410675e155e773e2688e4ac394aa2b4b7d9250",
+   "bodyDigestOld": "550ef90a5da22c466aad98b4fd410675e155e773e2688e4ac394aa2b4b7d9250",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "be02baa215af10d12a60d9f02111dd29e666f8b05c7fb554bd25310d7a16cdd0",
+   "digestOld": "be02baa215af10d12a60d9f02111dd29e666f8b05c7fb554bd25310d7a16cdd0",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 21,
+   "instructionsOld": 21,
+   "kind": "method",
+   "new": {
+    "declaring": "dfI",
+    "descriptor": "()Z",
+    "flags": 17,
+    "lookup": "dfI",
+    "name": "hbP"
+   },
+   "old": {
+    "declaring": "cZl",
+    "descriptor": "()Z",
+    "flags": 17,
+    "lookup": "cZl",
+    "name": "eJS"
+   },
+   "result": "same-body",
+   "role": "document-undo-enabled"
+  },
+  {
+   "bodyDigestNew": "ae031ff73f2d6e4c02da64326d1ae69d3675cf9fd6165c3259e306c578df7e43",
+   "bodyDigestOld": "ae031ff73f2d6e4c02da64326d1ae69d3675cf9fd6165c3259e306c578df7e43",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "cb5fd03ddd660b7ccea2da792c2c71009de87f7d64edc83b5aba7eb5a86afd12",
+   "digestOld": "cb5fd03ddd660b7ccea2da792c2c71009de87f7d64edc83b5aba7eb5a86afd12",
+   "flagsNew": 17,
+   "flagsOld": 17,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 4,
+   "instructionsOld": 4,
+   "kind": "method",
+   "new": {
+    "declaring": "dfI",
+    "descriptor": "()Lcom/bitwig/ramona/core/XKG;",
+    "flags": 17,
+    "lookup": "dfI",
+    "name": "ERO"
+   },
+   "old": {
+    "declaring": "cZl",
+    "descriptor": "()Lcom/bitwig/ramona/core/Ibf;",
+    "flags": 17,
+    "lookup": "cZl",
+    "name": "nrP"
+   },
+   "result": "same-body",
+   "role": "document-manager"
+  },
+  {
+   "bodyDigestNew": "ddfa5ab0418cf1346e73ee98976309923784681ce9aa0c55136384c1608ee13c",
+   "bodyDigestOld": "ddfa5ab0418cf1346e73ee98976309923784681ce9aa0c55136384c1608ee13c",
+   "checkpointStatus": "exact-operation-contract",
+   "comparator": "contract",
+   "digestNew": "eb9b7f64e1572428930bf66b385de83ab1ac34ca3e0050fb2fb599009fdf6aa5",
+   "digestOld": "eb9b7f64e1572428930bf66b385de83ab1ac34ca3e0050fb2fb599009fdf6aa5",
+   "flagsNew": 1,
+   "flagsOld": 1,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 3,
+   "instructionsOld": 3,
+   "kind": "method",
+   "new": {
+    "declaring": "dhu",
+    "descriptor": "()LdfT;",
+    "flags": 1,
+    "lookup": "dhu",
+    "name": "hUR"
+   },
+   "old": {
+    "declaring": "daR",
+    "descriptor": "()LcZv;",
+    "flags": 1,
+    "lookup": "daR",
+    "name": "kyi"
+   },
+   "result": "same-body",
+   "role": "journal-replay-head"
+  },
+  {
+   "bodyDigestNew": "dbd3b1c1bc047525a4a82370380026050e983eaea992ef1b119aab589e5913e8",
+   "bodyDigestOld": "dbd3b1c1bc047525a4a82370380026050e983eaea992ef1b119aab589e5913e8",
+   "checkpointStatus": "lookup-or-access-difference",
+   "comparator": "contract",
+   "digestNew": "82037dad57a8f9e7229ddae55627d7612dfb5f9123d9d389686925ab341b58c1",
+   "digestOld": "1afa1127259f0fb3c3e77c96268de9255d0b28775d3441776975b705fc6b93fc",
+   "flagsNew": 0,
+   "flagsOld": 2,
+   "handlersNew": 0,
+   "handlersOld": 0,
+   "instructionsNew": 9,
+   "instructionsOld": 9,
+   "kind": "method",
+   "new": {
+    "declaring": "dhu",
+    "descriptor": "()LdfT;",
+    "flags": 0,
+    "lookup": "dhu",
+    "name": "Hnt"
+   },
+   "old": {
+    "declaring": "daR",
+    "descriptor": "()LcZv;",
+    "flags": 2,
+    "lookup": "daR",
+    "name": "YLA"
+   },
+   "result": "access-change-only",
+   "role": "journal-recording-edit"
+  }
+ ],
+ "summary": {
+  "callee:changed-body": 6,
+  "callee:new-only": 2,
+  "callee:same-body": 63,
+  "callees": 71,
+  "changed": 11,
+  "role:access-change-only": 1,
+  "role:changed-body": 2,
+  "role:field-same": 16,
+  "role:same-body": 57,
+  "roles": 76
+ },
+ "vendorClassesInitialized": 0,
+ "writeAuthority": false
+}

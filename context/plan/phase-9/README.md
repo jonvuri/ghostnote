@@ -2,7 +2,7 @@
 title: Phase 9 — Overlap investigation
 kind: plan
 state: active
-status: E338 closes the 9b.6g offline work; D52 adopts guarded runtime admission. Next is 9b.6h, the guarded doctor on 6.1.4.
+status: E339 completes the 9b.6h guarded-doctor preparation on 6.1.4; the boolean case passes with the D52 guards, the mapping removal ran once as an uncertain write, and the operator recovered by restart. Next is 9b.6i, the recovered baseline and the second guarded pass.
 updated: 2026-10-22
 parent: ../ROADMAP.md
 prev: ../phase-8/README.md

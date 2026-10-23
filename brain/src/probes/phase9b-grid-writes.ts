@@ -15,21 +15,29 @@ export const CASES = {
 } as const;
 export type Case = keyof typeof CASES;
 const atom = (fixture: Wire, module: number, index: number): Wire => fixture.modules[module].atoms[index];
-function gates(module: Wire) {
+/** Exact runtime class names of the boolean atom and the mapping source. They differ per Bitwig build. */
+export type FixtureRuntime = { booleanAtom: string; sourceAtom: string };
+export const PINNED_606: FixtureRuntime = { booleanAtom: 'QY', sourceAtom: 'com.bitwig.flt.document.core.master.device.NDn' };
+/** Derive the runtime names from a validated doctor candidate table (9b.6h). */
+export function fixtureRuntime(candidate: Wire): FixtureRuntime {
+  const name = (role: string) => { const t = candidate.types[role]; assert.equal(typeof t, 'string', `candidate-type:${role}`); return t.replace(/\//g, '.'); };
+  return { booleanAtom: name('boolean-atom'), sourceAtom: name('mapping-source') };
+}
+function gates(module: Wire, runtime: FixtureRuntime = PINNED_606) {
   assert.equal(module.type, GATES); assert.equal(module.atoms.length, 17);
   const data = module.atoms[5].fields, phase = module.atoms[7];
   assert.equal(data['6613'], 64); assert.equal(data['6609'].length, 64);
   assert.ok(data['6609'].every((value: unknown) => typeof value === 'number' && Number.isFinite(value)));
-  assert.equal(phase.class, 'boolean_value_atom'); assert.equal(phase.runtimeClass, 'QY');
+  assert.equal(phase.class, 'boolean_value_atom'); assert.equal(phase.runtimeClass, runtime.booleanAtom);
   assert.equal(phase.fields['701'], 'DEVICE_PHASE'); assert.equal(typeof phase.fields['210'], 'boolean');
   for (const index of [4, 7, 9, 10]) assert.ok(Object.keys(module.atoms[index].fields).length >= 4);
 }
-export function selectedMapping(fixture: Wire): string | undefined {
+export function selectedMapping(fixture: Wire, runtime: FixtureRuntime = PINNED_606): string | undefined {
   assert.equal(fixture.modules[13].type, '098ad9c6-b4c9-4ec1-887f-eaf588611056');
   assert.equal(fixture.modules[24].type, '2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f');
   const source = atom(fixture, 13, 1), target = atom(fixture, 24, 0);
   assert.equal(source.class, 'modulation_source_atom');
-  assert.equal(source.runtimeClass, 'com.bitwig.flt.document.core.master.device.NDn');
+  assert.equal(source.runtimeClass, runtime.sourceAtom);
   assert.equal(target.class, 'decimal_value_atom');
   const matches = Object.entries(fixture.mappings).filter(([, value]) => {
     const m = value as Wire;
@@ -75,30 +83,30 @@ function identities(value: unknown, result = new Set<string>()): Set<string> {
   }
   return result;
 }
-export function validateSnapshot(initial: Wire, actual: Wire, kind: Case, stage: number) {
+export function validateSnapshot(initial: Wire, actual: Wire, kind: Case, stage: number, runtime: FixtureRuntime = PINNED_606) {
   assert.equal(actual.witness.editIdle, true); assert.equal(actual.witness.parentsVerified, true);
   assert.deepEqual(actual.witness, initial.witness);
   const base = initial.fixture, next = actual.fixture;
   assert.ok(base.modules.length <= 64 && new Set(base.modules.map((m: Wire) => m.uuid)).size === base.modules.length);
   if (kind === 'mapping') {
-    const oldId = selectedMapping(base); assert.ok(oldId);
+    const oldId = selectedMapping(base, runtime); assert.ok(oldId);
     if (stage === 1) {
-      assert.equal(selectedMapping(next), undefined);
+      assert.equal(selectedMapping(next, runtime), undefined);
       assert.deepEqual(next, transformMapping(base, oldId, false));
     } else if (stage === 2) {
-      const newId = selectedMapping(next); assert.ok(newId);
+      const newId = selectedMapping(next, runtime); assert.ok(newId);
       const ref = next.mappings[newId].reference.id, prior = identities(base);
       assert.ok(!prior.has(newId) && !prior.has(ref) && newId !== ref, 'restored-identities-must-be-new');
       assert.deepEqual(transformMapping(next, newId, true), transformMapping(base, oldId, true));
     } else assert.deepEqual(next, base);
   } else {
-    gates(base.modules[9]); assert.equal(atom(base, 9, 7).fields['210'], false);
+    gates(base.modules[9], runtime); assert.equal(atom(base, 9, 7).fields['210'], false);
     const expected = structuredClone(base);
     if (kind === 'boolean') atom(expected, 9, 7).fields['210'] = stage === 1;
     assert.deepEqual(next, expected, 'fixture-readback-differs');
   }
   if (kind === 'factory' && stage === 1) {
-    const detached = actual.detached; gates(detached.module);
+    const detached = actual.detached; gates(detached.module, runtime);
     assert.ok(!base.modules.some((m: Wire) => m.uuid === detached.module.uuid));
     assert.ok(Number.isInteger(detached.ownedObjects) && detached.ownedObjects > 0 && detached.ownedObjects <= 256);
     assert.deepEqual(detached.mappings, {});

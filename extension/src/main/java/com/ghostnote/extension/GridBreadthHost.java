@@ -24,12 +24,29 @@ public final class GridBreadthHost implements GridBreadthProtocol.Host {
         commands = new GridBreadthCommands(grid.getClass().getClassLoader());
         witness = new GridBreadthWitness(grid.getClass().getClassLoader());
     }
-    public GridBreadthHost(GridReadSymbols symbols, GridDoctorSymbols table, Object grid, Object document, String kind) {
+    private GridDoctorSymbols table;
+    private GridDoctorGuards guards;
+    private GridAttachmentSymbols.Symbols doctorSymbols;
+    private JsonObject lastGuards;
+    public GridBreadthHost(GridReadSymbols symbols, GridDoctorSymbols table, GridDoctorGuards guards, Object grid,
+            Object document, String kind) {
         if (!Set.of("boolean", "mapping").contains(kind)) throw new IllegalArgumentException("doctor-breadth-case");
         this.symbols = symbols; this.grid = grid; this.document = document; this.kind = kind;
+        this.table = table; this.guards = Objects.requireNonNull(guards, "doctor-guards-required");
+        doctorSymbols = new GridAttachmentSymbols.Symbols(table);
         commands = new GridBreadthCommands(table); witness = new GridBreadthWitness(table);
     }
     public JsonObject metrics() { return metrics.deepCopy(); }
+    /** The D52 entry guard result of the last admitted doctor command, or null outside the doctor. */
+    public JsonObject lastGuards() { return lastGuards == null ? null : lastGuards.deepCopy(); }
+    private void entryGuards() throws Exception {
+        if (guards == null) return;
+        Object edit = doctorSymbols.document.invoke(null, grid);
+        if (edit == null || edit != doctorSymbols.document.invoke(null, document)
+                || !table.type("edit-document").isInstance(edit)) throw new IllegalStateException("doctor-edit-document");
+        Object manager = doctorSymbols.manager.invoke(doctorSymbols.context.invoke(grid));
+        lastGuards = guards.entry(edit, manager, table.method("document-manager"));
+    }
     public void requireTarget(Object grid, Object document) {
         if (this.grid != grid || this.document != document)
             throw new IllegalStateException("breadth-grid-target-changed");
@@ -115,12 +132,13 @@ public final class GridBreadthHost implements GridBreadthProtocol.Host {
         return last.object(GridBreadthRules.atom(fixture, module, index).get("id").getAsString());
     }
     @Override public void admit(String action) throws Exception {
+        entryGuards();
         if (action.startsWith("boolean-")) {
-            GridBreadthRules.gates(GridBreadthRules.module(fixture, 9));
+            GridBreadthRules.gates(GridBreadthRules.module(fixture, 9), GridBreadthRules.Runtime.of(commands));
             booleanAtom = atom(9, 7);
             if (booleanAtom.getClass() != commands.booleanAtom) throw new IllegalStateException("breadth-boolean-runtime");
         } else if (action.startsWith("mapping-")) {
-            String mapping = GridBreadthRules.selectedMapping(fixture);
+            String mapping = GridBreadthRules.selectedMapping(fixture, GridBreadthRules.Runtime.of(commands));
             if (action.equals("mapping-remove") != (mapping != null))
                 throw new IllegalStateException("breadth-mapping-presence");
             source = atom(13, 1); destination = atom(24, 0);

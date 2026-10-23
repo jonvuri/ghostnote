@@ -1896,3 +1896,52 @@ edges, pending runnables at close, listener counts, and the replay worker
 failure remain open or parity limits. An optional document pin requires
 the project document class and the same manager at entry; the doctor does
 not yet check these in its witness. No command is admitted by this check.
+
+## 9b.6h guarded doctor on 6.1.4 — model before implementation
+
+The guarded doctor keeps the E315/E316 live model: 16 native command
+requests, 38 independent reads, three binds, and 57 doctor document tasks.
+No wire method, task, poll, or product call budget changes; the probe
+profile keeps 118 methods and hash `2e939035ea90b8b0`. The offline
+preparation reuses the 9b.4 jar limits and reads the resolved checkpoint-2
+symbol table; it adds at most 128 KiB per bundled resource (candidate,
+selectors, guards) and one pass over every class as data to find the
+static writers of the two tracking flags. The body-change comparison reads
+both jars as data under the 120-second, 768 MiB, and 2 MiB report limits.
+
+Each native command adds the D52 entry guard before its command timer: one
+class identity, one reflective getter (`document-manager`), three instance
+field reads with two `List.isEmpty` calls and one null test, and two static
+boolean reads. That is at most seven reflective accesses and no allocation,
+wait, or host call; it is reported as `guardNanos` in the receipt and is
+outside `nativeCommandNanos`. The breadth cases run the same guard in the
+admission step before their command timer. The disposal command adds one
+extra ownership pass (at most 256 objects, depth 12, the existing
+one-second deadline) and a class-set check with an owner-chain walk of at
+most 256 × 12 reflective calls. The resource validation adds at most 40
+class loads without initialization and five field lookups at prepare time
+(`validationNanos` in the guard metadata).
+
+The cold first factory call in a fresh process compiles and is a timed,
+consented step. Per-command samples are compared with E316; a change over
+20 percent is recorded with its action and is not a gate and never a reason
+to repeat a command. Guard failures refuse before the command; a failure
+after a command keeps the uncertain-state latch. No product latency claim,
+public description, or call budget changes.
+
+[E339](../evidence/experiments/e339-grid-doctor-614-guarded-attempt.md)
+measures the preparation and the first guarded attempt. The candidate
+preparation scans the 6.1.4 jar in 5,295 ms with 187.6 MiB peak RSS; the
+resources are 28,052, 49,832, and 8,762 bytes. The body-change comparison
+takes 10,290 ms and 341.2 MiB peak RSS; its report is 150,772 bytes. The
+Java resource validation takes 23.5–31.2 ms per load (`validationNanos`).
+Attempt 6 is the only attempt with native commands: boolean enable
+1.593 ms (E316 1.262 ms, +26.2 percent), boolean restore 0.237 ms, and
+mapping removal 4.078 ms (E316 19.897 ms, -79.5 percent). The first entry
+guard costs 2.058 ms cold; later guards cost 0.013–0.014 ms. The
+mapping-removal document task takes 6.76 ms with 0.05 ms queue time; the
+boolean descriptor work stays 791 and the mapping descriptor work 1,567.
+Each is one sample; the enable increase and the removal decrease have no
+established cause. The pass did not complete, so no teardown, core, or
+whole-pass figure exists. All admitted bounds held on the measured calls.
+Product budgets, descriptions, and latency claims are unchanged.

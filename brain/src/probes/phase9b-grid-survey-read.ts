@@ -92,11 +92,20 @@ export function summarize(graph: Wire, mode: 'graph' | 'catalog' = 'graph'): Wir
     scope: mode === 'catalog' ? 'Module membership, names, and type UUIDs only. Cables and contents are not covered.'
       : 'Explicit projection. Omitted fields and outer-device modulators are not covered.' };
 }
+/**
+ * Normalize a control capture for comparison. Instance UUIDs and managed IDs differ per load.
+ * Obfuscated runtime and descriptor class names differ per Bitwig build (9b.6h); descriptor
+ * IDs, names, kinds, values, and references are the compared semantics.
+ */
 export function controlNodes(graph: Wire): Wire[] {
   const nodes = structuredClone(graph.nodes);
-  for (const n of nodes) for (const p of n.properties ?? []) {
-    if (p.id === 15 && n.className === 'module') p.value.data = '<instance-uuid>';
-    if (p.id === 14) p.value.data = '<managed-id>';
+  for (const n of nodes) {
+    if ('runtimeClass' in n) n.runtimeClass = '<build-specific>';
+    for (const p of n.properties ?? []) {
+      if ('descriptorClass' in p) p.descriptorClass = '<build-specific>';
+      if (p.id === 15 && n.className === 'module') p.value.data = '<instance-uuid>';
+      if (p.id === 14) p.value.data = '<managed-id>';
+    }
   }
   return nodes;
 }

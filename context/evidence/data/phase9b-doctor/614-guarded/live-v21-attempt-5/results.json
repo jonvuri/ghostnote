@@ -1,0 +1,10 @@
+[
+  {
+    "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+    "flavour": "Poly Grid",
+    "case": "boolean",
+    "verdict": "refused-before-command",
+    "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n'RuU' !== 'QY'\n",
+    "roles": []
+  }
+]

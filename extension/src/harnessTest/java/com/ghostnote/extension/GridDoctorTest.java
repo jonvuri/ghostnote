@@ -67,6 +67,7 @@ public final class GridDoctorTest {
             if (table.type("project-root") == table.type("edit-document")) throw new AssertionError("receiver alias");
             new GridAttachmentSymbols.Symbols(table); new GridEngineSymbols.Symbols(table); new GridBreadthCommands(table);
             tests++;
+            tests += GridDoctorGuardsTest.run(loader, jar, table);
             JsonObject wrongMtime = candidate.deepCopy(); wrongMtime.addProperty("jarMtimeNs", 0);
             refuses(() -> new GridDoctorSymbols(loader, jar, wrongMtime, rules));
             JsonObject wrongHash = candidate.deepCopy(); wrongHash.addProperty("jarSha256", "0".repeat(64));

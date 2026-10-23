@@ -11,6 +11,7 @@ public final class GridDoctorHost implements GridDoctorProtocol.Host {
     private final Object device, grid, project;
     private final GridAttachmentSymbols.Symbols s;
     private GridDoctorProtocol.Guard guard;
+    private final GridDoctorGuards guards;
     private JsonObject baseline, last, expected, detachedBefore, transaction;
     private JsonArray expectedNodes;
     private List<String> uuids;
@@ -24,8 +25,10 @@ public final class GridDoctorHost implements GridDoctorProtocol.Host {
     private JsonObject metrics = new JsonObject();
     public JsonObject metrics() { return metrics.deepCopy(); }
     private final Map<String, Integer> schemaIds = new HashMap<>();
-    public GridDoctorHost(GridDoctorSymbols table, Object device, Object project, GridDoctorProtocol.Guard guard) throws Exception {
-        this.table = table; this.device = device; this.project = project; this.guard = guard;
+    public GridDoctorHost(GridDoctorSymbols table, GridDoctorGuards guards, Object device, Object project,
+            GridDoctorProtocol.Guard guard) throws Exception {
+        this.table = table; this.guards = Objects.requireNonNull(guards, "doctor-guards-required");
+        this.device = device; this.project = project; this.guard = guard;
         reader = new GridReadSymbols(table); s = new GridAttachmentSymbols.Symbols(table);
         grid = new GridBreadthRead(reader).grid(device);
         if (grid.getClass() != table.type("grid") || !table.type("project-root").isInstance(project))
@@ -183,7 +186,13 @@ public final class GridDoctorHost implements GridDoctorProtocol.Host {
         p.add("refs", edges); p.addProperty("count", edges.size()); expectedNodes = GridEngineGraph.reorder(copy);
         guard.check(); table.method("cable-source-setter").invoke(destination, connect ? source : null);
     }
+    /** D52 entry guards run before the command timer. They read only. */
+    private JsonObject entryGuards() throws Exception {
+        Object manager = s.manager.invoke(s.context.invoke(grid));
+        return guards.entry(editDocument(), manager, table.method("document-manager"));
+    }
     @Override public JsonObject command(String action) throws Exception {
+        JsonObject entry = entryGuards();
         long start = System.nanoTime(); JsonObject r = new JsonObject(); guard.check(); commandCount++;
         switch (action) {
             case "value-set", "value-restore" -> {
@@ -203,6 +212,12 @@ public final class GridDoctorHost implements GridDoctorProtocol.Host {
             }
             case "factory-dispose" -> {
                 if (detachedBefore == null) throw new IllegalStateException("doctor-no-detached-read");
+                // One extra ownership pass, then the exact-class and single-managed-node checks.
+                List<Object> current = GridDetachedFactory.ownership(factory, detached);
+                if (current.size() != owned.size()) throw new IllegalStateException("doctor-owned-tree-changed");
+                for (int i = 0; i < current.size(); i++) if (current.get(i) != owned.get(i))
+                    throw new IllegalStateException("doctor-owned-tree-changed");
+                entry.add("ownedTree", guards.ownedTree(current, factory::owner));
                 factory.dispose(detached); disposed = true;
             }
             case "delete" -> {
@@ -240,7 +255,8 @@ public final class GridDoctorHost implements GridDoctorProtocol.Host {
             }
             default -> throw new IllegalArgumentException("doctor-action");
         }
-        r.addProperty("nativeCommandNanos", System.nanoTime() - start); r.addProperty("commandReturned", true); return r;
+        r.addProperty("nativeCommandNanos", System.nanoTime() - start); r.addProperty("commandReturned", true);
+        r.add("guards", entry); return r;
     }
     private void undoOwned() throws Exception {
         Object doc = editDocument();

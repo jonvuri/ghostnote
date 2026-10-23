@@ -1,0 +1,23 @@
+9b.6h probe deployment 2026-10-23T03:31:51Z
+task: ./gradlew copyProbeExtension (after ./gradlew check: Grid doctor 101 checks pass)
+built:    26f1d8aa8c87b1e9edd93cee071ab2cc3adab8680ff4343d02ebc5212cc517a5  extension/build/libs/ghostnote-0.0.1-probe.bwextension
+deployed: 26f1d8aa8c87b1e9edd93cee071ab2cc3adab8680ff4343d02ebc5212cc517a5  /Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension
+bytes: 856473; built and deployed bytes equal (cmp)
+profile: phase-8-probe-v1; marker: 9b-grid-doctor-v21
+bundled resources equal 614-guarded files:
+  grid-doctor-candidate.json e47612953f89745b4e09357e7d2dcdf54ffe230ace648d3a53e40411321b5a23
+  grid-doctor-selectors.json 0739d6dd3ab19ab42a6ede124ada8d1d5107eb2afd19c7ce37e71abbc9759853
+  grid-doctor-guards.json 92100a9c2e4ef873aacf9e5c5589b96ccfaddf7a188042197714ab671a13dbf5
+prior normal archive sha256 25a5be4398f8825a7eabd2a541e49559ed60002f2d8d6b9db795f45664e4d9d2 is replaced; controller replacement by the operator is required.
+9b.6h probe deployment 2 2026-10-23T03:39:41Z: read-only control path uses GridReadSymbols.forReads (doctor table on 6.1.4)
+deployed: 2b6773b02b9be8697ba0f7b8c4b85f67357d65776d5408dc79ae9e93792ba304  /Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension
+bytes: 856835; built and deployed bytes equal (cmp)
+bundled doctor resources unchanged (same three hashes as deployment 1)
+9b.6h probe deployment 3 2026-10-23T03:47:56Z: survey read operations (status, bind, schema, read, release) use GridReadSymbols.forReads
+deployed: 090d59360d80cfb08c145e69f3ee331ec620e1b584f433ad8f16106b93c345e2  /Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension
+bytes: 856785; built and deployed bytes equal (cmp)
+bundled doctor resources unchanged
+9b.6h probe deployment 4 2026-10-23T03:56:57Z: breadth fixture rules take the resolved boolean-atom and mapping-source runtime class names (GridBreadthRules.Runtime)
+deployed: 4c2e738166473f15310fbf62e0e024e9f6f602bfad2d25733e3b16d7ea05d98a  /Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension
+bytes: 858389; built and deployed bytes equal (cmp)
+bundled doctor resources unchanged

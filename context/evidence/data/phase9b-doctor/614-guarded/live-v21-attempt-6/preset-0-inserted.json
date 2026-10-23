@@ -1,0 +1,20 @@
+{
+  "candidate": {
+    "case": "boolean",
+    "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset"
+  },
+  "devices": {
+    "devices": [
+      {
+        "index": 0,
+        "name": "Poly Grid",
+        "enabled": true
+      }
+    ],
+    "count": 1,
+    "itemCount": 1,
+    "trackChannelId": "5ad5ca94-9b6f-4a10-b2d7-2bffc589b1a2",
+    "trackPosition": 1,
+    "bankSize": 16
+  }
+}

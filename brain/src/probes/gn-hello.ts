@@ -86,9 +86,9 @@ if (hello.runtimeProfile === 'phase-8-probe-v1') {
   for (const operation of ['status', 'breadthStatus', 'doctorStatus']) {
     const status = await client.request('probe.gridRead', { operation }) as Record<string, unknown>;
     check(`the 9b ${operation} handler has the expected build marker`,
-      status['marker'] === '9b-grid-doctor-v20', status);
+      status['marker'] === '9b-grid-doctor-v21', status);
   }
-  check('rig.info agrees with the direct Grid markers', rig['gridReadProbe'] === '9b-grid-doctor-v20', rig['gridReadProbe']);
+  check('rig.info agrees with the direct Grid markers', rig['gridReadProbe'] === '9b-grid-doctor-v21', rig['gridReadProbe']);
 }
 if (goldenFile === undefined) throw new Error(`unknown runtime profile: ${hello.runtimeProfile}`);
 const golden = JSON.parse(

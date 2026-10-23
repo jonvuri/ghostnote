@@ -149,7 +149,9 @@ public final class GridProbeHandlers extends HandlerGroup {
             if (!params.has("expectedWitness") || params.get("expectedWitness").toString().length() > 8192)
                 throw new IllegalArgumentException("attachment-needs-bounded-before-witness");
         }
-        if (symbols == null) symbols = new GridReadSymbols(host.getClass());
+        // Reads may use the validated doctor table on a new jar. Research writes keep the 6.0.6 pin.
+        if (symbols == null) symbols = kind == Write.NONE && !recovery && !attachmentRead
+            ? GridReadSymbols.forReads(host.getClass()) : new GridReadSymbols(host.getClass());
         Object proxy = rig.cursorDeviceBanks[0].getDevice(index);
         String operationId = UUID.randomUUID().toString();
         if (kind == Write.ATTACH || kind == Write.FACTORY) safety.operation(operationId);
@@ -169,7 +171,7 @@ public final class GridProbeHandlers extends HandlerGroup {
             if (capture) proof.require(token, document, track, device);
             JsonObject result = new JsonObject();
             result.addProperty("marker", marker());
-            result.addProperty("jarSha256", GridReadSymbols.JAR_SHA256);
+            result.addProperty("jarSha256", symbols.jarSha256());
             result.addProperty("operationId", operationId);
             result.addProperty("epoch", proof.token);
             result.addProperty("runtimeClass", device.getClass().getName());

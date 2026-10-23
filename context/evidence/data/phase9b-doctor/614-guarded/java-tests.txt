@@ -1,0 +1,1 @@
+Grid doctor: 101 checks pass. No vendor initialization or live command.

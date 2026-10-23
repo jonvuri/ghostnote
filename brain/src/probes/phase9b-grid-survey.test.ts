@@ -133,6 +133,13 @@ test('graph checks reject dangling cables and duplicate module identities', () =
     modules[0].properties.find((p: Wire) => p.id === 15).value.data;
   assert.throws(() => summarize(duplicate));
   assert.deepEqual(controlNodes(baseline), controlNodes(structuredClone(baseline)));
+  // 9b.6h: obfuscated class names are build-specific; descriptor IDs and values are not.
+  const renamed = structuredClone(baseline);
+  renamed.nodes[0].runtimeClass = 'other.Class';
+  for (const p of renamed.nodes[0].properties) if ('descriptorClass' in p) p.descriptorClass = 'zzz';
+  assert.deepEqual(controlNodes(renamed), controlNodes(baseline));
+  const changedId = structuredClone(baseline); changedId.nodes[0].classId += 1;
+  assert.notDeepEqual(controlNodes(changedId), controlNodes(baseline));
   assert.equal(nodePaths(baseline, []).size, 53);
 });
 test('input and projection limits fail before a host call', () => {

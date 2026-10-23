@@ -1,0 +1,81 @@
+$ PYTHONPATH=brain/src/probes python3 -B -m unittest -v grid_doctor.test_body_change
+test_changed_literal_or_added_instruction_is_changed_body (grid_doctor.test_body_change.BodyChangeTests.test_changed_literal_or_added_instruction_is_changed_body) ... ok
+test_existing_report_path_refuses (grid_doctor.test_body_change.BodyChangeTests.test_existing_report_path_refuses) ... ok
+test_flags_only_change_is_access_change_only (grid_doctor.test_body_change.BodyChangeTests.test_flags_only_change_is_access_change_only) ... ok
+test_renamed_field_is_field_same (grid_doctor.test_body_change.BodyChangeTests.test_renamed_field_is_field_same) ... ok
+test_renamed_only_pair_is_same_body (grid_doctor.test_body_change.BodyChangeTests.test_renamed_only_pair_is_same_body) ... ok
+test_stored_parity_disagreement_refuses (grid_doctor.test_body_change.BodyChangeTests.test_stored_parity_disagreement_refuses) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.002s
+
+OK
+exit=0
+
+$ PYTHONPATH=brain/src/probes python3 -B -m grid_doctor.body_change --old-jar <6.0.6 bitwig.jar> --new-jar <6.1.4 bitwig.jar> --report /Users/jonvuri/Development/ghostnote/context/evidence/data/phase9b-doctor/614-guarded/body-change.json
+{
+ "result": "compared",
+ "report": "/Users/jonvuri/Development/ghostnote/context/evidence/data/phase9b-doctor/614-guarded/body-change.json",
+ "reportBytes": 150772,
+ "summary": {
+  "roles": 76,
+  "callees": 71,
+  "role:same-body": 57,
+  "role:field-same": 16,
+  "role:changed-body": 2,
+  "role:access-change-only": 1,
+  "callee:same-body": 63,
+  "callee:changed-body": 6,
+  "callee:new-only": 2,
+  "changed": 11
+ },
+ "changed": [
+  {
+   "role": "disposal",
+   "result": "changed-body"
+  },
+  {
+   "role": "members",
+   "result": "changed-body"
+  },
+  {
+   "role": "journal-recording-edit",
+   "result": "access-change-only"
+  },
+  {
+   "label": "validation",
+   "result": "changed-body"
+  },
+  {
+   "label": "pending-add",
+   "result": "changed-body"
+  },
+  {
+   "label": "listener-removal",
+   "result": "changed-body"
+  },
+  {
+   "label": "hook-aboutToInsertItem",
+   "result": "changed-body"
+  },
+  {
+   "label": "hook-aboutToRemoveItem",
+   "result": "changed-body"
+  },
+  {
+   "label": "hook-aboutToChangeOneToOneRelationship",
+   "result": "changed-body"
+  },
+  {
+   "label": "disposal-tail",
+   "result": "new-only"
+  },
+  {
+   "label": "history-helper",
+   "result": "new-only"
+  }
+ ],
+ "elapsedMs": 10290.023,
+ "peakRssBytes": 341213184
+}
+exit=0

@@ -19,7 +19,15 @@ public final class GridBreadthRules {
     public static void type(JsonObject fixture, int index, String type) {
         require(module(fixture, index).get("type").getAsString().equals(type), "module-type");
     }
-    public static void gates(JsonObject module) {
+    /** Exact runtime class names of the boolean atom and the mapping source. They differ per Bitwig build. */
+    public record Runtime(String booleanAtom, String sourceAtom) {
+        public static final Runtime PINNED_606 = new Runtime("QY", "com.bitwig.flt.document.core.master.device.NDn");
+        public static Runtime of(GridBreadthCommands commands) {
+            return new Runtime(commands.booleanAtom.getName(), commands.sourceAtom.getName());
+        }
+    }
+    public static void gates(JsonObject module) { gates(module, Runtime.PINNED_606); }
+    public static void gates(JsonObject module, Runtime runtime) {
         require(module.get("type").getAsString().equals(GridBreadthCommands.GATES_TYPE), "gates-type");
         JsonArray atoms = module.getAsJsonArray("atoms");
         require(atoms.size() == 17, "gates-atom-count");
@@ -27,18 +35,19 @@ public final class GridBreadthRules {
         require(data.get("6613").getAsInt() == 64 && data.getAsJsonArray("6609").size() == 64, "gates-array-size");
         JsonObject phase = atoms.get(7).getAsJsonObject();
         require(phase.get("class").getAsString().equals("boolean_value_atom")
-            && phase.get("runtimeClass").getAsString().equals("QY")
+            && phase.get("runtimeClass").getAsString().equals(runtime.booleanAtom())
             && fields(phase).get("701").getAsString().equals("DEVICE_PHASE")
             && fields(phase).get("210").isJsonPrimitive()
             && fields(phase).getAsJsonPrimitive("210").isBoolean(), "gates-phase-atom");
         for (int index : new int[]{4, 7, 9, 10})
             require(atoms.get(index).getAsJsonObject().getAsJsonObject("fields").size() >= 4, "gates-stored-values");
     }
-    public static String selectedMapping(JsonObject fixture) {
+    public static String selectedMapping(JsonObject fixture) { return selectedMapping(fixture, Runtime.PINNED_606); }
+    public static String selectedMapping(JsonObject fixture, Runtime runtime) {
         type(fixture, 13, GridBreadthCommands.SOURCE_TYPE); type(fixture, 24, GridBreadthCommands.TARGET_TYPE);
         JsonObject source = atom(fixture, 13, 1), target = atom(fixture, 24, 0);
         require(source.get("class").getAsString().equals("modulation_source_atom")
-            && source.get("runtimeClass").getAsString().equals("com.bitwig.flt.document.core.master.device.NDn")
+            && source.get("runtimeClass").getAsString().equals(runtime.sourceAtom())
             && target.get("class").getAsString().equals("decimal_value_atom"), "mapping-atom-class");
         String sourceId = source.get("id").getAsString(), targetId = target.get("id").getAsString(), found = null;
         JsonObject mappings = fixture.getAsJsonObject("mappings");
@@ -108,17 +117,23 @@ public final class GridBreadthRules {
         all.add("$selected-mapping", selected); mappingLists(result, id, true); return result;
     }
     public static JsonObject expectedFixture(JsonObject initial, String kind, int commands) {
+        return expectedFixture(initial, kind, commands, Runtime.PINNED_606);
+    }
+    public static JsonObject expectedFixture(JsonObject initial, String kind, int commands, Runtime runtime) {
         if (kind.equals("boolean")) {
             JsonObject result = initial.deepCopy();
             fields(atom(result, 9, 7)).addProperty("210", commands == 1);
             return result;
         }
-        if (kind.equals("mapping") && commands == 1) return withoutMapping(initial, selectedMapping(initial));
+        if (kind.equals("mapping") && commands == 1) return withoutMapping(initial, selectedMapping(initial, runtime));
         return initial.deepCopy();
     }
     public static void compareFixture(JsonObject initial, JsonObject actual, String kind, int commands) {
+        compareFixture(initial, actual, kind, commands, Runtime.PINNED_606);
+    }
+    public static void compareFixture(JsonObject initial, JsonObject actual, String kind, int commands, Runtime runtime) {
         if (kind.equals("mapping") && commands == 2) {
-            String oldId = selectedMapping(initial), newId = selectedMapping(actual);
+            String oldId = selectedMapping(initial, runtime), newId = selectedMapping(actual, runtime);
             require(newId != null && !newId.equals(oldId), "restored-mapping-not-fresh");
             String oldRef = initial.getAsJsonObject("mappings").getAsJsonObject(oldId)
                 .getAsJsonObject("reference").get("id").getAsString();
@@ -130,7 +145,7 @@ public final class GridBreadthRules {
             require(!oldIdentities.contains(newId) && !oldIdentities.contains(newRef)
                 && !newId.equals(newRef), "restored-identity-reused");
             require(normalizedMapping(initial, oldId).equals(normalizedMapping(actual, newId)), "mapping-readback-differs");
-        } else require(expectedFixture(initial, kind, commands).equals(actual), "fixture-readback-differs");
+        } else require(expectedFixture(initial, kind, commands, runtime).equals(actual), "fixture-readback-differs");
     }
     private static void collectIdentities(JsonElement value, Set<String> found) {
         if (value.isJsonPrimitive() && value.getAsJsonPrimitive().isString()) found.add(value.getAsString());

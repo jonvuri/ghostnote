@@ -111,7 +111,8 @@ test('9b: hello and the doctor driver require the delegated Grid marker', () => 
   const marker = source('GridDoctorHandlers').match(/String marker\(\) \{ return "([^"]+)";/)?.[1];
   assert.ok(marker, 'The extension must declare a Grid probe marker');
   const hello = readFileSync(join(process.cwd(), 'src', 'probes', 'gn-hello.ts'), 'utf8');
-  const driver = readFileSync(join(process.cwd(), 'src', 'probes', 'phase9b-grid-doctor.ts'), 'utf8');
+  // 9b.6h: the active driver is V21 for 6.1.4. The pinned V20 driver keeps its old marker.
+  const driver = readFileSync(join(process.cwd(), 'src', 'probes', 'phase9b-grid-doctor-614.ts'), 'utf8');
   assert.ok(hello.includes(`rig['gridReadProbe'] === '${marker}'`), 'Hello expects an old marker');
   assert.ok(driver.includes(`export const MARKER = '${marker}'`), 'The doctor driver expects an old marker');
 });

@@ -1,0 +1,28 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
+  [
+    'boolean',
+-   'mapping',
+-   'core'
+  ]
+
+    at requireAccepted (/Users/jonvuri/Development/ghostnote/brain/src/probes/phase9b-grid-doctor.ts:46:10)
+    at Object.complete (/Users/jonvuri/Development/ghostnote/brain/src/probes/phase9b-grid-doctor-614.ts:309:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async runSurvey (/Users/jonvuri/Development/ghostnote/brain/src/probes/phase9b-grid-survey.ts:263:29)
+    at async main (/Users/jonvuri/Development/ghostnote/brain/src/probes/phase9b-grid-doctor-614.ts:301:3)
+    at async <anonymous> (/Users/jonvuri/Development/ghostnote/brain/src/probes/phase9b-grid-doctor-614.ts:323:81) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [ 'boolean' ],
+  expected: [ 'boolean', 'mapping', 'core' ],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.11.1

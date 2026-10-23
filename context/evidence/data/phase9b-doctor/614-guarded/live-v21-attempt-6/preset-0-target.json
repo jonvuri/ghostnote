@@ -1,0 +1,27 @@
+{
+  "candidate": {
+    "case": "boolean",
+    "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset"
+  },
+  "target": {
+    "project": "gn-grid-spike",
+    "trackId": "5ad5ca94-9b6f-4a10-b2d7-2bffc589b1a2",
+    "trackName": "gn-9b-write-4571f47a-c1ed-43c7-a8a7-98c4e845baa7",
+    "deviceIndex": 0,
+    "deviceName": "Poly Grid"
+  },
+  "devices": {
+    "devices": [
+      {
+        "index": 0,
+        "name": "Poly Grid",
+        "enabled": true
+      }
+    ],
+    "count": 1,
+    "itemCount": 1,
+    "trackChannelId": "5ad5ca94-9b6f-4a10-b2d7-2bffc589b1a2",
+    "trackPosition": 1,
+    "bankSize": 16
+  }
+}

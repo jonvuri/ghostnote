@@ -58,7 +58,8 @@ public final class GridSurveyHandlers extends HandlerGroup {
             throw new IllegalArgumentException("survey-read-needs-projection");
         guard(target);
         GridReadEpoch prior = bind ? null : session.require(target, GridSurveySession.text(p, "epoch"));
-        if (symbols == null) symbols = new GridReadSymbols(host.getClass());
+        // Survey operations only read. On a new jar the validated doctor table supplies the read roles (9b.6h).
+        if (symbols == null) symbols = GridReadSymbols.forReads(host.getClass());
         Object proxy = rig.cursorDeviceBanks[0].getDevice(target.deviceIndex());
         if (bind) session.beginBind(); else session.beginCapture();
         long queued = System.nanoTime();
@@ -73,7 +74,7 @@ public final class GridSurveyHandlers extends HandlerGroup {
             if (!symbols.name(device).equals("native_device")) throw new IllegalStateException("survey-needs-native-device");
             JsonObject r = new JsonObject();
             r.addProperty("marker", marker()); r.addProperty("epoch", proof.token);
-            r.addProperty("jarSha256", GridReadSymbols.JAR_SHA256);
+            r.addProperty("jarSha256", symbols.jarSha256());
             r.addProperty("queueNanos", entered - queued); r.addProperty("heapUsedBefore", usedHeap());
             if (!bind) {
                 GridReadExplore explore = new GridReadExplore(symbols);
